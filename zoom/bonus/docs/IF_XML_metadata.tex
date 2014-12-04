@@ -1,0 +1,391 @@
+
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[pdftitle={IF XML metadata format},
+            colorlinks=true,
+linkcolor=blue,
+            bookmarks=true,
+bookmarksopen=true,
+bookmarksnumbered=false,
+pdfhighlight=/P,
+pdfauthor={Andrew Hunter},
+pdfpagemode={UseOutlines},
+pdfstartview=FitH]{hyperref}
+\usepackage{times}
+\usepackage{verbatim}
+\usepackage{bleh}
+
+\newfont{\sst}{cmssbx10 at 24pt}
+
+\setlength{\textwidth}{16cm}
+\setlength{\oddsidemargin}{0.5cm}
+\setlength{\evensidemargin}{0cm}
+
+\setlength{\topmargin}{-1cm}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{6pt}
+\setlength{\textheight}{25cm}
+
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.4ex plus0.5ex minus0.3ex}
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{flushright}
+**Draft**
+\end{flushright}
+
+\rule{0cm}{6cm}
+
+\begin{flushright}
+\sst
+Interactive Fiction XML metadata format\rm\\
+\rule{16cm}{1.2mm}\\
+Version 1.0 (Draft)\\
+\today\\
+by Andrew Hunter
+\end{flushright}
+\vfill
+
+\end{titlepage}
+
+\tableofcontents
+
+\section{Introduction}
+
+The original inspiration of this format is an improvement on the existing interactive fiction
+cataloguing system in Zoom. The original design for this used a text file with an arbitrary
+format, mainly designed for storing interpreter settings. It was also capable of storing
+some limited metadata along with stories, in particular a full title for the story, which
+was used in the interpreter's title bar, and also to provide a simple menu of stories.
+
+This format is intended to provide a more advanced indexing system for stories. It
+deals specifically with metadata aspects of stories, leaving interpreter configuration
+issues up to specific interpreters. This release (1.0) will be implemented in the 1.0.2
+release of Zoom. The initial emphasis is on Z-Code stories, but the intention is to allow
+the indexing of stories in any of the formats currently in use.
+
+A simpler format (0.9) was originally used by Zoom. This new version is based on the
+results of a discussion on the Inform-developers mailing list.
+
+\subsection{Who should use this format?}
+
+Initially, this format will be used by Zoom to provide a searchable list of stories. However,
+I hope eventually to encourage archive maintainers and other interpreter authors to make
+use of the format. In addition, story authors may want to provide an XML description file
+along with their stories.
+
+\section{The format}
+
+All metadata index files are in XML format, and so begin with a <?xml version="1.0"?>
+line. The namespace URI is http://www.logicalshift.org.uk/IF/metadata. The metadata may
+be extended by additional modules, which must have their own unique namespace. Parsers
+must always identify namespaces by URI and not by prefix.
+
+The metadata for a story may come from many different files. For example, an archive
+site may provide an index of games, a review site may provide reviews, the game author
+may provide 'feelies' (resources associated with the story), and the user may
+provide notes and comments. Modules are intended to be 'functionally unique', providing
+the data for one of these specific domains. Therefore, when an application fetches metadata
+from multiple locations, it might use the entire resources module from one place and the
+review module from another, but won't merge parts of the resources section from one site
+with those provided by another.
+
+\subsection{The root element: ifindex}
+
+This tag specifies the version of the IF metadata format with the 'version' attribute (0.9 for a
+file conforming to this document). Usually, this should also specify the namespace URI
+and XML schema location.
+
+\begin{example}
+  \begin{verbatim}
+<ifindex version="1.0"
+  xmlns="http://www.logicalshift.org.uk/IF/metadata">
+  \end{verbatim}
+\end{example}
+
+The <ifindex> tag contains <story> tags, one for each story that is defined in the file.
+
+\subsection{The story tag: story}
+
+The <story> tag is used to specify the data associated with a particular story. It must contain
+at least one <identification> section, and may contain one or more metadata tags. It appears
+only as a child of the ifindex tag.
+
+The <identification> section may be omitted if the metadata is associated with a game in
+some other fashion (for example if it is contained in a Blorb file).
+
+\subsection{The story identification tag: identification}
+
+The <identification> tag appears as part of a <story> section, and must contain a <format>
+tag identifying the format of the story, and some data providing a unique ID for the story.
+It appears only as a child of <story>, which must contain at least one of these tags, but
+may contain many if a story has several different versions. The <id> tag is a synonym for
+the <identification> tag.
+
+The <format> tag contains textual data identifying the format of the story. This version
+of the specification defines identification tags for the following formats:
+
+\begin{description}
+\item[zcode] A Z-Code story of the type released by Infocom in the 1980s, or, more
+recently, compiled with the Z-Code version of Inform.
+\item[glulx] A glulx story of the type compiled by the Glulx version of Inform.
+\end{description}
+
+The following additional types are reserved for other existing formats, and may have
+identification tags defined in the future:
+
+\begin{description}
+\item[tads] A TADS story compiled by the TADS compiler.
+\item[hugo] A HUGO story compiled by the HUGO compiler.
+\item[alan] An Alan story
+\item[adrift] An Adrift story
+\item[level9] A story in the Level 9 format
+\item[AGT] A story in the AGT format
+\item[magscrolls] A story in the magnetic scrolls format
+\item[advsys] A story in the advsys format
+\end{description}
+
+\subsubsection{Example}
+
+\begin{example}
+\begin{verbatim}
+<story>
+  <identification>
+    <format>zcode</format>
+    <zcode>
+      <serial>871125</serial>
+      <release>52</release>
+      <checksum>4b37</checksum>
+    </zcode>
+    <md5>d82484e664a8c328364e9814d1f73c60</md5>
+  </identification>
+</story>
+\end{verbatim}
+\end{example}
+
+\subsubsection{Z-Code identification tag: zcode}
+
+The <zcode> tag is used only when the <format> value is 'zcode'. In that case, it must
+appear exactly once as a child of  an <indentification> tag. It should contain the following
+elements:
+
+\begin{description}
+\item[<serial>] The textual serial number of the story. This is usually a six-digit string
+specifying the date of release, such as 871125.
+\item[<release>] The release number of the story (for example, 52).
+\item[<checksum>] (Optional, but recommended) The checksum of the story, in 
+hexadecimal format, as specified in the header of the story (for example, 4b37). This field is 
+optional, but note that the serial/release numbers are not guaranteed to be unique, especially 
+with more recent stories.
+\end{description}
+
+\subsubsection{Glulx identification}
+
+ULX format files do not contain any specific story identification information. However,
+those compiled by Inform may contain a short 'Info' section located after the header. The
+<glulx> section is therefore optional, and only applies to stories compiled with Inform.
+An <md5> section should be used to more precisely identify a Glulx story. The <glulx>
+section may contain the following tags:
+
+\begin{description}
+\item[<serial>] The textual serial number of the story. This is usually a six-digit string
+specifying the date of release, such as 030501.
+\item[<release>] The release number of the story (for example, 2).
+\end{description}
+
+\subsubsection{MD5 identification}
+
+Any story format may have an MD5 section instead of a format-specific identification. 
+This is a hexadecimal representation of the
+MD5 checksum of a story file. In the case of a Blorb file, this is the MD5 checksum of
+the executable portion of the file (the Z-Code or Glulx code file that it contains) rather
+than the entire file. There are several utilities available for generating MD5 checksums,
+for example the 'md5' utility that comes with OpenSSL.
+
+A story format that has a format-specific means of identification will probably want to
+provide both an MD5 and the format-specific ID tags.
+
+\subsubsection{Resource identification}
+
+A 'story' might be considered as spread across several files. Typically, IF systems that do
+this distribute files into a 'game' file containing the actual story data, and some kind of
+'resources' file containing additional information such as images and sounds. With modern
+graphical operating systems, it is desirable that a game resource can be associated with the
+game that created it. To enable this, this specification provides several extra identification
+formats that identify resources. The contents of the resources module can be used to find
+the actual resources associated with a game.
+
+\subsection{The metadata tags}
+
+Each metadata tag may appear zero or one times as a child of  the <story> tag. The following
+tags are defined:
+
+\begin{description}
+\item[<title>] The title of the story (for example, Zork 1, Solid Gold Edition)
+\item[<author>] The author of the story
+\item[<genre>] The genre of the story (Fantasy)
+\item[<published>] The date the story was first published in YYYYMMDD format (19810505)
+\item[<revision>] The revision number of the game
+\item[<headline>] The headline of the story (Infocom interactive fiction - a fantasy story)
+\item[<group>] The 'group' the story is in (for example, 'Infocom', 'Competition 1998', etc)
+\item[<zarfian>] The story's rating according to the 'Zarfian' scale ('Merciful', 'Polite', 
+'Tough', 'Nasty', 'Cruel')
+\item[<teaser>] The story's teaser text
+\item[<series>] Specifies the series that a game is part of
+\item[<seriesnumber>] Specifies the number in the series the game is
+\item[<serieslength>] Specifies the length of the game series
+\end{description}
+
+The 'Zarfian' rating system is described by Andrew Plotkin as follows:
+
+\begin{description}
+\item[Merciful] cannot get stuck
+\item[Polite] can get stuck or die, but it's immediately obvious that you're stuck or dead
+\item[Tough] can get stuck, but it's immediately obvious that you're about to do something 
+irrevocable
+\item[Nasty] can get stuck, but when you do something irrevocable, it's clear 
+\item[Cruel] can get stuck by doing something which isn't obviously irrevocable (even after the act)
+\end{description}
+
+Comments and teasers may contain newlines, specified by a <br /> tag: all other tags are
+single line values. No tag may appear more than once. The genre can be any textual value,
+but Zoom suggests the following list of 'standard' genres:
+
+\begin{itemize}
+\item Fantasy
+\item Science fiction
+\item Horror
+\item Fairy tale
+\item Surreal
+\item Mystery
+\item Romance
+\item Historical
+\item Humour
+\item Parody
+\item Speed-IF
+\item Arcade
+\item Interpreter abuse
+\end{itemize}
+
+\section{Optional modules}
+
+\subsection{The feelies module}
+
+This module can be used to specify 'feelies': additional media associated with a game. The namespace URI for this module is 
+http://www.logicalshift.org.uk/IF/metadata/feelies
+
+The tags supported by this module are:
+
+\begin{description}
+\item[<icon>] A miniature picture associated with the game. This should be a base 64 encoded 
+PNG file of 128x128 size, and can be used by an interpreter to display an image associated with
+a game file.
+\item[<image>] A URL of an image associated with the game. Images should be of PNG or
+JPEG format.
+\item[<pdf>] A URL of a PDF document associated with the game. Can have an optional 'page' attribute to indicate that the
+pdf file should be opened to a particular page (intended to be used with the masterpieces
+CD documentation).
+\end{description}
+
+All of these tags should have a 'title' attribute, indicating a name that should be displayed
+in association with the feelie.
+
+\subsection{The comments module}
+
+This module is intended for data designed to be set by the user of a game, and should not appear in metadata files generated by
+game or interpreter authors. Its namespace URI is http://www.logicalshift.org.uk/IF/metadata/comments
+
+The tags supported by this module are:
+
+\begin{description}
+\item[<comment>] Any user comments on the story
+\item[<rating>] The user rating, a value between 0 and 10 where 0=worst and 10=best.
+\item[<feelies>] External files, images and data associated with the game
+\end{description}
+
+\subsection{The resources module}
+
+Certain game formats allow for external resource files, and nearly all of them specify
+an external save game format. This module is used to describe the location of these files.
+
+The namespace URI for this module is http://www.logicalshift.org.uk/IF/metadata/resources
+
+The tags supported by this module are:
+
+\begin{description}
+\item[<story>] The URL of a file containing the story itself
+\item[<graphics>] The URL of a file containing graphics for the story (in the case of a format like blorb, may be identical to <sounds>)
+\item[<sounds>] The URL of a file containing sounds for the story (in the case of a format like blorb, may be identical to <graphics>)
+\item[<savegame tag="Something" date="savedate">] The URL of a savegame for the story 
+(multiple savegames are permitted.). The tag is a tag associated with the savegame
+(Zoom uses a summary of the status bar contents here), and the date specifies when the
+savegame was created.
+\end{description}
+
+Resources may be provided in an archive file, but are typically overridden by an interpreter
+to point to local versions of the resources (particularly savegames). Tags may appear multiple
+times if a story has many resources of a particular type.
+
+\subsection{The review module}
+
+Review sites may wish to provide review metadata. Reviews can be provided as plain text
+or as an embedded XHTML document. Implementors might want to consider providing
+an interface to switch between reviews when multiple sources provide them. 
+
+The namespace URI for this module is http://www.logicalshift.org.uk/IF/metadata/review
+
+The review tags are as follows:
+
+\begin{description}
+\item[<url>] A URL of a web page associated with this review.
+\item[<author>] The name of the author(s) of the review
+\item[<rating>] (Optional) A decimal value from 0-10 indicating the overall review rating
+\item[<text>] The text of the review
+\item[<xhtml>] (Optional replacement for text) The review as an XHTML format document
+\end{description}
+
+\section{Parsing notes}
+
+Zoom provides an implementation of this standard (actually, at present, the 0.9 standard) in
+the ifmetadata.c file provided as part of the source code. This can easily be used in other
+projects: it depends on the expat library but nothing else. In addition to parsing the metadata,
+it handles managing the results: adding new stories, saving the results, etc.
+
+(MORE TO DO)
+
+\section{Attaching metadata}
+
+\subsection{To z-code games}
+
+This section describes a technique by which XML metadata can be made part of a Z-Code
+game. Other file formats may already have methods for attaching metadata. This technique
+is similar to the ID3 tag method used with mp3 files.
+
+Z-Code files can be any length: file size limits are only imposed by the range of locations
+that can be addressed. As metadata does not need to be addressed by the game, it can be
+appended to a story file, even if that file is at the upper limit of the size permitted by the
+version (this is particularly important when large resources such as icons are provided).
+Some interpreters may not support this with large files however, and game authors should
+be made aware of this possibility (most I have inspected do, however).
+
+Metadata should be the last thing in a file. However, this format specifies lead-in and 
+lead-out so that it can appear elsewhere if necessary. It's expected that most implementations
+will only appear at the end. Metadata is preceded by a 12 byte lead-in, consisting of
+the 8-byte sequence 'IFMd0100' indicating metadata and the version number, followed
+by a 4 byte big-endian length. The XML metadata itself follows this, followed by a 12
+byte lead-out: the 4 byte big-endian length, followed by the sequence '0100IFMd'.
+Implementations can look for the '0100IFMd' sequence at the end of a file to determine
+if metadata is present.
+
+(TODO: metadata and the story checksum?)
+
+\subsection{In filesystem metadata}
+
+\subsection{To archive sites}
+
+\subsection{To review sites}
+
+\end{document}

@@ -1,0 +1,40 @@
+#include "../config.h"
+#include "@srcdir@/zoomres.h"
+
+#include <windows.h>
+
+logo ICON "@srcdir@/zoom.ico"
+ID_SMICON ICON "@srcdir@/zoomsmall.ico"
+
+ID_ABOUT DIALOG 0, 0, 200, 56
+    CAPTION "About Zoom"
+    STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_CENTERMOUSE
+    FONT 8, "MS Sans Serif"
+BEGIN
+    ICON "logo", 0, 4, 4
+    LTEXT "Zoom " VERSION " - a fast Z-Machine", 0, 30, 4, 156, 8
+    LTEXT "Copyright (c) Andrew Hunter, 2000", 0, 30, 12, 156, 8
+    LTEXT "Zoom is distributed under the terms of the", 0, 30, 20, 156, 8
+    LTEXT "GNU General Public Licence", 0, 30, 28, 156, 8
+    DEFPUSHBUTTON "OK", IDC_OK, 80, 38, 40, 14
+END
+
+ID_GAME DIALOG 0, 0, 250, 74
+    CAPTION "Game Settings"
+    STYLE DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | DS_CENTERMOUSE
+    FONT 8, "MS Sans Serif"
+BEGIN
+    CTEXT    "This game is not in the database", IDC_INBASE, 2, 2, 202, 10
+    RTEXT    "Serial:", 0, 2, 12, 40, 10
+    LTEXT    "123.999999", IDC_SERIAL, 44, 12, 158, 10
+    EDITTEXT IDC_TITLE, 2, 24, 202, 12, 0, WS_EX_CLIENTEDGE
+
+    GROUPBOX "Local Options", 0, 2, 38, 202, 32
+    AUTOCHECKBOX "Fonts", IDC_LOCALFONTS, 8, 48, 95, 8
+    AUTOCHECKBOX "Interpreter", IDC_LOCALFONTS, 103, 48, 95, 8
+    AUTOCHECKBOX "Colours", IDC_LOCALCOLS, 8, 58, 95, 8
+    AUTOCHECKBOX "Layout", IDC_LOCALCOLS, 103, 58, 95, 8
+
+    DEFPUSHBUTTON "&Add", IDC_OK, 206, 2, 40, 14
+    PUSHBUTTON "&Cancel", IDC_CANCEL, 206, 18, 40, 14
+END

@@ -1,0 +1,251 @@
+<html>	
+
+<head>
+<title>
+Zoom Manual - Configuration under X-Windows
+</title>
+
+<link rel=stylesheet type="text/css"
+      href="style.css"
+      title="Logical shift">
+
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <a href="index.html">
+	  Home
+	</a>
+      </td>
+
+      <td>
+        Previous
+      </td>
+
+      <td>
+        Next
+      </td>
+    </tr>
+  </table>
+
+  <img src="zoom-icon.png" align=right>
+  <h1>
+    Configuring Zoom: X-Windows
+  </h1>
+
+  <p>
+    Under X-Windows, Zoom does not currently provide a graphical
+    interface for configuration. Instead, you can configure Zoom by
+    editting a <code>.zoomrc</code> file in your home directory, or a
+    global <code>zoomrc</code> in <code>/usr/local/share/zoom</code>
+    by default (this will be created when you install Zoom). It is
+    probably advisable to copy this default file to your home
+    directory and edit it rather than create a whole new file from
+    scratch.
+  </p>
+
+  <p>
+    The .zoomrc file consists of a single default definition, followed
+    by an optional number of definitions for individual games. Game
+    definitions can override any option defined in the default
+    defintion (so you can give a particular game different fonts, for
+    example). However, this feature is most often used for setting the
+    title of individual games to something more descriptive than the
+    filename and serial number.
+  </p>
+
+  <p>
+    Each definition in the zoomrc file begins with a specifier that
+    indicates which game it is for. This is of the form '<code>game
+    &quot;&lt;title&gt;&quot; &lt;serial numbers&gt;</code>'. The
+    default definition is specified by '<code>default
+    &quot;&lt;title&gt;&quot;</code>'. The title can be any string you
+    like - the default is <code>&quot;%s (%i.%.6s.%04x)&quot;</code> (this piece of magic
+    tells Zoom to substitute in the filename and serial number of the
+    game). Serial numbers have two forms: RELEASE.SERIAL (eg
+    23.020901 - most games display their release and serial numbers at
+    startup) and RELEASE.SERIAL.CHECKSUM (eg 23.020901.6f94 - Zoom
+    displays this form in its title bar when you use the default
+    title). The advantage of the latter is that it is much more unlikely
+    that any two games will have the same ID. If a game has multiple
+    releases, you can specify multiple IDs by seperating them with commas.
+  </p>
+
+  <p>
+    The specifier may, optionally, be followed by a list of options
+    enclosed in curly brackets ({}). A complete list of these follows:
+  </p>
+
+  <dl>
+    <dt>interpreter &lt;number&gt;</dt>
+    <dd>
+      Defines the interpreter number to report to the game. This
+      doesn't make very much difference in most modern games, however,
+      several Infocom games (especially version 6 ones) inspect this
+      to guess the interpreter features. The numbers Infocom used are
+      as follows:
+
+      <ul class=titchy>
+        <li>1 - Infocom's internal debugging interpreter
+        <li>2 - Applie IIe interpreter
+        <li>3 - Macintosh (Zoom's behaviour most closely resembles
+          this interpreter, and this is the default value)
+	<li>4 - Amiga (colour behaviour can change if you specify
+	  this)
+        <li>5 - Atari ST
+        <li>6 - IBM PC
+        <li>7 - Commodore 128
+        <li>8 - Commodore 64
+        <li>9 - Apple IIc
+        <li>10 - Apple IIgs
+        <li>11 - Tandy Color
+      </ul>
+    </dd>
+
+    <dt>revision &lt;character&gt;</dt>
+    <dd>
+      Specifies the version of the interpreter to claim: Infocom
+      conventionally used a letter for this purpose, and this is the
+      format that Zoom accepts (for example, <code>revision
+      Z</code>). Games usually just print this at the start and
+      otherwise ignore it.
+    </dd>
+
+    <dt>font &lt;number&gt; &quot;&lt;name&gt;&quot; &lt;style&gt;</dt>
+    <dd>
+      There are three ways a font name can be specified under
+      X-Windows: as a standard X font specifier; as path to an Adobe
+      Type 1 font file and as the special string
+      '<code>font3</code>'. You can obtain an X font specifier using
+      the <code>xfontsel</code> utility. Type 1 fonts are only
+      available if Zoom was compiled with T1Lib support built in: the
+      file name should be followed by a space and a number indicating
+      the font size (in pixels) - ghostscript comes with a useful
+      selection of type 1 fonts that can be used. 'font3' is a special
+      font indicating that Zoom should use the 'symbolic' font 3 that
+      it has built in. The 'style' parameter indicates for which
+      display styles the font should be used. <code>roman</code> is
+      the default style. The style can also be one, or a combination
+      of, <code>fixed</code>, <code>bold</code>, <code>italic</code>
+      and <code>symbolic</code>: combine styles with '-' - eg
+      '<code>fixed-bold-italic</code>'. You should provide at least
+      <code>roman</code> and <code>fixed</code> fonts: there are a
+      total of 16 possible styles, but most games only use the 'pure'
+      styles rather than combinations.
+      <p>
+        The number should be unique for each font, counting from 1.
+      </p>
+      <p>
+      NOTE: Zoom will use Xft for font rendering if at all
+      possible. This enables anti-aliasing, and also provides support
+      for rendering Unicode. Zoom will, however, fall back to the
+      standard X font system if Xft is not available for any reason.
+      Any fixed pitch fonts should be specified as being the same
+      size, and Type 1 fonts do not make good fixed-pitch fonts.
+    </dd>
+
+    <dt>antialias &lt;yes/no&gt;</dt>
+    <dd>
+      If you have XRender installed, or are using Type 1 fonts, Zoom
+      will anti-alias its display by default. Setting this option to
+      'no' will turn off this feature (images are always anti-aliased,
+      when a game features them). This will disable Xft rendering -
+      note that this means that Zoom cannot render Unicode
+      characters.
+    </dd>
+
+    <dt>colours &lt;colours&gt;</dt>
+    <dd>
+      The Z-Machine has 10 default colours - this option allows you to
+      define them. Each colour is specified as a string of the form
+      '<code>(Red, Green, Blue)</code>', wher Red, Green and Blue are
+      numbers in the range 0 - 255. Colours are seperated with commas,
+      and are defined starting with colour 0. You should provide at
+      least the 8 standard colours. The Z-Machine colours are defined
+      as follows:
+
+      <ul class=titchy>
+        <li>0 - Black
+        <li>1 - Red
+        <li>2 - Green
+        <li>3 - Yellow
+        <li>4 - Blue
+        <li>5 - Magenta
+        <li>6 - Cyan
+        <li>7 - White
+        <li>8 - Light grey
+        <li>9 - Medium grey
+        <li>10 - Dark grey
+      </ul>
+    </dd>
+
+    <dt>size &lt;x&gt; , &lt;y&gt;</dt>
+    <dd>
+      Specifies the size of the game window, in characters. The window
+      will be created big enough to fit in x fixed-pitch characters
+      across, and y down.
+    </dd>
+
+    <dt>gamedir &quot;&lt;path&gt;&quot;</dt>
+    <dd>
+      When Zoom is started up with no arguments, it will look in this
+      directory to see if it can present a menu of games.
+    </dd>
+
+    <dt>savedir &quot;&lt;path&gt;&quot;</dt>
+    <dd>
+      Zoom will save and load games in the directory you specify here
+      by default.
+    </dd>
+
+    <dt>resources &quot;&lt;path&gt;&quot;</dt>
+    <dd>
+      Some games require extra resources in the form of a Blorb
+      file. This directive tells Zoom where to find these resources -
+      if it is not specified, Zoom will check for a resource file in
+      the same directory as the game, with the same name except for a
+      '.blb' extension. If you explicitly specify this, Zoom will
+      <b>always</b> load the resource file, even if the game
+      identifier in the file does not match that of the game you are
+      running.
+    </dd>
+  </dl>
+
+  <h2>Example definition</h2>
+
+  <p>
+    This provides an example of a definition for a game. Note that any
+    options not specified for a game will be taken from the
+    <code>default</code> block.
+  </p>
+
+  <pre class=titchy>
+game &quot;Beyond Zork&quot; 47.870915, 49.870917, 51.870923, 57.871221
+{
+  interpreter 5
+  revision    Z
+
+  font 1 &quot;/usr/share/ghostscript/fonts/n021003l.pfb 14&quot; roman
+  font 2 &quot;/usr/share/ghostscript/fonts/n021004l.pfb 14&quot; bold
+  font 3 &quot;/usr/share/ghostscript/fonts/n021023l.pfb 14&quot; italic
+  font 4 &quot;-*-courier-medium-r-*-*-14-*-*-*-*-*-*-*&quot;     fixed
+  font 5 &quot;-*-courier-bold-r-*-*-14-*-*-*-*-*-*-*&quot;       fixed-bold
+  font 6 &quot;-*-courier-medium-o-*-*-14-*-*-*-*-*-*-*&quot;     fixed-italic
+  font 7 &quot;-*-courier-bold-o-*-*-14-*-*-*-*-*-*-*&quot;       fixed-bold-italic
+  font 8 &quot;/usr/share/ghostscript/fonts/n021024l.pfb 14&quot; bold-italic
+  font 9 &quot;font3&quot;                                        symbolic, fixed-symbolic
+}
+  </pre>
+
+  <hr>
+
+  <p class=titchy>
+    Zoom written by Andrew Hunter. Mail any suggestions, bug reports
+    or abuse to <a
+    href="mailto:andrew@logicalshift.demon.co.uk">andrew@logicalshift.demon.co.uk</a>
+  </p>
+
+</body>
+</html>

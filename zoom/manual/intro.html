@@ -1,0 +1,436 @@
+<html>	
+
+<head>
+<title>
+Zoom Manual - Introduction to IF
+</title>
+
+<link rel=stylesheet type="text/css"
+      href="style.css"
+      title="Logical shift">
+
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <a href="index.html">
+	  Home
+	</a>
+      </td>
+
+      <td>
+        Previous
+      </td>
+
+      <td>
+        Next
+      </td>
+    </tr>
+  </table>
+
+  <img src="zoom-icon.png" align=right>
+  <h1>
+    An Introduction to IF
+  </h1>
+
+  <p>
+    Interactive Fiction is a fancy name for 'text adventures', thought
+    up by a company called called 'Infocom' circa 1979. Text
+    adventures themselves probably started with 'Colossal cave' by
+    William Crowther. Modern IF is
+    still largely a text medium: you type your order to the game, and
+    it responds. However, the format of IF has changed since the
+    1980s - modern innovations include games without puzzles
+    (<i>Photopia</i>, <i>The Cove</i>), where the aim is much more to
+    explore the world the author created than to 'win' a game. Of
+    course, more traditional works still exist and are being created.
+  </p>
+
+  <p>
+    While games can vary widely, even the ones that Zoom can run, they
+    usually have a few things in common. Commands are usually entered
+    at a '>' prompt. Many verbs and commands are common through all
+    games. The <i>parser</i>, the part of the game that tries to
+    understand your input, can usually understand fairly complicated
+    commands and can help you with complex aspects of the virtual
+    world.
+  </p>
+  
+  <h2>
+    Common verbs
+  </h2>
+
+  <p>
+    Probably the three most used verbs in a game are
+    <code>LOOK</code>, <code>INVENTORY</code> and
+    <code>EXAMINE</code>. You can <code>LOOK</code> to get a
+    description of the location you are currently in, take an
+    <code>INVENTORY</code> to see what you are carrying, and
+    <code>EXAMINE</code> things to discover more details. Often a game
+    will mention important objects in the room description as well as
+    separately: examine everything you can to find these.
+    Movement in IF is usually through the 8 compass directions, so you
+    can, for instance, <code>GO NORTH</code> to try to leave a
+    location to the north. Some games use different systems, however
+    this is still sufficiently rare that the game should give you fair
+    warning about this.
+  </p>
+
+  <p>
+    Other common actions include <code>SEARCH</code>, <code>LOOK
+    UNDER</code>, <code>LOOK INSIDE</code>, <code>TAKE</code> and
+    <code>DROP</code>. Kleptomania is usually mandatory in IF, so grab
+    all you can. Any given game will certainly allow you to do more
+    than just this: part of the fun of IF is working out what you can
+    do in a game. It's common to be able to <code>LOOK UP</code>
+    things in books; <code>TALK TO</code> other characters;
+    <code>PUT</code> items on, in or under other items;
+    <code>OPEN</code> or <code>CLOSE</code> bags, boxes and doors;
+    <code>PUSH</code> things around; <code>SWITCH</code> things on and
+    off; and more. You will almost certainly have to experiment: try
+    to phrase what you want to do as a command, and see if the game
+    understands you.
+  </p>
+
+  <p>
+    You may encounter other characters in a game - you can usually
+    interact with these. The conventional methods are <code>Character,
+    COMMAND</code> (which orders a character to do something),
+    <code>ASK Character ABOUT Subject</code> (which consults a
+    character about something), <code>TELL Character ABOUT
+    Subject</code> and <code>ANSWER Something TO Character</code> (which
+    responds to a question). <code>TALK TO Character</code> has also
+    become popular in recent times: usually this will give you a
+    menu-based conversation system.
+  </p>
+
+  <p>
+    Some very common commands can be abbreviated. In particular,
+    <code>LOOK</code> can usually be abbreviated to <code>L</code>,
+    <code>INVENTORY</code> to <code>I</code> and you should be able to
+    move around by typing abbreviating the directions to <code>N, E,
+    S, W, NE, NW, SE, SE</code> - so <code>NORTH</code> or
+    <code>N</code> will move you north.
+  </p>
+
+  <p>
+    Usually there are some 'meta' commands, which don't actually
+    affect the player character in the game, but rather provide you
+    information, or control particular aspects of the game. Games will
+    usually provide a <code>QUIT</code> command to leave the game, a
+    <code>SAVE</code> command to save the game state, a
+    <code>RESTORE</code> command to restore it again, an
+    <code>UNDO</code> command to undo your last move, a
+    <code>SCORE</code> and <code>FULL</code> command to check your
+    progress and <code>RESTART</code> to give up on your current game and
+    start again. A good game will also provide a command that will
+    provide access to an online manual or description of the game. The
+    name of this command varies and is not always present, but common
+    choices are <code>HELP</code>, <code>ABOUT</code> or
+    <code>MANUAL</code>. Some games provide an on-line hint system
+    with the <code>HINTS</code> or <code>HINT</code> command.
+  </p>
+
+  <h2>
+    Example game
+  </h2>
+
+  <p>
+    This is a transcript from a made-up game. It illustrates possible
+    single scene in a science fiction work. Commentary is in
+    <i>italics</i>.
+  </p>
+
+  <p class=example>
+<b>Tundra</b><br>
+While StarCommand were typically vague of the details, you imagine the
+strange blue rocks and pink sky might have something to do with the
+research station you're supposed to be investigating. Most of the
+planets you visit seem to have odd colour schemes, though.<br>
+<br>
+A dragon is chewing on the remains of your security team.
+Your No'I'Tal science officer is cowering behind a rock.<br>
+  </p>
+  <p class=exampledesc>
+    [ Well, here we are on a fairly standard planet. As per tradition,
+    your security team has been killed by a monster. I suppose we
+    should try and do something about it. ]
+  </p>
+  <p class=example>
+&gt; x dragon<br>
+Not the cliched fire-breathing beast of myth, but a large reptile
+indigenous to this planet. The No'I'Tal assures you that this species
+is herbivorous and harmless. Those large teeth are merely for chewing
+up the tough bark of the native trees.<br>
+<br>
+This is certainly an impressive beast: its silver hide glitters
+despite the dim sunshine, and the point of each of its dorsal spines
+is a miniature nova. Its dark brown eyes contrast markedly to its
+brilliant skin.<br>
+<br>
+Thorough research is vital to the success of any mission, or so says
+the StarCommand leadership manual. You really must press this point
+home to your science officer one day. Right after you've reprimanded
+him for cowardice.<br>
+  <p class=exampledesc>
+    [ Dragons are a bit of a cliche in IF. Fortunately, this is merely
+    a native of this particular planet... It seems your science officer
+    isn't much good at his job. 'x' is a common abbreviation for
+    'examine' - descriptions of things are often important and can
+    contain vital clues. Sometimes you can 'look further' into an
+    object - inspecting its parts. ]
+  </p>
+  <p class=example>
+&gt; x science officer<br>
+You can't presently get a good look at him, because he's cowering
+behind a rock and making whimpering noises. Good crewmen are so hard to
+find.<br>
+<br>
+The dragon happily crunches its way through a bone.<br>
+<br>
+&gt; i<br>
+You are carrying:<br>
+&nbsp;&nbsp;A SureKil MkII blaster<br>
+&nbsp;&nbsp;A yellow jumper (ripped) (worn)<br>
+&nbsp;&nbsp;A communicator (smashed)<br>
+  </p>
+
+  <p class=exampledesc>
+    [ Your inventory... Maybe we could just shoot our way out of this
+    one... ]
+  </p>
+
+  <p class=example>
+&gt; shoot dragon<br>
+(with the SureKil MkII blaster)<br>
+Well, it's always worth a second go. As before, the dragon's thick
+mirror hide reflects the gun's particle beam, which bounces off and
+demolishes a rock. Coincidentally, this is the rock that your
+good-for-nothing science officer is hiding behind. At least you didn't
+get your shirt ripped this time around.<br>
+<br>
+The dragon purrs contentedly and warms itself on the remains of the
+rock, as your science officer dances around looking for another rock
+to hide behind.<br>
+  </p>
+
+  <p class=exampledesc>
+    [ Oh dear, this dragon is laser-proofed. Well, particle-beam
+    proofed, but it's all the same to you. No easy answers here... ]
+  </p>
+
+  <p class=example>
+&gt; x blaster<br>
+Standard StarCommand issue, made of cheap plastic. A small dial on top
+allows you to set the power level of the blaster.
+The dial is currently set to 8 - Kill with Extreme Prejudice.<br>
+<br>
+Your science officer climbs a tree, and attempts to conceal himself in
+the foliage.<br>
+  </p>
+
+  <p class=exampledesc>
+    [ Aha! The blaster has different power levels... Maybe if we
+    increase the power ]
+  </p>
+
+  <p class=example>
+&gt; set dial to 11<br>
+You've always wanted a blaster that goes to 11. But StarCommand
+believe in cost cutting, and your salary is not enough to buy
+one. This blaster only goes to 9.<br>
+<br>
+A squadron of bat-like creatures barrel out of the tree, closely
+followed by your science officer (who lands on his head, damaging
+nothing important).<br>
+<br>
+&gt; set dial to 9<br>
+You set the dial to 9, overload.<br>
+<br>
+&gt; shoot dragon with blaster<br>
+The blaster overloads and explodes, detonating it's antimatter
+core. This kills the dragon, and for an extra bonus, all the
+potentially hostile wildlife within a mile. In a final
+buy-two-get-one-free offer, it also vapourises you. SureKil really do
+give very good value.<br>
+<br>
+    &nbsp;&nbsp;&nbsp;<b>*** You have died ***</b><br>
+<br>
+In that game you scored 20 out of a possible 500, in 94 turns, giving
+you the rank of Aberrant Astronaut.<br>
+  </p>
+
+  <p class=exampledesc>
+    [ Oh dear, it blew up in our face. Oh well, we can always undo a
+    turn... ]
+  </p>
+
+  <p class=example>
+Would you like to RESTART, RESTORE a saved game, give the FULL score
+for that game, or QUIT?<br>
+&gt; undo<br>
+<b>Tundra</b><br>
+[Previous turn undone.]<br>
+<br>
+&gt; x science officer<br>
+Ah yes, your esteemed colleague. He is a No'I'Tal, a green biped with
+an exceptionally large head. This is his first mission on your ship -
+he joined as part of an exchange scheme - your regular science officer
+is currently serving on a No'I'Tal ship. The No'I'Tal have a
+reputation for their photographic memories, which has not been borne
+out by your science officer's recent performance.<br>
+<br>
+The dragon gulps down the remainder of your security team, and starts
+to sniff around. You sidle around to its rear end and hope it can't
+smell you.<br>
+<br>
+&gt; ask science officer about dragon<br>
+&quot;I-I-I w-was sure that it was harmless&quot;, he stammers, &quot;M-maybe our
+records are i-incorrect. It's s-strange that its skin is able to
+reflect p-particle beams, though.&quot;<br>
+<br>
+The dragon snuffles on the ground, the sun sparkling from the scales
+on its head.<br>
+  </p>
+
+  <p class=exampledesc>
+    [ Sometimes asking other characters ('NPCs') about things can give
+    you a clue. The science officer isn't much use while he's so
+    nervous, though ]
+  </p>
+
+  <p class=example>
+&gt; x tree<br>
+The trees are pink, almost matching the sky. Their foliage (also pink)
+is sparse, but the individual leaves are very large, presumably to
+catch as much as possible of the little sun that filters through the
+hazy sky.<br>
+<br>
+The dragon raises its head and sniffs the air, and slowly begins to
+lumber around, a reflection from a dorsal spine briefly dazzling
+you. You cautiously stay behind it.<br>
+  </p>
+  
+  <p class=exampledesc>
+    [ Recall that our scientific friend tried to climb a tree earlier
+    on... Maybe that was a clue (but, maybe not). The dragon is
+    definitely getting restless, however. ]
+  </p>
+  
+  <p class=example>
+&gt; x dragon<br>
+Not the cliched fire-breathing beast of myth, but a large reptile
+indigenous to this planet. The No'I'Tal once assured you that this species
+is herbivourous and harmless. It turns out that those large teeth are
+used for chewing bone.<br>
+<br>
+This is certainly an impressive beast: its silver hide glitters
+despite the dim sunshine, and the point of each of its dorsal spines
+is a miniature nova. Its dark brown eyes contrast markedly to its
+brilliant skin.<br>
+<br>
+The dragon sniffs at a shard of rock.<br>
+  </p>
+  
+  <p class=exampledesc>
+    [ Maybe there's a clue in the dragon's description... Hmm, it
+    specifically mentions spines, and the head was mentioned earlier on... ]
+  </p>
+  
+  <p class=example>
+&gt; x dragon's spines<br>
+Each spine is a foot long, and as reflective as the rest of the
+beast's skin. They project from the creature's back and tail. Somehow,
+a bright point of light appears to shine from the tip of each spine.<br>
+<br>
+The dragon nibbles the rock to see if it's edible. It's not.<br>
+<br>
+&gt; x dragon's head<br>
+Two dark eyes glower from a silver head. The eyes are well protected
+from attack by ridges and spines. Any animal trying to claw this
+creature's eyes out would probably impale its own claws.<br>
+<br>
+The dragon lifts it's head and peers around. You attempt to duck out
+of sight, and hope it hasn't seen you.<br>
+<br>
+&gt; x dragon's eyes<br>
+The dragon has two dark brown eyes, positioned either side of its
+snout. A spine projects above each eye, with ridges underneath to
+prevent gouging.<br>
+<br>
+The dragon rubs against a tree, dislodging some loose scales.<br>
+  </p>
+  
+  <p class=exampledesc>
+    [ Ah, its eyes - they aren't reflective... Maybe we could shoot
+    them out ]
+  </p>
+  
+  <p class=example>
+&gt; set blaster to 6<br>
+You set the dial to 6, Kill Politely<br>
+  </p>
+  
+  <p class=exampledesc>
+    [ Don't want the blaster to blow up in our face again... ]
+  </p>
+  
+  <p class=example>
+&gt; shoot dragon's eyes<br>
+You carefully aim your blaster at one of the dragon's eyes and pull
+the trigger. The creature roars in pain, and, aiming its one good eye
+at you, begins to lumber around to swipe at you. Now the dragon is
+moving, it's hard to aim the particle beam at its remaining eye. You
+hold down the trigger and hope, the beam scattering across the
+landscape and roasting assorted trees and rocks. The dragon eventually
+completes it's turn and begins to charge, as your reflected beam
+devastates the landscape around you. At the last minute, you step
+aside, and aim the blaster square into the dragon's remaining eye; it
+screams and charges headlong into the one remaining tree, knocking
+itself out cold. Your blaster emits a final, pathetic noise and dies
+in your hand.<br>
+<br>
+Glancing around, you see that your science officer has
+disappeared. The low setting of your blaster wouldn't have vapourised
+him, so he has probably run off somewhere. You sigh - you're going to
+have to find him. You need him to swap back for your original
+officer.<br>
+  </p>
+  
+  <p class=exampledesc>
+    [ Woo, we have slain the dragon, or knocked it unconcious, at any
+    rate. The observant out there will have noticed that the dragon
+    lost a few of its scales earlier on, but we're not being
+    observant, so we're going straight to look for our missing science
+    officer ]
+  </p>
+  
+  <p class=example>
+&gt;n<br>
+<b>Tundra</b><br>
+The landscape of this planet doesn't change much. Blue rocks and pink
+trees seem to be just about all it has to look at. The ones around
+here are covered in burn marks, apparently caused by a blaster.<br>
+<br>
+&gt;
+  </p>
+  
+  <p class=exampledesc>
+    [ Here is where our example ends... If this were an actual game,
+    you would now need to find the science officer, and at some point
+    get round to investigating that research lab ]
+  </p>
+
+  <hr>
+
+  <p class=titchy>
+    Zoom written by Andrew Hunter. Mail any suggestions, bug reports
+    or abuse to <a
+    href="mailto:andrew@logicalshift.demon.co.uk">andrew@logicalshift.demon.co.uk</a>
+  </p>
+
+</body>
+
+</html>

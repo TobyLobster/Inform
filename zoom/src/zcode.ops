@@ -1,0 +1,3413 @@
+# ZCode operations file
+# This file is 'partially evaluated' to generate a (long!) C source file
+# that should provide a performance boost to the execution of instructions
+
+# YMMV, depending on your compilers optimisation abilities
+
+####                           ----// 888 \\----                           ####
+# 2OPs
+
+# je is weird and is actually treated as a VAR op instead of a 2OP
+OPCODE "je"         2OP:0x01 BRANCH REALLYVAR VERSION all
+%{
+  result = 1;
+  for (x=1; x<argblock.n_args; x++)
+    {
+      if (argblock.arg[0] == argblock.arg[x])
+	{
+	  goto je_true;
+	}
+    }
+  result = 0;
+je_true:
+  dobranch;  
+%}
+
+OPCODE "jl"         2OP:0x02 BRANCH VERSION all
+%{
+  result = arg1<arg2;
+  dobranch;
+%}
+
+OPCODE "jg"         2OP:0x03 BRANCH VERSION all
+%{
+  result = arg1>arg2;
+  dobranch;
+%}
+
+OPCODE "dec_chk"    2OP:0x04 BRANCH VERSION all
+%{
+  ZWord var;
+
+  var = GetVarNoPop(arg1);
+  result = (--var) < arg2;
+  store_nopush(stack, arg1, var);
+  dobranch;
+%}
+
+OPCODE "inc_chk"    2OP:0x05 BRANCH VERSION all
+%{
+  ZWord var;
+
+  var = GetVarNoPop(arg1);
+  result = (++var) > arg2;
+  store_nopush(stack, arg1, var);
+  dobranch;
+%}
+
+OPCODE "jin"        2OP:0x06 BRANCH VERSION 1,2,3
+%{
+  ZByte* obj;
+
+  obj = Obj3(uarg1);
+  result = obj[parent_3] == arg2;
+  dobranch;
+%}
+
+OPCODE "jin"        2OP:0x06 BRANCH VERSION 4,5,6,7,8
+%{
+  ZByte* obj;
+
+  obj = Obj4(uarg1);
+  result = GetParent4(obj) == arg2;
+  dobranch;
+%}
+
+OPCODE "test"       2OP:0x07 BRANCH VERSION all
+%{
+  result = ((ZUWord)arg1&(ZUWord)arg2)==(ZUWord)arg2;
+  dobranch;
+%}
+
+OPCODE "test_attr"     2OP:0x0a BRANCH VERSION 1,2,3
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1>255) /* || uarg1 == 0) HHGG bug */
+    zmachine_fatal("Object %i out of range", uarg1);
+  if (uarg2>31)
+    zmachine_fatal("Attribute out of range");
+
+  byte = uarg2>>3;
+  bit  = uarg2&7;
+
+  if (uarg1 != 0) {
+    obj = Obj3(uarg1);
+
+#ifdef TRACKING
+    if (machine.track_attributes)
+      tracking_print("Testing attribute %i of object \"%s\" (%s)",
+	  	     attr, tracking_object(uarg1),
+		     (obj[byte]&(0x80>>bit))?"Set":"Unset");
+#endif
+
+    result = ((obj[byte]&(0x80>>bit)) != 0);
+  } else {
+    result = 0;
+  }
+  dobranch;
+%}
+
+OPCODE "test_attr"     2OP:0x0a BRANCH VERSION 4,5,6,7,8
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1 == 0)
+    {
+      zmachine_warning("Object 0 has no attributes");
+      result = 0;
+      dobranch;
+      goto loop;
+    }
+  if (uarg2 == 48)
+    {
+      zmachine_warning("Attempt to test attribute 48");
+      goto loop;
+    }
+  if (uarg2>47)
+    zmachine_fatal("Attribute out of range");
+  
+  byte = uarg2>>3;
+  bit  = uarg2&7;
+
+  obj = Obj4(uarg1);
+
+#ifdef TRACKING
+  if (machine.track_attributes)
+    tracking_print("Testing attribute %i of object \"%s\" (%s)",
+		   arg2, tracking_object(arg1),
+		   (obj[byte]&(0x80>>bit))?"Set":"Unset");
+#endif
+
+  result = (obj[byte]&(0x80>>bit)) != 0;
+  dobranch;
+%}
+
+OPCODE "set_attr"      2OP:0x0b        VERSION 1,2,3
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1 == 0) {
+	/* Technically this is a bug in the game, but The Witness accidentally does this so we allow it in v3 games */
+	zmachine_warning("Cannot set attributes of object 0");
+  } else {
+	  if (uarg1>255 || uarg1 == 0)
+	    zmachine_fatal("Object %i out of range", uarg1);
+	  if (uarg2>31)
+	    zmachine_fatal("Attribute out of range");
+
+#ifdef TRACKING
+	  if (machine.track_attributes)
+	    tracking_print("Setting attribute %i of object \"%s\"",
+			   uarg2, tracking_object(uarg1));
+#endif
+  
+	  byte = uarg2>>3;
+	  bit  = uarg2&7;
+
+	  obj = Obj3(uarg1);
+	  obj[byte] |= 0x80>>bit;
+  }
+%}
+
+OPCODE "set_attr"      2OP:0x0b        VERSION 4,5,6,7,8
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1 == 0)
+    zmachine_fatal("Object 0 cannot be altered");
+  if (uarg2>47)
+    zmachine_fatal("Attribute out of range");
+
+#ifdef DEBUG
+  printf_debug("Setting attribute %x of object #%x\n", uarg2, uarg1);
+#endif
+
+#ifdef TRACKING
+  if (machine.track_attributes)
+    tracking_print("Setting attribute %i of object \"%s\"",
+		   uarg2, tracking_object(uarg1));
+#endif
+  
+  byte = uarg2>>3;
+  bit  = uarg2&7;
+
+  obj = Obj4(uarg1);
+  obj[byte] |= (0x80>>bit);
+%}
+
+OPCODE "clear_attr"    2OP:0x0c        VERSION 1,2,3
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1 == 0) {
+	/* Technically this is a bug in the game, but The Witness accidentally does this so we allow it in v3 games */
+	zmachine_warning("Cannot clear the attributs of object 0");
+  } else {
+	  if (uarg1>255 || uarg1 == 0)
+	    zmachine_fatal("Object %i out of range", uarg1);
+	  if (uarg2>31)
+	    zmachine_fatal("Attribute out of range");
+
+#ifdef TRACKING
+	  if (machine.track_attributes)
+	    tracking_print("Setting attribute %i of object \"%s\"",
+			   uarg2, tracking_object(uarg1));
+#endif
+  
+	  byte = uarg2>>3;
+	  bit  = uarg2&7;
+
+	  obj = Obj3(uarg1);
+	  obj[byte] &= ~(0x80>>bit);
+  }
+%}
+
+OPCODE "clear_attr"    2OP:0x0c        VERSION 4,5,6,7,8
+%{
+  ZByte* obj;
+  int byte, bit;
+
+  if (uarg1 == 0)
+    zmachine_fatal("Object 0 cannot be altered");
+  if (uarg2>47)
+    zmachine_fatal("Attribute out of range");
+
+#ifdef DEBUG
+  printf_debug("Setting attribute %x of object #%x\n", uarg2, uarg1);
+#endif
+
+#ifdef TRACKING
+  if (machine.track_attributes)
+    tracking_print("Setting attribute %i of object \"%s\"",
+		   uarg2, tracking_object(uarg1));
+#endif
+  
+  byte = uarg2>>3;
+  bit  = uarg2&7;
+
+  obj = Obj4(uarg1);
+  obj[byte] &= ~(0x80>>bit);
+%}
+
+OPCODE "insert_obj"    2OP:0x0e        VERSION 1,2,3
+%{
+  ZByte* src_obj;
+  ZByte* dest_obj;
+  ZByte* tmp;
+  
+  if (uarg1>255 || uarg1 == 0)
+    zmachine_fatal("Object %i out of range", uarg1);  
+  if (uarg2>255)
+    zmachine_fatal("Object %i out of range", uarg2);
+
+  /* Get the address of the object */
+  src_obj = Obj3(uarg1);
+
+  if (src_obj[parent_3] != 0)
+    {
+      /* Get the address of its parent */
+      tmp = Obj3(src_obj[parent_3]);
+      
+      /*
+       * If the object is a direct child of its parent, set the new child
+       * to the object's sibling
+       */
+      if (tmp[child_3] == uarg1)
+	{
+	  tmp[child_3] = src_obj[sibling_3];
+	}
+      else
+	{
+	  /* Find the object which is a sibling with this object */
+	  tmp = Obj3(tmp[child_3]);
+	  
+	  while (tmp[sibling_3] != uarg1 && tmp[sibling_3] != 0)
+	    {
+	      tmp = Obj3(tmp[sibling_3]);
+	    }
+	  
+	  if (tmp[sibling_3] == 0)
+	    zmachine_fatal("Corrupt object tree (object is not a child of its parent)");
+	  
+	  /* Set its sibling to the sibling of the object */
+	  tmp[sibling_3] = src_obj[sibling_3];
+	}
+    }
+      
+  if (uarg2 != 0)
+    {
+      /* Set the new parent's child to be this object */
+      dest_obj = Obj3(uarg2);
+      src_obj[sibling_3] = dest_obj[child_3];
+      dest_obj[child_3]  = uarg1;
+    }
+  else
+    src_obj[sibling_3] = 0;
+  
+  src_obj[parent_3] = uarg2;
+%}
+
+OPCODE "insert_obj"    2OP:0x0e        VERSION 4,5,6,7,8
+%{
+  ZByte* src_obj;
+  ZByte* dest_obj;
+  ZByte* tmp;
+
+#ifdef DEBUG
+  printf_debug("Inserting object %i into %i\n", uarg1, uarg2);
+#endif
+  
+  if (uarg1 == 0)
+    zmachine_fatal("Object 0 cannot be inserted");
+
+  src_obj = Obj4(uarg1);
+  
+  if (GetParent4(src_obj) != 0)
+    {
+      ZUWord sibling;
+      
+      /* Get the address of the old parent */
+      tmp = Obj4(GetParent4(src_obj));
+
+      if (GetChild4(tmp) == uarg1)
+	{
+	  sibling = GetSibling4(src_obj);
+	  /*
+	   * Object is a direct child, so we make the new child this
+	   * object's sibling
+	   */
+	  tmp[child_4] = sibling>>8;
+	  tmp[child_4+1] = sibling;
+	}
+      else
+	{
+	  ZUWord our_sibling;
+	  
+	  /* Find the object which is a sibling with this object */
+	  tmp = Obj4(GetChild4(tmp));
+
+	  sibling = GetSibling4(tmp);
+	  while (sibling != uarg1 && sibling != 0)
+	    {
+	      tmp = Obj4(sibling);
+	      sibling = GetSibling4(tmp);
+	    }
+
+	  if (sibling == 0)
+	    zmachine_fatal("Corrupt object tree (object is not a child of its parent)");
+
+	  /* Set its sibling to our sibling */
+	  our_sibling = GetSibling4(src_obj);
+	  tmp[sibling_4] = our_sibling>>8;
+	  tmp[sibling_4+1] = our_sibling;
+	}
+    }
+
+  if (uarg2 != 0)
+    {
+      ZUWord kid;
+      
+      /* Set the new parent's child to be this object */
+      dest_obj = Obj4(uarg2);
+      kid = GetChild4(dest_obj);
+      src_obj[sibling_4] = kid>>8;
+      src_obj[sibling_4+1] = kid;
+      dest_obj[child_4] = uarg1>>8;
+      dest_obj[child_4+1] = uarg1;
+    }
+  else
+    {
+      src_obj[sibling_4] = 0;
+      src_obj[sibling_4+1] = 0;
+    }
+
+  src_obj[parent_4] = uarg2>>8;
+  src_obj[parent_4+1] = uarg2;
+%}
+
+OPCODE "get_prop"      2OP:0x11 STORE  VERSION 1,2,3
+%{
+  struct prop* p;
+  
+  if (uarg1>255 || uarg1 == 0)
+    zmachine_fatal("Object %i out of range", uarg1);
+  arg2 &= 0x1f;
+  if (uarg2>31 || uarg2 == 0)
+    zmachine_fatal("Property %i out of range", uarg2);
+  
+  p = get_object_prop_3(uarg1, uarg2);
+
+  switch (p->size)
+    {
+    case 1:
+      store(stack, st, p->prop[0]);
+      break;
+      
+    case 2:
+      store(stack, st, (p->prop[0]<<8)|p->prop[1]);
+      break;
+      
+    default:
+      zmachine_fatal("Size %i is invalid for get_prop\n", p->size);
+    }
+%}
+
+OPCODE "get_prop"      2OP:0x11 STORE  VERSION 4,5,6,7,8
+%{
+  struct prop* p;
+
+  if (uarg1 == 0)
+    zmachine_warning("Object 0 has no properties");
+  if (uarg2>63 || uarg2 == 0)
+    zmachine_fatal("Property %i out of range", uarg2);
+
+#ifdef DEBUG
+  printf_debug("Get_prop: object %i prop %i\n", uarg1, uarg2);
+#endif
+
+  p = get_object_prop_4(uarg1, uarg2);
+
+  switch (p->size)
+    {
+    case 1:
+      store(stack, st, p->prop[0]);
+      break;
+
+      /*
+       * Hmm, this is against spec, but some Inform games
+       * (Christminster?) seem to use get_prop on properties with
+       * lengths > 2. So we'll let 'em off with a warning
+       */
+    default:
+      zmachine_warning("get_prop used on a property with length %i",
+		       p->size);
+      store(stack, st, (p->prop[-1]<<8)|p->prop[0]); /* Frotz's behaviour */
+      break;
+      
+    case 2:
+      store(stack, st, (p->prop[0]<<8)|p->prop[1]);
+      break;
+      
+      /* default:
+	 zmachine_fatal("Size %i is invalid for get_prop\n", p->size); */
+    }  
+%}
+
+OPCODE "get_prop_addr" 2OP:0x12 STORE  VERSION 1,2,3
+%{
+  ZByte* obj_adr;
+  ZUWord prop_adr;
+  ZByte  size;
+
+  if (uarg1>255)
+    zmachine_fatal("Object %i out of range", uarg1);
+
+  if (uarg1 == 0)
+    {
+      /* Zork 2 has an occasional bug that causes a crash here if we make this error fatal */
+      zmachine_warning("Attempt to get the address of a property for invalid object number 0");
+      store(stack, st, 0);
+      goto loop;
+    }
+    
+  arg2 &= 0x1f;
+  if (uarg2 > 31 || uarg2 == 0)
+    {
+      zmachine_warning("Attempt to get address of out of range property %i", uarg2);
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  obj_adr = Obj3(uarg1);
+
+  prop_adr  = (obj_adr[7]<<8)|obj_adr[8];
+  prop_adr += ReadByte(prop_adr)*2 + 1;
+
+  while ((size = ReadByte(prop_adr)) != 0)
+    {
+      if ((size&0x1f) == uarg2)
+	{
+	  store(stack, st, prop_adr + 1);
+	  goto loop;
+	}
+
+      prop_adr += (size>>5) + 2;
+    }
+
+  store(stack, st, 0);
+%}
+
+OPCODE "get_prop_addr" 2OP:0x12 STORE  VERSION 4,5,6,7,8
+%{
+  ZByte* obj_adr;
+  ZUWord prop_adr;
+  struct propinfo* pinfo;
+
+  if (uarg1 == 0)
+    {
+      zmachine_warning("Object 0 has no properties");
+      store(stack, st, 0);
+    }
+  if (uarg2 > 63 || uarg2 == 0)
+    {
+      zmachine_warning("Attempt to get address of out of range property %i", uarg2);
+      store(stack, st, 0);
+    }
+  
+  obj_adr = Obj4(uarg1);
+  
+  prop_adr = GetPropAddr4(obj_adr);
+  prop_adr += (ReadByte(prop_adr)*2)+1;
+  
+  do
+    {
+      pinfo = get_object_propinfo_4(Address(prop_adr));
+
+      if (pinfo->number == uarg2)
+	{
+	  store(stack, st, (ZUWord)(prop_adr+pinfo->header));
+	  goto loop;
+	}
+      
+      prop_adr += pinfo->datasize + pinfo->header;
+    }
+  while (pinfo->number != 0);
+
+  store(stack, st, 0);
+%}
+
+OPCODE "get_next_prop" 2OP:0x13 STORE  VERSION 1,2,3
+%{
+  ZByte* obj_adr;
+  ZWord  prop_adr;
+  ZByte  size;
+  int state;
+
+  obj_adr = Obj3(uarg1);
+
+  prop_adr  = (obj_adr[7]<<8)|obj_adr[8];
+  prop_adr += ReadByte(prop_adr)*2 + 1;
+
+  if (uarg2 == 0)
+    {
+      store(stack, st, ReadByte(prop_adr)&0x1f);
+      goto loop;
+    }
+  
+  state = 0;
+  while ((size = ReadByte(prop_adr)) != 0)
+    {
+      if (state)
+	{
+	  store(stack, st, size&0x1f);
+	  goto loop;
+	}
+      if ((size&0x1f) == uarg2)
+	{
+	  state = 1;
+	}
+
+      prop_adr += (size>>5) + 2;
+    }
+
+  store(stack, st, 0);  
+%}
+
+OPCODE "get_next_prop" 2OP:0x13 STORE  VERSION 4,5,6,7,8
+%{
+  struct prop*     property;
+  struct propinfo* inf;
+  
+  if (uarg1 == 0)
+    zmachine_fatal("Object 0 has no properties");
+  if (uarg2 > 63)
+    zmachine_fatal("Property %i out of range", uarg2);
+  
+  if (uarg2 == 0)
+    {
+      ZByte* obj_adr;
+      ZUWord prop_adr;
+ 
+      obj_adr = Obj4(uarg1);
+
+      prop_adr = GetPropAddr4(obj_adr);
+      prop_adr += (ReadByte(prop_adr)*2)+1;
+
+      inf = get_object_propinfo_4(Address(prop_adr));
+      store(stack, st, inf->number);
+      goto loop;
+    }
+  
+  property = get_object_prop_4(uarg1, uarg2);
+  
+  if (property->isdefault)
+    zmachine_fatal("Can't get next property of a default");
+
+  inf = get_object_propinfo_4(property->prop - property->pad);
+  if (inf->number != 0)
+    {
+      ZByte *next_prop;
+
+      next_prop = property->prop + inf->datasize;
+      inf = get_object_propinfo_4(next_prop);
+
+      store(stack, st, inf->number);
+    }
+  else /* Huh? We retrieved property 0? */
+    zmachine_fatal("Programmer is a spoon");
+%}
+
+OPCODE "store"        2OP:0x0d        VERSION all
+%{
+  store_nopush(stack, arg1, arg2);
+%}
+
+OPCODE "loadw"        2OP:0x0f STORE  VERSION all
+%{
+#ifdef DEBUG
+  printf_debug("Loading word at #%x\n", (ZUWord)arg1+((ZWord)arg2*2));
+#endif
+  store(stack, st, Word((ZUWord)((ZUWord)arg1+((ZWord)arg2*2))));
+%}
+OPCODE "loadb"        2OP:0x10 STORE  VERSION all
+%{
+#ifdef DEBUG
+  printf_debug("Loading byte at #%x\n", (ZUWord)arg1+(ZWord)arg2);
+#endif
+  store(stack, st, ReadByte((ZUWord)((ZUWord)arg1+(ZWord)arg2)));
+%}
+
+OPCODE "or"           2OP:0x08 STORE  VERSION all
+%{ store(stack, st, arg1|arg2); %}
+
+OPCODE "and"          2OP:0x09 STORE  VERSION all
+%{ store(stack, st, arg1&arg2); %}
+
+OPCODE "add"          2OP:0x14 STORE  VERSION all
+%{ store(stack, st, arg1+arg2); %}
+
+OPCODE "sub"          2OP:0x15 STORE  VERSION all
+%{ store(stack, st, arg1-arg2); %}
+
+OPCODE "mul"          2OP:0x16 STORE  VERSION all
+%{ store(stack, st, arg1*arg2); %}
+
+OPCODE "div"          2OP:0x17 STORE  VERSION all
+%{ 
+  if (arg2 == 0)
+    zmachine_fatal("Division by 0");
+  store(stack, st, arg1/arg2);
+%}
+
+OPCODE "mod"          2OP:0x18 STORE  VERSION all
+%{ 
+  if (arg2 == 0)
+    zmachine_fatal("Modulo by 0");
+  store(stack, st, arg1%arg2);
+%}
+
+OPCODE "call_2s"      2OP:0x19 CANJUMP STORE VERSION 4,5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+
+  if (arg1 == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = UnpackR(uarg1);
+  newframe = call_routine(&pc, stack, new_routine);
+
+  newframe->local[1] = arg2;
+  newframe->flags |= 1;
+
+  newframe->storevar = st;
+%}
+
+OPCODE "call_2n"      2OP:0x1a CANJUMP       VERSION 5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+
+  if (uarg1 == 0)
+    {
+      goto loop;
+    }
+  
+  new_routine = UnpackR(uarg1);
+  newframe = call_routine(&pc, stack, new_routine);
+
+  newframe->local[1] = arg2;
+  newframe->flags |= 1;
+
+  newframe->discard  = 1;
+%}
+
+OPCODE "set_colour"   2OP:0x1b               VERSION 5,7,8
+%{
+#ifdef DEBUG
+  printf_debug("Setting colours to %i, %i\n", arg1, arg2);
+#endif
+  stream_flush_buffer();
+  display_set_colour(convert_colour(arg1), convert_colour(arg2));
+%}
+
+OPCODE "throw"        2OP:0x1c CANJUMP       VERSION 5,6,7,8
+%{
+  if (stack->current_frame == NULL)
+    zmachine_fatal("Throw attempted after function with catch has returned");
+  if (stack->current_frame->frame_num < arg1)
+    zmachine_fatal("Throw attempted after function with catch has returned");
+
+  /* Unroll the stack to the appropriate frame */
+  while (stack->current_frame->frame_num != arg2)
+    {
+      ZFrame* oldframe;
+
+      oldframe = stack->current_frame;
+      stack->current_frame = oldframe->last_frame;
+      stack->stack_size += oldframe->frame_size;
+      stack->stack_top  -= oldframe->frame_size;
+
+      free(oldframe);
+    }
+
+  /* Do a return */
+  goto op_ret;
+%}
+
+####                           ----// 888 \\----                           ####
+# 1OPs
+
+OPCODE "jz"           1OP:0x00 BRANCH       VERSION all
+%{
+  result = arg1==0;
+  dobranch;
+%}
+
+OPCODE "get_sibling"  1OP:0x01 BRANCH STORE VERSION 1,2,3
+%{
+  ZByte* obj;
+
+  obj = Obj3(uarg1);
+  store(stack, st, obj[sibling_3]);
+  result = obj[sibling_3] != 0;
+  dobranch;
+%}
+
+OPCODE "get_child"    1OP:0x02 BRANCH STORE VERSION 1,2,3
+%{
+  ZByte* obj;
+
+  obj = Obj3(uarg1);
+  store(stack, st, obj[child_3]);
+  result = obj[child_3] != 0;
+  dobranch;
+%}
+
+OPCODE "get_parent"   1OP:0x03        STORE VERSION 1,2,3
+%{
+  ZByte* obj;
+
+  obj = Obj3(uarg1);
+  store(stack, st, obj[parent_3]);
+%}
+
+OPCODE "get_prop_len" 1OP:0x04        STORE VERSION 1,2,3
+%{
+  if (arg1 == 0)
+    store(stack, st, 0);
+  else
+    store(stack, st, (machine.memory[uarg1-1]>>5)+1);
+%}
+
+OPCODE "get_sibling"  1OP:0x01 BRANCH STORE VERSION 4,5,6,7,8
+%{
+  ZByte* obj_adr;
+  ZUWord sibling;
+
+  if (uarg1 == 0)
+    {
+      zmachine_warning("Object 0 has no siblings");
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  obj_adr = Obj4(uarg1);
+  sibling = GetSibling4(obj_adr);
+
+  store(stack, st, sibling);
+
+  result = sibling != 0;
+  dobranch;
+%}
+
+OPCODE "get_child"    1OP:0x02 BRANCH STORE VERSION 4,5,6,7,8
+%{
+  ZByte* obj_adr;
+  ZUWord child;
+
+  if (uarg1 == 0)
+    {
+      zmachine_warning("Object 0 has no siblings");
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  obj_adr = Obj4(uarg1);
+  child = GetChild4(obj_adr);
+
+  store(stack, st, child);
+
+  result = child != 0;
+  dobranch;
+%}
+
+OPCODE "get_parent"   1OP:0x03        STORE VERSION 4,5,6,7,8
+%{
+  ZByte* obj_adr;
+  ZUWord parent;
+
+  if (uarg1 == 0)
+    {
+      zmachine_warning("Object 0 has no siblings");
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  obj_adr = Obj4(uarg1);
+  parent = GetParent4(obj_adr);
+
+  store(stack, st, parent);
+%}
+
+OPCODE "get_prop_len" 1OP:0x04        STORE VERSION 4,5,6,7,8
+%{
+  ZByte* p;
+  struct propinfo* inf;
+
+  if (arg1 == 0)
+    store(stack, st, 0);
+  else
+    {
+      p = machine.memory + uarg1;
+      if (p[-1]&0x80)
+        p -= 2;
+      else
+        p -= 1;
+
+      inf = get_object_propinfo_4(p);
+
+      store(stack, st, inf->datasize);  
+    }
+%}
+
+OPCODE "inc"          1OP:0x05              VERSION all
+%{
+  ZWord var;
+
+#ifdef DEBUG
+  printf_debug("Inc: increasing variable %i by 1\n", arg1);
+#endif
+  
+  var = GetVarNoPop(arg1);
+  var++;
+  store_nopush(stack, arg1, var);
+%}
+
+OPCODE "dec"          1OP:0x06              VERSION all
+%{
+  ZWord var;
+
+#ifdef DEBUG
+  printf_debug("Dec: decreasing variable %i by 1\n", arg1);
+#endif
+  
+  var = GetVarNoPop(arg1);
+  var--;
+  store_nopush(stack, arg1, var);  
+%}
+
+OPCODE "print_addr"   1OP:0x07              VERSION all
+%{
+  int len;
+
+#ifdef DEBUG
+  printf_debug(">%s<\n", zscii_to_ascii(machine.memory + uarg1, &len));
+#endif
+  
+  stream_prints(zscii_to_unicode(machine.memory + uarg1, &len));  
+%}
+
+OPCODE "call_1s"      1OP:0x08 CANJUMP STORE VERSION 4,5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+
+  if (arg1 == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = UnpackR(arg1);
+  newframe = call_routine(&pc, stack, new_routine);
+
+  newframe->storevar = st;
+%}
+
+OPCODE "remove_obj"   1OP:0x09              VERSION 1,2,3
+%{
+  arg2 = 0;
+  goto op_insert_obj_123;
+%}
+
+OPCODE "remove_obj"   1OP:0x09              VERSION 4,5,6,7,8
+%{
+  arg2 = 0;
+  goto op_insert_obj_45678;
+%}
+
+OPCODE "print_obj"    1OP:0x0a              VERSION 1,2,3
+%{
+  ZByte* obj;
+  ZByte* prop;
+  int len;
+
+  obj = Obj3(uarg1);
+  prop = machine.memory + ((obj[7]<<8)|obj[8]) + 1;
+
+#ifdef DEBUG
+  printf_debug(">%s<\n", zscii_to_ascii(prop, &len));
+#endif
+
+  stream_prints(zscii_to_unicode(prop, &len));
+%}
+
+OPCODE "print_obj"    1OP:0x0a              VERSION 4,5,6,7,8
+%{
+  ZByte* obj;
+  ZByte* prop;
+  int len;
+
+  obj = Obj4(uarg1);
+  prop = Address((ZUWord)GetPropAddr4(obj)+1);
+
+#ifdef DEBUG
+  printf_debug(">%s<\n", zscii_to_ascii(prop, &len));
+#endif
+
+  stream_prints(zscii_to_unicode(prop, &len));
+%}
+
+OPCODE "ret"          1OP:0x0b CANJUMP      VERSION all
+%{
+  ZFrame* oldframe;
+  int     end_func;
+
+  oldframe = stack->current_frame;
+  stack->current_frame = oldframe->last_frame;
+  stack->stack_top  -= oldframe->frame_size;
+  stack->stack_size += oldframe->frame_size;
+
+  pc = oldframe->ret;
+
+  if (oldframe->discard == 0)
+    store(stack, oldframe->storevar, arg1);
+
+  if (oldframe->v4read != NULL)
+    (oldframe->v4read)(&pc, stack, &oldframe->readblock);
+  if (oldframe->v5read != NULL)
+    {
+#ifdef DEBUG
+      printf_debug("Stack: Calling V5 callback routine\n");
+#endif
+      (oldframe->v5read)(&pc, stack, &oldframe->readblock, oldframe->readstore);
+      end_func = 1;
+    }
+
+#ifdef DEBUG
+  if (oldframe->discard == 0)
+    printf_debug("Returned %i into V%x\n", arg1, oldframe->storevar);
+  if (stack->current_frame != NULL)
+    printf_debug("Stack: returned, discarded %i outstanding items (stack top now #%x, size %i, frame usage %i)\n",
+	   oldframe->frame_size, stack->stack_top, stack->stack_size,
+	   stack->current_frame!=NULL?stack->current_frame->frame_size:-1);
+#endif
+
+  end_func = oldframe->end_func;
+  
+  free(oldframe);
+  
+  if (stack->current_frame && stack->current_frame->break_on_return)
+    {
+	  /* Treat as a breakpoint */
+	  debug_run_breakpoint(pc);
+	}
+
+  if (end_func)
+    {
+#ifdef DEBUG
+      printf_debug("Stack: Exit from interpreter loop\n");
+#endif
+      return;
+    }
+%}
+
+OPCODE "jump"         1OP:0x0c CANJUMP      VERSION all
+%{ pc += arg1-2; %}
+
+OPCODE "print_paddr"  1OP:0x0d              VERSION 1,2,3
+%{
+  int len;
+
+#ifdef DEBUG
+  printf_debug(">%s<\n", zscii_to_ascii(machine.memory + (((ZDWord)uarg1)<<1), &len));
+#endif
+
+  stream_prints(zscii_to_unicode(machine.memory + (((ZDWord)uarg1)<<1), &len));
+%}
+
+OPCODE "print_paddr"  1OP:0x0d              VERSION 4,5,6,7,8
+%{
+  int len;
+
+#ifdef DEBUG
+  printf_debug(">%s<\n", zscii_to_ascii(machine.memory + UnpackS(uarg1), &len));
+#endif
+
+  stream_prints(zscii_to_unicode(machine.memory + UnpackS(uarg1), &len));
+%}
+
+OPCODE "load"         1OP:0x0e        STORE VERSION all
+%{
+  store(stack, st, GetVarNoPop(uarg1));
+%}
+
+OPCODE "not"          1OP:0x0f        STORE VERSION 1,2,3,4
+%{
+  store(stack, st, ~GetVar(arg1));
+%}
+
+OPCODE "call_1n"      1OP:0x0f CANJUMP      VERSION 5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+
+  if (arg1 == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = UnpackR(arg1);
+  newframe = call_routine(&pc, stack, new_routine);
+
+  newframe->discard = 1;
+%}
+
+####                           ----// 888 \\----                           ####
+# 0OPs
+
+OPCODE "rtrue"       0OP:0x00 CANJUMP VERSION all
+%{
+  arg1 = 1; goto op_ret;
+%}
+
+OPCODE "rfalse"      0OP:0x01 CANJUMP VERSION all
+%{
+  arg1 = 0; goto op_ret;
+%}
+
+OPCODE "print"       0OP:0x02 STRING  VERSION all
+%{
+#ifdef DEBUG
+  printf_debug(">%s<\n", string);
+#endif
+  stream_prints((int*)string);
+%}
+
+OPCODE "print_ret"   0OP:0x03 CANJUMP STRING  VERSION all
+%{
+#ifdef DEBUG
+  printf_debug(">%s<\n", string);
+#endif
+  stream_prints((int*)string);
+  stream_printf("\n");
+  stream_flush_buffer();
+  goto op_rtrue;
+%}
+
+OPCODE "nop"         0OP:0x04         VERSION all
+%{ /* zzz */ %}
+
+OPCODE "save"        0OP:0x05 BRANCH  VERSION 1,2,3
+%{
+  ZDWord newpc;
+  
+  if (branch == 0 || branch == 1)
+    {
+      zmachine_warning("This interpreter does not support returning from v3 save statements correctly");
+      newpc = pc;
+    }
+  else
+    {
+      newpc = pc;
+      if (negate) 
+        newpc += branch-2;
+    }
+
+  result = save_1234(newpc, stack, -1);
+  dobranch;
+%}
+
+OPCODE "save"        0OP:0x05 STORE CANJUMP VERSION 4
+%{
+  if (save_1234(pc, stack, st))
+    store(stack, st, 1);
+  else
+    store(stack, st, 0);
+%}
+
+OPCODE "restore"     0OP:0x06 BRANCH  VERSION 1,2,3
+%{
+  if (!restore_1234(&pc, stack))
+    {
+      result = 0;
+      dobranch;
+    }
+%}
+
+OPCODE "restore"     0OP:0x06 STORE CANJUMP VERSION 4
+%{
+  if (!restore_1234(&pc, stack))
+    {
+      store(stack, st, 0);
+    }
+%}
+
+OPCODE "restart"     0OP:0x07 CANJUMP VERSION 3,4,5,7,8
+%{
+  /* Unwind stack */
+  while (stack->current_frame->last_frame != NULL)
+    {
+      ZFrame* oldframe;
+
+      oldframe = stack->current_frame;
+      stack->current_frame = oldframe->last_frame;
+
+      stack->stack_size += oldframe->frame_size;
+      stack->stack_top  -= oldframe->frame_size;
+
+      free(oldframe);
+    }
+
+  display_join(0, 2);
+  display_set_window(0);
+  display_erase_window();
+  if (ReadByte(0) > 4)
+    display_set_cursor(0,0);
+  
+  read_block2(machine.memory, machine.file, 
+	machine.story_offset, machine.story_offset+machine.dynamic_ceiling);
+  pc = Word(ZH_initpc);
+
+  restart_machine();  
+%}
+
+OPCODE "ret_popped"  0OP:0x08 CANJUMP VERSION all
+%{
+  arg1 = pop(stack);
+  goto op_ret;
+%}
+
+OPCODE "pop"         0OP:0x09         VERSION 1,2,3,4
+%{ pop(stack); %}
+
+OPCODE "catch"       0OP:0x09 STORE   VERSION 5,6,7,8
+%{
+  if (stack->current_frame == NULL)
+    zmachine_fatal("Catch attempted while no frame is current");
+  store(stack, st, stack->current_frame->frame_num);
+%}
+
+OPCODE "quit"        0OP:0x0a CANJUMP VERSION all 
+%{
+  pc = -1;
+  return;
+%}
+
+OPCODE "new_line"    0OP:0x0b         VERSION all
+%{
+  stream_printf("\n");
+%}
+
+OPCODE "show_status" 0OP:0x0c         VERSION 3
+%{
+  draw_statusbar_123(stack);
+%}
+
+OPCODE "status_nop"  0OP:0x0c         VERSION 4,5,6,7,8
+%{
+  debug_breakpoint* bp;
+
+  /* Zzzz */
+
+  if ((bp=debug_get_breakpoint(pc-1)) != NULL)
+    {
+      pc--;
+      instr = bp->original;
+      debug_run_breakpoint(pc);
+      goto execute_instr;
+    }
+%}
+
+OPCODE "verify"      0OP:0x0d BRANCH  VERSION all # 3,4,5,6,7,8
+%{
+  result = 1;
+  dobranch;
+%}
+
+OPCODE "piracy"      0OP:0x0f BRANCH  VERSION 5,6,7,8
+%{
+  result = 1;
+  dobranch;
+%}
+
+####                           ----// 888 \\----                           ####
+# VAR ops
+
+OPCODE "call"           VAR:0x00        STORE CANJUMP VERSION 1,2,3
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+  int     x;
+  
+  if (argblock.n_args < 1)
+    zmachine_fatal("call must have 1 argument");
+
+  if (argblock.arg[0] == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = 2*(ZUWord)argblock.arg[0];
+  
+#ifdef DEBUG
+  printf_debug("CALL $%x -> V%03i\n", new_routine, st);
+#endif
+
+  newframe = call_routine(&pc, stack, new_routine);
+
+  for (x=1; x<argblock.n_args; x++)
+    {
+      newframe->flags |= 1<<(x-1);
+      newframe->local[x] = argblock.arg[x];
+    }
+
+  newframe->storevar = st;
+%}
+
+OPCODE "call_vs"        VAR:0x00        STORE CANJUMP VERSION 4,5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+  int     x;
+  
+  if (argblock.n_args < 1)
+    zmachine_fatal("call must have 1 argument");
+
+  if (argblock.arg[0] == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = UnpackR((ZUWord)argblock.arg[0]);
+  
+#ifdef DEBUG
+  printf_debug("CALL $%x -> V%03i\n", new_routine, st);
+#endif
+
+  newframe = call_routine(&pc, stack, new_routine);
+
+  for (x=1; x<argblock.n_args; x++)
+    {
+      newframe->flags |= 1<<(x-1);
+      newframe->local[x] = argblock.arg[x];
+    }
+
+  newframe->storevar = st;    
+%}
+
+OPCODE "storew"         VAR:0x01 ARGS:3               VERSION all
+%{
+  ZByte* mem;
+
+#ifdef DEBUG
+  printf_debug("Storing word value %i at #%x\n",
+	 argblock.arg[2],
+	 ((ZUWord) argblock.arg[0] + (ZUWord) (argblock.arg[1]*2))&0xffff);
+#endif
+#ifdef SAFE
+  if (((ZUWord) argblock.arg[0] + ((ZWord) argblock.arg[1]*2)+1) >
+      machine.dynamic_ceiling)
+    zmachine_fatal("Out of range storew (tried to store at $%x, but ceiling is at $%x)",
+		   ((ZUWord) argblock.arg[0] + ((ZUWord) argblock.arg[1]*2)),
+		   machine.dynamic_ceiling);
+#endif
+  
+  if ((ZUWord) argblock.arg[0] + ((ZWord) argblock.arg[1]*2) == ZH_flags2)
+    {
+      ZArgblock a;
+
+      stream_flush_buffer();
+      
+      a.n_args = 1;
+      a.arg[0] = (argblock.arg[2]&1)?2:-2;
+
+      zcode_op_output_stream(stack, &a);
+
+      argblock.arg[2] &= ~1;
+      argblock.arg[2] |= Word(ZH_flags2)&1;
+    }
+
+  mem = Address(((ZUWord) argblock.arg[0] + ((ZWord) argblock.arg[1]*2))&0xffff);
+  mem[0] = argblock.arg[2]>>8;
+  mem[1] = argblock.arg[2];  
+%}
+
+OPCODE "storeb"         VAR:0x02 ARGS:3               VERSION all
+%{
+  ZByte* mem;
+
+#ifdef DEBUG
+  printf_debug("Storing byte value %i at #%x\n",
+	 argblock.arg[2],
+	 ((ZUWord) argblock.arg[0] + (ZWord) argblock.arg[1])&0xffff);
+#endif
+#ifdef SAFE
+  if (((ZUWord) argblock.arg[0] + (ZWord) argblock.arg[1]) >
+      machine.dynamic_ceiling)
+    zmachine_fatal("Out of range storeb (store to $%x, ceiling at $%x)", ((ZUWord) argblock.arg[0] + (ZUWord) argblock.arg[1]), machine.dynamic_ceiling);
+#endif
+
+  mem = Address(((ZUWord) argblock.arg[0] + (ZWord) argblock.arg[1])&0xffff);
+  mem[0] = argblock.arg[2];
+%}
+
+OPCODE "put_prop"       VAR:0x03 ARGS:3               VERSION 1,2,3
+%{
+  struct prop* p;
+  
+  if (argblock.arg[0]>255 || argblock.arg[0] == 0)
+    zmachine_fatal("Object %i out of range", argblock.arg[0]);
+  argblock.arg[1] &= 0x1f;
+  if (argblock.arg[1]>31)
+    zmachine_fatal("Property %i out of range", argblock.arg[1]);
+  
+  p = get_object_prop_3(argblock.arg[0], argblock.arg[1]);
+  if (p->isdefault)
+    zmachine_fatal("No such property %i for object %i", argblock.arg[1], argblock.arg[0]);
+
+  switch (p->size)
+    {
+    case 1:
+      p->prop[0] = argblock.arg[2];
+      break;
+      
+    case 2:
+      p->prop[0] = argblock.arg[2]>>8;
+      p->prop[1] = argblock.arg[2];
+      break;
+
+    default:
+      zmachine_fatal("%i is an invalid size for put_prop", p->size);
+    }  
+%}
+
+OPCODE "put_prop"       VAR:0x03 ARGS:3               VERSION 4,5,6,7,8
+%{
+  struct prop* p;
+  
+  if (argblock.arg[0] == 0)
+    {
+      zmachine_warning("Object 0 has no properties");
+      goto loop;
+    }
+  if (argblock.arg[1]>63)
+    zmachine_fatal("Property %i out of range", argblock.arg[1]);
+  
+  p = get_object_prop_4(argblock.arg[0], argblock.arg[1]);
+  if (p->isdefault)
+    {
+      zmachine_warning("No such property %i for object %i", argblock.arg[1], argblock.arg[0]);
+      goto loop;
+    }
+
+  switch (p->size)
+    {
+    case 1:
+      p->prop[0] = argblock.arg[2];
+      break;
+      
+    case 2:
+      p->prop[0] = argblock.arg[2]>>8;
+      p->prop[1] = argblock.arg[2];
+      break;
+
+    default:
+      zmachine_fatal("%i is an invalid size for put_prop", p->size);
+    }
+%}
+
+OPCODE "sread"          VAR:0x04 ARGS:2               VERSION 1,2,3
+%{
+  ZByte* mem;
+  int* buf;
+  int x;
+
+  //pc -= (2+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (2+padding);
+
+  stream_flush_buffer();
+
+  mem = machine.memory + (ZUWord) argblock.arg[0];
+  buf = malloc(sizeof(int)*(mem[0]+1));
+  
+  buf[0] = 0;
+  draw_statusbar_123(stack);
+  stream_readline(buf, mem[0], 0);
+  
+  for (x=0; buf[x] != 0; x++)
+    {
+      buf[x] = unicode_to_lower(buf[x]);
+      mem[x+1] = zscii_get_char(buf[x]);
+    }
+  mem[x+1] = 0;
+
+  if (argblock.n_args > 1)
+    {
+      tokenise_string((int*)buf,
+		      Word(ZH_dict),
+		      machine.memory + (ZUWord) argblock.arg[1],
+		      0,
+		      1);
+
+#ifdef DEBUG
+      {
+	ZByte* tokbuf;
+	tokbuf = machine.memory + (ZUWord) argblock.arg[1];
+	for (x=0; x<tokbuf[1]; x++)
+	  {
+	    printf_debug("Token $%x%x word at %i, length %i\n",
+			   tokbuf[2+x*4],
+			   tokbuf[3+x*4],
+			   tokbuf[5+x*4],
+			   tokbuf[4+x*4]);
+	  }
+      }
+#endif
+    }
+
+  free(buf);
+
+  machine.autosave_pc = 0;
+  //pc += (2+padding); /* HACK: allow autosave */
+%}
+
+OPCODE "sread"          VAR:0x04 ARGS:4       CANJUMP VERSION 4
+%{
+  //pc -= (2+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (2+padding);
+  zcode_op_sread_4(&pc, stack, &argblock);
+  machine.autosave_pc = 0;
+  //pc += (2+padding); /* HACK: allow autosave */
+%}
+
+OPCODE "aread"          VAR:0x04 ARGS:4 STORE CANJUMP VERSION 5,7,8
+%{
+  //pc -= (3+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (3+padding);
+  zcode_op_aread_5678(&pc, stack, &argblock, st);
+  machine.autosave_pc = 0;
+  //pc += (3+padding); /* HACK: allow autosave */
+%}
+
+OPCODE "print_char"     VAR:0x05 ARGS:1               VERSION all
+%{
+  int ch[2];
+
+#ifdef DEBUG
+  printf_debug(">%c<\n", argblock.arg[0]);
+#endif
+  if (argblock.arg[0] >= 256)
+    argblock.arg[0] = '?';
+  if (argblock.arg[0] == 0)
+    argblock.arg[0] = 32;
+  ch[0] = zscii_unicode[argblock.arg[0]];
+  ch[1] = 0;
+  stream_prints((int*)ch);
+%}
+
+OPCODE "print_num"      VAR:0x06 ARGS:1               VERSION all
+%{
+#ifdef DEBUG
+  printf_debug(">%i<\n", argblock.arg[0]);
+#endif
+  stream_printf("%i", argblock.arg[0]);
+%}
+
+OPCODE "random"         VAR:0x07 ARGS:1 STORE         VERSION all
+%{
+  if (argblock.arg[0] > 0)
+    {
+      unsigned int random = random_number()>>8;
+      random = random&0xffff;
+      random = (random*argblock.arg[0])/0x10000;
+      store(stack, st, random+1);
+      
+      #ifdef DEBUG
+      printf_debug("Random(%i) = %i\n", argblock.arg[0], random+1);
+      #endif
+    }
+  else if (argblock.arg[0] < 0)
+    {
+      random_seed(argblock.arg[0]);
+      store(stack, st, 0);
+    }
+  else
+    {
+#ifdef HAVE_GETTIMEOFDAY
+      struct timeval tv;
+      
+      /* Reseed RNG */
+      gettimeofday(&tv, NULL);
+      random_seed(tv.tv_sec^tv.tv_usec);
+#else
+      random_seed((unsigned int) time(NULL));
+#endif
+
+      store(stack, st, 0);
+    }
+%}
+
+OPCODE "push"           VAR:0x08 ARGS:1               VERSION all
+%{
+  push(stack, argblock.arg[0]);
+%}
+
+OPCODE "pull"           VAR:0x09 ARGS:1               VERSION 3,4,5,7,8
+%{
+  ZUWord val;
+
+  val = pop(stack);
+  store_nopush(stack, argblock.arg[0], val);
+%}
+
+OPCODE "split_window"   VAR:0x0a ARGS:1               VERSION 3,4,5,7,8
+%{
+  stream_flush_buffer();
+
+  if (argblock.arg[0] != 0)
+    {
+      int win;
+      int ver;
+
+      ver = ReadByte(0);
+
+#ifdef DEBUG
+      printf_debug("Top window bottom is now %i\n", argblock.arg[0]);
+#endif
+      
+      win = display_get_window();
+
+      if (ver == 3)
+	{
+	  display_set_window(2);
+	  display_erase_window();
+	}
+      
+      display_set_window(0);
+      display_join(0, 2);
+      display_split(argblock.arg[0], 2);
+      display_set_window(2);
+      if (ver == 3)
+	{
+	  display_set_cursor(0,1);
+	  display_erase_window();
+	}
+      display_force_fixed(2, 1);
+
+      display_set_window(win);
+    }
+  else
+    {
+      if (ReadByte(0) == 3)
+	{
+	  display_set_window(2);
+	  display_erase_window();
+	}
+
+      display_join(0, 2);
+      display_set_window(0);
+    }
+
+  if (machine.transcript_on == 2 && display_get_window() == 0)
+    machine.transcript_on = 1;
+%}
+
+OPCODE "set_window"     VAR:0x0b ARGS:1               VERSION 3,4,5,7,8
+%{
+  stream_flush_buffer();
+
+  switch (argblock.arg[0])
+    {
+    case 0:
+      stream_buffering(machine.buffering);
+      display_set_window(0);
+
+      if (machine.transcript_on == 2)
+	machine.transcript_on = 1;
+      break;
+    case 1:
+      stream_buffering(0);
+      display_set_window(2);
+      if (ReadByte(0) == 3)
+	display_set_cursor(0,1);
+
+      if (machine.transcript_on == 1)
+	machine.transcript_on = 2;
+      break;
+    default:
+      zmachine_warning("Window %i not available", argblock.arg[0]);
+    }
+%}
+
+
+OPCODE "call_vs2"       VAR:0x0c   STORE LONG CANJUMP VERSION 4,5,6,7,8
+%{
+  goto op_call_vs_45678;
+%}
+
+OPCODE "erase_window"   VAR:0x0d ARGS:1               VERSION 4,5,7,8
+%{
+  int old_win;
+
+  stream_flush_buffer();
+  old_win = display_get_window();
+  
+  switch (argblock.arg[0])
+    {
+    case 0:
+      display_set_window(0);
+      display_erase_window();
+      if (ReadByte(0) != 4)
+	display_set_cursor(0,0);
+      display_set_window(old_win);
+      break;
+      
+    case 1:
+      display_set_window(2);
+      display_erase_window();
+      display_set_cursor(0,0);
+      display_set_window(old_win);
+      break;
+
+    case -1:
+      display_join(0, 2);
+      display_set_window(0);
+      display_erase_window();
+      if (ReadByte(0) != 4)
+	display_set_cursor(0,0);
+      break;
+
+    case -2:
+      old_win = display_get_window();
+      display_set_window(0);
+      display_erase_window();
+      display_set_window(2);
+      display_erase_window();
+      display_set_window(old_win);
+      break;
+    }
+%}
+
+OPCODE "erase_line"     VAR:0x0e ARGS:1               VERSION 4,5,7,8
+%{
+  if (arg1 == 1)
+    {
+      display_erase_line(1);
+    }
+%}
+
+OPCODE "set_cursor"     VAR:0x0f ARGS:2               VERSION 4,5,7,8
+%{
+  stream_flush_buffer();
+#ifdef DEBUG
+  printf_debug("Cursor moved to %i, %i\n", argblock.arg[1]-1, argblock.arg[0]-1);
+#endif
+  if (display_get_window() == 2)
+    { 
+      display_set_cursor(argblock.arg[1]-1, argblock.arg[0]-1);
+    }
+%}
+
+OPCODE "get_cursor"     VAR:0x10 ARGS:1               VERSION 4,5,7,8
+%{
+  ZByte* dest;
+  int x, y;
+
+  dest = Address((ZUWord)argblock.arg[0]);
+  x = display_get_cur_x()+1;
+  y = display_get_cur_y()+1;
+
+  dest[0] = y>>8;
+  dest[1] = y;
+  dest[2] = x>>8;
+  dest[3] = x;
+%}
+
+OPCODE "set_text_style" VAR:0x11 ARGS:1               VERSION 4,5,7,8
+%{
+  stream_flush_buffer();
+#ifndef SPEC_11
+  if (argblock.arg[0] != 0 &&
+      argblock.arg[0] != 1 &&
+      argblock.arg[0] != 2 &&
+      argblock.arg[0] != 4 &&
+      argblock.arg[0] != 8 &&
+      argblock.arg[0] != 16)
+    {
+      zmachine_warning("Multiple styles not (officially) supported in standard 1.0", argblock.arg[0]);
+    }
+#endif
+  display_set_style(argblock.arg[0]);  
+%}
+
+OPCODE "buffer_mode"    VAR:0x12 ARGS:1               VERSION 4,5,6,7,8
+%{
+  machine.buffering = argblock.arg[0];
+  stream_buffering(argblock.arg[0]);
+%}
+
+OPCODE "output_stream"  VAR:0x13 ARGS:1               VERSION 3
+%{
+  zcode_op_output_stream(stack, &argblock);
+%}
+
+OPCODE "output_stream"  VAR:0x13 ARGS:2               VERSION 4,5,7,8
+%{
+  zcode_op_output_stream(stack, &argblock);
+%}
+
+OPCODE "input_stream"   VAR:0x14 ARGS:1               VERSION all # 3,4,5,7,8
+%{
+  switch (argblock.arg[0])
+    {
+    case 0:
+      machine.script_on = 0;
+      break;
+
+    case 1:
+      machine.script_on = 0;
+      if (!machine.script_file)
+        {
+	  int sz;
+	  machine.script_file = get_file_read(&sz, script_fname, ZFile_transcript);
+	}
+      machine.script_on = 1;
+      if (!machine.script_file)
+        {
+	  stream_printf("Couldn't open %s for reading.\n", script_fname);
+          machine.script_on = 0;
+	}
+      if (machine.script_file && end_of_file(machine.script_file))
+        {
+	  close_file(machine.script_file);
+	  stream_printf("Couldn't read any data from %s\n", script_fname);
+	  machine.script_file = NULL;
+	  machine.script_on = 0;
+	}
+      break;
+
+    default:
+      zmachine_warning("Input stream %i not supported", argblock.arg[0]);
+    }
+%}
+
+OPCODE "sound_effect"   VAR:0x15                      VERSION all # 3,4,5,6,7,8
+%{
+  display_beep();
+%}
+
+OPCODE "read_char"      VAR:0x16 ARGS:3 STORE CANJUMP VERSION 4,5,7,8
+%{
+  //pc -= (3+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (3+padding);
+
+  stream_flush_buffer();
+
+  if (argblock.n_args < 2)
+    {
+      zcode_op_readchar(&pc, stack, &argblock, st);
+    }
+  else
+    {
+      zcode_op_readchar(&pc, stack, &argblock, st);
+    }
+
+  machine.autosave_pc = 0;
+  //pc += (3+padding); /* HACK: allow autosave */
+%}
+
+OPCODE "scan_table"     VAR:0x17        BRANCH STORE  VERSION 4,5,6,7,8
+%{
+  ZDWord adr;
+  
+  if (argblock.n_args < 4)
+    argblock.arg[3] = 0x82;
+
+  adr = scan_table(argblock.arg[0],
+		   argblock.arg[1],
+		   argblock.arg[2],
+		   argblock.arg[3]);
+
+  if (adr > 0)
+    {
+      store(stack, st, adr);
+      result = 1;
+    }
+  else
+    {
+      store(stack, st, 0);
+      result = 0;
+    }
+  dobranch;
+%}
+
+OPCODE "not"            VAR:0x18 ARGS:1 STORE         VERSION 5,6,7,8
+%{
+  store(stack, st, ~argblock.arg[0]);
+%}
+
+OPCODE "call_vn"        VAR:0x19 CANJUMP              VERSION 5,6,7,8
+%{
+  ZDWord  new_routine;
+  ZFrame* newframe;
+  int     x;
+  
+  if (argblock.n_args < 1)
+    zmachine_fatal("call must have 1 argument");
+
+  if (argblock.arg[0] == 0)
+    {
+      store(stack, st, 0);
+      goto loop;
+    }
+  
+  new_routine = UnpackR((ZUWord)argblock.arg[0]);
+  
+#ifdef DEBUG
+  printf_debug("CALL $%x -> V%03i\n", new_routine, st);
+#endif
+
+  newframe = call_routine(&pc, stack, new_routine);
+
+  for (x=1; x<argblock.n_args; x++)
+    {
+      newframe->flags |= 1<<(x-1);
+      newframe->local[x] = argblock.arg[x];
+    }
+
+  newframe->discard = 1;
+%}
+
+OPCODE "call_vn2"       VAR:0x1a CANJUMP LONG         VERSION 5,6,7,8
+%{
+  goto op_call_vn_5678;
+%}
+
+OPCODE "tokenise"       VAR:0x1b ARGS:4               VERSION 5,6,7,8
+%{
+  ZByte* text;
+  int*  buf;
+  int x;
+
+  text = Address((ZUWord)argblock.arg[0]);
+  buf = malloc(sizeof(int)*(text[1]+1));
+  for (x=0; x<text[1]; x++)
+    buf[x] = zscii_unicode[text[x+2]];
+  buf[x] = 0;
+  
+  tokenise_string(buf,
+		  argblock.arg[2]==0?Word(ZH_dict):argblock.arg[2],
+		  Address((ZUWord)argblock.arg[1]),
+		  argblock.arg[3] != 0,
+		  2);
+
+#ifdef DEBUG
+      {
+	ZByte* tokbuf;
+	int x;
+	
+	tokbuf = machine.memory + (ZUWord) argblock.arg[1];
+	for (x=0; x<tokbuf[1]; x++)
+	  {
+	    printf_debug("Token $%x%x word at %i, length %i\n",
+			   tokbuf[2+x*4],
+			   tokbuf[3+x*4],
+			   tokbuf[5+x*4],
+			   tokbuf[4+x*4]);
+	  }
+      }
+#endif
+
+  free(buf);
+%}
+
+OPCODE "encode_text"    VAR:0x1c ARGS:4               VERSION 5,6,7,8
+%{
+  int* buf;
+  int x;
+  char* d;
+
+  buf = malloc(sizeof(int)*(argblock.arg[1]+1));
+  d = Address((ZUWord)argblock.arg[0]) + argblock.arg[2];
+  
+  for (x=0; x<argblock.arg[1]; x++)
+    buf[x] = zscii_get_char(d[x]);
+  buf[x] = 0;
+
+  /* Note: I haven't tested this yet */
+  pack_zscii(buf,
+	     argblock.arg[1],
+	     Address((ZUWord)argblock.arg[3]),
+	     9);
+
+  free(buf);
+%}
+
+OPCODE "copy_table"     VAR:0x1d ARGS:3               VERSION 5,6,7,8
+%{
+  if (argblock.arg[1] != 0)
+    {
+#ifdef DEBUG
+      printf_debug("Copying #%x bytes from #%x to #%x\n", argblock.arg[2],
+	     (ZUWord)argblock.arg[0], (ZUWord)argblock.arg[1]);
+#endif
+      
+      if (argblock.arg[2] >= 0) /* Move memory */
+	memmove(Address((ZUWord)argblock.arg[1]),
+		Address((ZUWord)argblock.arg[0]),
+		(ZUWord)argblock.arg[2]);
+      else /* Copy forwards */
+	{
+	  ZUWord x;
+	  ZByte* src;
+	  ZByte* dest;
+
+	  src = Address((ZUWord)argblock.arg[0]);
+	  dest = Address((ZUWord)argblock.arg[1]);
+
+	  for (x = 0; x<-argblock.arg[2]; x++)
+	    {
+	      dest[x] = src[x];
+	    }
+	}
+    }
+  else
+    {
+      ZUWord x;
+      ZByte* mem;
+
+#ifdef DEBUG
+      printf_debug("Blanking %i bytes from #%x\n", argblock.arg[2], (ZUWord)argblock.arg[0]);
+#endif
+      
+      mem = Address((ZUWord)argblock.arg[0]);
+      
+      for (x=0; x<argblock.arg[2]; x++)
+	{
+	  mem[x] = 0;
+	}
+    }
+%}
+
+OPCODE "print_table"    VAR:0x1e                      VERSION 5,7,8
+%{
+  ZByte* table;
+  int x,y;
+  int xpos, ypos;
+
+  stream_flush_buffer();
+  xpos = display_get_cur_x();
+  ypos = display_get_cur_y();
+
+  if (argblock.arg[2] == 0)
+    argblock.arg[2] = 1;
+
+#ifdef DEBUG
+  printf_debug("Printing table #%x (%ix%i), offset %i\n", argblock.arg[0], argblock.arg[1], argblock.arg[2], argblock.arg[3]);
+#endif
+  
+  table = Address((ZUWord) argblock.arg[0]);
+
+  for (y=0; y<argblock.arg[2]; y++)
+    {
+      if (y != 0)
+	{
+	  stream_flush_buffer();
+	  if (machine.screen_on)
+            display_set_cursor(xpos, ypos+y);
+	}
+
+      for (x=0; x<argblock.arg[1]; x++)
+	{
+	  unsigned char c;
+
+	  c = (table++)[0];
+	  if (c == 0)
+	    c = 32;
+	  if (c>31)
+	    stream_printf("%c", c);
+	}
+
+      table += argblock.arg[3];
+    }
+  stream_flush_buffer();
+%}
+
+OPCODE "check_argcount" VAR:0x1f ARGS:1 BRANCH        VERSION 5,6,7,8
+%{
+  result = (stack->current_frame->flags&(1<<(argblock.arg[0]-1)))!=0;
+  dobranch;
+%}
+
+####                           ----// 888 \\----                           ####
+# EXT ops
+
+OPCODE "save"          EXT:0x00 ARGS:3 STORE CANJUMP VERSION 5,6,7,8
+%{
+  stream_flush_buffer();
+  
+  if (argblock.n_args == 0)
+    {
+      ZWord tmp;
+      ZFile* f;
+
+      stream_printf("\nPlease supply a filename for save\n");
+      f = get_file_write(NULL, save_fname, ZFile_save);
+
+      store(stack, st, 2);
+      if (state_save(f, stack, pc))
+	{
+	  tmp = GetVar(st); /* Pop the variable if it was on the stack */
+	  store(stack, st, 1);
+	}
+      else
+	{
+	  tmp = GetVar(st);
+	  store(stack, st, 0);
+
+	  if (state_fail())
+	    stream_printf("(Save failed, reason: %s)\n", state_fail());
+	  else
+	    stream_printf("(Save failed, reason unknown)\n");
+	}
+    }
+  else
+    {
+      char fname[256];
+      ZFile* file;
+      int    prompt = 1;
+      
+#ifdef SPEC_11
+      if (argblock.n_args > 3)
+        prompt = argblock.arg[3];
+#endif
+
+      if (argblock.arg[2] != 0)
+        {
+	  strncpy(fname, 
+	          Address(argblock.arg[2]+1),
+		  ReadByte(argblock.arg[2]));
+          fname[ReadByte(argblock.arg[2])] = 0;
+	}
+      else
+	strcpy(fname, "table.dat");
+
+      if (prompt)
+	{
+      	  stream_printf("\nPlease supply a filename for data save\n");
+      	  file = get_file_write(NULL, fname, ZFile_data);
+	}
+      else
+        {
+	  char* newname;
+
+	  newname = malloc(strlen(rc_get_savedir()) +
+	                   strlen(fname) + 3);
+
+	  sprintf(newname, "%s/%s", rc_get_savedir(), fname); /* Safe: see above */
+
+	  file = open_file_write(newname);
+
+	  free(newname);
+        }
+
+      if (!(file))
+	{
+	  store(stack, st, 0);
+	  goto loop;
+	}
+
+      write_block(file, Address(argblock.arg[0]), (ZUWord)argblock.arg[1]);
+
+      close_file(file);
+	
+      store(stack, st, argblock.arg[1]);
+    }
+%}
+
+OPCODE "restore"       EXT:0x01 ARGS:3 STORE CANJUMP VERSION 5,6,7,8
+%{
+  if (argblock.n_args == 0)
+    {
+      ZFile* f;
+      ZDWord sz;
+
+      stream_printf("\nPlease supply a filename for restore\n");
+      f = get_file_read(&sz, save_fname, ZFile_save);
+
+      if (state_load(f, sz, stack, &pc))
+	{
+	  zmachine_setup_header();
+	  goto loop;
+	}
+
+      if (state_fail())
+	stream_printf("(Restore failed, reason: %s)\n", state_fail());
+      else
+	stream_printf("(Restore failed, reason unknown)\n");
+      
+      store(stack, st, 0);
+    }
+  else
+    {
+      char fname[256];
+      ZFile* file;
+      int sz;
+      int    prompt = 1;
+      
+#ifdef SPEC_11
+      if (argblock.n_args > 3)
+        prompt = argblock.arg[3];
+#endif
+
+      if (argblock.arg[2] != 0)
+        {
+	  strncpy(fname,
+	          Address(argblock.arg[2]+1),
+		  ReadByte(argblock.arg[2]));
+	  fname[ReadByte(argblock.arg[2])] = 0;
+	}
+      else
+	strcpy(fname, "table.dat");
+
+      if (prompt)
+        {
+          stream_printf("\nPlease supply a filename for data restore\n");
+          file = get_file_read(&sz, fname, ZFile_data);
+        }
+      else
+        {
+	  char* newname = NULL;
+
+	  newname = malloc(strlen(rc_get_savedir()) +
+	                   strlen(fname) + 3);
+
+	  sprintf(newname, "%s/%s", rc_get_savedir(), fname); /* Safe: see above */
+
+	  sz = get_file_size(newname);
+	  file = open_file(newname);
+
+	  free(newname);
+        }
+
+      if (!(file))
+	{
+	  store(stack, st, 0);
+	  goto loop;
+	}
+
+      if (sz < (ZUWord)argblock.arg[1])
+	argblock.arg[1] = (ZUWord) sz;
+      read_block2(Address(argblock.arg[0]),
+		  file, 0, (ZUWord)argblock.arg[1]);
+
+      close_file(file);
+	
+      store(stack, st, argblock.arg[1]);
+    }
+%}
+
+OPCODE "log_shift"     EXT:0x02 ARGS:2 STORE  VERSION 5,6,7,8
+%{
+  if (argblock.arg[1] >= 0)
+    {
+      store(stack, st, argblock.arg[0]<<argblock.arg[1]);
+    }
+  else
+    {
+      ZUWord result;
+
+      result = argblock.arg[0];
+      result >>= -argblock.arg[1];
+      store(stack, st, result);
+    }
+%}
+
+OPCODE "art_shift"     EXT:0x03 ARGS:2 STORE  VERSION 5,6,7,8
+%{
+  if (argblock.arg[1] >= 0)
+    {
+      store(stack, st, argblock.arg[0]<<argblock.arg[1]);
+    }
+  else
+    {
+      store(stack, st, argblock.arg[0]>>-argblock.arg[1]);
+    }  
+%}
+
+OPCODE "set_font"      EXT:0x04 ARGS:1 STORE  VERSION 5,7,8
+%{
+  stream_flush_buffer();
+
+  store(stack, st, 1);
+ 
+  switch (argblock.arg[0])
+    {
+    case 1:
+      display_set_style(-16);
+      display_set_style(-8);
+      break;
+
+    case 3:
+      display_set_style(16);
+      break;
+
+    case 4:
+      display_set_style(-16);
+      display_set_style(8);
+      break;
+
+    default:
+      zmachine_warning("Font %i not supported", argblock.arg[0]);
+      store(stack, st, 0);
+   }
+%}
+
+OPCODE "save_undo"     EXT:0x09 ARGS:0 STORE CANJUMP VERSION 5,6,7,8
+%{
+#ifdef CAN_UNDO
+  ZWord tmp;
+  int x;
+
+  if (machine.undo[UNDO_LEVEL-1])
+    free(machine.undo[UNDO_LEVEL-1]);
+
+  for (x=UNDO_LEVEL-2; x>=0; x--)
+    {
+      machine.undo[x+1] = machine.undo[x];
+      machine.undo_len[x+1] = machine.undo_len[x];
+    }
+  
+  store(stack, st, 2);
+  machine.undo[0] = state_compile(stack, pc, &machine.undo_len[0],
+#ifdef SQUEEZE_UNDO
+			       1
+#else
+			       0
+#endif
+			       );
+  tmp = GetVar(st); /* (Pop the value again if it's on the stack) */
+  
+  if (machine.undo)
+    store(stack, st, 1);
+  else
+    store(stack, st, 0);
+#else
+  store(stack, st, -1);
+#endif
+%}
+
+OPCODE "restore_undo"  EXT:0x0a ARGS:0 STORE CANJUMP VERSION 5,6,7,8
+%{
+#ifdef CAN_UNDO
+  if (machine.undo[0])
+    {
+      if (state_decompile(machine.undo[0], stack, &pc, machine.undo_len[0]))
+	{
+	  int x;
+
+	  free(machine.undo[0]);
+	  for (x=1; x<UNDO_LEVEL; x++)
+	    {
+	      machine.undo[x-1] = machine.undo[x];
+	      machine.undo_len[x-1] = machine.undo_len[x];
+	    }
+	  machine.undo[UNDO_LEVEL-1] = NULL;
+
+	  goto loop;
+	}
+      if (state_fail())
+        {
+	  stream_printf("[ Undo failed, %s ]\n", state_fail());
+	}
+      store(stack, st, 0);
+    }
+#endif
+  store(stack, st, 0);
+%}
+
+OPCODE "print_unicode" EXT:0x0b ARGS:1        VERSION 5,7,8
+%{
+  stream_printc(argblock.arg[0]);
+%}
+
+OPCODE "check_unicode" EXT:0x0c ARGS:1 STORE  VERSION 5,7,8
+%{
+  store(stack, st, 1);
+%}
+
+####                           ----// 888 \\----                           ####
+# Version 6 opcodes
+
+OPCODE "aread"          VAR:0x04 ARGS:4 STORE CANJUMP VERSION 6
+%{
+  //pc -= (3+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (3+padding);
+  
+  stream_flush_buffer();
+  v6_set_caret();
+  zcode_op_aread_5678(&pc, stack, &argblock, st);
+  
+  machine.autosave_pc = 0;
+  //pc += (3+padding);
+%}
+
+OPCODE "split_window"   VAR:0x0a ARGS:1               VERSION 6
+%{
+  int owin;
+  int oldx0, oldy0;
+  int oldx1, oldy1;
+
+  stream_flush_buffer();
+
+  owin = v6_get_window();
+  
+  v6_set_window(0);
+  oldx0 = v6_get_cursor_x();
+  oldy0 = v6_get_cursor_y();
+
+  v6_set_window(1);
+  oldx1 = v6_get_cursor_x();
+  oldy1 = v6_get_cursor_y();
+
+  windows[0].x      = 0;
+  windows[0].y      = argblock.arg[0]+1;
+  windows[0].xsize  = machine.dinfo->width;
+  windows[0].ysize  = machine.dinfo->height-argblock.arg[0]-1;
+  windows[1].scrolling = 0;
+  windows[1].x      = 0;
+  windows[1].y      = 0;
+  windows[1].xsize  = machine.dinfo->width;
+  windows[1].ysize  = argblock.arg[0];
+  zcode_setup_window(0);
+  zcode_setup_window(1);
+  
+  v6_set_window(0);
+  v6_set_cursor(oldx0, oldy0);
+
+  v6_set_window(1);
+  v6_set_cursor(oldx1, oldy1);
+
+#ifdef DEBUG
+  printf_debug("Defining windows as a result of split_window\n");
+#endif
+
+  v6_set_window(owin);
+%}
+
+OPCODE "set_text_style" VAR:0x11 ARGS:1               VERSION 6
+%{
+  int cwin;
+
+  stream_flush_buffer();
+
+  cwin = v6_get_window();
+
+  if (argblock.arg[0] > 0)
+    windows[cwin].style |= argblock.arg[0];
+  else
+    windows[cwin].style |= ~(-argblock.arg[0]);
+
+  if (argblock.arg[0] == 0)
+    windows[cwin].style = 0;
+
+  v6_set_style(argblock.arg[0]);
+  if (windows[cwin].font_num == 4 && argblock.arg[0] == 0)
+    v6_set_style(8);
+  if (windows[cwin].font_num == 3 && argblock.arg[0] == 0)
+    v6_set_style(16);
+%}
+
+OPCODE "read_char"      VAR:0x16 ARGS:3 STORE CANJUMP VERSION 6
+%{
+  //pc -= (3+padding); /* HACK: allow autosave */
+  machine.autosave_pc = pc - (3+padding);
+
+  stream_flush_buffer();
+  v6_set_caret();
+
+  if (argblock.n_args < 2)
+    {
+      zcode_op_readchar(&pc, stack, &argblock, st);
+    }
+  else
+    {
+      zcode_op_readchar(&pc, stack, &argblock, st);
+    }
+	
+  machine.autosave_pc = 0;
+  //pc += (3+padding); /* HACK: allow autosave */
+%}
+
+OPCODE "print_table"    VAR:0x1e                      VERSION 6
+%{
+  ZByte* table;
+  int x,y;
+  int xpos;
+
+  stream_flush_buffer();
+  xpos = v6_get_cursor_x();
+
+  if (argblock.arg[2] == 0)
+    argblock.arg[2] = 1;
+
+#ifdef DEBUG
+  printf_debug("Printing table #%x (%ix%i), offset %i\n", argblock.arg[0], argblock.arg[1], argblock.arg[2], argblock.arg[3]);
+#endif
+  
+  table = Address((ZUWord) argblock.arg[0]);
+
+  for (y=0; y<argblock.arg[2]; y++)
+    {
+      if (y != 0)
+	{
+	  stream_printf("\n");
+	  stream_flush_buffer();
+	  if (machine.screen_on)
+	    v6_set_cursor(xpos, v6_get_cursor_y());
+	}
+
+      for (x=0; x<argblock.arg[1]; x++)
+	{
+	  unsigned char c;
+
+	  c = (table++)[0];
+	  if (c == 0)
+	    c = 32;
+	  if (c>31)
+	    stream_printf("%c", c);
+	}
+
+      table += argblock.arg[3];
+    }
+  stream_flush_buffer();
+%}
+
+OPCODE "restart"     0OP:0x07 CANJUMP VERSION 6
+%{
+  int x;
+
+  stream_flush_buffer();
+
+  /* Unwind stack */
+  while (stack->current_frame->last_frame != NULL)
+    {
+      ZFrame* oldframe;
+
+      oldframe = stack->current_frame;
+      stack->current_frame = oldframe->last_frame;
+
+      stack->stack_size += oldframe->frame_size;
+      stack->stack_top  -= oldframe->frame_size;
+
+      free(oldframe);
+    }
+  
+  read_block2(machine.memory, machine.file, 
+	machine.story_offset, machine.story_offset + machine.dynamic_ceiling);
+
+  v6_reset();
+
+  for (x=0; x<8; x++)
+    {
+      windows[x].wrapping   = 0;
+      windows[x].scrolling  = 1;
+      windows[x].buffering  = 1;
+      windows[x].transcript = 0;
+      windows[x].x = windows[x].y = 0;
+      windows[x].xsize = machine.dinfo->width; 
+      windows[x].ysize = machine.dinfo->height;
+    }
+
+  call_routine(&pc, stack,
+	       (4*GetWord(machine.header, ZH_initpc)) +
+	       machine.routine_offset);
+  zcode_v6_initialise();
+
+  restart_machine();  
+%}
+
+OPCODE "set_colour"    2OP:0x1b REALLYVAR     VERSION 6
+%{
+  int win = 0;
+  int working;
+
+  int fg, bg;
+
+  stream_flush_buffer();
+
+  win = working = v6_get_window();
+  if (argblock.n_args > 2)
+    {
+      win = v6_get_window();
+      v6_set_window(WinNum(argblock.arg[2]));
+      working = WinNum(argblock.arg[2]);
+    }  
+
+  fg = convert_colour(arg1);
+  bg = convert_colour(arg2);
+
+  v6_set_colours(fg, bg);
+
+  fg = v6_get_fg_colour();
+  bg = v6_get_bg_colour();
+  
+  if (fg >= 0)
+    {
+      windows[working].colour = (windows[working].colour&~0xff)|((fg+2)&0xff);
+      if (fg <= 16) 
+	    windows[working].fg_true = true_colour(fg);
+	  else
+	    windows[working].fg_true = fg - 16;
+    }
+  if (bg >= 0)
+    {
+      windows[working].colour = (windows[working].colour&~0xff00)|(((bg+2)&0xff)<<8);
+      if (bg <= 16) 
+	    windows[working].bg_true = true_colour(bg);
+	  else
+	    windows[working].bg_true = bg - 16;
+    }
+	  
+  v6_set_window(win);
+%}
+
+OPCODE "set_true_colour" EXT:0x0d VERSION 6
+%{
+#ifndef SPEC_11
+  zmachine_warning("set_true_colour has no effect before standard 1.1");
+#else
+  int fore, back;
+  int win, working;
+
+  stream_flush_buffer();
+
+  win = working = v6_get_window();
+  if (argblock.n_args > 2)
+    {
+      win = v6_get_window();
+      v6_set_window(WinNum(argblock.arg[2]));
+      working = WinNum(argblock.arg[2]);
+    }  
+
+  fore = argblock.arg[0];
+  back = argblock.arg[1];
+
+  if (fore >= 0)
+    fore += 16;
+  if (back >= 0)
+    back += 16;
+
+  v6_set_colours(fore, back);
+
+  windows[working].colour = 0x4040;
+
+  fore = v6_get_fg_colour();
+  back = v6_get_bg_colour();
+    
+  if (fore >= 16)
+    fore -= 16;
+  if (back >= 16)
+    back -= 16;
+
+  windows[working].fg_true = fore;
+  windows[working].bg_true = back;
+
+  v6_set_window(win);
+#endif
+%}
+
+OPCODE "pull"          VAR:0x09 ARGS:1 STORE  VERSION 6
+%{
+  if (argblock.arg[0] != 0)
+    {
+      ZByte* us;
+      ZByte* val;
+      ZUWord len;
+      
+      /* User stack */
+      us = Address(argblock.arg[0]);
+      len = (us[0]<<8)|us[1];
+      len++;
+      us[0] = len>>8; us[1] = len;
+      val = us + len*2;
+      
+      store(stack, st, (val[0]<<8)|val[1]);
+    }
+  else
+    {
+      /* Game stack */
+      store(stack, st, pop(stack));
+    }
+%}
+
+OPCODE "erase_window"   VAR:0x0d ARGS:1               VERSION 6
+%{
+  int old_win, ewin;
+
+  stream_flush_buffer();
+  old_win = v6_get_window();
+
+  if (argblock.n_args == 0)
+    argblock.arg[0] = -3;
+
+  ewin = WinNum(argblock.arg[0]);
+  
+  if (argblock.arg[0] == -1)
+    {
+      old_win = 0;
+      ewin = 0;
+      v6_reset_windows();
+
+#ifdef DEBUG
+      printf_debug("Defining windows as a result of erase_window\n");
+#endif
+
+      for (x=0; x<8; x++)
+        {
+	  v6_set_window(x);
+
+          windows[x].wrapping   = 1;
+          windows[x].scrolling  = 1;
+          windows[x].buffering  = 1;
+          windows[x].transcript = 0;
+          windows[x].x = windows[x].y = 1;
+          windows[x].xsize = machine.dinfo->width; 
+	  windows[x].ysize = machine.dinfo->height;
+	  windows[x].font_num = 0;
+
+	  /* windows[x].colour = ((machine.dinfo->back+2)<<8)|(machine.dinfo->fore+2);
+	  v6_set_colours(machine.dinfo->fore, machine.dinfo->back); */
+	  zcode_setup_window(x);
+       }
+    }
+
+  if (ewin < 0)
+    zmachine_fatal("Attempt to erase invalid window %i", ewin);
+
+  v6_set_window(ewin);
+  v6_erase_window();
+  v6_set_cursor(1,1);
+  v6_set_window(old_win);
+%}
+
+OPCODE "erase_line"    VAR:0x0e ARGS:1        VERSION 6
+%{
+  stream_flush_buffer();
+  v6_erase_line(argblock.arg[0]);
+%}
+
+OPCODE "set_window"    VAR:0x0b ARGS:1        VERSION 6
+%{
+  stream_flush_buffer();
+
+  v6_set_window(WinNum(argblock.arg[0]));
+  machine.transcript_on = (machine.transcript_file!=NULL&&
+    (windows[WinNum(argblock.arg[0])].transcript != 0));
+  stream_buffering(windows[WinNum(argblock.arg[0])].buffering);
+%}
+
+OPCODE "set_cursor"    VAR:0x0f ARGS:3        VERSION 6
+%{
+  int owin;
+
+  stream_flush_buffer();
+
+  if (argblock.n_args < 3)
+    argblock.arg[2] = v6_get_window();
+
+  if (argblock.arg[0] > 0)
+    {
+      owin = v6_get_window();
+      v6_set_window(WinNum(argblock.arg[2]));
+      v6_set_cursor(argblock.arg[1],
+	  	    argblock.arg[0]);
+      v6_set_window(owin);
+    }
+  else
+    {
+      /* FIXME: implement cursor hiding */
+    }
+%}
+
+OPCODE "get_cursor"    VAR:0x10 ARGS:1        VERSION 6
+%{
+  ZByte* dest;
+  int x, y;
+  int win;
+
+  win = v6_get_window();
+
+  dest = Address((ZUWord)argblock.arg[0]);
+  x = v6_get_cursor_x();
+  y = v6_get_cursor_y();
+
+  dest[0] = y>>8;
+  dest[1] = y;
+  dest[2] = x>>8;
+  dest[3] = x;  
+%}
+
+OPCODE "output_stream" VAR:0x13 ARGS:3        VERSION 6
+%{
+  stream_flush_buffer();
+  zcode_op_output_stream(stack, &argblock);
+%}
+
+OPCODE "set_font"      EXT:0x04 ARGS:1 STORE  VERSION 6
+%{
+  int win = 0;
+  int working;
+
+  stream_flush_buffer();
+
+  win = working = v6_get_window();
+  if (argblock.n_args > 2)
+    {
+      win = v6_get_window();
+      v6_set_window(WinNum(argblock.arg[2]));
+      working = WinNum(argblock.arg[2]);
+    }  
+
+  switch (argblock.arg[0])
+    {
+    case 1:
+      v6_set_style(-16);
+      v6_set_style(-8);
+
+      windows[working].font_num = argblock.arg[0];
+ 
+      windows[working].style &= ~(16|8);
+      store(stack, st, 1);
+      break;
+
+    case 3:
+      windows[working].font_num = argblock.arg[0];
+      v6_set_style(16);
+      windows[working].style |= 16;
+      store(stack, st, 1);
+      break;
+
+    case 4:
+      windows[working].font_num = argblock.arg[0];
+      v6_set_style(-16);
+      v6_set_style(8);
+      windows[working].style &= ~16;
+      windows[working].style |= 8;
+      store(stack, st, 1);
+      break;
+
+    default:
+      zmachine_warning("Font %i not supported", argblock.arg[0]);
+      store(stack, st, 0);
+   }
+
+  v6_set_window(win);
+%}
+
+OPCODE "draw_picture"  EXT:0x05 ARGS:3        VERSION 6
+%{
+  BlorbImage* img;
+  int win;
+
+  stream_flush_buffer();
+
+  win = v6_get_window();
+
+  if (machine.blorb != NULL)
+    {
+      img = blorb_findimage(machine.blorb, argblock.arg[0]);
+      // img = blorb_findimage(machine.blorb, 1);
+    }
+  else
+    img = NULL;
+
+  if (img != NULL && img->loaded != NULL)
+    {
+      int x,y;
+
+      x = argblock.arg[2];
+      y = argblock.arg[1];
+      if (argblock.n_args < 3)
+	x = v6_get_cursor_x();
+      if (argblock.n_args < 2)
+        y = v6_get_cursor_y();
+
+#ifdef DEBUG
+      printf_debug("Drawing image %i @ (%i, %i)\n", argblock.arg[0],
+	x, y);
+#endif
+
+      display_plot_image(img, x+windows[win].x-1, y+windows[win].y-1);
+    }
+%}
+
+OPCODE "picture_data"  EXT:0x06 BRANCH        VERSION 6
+%{
+  unsigned char* d;
+  int width, height;
+  BlorbImage* img;
+
+  if (argblock.arg[0] == 0)
+    {
+      if (machine.blorb != NULL)
+	{
+          result = 1;
+	  if (argblock.n_args > 1)
+	    {
+	      unsigned char* mem;
+
+              mem = Address(argblock.arg[1]);
+	      mem[0] = machine.blorb->index.npictures>>8;
+	      mem[1] = machine.blorb->index.npictures;
+
+	      mem[2] = machine.blorb->release>>8;
+              mem[3] = machine.blorb->release;
+	    }
+ 	}
+      else
+        result = 0;
+
+      goto draw_pict_branch;
+    }
+
+  d = Address((ZUWord)argblock.arg[1]);
+
+  if (machine.blorb != NULL)
+    {
+      img = blorb_findimage(machine.blorb, argblock.arg[0]);
+    }
+  else
+    img = NULL;
+
+  if (img != NULL)
+    {
+      int sc_n, sc_d;
+
+      width = img->width;
+      height = img->height;
+  
+      v6_scale_image(img, &sc_n, &sc_d);
+
+#ifdef DEBUG
+      printf_debug("Image data for %i: %ix%i (scaled %i, %i)\n", 
+	argblock.arg[0], width, height, sc_n, sc_d);
+#endif
+
+      width = (width*sc_n)/sc_d;
+      height = (height*sc_n)/sc_d;
+
+      d[0] = height>>8;
+      d[1] = height;
+      d[2] = width>>8;
+      d[3] = width;
+
+      result = 1;
+    }
+  else
+    {
+      result = 0;
+    }
+
+ draw_pict_branch:
+  dobranch;
+%}
+
+OPCODE "erase_picture" EXT:0x07               VERSION 6
+%{
+  int width, height;
+  BlorbImage* img;
+
+  stream_flush_buffer();
+
+  if (machine.blorb != NULL)
+    {
+      img = blorb_findimage(machine.blorb, argblock.arg[0]);
+    }
+  else
+    img = NULL;
+
+  if (img != NULL)
+    {
+      int sc_n, sc_d;
+
+      width = img->width;
+      height = img->height;
+
+      v6_scale_image(img, &sc_n, &sc_d);
+
+      width = (width*sc_n)/sc_d;
+      height = (height*sc_n)/sc_d;
+      
+      display_pixmap_cols(v6_get_bg_colour(), 0);
+      display_plot_rect(windows[v6_get_window()].x + argblock.arg[2], 
+	                windows[v6_get_window()].y + argblock.arg[1],
+	                width, height);
+    }
+%}
+
+OPCODE "set_margins"   EXT:0x08 ARGS:3        VERSION 6
+%{
+  int win, yp;
+
+  stream_flush_buffer();
+
+  if (argblock.n_args < 3)
+    argblock.arg[2] = v6_get_window();
+  win = v6_get_window();
+  v6_set_window(WinNum(argblock.arg[2]));
+
+#ifdef DEBUG
+  printf_debug("Margins set to %i, %i\n", argblock.arg[0], argblock.arg[1]);
+#endif
+
+  windows[argblock.arg[2]].leftmar  = argblock.arg[0];
+  windows[argblock.arg[2]].rightmar = argblock.arg[1];
+
+  zcode_setup_window(argblock.arg[2]);
+  if (v6_get_cursor_x() < windows[argblock.arg[2]].leftmar)
+    {
+      yp = v6_get_cursor_y();
+    
+      v6_set_cursor(windows[argblock.arg[2]].leftmar,
+                    yp);
+    }
+  v6_set_window(win);
+%}
+
+OPCODE "move_window"   EXT:0x10               VERSION 6
+%{
+  int xmove, ymove;
+  int win;
+
+  stream_flush_buffer();
+
+  win = v6_get_window();
+  v6_set_window(WinNum(argblock.arg[0]));
+
+  xmove = argblock.arg[2]-windows[argblock.arg[0]].x;
+  ymove = argblock.arg[1]-windows[argblock.arg[0]].y;
+
+  v6_set_cursor(v6_get_cursor_x()+xmove,
+                v6_get_cursor_y()+ymove);
+
+  windows[argblock.arg[0]].x = argblock.arg[2];
+  windows[argblock.arg[0]].y = argblock.arg[1];
+  windows[argblock.arg[0]].leftmar = 0;
+  windows[argblock.arg[0]].rightmar = 0;
+  
+#ifdef DEBUG
+  printf_debug("Window %i position is now %i, %i\n",	
+	 argblock.arg[0],
+	 windows[argblock.arg[0]].x,
+	 windows[argblock.arg[0]].y);
+#endif
+
+  zcode_setup_window(argblock.arg[0]);
+  v6_set_window(win);
+%}
+
+OPCODE "window_size"   EXT:0x11               VERSION 6
+%{
+  stream_flush_buffer();
+
+  windows[WinNum(argblock.arg[0])].xsize = argblock.arg[2];
+  windows[WinNum(argblock.arg[0])].ysize = argblock.arg[1];
+  windows[WinNum(argblock.arg[0])].leftmar = 0;
+  windows[WinNum(argblock.arg[0])].rightmar = 0;
+
+#ifdef DEBUG
+  printf_debug("Window %i size is now %i, %i\n",	
+	 argblock.arg[0],
+	 windows[argblock.arg[0]].xsize,
+	 windows[argblock.arg[0]].ysize);
+#endif
+
+  {
+    int win;
+    win = v6_get_window();
+    zcode_setup_window(argblock.arg[0]);
+    v6_set_window(win);
+  }
+%}
+
+OPCODE "window_style"  EXT:0x12               VERSION 6
+%{
+  int win, owin;
+
+  win = WinNum(argblock.arg[0]);
+
+  stream_flush_buffer();
+
+#ifdef DEBUG
+  printf_debug("Window_style: %i %i %i\n", argblock.arg[0], argblock.arg[1], argblock.arg[2]);
+#endif
+
+  StyleSet(windows[win].wrapping,   argblock.arg[1]&1);
+  StyleSet(windows[win].scrolling,  argblock.arg[1]&2);
+  StyleSet(windows[win].transcript, argblock.arg[1]&4);
+  StyleSet(windows[win].buffering,  argblock.arg[1]&8);
+
+  owin = v6_get_window();
+  zcode_setup_window(win);
+  v6_set_window(owin);
+%}
+
+OPCODE "get_wind_prop" EXT:0x13        STORE  VERSION 6
+%{
+  int win;
+
+  stream_flush_buffer();
+  win = v6_get_window();
+
+  argblock.arg[0] = v6_window(argblock.arg[0]);
+  if (argblock.arg[0] < 0)
+    zmachine_fatal("Bad window for get_wind_prop: %i", argblock.arg[0]);
+  v6_set_window(WinNum(argblock.arg[0]));
+
+  switch(argblock.arg[1])
+    {
+    case 0:
+      store(stack, st, windows[argblock.arg[0]].y);
+      break;
+    case 1:
+      store(stack, st, windows[argblock.arg[0]].x);
+      break;
+    case 2:
+      store(stack, st, windows[argblock.arg[0]].ysize);
+      break;
+    case 3:
+      store(stack, st, windows[argblock.arg[0]].xsize);
+      break;
+    case 4:
+      store(stack, st, v6_get_cursor_y());
+      break;
+    case 5:
+      store(stack, st, v6_get_cursor_x());
+      break;
+    case 6:
+      store(stack, st, windows[argblock.arg[0]].leftmar);
+      break;
+    case 7:
+      store(stack, st, windows[argblock.arg[0]].rightmar);
+      break;
+    case 8:
+      store(stack, st, windows[argblock.arg[0]].newline_routine);
+      break;
+    case 9:
+      store(stack, st, windows[argblock.arg[0]].countdown);
+      break;
+    case 10:
+      store(stack, st, windows[argblock.arg[0]].style);
+      break;
+    case 11:
+      store(stack, st, windows[argblock.arg[0]].colour);
+      break;
+    case 12:
+      store(stack, st, windows[argblock.arg[0]].font_num);
+      break;
+    case 13:
+      store(stack, st, ((int)(display_get_font_height(windows[argblock.arg[0]].style)+0.5)<<8)|
+                        (int)(display_get_font_width(windows[argblock.arg[0]].style)+0.5));
+      break;
+    case 14:
+      store(stack, st,
+	    windows[argblock.arg[0]].wrapping|
+	    (windows[argblock.arg[0]].scrolling<<1)|
+	    (windows[argblock.arg[0]].transcript<<2)|
+	    (windows[argblock.arg[0]].buffering<<3));
+      break;
+    case 15:
+      store(stack, st,
+	    windows[argblock.arg[0]].line_count);
+      break;
+    case 16:
+      store(stack, st,
+            windows[argblock.arg[0]].fg_true);
+      break;
+    case 17:
+      store(stack, st,
+            windows[argblock.arg[0]].bg_true);
+      break;
+
+    default:
+      zmachine_fatal("Attempt to access out of range window property %i", argblock.arg[1]);
+   }
+  v6_set_window(win);
+%}
+
+OPCODE "scroll_window" EXT:0x14               VERSION 6
+%{
+  int win;
+
+  win = WinNum(argblock.arg[0]);
+
+  if (win == v6_get_window())
+    stream_flush_buffer();
+
+  v6_scroll_window(win, argblock.arg[1]);
+%}
+
+OPCODE "pop_stack"     EXT:0x15               VERSION 6
+%{
+  if (argblock.arg[1] == 0)
+    {
+      int x;
+
+      for (x=0; x<(ZUWord) argblock.arg[0]; x++)
+	pop(stack);
+    }
+  else
+    {
+      ZByte* s;
+      ZUWord len;
+
+      s = Address(argblock.arg[1]);
+      len = (s[0]<<8)|s[1];
+      len += argblock.arg[0];
+      s[0] = len>>8;
+      s[1] = len;
+    }
+%}
+
+OPCODE "read_mouse"    EXT:0x16               VERSION 6
+%{
+  unsigned char* d;
+
+  d = Address(argblock.arg[0]);
+  display_read_mouse();
+
+  d[0] = (unsigned)display_get_pix_mouse_y()>>8;
+  d[1] = (unsigned)display_get_pix_mouse_y();
+  d[2] = (unsigned)display_get_pix_mouse_x()>>8;
+  d[3] = (unsigned)display_get_pix_mouse_x();
+  d[4] = (unsigned)display_get_pix_mouse_b()>>8;
+  d[5] = (unsigned)display_get_pix_mouse_b();
+  d[6] = 0;
+  d[7] = 0;
+%}
+
+OPCODE "mouse_window"  EXT:0x17               VERSION 6
+%{
+  v6_set_mouse_win(WinNum(argblock.arg[0]));
+%}
+
+OPCODE "push_stack"    EXT:0x18        BRANCH VERSION 6
+%{
+  result = zcode_v6_push_stack(stack, argblock.arg[1], argblock.arg[0]);
+  dobranch;
+%}
+
+OPCODE "put_wind_prop" EXT:0x19               VERSION 6
+%{
+  int win;
+
+  stream_flush_buffer();
+
+  win = v6_get_window();
+  v6_set_window(WinNum(argblock.arg[0]));
+  switch(argblock.arg[1])
+    {
+    case 0:
+      zmachine_warning("Bad put_wind_prop: should use move_window instead");
+      windows[argblock.arg[0]].y = argblock.arg[2];
+      break;
+    case 1:
+      zmachine_warning("Bad put_wind_prop: should use move_window instead");
+      windows[argblock.arg[0]].x = argblock.arg[2];
+      break;
+    case 2:
+      zmachine_warning("Bad put_wind_prop: should use window_size instead");
+      windows[argblock.arg[0]].ysize = argblock.arg[2];
+      break;
+    case 3:
+      zmachine_warning("Bad put_wind_prop: should use window_size instead");
+      windows[argblock.arg[0]].xsize = argblock.arg[2];
+      break;
+    case 4:
+      zmachine_warning("Bad put_wind_prop: should use set_cursor instead");
+      v6_set_cursor(v6_get_cursor_x(), argblock.arg[2]);
+      break;
+    case 5:
+      zmachine_warning("Bad put_wind_prop: should use set_cursor instead");
+      v6_set_cursor(argblock.arg[2], v6_get_cursor_y());
+      break;
+    case 6:
+      windows[argblock.arg[0]].leftmar = argblock.arg[2];
+      break;
+    case 7:
+      windows[argblock.arg[0]].rightmar = argblock.arg[2];
+      break;
+    case 8:
+      windows[argblock.arg[0]].newline_routine = argblock.arg[2];
+      break;
+    case 9:
+      windows[argblock.arg[0]].countdown = argblock.arg[2];
+      break;
+    case 10:
+      zmachine_warning("Bad put_wind_prop: should use set_text_style instead");
+      break;
+    case 11:
+      zmachine_warning("Bad put_wind_prop: should use set_colour instead");
+      break;
+    case 12:
+      zmachine_warning("Bad put_wind_prop: should use set_font instead");
+      break;
+    case 13:
+      zmachine_warning("Bad put_wind_prop: should use set_font instead");
+      break;
+    case 14:
+      zmachine_warning("Bad put_wind_prop: should use window_style instead");
+      break;
+    case 15:
+      windows[argblock.arg[0]].line_count = argblock.arg[2];
+      break;
+
+    default:
+      zmachine_fatal("Attempt to access out of range window property %i", argblock.arg[1]);
+   }
+  v6_set_window(win);  
+%}
+
+OPCODE "print_form"    EXT:0x1a               VERSION 6
+%{
+  ZByte* table;
+  int len;
+  int first;
+
+  table = Address((ZUWord) argblock.arg[0]);
+  first = 1;
+
+  do
+    {
+      int x;
+      
+      len = (table[0]<<8)|(table[1]);
+      if (!first && len > 0)
+	stream_printf("\n");
+      first = 0;
+
+      for (x=0; x<len; x++)
+	{
+	  stream_printf("%c", table[x+2]);
+	}
+
+      table += len+2;
+    }
+  while (len != 0);
+%}
+
+OPCODE "make_menu"     EXT:0x1b        BRANCH VERSION 6
+%{
+  /* Hum, the spec is unclear on what the branch does... */
+  /* printf_debug("make_menu not implemented\n"); */
+
+  result = 0;
+  dobranch;
+%}
+
+OPCODE "picture_table" EXT:0x1c               VERSION 6
+%{
+  /* Does nothing */
+%}
+
+OPCODE "buffer_screen" EXT:0x1d STORE		  VERSION 6
+%{
+  /* Not really supported */
+  /* Zoom really has no choice with screen buffering, especially in the cocoa version */
+  if (arg1 == 0 || arg1 == 1) {
+	/* Exactly the same for zoom */
+  } else if (arg1 == -1) {
+	/* Implement me! */
+	display_flush();
+  } else {
+	zmachine_warning("buffer_screen opcode cannot take values other than 0, 1 or -1");
+  }
+  
+  store(stack, st, 0);
+%}
+
+####                           ----// 888 \\----                           ####
+# Standard 1.1 opcodes
+
+OPCODE "set_true_colour" EXT:0x0d VERSION 5,7,8
+%{
+  int fore, back;
+
+#ifndef SPEC_11
+  zmachine_warning("set_true_colour has no effect before standard 1.1");
+#else
+  stream_flush_buffer();
+
+  fore = arg1+16;
+  back = arg2+16;
+
+  if (arg1 < 0)
+    fore = arg1;
+  if (arg2 < 0)
+    back = arg2;
+
+  display_set_colour(fore, back);
+#endif
+%}
+
+OPCODE "sound_data" EXT:0x0e BRANCH VERSION 5,6,7,8
+%{
+#ifndef SPEC_11
+  zmachine_warning("sound_data has no effect before standard 1.1");
+#else
+#endif
+
+  result = 0;
+  dobranch;
+%}
+
+####                           ----// 888 \\----                           ####
+# Our own extensions - benchmarking/profiling operations
+OPCODE "start_timer"   EXT:0x80               VERSION 4,5,6,7,8
+%{
+  start_clock = clock();
+%}
+
+OPCODE "stop_timer"    EXT:0x81               VERSION 4,5,6,7,8
+%{
+  end_clock = clock();
+%}
+
+OPCODE "read_timer"    EXT:0x82 STORE         VERSION 4,5,6,7,8
+%{
+  clock_t now;
+
+  now = end_clock - start_clock;
+
+  store(stack, st, (ZUWord) (now*100)/CLOCKS_PER_SEC);
+%}
+
+OPCODE "print_timer"   EXT:0x83      	      VERSION 4,5,6,7,8
+%{
+  clock_t now;
+  
+  now = end_clock - start_clock;
+
+  stream_printf("%i.%02i secs", (signed int) (now/CLOCKS_PER_SEC),
+		(signed int) ((now*100)/CLOCKS_PER_SEC)%100);
+%}
+
+OPCODE "print_stack"   EXT:0x84      	      VERSION 5,7,8
+%{
+    zmachine_dump_stack(stack);
+%}

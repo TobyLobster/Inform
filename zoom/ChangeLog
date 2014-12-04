@@ -1,0 +1,147 @@
+2002-02-12  Andrew Hunter    <andrew@logicalshift.demon.co.uk>
+
+	* (Failed to update the ChangeLog in *ages*...)
+
+	* Mac OS X version ready
+
+	* Might as well bump the version to 1.0.0
+
+	* Many minor bugs fixed
+
+2000-12-14  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* finally added function key and mouse support
+
+2000-12-11  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* fixed equally stupid bug where argp was no longer being detected
+
+	* fixed damn stupid bug where zmachine_setup_header() was writing
+	to the objects header word instead of flags2.
+
+	* version updated to 0.9.99dev9 (release of beta5)
+
+	* resource leak fixed (windisplay.c)
+
+	* display flicker reduced (windisplay.c)
+
+	* line history added (windisplay.c)
+	
+2000-12-08  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* save/restore now display windows dialogue boxes. Unless its the X
+	version, o'course.
+	
+	* windows display drivers tidied up and polished off a bit more.
+	> polish drivers
+	The display drivers look a bit cleaner now.
+
+2000-12-07  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* windows input now working, a few bugs fixed in windisplay.c
+	
+2000-12-06  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* random number generator added (no longer relies on whatever your
+	OS provides for srand and rand)
+	
+	* version updated to 0.9.99dev8
+	
+	* merged windows version back into CVS. Main changes are the use of
+	the noyywrap option in the lexers, windisplay.c, printf_debug and
+	related functions and cygwin & cross-compiling detection. There's
+	also a hack for Borland cc's inlining code which causes gcc to
+	emit a warning - note that push() is now defined in both interp.c
+	and state.c.
+
+2000-11-27  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* unicode fixes, unicode table in header extension block now supported
+
+2000-11-25  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* display drivers changed to support ISO 10646 characters. That
+	is, Unicode. Now plays the German version of Zork I, although for
+	some obscure reason it doesn't recognise 'ja'...
+
+2000-11-21  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* header flags now set (more?) correctly
+	
+2000-11-20  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* graphics mode added for those version 5 games as support it -
+	not many.
+
+2000-11-19  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* read_char timing implemented
+	
+	* bug fixed in timed input
+	
+	* state_decompile silly bug fixed
+	
+	* input_stream implemented, bugs in output_stream fixed
+
+	* freetype work abandoned; freetype far too buggy
+	
+2000-11-17  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* freetype work started. Version changed to 0.9.99dev6
+	
+2000-11-10  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* restore was reporting file was too small when it actually
+	doesn't exist. Fixed.
+	
+	* v3 save was storing the wrong address in PC under some
+	circumstances. Fixed
+
+	* savedir option added to .zoomrc
+
+	* V6 support improved further... Zork Zero is now displaying
+	almost correctly
+
+2000-11-09  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+        * bug fixed in xdisplay.c that caused the cursor to slowly
+	creep across the screen in Border Zone
+
+	* The Lurking Horror accesses out-of-range property 32 sometimes.
+	Changed this condition to a warning instead of a fatal error
+	
+	* menu added, to appear when the user specifies no game on the
+	commandline
+
+	* bug fixed in state.c - it wasn't storing the stack correctly
+	(or, indeed, at all)	
+
+	* V6 support improved... ZorkZero looks slightly better
+
+2000-11-08  Andrew Hunter    <andrew@logicalshift.co.uk>
+	
+	* version changed to 0.9.99dev5
+
+	* changed builder to new format. Now uses gotos rather than calling
+	subroutines. This is a manual inlining of the functions - we get the
+	speed increases encountered before, but without the compiler
+	problems, or the size increase. Standard speed of the interpreter
+	is just over twice the speed of frotz (2.32). The new format of
+	the zcode.ops file removed the need for op.c altogether.
+
+2000-11-07  Andrew Hunter    <andrew@logicalshift.co.uk>
+
+	* version changed to 0.9.99dev4
+	
+	* zoom-0.9.99beta3 released
+
+	* debugging: started adding attribute, property and object watch
+	routines
+
+	* bugfixes: transcript now works when header bit is
+	set. Seastalker window display fixed. Undo no longer leaks
+	memory. zoomrc file added to tarball. Save/restore now print
+	reasons when they fail. Output stream 3 fixed to comply better
+	with specification.
+
+	* version changed to 0.9.99dev3

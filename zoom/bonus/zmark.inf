@@ -1,0 +1,314 @@
+!
+! ZMark - some fairly daft tests of your interpreter's speed
+! Note: needs the extended opcodes start_timer, stop_timer, read_timer and
+! print_timer, as defined by Zoom
+!
+! by Andrew Hunter
+!
+
+[ func a b c d e f g;
+];
+
+[ Main i j k;
+  print "ZMark version 0.2, by Andrew Hunter^^";
+
+  @buffer_mode 0;
+  
+! IntMark1 - tests the speed of add and subtract
+  print "IntMark1: ";
+  @read_char -> i;
+  @"EXT:128";
+  j = 0;
+
+  for (k=0: k<20: k++)
+  {  
+  for (i=0: i<32000: i++)
+    {
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+      @add j 1 -> j;
+      @sub j 1 -> j;
+    }
+  }
+  @"EXT:129";
+  @"EXT:131";
+  new_line;
+
+! IntMark2 - tests the speed of multiply and division operations
+  print "IntMark2: ";
+  @read_char -> i;
+  @"EXT:128";
+  j = 4;
+  for (k=0: k<20: k++)
+  {  
+  for (i=0: i<32000: i++)
+    {
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+      @mul j 5 -> j;
+      @div j 5 -> j;
+    }
+  }
+  @"EXT:129";
+  @"EXT:131";
+  new_line;
+
+  ! JumpMark - how fast can your interpreter do jumps?
+  print "JumpMark: ";
+  @read_char -> i;
+  @"EXT:128";
+  for (j=0: j<100: j++)
+  {
+  for (i=0: i<32000: i++)
+    {
+.one;
+      @jz 0 ?two;
+.three;
+      @jz 0 ?four;
+.five;
+      @jz 0 ?six;
+.seven;
+      @jz 0 ?eight;
+.nine;
+      @jz 0 ?ten;
+.eleven;
+      @jz 0 ?twelve;
+.thirteen;
+      @jz 0 ?fourteen;
+.fifteen;
+      @jz 0 ?fin;
+.fourteen;
+      @jz 0 ?fifteen;
+.twelve;
+      @jz 0 ?thirteen;
+.ten;
+      @jz 0 ?eleven;
+.eight;
+      @jz 0 ?nine;
+.six;
+      @jz 0 ?seven;
+.four;
+      @jz 0 ?five;
+.two;
+      @jz 0 ?three;
+.fin;
+    }
+  }
+  @"EXT:129";
+  @"EXT:131";
+  new_line;
+
+  ! CallMark - how fast can your interpreter do function calls?
+  print "CallMark: ";
+  @read_char -> i;
+  @"EXT:128";
+  for (k=0: k<20: k++)
+  {  
+  for (i=0: i<32000: i++)
+    {
+      @call_vn func;
+  }
+  }
+    @"EXT:129";
+    @"EXT:131";
+    new_line;
+    
+
+  ! NopMark - how fast can your interpreter do no-ops?
+  print "NopMark: ";
+  @read_char -> i;
+  @"EXT:128";
+  for (k=0: k<20: k++)
+  {  
+  for (i=0: i<32000: i++)
+    {
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+      @nop;
+    }
+  }
+  @"EXT:129";
+  @"EXT:131";
+  new_line;
+];

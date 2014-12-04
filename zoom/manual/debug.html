@@ -1,0 +1,192 @@
+<html>	
+
+<head>
+<title>
+Zoom Manual - The Debugger
+</title>
+
+<link rel=stylesheet type="text/css"
+      href="style.css"
+      title="Logical shift">
+
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <a href="index.html">
+	  Home
+	</a>
+      </td>
+
+      <td>
+        Previous
+      </td>
+
+      <td>
+        Next
+      </td>
+    </tr>
+  </table>
+
+  <img src="zoom-icon.png" align=right>
+  <h1>
+    Debugging with Zoom
+  </h1>
+
+  <p>
+    Zoom has a built-in source-level debugger for games compiled with
+    Inform. To work, it requires that you compile with Inform's -k
+    option - this creates the gameinfo.dbg file that Zoom uses to find
+    out how the Z-Code file relates to the source files. While
+    debugging, it is recommended that you leave all files where Inform
+    does, and run Zoom from the directory that the game was compiled
+    in. Zoom will make an effort to find files if you don't do this,
+    but it may not be able to find everything. Note that Zoom's
+    debugger does not currently work in version 6 games.
+  </p>
+
+  <p>
+    Zoom's debug mode is intended to reach those parts that Infix
+    can't. It does not provide the kind of object manipulation
+    commands that Infix does, instead providing commands to single
+    step through code, set breakpoints and even evaluation Inform
+    expressions. It is a useful tool to help track down bugs that
+    crash the interpreter, or problems with algorithms that Infix is
+    too 'coarse' to track down.
+  </p>
+  
+  <p>
+    To start Zoom in debug mode under X-windows, use the '-D' option
+    when starting Zoom (ie <code>zoom -D buggygame.z5</code>). In the
+    Mac OS X version, run the Zoom application and tick the 'Debug
+    mode' checkbox in the initial open dialog. If Zoom can
+    successfully start debug mode, the game will be introduced with a
+    prompt similar to the following:
+  </p>
+
+  <pre class=example>
+= loading symbols from 'gameinfo.dbg'
+=
+= Welcome to Zoom's symbolic debug mode
+= 664 symbols, 345 known routines, in 10 files
+= Type 'h' for help
+=
+== Parser:33 (Main)
+== [ Main; InformLibrary.play(); ];
+= :
+  </pre>
+
+  <p>
+    <code>= :</code> is Zoom's debug prompt: it indicates you can now
+    use debugging commands. Debug prompts are usually in blue on
+    white, and begin with an '=' sign, to distinguish them from the
+    game text. Debug commands all consist of a single letter. Some of
+    them can be followed by a parameter. 
+  </p>
+
+  <h2>
+    Execution flow commands
+  </h2>
+
+  <p>
+    These commands control how the program is being run. They include
+    commands to set breakpoints and step through the program.
+  </p>
+
+  <dl>
+    <dt>b &lt;address&gt; - set breakpoint</dt>
+    <dd>
+      Sets a breakpoint at the given program address. Zoom will stop
+      execution and drop into the debugger as soon as this address is
+      reached. There are two forms of address:
+      <code>file:line</code> (eg <code>Parser:33</code>) - this sets a
+      breakpoint at the given line in a particular file; the other
+      form is simple <code>function</code> (eg <code>Main</code>),
+      which sets a breakpoint at the start of the specified
+      function. Functions use the names that Inform gives them in the
+      symbol file: these are usually the names that you give them, but
+      to break in a function declared as part of an object, you need
+      to use the 'Object.Function' form, and for a function in a
+      class, 'Class::Function'.
+    </dd>
+
+    <dt>s - single step</dt>
+    <dd>
+      Moves on to the next statement, then re-enters the debugger. If
+      a function is called, moves to the first statement in that
+      function.
+    </dd>
+
+    <dt>n - single step</dt>
+    <dd>
+      As for <code>s</code>, but 'steps over' functions (ie, single
+      steps to the next statement in the current function)
+    </dd>
+
+    <dt>f - finish function</dt>
+    <dd>
+      Continues executing until the current function returns, then
+      re-enters the debugger.
+    </dd>
+  </dl>
+
+  <h2>
+    Data inspection commands
+  </h2>
+
+  <p>
+    These commands allow you to inspect the current state of play of a
+    program, by printing out the values of variables, for instance.
+  </p>
+
+  <dl>
+    <dt>p &lt;expression&gt; - print</dt>
+    <dd>
+      Prints the result of evaluating &lt;expression&gt;. The
+      expression is in standard Inform syntax (so you can <code>p
+      location.n_to</code>, for example). Zoom supports the following
+      operators in expressions: <code>+ - * / % & | ~ . .& .# -&gt;
+      --&gt;</code>
+    </dd>
+
+    <dt>d &lt;expression&gt; - display</dt>
+    <dd>
+      'Displays' the given expression. It will be re-printed everytime
+      the debugger notices it has changed (the debugger only checks at
+      breakpoints and when single-stepping)
+    </dd>
+
+    <dt>t - backtrace</dt>
+    <dd>
+      Displays a stack backtrace: a list of the functions that have
+      been called to get to the current location, and where they were
+      called from.
+    </dd>
+  </dl>
+
+  <h2>Miscellaneous commands</h2>
+
+  <dl>
+    <dt>h - help</dt>
+    <dd>
+      Displays a quick summary of the commands supported by the debugger
+    </dd>
+
+    <dt>l - list breakpoints</dt>
+    <dd>
+      Displays a list of the breakpoints that are currently set.
+    </dd>
+  </dl>
+
+  <hr>
+
+  <p class=titchy>
+    Zoom written by Andrew Hunter. Mail any suggestions, bug reports
+    or abuse to <a
+    href="mailto:andrew@logicalshift.demon.co.uk">andrew@logicalshift.demon.co.uk</a>
+  </p>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+Rideable Vehicles by Graham Nelson begins here.
+
+"Vehicles which one sits on top of, rather than inside, such as elephants or
+motorcycles."
+
+A rideable animal is a kind of animal.
+A rideable animal is always enterable.
+A rideable animal is usually not portable.
+A rideable animal is an Inform library supporter.
+Include (- with before [; Go: return 1; ], -) when defining a rideable
+animal.
+
+A rideable vehicle is a kind of supporter.
+A rideable vehicle is always enterable.
+A rideable vehicle is usually not portable.
+Include (- with before [; Go: return 1; ], -) when defining a rideable
+vehicle.
+
+Definition: Something is vehicular if it is a vehicle or it is a
+rideable animal or it is a rideable vehicle.
+
+Mounting is an action applying to one thing.
+
+Before entering a rideable animal (called the steed), try mounting the
+steed instead.
+
+Before entering a rideable vehicle (called the conveyance), try mounting the
+conveyance instead.
+
+Before getting off a rideable animal (called the steed), try dismounting
+instead.
+
+Before getting off a rideable vehicle (called the conveyance), try
+dismounting instead.
+
+Check mounting:
+	if the noun is not a rideable animal and the noun is not a rideable
+	vehicle, say "[The noun] cannot be ridden." instead;
+	abide by the determine common ancestor for entering rule;
+	abide by the can't enter something carried rule;
+	abide by the implicitly pass through other barriers rule.
+	
+Carry out mounting:
+	consider the standard entering rule.
+
+Report mounting:
+	say "You mount [the noun].";
+	consider the describe contents entered into rule.
+
+Understand "ride [something]" as mounting.
+Understand "mount [something]" as mounting.
+
+Dismounting is an action applying to nothing.
+
+Check dismounting:
+	if the player is not carried by a rideable animal and the player is
+	not on a rideable vehicle,
+		say "You are not riding anything." instead.
+	
+Carry out dismounting:
+	if the player is carried by a rideable animal (called the steed),
+		change the noun to the steed;
+	if the player is on a rideable vehicle (called the conveyance),
+		change the noun to the conveyance;
+	consider the standard exiting rule.
+
+Report dismounting:
+	say "You dismount [the noun].";
+	consider the describe room emerged into rule.
+
+Understand "dismount" as dismounting.
+
+Before asking a rideable animal (called the mount) to try going a
+direction (called the way):
+	if the player is carried by the mount, try going the way instead.
+
+Rideable Vehicles ends here.
+
+---- DOCUMENTATION ----
+
+Inform's built-in "vehicle" kind assumes that the vehicle is a
+container, which is fine for cars or hot-air balloons, but not so
+good for a pony or a four-wheeled lawnmower, which one rides rather
+than gets inside. Rideable Vehicles is an extension which creates
+two more kinds: "rideable animal" (good for the pony) and
+"rideable vehicle" (good for the lawnmower).
+
+	The pony is a rideable animal in the Forest Clearing.
+	The lawnmover is a rideable vehicle in the Garden Shed.
+
+This means that three different kinds of thing can be used as a
+means of travel, which might make it awkward to write a general
+rule about them, so we also define the adjective "vehicular" for
+any thing of any of these kinds.
+
+	The Transport Museum is a room. "The Museum is filled with means of transport old and new, including [list of vehicular things in the Transport Museum]."
+
+A new action called "mounting" is created, and a new command "mount"
+(or "ride") is added for the player to use. Thus:
+
+	Instead of mounting the pony, say "The pony snorts and backs off."
+
+results in
+
+	>ride pony
+	The pony snorts and backs off.
+
+And a corresponding "dismounting" action handles the command "dismount".
+
+	>dismount
+	You get off the pony.
+
+Moreover, commands such as "get off the pony" or "get on the lawnmower"
+are converted into these new actions instead, so that rules like the
+following will always work, no matter what command is tried:
+
+	Instead of mounting the tricycle when the transport pass is not carried by the player:
+		say "The tricycle can only be ridden by those with a transport pass."
+
+Lastly, a special rule means that "pony, go east" is recognised when
+the player is riding the pony. (This works for rideable animals, but not
+rideable vehicles.)

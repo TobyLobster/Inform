@@ -1,0 +1,107 @@
+! ====================================
+! Z-Test
+! Z-Machine standards compliance test
+! Written by Andrew Hunter
+! Requires a v5 or v6 interpreter
+! ====================================
+
+Switches v6;
+
+Array abuf --> 256;
+
+Global standard_interpreter = 0;
+
+Class Test
+ with  	Run [;
+    	    print "Test not implemented^";
+	    return -1;
+	],
+	test_result -1,
+	Display [;
+	    @set_colour 6 1;
+	    print (name) self, ": ";
+
+	    if (self.test_result == -1)
+	    {
+	    	@set_colour 2 7;
+		print "Not performed";
+	    }
+	    else if (self.test_result == 0)
+	    {
+	     	@set_colour 5 3;
+		print "Failed";
+	    }
+	    else if (self.test_result == 1)
+	    {
+		@set_colour 2 4;
+		print "Passed";
+	    }
+	    @set_colour 1 1;
+	    new_line;
+	];
+
+#include "v6tests";
+#include "spec11";
+#include "math";
+#include "misc";
+
+[ Main x i obj;
+    print "^^^^";
+    style bold;
+
+    standard_interpreter = $32-->0;
+    
+    print "Z-Machine compliance test^";
+    style roman;
+    print "A non-interactive test of your interpreter's abilities^";
+    print "Release ", (0-->1) & $03ff, " / Serial number ";
+    for (i=18:i<24:i++) print(char)0->i;
+    print " / Inform v"; inversion;
+    print " (no library) ";
+#ifdef STRICT_MODE;
+    print "S";
+#endif;
+#ifdef INFIX;
+    print "X";
+#ifnot;
+#ifdef DEBUG;
+    print "D";
+#endif;
+#endif;
+    new_line;
+    if (standard_interpreter > 0)
+      print "Standard interpreter ",
+          standard_interpreter/256, ".", standard_interpreter%256,
+          " (", 0->$1e, (char) 0->$1f, ")^";
+    
+    print "^^Press any key to run the tests...^";
+    @read_char 1 -> x;
+
+    i = 0;
+    objectloop (obj ofclass Test)
+    {
+	@erase_window -1;
+	
+	print "Test #", i++, " (", (name) obj, ")...^";
+	obj.test_result = obj.Run();
+
+	@set_colour 1 1;
+	print "Press a key for the next test^";
+ 	@read_char 1 -> x;
+
+	@set_colour 1 1;
+   }
+
+    @erase_window -1;
+    style roman;
+
+    print "Tests complete. Results follow:^^";
+    
+    objectloop (obj ofclass Test)
+    {
+	obj.Display();
+    }
+
+    print "^[ Press any key to finish ]^";
+    @read_char 1 -> x;
+];

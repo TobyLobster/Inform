@@ -1,0 +1,1327 @@
+//
+//  IFSourcePage.m
+//  Inform-xc2
+//
+//  Created by Andrew Hunter on 25/03/2007.
+//  Copyright 2007 Andrew Hunter. All rights reserved.
+//
+
+#import "IFAppDelegate.h"
+#import "IFSourcePage.h"
+#import "IFProjectTypes.h"
+#import "IFSyntaxManager.h"
+#import "IFViewAnimator.h"
+#import "IFPreferences.h"
+#import "IFUtility.h"
+
+@interface IFSourcePage(IFSourcePagePrivate)
+
+- (void) limitToRange: (NSRange) range
+	preserveScrollPos: (BOOL)preserveScrollPos;
+- (void) limitToSymbol: (IFIntelSymbol*) symbol
+	preserveScrollPos: (BOOL)preserveScrollPos;
+- (int) lineForCharacter: (int) charNum 
+				 inStore: (NSString*) store;
+
+@end
+
+@implementation IFSourcePage
+
+// = Initialisation =
+
+- (id) initWithProjectController: (IFProjectController*) controller {
+	self = [super initWithNibName: @"Source"
+				projectController: controller];
+
+	if (self) {
+        // Notification
+		[[NSNotificationCenter defaultCenter] addObserver: self
+												 selector: @selector(preferencesChanged:)
+													 name: IFPreferencesEditingDidChangeNotification
+												   object: [IFPreferences sharedPreferences]];
+        
+        //
+        // Create textStorage and load the contents of our file into it.
+        //
+		IFProject* doc = [parent document];
+        [textStorage release];
+		textStorage = [[doc storageForFile: [doc mainSourceFile]] retain];
+        NSAssert(textStorage != nil, @"BUG: no main file!");
+        if (textStorage == nil) {
+			textStorage = [[NSTextStorage alloc] init];
+        }
+
+        //
+        // Create a layoutManager, and connect it to our textStorage
+        //
+        layoutManager = [[NSLayoutManager alloc] init];
+        [textStorage addLayoutManager: layoutManager];
+
+        //
+        // Create a text container, and add it to our layoutManager
+        //
+        textContainer = [[NSTextContainer alloc] initWithContainerSize:view.frame.size];
+        [layoutManager addTextContainer:textContainer];
+        
+        //
+        // Create scroll view
+        //
+        scrollView = [[IFClickThroughScrollView alloc] initWithFrame:[view frame]];
+        [scrollView setBorderType: NSNoBorder];
+        [scrollView setHasVerticalScroller: YES];
+        [scrollView setHasHorizontalScroller: NO];
+        [scrollView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewHeightSizable)];
+        NSSize contentSize = [scrollView contentSize];
+
+        //
+        // Set up the text view
+        //
+        textView = [[IFSourceFileView alloc] initWithFrame: NSMakeRect(0, 0, contentSize.width, contentSize.height)
+                                             textContainer: textContainer];
+        [textView setMinSize: NSMakeSize(0.0, contentSize.height)];
+        [textView setMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+        [textView setVerticallyResizable: YES];
+        [textView setHorizontallyResizable: NO];
+        [textView setAutoresizingMask: NSViewWidthSizable];
+        [textView setDelegate:self];
+        [textView setMenu:contextMenu];
+        [textView setAllowsUndo:YES];
+        [textView setRichText:NO];
+        [textView setEnabledTextCheckingTypes:0];
+        [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
+
+        [[textView textContainer] setContainerSize: NSMakeSize(contentSize.width, FLT_MAX)];
+        [[textView textContainer] setWidthTracksTextView: YES];
+        [textView setTextContainerInset:NSMakeSize(3, 6)];
+
+        //
+        // Attach the views together
+        //
+        [scrollView setDocumentView: textView];
+        [view addSubview: scrollView];
+
+        //
+        // Remember the filename
+        //
+		[openSourceFilepath release];
+		openSourceFilepath = [doc mainSourceFile];
+        
+        //
+		// Monitor for file renaming events
+        //
+		[[NSNotificationCenter defaultCenter] addObserver: self
+												 selector: @selector(sourceFileRenamed:)
+													 name: IFProjectSourceFileRenamedNotification
+												   object: [parent document]];
+		
+        //
+        // Sanity check - make sure Undo is set up correctly
+        //
+		NSAssert([textView undoManager] == [[parent document] undoManager], @"Oops: undo manager broken");
+
+        //
+		// Create the header page
+        //
+		headerPage = [[IFHeaderPage alloc] init];
+		[headerPage setDelegate: self];
+
+        //
+		// Create the header/source page controls
+        //
+		headerPageControl = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"HeaderPage"
+                                                                                    default: @"Headings"]];
+		[headerPageControl setTarget: self];
+		[headerPageControl setAction: @selector(showHeaderPage:)];
+		[headerPageControl setRadioGroup: 1];
+
+		sourcePageControl = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"SourcePage"
+                                                                                    default: @"Source"]];
+		[sourcePageControl setRadioGroup: 1];
+		[sourcePageControl setTarget: self];
+		[sourcePageControl setAction: @selector(showSourcePage:)];
+		[sourcePageControl setState: NSOnState];
+        
+        [textView setSelectedRange: [doc initialSelectionRange]];
+	}
+	
+	return self;
+}
+
+- (void) dealloc {
+    // Main views and text classes
+    [scrollView removeFromSuperview];
+    [scrollView release];
+    [textView release];
+	[textStorage release];
+    [layoutManager release];
+    [textContainer release];
+
+    // Remove all notifications
+	[[NSNotificationCenter defaultCenter] removeObserver: self];
+
+    // Header page
+	[headerPage setDelegate: nil];
+	[headerPageControl	release];
+	[sourcePageControl	release];
+	[headerPage			release];
+
+	[super dealloc];
+}
+
+// = Details about this view =
+
+- (NSString*) title {
+	return [IFUtility localizedString: @"Source Page Title"
+                              default: @"Source"];
+}
+
+- (NSView*) activeView {
+	return textView;
+}
+
+// = Text view delegate methods =
+
+- (NSUndoManager *)undoManagerForTextView:(NSTextView *)aTextView {
+	// Always use the document undo manager
+	return [[parent document] undoManager];
+}
+
+// = Misc =
+
+- (void) pasteSourceCode: (NSString*) sourceCode {
+	// Get the code that existed previously
+	NSRange currentRange = [textView selectedRange];
+	NSString* oldCode = [[textStorage attributedSubstringFromRange: [textView selectedRange]] string];
+	
+	// Undo sequence is to select a suitable range, then replace again
+	NSUndoManager* undo = [textView undoManager];
+	
+	[undo setActionName: [IFUtility localizedString: @"Paste Source Code"]];
+	[undo beginUndoGrouping];
+	
+	[[undo prepareWithInvocationTarget: self] selectRange: currentRange];
+	[[undo prepareWithInvocationTarget: self] pasteSourceCode: oldCode];
+	[[undo prepareWithInvocationTarget: self] selectRange: NSMakeRange(currentRange.location, [sourceCode length])];
+	
+	[undo endUndoGrouping];
+	
+	// Perform the action
+	[textView replaceCharactersInRange: currentRange
+                            withString: sourceCode];
+	[self selectRange: NSMakeRange(currentRange.location, [sourceCode length])];
+}
+
+- (void) sourceFileRenamed: (NSNotification*) not {
+	// Called when a source file is renamed in the document. We need to do nothing, unless the source file
+	// is the one we're displaying, in which we need to update the name of the source file we're displaying
+	NSDictionary* dict = [not userInfo];
+	NSString* oldName = [dict objectForKey: @"OldFilename"];
+	NSString* newName = [dict objectForKey: @"NewFilename"];
+	
+	if ([[oldName lowercaseString] isEqualToString: [[openSourceFilepath lastPathComponent] lowercaseString]]) {
+		// The file being renamed is the one currently being displayed
+		NSString* newSourceFile = [[[parent document] pathForFile: newName] copy];
+		
+		if (newSourceFile) {
+			[openSourceFilepath release];
+			openSourceFilepath = newSourceFile;
+		}
+		
+		[[IFIsFiles sharedIFIsFiles] updateFiles];
+	}
+}
+
+// = Compiling =
+
+- (void) prepareToCompile {
+	[textView breakUndoCoalescing];
+}
+
+// = Intelligence =
+
+- (IFIntelFile*) currentIntelligence {
+	return [IFSyntaxManager intelligenceDataForStorage: textStorage];
+}
+
+// = Indicating =
+
+- (void) indicateRange: (NSRange) range {
+	// Look at restricted range if necessary
+	if( [IFSyntaxManager isRestricted: textStorage
+                          forTextView: textView] ) {
+		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
+                                                   forTextView: textView];
+		if (range.location >= restriction.location &&
+            range.location < (restriction.location + restriction.length)) {
+			range.location -= restriction.location;
+		} else {
+			// Try moving the restriction range to something nearer the indicated line
+			int line = [self lineForCharacter: range.location
+									  inStore: [textStorage string]];
+			
+			IFIntelFile* intel = [self currentIntelligence];
+			IFIntelSymbol* symbol = [intel nearestSymbolToLine: line];
+			
+			if (symbol) {
+				[self limitToSymbol: symbol
+				  preserveScrollPos: NO];
+			}
+			
+			// If the line is now available, then we can highlight the appropriate character
+            restriction = [IFSyntaxManager restrictedRange: textStorage
+                                               forTextView: textView];
+			if (range.location >= restriction.location && range.location < (restriction.location + restriction.length)) {
+				range.location -= restriction.location;
+			} else {
+				return;
+			}
+		}
+	}
+	
+    [textView showFindIndicatorForRange: range];
+}
+
+- (unsigned int) indexOfLine: (int) line
+					inString: (NSString*) store {
+    int length = [store length];
+	
+    int x, lineno, linepos;
+	x=0;
+	
+    lineno = 1;
+	if (line > lineno)
+	{
+		for (x=0; x<length; x++) {
+			unichar chr = [store characterAtIndex: x];
+			
+			if (chr == '\n' || chr == '\r') {
+				unichar otherchar = chr == '\n'?'\r':'\n';
+				
+				lineno++;
+				linepos = x + 1;
+				
+				// Deal with DOS line endings
+				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+					x++; linepos++;
+				}
+				
+				if (lineno == line) {
+					break;
+				}
+			}
+		}
+	}
+	
+	if (lineno != line) {
+		return NSNotFound;
+	}
+	
+	return x;
+}
+
+- (void) indicateLine: (int) line {
+    // Find out where the line is in the source view
+    NSString* store = [textStorage string];
+    int length = [store length];
+	
+    int x, lineno, linepos, lineLength;
+    lineno = 1; linepos = 0;
+	if (line > lineno)
+	{
+		for (x=0; x<length; x++) {
+			unichar chr = [store characterAtIndex: x];
+			
+			if (chr == '\n' || chr == '\r') {
+				unichar otherchar = chr == '\n'?'\r':'\n';
+				
+				lineno++;
+				linepos = x + 1;
+				
+				// Deal with DOS line endings
+				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+					x++; linepos++;
+				}
+				
+				if (lineno == line) {
+					break;
+				}
+			}
+		}
+	}
+	
+    if (lineno != line) {
+        NSBeep(); // DOH!
+        return;
+    }
+
+    lineLength = 0;
+    for (x=0; x<length-linepos; x++) {
+        if ([store characterAtIndex: x+linepos] == '\n'
+			|| [store characterAtIndex: x+linepos] == '\r') {
+            break;
+        }
+        lineLength++;
+    }
+	
+	// Show the find indicator
+	[self indicateRange: NSMakeRange(linepos, lineLength)];
+}
+
+- (void) updateHighlightedLines {
+	[[textView layoutManager] removeTemporaryAttribute: NSBackgroundColorAttributeName
+                                     forCharacterRange: NSMakeRange(0, [[textView textStorage] length])];
+	
+	// Highlight the lines as appropriate
+	for( NSArray* highlight in [parent highlightsForFile: openSourceFilepath] ) {
+		int line = [[highlight objectAtIndex: 0] intValue];
+		enum lineStyle style = [[highlight objectAtIndex: 1] intValue];
+		NSColor* background = nil;
+		
+		switch (style) {
+			case IFLineStyleNeutral:
+				background = [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 0.8 alpha: 1.0];
+				break;
+				
+			case IFLineStyleExecutionPoint:
+				background = [NSColor colorWithDeviceRed: 0.8 green: 0.8 blue: 0.3 alpha: 1.0];
+				break;
+				
+			case IFLineStyleHighlight:
+				background = [NSColor colorWithDeviceRed: 0.3 green: 0.8 blue: 0.8 alpha: 1.0];
+				break;
+				
+			case IFLineStyleError:
+				background = [NSColor colorWithDeviceRed: 1.0 green: 0.3 blue: 0.3 alpha: 1.0];
+				break;
+				
+			case IFLineStyleBreakpoint:
+				background = [NSColor colorWithDeviceRed: 1.0 green: 0.7 blue: 0.4 alpha: 1.0];
+				break;
+				
+			default:
+				background = [NSColor colorWithDeviceRed: 0.8 green: 0.3 blue: 0.3 alpha: 1.0];
+				break;
+		}
+		
+		NSRange lineRange = [self findLine: line];
+		if ([IFSyntaxManager isRestricted: textStorage
+                              forTextView: textView]) {
+			NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
+                                                       forTextView: textView];
+			if (lineRange.location >= restriction.location &&
+                lineRange.location < (restriction.location + restriction.length)) {
+				lineRange.location -= restriction.location;
+			} else {
+				lineRange.location = NSNotFound;
+			}
+		}
+
+		if (lineRange.location != NSNotFound) {
+			[[textView layoutManager] setTemporaryAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+				background, NSBackgroundColorAttributeName, nil]
+											 forCharacterRange: lineRange];
+		}
+	}
+}
+
+// = The selection =
+
+- (NSString*) openSourceFilepath {
+	return openSourceFilepath;
+}
+
+- (NSString*) currentFile {
+	return [[parent document] pathForFile: openSourceFilepath];
+}
+
+- (int) currentLine {
+	int selPos = [textView selectedRange].location;
+	
+	if (selPos < 0 || selPos >= [textStorage length]) return -1;
+	
+	// Count the number of newlines until the current line
+	// (Take account of CRLF or LFCR style things)
+	int x;
+	int line = 0;
+	
+	unichar lastNewline = 0;
+	
+	for (x=0; x<selPos; x++) {
+		unichar chr = [[textStorage string] characterAtIndex: x];
+		
+		if (chr == '\n' || chr == '\r') {
+			if (lastNewline != 0 && chr != lastNewline) {
+				// CRLF combination
+				lastNewline = 0;
+			} else {
+				lastNewline = chr;
+				line++;
+			}
+		} else {
+			lastNewline = 0;
+		}
+	}
+	
+	return line;
+}
+
+- (void) selectTextRange: (NSRange) range {
+	// Restrict the range if needed
+	if ( [IFSyntaxManager isRestricted: textStorage
+                           forTextView: textView] ) {
+		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
+                                                   forTextView: textView];
+		if (range.location >= restriction.location &&
+            range.location < (restriction.location + restriction.length)) {
+			range.location -= restriction.location;
+		} else {
+			// TODO: move to the appropriate section and try again
+			return;
+		}
+	}
+
+	// Display the range
+	[textView scrollRangeToVisible: NSMakeRange(range.location, range.length==0?1:range.length)];
+    [textView setSelectedRange: range];
+}
+
+- (void) moveToLine: (int) line {
+	[self moveToLine: line
+		   character: 0];
+}
+
+- (void) moveToLine: (int) line
+		  character: (int) chrNo {
+    // Find out where the line is in the source view
+    NSString* store = [[textView textStorage] string];
+    int length = [store length];
+	
+    int x, lineno, linepos, lineLength;
+    lineno = 1; linepos = 0;
+	if (line > lineno)
+	{
+		for (x=0; x<length; x++) {
+			unichar chr = [store characterAtIndex: x];
+			
+			if (chr == '\n' || chr == '\r') {
+				unichar otherchar = chr == '\n'?'\r':'\n';
+				
+				lineno++;
+				linepos = x + 1;
+				
+				// Deal with DOS line endings
+				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+					x++; linepos++;
+				}
+				
+				if (lineno == line) {
+					break;
+				}
+			}
+		}
+	}
+	
+    if (lineno != line) {
+        NSBeep(); // DOH!
+        return;
+    }
+	
+    lineLength = 1;
+    for (x=0; x<length; x++) {
+        if ([store characterAtIndex: x] == '\n') {
+            break;
+        }
+        lineLength++;
+    }
+	
+	// Add the character position
+	linepos += chrNo;
+	
+    // Time to scroll
+	[self selectTextRange: NSMakeRange(linepos,0)];
+}
+
+- (void) moveToLocation: (int) location {
+	[self selectTextRange: NSMakeRange(location, 0)];
+}
+
+- (void) selectRange: (NSRange) range {
+	[textView scrollRangeToVisible: range];
+	[textView setSelectedRange: range];
+	
+	// NOTE: as this is used as part of the undo sequence for pasteSourceCode, this function must not contain an undo action itself
+}
+
+- (void) showSourceFile: (NSString*) file {
+	if ([[[parent document] pathForFile: file] isEqualToString: [[parent document] pathForFile: openSourceFilepath]]) {
+		// Nothing to do
+		return;
+	}
+
+    // Get text storage for file
+	NSTextStorage* fileStorage = [[parent document] storageForFile: file];
+
+	if (fileStorage == nil) return;
+
+    // Start editing text storage
+	[fileStorage beginEditing];
+
+    // Remove current selection.
+	[textView setSelectedRange: NSMakeRange(0,0)];
+
+    // Update current filepath
+	[openSourceFilepath release];
+	openSourceFilepath = [[[parent document] pathForFile: file] copy];
+
+    // Update current storage
+    [IFSyntaxManager unregisterTextStorage: textStorage];
+    [textStorage release];
+
+	textStorage = [fileStorage retain];
+    [[textView layoutManager] replaceTextStorage: textStorage];
+	[textStorage setDelegate: self];
+
+    [IFSyntaxManager registerTextStorage: textStorage
+                                filename: [file lastPathComponent]
+                            intelligence: [IFProjectTypes intelligenceForFilename:file]
+                             undoManager: [[parent document] undoManager]];
+
+    // Stop editing text storage
+	[fileStorage endEditing];
+
+    // Is the file editable?
+	[textView setEditable: ![[parent document] fileIsTemporary: file]];
+
+    // Update inspector's list of files
+	[[IFIsFiles sharedIFIsFiles] updateFiles];
+}
+
+- (int) lineForCharacter: (int) charNum 
+				 inStore: (NSString*) store {
+	int result = 0;
+	
+    int length = [store length];
+	
+    int x, lineno, linepos;
+    lineno = 1;
+	for (x=0; x<length; x++) {
+		unichar chr = [store characterAtIndex: x];
+		
+		if (chr == '\n' || chr == '\r') {
+			unichar otherchar = chr == '\n'?'\r':'\n';
+			
+			lineno++;
+			linepos = x + 1;
+			
+			// Deal with DOS line endings
+			if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+				x++; linepos++;
+			}
+			
+			if (x > charNum) {
+				break;
+			} else {
+				result = lineno;
+			}
+		}
+	}
+	
+	return result;
+}
+
+- (NSRange) findLine: (int) line {
+    NSString* store = [textStorage string];
+    int length = [store length];
+	
+    int x, lineno, linepos;
+    lineno = 1; linepos = 0;
+	if (line > lineno) {
+		for (x=0; x<length; x++) {
+			unichar chr = [store characterAtIndex: x];
+			
+			if (chr == '\n' || chr == '\r') {
+				unichar otherchar = chr == '\n'?'\r':'\n';
+				
+				lineno++;
+				linepos = x + 1;
+				
+				// Deal with DOS line endings
+				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+					x++; linepos++;
+				}
+				
+				if (lineno == line) {
+					break;
+				}
+			}
+		}
+	}
+	
+    if (lineno != line) {
+        return NSMakeRange(NSNotFound, 0);
+    }
+	
+	// Find the end of this line
+	for (x=linepos; x<length; x++) {
+        unichar chr = [store characterAtIndex: x];
+        
+        if (chr == '\n' || chr == '\r') {
+			break;
+		}
+	}
+	
+	return NSMakeRange(linepos, x - linepos + 1);
+}
+
+// = Breakpoints =
+- (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
+	SEL itemSelector = [menuItem action];
+
+    // Only allow breakpoints if we can debug
+	if ((itemSelector == @selector(setBreakpoint:)) ||
+        (itemSelector == @selector(deleteBreakpoint:)) ) {
+        return [parent canDebug];
+    }
+    return YES;
+}
+
+- (IBAction) setBreakpoint: (id) sender {
+	// Sets a breakpoint at the current location in the current source file
+	
+	// Work out which file and line we're in
+	NSString* currentFile = [self currentFile];
+	int currentLine = [self currentLine];
+	
+	if (currentLine >= 0) {
+		NSLog(@"Added breakpoint at %@:%i", currentFile, currentLine);
+		
+		[[parent document] addBreakpointAtLine: currentLine
+										inFile: currentFile];
+	}
+}
+
+- (IBAction) deleteBreakpoint: (id) sender {
+	// Sets a breakpoint at the current location in the current source file
+	
+	// Work out which file and line we're in
+	NSString* currentFile = [self currentFile];
+	int currentLine = [self currentLine];
+	
+	if (currentLine >= 0) {
+		NSLog(@"Deleted breakpoint at %@:%i", currentFile, currentLine);
+		
+		[[parent document] removeBreakpointAtLine: currentLine
+										   inFile: currentFile];
+	}	
+}
+
+// = Spell checking =
+
+- (void) setSpellChecking: (BOOL) checkSpelling {
+	[textView setContinuousSpellCheckingEnabled: checkSpelling];
+}
+
+// = The headings browser =
+
+- (NSArray*) toolbarCells {
+	return [NSArray arrayWithObjects: sourcePageControl, headerPageControl, nil];
+}
+
+// = Managing the source text view =
+
+- (BOOL) hasFirstResponder {
+	// Returns true if this page has the first responder
+	
+	// Find the first responder that is a view
+	NSResponder* firstResponder = [[textView window] firstResponder];
+	while (firstResponder && ![firstResponder isKindOfClass: [NSView class]]) {
+		firstResponder = [firstResponder nextResponder];
+	}
+	
+	// See if the source text view is in the first responder hierarchy
+	NSView* respondingView = (NSView*)firstResponder;
+	while (respondingView) {
+		if (respondingView == textView)  return YES;
+		if (respondingView == [self view]) return YES;
+		respondingView = [respondingView superview];
+	}
+	
+	return NO;
+}
+
+- (void) setSourceTextView: (IFSourceFileView*) newSourceText {
+	[textView autorelease];
+	textView = [newSourceText retain];
+}
+
+- (IFSourceFileView*) sourceTextView {
+	return textView;
+}
+
+// = The header page =
+
+- (void) highlightHeaderSection {
+	// Get the text storage
+    if( [IFSyntaxManager isRestricted: textStorage
+                          forTextView: textView] ) {
+		// Work out the line numbers the restriction applies to
+		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
+                                                   forTextView: textView];
+		
+		unsigned firstLine = 0;
+		unsigned finalLine = NSNotFound;
+
+		NSString* store = [textStorage string];
+		int length = [store length];
+		
+		int x, lineno, linepos;
+		lineno = 1;
+
+		for (x=0; x<length; x++) {
+			unichar chr = [store characterAtIndex: x];
+			
+			if (chr == '\n' || chr == '\r') {
+				unichar otherchar = chr == '\n'?'\r':'\n';
+				
+				lineno++;
+				linepos = x + 1;
+				
+				if (x < restriction.location) firstLine = lineno;
+				else if (x < restriction.location + restriction.length) finalLine = lineno;
+				else break;
+				
+				// Deal with DOS line endings
+				if (linepos < length && [store characterAtIndex: linepos] == otherchar) {
+					x++; linepos++;
+				}
+			}
+		}
+		if (finalLine == NSNotFound) finalLine = lineno;
+		
+		// Highlight the appropriate node
+		[headerPage highlightNodeWithLines: NSMakeRange(firstLine, finalLine-firstLine)];
+	} else {
+		// Highlight nothing
+		[headerPage selectNode: nil];
+	}
+}
+
+- (IBAction) toggleHeaderPage: (id) sender {
+	if (headerPageShown) {
+		// Hide the header page and show the source page
+		[headerPage setController: nil];
+		[scrollView setFrame: [[[[self view] subviews] objectAtIndex: 0] frame]];
+		
+		// Animate to the new view
+		IFViewAnimator* animator = [[IFViewAnimator alloc] init];
+		
+		[animator setTime: 0.3];
+		[animator prepareToAnimateView: [[[self view] subviews] objectAtIndex: 0]
+                             focusView: nil];
+		[animator animateTo: scrollView
+					  style: IFAnimateLeft
+                  focusView: nil];
+		[animator autorelease];
+		
+		[sourcePageControl setState: NSOnState];
+		[headerPageControl setState: NSOffState];
+		headerPageShown = NO;
+	} else {
+		// Show the header page
+		[headerPage setController: [parent headerController]];
+		[[headerPage pageView] setFrame: [[[[self view] subviews] objectAtIndex: 0] frame]];
+		[self highlightHeaderSection];
+		
+		// Animate to the new view
+		IFViewAnimator* animator = [[IFViewAnimator alloc] init];
+		
+		[animator setTime: 0.3];
+		[animator prepareToAnimateView: [[[self view] subviews] objectAtIndex: 0]
+                             focusView: headerPage.headerView];
+		[animator animateTo: [headerPage pageView]
+					  style: IFAnimateRight
+                  focusView: [headerPage headerView]];
+		[animator autorelease];
+		
+		[sourcePageControl setState: NSOffState];
+		[headerPageControl setState: NSOnState];
+		headerPageShown = YES;
+	}
+}
+
+- (IBAction) showHeaderPage: (id) sender {
+	if (!headerPageShown) [self toggleHeaderPage: self];
+}
+
+- (IBAction) hideHeaderPage: (id) sender {
+	if (headerPageShown) [self toggleHeaderPage: self];
+}
+
+- (IBAction) showSourcePage: (id) sender {
+	if (headerPageShown) [self toggleHeaderPage: self];
+}
+
+// = Helping out with the cursor =
+
+- (float) cursorOffset {
+	// Returns the offset of the cursor (beginning of the current selection) relative to the top
+	// of the view
+	
+	// Retrieve the currently selected range
+	NSRange selection = [textView selectedRange];
+	
+	// Get the offset of this location in the text view
+	NSLayoutManager* layout	= [textView layoutManager];
+	NSRange glyphRange		= [layout glyphRangeForCharacterRange: selection
+											 actualCharacterRange: nil];
+
+	NSRect boundingRect		= [layout boundingRectForGlyphRange: glyphRange
+												inTextContainer: [textView textContainer]];
+	boundingRect.origin.y	+= [textView textContainerOrigin].y;
+	
+	// Convert to coordinates relative to the containing view
+	boundingRect = [textView convertRect: boundingRect
+                                  toView: scrollView];
+	
+	// Offset is the minimum position of the bounding rectangle
+	return NSMinY(boundingRect);
+}
+
+// = Header page delegate methods =
+
+- (void) refreshHeaders: (IFHeaderController*) controller {
+	// Relayed via the IFHeaderPage (where it's relayed via the view)
+	[self highlightHeaderSection];
+}
+
+- (void) removeLimits {
+	// Get the text storage object
+	NSUndoManager* undo = [textView undoManager];
+
+    if( [IFSyntaxManager isRestricted: textStorage
+                          forTextView: textView] ) {
+		[[undo prepareWithInvocationTarget: self] limitToRange: [IFSyntaxManager restrictedRange: textStorage
+                                                                                     forTextView: textView]
+											 preserveScrollPos: NO];
+
+        // Switch text storage
+        [textView.layoutManager replaceTextStorage: textStorage];
+
+        [IFSyntaxManager removeRestriction: textStorage
+                               forTextView: textView];
+        [self highlightHeaderSection];
+        
+        [textView setTornAtTop: NO];
+        [textView setTornAtBottom: NO];
+    }
+}
+
+- (void) limitToRange: (NSRange) range
+	preserveScrollPos: (BOOL) preserveScrollPos {
+	// Record the current cursor offset and selection if preservation is turned on
+	float originalCursorOffset	= 0;
+	NSRange selectionRange		= NSMakeRange(0, 0);
+	
+	if (preserveScrollPos) {
+		originalCursorOffset	= [self cursorOffset];
+		selectionRange			= [textView selectedRange];
+		[[textView layoutManager] setBackgroundLayoutEnabled: NO];
+	}
+	
+	// Get the text storage object
+	NSUndoManager* undo = [textView undoManager];
+   
+	if (![IFSyntaxManager isRestricted: textStorage
+                           forTextView: textView]) {
+        // Set up the restriction
+        [IFSyntaxManager restrictStorage: textStorage
+                                   range: range
+                             forTextView: textView];
+        NSTextStorage* restrictedStorage = [IFSyntaxManager restrictedTextStorage: textStorage
+                                                                      forTextView: textView];
+
+        [textView.layoutManager replaceTextStorage: restrictedStorage];
+
+		[[undo prepareWithInvocationTarget: self] removeLimits];
+	} else {
+        NSRange restrictedRange = [IFSyntaxManager restrictedRange: textStorage
+                                                       forTextView: textView];
+		if (preserveScrollPos) {
+			 selectionRange.location += restrictedRange.location;
+		}
+
+		[[undo prepareWithInvocationTarget: self] limitToRange: restrictedRange
+                                             preserveScrollPos: NO];
+        // Set the restriction range
+        [IFSyntaxManager restrictStorage: textStorage
+                                   range: range
+                             forTextView: textView];
+	}
+	
+	[self highlightHeaderSection];
+	
+	// Display or hide the tears at the top and bottom
+	[textView setTornAtTop: range.location!=0];
+	[textView setTornAtBottom: (range.location+range.length)<[textStorage length]];
+    
+	// Refresh any highlighting
+	[self updateHighlightedLines];
+	
+	// Reset the selection and try to scroll back to the original position if we can
+	if (preserveScrollPos) {
+		// Update the selection
+		if (range.location < selectionRange.location) {
+			// Selection is after the beginning of the range
+			selectionRange.location -= range.location;
+			
+			if (selectionRange.location > range.length) {
+				// Selection is after the end of the range; just use the start of the region
+				selectionRange.location = selectionRange.length = 0;
+			} else if (selectionRange.location + selectionRange.length > range.length) {
+				// Selection extends beyond the end of the region
+				selectionRange.length = range.length - selectionRange.location;
+			}
+		} else {
+			// Just go to the start of the region if the selection is out of bounds
+			selectionRange.location = selectionRange.length = 0;
+			
+			// TODO: selection could start before the range and extend into it; this will work 
+			// differently from the selection extending over the end of the range
+		}
+		
+		// Set the selection
+		[textView setSelectedRange: selectionRange];
+		
+		// Scroll to the top to avoid some glitching
+		[textView scrollPoint: NSMakePoint(0,0)];
+
+		// Get the cursor scroll offset
+		float newCursorOffset	= [self cursorOffset];
+		float scrollOffset		= floorf(newCursorOffset - originalCursorOffset);
+		
+		// Scroll the view
+		NSPoint scrollPos = [[scrollView contentView] documentVisibleRect].origin;
+		NSLog(@"Old offset: %g, new offset %g, adjusted scroll by %g from %g", originalCursorOffset, newCursorOffset, scrollOffset, scrollPos.y);
+		scrollPos.y += scrollOffset;
+		if (range.location > 0) scrollPos.y += 18;			// HACK
+		if (scrollPos.y < 0) scrollPos.y = 0;
+		[[scrollView contentView] scrollToPoint: scrollPos];
+
+		[[textView layoutManager] setBackgroundLayoutEnabled: YES];
+	}
+}
+
+- (void) limitToSymbol: (IFIntelSymbol*) symbol 
+	 preserveScrollPos: (BOOL)preserveScrollPos {
+	IFIntelFile* intelFile = [[parent headerController] intelFile];
+	IFIntelSymbol* followingSymbol	= [symbol sibling];
+	
+	if (symbol == nil || symbol == [intelFile firstSymbol]) {
+		// Remove the source text limitations
+		[self removeLimits];
+		
+		// Scroll to the top
+		[textView scrollPoint: NSMakePoint(0,0)];
+		
+		// Redisplay the source code
+		if (headerPageShown) [self toggleHeaderPage: self];
+		
+		return;
+	}
+	
+	if (followingSymbol == nil) {
+		IFIntelSymbol* parentSymbol = [symbol parent];
+		
+		while (parentSymbol && !followingSymbol) {
+			followingSymbol = [parentSymbol sibling];
+			parentSymbol = [parentSymbol parent];
+		}
+	}
+	
+	// Get the range we need to limit to
+	NSRange limitRange;
+	
+	int symbolLine = [intelFile lineForSymbol: symbol];
+	if (symbolLine == NSNotFound) return;
+	
+	limitRange.location = [self indexOfLine: symbolLine
+								   inString: [textStorage string]];
+	
+	unsigned finalLocation;
+	if (followingSymbol) {
+		int followingLine = [intelFile lineForSymbol: followingSymbol];
+		if (followingLine == NSNotFound) return;
+		finalLocation = [self indexOfLine: followingLine
+								 inString: [textStorage string]];
+	} else {
+		finalLocation = [textStorage length];
+	}
+	
+	if (finalLocation == NSNotFound) return;
+	
+	// Move the start of the limitation to the first non-whitespace character
+	while (limitRange.location < finalLocation) {
+		unichar chr = [[textStorage string] characterAtIndex: limitRange.location];
+		if (chr != ' ' && chr != '\t' && chr != '\n' && chr != '\r') {
+			break;
+		}
+		limitRange.location++;
+	}
+	
+	// Perform the limitation
+	limitRange.length = finalLocation - limitRange.location;
+	[self limitToRange: limitRange
+	 preserveScrollPos: preserveScrollPos];
+	
+	// Redisplay the source code
+	if (headerPageShown) [self toggleHeaderPage: self];
+	
+	// Scroll to the top
+	if (!preserveScrollPos) {
+		[textView scrollPoint: NSMakePoint(0,0)];
+	}
+}
+
+- (void) headerPage: (IFHeaderPage*) page
+	  limitToHeader: (IFHeader*) header {
+	// Work out the following symbol
+	IFIntelSymbol* symbol			= [header symbol];
+	
+	[self limitToSymbol: symbol
+	  preserveScrollPos: NO];
+}
+
+- (void) undoReplaceCharactersInRange: (NSRange) range
+						   withString: (NSString*) string {
+	// Create an undo action
+	NSUndoManager* undo = [self undoManagerForTextView: textView];
+
+    [[undo prepareWithInvocationTarget: self] undoReplaceCharactersInRange: NSMakeRange(range.location, [string length])
+																withString: [[textStorage string] substringWithRange: range]];
+	[undo setActionName: [IFUtility localizedString: @"Edit Header"]];
+	
+	// Replace the text for this range
+	[[textStorage mutableString] replaceCharactersInRange: range
+                                               withString: string];
+}
+
+- (void) headerView: (IFHeaderView*) view
+ 		 updateNode: (IFHeaderNode*) node
+ 	   withNewTitle: (NSString*) newTitle {
+	IFHeader* header = [node header];
+	IFIntelSymbol* symbol = [header symbol];
+	IFIntelFile* intel = [self currentIntelligence];
+
+	NSString* lastValue = [header headingName];
+	
+	// Work out which line needs to be edited
+	int line = [intel lineForSymbol: symbol] + 1;
+	
+	// Get the range of the line
+	NSRange lineRange = [self findLine: line];
+	if (lineRange.location == NSNotFound) return;
+	
+	NSString* currentValue = [[textStorage string] substringWithRange: lineRange];
+	
+	// If the line currently contains the previous value, then replace it with the new value
+	if ([currentValue isEqualToString: lastValue] && ![currentValue isEqualToString: newTitle]) {
+		// Restrict to the selected node
+		[self headerPage: nil
+		   limitToHeader: header];
+
+		// Create an undo action
+		NSUndoManager* undo = [self undoManagerForTextView: textView];
+		[[undo prepareWithInvocationTarget: self] undoReplaceCharactersInRange: NSMakeRange(lineRange.location, [newTitle length])
+																	withString: [[textStorage string] substringWithRange: lineRange]];
+		[undo setActionName: [IFUtility localizedString: @"Edit Header"]];
+		
+		// Replace the text for this node
+		[[textStorage mutableString] replaceCharactersInRange: lineRange
+                                                   withString: newTitle];
+	}
+	
+	[[parent headerController] updateFromIntelligence: [self currentIntelligence]];
+}
+	
+- (IFIntelSymbol*) currentSection {
+	// Get the text storage
+	if ([IFSyntaxManager isRestricted: textStorage
+                          forTextView: textView]) {
+		IFIntelFile* intelFile = [self currentIntelligence];
+		
+		// Work out the line numbers the restriction applies to
+		NSRange restriction = [IFSyntaxManager restrictedRange: textStorage
+                                                   forTextView: textView];
+
+		// Return the nearest section
+		return [intelFile nearestSymbolToLine: [self lineForCharacter: restriction.location
+															  inStore: [textStorage string]]];
+	}
+	
+	return nil;
+}
+
+- (void) sourceFileShowPreviousSection: (id) sender {
+	IFIntelSymbol* section = [self currentSection];
+	IFIntelSymbol* previousSection = [section previousSibling];
+	
+	if (!previousSection) {
+		previousSection = [section parent];
+		if (previousSection == [[self currentIntelligence] firstSymbol]) previousSection = nil;
+	}
+
+	if (previousSection) {
+		IFViewAnimator* animator = [[[IFViewAnimator alloc] init] autorelease];
+		BOOL hasFirstResponder = [self hasFirstResponder];
+		
+		[animator setTime: 0.1];
+		[animator prepareToAnimateView: view
+                             focusView: nil];
+		
+		[self limitToSymbol: previousSection
+		  preserveScrollPos: NO];
+		[textView setSelectedRange: NSMakeRange(0,0)];
+		[animator animateTo: view
+                  focusView: textView
+					  style: IFAnimateDown
+				sendMessage: @selector(setFirstResponder)
+				   toObject: hasFirstResponder?self:nil];
+	} else {
+		IFViewAnimator* animator = [[[IFViewAnimator alloc] init] autorelease];
+		BOOL hasFirstResponder = [self hasFirstResponder];
+		
+		[animator setTime: 0.1];
+		[animator prepareToAnimateView: view
+                             focusView: nil];
+		
+		[self removeLimits];
+		[textView setSelectedRange: NSMakeRange(0,0)];
+		[animator animateTo: view
+                  focusView: textView
+					  style: IFAnimateDown
+				sendMessage: @selector(setFirstResponder)
+				   toObject: hasFirstResponder?self:nil];
+	}
+}
+
+- (void) sourceFileShowNextSection: (id) sender {
+	IFIntelSymbol* section		= [self currentSection];
+	IFIntelSymbol* nextSection	= [section sibling];
+	
+	if (!nextSection) {
+		IFIntelSymbol* parentSection = [section parent];
+		while (parentSection && !nextSection) {
+			nextSection = [parentSection sibling];
+			parentSection = [parentSection parent];
+		}
+	}
+	
+	if (nextSection) {
+		IFViewAnimator* animator = [[[IFViewAnimator alloc] init] autorelease];
+		BOOL hasFirstResponder = [self hasFirstResponder];
+		
+		[animator setTime: 0.3];
+		[animator prepareToAnimateView: view
+                             focusView: nil];
+		
+		[self limitToSymbol: nextSection
+		  preserveScrollPos: NO];
+		[textView setSelectedRange: NSMakeRange(0,0)];
+		[animator animateTo: view
+                  focusView: textView
+					  style: IFAnimateUp
+				sendMessage: @selector(setFirstResponder)
+				   toObject: hasFirstResponder?self:nil];
+	}
+}
+
+- (void) setFirstResponder {
+	// View animation has finished and we want to reset the source text view as the first responder
+	[[textView window] makeFirstResponder: textView];
+}
+
+- (IFIntelSymbol*) symbolNearestSelection {
+	// Work out the absolute selection
+	NSRange selection				= [textView selectedRange];
+	if ([IFSyntaxManager isRestricted: textStorage
+                          forTextView: textView]) {
+		selection.location			+= [IFSyntaxManager restrictedRange: textStorage
+                                                            forTextView: textView].location;
+	}
+	
+	// Retrieve the symbol nearest to the line the selection is on
+	IFIntelFile* intelFile			= [self currentIntelligence];
+	IFIntelSymbol* nearestSymbol	= [intelFile nearestSymbolToLine: [self lineForCharacter: selection.location
+																				  inStore: [textStorage string]]];
+	
+	return nearestSymbol;
+}
+
+- (void) showEntireSource: (id) sender {
+	// Display everything
+	[self limitToRange: NSMakeRange(0, [textStorage length])
+	 preserveScrollPos: YES];
+}
+
+- (void) showCurrentSectionOnly: (id) sender {
+	// Get the symbol nearest to the current selection
+	IFIntelSymbol* cursorSection = [self symbolNearestSelection];
+	
+	// Limit the displayed range to it
+	if (cursorSection) {
+		[self limitToSymbol: cursorSection
+		  preserveScrollPos: YES];
+	}
+}
+
+- (void) showFewerHeadings: (id) sender {
+	// Get the currently displayed section
+	IFIntelSymbol* currentSection = [self currentSection];
+	if (!currentSection) {
+		// Ensures we don't end up picking the 'title' section which includes the whole file anyway
+		currentSection = [[self currentIntelligence] firstSymbol];
+	}
+	
+	// Also get the section that the cursor is in
+	IFIntelSymbol* cursorSection = [self symbolNearestSelection];
+	
+	// Can't do anything if the cursor is in no section, or the currently selected section is the most specific we can use
+	if (cursorSection == nil || currentSection == cursorSection) {
+		return;
+	}
+	
+	// Move up the sections until we find one which has the currentSection as a parent
+	IFIntelSymbol* lowerSection = cursorSection;
+	while (lowerSection && [lowerSection parent] != currentSection) {
+		lowerSection = [lowerSection parent];
+	}
+	
+	if (lowerSection) {
+		// Restrict to this section
+		[self limitToSymbol: lowerSection
+		  preserveScrollPos: YES];
+	}
+}
+
+- (void) showMoreHeadings: (id) sender {
+	// Limit to one section above the current section
+	IFIntelSymbol* currentSection	= [self currentSection];
+	if (!currentSection) {
+		return;
+	}
+	
+	IFIntelSymbol* parentSection	= [currentSection parent];
+	if (parentSection && parentSection != [[self currentIntelligence] firstSymbol]) {
+		[self limitToSymbol: parentSection
+		  preserveScrollPos: YES];
+	} else {
+		[self showEntireSource: self];
+	}
+}
+
+- (void) preferencesChanged: (NSNotification*) not {
+    [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
+    [textView setNeedsDisplay:YES];
+}
+
+@end

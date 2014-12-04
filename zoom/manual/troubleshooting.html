@@ -1,0 +1,402 @@
+<html>	
+
+<head>
+<title>
+Zoom Manual - Troubleshooting
+</title>
+
+<link rel=stylesheet type="text/css"
+      href="style.css"
+      title="Logical shift">
+
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td>
+        <a href="index.html">
+	  Home
+	</a>
+      </td>
+
+      <td>
+        Previous
+      </td>
+
+      <td>
+        Next
+      </td>
+    </tr>
+  </table>
+
+  <img src="zoom-icon.png" align=right>
+  <h1>
+    Troubleshooting
+  </h1>
+
+  <ul>
+    <li><a href="#General">General</a>
+      <ul>
+        <li><a href="#genimg">Version 6 images</a>
+        <li><a href="#genfont">Fonts</a>
+	<li><a href="#issues">Issues with specific games</a>
+      </ul>
+    <li><a href="#osx">Mac OS X</a>
+      <ul>
+        <li><a href="#macdata">Infocom data files</a>
+	<li><a href="#defterp">Making Zoom the default interpreter</a>
+	<li><a href="#osxfonts">Fonts</a>
+	<li><a href="#osxmessages">'Erroneous entry in .zoomrc' messages</a>
+	<li><a href="#osximg">Images</a> (while compiling)
+      </ul>
+    <li><a href="#xwin">X-Windows</a>
+      <ul>
+        <li><a href="#xwinimg">Images</a>
+        <li><a href="#xwinfont">Fonts</a>
+      </ul>
+    <li><a href="#older">Older versions</a>
+  </ul>
+
+  <h2><a name="General">
+    General
+  </h2>
+
+  <h3><a name="genimg">
+    Version 6 images
+  </h3>
+
+  <p>
+    In order to see images for version 6 games, you will requires the
+    resources in Blorb format: Zoom does not support any other format
+    for images. All new games should come with images in this
+    format. For the old infocom games, Blorb versions of the game
+    resources are available from the IF-Archive, at
+    <a
+    href="http://www.ifarchive.org/indexes/if-archiveXinfocomXmedia.html">http://www.ifarchive.org/indexes/if-archiveXinfocomXmedia.html</a>.
+    See the sections on configuration for information on how to get
+    Zoom to load these resources.
+  </p>
+
+  <p>
+    Zoom does not support JPEG images: there are currently patent
+    issues with this format.
+  </p>
+
+  <h3><a name="genfont">
+    Fonts
+  </h3>
+
+  <p>
+    Some version 6 games may not deal with proportional fonts
+    adequately: if you find a game is drawing text in the wrong place,
+    try using a fixed pitch font for the 'roman' style.
+  </p>
+
+  <h3><a name="issues">
+    Issues with specific games
+  </h3>
+
+  <p>
+    This section details some general problems that exist within specific
+    games.
+  </p>
+
+  <dl>
+    <dt>'Black on black' problem (Varicella, Only After Dark)</dt>
+    <dl>
+      It seems that some games expect a white-on-black default colour
+      scheme. Zoom uses black-on-white by default (and as of 1.0.1 has
+      no way to change this), which is default in some
+      interpreters. This problem is <b>not</b> a bug in Zoom, rather
+      the game: Varicella, for instance, asks for a black
+      background with the default foreground, which is to say black
+      on black.
+    <p>
+      To fix this in Varicella, you have to play without colour. In
+      Only After Dark, you can save the game after the colours make
+      the game illegible, then restart and restore to produce a
+      legible game.
+    <p>
+      Future versions of Zoom will contain options to fix these
+      problems.
+    </dl>
+  </dl>
+
+  <h2><a name="osx">
+    Mac OS X
+  </h2>
+
+  <h3><a name="macdata">
+    Infocom data files
+  </h3>
+
+  <p>
+    The Macintosh version of the Infocom games are distributed as a
+    package containing both the interpreter and the data. In order to
+    run these games under Zoom, you will need to seperate the data
+    from the program. Fortunately, that isn't hard. To do the
+    conversion, copy the game to the desktop, then fire up a Terminal
+    session and use the following commands:
+  </p>
+
+  <pre>
+cp &quot;~/Desktop/GAME&quot; &quot;~/Desktop/GAME.z5&quot;
+  </pre>
+
+  <p>
+    (Substituting the name of the game for GAME). The file 'GAME.z5'
+    will now just contain the data, and you should be able to
+    double-click it to load it into Zoom. This technique may also work
+    for other files that you know are Z-Code files, but that you are
+    unable to open in Zoom for some reason.
+  </p>
+
+  <h3><a name="defterp">
+    Making Zoom the default interpreter
+  </h3>
+
+  <p>
+    If you have another interpreter installed, it may be set as the
+    default editor for Infocom files: this means that when you open a
+    game in the finder, that other interpreter loads instead of
+    Zoom. If you want Zoom to be the default interpreter for a game
+    (or for all games), select that game in the finder, choose 'Show
+    Info' (Command-I, or from the File menu), and choose Zoom from the
+    'Open with Application' dialog. Click 'Change All' to set Zoom as
+    the default interpreter for all games of this type.
+  </p>
+
+  <h3><a name="osxfonts">
+    Fonts
+  </h3>
+
+  <p>
+    Zoom offers both QuickDraw and Quartz font rendering. Unicode is
+    supported in both systems. The Quartz system is, however, somewhat
+    slower than its QuickDraw equivalent (partly due to the lack of
+    adequate functions for measuring text dimensions).
+  </p>
+
+  <h3><a name="osxmessages">
+    'Erroneous entry' messaegs
+  </h3>
+
+  <p>
+    Certain 'cracked' copies of the Infocom games have garbage in
+    the serial number field. With the 1.0.1beta series of releases,
+    Zoom would write a corrupted preferences file for these games
+    (meaning Zoom would not start up). The current version of Zoom can
+    read these corrupted files, but will display 'Erroneous entry'
+    messages while loading. These messages will go away next time Zoom
+    saves the configuration file: open and close the preferences
+    dialog to force this to happen.
+  </p>
+
+  <p>
+    If Zoom fails to start due to a configuration file problem (much
+    less likely these days), type the following into a terminal window:
+  </p>
+
+<pre>
+  $ mv ~/.zoomrc ~/broken-zoomrc.txt
+</pre>
+
+  <p>
+    This is always a bug. Email me at <a
+    href="mailto:andrew@logicalshift.demon.co.uk">andrew@logicalshift.demon.co.uk</a>,
+    attaching the 'broken-zoomrc.txt' file.
+  </p>
+
+  <h3><a name="osximg">
+    Images
+  </h3>
+
+  <p>
+    (This only applies to people compiling Zoom)
+  </p>
+
+  <p>
+    If image quality is low, this may be because your version of Zoom
+    was compiled using QuickTime to draw its images. This happens if
+    Zoom was compiled without libpng available: it is highly
+    recommended to install libpng if you are compiling under Mac OS X
+    (binary releases have libpng built-in, so this won't be an issue).
+  </p>
+
+  <h2><a name="xwin">
+    X-Windows
+  </h2>
+
+  <h3><a name="xwinimg">
+    Images
+  </h3>
+
+  <p>
+    When you compile Zoom, make sure that libpng is available, or
+    image support will be disabled.
+  </p>
+  
+  <p>
+    If you find image rendering is slow, make sure that optimisation
+    was turned on when you compiled Zoom. <code>./configure
+    CFLAGS=-O9</code> will always do the trick. If you find images are
+    still too slow, you may find that undefining QUALITY_HIGH at the
+    start of image_libpng.c has some effect on the speed.
+  </p>
+
+  <h3><a name="xwinfont">
+    Fonts
+  </h3>
+
+  <p>
+    Note that the default setting for anti-aliasing has changed with
+    the release version of 1.0.1. Because of the potential for
+    problems, the default setting has been changed to 'no'. You won't
+    notice this if you've created your own .zoomrc file. You can
+    change the default setting by editting
+    /usr/local/share/zoom/zoomrc (look for the line 'antialias no').
+  </p>
+
+  <p>
+    The font situation under X-Windows is slightly confused. The
+    standard X font system (which Zoom prefers to use as a last
+    resort) does not support anti-aliasing or Unicode. Xft is the
+    preferred rendering system: it has full support for Unicode, it's
+    fast and it's flexible. Unfortunately, it might require some
+    configuration on your system. If games render strangely, it may be
+    that Xft is not set up, and is using daft defaults for the fixed
+    pitch fonts.
+  </p>
+
+  <p>
+    If you have problems with the font rendering, it might well be
+    Xft. To check this, set 'antialias' to 'no' in the .zoomrc file
+    and see if that solves the problem. If it does, it may be worth
+    taking the time to set up Xft properly (if you use KDE, this will
+    also allow you to use the antialiased fonts there).
+  </p>
+
+  <p>
+    Xft is set up through the configuration file 'XftConfig'. If you
+    have X installed under /usr/X11R6/, this should be in
+    /usr/X11R6/lib/X11/ by default. A minimal file might be:
+  </p>
+
+  <pre>
+dir &quot;/usr/X11R6/lib/X11/fonts/TrueType&quot;
+dir &quot;/usr/X11R6/lib/X11/fonts/Type1&quot;
+  </pre>
+
+  <p>
+    Remove the first line if you don't have a TrueType font directory
+    in your installation. See <a
+    href="http://keithp.com/~keithp/fonts/XftConfig">http://keithp.com/~keithp/fonts/XftConfig</a>
+    for a larger example of an XftConfig file. Most X11 distributions
+    should have a courier font in the Type1 directory.
+  </p>
+
+  <p>
+    Zoom sometimes has trouble calculating the screen metrics for a
+    T1Lib font. This is not usually noticable, but it does mean that
+    you should not use T1Lib for the fixed pitch fonts, and it creates
+    a glitch on the status bar in Infocom's Arthur (T1Lib fonts are
+    specified by filename rather than by their X font specifier).
+  </p>
+
+  <h2><a name="older">
+    Older versions
+  </h2>
+
+  <p>
+    This section lists some problems with older versions of Zoom.
+  </p>
+  
+  <h3>1.0.1</h3>
+  <ul>
+    <li>Scroll bar was being set incorrectly under certain circumstances (disabling scrollback)
+    <li>@restart didn't work on Mac OS X. This bug also affected a rarely-used form of @read.
+    <li>Xft2 causes a crash
+    <li>Setting the graphics file to be a directory causes a crash (not fixed yet)
+    <li>The lower display for taipan.z5 is hidden by the upper (not fixed yet)
+  </ul>
+
+  <h3>1.0.1beta3</h3>
+  <ul>
+    <li>Compilation problem when Xft was not present (fixed in 3a)
+    <li>Slow screen update under certain circumstances (fixed in 3b)
+    <li>Some memory corruption problems
+    <li>.Zx (as opposed to .zx) games weren't recognised as such under
+      Mac OS X.
+    <li>Segmentation fault when playing taipan.z5
+    <li>Certain 'cracked' copies of the old Infocom games could cause
+      Zoom to write a bad configuration file.
+  </ul>
+
+  <h3>1.0.1beta2</h3>
+  <ul>
+    <li>Text rendered as gobbledegook when Quartz was turned on (only
+      certain fonts)
+    <li>Font preview in preferences rendered in the wrong colours (OS X)
+    <li>Rendering with fonts of different sizes leaves 'gaps' (OS X)
+    <li>Alphabet table ignored in version 6 games
+    <li>Alphabet table ignored when caching abbreviations
+    <li>ZSCII-to-Zcharacter table not always set up properly (breaks
+      command parsing in Shogun, or the german version of Zork)
+    <li>Occasional crash if a gamedir was set without a savedir
+    <li>X Displays with Xft but without XDBE fail to draw input text
+    <li>'Please enter filename' messages displayed after the
+      save/open dialog has completed (Mac OS X)
+    <li>Various problems with promptless file saving under Mac OS X
+    <li>You can load resources by dragging, but not savefiles
+    <li>No drag highlights shown
+    <li>Under Mac OS X 10.2, some modal loops are never exitted 
+      (those initiated by carbon_display_message and 
+      carbon_ask_question. I *think* this bug never occurs in
+      OS X 10.1)
+    <li>Under Mac OS X and v6, the display sometimes isn't updated
+    <li>@print_char doesn't convert from ZSCII to unicode. Breaks
+      And the Waves Choke the Wind.
+  </ul>
+
+  <h3>1.0.1beta1</h3>
+
+  <ul>
+    <li>Spec 1.1 errors:
+      <ul>
+        <li>New header extension words not implemented
+	<li>@save/@restore always prompt
+	<li>@sound_data is not a branch instruction (will crash the
+	  game)
+	<li>Unicode strings sometimes cut out some characters
+	<li>Truecolour in the upper window is a bit kronky
+	  (Z-Machine versions other than 6)
+	<li>Unicode string decoder sometimes returns negative values,
+	  leading to occasional missing characters when plotting to the
+	  upper window (not v6)
+      </ul>
+    <li>@set_font doesn't update v6 structures correctly
+    <li>@read_mouse doesn't store coordinates correctly
+    <li>@erase_picture always erases to white, and not the background
+      colour
+    <li>APal blorb extension ignored
+    <li><code>antialias</code> option does not disable Xft. (Comment
+      out <code>#define HAVE_XFT</code> in config.h and recompile to
+      disable Xft in this revision).
+    <li>Display drivers not reporting that they support pictures
+    <li>X-Windows version blinks cursor even when it doesn't have
+      focus
+    <li>Quartz renderer renders with common ligatures - 'fi' ligature
+      often makes a mess of the upper window in version 5 games.
+  </ul>
+
+  <hr>
+
+  <p class=titchy>
+    Zoom written by Andrew Hunter. Mail any suggestions, bug reports
+    or abuse to <a
+    href="mailto:andrew@logicalshift.demon.co.uk">andrew@logicalshift.demon.co.uk</a>
+  </p>
+
+</body>
+</html>

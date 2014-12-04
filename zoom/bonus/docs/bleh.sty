@@ -1,0 +1,54 @@
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{bleh}[2001/07/07]
+
+\newfont{\secf}{cmssbx10 at 20pt}
+\newfont{\subsecf}{cmssbx10 at 16pt}
+\newfont{\subsubsecf}{cmssbx10 at 12pt}
+
+
+%
+% An example environment and counters
+%
+\newcounter{example}[section]
+
+\newenvironment{example}
+    {\medskip\hspace{1cm}\refstepcounter{example}\begin{minipage}{13.5cm}}
+    {\end{minipage}{\itshape(\theexample )}\medskip}
+
+\renewcommand{\theexample}{\thesection .\arabic{example}}
+
+%
+% The format of some commonly used items
+%
+\providecommand{\function}[1]{{\itshape #1}}
+\providecommand{\hdrfile}[1]{{\bfseries\itshape #1}}
+
+\providecommand{\terminal}[1]{{\ttfamily\bfseries #1}}
+\providecommand{\nonterminal}[1]{{\itshape #1}}
+
+\providecommand{\kw}[1]{{\ttfamily\bfseries #1}}
+\providecommand{\req}[1]{{\sffamily\bfseries #1}}
+\providecommand{\opt}[1]{{\sffamily #1}}
+
+%
+% Our section (and other) styles
+%
+\renewcommand{\section}{\newpage\@startsection{section}{1}{0pt}%
+            {-3.5ex plus -3ex minus -.2ex}%
+	    {14pt plus.2ex}%
+	    {\vspace{24pt}\rule{16cm}{0.2mm}\vspace{-24pt}\\\secf}
+	   }
+
+\renewcommand{\subsection}{\@startsection {subsection}{2}{0pt}%
+           {-3.5ex plus -1ex minus -.2ex}%
+	   {1.5ex plus.2ex}%
+	   {\subsecf}}
+
+\renewcommand{\subsubsection}{\@startsection {subsubsection}{3}{0pt}%
+           {-3.5ex plus -1ex minus -.2ex}%
+	   {1.5ex plus.2ex}%
+	   {\subsubsecf}}
+
+\renewcommand{\@seccntformat}[1]%
+           {\hspace{-1.7cm}\protect\makebox[1.3cm][r]{\@nameuse{the#1}}%
+	    \hspace{.4cm}}
