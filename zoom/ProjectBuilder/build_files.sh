@@ -21,6 +21,7 @@ if [ "x$1" = "xclean" ]; then
     fi
 else
     echo Building interpreter...
+    mkdir -p build
     
     if [ ./src/zcode.ops -nt build/interp_gen.h ]; then
         echo interp_gen.h
