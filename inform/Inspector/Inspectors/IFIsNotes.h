@@ -9,18 +9,13 @@
 #import <Foundation/Foundation.h>
 
 #import "IFInspector.h"
-#import "IFProject.h"
 
 extern NSString* IFIsNotesInspector;
 
 //
 // RTF notes inspector
 //
-@interface IFIsNotes : IFInspector {
-	IFProject* activeProject;				// Currently selected project
-	
-	IBOutlet NSTextView* text;				// The text view that will contain the notes
-}
+@interface IFIsNotes : IFInspector
 
 + (IFIsNotes*) sharedIFIsNotes;				// Gets the shared instance of the inspector class
 

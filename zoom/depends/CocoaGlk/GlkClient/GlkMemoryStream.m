@@ -113,7 +113,7 @@
 		return;
 	}
 	
-	int len = [string length];
+	int len = (int) [string length];
 	char* latin1 = malloc(sizeof(char)*[string length]);
 
 	int x;
@@ -137,7 +137,7 @@
 		return;
 	}
 	
-	int bufLen = [buffer length];
+	int bufLen = (int) [buffer length];
 	
 	if (pointer + bufLen > length) {
 		bufLen = length - pointer;

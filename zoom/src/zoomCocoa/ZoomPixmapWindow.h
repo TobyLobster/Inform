@@ -19,15 +19,15 @@
 }
 
 // Initialisation
-- (id) initWithZoomView: (ZoomView*) view;
+- (instancetype) initWithZoomView: (ZoomView*) view NS_DESIGNATED_INITIALIZER;
 - (void) setZoomView: (ZoomView*) view;
 
 // Getting the pixmap
-- (NSSize) size;
-- (NSImage*) pixmap;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *pixmap;
 
 // Input information
-- (NSPoint) inputPos;
-- (ZStyle*) inputStyle;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPoint inputPos;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) ZStyle *inputStyle;
 
 @end

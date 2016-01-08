@@ -2034,6 +2034,7 @@ language English
 	partaking		partaken |
 	paying			paid |
 	pleading		pleaded |
+	praying			prayed |
 	prebuilding		prebuilt |
 	predoing		predone |
 	premaking		premade |
@@ -2246,6 +2247,9 @@ language English
 	writing			written
 
 <en-trie-pasturise-regular-y> ::=
+	*aying			3ed	|		
+	*eying			3ed	|		
+	*oying			3ed	|		
 	*ying			4ied 		
 
 <en-trie-pasturise-regular> ::=
@@ -2398,7 +2402,7 @@ language English
 <specifies-sentence-subject> ::=
 	... ( {<literal-pattern-group-list>} ) |			
 	<k-kind-articled> times <k-kind-articled> |			
-	<spec-type-expression> times <spec-type-expression> |[issues PM_MultiplyingNonKOVs]
+	<s-type-expression> times <s-type-expression> |[issues PM_MultiplyingNonKOVs]
 	...													
 
 <literal-pattern-group-list> ::=
@@ -2427,25 +2431,23 @@ language English
 <literal-pattern-specification-tail> ::=
 	with parts <literal-pattern-part-list> |
 	<scaling-instruction> |					
-	<scaling-instruction> offset by <literal> |
-	offset by <literal> |					
-	equivalent to <literal>					
+	<scaling-instruction> offset by <s-literal> |
+	offset by <s-literal> |					
+	equivalent to <s-literal>					
 
 <scaling-instruction> ::=
 	scaled up by <cardinal-number> |		
-	scaled up by <literal-real-number> |	
+	scaled up by <s-literal-real-number> |	
 	scaled down by <cardinal-number> |		
-	scaled down by <literal-real-number> |	
+	scaled down by <s-literal-real-number> |
 	scaled at <cardinal-number>	|			
-	scaled at <literal-real-number>			
+	scaled at <s-literal-real-number>		
 
 <literal-pattern-part-list> ::=
-	<literal-pattern-part> <literal-pattern-part-tail> |
+	<literal-pattern-part> , and <literal-pattern-part-list> |
+	<literal-pattern-part> , <literal-pattern-part-list> |
+	<literal-pattern-part> and <literal-pattern-part-list> |
 	<literal-pattern-part>					
-
-<literal-pattern-part-tail> ::=
-	, and <literal-pattern-part-list> |		
-	,/and <literal-pattern-part-list>		
 
 <literal-pattern-part> ::=
 	<np-balanced> ( <literal-pattern-part-option-list> ) |
@@ -2467,7 +2469,7 @@ language English
 
 <literal-pattern-group-name> internal
 
-<literal-time> ::=
+<s-literal-time> ::=
 	minus <elapsed-time> | 										
 	<elapsed-time> | 											
 	<clock-time>												
@@ -2503,9 +2505,9 @@ language English
 	<cardinal-number-unlimited> |	
 	...								[issues PM_UnicodeNonLiteral]
 
-<unicode-character> ::=
-	<cardinal-number-unlimited> |	
-	<unicode-character-name>		
+<s-unicode-character> ::=
+	<cardinal-number-unlimited> |
+	<unicode-character-name>	
 
 <unicode-character-name> internal
 
@@ -2580,6 +2582,9 @@ language English
 	various ... |										
 	...													
 
+<relation-storage-construction> ::=
+	... relation storage
+
 <general-verb> internal
 
 <general-verb-present-positive> internal
@@ -2637,7 +2642,12 @@ language English
 	{relation} |						[issues PM_VerbRelationVague]
 	...									[issues PM_VerbUnknownMeaning]
 
+<list-comma-division> ::=
+	...... , ......
+
 <adaptive-verb> internal
+
+<adaptive-verb-infinitive> internal
 
 <auxiliary-verb-only> internal
 
@@ -2670,9 +2680,6 @@ language English
 
 <balanced-text> ::=
 	......
-
-<list-comma-division> ::=
-	...... , ......
 
 <dividing-sentence> ::=
 	<if-start-of-paragraph> <heading> |
@@ -2818,8 +2825,8 @@ language English
 	^<variable-creation-tail>		
 
 <variable-creation-tail> ::=
-	... that/which vary/varies |
-	... variable
+	*** that/which vary/varies |
+	*** variable
 
 <translation-target> ::=
 	unicode |						
@@ -3121,6 +3128,13 @@ language English
 <sentence-needing-second-look> ::=
 	*** <ambiguous-property-name> ***
 
+<verify-expanded-text-substitution> ::=
+	*** . *** |							[issues PM_TSWithPunctuation]
+	, *** |								[issues PM_EmptySubstitution]
+	*** , |								[issues PM_EmptySubstitution]
+	*** , , ***	|						[issues PM_EmptySubstitution]
+	...
+
 <control-structure-phrase> ::=
 	if ... is begin |			
 	if ... is |					
@@ -3129,14 +3143,25 @@ language English
 	while ... |					
 	else/otherwise |			
 	else/otherwise if/unless ... |
+	else/otherwise ... |		
 	-- otherwise |				
-	-- ... |					
-	let ... be the phrase ...	
+	-- ...						
 
 <end-control-structure-phrase> ::=
 	end if/unless |				
 	end while |					
 	end repeat					
+
+<other-significant-phrase> ::=
+	say ... |					
+	now ...						
+
+<phrase-with-comma-notation> ::=
+	...... , ......
+
+<instead-keyword> ::=
+	instead ... |
+	... instead
 
 <phrase-beginning-block> ::=
 	... begin
@@ -3144,6 +3169,7 @@ language English
 <extension-title-and-version> ::=
 	version <extension-version> of <definite-article> <extension-unversioned> |
 	version <extension-version> of <extension-unversioned> |				
+	<definite-article> <extension-unversioned>	|							
 	<extension-unversioned>													
 
 <extension-unversioned> ::=
@@ -3175,9 +3201,9 @@ language English
 
 <assertion-np-as-value> ::=
 	variable |								[issues PM_VagueVariable]
-	action of <spec-stored-action>	|				
-	<spec-descriptive-type-expression> |	
-	<spec-global-variable>						
+	action of <s-explicit-action>	|				
+	<s-descriptive-type-expression> |	
+	<s-global-variable>						
 
 <grammatical-gender-marker> ::=
 	... ( <grammatical-gender-abbreviation> )	
@@ -3189,7 +3215,9 @@ language English
 
 <creation-problem-diagnosis> ::=
 	<article> |							[issues PM_NameIsArticle]
-	... (/) ... |						[issues PM_NameWithBrackets]
+	(/)/(- *** |						[issues PM_NameWithBrackets]
+	*** (/)/(- |						[issues PM_NameWithBrackets]
+	... (/)/(- ... |					[issues PM_NameWithBrackets]
 	ni--crash--1 |						[issues PM_Crash1]
 	ni--crash--10 |						[issues PM_Crash10]
 	ni--crash--11 |						[issues PM_Crash11]
@@ -3197,9 +3225,18 @@ language English
 	... , |								[issues PM_EndsWithComma]
 	... when/while ... |				[issues PM_ObjectIncWhen]
 	*** <quoted-text> *** |				[issues PM_NameWithText]
-	<storage-nonkind-types> |			[issues PM_NameReserved]
-	<command-phrase-nonkind-types> |	[issues PM_NameReserved]
-	<condition-nonkind-types>			[issues PM_NameReserved]
+	condition |							[issues PM_NameReserved]
+	conditions |						[issues PM_NameReserved]
+	storage |							[issues PM_NameReserved]
+	storages |							[issues PM_NameReserved]
+	variable |							[issues PM_NameReserved]
+	variables |							[issues PM_NameReserved]
+	property-value |					[issues PM_NameReserved]
+	property-values |					[issues PM_NameReserved]
+	table-reference |					[issues PM_NameReserved]
+	table-references |					[issues PM_NameReserved]
+	list-entry |						[issues PM_NameReserved]
+	list-entries						[issues PM_NameReserved]
 
 <text-ending-with-a-calling> ::=
 	... ( called the ... ) |
@@ -3210,7 +3247,7 @@ language English
 
 <unsuitable-name> ::=
 	<article> |
-	*** (/)/{/}/,/. *** |
+	*** (/)/{/}/,/./(- *** |
 	*** <quoted-text> ***
 
 <unsuitable-name-for-locals> ::=
@@ -3253,22 +3290,37 @@ language English
 
 <s-plain-text-with-equals> internal
 
-<s-literal> ::=
-	<literal>						
+<s-value> internal
 
-<literal> ::=
+<s-condition> internal
+
+<s-non-action-condition> internal
+
+<s-type-expression> internal
+
+<s-descriptive-type-expression> internal
+
+<s-type-expression-or-value> ::=
+	<s-type-expression> |
+	<s-value>			
+
+<s-explicit-action> internal
+
+<s-constant-action> internal
+
+<s-literal> ::=
 	<cardinal-number> |					
 	minus <cardinal-number> |			
 	<quoted-text> ( <response-letter> ) |
 	<quoted-text> |						
-	<literal-real-number> |				
-	<literal-truth-state> |				
-	<literal-list> |					
-	unicode <unicode-character> |		
-	<literal-time> |					
-	<literal-unit-notation>				
+	<s-literal-real-number> |			
+	<s-literal-truth-state> |			
+	<s-literal-list> |					
+	unicode <s-unicode-character> |		
+	<s-literal-time> |					
+	<s-literal-unit-notation>			
 
-<literal-unit-notation> internal
+<s-literal-unit-notation> internal
 
 <cardinal-number-in-words> ::=
 	zero |
@@ -3316,11 +3368,11 @@ language English
 
 <response-letter> internal
 
-<literal-truth-state> ::=
-	false |
-	true
+<s-literal-truth-state> ::=
+	false |					
+	true					
 
-<literal-real-number> ::=
+<s-literal-real-number> ::=
 	_ pi |					
 	_ e |					
 	plus infinity |			
@@ -3335,12 +3387,12 @@ language English
 	<s-miscellaneous-proper-noun> |					
 	<s-rulebook-outcome-name> outcome |				
 	<s-use-option-name> option |					
-	verb <instance-of-verb> |							
+	verb <instance-of-verb> |						
 	<s-rule-name> response ( <response-letter> )	
 
 <s-miscellaneous-proper-noun> internal
 
-<spec-named-constant> internal
+<s-named-constant> internal
 
 <s-rulebook-outcome-name> internal
 
@@ -3379,16 +3431,22 @@ language English
 <s-qualifiable-common-noun> ::=
 	<k-kind>							
 
+<s-qualifiable-proper-noun> ::=
+	<s-instance-name>					
+
 <s-instance-name> internal
 
 <s-applicable-adjective-list> ::=
 	<s-adjective-list>
 
 <s-description> ::=
-	<s-description-uncomposite> |								
+	<s-description-uncomposite-inner> |							
 	<s-np-with-relative-clause>									
 
 <s-description-uncomposite> ::=
+	<s-description-uncomposite-inner>							
+
+<s-description-uncomposite-inner> ::=
 	<s-description-uncalled> ( called <s-calling-name> ) |		
 	<s-description-uncalled>									
 
@@ -3396,8 +3454,10 @@ language English
 	<s-specifier> <s-description-unspecified> |					
 	<s-specifying-noun> |										
 	<s-specifying-noun> <s-adjective-list> |					
-	<definite-article> <s-common-description-unspecified> |		[issues PM_DefiniteCommonNoun]
-	<article> <s-description-unspecified> |						
+	<if-trying-omission-permitted> <definite-article> <s-common-description-unspecified> |
+	^<if-trying-omission-permitted> ^<if-multiplicitous> <definite-article> <s-common-description-unspecified> |[issues PM_DefiniteCommonNoun]
+	<definite-article> <s-proper-description-unspecified> |		
+	<indefinite-article> <s-description-unspecified> |			
 	<s-description-unspecified>									
 
 <s-description-unspecified> ::=
@@ -3407,6 +3467,14 @@ language English
 <s-common-description-unspecified> ::=
 	<s-qualifiable-common-noun> |								
 	<s-applicable-adjective-list> <s-qualifiable-common-noun>	
+
+<s-proper-description-unspecified> ::=
+	<s-qualifiable-proper-noun> |								
+	<s-applicable-adjective-list> <s-qualifiable-proper-noun>	
+
+<if-trying-omission-permitted> internal
+
+<if-multiplicitous> internal
 
 <s-description-nounless> ::=
 	<s-description-nounless-uncomposite> |						
@@ -3420,8 +3488,10 @@ language English
 	<s-specifier> <s-description-nounless-unspecified> |		
 	<s-specifying-noun> |										
 	<s-specifying-noun> <s-adjective-list> |					
-	<definite-article> <s-common-description-unspecified> |		[issues PM_DefiniteCommonNoun]
-	<article> <s-description-nounless-unspecified> |			
+	<if-trying-omission-permitted> <definite-article> <s-common-description-unspecified> |
+	^<if-trying-omission-permitted> ^<if-multiplicitous> <definite-article> <s-common-description-unspecified> |[issues PM_DefiniteCommonNoun]
+	<indefinite-article> <s-description-nounless-unspecified> |	
+	<definite-article> <s-proper-description-unspecified> |		
 	<s-description-nounless-unspecified>						
 
 <s-description-nounless-unspecified> ::=
@@ -3437,26 +3507,21 @@ language English
 
 <s-specifying-noun> internal
 
-<s-nonkind-type> ::=
-	( <s-nonkind-type> ) |			
-	<s-nonkind-type-unbracketed>	
-
-<s-nonkind-type-unbracketed> internal
-
-<s-type-expression> ::=
+<s-type-expression-uncached> ::=
 	<article> <s-type-expression-unarticled> |	
 	<s-type-expression-unarticled>				
 
 <s-type-expression-unarticled> ::=
 	<s-variable-scope> variable/variables |		
 	<s-variable-scope> that/which vary/varies	|
-	<s-nonkind-type> |							
 	<k-kind> |									
 	<s-literal> |								
-	<s-description> |							
-	<s-constant-value>							
+	<s-constant-value> |						
+	<s-description-uncomposite> |				
+	<s-action-pattern-as-value> |				
+	<s-description>								
 
-<s-descriptive-type-expression> ::=
+<s-descriptive-type-expression-uncached> ::=
 	<article> <s-descriptive-type-expression-unarticled> |	
 	<s-descriptive-type-expression-unarticled>				
 
@@ -3465,13 +3530,16 @@ language English
 	<s-type-expression-unarticled>				
 
 <s-variable-scope> ::=
-	existing |								
-	existing <s-type-expression> |			
-	nonexisting |							
-	nonexisting <s-type-expression> |		
-	global |								
-	global <s-type-expression> |			
-	<s-type-expression>						
+	global |									
+	global <s-variable-contents> |				
+	<s-variable-contents>						
+
+<s-variable-contents> ::=
+	<k-kind> |									
+	<s-literal> |								[issues PM_TypeCantVary]
+	<s-constant-value> |						[issues PM_TypeCantVary]
+	<s-description-uncomposite> |				[issues PM_TypeUnmaintainable]
+	<s-description>								[issues PM_TypeUnmaintainable]
 
 <if-let-equation-mode> internal
 
@@ -3481,28 +3549,32 @@ language English
 
 <if-property-name-expected> internal
 
-<s-value> ::=
-	( <s-value> ) |									
-	<s-variable> |									
-	<if-table-column-expected> <s-table-column-name> |
-	<if-property-name-expected> <s-property-name> |	
-	<s-constant-value>	|							
-	<s-value> where <s-plain-text> |				
-	<if-let-equation-mode> <s-plain-text-with-equals> |
-	<s-property-name> |								
-	<s-action-pattern-as-value> |					
-	<s-value-phrase-non-of> |						
-	<s-adjective-list-as-desc> |					
-	<s-purely-physical-description> |				
-	<s-table-reference> |							
-	member/members of <s-description> |				
-	member/members of <s-local-variable> |			
-	<s-property-name> of <s-value> |				
+<s-value-uncached> ::=
+	( <s-value-uncached> ) |										
+	<s-variable> |													
+	<if-table-column-expected> <s-table-column-name> |				
+	<if-property-name-expected> <s-property-name> |					
+	<s-constant-value>	|											
+	<s-equation-usage> |											
+	<s-property-name> |												
+	<s-action-pattern-as-value> |									
+	<s-value-phrase-non-of> |										
+	<s-adjective-list-as-desc> |									
+	<s-purely-physical-description> |								
+	<s-table-reference> |											
+	member/members of <s-description> |								
+	member/members of <s-local-variable> |							
+	<s-property-name> of <s-value-uncached> |						
 	<if-pronoun-present> <possessive-third-person> <s-property-name> |
-	entry <s-value> of/in/from <s-value> |			
-	<s-description> |								
-	<s-table-column-name> |							
-	<s-value-phrase>								
+	entry <s-value-uncached> of/in/from <s-value-uncached> |		
+	<s-description> |												
+	<s-table-column-name> |											
+	<s-value-phrase>												
+
+<s-equation-usage> ::=
+	<if-let-equation-mode> <s-plain-text-with-equals> where <s-plain-text> |
+	<s-value-uncached> where <s-plain-text> |				
+	<if-let-equation-mode> <s-plain-text-with-equals>
 
 <s-variable> ::=
 	<definite-article> <s-variable> |			
@@ -3532,49 +3604,48 @@ language English
 <s-value-phrase> internal
 
 <s-table-reference> ::=
-	<s-table-column-name> entry |															
-	<s-table-column-name> in row <s-value> of <s-value> |									
-	<s-table-column-name> listed in <s-value> |												
-	<s-table-column-name> corresponding to <s-table-column-name> of <s-value> in <s-value> |
-	<s-table-column-name> of <s-value> in <s-value>											
+	<s-table-column-name> entry |																			
+	<s-table-column-name> in row <s-value-uncached> of <s-value-uncached> |									
+	<s-table-column-name> listed in <s-value-uncached> |													
+	<s-table-column-name> corresponding to <s-table-column-name> of <s-value-uncached> in <s-value-uncached> |
+	<s-table-column-name> of <s-value-uncached> in <s-value-uncached>										
 
-<s-action-pattern-as-value> ::=
-	<action-pattern>		
+<s-action-pattern-as-value> internal
 
 <s-sentence> ::=
 	<s-existential-np> <s-existential-verb-tail> |
-	<s-noun-phrase> <s-general-verb-tail>			
+	<s-noun-phrase> <s-general-verb-tail>		
 
 <s-existential-np> ::=
-	there									
+	there										
 
 <s-existential-verb-tail> ::=
-	<copular-verb> <s-noun-phrase-nounless>
+	<copular-verb> <s-noun-phrase-nounless>		
 
 <s-general-verb-tail> ::=
-	<copular-verb> <preposition-implying-player> |				
-	<copular-verb> <preposition> <s-noun-phrase-nounless> |	
-	<copular-verb> <s-noun-phrase-nounless> |					
-	<universal-verb> <s-universal-relation-term> |				
-	<general-verb> <s-noun-phrase>								
+	<copular-verb> <preposition-implying-player> |		
+	<copular-verb> <preposition> <s-noun-phrase-nounless> |
+	<copular-verb> <s-noun-phrase-nounless> |			
+	<universal-verb> <s-universal-relation-term> |		
+	<general-verb> <s-noun-phrase>						
 
 <s-universal-relation-term> ::=
 	<s-noun-phrase> to <s-noun-phrase>
 
 <s-np-with-relative-clause> ::=
-	<s-noun-phrase-nounless> <s-implied-relative-verb-tail> |	
-	<s-noun-phrase> <s-relative-verb-tail>					
+	<s-noun-phrase-nounless> <s-implied-relative-verb-tail> |						
+	<s-noun-phrase> <s-relative-verb-tail>											
 
 <s-implied-relative-verb-tail> ::=
-	<preposition> <s-noun-phrase-nounless> |					
-	not <preposition> <s-noun-phrase-nounless>					
+	<preposition> <s-noun-phrase-nounless> |										
+	not <preposition> <s-noun-phrase-nounless>										
 
 <s-relative-verb-tail> ::=
-	<relative-clause-marker> <copular-verb> <preposition-implying-player> |	
+	<relative-clause-marker> <copular-verb> <preposition-implying-player> |			
 	<relative-clause-marker> <copular-verb> <preposition> <s-noun-phrase-nounless> |
-	<relative-clause-marker> <copular-verb> <s-noun-phrase-nounless> |		
-	<relative-clause-marker> <universal-verb> <s-universal-relation-term> |
-	<relative-clause-marker> <general-verb> <s-noun-phrase> 				
+	<relative-clause-marker> <copular-verb> <s-noun-phrase-nounless> |				
+	<relative-clause-marker> <universal-verb> <s-universal-relation-term> |			
+	<relative-clause-marker> <general-verb> <s-noun-phrase> 						
 
 <s-purely-physical-description> internal
 
@@ -3583,12 +3654,12 @@ language English
 <s-noun-phrase> ::=
 	<if-forced-physical> <s-variable-as-value> |	
 	<if-forced-physical> <s-description> |			
-	^<if-forced-physical> <s-value> |				
+	^<if-forced-physical> <s-value-uncached> |		
 
 <s-noun-phrase-nounless> ::=
 	<if-forced-physical> <s-variable-as-value> |	
 	<if-forced-physical> <s-description-nounless> |	
-	^<if-forced-physical> <s-value> |				
+	^<if-forced-physical> <s-value-uncached> |		
 
 <s-descriptive-np> ::=
 	( <s-descriptive-np> ) |
@@ -3596,7 +3667,7 @@ language English
 	<s-description> |		
 	<s-adjective-list-as-desc>
 
-<s-condition> ::=
+<s-condition-uncached> ::=
 	<s-condition-pure> |						
 	<s-descriptive-np>							
 
@@ -3652,51 +3723,25 @@ language English
 	<action-pattern-past-negated>
 
 <s-command> ::=
-	( <s-command> ) |					
-	else/otherwise |					
-	else/otherwise if/unless *** begin |
-	else/otherwise if/unless *** , *** |
-	else/otherwise if/unless ... |		
-	else/otherwise ^if/unless *** |		
-	-- otherwise |						
-	-- <s-value> |						
-	<s-command-phrase> |				
-	<s-rulebook-outcome-name>			
+	( <s-command> ) |			
+	<s-to-phrase>				
 
-<s-command-phrase> ::=
-	instead <s-command-phrase-inner> |	
-	<s-command-phrase-inner> instead |	
-	<s-command-phrase-inner>			
-
-<s-command-phrase-inner> ::=
-	say <s-say-phrase> |				
-	<s-to-phrase>						
+<s-say-command> ::=
+	( <s-say-command> ) |		
+	<s-say-phrase>				
 
 <s-to-phrase> internal
 
 <s-say-phrase> ::=
-	<s-say-term> , <s-say-term> |		
-	<quoted-text-with-subs> |			
-	<adaptive-verb> verb |				
-	<adaptive-adjective> adjective |	
-	<adaptive-verb> |					
-	<modal-verb> <adaptive-verb> verb |	
-	<modal-verb> <adaptive-verb> |		
-	<adaptive-adjective> |				
-	<s-text-substitution>				
-
-<s-say-term> ::=
-	<empty-text> |						
-	<s-say-phrase>						
+	<adaptive-verb> verb |					
+	<adaptive-adjective> adjective |		
+	<adaptive-verb> |						
+	<modal-verb> <adaptive-verb-infinitive> verb |
+	<modal-verb> <adaptive-verb-infinitive> |	
+	<adaptive-adjective> |					
+	<s-text-substitution>					
 
 <s-text-substitution> internal
-
-<s-unpacked-text-with-substitutions> ::=
-	*** . *** |							[issues PM_TSWithPunctuation]
-	, *** |								[issues PM_EmptySubstitution]
-	*** , |								[issues PM_EmptySubstitution]
-	*** , , *** |						[issues PM_EmptySubstitution]
-	<s-say-phrase>						
 
 <notable-linguistic-kinds> ::=
 	natural language |
@@ -3707,11 +3752,11 @@ language English
 
 <if-parsing-phrase-tokens> internal
 
-<spec-phrase-token-type> internal
+<s-phrase-token-type> internal
 
 <k-kind-for-template> internal
 
-<spec-kind-as-name-token> internal
+<s-kind-as-name-token> internal
 
 <k-kind-as-name-token> ::=
 	( <k-kind-as-name-token> ) |			
@@ -3746,9 +3791,13 @@ language English
 <k-irregular-kind-construction> ::=
 	indexed text | 			
 	indexed texts | 		
+	stored action | 		
+	stored actions | 		
+	object-based rulebook producing <indefinite-article> <k-kind> |
 	object-based rulebook producing <k-kind> |
 	object-based rulebook |	
 	action-based rulebook |	
+	object-based rule producing <indefinite-article> <k-kind> |	
 	object-based rule producing <k-kind> |	
 	object-based rule |		
 	action-based rule |		
@@ -3814,69 +3863,27 @@ language English
 	y/ys |
 	z/zs
 
-<spec-value> internal
-
-<spec-condition> internal
-
-<spec-command> internal
-
-<spec-type-expression> internal
-
-<spec-descriptive-type-expression> internal
-
-<spec-type-expression-or-value> ::=
-	<spec-type-expression> |		
-	<spec-value>					
-
-<spec-global-variable> ::=
-	<s-global-variable>	
-
-<spec-kind> ::=
-	<k-kind>			
-
-<spec-description> ::=
-	<spec-type-expression>
-
-<spec-instance> ::=
-	<spec-type-expression>
-
-<spec-table-name> ::=
-	<spec-type-expression>
-
-<spec-stored-action> internal
-
-<storage-nonkind-types> ::=
-	storage |
-	storages |
-	variable |
-	variables |
-	property-value |
-	property-values |
-	table-reference |
-	table-references |
-	list-entry |
-	list-entries
-
-<condition-nonkind-types> ::=
-	condition |
-	conditions
-
-<command-phrase-nonkind-types> ::=
-	phrase |
-	phrases |
-	action |
-	actions |
-	now-condition |
-	now-conditions
-
 <structural-phrase-problem-diagnosis> ::=
-	else/otherwise ^if/unless *** |		[issues PM_WrongOtherwise]
-	else/otherwise if/unless ... , ... |[issues PM_WrongOtherwise2]
-	else/otherwise if/unless ... begin |[issues PM_WrongOtherwise3]
-	if/unless ... then |				[issues PM_WrongThen]
-	if ... |							[issues PM_PossibleUnterminatedIf]
-	unless ... |						[issues PM_PossibleUnterminatedUnless]
 	continue							[issues PM_WrongContinue]
+
+<failed-text-substitution-diagnosis> ::=
+	a list of ... |					[issues PM_SayAList]
+	...								[issues last-resort failed ts]
+
+<condition-problem-diagnosis> ::=
+	<condition-problem-part> <condition-problem-part-tail> |
+	<condition-problem-part>									
+
+<condition-problem-part-tail> ::=
+	, and/or <condition-problem-diagnosis> |					
+	,/and/or <condition-problem-diagnosis>						
+
+<condition-problem-part> ::=
+	<s-condition> |						
+	<s-value> |							
+	... begins/ends |						
+	when/while *** |						
+	...										
 
 <unknown-text-shape> ::=
 	say ... |			
@@ -3887,6 +3894,7 @@ language English
 	, ... |			[issues PM_SayComma]
 	unicode ... |	[issues PM_SayUnicode]
 	... condition |	[issues PM_SayUnknownCondition]
+	otherwise/else *** |[issues PM_SayElseMisplaced]
 	...				[issues PM_SayUnknown]
 
 <unknown-value-problem-diagnosis> ::=
@@ -3902,30 +3910,8 @@ language English
 
 <unknown-activity-diagnosis> ::=
 	... of |					[issues PM_ActivityOf]
+	... for |					[issues PM_ActivityWithFor]
 	...							[issues PM_Unknown]
-
-<failed-text-substitution-diagnosis> ::=
-	time |							[issues PM_Time2]
-	the time |						[issues PM_Time2]
-	<spec-description> |			[issues PM_SayDescription]
-	a list of ... |					[issues PM_SayAList]
-	<spec-type-expression-or-value>	|[issues PM_AllSayInvsFailed]
-	...								[issues last-resort failed ts]
-
-<condition-problem-diagnosis> ::=
-	<condition-problem-part> <condition-problem-part-tail> |
-	<condition-problem-part>									
-
-<condition-problem-part-tail> ::=
-	, and/or <condition-problem-diagnosis> |					
-	,/and/or <condition-problem-diagnosis>						
-
-<condition-problem-part> ::=
-	<spec-condition> |						
-	<spec-value> |							
-	... begins/ends |						
-	when/while *** |						
-	...										
 
 <notable-properties> ::=
 	description |
@@ -3964,7 +3950,7 @@ language English
 	<value-property-name> |		
 	...							[issues PM_RelationWithBadProperty]
 
-<literal-list> ::=
+<s-literal-list> ::=
 	\{ \} |							
 	\{ <literal-list-contents> \}	
 
@@ -3973,7 +3959,7 @@ language English
 	<literal-list-entry>			
 
 <literal-list-entry> ::=
-	<spec-value> |					
+	<s-value> |			
 	......							
 
 <table-column-heading> ::=
@@ -4011,12 +3997,13 @@ language English
 
 <table-footer> ::=
 	*** with <cardinal-number> blank row/rows |	
+	*** with ... blank row/rows |				
 	*** with blank row/rows for each/every ...	
 
 <table-cell> ::=
 	<table-cell-blank> |	
 	<k-kind-articled> |		
-	<spec-named-constant> |	
+	<s-named-constant> |	
 	<s-global-variable>	|	[issues PM_TablePlayerEntry or C20TableVariableEntry]
 	<table-cell-value> |	
 	<list-of-double-quotes> |
@@ -4026,10 +4013,12 @@ language English
 	--
 
 <table-cell-value> ::=
-	the action of <spec-stored-action> |
-	<spec-stored-action> |				
-	<instance-of-non-object> |			
-	<spec-type-expression>				
+	the action of <s-constant-action> |
+	<s-constant-action> |			
+	the action of <s-explicit-action> |[issues PM_NonconstantActionInTable]
+	<s-explicit-action> |			[issues PM_NonconstantActionInTable]
+	<instance-of-non-object> |		
+	<s-type-expression>				
 
 <list-of-double-quotes> ::=
 	<quoted-text> or <list-of-double-quotes> |
@@ -4039,13 +4028,12 @@ language English
 	rankings
 
 <defined-by-sentence-subject> ::=
-	kind/kinds of <spec-type-expression> |
-	<spec-instance> |					[issues PM_TableDefiningObject]
-	<spec-type-expression> |			
-	...									[issues PM_TableDefiningTheImpossible]
+	kind/kinds of <s-type-expression> |
+	<s-type-expression> |			
+	...								[issues PM_TableDefiningTheImpossible]
 
 <defined-by-sentence-object> ::=
-	<spec-table-name> |						
+	<s-value> |								
 	...										[issues PM_TableUndefined]
 
 <unfortunate-table-column-property> ::=
@@ -4055,7 +4043,10 @@ language English
 	equation {<cardinal-number>} - ... |	
 	equation {<cardinal-number>} |			
 	equation - ... |						
-	equation ...							[issues PM_EquationMisnumbered]
+	equation ***							[issues PM_EquationMisnumbered]
+
+<text-ending-in-comma> ::=
+	... ,
 
 <equation-names-construction> ::=
 	equation ... |
@@ -4065,9 +4056,9 @@ language English
 	... where ...
 
 <equation-where-list> ::=
-	... |													
+	... |												
 	<equation-where-setting-entry> <equation-where-tail> |
-	<equation-where-setting-entry>							
+	<equation-where-setting-entry>						
 
 <equation-where-tail> ::=
 	, _and <equation-where-list> |						
@@ -4078,10 +4069,10 @@ language English
 
 <equation-where-setting> ::=
 	<equation-symbol> is/are <k-kind> |	
-	<equation-symbol> is/are <spec-value> |
+	<equation-symbol> is/are <s-value> |
 	<equation-symbol> is/are ... |		[issues PM_EquationSymbolNonValue]
 	<equation-symbol> = <k-kind> |		[issues PM_EquationSymbolEqualsKOV]
-	<equation-symbol> = <spec-value> |	
+	<equation-symbol> = <s-value> |	
 	<equation-symbol> = ... |			[issues PM_EquationSymbolNonValue]
 	<equation-symbol>					
 
@@ -4118,7 +4109,9 @@ language English
 <rulebook-stem-inner-unarticled> ::=
 	rule for/about/on <rulebook-stem-name> |
 	rule <rulebook-stem-name> |				
+	first rule <rulebook-stem-name> |		
 	first <rulebook-stem-name> |			
+	last rule <rulebook-stem-name> |		
 	last <rulebook-stem-name> |				
 	<rulebook-stem-name>					
 
@@ -4159,6 +4152,8 @@ language English
 	... ( <rule-outcome> ) |			
 	... ( ... ) |						[issues PM_BadOutcomeClarification]
 	...									
+
+<named-rulebook-outcome> internal
 
 <rulebook-name> internal
 
@@ -4243,12 +4238,12 @@ language English
 	<activity-name> of/for <activity-operand> |	
 	<activity-name> <activity-operand> |		
 	^<if-parsing-al-conditions> ... |			
-	<if-parsing-al-conditions> <spec-condition>	
+	<if-parsing-al-conditions> <s-condition>	
 
 <activity-operand> ::=
 	something/anything |						
 	something/anything else |					
-	<spec-type-expression-or-value>				
+	<s-type-expression-or-value>				
 
 <activity-name> internal
 
@@ -4266,6 +4261,7 @@ language English
 	this is the {... rule} |		
 	this is the rule |				[issues PM_NamelessRule]
 	this is ... rule |				[issues PM_UnarticledRule]
+	this is ... rules |				[issues PM_PluralisedRule]
 	<event-rule-preamble> |			
 	to |							[issues PM_BareTo]
 	to ... ( called ... ) |			[issues PM_DontCallPhrasesWithCalled]
@@ -4276,13 +4272,14 @@ language English
 	... ( this is the {... rule} ) |
 	... ( this is the rule ) |		[issues PM_NamelessRule]
 	... ( this is ... rule ) |		[issues PM_UnarticledRule]
+	... ( this is ... rules ) |		[issues PM_PluralisedRule]
 	...								
 
 <now-phrase-preamble> ::=
 	to now ...
 
 <rule-preamble-fine> ::=
-	<rule-preamble-finer> during <spec-scene-description> |
+	<rule-preamble-finer> during <s-scene-description> |
 	<rule-preamble-finer>								
 
 <rule-preamble-finer> ::=
@@ -4291,9 +4288,11 @@ language English
 	...												
 
 <rulebook-stem-embellished> ::=
-	<rulebook-stem> *** |				
-	rule for <rulebook-stem> *** |		
-	rule <rulebook-stem> ***			
+	<rulebook-stem> *** |					
+	<article> rule for <rulebook-stem> *** |
+	<article> rule <rulebook-stem> *** |	
+	rule for <rulebook-stem> *** |			
+	rule <rulebook-stem> ***				
 
 <rulebook-bud> ::=
 	of/for ... |						
@@ -4390,12 +4389,31 @@ language English
 	### ***								
 
 <phrase-token-declaration> ::=
-	*** ( *** - ...... |				[issues PM_TokenWithNestedBrackets]
-	...... - <spec-phrase-token-type> |	
-	...... - <spec-kind-as-name-token> |
-	...... - ...... |					[issues PM_BadTypeIndication]
-	<spec-kind-as-name-token> |			
-	......								[issues PM_TokenMisunderstood]
+	*** ( *** - ...... |											[issues PM_TokenWithNestedBrackets]
+	...... - a nonexisting variable |								
+	...... - a nonexisting <k-kind-for-template> variable |			
+	...... - a nonexisting <k-kind-for-template> that/which varies |
+	...... - nonexisting variable |									
+	...... - nonexisting <k-kind-for-template> variable |			
+	...... - nonexisting <k-kind-for-template> that/which varies |	
+	...... - {an existing variable} |								
+	...... - {an existing <k-kind-for-template> variable} |			
+	...... - {an existing <k-kind-for-template> that/which varies} |
+	...... - {existing variable} |									
+	...... - {existing <k-kind-for-template> variable} |			
+	...... - {existing <k-kind-for-template> that/which varies} |	
+	...... - a condition |											
+	...... - condition |											
+	...... - a phrase |												
+	...... - phrase |												
+	...... - storage |												
+	...... - a table-reference |									
+	...... - table-reference |										
+	...... - <s-phrase-token-type> |								
+	...... - <s-kind-as-name-token> |							
+	...... - ...... |												[issues PM_BadTypeIndication]
+	<s-kind-as-name-token> |										
+	......															[issues PM_TokenMisunderstood]
 
 <phrase-option-declaration-list> ::=
 	... |										
@@ -4461,13 +4479,13 @@ language English
 	i6 condition <quoted-text-without-subs> says so ( ... )	
 
 <new-called-name> ::=
-	*** - *** |							[issues PM_CalledWithDash]
 	<definite-article> <new-called-name-unarticled> |
 	<new-called-name-unarticled>					
 
 <new-called-name-unarticled> ::=
+	*** - *** |							[issues PM_CalledWithDash]
 	<existing-local-name> |				
-	<spec-type-expression-or-value> |	
+	<s-type-expression-or-value> |		
 	...									
 
 <existing-local-name> internal
@@ -4503,7 +4521,7 @@ language English
 <inform6-inclusion-location> ::=
 	<inclusion-side> {<quoted-text-without-subs>} |
 	<inclusion-side> {<quoted-text-without-subs>} in {<quoted-text-without-subs>} |
-	when defining <spec-type-expression> |		
+	when defining <s-type-expression> |		
 	when defining ... |							[issues PM_WhenDefiningUnknown]
 	before the library |						[issues PM_BeforeTheLibrary]
 	in the preform grammar						
@@ -4578,6 +4596,7 @@ language English
 	cover art ( <quoted-text> ) |				
 	cover art |									
 	existing story file |						
+	existing story file called {<quoted-text-without-subs>} |
 	file of {<quoted-text-without-subs>} called {<quoted-text-without-subs>} |
 	file {<quoted-text-without-subs>} in {<quoted-text-without-subs>} |
 	file {<quoted-text-without-subs>} |			
@@ -4778,7 +4797,7 @@ language English
 	<scene-name> ends |					
 	<scene-name> ends <scene-end-name> |
 	<scene-name> ends ... |				[issues PM_ScenesUnknownEnd]
-	<spec-condition>					
+	<s-condition>					
 
 <scene-name> ::=
 	<definite-article> <scene-name-unarticled> |
@@ -4791,8 +4810,8 @@ language English
 
 <scene-end-name-creating> internal
 
-<spec-scene-description> ::=
-	<spec-value>	
+<s-scene-description> ::=
+	<s-value>	
 
 <notable-actions> ::=
 	going
@@ -4834,6 +4853,7 @@ language English
 	one <act-req> and <act-req> |	
 	<act-req> and one <act-req> |	
 	<act-req> and <act-req> |		
+	nothing or one <act-req> |		
 	one <act-req> |					
 	two <act-req>	|				
 	<act-req> |						
@@ -5000,11 +5020,13 @@ language English
 	it							
 
 <action-parameter> ::=
-	<spec-local-variable> |		
-	<spec-global-variable> |	
-	<spec-type-expression-or-value>
+	^<if-nonconstant-action-context> <s-local-variable> |
+	^<if-nonconstant-action-context> <s-global-variable> |
+	<s-local-variable> |								
+	<s-global-variable>	|								
+	<s-type-expression-or-value>						
 
-<spec-local-variable> internal
+<if-nonconstant-action-context> internal
 
 <understand-sentence-subject> ::=
 	nothing |										
@@ -5067,7 +5089,7 @@ language English
 
 <understand-ref> ::=
 	<action-name> |							
-	<spec-descriptive-type-expression> |	
+	<s-descriptive-type-expression> |	
 	<s-variable> |							[issues PM_UnderstandVariable]
 	...										[issues PM_UnderstandVague]
 
@@ -5102,11 +5124,9 @@ language English
 	parameter-object			
 
 <understand-condition> ::=
-	<spec-non-action-condition> |
-	<spec-condition> |			[issues PM_WhenAction]
+	<s-non-action-condition> |
+	<s-condition> |			[issues PM_WhenAction]
 	...							[issues PM_BadWhen]
-
-<spec-non-action-condition> internal
 
 <grammar-token-breaking> ::=
 	... , ... |			
@@ -5115,8 +5135,8 @@ language English
 
 <grammar-token> ::=
 	<named-grammar-token> |			
-	any <spec-description> |		
-	any <spec-kind> |				
+	any things |					
+	any <s-description> |			
 	anything |						
 	anybody |						
 	anyone |						
@@ -5125,10 +5145,9 @@ language English
 	something related by <relation-name> |		
 	something related by ... |		[issues PM_GrammarBadRelation]
 	<standard-grammar-token> |		
-	<spec-instance> |				
-	<spec-description> |			
-	<spec-kind> |					
-	<spec-type-expression>	|		[issues PM_BizarreToken]
+	<definite-article> <k-kind> |	
+	<s-description> |				
+	<s-type-expression>	|			[issues PM_BizarreToken]
 	...								[issues PM_UnknownToken]
 
 <standard-grammar-token> ::=
@@ -5153,6 +5172,7 @@ language English
 <test-sentence-subject> ::=
 	<internal-test-case-name> ( internal ) |
 	### ( internal ) |						[issues PM_UnknownInternalTest]
+	<quoted-text> |							[issues PM_TestQuoted]
 	###	|									
 	...										[issues PM_TestMultiWord]
 
@@ -5168,7 +5188,9 @@ language English
 	adjective |
 	participle |
 	kind |
-	map
+	map |
+	dash |
+	dashlog
 
 <test-sentence-object> ::=
 	<quoted-text> |								

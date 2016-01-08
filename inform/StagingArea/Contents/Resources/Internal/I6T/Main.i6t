@@ -63,7 +63,7 @@ forgotten.
 {-callv:Kinds::Interpreter::include_templates_for_kinds}
 
 {-log-phase:Semantic analysis II}
-{-callv:ParseTree::Verification::verify} ! Purely to check that NI is running correctly
+{-callv:ParseTree::verify} ! Purely to check that NI is running correctly
 {-callv:Extensions::Files::check_versions} ! Do the extension version numbers meet needs?
 {-callv:Sentences::Headings::make_tree} ! Stratify headings and subheadings
 {-callv:Sentences::Headings::write_as_xml} ! Dump them to a file for the GUI to use
@@ -118,8 +118,7 @@ be too late to work before or instead of it.
 {-callv:Phrases::Manager::add_rules_to_rulebooks}
 {-callv:Phrases::Manager::parse_rule_placements}
 {-callv:Equations::traverse_to_stock}
-
-{-callv:Problems::empty_all_headings}
+{-callv:Tables::traverse_to_stock}
 
 @p Code Generation.
 This is where we hand over to regular template files -- containing code
@@ -209,8 +208,7 @@ Making any final reports to the debugging log, and that's then it.
 @c
 {-callv:TemplateFiles::report_unacted_upon_interventions}
 
-{! -callv:Specifications::Taxa::report_pairs_observed}
-{! -callv:Specifications::Taxa::report_pairs_allowed}
+{! -callv:ParseTree::write_main_source_to_log}
 {! -callv:Memory::log_statistics}
 {! -callv:Preform::log_language}
 {! -callv:Index::DocReferences::log_statistics}

@@ -111,7 +111,7 @@
     // RNG
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    random_seed(tv.tv_sec^tv.tv_usec);
+    random_seed((int) (tv.tv_sec^tv.tv_usec));
 	
     // Some default options
 	// rc_load(); // DELETEME: TEST FOR BUG
@@ -567,7 +567,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	debug_address addr = debug_find_address(address);
 	
 	if (addr.routine != NULL) {
-		return [NSString stringWithCString: addr.routine->name];
+		return @(addr.routine->name);
 	}
 	
 	return nil;
@@ -578,7 +578,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	
 	if (addr.line == NULL) return nil;
 
-	return [NSString stringWithCString: debug_syms.files[addr.line->fl].realname];
+	return @(debug_syms.files[addr.line->fl].realname);
 }
 
 - (NSString*) routineForAddress: (int) address {
@@ -586,7 +586,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 	
 	if (addr.routine == NULL) return nil;
 	
-	return [NSString stringWithCString: addr.routine->name];
+	return @(addr.routine->name);
 }
 
 - (int) lineForAddress: (int) address {
@@ -629,9 +629,9 @@ static NSString* zscii_to_string(ZByte* buf) {
 	const ZByte* gameData = [saveData bytes];
 	
 	// NOTE: suppresses a warning (but it should be OK)
-	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, [saveData length])) {
+	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, (int) [saveData length])) {
 		NSLog(@"ZoomServer: restoreSaveState: failed");
-		return [NSString stringWithCString: state_fail()];
+		return @(state_fail());
 	} else {
 		zmachine_setup_header();
 		
@@ -709,7 +709,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (void) promptedFileIs: (NSObject<ZFile>*) file
-                   size: (int) size {
+                   size: (long) size {
     if (lastFile) [lastFile release];
     
     lastFile = [file retain];
@@ -735,7 +735,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (int) lastSize {
-    return lastSize;
+    return (int) lastSize;
 }
 
 - (void) clearFile {

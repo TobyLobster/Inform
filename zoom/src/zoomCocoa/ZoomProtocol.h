@@ -31,12 +31,15 @@ extern NSString* ZBufferNeedsFlushingNotification;
 @class ZStyle;
 @class ZBuffer;
 
-typedef enum {
+#ifndef NS_ENUM
+#import <Foundation/Foundation.h>
+#endif
+typedef NS_ENUM(unsigned int, ZFileType) {
     ZFileQuetzal,
     ZFileTranscript,
     ZFileRecording,
     ZFileData
-} ZFileType;
+};
 
 enum ZValueTypeMasks {
 	ZValueRoutine = 1,
@@ -70,7 +73,7 @@ enum ZValueTypeMasks {
 // Recieving files
 - (oneway void) filePromptCancelled;
 - (oneway void) promptedFileIs: (in byref NSObject<ZFile>*) file
-                          size: (int) size;
+                          size: (long) size;
 
 // Obtaining game state
 - (bycopy NSData*) createGameSave;
@@ -142,7 +145,8 @@ enum ZValueTypeMasks {
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style;
+                  withStyle: (in bycopy ZStyle*) style
+                  isCommand: (in bycopy BOOL) isCommand;
 
 // Setting the style that text should be input in
 - (oneway void) setInputStyle: (in bycopy ZStyle*) inputStyle;
@@ -282,40 +286,23 @@ enum ZValueTypeMasks {
 // Some useful standard classes
 
 // File from a handle
-@interface ZHandleFile : NSObject<ZFile> {
-    NSFileHandle* handle;
-}
+@interface ZHandleFile : NSObject<ZFile>
 
-- (id) initWithFileHandle: (NSFileHandle*) handle;
+- (instancetype) initWithFileHandle: (NSFileHandle*) handle NS_DESIGNATED_INITIALIZER;
 @end
 
 // File from data stored in memory
-@interface ZDataFile : NSObject<ZFile> {
-    NSData* data;
-    int pos;
-}
+@interface ZDataFile : NSObject<ZFile>
 
-- (id) initWithData: (NSData*) data;
+- (instancetype) initWithData: (NSData*) data NS_DESIGNATED_INITIALIZER;
 @end
 
 // File(s) from a package
-@interface ZPackageFile : NSObject<ZFile> {
-	NSFileWrapper* wrapper;
-	BOOL forWriting;
-	NSString* writePath;
-	NSString* defaultFile;
-	
-	NSFileWrapper* data;
-	NSMutableData* writeData;
-	
-	NSDictionary* attributes;
-	
-	int pos;
-}
+@interface ZPackageFile : NSObject<ZFile>
 
-- (id) initWithPath: (NSString*) path
+- (instancetype) initWithPath: (NSString*) path
 		defaultFile: (NSString*) filename
-		 forWriting: (BOOL) write;
+		 forWriting: (BOOL) write NS_DESIGNATED_INITIALIZER;
 
 - (void) setAttributes: (NSDictionary*) attributes;
 
@@ -327,52 +314,24 @@ enum ZValueTypeMasks {
 
 // Style attributes
 extern NSString* ZStyleAttributeName;
-@interface ZStyle : NSObject<NSCopying,NSCoding> {
-    // Colour
-    int foregroundColour;
-    int backgroundColour;
-    NSColor* foregroundTrue;
-    NSColor* backgroundTrue;
+@interface ZStyle : NSObject<NSCopying,NSCoding>
 
-    // Style
-    BOOL isReversed;
-    BOOL isFixed;
-    BOOL isBold;
-    BOOL isUnderline;
-    BOOL isSymbolic;
-	
-	BOOL isForceFixed;
-}
 
-- (void) setForegroundColour: (int) zColour;
-- (void) setBackgroundColour: (int) zColour;
-- (void) setForegroundTrue:   (NSColor*) colour;
-- (void) setBackgroundTrue:   (NSColor*) colour;
-- (void) setFixed:            (BOOL) fixed;
-- (void) setForceFixed:		  (BOOL) forceFixed;
-- (void) setBold:             (BOOL) bold;
-- (void) setUnderline:        (BOOL) underline;
-- (void) setSymbolic:         (BOOL) symbolic;
-- (void) setReversed:         (BOOL) reversed;
-
-- (int)      foregroundColour;
-- (int)      backgroundColour;
-- (NSColor*) foregroundTrue;
-- (NSColor*) backgroundTrue;
-- (BOOL)     reversed;
-- (BOOL)     fixed;
-- (BOOL)	 forceFixed;
-- (BOOL)     bold;
-- (BOOL)     underline;
-- (BOOL)     symbolic;
+@property (NS_NONATOMIC_IOSONLY) int foregroundColour;
+@property (NS_NONATOMIC_IOSONLY) int backgroundColour;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *foregroundTrue;
+@property (NS_NONATOMIC_IOSONLY, copy) NSColor *backgroundTrue;
+@property (NS_NONATOMIC_IOSONLY) BOOL reversed;
+@property (NS_NONATOMIC_IOSONLY) BOOL fixed;
+@property (NS_NONATOMIC_IOSONLY) BOOL forceFixed;
+@property (NS_NONATOMIC_IOSONLY) BOOL bold;
+@property (NS_NONATOMIC_IOSONLY) BOOL underline;
+@property (NS_NONATOMIC_IOSONLY) BOOL symbolic;
 
 @end
 
 // Buffering
-@interface ZBuffer : NSObject<NSCopying,NSCoding> {
-    NSMutableArray* buffer;
-	int bufferCount;
-}
+@interface ZBuffer : NSObject<NSCopying,NSCoding>
 
 // Buffering
 
@@ -411,7 +370,7 @@ extern NSString* ZStyleAttributeName;
 		  inWindow: (NSObject<ZPixmapWindow>*) win;
 
 // Unbuffering
-- (BOOL) empty; // YES if the buffer has no data
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL empty; // YES if the buffer has no data
 - (void) blat; // Like blitting, only messier
 
 @end

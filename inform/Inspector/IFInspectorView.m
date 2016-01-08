@@ -9,14 +9,23 @@
 #import "IFInspectorView.h"
 #import "IFInspectorWindow.h"
 #import "IFAppDelegate.h"
+#import "IFIsTitleView.h"
+#import "IFIsArrow.h"
 
 #define TitleHeight [IFIsTitleView titleHeight]
 #define ViewOffset  [IFIsTitleView titleHeight]
 #define ViewPadding 1
 
-@implementation IFInspectorView
+@implementation IFInspectorView {
+    NSView* innerView;										// The actual inspector view
 
-- (id)initWithFrame:(NSRect)frame {
+    IFIsTitleView* titleView;								// The title bar view
+    IFIsArrow*     arrow;									// The open/closed arrow
+
+    BOOL willLayout;										// YES if a layout event is pending
+}
+
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		innerView = nil;
@@ -44,14 +53,7 @@
 }
 
 - (void) dealloc {
-	if (innerView) [innerView release];
-	
-	[arrow release];
-	[titleView release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 // = The view =
@@ -66,16 +68,15 @@
 														name: NSViewFrameDidChangeNotification
 													  object: innerView];
 		[innerView removeFromSuperview];
-		[innerView release];
 	}
 	
+    innerView = view;
 	[innerView setPostsFrameChangedNotifications: YES];
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(innerSizeChanged:)
 												 name: NSViewFrameDidChangeNotification
 											   object: innerView];
 	
-	innerView = [view retain];
 	[self queueLayout];
 }
 
@@ -96,7 +97,7 @@
 											  target: self
 											argument: nil
 											   order: 64
-											   modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+											   modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 		willLayout = YES;
 	}
 }

@@ -17,22 +17,18 @@ typedef enum IFRecentFileType {
     IFRecentSaveEPubs,
 } IFRecentFileType;
 
-@interface IFRecentFileCellInfo : NSObject <NSCopying> {
-@private
-    NSString *       title;
-    NSImage *        image;
-    IFRecentFileType type;
-    NSURL*           url;
-}
+@interface IFRecentFileCellInfo : NSObject <NSCopying>
 
-@property (readwrite, retain) NSString* title;
-@property (readwrite, retain) NSImage* image;
-@property (readwrite, retain) NSURL* url;
-@property (readwrite) IFRecentFileType type;
+@property (atomic, readwrite, strong) NSString* title;
+@property (atomic, readwrite, strong) NSImage* image;
+@property (atomic, readwrite, strong) NSURL* url;
+@property (atomic, readwrite) IFRecentFileType type;
 
-- (id)initWithTitle: (NSString *) _title
-              image: (NSImage *) _image
-                url: (NSURL *) _url
-               type: (IFRecentFileType) _type;
+- (instancetype)init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+
+- (instancetype)initWithTitle: (NSString *) title
+                        image: (NSImage *) image
+                          url: (NSURL *) url
+                         type: (IFRecentFileType) type NS_DESIGNATED_INITIALIZER;
 
 @end

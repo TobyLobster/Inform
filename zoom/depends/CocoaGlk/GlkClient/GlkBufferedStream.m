@@ -63,7 +63,7 @@
 	}
 	
 	// Fill from high tide to the end of the buffer
-	int remaining = [fillData length];
+	int remaining = (int) [fillData length];
 	int toCopy = remaining;
 	
 	if (highTide + toCopy >= readAhead) toCopy = readAhead-highTide;

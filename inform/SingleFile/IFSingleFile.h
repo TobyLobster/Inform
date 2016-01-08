@@ -7,22 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IFSyntaxTypes.h"
 
 //
 // Extensions and other lone files are stored by this document class.
 //
-@interface IFSingleFile : NSDocument {
-	NSTextStorage* fileStorage;						// The contents of the file
-	NSStringEncoding fileEncoding;					// The encoding used for the file
-    NSRange initialSelectionRange;
-}
+@interface IFSingleFile : NSDocument
 
 // Retrieving document data
-- (NSTextStorage*) storage;							// The contents of the file
-- (BOOL) isReadOnly;								// YES if this file is read-only
-- (NSRange) initialSelectionRange;
+@property (atomic, readonly, copy) NSTextStorage *storage;			// The contents of the file
+@property (atomic, getter=isReadOnly, readonly) BOOL readOnly;		// YES if this file is read-only
+@property (atomic) NSRange initialSelectionRange;
 
--(void) setInitialSelectionRange: (NSRange) range;
 
 @end

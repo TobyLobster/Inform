@@ -9,9 +9,22 @@
 #import "ZoomScrollView.h"
 
 
-@implementation ZoomScrollView
+@implementation ZoomScrollView {
+    ZoomView*            zoomView;
+    ZoomUpperWindowView* upperView;
 
-- (id)initWithFrame:(NSRect)frame {
+    NSBox* upperDivider;
+
+    float scaleFactor;
+
+    NSSize lastFixedSize;
+    NSSize lastTileSize;
+    int lastUpperSize;
+
+    BOOL useDivider;
+}
+
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         zoomView = nil;
@@ -27,7 +40,7 @@
     return self;
 }
 
-- (id) initWithFrame: (NSRect) frame
+- (instancetype) initWithFrame: (NSRect) frame
             zoomView: (ZoomView*) zView {
     self = [self initWithFrame:frame];
     if (self) {
@@ -56,8 +69,7 @@
 
 	int upperHeight  = [zoomView upperWindowSize];
 	NSSize fixedSize = [@"M" sizeWithAttributes:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			[zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];	
+		@{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];	
 	
 	if (!NSEqualSizes(lastTileSize, thisTileSize) || lastUpperSize != upperHeight || !NSEqualSizes(lastFixedSize, fixedSize)) {
 		// Move the content view to accomodate the upper window

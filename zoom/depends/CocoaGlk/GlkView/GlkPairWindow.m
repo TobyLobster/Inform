@@ -13,7 +13,7 @@
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -391,12 +391,13 @@
 
 // = NSAccessibility =
 
+/*
 - (NSString *)accessibilityActionDescription: (NSString*) action {
 	return @"";
 }
 
 - (NSArray *)accessibilityActionNames {
-	return [NSArray array];
+	return @[];
 }
 
 - (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
@@ -413,28 +414,39 @@
 }
 
 - (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
-	if (!result) result = [[[NSMutableArray alloc] init] autorelease];
-	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-		NSAccessibilityChildrenAttribute,
-		nil]];
-	
-	return result;
+    static NSMutableArray *attributes = nil;
+
+    if ( attributes == nil )
+    {
+        attributes = [[super accessibilityAttributeNames] mutableCopy];
+
+        NSArray *additionalAttributes = @[NSAccessibilityChildrenAttribute];
+
+        for ( NSString *attribute in additionalAttributes )
+        {
+            if ( ![attributes containsObject:attribute] )
+            {
+                [attributes addObject:attribute];
+            }
+        }
+    }
+
+    return [super accessibilityAttributeNames];
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
+ 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
 		//return [NSArray arrayWithObjects: left, right, nil];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
 		return NSAccessibilityGroupRole;
 	}
-	
+
 	return [super accessibilityAttributeValue: attribute];
 }
+ */
 
 - (BOOL)accessibilityIsIgnored {
-	return NO;
+    return YES;
 }
 
 @end

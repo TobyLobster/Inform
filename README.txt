@@ -12,6 +12,8 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 History
 -------
+1.64.1   6M62   2016-01-06   Bugfixes (Fix for 10.6.8 support #1807, toolbar panel #1808, Syntax colouring #1815)
+1.64.0   6M62   2015-12-24   Includes new Testing panel, and support for Extension Projects
 1.54.4   6L38   2014-11-21   First Mac App Store version released
 1.53     6L38   2014-09-23   Experimental sandboxed version (getting closer to Mac App Store release, Distributed to testers to test if it works)
 1.52     6L38   2014-09-18   Fixed previous version, now signed properly and non-sandboxed.
@@ -20,7 +22,7 @@ History
 
 Compiling Inform
 ----------------
-Inform is compiled with XCode 6.1 on Mac OS 10.10 (Yosemite)
+Inform is compiled with XCode 7.2 on Mac OS 10.11 (El Capitan)
 
 Licensing
 ---------

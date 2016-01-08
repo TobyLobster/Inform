@@ -1,6 +1,6 @@
 //
 //  IFRandomSettings.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 17/09/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.
@@ -8,10 +8,13 @@
 
 #import "IFRandomSettings.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
-@implementation IFRandomSettings
+@implementation IFRandomSettings {
+    IBOutlet NSButton* makePredictable;
+}
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: @"RandomSettings"];
 }
 
@@ -29,7 +32,7 @@
 
 - (void) setSettings {
     IFCompilerSettings* settings = [self compilerSettings];
-	
+
 	[settings setNobbleRng: [makePredictable state] == NSOnState];
 }
 

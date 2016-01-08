@@ -1,12 +1,15 @@
 //
 //  IFHeaderNode.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 03/01/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
 //
 
 #import "IFHeaderNode.h"
+#import "IFUtility.h"
+#import "IFIntelFile.h"
+#import "IFIntelSymbol.h"
 
 // = Fonts =
 
@@ -24,20 +27,35 @@ static NSString* IFHeaderCorner		= @"IFHeaderCorner";
 
 static float pointSize = 11.0;
 
-@implementation IFHeaderNode
+@implementation IFHeaderNode {
+    NSPoint position;								// The position of this node
+    NSRect frame;									// The frame for this node, including all it's children
+    NSRect exclusiveFrame;							// The frame for this node, not including any children
+    int depth;										// The depth of this node in the tree
+    IFHeaderNodeSelectionStyle selected;			// The selection style of this node
+    BOOL editing;									// YES if we're editing this node
+
+    IFHeader* header;								// The IFHeader item associated with this node
+    NSMutableArray* children;						// The child nodes of this node
+
+    // Parameters representing how this node should be laid out
+    float margin;									// Margin to the items
+    float indent;									// Indentation per level
+    float gap;										// Vertical gap around items
+    float corner;									// Size of a corner for an item
+}
+
 
 // = Class initialization =
 
 + (void) initialize {
 	// Register the preferences for this class
 	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithFloat: [NSFont smallSystemFontSize]],	IFHeaderPointSize,
-			[NSNumber numberWithFloat: 5],								IFHeaderMargin,
-			[NSNumber numberWithFloat: 12],								IFHeaderIndent,
-			[NSNumber numberWithFloat: 8],								IFHeaderGap,
-			[NSNumber numberWithFloat: 5],								IFHeaderCorner,
-			nil]];
+		@{IFHeaderPointSize: @((float) [NSFont smallSystemFontSize]),
+			IFHeaderMargin: @5.0f,
+			IFHeaderIndent: @12.0f,
+			IFHeaderGap: @8.0f,
+			IFHeaderCorner: @5.0f}];
 	
 	pointSize = [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderPointSize] floatValue];
 }
@@ -50,7 +68,9 @@ static float pointSize = 11.0;
 	switch (selected) {
 		case IFHeaderNodeSelected:
 			return boldHeaderNodeFont;
-			
+
+        case IFHeaderNodeUnselected:
+        case IFHeaderNodeInputCursor:
 		default:
 			return headerNodeFont;
 	}
@@ -95,15 +115,15 @@ static float pointSize = 11.0;
 
 // = Constructing this node =
 
-- (id) initWithHeader: (IFHeader*) newHeader
+- (instancetype) initWithHeader: (IFHeader*) newHeader
 			 position: (NSPoint) newPosition
 				depth: (int) newDepth {
 	self = [self init];
 	
 	if (self) {
 		// If the fonts don't exist, then update them
-		if (!headerNodeFont)		headerNodeFont		= [[NSFont systemFontOfSize: pointSize] retain];
-		if (!boldHeaderNodeFont)	boldHeaderNodeFont	= [[NSFont boldSystemFontOfSize: pointSize] retain];
+		if (!headerNodeFont)		headerNodeFont		= [NSFont systemFontOfSize: pointSize];
+		if (!boldHeaderNodeFont)	boldHeaderNodeFont	= [NSFont boldSystemFontOfSize: pointSize];
 		
 		// Create a bullet point
 		if (!bulletPoint) {
@@ -113,7 +133,7 @@ static float pointSize = 11.0;
 		}
 		
 		// Update the contents of this node
-		header = [newHeader retain];
+		header = newHeader;
 		depth = newDepth;
 		position = newPosition;
 		selected = IFHeaderNodeUnselected;
@@ -130,23 +150,16 @@ static float pointSize = 11.0;
 	return self;
 }
 
-- (void) dealloc {
-	[header release];			header = nil;
-	[children release];			children = nil;
-	
-	[super dealloc];
-}
-
 - (void) populateToDepth: (int) maxDepth {
 	// Do nothing if we've reached the end
 	if (maxDepth <= [[header symbol] level]) {
-		[children release]; children = nil;
+		 children = nil;
 		[self updateNodeFrame];
 		return;
 	}
 	
 	// Create the children array
-	[children release]; children = nil;
+	 children = nil;
 	[self updateNodeFrame];
 	children = [[NSMutableArray alloc] init];
 	
@@ -161,7 +174,6 @@ static float pointSize = 11.0;
 		IFHeaderNode* newChildNode = [[IFHeaderNode alloc] initWithHeader: childNode
 																 position: childPoint
 																	depth: depth+1];
-		[newChildNode autorelease];
 		
 		// Populate it
 		[newChildNode populateToDepth: maxDepth];
@@ -254,8 +266,8 @@ static float pointSize = 11.0;
 	}
 
 	// Work out the line range for this header node
-	unsigned int firstLine;
-	unsigned int finalLine;
+	NSUInteger firstLine;
+	NSUInteger finalLine;
 	
 	firstLine = [intel lineForSymbol: symbol];
 	if (followingSymbol) {
@@ -343,13 +355,14 @@ static float pointSize = 11.0;
 }
 
 - (NSDictionary*) attributes { 
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-			 [self font], NSFontAttributeName,
-			 nil];
+	return @{NSFontAttributeName: [self font]};
 }
 
 - (int) uneditablePartLength {
-	NSString* name = [self name];
+    NSString* name = [self name];
+    if( depth <= 1 ) {
+        return (int) [name length];
+    }
 	int x;
 	
 	int spaceCount = 0;
@@ -368,6 +381,7 @@ static float pointSize = 11.0;
 - (NSString*) editableName {
 	// Get the editable portion of the string
 	NSString* editable = [[self name] substringFromIndex: [self uneditablePartLength]];
+    if( [editable length] == 0 ) return @"";
 	
 	// Strip off any trailing spaces
 	if ([editable characterAtIndex: [editable length]-1] == '\n') {
@@ -418,7 +432,7 @@ static float pointSize = 11.0;
 - (NSAttributedString*) attributedTitle {
 	NSAttributedString* result = [[NSAttributedString alloc] initWithString: [self editableName]
 																 attributes: [self attributes]];
-	return [result autorelease];
+	return result;
 }
 
 - (NSRect) fullHeaderTitleRect {

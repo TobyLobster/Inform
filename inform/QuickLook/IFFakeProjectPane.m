@@ -1,6 +1,6 @@
 //
 //  IFFakeProjectPane.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 27/10/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -14,7 +14,7 @@
 @implementation IFProjectPane
 
 + (NSDictionary*) attributeForStyle: (IFSyntaxStyle) style {
-	return [[[IFPreferences sharedPreferences] styles] objectAtIndex: (unsigned)style];
+	return [[IFPreferences sharedPreferences] styles][(unsigned)style];
 }
 
 @end

@@ -6,26 +6,38 @@
 //
 // String extensions inspired by http://benscheirman.com/2010/04/handy-categories-on-nsstring/
 // and https://github.com/jwhitehorn/service_manual/blob/master/Service%20Manual/NSString%2BJRStringAdditions.m
+// and http://stackoverflow.com/questions/256460/nsstring-indexof-in-objective-c
 
 #import <Cocoa/Cocoa.h>
 
 // *******************************************************************************************
 @interface NSString (IFStringAdditions)
 
-- (BOOL)containsString:(NSString *)string;
-- (BOOL)containsString:(NSString *)string
-               options:(NSStringCompareOptions)options;
+- (BOOL)containsSubstring: (NSString *) string;
+- (BOOL)containsSubstring: (NSString *) string
+                  options: (NSStringCompareOptions) options;
 
--(BOOL)endsWith:(NSString *)string;
--(BOOL)startsWith:(NSString *)string;
--(BOOL) isEqualToStringCaseInsensitive:(NSString *)string;
+-(BOOL) endsWith: (NSString *) string;
+-(BOOL) startsWith: (NSString *) string;
+-(BOOL) endsWithCaseInsensitive: (NSString *) string;
+-(BOOL) startsWithCaseInsensitive: (NSString *) string;
+-(BOOL) isEqualToStringCaseInsensitive: (NSString *) string;
 
--(NSString *)substringFrom:(NSInteger)from
-                        to:(NSInteger)to;
+-(NSString*) substringFrom: (NSInteger)from
+                        to: (NSInteger)to;
 
--(NSString *)stringByTrimmingWhitespace;
+-(NSString*) stringByTrimmingWhitespace;
+-(NSString*) trailingWhitespace;
+-(NSString*) leadingWhitespace;
+-(NSString*) stringByRemovingLeadingWhitespace;
+-(NSString*) stringByRemovingTrailingWhitespace;
 
--(NSString *) stringByReplacing:(NSString *) lpFind
-                           with:(NSString *) lpReplace;
+-(NSString*) stringByTrimmingCharactersInString: (NSString*) charactersToTrim;
+
+-(NSString*) stringByReplacing: (NSString *) lpFind
+                          with: (NSString *) lpReplace;
+
+- (int) indexOf: (NSString *) text;
+- (int) lastIndexOf: (NSString *) text;
 
 @end

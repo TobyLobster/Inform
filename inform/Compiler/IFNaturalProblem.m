@@ -1,6 +1,6 @@
 //
 //  IFNaturalProblem.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 06/10/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -17,7 +17,7 @@
 	if (errorCode < 0) return nil;						// We ignore negative return codes should they occur
 	
 	// Default error page is Error0
-	NSString* fileURL = @"inform:/Error0.html";
+	NSString* fileURLString = @"inform:/Error0.html";
 	
 	// See if we've got a file for this specific error code
 	NSString* specificFile = [NSString stringWithFormat: @"Error%i", errorCode];
@@ -25,11 +25,11 @@
 															 ofType: @"html"];
 	
 	if (resourcePath != nil && [[NSFileManager defaultManager] fileExistsAtPath: resourcePath]) {
-		fileURL = [NSString stringWithFormat: @"inform:/%@.html", specificFile];
+		fileURLString = [NSString stringWithFormat: @"inform:/%@.html", specificFile];
 	}
 	
 	// Return the result
-	return [NSURL URLWithString: fileURL];
+	return [NSURL URLWithString: fileURLString];
 }
 
 @end

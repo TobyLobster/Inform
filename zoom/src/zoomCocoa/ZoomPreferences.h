@@ -24,92 +24,65 @@ enum GlulxInterpreter {
 // init is the designated initialiser for this class
 
 + (ZoomPreferences*) globalPreferences;
-- (id) initWithDefaultPreferences;
+- (instancetype) initWithDefaultPreferences;
 
-- (id) initWithDictionary: (NSDictionary*) preferences;
+- (instancetype) initWithDictionary: (NSDictionary*) preferences NS_DESIGNATED_INITIALIZER;
 
 // Getting preferences
 + (NSString*) defaultOrganiserDirectory;
 
 // Warnings and game text prefs
-- (BOOL)  displayWarnings;
-- (BOOL)  fatalWarnings;
-- (BOOL)  speakGameText;
-- (BOOL)  confirmGameClose;
-- (float) scrollbackLength;	// 0-100
+@property (NS_NONATOMIC_IOSONLY) BOOL displayWarnings;
+@property (NS_NONATOMIC_IOSONLY) BOOL fatalWarnings;
+@property (NS_NONATOMIC_IOSONLY) BOOL speakGameText;
+@property (NS_NONATOMIC_IOSONLY) BOOL confirmGameClose;
+@property (NS_NONATOMIC_IOSONLY) float scrollbackLength;	// 0-100
 
 // Interpreter preferences
-- (NSString*)     gameTitle;
-- (int)           interpreter;
-- (enum GlulxInterpreter) glulxInterpreter;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *gameTitle;
+@property (NS_NONATOMIC_IOSONLY) int interpreter;
+@property (NS_NONATOMIC_IOSONLY) enum GlulxInterpreter glulxInterpreter;
 - (unsigned char) revision;
 
 // Typographical preferences
-- (NSArray*)      fonts;   // 16 fonts
-- (NSArray*)      colours; // 13 colours
+@property (NS_NONATOMIC_IOSONLY, copy) NSArray *fonts;   // 16 fonts
+@property (NS_NONATOMIC_IOSONLY, copy) NSArray *colours; // 13 colours
 
-- (NSString*) proportionalFontFamily;
-- (NSString*) fixedFontFamily;
-- (NSString*) symbolicFontFamily;
-- (float) fontSize;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *proportionalFontFamily;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *fixedFontFamily;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *symbolicFontFamily;
+@property (NS_NONATOMIC_IOSONLY) float fontSize;
 
-- (float) textMargin;
-- (BOOL) useScreenFonts;
-- (BOOL) useHyphenation;
+@property (NS_NONATOMIC_IOSONLY) float textMargin;
+@property (NS_NONATOMIC_IOSONLY) BOOL useScreenFonts;
+@property (NS_NONATOMIC_IOSONLY) BOOL useHyphenation;
 
-- (BOOL) useKerning;
-- (BOOL) useLigatures;
+@property (NS_NONATOMIC_IOSONLY) BOOL useKerning;
+@property (NS_NONATOMIC_IOSONLY) BOOL useLigatures;
 
 // Organiser preferences
-- (NSString*) organiserDirectory;
-- (BOOL)	  keepGamesOrganised;
-- (BOOL)      autosaveGames;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *organiserDirectory;
+@property (NS_NONATOMIC_IOSONLY) BOOL keepGamesOrganised;
+@property (NS_NONATOMIC_IOSONLY) BOOL autosaveGames;
 
 // Display preferences
-- (int) foregroundColour;
-- (int) backgroundColour;
-- (BOOL) showBorders;
-- (BOOL) showGlkBorders;
-- (BOOL) showCoverPicture;
+@property (NS_NONATOMIC_IOSONLY) int foregroundColour;
+@property (NS_NONATOMIC_IOSONLY) int backgroundColour;
+@property (NS_NONATOMIC_IOSONLY) BOOL showBorders;
+@property (NS_NONATOMIC_IOSONLY) BOOL showGlkBorders;
+@property (NS_NONATOMIC_IOSONLY) BOOL showCoverPicture;
 
 // The dictionary
 - (NSDictionary*) dictionary;
 
 // Setting preferences
-- (void) setDisplayWarnings: (BOOL) flag;
-- (void) setFatalWarnings: (BOOL) flag;
-- (void) setSpeakGameText: (BOOL) flag;
-- (void) setConfirmGameClose: (BOOL) flag;
-- (void) setScrollbackLength: (float) value;
-- (void) setGlulxInterpreter: (enum GlulxInterpreter) value;
 
-- (void) setGameTitle: (NSString*) title;
-- (void) setInterpreter: (int) interpreter;
 - (void) setRevision: (int) revision;
 
-- (void) setFonts: (NSArray*) fonts;
-- (void) setColours: (NSArray*) colours;
 
-- (void) setProportionalFontFamily: (NSString*) fontFamily;
-- (void) setFixedFontFamily: (NSString*) fontFamily;
-- (void) setSymbolicFontFamily: (NSString*) fontFamily;
-- (void) setFontSize: (float) size;
 
-- (void) setTextMargin: (float) textMargin;
-- (void) setUseScreenFonts: (BOOL) useScreenFonts;
-- (void) setUseHyphenation: (BOOL) useHyphenation;
-- (void) setUseKerning: (BOOL) useKerning;
-- (void) setUseLigatures: (BOOL) useLigatures;
 
-- (void) setOrganiserDirectory: (NSString*) directory;
-- (void) setKeepGamesOrganised: (BOOL) value;
-- (void) setAutosaveGames: (BOOL) value;
 
-- (void) setShowBorders: (BOOL) value;
-- (void) setShowGlkBorders: (BOOL) value;
-- (void) setForegroundColour: (int) value;
-- (void) setBackgroundColour: (int) value;
-- (void) setShowCoverPicture: (BOOL) value;
 
 // Notifications
 - (void) preferencesHaveChanged;

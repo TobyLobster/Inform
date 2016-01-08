@@ -219,8 +219,12 @@ This is equivalent to C's memcpy function, in good ways and bad.
 
 @c
 [ Memcpy to_addr from_addr size  n;
+#Ifdef TARGET_ZCODE;
 	for (n = size/WORDSIZE: (n--) > 0: ) to_addr-->n = from_addr-->n;
 	for (n = size: ((n--) % WORDSIZE ~= 0): ) to_addr->n = from_addr->n;
+#Ifnot; ! TARGET_GLULX
+    @mcopy size from_addr to_addr;
+#Endif; ! TARGET_
 ];
 
 @p Arrcpy.

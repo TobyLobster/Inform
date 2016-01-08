@@ -8,13 +8,27 @@
 
 #import "IFIsWatch.h"
 
+#import "IFProjectController.h"
 #import "IFProjectPane.h"
+#import "IFProject.h"
 #import "IFUtility.h"
+#import "IFSettingsController.h"
+#import "IFCompilerSettings.h"
+#import "IFGamePage.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import <ZoomView/ZoomView.h>
 
 NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 
-@implementation IFIsWatch
+@implementation IFIsWatch {
+    IBOutlet NSTextField* expression;						// The 'quick watch' expression
+    IBOutlet NSTextField* expressionResult;					// Field that contains the result of evaluating the quick watch expression
+    IBOutlet NSTableView* watchTable;						// Table of more permanent watch expressions
+
+    NSWindow* activeWin;									// The currently active window
+    IFProject* activeProject;								// The currently active project
+    IFProjectController* activeController;					// The active window controller (if it's a ProjectController)
+}
 
 // = Initialisation =
 
@@ -28,7 +42,7 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 	return sharedWatch;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -50,10 +64,6 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 - (void) inspectWindow: (NSWindow*) newWindow {
 	activeWin = newWindow;
 	
-	if (activeProject) {
-		// Need to remove the layout manager to prevent potential weirdness
-		[activeProject release];
-	}
 	activeController = nil;
 	activeProject = nil;
 	
@@ -62,7 +72,7 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 	
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
 		activeController = (IFProjectController*)control;
-		activeProject = [[control document] retain];
+		activeProject = [control document];
 
 		[self refreshExpressions];
 	}
@@ -82,7 +92,7 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 
 - (unsigned) evaluateExpression: (NSString*) expr {
 	// Find the ZoomView, if there is one
-	ZoomView* zView = [[[activeController gamePane] gamePage] zoomView];
+	ZoomView* zView = [[[activeController runningGamePane] gamePage] zoomView];
 	
 	if (zView == nil) return IFEvalNoGame;
 	
@@ -119,7 +129,7 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 
 - (NSString*) textualValueForExpression: (unsigned) answer {
 	// Find the ZoomView, if there is one
-	ZoomView* zView = [[[activeController gamePane] gamePage] zoomView];
+	ZoomView* zView = [[[activeController runningGamePane] gamePage] zoomView];
 	
 	if (zView == nil) return [self numericValueForAnswer: answer];
 	
@@ -191,10 +201,8 @@ NSString* IFIsWatchInspector = @"IFIsWatchInspector";
 	}
 	
 	if ([[value substringToIndex: 2] isEqualToString: @"##"]) {
-		return [[[NSAttributedString alloc] initWithString: value
-												attributes: [NSDictionary dictionaryWithObject: [NSColor redColor]
-																						forKey: NSForegroundColorAttributeName]]
-			autorelease];
+		return [[NSAttributedString alloc] initWithString: value
+												attributes: @{NSForegroundColorAttributeName: [NSColor redColor]}];
 	} else {
 		return value;
 	}

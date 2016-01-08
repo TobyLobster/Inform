@@ -13,12 +13,8 @@
 //
 // The Z-Machine (or glulx) version settings
 //
-@interface IFOutputSettings : IFSetting {
-    IBOutlet NSMatrix* zmachineVersion;
-	IBOutlet NSButton* releaseBlorb;
-}
+@interface IFOutputSettings : IFSetting
 
-- (BOOL) createBlorbForRelease;
-- (void) setCreateBlorbForRelease: (BOOL) value;
+@property (atomic) BOOL createBlorbForRelease;
 
 @end

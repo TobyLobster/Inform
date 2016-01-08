@@ -7,20 +7,30 @@
 //
 
 #import "NSString+IFStringExtensions.h"
+#import "NSMutableString+IFMutableStringExtensions.h"
+
+static NSCharacterSet* whitespace;
+static NSCharacterSet* nonWhitespace;
 
 // *******************************************************************************************
 @implementation NSString (IFStringAdditions)
 
-- (BOOL)containsString:(NSString *)string
-               options:(NSStringCompareOptions)options
-{
-    NSRange rng = [self rangeOfString:string options:options];
-    return rng.location != NSNotFound;
++(void) initialize {
+    whitespace           = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    nonWhitespace        = [[NSCharacterSet whitespaceAndNewlineCharacterSet] invertedSet];
 }
 
-- (BOOL)containsString:(NSString *)string
+- (BOOL)containsSubstring:(NSString *) string
+                  options:(NSStringCompareOptions) options
 {
-    return [self containsString:string options:(NSStringCompareOptions)0];
+    NSRange range = [self rangeOfString:string options:options];
+    return range.location != NSNotFound;
+}
+
+- (BOOL)containsSubstring:(NSString *) string
+{
+    return [self containsSubstring: string
+                           options: (NSStringCompareOptions)0];
 }
 
 -(BOOL)endsWith:(NSString *)string
@@ -28,14 +38,24 @@
     return [self hasSuffix:string];
 }
 
+-(BOOL)endsWithCaseInsensitive:(NSString *)string
+{
+    return [[self lowercaseString] hasSuffix:[string lowercaseString]];
+}
+
 -(BOOL)startsWith:(NSString *)string
 {
     return [self hasPrefix:string];
 }
 
+-(BOOL)startsWithCaseInsensitive:(NSString *)string
+{
+    return [[self lowercaseString] hasPrefix:[string lowercaseString]];
+}
+
 -(BOOL) isEqualToStringCaseInsensitive:(NSString *)string
 {
-    return [self caseInsensitiveCompare:string] == 0;
+    return [self caseInsensitiveCompare:string] == NSOrderedSame;
 }
 
 -(NSString *)substringFrom:(NSInteger)from to:(NSInteger)to
@@ -46,7 +66,45 @@
 
 -(NSString *)stringByTrimmingWhitespace
 {
-    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [self stringByTrimmingCharactersInSet: whitespace];
+}
+
+-(NSString*) trailingWhitespace
+{
+    // Search backwards from the end of the string for a non-whitespace character
+    for(int i = (int) self.length - 1; i >= 0; i--) {
+        if( ![whitespace characterIsMember: [self characterAtIndex:i]]) {
+            return [self substringFromIndex:i+1];
+        }
+    }
+    return self;
+}
+
+-(NSString*) leadingWhitespace
+{
+    // Find the first non-whitespace character
+    NSRange first = [self rangeOfCharacterFromSet: nonWhitespace];
+    if( first.location == NSNotFound) {
+        return self;
+    }
+    return [self substringToIndex:first.location];
+}
+
+-(NSString*) stringByRemovingTrailingWhitespace
+{
+    NSString* trailing = [self trailingWhitespace];
+    return [self substringToIndex: self.length - trailing.length];
+}
+
+-(NSString*) stringByRemovingLeadingWhitespace
+{
+    NSString* leading = [self leadingWhitespace];
+    return [self substringFromIndex: leading.length];
+}
+
+-(NSString *)stringByTrimmingCharactersInString:(NSString*) charactersToTrim
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString: charactersToTrim]];
 }
 
 -(NSString *) stringByReplacing:(NSString *) lpFind
@@ -63,5 +121,22 @@
     return [NSString stringWithString:lpMutableString];
 }
 
+- (int) indexOf:(NSString *)text {
+    NSRange range = [self rangeOfString:text];
+    if ( range.length > 0 ) {
+        return (int) range.location;
+    } else {
+        return -1;
+    }
+}
+
+- (int) lastIndexOf:(NSString *)text {
+    NSRange range = [self rangeOfString: text options: NSBackwardsSearch];
+    if ( range.length > 0 ) {
+        return (int) range.location;
+    } else {
+        return -1;
+    }
+}
 
 @end

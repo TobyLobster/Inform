@@ -1,6 +1,6 @@
 //
 //  IFFindTextView.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 05/02/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -27,9 +27,9 @@ static NSArray* lastFoundGroups;
 - (NSRange) find: (NSString*) phrase
 			type: (IFFindType) type
 	   direction: (int) direction 
-	   fromPoint: (int) point
+	   fromPoint: (NSUInteger) point
        hasLooped: (bool*) hasLoopedOut
-regexFoundGroups: (NSArray**) foundGroupsOut {
+regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
     NSRange result;
     *hasLoopedOut = false;
@@ -68,7 +68,7 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
             *hasLoopedOut = true;
             // Wrap around if we didn't start at the end
             if( point < [[[self textStorage] string] length] ) {
-                point = [[[self textStorage] string] length];
+                point = (int) [[[self textStorage] string] length];
                 result = [IFScanner findPreviousMatch: phrase
                                               storage: [[self textStorage] string]
                                              position: point
@@ -86,7 +86,7 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
 - (BOOL) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type {
     // Start after the current selection
-	int matchPos = [self selectedRange].location + [self selectedRange].length;
+	NSUInteger matchPos = [self selectedRange].location + [self selectedRange].length;
 
     // If we have just moved beyond the end of the text, start at the beginning
     if( matchPos >= [[[self textStorage] string] length] ) {
@@ -114,12 +114,16 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
 - (BOOL) findPreviousMatch: (NSString*) match
 					ofType: (IFFindType) type {
     // Start searching at the previous character
-	int matchPos = [self selectedRange].location - 1;
+    NSUInteger matchPos;
     
-    // If we have just moved before the start of the text, start searching at the end
-    if( matchPos < 0 ) {
+    if( [self selectedRange].location > 0 ) {
+        matchPos = [self selectedRange].location - 1;
+    }
+    else {
+        // If we have just moved before the start of the text, start searching at the end
         matchPos = [[[self textStorage] string] length] - 1;
     }
+
     bool hasLooped;
 	NSRange matchRange =  [self find: match
 								type: type
@@ -166,7 +170,7 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
 	if ([match length] == 0) return nil;
 
 	// Prepare to match all of the results
-	int pos = 0;
+	NSUInteger pos = 0;
     bool hasLooped = false;
 	NSRange nextMatch;
 	NSMutableArray* results = [[NSMutableArray alloc] init];
@@ -217,10 +221,8 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
                                                       definitionAnchorTag: @""
                                                          regexFoundGroups: foundGroups];
             [results addObject:result];
-            [result release];
 
             // Remember the last set of group results, so that "replace and find" can use it.
-            [lastFoundGroups release];
             lastFoundGroups = [foundGroups copy];
             
 			// Move to the next position
@@ -230,7 +232,7 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
 		}
 	};
 
-	return [results autorelease];
+	return results;
 }
 
 // = Replace =
@@ -331,7 +333,7 @@ regexFoundGroups: (NSArray**) foundGroupsOut {
 	// Update the offset so future matches are replaced correctly
 	*offset += (int)[replacement length] - (int)[originalMatch length];
 
-	return [newResult autorelease];
+	return newResult;
 }
 
 @end

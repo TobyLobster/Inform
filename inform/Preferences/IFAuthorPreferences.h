@@ -1,6 +1,6 @@
 //
 //  IFAuthorPreferences.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 18/10/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.
@@ -10,9 +10,7 @@
 
 #import "IFPreferencePane.h"
 
-@interface IFAuthorPreferences : IFPreferencePane {
-	IBOutlet NSTextField* newGameName;					// The preferred name for new Natural Inform games
-}
+@interface IFAuthorPreferences : IFPreferencePane
 
 // Receiving data from/updating the interface
 - (IBAction) setPreference: (id) sender;

@@ -7,15 +7,20 @@
 //
 
 #import "IFNaturalHighlighter.h"
+#import "IFInform6Highlighter.h"
 #import "IFProjectPane.h"
 #import "IFPreferences.h"
 #import "IFSyntaxData.h"
 
-@implementation IFNaturalHighlighter
+@implementation IFNaturalHighlighter {
+    IFSyntaxData* activeData;					// Syntax data that we're using
+
+    IFInform6Highlighter* inform6Highlighter;		// Highlighter for portions of the file that are Inform 6 code
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -25,18 +30,11 @@
 	return self;
 }
 
-- (void) dealloc {
-	[activeData release];
-	[inform6Highlighter release];
-	
-	[super dealloc];
-}
 
 // = Notifying of the highlighter currently in use =
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
-	[activeData release];
-	activeData = [aData retain];
+	activeData = aData;
 	
     [inform6Highlighter setSyntaxData: aData];
 }
@@ -207,18 +205,25 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 - (void) rehintLine: (NSString*) line
 			 styles: (IFSyntaxStyle*) styles
 	   initialState: (IFSyntaxState) initialState {
-	NSString* thisLine = [line lowercaseString];
-	
+    NSString* thisLine = [[line lowercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
 	// This line might be a header line
 	BOOL isHeader = NO;
     BOOL isInAppropriateStateForHeader = (initialState == IFNaturalStateBlankLine) || (initialState == IFSyntaxStateDefault);
 	
 	if (isInAppropriateStateForHeader && !IsInform6Style(styles[0])) {
-		if ([thisLine hasPrefix: @"volume "]) isHeader = YES;
-		if ([thisLine hasPrefix: @"book "]) isHeader = YES;
-		if ([thisLine hasPrefix: @"part "]) isHeader = YES;
-		if ([thisLine hasPrefix: @"chapter "]) isHeader = YES;
-		if ([thisLine hasPrefix: @"section "]) isHeader = YES;
+        if ([thisLine hasPrefix: @"---- documentation ----"]) isHeader = YES;
+		if ([thisLine hasPrefix: @"volume "])   isHeader = YES;
+        if ([thisLine hasPrefix: @"volume: "])  isHeader = YES;
+		if ([thisLine hasPrefix: @"book "])     isHeader = YES;
+        if ([thisLine hasPrefix: @"book: "])    isHeader = YES;
+		if ([thisLine hasPrefix: @"part "])     isHeader = YES;
+        if ([thisLine hasPrefix: @"part: "])    isHeader = YES;
+		if ([thisLine hasPrefix: @"chapter "])  isHeader = YES;
+        if ([thisLine hasPrefix: @"chapter: "]) isHeader = YES;
+		if ([thisLine hasPrefix: @"section "])  isHeader = YES;
+        if ([thisLine hasPrefix: @"section: "]) isHeader = YES;
+        if ([thisLine hasPrefix: @"example: "]) isHeader = YES;
 	}
 
 	if (isHeader) {

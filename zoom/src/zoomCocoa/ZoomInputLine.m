@@ -9,10 +9,18 @@
 #import "ZoomInputLine.h"
 
 
-@implementation ZoomInputLine
+@implementation ZoomInputLine {
+    ZoomCursor* cursor;
+
+    NSObject* delegate;
+
+    NSMutableString* lineString;
+    NSMutableDictionary* attributes;
+    int				 insertionPos;
+}
 
 // Initialisation
-- (id) initWithCursor: (ZoomCursor*) csr
+- (instancetype) initWithCursor: (ZoomCursor*) csr
 		   attributes: (NSDictionary*) attr {
 	self = [super init];
 	
@@ -37,7 +45,7 @@
 
 // Drawing
 - (void) drawAtPoint: (NSPoint) point {
-	NSFont* font = [attributes objectForKey: NSFontAttributeName];
+	NSFont* font = attributes[NSFontAttributeName];
 	
 	point.y += [font descender];
 	
@@ -124,7 +132,7 @@
 			
 			if (newItem) {
 				[lineString setString: newItem];
-				insertionPos = [lineString length];
+				insertionPos = (int) [lineString length];
 				
 				[self stringHasUpdated];
 				[self updateCursor];
@@ -140,7 +148,7 @@
 				[lineString setString: @""];
 			}
 
-			insertionPos = [lineString length];
+			insertionPos = (int) [lineString length];
 
 			[self stringHasUpdated];
 			[self updateCursor];
@@ -167,7 +175,7 @@
 				NSBeep();
 			}
 		} else if (chr == NSEndFunctionKey) {
-			insertionPos = [lineString length];
+			insertionPos = (int) [lineString length];
 			[self updateCursor];
 		} else if (chr == NSHomeFunctionKey) {
 			insertionPos = 0;

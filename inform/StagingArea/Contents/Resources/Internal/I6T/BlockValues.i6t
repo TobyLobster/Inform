@@ -44,7 +44,7 @@ into L2, because only L2's short block needs to change.
 The rules for customers who want to deal with values like this are much like
 the rules for allocating memory with Flex. Calling |BlkValueCreate|
 creates a new value, but this must always, and only once, later be disposed
-of using |BlkFree|.
+of using |BlkValueFree|.
 
 So if the short blocks of L1 and L2 both point to the same long block of
 actual data, what happens when only one of them is freed? The answer is that
@@ -751,6 +751,7 @@ which should return true if a quick copy is okay, or false if not.
 [ BlkValueCopy to_bv from_bv  to_kind from_kind kovs;
 	if (to_bv == 0) BlkValueError("copy to null value");
 	if (from_bv == 0) BlkValueError("copy from null value");
+	if (to_bv == from_bv) return;
 
 	#ifdef BLKVALUE_TRACE;
 	print "Copy: ", (BlkValueDebug) to_bv, " to equal ", (BlkValueDebug) from_bv, "^";
@@ -767,6 +768,11 @@ which should return true if a quick copy is okay, or false if not.
 	else
 		BlkValueSlowCopyPrimitive(to_bv, from_bv, kovs, true);
 
+	return to_bv;
+];
+
+[ BlkValueCopyAZ to_bv from_bv;
+	if (from_bv) return BlkValueCopy(to_bv, from_bv);
 	return to_bv;
 ];
 

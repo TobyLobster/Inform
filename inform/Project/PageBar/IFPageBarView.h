@@ -1,6 +1,6 @@
 //
 //  IFPageBarView.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 01/04/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -12,19 +12,7 @@
 // Class implementing the page bar view.
 //
 @class IFPageBarCell;
-@interface IFPageBarView : NSControl {
-	BOOL cellsNeedLayout;							// YES if we need to perform layout on the cells
-	BOOL isActive;									// YES if this page accepts keyboard input
-	
-	NSMutableArray* leftCells;						// The cells that appear on the left of this view
-	NSMutableArray* rightCells;						// The cells that appear on the right of this view
-	
-	NSMutableArray* leftLayout;						// Left-hand cell layout
-	NSMutableArray* rightLayout;					// Right-hand cell layout
-	
-	NSCell* trackingCell;							// The cell that the mouse is down over
-	NSRect trackingCellFrame;						// The bounds for the cell that the mouse is down over
-}
+@interface IFPageBarView : NSControl
 
 // = Drawing =
 
@@ -47,10 +35,8 @@
 
 - (void) layoutCells;								// Forces the cells to be measured and laid out appropriately for this control
 
-- (NSCell*) lastTrackedCell;						// Last cell that was tracked by this control (eg, because the user clicked on it)
+@property (atomic, readonly, copy) NSCell *lastTrackedCell;     // Last cell that was tracked by this control (eg, because the user clicked on it)
 - (void) setState: (int) state						// Sets the state for the specified cell (deals with radio group changes: probably only useful for IFPageBarCell)
 		  forCell: (IFPageBarCell*) cell;
 
 @end
-
-#import "IFPageBarCell.h"

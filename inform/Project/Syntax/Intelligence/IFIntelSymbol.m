@@ -10,11 +10,23 @@
 
 NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 
-@implementation IFIntelSymbol
+@implementation IFIntelSymbol {
+    // Our data
+    NSString* name;							// Name of the symbol (as displayed in the index)
+    NSString* type;							// Type of the symbol (see above)
+    int level;								// Level of the symbol in the tree (calculated)
+    enum IFSymbolRelation relation;			// If IFSymbolDeltaLevel, level is relative to the level of the preceding symbol
+    int levelDelta;							// If relation is IFSymbolDelta, the difference in levels, otherwise the absolute level
+
+    // The file we're stored in
+    IFIntelFile* ourFile;					// The IntelFile that owns this symbol
+
+    // Our relation in the list of symbols
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -24,17 +36,6 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 	return self;
 }
 
-- (void) dealloc {
-	if (name) [name release];
-	if (type) [type release];
-	
-	// ourFile releases us, not the other way around
-	
-	//if (nextSymbol) [nextSymbol release];
-	// if (lastSymbol) [lastSymbol release]; -- not retained when set (ensures that we actually get released!)
-	
-	[super dealloc];
-}
 
 // = Symbol data =
 
@@ -52,10 +53,10 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 			return levelDelta;
 		
 		// Relative level
-		if (lastSymbol == nil)
+		if (_lastSymbol == nil)
 			return levelDelta<0?0:levelDelta;
 		
-		int realLevel = [lastSymbol level] + levelDelta;
+		int realLevel = [_lastSymbol level] + levelDelta;
 		
 		return realLevel<0?0:levelDelta;
 	}
@@ -72,12 +73,10 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 - (void) setName: (NSString*) newName {
-	if (name) [name release];
 	name = [newName copy];
 }
 
 - (void) setType: (NSString*) newType {
-	if (type) [type release];
 	type = [newType copy];
 }
 
@@ -106,18 +105,18 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 // = Our relation to other symbols in the file =
 
 - (IFIntelSymbol*) parent {
-	IFIntelSymbol* parent = lastSymbol;
+	IFIntelSymbol* parent = _lastSymbol;
 	int myLevel = [self level];
 	
 	while (parent != nil && [parent level] >= myLevel) {
-		parent = parent->lastSymbol;
+		parent = parent->_lastSymbol;
 	}
 	
 	return parent;
 }
 
 - (IFIntelSymbol*) child {
-	IFIntelSymbol* child = nextSymbol;
+	IFIntelSymbol* child = _nextSymbol;
 	
 	if (child == nil) return nil;
 	if ([child level] > [self level]) return child;
@@ -126,10 +125,10 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 - (IFIntelSymbol*) sibling {
-	IFIntelSymbol* sibling = nextSymbol;
+	IFIntelSymbol* sibling = _nextSymbol;
 	int myLevel = [self level];
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->nextSymbol;
+	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->_nextSymbol;
 		
 	if (sibling == nil) return nil;
 	if ([sibling level] == myLevel) return sibling;
@@ -142,23 +141,15 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 - (IFIntelSymbol*) previousSibling {
-	IFIntelSymbol* sibling = lastSymbol;
+	IFIntelSymbol* sibling = _lastSymbol;
 	int myLevel = [self level];
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->lastSymbol;
+	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->_lastSymbol;
 	
 	if (sibling == nil) return nil;
 	if ([sibling level] == [self level]) return sibling;
 	
 	return nil;
-}
-
-- (IFIntelSymbol*) nextSymbol {
-	return nextSymbol;
-}
-
-- (IFIntelSymbol*) lastSymbol {
-	return lastSymbol;
 }
 
 // = NSCoding =
@@ -176,18 +167,18 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 				forKey: @"relation"];
 	[encoder encodeInt: levelDelta
 				forKey: @"levelDelta"];
-	[encoder encodeObject: nextSymbol
+	[encoder encodeObject: _nextSymbol
 				   forKey: @"nextSymbol"];
-	[encoder encodeObject: lastSymbol
+	[encoder encodeObject: _lastSymbol
 				   forKey: @"lastSymbol"];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
 	if (self) {
-		name = [[decoder decodeObjectForKey: @"name"] retain];
-		type = [[decoder decodeObjectForKey: @"type"] retain];
+		name = [decoder decodeObjectForKey: @"name"];
+		type = [decoder decodeObjectForKey: @"type"];
 		level = [decoder decodeIntForKey: @"level"];
 		relation = [decoder decodeIntForKey: @"relation"];
 		levelDelta = [decoder decodeIntForKey: @"levelDelta"];

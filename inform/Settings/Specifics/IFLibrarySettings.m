@@ -8,10 +8,13 @@
 
 #import "IFLibrarySettings.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
-@implementation IFLibrarySettings
+@implementation IFLibrarySettings {
+    IBOutlet NSPopUpButton* libraryVersion;
+}
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: @"LibrarySettings"];
 }
 

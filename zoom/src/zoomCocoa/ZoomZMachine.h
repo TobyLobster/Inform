@@ -36,7 +36,7 @@ extern int zoomImageCacheSize;
     
     BOOL             filePromptFinished;
     NSObject<ZFile>* lastFile;
-    int              lastSize;
+    long             lastSize;
 	
 	BOOL wasRestored;
 	

@@ -9,6 +9,7 @@
 #import "IFNewProjectFile.h"
 #import "IFProject.h"
 #import "IFCompilerSettings.h"
+#import "IFProjectController.h"
 
 enum {
 	inform6FileTag = 0,
@@ -17,9 +18,16 @@ enum {
 	richTextFileTag = 3
 };
 
-@implementation IFNewProjectFile
+@implementation IFNewProjectFile {
+    IFProjectController* projectController;			// The project controller for the project that's getting a new file
 
-- (id) initWithProjectController: (IFProjectController*) control {
+    IBOutlet NSPopUpButton* fileType;				// Used to select the type of file
+    IBOutlet NSTextField*   fileName;				// Used to enter the new file name
+
+    NSString* newFilename;							// Stores the filename that the new file will have
+}
+
+- (instancetype) initWithProjectController: (IFProjectController*) control {
 	self = [super initWithWindowNibName: @"NewFile"];
 	
 	if (self) {
@@ -30,10 +38,6 @@ enum {
 	return self;
 }
 
-- (void) dealloc {
-	if (newFilename) [newFilename release];
-	[super dealloc];
-}
 
 // = Actions =
 - (NSString*) getNewFilename {
@@ -47,7 +51,6 @@ enum {
 	}
 	
 	// Set the new filename to nothing
-	if (newFilename) [newFilename release];
 	newFilename = nil;
 	
 	// Run the sheet
@@ -102,7 +105,7 @@ enum {
 	// ... now the whole filename
 	NSString* file = [[fileName stringValue] lastPathComponent];
 	if (extension && file && [file length] > 0) {
-		newFilename = [[file stringByAppendingPathExtension: extension] retain];
+		newFilename = [file stringByAppendingPathExtension: extension];
 	} else if (file && [file length] > 0) {
 		newFilename = [file copy];
 	}

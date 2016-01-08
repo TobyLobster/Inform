@@ -10,8 +10,10 @@
 #import "IFSyntaxData.h"
 #import "IFPreferences.h"
 #import "IFUtility.h"
+#import "IFIntelSymbol.h"
 
 static NSArray* headingList = nil;
+static NSArray* autoNumberHeading = nil;
 
 // English number arrays
 static NSArray* units;
@@ -19,7 +21,9 @@ static NSArray* tens;
 static NSArray* majorUnits;
 static BOOL indent = YES;
 
-@implementation IFNaturalIntel
+@implementation IFNaturalIntel {
+    IFSyntaxData* highlighter;				// The highlighter that wants us to gather intelligence
+}
 
 // = Hacky way to enable/disable indentation while undoing =
 + (void) disableIndentation {
@@ -43,21 +47,22 @@ static BOOL indent = YES;
 	
 	if ([words count] < 2) return 0;
 	
-	return [IFNaturalIntel parseNumber: [words objectAtIndex: 1]];
+	return [IFNaturalIntel parseNumber: words[1]];
 }
 
 // = Startup =
 
 + (void) initialize {
 	if (!headingList) {
-		headingList = [[NSArray arrayWithObjects: @"volume", @"book", @"part", @"chapter", @"section", nil] retain];
+		headingList = @[@"---- documentation ----", @"volume", @"book", @"part", @"chapter", @"section", @"example"];
+        autoNumberHeading = @[@NO, @YES, @YES, @YES, @YES, @YES, @NO];
 		
-		units = [[NSArray arrayWithObjects: @"zero", @"one", @"two", @"three", @"four", @"five", @"six", @"seven", 
+		units = @[@"zero", @"one", @"two", @"three", @"four", @"five", @"six", @"seven", 
 			@"eight", @"nine", @"ten", @"eleven", @"twelve", @"thirteen", @"fourteen", @"fifteen", @"sixteen", 
-			@"seventeen", @"eighteen", @"nineteen", nil] retain];
-		tens = [[NSArray arrayWithObjects: @"twenty", @"thirty", @"forty", @"fifty", @"sixty", @"seventy", @"eighty",
-			@"ninety", @"hundred", nil] retain];
-		majorUnits = [[NSArray arrayWithObjects: @"hundred", @"thousand", @"million", @"billion", @"trillion", nil] retain];
+			@"seventeen", @"eighteen", @"nineteen"];
+		tens = @[@"twenty", @"thirty", @"forty", @"fifty", @"sixty", @"seventy", @"eighty",
+			@"ninety", @"hundred"];
+		majorUnits = @[@"hundred", @"thousand", @"million", @"billion", @"trillion"];
 	}
 }
 
@@ -69,6 +74,45 @@ static BOOL indent = YES;
 
 // = Gathering information (works like rehint) =
 
+-(BOOL) isHeading:(NSString*) line {
+    line = [line lowercaseString];
+    for(NSString* heading in headingList) {
+        if( [line isEqualToString: heading] ) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+-(NSUInteger) indexOfHeading:(NSString*) line {
+    NSUInteger index = 0;
+
+    line = [line lowercaseString];
+    for(NSString* heading in headingList) {
+        if( [line startsWith: heading] ) {
+            return index;
+        }
+        index++;
+    }
+
+    return NSNotFound;
+}
+
+-(BOOL) autonumberHeading:(NSString*) line {
+    NSUInteger index = 0;
+
+    line = [line lowercaseString];
+    for(NSString* heading in headingList) {
+        if( [line startsWith: heading] ) {
+            return [autoNumberHeading[index] boolValue];
+        }
+        index++;
+    }
+
+    return NO;
+}
+
 - (void) gatherIntelForLine: (NSString*) line
 					 styles: (IFSyntaxStyle*) styles
 			   initialState: (IFSyntaxState) state
@@ -78,29 +122,26 @@ static BOOL indent = YES;
 	[data clearSymbolsForLines: NSMakeRange(lineNumber, 1)];
 	
 	// Heading lines beginning with 'Volume', 'Part', etc  are added to the intelligence
-	//if ([line length] < 4) return;				// Nothing to do in this case
-
 	if (styles[0] == IFSyntaxHeading) {
 		// Check if this is a heading or not
-		// MAYBE FIXME: won't deal well with headings starting with whitespace. Bug or not?
-		NSArray* words = [line componentsSeparatedByString: @" "];
-		if ([words count] < 1) return;
-		
-		int headingType = [headingList indexOfObject: [[words objectAtIndex: 0] lowercaseString]] + 1;
-		if (headingType == NSNotFound) return;		// Not a heading (hmm, shouldn't happen, I guess)
-		
+        // Trim whitespace
+        NSString* prefix = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSUInteger headingType = [self indexOfHeading: prefix];
+        if (headingType == NSNotFound) {
+            return;
+        }
+
 		// Got a heading: add to the intel
 		IFIntelSymbol* newSymbol = [[IFIntelSymbol alloc] init];
 
 		[newSymbol setType: IFSectionSymbolType];
 		[newSymbol setName: line];
 		[newSymbol setRelation: IFSymbolOnLevel];
-		[newSymbol setLevelDelta: headingType];
+		[newSymbol setLevelDelta: (int) headingType];
 		
 		[data addSymbol: newSymbol
 				 atLine: lineNumber];
 
-		[newSymbol release];
 	} else if (lineNumber == 0) {
 		// The title string
 		int x = 0;
@@ -125,7 +166,6 @@ static BOOL indent = YES;
         [data addSymbol: newSymbol
                  atLine: lineNumber];
         
-        [newSymbol release];		
 	}
 }
 
@@ -154,7 +194,7 @@ static BOOL indent = YES;
 			} else if (lastChar == '\t' || lastChar == ' ') {
 				// If line was entirely whitespace then reduce tabs back to 0
 				NSString* line = [highlighter textForLine: lineNumber];
-				int len = [line length];
+				int len = (int) [line length];
 				int x;
 				BOOL whitespace = YES;
 				
@@ -196,7 +236,7 @@ static BOOL indent = YES;
 
 		int lineNumber = [highlighter editingLineNumber];
 		IFSyntaxStyle lastStyle = [highlighter styleAtStartOfLine: lineNumber];
-		
+
 		if (lastStyle != IFSyntaxGameText && lastStyle != IFSyntaxSubstitution) {
 			// If we've got a line 'Volume\n', or (pedantic last line case) 'Volume', then automagically fill
 			// in the section number using context info
@@ -206,17 +246,19 @@ static BOOL indent = YES;
             // Trim whitespace
             prefix = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
-			// Line must actually have something on it
-			if ([prefix length] < 4) return nil;				// Too short to be of interest
-			if ([prefix length] > 8) return nil;				// Too long to be of interest
-
 			// See if this is the start of a heading
-			int headingLevel = [headingList indexOfObject: [prefix lowercaseString]];
-			if (headingLevel == NSNotFound) return nil;		// Not a heading
-			headingLevel++;
-			
+            if( ![self isHeading:prefix] ) {
+                return nil;
+            }
+
+            // Get heading level
+			NSUInteger headingLevel = [self indexOfHeading:prefix];
+			if (headingLevel == NSNotFound) return nil;         // Not a heading
+            if( ![self autonumberHeading:prefix] )
+                return nil;  // Don't try to auto number "---- DOCUMENTATION ----" heading, etc
+
 			// We've got a heading: auto-insert a number
-			
+
 			// Find the preceding heading
 			IFIntelFile* data = [highlighter intelligenceData];
 			IFIntelSymbol* symbol = [data nearestSymbolToLine: lineNumber];
@@ -245,7 +287,7 @@ static BOOL indent = YES;
 				res = [NSMutableString stringWithFormat: @" %i - ", lastHeadingNumber+1];
 				
 				[highlighter callbackForEditing: @selector(renumberSectionsAfterLine:)
-									  withValue: [NSNumber numberWithInt: lineNumber]];
+									  withValue: @(lineNumber)];
 			}
 			
 			return res;
@@ -281,21 +323,19 @@ static BOOL indent = YES;
 		
 		if (symbolSectionNumber != currentSectionNumber) {
 			// Get the data for the line this symbol is on
-			int symbolLineNumber = [data lineForSymbol: symbol];
-			NSString* line = [highlighter textForLine: symbolLineNumber];
-						
+			NSUInteger symbolLineNumber = [data lineForSymbol: symbol];
+			NSString* line = [highlighter textForLine: (int) symbolLineNumber];
+
 			// Renumber this symbol
 			NSMutableArray* words = [[line componentsSeparatedByString: @" "] mutableCopy];
 			
 			if ([words count] > 1) {
-				[words replaceObjectAtIndex: 1
-								 withObject: [NSString stringWithFormat: @"%i", currentSectionNumber]];
+				words[1] = [NSString stringWithFormat: @"%i", currentSectionNumber];
 				NSString* newString = [words componentsJoinedByString: @" "];
 			
 				// Add to our 'todo' list
-				[todoList addObject: [NSArray arrayWithObjects: [NSNumber numberWithInt: symbolLineNumber], newString, nil]];
+				[todoList addObject: @[@(symbolLineNumber), newString]];
 			}
-            [words release];
 		}
 		
 		symbol = [symbol sibling];
@@ -305,8 +345,8 @@ static BOOL indent = YES;
 	// (We put things in a todo list to avoid accidently stuffing up the symbol list while we're working on it)
 
 	for(NSArray* todo in todoList) {
-		[highlighter replaceLine: [[todo objectAtIndex: 0] intValue]
-						withLine: [todo objectAtIndex: 1]];
+		[highlighter replaceLine: [todo[0] intValue]
+						withLine: todo[1]];
 	}
 	
 	// We're done

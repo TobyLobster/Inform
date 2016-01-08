@@ -1,6 +1,6 @@
 //
 //  IFHeaderPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 02/01/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -8,23 +8,34 @@
 
 #import "IFHeaderPage.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import "IFHeaderController.h"
 
 // = Preferences =
 
 static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
-@implementation IFHeaderPage
+@implementation IFHeaderPage {
+    IBOutlet NSView* pageView;								// The main header page view
+    IBOutlet NSScrollView* scrollView;						// The scroll view
+    IBOutlet IFHeaderView* headerView;						// The header view that this object is managing
+    IBOutlet NSPopUpButton* depthButton;
+
+    IFHeaderController* controller;							// The header controller that this page is using
+
+    NSRange highlightLines;									// The highlight range to use
+    IFHeaderNode* selectedNode;								// The currently selected header node
+
+    id delegate;											// The delegate for this page object
+}
 
 // = Initialisation =
 
 + (void) initialize {
 	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-	 [NSDictionary dictionaryWithObjectsAndKeys: 
-	  [NSArray arrayWithObjects: [NSNumber numberWithFloat: 0.95], [NSNumber numberWithFloat: 0.95], [NSNumber numberWithFloat: 0.9], [NSNumber numberWithFloat: 1.0], nil], IFHeaderBackgroundColour,
-	  nil]];
+	 @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -39,9 +50,9 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	    NSColor* col = [NSColor whiteColor];
 		
 		if ([components isKindOfClass: [NSArray class]] && [components count] >= 3) {
-			col = [NSColor colorWithDeviceRed: [[components objectAtIndex: 0] floatValue]
-										green: [[components objectAtIndex: 1] floatValue]
-										 blue: [[components objectAtIndex: 2] floatValue]
+			col = [NSColor colorWithDeviceRed: [components[0] floatValue]
+										green: [components[1] floatValue]
+										 blue: [components[2] floatValue]
 										alpha: 1.0];
 		}
 		
@@ -61,16 +72,8 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 - (void) dealloc {
 	if (controller) {
 		if (headerView) [controller removeHeaderView: headerView];
-		[controller release];				controller = nil;
 	}
-
 	[headerView setDelegate: nil];
-	
-	[pageView release];						pageView = nil;
-	[headerView release];					headerView = nil;
-	[selectedNode release];					selectedNode = nil;
-	
-	[super dealloc];
 }
 
 // = KVC stuff for the page view/header view =
@@ -84,15 +87,13 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 }
 
 - (void) setPageView: (NSView*) newPageView {
-	[pageView release]; pageView = nil;
-	pageView = [newPageView retain];
+	pageView = newPageView;
 }
 
 - (void) setHeaderView: (IFHeaderView*) newHeaderView {
 	if (controller && headerView) [controller removeHeaderView: headerView];
 	
-	[headerView release]; headerView = nil;
-	headerView = [newHeaderView retain];
+	headerView = newHeaderView;
 
 	if (controller && headerView) [controller addHeaderView: headerView];
 }
@@ -102,12 +103,11 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 - (void) setController: (IFHeaderController*) newController {
 	if (controller) {
 		[controller removeHeaderView: headerView];
-		[controller release];
 		controller = nil;
 	}
 	
 	if (newController) {
-		controller = [newController retain];
+		controller = newController;
 		if (headerView) [newController addHeaderView: headerView];
 	}
 }
@@ -135,9 +135,8 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	if (node == selectedNode) return;
 	
 	[selectedNode setSelectionStyle: IFHeaderNodeUnselected];
-	[selectedNode autorelease]; selectedNode = nil;
-	
-	selectedNode = [node retain];
+
+    selectedNode = node;
 	[selectedNode setSelectionStyle: IFHeaderNodeSelected];
 	[headerView setNeedsDisplay: YES];
 }
@@ -154,7 +153,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 // = User actions =
 
 - (IBAction) updateDepthPopup: (id) sender {
-    int depth = 1 + [depthButton indexOfSelectedItem];
+    int depth = 1 + (int) [depthButton indexOfSelectedItem];
 	[headerView setDisplayDepth: depth];
 	
 	if (highlightLines.location != NSNotFound) {

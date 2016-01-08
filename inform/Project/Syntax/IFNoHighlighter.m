@@ -1,6 +1,6 @@
 //
 //  IFNoHighlighter.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 18/10/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.
@@ -11,11 +11,13 @@
 #import "IFPreferences.h"
 #import "IFSyntaxData.h"
 
-@implementation IFNoHighlighter
+@implementation IFNoHighlighter {
+    IFSyntaxData* activeData;					// Syntax data that we're using
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -24,17 +26,11 @@
 	return self;
 }
 
-- (void) dealloc {
-	[activeData release];
-	
-	[super dealloc];
-}
 
 // = Notifying of the highlighter currently in use =
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
-	[activeData release];
-	activeData = [aData retain];
+	activeData = aData;
 }
 
 // = The highlighter itself =

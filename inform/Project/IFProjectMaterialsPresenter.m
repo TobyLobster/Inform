@@ -10,20 +10,28 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-@implementation IFProjectMaterialsPresenter
+@implementation IFProjectMaterialsPresenter {
+    NSURL* primaryURL;
+    NSURL* secondaryURL;
+    NSURL* moveURL;
 
-- (id) initWithURL:(NSURL*) mainURL {
+    NSOperationQueue* queue;
+}
+
+- (instancetype) init { self = [super init]; return self; }
+
+- (instancetype) initWithURL:(NSURL*) mainURL {
     self = [super init];
     if( self ) {
-        primaryURL = [mainURL retain];
         if( [mainURL isFileURL] ) {
-            secondaryURL = [[[mainURL URLByDeletingPathExtension] URLByAppendingPathExtension: @"materials"] retain];
-            NSString* moveName = [[[mainURL URLByDeletingPathExtension] lastPathComponent] stringByAppendingString: @" Materials"];
-            moveURL = [[[mainURL URLByDeletingLastPathComponent] URLByAppendingPathComponent: moveName] retain];
+            primaryURL          = mainURL;
+            secondaryURL        = [[mainURL URLByDeletingPathExtension] URLByAppendingPathExtension: @"materials"];
+            NSString* moveName  = [[[mainURL URLByDeletingPathExtension] lastPathComponent] stringByAppendingString: @" Materials"];
+            moveURL             = [[mainURL URLByDeletingLastPathComponent] URLByAppendingPathComponent: moveName];
         } else {
-            secondaryURL = nil;
-            primaryURL = nil;
-            moveURL = nil;
+            primaryURL          = nil;
+            secondaryURL        = nil;
+            moveURL             = nil;
         }
         queue = [NSOperationQueue new];
         
@@ -41,9 +49,6 @@
     if( [IFUtility isSandboxed] ) {
         [NSFileCoordinator removeFilePresenter: self];
     }
-    [primaryURL release];
-    [secondaryURL release];
-    [super dealloc];
 }
 
 - (NSURL *) presentedItemURL {
@@ -78,14 +83,14 @@
             }
         }
     }
-    
+
     NSFileWrapper * wrapper = [[NSFileWrapper alloc] initWithURL: secondaryURL
                                                          options: NSFileWrapperReadingWithoutMapping
                                                            error: &error];
 
     // Create folder at secondaryURL (the materials folder), if not already there, then set it's icon
     if( !wrapper ) {
-        wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: nil];
+        wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
 
         BOOL didCreateFolder = [wrapper writeToURL: secondaryURL
                                            options: NSFileWrapperWritingAtomic
@@ -94,11 +99,9 @@
 
         if( !didCreateFolder ) {
             NSLog(@"WARNING: Could not create materials folder at URL %@", secondaryURL);
-            [wrapper release];
             return;
         }
     }
-    [wrapper release];
 
     // Add icon to folder
     NSImage* image = [IFImageCache loadResourceImage: @"App/Icons/materialsfile.icns"];

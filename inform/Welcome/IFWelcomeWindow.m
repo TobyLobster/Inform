@@ -8,6 +8,8 @@
 //
 
 #import "IFWelcomeWindow.h"
+
+#import <WebKit/WebKit.h>
 #import "IFAppDelegate.h"
 #import "IFRecentFileCellInfo.h"
 #import "IFRecentFileCell.h"
@@ -18,7 +20,23 @@
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"
 
-@implementation IFWelcomeWindow
+@implementation IFWelcomeWindow {
+    IBOutlet NSProgressIndicator*   backgroundProgress;         // Progress indicator that shows when a background process is running
+    IBOutlet NSScrollView*          recentDocumentsScrollView;  // Recent document scroll view
+    IBOutlet NSTableView*           recentDocumentsTableView;   // Recent document Table View
+    IBOutlet NSScrollView*          createDocumentsScrollView;  // Create document scroll view
+    IBOutlet NSTableView*           createDocumentsTableView;   // Create document Table View
+    IBOutlet NSScrollView*          sampleDocumentsScrollView;  // Sample document scroll view
+    IBOutlet NSTableView*           sampleDocumentsTableView;   // Sample document Table View
+    IBOutlet NSView*                parentView;                 // Parent
+    IBOutlet WebView*               webView;                    // Show a web page (for advice)
+    IBOutlet NSView*                middleView;                 // Show the middle section
+    IBOutlet NSButton*              imageButton;                // Top banner image, as a button
+
+    NSMutableArray*                 recentInfoArray;            // Array of recent file info
+    NSMutableArray*                 createInfoArray;            // Array of create file info
+    NSMutableArray*                 sampleInfoArray;            // Array of sample file info
+}
 
 static const int maxItemsInRecentMenu = 8;
 
@@ -66,17 +84,16 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 - (void) refreshRecentItems {
     NSImage* icon;
-    [recentInfoArray release];
     recentInfoArray = [[NSMutableArray alloc] init];
     
     int index = 0;
     for( NSURL* url in [[NSDocumentController sharedDocumentController] recentDocumentURLs] ) {
         icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
         
-        IFRecentFileCellInfo* info = [[[IFRecentFileCellInfo alloc] initWithTitle: [url lastPathComponent]
+        IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [url lastPathComponent]
                                                                             image: icon
                                                                               url: url
-                                                                             type: IFRecentFile] autorelease];
+                                                                             type: IFRecentFile];
         [recentInfoArray addObject: info];
         index++;
         
@@ -87,15 +104,15 @@ static IFWelcomeWindow* sharedWindow = nil;
     
     // Item for "Open..."
     icon = [NSImage imageNamed: NSImageNameFolder];
-    IFRecentFileCellInfo* info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Open..."]
+    IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Open..."]
                                                                         image: icon
                                                                           url: nil
-                                                                         type: IFRecentOpen] autorelease];
+                                                                         type: IFRecentOpen];
     [recentInfoArray addObject: info];
     [recentDocumentsTableView reloadData];
 }
 
-- (id) initWithWindowNibName: (NSString*) nib {
+- (instancetype) initWithWindowNibName: (NSString*) nib {
 	self = [super initWithWindowNibName: nib];
 	
 	if (self) {
@@ -120,24 +137,24 @@ static IFWelcomeWindow* sharedWindow = nil;
         createInfoArray = [[NSMutableArray alloc] init];
         
         NSImage* icon = [IFImageCache loadResourceImage: @"informfile.icns"];
-        IFRecentFileCellInfo* info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
+        IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
                                                                             image: icon
                                                                               url: nil
-                                                                             type: IFRecentCreateProject] autorelease];
+                                                                             type: IFRecentCreateProject];
         [createInfoArray addObject: info];
 
         icon = [IFImageCache loadResourceImage: @"i7xfile.icns"];
-        info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
+        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentCreateExtension] autorelease];
+                                                       type: IFRecentCreateExtension];
         [createInfoArray addObject: info];
         
         icon = [NSImage imageNamed: NSImageNameFolder];
-        info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation for iBooks"]
+        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation for iBooks"]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentSaveEPubs] autorelease];
+                                                       type: IFRecentSaveEPubs];
         [createInfoArray addObject: info];
 
         // --- Items that copy sample documents ---
@@ -152,21 +169,21 @@ static IFWelcomeWindow* sharedWindow = nil;
         pathStart = [pathStart stringByAppendingPathComponent: @"Samples"];
 
         for( int index = 0; index < [sampleArray count]; index += 2 ) {
-            NSString* path = [pathStart stringByAppendingPathComponent: [sampleArray objectAtIndex: index + 1]];
-            info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: [sampleArray objectAtIndex: index]]
+            NSString* path = [pathStart stringByAppendingPathComponent: sampleArray[index + 1]];
+            info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: sampleArray[index]]
                                                           image: icon
                                                             url: [NSURL fileURLWithPath: path
                                                                             isDirectory: YES]
-                                                           type: IFRecentCopySample] autorelease];
+                                                           type: IFRecentCopySample];
             [sampleInfoArray addObject: info];
         }
 
         // Link to IFDB
         icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericDocumentIcon)];
-        info = [[[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Link to IFDB"]
+        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Link to IFDB"]
                                                       image: icon
                                                         url: [NSURL URLWithString:@"http://ifdb.tads.org/search?sortby=new&newSortBy.x=0&newSortBy.y=0&searchfor=tag%3A+i7+source+available"]
-                                                       type: IFRecentWebsiteLink] autorelease];
+                                                       type: IFRecentWebsiteLink];
         [sampleInfoArray addObject: info];
 	}
 
@@ -223,16 +240,16 @@ static IFWelcomeWindow* sharedWindow = nil;
                                  @"inform:/AdviceCredits.html"];
 
     NSString* urlString = nil;
-    int index = [sender tag];
+    NSInteger index = [sender tag];
     if((index >= 0) && ( index < [linkArray count])) {
-        urlString = [linkArray objectAtIndex: index];
+        urlString = linkArray[index];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
     } else {
         index -= [linkArray count];
         // Is it a link for advice?
         if((index >= 0) && ( index < [adviceLinkArray count])) {
-            urlString = [adviceLinkArray objectAtIndex: index];
-            [[webView mainFrame] loadRequest: [[[NSURLRequest alloc] initWithURL: [NSURL URLWithString:urlString]] autorelease]];
+            urlString = adviceLinkArray[index];
+            [[webView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: [NSURL URLWithString:urlString]]];
             [self showWebView];
         }
     }
@@ -256,13 +273,13 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 - (id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     if( tableView == recentDocumentsTableView ) {
-        return [recentInfoArray objectAtIndex: row];
+        return recentInfoArray[row];
     }
     if( tableView == createDocumentsTableView ) {
-        return [createInfoArray objectAtIndex: row];
+        return createInfoArray[row];
     }
     if( tableView == sampleDocumentsTableView ) {
-        return [sampleInfoArray objectAtIndex: row];
+        return sampleInfoArray[row];
     }
     return nil;
 }
@@ -274,11 +291,11 @@ static IFWelcomeWindow* sharedWindow = nil;
 {
     IFRecentFileCellInfo* info = nil;
     if( tableView == recentDocumentsTableView ) {
-        info = [recentInfoArray objectAtIndex:row];
+        info = recentInfoArray[row];
     } else if( tableView == createDocumentsTableView ) {
-        info = [createInfoArray objectAtIndex:row];
+        info = createInfoArray[row];
     } else if( tableView == sampleDocumentsTableView ) {
-        info = [sampleInfoArray objectAtIndex:row];
+        info = sampleInfoArray[row];
     }
     IFRecentFileCell* cCell = (IFRecentFileCell *) cell;
     cCell.image    = info.image;
@@ -287,34 +304,31 @@ static IFWelcomeWindow* sharedWindow = nil;
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
     if( [aNotification object] == recentDocumentsTableView ) {
-        int row = [recentDocumentsTableView selectedRow];
+        NSInteger row = [recentDocumentsTableView selectedRow];
 
         if( row >= 0 ) {
             [recentDocumentsTableView deselectAll: self];
 
-            IFRecentFileCellInfo* info = [recentInfoArray objectAtIndex: row];
+            IFRecentFileCellInfo* info = recentInfoArray[row];
             if( info.type == IFRecentOpen ) {
                 [NSApp sendAction: @selector(openDocument:)
                                to: nil
                              from: self];
             } else if ( info.type == IFRecentFile ) {
                 NSDocumentController* docControl = [NSDocumentController sharedDocumentController];
-                
+                NSError* error = nil;
                 [docControl openDocumentWithContentsOfURL: info.url
                                                   display: YES
-                                        completionHandler: ^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error)
-                 {
-                     // TODO: Anything needed here?
-                 }];
+                                                    error: &error];
             }            
         }
     } else if( [aNotification object] == createDocumentsTableView ) {
-        int row = [createDocumentsTableView selectedRow];
+        NSInteger row = [createDocumentsTableView selectedRow];
         
         if( row >= 0 ) {
             [createDocumentsTableView deselectAll: self];
             
-            IFRecentFileCellInfo* info = [createInfoArray objectAtIndex: row];
+            IFRecentFileCellInfo* info = createInfoArray[row];
             if( info.type == IFRecentCreateProject ) {
                 // Create new project
                 [NSApp sendAction: @selector(newProject:)
@@ -334,12 +348,12 @@ static IFWelcomeWindow* sharedWindow = nil;
             }
         }
     } else if( [aNotification object] == sampleDocumentsTableView ) {
-        int row = [sampleDocumentsTableView selectedRow];
+        NSInteger row = [sampleDocumentsTableView selectedRow];
         
         if( row >= 0 ) {
             [sampleDocumentsTableView deselectAll: self];
             
-            IFRecentFileCellInfo* info = [sampleInfoArray objectAtIndex: row];
+            IFRecentFileCellInfo* info = sampleInfoArray[row];
             if( info.type == IFRecentCopySample ) {
                 NSURL* source = info.url;
 
@@ -351,14 +365,14 @@ static IFWelcomeWindow* sharedWindow = nil;
                 [chooseDirectoryPanel setTitle: [IFUtility localizedString:@"Choose a directory to save into"]];
                 [chooseDirectoryPanel setPrompt: [IFUtility localizedString:@"Choose Directory"]];
 
-                [chooseDirectoryPanel beginSheetModalForWindow: nil
+                [chooseDirectoryPanel beginSheetModalForWindow: [sharedWindow window]
                                              completionHandler: ^(NSInteger result)
                  {
                      if (result == NSOKButton) {
                          NSURL* destination = [chooseDirectoryPanel URL];
 
                          // Append last path component of source onto destination
-                         destination = [destination URLByAppendingPathComponent: [source lastPathComponent] isDirectory: YES];
+                         destination = [destination URLByAppendingPathComponent: [source lastPathComponent]];
                          [(IFAppDelegate*)[NSApp delegate] doCopyProject: source
                                                                       to: destination];
                      }

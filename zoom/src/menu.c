@@ -42,7 +42,7 @@
 
 static void center(char* text, int columns)
 {
-  display_set_cursor((columns>>1)-(strlen(text)>>1), display_get_cur_y());
+  display_set_cursor((columns>>1)-((int) strlen(text)>>1), display_get_cur_y());
   display_prints_c(text);
 }
 
@@ -96,7 +96,7 @@ char* menu_get_story(void)
     {
       int len;
 
-      len = strlen(dent->d_name);
+      len = (int) strlen(dent->d_name);
       
       if (len > 2)
 	{
@@ -125,7 +125,7 @@ char* menu_get_story(void)
 
 		  if (game[n_games].storyname == NULL)
 		    {
-		      len = strlen(game[n_games].filename);
+		      len = (int) strlen(game[n_games].filename);
 		      
 		      game[n_games].storyname = malloc(len+1);
 		      for (x=0; x<len-3; x++)

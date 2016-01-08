@@ -50,6 +50,7 @@ typedef struct __QuickLookGeneratorPluginType
     void        *conduitInterface;
     CFUUIDRef    factoryID;
     UInt32       refCount;
+    UInt32       padding;
 } QuickLookGeneratorPluginType;
 
 // -----------------------------------------------------------------------------

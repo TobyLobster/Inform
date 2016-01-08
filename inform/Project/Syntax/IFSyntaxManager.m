@@ -19,8 +19,6 @@ static NSMutableDictionary* storages = nil;
 }
 
 +(void) dealloc {
-    [storages release];
-    
     [super dealloc];
 }
 
@@ -29,7 +27,7 @@ static NSMutableDictionary* storages = nil;
 // Internal
 //
 +(IFSyntaxData*) dataForStorage: (NSTextStorage*) storage {
-    return [storages objectForKey: [NSValue valueWithPointer:storage]];
+    return storages[[NSValue valueWithPointer:(__bridge const void *)(storage)]];
 }
 
 //
@@ -40,14 +38,13 @@ static NSMutableDictionary* storages = nil;
                        type: (IFHighlightType) type
                intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
                 undoManager: (NSUndoManager*) undoManager {
-    IFSyntaxData* data = [[[IFSyntaxData alloc] initWithStorage: storage
+    IFSyntaxData* data = [[IFSyntaxData alloc] initWithStorage: storage
                                                            name: name
                                                            type: type
                                                    intelligence: intelligence
-                                                    undoManager: undoManager] autorelease];
+                                                    undoManager: undoManager];
     //NSLog(@"*** Register %@ with storage %d", name, (int) storage);
-    [storages setObject: data
-                 forKey: [NSValue valueWithPointer: storage]];
+    storages[[NSValue valueWithPointer: (__bridge const void *)(storage)]] = data;
 }
 
 +(void) registerTextStorage: (NSTextStorage*) storage
@@ -65,7 +62,7 @@ static NSMutableDictionary* storages = nil;
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
     if( data ) {
         // NSLog(@"*** Unregister %@ with storage %d", [data name], (int) storage);
-        [storages removeObjectForKey: [NSValue valueWithPointer: storage]];
+        [storages removeObjectForKey: [NSValue valueWithPointer: (__bridge const void *)(storage)]];
     }
     else {
         // NSLog(false, @"removing storage %@ that's not registered", storage);

@@ -18,7 +18,7 @@
 
 // = Initialisation =
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     
 	if (self) {
@@ -144,12 +144,12 @@
 	if (forceFixed) {
 		return [self fixedFont];
 	} else {
-		return [[self attributes: style_Normal] objectForKey: NSFontAttributeName];
+		return [self attributes: style_Normal][NSFontAttributeName];
 	}
 }
 
 - (NSFont*) fixedFont {
-	return [[self attributes: style_Preformatted] objectForKey: NSFontAttributeName];
+	return [self attributes: style_Preformatted][NSFontAttributeName];
 }
 
 - (NSDictionary*) currentTextAttributes {
@@ -158,8 +158,7 @@
 	if (linkObject != nil) {
 		NSMutableDictionary* linkRes = [res mutableCopy];
 		
-		[linkRes setObject: linkObject
-					forKey: NSLinkAttributeName];
+		linkRes[NSLinkAttributeName] = linkObject;
 		
 		return [linkRes autorelease];
 	}
@@ -173,7 +172,7 @@
 
 - (float) lineHeight {
     NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	return [lm defaultLineHeightForFont: [[self currentTextAttributes] objectForKey: NSFontAttributeName]];
+	return [lm defaultLineHeightForFont: [self currentTextAttributes][NSFontAttributeName]];
 }
 
 - (void) setStyles: (NSDictionary*) newStyles {
@@ -190,7 +189,7 @@
 	}
 	
 	// Get the result from the styles object (use a default if we can't find a suitable style)
-	GlkStyle* res = [styles objectForKey: [NSNumber numberWithUnsignedInt: glkStyle]];	
+	GlkStyle* res = styles[@(glkStyle)];	
 	if (!res) res = [GlkStyle style];
 	
 	if (forceFixed && [res proportional]) [res setProportional: NO];
@@ -412,7 +411,7 @@
 											 target: self
 										   argument: nil
 											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 		return YES;
 	}
 	
@@ -674,15 +673,22 @@
 }
 
 - (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
-	if (!result)	result = [[[NSMutableArray alloc] init] autorelease];
-	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-		NSAccessibilityChildrenAttribute,
-		NSAccessibilityFocusedAttribute,
-		nil]];
-	
-	return result;
+    static NSMutableArray *attributes = nil;
+    if ( attributes == nil )
+    {
+        attributes = [[super accessibilityAttributeNames] mutableCopy];
+
+        NSArray *additionalAttributes = @[NSAccessibilityChildrenAttribute, NSAccessibilityFocusedAttribute];
+
+        for ( NSString *attribute in additionalAttributes )
+        {
+            if ( ![attributes containsObject:attribute] )
+            {
+                [attributes addObject:attribute];
+            }
+        }
+    }
+    return attributes;
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
@@ -696,24 +702,24 @@
 		NSView* viewResponder = (NSView*)[[self window] firstResponder];
 		if ([viewResponder isKindOfClass: [NSView class]]) {
 			while (viewResponder != nil) {
-				if (viewResponder == self) return [NSNumber numberWithBool: YES];
+				if (viewResponder == self) return @YES;
 				
 				viewResponder = [viewResponder superview];
 			}
 		}
 		
-		return [NSNumber numberWithBool: NO];
+		return @NO;
 	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return nil;
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	}
-	
+
 	return [super accessibilityAttributeValue: attribute];
 }
 
 - (BOOL)accessibilityIsIgnored {
-	return NO;
+    return NO;
 }
 
 - (id)accessibilityFocusedUIElement {

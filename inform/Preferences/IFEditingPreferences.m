@@ -14,9 +14,69 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-@implementation IFEditingPreferences
+@implementation IFEditingPreferences {
+    // Text section
+    IBOutlet NSPopUpButton* fontFamily;
+    IBOutlet NSTextField* fontSize;
+    IBOutlet NSColorWell* sourceColour;
+    IBOutlet NSColorWell* extensionColor;
 
-- (id) init {
+    // Syntax highlighting section
+    IBOutlet NSButton* enableSyntaxHighlighting;
+    IBOutlet NSButton* restoreSettingsButton;
+    IBOutlet NSTextField* rowHeadings;
+    IBOutlet NSTextField* rowMainText;
+    IBOutlet NSTextField* rowComments;
+    IBOutlet NSTextField* rowQuotedText;
+    IBOutlet NSTextField* rowTextSubstitutions;
+    IBOutlet NSTextField* columnColour;
+    IBOutlet NSTextField* columnFontStyle;
+    IBOutlet NSTextField* columnUnderline;
+    IBOutlet NSTextField* columnFontSize;
+    IBOutlet NSColorWell* headingsColor;
+    IBOutlet NSColorWell* mainTextColor;
+    IBOutlet NSColorWell* commentsColor;
+    IBOutlet NSColorWell* quotedTextColor;
+    IBOutlet NSColorWell* textSubstitutionsColor;
+    IBOutlet NSPopUpButton* headingsFontStyle;
+    IBOutlet NSPopUpButton* mainTextFontStyle;
+    IBOutlet NSPopUpButton* commentsFontStyle;
+    IBOutlet NSPopUpButton* quotedTextFontStyle;
+    IBOutlet NSPopUpButton* textSubstitutionsFontStyle;
+    IBOutlet NSButton* headingsUnderline;
+    IBOutlet NSButton* mainTextUnderline;
+    IBOutlet NSButton* commentsUnderline;
+    IBOutlet NSButton* quotedTextUnderline;
+    IBOutlet NSButton* textSubstitutionsUnderline;
+    IBOutlet NSPopUpButton* headingsFontSize;
+    IBOutlet NSPopUpButton* mainTextFontSize;
+    IBOutlet NSPopUpButton* commentsFontSize;
+    IBOutlet NSPopUpButton* quotedTextFontSize;
+    IBOutlet NSPopUpButton* textSubstitutionsFontSize;
+
+    // Tab width section
+    IBOutlet NSSlider* tabStopSlider;
+    IBOutlet NSTextView* previewView;
+    IBOutlet NSTextView* tabStopView;
+
+    // Indenting section
+    IBOutlet NSButton* indentWrappedLines;
+    IBOutlet NSButton* autoIndentAfterNewline;
+    IBOutlet NSButton* autoSpaceTableColumns;
+
+    // Numbering section
+    IBOutlet NSButton* autoNumberSections;
+
+    // Text storage for previews
+    NSTextStorage* previewStorage;
+    NSTextStorage* tabStopStorage;
+
+    IFEditingPreferencesSet* defaultSet;
+    IFEditingPreferencesSet* currentSet;
+}
+
+
+- (instancetype) init {
 	self = [super initWithNibName: @"EditingPreferences"];
 	
 	if (self) {
@@ -53,11 +113,11 @@
 		[tabStopView setTextContainerInset: NSMakeSize(0, 2)];
 
 		// Register for notifications about view size changes
-		[preferenceView setPostsFrameChangedNotifications: YES];
+		[self.preferenceView setPostsFrameChangedNotifications: YES];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(viewWidthChanged:)
 													 name: NSViewFrameDidChangeNotification
-												   object: preferenceView];
+												   object: self.preferenceView];
 		[tabStopSlider setMaxValue: [tabStopSlider bounds].size.width-12];
 
         // Populate font family drop down with fonts
@@ -77,13 +137,8 @@
     [IFSyntaxManager unregisterTextStorage:previewStorage];
     [IFSyntaxManager unregisterTextStorage:tabStopStorage];
 
-    [previewStorage release];
-    [tabStopStorage release];
 
-    [defaultSet release];
-    [currentSet release];
     
-    [super dealloc];
 }
 
 // = PreferencePane overrides =
@@ -158,11 +213,11 @@
         if (sender == quotedTextColor)              [[currentSet optionOfType: IFSHOptionQuotedText]        setColour:     [quotedTextColor color]];
         if (sender == textSubstitutionsColor)       [[currentSet optionOfType: IFSHOptionTextSubstitutions] setColour:     [textSubstitutionsColor color]];
 
-        if (sender == headingsFontStyle)            [[currentSet optionOfType: IFSHOptionHeadings]          setFontStyle:  [headingsFontStyle selectedTag]];
-        if (sender == mainTextFontStyle)            [[currentSet optionOfType: IFSHOptionMainText]          setFontStyle:  [mainTextFontStyle selectedTag]];
-        if (sender == commentsFontStyle)            [[currentSet optionOfType: IFSHOptionComments]          setFontStyle:  [commentsFontStyle selectedTag]];
-        if (sender == quotedTextFontStyle)          [[currentSet optionOfType: IFSHOptionQuotedText]        setFontStyle:  [quotedTextFontStyle selectedTag]];
-        if (sender == textSubstitutionsFontStyle)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setFontStyle:  [textSubstitutionsFontStyle selectedTag]];
+        if (sender == headingsFontStyle)            [[currentSet optionOfType: IFSHOptionHeadings]          setFontStyle:  (int) [headingsFontStyle selectedTag]];
+        if (sender == mainTextFontStyle)            [[currentSet optionOfType: IFSHOptionMainText]          setFontStyle:  (int) [mainTextFontStyle selectedTag]];
+        if (sender == commentsFontStyle)            [[currentSet optionOfType: IFSHOptionComments]          setFontStyle:  (int) [commentsFontStyle selectedTag]];
+        if (sender == quotedTextFontStyle)          [[currentSet optionOfType: IFSHOptionQuotedText]        setFontStyle:  (int) [quotedTextFontStyle selectedTag]];
+        if (sender == textSubstitutionsFontStyle)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setFontStyle:  (int) [textSubstitutionsFontStyle selectedTag]];
 
         if (sender == headingsUnderline)            [[currentSet optionOfType: IFSHOptionHeadings]          setUnderline:  [headingsUnderline state] == NSOnState];
         if (sender == mainTextUnderline)            [[currentSet optionOfType: IFSHOptionMainText]          setUnderline:  [mainTextUnderline state] == NSOnState];
@@ -170,11 +225,11 @@
         if (sender == quotedTextUnderline)          [[currentSet optionOfType: IFSHOptionQuotedText]        setUnderline:  [quotedTextUnderline state] == NSOnState];
         if (sender == textSubstitutionsUnderline)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setUnderline:  [textSubstitutionsUnderline state] == NSOnState];
 
-        if (sender == headingsFontSize)             [[currentSet optionOfType: IFSHOptionHeadings]          setRelativeFontSize:  [headingsFontSize selectedTag]];
-        if (sender == mainTextFontSize)             [[currentSet optionOfType: IFSHOptionMainText]          setRelativeFontSize:  [mainTextFontSize selectedTag]];
-        if (sender == commentsFontSize)             [[currentSet optionOfType: IFSHOptionComments]          setRelativeFontSize:  [commentsFontSize selectedTag]];
-        if (sender == quotedTextFontSize)           [[currentSet optionOfType: IFSHOptionQuotedText]        setRelativeFontSize:  [quotedTextFontSize selectedTag]];
-        if (sender == textSubstitutionsFontSize)    [[currentSet optionOfType: IFSHOptionTextSubstitutions] setRelativeFontSize:  [textSubstitutionsFontSize selectedTag]];
+        if (sender == headingsFontSize)             [[currentSet optionOfType: IFSHOptionHeadings]          setRelativeFontSize:  (int) [headingsFontSize selectedTag]];
+        if (sender == mainTextFontSize)             [[currentSet optionOfType: IFSHOptionMainText]          setRelativeFontSize:  (int) [mainTextFontSize selectedTag]];
+        if (sender == commentsFontSize)             [[currentSet optionOfType: IFSHOptionComments]          setRelativeFontSize:  (int) [commentsFontSize selectedTag]];
+        if (sender == quotedTextFontSize)           [[currentSet optionOfType: IFSHOptionQuotedText]        setRelativeFontSize:  (int) [quotedTextFontSize selectedTag]];
+        if (sender == textSubstitutionsFontSize)    [[currentSet optionOfType: IFSHOptionTextSubstitutions] setRelativeFontSize:  (int) [textSubstitutionsFontSize selectedTag]];
 
         // Tab width section
         if (sender == tabStopSlider)                currentSet.tabWidth                 = [tabStopSlider floatValue];
@@ -231,31 +286,31 @@
     // Syntax highlighting section
 	[enableSyntaxHighlighting setState: currentSet.enableSyntaxHighlighting ? NSOnState : NSOffState];
 
-    IFSyntaxHighlightingOption* option = [currentSet.options objectAtIndex:IFSHOptionHeadings];
+    IFSyntaxHighlightingOption* option = (currentSet.options)[IFSHOptionHeadings];
     [headingsColor      setColor:          option.colour];
     [headingsFontStyle  selectItemAtIndex: option.fontStyle];
     [headingsUnderline  setState:          option.underline ? NSOnState : NSOffState];
     [headingsFontSize   selectItemAtIndex: option.relativeFontSize];
 
-    option = [currentSet.options objectAtIndex:IFSHOptionMainText];
+    option = (currentSet.options)[IFSHOptionMainText];
     [mainTextColor      setColor:          option.colour];
     [mainTextFontStyle  selectItemAtIndex: option.fontStyle];
     [mainTextUnderline  setState:          option.underline ? NSOnState : NSOffState];
     [mainTextFontSize   selectItemAtIndex: option.relativeFontSize];
 
-    option = [currentSet.options objectAtIndex:IFSHOptionComments];
+    option = (currentSet.options)[IFSHOptionComments];
     [commentsColor      setColor:          option.colour];
     [commentsFontStyle  selectItemAtIndex: option.fontStyle];
     [commentsUnderline  setState:          option.underline ? NSOnState : NSOffState];
     [commentsFontSize   selectItemAtIndex: option.relativeFontSize];
 
-    option = [currentSet.options objectAtIndex:IFSHOptionQuotedText];
+    option = (currentSet.options)[IFSHOptionQuotedText];
     [quotedTextColor        setColor:          option.colour];
     [quotedTextFontStyle    selectItemAtIndex: option.fontStyle];
     [quotedTextUnderline    setState:          option.underline ? NSOnState : NSOffState];
     [quotedTextFontSize     selectItemAtIndex: option.relativeFontSize];
 
-    option = [currentSet.options objectAtIndex:IFSHOptionTextSubstitutions];
+    option = (currentSet.options)[IFSHOptionTextSubstitutions];
     [textSubstitutionsColor     setColor:          option.colour];
     [textSubstitutionsFontStyle selectItemAtIndex: option.fontStyle];
     [textSubstitutionsUnderline setState:          option.underline ? NSOnState : NSOffState];
@@ -299,7 +354,6 @@
     [alert setAlertStyle:NSWarningAlertStyle];
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        [currentSet release];
         currentSet = [[IFEditingPreferencesSet alloc] init];
         
         [[IFPreferences sharedPreferences] startBatchEditing];
@@ -308,7 +362,6 @@
 
         [self reflectCurrentPreferences];
     }
-    [alert release];
 }
 
 @end

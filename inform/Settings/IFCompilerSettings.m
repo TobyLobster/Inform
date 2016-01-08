@@ -25,14 +25,16 @@
 
 #import "IFSettingsController.h"
 
-NSString* IFSettingLibraryToUse		= @"IFSettingLibraryToUse";
-NSString* IFSettingZCodeVersion		= @"IFSettingZCodeVersion";
+NSString* IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
+NSString* IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
 
-NSString* IFSettingNaturalInform	= @"IFSettingNaturalInform";
-NSString* IFSettingStrict			= @"IFSettingStrict";
-NSString* IFSettingInfix			= @"IFSettingInfix";
-NSString* IFSettingDEBUG			= @"IFSettingDEBUG";
-NSString* IFSettingNobbleRng		= @"IFSettingNobbleRng";
+NSString* IFSettingNaturalInform        = @"IFSettingNaturalInform";
+NSString* IFSettingStrict               = @"IFSettingStrict";
+NSString* IFSettingInfix                = @"IFSettingInfix";
+NSString* IFSettingDEBUG                = @"IFSettingDEBUG";
+NSString* IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
+NSString* IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
+NSString* IFSettingNobbleRng            = @"IFSettingNobbleRng";
 
 // Debug
 NSString* IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
@@ -59,6 +61,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 #include "IFMiscSettings.h"
 
 @implementation IFCompilerSettings
+{
+    NSMutableDictionary* store;						// (DEPRECATED) Maps keys to settings
+    NSArray* genericSettings;						// IFSetting object that deals with specific settings areas
+
+    NSDictionary* originalPlist;					// The PList we loaded to construct this object (used if there's some settings in the plist that aren't handled)
+}
 
 // == Possible locations for the library ==
 + (NSArray*) inform6LibraryPaths {
@@ -136,7 +144,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 // == Initialisation ==
-- (id) init {
+- (instancetype) init {
     self = [super init];
 
     if (self) {
@@ -145,7 +153,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
         // Default settings
         [self setUsingNaturalInform: NO];
 		
-		genericSettings = [[IFSettingsController makeStandardSettings] retain];
+		genericSettings = [IFSettingsController makeStandardSettings];
 		
 		for( IFSetting* setting in genericSettings ) {
 			[setting setCompilerSettings: self];
@@ -156,16 +164,10 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) dealloc {
-    [store release];
 	if (genericSettings) {
 		[genericSettings makeObjectsPerformSelector: @selector(setCompilerSettings:)
 										 withObject: nil];
-		[genericSettings release];
 	}
-	
-	if (originalPlist) [originalPlist autorelease];
-
-    [super dealloc];
 }
 
 // = Getting information on what is going on =
@@ -220,20 +222,16 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	int zcVersion = [self zcodeVersion];
 	
 	if (supportedZCodeVersions != nil && 
-		![supportedZCodeVersions containsObject: [NSNumber numberWithInt: zcVersion]]) {
+		![supportedZCodeVersions containsObject: @(zcVersion)]) {
 		// Use default version
-		zcVersion = [[supportedZCodeVersions objectAtIndex: 0] intValue];
+		zcVersion = [supportedZCodeVersions[0] intValue];
 	}
 
 	if (zcVersion < 255) {
 		// ZCode
-		[switches appendString: [NSString stringWithFormat: @"v%i",
-			[self zcodeVersion]]];
+		[switches appendString: [NSString stringWithFormat: @"v%i", [self zcodeVersion]]];
 	} else {
 		// Glulx
-		
-		// FIXME: this assumes we only ever use a biplatform compiler
-		// Not sure this is an urgent fix, though: all future versions of Inform should be BP
 		[switches appendString: [NSString stringWithFormat: @"G"]];
 	}
 
@@ -249,7 +247,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	NSString* libPath = [[self class] pathForLibrary: library];
 	
 	if (libPath == nil) libPath = [[self class] pathForLibrary: @"Standard"];
-	if (libPath == nil) libPath = [[self class] pathForLibrary: [[[self class] availableLibraries] objectAtIndex: 0]];
+	if (libPath == nil) libPath = [[self class] pathForLibrary: [[self class] availableLibraries][0]];
 	if (library == nil) libPath = nil;
 
     if (library != nil) {
@@ -265,10 +263,6 @@ NSString* IFSettingNotification = @"IFSettingNotification";
     if (libPath) {
         [includePath addObject: libPath];
     }
-
-	// Include paths from settings modules
-
-	[includePath addObjectsFromArray: [self includePathsForCompiler: IFCompilerInform6]];
 
 	// Current directory and source directory
     [includePath addObject: @"."];
@@ -287,9 +281,6 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 
     [result addObject: incString];
 
-	// Command line options from the set of generic settings objects
-	[result addObjectsFromArray: [self genericCommandLineForCompiler: IFCompilerInform6]];
-
     return result;
 }
 
@@ -298,15 +289,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (NSArray*) supportedZMachines {
-	return [NSArray arrayWithObjects:
-					[NSNumber numberWithInt: 5],
-					[NSNumber numberWithInt: 3],
-					[NSNumber numberWithInt: 4],
-					[NSNumber numberWithInt: 6],
-					[NSNumber numberWithInt: 7],
-					[NSNumber numberWithInt: 8],
-					[NSNumber numberWithInt: 256],
-					nil];
+	return @[ @5, @3, @4, @6, @7, @8, @256 ];
 }
 
 
@@ -341,8 +324,6 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 		[res addObject: externalPath];
 	}
 
-	[res addObjectsFromArray: [self genericCommandLineForCompiler: IFCompilerNaturalInform]];
-    
     return res;
 }
 
@@ -358,13 +339,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setUsingNaturalInform: (BOOL) setting {
-    [[self dictionaryForClass: [IFCompilerOptions class]] setObject: [NSNumber numberWithBool: setting]
-															 forKey: IFSettingNaturalInform];
+    [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) usingNaturalInform {
-    NSNumber* usingNaturalInform = [[self dictionaryForClass: [IFCompilerOptions class]] objectForKey: IFSettingNaturalInform];
+    NSNumber* usingNaturalInform = [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform];
 
     if (usingNaturalInform) {
         return [usingNaturalInform boolValue];
@@ -374,13 +354,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setStrict: (BOOL) setting {
-    [[self dictionaryForClass: [IFMiscSettings class]] setObject: [NSNumber numberWithBool: setting]
-														  forKey: IFSettingStrict];
+    [self dictionaryForClass: [IFMiscSettings class]][IFSettingStrict] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) strict {
-    NSNumber* setting = [[self dictionaryForClass: [IFMiscSettings class]] objectForKey: IFSettingStrict];
+    NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingStrict];
 
     if (setting) {
         return [setting boolValue];
@@ -390,13 +369,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setInfix: (BOOL) setting {
-    [[self dictionaryForClass: [IFMiscSettings class]] setObject: [NSNumber numberWithBool: setting]
-														  forKey: IFSettingInfix];
+    [self dictionaryForClass: [IFMiscSettings class]][IFSettingInfix] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) infix {
-    NSNumber* setting = [[self dictionaryForClass: [IFMiscSettings class]] objectForKey: IFSettingInfix];
+    NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingInfix];
 
     if (setting) {
         return [setting boolValue];
@@ -406,13 +384,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setDebug: (BOOL) setting {
-    [[self dictionaryForClass: [IFMiscSettings class]] setObject: [NSNumber numberWithBool: setting]
-														  forKey: IFSettingDEBUG];
+    [self dictionaryForClass: [IFMiscSettings class]][IFSettingDEBUG] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) debug {
-    NSNumber* setting = [[self dictionaryForClass: [IFMiscSettings class]] objectForKey: IFSettingDEBUG];
+    NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingDEBUG];
 
     if (setting) {
         return [setting boolValue];
@@ -422,13 +399,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setCompileNaturalInformOutput: (BOOL) setting {
-    [[self dictionaryForClass: [IFDebugSettings class]] setObject: [NSNumber numberWithBool: setting]
-														   forKey: IFSettingCompileNatOutput];
+    [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) compileNaturalInformOutput {
-    NSNumber* setting = [[self dictionaryForClass: [IFDebugSettings class]] objectForKey: IFSettingCompileNatOutput];
+    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput];
 
     if (setting) {
         return [setting boolValue];
@@ -438,13 +414,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setNobbleRng: (BOOL) setting {
-    [[self dictionaryForClass: [IFOutputSettings class]] setObject: [NSNumber numberWithBool: setting]
-														   forKey: IFSettingNobbleRng];
+    [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) nobbleRng {
-    NSNumber* setting = [[self dictionaryForClass: [IFOutputSettings class]] objectForKey: IFSettingNobbleRng];
+    NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng];
 	
     if (setting) {
         return [setting boolValue];
@@ -454,13 +429,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setRunBuildScript: (BOOL) setting {
-    [[self dictionaryForClass: [IFDebugSettings class]] setObject: [NSNumber numberWithBool: setting]
-														   forKey: IFSettingRunBuildScript];
+    [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) runBuildScript {
-    NSNumber* setting = [[self dictionaryForClass: [IFDebugSettings class]] objectForKey: IFSettingRunBuildScript];
+    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript];
 
     if (setting) {
         return [setting boolValue];
@@ -470,34 +444,31 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setLoudly: (BOOL) setting {
-    [[self dictionaryForClass: [IFDebugSettings class]] setObject: [NSNumber numberWithBool: setting]
-														   forKey: IFSettingLoudly];
+    [self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) loudly {
-    return [[[self dictionaryForClass: [IFDebugSettings class]] objectForKey: IFSettingLoudly] boolValue];
+    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] boolValue];
 }
 
 
 - (void) setDebugMemory: (BOOL) memDebug {
-    [[self dictionaryForClass: [IFDebugSettings class]] setObject: [NSNumber numberWithBool: memDebug]
-														   forKey: IFSettingMemoryDebug];
+    [self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] = @(memDebug);
     [self settingsHaveChanged];
 }
 
 - (BOOL) debugMemory {
-    return [[[self dictionaryForClass: [IFDebugSettings class]] objectForKey: IFSettingMemoryDebug] boolValue];
+    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] boolValue];
 }
 
 - (void) setZCodeVersion: (int) version {
-    [[self dictionaryForClass: [IFOutputSettings class]] setObject: [NSNumber numberWithInt: version]
-															forKey: IFSettingZCodeVersion];
+    [self dictionaryForClass: [IFOutputSettings class]][IFSettingZCodeVersion] = @(version);
     [self settingsHaveChanged];
 }
 
 - (int) zcodeVersion {
-    NSNumber* setting = [[self dictionaryForClass: [IFOutputSettings class]] objectForKey: IFSettingZCodeVersion];
+    NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingZCodeVersion];
 
     if (setting) {
         return [setting intValue];
@@ -505,6 +476,37 @@ NSString* IFSettingNotification = @"IFSettingNotification";
         return 256;
     }
 }
+
+- (void) setTestingTabHelpShown: (BOOL) shown {
+    [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown] = @(shown);
+    [self settingsHaveChanged];
+}
+
+- (BOOL) testingTabHelpShown {
+    NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown];
+
+    if (setting) {
+        return [setting boolValue];
+    } else {
+        return YES;
+    }
+}
+
+- (void) setTestingTabShownCount: (int) shownCount {
+    [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabShownCount] = @(shownCount);
+    [self settingsHaveChanged];
+}
+
+- (int) testingTabShownCount {
+    NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabShownCount];
+
+    if (setting) {
+        return [setting intValue];
+    } else {
+        return 0;
+    }
+}
+
 
 - (NSString*) fileExtension {
     int version = [self zcodeVersion];
@@ -514,13 +516,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setLibraryToUse: (NSString*) library {
-    [[self dictionaryForClass: [IFLibrarySettings class]] setObject: [[library copy] autorelease]
-															 forKey: IFSettingLibraryToUse];
+    [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse] = [library copy];
     [self settingsHaveChanged];
 }
 
 - (NSString*) libraryToUse {
-	NSString* library = [[self dictionaryForClass: [IFLibrarySettings class]] objectForKey: IFSettingLibraryToUse];
+	NSString* library = [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse];
 	
 	if (library == nil) library = @"Standard";
 	
@@ -532,46 +533,16 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 - (void) setGenericSettings: (NSArray*) newGenericSettings {
 	if (newGenericSettings == genericSettings) return;
 	
-	if (genericSettings) [genericSettings release];
-	genericSettings = [newGenericSettings retain];
-}
-
-- (NSArray*) genericCommandLineForCompiler: (NSString*) compiler {
-	NSMutableArray* result = [NSMutableArray array];
-	
-	for( IFSetting* setting in genericSettings ) {
-		NSArray* settingOptions = [setting commandLineOptionsForCompiler: compiler];
-		
-		if (settingOptions) {
-            [result addObjectsFromArray: settingOptions];
-        }
-	}
-	
-	return result;
-}
-
-- (NSArray*) includePathsForCompiler: (NSString*) compiler {
-	NSMutableArray* result = [NSMutableArray array];
-	
-	for( IFSetting* setting in genericSettings ) {
-		NSArray* settingOptions = [setting includePathForCompiler: compiler];
-		
-		if (settingOptions) {
-            [result addObjectsFromArray: settingOptions];
-        }
-	}
-	
-	return result;
+	genericSettings = newGenericSettings;
 }
 
 - (NSMutableDictionary*) dictionaryForClass: (Class) cls {
-	NSMutableDictionary* dict = [store objectForKey: [cls description]];
+	NSMutableDictionary* dict = store[[cls description]];
 	
 	if (dict == nil) {
 		dict = [NSMutableDictionary dictionary];
 		
-		[store setObject: dict
-				  forKey: [cls description]];
+		store[[cls description]] = dict;
 	}
 	
 	return dict;
@@ -593,11 +564,10 @@ NSString* IFSettingNotification = @"IFSettingNotification";
     [encoder encodeObject: store];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [self init]; // Call the designated initialiser first
 
-    [store release];
-    store = [[decoder decodeObject] retain];
+    store = [decoder decodeObject];
 	
 	// Convert from the old format to the new format -- not done yet (do we really need this?)
 
@@ -620,13 +590,11 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	// Get updated data from all the generic settings classes
 	for( IFSetting* setting in genericSettings ) {
 		if ([setting plistEntries]) {
-			[plData setObject: [setting plistEntries]
-					   forKey: [[setting class] description]];
+			plData[[[setting class] description]] = [setting plistEntries];
 		}
 	}
 	
 	// Update the original list to reflect the current one
-	[originalPlist release];
 	originalPlist = [plData copy];
 	
 	// Create the actual plist	
@@ -641,7 +609,6 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	}
 	
 	// Finish up
-	[plData release];
 	return res;
 }
 
@@ -658,7 +625,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	
 	// If it exists, get it to update from the plist data
 	if (settingToReload) {
-		NSDictionary* settingData = [originalPlist objectForKey: class];
+		NSDictionary* settingData = originalPlist[class];
 		
 		[settingToReload updateSettings: self
 					   withPlistEntries: settingData];
@@ -676,7 +643,6 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 
 - (BOOL) restoreSettingsFromPlist: (NSData*) plData {
 	// This new data will replace the original data (even if the parsing fails)
-	if (originalPlist) [originalPlist release];
 	originalPlist = nil;
 	
 	// Parse the plist into a dictionary

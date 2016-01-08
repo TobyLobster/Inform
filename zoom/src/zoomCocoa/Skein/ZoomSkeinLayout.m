@@ -10,11 +10,8 @@
 
 #import "ZoomSkeinLayout.h"
 
-// Define this to use the 'new' skein colouring style
-#define SkeinDrawingStyleNew
-
 // Constants
-static const float itemPadding = 56.0;
+static const float itemPadding = 26.0;
 
 static NSDictionary* itemTextAttributes = nil;
 static NSDictionary* labelTextAttributes = nil;
@@ -25,9 +22,7 @@ static NSString* ZoomNSShadowAttributeName = @"NSShadow";
 // Images
 static NSImage* unplayed, *selected, *active, *unchanged, *changed, *annotation, *commentaryBadge;
 
-#ifdef SkeinDrawingStyleNew
 static NSImage* unchangedDark, *activeDark;
-#endif
 
 @implementation ZoomSkeinLayout
 
@@ -65,7 +60,7 @@ static NSImage* unchangedDark, *activeDark;
 	[[NSColor colorWithDeviceRed: 0.0
 						   green: 0.0
 							blue: 0.0
-						   alpha: 0.3] set];
+						   alpha: 0.18] set];
 	NSRectFill(imgRect);
 	
 	// The item
@@ -98,20 +93,23 @@ static NSImage* unchangedDark, *activeDark;
 	annotation = [[[self class] imageNamed: @"Skein-annotation"] retain];
 	commentaryBadge = [[[self class] imageNamed: @"SkeinDiffersBadge"] retain];
 	
-#ifdef SkeinDrawingStyleNew
 	unchangedDark = [[[self class] darkenImage: unchanged] retain];
 	activeDark = [[[self class] darkenImage: active] retain];
-#endif	
-	
-	itemTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 10], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		nil] retain];
-	labelTextAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-		[NSFont systemFontOfSize: 13], NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		labelShadow, ZoomNSShadowAttributeName,
-		nil] retain];
+
+	itemTextAttributes = [@{NSFontAttributeName: [NSFont systemFontOfSize: 10],
+		NSForegroundColorAttributeName: [NSColor blackColor]} retain];
+
+    if (labelShadow)
+    {
+        labelTextAttributes = [@{NSFontAttributeName: [NSFont systemFontOfSize: 13],
+            NSForegroundColorAttributeName: [NSColor blackColor],
+            ZoomNSShadowAttributeName: labelShadow} retain];
+    }
+    else
+    {
+        labelTextAttributes = [@{NSFontAttributeName: [NSFont systemFontOfSize: 13],
+                                 NSForegroundColorAttributeName: [NSColor blackColor]} retain];
+    }
 	
 	if (labelShadow) [labelShadow release];
 }
@@ -145,23 +143,23 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// Draw the edge bits
-	[img drawInRect: NSMakeRect(pos.x-20, pos.y, 20, 30)
-		   fromRect: NSMakeRect(0,0,20,30)
+	[img drawInRect: NSMakeRect(pos.x-15, pos.y, 15, 30)
+		   fromRect: NSMakeRect(0,0,15,30)
 		  operation: NSCompositeSourceOver
 		   fraction: 1.0];	
-	[img drawInRect: NSMakeRect(pos.x+width, pos.y, 20, 30)
-		   fromRect: NSMakeRect(70,0,20,30)
+	[img drawInRect: NSMakeRect(pos.x+width, pos.y, 15, 30)
+		   fromRect: NSMakeRect(75,0,15,30)
 		  operation: NSCompositeSourceOver
 		   fraction: 1.0];	
 }
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithRootItem: nil];
 }
 
-- (id) initWithRootItem: (ZoomSkeinItem*) item {
+- (instancetype) initWithRootItem: (ZoomSkeinItem*) item {
 	self = [super init];
 	
 	if (self) {
@@ -215,7 +213,7 @@ static NSImage* unchangedDark, *activeDark;
 		if (![[activeItem children] containsObject: item]) {
 			ZoomSkeinItem* skeinItem = activeItem;
 			while (skeinItem != nil) {
-				ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithPointer: skeinItem]];
+				ZoomSkeinLayoutItem* layoutItem = itemForItem[[NSValue valueWithPointer: skeinItem]];
 				[layoutItem setRecentlyPlayed: NO];
 				skeinItem = [skeinItem parent];
 			}
@@ -228,7 +226,7 @@ static NSImage* unchangedDark, *activeDark;
 	// Mark everything upwards of the active item as played
 	ZoomSkeinItem* skeinItem = activeItem;
 	while (skeinItem != nil) {
-		ZoomSkeinLayoutItem* layoutItem = [itemForItem objectForKey: [NSValue valueWithPointer: skeinItem]];
+		ZoomSkeinLayoutItem* layoutItem = itemForItem[[NSValue valueWithPointer: skeinItem]];
 		[layoutItem setRecentlyPlayed: YES];
 		skeinItem = [skeinItem parent];
 	}
@@ -269,7 +267,7 @@ static NSImage* unchangedDark, *activeDark;
 	
 	while (currentItem != nil) {
 		// Store this item
-		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithPointer: currentItem]];
+		ZoomSkeinLayoutItem* itemUpwards = itemForItem[[NSValue valueWithPointer: currentItem]];
 		[itemUpwards setOnSkeinLine: YES];
 		
 		// Up the tree
@@ -281,10 +279,10 @@ static NSImage* unchangedDark, *activeDark;
 	
 	while ([[currentItem children] count] == 1) {
 		// Move down the tree
-		currentItem = [[[currentItem children] allObjects] objectAtIndex: 0];
+		currentItem = [[currentItem children] allObjects][0];
 		
 		// Store this item
-		ZoomSkeinLayoutItem* itemUpwards = [itemForItem objectForKey: [NSValue valueWithPointer: currentItem]];
+		ZoomSkeinLayoutItem* itemUpwards = itemForItem[[NSValue valueWithPointer: currentItem]];
 		[itemUpwards setOnSkeinLine: YES];
 		[itemUpwards setRecentlyPlayed: NO];
 		// [[itemForItem objectForKey: [NSValue valueWithPointer: currentItem]] setOnSkeinLine: YES];
@@ -347,31 +345,30 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// Adjust the width to fit the text, if required
-	float ourWidth = [item commandSize].width;
-	float labelWidth = [item annotationSize].width;
+	float commandWidth = [item commandSize].width;
+	float annotationWidth = [item annotationSize].width;
+    float combinedWidth = MAX(commandWidth, annotationWidth);
 	
-	if (labelWidth > ourWidth) ourWidth = labelWidth;
-	
-	if (position < (ourWidth + itemPadding)) position = ourWidth + itemPadding;
+	if (position < (combinedWidth + itemPadding)) position = combinedWidth + itemPadding;
 	
 	// Return the result
 	ZoomSkeinLayoutItem* result = [[ZoomSkeinLayoutItem alloc] initWithItem: item
-																	  width: ourWidth
+                                                               commandWidth: commandWidth
+                                                            annotationWidth: annotationWidth
 																  fullWidth: position
 																	  level: level];
 	
 	[result setChildren: children];
 	
 	// Index this item
-	[itemForItem setObject: result
-					forKey: [NSValue valueWithPointer: item]];
+	itemForItem[[NSValue valueWithPointer: item]] = result;
 	
 	// Add to the 'levels' array, which contains which items to draw at which levels
 	while (level >= [levels count]) {
 		[levels addObject: [NSMutableArray array]];
 	}
 	
-	[[levels objectAtIndex: level] addObject: result];
+	[levels[level] addObject: result];
 	return [result autorelease];
 }
 
@@ -428,14 +425,14 @@ static NSImage* unchangedDark, *activeDark;
 // = Getting layout data =
 
 - (int) levels {
-	return [levels count];
+	return (int) [levels count];
 }
 
 - (NSArray*) itemsOnLevel: (int) level {
 	if (level < 0 || level >= [levels count]) return nil;
 	
 	NSMutableArray* res = [NSMutableArray array];
-	NSEnumerator* levelEnum = [[levels objectAtIndex: level] objectEnumerator];
+	NSEnumerator* levelEnum = [levels[level] objectEnumerator];
 	ZoomSkeinLayoutItem* item;
 	
 	while (item = [levelEnum nextObject])  {
@@ -447,13 +444,13 @@ static NSImage* unchangedDark, *activeDark;
 
 - (NSArray*) dataForLevel: (int) level {
 	if (level < 0 || level >= [levels count]) return nil;
-	return [levels objectAtIndex: level];
+	return levels[level];
 }
 
 // = Raw item data =
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item {
-	return [itemForItem objectForKey: [NSValue valueWithPointer: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
+	return itemForItem[[NSValue valueWithPointer: item]]; // Yeah, yeah. Items are distinguished by command, not location in the tree
 }
 
 - (float) xposForItem: (ZoomSkeinItem*) item {
@@ -465,7 +462,7 @@ static NSImage* unchangedDark, *activeDark;
 }
 
 - (float) widthForItem: (ZoomSkeinItem*) item {
-	return [[self dataForItem: item] width];
+	return [[self dataForItem: item] combinedWidth];
 }
 
 - (float) fullWidthForItem: (ZoomSkeinItem*) item {
@@ -476,27 +473,25 @@ static NSImage* unchangedDark, *activeDark;
 
 - (NSRect) activeAreaForData: (ZoomSkeinLayoutItem*) item {
 	NSRect itemRect;
-	float ypos = ((float)[item level]) * itemHeight + (itemHeight/2.0);
+    float borderX = 15.0f;
+
+    float ypos = ((float)[item level]) * itemHeight + (itemHeight/2.0);
 	float position = [item position];
-	float width = [item width];
-	
+	float width = [item commandWidth] + borderX * 2.0f;
+
 	// Basic rect
-	itemRect.origin.x = position + globalOffset - (width/2.0) - 20.0;
+	itemRect.origin.x = position + globalOffset - (width/2.0);
 	itemRect.origin.y = ypos - 8;
-	itemRect.size.width = width + 40.0;
-	itemRect.size.height = 30.0;
-	
+	itemRect.size.width = width;
+	itemRect.size.height = 24.0;
+
 	// ... adjusted for the buttons
-	if (itemRect.size.width < (32.0 + 40.0)) {
-		itemRect.origin.x = position + globalOffset - (32.0+40.0)/2.0;
-		itemRect.size.width = 32.0 + 40.0;
+    float minItemWidth = 32.0 + 40.0;
+	if (itemRect.size.width < minItemWidth) {
+		itemRect.origin.x = position + globalOffset - minItemWidth/2.0;
+		itemRect.size.width = minItemWidth;
 	}
-	itemRect.origin.y = ypos - 18;
-	itemRect.size.height = 52.0;
-	
-	// 'overflow' border
-	itemRect = NSInsetRect(itemRect, -4.0, -4.0);	
-	
+
 	return itemRect;
 }
 
@@ -504,8 +499,8 @@ static NSImage* unchangedDark, *activeDark;
 	NSRect itemRect;
 	float ypos = ((float)[item level]) * itemHeight + (itemHeight/2.0);
 	float position = [item position];
-	float width = [item width];
-	
+	float width = [item commandWidth];
+
 	// Basic rect
 	itemRect.origin.x = position + globalOffset - (width/2.0);
 	itemRect.origin.y = ypos + 1;
@@ -557,11 +552,11 @@ static NSImage* unchangedDark, *activeDark;
 	// Find which item is selected (if any)
 	
 	// Recall that item positions are centered. Widths are calculated
-	NSEnumerator* levelEnum = [[levels objectAtIndex: level] objectEnumerator];
+	NSEnumerator* levelEnum = [levels[level] objectEnumerator];
 	ZoomSkeinLayoutItem* item;
 	
 	while (item = [levelEnum nextObject]) {
-		float thisItemWidth = [item width];
+		float thisItemWidth = [item commandWidth];
 		float itemPos = [item position] + globalOffset;
 		
 		// There's a +40 border either side of the item
@@ -589,8 +584,8 @@ static NSImage* unchangedDark, *activeDark;
 	if (tree) {
 		NSSize res;
 		
-		res.width = [tree fullWidth];
-		res.height = ((float)[levels count]) * itemHeight;
+		res.width = [tree fullWidth] + 40.0f;
+		res.height = ((float)[levels count] + 1) * itemHeight;
 		
 		return res;
 	} else {
@@ -598,140 +593,158 @@ static NSImage* unchangedDark, *activeDark;
 	}
 }
 
+-(void) drawLinksToChildren:(ZoomSkeinLayoutItem*) item atX:(float)xpos atY:(float) ypos atSize:(NSSize) size
+{
+    // Draw links to the children
+    [[NSColor blackColor] set];
+    NSEnumerator* childEnumerator = [[item children] objectEnumerator];
+
+    float startYPos = floorf(ypos + size.height / 2.0f);
+    float endYPos = floorf(ypos + itemHeight);
+
+    NSColor* tempChildLink = [NSColor grayColor];
+    NSColor* permChildLink = [NSColor colorWithDeviceRed:0.4f green:0.3f blue:0.3f alpha:1.0f];
+
+    ZoomSkeinLayoutItem* child;
+    while (child = [childEnumerator nextObject]) {
+        float childXPos = [child position] + globalOffset;
+        BOOL highlightLine = [child onSkeinLine];
+
+        // Construct the line we're going to draw
+        NSBezierPath* line = [[NSBezierPath alloc] init];
+        // Thicken the line if this is on the highlighted line
+        if (highlightLine) {
+            [line setLineWidth: 4.0f];
+        } else {
+            [line setLineWidth: 2.0f];
+        }
+        [line moveToPoint: NSMakePoint(floorf(xpos), startYPos)];
+        [line lineToPoint: NSMakePoint(floorf(childXPos), endYPos)];
+
+        // Set the appropriate colour and dash pattern
+        if ([[child item] temporary]) {
+            CGFloat dashPattern[2];
+
+            [tempChildLink set];
+
+            dashPattern[0] = 4.0;
+            dashPattern[1] = 3.0;
+            [line setLineDash: dashPattern
+                        count: 2
+                        phase: 0.0];
+        } else {
+            [permChildLink set];
+        }
+        
+        // Draw the line
+        [line stroke];
+        [line release];
+    }
+}
+
+-(void) drawLayoutItem:(ZoomSkeinLayoutItem*) item atX:(float)xpos atY:(float) ypos atSize:(NSSize) size
+{
+    ZoomSkeinItem* skeinItem = [item item];
+
+    // Draw the annotation, if present
+    float thisItemWidth = 0.0f;
+    float labelWidth = 0.0f;
+    NSUInteger annotationLength = [[skeinItem annotation] length];
+    if (annotationLength > 0) {
+        thisItemWidth = [self widthForItem: skeinItem];
+        labelWidth = [skeinItem annotationSize].width;
+
+        [[self class] drawImage: annotation
+                        atPoint: NSMakePoint(xpos - thisItemWidth/2.0, ypos-22)
+                      withWidth: thisItemWidth];
+
+        [skeinItem drawAnnotationAtPosition: NSMakePoint(xpos - (labelWidth/2), ypos - 18)];
+    }
+
+    // Draw the background
+    NSImage* background;
+    float bgWidth = floorf(size.width);
+
+    BOOL darken = [[skeinItem commentary] length] == 0;
+
+    background = unchanged;
+    if (darken) background = unchangedDark;
+    if ([item recentlyPlayed] && !darken) background = active;
+    if ([item recentlyPlayed] && darken) background = activeDark;
+
+    [[self class] drawImage: background
+                    atPoint: NSMakePoint(floorf(xpos - bgWidth/2.0), floorf(ypos-8 + (background==selected?2.0:0.0)))
+                  withWidth: bgWidth];
+
+    // Draw the item
+    [skeinItem drawCommandAtPosition: NSMakePoint(floorf(xpos - (size.width/2)), ypos + (background==selected?2.0:0.0))];
+
+    // Draw the 'commentary changed' badge if necessary
+    if ([skeinItem commentaryComparison] == ZoomSkeinDifferent) {
+        NSRect fromRect;
+
+        fromRect.origin = NSMakePoint(0,0);
+        fromRect.size = [commentaryBadge size];
+
+        [commentaryBadge drawAtPoint: NSMakePoint(floorf(xpos + bgWidth/2.0 + 4), ypos + 6)
+                            fromRect: fromRect
+                           operation: NSCompositeSourceOver
+                            fraction: 1.0];
+    }
+}
+
+-(void) drawActiveAreaItem:(ZoomSkeinLayoutItem*) item
+{
+    NSRect rect = [self activeAreaForItem: [item item]];
+    [[NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:0.5f] setFill];
+    [NSBezierPath fillRect: rect];
+}
+
+
 // = Drawing the layout =
 
 - (void) drawInRect: (NSRect) rect {
 	// Fill in the background
 	[[NSColor whiteColor] set];
 	NSRectFill(rect);
-	
+
 	// Actually draw the skein
 	int startLevel = floorf(NSMinY(rect) / itemHeight)-1;
 	int endLevel = ceilf(NSMaxY(rect) / itemHeight);
 	int level;
-	
-	for (level = startLevel; level < endLevel; level++) {
-		if (level < 0) continue;
-		if (level >= [self levels]) break;
-		
-		// Iterate through the items on this level...
-		NSEnumerator* levelEnum = [[self dataForLevel: level] objectEnumerator];
-		ZoomSkeinLayoutItem* item;
-		
-		float ypos = floorf(((float)level)*itemHeight + (itemHeight / 2.0));
-		
-		while (item = [levelEnum nextObject]) {
-			ZoomSkeinItem* skeinItem = [item item];
-			float xpos = [item position] + globalOffset;
-			NSSize size = [skeinItem commandSize];
-			
-			// Draw the background
-			NSImage* background;
-			float bgWidth = size.width;
-			
-#ifdef SkeinDrawingStyleNew
-			BOOL darken = [[skeinItem commentary] length] == 0;
-			
-			background = unchanged;
-			if (darken) background = unchangedDark;
-			if ([item recentlyPlayed] && !darken) background = active;
-			if ([item recentlyPlayed] && darken) background = activeDark;
-#else
-            background = unchanged;
-			if (![skeinItem played]) background = unplayed;
-			if ([skeinItem changed]) background = changed;
-			// if (skeinItem == activeItem) background = active;
-			if ([skeinItem parent] == activeItem) background = active;
-			// if (skeinItem == [self selectedItem]) background = selected;
-#endif
-			
-			[[self class] drawImage: background
-							atPoint: NSMakePoint(floorf(xpos - bgWidth/2.0), ypos-8 + (background==selected?2.0:0.0))
-						  withWidth: bgWidth];
-			
-			// Draw the item
-			[skeinItem drawCommandAtPosition: NSMakePoint(floorf(xpos - (size.width/2)), ypos + (background==selected?2.0:0.0))];
-			
-			// Draw the 'commentary changed' badge if necessary
-			if ([skeinItem commentaryComparison] == ZoomSkeinDifferent) {
-				NSRect fromRect;
-				
-				fromRect.origin = NSMakePoint(0,0);
-				fromRect.size = [commentaryBadge size];
-				
-				[commentaryBadge drawAtPoint: NSMakePoint(floorf(xpos + bgWidth/2.0 + 4), ypos + 6)
-									fromRect: fromRect
-								   operation: NSCompositeSourceOver
-									fraction: 1.0];
-			}
-			
-			// Draw links to the children
-			[[NSColor blackColor] set];
-			NSEnumerator* childEnumerator = [[item children] objectEnumerator];
-			
-			float startYPos = ypos + 10.0 + size.height;
-			float endYPos = ypos - 10.0 + itemHeight;
-			
-#ifdef SkeinDrawingStyleNew
-			NSColor* tempChildLink = [NSColor grayColor];
-#else
-			NSColor* tempChildLink = [NSColor blueColor];
-#endif
-			NSColor* permChildLink = [NSColor blackColor];
-			
-			ZoomSkeinLayoutItem* child;
-			while (child = [childEnumerator nextObject]) {
-				float childXPos = [child position] + globalOffset;
-				BOOL annotated = [[child item] annotation]!=nil;
-				
-				BOOL highlightLine = [child onSkeinLine];
 
-				// Construct the line we're going to draw
-				NSBezierPath* line = [[NSBezierPath alloc] init];
-				// Thicken the line if this is on the highlighted line
-                if (highlightLine) {
-                    [line setLineWidth: 3.0f];
-                } else {
-                    [line setLineWidth: 1.0f];
+    for( int drawPass = 0; drawPass < 2; drawPass++ )
+    {
+        for (level = startLevel; level < endLevel; level++) {
+            if (level < 0) continue;
+            if (level >= [self levels]) break;
+            
+            // Iterate through the items on this level...
+            NSEnumerator* levelEnum = [[self dataForLevel: level] objectEnumerator];
+            ZoomSkeinLayoutItem* item;
+            
+            float ypos = floorf(((float)level)*itemHeight + (itemHeight / 2.0));
+            
+            while (item = [levelEnum nextObject]) {
+                ZoomSkeinItem* skeinItem = [item item];
+                float xpos = [item position] + globalOffset;
+                NSSize size = [skeinItem commandSize];
+
+                if( drawPass == 0 )
+                {
+                    [self drawLinksToChildren:item atX:xpos atY:ypos atSize: size];
                 }
-				[line moveToPoint: NSMakePoint(floorf(xpos), floorf(startYPos-8.0))];
-				[line lineToPoint: NSMakePoint(floorf(xpos), floorf(startYPos))];
-				[line lineToPoint: NSMakePoint(floorf(childXPos), floorf(annotated?endYPos-18:endYPos))];
-				[line lineToPoint: NSMakePoint(floorf(childXPos), floorf(annotated?endYPos-14:endYPos+10.0))];
-				
-				// Set the appropriate colour and dash pattern
-				if ([[child item] temporary]) {
-					float dashPattern[2];
-					
-					[tempChildLink set];
-					
-					dashPattern[0] = 4.0;
-					dashPattern[1] = 3.0;
-					[line setLineDash: dashPattern
-								count: 2
-								phase: 0.0];
-				} else {
-					[permChildLink set];
-				}
-				
-				// Draw the line
-				[line stroke];
-				[line release];
-			}
-			
-			// Draw the annotation, if present
-			if ([[skeinItem annotation] length] > 0) {
-				float thisItemWidth = [self widthForItem: skeinItem];
-				float labelWidth = [skeinItem annotationSize].width;
-				
-				[[self class] drawImage: annotation
-								atPoint: NSMakePoint(xpos - thisItemWidth/2.0, ypos-30)
-							  withWidth: thisItemWidth];
-				
-				[skeinItem drawAnnotationAtPosition: NSMakePoint(xpos - (labelWidth/2), ypos - 23)];
-			}
-		}
-	}
+                else if( drawPass == 1 )
+                {
+                    [self drawLayoutItem:item atX:xpos atY:ypos atSize: size];
+                }
+                else
+                {
+                    [self drawActiveAreaItem:item];
+                }
+            }
+        }
+    }
 }
 
 - (void) drawItem: (ZoomSkeinItem*) skeinItem
@@ -913,31 +926,30 @@ static NSImage* unchangedDark, *activeDark;
 	}
 	
 	// Adjust the width to fit the text, if required
-	float ourWidth = [item commandSize].width;
-	float labelWidth = [item annotationSize].width;
-	
-	if (labelWidth > ourWidth) ourWidth = labelWidth;
-	
-	if (position < (ourWidth + itemPadding)) position = ourWidth + itemPadding;
+	float commandWidth = [item commandSize].width;
+	float annotationWidth = [item annotationSize].width;
+    float combinedWidth = MAX(commandWidth, annotationWidth);
+
+	if (position < (combinedWidth + itemPadding)) position = combinedWidth + itemPadding;
 	
 	// Return the result
 	ZoomSkeinLayoutItem* result = [[ZoomSkeinLayoutItem alloc] initWithItem: item
-																	  width: ourWidth
+                                                               commandWidth: commandWidth
+                                                            annotationWidth: annotationWidth
 																  fullWidth: position
 																	  level: level];
 	
 	[result setChildren: children];
 	
 	// Index this item
-	[itemForItem setObject: result
-					forKey: [NSValue valueWithPointer: item]];
+	itemForItem[[NSValue valueWithPointer: item]] = result;
 	
 	// Add to the 'levels' array, which contains which items to draw at which levels
 	while (level >= [levels count]) {
 		[levels addObject: [NSMutableArray array]];
 	}
 	
-	[[levels objectAtIndex: level] addObject: result];
+	[levels[level] addObject: result];
 
 	return [result autorelease];
 }
@@ -976,9 +988,9 @@ static NSImage* unchangedDark, *activeDark;
 -(float) currentLevelWidth:(int) level {
     // Make sure we have enough levels
     while( [levelWidths count] <= level ) {
-        [levelWidths addObject:[NSNumber numberWithFloat:0.0f]];
+        [levelWidths addObject:@0.0f];
     }
-    return [[levelWidths objectAtIndex: level] floatValue];
+    return [levelWidths[level] floatValue];
 }
 
 - (ZoomSkeinLayoutItem*) layoutSkeinCreateLayoutTree: (ZoomSkeinItem*) item
@@ -997,26 +1009,26 @@ static NSImage* unchangedDark, *activeDark;
     }
 
 	// Calculate the width to fit the text
-	float commandWidth = [item commandSize].width;
-	float labelWidth   = [item annotationSize].width;
-    float totalWidth   = MAX(commandWidth, labelWidth);
+	float commandWidth    = [item commandSize].width;
+	float annotationWidth = [item annotationSize].width;
+    //float combinedWidth   = MAX(commandWidth, annotationWidth);
 
 	ZoomSkeinLayoutItem* result = [[ZoomSkeinLayoutItem alloc] initWithItem: item
-																	  width: totalWidth
+                                                               commandWidth: commandWidth
+                                                            annotationWidth: annotationWidth
 																  fullWidth: 1.0f
 																	  level: level];
 	[result setChildren: children];
 
 	// Index this item
-	[itemForItem setObject: result
-					forKey: [NSValue valueWithPointer: item]];
+	itemForItem[[NSValue valueWithPointer: item]] = result;
 	
 	// Add to the 'levels' array, which contains the items to draw at each level
 	while (level >= [levels count]) {
 		[levels addObject: [NSMutableArray array]];
 	}
 	
-	[[levels objectAtIndex: level] addObject: result];
+	[levels[level] addObject: result];
 
     return [result autorelease];
 }
@@ -1034,12 +1046,11 @@ static NSImage* unchangedDark, *activeDark;
     }
 
     float currentLevelWidth = [self currentLevelWidth: level];
-    [item setPosition: 40.0f + currentLevelWidth + [item width]/2];
+    [item setPosition: 40.0f + currentLevelWidth + [item combinedWidth]/2];
 
-    currentLevelWidth += [item width] + itemPadding;
+    currentLevelWidth += [item combinedWidth] + itemPadding;
 
-    [levelWidths replaceObjectAtIndex: level
-                           withObject: [NSNumber numberWithFloat: currentLevelWidth]];
+    levelWidths[level] = @(currentLevelWidth);
 }
 
 - (void) moveRemainingItemsRightAfter: (ZoomSkeinLayoutItem*) item
@@ -1048,7 +1059,7 @@ static NSImage* unchangedDark, *activeDark;
                           recursively: (BOOL) recursively {
     // Move remaining items at this level right
     BOOL found = NO;
-    NSMutableArray* level = [levelArray objectAtIndex: levelIndex];
+    NSMutableArray* level = levelArray[levelIndex];
     for( ZoomSkeinLayoutItem* item2 in level ) {
         if( item2 == item ) {
             found = YES;
@@ -1070,7 +1081,7 @@ static NSImage* unchangedDark, *activeDark;
 
     // Create a queue - each item, from the top to the bottom, left to right (BFS)
     while ([queue count] > 0) {
-        ZoomSkeinLayoutItem * itemQ = [queue objectAtIndex:0];
+        ZoomSkeinLayoutItem * itemQ = queue[0];
 
         for ( ZoomSkeinLayoutItem *childItem in [itemQ children] ) {
             // Add to queue
@@ -1080,7 +1091,7 @@ static NSImage* unchangedDark, *activeDark;
             while( [levelArray count] <= [childItem level] ) {
                 [levelArray addObject: [NSMutableArray array]];
             }
-            [[levelArray objectAtIndex:[childItem level]] addObject: childItem];
+            [levelArray[[childItem level]] addObject: childItem];
         }
         [queue removeObjectAtIndex: 0];
     }
@@ -1117,7 +1128,7 @@ static NSImage* unchangedDark, *activeDark;
 
                     // Move the first child right to align under parent, and all remaining
                     // items on that level, and any of their children by the same amount
-                    [self moveRemainingItemsRightAfter: [[item children] objectAtIndex:0]
+                    [self moveRemainingItemsRightAfter: [item children][0]
                                                onLevel: [item level] + 1
                                                     by: deltaX
                                            recursively: YES];
@@ -1145,7 +1156,7 @@ static NSImage* unchangedDark, *activeDark;
         furthestRightX = MAX(furthestRightX, childFurthestRightX);
     }
     
-    furthestRightX = MAX([item position] + [item width] + 20, ceilf(furthestRightX));
+    furthestRightX = MAX([item position] + [item combinedWidth]/2, ceilf(furthestRightX));
     [item setFullWidth: furthestRightX];
     return furthestRightX;
 }

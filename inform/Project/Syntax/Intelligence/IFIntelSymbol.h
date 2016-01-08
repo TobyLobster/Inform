@@ -23,46 +23,27 @@ extern NSString* IFSectionSymbolType;	// Natural Inform section
 //
 // A single symbol gathered by the 'intelligence'
 //
-@interface IFIntelSymbol : NSObject<NSCoding> {
-	// Our data
-	NSString* name;							// Name of the symbol (as displayed in the index)
-	NSString* type;							// Type of the symbol (see above)
-	int level;								// Level of the symbol in the tree (calculated)
-	enum IFSymbolRelation relation;			// If IFSymbolDeltaLevel, level is relative to the level of the preceding symbol
-	int levelDelta;							// If relation is IFSymbolDelta, the difference in levels, otherwise the absolute level
-	
-	// The file we're stored in
-	IFIntelFile* ourFile;					// The IntelFile that owns this symbol
-	
-	// Our relation in the list of symbols
-@public
-	// Only public to IFIntelFile
-	IFIntelSymbol* nextSymbol;
-	IFIntelSymbol* lastSymbol;
-}
+@interface IFIntelSymbol : NSObject<NSCoding>
+
+// Only public to IFIntelFile
+@property(atomic, strong) IFIntelSymbol* nextSymbol;
+@property(atomic, strong) IFIntelSymbol* lastSymbol;
 
 // Symbol data
-- (NSString*) name;
-- (NSString*) type;
-- (int) level;
-- (enum IFSymbolRelation) relation;
-- (int) levelDelta;
+@property (atomic, copy) NSString *name;
+@property (atomic, copy) NSString *type;
+@property (atomic) int level;
+@property (atomic) enum IFSymbolRelation relation;
+@property (atomic) int levelDelta;
 
-- (void) setName: (NSString*) newName;
-- (void) setType: (NSString*) newType;
-- (void) setLevel: (int) level;
-- (void) setRelation: (enum IFSymbolRelation) relation;
-- (void) setLevelDelta: (int) newDelta;
 
 // (If we're stored in an IFIntelFile, our relation to other symbols in the file)
-- (IFIntelSymbol*) parent;			// May go down multiple levels
-- (IFIntelSymbol*) child;			// Symbol that comes below us (if there is one)
-- (IFIntelSymbol*) sibling;			// Next symbol on the same level
-- (IFIntelSymbol*) previousSibling;	// Previous symbol on the same level
+@property (atomic, readonly, strong) IFIntelSymbol *parent;             // May go down multiple levels
+@property (atomic, readonly, strong) IFIntelSymbol *child;              // Symbol that comes below us (if there is one)
+@property (atomic, readonly, strong) IFIntelSymbol *sibling;			// Next symbol on the same level
+@property (atomic, readonly, strong) IFIntelSymbol *previousSibling;	// Previous symbol on the same level
 
 - (IFIntelSymbol*) nextSymbol;		// Next symbol (nearest)
 - (IFIntelSymbol*) lastSymbol;		// Previous symbol (nearest)
 
 @end
-
-#import "IFIntelFile.h"

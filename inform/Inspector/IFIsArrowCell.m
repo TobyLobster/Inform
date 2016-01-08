@@ -10,7 +10,17 @@
 #import "IFImageCache.h"
 
 
-@implementation IFIsArrowCell
+@implementation IFIsArrowCell {
+    NSRect currentFrame;					// Used for mouse tracking
+
+    int state;								// Current state of the arrow
+
+    // The 'up/down' animation
+    int endState;							// Final state after the animation has completed
+    NSTimer* animationTimeout;				// Timer that fires when the animation should complete
+
+    NSView* lastControlView;				// Last control view to contain this cell
+}
 
 #define AnimationTime 0.05
 
@@ -19,12 +29,12 @@ static NSImage* arrow2;
 static NSImage* arrow3; 
 
 + (void) initialize {
-	arrow1 = [[IFImageCache loadResourceImage: @"App/Inspector/Arrow-Closed.png"] retain];
-	arrow2 = [[IFImageCache loadResourceImage: @"App/Inspector/Arrow-PartOpen.png"] retain];
-	arrow3 = [[IFImageCache loadResourceImage: @"App/Inspector/Arrow-Open.png"] retain];
+	arrow1 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-Closed.png"];
+	arrow2 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-PartOpen.png"];
+	arrow3 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-Open.png"];
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -38,11 +48,9 @@ static NSImage* arrow3;
 - (void) dealloc {
 	if (animationTimeout) {
 		[animationTimeout invalidate];
-		[animationTimeout release];
 		animationTimeout = nil;
 	}
 	
-	[super dealloc];
 }
 
 - (NSImage*) activeImage {
@@ -70,11 +78,12 @@ static NSImage* arrow3;
 	imgRect.origin = NSMakePoint(0,0);
 	imgRect.size = [img size];
 		
-	[img setFlipped: [[self controlView] isFlipped]];
 	[img drawInRect: cellFrame
 		   fromRect: imgRect
 		  operation: NSCompositeSourceOver
-		   fraction: 1.0];
+		   fraction: 1.0
+     respectFlipped: [[self controlView] isFlipped]
+              hints: nil];
 	
 	if ([controlView isKindOfClass: [NSControl class]]) lastControlView = controlView;
 }
@@ -148,7 +157,6 @@ static NSImage* arrow3;
 	// Create the timer
 	if (animationTimeout) {
 		[animationTimeout invalidate];
-		[animationTimeout release];
 		animationTimeout = nil;
 	}
 	
@@ -159,12 +167,10 @@ static NSImage* arrow3;
 											  repeats: NO];
 	[[NSRunLoop currentRunLoop] addTimer: animationTimeout
 								 forMode: NSDefaultRunLoopMode];
-	[animationTimeout retain];
 }
 
 - (void) finishRotating: (void*) userInfo {	
 	if (animationTimeout) {
-		[animationTimeout release];
 		animationTimeout = nil;
 	}
 	

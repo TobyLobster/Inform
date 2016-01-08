@@ -27,7 +27,7 @@
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -83,15 +83,14 @@
 
 - (void) registerSession: (NSObject<GlkSession>*) session
 			  withCookie: (NSString*) sessionCookie {
-	if ([waitingSessions objectForKey: sessionCookie] != nil) {
+	if (waitingSessions[sessionCookie] != nil) {
 		// Oops! This is not allowed
 		[NSException raise: @"GlkHubSessionAlreadyExistsException"
 					format: @"An attempt was made to register a session with the same cookie as an pre-existing session"];
 		return;
 	}
 	
-	[waitingSessions setObject: session
-						forKey: sessionCookie];
+	waitingSessions[sessionCookie] = session;
 }
 
 - (void) unregisterSession: (NSObject<GlkSession>*)session {
@@ -101,11 +100,11 @@
 	NSObject<GlkSession>* ses;
 	
 	while (sessionCookie = [sesEnum nextObject]) {
-		ses = [waitingSessions objectForKey: sessionCookie];
+		ses = waitingSessions[sessionCookie];
 
 		if (ses == session) {
 			// This is the session to remove
-			[[[waitingSessions objectForKey: sessionCookie] retain] autorelease];
+			[[waitingSessions[sessionCookie] retain] autorelease];
 			[waitingSessions removeObjectForKey: sessionCookie];
 			break;
 		}
@@ -176,7 +175,7 @@
 		return [self createAnonymousSession];
 	} else {
 		// Look up the session in the session dictionary
-		NSObject<GlkSession>* session = [waitingSessions objectForKey: sessionCookie];
+		NSObject<GlkSession>* session = waitingSessions[sessionCookie];
 		if (session == nil) return nil;
 		
 		// Remove the session from the dictionary

@@ -1,6 +1,6 @@
 //
 //  IFErrorsPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -8,12 +8,24 @@
 
 #import "IFErrorsPage.h"
 #import "IFUtility.h"
+#import "IFDocumentationPage.h"
+#import "IFProjectController.h"
+#import "IFProjectPane.h"
+#import "IFSettingsController.h"
+#import "IFCompilerSettings.h"
+#import "IFCompilerController.h"
+#import "IFPageBarCell.h"
+#import "IFPageBarView.h"
 
-@implementation IFErrorsPage
+@implementation IFErrorsPage {
+    IBOutlet IFCompilerController* compilerController;		// The compiler controller object
+
+    NSMutableArray* pageCells;								// Cells used to select the pages in the compiler controller
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Errors"
 				projectController: controller];
 	
@@ -24,12 +36,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[compilerController release];
-	[pageCells release];
-	
-	[super dealloc];
-}
 
 // = Details about this view =
 
@@ -43,20 +49,20 @@
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line
                           inFile: (NSString*) file {
-    if (![parent selectSourceFile: file]) {
+    if (![self.parent selectSourceFile: file]) {
         // Maybe implement me: show an error alert?
         return;
     }
     
-    [parent moveToSourceFileLine: line];
-	[parent removeHighlightsOfStyle: IFLineStyleError];
-    [parent highlightSourceFileLine: line
+    [self.parent moveToSourceFileLine: line];
+	[self.parent removeHighlightsOfStyle: IFLineStyleError];
+    [self.parent highlightSourceFileLine: line
 							 inFile: file
 							  style: IFLineStyleError]; // FIXME: error level?. Filename?
 }
 
 - (BOOL) handleURLRequest: (NSURLRequest*) req {
-	[[[parent auxPane] documentationPage] openURL: [[[req URL] copy] autorelease]];
+	[[[self.parent auxPane] documentationPage] openURL: [[req URL] copy]];
 	
 	return YES;
 }
@@ -65,7 +71,6 @@
 	if (sender != compilerController) return;
 	
 	// Clear out the current set of cells
-	[pageCells release];
 	pageCells = [[NSMutableArray alloc] init];
 	
     NSArray* tabs = [compilerController viewTabs];
@@ -82,23 +87,23 @@
 
 	for( IFCompilerTab* tab in [tabs reverseObjectEnumerator] ) {
 		// Create the cell for this name
-		IFPageBarCell* newCell = [[IFPageBarCell alloc] initTextCell: tab->name];
+		IFPageBarCell* newCell = [[IFPageBarCell alloc] initTextCell: tab.name];
 		
 		[newCell setTarget: self];
 		[newCell setAction: @selector(switchToErrorPage:)];
-		[newCell setIdentifier: [NSNumber numberWithInt: (int)tab->tabId]];
+		[newCell setIdentifier: @((int)tab.tabId)];
 		[newCell setRadioGroup: 128];
 		
-        if( [compilerController selectedTabId] == tab->tabId ) {
+        if( [compilerController selectedTabId] == tab.tabId ) {
 			[newCell setState: NSOnState];
 		}
 		
-		[pageCells addObject: [newCell autorelease]];
+		[pageCells addObject: newCell];
 	}
 
     // Sort pageCells based on ids
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:NO];
-    [pageCells sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    [pageCells sortUsingDescriptors:@[sort]];
 
 	// Update the cells being displayed
 	[self toolbarCellsHaveUpdated];
@@ -151,8 +156,7 @@
 }
 
 - (void) setCompilerController: (IFCompilerController*) controller {
-	[compilerController release];
-	compilerController = [controller retain];
+	compilerController = controller;
 }
 
 // = History =
@@ -166,13 +170,13 @@
 // = The page bar =
 
 - (NSArray*) toolbarCells {
-	if (pageCells == nil) return [NSArray array];
+	if (pageCells == nil) return @[];
 	return pageCells;
 }
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex
 {
-    if( [[[parent document] settings] usingNaturalInform] ) {
+    if( [[[self.parent document] settings] usingNaturalInform] ) {
         return YES;
     }
     return NO;

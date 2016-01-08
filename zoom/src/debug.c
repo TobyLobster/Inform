@@ -553,7 +553,7 @@ int debug_clear_breakpoint(debug_breakpoint* bp)
 {
   int x;
 
-  x = bp - debug_bplist;
+  x = (int) (bp - debug_bplist);
   if (x < 0 || x >= debug_nbps)
     return 0;
 
@@ -598,7 +598,7 @@ static void debug_add_symbol(char* name,
     }
   storename[x] = 0;
 
-  if (hash_get(debug_syms.symbol, (unsigned char*)storename, strlen(name)) != NULL)
+  if (hash_get(debug_syms.symbol, (unsigned char*)storename, (int) strlen(name)) != NULL)
     {
       display_printf("=? Symbol space clash - %s\n", name);
     }
@@ -606,7 +606,7 @@ static void debug_add_symbol(char* name,
     debug_syms.nsymbols++;
   hash_store_happy(debug_syms.symbol,
 		   (unsigned char*)storename,
-		   strlen(name),
+		   (int) strlen(name),
 		   sym);
   
   sym->next = debug_syms.first_symbol;
@@ -800,7 +800,7 @@ void debug_load_symbols(char* filename,
 
 	    hash_store_happy(debug_syms.file,
 			     (unsigned char*)fl->name,
-			     strlen(fl->name),
+			     (int) strlen(fl->name),
 			     fl);
 	  }
 	  break;
@@ -1227,7 +1227,7 @@ int debug_find_named_address(const char* name)
   int x, len;
   debug_symbol* sym;
 
-  len = strlen(name);
+  len = (int) strlen(name);
   ourname = realloc(ourname, sizeof(char)*(len+1));
   strcpy(ourname, name);
   
@@ -1292,7 +1292,7 @@ int debug_find_named_address(const char* name)
 
       fl = hash_get(debug_syms.file,
 		    ourname,
-		    strlen(ourname));
+		    (int) strlen(ourname));
       
       if (fl != NULL)
 	{
@@ -1409,7 +1409,7 @@ ZWord debug_symbol_value(const char*    symbol,
   debug_symbol* res;
   int x, len;
 
-  len = strlen(symbol);
+  len = (int) strlen(symbol);
   sym = realloc(sym, sizeof(char)*(len+1));
   for (x=0; x<len; x++)
     {

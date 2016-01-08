@@ -9,11 +9,20 @@
 #import "GlkEvent.h"
 
 
-@implementation GlkEvent
+@implementation GlkEvent {
+    // Event parameters
+    unsigned type;
+    unsigned windowId;
+    unsigned val1;
+    unsigned val2;
+
+    // 'Out-of-band' data
+    NSString* lineInput;							// When a line event is requested, this contains the string that eventually ends up in the buffer
+}
 
 // = Initialisation =
 
-- (id) initWithType: (unsigned) newType
+- (instancetype) initWithType: (unsigned) newType
    windowIdentifier: (unsigned) newWindowId {
 	return [self initWithType: newType
 			 windowIdentifier: newWindowId
@@ -21,7 +30,7 @@
 						 val2: 0];
 }
 
-- (id) initWithType: (unsigned) newType
+- (instancetype) initWithType: (unsigned) newType
    windowIdentifier: (unsigned) newWindowId
 			   val1: (unsigned) newVal1 {
 	return [self initWithType: newType
@@ -30,7 +39,7 @@
 						 val2: 0];
 }
 
-- (id) initWithType: (unsigned) newType
+- (instancetype) initWithType: (unsigned) newType
    windowIdentifier: (unsigned) newWindowId
 			   val1: (unsigned) newVal1
 			   val2: (unsigned) newVal2 {
@@ -83,7 +92,7 @@
 
 // = NSCoding methods =
 
-- (id) initWithCoder: (NSCoder*) coder {
+- (instancetype) initWithCoder: (NSCoder*) coder {
 	self = [super init];
 	
 	if (self) {

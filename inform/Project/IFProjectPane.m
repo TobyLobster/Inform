@@ -10,6 +10,16 @@
 #import "IFProject.h"
 #import "IFProjectController.h"
 #import "IFAppDelegate.h"
+#import "IFCompilerController.h"
+
+#import "IFSourcePage.h"
+#import "IFErrorsPage.h"
+#import "IFIndexPage.h"
+#import "IFSkeinPage.h"
+#import "IFGamePage.h"
+#import "IFDocumentationPage.h"
+#import "IFExtensionsPage.h"
+#import "IFSettingsPage.h"
 
 #import "IFIsFiles.h"
 #import "IFIsWatch.h"
@@ -23,16 +33,56 @@
 #import "IFGlkResources.h"
 
 #import "IFHistoryEvent.h"
+#import "IFPageBarCell.h"
+#import "IFPageBarView.h"
 
 #import "IFImageCache.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import <ZoomView/ZoomView.h>
+
 
 static NSDictionary* IFSyntaxAttributes[256];
 
-@implementation IFProjectPane
+@implementation IFProjectPane {
+    // Outlets
+    IBOutlet NSView*    paneView;				// The main pane view
+    IBOutlet NSTabView* tabView;				// The tab view
+
+    // The page bar
+    IBOutlet IFPageBarView* pageBar;			// The page toolbar
+
+    IFPageBarCell* forwardCell;					// The 'forward' button
+    IFPageBarCell* backCell;					// The 'backwards' button
+
+    // History
+    NSMutableArray* history;					// The history actions for this object
+    IFHistoryEvent* lastEvent;					// The last history event created
+    int             historyPos;					// The position that we are in the history
+    BOOL            replaying;					// If true, then new history items are not created
+
+    // The pages
+    NSMutableArray* pages;						// Pages being managed by this control
+
+    // The pages
+    IFSourcePage*           sourcePage;			// The source page
+    IFErrorsPage*           errorsPage;			// The errors page
+    IFIndexPage*            indexPage;			// The index page
+    IFSkeinPage*            skeinPage;			// The skein page
+    IFGamePage*             gamePage;			// The game page
+    IFDocumentationPage*    documentationPage;  // The documentation page
+    IFExtensionsPage*       extensionsPage;     // The extensions page
+    IFSettingsPage*         settingsPage;		// The settings page
+
+    IFProjectController *   controller;
+
+    // Other variables
+    BOOL awake;									// YES if we've loaded from the nib and initialised properly
+    IFProjectController* parent;				// The 'parent' project controller (not retained)
+}
+
 
 + (IFProjectPane*) standardPane {
-    return [[[self alloc] init] autorelease];
+    return [[self alloc] init];
 }
 
 + (void) initialize {
@@ -42,128 +92,90 @@ static NSDictionary* IFSyntaxAttributes[256];
     NSFont* headerSystemFont = [NSFont boldSystemFontOfSize: 12];
     NSFont* monospaceFont    = [NSFont fontWithName: @"Monaco"
                                                size: 9];
-	
+
 	[[ZoomPreferences globalPreferences] setDisplayWarnings: YES];
-	    
+
     // Default style
-    NSDictionary* defaultStyle = [[NSDictionary dictionaryWithObjectsAndKeys:
-        systemFont,           NSFontAttributeName,
-        [NSColor blackColor], NSForegroundColorAttributeName,
-        nil] retain];
-    int x;
-    
-    for (x=0; x<256; x++) {
+    NSDictionary* defaultStyle = @{NSFontAttributeName: systemFont,
+        NSForegroundColorAttributeName: [NSColor blackColor]};
+
+    for (int x = 0; x < 256; x++) {
         IFSyntaxAttributes[x] = defaultStyle;
     }
-    
-    // This set of styles will eventually be the 'colourful' set
-    // We also need a 'no styles' set (probably just turn off the highlighter, gives
-    // speed advantages), and a 'subtle' set (styles indicated only by font changes)
-    
+
     // Styles for various kinds of code
-    IFSyntaxAttributes[IFSyntaxString] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        systemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxComment] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        smallFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxMonospace] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        monospaceFont, NSFontAttributeName,
-        [NSColor blackColor], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    
+    IFSyntaxAttributes[IFSyntaxString]          = @{ NSFontAttributeName:            systemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0 };
+    IFSyntaxAttributes[IFSyntaxComment]         = @{ NSFontAttributeName:            smallFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0 };
+    IFSyntaxAttributes[IFSyntaxMonospace]       = @{ NSFontAttributeName:            monospaceFont,
+                                                     NSForegroundColorAttributeName: [NSColor blackColor],
+                                                     NSLigatureAttributeName:        @0 };
+
     // Inform 6 syntax types
-    IFSyntaxAttributes[IFSyntaxDirective] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        systemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxProperty] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxFunction] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxCode] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxAssembly] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxCodeAlpha] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        systemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.4 green: 0.4 blue: 0.3 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-    IFSyntaxAttributes[IFSyntaxEscapeCharacter] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.73 green: 0.2 blue: 0.73 alpha: 1.0], NSForegroundColorAttributeName,
-		[NSNumber numberWithInt: 0], NSLigatureAttributeName,
-        nil] retain];
-	
+    IFSyntaxAttributes[IFSyntaxDirective]       = @{ NSFontAttributeName:            systemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxProperty]        = @{ NSFontAttributeName:            boldSystemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxFunction]        = @{ NSFontAttributeName:            boldSystemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxCode]            = @{ NSFontAttributeName:            boldSystemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxAssembly]        = @{ NSFontAttributeName:            boldSystemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxCodeAlpha]       = @{ NSFontAttributeName:            systemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.4 green: 0.4 blue: 0.3 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+    IFSyntaxAttributes[IFSyntaxEscapeCharacter] = @{ NSFontAttributeName:            boldSystemFont,
+                                                     NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.73 green: 0.2 blue: 0.73 alpha: 1.0],
+                                                     NSLigatureAttributeName:        @0};
+
 	// Natural Inform tab stops
 	NSMutableParagraphStyle* tabStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[tabStyle autorelease];
 
 	NSMutableArray* tabStops = [NSMutableArray array];
-	for (x=0; x<48; x++) {
+	for (int x = 0; x < 48; x++) {
 		NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
-												location: 64.0*(x+1)];
+												location: 64.0 * (x+1)];
 		[tabStops addObject: tab];
-		[tab release];
 	}
 	[tabStyle setTabStops: tabStops];
-	
+
     // Natural inform syntax types
-	IFSyntaxAttributes[IFSyntaxNaturalInform] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        systemFont, NSFontAttributeName, 
-        [NSColor blackColor], NSForegroundColorAttributeName,
-		tabStyle, NSParagraphStyleAttributeName,
-        nil] retain];	
-    IFSyntaxAttributes[IFSyntaxHeading] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        headerSystemFont, NSFontAttributeName,
-		[NSColor blackColor], NSForegroundColorAttributeName,
-		tabStyle, NSParagraphStyleAttributeName,
-        nil] retain];
-	IFSyntaxAttributes[IFSyntaxGameText] = [[NSDictionary dictionaryWithObjectsAndKeys:
-        boldSystemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0], NSForegroundColorAttributeName,
-		tabStyle, NSParagraphStyleAttributeName,
-        nil] retain];	
-	IFSyntaxAttributes[IFSyntaxSubstitution] = [[NSDictionary dictionaryWithObjectsAndKeys:
-		systemFont, NSFontAttributeName,
-        [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0], NSForegroundColorAttributeName,
-		tabStyle, NSParagraphStyleAttributeName,
-        nil] retain];	
-	
+	IFSyntaxAttributes[IFSyntaxNaturalInform] = @{ NSFontAttributeName:            systemFont,
+                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSParagraphStyleAttributeName:  tabStyle};
+    IFSyntaxAttributes[IFSyntaxHeading]       = @{ NSFontAttributeName:            headerSystemFont,
+                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSParagraphStyleAttributeName:  tabStyle};
+	IFSyntaxAttributes[IFSyntaxGameText]      = @{ NSFontAttributeName:            boldSystemFont,
+                                                   NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0],
+                                                   NSParagraphStyleAttributeName:  tabStyle};
+	IFSyntaxAttributes[IFSyntaxSubstitution]  = @{ NSFontAttributeName:            systemFont,
+                                                   NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0],
+                                                   NSParagraphStyleAttributeName:  tabStyle};
+
 	// The 'plain' style is a bit of a special case. It's used for files that we want to run the syntax
 	// highlighter on, but where we want the user to be able to set styles. The user will be able to set
 	// certain styles even for things that are affected by the highlighter.
-	IFSyntaxAttributes[IFSyntaxPlain] = [[NSDictionary dictionary] retain];
+	IFSyntaxAttributes[IFSyntaxPlain] = @{};
 }
 
-- (id) init {
+- (instancetype) init {
     self = [super init];
 
     if (self) {
-        parent = nil;
-        awake = NO;
+        parent  = nil;
+        awake   = NO;
 		
-		pages = [[NSMutableArray alloc] init];
-		
+		pages   = [[NSMutableArray alloc] init];
 		history = [[NSMutableArray alloc] init];
 		historyPos = -1;
     }
@@ -176,43 +188,19 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[errorsPage finished];
 	[indexPage finished];
 	[skeinPage finished];
-	[transcriptPage finished];
 	[gamePage finished];
 	[documentationPage finished];
     [extensionsPage finished];
 	[settingsPage finished];
 
-	[sourcePage release];
-	[errorsPage release];
-	[indexPage release];
-	[skeinPage release];
-	[transcriptPage release];
-	[gamePage release];
-	[documentationPage release];
-    [extensionsPage release];
-	[settingsPage release];
-
-	[pages makeObjectsPerformSelector: @selector(setRecorder:)
-						   withObject: nil];
-	[pages makeObjectsPerformSelector: @selector(setOtherPane:)
-						   withObject: nil];
-	[pages release];
-
-	[history release];
-	[backCell release];
-	[forwardCell release];
-	[lastEvent release];
+	[pages makeObjectsPerformSelector: @selector(setRecorder:)  withObject: nil];
+	[pages makeObjectsPerformSelector: @selector(setOtherPane:) withObject: nil];
 
     [[NSNotificationCenter defaultCenter] removeObserver: self];
-
-    [paneView release];
-
-    [super dealloc];
 }
 
 + (NSDictionary*) attributeForStyle: (IFSyntaxStyle) style {
-	return [[[IFPreferences sharedPreferences] styles] objectAtIndex: (unsigned)style];
-	// return IFSyntaxAttributes[style];
+	return [[IFPreferences sharedPreferences] styles][(unsigned)style];
 }
 
 - (NSView*) paneView {
@@ -226,10 +214,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (NSView*) activeView {
     switch ([self currentView]) {
-        case IFSourcePane:
-            return [sourcePage activeView];
-        default:
-            return [[tabView selectedTabViewItem] view];
+        case IFSourcePane:  return [sourcePage activeView];
+        default:            return [[tabView selectedTabViewItem] view];
     }
 }
 
@@ -237,20 +223,22 @@ static NSDictionary* IFSyntaxAttributes[256];
     [paneView removeFromSuperview];
 }
 
-- (void) setupFromController {
+- (void) setupFromControllerWithViewIndex:(int) viewIndex {
     IFProject* doc;
 	
     doc = [parent document];
 	
 	// Remove the first tab view item - which we can't do in interface builder :-/
-	[tabView removeTabViewItem: [[tabView tabViewItems] objectAtIndex: 0]];
+	[tabView removeTabViewItem: [tabView tabViewItems][0]];
 	
 	// Source page
 	sourcePage = [[IFSourcePage alloc] initWithProjectController: parent];
 	[self addPage: sourcePage];
 
-	[sourcePage showSourceFile: [doc mainSourceFile]];
-	[sourcePage updateHighlightedLines];
+    if( [doc mainSourceFile] != nil ) {
+        [sourcePage showSourceFile: [doc mainSourceFile]];
+        [sourcePage updateHighlightedLines];
+    }
 	
 	// Errors page
 	errorsPage = [[IFErrorsPage alloc] initWithProjectController: parent];
@@ -258,7 +246,18 @@ static NSDictionary* IFSyntaxAttributes[256];
     
 	// Compiler (lives on the errors page)
     [[errorsPage compilerController] setCompiler: [doc compiler]];
-	
+    [[errorsPage compilerController] setProjectController: parent];
+
+    // Game page
+    if( viewIndex == 1 ) {
+        gamePage = [[IFGamePage alloc] initWithProjectController: parent];
+        [self addPage: gamePage];
+    }
+    
+    // Skein page
+    skeinPage = [[IFSkeinPage alloc] initWithProjectController: parent];
+    [self addPage: skeinPage];
+    
 	// Index page
 	indexPage = [[IFIndexPage alloc] initWithProjectController: parent];
 	[self addPage: indexPage];
@@ -266,18 +265,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[indexPage updateIndexView];
     // Start on the welcome page
     [indexPage switchToTab:IFIndexWelcome];
-	
-	// Skein page
-	skeinPage = [[IFSkeinPage alloc] initWithProjectController: parent];
-	[self addPage: skeinPage];
-	
-	// Transcript page
-	transcriptPage = [[IFTranscriptPage alloc] initWithProjectController: parent];
-	[self addPage: transcriptPage];
-	
-	// Game page
-	gamePage = [[IFGamePage alloc] initWithProjectController: parent];
-	[self addPage: gamePage];
 	
 	// Documentation page
 	documentationPage = [[IFDocumentationPage alloc] initWithProjectController: parent];
@@ -290,26 +277,26 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[self addPage: extensionsPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) extensionsPage:showHome", self);
 	[(IFExtensionsPage*)[extensionsPage history] showHome: self];
-    
+
 	// Settings
 	settingsPage = [[IFSettingsPage alloc] initWithProjectController: parent];
 	[self addPage: settingsPage];
-	
+
     [settingsPage updateSettings];
-	
+
 	// Misc stuff
 
 	// Resize the tab view so that the only margin is on the left
 	NSView* tabViewParent = [tabView superview];
 	NSView* tabViewClient = [[tabView selectedTabViewItem] view];
-	
-	NSRect clientRect = [tabViewParent convertRect: [tabViewClient bounds]
-										  fromView: tabViewClient];
-	NSRect parentRect = [tabViewParent bounds];
-	NSRect tabRect = [tabView frame];
-	
+
+	NSRect clientRect   = [tabViewParent convertRect: [tabViewClient bounds]
+                                            fromView: tabViewClient];
+	NSRect parentRect   = [tabViewParent bounds];
+	NSRect tabRect      = [tabView frame];
+
 	//float leftMissing = NSMinX(clientRect) - NSMinX(parentRect);
-	float topMissing = NSMinY(clientRect) - NSMinY(parentRect);
+	float topMissing    = NSMinY(clientRect) - NSMinY(parentRect);
 	float bottomMissing = NSMaxY(parentRect) - NSMaxY(clientRect);
 
 	//tabRect.origin.x -= leftMissing;
@@ -318,60 +305,59 @@ static NSDictionary* IFSyntaxAttributes[256];
 	tabRect.size.height += topMissing + bottomMissing;
 
 	[tabView setFrame: tabRect];
-	
+
 	[[self history] selectViewOfType: IFSourcePane];
 }
 
 - (void) awakeFromNib {
     awake = YES;
-	    	
+
     if (parent) {
-        [self setupFromController];
+        [self setupFromControllerWithViewIndex:0];
         [gamePage stopRunningGame];
     }
 	
     [tabView setDelegate: self];
 	
 	// Set up the backwards/forwards buttons
-	backCell = [[IFPageBarCell alloc] initImageCell: [IFImageCache loadResourceImage: @"App/PageBar/BackArrow.png"]];
+	backCell    = [[IFPageBarCell alloc] initImageCell: [IFImageCache loadResourceImage: @"App/PageBar/BackArrow.png"]];
 	forwardCell = [[IFPageBarCell alloc] initImageCell: [IFImageCache loadResourceImage: @"App/PageBar/ForeArrow.png"]];
-	
-	[backCell setKeyEquivalent: @"-"];
+
+	[backCell    setKeyEquivalent: @"-"];
 	[forwardCell setKeyEquivalent: @"="];
-	
-	[backCell setTarget: self];
+
+	[backCell    setTarget: self];
 	[forwardCell setTarget: self];
-	[backCell setAction: @selector(goBackwards:)];
+	[backCell    setAction: @selector(goBackwards:)];
 	[forwardCell setAction: @selector(goForwards:)];
-	
-	[pageBar setLeftCells: [NSArray arrayWithObjects: backCell, forwardCell, nil]];
+
+	[pageBar setLeftCells: @[backCell, forwardCell]];
 }
 
-- (void) setController: (IFProjectController*) p {
+- (IFProjectController *) controller {
+    return controller;
+}
+
+- (void) setController: (IFProjectController*) p
+             viewIndex: (int) viewIndex {
     if (!awake) {
         [NSBundle oldLoadNibNamed: @"ProjectPane"
                             owner: self];
     }
 
-    // (Don't need to retain parent, as the parent 'owns' us)
-    // Don't need to release for similar reasons.
     parent = p;
 
     if (awake) {
-        [self setupFromController];
+        [self setupFromControllerWithViewIndex: viewIndex];
     }
-}
-
-- (IFProjectController*) controller {
-    return parent;
 }
 
 - (void) willClose {
 	// The history might reference this object (or cause a circular reference some other way), so we destroy it now
-	[history release]; history = nil;
-	[lastEvent release]; lastEvent = nil;
-	historyPos = 0;
-    
+	history     = nil;
+	lastEvent   = nil;
+	historyPos  = 0;
+
     for( IFPage* page in pages ) {
         if( [page respondsToSelector:@selector(willClose)] ) {
             [page willClose];
@@ -390,7 +376,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 			return page;
 		}
 	}
-	
+
 	return nil;
 }
 
@@ -402,38 +388,13 @@ static NSDictionary* IFSyntaxAttributes[256];
     
     NSTabViewItem* toSelect = nil;
     switch (pane) {
-        case IFSourcePane:
-            toSelect = [self tabViewItemForPage: sourcePage];
-            break;
-
-        case IFErrorPane:
-            toSelect = [self tabViewItemForPage: errorsPage];
-            break;
-
-        case IFGamePane:
-            toSelect = [self tabViewItemForPage: gamePage];
-            break;
-
-        case IFDocumentationPane:
-            toSelect = [self tabViewItemForPage: documentationPage];
-            break;
-			
-		case IFIndexPane:
-            toSelect = [self tabViewItemForPage: indexPage];
-			break;
-			
-		case IFSkeinPane:
-			toSelect = [self tabViewItemForPage: skeinPage];
-			break;
-			
-		case IFTranscriptPane:
-			toSelect = [self tabViewItemForPage: transcriptPage];
-			break;
-			
-        case IFExtensionsPane:
-            toSelect = [self tabViewItemForPage: extensionsPage];
-            break;
-			
+        case IFSourcePane:        toSelect = [self tabViewItemForPage: sourcePage];        break;
+        case IFErrorPane:         toSelect = [self tabViewItemForPage: errorsPage];        break;
+        case IFGamePane:          toSelect = [self tabViewItemForPage: gamePage];          break;
+        case IFDocumentationPane: toSelect = [self tabViewItemForPage: documentationPage]; break;
+		case IFIndexPane:         toSelect = [self tabViewItemForPage: indexPage];         break;
+		case IFSkeinPane:         toSelect = [self tabViewItemForPage: skeinPage];         break;
+        case IFExtensionsPane:    toSelect = [self tabViewItemForPage: extensionsPage];    break;
 		case IFUnknownPane:
 			// No idea
 			break;
@@ -447,27 +408,17 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (enum IFProjectPaneType) currentView {
-    NSTabViewItem* selectedView = [tabView selectedTabViewItem];
+    id selectedId = [[tabView selectedTabViewItem] identifier];
 
-    if ([[selectedView identifier] isEqualTo: [sourcePage identifier]]) {
-        return IFSourcePane;
-    } else if ([[selectedView identifier] isEqualTo: [errorsPage identifier]]) {
-        return IFErrorPane;
-    } else if ([[selectedView identifier] isEqualTo: [gamePage identifier]]) {
-        return IFGamePane;
-    } else if ([[selectedView identifier] isEqualTo: [documentationPage identifier]]) {
-        return IFDocumentationPane;
-	} else if ([[selectedView identifier] isEqualTo: [indexPage identifier]]) {
-		return IFIndexPane;
-	} else if ([[selectedView identifier] isEqualTo: [skeinPage identifier]]) {
-		return IFSkeinPane;
-	} else if ([[selectedView identifier] isEqualTo: [transcriptPage identifier]]) {
-		return IFTranscriptPane;
-    } else if ([[selectedView identifier] isEqualTo: [extensionsPage identifier]]) {
-        return IFExtensionsPane;
-    } else {
-        return IFSourcePane;
-    }
+    if ([selectedId isEqualTo: [sourcePage identifier]])        return IFSourcePane;
+    if ([selectedId isEqualTo: [errorsPage identifier]])        return IFErrorPane;
+    if ([selectedId isEqualTo: [gamePage identifier]])          return IFGamePane;
+    if ([selectedId isEqualTo: [documentationPage identifier]]) return IFDocumentationPane;
+	if ([selectedId isEqualTo: [indexPage identifier]])         return IFIndexPane;
+	if ([selectedId isEqualTo: [skeinPage identifier]])         return IFSkeinPane;
+    if ([selectedId isEqualTo: [extensionsPage identifier]])    return IFExtensionsPane;
+
+    return IFSourcePane;
 }
 
 - (void) setIsActive: (BOOL) isActive {
@@ -493,8 +444,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 // = The source view =
 
-- (void) prepareToCompile {
-	[sourcePage prepareToCompile];
+- (void) prepareToSave {
+	[sourcePage prepareToSave];
 }
 
 - (void) showSourceFile: (NSString*) file {
@@ -517,10 +468,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (IFSkeinPage*) skeinPage {
 	return skeinPage;
-}
-
-- (IFTranscriptPage*) transcriptPage {
-	return transcriptPage;
 }
 
 - (IFGamePage*) gamePage {
@@ -612,7 +559,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 // = Find =
 
 - (void) performFindPanelAction: (id) sender {
-	NSLog(@"Bing!");
 }
 
 // = Dealing with pages =
@@ -629,8 +575,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) switchToPage: (NSNotification*) not {
 	// Work out which page we're switching to, and the optional page that must be showing for the switch to occur
-	NSString* identifier = [[not userInfo] objectForKey: @"Identifier"];
-	NSString* fromPage = [[not userInfo] objectForKey: @"OldPageIdentifier"];
+	NSString* identifier = [not userInfo][@"Identifier"];
+	NSString* fromPage = [not userInfo][@"OldPageIdentifier"];
 
 	// If no 'to' page is specified, then switch to the sending object
 	if (identifier == nil) identifier = [(IFPage*)[not object] identifier];
@@ -642,7 +588,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 			return;
 		}
 	}
-	
+
 	// Select the page
 	[tabView selectTabViewItem: [tabView tabViewItemAtIndex: [tabView indexOfTabViewItemWithIdentifier: identifier]]];
 }
@@ -653,7 +599,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[newPage setThisPane: self];
 	[newPage setOtherPane: [parent oppositePane: self]];
 	[newPage setRecorder: self];
-	
+
 	// Register for notifications from this page
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(switchToPage:)
@@ -663,12 +609,12 @@ static NSDictionary* IFSyntaxAttributes[256];
 											 selector: @selector(refreshToolbarCells:)
 												 name: IFUpdatePageBarCellsNotification
 											   object: newPage];
-	
+
 	// Add the page to the tab view
 	NSTabViewItem* newItem = [[NSTabViewItem alloc] initWithIdentifier: [newPage identifier]];
 	[newItem setLabel: [newPage title]];
 
-	[tabView addTabViewItem: [newItem autorelease]];
+	[tabView addTabViewItem: newItem];
 
 	if ([[newItem view] frame].size.width <= 0) {
 		[[newItem view] setFrameSize: NSMakeSize(1280, 1024)];
@@ -685,7 +631,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	} else {
 		[backCell setEnabled: YES];
 	}
-	
+
 	if (historyPos >= [history count]-1) {
 		[forwardCell setEnabled: NO];
 	} else {
@@ -694,7 +640,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 - (void) clearLastEvent {
-	[lastEvent release];
 	lastEvent = nil;
 }
 
@@ -717,11 +662,10 @@ static NSDictionary* IFSyntaxAttributes[256];
 											 target: self
 										   argument: nil
 											  order: 99
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 	}
 	
-	[lastEvent autorelease];
-	lastEvent = [newEvent retain];
+	lastEvent = newEvent;
 	
 	[self updateHistoryControls];
 }
@@ -737,7 +681,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 		IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithObject: self];
 		[self addHistoryEvent: newEvent];
 		
-		event = [newEvent autorelease];
+		event = newEvent;
 	}
 	
 	return event;
@@ -749,8 +693,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 	// Construct a new event based on the invocation
 	IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithInvocation: invoke];
 	[self addHistoryEvent: newEvent];
-	
-	[newEvent release];
 }
 
 - (id) history {
@@ -764,7 +706,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 		IFHistoryEvent* newEvent = [[IFHistoryEvent alloc] initWithObject: self];
 		[self addHistoryEvent: newEvent];
 		
-		event = [newEvent autorelease];
+		event = newEvent;
 	}
 	
 	// Return a suitable proxy
@@ -777,7 +719,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	
 	
 	replaying = YES;
-	[[history objectAtIndex: historyPos-1] replay];
+	[history[historyPos-1] replay];
 	historyPos--;
 	replaying = NO;
 	
@@ -789,7 +731,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	
 	
 	replaying = YES;
-	[[history objectAtIndex: historyPos+1] replay];
+	[history[historyPos+1] replay];
 	historyPos++;
 	replaying = NO;
 	

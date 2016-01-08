@@ -225,6 +225,12 @@ prior named list number and gender for everything matching a description.
 	prior_named_noun = obj;
 ];
 
+[ RegardingNumber n;
+	prior_named_list = n;
+	prior_named_list_gender = -1;
+	prior_named_noun = nothing;
+];
+
 [ PNToVP gna;
 	if (prior_named_noun == player) return story_viewpoint;
 	if (prior_named_noun) gna = GetGNAOfObject(prior_named_noun);
@@ -342,14 +348,26 @@ very rapid anyway (because the player can only read very slowly).
 							(LT_Compare(obj.list_together, required_lt) ~= 0)) continue;
 						if ((c_style & WORKFLAG_BIT) && (depth==0) && (obj hasnt workflag))
 							continue;
-						if ((c_style & CONCEAL_BIT) &&
-							((obj has concealed) || (obj has scenery))) continue;
+						if ((c_style & CONCEAL_BIT) && (ConcealedFromLists(obj))) continue;
 						return obj;
 					}
 					return nothing;
 				}
 	}
 	return nothing;
+];
+
+@p Concealment.
+This is the definition of concealment used by the list-writer, and means that,
+for example, the "deciding the concealed possessions" activity is taken into
+account.
+
+@c
+[ ConcealedFromLists obj c;
+	if ((obj has concealed) || (obj has scenery)) rtrue;
+	c = parent(obj);
+	if ((c) && (c ofclass K5_container or K6_supporter) && (TestConcealment(c, obj))) rtrue;
+	rfalse;
 ];
 
 @p Coalesce Marked List.
@@ -404,8 +422,7 @@ Global list_filter_routine;
 			(LT_Compare(obj.list_together, required_lt) ~= 0)) continue;
 		if ((c_style & WORKFLAG_BIT) && (depth==0) && (obj hasnt workflag)) continue;
 		if (obj hasnt list_filter_permits) continue;
-		if ((c_style & CONCEAL_BIT) &&
-			((obj has concealed) || (obj has scenery))) continue;
+		if ((c_style & CONCEAL_BIT) && (ConcealedFromLists(obj))) continue;
 		return obj;
     }
 ];
@@ -950,7 +967,7 @@ the iterator used at the top level) and increasing the depth by 1.
 	child_count = 0;
 	eldest_child = nothing;
 	objectloop (p in o)
-		if ((c_style & CONCEAL_BIT == 0) || (p hasnt concealed && p hasnt scenery))
+		if ((c_style & CONCEAL_BIT == 0) || (ConcealedFromLists(p) == false))
 			if (p has list_filter_permits) {
 				child_count++;
 				if (eldest_child == nothing) eldest_child = p;

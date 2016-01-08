@@ -13,11 +13,6 @@
 //
 // The 'debugging' settings object: things that are mostly useful to Graham
 //
-@interface IFDebugSettings : IFSetting {
-    IBOutlet NSButton* donotCompileNaturalInform;
-    IBOutlet NSButton* runBuildSh;
-    IBOutlet NSButton* runLoudly;
-	IBOutlet NSButton* debugMemory;
-}
+@interface IFDebugSettings : IFSetting
 
 @end

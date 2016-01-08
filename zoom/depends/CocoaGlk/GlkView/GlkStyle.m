@@ -10,11 +10,29 @@
 
 NSString* GlkStyleAttributeName = @"GlkStyleAttribute";
 
-@implementation GlkStyle
+@implementation GlkStyle {
+    // Style attributes
+    float indentation;
+    float paraIndent;
+    NSTextAlignment alignment;
+    float size;
+    int weight;
+    BOOL oblique;
+    BOOL proportional;
+    NSColor* textColour;
+    NSColor* backColour;
+    BOOL reversed;
+
+    // Caching the attributes
+    int prefChangeCount;												// Change count for the preferences last time we cached the style dictionary
+    GlkPreferences*	lastPreferences;									// The last preference object this style was applied to
+    float lastScaleFactor;												// The scale factor the attributes were created at
+    NSDictionary* lastAttributes;										// The attributes generated last time we needed to
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -183,8 +201,7 @@ NSString* GlkStyleAttributeName = @"GlkStyleAttribute";
 	// We have to do things this way to avoid creating a reference loop (which would leak memory)
 	NSMutableDictionary* mutDict = [dict mutableCopy];
 	
-	[mutDict setObject: self
-				forKey: GlkStyleAttributeName];
+	mutDict[GlkStyleAttributeName] = self;
 	
 	return [mutDict autorelease];
 }
@@ -264,13 +281,11 @@ NSString* GlkStyleAttributeName = @"GlkStyleAttribute";
 	[paraStyle setTailIndent: indentation];
 	
 	// Create the style dictionary
-	res = [NSDictionary dictionaryWithObjectsAndKeys: 
-		paraStyle, NSParagraphStyleAttributeName,
-		font, NSFontAttributeName,
-		foreCol, NSForegroundColorAttributeName,
-		backCol, NSBackgroundColorAttributeName,
-		[NSNumber numberWithInt: [prefs useLigatures]], NSLigatureAttributeName,
-		nil];
+	res = @{NSParagraphStyleAttributeName: paraStyle,
+		NSFontAttributeName: font,
+		NSForegroundColorAttributeName: foreCol,
+		NSBackgroundColorAttributeName: backCol,
+		NSLigatureAttributeName: [NSNumber numberWithInt: [prefs useLigatures]]};
 		
 	// Finish up
 	[paraStyle release];

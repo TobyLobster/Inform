@@ -10,9 +10,14 @@
 #import "ZoomView.h"
 #import "ZoomPreferences.h"
 
-@implementation ZoomTextView
+@implementation ZoomTextView {
+    NSMutableArray* pastedLines; // Array of arrays ([NSValue<rect>, NSAttributedString])
 
-- (id) initWithFrame: (NSRect) frame {
+    BOOL dragged;
+    float pastedScaleFactor;
+}
+
+- (instancetype) initWithFrame: (NSRect) frame {
     self = [super initWithFrame: frame];
     if (self) {
         pastedLines = [[NSMutableArray alloc] init];
@@ -103,7 +108,7 @@
 						 yBy: pastedScaleFactor];
 	
     while (line = [lineEnum nextObject]) {
-        NSValue* rect = [line objectAtIndex: 0];
+        NSValue* rect = line[0];
         NSRect   lineRect = [rect rectValue];
 
         lineRect.origin.y -= offset;
@@ -120,7 +125,7 @@
 		lineRect.size.height = floorf(lineRect.size.height+0.5);
 		
         if (NSIntersectsRect(r, lineRect)) {
-            NSAttributedString* str = [line objectAtIndex: 1];
+            NSAttributedString* str = line[1];
 			
             if (NSMaxY(lineRect) < NSMaxY(ourBounds)-superBounds.size.height) {
                 // Draw it faded out (so text underneath becomes increasingly visible)
@@ -221,8 +226,7 @@
     double topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
     
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
     
 	NSFontManager* fm = [NSFontManager sharedFontManager];
 	
@@ -234,7 +238,7 @@
     int l;
     for (l=[win length]; l<[lines count]; l++) {
         NSRect r;
-        NSAttributedString* str = [lines objectAtIndex: l];
+        NSAttributedString* str = lines[l];
 
         if ([str length] > 0) {
             r = NSMakeRect(0, topPoint+fixedSize.height*(l-[win length]), 0,0);
@@ -255,7 +259,7 @@
 				NSDictionary* currentAttributes = [editedStr attributesAtIndex: 0
 																effectiveRange: &editRange];
 				for (;;) {
-					NSFont* oldFont = [currentAttributes objectForKey: NSFontAttributeName];
+					NSFont* oldFont = currentAttributes[NSFontAttributeName];
 					
 					if (oldFont != nil) {
 						NSFont* newFont = [fm convertFont: oldFont
@@ -265,7 +269,7 @@
 										  range: editRange];
 					}
 					
-					int newPos = editRange.location + editRange.length;
+					NSUInteger newPos = editRange.location + editRange.length;
 					if (editRange.length == 0) newPos++;
 					if (newPos >= [editedStr length]) break;
 					
@@ -277,10 +281,8 @@
 			}
 			
 			// Add this line to the set of pasted lines
-            [pastedLines addObject: [NSArray arrayWithObjects:
-                [NSValue valueWithRect: r],
-                str,
-                nil]];
+            [pastedLines addObject: @[[NSValue valueWithRect: r],
+                str]];
 
             r.origin.y -= offset;
 
@@ -309,17 +311,15 @@
 	NSArray* line;
 	while (line = [pastedEnum nextObject]) {
 		// Work out the new position of this line
-		NSRect lineRect = [[line objectAtIndex: 0] rectValue];;
-		NSAttributedString* str = [line objectAtIndex: 1];
+		NSRect lineRect = [line[0] rectValue];;
+		NSAttributedString* str = line[1];
 		
 		lineRect.origin.y -= offset;
 
 		// If it's still in the view, then add it to the modified array
 		if (NSMaxY(lineRect) > 0) {
-			[newLines addObject: [NSArray arrayWithObjects:
-				[NSValue valueWithRect: lineRect],
-				str,
-				nil]];
+			[newLines addObject: @[[NSValue valueWithRect: lineRect],
+				str]];
 		}
 	}
 	

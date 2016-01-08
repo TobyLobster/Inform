@@ -14,30 +14,68 @@
 #import "IFInform6Problem.h"
 #import "IFCblorbProblem.h"
 #import "IFUtility.h"
+#import "IFProgress.h"
+#import "IFCompilerSettings.h"
 
 static int mod = 0;
 
-NSString* IFCompilerStartingNotification = @"IFCompilerStartingNotification";
-NSString* IFCompilerStdoutNotification   = @"IFCompilerStdoutNotification";
-NSString* IFCompilerStderrNotification   = @"IFCompilerStderrNotification";
-NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
+NSString* IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
+NSString* IFCompilerStartingNotification     = @"IFCompilerStartingNotification";
+NSString* IFCompilerStdoutNotification       = @"IFCompilerStdoutNotification";
+NSString* IFCompilerStderrNotification       = @"IFCompilerStderrNotification";
+NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification";
 
-@implementation IFCompiler
+@implementation IFCompiler {
+    // The task
+    NSTask* theTask;						// Task where the compiler is running
+
+    // Settings, input, output
+    IFCompilerSettings* settings;			// Settings for the compiler
+    BOOL release;							// YES if compiling for release
+    BOOL releaseForTesting;                 // YES if compiling for releaseForTesting;
+    NSString* inputFile;					// The input file for this compiler
+    NSString* outputFile;					// The output filename for this compiler
+    NSString* workingDirectory;				// The working directory for this stage
+    BOOL deleteOutputFile;					// YES if the output file should be deleted when the compiler is dealloced
+
+    NSURL* problemsURL;						// The URL of the problems page we should show
+    NSObject<IFCompilerProblemHandler>* problemHandler;	// The current problem handler
+
+    // Queue of processes to run
+    NSMutableArray* runQueue;				// Queue of tasks to run to produce the end result
+
+    // Output/input streams
+    NSPipe* stdErr;							// stdErr pipe
+    NSPipe* stdOut;							// stdOut pipe
+
+    NSFileHandle* stdErrH;					// File handle for std err
+    NSFileHandle* stdOutH;					// ... and for std out
+
+    int finishCount;						// When =3, notify the delegate that the task is dead
+
+    // Progress
+    IFProgress* progress;					// Progress indicator for compilation
+    NSString* endTextString;                // Message to show at end of tasks
+
+    // Delegate
+    id delegate;							// The delegate object.
+}
 
 // == Initialisation, etc ==
 
-- (id) init {
+- (instancetype) init {
     self = [super init];
 
     if (self) {
-        settings = nil;
-        inputFile = nil;
-        theTask = nil;
-        stdOut = stdErr = nil;
-        delegate = nil;
-        workingDirectory = nil;
-		release = NO;
-        releaseForTesting = NO;
+        settings            = nil;
+        inputFile           = nil;
+        theTask             = nil;
+        stdOut              = nil;
+        stdErr              = nil;
+        delegate            = nil;
+        workingDirectory    = nil;
+		release             = NO;
+        releaseForTesting   = NO;
 		
 		progress = [[IFProgress alloc] initWithPriority: IFProgressPriorityCompiler
                                        showsProgressBar: YES
@@ -53,34 +91,10 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 - (void) dealloc {
     if (deleteOutputFile) [self deleteOutput];
 
-    [theTask release];
     theTask = nil;
-
-    [endTextString release];
     endTextString = nil;
 
-    if (outputFile)       [outputFile release];
-    if (workingDirectory) [workingDirectory release];    
-    if (settings)         [settings release];
-    if (inputFile)        [inputFile release];
-
-    if (stdOut) [stdOut release];
-    if (stdErr) [stdErr release];
-	
-	if (stdErrH) [stdErrH release];
-	if (stdOutH) [stdOutH release];
-	
-    //if (delegate) [delegate release];
-	
-	if (problemsURL) [problemsURL release];
-	if (problemHandler) [problemHandler release];
-
-    [runQueue release];
-	[progress release];
-
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-    [super dealloc];
 }
 
 // == Setup ==
@@ -92,15 +106,11 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 }
 
 - (void) setSettings: (IFCompilerSettings*) set {
-    if (settings) [settings release];
-
-    settings = [set retain];
+    settings = set;
 }
 
 - (void) setInputFile: (NSString*) path {
-    if (inputFile) [inputFile release];
-
-    inputFile = [path copyWithZone: [self zone]];
+    inputFile = [path copy];
 }
 
 - (NSString*) inputFile {
@@ -115,14 +125,12 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     if (outputFile) {
         if ([[NSFileManager defaultManager] fileExistsAtPath: outputFile]) {
             NSLog(@"Removing '%@'", outputFile);
-            NSError* error;
-            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:outputFile isDirectory:FALSE] error:&error];
+            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:outputFile isDirectory:FALSE] error: nil];
         } else {
             NSLog(@"Compiler produced no output");
             // Nothing to do
         }
         
-        [outputFile release];
         outputFile = nil;
     }
 }
@@ -138,20 +146,27 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
         if ([theTask isRunning]) {
             [theTask terminate];
         }
-        [theTask release];
         theTask = nil;
     }
 
-    [runQueue addObject: [NSArray arrayWithObjects:
-        command,
-        arguments,
-        file,
-		stageName,
-		handler,
-		nil]];
+    if( handler )
+    {
+        [runQueue addObject: @[command,
+                               arguments,
+                               file,
+                               stageName,
+                               handler]];
+    }
+    else
+    {
+        [runQueue addObject: @[command,
+                               arguments,
+                               file,
+                               stageName]];
+    }
 }
 
-- (void) addNaturalInformStage {
+- (void) addNaturalInformStageUsingTestCase:(NSString*) testCase {
     // Prepare the arguments
     NSMutableArray* args = [NSMutableArray arrayWithArray: [settings naturalInformCommandLineArguments]];
 
@@ -159,18 +174,24 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     [args addObject: [NSString stringWithString: [self currentStageInput]]];
 	[args addObject: [NSString stringWithFormat: @"-format=%@", [settings fileExtension]]];
 	
-	if (release) {
+	if (release && !releaseForTesting) {
 		[args addObject: @"-release"];
 	}
-	
+
 	if ([settings nobbleRng] && !release) {
 		[args addObject: @"-rng"];
 	}
+
+    if(( testCase != nil ) && ([testCase length] > 0))
+    {
+        [args addObject: @"-case"];
+        [args addObject: [NSString stringWithFormat:@"%@", testCase]];
+    }
 	
     [self addCustomBuildStage: [settings naturalInformCompilerToUse]
                 withArguments: args
                nextStageInput: [NSString stringWithFormat: @"%@/Build/auto.inf", [self currentStageInput]]
-				 errorHandler: [[[IFNaturalProblem alloc] init] autorelease]
+				 errorHandler: [[IFNaturalProblem alloc] init]
 						named: [IFUtility localizedString: @"Compiling Natural Inform source"]];
 }
 
@@ -189,19 +210,19 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     [self addCustomBuildStage: [settings compilerToUse]
                 withArguments: args
                nextStageInput: outputFile
-				 errorHandler: usingNaturalInform?[[[IFInform6Problem alloc] init] autorelease]:nil
+				 errorHandler: usingNaturalInform ? [[IFInform6Problem alloc] init] : nil
 						named: [IFUtility localizedString: @"Compiling Inform 6 source"]];
 }
 
 - (NSString*) currentStageInput {
     NSString* inFile = inputFile;
-    if (![runQueue count] <= 0) inFile = [[runQueue lastObject] objectAtIndex: 2];
+    if ([runQueue count] > 0) inFile = [runQueue lastObject][2];
 
     return inFile;
 }
 
 - (BOOL) isRunning {
-	return theTask!=nil?[theTask isRunning]:NO;
+	return (theTask != nil) ? [theTask isRunning] : NO;
 }
 
 - (void) sendTaskDetails: (NSTask*) task {
@@ -215,18 +236,101 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 	[self sendStdOut: taskMessage];
 }
 
-- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb {
+-(void) prepareNext {
+    NSString* stageName = runQueue[0][3];
+    [progress setMessage: stageName];
+
+    NSArray* args     = runQueue[0][1];
+    NSString* command = runQueue[0][0];
+
+    problemHandler = nil;
+    if ([runQueue[0] count] > 4) {
+        problemHandler = runQueue[0][4];
+    }
+
+    [runQueue removeObjectAtIndex: 0];
+
+    // Prepare the task
+    theTask = [[NSTask alloc] init];
+    finishCount = 0;
+
+    if ([settings debugMemory]) {
+        NSMutableDictionary* newEnvironment = [[theTask environment] mutableCopy];
+        if (!newEnvironment) newEnvironment = [[NSMutableDictionary alloc] init];
+
+        newEnvironment[@"MallocGuardEdges"]     = @"1";
+        newEnvironment[@"MallocScribble"]       = @"1";
+        newEnvironment[@"MallocBadFreeAbort"]   = @"1";
+        newEnvironment[@"MallocCheckHeapStart"] = @"512";
+        newEnvironment[@"MallocCheckHeapEach"]  = @"256";
+        newEnvironment[@"MallocStackLogging"]   = @"1";
+
+        [theTask setEnvironment: newEnvironment];
+    }
+
+    NSMutableString* executeString = [@"" mutableCopy];
+
+    [executeString appendString: command];
+    [executeString appendString: @" \\\n\t"];
+
+    for( NSString* arg in args ) {
+        [executeString appendString: arg];
+        [executeString appendString: @" "];
+    }
+
+    [executeString appendString: @"\n"];
+    [self sendStdOut: executeString];
+    executeString = nil;
+
+    [theTask setArguments:  args];
+    [theTask setLaunchPath: command];
+    if (workingDirectory)
+        [theTask setCurrentDirectoryPath: workingDirectory];
+    else
+        [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+
+    // Prepare the task's IO
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
+
+    stdErr = [[NSPipe alloc] init];
+    stdOut = [[NSPipe alloc] init];
+
+    [theTask setStandardOutput: stdOut];
+    [theTask setStandardError:  stdErr];
+
+    stdErrH = [stdErr fileHandleForReading];
+    stdOutH = [stdOut fileHandleForReading];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(stdOutWaiting:)
+                                                 name: NSFileHandleDataAvailableNotification
+                                               object: stdOutH];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(stdErrWaiting:)
+                                                 name: NSFileHandleDataAvailableNotification
+                                               object: stdErrH];
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(taskDidFinish:)
+                                                 name: NSTaskDidTerminateNotification
+                                               object: theTask];
+    
+    [stdOutH waitForDataInBackgroundAndNotify];
+    [stdErrH waitForDataInBackgroundAndNotify];
+}
+
+- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase {
     // Kill off any old tasks...
     if (theTask) {
         if ([theTask isRunning]) {
             [theTask terminate];
         }
-        [theTask release];
         theTask = nil;		
     }
 
 	// There are no problems
-	[problemsURL release]; problemsURL = nil;
+	problemsURL = nil;
 
     if (deleteOutputFile) [self deleteOutput];
 
@@ -238,14 +342,14 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
             buildsh = [@"~/build.sh" stringByExpandingTildeInPath];
             
 			[self addCustomBuildStage: buildsh
-						withArguments: [NSArray array]
+						withArguments: @[]
 					   nextStageInput: [self currentStageInput]
 						 errorHandler: nil
 								named: @"Debug build stage"];
         }
 
         if ([settings usingNaturalInform]) {
-            [self addNaturalInformStage];
+            [self addNaturalInformStageUsingTestCase: testCase];
         }
 
         if (![settings usingNaturalInform] || [settings compileNaturalInformOutput]) {
@@ -253,7 +357,8 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
         }
 
 		if (makeBlorb && [settings usingNaturalInform]) {
-			// Blorb files kind of create an exception: we change our output file, for instance, and the input file is determined by the blurb file output by NI
+			// Blorb files kind of create an exception: we change our output file, for instance,
+            // and the input file is determined by the blurb file output by NI
 			NSString* extension;
 
 			if ([settings zcodeVersion] > 128) {
@@ -263,140 +368,37 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 			}
 
 			// Work out the new output file
-			NSString* oldOutput = [self outputFile];
-			NSString* newOutput = [NSString stringWithFormat: @"%@.%@", [oldOutput stringByDeletingPathExtension], extension];
+			NSString* oldOutput  = [self outputFile];
+			NSString* newOutput  = [NSString stringWithFormat: @"%@.%@", [oldOutput stringByDeletingPathExtension], extension];
 
-			// Work out where the blorb is coming from (this will only work for project directories, which luckily is all the current version of Inform will compile)
-			NSString* blorbFile = [NSString stringWithFormat: @"%@/Release.blurb",
-				[[[self currentStageInput] stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]];
+			// Work out where the blorb is coming from
+            NSString* buildDir   = [[self currentStageInput] stringByDeletingLastPathComponent];
+            NSString* projectdir = [buildDir stringByDeletingLastPathComponent];
+			NSString* blorbFile  = [NSString stringWithFormat: @"%@/Release.blurb", projectdir];
 
 			// Add a cBlorb stage
             NSString *cBlorbLocation = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"cBlorb"];
 
 			[self addCustomBuildStage: cBlorbLocation
-						withArguments: [NSArray arrayWithObjects:
-							blorbFile, 
-							newOutput, 
-							nil]
+						withArguments: @[blorbFile, newOutput]
 					   nextStageInput: newOutput
-						 errorHandler: [[[IFCblorbProblem alloc] initWithBuildDir: [[self currentStageInput] stringByDeletingLastPathComponent]] autorelease]
+						 errorHandler: [[IFCblorbProblem alloc] initWithBuildDir: buildDir]
 								named: @"cBlorb build stage"];
-			
+
 			// Change the output file
 			[self setOutputFile: newOutput];
 		}
     }
 
-    /*
-    NSMutableArray* args = [NSMutableArray arrayWithArray: [settings commandLineArguments]];
-
-    [args addObject: @"-x"];
-
-    [args addObject: [NSString stringWithString: inputFile]];
-    [args addObject: [NSString stringWithString: outputFile]];
-     */
-    
-	NSString* stageName = [[runQueue objectAtIndex: 0] objectAtIndex: 3];
-    [progress setMessage: stageName];
-    [endTextString release];
     endTextString = nil;
-	[progress startProgress];
-	
-    NSArray* args     = [[runQueue objectAtIndex: 0] objectAtIndex: 1];
-    NSString* command = [[runQueue objectAtIndex: 0] objectAtIndex: 0];
-	
-	[problemHandler release]; problemHandler = nil;
-	if ([[runQueue objectAtIndex: 0] count] > 4) {
-		problemHandler = [[[runQueue objectAtIndex: 0] objectAtIndex: 4] retain];
-	}
-	
-    [[args retain] autorelease];
-    [[command retain] autorelease];
-    [runQueue removeObjectAtIndex: 0];
+    [progress startProgress];
 
-    // Prepare the task
-    theTask = [[NSTask alloc] init];
-    finishCount = 0;
-	
-	if ([settings debugMemory]) {
-		NSMutableDictionary* newEnvironment = [[theTask environment] mutableCopy];
-		if (!newEnvironment) newEnvironment = [[NSMutableDictionary alloc] init];
-		
-		[newEnvironment setObject: @"1"
-						   forKey: @"MallocGuardEdges"];
-		[newEnvironment setObject: @"1"
-						   forKey: @"MallocScribble"];
-		[newEnvironment setObject: @"1"
-						   forKey: @"MallocBadFreeAbort"];
-		[newEnvironment setObject: @"512"
-						   forKey: @"MallocCheckHeapStart"];
-		[newEnvironment setObject: @"256"
-						   forKey: @"MallocCheckHeapEach"];
-		[newEnvironment setObject: @"1"
-						   forKey: @"MallocStackLogging"];
-		
-		[theTask setEnvironment: newEnvironment];
-		[newEnvironment release];
-	}
-	
-	NSMutableString* executeString = [@"" mutableCopy];
-		
-	[executeString appendString: command];
-	[executeString appendString: @" \\\n\t"];
+    [self prepareNext];
+}
 
-	for( NSString* arg in args ) {
-		[executeString appendString: arg];
-		[executeString appendString: @" "];
-	}
-		
-	[executeString appendString: @"\n"];
-	[self sendStdOut: executeString];
-	[executeString release]; executeString = nil;
-
-    [theTask setArguments:  args];
-    [theTask setLaunchPath: command];
-    if (workingDirectory)
-        [theTask setCurrentDirectoryPath: workingDirectory];
-    else
-        [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
-
-    // Prepare the task's IO
-
-    // waitForDataInBackground is a daft way of doing things and a waste of a thread
-    if (stdErr) [stdErr release];
-    if (stdOut) [stdOut release];
-	
-	if (stdErrH) [stdErrH release];
-	if (stdOutH) [stdOutH release];
-	
-    [[NSNotificationCenter defaultCenter] removeObserver: self];
-
-    stdErr = [[NSPipe alloc] init];
-    stdOut = [[NSPipe alloc] init];
-
-    [theTask setStandardOutput: stdOut];
-    [theTask setStandardError:  stdErr];
-
-    stdErrH = [[stdErr fileHandleForReading] retain];
-    stdOutH = [[stdOut fileHandleForReading] retain];
-
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(stdOutWaiting:)
-                                                 name: NSFileHandleDataAvailableNotification
-                                               object: stdOutH];
-    
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(stdErrWaiting:)
-                                                 name: NSFileHandleDataAvailableNotification
-                                               object: stdErrH];
-
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(taskDidFinish:)
-                                                 name: NSTaskDidTerminateNotification
-                                               object: theTask];
-
-    [stdOutH waitForDataInBackgroundAndNotify];
-    [stdErrH waitForDataInBackgroundAndNotify];
+- (void) clearConsole {
+    [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerClearConsoleNotification
+                                                        object: self];
 }
 
 - (void) launch {
@@ -406,14 +408,14 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     [theTask launch];
 }
 
-- (NSURL*)    problemsURL {
+- (NSURL*) problemsURL {
 	return problemsURL;
 }
 
 - (NSString*) outputFile {
     if (outputFile == nil) {
-        outputFile = [[NSString stringWithFormat: @"%@/Inform-%x-%x.%@",
-            NSTemporaryDirectory(), (int) time(NULL), ++mod, [settings fileExtension]] retain];
+        outputFile = [NSString stringWithFormat: @"%@/Inform-%x-%x.%@",
+            NSTemporaryDirectory(), (int) time(NULL), ++mod, [settings fileExtension]];
         deleteOutputFile = YES;
     }
 
@@ -421,7 +423,6 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 }
 
 - (void) setOutputFile: (NSString*) file {
-    if (outputFile) [outputFile release];
     outputFile = [file copy];
     deleteOutputFile = NO;
 }
@@ -432,8 +433,6 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 
 - (void) setDelegate: (id<NSObject>) dg {
 	delegate = dg;
-    //if (delegate) [delegate release];
-    //delegate = [dg retain];
 }
 
 - (id) delegate {
@@ -441,28 +440,38 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 }
 
 - (void) setDirectory: (NSString*) path {
-    if (workingDirectory) [workingDirectory release];
     workingDirectory = [path copy];
 }
 
 - (NSString*) directory {
-    return [[workingDirectory copy] autorelease];
+    return [workingDirectory copy];
 }
 
 - (void) taskHasReallyFinished {
 	int exitCode = [theTask terminationStatus];
+    ECompilerProblemType problemType = EProblemTypeNone;
+
+    if( exitCode != 0 ) {
+        if ([problemHandler isKindOfClass: [IFNaturalProblem class]]) {
+            problemType = EProblemTypeInform7;
+        } else if ([problemHandler isKindOfClass: [IFInform6Problem class]]) {
+            problemType = EProblemTypeInform6;
+        } else if ([problemHandler isKindOfClass: [IFCblorbProblem class]]) {
+            problemType = EProblemTypeCBlorb;
+        } else if (problemHandler != nil) {
+            problemType = EProblemTypeUnknown;
+        }
+    }
 
     if ([runQueue count] == 0) {
         if (exitCode != 0 && problemHandler) {
-			[problemsURL release]; problemsURL = nil;
-			
 			problemsURL = [[problemHandler urlForProblemWithErrorCode: exitCode] copy];
 		} else if (exitCode == 0 && problemHandler) {
 			if ([problemHandler respondsToSelector: @selector(urlForSuccess)]) {
 				problemsURL = [[problemHandler urlForSuccess] copy];
 			}
 		}
-			
+
         if (delegate &&
             [delegate respondsToSelector: @selector(taskFinished:)]) {
             [delegate taskFinished: exitCode];
@@ -473,21 +482,16 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
         // Show final message from compiler
         if( endTextString ) {
             [progress setMessage: endTextString];
-            [endTextString release];
             endTextString = nil;
         }
-        NSDictionary* uiDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithInt: exitCode],
-                                @"exitCode",
-                                nil];
+        NSDictionary* uiDict = @{@"exitCode": @(exitCode),
+                                 @"problemType": @(problemType)};
         [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerFinishedNotification
                                                             object: self
                                                           userInfo: uiDict];
     } else {
         if (exitCode != 0) {
 			if (problemHandler) {
-				[problemsURL release]; problemsURL = nil;
-				
 				problemsURL = [[problemHandler urlForProblemWithErrorCode: exitCode] copy];
 			}
 			
@@ -501,22 +505,18 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
             // Show final message from compiler
             if( endTextString ) {
                 [progress setMessage: endTextString];
-                [endTextString release];
                 endTextString = nil;
             }
             
             // Notify everyone of the failure
-            NSDictionary* uiDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                [NSNumber numberWithInt: exitCode],
-                @"exitCode",
-                nil];
+            NSDictionary* uiDict = @{@"exitCode": @(exitCode),
+                                     @"problemType": @(problemType)};
             [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerFinishedNotification
                                                                 object: self
                                                               userInfo: uiDict];
             
             // Give up
             [runQueue removeAllObjects];
-            [theTask release];
             theTask = nil;
             
             return;
@@ -527,106 +527,10 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
             if ([theTask isRunning]) {
                 [theTask terminate];
             }
-            [theTask release];
             theTask = nil;
         }
-		
-		NSString* stageName = [[runQueue objectAtIndex: 0] objectAtIndex: 3];
-        [progress setMessage: stageName];
-		
-        NSArray* args     = [[runQueue objectAtIndex: 0] objectAtIndex: 1];
-        NSString* command = [[runQueue objectAtIndex: 0] objectAtIndex: 0];
 
-		[problemHandler release]; problemHandler = nil;
-		if ([[runQueue objectAtIndex: 0] count] > 4) {
-			problemHandler = [[[runQueue objectAtIndex: 0] objectAtIndex: 4] retain];
-		}
-
-		[[args retain] autorelease];
-        [[command retain] autorelease];
-        [runQueue removeObjectAtIndex: 0];
-
-        theTask = [[NSTask alloc] init];
-        finishCount = 0;
-		
-		if ([settings debugMemory]) {
-			NSMutableDictionary* newEnvironment = [[theTask environment] mutableCopy];
-			if (!newEnvironment) newEnvironment = [[NSMutableDictionary alloc] init];
-			
-			[newEnvironment setObject: @"1"
-							   forKey: @"MallocGuardEdges"];
-			[newEnvironment setObject: @"1"
-							   forKey: @"MallocScribble"];
-			[newEnvironment setObject: @"1"
-							   forKey: @"MallocBadFreeAbort"];
-			[newEnvironment setObject: @"512"
-							   forKey: @"MallocCheckHeapStart"];
-			[newEnvironment setObject: @"256"
-							   forKey: @"MallocCheckHeapEach"];
-			[newEnvironment setObject: @"1"
-							   forKey: @"MallocStackLogging"];
-			
-			[theTask setEnvironment: newEnvironment];
-			[newEnvironment release];
-		}
-		
-		NSMutableString* executeString = [@"" mutableCopy];
-			
-		[executeString appendString: command];
-		[executeString appendString: @" \\\n\t"];
-			
-		for( NSString* arg in args ) {
-			[executeString appendString: arg];
-			[executeString appendString: @" "];
-		}
-			
-		[executeString appendString: @"\n"];
-		[self sendStdOut: executeString];
-		[executeString release]; executeString = nil;
-		
-        // Prepare the task
-        [theTask setArguments:  args];
-        [theTask setLaunchPath: command];
-        if (workingDirectory)
-            [theTask setCurrentDirectoryPath: workingDirectory];
-        else
-            [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
-
-        // Prepare the task's IO
-        if (stdErr) [stdErr release];
-        if (stdOut) [stdOut release];
-
-		if (stdErrH) [stdErrH release];
-        if (stdOutH) [stdOutH release];
-
-        [[NSNotificationCenter defaultCenter] removeObserver: self];
-
-        stdErr = [[NSPipe alloc] init];
-        stdOut = [[NSPipe alloc] init];
-
-        [theTask setStandardOutput: stdOut];
-        [theTask setStandardError:  stdErr];
-
-        stdErrH = [[stdErr fileHandleForReading] retain];
-        stdOutH = [[stdOut fileHandleForReading] retain];
-
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(stdOutWaiting:)
-                                                     name: NSFileHandleDataAvailableNotification
-                                                   object: stdOutH];
-
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(stdErrWaiting:)
-                                                     name: NSFileHandleDataAvailableNotification
-                                                   object: stdErrH];
-
-        [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(taskDidFinish:)
-                                                     name: NSTaskDidTerminateNotification
-                                                   object: theTask];
-
-        [stdOutH waitForDataInBackgroundAndNotify];
-        [stdErrH waitForDataInBackgroundAndNotify];
+        [self prepareNext];
 
         // Launch it
 		[self sendTaskDetails: theTask];
@@ -641,10 +545,7 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 		[delegate receivedFromStdOut: data]; 
 	}
 	
-	NSDictionary* uiDict = [NSDictionary dictionaryWithObjectsAndKeys:
-		data,
-		@"string",
-		nil];
+	NSDictionary* uiDict = @{@"string": data};
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerStdoutNotification
 														object: self
 													  userInfo: uiDict];
@@ -656,8 +557,8 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     NSData* inData = [stdOutH availableData];
 
     if ([inData length]) {
-        NSString* newStr = [[[NSString alloc] initWithData:inData
-                                                  encoding:NSISOLatin1StringEncoding] autorelease];
+        NSString* newStr = [[NSString alloc] initWithData: inData
+                                                 encoding: NSISOLatin1StringEncoding];
 		[self sendStdOut:newStr];
 
         [stdOutH waitForDataInBackgroundAndNotify];
@@ -676,17 +577,14 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
     NSData* inData = [stdErrH availableData];
 
     if ([inData length]) {
-        NSString* newStr = [[[NSString alloc] initWithData:inData
-                                                  encoding:NSISOLatin1StringEncoding] autorelease];
+        NSString* newStr = [[NSString alloc] initWithData:inData
+                                                  encoding:NSISOLatin1StringEncoding];
         if (delegate &&
             [delegate respondsToSelector: @selector(receivedFromStdErr:)]) {
             [delegate receivedFromStdErr: newStr];
         }
 
-        NSDictionary* uiDict = [NSDictionary dictionaryWithObjectsAndKeys:
-                newStr,
-                @"string",
-                nil];
+        NSDictionary* uiDict = @{@"string": newStr};
         [[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerStderrNotification
                                                             object: self
                                                           userInfo: uiDict];
@@ -714,7 +612,7 @@ NSString* IFCompilerFinishedNotification = @"IFCompilerFinishedNotification";
 }
 
 - (void) setEndTextString: (NSString*) aEndTextString {
-    endTextString = [aEndTextString retain];
+    endTextString = aEndTextString;
 }
 
 @end

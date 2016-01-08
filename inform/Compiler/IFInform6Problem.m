@@ -1,6 +1,6 @@
 //
 //  IFInform6Problem.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 06/10/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.

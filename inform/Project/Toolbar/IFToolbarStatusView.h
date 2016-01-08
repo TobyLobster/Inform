@@ -10,27 +10,9 @@
 @class IFToolbarManager;
 @class IFToolbarProgressIndicator;
 
-@interface IFToolbarStatusView : NSView {
-    NSString*                   title;
-    float                       progress;
-    float                       total;
-    IFToolbarProgressIndicator* progressIndicator;
-    BOOL                        isInProgress;
-    BOOL                        isStoryActive;
-    BOOL                        canCancel;
+@interface IFToolbarStatusView : NSView
 
-    NSTextField*                titleText;
-    NSTextField*                storyText;
-    NSButton*                   cancelButton;
-    NSImage*                    informImage;
-
-    // 'Welcome' objects
-    NSTextField*                welcomeTitle;
-    NSTextField*                welcomeBuild;
-    NSImageView*                welcomeImageView;
-    
-    IFToolbarManager*           delegate;
-}
+@property (atomic) BOOL isExtensionProject;
 
 -(void) showMessage: (NSString*) title;
 

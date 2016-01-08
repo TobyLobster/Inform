@@ -54,7 +54,7 @@
 }
 
 - (void) putString: (in bycopy NSString*) string {
-	int len = [string length]*2;
+	int len = (int) [string length]*2;
 	glui32 buf[len];
 	
 	len = cocoaglk_copy_string_to_uni_buf(string, buf, len);

@@ -7,108 +7,97 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "IFCompiler.h"
-#import "IFCompilerSettings.h"
-#import "IFProjectFile.h"
 #import "IFProjectTypes.h"
-#import "IFIndexFile.h"
-#import "IFSyntaxTypes.h"
 
-#import "ZoomView/ZoomSkein.h"
-
+@class IFCompiler;
+@class IFCompilerSettings;
+@class IFProjectFile;
+@class IFIndexFile;
+@class IFInTest;
+@class IFSyntaxTypes;
 @class IFProjectMaterialsPresenter;
+@class IFSkein;
+@class IFSkeinItem;
 
-@interface IFProject : NSDocument<NSTextStorageDelegate> {
-    // The data for this project
-    IFProjectFile*          projectFile;
-    IFCompilerSettings*     settings;
-    NSFileWrapper *         documentFileWrapper;
-
-    IFCompiler*             compiler;
-
-    NSMutableDictionary*    sourceFiles;
-    NSString*               mainSource;
-
-	NSTextStorage*          notes;
-	IFIndexFile*            indexFile;
-
-	ZoomSkein*              skein;
-
-	BOOL                    editingExtension;
-    BOOL                    singleFile;
-    NSRange                 initialSelectionRange;
-
-	NSMutableArray*         watchExpressions;
-	NSMutableArray*         breakpoints;
-    NSString*               uuid;
-
-	NSLock*                 matcherLock;
-	int                     syntaxBuildCount;
-
-    IFProjectMaterialsPresenter* materialsAccess;
-    
-	// Ports used to communicate with the running syntax matcher builder thread
-	NSPort*                 mainThreadPort;
-	NSPort*                 subThreadPort;
-	NSConnection*           subThreadConnection;
-}
+@interface IFProject : NSDocument<NSTextStorageDelegate>
 
 @property (atomic, strong) NSFileWrapper *documentFileWrapper;
 
+#pragma mark - Properties
 // The files and settings associated with the project
+@property (atomic, readonly, strong)  IFProjectFile *       projectFile;
+@property (atomic, readonly, copy)    NSDictionary *        sourceFiles;
+@property (atomic, readonly, strong)  IFCompilerSettings *  settings;
+@property (atomic, readonly, strong)  IFCompiler *          compiler;
+@property (atomic, readonly)          BOOL                  editingExtension;
+@property (atomic)                    NSRange               initialSelectionRange;
+@property (atomic)                    IFFileType            projectFileType;
+@property (atomic, readonly)          BOOL                  singleFile;
+@property (atomic, readonly, copy)    NSString *            mainSourceFile;
+@property (atomic, readonly, copy)    NSString *            mainSourcePathName;     // Full pathname
+@property (atomic, readonly, strong)  NSArray *             testCases;
 
-- (IFCompilerSettings*) settings;
-- (IFCompiler*)         compiler;
-- (IFProjectFile*)      projectFile;
-- (NSDictionary*)       sourceFiles;
+// 'Subsidiary' files
+@property (atomic, readonly, copy)    NSTextStorage *       notes;
+@property (atomic, readonly, strong)  IFIndexFile *         indexFile;
+@property (atomic, readonly, strong)  IFSkein *             currentSkein;
+@property (atomic, readonly, strong)  NSMutableArray *      skeins;
 
-// Properties associated with the project
-
-- (BOOL) singleFile;
-- (NSString*) mainSourceFile;
+#pragma mark - File Handling
 - (NSTextStorage*) storageForFile: (NSString*) sourceFile;
-- (BOOL) fileIsTemporary: (NSString*) sourceFile;
 - (BOOL) addFile: (NSString*) newFile;
 - (BOOL) removeFile: (NSString*) oldFile;
 - (BOOL) renameFile: (NSString*) oldFile 
 		withNewName: (NSString*) newFile;
 
-- (NSString*) pathForFile: (NSString*) file;
-- (NSString*) materialsPath;
+#pragma mark - Useful URLs
+- (NSURL*) buildDirectoryURL;
+- (NSURL*) materialsDirectoryURL;
+- (NSURL*) mainSourceFileURL;
+- (NSURL*) buildOutputFileURL;
+- (NSURL*) buildIndexFileURL;
+- (NSURL*) settingsFileURL;
+- (NSURL*) indexDirectoryURL;
+- (NSURL*) currentSkeinURL;
+- (NSURL*) currentReportURL;
+- (NSURL*) normalProblemsURL;
+- (NSURL*) baseReportURL;
+- (NSURL*) combinedReportURL;
 
-- (BOOL) editingExtension;
+- (NSString*) pathForSourceFile: (NSString*) file;
+- (NSString*) projectOutputPathName;
 
-- (NSRange) initialSelectionRange;
-- (void) setInitialSelectionRange:(NSRange) range;
-
-// 'Subsidiary' files
+#pragma mark - Materials folder
 - (void) createMaterials;
+- (void) openMaterials;
 
-- (NSTextStorage*) notes;
-- (IFIndexFile*)   indexFile;
-
+#pragma mark - Loading, saving and clean up
 - (void) reloadIndexFile;
 - (void) reloadIndexDirectory;
+- (void) reloadDirectory;
+- (void) reloadSourceDirectory;
+- (void) importIntoSkeinWithWindow: (NSWindow*) window;
 
-- (ZoomSkein*) skein;
+- (void) saveIFictionWithWindow:(NSWindow*) window;
+- (void) saveDocumentWithoutUserInteraction;
+- (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;				// Removes compiler-generated files that are less useful to keep around
+- (void) unregisterProjectTextStorage;
 
-// The syntax matcher
 
-- (void) rebuildSyntaxMatchers;											// Requests that this project starts to rebuild its syntax matchers (in a separate thread)
+#pragma mark - Debugging
+- (BOOL) canDebug;
 
 // Watchpoints
-
 - (void) addWatchExpression: (NSString*) expression;
 - (void) replaceWatchExpressionAtIndex: (unsigned) index
 						withExpression: (NSString*) expression;
 - (NSString*) watchExpressionAtIndex: (unsigned) index;
-- (unsigned) watchExpressionCount;
+@property (atomic, readonly) unsigned int watchExpressionCount;
 - (void) removeWatchExpressionAtIndex: (unsigned) index;
 
 // Breakpoints
-
 - (void) addBreakpointAtLine: (int) line
 					  inFile: (NSString*) filename;
 - (void) replaceBreakpointAtIndex: (unsigned) index
@@ -116,12 +105,42 @@
 						   inFile: (NSString*) filename;
 - (int) lineForBreakpointAtIndex: (unsigned) index;
 - (NSString*) fileForBreakpointAtIndex: (unsigned) index;
-- (unsigned) breakpointCount;
+- (unsigned int) breakpointCount;
 - (void) removeBreakpointAtIndex: (unsigned) index;
 - (void) removeBreakpointAtLine: (int) line
 						 inFile: (NSString*) file;
 
-// Clean up
--(void) unregisterProjectTextStorage;
+#pragma mark - Extension projects
+-(BOOL) isExtensionProject;
+-(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
+- (void) selectSkein: (int) index;
+
+#pragma mark - InTest support
+@property (atomic) IFInTest* inTest;
+-(void) refreshTestCases;                                               // update the array of test cases
+-(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase;    // Get the source text for a test case
+-(NSArray*) redirectLinksToExtensionSourceCode: (NSArray*) link;        // Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
+-(NSArray*) testCommandsForExtensionTestCase: (NSString*) testCase;
+- (BOOL) generateReportForTestCase: (NSString*) testCase
+                         errorCode: (NSString*) errorCode
+                          skeinURL: (NSURL*) skeinURL
+                       skeinNodeId: (unsigned long) skeinNodeId
+                        skeinNodes: (int) skeinNodes
+                         outputURL: (NSURL*) outputURL;
+-(BOOL) generateCombinedReportForBaseInputURL: (NSURL*) baseInputURL
+                                     numTests: (int) numTests
+                                    outputURL: (NSURL*) outputURL;
+
+#pragma mark - Skein support
+-(IFSkeinItem*) nodeToReport;
+
+#pragma mark - Compiler support
+- (IFCompiler*) prepareCompilerForRelease: (BOOL) release
+                               forTesting: (BOOL) releaseForTesting
+                              refreshOnly: (BOOL) onlyRefresh
+                                 testCase: (NSString*) testCase;
+
+- (void) DEBUGverifyWrapper;
+- (NSFileWrapper*) buildWrapper;
 
 @end

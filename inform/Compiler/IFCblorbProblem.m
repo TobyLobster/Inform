@@ -1,6 +1,6 @@
 //
 //  IFCblorbProblem.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 28/01/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -9,9 +9,13 @@
 #import "IFCblorbProblem.h"
 
 
-@implementation IFCblorbProblem
+@implementation IFCblorbProblem {
+    NSString* buildDir;			// nil, or the build directory that should be inspected for problem files
+}
 
-- (id) initWithBuildDir: (NSString*) newBuildDir {
+- (instancetype) init { self = [super init]; return self; }
+
+- (instancetype) initWithBuildDir: (NSString*) newBuildDir {
 	self = [super init];
 	
 	if (self) {
@@ -22,9 +26,8 @@
 }
 
 - (void) dealloc {
-	[buildDir autorelease]; buildDir = nil;
+    buildDir = nil;
 	
-	[super dealloc];
 }
 
 - (NSURL*) urlForProblemWithErrorCode: (int) errorCode {

@@ -16,14 +16,7 @@ extern NSString* IFIsIndexInspector;
 //
 // Dynamic or XML (depending on preferences) index inspector
 //
-@interface IFIsIndex : IFInspector<NSOutlineViewDataSource> {
-	IBOutlet NSOutlineView* indexList;						// The outline view that will contain the index
-	
-	BOOL canDisplay;										// YES if there's an index to display
-	NSWindow* activeWindow;									// Currently active window
-	
-	NSMutableArray* itemCache;								// Cache of items retrieved from the index (used because the index can update before the display)
-}
+@interface IFIsIndex : IFInspector<NSOutlineViewDataSource>
 
 + (IFIsIndex*) sharedIFIsIndex;								// Retrieves the shared index inspector
 

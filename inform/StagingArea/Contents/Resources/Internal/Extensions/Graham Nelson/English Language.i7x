@@ -57,6 +57,8 @@ The story viewpoint variable translates into I6 as "story_viewpoint".
 
 To say regarding (item - an object): (- RegardingSingleObject({item}); -).
 
+To say regarding (N - a number): (- RegardingNumber({N}); -).
+
 To say regarding list writer internals: (- RegardingLWI(); -).
 
 To say regarding (D - a description of objects): (-

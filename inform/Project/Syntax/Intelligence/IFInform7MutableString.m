@@ -1,6 +1,6 @@
 //
 //  IFInform7MutableString.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 04/10/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.
@@ -48,7 +48,7 @@
     
     // Scan the range to make sure we are not spanning different comment levels...
     int rangeCommentDepth = commentDepth;
-    for(int index = range->location; index < (range->location + range->length); index++ ) {
+    for(NSUInteger index = range->location; index < (range->location + range->length); index++ ) {
         int chr = [self characterAtIndex: index];
         
         if ((chr == '"') || (chr == 0x201C) || (chr == 0x201D)) {
@@ -113,7 +113,7 @@
     }
 
     // All clear to make the change - uncomment
-    int end = range->location + range->length - 1;
+    NSUInteger end = range->location + range->length - 1;
     if(([self characterAtIndex: range->location] == '[') &&
        ([self characterAtIndex: end] == ']')) {
         [self deleteCharactersInRange: NSMakeRange(end, 1)];

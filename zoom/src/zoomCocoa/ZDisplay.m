@@ -297,7 +297,7 @@ void display_prints_c(const char* buf) {
 		return;
 	}
 	
-    NSString* str = [NSString stringWithCString: buf];
+    NSString* str = @(buf);
     [[mainMachine buffer] writeString: str
                             withStyle: zDisplayCurrentStyle
                              toWindow: [mainMachine windowNumber: zDisplayCurrentWindow]];
@@ -365,6 +365,7 @@ int display_readline(int* buf, int len, long int timeout) {
 		[prefix release];
 		prefix = [[NSString stringWithCharacters: prefixBuf
 										  length: x] retain];
+        free(prefixBuf);
 	}
 
     // Cycle the autorelease pool
@@ -440,7 +441,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	NSLog(@"ZDisplay: display_readline = %@", inputBuffer);
 #endif
 
-    int realLen = [inputBuffer length];
+    int realLen = (int) [inputBuffer length];
     if (realLen > (len-1)) {
         realLen = len-1;
     }
@@ -786,31 +787,31 @@ void display_terminating (unsigned char* table) {
 	for (x=0; table[x] != 0; x++) {
 		switch (table[x]) {
 			// Arrow keys
-			case 129: [term addObject: [NSNumber numberWithInt: NSUpArrowFunctionKey]]; break;
-			case 130: [term addObject: [NSNumber numberWithInt: NSDownArrowFunctionKey]]; break;
-			case 131: [term addObject: [NSNumber numberWithInt: NSLeftArrowFunctionKey]]; break;
-			case 132: [term addObject: [NSNumber numberWithInt: NSRightArrowFunctionKey]]; break;
+			case 129: [term addObject: @(NSUpArrowFunctionKey)]; break;
+			case 130: [term addObject: @(NSDownArrowFunctionKey)]; break;
+			case 131: [term addObject: @(NSLeftArrowFunctionKey)]; break;
+			case 132: [term addObject: @(NSRightArrowFunctionKey)]; break;
 				
 			// Function keys
-			case 133: [term addObject: [NSNumber numberWithInt: NSF1FunctionKey]]; break;
-			case 134: [term addObject: [NSNumber numberWithInt: NSF2FunctionKey]]; break;
-			case 135: [term addObject: [NSNumber numberWithInt: NSF3FunctionKey]]; break;
-			case 136: [term addObject: [NSNumber numberWithInt: NSF4FunctionKey]]; break;
-			case 137: [term addObject: [NSNumber numberWithInt: NSF5FunctionKey]]; break;
-			case 138: [term addObject: [NSNumber numberWithInt: NSF6FunctionKey]]; break;
-			case 139: [term addObject: [NSNumber numberWithInt: NSF7FunctionKey]]; break;
-			case 140: [term addObject: [NSNumber numberWithInt: NSF8FunctionKey]]; break;
-			case 141: [term addObject: [NSNumber numberWithInt: NSF9FunctionKey]]; break;
-			case 142: [term addObject: [NSNumber numberWithInt: NSF10FunctionKey]]; break;
-			case 143: [term addObject: [NSNumber numberWithInt: NSF11FunctionKey]]; break;
-			case 144: [term addObject: [NSNumber numberWithInt: NSF12FunctionKey]]; break;
+			case 133: [term addObject: @(NSF1FunctionKey)]; break;
+			case 134: [term addObject: @(NSF2FunctionKey)]; break;
+			case 135: [term addObject: @(NSF3FunctionKey)]; break;
+			case 136: [term addObject: @(NSF4FunctionKey)]; break;
+			case 137: [term addObject: @(NSF5FunctionKey)]; break;
+			case 138: [term addObject: @(NSF6FunctionKey)]; break;
+			case 139: [term addObject: @(NSF7FunctionKey)]; break;
+			case 140: [term addObject: @(NSF8FunctionKey)]; break;
+			case 141: [term addObject: @(NSF9FunctionKey)]; break;
+			case 142: [term addObject: @(NSF10FunctionKey)]; break;
+			case 143: [term addObject: @(NSF11FunctionKey)]; break;
+			case 144: [term addObject: @(NSF12FunctionKey)]; break;
 				
 			// Keypad not currently supported
 				
 			// Various click characters
-			case 252: [term addObject: [NSNumber numberWithInt: NSF33FunctionKey]]; break; // Menu click
-			case 253: [term addObject: [NSNumber numberWithInt: NSF35FunctionKey]]; break; // Double click
-			case 254: [term addObject: [NSNumber numberWithInt: NSF34FunctionKey]]; break; // Single click
+			case 252: [term addObject: @(NSF33FunctionKey)]; break; // Menu click
+			case 253: [term addObject: @(NSF35FunctionKey)]; break; // Double click
+			case 254: [term addObject: @(NSF34FunctionKey)]; break; // Single click
 			
 			case 255:
 				// Same as 129-154 and 252-254
@@ -902,7 +903,7 @@ ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
-                                    defaultName: [NSString stringWithCString: name]];
+                                    defaultName: @(name)];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];
@@ -922,7 +923,7 @@ ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToRead: convert_file_type(purpose)
-                                   defaultName: [NSString stringWithCString: name]];
+                                   defaultName: @(name)];
     
     wait_for_file();
     res = [[mainMachine lastFile] retain];

@@ -15,10 +15,10 @@
 	return [[[NSImage alloc] initWithContentsOfFile: [[NSBundle bundleForClass: [self class]] pathForImageResource: @"MorePrompt"]] autorelease];
 }
 
-- (id) init {
+- (instancetype) init {
 	NSRect frame;
 	
-	NSImageRep* rep = [[[GlkMoreView image] representations] objectAtIndex: 0];
+	NSImageRep* rep = [[GlkMoreView image] representations][0];
 	
 	frame.origin = NSMakePoint(0,0);
 	
@@ -28,7 +28,7 @@
 	return [self initWithFrame: frame];
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		moreImage = [[GlkMoreView image] retain];

@@ -835,7 +835,7 @@
 		4B152D2D0B46D2F9008CC1EF /* ZoomNotesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomNotesController.h; sourceTree = "<group>"; };
 		4B152D2E0B46D2F9008CC1EF /* ZoomNotesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomNotesController.m; sourceTree = "<group>"; };
 		4B152DBD0B46E929008CC1EF /* NoteWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = NoteWindow.nib; sourceTree = "<group>"; };
-		4B1884AF06975647004D8501 /* ZoomSkeinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinView.h; sourceTree = "<group>"; };
+		4B1884AF06975647004D8501 /* ZoomSkeinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ZoomSkeinView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4B1884B006975647004D8501 /* ZoomSkeinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomSkeinView.m; sourceTree = "<group>"; };
 		4B18850B069873F0004D8501 /* Skein.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = Skein.nib; sourceTree = "<group>"; };
 		4B18852906987AC6004D8501 /* ZoomSkeinController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomSkeinController.h; sourceTree = "<group>"; };
@@ -963,7 +963,7 @@
 		4B4D512006E3894F007FAD2B /* ZoomConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomConnector.h; sourceTree = "<group>"; };
 		4B4D512106E3894F007FAD2B /* ZoomConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomConnector.m; sourceTree = "<group>"; };
 		4B4EF620050FD66E00A8E303 /* ZFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFiles.m; sourceTree = "<group>"; };
-		4B4EF623050FDC6800A8E303 /* ZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomView.h; sourceTree = "<group>"; };
+		4B4EF623050FDC6800A8E303 /* ZoomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ZoomView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4B4EF624050FDC6800A8E303 /* ZoomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZoomView.m; sourceTree = "<group>"; };
 		4B5983DA070F059E0078165F /* archive.iFiction */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; name = archive.iFiction; path = src/archive.iFiction; sourceTree = "<group>"; };
 		4B5CBB2D069D640900C0AA88 /* ZoomCollapsingSplitView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZoomCollapsingSplitView.h; sourceTree = "<group>"; };
@@ -1414,19 +1414,19 @@
 		4B1E3F5F050F7B8100A8E303 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FFCEFB6A18982AF10067F979 /* Carbon.framework */,
 				4BA373A30CD3CB7B00C7B1D4 /* ApplicationServices.framework */,
+				FFCEFB6A18982AF10067F979 /* Carbon.framework */,
+				4B5CBB9B069D671200C0AA88 /* Carbon.framework */,
 				4BA373A40CD3CB7B00C7B1D4 /* CoreServices.framework */,
-				4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */,
-				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
 				FFCEFB6818981D380067F979 /* Sparkle.framework */,
 				4B39CA8308EEFE8F00BA5E90 /* CoreServices.framework */,
 				4BECA7F705B194AA006840BA /* libexpat.a */,
-				4B5CBB9B069D671200C0AA88 /* Carbon.framework */,
 				4B39CBCA08EF006E00BA5E90 /* CoreFoundation.framework */,
 				4B1E3F60050F7BA000A8E303 /* Cocoa.framework */,
 				4BCF3F2B050F8E2400A8E303 /* Foundation.framework */,
 				4B7284FA0CD383C80079D89B /* QuartzCore.framework */,
+				4BA373A50CD3CB7B00C7B1D4 /* QuickLook.framework */,
+				4B840B0F0CC2C3B10071F3B3 /* WebKit.framework */,
 				4B0A32AE06A5966D00BB8878 /* WebKit.framework */,
 			);
 			name = Frameworks;
@@ -2373,7 +2373,7 @@
 		4B1E3F4B050F7AD000A8E303 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					4BB8C12208C2497700D7D334 = {
 						DevelopmentTeam = 97V36B3QYK;
@@ -3276,18 +3276,22 @@
 		4B11039708606E2600253E87 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					depends/CocoaGlk/build/Development,
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					DEVELOPMENT_BUILD,
@@ -3312,18 +3316,21 @@
 		4B11039808606E2600253E87 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					depends/CocoaGlk/build/Deployment,
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					APPLE_IS_ARBITRARY,
 					"XMLCALL=",
@@ -3346,18 +3353,21 @@
 		4B11039908606E2600253E87 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					depends/CocoaGlk/build,
 					"$(FRAMEWORK_SEARCH_PATHS)",
 				);
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					APPLE_IS_ARBITRARY,
 					"XMLCALL=",
@@ -3504,6 +3514,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = plugin;
@@ -3528,6 +3539,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -3555,6 +3567,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.Glulxe;
 				PRODUCT_NAME = Glulxe;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = plugin;
@@ -3597,6 +3610,7 @@
 					AppKit,
 					"-L/usr/local/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -3642,6 +3656,7 @@
 					AppKit,
 					"-L/usr/local/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -3682,6 +3697,7 @@
 					AppKit,
 					"-L/usr/local/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomMetadataImporter;
 				PRODUCT_NAME = ZoomMetadataImporter;
 				WARNING_CFLAGS = (
 					"-Wmost",
@@ -3710,6 +3726,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.LeopardExtns;
 				PRODUCT_NAME = LeopardExtns;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = bundle;
@@ -3733,6 +3750,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.LeopardExtns;
 				PRODUCT_NAME = LeopardExtns;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = bundle;
@@ -3755,6 +3773,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.LeopardExtns;
 				PRODUCT_NAME = LeopardExtns;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = bundle;
@@ -3779,6 +3798,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
 				PRODUCT_NAME = ZoomSaveQuickLook;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = qlgenerator;
@@ -3800,6 +3820,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
 				PRODUCT_NAME = ZoomSaveQuickLook;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = qlgenerator;
@@ -3820,6 +3841,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom.save.quicklook;
 				PRODUCT_NAME = ZoomSaveQuickLook;
 				SDKROOT_ppc = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 				WRAPPER_EXTENSION = qlgenerator;
@@ -3851,6 +3873,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
 				ZERO_LINK = YES;
@@ -3881,6 +3904,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
@@ -3917,6 +3941,7 @@
 					"-framework",
 					AppKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.ZoomPlugIns;
 				PRODUCT_NAME = ZoomPlugIns;
 				SKIP_INSTALL = YES;
 				ZERO_LINK = YES;
@@ -3932,7 +3957,10 @@
 					build,
 				);
 				PRODUCT_NAME = Builder;
-				WARNING_CFLAGS = "-Wno-unused-function";
+				WARNING_CFLAGS = (
+					"-Wno-unused-function",
+					"-Wno-unreachable-code",
+				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Development;
@@ -3946,7 +3974,10 @@
 					build,
 				);
 				PRODUCT_NAME = Builder;
-				WARNING_CFLAGS = "-Wno-unused-function";
+				WARNING_CFLAGS = (
+					"-Wno-unused-function",
+					"-Wno-unreachable-code",
+				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Deployment;
@@ -3960,7 +3991,10 @@
 					build,
 				);
 				PRODUCT_NAME = Builder;
-				WARNING_CFLAGS = "-Wno-unused-function";
+				WARNING_CFLAGS = (
+					"-Wno-unused-function",
+					"-Wno-unreachable-code",
+				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
 			name = Default;
@@ -3983,6 +4017,9 @@
 					"-Wno-deprecated-declarations",
 					"-Wno-implicit-function-declaration",
 					"-Wno-unused-function",
+					"-Wno-objc-designated-initializers",
+					"-Wno-unreachable-code",
+					"-Wno-pointer-bool-conversion",
 				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
@@ -4008,6 +4045,9 @@
 					"-Wno-deprecated-declarations",
 					"-Wno-implicit-function-declaration",
 					"-Wno-unused-function",
+					"-Wno-objc-designated-initializers",
+					"-Wno-unreachable-code",
+					"-Wno-pointer-bool-conversion",
 				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
@@ -4031,6 +4071,9 @@
 					"-Wno-deprecated-declarations",
 					"-Wno-implicit-function-declaration",
 					"-Wno-unused-function",
+					"-Wno-objc-designated-initializers",
+					"-Wno-unreachable-code",
+					"-Wno-pointer-bool-conversion",
 				);
 				YACC_GENERATED_FILE_STEM = InputFileStem;
 			};
@@ -4056,7 +4099,9 @@
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
+				WARNING_CFLAGS = "-Wno-objc-interface-ivars";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Development;
@@ -4080,9 +4125,11 @@
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
+				WARNING_CFLAGS = "-Wno-objc-interface-ivars";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Deployment;
@@ -4106,7 +4153,9 @@
 				HEADER_SEARCH_PATHS = /usr/local/include;
 				INFOPLIST_FILE = "Info-Zoom__Upgraded_.plist";
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.org.logicalshift.zoom;
 				PRODUCT_NAME = Zoom;
+				WARNING_CFLAGS = "-Wno-objc-interface-ivars";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Default;
@@ -4129,22 +4178,19 @@
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_CFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-I/usr/local/include",
-				);
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-L/usr/local/lib",
-				);
+				OTHER_CFLAGS = "-I/usr/local/include";
+				OTHER_LDFLAGS = "-L/usr/local/lib";
 				OTHER_LIBTOOL_FLAGS = "";
 				OTHER_REZFLAGS = "";
 				PRINCIPAL_CLASS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inform7.inform-compiler";
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = "-Wno-deprecated-declarations";
+				WARNING_CFLAGS = (
+					"-Wno-deprecated-declarations",
+					"-Wno-objc-designated-initializers",
+					"-Wno-objc-interface-ivars",
+				);
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = NO;
 			};
@@ -4166,24 +4212,21 @@
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_CFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-I/usr/local/include",
-				);
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-L/usr/local/lib",
-				);
+				OTHER_CFLAGS = "-I/usr/local/include";
+				OTHER_LDFLAGS = "-L/usr/local/lib";
 				OTHER_LIBTOOL_FLAGS = "";
 				OTHER_REZFLAGS = "";
 				PRINCIPAL_CLASS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inform7.inform-compiler";
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
 				STRIP_INSTALLED_PRODUCT = YES;
 				STRIP_STYLE = "non-global";
-				WARNING_CFLAGS = "-Wno-deprecated-declarations";
+				WARNING_CFLAGS = (
+					"-Wno-deprecated-declarations",
+					"-Wno-objc-designated-initializers",
+					"-Wno-objc-interface-ivars",
+				);
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = NO;
 			};
@@ -4202,22 +4245,19 @@
 				HEADER_SEARCH_PATHS = ProjectBuilder/etc;
 				INFOPLIST_FILE = "Info-ZoomView__Upgraded_.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
-				OTHER_CFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-I/usr/local/include",
-				);
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x2f000000,
-					"-L/usr/local/lib",
-				);
+				OTHER_CFLAGS = "-I/usr/local/include";
+				OTHER_LDFLAGS = "-L/usr/local/lib";
 				OTHER_LIBTOOL_FLAGS = "";
 				OTHER_REZFLAGS = "";
 				PRINCIPAL_CLASS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.inform7.inform-compiler";
 				PRODUCT_NAME = ZoomView;
 				SECTORDER_FLAGS = "";
-				WARNING_CFLAGS = "-Wno-deprecated-declarations";
+				WARNING_CFLAGS = (
+					"-Wno-deprecated-declarations",
+					"-Wno-objc-designated-initializers",
+					"-Wno-objc-interface-ivars",
+				);
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Default;

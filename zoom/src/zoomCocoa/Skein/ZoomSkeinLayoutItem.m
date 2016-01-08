@@ -8,27 +8,31 @@
 
 #import "ZoomSkeinLayoutItem.h"
 
+static const float minItemWidth = 50.0f;
 
 @implementation ZoomSkeinLayoutItem
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithItem: nil
-						width: 0
+                 commandWidth: 0.0f
+              annotationWidth: 0.0f
 					fullWidth: 0
 						level: 0];
 }
 
-- (id) initWithItem: (ZoomSkeinItem*) newItem
-			  width: (float) newWidth
-		  fullWidth: (float) newFullWidth
-			  level: (int) newLevel {
+- (instancetype) initWithItem: (ZoomSkeinItem*) newItem
+                 commandWidth: (float) newCommandWidth
+              annotationWidth: (float) newAnnotationWidth
+                    fullWidth: (float) newFullWidth
+                        level: (int) newLevel {
 	self = [super init];
 	
 	if (self) {
 		item = [newItem retain];
-		width = newWidth;
+        _annotationWidth = newAnnotationWidth;
+        _commandWidth = newCommandWidth;
 		fullWidth = newFullWidth;
 		level = newLevel;
 		depth = 0;
@@ -50,8 +54,8 @@
 	return item;
 }
 
-- (float) width {
-	return width;
+- (float) combinedWidth {
+	return MAX(MAX(minItemWidth, self.commandWidth), self.annotationWidth);
 }
 
 - (float) fullWidth {
@@ -87,10 +91,6 @@
 - (void) setItem: (ZoomSkeinItem*) newItem {
 	if (item) [item release];
 	item = [newItem retain];
-}
-
-- (void) setWidth: (float) newWidth {
-	width = newWidth;
 }
 
 - (void) setFullWidth: (float) newFullWidth {

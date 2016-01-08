@@ -9,60 +9,32 @@
 
 #import "IFPreferences.h"
 
-@interface IFSyntaxHighlightingOption : NSObject {
-@public
-    NSColor*            _colour;
-    IFFontStyle         _fontStyle;
-    bool                _underline;
-    IFRelativeFontSize  _relativeFontSize;
-}
+@interface IFSyntaxHighlightingOption : NSObject
 
-@property (strong) NSColor*   colour;
-@property IFFontStyle         fontStyle;
-@property bool                underline;
-@property IFRelativeFontSize  relativeFontSize;
+@property (atomic, strong) NSColor*     colour;
+@property (atomic) IFFontStyle          fontStyle;
+@property (atomic) bool                 underline;
+@property (atomic) IFRelativeFontSize   relativeFontSize;
 
--(id) init;
+-(instancetype) init NS_DESIGNATED_INITIALIZER;
 
 @end
 
-@interface IFEditingPreferencesSet : NSObject {
-@public
-    // Text section
-    NSString*       _fontFamily;
-    int             _fontSize;
-    NSColor*        _sourcePaperColor;
-    NSColor*        _extensionPaperColor;
+@interface IFEditingPreferencesSet : NSObject
 
-    // Syntax highlighting section
-    bool            _enableSyntaxHighlighting;
-    NSMutableArray* _options;            // Array of IFSyntaxHighlightingOptions
-    
-    // Tab width section
-    float           _tabWidth;
+@property (atomic, strong) NSString*    fontFamily;
+@property (atomic) int                  fontSize;
+@property (atomic, strong) NSColor*     sourcePaperColor;
+@property (atomic, strong) NSColor*     extensionPaperColor;
+@property (atomic) bool                 enableSyntaxHighlighting;
+@property (atomic, strong) NSMutableArray*      options;            // Array of IFSyntaxHighlightingOptions
+@property (atomic) float                tabWidth;
+@property (atomic) bool                 indentWrappedLines;
+@property (atomic) bool                 autoIndentAfterNewline;
+@property (atomic) bool                 autoSpaceTableColumns;
+@property (atomic) bool                 autoNumberSections;
 
-    // Indenting
-    bool            _indentWrappedLines;
-    bool            _autoIndentAfterNewline;
-    bool            _autoSpaceTableColumns;
-    
-    // Numbering
-    bool            _autoNumberSections;
-}
-
-@property (strong) NSString*        fontFamily;
-@property int                       fontSize;
-@property (strong) NSColor*         sourcePaperColor;
-@property (strong) NSColor*         extensionPaperColor;
-@property bool                      enableSyntaxHighlighting;
-@property (strong) NSMutableArray*  options;            // Array of IFSyntaxHighlightingOptions
-@property float                     tabWidth;
-@property bool                      indentWrappedLines;
-@property bool                      autoIndentAfterNewline;
-@property bool                      autoSpaceTableColumns;
-@property bool                      autoNumberSections;
-
-- (id) init;
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 - (void) updateAppPreferencesFromSet;
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;

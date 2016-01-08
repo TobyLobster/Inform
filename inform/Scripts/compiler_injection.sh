@@ -7,6 +7,7 @@
 
 export INFORMPATH=${TARGET_BUILD_DIR}
 export STAGINGAREA=${SRCROOT}/StagingArea/Contents
+export RESOURCEAREA=${SRCROOT}/Resources
 
 # Create useful shortcut to App. Not used here, but used when running Distribution/build-dist.sh
 # (which creates a DMG file for distribution outside the MAS) to find the Inform App
@@ -18,10 +19,14 @@ ln -sf ${INFORMPATH}/Inform.app ${SRCROOT}/..
 if [ -d "${SRCROOT}/../Inform-Source" ]; then
     echo Copy resources to StagingArea - started
 
+
     cd ${SRCROOT}/../Inform-Source
 
     echo INFORMPATH = $INFORMPATH
     pwd
+
+    # If any following commands returns a non-zero result, exit
+    set -e
 
     # 'make force' is required to make sure all Inform-added resource files are copied correctly
     # When we get a new version of Inform, we clean build.
@@ -30,6 +35,12 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
     echo $TESTFILE
     if [ -f $TESTFILE ];
     then
+        mkdir -p "${STAGINGAREA}/MacOS"
+        mkdir -p "${STAGINGAREA}/Resources"
+        mkdir -p "${STAGINGAREA}/Resources/App/Icons"
+        mkdir -p "${STAGINGAREA}/Resources/English.lproj"
+        mkdir -p "${STAGINGAREA}/Resources/map_icons"
+
         # Incremental build
         echo 'make all'
         make all
@@ -38,6 +49,13 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
         if [ -d "${STAGINGAREA}" ]; then
             find "${STAGINGAREA}" -mindepth 1 -delete
         fi
+
+        mkdir -p "${STAGINGAREA}/MacOS"
+        mkdir -p "${STAGINGAREA}/Resources"
+        mkdir -p "${STAGINGAREA}/Resources/App/Icons"
+        mkdir -p "${STAGINGAREA}/Resources/English.lproj"
+        mkdir -p "${STAGINGAREA}/Resources/map_icons"
+
         echo 'make force'
         make force
     fi
@@ -45,12 +63,7 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
     #
     # Copy further resources from inform-source
     #
-    mkdir -p "${STAGINGAREA}/Resources"
-    mkdir -p "${STAGINGAREA}/Resources/App/Icons"
-    mkdir -p "${STAGINGAREA}/Resources/English.lproj"
-
-    # If any following commands returns a non-zero result, exit
-    set -e
+    set -x
 
     #cp -f "Imagery/app_images/Blob Logo.png"           "${STAGINGAREA}/Resources/Blob-Logo.png"
     #cp -f "Imagery/app_images/Blob Logo@2x.png"        "${STAGINGAREA}/Resources/Blob-Logo@2x.png"
@@ -60,6 +73,8 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
     #cp -f "Imagery/app_images/buttons/replay@2x.png"   "${STAGINGAREA}/Resources/replay@2x.png"
     #cp -f "Imagery/app_images/buttons/run.png"         "${STAGINGAREA}/Resources/run.png"
     #cp -f "Imagery/app_images/buttons/run@2x.png"      "${STAGINGAREA}/Resources/run@2x.png"
+    #cp -f "Imagery/app_images/buttons/install.png"     "${STAGINGAREA}/Resources/install.png"
+    #cp -f "Imagery/app_images/buttons/install@2x.png"  "${STAGINGAREA}/Resources/install@2x.png"
     #cp -f "Imagery/app_images/installer.png"           "${STAGINGAREA}/Distribution/bgimage.png"
 
     cp -f "Imagery/app_images/blurbfile.icns"          "${STAGINGAREA}/Resources/App/Icons/blurbfile.icns"
@@ -80,10 +95,8 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
     cp -f "Changes/Changes to Inform.epub"             "${STAGINGAREA}/Resources/English.lproj/Changes to Inform.epub"
 
     # Convert to hiDPI compliant tiffs
-    tiffutil -cathidpicheck "Imagery/app_images/buttons/run.png"     "Imagery/app_images/buttons/run@2x.png"     -out "${STAGINGAREA}/Resources/run.tiff"
-    tiffutil -cathidpicheck "Imagery/app_images/buttons/replay.png"  "Imagery/app_images/buttons/replay@2x.png"  -out "${STAGINGAREA}/Resources/replay.tiff"
-    tiffutil -cathidpicheck "Imagery/app_images/buttons/release.png" "Imagery/app_images/buttons/release@2x.png" -out "${STAGINGAREA}/Resources/release.tiff"
     tiffutil -cathidpicheck "Imagery/app_images/Blob Logo.png"       "Imagery/app_images/Blob Logo@2x.png"       -out "${STAGINGAREA}/Resources/Blob-Logo.tiff"
+    tiffutil -cathidpicheck "${PROJECT_DIR}/Resources/App/Interpreter/Error.png" "${PROJECT_DIR}/Resources/App/Interpreter/Error@2x.png" -out "${STAGINGAREA}/Resources/Error.tiff"
 
     #########################################################################################
     # HACK: Replace a couple of files (with very slightly changed versions) that otherwise cause the Archive Validation process to crash [Radar 18722024]
@@ -93,6 +106,13 @@ if [ -d "${SRCROOT}/../Inform-Source" ]; then
 
     echo Copy resources to StagingArea - done
 fi
+
+# Convert to hiDPI compliant tiffs
+tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/run.png"     "${RESOURCEAREA}/App/Toolbar/run@2x.png"     -out "${STAGINGAREA}/Resources/run.tiff"
+tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/replay.png"  "${RESOURCEAREA}/App/Toolbar/replay@2x.png"  -out "${STAGINGAREA}/Resources/replay.tiff"
+tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/release.png" "${RESOURCEAREA}/App/Toolbar/release@2x.png" -out "${STAGINGAREA}/Resources/release.tiff"
+tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/test.png"    "${RESOURCEAREA}/App/Toolbar/test@2x.png"    -out "${STAGINGAREA}/Resources/test.tiff"
+tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/install.png" "${RESOURCEAREA}/App/Toolbar/install@2x.png" -out "${STAGINGAREA}/Resources/install.tiff"
 
 #
 # Copy resources from the StagingArea to the target build Inform.app

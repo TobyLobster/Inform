@@ -1,6 +1,6 @@
 //
 //  IFInform7MutableString.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 04/10/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.

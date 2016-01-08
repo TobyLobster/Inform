@@ -1,6 +1,6 @@
 //
 //  IFFindInFilesController.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 05/02/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -16,70 +16,7 @@
 ///
 /// Controller for the find window
 ///
-@interface IFFindInFilesController : NSWindowController {
-	// The components of the find dialog
-	IBOutlet NSComboBox*	findPhrase;									// The phrase to search for
-	IBOutlet NSComboBox*	replacePhrase;								// The phrase to replace it with
-
-	// Ignore case radio button
-	IBOutlet NSButton*		ignoreCase;									// The 'ignore case' checkbox
-
-    // Where to search
-    IBOutlet NSButton*		findInSource;                               // The 'Source' checkbox
-    IBOutlet NSButton*		findInExtensions;                           // The 'Extensions' checkbox
-    IBOutlet NSButton*		findInDocumentationBasic;                   // The 'Documentation Basic' checkbox
-    IBOutlet NSButton*		findInDocumentationSource;                  // The 'Documentation Source' checkbox
-    IBOutlet NSButton*		findInDocumentationDefinitions;             // The 'Documentation Definitions' checkbox
-
-    // Pull down menu of how to search
-	IBOutlet NSPopUpButton* searchType;									// The 'contains/begins with/complete word/regexp' pop-up button
-	IBOutlet NSMenuItem*	containsItem;								// Choices for the type of object to find
-	IBOutlet NSMenuItem*	beginsWithItem;
-	IBOutlet NSMenuItem*	completeWordItem;
-	IBOutlet NSMenuItem*	regexpItem;
-
-    // Buttons
-	IBOutlet NSButton*		findAll;
-	IBOutlet NSButton*		replaceAll;
-
-    // Progress
-	IBOutlet NSProgressIndicator* findProgress;							// The 'searching' progress indicator
-
-    // Parent view to position extra content
-	IBOutlet NSView*		auxViewPanel;								// The auxilary view panel
-    IBOutlet NSWindow*      findInFilesWindow;
-
-	// The regular expression help view
-	IBOutlet NSView*		regexpHelpView;								// The view containing information about regexps
-
-	// The 'find all' views
-	IBOutlet NSView*		foundNothingView;							// The view to show if we don't find any matches
-	IBOutlet NSView*		findAllView;								// The main 'find all' view
-	IBOutlet NSTableView*	findAllTable;								// The 'find all' results table
-    IBOutlet NSTextField*   findCountText;                              // The text count of how many results we have found
-
-	// Things we've searched for
-	NSMutableArray*			replaceHistory;								// The 'replace' history
-	NSMutableArray*			findHistory;								// The 'find' history
-
-	BOOL					searching;									// YES if we're searching for results
-	NSArray*                findAllResults;								// The 'find all' results view
-	int						findAllCount;								// Used to generate the identifier
-	id						findIdentifier;								// The current find all identifier
-    float                   borders;
-
-	// Auxiliary views
-	NSView*                 auxView;									// The auxiliary view that is being displayed
-	NSRect                  winFrame;									// The default window frame
-
-    // Project we are going to search
-    IFProject*                  project;                                // Project to search in
-    IFProjectController*        controller;                             // Project controller to use
-    IFFindInFiles*              findInFiles;                            // Object used to perform searching
-
-	// The delegate
-	id activeDelegate;													// The delegate that we've chosen to work with
-}
+@interface IFFindInFilesController : NSWindowController
 
 // Initialisation
 

@@ -8,12 +8,16 @@
 
 #import "IFOutputSettings.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
 static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
-@implementation IFOutputSettings
+@implementation IFOutputSettings {
+    IBOutlet NSMatrix* zmachineVersion;
+    IBOutlet NSButton* releaseBlorb;
+}
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: @"OutputSettings"];
 }
 
@@ -25,7 +29,7 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
 - (BOOL) createBlorbForRelease {
     IFCompilerSettings* settings = [self compilerSettings];
-	NSNumber* value = [[settings dictionaryForClass: [self class]] objectForKey: IFSettingCreateBlorb];
+	NSNumber* value = [settings dictionaryForClass: [self class]][IFSettingCreateBlorb];
 	
 	if (value)
 		return [value boolValue];
@@ -36,8 +40,7 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 - (void) setCreateBlorbForRelease: (BOOL) setting {
     IFCompilerSettings* settings = [self compilerSettings];
 	
-	[[settings dictionaryForClass: [self class]] setObject: [NSNumber numberWithBool: setting]
-													forKey: IFSettingCreateBlorb];
+	[settings dictionaryForClass: [self class]][IFSettingCreateBlorb] = @(setting);
 	[settings settingsHaveChanged];
 }
 
@@ -51,7 +54,7 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 		if (supportedZMachines == nil) {
 			[cell setEnabled: YES];
 		} else {
-			if ([supportedZMachines containsObject: [NSNumber numberWithInt: [cell tag]]]) {
+			if ([supportedZMachines containsObject: @((int) [cell tag])]) {
 				[cell setEnabled: YES];
 			} else {
 				[cell setEnabled: NO];
@@ -74,7 +77,7 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 	BOOL willCreateBlorb = [releaseBlorb state]==NSOnState;
     IFCompilerSettings* settings = [self compilerSettings];
 
-	[settings setZCodeVersion: [[zmachineVersion selectedCell] tag]];
+	[settings setZCodeVersion: (int) [[zmachineVersion selectedCell] tag]];
 	[self setCreateBlorbForRelease: willCreateBlorb];
 }
 

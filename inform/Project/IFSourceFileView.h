@@ -13,11 +13,7 @@
 // Highlight array contains entries of type NSArray
 //   Each entry contains (line, style) as NSNumbers
 
-@interface IFSourceFileView : NSTextView {
-	BOOL tornAtTop;																// YES if we should draw a 'tear' at the top of the view
-	BOOL tornAtBottom;															// YES if we should draw a 'tear' at the bottom of the view
-	NSRect lastUsedRect;														// The last known 'used' rect (used to determine whether or not to update the bottom tear)
-}
+@interface IFSourceFileView : NSTextView
 
 // Drawing 'tears' at the top and bottom
 

@@ -8,19 +8,23 @@
 
 #import "IFSetting.h"
 #import "NSBundle+IFBundleExtensions.h"
-
+#import "IFCompilerSettings.h"
 
 NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 
-@implementation IFSetting
+@implementation IFSetting {
+    IBOutlet NSView*    settingView;		// The view that can be used to edit the settings
+    IFCompilerSettings* compilerSettings;	// The compiler settings object that this setting should manage
+    BOOL                settingsChanging;   // YES if the settings are in the process of changing
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: nil];
 }
 
-- (id) initWithNibName: (NSString*) nibName {
+- (instancetype) initWithNibName: (NSString*) nibName {
 	self = [super init];
 	
 	if (self) {
@@ -35,10 +39,6 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 	return self;
 }
 
-- (void) dealloc {
-	if (settingView) [settingView release];
-	[super dealloc];
-}
 
 // = Setting up the view =
 
@@ -47,8 +47,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 }
 
 - (void) setSettingView: (NSView*) newSettingView {
-	if (settingView) [settingView release];
-	settingView = [newSettingView retain];
+	settingView = newSettingView;
 }
 
 - (NSString*) title {
@@ -77,14 +76,6 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 
 - (BOOL) enableForCompiler: (NSString*) compiler {
 	return YES;
-}
-
-- (NSArray*) commandLineOptionsForCompiler: (NSString*) compiler {
-	return nil;
-}
-
-- (NSArray*) includePathForCompiler: (NSString*) compiler {
-	return nil;
 }
 
 - (NSMutableDictionary*) dictionary {
@@ -124,8 +115,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 	
 	// Load entries from the list of entries
 	for( NSString* key in entries ) {
-		[dict setObject: [entries objectForKey: key]
-				 forKey: key];
+		dict[key] = entries[key];
 	}
 	
 	// Cause the settings to be updated

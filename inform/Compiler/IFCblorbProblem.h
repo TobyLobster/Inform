@@ -1,6 +1,6 @@
 //
 //  IFCblorbProblem.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 28/01/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -13,10 +13,9 @@
 ///
 /// Class that deals with problems with the cblorb stage.
 ///
-@interface IFCblorbProblem : NSObject<IFCompilerProblemHandler> {
-	NSString* buildDir;									// nil, or the build directory that should be inspected for problem files
-}
+@interface IFCblorbProblem : NSObject<IFCompilerProblemHandler>
 
-- (id) initWithBuildDir: (NSString*) buildDir;
+- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithBuildDir: (NSString*) buildDir NS_DESIGNATED_INITIALIZER;
 
 @end

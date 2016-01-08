@@ -13,7 +13,7 @@
 // A flex source that scans Inform files for errors
 //
 
-typedef enum {
+typedef enum IFLex {
     IFLexBase = 1,
 
     IFLexCompilerVersion,

@@ -7,11 +7,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface IFRecentFileCell : NSTextFieldCell {
-@private
-    NSImage *   image;
-}
+@interface IFRecentFileCell : NSTextFieldCell
 
-@property (readwrite, retain) NSImage * image;
+@property (atomic, readwrite, strong) NSImage * image;
 
 @end

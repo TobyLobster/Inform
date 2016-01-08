@@ -12,7 +12,7 @@
 @implementation ZoomPixmapWindow
 
 // Initialisation
-- (id) initWithZoomView: (ZoomView*) view {
+- (instancetype) initWithZoomView: (ZoomView*) view {
 	self = [super init];
 	
 	if (self) {
@@ -59,7 +59,8 @@
 }
 
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style {
+                  withStyle: (in bycopy ZStyle*) style
+                  isCommand: (in bycopy BOOL) isCommand {
 	[pixmap lockFocus];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
@@ -100,8 +101,8 @@
 	
 	// Draw the background
     NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	float height = [lm defaultLineHeightForFont: [attr objectForKey: NSFontAttributeName]];
-	float descender = [[attr objectForKey: NSFontAttributeName] descender];
+	float height = [lm defaultLineHeightForFont: attr[NSFontAttributeName]];
+	float descender = [attr[NSFontAttributeName] descender];
 	NSSize size = [text sizeWithAttributes: attr];
 	
 	point.y -= ceilf(height)+1.0;
@@ -117,7 +118,7 @@
 	backgroundRect.size.width = ceilf(backgroundRect.size.width);
 	backgroundRect.size.height = ceilf(backgroundRect.size.height) + 1.0;
 	
-	[(NSColor*)[attr objectForKey: NSBackgroundColorAttributeName] set];
+	[(NSColor*)attr[NSBackgroundColorAttributeName] set];
 	NSRectFill(backgroundRect);
 	
 	// Draw the text
@@ -174,8 +175,7 @@
 	NSFont* font = [zView fontWithStyle: fontnum];
 	
     *width = [@"M" sizeWithAttributes:
-                   [NSDictionary dictionaryWithObjectsAndKeys:
-                    font, NSFontAttributeName, nil]].width;
+                   @{NSFontAttributeName: font}].width;
 	*ascent = [font ascender];
 	*descent = [font descender];
     NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
@@ -257,7 +257,7 @@
 	[encoder encodeObject: inputStyle];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
     if (self) {

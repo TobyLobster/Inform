@@ -14,19 +14,18 @@
 extern NSString* ZoomSkeinChangedNotification;
 
 @interface ZoomSkein : NSObject {
-	ZoomSkeinItem* rootItem;
-	
-	NSMutableString* currentOutput;
-	ZoomSkeinItem* activeItem;
-	
-	// Web data
-	NSMutableData* webData;
+    ZoomSkeinItem* rootItem;
+
+    NSMutableString* currentOutput;
+    ZoomSkeinItem* activeItem;
+
+    // Web data
+    NSMutableData* webData;
 }
 
 // Retrieving the root skein item
-- (ZoomSkeinItem*) rootItem;
-- (ZoomSkeinItem*) activeItem;
-- (void) setActiveItem: (ZoomSkeinItem*) active;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomSkeinItem *rootItem;
+@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *activeItem;
 
 // Acting as a Zoom output receiver
 - (void) inputCommand:   (NSString*) command;
@@ -48,7 +47,7 @@ extern NSString* ZoomSkeinChangedNotification;
 						 toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
-- (NSArray*) annotations;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *annotations;
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
@@ -64,7 +63,7 @@ extern NSString* ZoomSkeinChangedNotification;
 
 @interface ZoomSkein(ZoomSkeinXML)
 
-- (NSString*) xmlData;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *xmlData;
 - (BOOL)      parseXmlData: (NSData*) data;
 
 @end

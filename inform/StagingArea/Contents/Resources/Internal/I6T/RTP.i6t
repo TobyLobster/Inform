@@ -195,6 +195,9 @@ Array RTP_Buffer --> 7;
 			print "Memory allocation proved impossible.^";
 		RTP_LISTRANGEERROR:
 			print "Attempt to use list item which does not exist.^";
+		RTP_LISTSIZENEGATIVE:
+			print "Attempt to resize list to ", par1, " entries - there must ",
+			"always be 0 or more.^";	
 		RTP_REGEXPSYNTAXERROR:
 			print "Syntax error in regular expression.^";
 		RTP_NOGLULXUNICODE:
@@ -229,6 +232,14 @@ Array RTP_Buffer --> 7;
 				(the) par1, ".^";
 		RTP_TEXTTOKENTOOHARD:
 			print "This use of '[text]' is too complicated.^";
+		RTP_RELATIONCHANGEIMPOSSIBLE:
+			print "This change of the relation's nature is impossible in play.^";
+		RTP_RELMINIMAL:
+			print "This operation can't be done with the relation '",
+				(string) RlnGetF(par3, RR_DESCRIPTION), "'.^";
+		RTP_REGIONSNOTADJACENT:
+			print "You can't test whether something is adjacent to a region: ",
+				"such as, in this case, ", (the) par1, ".^";
 		}
 	print "^";
 ];

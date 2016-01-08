@@ -1,6 +1,6 @@
 //
 //  IFNotifyingWindow.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 06/01/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.

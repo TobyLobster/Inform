@@ -38,25 +38,18 @@
 }
 
 // Setting the windows that make up this pair
-- (void) setKeyWindow: (GlkWindow*) newKey;
-- (void) setLeftWindow: (GlkWindow*) newLeft;
-- (void) setRightWindow: (GlkWindow*) newRight;
 
-- (GlkWindow*) keyWindow;
-- (GlkWindow*) nonKeyWindow;
-- (GlkWindow*) leftWindow;
-- (GlkWindow*) rightWindow;
+@property (NS_NONATOMIC_IOSONLY, strong) GlkWindow *keyWindow;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow *nonKeyWindow;
+@property (NS_NONATOMIC_IOSONLY, strong) GlkWindow *leftWindow;
+@property (NS_NONATOMIC_IOSONLY, strong) GlkWindow *rightWindow;
 
-// Size and arrangement
-- (void) setSize: (unsigned) newSize;
-- (void) setFixed: (BOOL) newFixed;								// Proportional arrangement if NO
-- (void) setHorizontal: (BOOL) newHorizontal;					// Vertical arrangement if NO
-- (void) setAbove: (BOOL) newAbove;								// NO if left is above/left of right, YES otherwise
+// Size and arrangement								// Proportional arrangement if NO					// Vertical arrangement if NO								// NO if left is above/left of right, YES otherwise
 
-- (unsigned) size;
-- (BOOL) fixed;
-- (BOOL) horizontal;
-- (BOOL) above;
+@property (NS_NONATOMIC_IOSONLY) unsigned int size;
+@property (NS_NONATOMIC_IOSONLY) BOOL fixed;
+@property (NS_NONATOMIC_IOSONLY) BOOL horizontal;
+@property (NS_NONATOMIC_IOSONLY) BOOL above;
 
 // Custom settings
 - (void) setBorderWidth: (float) borderWidth;					// Width of the divider between windows (not drawn if < 2)

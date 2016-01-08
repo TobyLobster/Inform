@@ -13,7 +13,13 @@
 #import "objc/objc-runtime.h"
 
 
-@implementation IFIsTitleView
+@implementation IFIsTitleView {
+    NSAttributedString* title;						// The title to display
+
+    // Key display
+    NSString* keyEquiv;								// (UNUSED) key to open this inspector
+    NSString* modifiers;							// (UNUSED) modifiers that apply to the key
+}
 
 static NSImage* bgImage = nil;
 static NSFont* titleFont = nil;
@@ -22,22 +28,21 @@ static float titleHeight = 0;
 static NSDictionary* fontAttributes;
 
 // Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-static NSString* IFNSShadowAttributeName = @"NSShadow";
+//static NSString* IFNSShadowAttributeName = @"NSShadow";
 
 + (void) initialize {
 	// Background image
-	bgImage = [[IFImageCache loadResourceImage: @"App/Inspector/Inspector-TitleBar.png"] retain];
-	[bgImage setFlipped: YES];
+	bgImage = [IFImageCache loadResourceImage: @"App/Inspector/Inspector-TitleBar.png"];
 	
 	// Font to use for titles, etc
-	titleFont = [[NSFont systemFontOfSize: 11] retain];
+	titleFont = [NSFont systemFontOfSize: 11];
 	titleHeight = [titleFont ascender] + [titleFont descender];
 	titleHeight /= 2;
 	titleHeight = ceilf(titleHeight);
 	
 	// Font attributes
-	NSShadow* shadow = nil;
     /*
+	NSShadow* shadow = nil;
 	if (objc_lookUpClass("NSShadow") != nil && 0) {
 		shadow = [[NSShadow alloc] init];
 		
@@ -48,11 +53,9 @@ static NSString* IFNSShadowAttributeName = @"NSShadow";
 	}
     */
 
-	fontAttributes = [[NSDictionary dictionaryWithObjectsAndKeys: 
-		titleFont, NSFontAttributeName,
-		[NSColor colorWithDeviceWhite: 0.0 alpha: 0.6], NSForegroundColorAttributeName,
-		shadow, IFNSShadowAttributeName,
-		nil] retain];
+	fontAttributes = @{NSFontAttributeName: titleFont,
+		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6]/*,
+		IFNSShadowAttributeName: shadow*/};
 
 }
 
@@ -60,7 +63,7 @@ static NSString* IFNSShadowAttributeName = @"NSShadow";
 	return ceilf([titleFont ascender] + [titleFont descender]) + 8;
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		title = nil;
@@ -68,26 +71,18 @@ static NSString* IFNSShadowAttributeName = @"NSShadow";
     return self;
 }
 
-- (void) dealloc {
-	[title release];
-	
-	if (keyEquiv) [keyEquiv release];
-	[super dealloc];
-}
 
 // = What to display =
 
 - (void) setTitle: (NSString*) newTitle {
-	if (title) [title release];
 	
-	title = [[NSAttributedString alloc] initWithString: [[newTitle copy] autorelease]
+	title = [[NSAttributedString alloc] initWithString: [newTitle copy]
 											attributes: fontAttributes];
 	
 	[self setNeedsDisplay: YES];
 }
 
 - (void) setKeyEquivalent: (NSString*) equiv {
-	if (keyEquiv) [keyEquiv release];
 	keyEquiv = nil;
 	if (equiv == nil || [equiv length] <= 0) return;
 	
@@ -99,24 +94,24 @@ static NSString* IFNSShadowAttributeName = @"NSShadow";
 	switch ([keyEquiv characterAtIndex: 0]) {
 		case '\r':
 		case '\n':
-			keyEquiv = [[NSString stringWithCharacters: returnChars
-												length: 1] retain];
+			keyEquiv = [NSString stringWithCharacters: returnChars
+												length: 1];
 			break;
 			
 		case '\b':
 		case 127:
-			keyEquiv = [[NSString stringWithCharacters: backspaceChars
-												length: 1] retain];
+			keyEquiv = [NSString stringWithCharacters: backspaceChars
+												length: 1];
 			break;
 			
 		case 9:
-			keyEquiv = [[NSString stringWithCharacters: tabChars
-												length: 1] retain];
+			keyEquiv = [NSString stringWithCharacters: tabChars
+												length: 1];
 			break;
 		
 		case '\e':
-			keyEquiv = [[NSString stringWithCharacters: escapeChars
-												length: 1] retain];
+			keyEquiv = [NSString stringWithCharacters: escapeChars
+												length: 1];
 			break;
 			
 		default:

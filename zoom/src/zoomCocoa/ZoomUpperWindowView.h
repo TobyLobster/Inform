@@ -20,10 +20,10 @@
 	NSPoint inputLinePos;
 }
 
-- (id)initWithFrame:(NSRect)frame
-           zoomView:(ZoomView*) view;
+- (instancetype)initWithFrame:(NSRect)frame
+                     zoomView:(ZoomView*) view;
 
-- (NSPoint) cursorPos;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSPoint cursorPos;
 - (void) updateCursor;
 - (void) setFlashCursor: (BOOL) flash;
 

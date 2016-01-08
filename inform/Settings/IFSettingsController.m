@@ -7,9 +7,19 @@
 //
 
 #import "IFSettingsController.h"
+#import "IFCompilerSettings.h"
+#import "IFSettingsView.h"
 
+@implementation IFSettingsController {
+    // UI + model
+    IBOutlet IFSettingsView* settingsView;					// (V) The view that will contain the settings (IFSettingsView is derived from IFCollapsableView)
+    IBOutlet IFCompilerSettings* compilerSettings;			// (M) The compiler settings object that contains the settings data
 
-@implementation IFSettingsController
+    // Settings to display
+    NSMutableArray* settings;								// Array of IFSetting.
+
+    BOOL settingsChanging;									// YES if we're dealing with a change of settings (stops settings from updating at the wrong time)
+}
 
 // = Settings methods =
 
@@ -38,19 +48,19 @@ static NSMutableArray* standardSettingsClasses = nil;
 	// Create all the 'standard' classes
 	// These must know how to initialise themselves with just an init call
 	for( Class settingClass in standardSettingsClasses ) {
-		[res addObject: [[[settingClass alloc] init] autorelease]];
+		[res addObject: [[settingClass alloc] init]];
 	}
 	
-	return [res autorelease];
+	return res;
 }
 
 // = Initialisation, etc =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
-		settings = [[[self class] makeStandardSettings] retain];
+		settings = [[self class] makeStandardSettings];
 		
 		settingsChanging = NO;
 	}
@@ -59,13 +69,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 }
 
 - (void) dealloc {
-	[settingsView release];
-	[compilerSettings release];
-	[settings release];
-
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[super dealloc];
 }
 
 // = User interface =
@@ -117,8 +121,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 }
 
 - (void) setSettingsView: (IFSettingsView*) view {
-	if (settingsView) [settingsView release];
-	settingsView = [view retain];
+	settingsView = view;
 	
 	[self repopulateSettings];
 }
@@ -169,11 +172,10 @@ static NSMutableArray* standardSettingsClasses = nil;
 		[[NSNotificationCenter defaultCenter] removeObserver: self
 														name: IFSettingNotification
 													  object: [self compilerSettings]];
-		[compilerSettings release];
 	}
 	
 	// Store the new compiler settings object
-	compilerSettings = [cSettings retain];
+	compilerSettings = cSettings;
 	[compilerSettings setGenericSettings: settings];
 	
 	[settings makeObjectsPerformSelector: @selector(setCompilerSettings:)

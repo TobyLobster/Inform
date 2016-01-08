@@ -54,11 +54,11 @@ enum {
     IFSyntaxDebugHighlight = 0xa0
 };
 
-typedef enum {
+typedef NS_ENUM(unsigned int, IFHighlightType) {
     IFHighlightTypeNone,
     IFHighlightTypeInform6,
     IFHighlightTypeInform7,
-} IFHighlightType;
+};
 
 typedef unsigned int  IFHighlighterMode;
 typedef unsigned int  IFSyntaxState;

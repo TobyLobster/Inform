@@ -617,6 +617,134 @@ form of the same code in which left and right are exchanged: this is it.
 	}
 ];
 
+@p Relation Emptying.
+These routines, mercifully a little simpler, define the adjective "empty" as
+it applied to relations. Each routine has to forcibly empty the relation if
+the clear flag is set, and in any case return either true or false to say
+whether the relation is empty at the end of the call. For relations in groups,
+"empty" is understood to mean that each object relates only to itself.
+
+@c
+[ Relation_EmptyOtoO relation sym clear relation_property obj1 obj2 t1 t2 N1 N2;
+	relation_property = RlnGetF(relation, RR_STORAGE);
+	t1 = KindBaseTerm(RlnGetF(relation, RR_KIND), 0); ! Kind of left term
+	t2 = KindBaseTerm(RlnGetF(relation, RR_KIND), 1); ! Kind of right term
+	if (t2 == OBJECT_TY) {
+		objectloop (obj2 provides relation_property) {
+			obj1 = obj2.relation_property;
+			if (obj1) {
+				if (clear) obj2.relation_property = nothing;
+				else rfalse;
+			}
+		}
+	} else {
+		for (obj2=1: obj2<=N2: obj2++) {
+			obj1 = GProperty(t2, obj2, relation_property);
+			if (obj1) {
+				if (clear) WriteGProperty(t2, obj2, relation_property, 0);
+				else rfalse;
+			}
+		}
+	}
+	if (t1 ~= t2) {
+		if (t1 == OBJECT_TY) {
+			objectloop (obj1 provides relation_property) {
+				obj2 = obj1.relation_property;
+				if (obj2) {
+					if (clear) obj1.relation_property = nothing;
+					else rfalse;
+				}
+			}
+		} else {
+			for (obj1=1: obj1<=N2: obj1++) {
+				obj2 = GProperty(t1, obj1, relation_property);
+				if (obj2) {
+					if (clear) WriteGProperty(t1, obj1, relation_property, 0);
+					else rfalse;
+				}
+			}
+		}
+	}
+	rtrue;
+];
+[ Relation_EmptyEquiv relation sym clear
+	relation_property obj1 obj2 t N v;
+	relation_property = RlnGetF(relation, RR_STORAGE);
+	t = KindBaseTerm(RlnGetF(relation, RR_KIND), 0); ! Kind of left term
+	N = KOVDomainSize(t);
+	if (clear) {
+		v = 1;
+		if (t == OBJECT_TY) {
+			objectloop (obj1 provides relation_property)
+				obj1.relation_property = v++;
+		} else {
+			for (obj1=1: obj1<=N: obj1++)
+				WriteGProperty(t, obj1, relation_property, v++);
+		}
+		rtrue;
+	}	
+	if (t == OBJECT_TY) {
+		objectloop (obj1 provides relation_property)
+			objectloop (obj2 provides relation_property)
+				if ((obj1 < obj2) && (obj1.relation_property == obj2.relation_property))
+					rfalse;
+	} else {
+		for (obj1=1: obj1<=N: obj1++)
+			for (obj2=obj1+1: obj1<=N: obj1++)
+				if (GProperty(t, obj1, relation_property) == GProperty(t, obj2, relation_property))
+					rfalse;
+	}
+	rtrue;
+];
+[ Relation_EmptyVtoV relation sym clear vtov_structure obj1 obj2 pr pr2 proutine1 proutine2;
+	vtov_structure = RlnGetF(relation, RR_STORAGE);
+	pr = vtov_structure-->VTOVS_LEFT_INDEX_PROP;
+	pr2 = vtov_structure-->VTOVS_RIGHT_INDEX_PROP;
+	proutine1 = vtov_structure-->VTOVS_LEFT_PRINTING_ROUTINE;
+	proutine2 = vtov_structure-->VTOVS_RIGHT_PRINTING_ROUTINE;
+ 
+	if (pr && pr2) {
+		objectloop (obj1 provides pr)
+			objectloop (obj2 provides pr2) {
+				if (sym && obj2 > obj1) continue;
+				if (Relation_TestVtoV(obj1, relation, obj2)) {
+					if (clear) Relation_NowNVtoV(obj1, relation, obj2, sym);
+					else rfalse;
+				}
+			}
+		return;
+	}
+	if (pr && (pr2==0)) {
+		objectloop (obj1 provides pr)
+			for (obj2=1:obj2<=vtov_structure-->VTOVS_RIGHT_DOMAIN_SIZE:obj2++) {
+				if (Relation_TestVtoV(obj1, relation, obj2)) {
+					if (clear) Relation_NowNVtoV(obj1, relation, obj2, sym);
+					else rfalse;
+				}
+			}
+		return;
+	}
+	if ((pr==0) && (pr2)) {
+		for (obj1=1:obj1<=vtov_structure-->2:obj1++)
+			objectloop (obj2 provides pr2) {
+				if (Relation_TestVtoV(obj1, relation, obj2)) {
+					if (clear) Relation_NowNVtoV(obj1, relation, obj2, sym);
+					else rfalse;
+				}
+			}
+		return;
+	}
+	for (obj1=1:obj1<=vtov_structure-->2:obj1++)
+		for (obj2=1:obj2<=vtov_structure-->VTOVS_RIGHT_DOMAIN_SIZE:obj2++)
+			if (Relation_TestVtoV(obj1, relation, obj2)) {
+				if (Relation_TestVtoV(obj1, relation, obj2)) {
+					if (clear) Relation_NowNVtoV(obj1, relation, obj2, sym);
+					else rfalse;
+				}
+		}
+	rtrue;
+];
+
 @p Map Route-Finding.
 The general problem we have to solve here is: given $x, y\in R$, where $R$
 is the set of rooms and we write $x\sim y$ if there is a map connection from

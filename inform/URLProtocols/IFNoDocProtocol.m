@@ -18,12 +18,12 @@
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-	return [[[NSURLRequest alloc] initWithURL: [[[NSURL alloc] initWithString: @"nodoc:"] autorelease]] autorelease];
+	return [[NSURLRequest alloc] initWithURL: [[NSURL alloc] initWithString: @"nodoc:"]];
 }
 
 -(NSCachedURLResponse *)cachedResponse {
-	return [[[NSCachedURLResponse alloc] initWithResponse: [[[NSURLResponse alloc] init] autorelease]
-													 data: [@"<html><body>No data</body></html>" dataUsingEncoding: NSUTF8StringEncoding]] autorelease];
+	return [[NSCachedURLResponse alloc] initWithResponse: [[NSURLResponse alloc] init]
+													 data: [@"<html><body>No data</body></html>" dataUsingEncoding: NSUTF8StringEncoding]];
 }
 
 -(id <NSURLProtocolClient>)client {

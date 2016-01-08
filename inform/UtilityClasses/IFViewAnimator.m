@@ -1,6 +1,6 @@
 //
 //  IFViewAnimator.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 01/09/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -9,11 +9,30 @@
 #import "IFViewAnimator.h"
 
 
-@implementation IFViewAnimator
+@implementation IFViewAnimator {
+    // The start and the end of the animation
+    NSImage* startImage;
+    NSImage* endImage;
+
+    // Animation settings
+    NSTimeInterval animationTime;
+    IFViewAnimationStyle animationStyle;
+
+    // Information used while animating
+    NSTimer* animationTimer;
+    NSRect originalFrame;
+    NSView* originalView;
+    NSView* originalSuperview;
+    NSView* originalFocusView;
+    NSDate* whenStarted;
+
+    id finishedObject;
+    SEL finishedMessage;
+}
 
 // = Initialisation =
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
@@ -24,13 +43,6 @@
 
 - (void) dealloc {
 	[self finishAnimation];
-	
-	[startImage release];
-	[endImage release];
-	[whenStarted release];
-	[finishedObject autorelease];
-	
-	[super dealloc];
 }
 
 // = Caching views =
@@ -55,14 +67,13 @@
     [bir setSize:imgSize];
     [view cacheDisplayInRect:[view bounds] toBitmapImageRep:bir];
     
-    NSImage* image = [[[NSImage alloc]initWithSize:imgSize] autorelease];
+    NSImage* image = [[NSImage alloc]initWithSize:imgSize];
     [image addRepresentation:bir];
     return image;
 }
 
 - (void) cacheStartView: (NSView*) view {
-	[startImage release];
-	startImage = [[[self class] cacheView: view] retain];
+	startImage = [[self class] cacheView: view];
 }
 
 // = Animating =
@@ -73,9 +84,6 @@
 
 - (void) finishAnimation {
 	if (originalView != nil) {
-		// Ensure we don't self-destruct
-		[[self retain] autorelease];
-		
 		// Restore the original view
 		[self removeFromSuperview];
 		
@@ -88,26 +96,22 @@
         [[originalView window] makeFirstResponder:originalFocusView];
 		[IFViewAnimator trackView: originalView];
 				
-		[originalView release]; originalView = nil;
-        [originalFocusView release]; originalFocusView = nil;
-		[originalSuperview release]; originalSuperview = nil;
+		 originalView = nil;
+         originalFocusView = nil;
+		 originalSuperview = nil;
 		
 		// Finish up the timer
 		if (animationTimer) {
-			[animationTimer invalidate]; [animationTimer release]; animationTimer = nil;
-
-			// Need to kill ourselves later (there might be a queued timer event, which can cause a crash)
-			[[NSRunLoop currentRunLoop] performSelector: @selector(autorelease)
-												 target: self
-											   argument: nil
-												  order: 64
-												  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+			[animationTimer invalidate];
+            animationTimer = nil;
 		}
 		
 		// Perform whichever action was requested at the end of the animation
 		if (finishedObject) {
-			[finishedObject performSelector: finishedMessage];
-			[finishedObject autorelease];
+            // Send finished message
+            [finishedObject performSelector: finishedMessage
+                                 withObject: self
+                                 afterDelay: 0.0f];
 			finishedObject = nil;
 		}
 	}
@@ -121,12 +125,10 @@
 	[self cacheStartView: view];
 
 	// Replace the specified view with the animating view (ie, this view)
-	[originalView autorelease];
-	[originalSuperview release];
-	originalView = [view retain];
-	originalSuperview = [[view superview] retain];
+	originalView = view;
+	originalSuperview = [view superview];
 	originalFrame = [view frame];
-    originalFocusView = [focusView retain];
+    originalFocusView = focusView;
 		
 	[IFViewAnimator detrackView: originalView];
 	[originalView removeFromSuperviewWithoutNeedingDisplay];
@@ -137,16 +139,6 @@
 	[self setAutoresizingMask: [originalView autoresizingMask]];
 }
 
-- (void) animateTo: (NSView*) view
-			 style: (IFViewAnimationStyle) style
-         focusView: (NSView*) focusView {
-	[self animateTo: view
-          focusView: focusView
-			  style: style
-		sendMessage: nil
-		   toObject: nil];
-}
-
 // Begins animating the specified view so that transitions from the state set in
 // prepareToAnimateView to the new state, sending the specified message to the specified
 // object when it finishes
@@ -155,24 +147,19 @@
 			 style: (IFViewAnimationStyle) style
 	   sendMessage: (SEL) finMessage
 		  toObject: (id) whenFinished {
-	[whenStarted release];
-	whenStarted = [[NSDate date] retain];
+	whenStarted = [NSDate date];
 	
 	// Remember the object to send the 'animation finished' message to
-	[finishedObject autorelease];
-	finishedObject = [whenFinished retain];
+	finishedObject = whenFinished;
 	finishedMessage	= finMessage;
 	
 	// Create the final image
-	[endImage release];
-	endImage = [[[self class] cacheView: view] retain];
+	endImage = [[self class] cacheView: view];
 	
 	// Replace the specified view with the animating view (ie, this view)
-	[originalView autorelease];
-	originalView = [view retain];
+	originalView = view;
 	originalFrame = [view frame];
-    [originalFocusView autorelease];
-    originalFocusView = [focusView retain];
+    originalFocusView = focusView;
 	
 	[IFViewAnimator detrackView: originalView];
 	[self setFrame: originalFrame];
@@ -181,12 +168,11 @@
 	
 	// Start running the animation
 	animationStyle = style;
-	[self retain];
-	animationTimer = [[NSTimer timerWithTimeInterval: 0.01
+	animationTimer = [NSTimer timerWithTimeInterval: 0.01
 											  target: self
 											selector: @selector(animationTick)
 											userInfo: nil
-											 repeats: YES] retain];
+											 repeats: YES];
 	
 	[[NSRunLoop currentRunLoop] addTimer: animationTimer
 								 forMode: NSDefaultRunLoopMode];
@@ -234,8 +220,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 - (void)drawRect:(NSRect)rect {
 	// Recache the view if it wants to be redrawn
 	if (ViewNeedsDisplay(originalView) && [self percentDone] < 0.25) {
-		[endImage release];
-		endImage = [[[self class] cacheView: originalView] retain];
+		endImage = [[self class] cacheView: originalView];
 	}
 	
 	// Draw the appropriate animation frame

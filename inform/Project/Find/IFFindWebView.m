@@ -1,6 +1,6 @@
 //
 //  IFFindWebView.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 23/02/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.

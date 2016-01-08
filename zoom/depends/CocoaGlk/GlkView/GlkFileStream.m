@@ -15,7 +15,7 @@
 
 // = Initialisation =
 
-- (id) initForReadWriteWithFilename: (NSString*) filename {
+- (instancetype) initForReadWriteWithFilename: (NSString*) filename {
 	self = [super init];
 	
 	if (self) {
@@ -41,7 +41,7 @@
 	return self;
 }
 
-- (id) initForWritingWithFilename: (NSString*) filename {
+- (instancetype) initForWritingWithFilename: (NSString*) filename {
 	self = [super init];
 	
 	if (self) {
@@ -65,7 +65,7 @@
 	return self;
 }
 
-- (id) initForReadingWithFilename: (NSString*) filename {
+- (instancetype) initForReadingWithFilename: (NSString*) filename {
 	self = [super init];
 	
 	if (self) {
@@ -134,7 +134,7 @@
 }
 
 - (void) putString: (in bycopy NSString*) string {
-	int len = [string length];
+	int len = (int) [string length];
 	char* latin1 = malloc(sizeof(char)*[string length]);
 	
 	int x;

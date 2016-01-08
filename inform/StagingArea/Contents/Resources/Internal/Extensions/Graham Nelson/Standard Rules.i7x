@@ -11,7 +11,6 @@ Document rules_after at doc102 "7.5" "7.5. After rules".
 Document PM_APWithDisjunction PM_APWithImmiscible at doc105 "7.8" "7.8. Rules applying to more than one action".
 Document var_noun at doc107 "7.10" "7.10. The noun and the second noun".
 Document PM_APWithBadWhen PM_NonActionInPresenceOf at doc109 "7.12" "7.12. In the presence of, and when".
-Document ph_say at doc11 "2.2" "2.2. Making rules".
 Document PM_GoingWithoutObject PM_GoingWrongKind at doc111 "7.14" "7.14. Going by, going through, going with".
 Document KACTIONS PM_NamedAPWithActor at doc112 "7.15" "7.15. Kinds of action".
 Document var_prompt at doc117 "8.2" "8.2. Changing the command prompt".
@@ -39,7 +38,7 @@ Document ph_shiftafter ph_shiftbefore ph_timeafter ph_timebefore at doc143 "9.9"
 Document ph_hourspart ph_minspart at doc144 "9.10" "9.10. Calculating times".
 Document PM_AtWithoutTime PM_UnusedTimedEvent TIMEDEVENTS ph_attime ph_timefromnow ph_turnsfromnow at doc145 "9.11" "9.11. Future events".
 Document PM_PTAPTooComplex at doc146 "9.12" "9.12. Actions as conditions".
-Document PM_DescSubordinatePast PM_NonPresentTense PM_PTAPMakesCallings PM_PastActionCalled PM_PastCallings PM_PastSubordinate PM_PastTableEntries PM_PastTableLookup at doc147 "9.13" "9.13. The past and perfect tenses".
+Document PM_NonPresentTense PM_PTAPMakesCallings PM_PastActionCalled PM_PastCallings PM_PastSubordinate PM_PastTableEntries PM_PastTableLookup at doc147 "9.13" "9.13. The past and perfect tenses".
 Document SCENESINTRO kind_scene at doc150 "10.1" "10.1. Introduction to scenes".
 Document PM_ScenesBadCondition PM_ScenesDisallowCalled PM_ScenesNotPlay PM_ScenesOnly PM_ScenesOversetEnd PM_ScenesUnknownEnd at doc151 "10.2" "10.2. Creating a scene".
 Document ph_scenetimesincebegan ph_scenetimesinceended ph_scenetimewhenbegan ph_scenetimewhenended at doc152 "10.3" "10.3. Using the Scene index".
@@ -50,9 +49,9 @@ Document PM_BareTo at doc160 "11.2" "11.2. The phrasebook".
 Document PM_AdjacentTokens PM_BadTypeIndication PM_PhraseTooLong PM_SaySlashed PM_TokenMisunderstood PM_TokenWithEmptyBrackets PM_TokenWithNestedBrackets PM_TokenWithoutCloseBracket PM_TokenWithoutOpenBracket at doc161 "11.3" "11.3. Pattern matching".
 Document ph_showme at doc162 "11.4" "11.4. The showme phrase".
 Document PM_TruthStateToDecide kind_truthstate ph_consents ph_indarkness ph_whether at doc163 "11.5" "11.5. Conditions and questions".
-Document PM_IfOutsidePhrase PM_WrongThen ph_if ph_unless at doc164 "11.6" "11.6. If".
-Document PM_BeginWithoutEnd PM_BlockNestingTooDeep PM_BothBlockSyntaxes PM_CantUseOutsideStructure PM_EmptyIndentedBlock PM_EndWithoutBegin PM_MisalignedIndentation PM_NotInOldSyntax PM_PossibleUnterminatedIf PM_PossibleUnterminatedUnless PM_RunOnsInTabbedRoutine PM_WrongEnd at doc165 "11.7" "11.7. Begin and end".
-Document PM_BlockWithinNonblock PM_CaseValueMismatch PM_CaseValueNonConstant PM_DoubleOtherwise PM_MisalignedCase PM_MisalignedOtherwise PM_MisarrangedOtherwise PM_NonCaseInIf PM_OtherwiseIfAfterOtherwise PM_OtherwiseInNonIf PM_OtherwiseWithoutIf PM_WrongOtherwise PM_WrongOtherwise2 PM_WrongOtherwise3 ph_otherwise ph_switch at doc166 "11.8" "11.8. Otherwise".
+Document PM_IfOutsidePhrase ph_if ph_unless at doc164 "11.6" "11.6. If".
+Document PM_BeginWithoutEnd PM_BlockNestingTooDeep PM_BothBlockSyntaxes PM_CantUseOutsideStructure PM_EmptyIndentedBlock PM_EndWithoutBegin PM_MisalignedIndentation PM_NotInOldSyntax PM_RunOnsInTabbedRoutine PM_WrongEnd at doc165 "11.7" "11.7. Begin and end".
+Document PM_CaseValueMismatch PM_CaseValueNonConstant PM_DoubleOtherwise PM_MisalignedCase PM_MisalignedOtherwise PM_MisarrangedOtherwise PM_NonCaseInIf PM_OtherwiseIfAfterOtherwise PM_OtherwiseInNonIf PM_OtherwiseWithoutIf ph_otherwise ph_switch at doc166 "11.8" "11.8. Otherwise".
 Document ph_while at doc167 "11.9" "11.9. While".
 Document PM_CalledInRepeat ph_repeat at doc168 "11.10" "11.10. Repeat".
 Document PM_BadRepeatDomain ph_runthrough at doc169 "11.11" "11.11. Repeat running through".
@@ -76,7 +75,7 @@ Document OUTOFWORLD at doc191 "12.15" "12.15. Out of world actions".
 Document rules_ri at doc192 "12.16" "12.16. Reaching inside and reaching outside rules".
 Document var_person_reaching at doc194 "12.18" "12.18. Changing reachability".
 Document visibility at doc195 "12.19" "12.19. Changing visibility".
-Document PM_SetStoredAction kind_storedaction ph_actionof ph_actionpart ph_actorpart ph_currentaction ph_involves ph_nounpart ph_secondpart ph_trystored ph_trystoredsilently at doc196 "12.20" "12.20. Stored actions".
+Document kind_storedaction ph_actionof ph_actionpart ph_actorpart ph_currentaction ph_involves ph_nounpart ph_secondpart at doc196 "12.20" "12.20. Stored actions".
 Document PM_BadRelation PM_EveryWrongSide PM_KindRelatedToValue PM_PropForBadKOV PM_RelationWithBadProperty PM_RelationWithEitherOrProperty VERBS at doc198 "13.1" "13.1. Sentence verbs".
 Document PM_ExtInadequateVM PM_ExtMalformedVM PM_ExtMisidentified PM_ExtMisidentifiedEnds PM_ExtMiswordedBeginsHere PM_ExtVersionMalformed PM_IncludeExtQuoted at doc20 "2.11" "2.11. Including extensions".
 Document RELATIONS at doc200 "13.3" "13.3. What are relations?".
@@ -120,7 +119,7 @@ Document kind_tablename at doc260 "16.15" "16.15. Varying which table to look at
 Document PM_TableDefiningNothing PM_TableDefiningTheImpossible at doc261 "16.16" "16.16. Defining things with tables".
 Document PM_TableNotContinuation at doc263 "16.18" "16.18. Table continuations".
 Document PM_TableAmendmentMisfit PM_TableAmendmentMismatch at doc264 "16.19" "16.19. Table amendments".
-Document PM_BizarreToken PM_ComplexUnderstand PM_LiteralPunctuation PM_NontextualUnderstand PM_NotNewCommand PM_NotOldCommand PM_ObsoleteHeldTokens PM_OldVerbUsage PM_OverComplexToken PM_TextTokenRestricted PM_TextlessMistake PM_UnderstandAsActivity PM_UnderstandAsBadValue PM_UnderstandAsCompoundText PM_UnderstandCommaCommand PM_UnderstandCommandWhen PM_UnderstandEmptyText PM_UnderstandMismatch PM_UnderstandVague PM_UnknownToken PM_UnparsableKind PM_UseTextNotTopic PM_UseThingNotObject UNDERSTANDING someone_token at doc265 "17.1" "17.1. Understand".
+Document PM_BizarreToken PM_LiteralPunctuation PM_NontextualUnderstand PM_NotNewCommand PM_NotOldCommand PM_ObsoleteHeldTokens PM_OldVerbUsage PM_OverComplexToken PM_TextTokenRestricted PM_TextlessMistake PM_UnderstandAsActivity PM_UnderstandAsBadValue PM_UnderstandAsCompoundText PM_UnderstandCommaCommand PM_UnderstandCommandWhen PM_UnderstandEmptyText PM_UnderstandMismatch PM_UnderstandVague PM_UnknownToken PM_UnparsableKind PM_UseTextNotTopic PM_UseThingNotObject UNDERSTANDING someone_token at doc265 "17.1" "17.1. Understand".
 Document PM_GrammarIllFounded PM_ThreeValuedLine PM_TooManyAliases PM_TooManyGrammarLines at doc266 "17.2" "17.2. New commands for old grammar".
 Document TOKENS things_token at doc268 "17.4" "17.4. Standard tokens of grammar".
 Document text_token at doc269 "17.5" "17.5. The text token".
@@ -134,122 +133,123 @@ Document PM_GrammarBadRelation PM_GrammarObjectlessRelation PM_GrammarValueRelat
 Document PM_BadWhen at doc281 "17.17" "17.17. Context: understanding when".
 Document ph_setpronouns at doc282 "17.18" "17.18. Changing the meaning of pronouns".
 Document rules_dtpm at doc283 "17.19" "17.19. Does the player mean...".
-Document ACTIVITIES PM_BadActivityName kind_activity at doc286 "18.1" "18.1. What are activities?".
-Document PM_BadWhenWhile at doc289 "18.4" "18.4. While clauses".
+Document ph_altermultipleobjectlist ph_multipleobjectlist at doc284 "17.20" "17.20. Multiple action processing".
+Document ACTIVITIES PM_BadActivityName kind_activity at doc287 "18.1" "18.1. What are activities?".
 Document PM_ExistingRegion PM_RegionInTwoRegions PM_RegionRelation REGIONS kind_region at doc29 "3.4" "3.4. Regions and the index map".
-Document EXTACTIVITIES ph_carryout ph_carryoutwith ph_continueactivity at doc290 "18.5" "18.5. New activities".
-Document PM_ActivityVarAnd PM_ActivityVarOverspecific PM_ActivityVarUnknownKOV PM_ActivityVarValue PM_ActivityVariableNameless at doc291 "18.6" "18.6. Activity variables".
-Document ph_abandonactivity ph_abandonactivitywith ph_beginactivity ph_beginactivitywith ph_endactivity ph_endactivitywith ph_handlingactivity ph_handlingactivitywith at doc292 "18.7" "18.7. Beginning and ending activities manually".
-Document act_con var_particular at doc294 "18.9" "18.9. Deciding the concealed possessions of something".
-Document act_pn ph_omit at doc295 "18.10" "18.10. Printing the name of something".
-Document act_ppn at doc296 "18.11" "18.11. Printing the plural name of something".
-Document act_pan at doc297 "18.12" "18.12. Printing a number of something".
-Document act_lc ph_group ph_groupart ph_grouptext at doc298 "18.13" "18.13. Listing contents of something".
-Document act_gt at doc299 "18.14" "18.14. Grouping together something".
+Document PM_BadWhenWhile at doc290 "18.4" "18.4. While clauses".
+Document EXTACTIVITIES ph_carryout ph_carryoutwith ph_continueactivity at doc291 "18.5" "18.5. New activities".
+Document PM_ActivityVarAnd PM_ActivityVarOverspecific PM_ActivityVarUnknownKOV PM_ActivityVarValue PM_ActivityVariableNameless at doc292 "18.6" "18.6. Activity variables".
+Document ph_abandonactivity ph_abandonactivitywith ph_beginactivity ph_beginactivitywith ph_endactivity ph_endactivitywith ph_handlingactivity ph_handlingactivitywith at doc293 "18.7" "18.7. Beginning and ending activities manually".
+Document act_con var_particular at doc295 "18.9" "18.9. Deciding the concealed possessions of something".
+Document act_pn ph_omit at doc296 "18.10" "18.10. Printing the name of something".
+Document act_ppn at doc297 "18.11" "18.11. Printing the plural name of something".
+Document act_pan at doc298 "18.12" "18.12. Printing a number of something".
+Document act_lc ph_group ph_groupart ph_grouptext at doc299 "18.13" "18.13. Listing contents of something".
 Document KINDS PM_BothRoomAndSupporter PM_CantContainAndSupport PM_KindsIncompatible PM_MiseEnAbyme at doc30 "3.5" "3.5. Kinds".
-Document act_resp at doc300 "18.15" "18.15. Issuing the response text of something".
-Document act_details at doc301 "18.16" "18.16. Printing room description details of something".
-Document act_idetails at doc302 "18.17" "18.17. Printing inventory details of something".
-Document act_toodark at doc303 "18.18" "18.18. Printing a refusal to act in the dark".
-Document act_nowdark at doc304 "18.19" "18.19. Printing the announcement of darkness".
-Document act_nowlight at doc305 "18.20" "18.20. Printing the announcement of light".
-Document act_darkname at doc306 "18.21" "18.21. Printing the name of a dark room".
-Document act_darkdesc at doc307 "18.22" "18.22. Printing the description of a dark room".
-Document act_csl at doc308 "18.23" "18.23. Constructing the status line".
-Document act_wpa at doc309 "18.24" "18.24. Writing a paragraph about".
-Document act_lni at doc310 "18.25" "18.25. Listing nondescript items of something".
-Document act_pld at doc311 "18.26" "18.26. Printing the locale description of something".
-Document act_cnlo at doc312 "18.27" "18.27. Choosing notable locale objects for something".
-Document act_plp at doc313 "18.28" "18.28. Printing a locale paragraph about".
-Document act_ds ph_placecontentsinscope ph_placeinscope at doc314 "18.29" "18.29. Deciding the scope of something".
-Document act_clarify at doc315 "18.30" "18.30. Clarifying the parser's choice of something".
-Document act_which at doc316 "18.31" "18.31. Asking which do you mean".
-Document act_smn at doc317 "18.32" "18.32. Supplying a missing noun/second noun".
-Document act_reading kind_snippet ph_changecommand ph_cutsnippet ph_rejectcommand ph_replacesnippet ph_snippetdoesnotinclude ph_snippetdoesnotmatch ph_snippetincludes ph_snippetmatches var_command at doc318 "18.33" "18.33. Reading a command".
-Document act_implicitly at doc319 "18.34" "18.34. Implicitly taking something".
+Document act_gt at doc300 "18.14" "18.14. Grouping together something".
+Document act_resp at doc301 "18.15" "18.15. Issuing the response text of something".
+Document act_details at doc302 "18.16" "18.16. Printing room description details of something".
+Document act_idetails at doc303 "18.17" "18.17. Printing inventory details of something".
+Document act_toodark at doc304 "18.18" "18.18. Printing a refusal to act in the dark".
+Document act_nowdark at doc305 "18.19" "18.19. Printing the announcement of darkness".
+Document act_nowlight at doc306 "18.20" "18.20. Printing the announcement of light".
+Document act_darkname at doc307 "18.21" "18.21. Printing the name of a dark room".
+Document act_darkdesc at doc308 "18.22" "18.22. Printing the description of a dark room".
+Document act_csl at doc309 "18.23" "18.23. Constructing the status line".
+Document act_wpa at doc310 "18.24" "18.24. Writing a paragraph about".
+Document act_lni at doc311 "18.25" "18.25. Listing nondescript items of something".
+Document act_pld at doc312 "18.26" "18.26. Printing the locale description of something".
+Document act_cnlo at doc313 "18.27" "18.27. Choosing notable locale objects for something".
+Document act_plp at doc314 "18.28" "18.28. Printing a locale paragraph about".
+Document act_ds ph_placecontentsinscope ph_placeinscope at doc315 "18.29" "18.29. Deciding the scope of something".
+Document act_clarify at doc316 "18.30" "18.30. Clarifying the parser's choice of something".
+Document act_which at doc317 "18.31" "18.31. Asking which do you mean".
+Document act_smn at doc318 "18.32" "18.32. Supplying a missing noun/second noun".
+Document act_reading kind_snippet ph_changecommand ph_cutsnippet ph_rejectcommand ph_replacesnippet ph_snippetdoesnotinclude ph_snippetdoesnotmatch ph_snippetincludes ph_snippetmatches var_command at doc319 "18.33" "18.33. Reading a command".
 Document PM_PropertyNotPermitted at doc32 "3.7" "3.7. Properties depend on kind".
-Document act_parsererror at doc320 "18.35" "18.35. Printing a parser error".
-Document act_all at doc321 "18.36" "18.36. Deciding whether all includes".
-Document act_banner phs_banner at doc322 "18.37" "18.37. Printing the banner text".
-Document act_obit at doc323 "18.38" "18.38. Printing the player's obituary".
-Document act_amuse at doc324 "18.39" "18.39. Amusing a victorious player".
-Document act_startvm at doc325 "18.40" "18.40. Starting the virtual machine".
-Document PM_RulebookWithAt PM_RulebookWithDefinition PM_RulebookWithTo RULEBOOKS kind_rule kind_rulebook at doc326 "19.1" "19.1. On rules".
-Document PM_BadRulePreamble PM_BadRulePreambleWhen PM_RuleWithDefiniteArticle PM_RuleWithoutColon at doc328 "19.3" "19.3. New rules".
-Document PM_BadRulePlacementNegation PM_ImproperRulePlacement PM_NoSuchRuleExists PM_PlaceWithMissingRule PM_UnspecifiedRulebookPlacement RLISTING at doc329 "19.4" "19.4. Listing rules explicitly".
-Document rules_proc at doc330 "19.5" "19.5. Changing the behaviour of rules".
-Document NEWRULEBOOKS ph_follow at doc333 "19.8" "19.8. New rulebooks".
-Document ph_followfor at doc334 "19.9" "19.9. Basis of a rulebook".
-Document PM_RulebookVariableAnd PM_RulebookVariableBadKind PM_RulebookVariableTooSpecific PM_RulebookVariableVague at doc335 "19.10" "19.10. Rulebook variables".
-Document PM_BadDefaultOutcome PM_DefaultOutcomeTwice ph_failed ph_fails ph_nodecision ph_succeeded ph_succeeds at doc336 "19.11" "19.11. Success and failure".
-Document PM_BadOutcomeClarification PM_DefaultNamedOutcomeTwice PM_DefaultOutcomeAlready PM_DuplicateOutcome PM_MisplacedRulebookOutcome PM_NonOutcomeProperty PM_WrongEndToPhrase ph_rulebookoutcome at doc337 "19.12" "19.12. Named outcomes".
-Document ph_producedby ph_producedbyfor ph_succeedswith at doc338 "19.13" "19.13. Rulebooks producing values".
-Document ph_abide ph_abideanon ph_abidefor at doc339 "19.14" "19.14. Abide by".
+Document act_implicitly at doc320 "18.34" "18.34. Implicitly taking something".
+Document act_parsererror at doc321 "18.35" "18.35. Printing a parser error".
+Document act_all at doc322 "18.36" "18.36. Deciding whether all includes".
+Document act_banner phs_banner at doc323 "18.37" "18.37. Printing the banner text".
+Document act_obit at doc324 "18.38" "18.38. Printing the player's obituary".
+Document act_amuse at doc325 "18.39" "18.39. Amusing a victorious player".
+Document act_startvm at doc326 "18.40" "18.40. Starting the virtual machine".
+Document PM_RulebookWithAt PM_RulebookWithDefinition PM_RulebookWithTo RULEBOOKS kind_rule kind_rulebook at doc327 "19.1" "19.1. On rules".
+Document PM_BadRulePreamble PM_BadRulePreambleWhen PM_RuleWithDefiniteArticle PM_RuleWithoutColon at doc329 "19.3" "19.3. New rules".
+Document PM_BadRulePlacementNegation PM_ImproperRulePlacement PM_NoSuchRuleExists PM_PlaceWithMissingRule PM_UnspecifiedRulebookPlacement RLISTING at doc330 "19.4" "19.4. Listing rules explicitly".
+Document rules_proc at doc331 "19.5" "19.5. Changing the behaviour of rules".
+Document NEWRULEBOOKS ph_follow at doc334 "19.8" "19.8. New rulebooks".
+Document ph_followfor at doc335 "19.9" "19.9. Basis of a rulebook".
+Document PM_RulebookVariableAnd PM_RulebookVariableBadKind PM_RulebookVariableTooSpecific PM_RulebookVariableVague at doc336 "19.10" "19.10. Rulebook variables".
+Document PM_BadDefaultOutcome PM_DefaultOutcomeTwice ph_failed ph_fails ph_nodecision ph_succeeded ph_succeeds at doc337 "19.11" "19.11. Success and failure".
+Document PM_BadOutcomeClarification PM_DefaultNamedOutcomeTwice PM_DefaultOutcomeAlready PM_DuplicateOutcome PM_MisplacedRulebookOutcome PM_NonOutcomeProperty PM_WrongEndToPhrase ph_rulebookoutcome at doc338 "19.12" "19.12. Named outcomes".
+Document ph_producedby ph_producedbyfor ph_succeedswith at doc339 "19.13" "19.13. Rulebooks producing values".
 Document PM_CantChangeEverywhere PM_EverywhereMisapplied PM_EverywhereNonBackdrop kind_backdrop at doc34 "3.9" "3.9. Backdrops".
-Document rules_internal at doc340 "19.15" "19.15. Two rulebooks used internally".
-Document ph_charnum ph_linenum ph_numchars ph_numlines ph_numparas ph_numpwords ph_numupwords ph_numwords ph_paranum ph_pwordnum ph_upwordnum ph_wordnum at doc344 "20.3" "20.3. Characters, words, punctuated words, unpunctuated words, lines, paragraphs".
-Document ph_inlower ph_inupper ph_lowercase ph_sentencecase ph_titlecase ph_uppercase at doc345 "20.4" "20.4. Upper and lower case letters".
-Document ph_exactlymatches ph_matches ph_nummatches at doc346 "20.5" "20.5. Matching and exactly matching".
-Document ph_exactlymatchesre ph_matchesre ph_matchtext ph_nummatchesre ph_subexpressiontext at doc347 "20.6" "20.6. Regular expression matching".
-Document ph_subform at doc348 "20.7" "20.7. Making new text with text substitutions".
-Document ph_replace ph_replacechar ph_replaceline ph_replacepara ph_replacepword ph_replacepwordin ph_replacere ph_replaceupword ph_replaceword ph_replacewordin at doc349 "20.8" "20.8. Replacements".
-Document kind_listof at doc351 "21.1" "21.1. Lists and entries".
-Document PM_BadConstantListEntry PM_CantLetEmptyList PM_IncompatibleConstantListEntry PM_NonconstantConstantListEntry at doc352 "21.2" "21.2. Constant lists".
-Document phs_listbraced phs_listdef phs_listindef at doc353 "21.3" "21.3. Saying lists of values".
-Document ph_islistedin ph_isnotlistedin ph_repeatlist at doc354 "21.4" "21.4. Testing and iterating over lists".
-Document ph_addatentry ph_addlistatentry ph_addlisttolist ph_addtolist ph_rementries ph_rementry ph_remfromlist ph_remlistfromlist at doc355 "21.5" "21.5. Building lists".
-Document ph_altermultipleobjectlist ph_listofdesc ph_multipleobjectlist at doc356 "21.6" "21.6. Lists of objects".
-Document ph_reverselist ph_rotatelist ph_rotatelistback ph_sortlist ph_sortlistproperty ph_sortlistpropertyreverse ph_sortlistrandom ph_sortlistreverse at doc358 "21.8" "21.8. Sorting, reversing and rotating lists".
-Document ph_numberentries at doc359 "21.9" "21.9. Accessing entries in a list".
+Document ph_abide ph_abideanon ph_abidefor at doc340 "19.14" "19.14. Abide by".
+Document rules_internal at doc341 "19.15" "19.15. Two rulebooks used internally".
+Document ph_charnum ph_linenum ph_numchars ph_numlines ph_numparas ph_numpwords ph_numupwords ph_numwords ph_paranum ph_pwordnum ph_upwordnum ph_wordnum at doc345 "20.3" "20.3. Characters, words, punctuated words, unpunctuated words, lines, paragraphs".
+Document ph_inlower ph_inupper ph_lowercase ph_sentencecase ph_titlecase ph_uppercase at doc346 "20.4" "20.4. Upper and lower case letters".
+Document ph_exactlymatches ph_matches ph_nummatches at doc347 "20.5" "20.5. Matching and exactly matching".
+Document ph_exactlymatchesre ph_matchesre ph_matchtext ph_nummatchesre ph_subexpressiontext at doc348 "20.6" "20.6. Regular expression matching".
+Document ph_subform at doc349 "20.7" "20.7. Making new text with text substitutions".
+Document ph_replace ph_replacechar ph_replaceline ph_replacepara ph_replacepword ph_replacepwordin ph_replacere ph_replaceupword ph_replaceword ph_replacewordin at doc350 "20.8" "20.8. Replacements".
+Document kind_listof at doc352 "21.1" "21.1. Lists and entries".
+Document PM_BadConstantListEntry PM_CantLetEmptyList PM_IncompatibleConstantListEntry PM_NonconstantConstantListEntry at doc353 "21.2" "21.2. Constant lists".
+Document phs_listbraced phs_listdef phs_listindef at doc354 "21.3" "21.3. Saying lists of values".
+Document ph_islistedin ph_isnotlistedin ph_repeatlist at doc355 "21.4" "21.4. Testing and iterating over lists".
+Document ph_addatentry ph_addlistatentry ph_addlisttolist ph_addtolist ph_rementries ph_rementry ph_remfromlist ph_remlistfromlist at doc356 "21.5" "21.5. Building lists".
+Document ph_listofdesc at doc357 "21.6" "21.6. Lists of objects".
+Document ph_reverselist ph_rotatelist ph_rotatelistback ph_sortlist ph_sortlistproperty ph_sortlistpropertyreverse ph_sortlistrandom ph_sortlistreverse at doc359 "21.8" "21.8. Sorting, reversing and rotating lists".
 Document PM_TextWithoutSubject PM_TwoAppearances at doc36 "3.11" "3.11. Two descriptions of things".
-Document ph_changelength ph_extend ph_truncate ph_truncatefirst ph_truncatelast at doc360 "21.10" "21.10. Lengthening or shortening a list".
-Document kind_description ph_valuematch at doc363 "22.2" "22.2. Descriptions as values".
-Document ph_applied0 ph_applied1 ph_applied2 ph_applied3 ph_apply0 ph_apply1 ph_apply2 ph_apply3 at doc364 "22.3" "22.3. Phrases as values".
-Document ph_appliedlist ph_filter ph_reduction at doc366 "22.5" "22.5. Map, filter and reduce".
+Document ph_numberentries at doc360 "21.9" "21.9. Accessing entries in a list".
+Document ph_changelength ph_extend ph_truncate ph_truncatefirst ph_truncatelast at doc361 "21.10" "21.10. Lengthening or shortening a list".
+Document kind_description ph_valuematch at doc364 "22.2" "22.2. Descriptions as values".
+Document ph_applied0 ph_applied1 ph_applied2 ph_applied3 ph_apply0 ph_apply1 ph_apply2 ph_apply3 at doc365 "22.3" "22.3. Phrases as values".
+Document ph_appliedlist ph_filter ph_reduction at doc367 "22.5" "22.5. Map, filter and reduce".
 Document PM_BadMapCell PM_BothWaysDoor PM_DoorInThirdRoom PM_DoorOverconnected PM_DoorToNonRoom PM_DoorUnconnected PM_RoomMissingDoor kind_door ph_backside ph_directionofdoor ph_frontside ph_othersideof at doc37 "3.12" "3.12. Doors".
-Document PM_UnknownVirtualMachine at doc374 "23.3" "23.3. Virtual machines and story file formats".
-Document FIGURES kind_figurename at doc375 "23.4" "23.4. Gathering the figures".
-Document PM_PictureDuplicate PM_PictureNotTextual at doc376 "23.5" "23.5. Declaring and previewing the figures".
-Document ph_displayfigure at doc377 "23.6" "23.6. Displaying the figures".
-Document SOUNDS kind_soundname at doc378 "23.7" "23.7. Recorded sounds".
-Document PM_SoundDuplicate PM_SoundNotTextual ph_playsf at doc379 "23.8" "23.8. Declaring and playing back sounds".
-Document ph_figureid ph_soundid at doc381 "23.10" "23.10. Some technicalities about figures and sounds".
-Document EFILES at doc382 "23.11" "23.11. Files".
-Document PM_BadFileIFID PM_BadFileOwner PM_FilenameDuplicate PM_FilenameNotTextual PM_FilenameUnsafe kind_externalfile at doc383 "23.12" "23.12. Declaring files".
-Document ph_fileexists ph_readtable ph_writetable at doc384 "23.13" "23.13. Writing and reading tables to external files".
-Document ph_appendtext ph_saytext ph_writetext at doc385 "23.14" "23.14. Writing, reading and appending text to files".
-Document ph_fileready ph_markfilenotready ph_markfileready at doc386 "23.15" "23.15. Exchanging files with other programs".
+Document PM_UnknownVirtualMachine at doc375 "23.3" "23.3. Virtual machines and story file formats".
+Document FIGURES kind_figurename at doc376 "23.4" "23.4. Gathering the figures".
+Document PM_PictureDuplicate PM_PictureNotTextual at doc377 "23.5" "23.5. Declaring and previewing the figures".
+Document ph_displayfigure at doc378 "23.6" "23.6. Displaying the figures".
+Document SOUNDS kind_soundname at doc379 "23.7" "23.7. Recorded sounds".
+Document PM_SoundDuplicate PM_SoundNotTextual ph_playsf at doc380 "23.8" "23.8. Declaring and playing back sounds".
+Document ph_figureid ph_soundid at doc382 "23.10" "23.10. Some technicalities about figures and sounds".
+Document EFILES at doc383 "23.11" "23.11. Files".
+Document PM_BadFileIFID PM_BadFileOwner PM_FilenameDuplicate PM_FilenameNotTextual PM_FilenameUnsafe kind_externalfile at doc384 "23.12" "23.12. Declaring files".
+Document ph_fileexists ph_readtable ph_writetable at doc385 "23.13" "23.13. Writing and reading tables to external files".
+Document ph_appendtext ph_saytext ph_writetext at doc386 "23.14" "23.14. Writing, reading and appending text to files".
+Document ph_fileready ph_markfilenotready ph_markfileready at doc387 "23.15" "23.15. Exchanging files with other programs".
 Document kind_device at doc39 "3.14" "3.14. Devices and descriptions".
-Document PM_BadEpisode at doc396 "25.2" "25.2. Bibliographic data".
-Document LCARDS at doc398 "25.4" "25.4. The Library Card".
-Document IFIDS at doc399 "25.5" "25.5. The Treaty of Babel and the IFID".
+Document PM_BadEpisode at doc397 "25.2" "25.2. Bibliographic data".
+Document LCARDS at doc399 "25.4" "25.4. The Library Card".
 Document PM_NoStartRoom PM_StartsOutsideRooms at doc4 "1.4" "1.4. The Go! button".
-Document PM_NoSuchPublicRelease release_files at doc400 "25.6" "25.6. The Release button and the Materials folder".
-Document PM_ReleaseAlong at doc401 "25.7" "25.7. The Joy of Feelies".
-Document release_cover at doc402 "25.8" "25.8. Cover art".
-Document release_booklet release_postcard at doc403 "25.9" "25.9. An introductory booklet and postcard".
-Document release_website at doc404 "25.10" "25.10. A website".
-Document release_interpreter at doc405 "25.11" "25.11. A playable web page".
-Document PM_RoomInIgnoredSource at doc409 "25.15" "25.15. Republishing existing works of IF".
+Document IFIDS at doc400 "25.5" "25.5. The Treaty of Babel and the IFID".
+Document PM_NoSuchPublicRelease release_files at doc401 "25.6" "25.6. The Release button and the Materials folder".
+Document PM_ReleaseAlong at doc402 "25.7" "25.7. The Joy of Feelies".
+Document release_cover at doc403 "25.8" "25.8. Cover art".
+Document release_booklet release_postcard at doc404 "25.9" "25.9. An introductory booklet and postcard".
+Document release_website at doc405 "25.10" "25.10. A website".
+Document release_interpreter at doc406 "25.11" "25.11. A playable web page".
 Document kind_vehicle at doc41 "3.16" "3.16. Vehicles and pushable things".
-Document release_solution at doc410 "25.16" "25.16. Walkthrough solutions".
-Document release_card release_source at doc411 "25.17" "25.17. Releasing the source text".
-Document MAPHINTS PM_MapBadRubric PM_MapDirectionClue PM_MapFromNonRoom PM_MapHintUnknown PM_MapLevelMisnamed PM_MapNonLateral PM_MapPlacement PM_MapPlacementDirection PM_MapSettingOfUnknown PM_MapSettingTooLong PM_MapSettingTypeFailed PM_MapSettingUnknown PM_MapToNonRoom PM_MapUnknownColour PM_MapUnknownOffset PM_MapUnknownOffsetBase at doc412 "25.18" "25.18. Improving the index map".
-Document EPSMAP at doc413 "25.19" "25.19. Producing an EPS format map".
+Document PM_RoomInIgnoredSource at doc410 "25.15" "25.15. Republishing existing works of IF".
+Document release_solution at doc411 "25.16" "25.16. Walkthrough solutions".
+Document release_card release_source at doc412 "25.17" "25.17. Releasing the source text".
+Document MAPHINTS PM_MapBadRubric PM_MapDirectionClue PM_MapFromNonRoom PM_MapHintUnknown PM_MapLevelMisnamed PM_MapNonLateral PM_MapPlacement PM_MapPlacementDirection PM_MapSettingOfUnknown PM_MapSettingTooLong PM_MapSettingTypeFailed PM_MapSettingUnknown PM_MapToNonRoom PM_MapUnknownColour PM_MapUnknownOffset PM_MapUnknownOffsetBase at doc413 "25.18" "25.18. Improving the index map".
+Document EPSMAP at doc414 "25.19" "25.19. Producing an EPS format map".
 Document kind_person at doc42 "3.17" "3.17. Men, women and animals".
-Document EXTENSIONS at doc429 "27.1" "27.1. The status of extensions".
-Document SRULES at doc430 "27.2" "27.2. The Standard Rules".
-Document PM_ExtBeginsAfterEndsHere PM_ExtEndsWithoutBegins PM_ExtMultipleBeginsHere PM_ExtMultipleEndsHere PM_ExtNoBeginsHere PM_ExtNoEndsHere at doc433 "27.5" "27.5. A simple example extension".
-Document PM_ExtNoVersion PM_ExtVersionTooLow phs_compextcredits phs_extcredits at doc434 "27.6" "27.6. Version numbering".
-Document PM_HeadingInPlaceOfUnincluded PM_HeadingInPlaceOfUnknown PM_UnequalHeadingInPlaceOf at doc437 "27.9" "27.9. Extensions can interact with other extensions".
-Document PM_ImplicationCertain PM_ImplicationValueProperty at doc441 "27.13" "27.13. Implications".
-Document PM_BadInlineExpansion PM_BadInlineTag PM_InlineRule PM_InlineTooLong PM_NonInlineBeginEnd PM_UnendingI6 at doc443 "27.15" "27.15. Defining phrases in Inform 6".
-Document PM_BadObjectTranslation at doc449 "27.21" "27.21. Inform 6 objects and classes".
-Document PM_NonPropertyTranslated PM_NonQuantityTranslated PM_QuantityTranslatedAlready PM_TranslatedToNonIdentifier PM_TranslatedTwice PM_TranslatedUnknownCategory PM_TranslatesActionAlready PM_TranslatesNonAction at doc450 "27.22" "27.22. Inform 6 variables, properties, actions, and attributes".
-Document PM_GrammarTranslatedAlready at doc451 "27.23" "27.23. Inform 6 Understand tokens".
-Document PM_UnicodeAlready PM_UnicodeNonLiteral PM_UnicodeOutOfRange at doc453 "27.25" "27.25. Naming Unicode characters".
-Document PM_BadI6Inclusion PM_BeforeTheLibrary PM_NoSuchPart PM_NoSuchTemplate PM_WhenDefiningUnknown at doc454 "27.26" "27.26. The template layer".
-Document PM_LabelNamespaceTooLong at doc457 "27.29" "27.29. Invocation labels, counters and storage".
+Document EXTENSIONS at doc430 "27.1" "27.1. The status of extensions".
+Document SRULES at doc431 "27.2" "27.2. The Standard Rules".
+Document PM_ExtBeginsAfterEndsHere PM_ExtEndsWithoutBegins PM_ExtMultipleBeginsHere PM_ExtMultipleEndsHere PM_ExtNoBeginsHere PM_ExtNoEndsHere at doc434 "27.5" "27.5. A simple example extension".
+Document PM_ExtNoVersion PM_ExtVersionTooLow phs_compextcredits phs_extcredits at doc435 "27.6" "27.6. Version numbering".
+Document PM_HeadingInPlaceOfUnincluded PM_HeadingInPlaceOfUnknown PM_UnequalHeadingInPlaceOf at doc438 "27.9" "27.9. Extensions can interact with other extensions".
+Document PM_ImplicationCertain PM_ImplicationValueProperty at doc442 "27.13" "27.13. Implications".
+Document PM_BadInlineExpansion PM_BadInlineTag PM_InlineRule PM_InlineTooLong PM_UnendingI6 at doc444 "27.15" "27.15. Defining phrases in Inform 6".
+Document PM_BadObjectTranslation at doc450 "27.21" "27.21. Inform 6 objects and classes".
+Document PM_NonPropertyTranslated PM_NonQuantityTranslated PM_QuantityTranslatedAlready PM_TranslatedToNonIdentifier PM_TranslatedTwice PM_TranslatedUnknownCategory PM_TranslatesActionAlready PM_TranslatesNonAction at doc451 "27.22" "27.22. Inform 6 variables, properties, actions, and attributes".
+Document PM_GrammarTranslatedAlready at doc452 "27.23" "27.23. Inform 6 Understand tokens".
+Document PM_UnicodeAlready PM_UnicodeNonLiteral PM_UnicodeOutOfRange at doc454 "27.25" "27.25. Naming Unicode characters".
+Document PM_BadI6Inclusion PM_BeforeTheLibrary PM_NoSuchPart PM_NoSuchTemplate PM_WhenDefiningUnknown at doc455 "27.26" "27.26. The template layer".
+Document PM_LabelNamespaceTooLong at doc458 "27.29" "27.29. Invocation labels, counters and storage".
 Document kind_player's at doc46 "3.21" "3.21. The player's holdall".
 Document PM_PartOfRoom PM_RoomOrDoorAsPart at doc48 "3.23" "3.23. Parts of things".
 Document ph_locationof at doc50 "3.25" "3.25. The location of something".
@@ -267,14 +267,14 @@ Document PM_TooManyDuplicates at doc65 "4.14" "4.14. Duplicates".
 Document PM_AssemblyLoop PM_AssemblyRegress PM_ComplexEvery at doc66 "4.15" "4.15. Assemblies and body parts".
 Document PM_TSWithComma PM_TSWithPunctuation at doc69 "5.1" "5.1. Text with substitutions".
 Document phs_apostrophe phs_bracket phs_closebracket phs_quotemark at doc70 "5.2" "5.2. How Inform reads quoted text".
-Document phs_A phs_The phs_a phs_the phs_value at doc71 "5.3" "5.3. Text which names things".
+Document ph_say phs_A phs_The phs_a phs_the at doc71 "5.3" "5.3. Text which names things".
 Document phs_numwords phs_s at doc72 "5.4" "5.4. Text with numbers".
 Document phs_Alistof phs_Thelistof phs_alistof phs_alistofconts phs_isalistof phs_islistof phs_isthelistof phs_listof phs_thelistof at doc73 "5.5" "5.5. Text with lists".
 Document PM_SayEndIfWithoutSayIf PM_SayIfNested PM_SayOtherwiseWithoutIf phs_elseif phs_elseunless phs_endif phs_endunless phs_if phs_otherwise phs_unless at doc74 "5.6" "5.6. Text with variations".
 Document PM_ComplicatedSayStructure PM_ComplicatedSayStructure2 PM_ComplicatedSayStructure3 PM_ComplicatedSayStructure4 PM_ComplicatedSayStructure5 phs_cycling phs_decreasing phs_firsttime phs_oneof phs_or phs_order phs_purelyrandom phs_random phs_sticky phs_stopping phs_thenpurelyrandom phs_thenrandom at doc75 "5.7" "5.7. Text with random alternatives".
 Document ph_breakpending phs_clarifbreak phs_condparabreak phs_linebreak phs_nolinebreak phs_parabreak phs_runparaon phs_runparaonsls at doc76 "5.8" "5.8. Line breaks and paragraph breaks".
 Document phs_bold phs_fixedspacing phs_italic phs_roman phs_varspacing at doc77 "5.9" "5.9. Text with type styles".
-Document PM_MidTextUnicode PM_SayUnicode phs_unicode at doc79 "5.11" "5.11. Unicode characters".
+Document PM_MidTextUnicode PM_SayUnicode at doc79 "5.11" "5.11. Unicode characters".
 Document ph_boxed at doc80 "5.12" "5.12. Displaying quotations".
 Document DESCRIPTIONS ph_numberof at doc82 "6.1" "6.1. What are descriptions?".
 Document PM_AdjDomainSlippery PM_AdjDomainSurreal PM_AdjDomainUnknown PM_ArticleAsAdjective PM_DefinitionBadCondition PM_DefinitionWithoutCondition at doc85 "6.4" "6.4. Defining new adjectives".
@@ -321,12 +321,12 @@ Use maximum things understood at once of at least 100.
 
 Use American dialect translates as (- Constant DIALECT_US; -).
 Use the serial comma translates as (- Constant SERIAL_COMMA; -).
-Use full-length room descriptions translates as (- Constant I7_LOOKMODE = 2; -).
-Use abbreviated room descriptions translates as (- Constant I7_LOOKMODE = 3; -).
+Use full-length room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 2; #ENDIF; -).
+Use abbreviated room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 3; #ENDIF; -).
 Use memory economy translates as (- Constant MEMORY_ECONOMY; -).
 Use authorial modesty translates as (- Constant AUTHORIAL_MODESTY; -).
-Use scoring translates as (- Constant USE_SCORING = 1; -).
-Use no scoring translates as (- Constant USE_SCORING = 0; -).
+Use scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 1; #ENDIF; -).
+Use no scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 0; #ENDIF; -).
 Use engineering notation translates as (- Constant USE_E_NOTATION = 0; -).
 Use unabbreviated object names translates as (- Constant UNABBREVIATED_OBJECT_NAMES = 0; -).
 Use command line echoing translates as (- Constant ECHO_COMMANDS; -).
@@ -918,7 +918,7 @@ Carry out rules is a rulebook. [22]
 After rules is a rulebook. [23]
 Report rules is a rulebook. [24]
 
-The does the player mean rules are a rulebook. [25]
+The does the player mean rules is a rulebook. [25]
 The does the player mean rules have outcomes it is very likely, it is likely, it is possible,
 it is unlikely and it is very unlikely.
 
@@ -937,7 +937,9 @@ Include (-
 		}
 		return 2;
 	];
--);
+-).
+
+The multiple action processing rules is a rulebook. [26]
 
 Section SR2/8 - The Standard Rules
 
@@ -945,7 +947,7 @@ The little-used do nothing rule translates into I6 as "LITTLE_USED_DO_NOTHING_R"
 
 Include (-
 [ LITTLE_USED_DO_NOTHING_R; rfalse; ];
--);
+-).
 
 The start in the correct scenes rule is listed first in the startup rulebook. [7th.]
 The position player in model world rule is listed first in the startup rulebook. [6th.]
@@ -1055,7 +1057,7 @@ This is the set pronouns from items from multiple object lists rule:
 
 This is the announce items from multiple object lists rule:
 	if the current item from the multiple object list is not nothing,
-		say "[current item from the multiple object list]: [run paragraph on]".
+		say "[current item from the multiple object list]: [run paragraph on]" (A).
 
 This is the before stage rule: abide by the before rules.
 This is the instead stage rule: abide by the instead rules.
@@ -1065,7 +1067,7 @@ This is the end action-processing in success rule: rule succeeds.
 The basic accessibility rule translates into I6 as "BASIC_ACCESSIBILITY_R" with
 	"You must name something more substantial." (A).
 The basic visibility rule translates into I6 as "BASIC_VISIBILITY_R" with
-	"It is pitch dark, and you can't see a thing." (A).
+	"[It] [are] pitch dark, and [we] [can't see] a thing." (A).
 The carrying requirements rule translates into I6 as "CARRYING_REQUIREMENTS_R".
 The requested actions require persuasion rule translates into I6 as
 	"REQUESTED_ACTIONS_REQUIRE_R" with
@@ -1320,7 +1322,8 @@ The action processing internal rule translates into I6 as
 	"You must supply a second noun." (H),
 	"You may not supply a second noun." (I),
 	"(Since something dramatic has happened, your list of commands has been
-	cut short.)" (J).
+	cut short.)" (J),
+	"I didn't understand that instruction." (K).
 
 The parser error internal rule translates into I6 as
 	"PARSER_ERROR_INTERNAL_R" with
@@ -1341,8 +1344,8 @@ The parser error internal rule translates into I6 as
 		active]recognize[otherwise]recognise[end if]." (N),
 	"That's not something you need to refer to in the course of this game." (O),
 	"I didn't understand the way that finished." (P),
-	"[if number understood is 0]None[otherwise]Only [number understood][end if]
-		of those [are] available." (Q),
+	"[if number understood is 0]None[otherwise]Only [number understood in words][end if]
+		of those [regarding the number understood][are] available." (Q),
 	"That noun did not make sense in this context." (R),
 	"To repeat a command like 'frog, jump', just say 'again', not 'frog, again'." (S),
 	"You can't begin with a comma." (T),
@@ -1354,7 +1357,7 @@ The parser error internal rule translates into I6 as
 The parser nothing error internal rule translates into I6 as
 	"PARSER_N_ERROR_INTERNAL_R" with
 	"Nothing to do!" (A),
-	"There are none at all available!" (B),
+	"[There] [adapt the verb are from the third person plural] none at all available!" (B),
 	"[regarding the noun][Those] [seem] to belong to [the noun]." (C),
 	"[regarding the noun][Those] [can't] contain things." (D),
 	"[The noun] [aren't] open." (E),
@@ -1473,6 +1476,9 @@ Rule for deciding whether all includes people while taking or taking off or
 Rule for deciding whether all includes fixed in place things while taking or
 	taking off or removing (this is the exclude fixed in place things from
 	take all rule): it does not.
+Rule for deciding whether all includes things enclosed by the person reaching
+	while taking or taking off or removing (this is the exclude indirect
+	possessions from take all rule): it does not.
 Rule for deciding whether all includes a person while dropping or throwing
 	or inserting or putting (this is the exclude people from drop all rule):
 	it does not.
@@ -1518,11 +1524,12 @@ The immediately restart the VM rule translates into I6 as "IMMEDIATELY_RESTART_V
 The immediately restore saved game rule translates into I6 as "IMMEDIATELY_RESTORE_SAVED_R".
 The immediately quit rule translates into I6 as "IMMEDIATELY_QUIT_R".
 The immediately undo rule translates into I6 as "IMMEDIATELY_UNDO_R" with
-	"The use of 'undo' is forbidden in this game." (A),
+	"The use of 'undo' is forbidden in this story." (A),
 	"You can't 'undo' what hasn't been done!" (B),
 	"Your interpreter does not provide 'undo'. Sorry!" (C),
 	"'Undo' failed. Sorry!" (D),
-	"[bracket]Previous turn undone.[close bracket]" (E).
+	"[bracket]Previous turn undone.[close bracket]" (E),
+	"'Undo' capacity exhausted. Sorry!" (F).
 
 The print the final question rule is listed in before handling the final question.
 The print the final prompt rule is listed in before handling the final question.
@@ -1649,9 +1656,9 @@ For printing the locale description (this is the you-can-also-see rule):
 				otherwise:
 					say "In [the domain] [we] " (C);
 				if the locale paragraph count is greater than 0:
-					say "[can] also see " (D);
+					say "[regarding the player][can] also see " (D);
 				otherwise:
-					say "[can] see " (E);
+					say "[regarding the player][can] see " (E);
 				let the common holder be nothing;
 				let contents form of list be true;
 				repeat with list item running through marked for listing things:
@@ -1742,7 +1749,8 @@ For printing a locale paragraph about a supporter (called the tabletop)
 	(this is the initial appearance on supporters rule):
 	repeat with item running through not handled things on the tabletop which
 		provide the property initial appearance:
-		if the item is not a person and the initial appearance of the item is not "":
+		if the item is not a person and the initial appearance of the item is not ""
+			and the item is not undescribed:
 			now the item is mentioned;
 			say initial appearance of the item;
 			say paragraph break;
@@ -1754,6 +1762,24 @@ scenery and the item is not mentioned and the item is not undescribed.
 For printing a locale paragraph about a thing (called the item)
 	(this is the describe what's on scenery supporters in room descriptions rule):
 	if the item is scenery and the item does not enclose the player:
+		if a locale-supportable thing is on the item:
+			set pronouns from the item;
+			repeat with possibility running through things on the item:
+				now the possibility is marked for listing;
+				if the possibility is mentioned:
+					now the possibility is not marked for listing;
+			increase the locale paragraph count by 1;
+			say "On [the item] " (A);
+			list the contents of the item, as a sentence, including contents,
+				giving brief inventory information, tersely, not listing
+				concealed items, prefacing with is/are, listing marked items only;
+			say ".[paragraph break]";
+	continue the activity.
+
+For printing a locale paragraph about a thing (called the item)
+	(this is the describe what's on mentioned supporters in room descriptions rule):
+	if the item is mentioned and the item is not undescribed and the item is
+		not scenery and the item does not enclose the player:
 		if a locale-supportable thing is on the item:
 			set pronouns from the item;
 			repeat with possibility running through things on the item:
@@ -1927,7 +1953,8 @@ Check an actor taking (this is the can't exceed carrying capacity rule):
 		stop the action.
 
 Carry out an actor taking (this is the standard taking rule):
-	now the actor carries the noun.
+	now the actor carries the noun;
+	if the actor is the player, now the noun is handled.
 
 Report an actor taking (this is the standard report taking rule):
 	if the action is not silent:
@@ -4006,7 +4033,7 @@ Check an actor thinking (this is the block thinking rule):
 		say "What a good idea." (A);
 	stop the action.
 
-Smelling is an action applying to one thing.
+Smelling is an action applying to nothing or one thing.
 The Smelling action translates into I6 as "Smell".
 
 The specification of the smelling action is
@@ -4020,7 +4047,7 @@ Report an actor smelling (this is the report smelling rule):
 	otherwise:
 		say "[The actor] [sniff]." (B).
 
-Listening to is an action applying to one thing and abbreviable.
+Listening to is an action applying to nothing or one thing and abbreviable.
 The Listening to action translates into I6 as "Listen".
 
 The specification of the listening to action is
@@ -4225,7 +4252,7 @@ with some further check rules.)"
 
 Check an actor climbing (this is the block climbing rule):
 	if the actor is the player:
-		say "I don't think much is to be achieved by that." (A);
+		say "Little [are] to be achieved by that." (A);
 	stop the action.
 
 Sleeping is an action applying to nothing.
@@ -4636,21 +4663,9 @@ Part SR5 - Phrasebook
 
 Section SR5/1/1 - Saying - Values
 
-To say (something - text)
-	(documented at ph_say):
-	(- {-say:something} -).
 To say (val - sayable value of kind K)
-	(documented at phs_value):
-	(- print ({-printing-routine:K}) {-by-reference:val}; -).
-
-To say (something - number)
-	(documented at phs_value):
-	(- print (say__n={something}); -).
-
-To say (ch - unicode character) -- running on
-	(documented at phs_unicode):
-	(- #ifdef TARGET_ZCODE; unicode_temp = {ch}; @print_unicode unicode_temp;
-	#ifnot; unicode_temp = {ch}; @streamunichar unicode_temp; #endif; -).
+	(documented at ph_say):
+	(- {-say:val:K} -).
 
 To say (something - number) in words
 	(documented at phs_numwords):
@@ -4999,7 +5014,7 @@ To say text of (R - response)
 
 Section SR5/2/1 - Values - Making conditions true
 
-To now (cn - now-condition)
+To now (cn - condition)
 	(documented at ph_now):
 	(- {cn} -).
 
@@ -5850,41 +5865,16 @@ To decide which number is the Glulx resource ID of (SFX - sound name)
 
 Section SR5/3/1 - Control phrases - If and unless
 
-To if (c - condition) , (ph - phrase)
-	(documented at ph_if):
-	(- if {c} {ph} -).
 To if (c - condition) begin -- end conditional
 	(documented at ph_if):
 	(- if {c}  -).
-To unless (c - condition) , (ph - phrase)
-	(documented at ph_unless):
-	(- if (~~{c}) {ph} -).
 To unless (c - condition) begin -- end conditional
 	(documented at ph_unless):
 	(- if (~~{c})  -).
 
-To otherwise if (c - condition)
-	(documented at ph_otherwise):
-	(- } else if {c} { -).
-To otherwise unless (c - condition)
-	(documented at ph_otherwise):
-	(- } else if (~~{c}) { -).
-To otherwise (ph - phrase)
-	(documented at ph_otherwise):
-	(- else {ph} -).
-To else if (c - condition)
-	(documented at ph_otherwise):
-	(- } else if {c} { -).
-To else unless (c - condition)
-	(documented at ph_otherwise):
-	(- } else if (~~{c}) { -).
-To else (ph - phrase)
-	(documented at ph_otherwise):
-	(- else {ph} -).
-
-To if (V - word value) is begin -- end conditional
+To if (V - value) is begin -- end conditional
 	(documented at ph_switch):
-	(- switch({V})  -).
+	(- {-primitive-definition:switch} -).
 
 Section SR5/3/2 - Control phrases - While
 
@@ -5983,23 +5973,19 @@ Section SR5/3/8 - Control phrases - Stop or go
 To do nothing (documented at ph_nothing):
 	(- ; -).
 To stop (documented at ph_stop):
-	(- return; -) - in to only.
+	(- rtrue; -) - in to only.
 
 Section SR5/4/1 - Actions, activities and rules - Trying actions
 
-To try (doing something - action)
+To try (S - action)
 	(documented at ph_try):
-	(- {doing something}; -).
-To silently try (doing something - action)
+	(- {-try-action:S} -).
+To silently try (S - action)
 	(documented at ph_trysilently):
-	(- @push keep_silent; keep_silent=1; @push say__p; @push say__pc;
-		ClearParagraphing(1); {doing something}; DivideParagraphPoint();
-		@pull say__pc; @pull say__p; AdjustParagraphPoint(); @pull keep_silent; -).
-To try silently (doing something - action)
+	(- {-try-action-silently:S} -).
+To try silently (S - action)
 	(documented at ph_trysilently):
-	(- @push keep_silent; keep_silent=1; @push say__p; @push say__pc;
-		ClearParagraphing(2); {doing something}; DivideParagraphPoint();
-		@pull say__pc; @pull say__p; AdjustParagraphPoint(); @pull keep_silent; -).
+	(- {-try-action-silently:S} -).
 To decide whether the action is not silent:
 	(- (keep_silent == false) -).
 
@@ -6030,36 +6016,27 @@ To continue the action
 	(documented at ph_continueaction):
 	(- rfalse; -) - in to only.
 
-Section SR5/4/4 - Actions, activities and rules - Stored actions
+Section SR5/4/4 - Actions, activities and rules - Actions as values
 
-To decide what stored action is the current action
+To decide what action is the current action
 	(documented at ph_currentaction):
-	(- STORED_ACTION_TY_Current({-new:stored action}) -).
-To decide what stored action is the action of (A - action)
+	(- STORED_ACTION_TY_Current({-new:action}) -).
+To decide what action is the action of (A - action)
 	(documented at ph_actionof):
-	(- {A}{-backspace}{-backspace}, STORED_ACTION_TY_Current({-new:stored action})) -).
-To try (S - stored action)
-	(documented at ph_trystored):
-	(- STORED_ACTION_TY_Try({S}); -).
-To silently try (S - stored action)
-	(documented at ph_trystoredsilently):
-	(- STORED_ACTION_TY_Try({S}, true); -).
-To try silently (S - stored action)
-	(documented at ph_trystoredsilently):
-	(- STORED_ACTION_TY_Try({S}, true); -).
-To decide if (act - a stored action) involves (X - an object)
+	(- {A} -).
+To decide if (act - a action) involves (X - an object)
 	(documented at ph_involves):
 	(- (STORED_ACTION_TY_Involves({-by-reference:act}, {X})) -).
-To decide what action name is the action name part of (act - a stored action)
+To decide what action name is the action name part of (act - a action)
 	(documented at ph_actionpart):
 	(- (STORED_ACTION_TY_Part({-by-reference:act}, STORA_ACTION_F)) -).
-To decide what object is the noun part of (act - a stored action)
+To decide what object is the noun part of (act - a action)
 	(documented at ph_nounpart):
 	(- (STORED_ACTION_TY_Part({-by-reference:act}, STORA_NOUN_F)) -).
-To decide what object is the second noun part of (act - a stored action)
+To decide what object is the second noun part of (act - a action)
 	(documented at ph_secondpart):
 	(- (STORED_ACTION_TY_Part({-by-reference:act}, STORA_SECOND_F)) -).
-To decide what object is the actor part of (act - a stored action)
+To decide what object is the actor part of (act - a action)
 	(documented at ph_actorpart):
 	(- (STORED_ACTION_TY_Part({-by-reference:act}, STORA_ACTOR_F)) -).
 

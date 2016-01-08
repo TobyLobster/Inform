@@ -23,7 +23,6 @@ static NSCache *imageCache = nil;
 
 // Class dealloc - called explicitly from app delegate
 +(void) dealloc {
-    [imageCache release];
     imageCache = nil;
 }
 
@@ -33,7 +32,7 @@ static NSCache *imageCache = nil;
     if (!image) {
         // Cache miss, get image
         NSString *path = [[NSBundle mainBundle] pathForResourcePath:relativePath];
-        image = [[[NSImage alloc] initByReferencingFile:path] autorelease];
+        image = [[NSImage alloc] initByReferencingFile:path];
 
         if (image) {	// Insert image in cache
             [imageCache setObject:image forKey:relativePath];

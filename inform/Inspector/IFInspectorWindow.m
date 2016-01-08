@@ -13,13 +13,32 @@
 #import "IFProjectController.h"
 #import "IFProject.h"
 #import "IFUtility.h"
-
+#import "IFInspector.h"
 #import "IFPreferences.h"
+#import "IFCompilerSettings.h"
 
 static NSString* IFInspectorDefaults = @"IFInspectorDefaults";
 static NSString* IFInspectorShown = @"IFInspectorShown";
 
-@implementation IFInspectorWindow
+@implementation IFInspectorWindow {
+    NSMutableDictionary* inspectorDict;							// The dictionary of inspectors (maps inspector keys to inspectors)
+
+    NSMutableArray* inspectors;									// The list of inspectors
+    NSMutableArray* inspectorViews;								// The list of inspector views
+
+    BOOL updating;												// YES if we're in the middle of updating
+
+    // The main window
+    BOOL newMainWindow;											// Flag that indicates if we've processed a new main window event yet
+    NSWindow* activeMainWindow;									// The 'main window' that we're inspecting
+
+    // Whether or not the main window should pop up when inspectors suddenly show up
+    BOOL hidden;												// YES if the inspector window is currently offscreen (because, for example, none of the inspectors are returning yes to [available])
+    BOOL shouldBeShown;											// YES if the inspector window should be shown again (ie, the window was closed because there was nothing to show, not because the user dismissed it)
+
+    // List of most/least recently shown inspectors
+    NSMutableArray* shownInspectors;							// Array of inspectors in the order that the user asked for them
+}
 
 + (IFInspectorWindow*) sharedInspectorWindow {
 	static IFInspectorWindow* sharedWindow = nil;
@@ -42,13 +61,11 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 + (void) initialize {
 	// Register our defaults (which inspectors are open/closed)
 	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-		[NSDictionary dictionaryWithObjectsAndKeys: 
-			[NSDictionary dictionary], IFInspectorDefaults, 
-			[NSNumber numberWithBool: NO], IFInspectorShown, 
-			nil]];
+		@{IFInspectorDefaults: @{}, 
+			IFInspectorShown: @NO}];
 }
 
-- (id) init {
+- (instancetype) init {
 	// Create ourselves a window
 	NSScreen* mainScreen = [NSScreen mainScreen];
 	float width = 240;
@@ -68,10 +85,10 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	[ourWindow setBecomesKeyOnlyIfNeeded: YES];
 	
 	// Initialise ourselves properly
-	return [self initWithWindow: [ourWindow autorelease]];
+	return [self initWithWindow: ourWindow];
 }
 
-- (id)initWithWindow:(NSWindow *)window {
+- (instancetype)initWithWindow:(NSWindow *)window {
 	self = [super initWithWindow: window];
 	
 	if (self) {
@@ -86,7 +103,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 		inspectorDict = [[NSMutableDictionary alloc] init];
 		
 		// The sole purpose of IFIsFlippedView is to return YES to isFlipped...
-		[[self window] setContentView: [[[IFIsFlippedView alloc] init] autorelease]];
+		[[self window] setContentView: [[IFIsFlippedView alloc] init]];
 		
 		// - Easy, but broken (doesn't handle the changing size of the window correctly)
 		//[self setWindowFrameAutosaveName: @"InspectorWindowFrame"];
@@ -109,13 +126,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 }
 
 - (void) dealloc {
-	[inspectorDict release];
-	[inspectors release];
-	[inspectorViews release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[super dealloc];
 }
 
 // = Dealing with inspector views =
@@ -138,20 +149,19 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 											   object: insView];
 	
 	[[[self window] contentView] addSubview: insView];
-	[inspectorViews addObject: [insView autorelease]];
+	[inspectorViews addObject: insView];
 	
 	// Add the inspector key map thingie
-	if ([inspectorDict objectForKey: [newInspector key]] != nil) {
+	if (inspectorDict[[newInspector key]] != nil) {
 		NSLog(@"BUG: inspector added twice");
 	} else {
-		[inspectorDict setObject: [NSNumber numberWithInt: [inspectors count]-1]
-						  forKey: [newInspector key]];
+		inspectorDict[[newInspector key]] = @((int)[inspectors count]-1);
 	}
 	
 	// Set the expanded flag according to the preferences
 	NSDictionary* inspectorDefaults = [[NSUserDefaults standardUserDefaults] objectForKey: IFInspectorDefaults];
 	if (inspectorDefaults && [inspectorDefaults isKindOfClass: [NSDictionary class]]) {
-		[newInspector setExpanded: [[inspectorDefaults objectForKey: [newInspector key]] boolValue]];
+		[newInspector setExpanded: [inspectorDefaults[[newInspector key]] boolValue]];
 	}
 
 	// Update the list of inspectors
@@ -186,20 +196,20 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Close least recently used inspectors until there's only one shown, or everything fits on the screen	
 	if (currentHeight > maxHeight) {
 		// (Will recurse if this changes the state any)
-		[[shownInspectors objectAtIndex: 0] setExpanded: NO];
+		[shownInspectors[0] setExpanded: NO];
 	}
 }
 
 - (void) setInspectorState: (BOOL) shown
 					forKey: (NSString*) key {
-	NSNumber* insNum = [inspectorDict objectForKey: key];
+	NSNumber* insNum = inspectorDict[key];
 		
 	if (insNum == nil) {
 		NSLog(@"BUG: attempt to show/hide unknown inspector '%@'", key);
 		return;
 	}
 	
-	[[inspectorViews objectAtIndex: [insNum intValue]] setExpanded: shown];
+	[inspectorViews[[insNum intValue]] setExpanded: shown];
 }
 
 - (void) inspectorViewDidChange: (IFInspectorView*) view
@@ -215,14 +225,14 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 }
 
 - (BOOL) inspectorStateForKey: (NSString*) key {
-	NSNumber* insNum = [inspectorDict objectForKey: key];
+	NSNumber* insNum = inspectorDict[key];
 	
 	if (insNum == nil) {
 		NSLog(@"BUG: attempt to show/hide unknown inspector '%@'", key);
 		return NO;
 	}
 	
-	return [[inspectorViews objectAtIndex: [insNum intValue]] expanded];
+	return [inspectorViews[[insNum intValue]] expanded];
 }
 
 - (void) showInspector: (IFInspector*) inspector {
@@ -255,7 +265,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 										 target: self
 									   argument: nil
 										  order: 128
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 	updating = YES;
 }
 
@@ -288,8 +298,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
 		
-		[inspectorState setObject: [NSNumber numberWithBool: [inspector expanded]]
-						   forKey: [inspector key]];
+		inspectorState[[inspector key]] = @([inspector expanded]);
 		
         // Inspectors are only shown for Inform 6 projects.
 		if ([inspector available] && !inform7Project) {
@@ -312,7 +321,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 		}
 	}
 	
-	[[NSUserDefaults standardUserDefaults] setObject: [inspectorState autorelease]
+	[[NSUserDefaults standardUserDefaults] setObject: inspectorState
 											  forKey: IFInspectorDefaults];
 	
 	// ypos defines the size of the window
@@ -360,7 +369,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 												 target: self
 											   argument: nil
 												  order: 129
-												  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+												  modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 		}
 	}
 }
@@ -378,7 +387,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 												 target: self
 											   argument: nil
 												  order: 129
-												  modes: [NSArray arrayWithObjects: NSDefaultRunLoopMode, NSModalPanelRunLoopMode, nil]];
+												  modes: @[NSDefaultRunLoopMode, NSModalPanelRunLoopMode]];
 		}
 	}
 }
@@ -395,7 +404,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 - (BOOL)windowShouldClose:(id)aNotification {
 	hidden = YES;
 	
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: NO]
+	[[NSUserDefaults standardUserDefaults] setObject: @NO
 											  forKey: IFInspectorShown];
 	
 	return YES;
@@ -404,7 +413,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 - (void) showWindow: (id) sender {
 	hidden = NO;
 	
-	[[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: YES]
+	[[NSUserDefaults standardUserDefaults] setObject: @YES
 											  forKey: IFInspectorShown];
 	
 	if (shouldBeShown) {

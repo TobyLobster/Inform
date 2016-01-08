@@ -17,7 +17,7 @@
 @protocol GlkCustomLineSection
 
 - (void) placeBaselineAt: (NSPoint) point					// This object has been typeset at the specified position
-				forGlyph: (int) glyph;
+				forGlyph: (NSUInteger) glyph;
 
 @end
 
@@ -30,7 +30,7 @@
 @protocol GlkCustomTextLayout
 
 - (void) invalidateCustomGlyphs: (NSRange) range;
-- (void) addCustomGlyph: (int) location
+- (void) addCustomGlyph: (NSUInteger) location
 				section: (GlkCustomTextSection*) section;
 
 @end
@@ -71,14 +71,14 @@ typedef struct GlkLineSection {
 	NSTextContainer* container;					// The text container that we're fitting text into [NOT RETAINED]
 	
 	float inset;								// The line fragment padding to use
-	int lastSetGlyph;							// The last glyph laid out
+	NSUInteger lastSetGlyph;					// The last glyph laid out
 	
 	// The glyph cache
 	NSRange cached;								// The range of the cached glyphs
-	int cacheLength;							// Size of the cache
+	NSUInteger cacheLength;                     // Size of the cache
 	
 	NSGlyph* cacheGlyphs;						// The identifier for each glyph that we're laying out
-	unsigned* cacheCharIndexes;					// The character index into the source string for each glyph
+	NSUInteger* cacheCharIndexes;               // The character index into the source string for each glyph
 	NSGlyphInscription* cacheInscriptions;		// The inscriptions for each glyph
 	BOOL* cacheElastic;							// The elastic bits for each glyph
 	unsigned char* cacheBidi;					// The bidirectional level for each glyph
@@ -97,7 +97,7 @@ typedef struct GlkLineSection {
 	GlkMarginSection* activeLeftMargin;			// Left margin active before this line fragment started
 	GlkMarginSection* activeRightMargin;		// Right margin active before this line fragment started
 	
-	int lineFragmentInitialGlyph;				// First glyph on the current line fragment
+	NSUInteger lineFragmentInitialGlyph;		// First glyph on the current line fragment
 	float thisLeftMargin;						// Left margin added (so far) in this fragment
 	float thisRightMargin;						// Right margin added (so far) in this fragment
 	float thisLeftMaxY;
@@ -124,7 +124,7 @@ typedef struct GlkLineSection {
 }
 
 // Laying out line sections
-- (BOOL) cacheGlyphsIncluding: (int) minGlyphIndex;			// Ensures that the specified range of glyphs are in the cache
+- (BOOL) cacheGlyphsIncluding: (NSUInteger) minGlyphIndex;	// Ensures that the specified range of glyphs are in the cache
 - (void) beginLineFragment;									// Starts a new line fragment
 - (BOOL) endLineFragment: (BOOL) lastFragment				// Finishes the current line fragment and adds it to the layout manager
 				 newline: (BOOL) newline;
@@ -143,15 +143,15 @@ typedef struct GlkLineSection {
 - (void) addToRightMargin: (float) width					// Adds a certain width to the right margin on the current line
 				   height: (float) height;					// (for flowing images)
 
-- (float) currentLeftMarginOffset;							// Get the current offset into the left margin
-- (float) currentRightMarginOffset;							// Get the current offset into the right margin
-- (float) remainingMargin;									// Remaining space for margin objects
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentLeftMarginOffset;							// Get the current offset into the left margin
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentRightMarginOffset;							// Get the current offset into the right margin
+@property (NS_NONATOMIC_IOSONLY, readonly) float remainingMargin;									// Remaining space for margin objects
 
-- (float) currentLeftMarginHeight;							// Amount required to clear the left margin
-- (float) currentRightMarginHeight;							// Amount required to clear the right margin
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentLeftMarginHeight;							// Amount required to clear the left margin
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentRightMarginHeight;							// Amount required to clear the right margin
 
 // Laying out glyphs
-- (int) layoutLineFromGlyph: (int) glyph;					// Lays out a single line fragment from the specified glyph
+- (NSUInteger) layoutLineFromGlyph: (NSUInteger) glyph;		// Lays out a single line fragment from the specified glyph
 
 // Setting the delegate
 - (void) setDelegate: (NSObject<GlkCustomTextLayout>*) delegate;	// Sets the delegate (the delegate is NOT RETAINED)

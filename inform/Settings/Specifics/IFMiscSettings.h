@@ -13,17 +13,10 @@
 //
 // Some miscellaneous Inform 6 settings
 //
-@interface IFMiscSettings : IFSetting {
-    IBOutlet NSButton* strictMode;
-    IBOutlet NSButton* infixMode;
-    IBOutlet NSButton* debugMode;	
-}
+@interface IFMiscSettings : IFSetting
 
-- (void) setStrict: (BOOL) setting;
-- (void) setInfix: (BOOL) setting;
-- (void) setDebug: (BOOL) setting;
-- (BOOL) strict;
-- (BOOL) infix;
-- (BOOL) debug;
+@property (atomic) BOOL strict;
+@property (atomic) BOOL infix;
+@property (atomic) BOOL debug;
 
 @end

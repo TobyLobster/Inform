@@ -10,7 +10,9 @@
 #import "IFSyntaxData.h"
 #import "IFProjectPane.h"
 
-@implementation IFInform6Highlighter
+@implementation IFInform6Highlighter {
+    IFSyntaxData* activeData;
+}
 
 // = The statemachine itself =
 
@@ -424,11 +426,11 @@ static inline BOOL FindKeyword(char** keywordList, int nKeywords, char* keyword)
 // = Initialisation =
 
 static int compare(const void* a, const void* b) {
-    return strcmp(*((const char**)a),*((const char**)b));
+    return strcmp(*((const char*const*)a),*((const char*const*)b));
 }
 
 + (void) initialize {
-    codeKwSet = [[NSSet setWithObjects:
+    codeKwSet = [NSSet setWithObjects:
         @"box", @"break", @"child", @"children", @"continue", @"default",
         @"do", @"elder", @"eldest", @"else", @"false", @"font", @"for", @"give", @"glk",
         @"has", @"hasnt", @"if", @"in", @"indirect", @"inversion", @"jump",
@@ -436,8 +438,7 @@ static int compare(const void* a, const void* b) {
         @"ofclass", @"or", @"parent", @"print", @"print_ret", @"provides", @"quit",
         @"random", @"read", @"remove", @"restore", @"return", @"rfalse", @"rtrue",
         @"save", @"sibling", @"spaces", @"string", @"style", @"switch", @"to",
-        @"true", @"until", @"while", @"younger", @"youngest", nil]
-        retain];
+        @"true", @"until", @"while", @"younger", @"youngest", nil];
     
 	/*
     otherKwSet = [[NSSet setWithObjects: 
@@ -448,10 +449,9 @@ static int compare(const void* a, const void* b) {
 		@"time", @"topic", @"warning", nil]
         retain];
 	*/
-    otherKwSet = [[NSSet setWithObjects: 
+    otherKwSet = [NSSet setWithObjects: 
         @"first", @"last", @"meta", @"only", @"private", @"replace", @"reverse",
-        @"string", @"table", nil]
-        retain];
+        @"string", @"table", nil];
     
     for( NSString* key in codeKwSet ) {
         const char* str = [[key lowercaseString] UTF8String];
@@ -480,8 +480,7 @@ static int compare(const void* a, const void* b) {
 // = Notifying of the highlighter currently in use =
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
-	[activeData release];
-	activeData = [aData retain];
+	activeData = aData;
 }
 
 // = The highlighter itself =
@@ -542,7 +541,7 @@ static int compare(const void* a, const void* b) {
     int chr;
 	
 	const char* str = [line UTF8String];
-	int strLen = [line length];
+	int strLen = (int) [line length];
     
     // Firstly, any characters with colour Q (quoted-text) which have special
     // meanings are given "escape-character colour" instead.  This applies

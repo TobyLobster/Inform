@@ -10,30 +10,7 @@
 
 #import "ZoomProtocol.h"
 
-@interface ZoomBlorbFile : NSObject {
-	NSObject<ZFile>* file;
-	
-	NSString*       formID;
-	unsigned int    formLength;
-
-	NSMutableArray*		 iffBlocks;
-	NSMutableDictionary* typesToBlocks;
-	NSMutableDictionary* locationsToBlocks;
-	
-	NSMutableDictionary* resourceIndex;
-	
-	BOOL adaptive;
-	NSMutableSet* adaptiveImages;
-	NSData*       activePalette;
-	
-	NSSize stdSize;
-	NSSize minSize;
-	NSSize maxSize;
-	NSMutableDictionary* resolution;
-	
-	NSMutableDictionary* cache;
-	unsigned int maxCacheNum;
-}
+@interface ZoomBlorbFile : NSObject
 
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
@@ -41,9 +18,9 @@
 + (BOOL) zfileIsBlorb: (NSObject<ZFile>*) file;
 
 // Initialisation
-- (id) initWithZFile: (NSObject<ZFile>*) file; // Designated initialiser
-- (id) initWithData: (NSData*) blorbFile;
-- (id) initWithContentsOfFile: (NSString*) filename;
+- (instancetype) initWithZFile: (NSObject<ZFile>*) file NS_DESIGNATED_INITIALIZER; // Designated initialiser
+- (instancetype) initWithData: (NSData*) blorbFile;
+- (instancetype) initWithContentsOfFile: (NSString*) filename;
 
 // Cache control
 - (void) removeAdaptiveImagesFromCache;
@@ -54,7 +31,7 @@
 - (NSData*) dataForChunkWithType: (NSString*) chunkType;
 
 // The resource index
-- (BOOL) parseResourceIndex;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL parseResourceIndex;
 - (BOOL) containsImageWithNumber: (int) num;
 
 // Typed data

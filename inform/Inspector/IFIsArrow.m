@@ -16,7 +16,7 @@
 	[[self class] setCellClass: [IFIsArrowCell class]];
 }
 
-- (id)initWithFrame:(NSRect)frameRect {
+- (instancetype)initWithFrame:(NSRect)frameRect {
 	self = [super initWithFrame: frameRect];
 	
 	if (self) {

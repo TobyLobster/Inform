@@ -10,10 +10,15 @@
 #import "IFProjectController.h"
 #import "IFUtility.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import "IFProject.h"
 
 NSString* IFIsNotesInspector = @"IFIsNotesInspector";
 
-@implementation IFIsNotes
+@implementation IFIsNotes {
+    IFProject* activeProject;				// Currently selected project
+
+    IBOutlet NSTextView* text;				// The text view that will contain the notes
+}
 
 + (IFIsNotes*) sharedIFIsNotes {
 	static IFIsNotes* notes = nil;
@@ -25,7 +30,7 @@ NSString* IFIsNotesInspector = @"IFIsNotesInspector";
 	return notes;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -39,20 +44,15 @@ NSString* IFIsNotesInspector = @"IFIsNotesInspector";
 	return self;
 }
 
-- (void) dealloc {
-	if (activeProject) [activeProject release];
-	[super dealloc];
-}
 
 - (void) inspectWindow: (NSWindow*) newWindow {
-    [activeProject release];
     activeProject = nil;
 
 	// Set the notes layout manager to be us
 	NSWindowController* control = [newWindow windowController];
 	
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
-		activeProject = [[control document] retain];
+		activeProject = [control document];
 		
         if( [activeProject notes] != nil ) {
             [text.layoutManager replaceTextStorage: [activeProject notes]];

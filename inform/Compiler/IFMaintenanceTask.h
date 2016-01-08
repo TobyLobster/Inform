@@ -1,6 +1,6 @@
 //
 //  IFMaintenanceTask.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/04/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -15,13 +15,7 @@ extern NSString* IFMaintenanceTasksFinished;
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)
 ///
-@interface IFMaintenanceTask : NSObject {
-	NSTask* activeTask;											// The task that's currently running
-	NSMutableArray* pendingTasks;								// The tasks that are going to be run
-    NSString* activeTaskNotificationType;                       // Current notification type for activeTask
-	
-	BOOL haveFinished;											// YES if we've notified of a finish event
-}
+@interface IFMaintenanceTask : NSObject
 
 + (IFMaintenanceTask*) sharedMaintenanceTask;					// Retrieves the common maintenance task object
 

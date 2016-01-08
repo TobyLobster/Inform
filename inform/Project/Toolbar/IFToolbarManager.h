@@ -5,21 +5,15 @@
 //  Created by Toby Nelson in 2014.
 //
 
-#import "IFProjectController.h"
-#import "IFToolbarStatusView.h"
+@class IFProgress;
+@class IFProjectController;
+@class IFToolbarStatusView;
 
-@interface IFToolbarManager : NSObject<NSToolbarDelegate> {
-    // The toolbar
-    NSToolbar* toolbar;
-    NSView* toolbarView;
-    IFProjectController* projectController;
-    IFToolbarStatusView* toolbarStatusView;
+@interface IFToolbarManager : NSObject<NSToolbarDelegate>
 
-	// Progress indicators
-	NSMutableArray* progressObjects;
-}
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
 
-- (id) initWithProjectController:(IFProjectController*) pc;
+- (instancetype) initWithProjectController:(IFProjectController*) pc NS_DESIGNATED_INITIALIZER;
 - (void) updateSettings;
 - (void) setToolbar;
 - (void) validateVisibleItems;
@@ -27,7 +21,10 @@
 
 // Status Messages
 - (void) showMessage: (NSString*) message;
--(NSString*) toolbarIdentifier;
+@property (atomic, readonly, copy)    NSString *      toolbarIdentifier;
+@property (atomic, readonly, strong)  NSPopUpButton*  testCasesPopUpButton;
+@property (atomic, readonly, strong)  NSButton*       goButton;
+@property (atomic, readonly, strong)  NSArray*        testCases;              // Array of availabale test cases
 
 // Progress
 - (void) updateProgress;
@@ -42,5 +39,16 @@
 - (void) progressIndicatorStartProgress: (IFProgress*) indicator;
 - (void) progressIndicatorStopProgress: (IFProgress*) indicator;
 -(void) cancelProgress;
+
+// Extension projects
+-(void) setIsExtensionProject:(BOOL) isExtensionProject;
+-(void) setTestCases:(NSArray*) testCasesArray;
+-(NSString*) getTestCase:(int) index;
+-(int) getNumberOfTestCases;
+-(int) getTestCaseIndex;
+
+-(BOOL) selectTestCase:(NSString*) testCase;
+
+@property (atomic, readonly, copy) NSString *currentTestCase;
 
 @end

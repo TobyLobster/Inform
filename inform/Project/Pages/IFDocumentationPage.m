@@ -1,6 +1,6 @@
 //
 //  IFDocumentationPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -13,13 +13,25 @@
 #import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
+#import "IFProjectController.h"
+#import "IFPageBarCell.h"
 
+@implementation IFDocumentationPage {
+    // The documentation view
+    WebView* wView;										// The web view that displays the documentation
 
-@implementation IFDocumentationPage
+    // Page cells
+    IFPageBarCell* contentsCell;						// The 'table of contents' cell
+    IFPageBarCell* examplesCell;						// The 'Examples' cell
+    IFPageBarCell* generalIndexCell;					// The 'General Index' cell
+    NSDictionary* tabDictionary;                        // Maps URL paths to cells
+
+    bool reloadingBecauseCensusCompleted;
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Documentation"
 				projectController: controller];
 	
@@ -27,7 +39,7 @@
         reloadingBecauseCensusCompleted = false;
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(preferencesChanged:)
+												 selector: @selector(fontSizePreferenceChanged:)
 													 name: IFPreferencesAppFontSizeDidChangeNotification
 												   object: [IFPreferences sharedPreferences]];
 		[[NSNotificationCenter defaultCenter] addObserver: self
@@ -38,38 +50,29 @@
 												 selector: @selector(censusCompleted:)
 													 name: IFCensusFinishedButDontUpdateExtensionsWebPageNotification
 												   object: nil];
-		
-		if ((int)[[NSApp delegate] isWebKitAvailable]) {
-			// Create the view for the documentation tab
-			wView = [[WebView alloc] init];
-			[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-			[wView setResourceLoadDelegate: self];
-			[wView setFrameLoadDelegate: self];
-			
-			[wView setFrame: [view bounds]];
-			[wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-			[view addSubview: wView];
-			
-            NSURL* url = [NSURL URLWithString: @"inform:/index.html"];
-            NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
-			[[wView mainFrame] loadRequest: urlRequest];
-            [urlRequest release];
-		} else {
-			wView = nil;
-		}		
-		
-		if ([[NSApp delegate] isWebKitAvailable]) {
-			[wView setPolicyDelegate: [parent generalPolicy]];
-			
-			[wView setUIDelegate: parent];
-			[wView setHostWindow: [parent window]];
-		}
 
+        // Create the view for the documentation tab
+        wView = [[WebView alloc] init];
+        [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+        [wView setResourceLoadDelegate: self];
+        [wView setFrameLoadDelegate: self];
+
+        [wView setFrame: [self.view bounds]];
+        [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+        [self.view addSubview: wView];
+
+        NSURL* url = [NSURL URLWithString: @"inform:/index.html"];
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+        [[wView mainFrame] loadRequest: urlRequest];
+
+        [wView setPolicyDelegate: (id<WebPolicyDelegate>) [self.parent generalPolicy]];
+        [wView setUIDelegate: (id<WebUIDelegate>) self.parent];
+        [wView setHostWindow: [self.parent window]];
 
 		contentsCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
 		[contentsCell setTarget: self];
 		[contentsCell setAction: @selector(showToc:)];
-        
+
 		examplesCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"Example Docs" default: @"Examples"]];
 		[examplesCell setTarget: self];
 		[examplesCell setAction: @selector(showExamples:)];
@@ -80,11 +83,9 @@
 		[generalIndexCell setAction: @selector(showGeneralIndex:)];
 
         // Static dictionary mapping tab names to cells
-        tabDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         contentsCell,      @"inform:/index.html",
-                         examplesCell,      @"inform:/examples_alphabetical.html",
-                         generalIndexCell,  @"inform:/general_index.html",
-                         nil];
+        tabDictionary = @{@"inform:/index.html": contentsCell,
+                          @"inform:/examples_alphabetical.html": examplesCell,
+                          @"inform:/general_index.html": generalIndexCell};
 	}
 
 	return self;
@@ -92,15 +93,6 @@
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-    [wView release];
-    wView = nil;
-	
-	[contentsCell release];
-    [examplesCell release];
-    [generalIndexCell release];
-    
-	[super dealloc];
 }
 
 // = Details about this view =
@@ -121,7 +113,7 @@
 
 // = Preferences =
 
-- (void) preferencesChanged: (NSNotification*) not {
+- (void) fontSizePreferenceChanged: (NSNotification*) not {
 	[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
@@ -130,7 +122,7 @@
 - (void) openURL: (NSURL*) url  {
 	[self switchToPage];
 	
-	[[wView mainFrame] loadRequest: [[[NSURLRequest alloc] initWithURL: url] autorelease]];
+	[[wView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 }
 
 - (void) openURLWithString: (NSString*) urlString {
@@ -141,10 +133,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [[tabDictionary objectForKey:key] setState:NSOnState];
+            [(IFPageBarCell*) tabDictionary[key] setState:NSOnState];
         }
         else {
-            [[tabDictionary objectForKey:key] setState:NSOffState];
+            [(IFPageBarCell*) tabDictionary[key] setState:NSOffState];
         }
     }
 }
@@ -155,7 +147,7 @@
 				   resource:(id)identifier 
 	didFailLoadingWithError:(NSError *)error 
 			 fromDataSource:(WebDataSource *)dataSource {
-    NSString *urlString = [error.userInfo objectForKey:@"NSErrorFailingURLStringKey"];
+    NSString *urlString = (error.userInfo)[@"NSErrorFailingURLStringKey"];
 
     if (error.code == NSURLErrorCancelled) {
         //NSLog(@"IFDocumentationPage: load of URL %@ was cancelled", urlString);
@@ -176,7 +168,7 @@
         url = [[[frame dataSource] request] URL];
     }
     
-    url = [[url copy] autorelease];
+    url = [url copy];
 
     // Highlight appropriate tab
     [self highlightTabForURL:[url absoluteString]];
@@ -194,12 +186,12 @@
 - (void)        webView: (WebView *) sender
    didClearWindowObject: (WebScriptObject *) windowObject
                forFrame: (WebFrame *) frame {
-	if (otherPane) {
+	if (self.otherPane) {
 		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: otherPane];
+		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
 		
 		// Attach it to the script object
-		[[sender windowScriptObject] setValue: [js autorelease]
+		[[sender windowScriptObject] setValue: js
 									   forKey: @"Project"];
 	}
 }
@@ -224,12 +216,12 @@
 // = Page bar cells =
 
 - (NSArray*) toolbarCells {
-	return [NSArray arrayWithObjects: generalIndexCell, examplesCell, contentsCell, nil];
+	return @[generalIndexCell, examplesCell, contentsCell];
 }
 
 -(NSString*) urlStringForCell:(IFPageBarCell*) cell {
     for (NSString* key in tabDictionary) {
-        if( [tabDictionary objectForKey:key] == cell ) {
+        if( tabDictionary[key] == cell ) {
             return key;
         }
     }

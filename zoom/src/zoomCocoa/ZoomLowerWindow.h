@@ -18,9 +18,9 @@
 	ZStyle* inputStyle;
 }
 
-- (id) initWithZoomView: (ZoomView*) zoomView;
+- (instancetype) initWithZoomView: (ZoomView*) zoomView NS_DESIGNATED_INITIALIZER;
 
-- (ZStyle*) backgroundStyle;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) ZStyle *backgroundStyle;
 
 - (void) setZoomView: (ZoomView*) view;
 

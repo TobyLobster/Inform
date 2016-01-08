@@ -16,10 +16,12 @@
 #import "IFFindInFilesController.h"
 #import "IFMaintenanceTask.h"
 
+#import "IFProject.h"
+#import "IFProjectController.h"
+
 #import "IFIsNotes.h"
 #import "IFIsIndex.h"
 #import "IFIsFiles.h"
-#import "IFIsSkein.h"
 #import "IFIsWatch.h"
 #import "IFIsBreakpoints.h"
 
@@ -47,14 +49,30 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-#import "IFSingleController.h"
+#import "IFSkeinItemView.h"
 
-#import <ZoomView/ZoomSkein.h>
-#import <ZoomView/ZoomSkeinView.h>
+#import "IFSingleController.h"
 
 #import <GlkView/GlkHub.h>
 
-@implementation IFAppDelegate
+@implementation IFAppDelegate {
+    IBOutlet NSMenuItem* newExtensionProjectMenu;   // The 'New Extension Project' menu
+    IBOutlet NSMenuItem* openExtensionMenu;         // The 'Open Extension' menu
+    IBOutlet NSMenuItem* debugMenu;					// The Debug menu
+
+    NSMutableArray* extensionSources;				// Maps extension menu tags to source file names
+
+    NSOpenPanel* openExtensionPanel;				// The 'open extension' panel
+
+    // Used for copying sample projects
+    NSURL*   copySource;
+    NSURL*   copyDestination;
+
+    // Used for copying resource files (e.g. epubs)
+    NSString* fileCopyDestination;
+    NSString* fileCopySource;
+    int exportToEPubIndex;
+}
 
 static NSString* IFSourceSpellChecking = @"IFSourceSpellChecking";
 static float     pixelWidthBetweenExtensionNameAndVersion = 10.0f;
@@ -82,28 +100,19 @@ static NSRunLoop* mainRunLoop = nil;
     return _webkitAvailable;
 }
 
-- (BOOL)isWebKitAvailable {
-	return haveWebkit;
-}
-
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
 	mainRunLoop = [NSRunLoop currentRunLoop];
 	
-	haveWebkit = [[self class] isWebKitAvailable];
-	
-	if (haveWebkit) {
-		// Register some custom URL handlers
-		// [NSURLProtocol registerClass: [IFNoDocProtocol class]];
-		[NSURLProtocol registerClass: [IFInformProtocol class]];
-	}
-	
+    // Register some custom URL handlers
+    // [NSURLProtocol registerClass: [IFNoDocProtocol class]];
+    [NSURLProtocol registerClass: [IFInformProtocol class]];
+
     copySource = nil;
     copyDestination = nil;
     fileCopyDestination = nil;
     fileCopySource = nil;
     exportToEPubIndex = 0;
-    
-    
+
 	// Standard settings
 	[IFSettingsController addStandardSettingsClass: [IFOutputSettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFI7OutputSettings class]];
@@ -122,15 +131,14 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsFiles sharedIFIsFiles]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsNotes sharedIFIsNotes]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsIndex sharedIFIsIndex]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsSkein sharedIFIsSkein]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsWatch sharedIFIsWatch]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsBreakpoints sharedIFIsBreakpoints]];
 	
 	// The standard preferences
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[[IFAuthorPreferences alloc] init] autorelease]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[[IFEditingPreferences alloc] init] autorelease]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[[IFTextSizePreferences alloc] init] autorelease]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[[IFAdvancedPreferences alloc] init] autorelease]];
+	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAuthorPreferences alloc] init]];
+	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
+	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
+	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
 	[self updateExtensionsMenu];
@@ -147,14 +155,13 @@ static NSRunLoop* mainRunLoop = nil;
                                                                      selector: @selector(openWelcomeDialogIfNeeded)
                                                                        object: nil];
     [[NSOperationQueue mainQueue] addOperation: op];
-    [op release];
 }
 
 -(void)openWelcomeDialogIfNeeded
 {
     //
     // HACK: Remove any open color panel. Lion's auto-restore of windows that were open when
-    // the app last closed down can cuase the color panel to display. We close the window.
+    // the app last closed down can cause the color panel to display. We close the window.
     //
     if([NSColorPanel sharedColorPanelExists]) {
         [[NSColorPanel sharedColorPanel] close];
@@ -182,8 +189,8 @@ static NSRunLoop* mainRunLoop = nil;
                   [[NSFileManager defaultManager] fileExistsAtPath: [materialsDestination path]];
 
     if( exists ) {
-        copySource = [source retain];
-        copyDestination = [destination retain];
+        copySource = source;
+        copyDestination = destination;
         
         // Ask for confirmation
         NSString* confirm = [NSString stringWithFormat: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
@@ -206,10 +213,8 @@ static NSRunLoop* mainRunLoop = nil;
 	if (returnCode == NSAlertFirstButtonReturn) {
         [[self class] copyProjectWithoutConfirmation: copySource
                                                   to: copyDestination];
-        [copySource release];
         copySource = nil;
         
-        [copyDestination release];
         copyDestination = nil;
 	}
 }
@@ -226,7 +231,7 @@ static NSRunLoop* mainRunLoop = nil;
                                                  error: &error] ) {
         if( error != nil ) {
             [IFUtility runAlertWarningWindow: nil
-                                       title: @"Error"
+                                       title: [IFUtility localizedString:@"Error"]
                                      message: @"%@", [error localizedDescription]];
         }
         return NO;
@@ -245,7 +250,7 @@ static NSRunLoop* mainRunLoop = nil;
                                                          error: &error] ) {
                 if( error != nil ) {
                     [IFUtility runAlertWarningWindow: nil
-                                               title: @"Error"
+                                               title: [IFUtility localizedString:@"Error"]
                                              message: @"%@", [error localizedDescription]];
                 }
                 return NO;
@@ -258,11 +263,8 @@ static NSRunLoop* mainRunLoop = nil;
     
     [docControl openDocumentWithContentsOfURL: destination
                                       display: YES
-                            completionHandler: ^(NSDocument *document, BOOL documentWasAlreadyOpen, NSError *error2)
-     {
-         // TODO: Anything needed here?
-     }];
-    
+                                        error: &error];
+
     return YES;
 }
 
@@ -272,6 +274,7 @@ static NSRunLoop* mainRunLoop = nil;
         newProj = [[IFNewProject alloc] init];
     }
     [newProj createInform7Project: title
+                         fileType: IFFileTypeInform7Project
                             story: story];
 }
 
@@ -280,6 +283,7 @@ static NSRunLoop* mainRunLoop = nil;
         newProj = [[IFNewProject alloc] init];
     }
     [newProj createInform7Project: nil
+                         fileType: IFFileTypeInform7Project
                             story: nil];
 }
 
@@ -295,16 +299,6 @@ static NSRunLoop* mainRunLoop = nil;
         newProj = [[IFNewProject alloc] init];
     }
     [newProj createInform6Project];
-}
-
-- (IBAction) newInformFile: (id) sender {
-    [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType: @"Inform source file"
-                                                                        display: YES];
-}
-
-- (IBAction) newHeaderFile: (id) sender {
-    [[NSDocumentController sharedDocumentController] openUntitledDocumentOfType: @"Inform header file"
-                                                                        display: YES];
 }
 
 - (IBAction) showInspectors: (id) sender {
@@ -358,30 +352,21 @@ static NSRunLoop* mainRunLoop = nil;
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
     NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
                                             location: tabWidth];
-    paragraph.tabStops = [NSArray arrayWithObject: tab];
+    paragraph.tabStops = @[tab];
     paragraph.lineBreakMode = NSLineBreakByClipping;
-    [tab release];
 
-    NSDictionary* greyDictionary  = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [NSColor grayColor], NSForegroundColorAttributeName,
-                                         systemFont, NSFontAttributeName,
-                                         paragraph, NSParagraphStyleAttributeName,
-                                         nil];
-    NSDictionary* smallBlackDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSColor blackColor], NSForegroundColorAttributeName,
-                                              smallFont, NSFontAttributeName,
-                                              paragraph, NSParagraphStyleAttributeName,
-                                              nil];
-    NSDictionary* smallGreyDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                             [NSColor grayColor], NSForegroundColorAttributeName,
-                                             smallFont, NSFontAttributeName,
-                                             paragraph, NSParagraphStyleAttributeName,
-                                             nil];
-    NSDictionary* blackDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                         [NSColor blackColor], NSForegroundColorAttributeName,
-                                         systemFont, NSFontAttributeName,
-                                         paragraph, NSParagraphStyleAttributeName,
-                                         nil];
+    NSDictionary* greyDictionary  = @{NSForegroundColorAttributeName: [NSColor grayColor],
+                                                 NSFontAttributeName: systemFont,
+                                       NSParagraphStyleAttributeName: paragraph};
+    NSDictionary* smallBlackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+                                                      NSFontAttributeName: smallFont,
+                                            NSParagraphStyleAttributeName: paragraph};
+    NSDictionary* smallGreyDictionary = @{NSForegroundColorAttributeName: [NSColor grayColor],
+                                                     NSFontAttributeName: smallFont,
+                                           NSParagraphStyleAttributeName: paragraph};
+    NSDictionary* blackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+                                                 NSFontAttributeName: systemFont,
+                                       NSParagraphStyleAttributeName: paragraph};
     NSDictionary* dict;
 
     if (info.isBuiltIn) {
@@ -404,36 +389,44 @@ static NSRunLoop* mainRunLoop = nil;
             dict = smallBlackDictionary;
         }
         NSString* version = [NSString stringWithFormat:@"\t%@", info.version];
-        NSAttributedString* attributedVersion = [[[NSAttributedString alloc] initWithString: version
-                                                                                 attributes: dict] autorelease];
+        NSAttributedString* attributedVersion = [[NSAttributedString alloc] initWithString: version
+                                                                                 attributes: dict];
         [attributedTitle appendAttributedString: attributedVersion];
     }
 
-    [paragraph release];
-    return [attributedTitle autorelease];
+    return attributedTitle;
 }
 
 // = The extensions menu =
 
 - (void) updateExtensionsMenu {
 	IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-    
-	// Clear out the menu
-    [[extensionsMenu submenu] removeAllItems];
-   
+
+	// Clear out the menus
+    [[openExtensionMenu submenu] removeAllItems];
+    [[newExtensionProjectMenu submenu] removeAllItems];
+
+    // Add new Extension items
+    NSMenuItem* newExtensionItem = [[NSMenuItem alloc] init];
+    [newExtensionItem setTitle: [IFUtility localizedString: @"New Extension..."]];
+    [newExtensionItem setTarget: self];
+    [newExtensionItem setTag:    -1];
+    [newExtensionItem setAction: @selector(newExtensionProject:)];
+    [[newExtensionProjectMenu submenu] addItem: newExtensionItem];
+
+    NSMenu* newMenu = [[NSMenu alloc] init];
+    [newMenu setTitle: [IFUtility localizedString:@"Create From Installed Extension"]];
+    NSMenuItem* newMenuItem = [[NSMenuItem alloc] init];
+    [newMenuItem setTitle: [newMenu title]];
+    [newMenuItem setSubmenu: newMenu];
+    [[newExtensionProjectMenu submenu] addItem: newMenuItem];
+
 	// Clear out the list of extension tags
-	[extensionSources release];
 	extensionSources = [[NSMutableArray alloc] init];
 
 	// Generate the extensions menu
     for( NSString* author in [mgr availableAuthors] ) {
-		NSMenu* authorMenu = [[NSMenu alloc] init];
-        [authorMenu setTitle: author];
-
-        NSMenuItem* authorItem = [[NSMenuItem alloc] init];
-        [authorItem setTitle: author];
-        [authorItem setSubmenu: authorMenu];
-
+        // Find the maximum width of all extensions by this author
         float maxWidth = 0.0f;
         for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
             float width;
@@ -442,35 +435,64 @@ static NSRunLoop* mainRunLoop = nil;
                                           widthOut: &width ];
             maxWidth = MAX(maxWidth, width);
         }
+        float tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
+
+        // Create menu and menu item for the 'Open Installed Extension' menu
+        NSMenu* openAuthorMenu = [[NSMenu alloc] init];
+        [openAuthorMenu setTitle: author];
+
+        NSMenuItem* openAuthorItem = [[NSMenuItem alloc] init];
+        [openAuthorItem setTitle: author];
+        [openAuthorItem setSubmenu: openAuthorMenu];
+        
+        // Create menu and menu item for the 'New Extension Project' menu
+        NSMenu* newExAuthorMenu = [[NSMenu alloc] init];
+        [newExAuthorMenu setTitle: author];
+
+        NSMenuItem* newExAuthorItem = [[NSMenuItem alloc] init];
+        [newExAuthorItem setTitle: author];
+        [newExAuthorItem setSubmenu: newExAuthorMenu];
 
         for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
-            NSMenuItem* newItem = [[NSMenuItem alloc] init];
-            
-            float tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
             NSAttributedString* attributedTitle = [self attributedStringForExtensionInfo: info
                                                                             withTabWidth: tabWidth
                                                                                 widthOut: nil ];
-            [newItem setAttributedTitle: attributedTitle];
-            [newItem setTarget: self];
-            [newItem setTag:    [extensionSources count]];
-            [newItem setAction: @selector(openExtension:)];
-            
-            [authorMenu addItem: newItem];
-            [newItem release];
+
+            // Create menu for each extension, for the 'Open Installed Extension' menu
+            {
+                NSMenuItem* openItem = [[NSMenuItem alloc] init];
+                [openItem setAttributedTitle: attributedTitle];
+                [openItem setTarget: self];
+                [openItem setTag:    [extensionSources count]];
+                [openItem setAction: @selector(openExtension:)];
+                
+                [openAuthorMenu addItem: openItem];
+            }
+
+            // Create menu for each extension, for the 'New Extension Project' menu
+            {
+                NSMenuItem* newExItem = [[NSMenuItem alloc] init];
+                [newExItem setAttributedTitle: attributedTitle];
+                [newExItem setTarget: self];
+                [newExItem setTag:    [extensionSources count]];
+                [newExItem setAction: @selector(newExtensionProject:)];
+
+                [newExAuthorMenu addItem: newExItem];
+            }
+
 
             // Add an entry in the extensionSources array so we know which file this refers to
             [extensionSources addObject: info.filepath];
         }
-        [[extensionsMenu submenu] addItem: authorItem];
-        [authorMenu release];
-        [authorItem release];
+        [[openExtensionMenu submenu] addItem: openAuthorItem];
+        [newMenu addItem: newExAuthorItem];
 	}
 }
 
 - (void) openExtension: (id) sender {
 	// Get the tag, and from that, get the source file we want to open
-	int tag = [sender tag];
-	NSString* sourceFilename = [extensionSources objectAtIndex: tag];
+	NSInteger tag = [sender tag];
+	NSString* sourceFilename = extensionSources[tag];
 	
 	// Open the file
     NSError* error;
@@ -478,14 +500,43 @@ static NSRunLoop* mainRunLoop = nil;
 															  ofType: @"Inform 7 extension"
                                                                error: &error];
 	
-	[[NSDocumentController sharedDocumentController] addDocument: [newDoc autorelease]];
+	[[NSDocumentController sharedDocumentController] addDocument: newDoc];
 	[newDoc makeWindowControllers];
 	[newDoc showWindows];	
+}
+
+- (void) newExtensionProject: (id) sender {
+    // Get the tag, and from that, get the source file we want
+    NSInteger tag = [sender tag];
+
+    if( newProj == nil ) {
+        newProj = [[IFNewProject alloc] init];
+    }
+
+    if( tag >= 0 )
+    {
+        NSString*   sourceFilename  = extensionSources[tag];
+        NSString*   projectTitle    = [[sourceFilename lastPathComponent] stringByDeletingPathExtension];
+        NSURL*      projectURL      = [NSURL fileURLWithPath:sourceFilename];
+
+        [newProj createInform7ExtensionProject: projectTitle
+                              fromExtensionURL: projectURL];
+    }
+    else
+    {
+        [newProj createInform7Project: nil
+                             fileType: IFFileTypeInform7ExtensionProject
+                                story: nil];
+    }
 }
 
 // = Some misc actions =
 
 - (IBAction) showPreferences: (id) sender {
+#if defined(DEBUG_EXPORT_HELP_IMAGES)
+    [IFSkeinItemView exportHelpImages];
+#endif // defined(DEBUG_EXPORT_HELP_IMAGES)
+
 	[[IFPreferenceController sharedPreferenceController] showWindow: self];
 }
 
@@ -526,7 +577,7 @@ static NSRunLoop* mainRunLoop = nil;
 	// Present a panel for adding new extensions
 	NSOpenPanel* panel;
 	if (!openExtensionPanel) {
-		openExtensionPanel = [[NSOpenPanel openPanel] retain];
+		openExtensionPanel = [NSOpenPanel openPanel];
 	}
 	panel = openExtensionPanel;
 
@@ -537,8 +588,6 @@ static NSRunLoop* mainRunLoop = nil;
 	[panel setAllowsMultipleSelection: YES];
 	[panel setTitle: [IFUtility localizedString:@"Install Inform 7 Extension"]];
 	[panel setDelegate: [IFExtensionsManager sharedNaturalInformExtensionsManager]];    // Extensions manager determines which file types are valid to choose (panel:shouldShowFilename:)
-    //NSArray* urls = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
-    //[panel setDirectoryURL:[urls objectAtIndex:0]];
 
     [panel beginWithCompletionHandler:^(NSInteger result)
      {
@@ -566,10 +615,9 @@ static NSRunLoop* mainRunLoop = nil;
          // Report an error if we couldn't install the extension for some reason
          if (!succeeded) {
              // Display a 'failed to add extension' alert sheet
-             NSRunAlertPanel([IFUtility localizedString: @"Failed to Install Extension"],
-                             [IFUtility localizedString: @"Failed to Install Extension Explanation"],
-                             [IFUtility localizedString: @"Cancel"],
-                             nil, nil);
+             [IFUtility runAlertWarningWindow: nil
+                                        title: @"Failed to Install Extension"
+                                      message: @"Failed to Install Extension Explanation"];
          }
      }];
 }
@@ -595,7 +643,6 @@ static NSRunLoop* mainRunLoop = nil;
 // = Termination =
 
 - (void) applicationWillTerminate: (NSNotification*) not {
-    [newProj release];
     newProj = nil;
 
     //
@@ -639,15 +686,13 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (BOOL) copyResource: (NSString*) resource
           toDirectory: (NSString*) destDir
-                error: (NSError**) error {
+                error: (NSError*__autoreleasing*) error {
     NSString* extension = [resource pathExtension];
     NSString* name = [[resource lastPathComponent] stringByDeletingPathExtension];
 
-    [fileCopyDestination release];
-    [fileCopySource release];
-    fileCopyDestination = [[[destDir stringByAppendingPathComponent: name]
-                             stringByAppendingPathExtension: extension] retain];
-    fileCopySource = [[[NSBundle mainBundle] pathForResource: name ofType: extension] retain];
+    fileCopyDestination = [[destDir stringByAppendingPathComponent: name]
+                             stringByAppendingPathExtension: extension];
+    fileCopySource = [[NSBundle mainBundle] pathForResource: name ofType: extension];
 
     if( fileCopySource == nil ) {
         [IFUtility runAlertWarningWindow: nil
@@ -673,9 +718,7 @@ static NSRunLoop* mainRunLoop = nil;
     BOOL result = [self copyResourceWithoutConfirmation: fileCopySource
                                           toDestination: fileCopyDestination
                                                   error: error];
-    [fileCopySource release];
     fileCopySource = nil;
-    [fileCopyDestination release];
     fileCopyDestination = nil;
 
     if( !result ) {
@@ -687,7 +730,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (BOOL) copyResourceWithoutConfirmation: (NSString*) source
                            toDestination: (NSString*) destination
-                                   error: (NSError**) error {
+                                   error: (NSError*__autoreleasing*) error {
     // Remove any existing file at destination
     [[NSFileManager defaultManager] removeItemAtPath: destination
                                                error: error];
@@ -706,12 +749,10 @@ static NSRunLoop* mainRunLoop = nil;
 - (void) confirmFileCopyDidEnd: (NSWindow *) sheet
                     returnCode: (int) returnCode
                    contextInfo: (void *) contextInfo {
-    NSString* sourceCopy = [[fileCopySource copy] autorelease];
-    NSString* destCopy   = [[fileCopyDestination copy] autorelease];
+    NSString* sourceCopy = [fileCopySource copy];
+    NSString* destCopy   = [fileCopyDestination copy];
     
-    [fileCopySource release];
     fileCopySource = nil;
-    [fileCopyDestination release];
     fileCopyDestination = nil;
 
 	if (returnCode == NSAlertFirstButtonReturn) {
@@ -732,7 +773,7 @@ static NSRunLoop* mainRunLoop = nil;
     NSError* error = nil;
 
     for(; exportToEPubIndex < [exportFiles count]; exportToEPubIndex++) {
-        if (![self copyResource: [exportFiles objectAtIndex: exportToEPubIndex]
+        if (![self copyResource: exportFiles[exportToEPubIndex]
                     toDirectory: destDir
                           error: &error]) {
             // Something stopped the flow - an error or a confirmation dialog.
@@ -761,7 +802,7 @@ static NSRunLoop* mainRunLoop = nil;
     [exportPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
      {
          if (result == NSOKButton) {
-             exportToEPubIndex = 0;
+             self->exportToEPubIndex = 0;
              [self exportNext: [[exportPanel URL] path]];
          }
      }];

@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxTypes.h"
-#import "IFInform6Highlighter.h"
 
 @class IFSyntaxData;
 
@@ -36,10 +35,6 @@ enum {
 //
 // Natural Inform syntax highlighter
 //
-@interface IFNaturalHighlighter : NSObject<IFSyntaxHighlighter> {
-	IFSyntaxData* activeData;					// Syntax data that we're using
-	
-	IFInform6Highlighter* inform6Highlighter;		// Highlighter for portions of the file that are Inform 6 code
-}
+@interface IFNaturalHighlighter : NSObject<IFSyntaxHighlighter>
 
 @end

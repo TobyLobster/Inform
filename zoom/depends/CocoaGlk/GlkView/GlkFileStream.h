@@ -15,8 +15,8 @@
 }
 
 // Initialisation
-- (id) initForReadWriteWithFilename: (NSString*) filename;
-- (id) initForWritingWithFilename: (NSString*) filename;
-- (id) initForReadingWithFilename: (NSString*) filename;
+- (instancetype) initForReadWriteWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
+- (instancetype) initForWritingWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
+- (instancetype) initForReadingWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
 
 @end

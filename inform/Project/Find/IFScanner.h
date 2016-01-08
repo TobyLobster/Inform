@@ -16,14 +16,14 @@
 
 +(NSRange) findNextMatch: (NSString*) phrase
                  storage: (NSString*) storage
-                position: (int) searchPosition
+                position: (NSUInteger) searchPosition
                  options: (IFFindType) searchType
-        regexFoundGroups: (NSArray**) foundGroupsOut;
+        regexFoundGroups: (NSArray*__strong*) foundGroupsOut;
 
 +(NSRange) findPreviousMatch: (NSString*) phrase
                      storage: (NSString*) storage
-                    position: (int) searchPosition
+                    position: (NSUInteger) searchPosition
                      options: (IFFindType) searchType
-            regexFoundGroups: (NSArray**) foundGroupsOut;
+            regexFoundGroups: (NSArray*__strong*) foundGroupsOut;
 
 @end

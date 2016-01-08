@@ -109,12 +109,12 @@ void cocoaglk_start(int argv, const char** argc) {
 	cocoaglk_obj = [[GlkCocoa alloc] init];
 	
 	// Attempt to connect to the hub
-	NSString* hubNameS = [NSString stringWithUTF8String: hubName];
+	NSString* hubNameS = @(hubName);
 	NSString* hubCookieS = nil;
 	NSString* sessionCookieS = nil;
 	
-	if (hubCookie) hubCookieS = [NSString stringWithUTF8String: hubCookie];
-	if (sessionCookie) sessionCookieS = [NSString stringWithUTF8String: sessionCookie];
+	if (hubCookie) hubCookieS = @(hubCookie);
+	if (sessionCookie) sessionCookieS = @(sessionCookie);
 	
 	NSString* connectionName = [NSString stringWithFormat: @"97V36B3QYK.com.inform7.inform-compiler.CocoaGlk-%@", hubNameS];
 	

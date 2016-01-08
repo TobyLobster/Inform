@@ -103,7 +103,7 @@ void startProgram (size_t cacheSize, enum IOMode ioMode)
     initCompiler (cacheSize);
 
     // Initialise the random number generator.
-    srand (time(NULL));
+    srand ((unsigned) time(NULL));
 
     // Set up the stack.
 
@@ -475,7 +475,7 @@ do_enter_function_L1: // Arg count is in L2.
 
 finish_undo_stub:
         PUSH (READ_PC);             // PC
-        PUSH ((frame - base) * 4);  // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4);  // FramePtr
         saveUndo (base, sp);
         S1 = 0;
         goto do_pop_call_stub;
@@ -516,7 +516,7 @@ finish_undo_stub:
 
 finish_save_stub:
         PUSH (READ_PC);                        // PC
-        PUSH ((frame - base) * 4);  // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4);  // FramePtr
         if (ioMode == IO_GLK)
             S1 = saveToFile (base, sp, L1);
         else
@@ -543,14 +543,14 @@ finish_save_stub:
     do_catch_stub_addr:
         CHECK_FREE(4);
         L7 = READ_PC;
-        memWrite32(L7, (sp-base+4)*4);
+        memWrite32(L7, (git_sint32) (sp-base+4)*4);
         PUSH (1);       // DestType
         goto finish_catch_stub_addr_L7;
 
     do_catch_stub_local:
         CHECK_FREE(4);
         L7 = READ_PC;
-        LOCAL(L7 / 4) = (sp-base+4)*4;
+        LOCAL(L7 / 4) = (git_sint32) (sp-base+4)*4;
         PUSH (2);       // DestType
         goto finish_catch_stub_addr_L7;
 
@@ -559,15 +559,15 @@ finish_save_stub:
         PUSH (3);                  // DestType
         PUSH (0);                  // DestAddr
         PUSH (READ_PC);            // PC
-        PUSH ((frame - base) * 4); // FramePtr
-        L7 = (sp - base)*4;        // Catch token.
+        PUSH ((git_sint32) (frame - base) * 4); // FramePtr
+        L7 = (git_sint32) (sp - base)*4;        // Catch token.
 	    PUSH (L7);
         NEXT;
 
 finish_catch_stub_addr_L7:
         PUSH (L7);                 // DestAddr
         PUSH (READ_PC);            // PC
-        PUSH ((frame - base) * 4); // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4); // FramePtr
         NEXT;
 
     do_throw:
@@ -602,7 +602,7 @@ do_call_stub_discard:
 
 finish_call_stub:
         PUSH (READ_PC);             // PC
-        PUSH ((frame - base) * 4);  // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4);  // FramePtr
         goto do_enter_function_L1;
     
 do_tailcall:
@@ -693,7 +693,7 @@ do_tailcall:
         goto do_jump_abs_L7;
 
     do_stkcount:
-        S1 = sp - values; NEXT;
+        S1 = (git_sint32) (sp - values); NEXT;
     
     do_stkpeek:
         if (L1 < 0 || L1 > (sp - values))
@@ -750,7 +750,7 @@ do_tailcall:
             PUSH(12); // DestType
             PUSH(L6); // DestAddr (next digit)
             PUSH(L7); // PC       (number to print)
-            PUSH ((frame - base) * 4); // FramePtr
+            PUSH ((git_sint32) (frame - base) * 4); // FramePtr
 
             // Call the filter function.
             L1 = ioRock;
@@ -783,7 +783,7 @@ do_tailcall:
             PUSH(13); // DestType (resume C string)
             PUSH(L6); // DestAddr (ignored)
             PUSH(L7); // PC       (next char to print)
-            PUSH ((frame - base) * 4); // FramePtr
+            PUSH ((git_sint32) (frame - base) * 4); // FramePtr
             // Call the filter function.
             L1 = ioRock;
             L2 = 1;
@@ -815,7 +815,7 @@ do_tailcall:
             PUSH(14); // DestType (resume Unicode string)
             PUSH(L6); // DestAddr (ignored)
             PUSH(L7); // PC       (next char to print)
-            PUSH ((frame - base) * 4); // FramePtr
+            PUSH ((git_sint32) (frame - base) * 4); // FramePtr
             // Call the filter function.
             L1 = ioRock;
             L2 = 1;
@@ -896,7 +896,7 @@ do_tailcall:
                     PUSH(10); // DestType
                     PUSH(L6); // DestAddr (bit number in string)
                     PUSH(L7); // PC       (byte address in string)
-                    PUSH ((frame - base) * 4); // FramePtr
+                    PUSH ((git_sint32) (frame - base) * 4); // FramePtr
                     // Call the filter function.
                     L1 = ioRock;
                     L2 = 1;
@@ -910,7 +910,7 @@ do_tailcall:
                 PUSH (10); // DestType
                 PUSH (L6); // DestAddr (bit number in string)
                 PUSH (L7); // PC       (byte address in string)
-                PUSH ((frame - base) * 4); // FramePtr
+                PUSH ((git_sint32) (frame - base) * 4); // FramePtr
                 // Print the C string.
                 L7 = L1;
                 goto resume_c_string_L7;
@@ -937,7 +937,7 @@ do_tailcall:
                     PUSH(10); // DestType
                     PUSH(L6); // DestAddr (bit number in string)
                     PUSH(L7); // PC       (byte address in string)
-                    PUSH ((frame - base) * 4); // FramePtr
+                    PUSH ((git_sint32) (frame - base) * 4); // FramePtr
                     // Call the filter function.
                     L1 = ioRock;
                     L2 = 1;
@@ -951,7 +951,7 @@ do_tailcall:
                 PUSH (10); // DestType
                 PUSH (L6); // DestAddr (bit number in string)
                 PUSH (L7); // PC       (byte address in string)
-                PUSH ((frame - base) * 4); // FramePtr
+                PUSH ((git_sint32) (frame - base) * 4); // FramePtr
                 // Print the Unicode string.
                 L7 = L1;
                 goto resume_uni_string_L7;
@@ -978,7 +978,7 @@ do_tailcall:
                 PUSH (10); // DestType
                 PUSH (L6); // DestAddr (bit number in string)
                 PUSH (L7); // PC       (byte address in string)
-                PUSH ((frame - base) * 4); // FramePtr
+                PUSH ((git_sint32) (frame - base) * 4); // FramePtr
                 // Check the type of the embedded object.
                 switch (memRead8(L3))
                 {
@@ -1018,7 +1018,7 @@ do_tailcall:
         PUSH (11);                            // DestType
         PUSH (0);                             // Addr
         PUSH (READ_PC);                       // PC
-        PUSH ((frame - base) * 4); // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4); // FramePtr
 
         // Load the string's type byte.
         L2 = memRead8(L1++);
@@ -1065,7 +1065,7 @@ do_tailcall:
             PUSH (0);                  // DestType
             PUSH (0);                  // Addr
             PUSH (L7);                 // PC
-            PUSH ((frame - base) * 4); // FramePtr
+            PUSH ((git_sint32) (frame - base) * 4); // FramePtr
             // Call the filter function.
             L1 = ioRock;
             L2 = 1;
@@ -1095,7 +1095,7 @@ do_tailcall:
             PUSH (0);                  // DestType
             PUSH (0);                  // Addr
             PUSH (L7);                 // PC
-            PUSH ((frame - base) * 4); // FramePtr
+            PUSH ((git_sint32) (frame - base) * 4); // FramePtr
             // Call the filter function.
             L1 = ioRock;
             L2 = 1;
@@ -1109,7 +1109,7 @@ do_tailcall:
         PUSH (11);                            // DestType
         PUSH (0);                             // Addr
         PUSH (READ_PC);                       // PC
-        PUSH ((frame - base) * 4); // FramePtr
+        PUSH ((git_sint32) (frame - base) * 4); // FramePtr
 
         // Print the number.
         L7 = L1;
@@ -1182,7 +1182,7 @@ do_tailcall:
         NEXT;
 
     do_setrandom:
-        srand (L1 ? L1 : time(NULL));
+        srand (L1 ? L1 : (unsigned) time(NULL));
         NEXT;
 
     do_glk:

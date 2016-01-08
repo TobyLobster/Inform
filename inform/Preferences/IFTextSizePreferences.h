@@ -9,9 +9,7 @@
 
 #import "IFPreferencePane.h"
 
-@interface IFTextSizePreferences : IFPreferencePane {
-	IBOutlet NSPopUpButton* appTextSize;
-}
+@interface IFTextSizePreferences : IFPreferencePane
 
 // Receiving data from/updating the interface
 - (IBAction) setPreference: (id) sender;

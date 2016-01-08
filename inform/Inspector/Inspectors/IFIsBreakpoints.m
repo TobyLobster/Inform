@@ -9,10 +9,19 @@
 #import "IFIsBreakpoints.h"
 #import "IFUtility.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import "IFProject.h"
+#import "IFProjectController.h"
+#import "IFCompilerSettings.h"
 
 NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 
-@implementation IFIsBreakpoints
+@implementation IFIsBreakpoints {
+    NSWindow* activeWin;								// The currently active window
+    IFProject* activeProject;							// The currently active project
+    IFProjectController* activeController;				// The currently active window controller (if it's a ProjectController)
+
+    IBOutlet NSTableView* breakpointTable;				// The table that will contain the list of breakpoints
+}
 
 // = Initialisation =
 
@@ -26,7 +35,7 @@ NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 	return sharedBreakpoints;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -53,10 +62,6 @@ NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 - (void) inspectWindow: (NSWindow*) newWindow {
 	activeWin = newWindow;
 	
-	if (activeProject) {
-		// Need to remove the layout manager to prevent potential weirdness
-		[activeProject release];
-	}
 	activeController = nil;
 	activeProject = nil;
 	
@@ -65,7 +70,7 @@ NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 	
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
 		activeController = (IFProjectController*)control;
-		activeProject = [[control document] retain];
+		activeProject = [control document];
 	}
 }
 
@@ -105,7 +110,7 @@ NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 	NSString* ident = [aTableColumn identifier];
 	
 	if ([ident isEqualToString: @"enabled"]) {
-		return [NSNumber numberWithBool: YES];
+		return @YES;
 	} else if ([ident isEqualToString: @"file"]) {
 		return [[activeProject fileForBreakpointAtIndex: rowIndex] lastPathComponent];
 	} else if ([ident isEqualToString: @"line"]) {
@@ -118,7 +123,7 @@ NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 - (void)tableViewSelectionDidChange: (NSNotification *)aNotification {
 	if ([breakpointTable numberOfSelectedRows] != 1) return;
 	
-	int selectedRow = [breakpointTable selectedRow];
+	int selectedRow = (int) [breakpointTable selectedRow];
 	
 	NSString* file = [activeProject fileForBreakpointAtIndex: selectedRow];
 	int line = [activeProject lineForBreakpointAtIndex: selectedRow];

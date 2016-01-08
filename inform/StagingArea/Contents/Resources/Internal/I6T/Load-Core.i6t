@@ -17,7 +17,7 @@ parameters to the |{-type:...}| command, until the next |{-endlines}|
 command.
 
 @c
-{-callv:Specifications::Taxa::make_type_IDs_table}
+{-callv:Kinds::Interpreter::start}
 {-lines:type}
 
 #DEFAULTS:
@@ -107,7 +107,7 @@ apply-macro:#KIND-OF-KIND
 singular:enumerated value
 plural:enumerated values
 
-SAYABLE_VALUE_TY:
++SAYABLE_VALUE_TY:
 apply-macro:#KIND-OF-KIND
 singular:sayable value
 plural:sayable values
@@ -458,6 +458,18 @@ instance-of:WORD_VALUE_TY
 
 index-priority:0
 ! Represents an entry in a multiple
+
+
++VARIABLE_TY:
+apply-macro:#KIND-CONSTRUCTOR
+constructor-arity:covariant
+singular:variable-pointer | k variable-pointer
+plural:variable-pointers | k variable-pointers
+
+instance-of:WORD_VALUE_TY
+
+index-priority:0
+! Represents a variable name
 
 
 +RELATION_TY:

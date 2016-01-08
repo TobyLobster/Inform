@@ -14,11 +14,8 @@
 
 @end
 
-@interface IFFindResultsTableView : NSTableView {
+@interface IFFindResultsTableView : NSTableView
 
-IBOutlet id<IFFindClickableTableViewDelegate> extendedDelegate;
-
-}
-@property (nonatomic, weak) id<IFFindClickableTableViewDelegate> extendedDelegate;
+@property (nonatomic,strong) id<IFFindClickableTableViewDelegate> extendedDelegate;
 
 @end

@@ -13,8 +13,6 @@
 //
 // The Inform 6 library to use.
 //
-@interface IFLibrarySettings : IFSetting {
-    IBOutlet NSPopUpButton* libraryVersion;
-}
+@interface IFLibrarySettings : IFSetting
 
 @end

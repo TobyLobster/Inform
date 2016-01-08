@@ -1,6 +1,6 @@
 //
 //  IFIndexPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -12,12 +12,27 @@
 #import "IFAppDelegate.h"
 #import "IFJSProject.h"
 #import "IFUtility.h"
+#import "IFProjectController.h"
+#import "IFProject.h"
+#import "IFPageBarCell.h"
+#import "IFPageBarView.h"
+#import "IFExtensionsManager.h"
 
-@implementation IFIndexPage
+
+@implementation IFIndexPage {
+    BOOL indexAvailable;								// YES if the index tab should be active
+
+    int indexMachineSelection;							// A reference count - number of 'machine' operations that might be affecting the index tab selection
+
+    NSMutableArray* indexCells;							// IFPageBarCells used to select index pages
+    NSDictionary* tabDictionary;                        // Dictionary of tab ids and their string names
+
+    WebView* webView;
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Index"
 				projectController: controller];
 	
@@ -25,38 +40,37 @@
         indexAvailable = NO;
 
         // Static dictionary mapping tab names to enum values
-        tabDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-                      [NSNumber numberWithInt:IFIndexActions],    @"actions.html",
-                      [NSNumber numberWithInt:IFIndexPhrasebook], @"phrasebook.html",
-                      [NSNumber numberWithInt:IFIndexScenes],     @"scenes.html",
-                      [NSNumber numberWithInt:IFIndexContents],   @"contents.html",
-                      [NSNumber numberWithInt:IFIndexKinds],      @"kinds.html",
-                      [NSNumber numberWithInt:IFIndexRules],      @"rules.html",
-                      [NSNumber numberWithInt:IFIndexWorld],      @"world.html",
-                      [NSNumber numberWithInt:IFIndexWelcome],    @"welcome.html",
-                      nil];
+        tabDictionary = @{@"actions.html":    @(IFIndexActions),
+                          @"phrasebook.html": @(IFIndexPhrasebook),
+                          @"scenes.html":     @(IFIndexScenes),
+                          @"contents.html":   @(IFIndexContents),
+                          @"kinds.html":      @(IFIndexKinds),
+                          @"rules.html":      @(IFIndexRules),
+                          @"world.html":      @(IFIndexWorld),
+                          @"welcome.html":    @(IFIndexWelcome)};
 
         // Create the webview (could probably be in the nib)
         webView = [[WebView alloc] initWithFrame: [[self view] bounds]];
-        [webView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+        [webView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
         [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [webView setHostWindow: [parent window]];
-        [webView setPolicyDelegate: [parent docPolicy]];
+        [webView setHostWindow: [self.parent window]];
+        [webView setPolicyDelegate: (id<WebPolicyDelegate>) [self.parent docPolicy]];
         [webView setFrameLoadDelegate: self];
 
         // Add the webview as a subview of the index page
         [[self view] addSubview: webView];
+
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(fontSizePreferenceChanged:)
+                                                     name: IFPreferencesAppFontSizeDidChangeNotification
+                                                   object: [IFPreferences sharedPreferences]];
 	}
 
 	return self;
 }
 
 - (void) dealloc {
-	[indexCells release];
-    [webView release];
-    [tabDictionary release];
-
-	[super dealloc];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 // = Details about this view =
@@ -75,8 +89,8 @@
 }
 
 // = Helper functions =
--(int) indexOfItemWithTabId: (int) tabIdentifier {
-    id identifier = [NSNumber numberWithInt: tabIdentifier];
+-(NSUInteger) indexOfItemWithTabId: (int) tabIdentifier {
+    id identifier = @(tabIdentifier);
 	int index = 0;
 	for( IFPageBarCell* cell in indexCells ) {
 		if ([[cell identifier] isEqual: identifier]) return index;
@@ -93,11 +107,11 @@
 	return YES;
 }
 
--(int) tabIdOfItemWithFilename:(NSString *) theFile
+-(NSUInteger) tabIdOfItemWithFilename:(NSString *) theFile
 {
     NSString* lowerFile = [theFile lowercaseString];
     
-    NSNumber* integer = [tabDictionary objectForKey:lowerFile];
+    NSNumber* integer = tabDictionary[lowerFile];
     if( integer == nil ) {
         return NSNotFound;
     }
@@ -108,7 +122,7 @@
 {
     for( NSString* key in tabDictionary)
     {
-        if( [[tabDictionary objectForKey:key] intValue] == tabId ) {
+        if( [tabDictionary[key] intValue] == tabId ) {
             return key;
         }
     }
@@ -117,18 +131,18 @@
 
 
 - (BOOL) requestRelativePath:(NSString *) relativePath {
-    NSString* indexPath = [NSString stringWithFormat: @"%@/Index", [[parent document] fileName]];
-    NSString* fullPath = [indexPath stringByAppendingPathComponent: relativePath];
+    NSURL* indexDirURL = [[self.parent document] indexDirectoryURL];
+    NSURL* fullFileURL = [indexDirURL URLByAppendingPathComponent: relativePath];
 
     BOOL isDir = NO;
     
     // Check that it exists and is a directory
-    if (indexPath == nil) return NO;
-    if (![[NSFileManager defaultManager] fileExistsAtPath: indexPath
+    if (indexDirURL == nil) return NO;
+    if (![[NSFileManager defaultManager] fileExistsAtPath: indexDirURL.path
                                               isDirectory: &isDir]) return NO;
     if (!isDir) return NO;
 
-    NSURLRequest* aRequest = [[[NSURLRequest alloc] initWithURL: [IFProjectPolicy fileURLWithPath: fullPath]] autorelease];
+    NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL: fullFileURL];
     //NSLog(@"self %@ Index page -requestRelativePath about to request a load of %@", self, aRequest.URL.absoluteString);
     [[webView mainFrame] loadRequest: aRequest];
     //NSLog(@"self %@ Index page -requestRelativePath has requested a load of %@", self, aRequest.URL.absoluteString);
@@ -138,7 +152,7 @@
 
 - (BOOL) requestURL:(NSURL *) url {
     
-    NSURLRequest* aRequest = [[[NSURLRequest alloc] initWithURL:url] autorelease];
+    NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL:url];
     //NSLog(@"self %@ Index page -requestURL about to request a load of %@", self, aRequest.URL.absoluteString);
     [[webView mainFrame] loadRequest: aRequest];
     //NSLog(@"self %@ Index page -requestURL has requested a load of %@", self, aRequest.URL.absoluteString);
@@ -147,7 +161,7 @@
 }
 
 - (void) switchToTab: (int) tabIdentifier {
-	int tabIndex = [self indexOfItemWithTabId:tabIdentifier];
+	NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
     //NSLog(@"IFIndexPage -switchToTab with tabIdentifier=%d and tabIndex=%d", tabIdentifier, tabIndex);
 	if (tabIndex != NSNotFound) {
         // Set a URL request going
@@ -172,16 +186,13 @@
 - (void) updateIndexView {
 	indexAvailable = NO;
 	
-	if (![IFAppDelegate isWebKitAvailable]) return;
-	
 	// Refresh the copies of the index files in memory
-	[[parent document] reloadIndexDirectory];
+	[[self.parent document] reloadIndexDirectory];
 
 	// The index path
-	NSString* indexPath = [NSString stringWithFormat: @"%@/Index", [[parent document] fileName]];
+	NSString* indexPath = [NSString stringWithFormat: @"%@/Index", [[self.parent document] fileURL].path];
 	BOOL isDir = NO;
 	
-	if (indexCells) [indexCells release];
 	indexCells = [[NSMutableArray alloc] init];
 	
 	// Check that it exists and is a directory
@@ -203,11 +214,11 @@
 		if ([extension isEqualToString: @"htm"] ||
 			[extension isEqualToString: @"html"]) {
 			// Create the tab
-			IFPageBarCell* newTab = [[[IFPageBarCell alloc] init] autorelease];
+			IFPageBarCell* newTab = [[IFPageBarCell alloc] init];
 			[newTab setRadioGroup: 128];
 
 			// Choose an ID for this tab based on the filename
-			int tabId = [self tabIdOfItemWithFilename:theFile];
+			NSUInteger tabId = [self tabIdOfItemWithFilename:theFile];
             if( tabId == IFIndexWelcome ) {
                 [newTab setImage:[NSImage imageNamed:NSImageNameHomeTemplate]];
             }
@@ -219,7 +230,7 @@
             }
 
             if( tabId != NSNotFound ) {
-                [newTab setIdentifier: [NSNumber numberWithInt: tabId]];
+                [newTab setIdentifier: @(tabId)];
                 [newTab setTarget: self];
                 [newTab setAction: @selector(switchToTabWithObject:)];
 
@@ -234,9 +245,17 @@
 
     // Sort tabs by ID
     NSSortDescriptor *sort=[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:NO];
-    [indexCells sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    [indexCells sortUsingDescriptors:@[sort]];
 
 	indexMachineSelection--;
+
+    [webView reload: self];
+}
+
+// = Preferences =
+
+- (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
 // = Utility functions =
@@ -258,8 +277,12 @@
 }
 
 - (void) didSwitchToPage {
-    LogHistory(@"HISTORY: Index Page: (didSwitchToPage) requestURL %@", [[[self request] URL] absoluteString]);
-	[[self history] requestURL:[[self request] URL]];
+    NSURL* url = [[self request] URL];
+    LogHistory(@"HISTORY: Index Page: (didSwitchToPage) requestURL %@", [url absoluteString]);
+	[[self history] requestURL: url];
+
+    // Highlight the indexCell to something appropriate for the new URL
+    [self highlightAppropriateIndexCellForURL: url];
 	[super didSwitchToPage];
 }
 
@@ -268,16 +291,7 @@
     return @"Index";
 }
 
-- (void)					webView: (WebView *) sender
-	didStartProvisionalLoadForFrame: (WebFrame *) frame {
-    // When opening a new URL in the main frame, record it as part of the history for this page
-    NSURL* url = [[[frame provisionalDataSource] request] URL];
-    url = [[url copy] autorelease];
-    LogHistory(@"HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", [url absoluteString]);
-    [[self history] switchToPage];
-    [[self history] requestURL:url];
-    // NSLog(@"IFIndexPage -didStartProvisionalLoadForFrame: Recording history action URL %@ with Title %@", [url absoluteString], [self titleForFrame: frame]);
-
+-(void) highlightAppropriateIndexCellForURL:(NSURL*) url {
     NSString* lowerURL = [[url absoluteString] lowercaseString];
 
     // Highlight the pane tab to something appropriate for the new URL
@@ -290,23 +304,38 @@
             //NSLog(@"Found tab %@", tabName);
 
             // Highlight the appropriate tab
-            int tabIdentifier = [[tabDictionary objectForKey:tabName] intValue];
-            int tabIndex = [self indexOfItemWithTabId:tabIdentifier];
+            int tabIdentifier = [tabDictionary[tabName] intValue];
+            NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
 
-            [[indexCells objectAtIndex: tabIndex] setState: NSOnState];
+            [(NSCell*)indexCells[tabIndex] setState: NSOnState];
         }
     }
+}
+
+- (void)					webView: (WebView *) sender
+	didStartProvisionalLoadForFrame: (WebFrame *) frame {
+    // When opening a new URL in the main frame, record it as part of the history for this page
+    NSURL* url = [[[frame provisionalDataSource] request] URL];
+    url = [url copy];
+    LogHistory(@"HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", [url absoluteString]);
+    [[self history] switchToPage];
+    [[self history] requestURL:url];
+
+    // NSLog(@"IFIndexPage -didStartProvisionalLoadForFrame: Recording history action URL %@ with Title %@", [url absoluteString], [self titleForFrame: frame]);
+
+    // Highlight the indexCell to something appropriate for the new URL
+    [self highlightAppropriateIndexCellForURL:url];
 }
 
 - (void)        webView: (WebView *) sender
    didClearWindowObject: (WebScriptObject *) windowObject
                forFrame: (WebFrame *) frame {
-	if (otherPane) {
+	if (self.otherPane) {
 		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: otherPane];
+		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
 		
 		// Attach it to the script object
-		[[sender windowScriptObject] setValue: [js autorelease]
+		[[sender windowScriptObject] setValue: js
 									   forKey: @"Project"];
 	}
 }

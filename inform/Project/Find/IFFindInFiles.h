@@ -18,34 +18,25 @@ extern NSObject *  gSearchLock;
 ///
 /// NSTextView category that supports the new find dialog
 ///
-@interface IFFindInFiles : NSObject {
-    BOOL            searching;
-    NSMutableArray* searchItems;
-    NSMutableArray* results;
-    NSDictionary*   exampleInfo;
-    NSArray*        codeInfo;
-    NSArray*        definitionInfo;
+@interface IFFindInFiles : NSObject
 
-    NSObject *      searchLock;
-    NSObject *      searchItemsLock;
-    NSObject *      searchResultsLock;
-}
+@property (atomic, getter=isSearching, readonly) BOOL searching;
+@property (atomic, readonly) int resultsCount;
+@property (atomic, readonly, copy) NSArray *results;
+@property (atomic, readonly, strong) NSObject *searchResultsLock;
 
 - (void) startFindInFilesWithPhrase: (NSString*)                    searchPhrase
                      withSearchType: (IFFindType)                   searchType
                         fromProject: (IFProject*)                   project
                       withLocations: (IFFindLocation)               locations
                   withProgressBlock: (IFFindInFilesProgressBlock)   progressBlock;
-- (BOOL) isSearching;
-- (int) resultsCount;
-- (NSArray*) results;
-- (NSObject*) searchResultsLock;
+
 - (IFExampleInfo*) exampleInfoForRange:(NSRange) range;
 
 // Utility functions
 + (NSString*) getContextFromText: (NSString*) textString
-                    withLocation: (int) location
-                       andLength: (int) matchLength
+                    withLocation: (NSUInteger) location
+                       andLength: (NSUInteger) matchLength
              findingContextRange: (NSRange*) rangeOut;
 
 @end

@@ -1,6 +1,6 @@
 //
 //  IFClickThroughScrollView.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 06/01/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.

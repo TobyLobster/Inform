@@ -1,6 +1,6 @@
 //
 //  IFComboBox.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/05/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.

@@ -69,9 +69,9 @@ int zoom_main(int argc, char** argv)
   /* Seed RNG */
 #ifdef HAVE_GETTIMEOFDAY
   gettimeofday(&tv, NULL);
-  random_seed(tv.tv_sec^tv.tv_usec);
+  random_seed((int) (tv.tv_sec^tv.tv_usec));
 #else
-  random_seed((unsigned int)time(NULL));
+  random_seed((unsigned int) time(NULL));
 #endif
 
 #if WINDOW_SYSTEM != 3
@@ -134,7 +134,7 @@ int zoom_main(int argc, char** argv)
     char* name;
     int x, len, slashpos;
 
-    len = strlen(args.story_file);
+    len = (int) strlen(args.story_file);
 
     machine.story_file = args.story_file;
 
@@ -187,9 +187,9 @@ int zoom_main(int argc, char** argv)
 	file = malloc(strlen(args.story_file)+6);
 	strcpy(file, args.story_file);
 
-	for (x=strlen(file)-1; x>=0 && file[x] != '.'; x--);
+	for (x=(int) strlen(file)-1; x>=0 && file[x] != '.'; x--);
 	if (x < 0)
-	  x = strlen(file);
+	  x = (int) strlen(file);
 	
 	file[x] = 0;
 	strcat(file, ".blb");
@@ -314,7 +314,7 @@ int zoom_main(int argc, char** argv)
 	  strcpy(filename, args.story_file);
 	  strcpy(pathname, args.story_file);
 	  
-	  for (x=strlen(filename)-1; x > 0 && filename[x-1] != '/'; x--);
+	  for (x=(int) strlen(filename)-1; x > 0 && filename[x-1] != '/'; x--);
 	  
 	  strcpy(filename + x, "gameinfo.dbg");
 	  pathname[x] = 0;

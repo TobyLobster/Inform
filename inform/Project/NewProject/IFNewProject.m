@@ -11,24 +11,41 @@
 // Inform 6 Project(empty): IFEmptyProject
 // Inform 6 Project:        IFStandardProject
 
+#import <Foundation/Foundation.h>
 #import "IFNewProject.h"
 #import "IFProjectFile.h"
 #import "IFProject.h"
 
-#import "IFEmptyProject.h"
-#import "IFStandardProject.h"
-#import "IFEmptyNaturalProject.h"
-#import "IFNaturalExtensionProject.h"
+#import "IFNewEmptyInform6Project.h"
+#import "IFNewInform6Project.h"
+#import "IFNewInform7Project.h"
+#import "IFNewInform7ExtensionProject.h"
+#import "IFNewInform7ExtensionFile.h"
 #import "IFUtility.h"
 
-@implementation IFNewProject
+@implementation IFNewProject {
+    IBOutlet NSView*                    projectPaneView;	// The pane that contains the display for the current stage in the creation process
+    IBOutlet NSTextField*               promptTextField;
+
+    NSObject<IFNewProjectProtocol>*     projectType;        // The current project type
+    NSObject<IFNewProjectSetupView>*    projectView;        // The view of (Inform 6 project) settings
+    NSArray*                            projectFileTypes;
+    NSString*                           projectTitle;
+    NSString*                           projectPrompt;
+    NSString*                           projectStory;
+    NSURL*                              projectExtensionURL;
+    NSString*                           projectDefaultFilename;
+    IFNewProjectFlow                    projectFlow;
+
+    NSURL*                              projectLocation;
+}
 
 // = Initialisation =
 
 + (void) initialize {
 }
 
-- (id) init {
+- (instancetype) init {
     self = [super initWithWindowNibName: @"NewProject"];
 
     if (self) {
@@ -37,18 +54,15 @@
     return self;
 }
 
-- (void) dealloc {
-    [super dealloc];
-}
 
 // = Interface =
 
 -(BOOL) isExtension {
-    return [projectType isKindOfClass:[IFNaturalExtensionProject class]];
+    return [projectType isKindOfClass:[IFNewInform7ExtensionFile class]];
 }
 
 - (void) createExtension {
-    IFNaturalExtensionProject* proj = (IFNaturalExtensionProject*) projectType;
+    IFNewInform7ExtensionFile* proj = (IFNewInform7ExtensionFile*) projectType;
 
     projectLocation = [NSURL fileURLWithPath: [proj saveFilename]];
     if ([proj createAndOpenDocument: projectLocation]) {
@@ -68,18 +82,21 @@
 	[theFile setFilename: [projectLocation path]];
 	[projectType setupFile: theFile
 				  fromView: projectView
-                 withStory: projectStory];
+                 withStory: projectStory
+          withExtensionURL: projectExtensionURL];
 
 	success = [theFile write];
-    [theFile release];
 
 	if (success) {
         NSError* error;
+        // Create IFProject (an NSDocument)
 		IFProject* newDoc = [[IFProject alloc] initWithContentsOfURL: projectLocation
-                                                              ofType: @"Inform project"
+                                                              ofType: [projectType typeName]
                                                                error: &error];
         [newDoc setInitialSelectionRange: [projectType initialSelectionRange]];
-		[[NSDocumentController sharedDocumentController] addDocument: [newDoc autorelease]];
+        [newDoc createMaterials];
+
+		[[NSDocumentController sharedDocumentController] addDocument: newDoc];
 		[newDoc makeWindowControllers];
 		[newDoc showWindows];
 	} else {
@@ -101,22 +118,15 @@
 }
 
 -(void) close {
-    [projectTitle release];
-    projectTitle = nil;
-    [projectPrompt release];
-    projectPrompt = nil;
-    [projectFileTypes release];
-    projectFileTypes = nil;
-    [projectStory release];
-    projectStory = nil;
-    [projectDefaultFilename release];
-    projectDefaultFilename = nil;
-
+    projectTitle            = nil;
+    projectPrompt           = nil;
+    projectFileTypes        = nil;
+    projectStory            = nil;
+    projectDefaultFilename  = nil;
     [[projectView view] removeFromSuperview];
-    [projectView release];
-    projectView = nil;
-    projectLocation = nil;
-    projectType = nil;
+    projectView             = nil;
+    projectLocation         = nil;
+    projectType             = nil;
 
     [[self window] close];
 }
@@ -198,7 +208,7 @@
                   completionHandler: ^(NSInteger result)
      {
          if (result == NSOKButton) {
-             projectLocation = [panel URL];
+             self->projectLocation = [panel URL];
 
              [self validate];
          }
@@ -246,18 +256,51 @@
     }
 }
 
+- (void) createInform7ExtensionProject: (NSString*) title
+                      fromExtensionURL: (NSURL*) extensionURL {
+    [self close];
+
+    projectType             = [[IFNewInform7ExtensionProject alloc] init];
+    projectFileTypes        = @[@"i7xp"];
+    projectTitle            = [IFUtility localizedString: @"Create Extension Project"];
+    projectPrompt           = [IFUtility localizedString: @"Create Extension Project"];
+    projectView             = [projectType configView];
+    projectFlow             = IFNewProjectLocation;
+    projectStory            = nil;
+    projectExtensionURL     = extensionURL;
+    projectDefaultFilename  = title;
+
+    [self startFlow];
+}
+
+
 - (void) createInform7Project: (NSString*) title
+                     fileType: (IFFileType) fileType
                         story: (NSString*) story {
     [self close];
 
-    projectType         = [[IFEmptyNaturalProject alloc] init];
-    projectFileTypes    = [[NSArray arrayWithObject:@"inform"] retain];
-    projectTitle        = [[IFUtility localizedString: @"Create Project"] retain];
-    projectPrompt       = [[IFUtility localizedString: @"Create Project"] retain];
-    projectView         = [[projectType configView] retain];
+    if( fileType == IFFileTypeInform7Project )
+    {
+        projectType         = [[IFNewInform7Project alloc] init];
+        projectFileTypes    = @[@"inform"];
+    }
+    else if( fileType == IFFileTypeInform7ExtensionProject )
+    {
+        projectType         = [[IFNewInform7ExtensionProject alloc] init];
+        projectFileTypes    = @[@"i7xp"];
+    }
+    else
+    {
+        NSAssert(false, @"invalid project type");
+        return;
+    }
+    projectTitle        = [IFUtility localizedString: @"Create Project"];
+    projectPrompt       = [IFUtility localizedString: @"Create Project"];
+    projectView         = [projectType configView];
     projectFlow         = IFNewProjectLocation;
-    projectStory        = [story retain];
-    projectDefaultFilename  = [title retain];
+    projectStory        = story;
+    projectExtensionURL     = nil;
+    projectDefaultFilename  = title;
 
     [self startFlow];
 }
@@ -265,13 +308,14 @@
 - (void) createInform7Extension {
     [self close];
 
-    projectType      = [[IFNaturalExtensionProject alloc] init];
-    projectFileTypes = [[NSArray arrayWithObject:@"i7x"] retain];
-    projectTitle     = [[IFUtility localizedString: @"Create Extension"] retain];
-    projectPrompt    = [[IFUtility localizedString: @"Create Extension"] retain];
-    projectView      = [[projectType configView] retain];
+    projectType      = [[IFNewInform7ExtensionFile alloc] init];
+    projectFileTypes = @[@"i7x"];
+    projectTitle     = [IFUtility localizedString: @"Create Extension"];
+    projectPrompt    = [IFUtility localizedString: @"Create Extension"];
+    projectView      = [projectType configView];
     projectFlow      = IFNewProjectOptions;
     projectStory     = nil;
+    projectExtensionURL    = nil;
     projectDefaultFilename = nil;
 
     [self startFlow];
@@ -280,13 +324,14 @@
 - (void) createInform6Project {
     [self close];
 
-    projectType      = [[IFStandardProject alloc] init];
-    projectFileTypes = [[NSArray arrayWithObject:@"inform"] retain];
-    projectTitle     = [[IFUtility localizedString: @"Create Project"] retain];
-    projectPrompt    = [[IFUtility localizedString: @"Create Project"] retain];
-    projectView      = [[projectType configView] retain];
+    projectType      = [[IFNewInform6Project alloc] init];
+    projectFileTypes = @[@"inform"];
+    projectTitle     = [IFUtility localizedString: @"Create Project"];
+    projectPrompt    = [IFUtility localizedString: @"Create Project"];
+    projectView      = [projectType configView];
     projectFlow      = (IFNewProjectFlow) (IFNewProjectOptions | IFNewProjectLocation);
     projectStory     = nil;
+    projectExtensionURL    = nil;
     projectDefaultFilename = nil;
 
     [self startFlow];

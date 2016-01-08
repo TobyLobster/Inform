@@ -33,7 +33,7 @@
 	
 // = Performing layout =
 
-- (int) layoutLineFromGlyph: (int) glyph {
+- (NSUInteger) layoutLineFromGlyph: (NSUInteger) glyph {
 	// Lays out a line fragment from the specified glyph
 	if (![self cacheGlyphsIncluding: glyph]) return glyph;
 	glyph -= cached.location;
@@ -41,26 +41,26 @@
 	[self beginLineFragment];
 	
 	// Work out where in the grid we are currently located
-	int charIndex = cacheCharIndexes[glyph];
-	int x = charIndex % gridWidth;
-	int y = charIndex / gridWidth;
+	NSUInteger charIndex = cacheCharIndexes[glyph];
+	NSUInteger x = charIndex % gridWidth;
+	NSUInteger y = charIndex / gridWidth;
 	NSPoint gridPos = NSMakePoint(cellSize.width*x+inset, cellSize.height*y);
 	
 	float charPos = gridPos.x;
 	float initialCharPos = charPos;
 	
 	// Perform layout for as many characters as possible
-	int firstGlyph = glyph;
-	int lastChar = cacheCharIndexes[glyph];
+	NSUInteger firstGlyph = glyph;
+	NSUInteger lastChar = cacheCharIndexes[glyph];
 	float charWidth = 0;
-	int lastBoundaryGlyph = glyph;
+	NSUInteger lastBoundaryGlyph = glyph;
 	BOOL hitTheLastGlyph = NO;
 	
 	NSRect sectionBounds =  NSMakeRect(charPos, -cacheAscenders[glyph], 
 									   cacheAdvancements[glyph], cacheLineHeight[glyph]);
 	
 	while (x < gridWidth && glyph < cached.length) {
-		int thisChar = cacheCharIndexes[glyph];
+		NSUInteger thisChar = cacheCharIndexes[glyph];
 		
 		if (thisChar != lastChar) {
 			// We're advancing to the next character

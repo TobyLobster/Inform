@@ -1,6 +1,6 @@
 //
 //  IFMaintenanceTask.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/04/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -11,7 +11,13 @@
 NSString* IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
 NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 
-@implementation IFMaintenanceTask
+@implementation IFMaintenanceTask {
+    NSTask* activeTask;											// The task that's currently running
+    NSMutableArray* pendingTasks;								// The tasks that are going to be run
+    NSString* activeTaskNotificationType;                       // Current notification type for activeTask
+
+    BOOL haveFinished;											// YES if we've notified of a finish event
+}
 
 // = Initialisation =
 
@@ -25,7 +31,7 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	return maintenanceTask;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -39,12 +45,6 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	return self;
 }
 
-- (void) dealloc {
-	[activeTask release];
-	[pendingTasks release];
-	
-	[super dealloc];
-}
 
 // = Starting tasks =
 
@@ -53,15 +53,15 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	if ([pendingTasks count] <= 0) return NO;
 	
 	// Retrieve the next task to run
-	NSArray* newTask = [[[pendingTasks objectAtIndex: 0] retain] autorelease];
+	NSArray* newTask = pendingTasks[0];
 	[pendingTasks removeObjectAtIndex: 0];
 
 	// Set up a new task
 	activeTask = [[NSTask alloc] init];
 	
-	[activeTask setLaunchPath: [newTask objectAtIndex: 0]];
-	[activeTask setArguments: [newTask objectAtIndex: 1]];
-    activeTaskNotificationType = [[newTask objectAtIndex: 2] retain];
+	[activeTask setLaunchPath: newTask[0]];
+	[activeTask setArguments: newTask[1]];
+    activeTaskNotificationType = newTask[2];
 	
     // NSLog(@"About to launch task '%@' with arguments '%@'", [newTask objectAtIndex: 0], [newTask objectAtIndex: 1]);
     
@@ -90,7 +90,6 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 												  object: activeTask];
 	
 	// Clear up the old task
-	[activeTask release];
 	activeTask = nil;
 	
 	// Start the next task in the queue
@@ -100,7 +99,6 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
         if( activeTaskNotificationType != nil ) {
             [[NSNotificationCenter defaultCenter] postNotificationName: activeTaskNotificationType
                                                                 object: self];
-            [activeTaskNotificationType release];
             activeTaskNotificationType = nil;
         }
 	}
@@ -115,15 +113,15 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
     // Check if the previous item on the queue is exactly the same command, skip if so.
     if( [pendingTasks count] > 0 ) {
         NSArray* lastObject   = [pendingTasks lastObject];
-        NSString* lastCommand = [lastObject objectAtIndex:0];
-        NSArray*  lastArgs    = [lastObject objectAtIndex:1];
-        NSString* lastNotifyType = [lastObject objectAtIndex:2];
+        NSString* lastCommand = lastObject[0];
+        NSArray*  lastArgs    = lastObject[1];
+        NSString* lastNotifyType = lastObject[2];
         
         if( [lastArgs count] == [arguments count] ) {
             int i = 0;
             BOOL argsEqual = YES;
             for(NSString*arg in lastArgs) {
-                if( ![arg isEqualToString: [arguments objectAtIndex:i]] ) {
+                if( ![arg isEqualToString: arguments[i]] ) {
                     argsEqual = NO;
                     break;
                 }
@@ -138,7 +136,7 @@ NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
         }
     }
     
-	[pendingTasks addObject: [NSArray arrayWithObjects: command, arguments, notifyType, nil]];
+	[pendingTasks addObject: @[command, arguments, notifyType]];
 
 	[self startNextTask];
 }

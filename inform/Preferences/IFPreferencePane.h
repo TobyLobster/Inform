@@ -12,17 +12,16 @@
 //
 // Class that represents a specific preference pane in the preferences window
 //
-@interface IFPreferencePane : NSObject {
-	IBOutlet NSView* preferenceView;				// The view for these preferences
-}
+@interface IFPreferencePane : NSObject
 
-- (id) initWithNibName: (NSString*) nibName;		// Initialises and loads the given nib
+- (instancetype) init NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;		// Initialises and loads the given nib
 
 // Information about the preference window
-- (NSImage*)  toolbarImage;							// The image that should show up in the toolbar
-- (NSString*) preferenceName;						// The name of this pane (appears until the toolbar item)
-- (NSString*) identifier;							// The unique identifier for this pane (subclasses don't need to override this)
-- (NSString*) tooltip;								// The tooltip for this preference
-- (NSView*)   preferenceView;						// The view that describes the UI for this preference pane
+@property (atomic, readonly, copy) NSImage *toolbarImage;		// The image that should show up in the toolbar
+@property (atomic, readonly, copy) NSString *preferenceName;	// The name of this pane (appears until the toolbar item)
+@property (atomic, readonly, copy) NSString *identifier;		// The unique identifier for this pane (subclasses don't need to override this)
+@property (atomic, readonly, copy) NSString *tooltip;			// The tooltip for this preference
+@property (atomic, readonly, strong) NSView *preferenceView;	// The view that describes the UI for this preference pane
 
 @end

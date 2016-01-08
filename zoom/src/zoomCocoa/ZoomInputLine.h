@@ -10,32 +10,23 @@
 
 #import "ZoomCursor.h"
 
-@interface ZoomInputLine : NSObject {
-	ZoomCursor* cursor;
-	
-	NSObject* delegate;
-	
-	NSMutableString* lineString;
-	NSMutableDictionary* attributes;
-	int				 insertionPos;
-}
+@interface ZoomInputLine : NSObject
 
-- (id) initWithCursor: (ZoomCursor*) cursor
-		   attributes: (NSDictionary*) attr;
+- (instancetype) initWithCursor: (ZoomCursor*) cursor
+		   attributes: (NSDictionary*) attr NS_DESIGNATED_INITIALIZER;
 
 - (void) drawAtPoint: (NSPoint) point;
-- (NSSize) size;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;
 - (NSRect) rectForPoint: (NSPoint) point;
 
 - (void) keyDown: (NSEvent*) evt;
 
-- (NSString*) inputLine;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *inputLine;
 
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
+@property (NS_NONATOMIC_IOSONLY, assign) id delegate;
 
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *lastHistoryItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *nextHistoryItem;
 
 - (void) updateCursor;
 
@@ -46,7 +37,7 @@
 - (void) inputLineHasChanged: (ZoomInputLine*) sender;
 - (void) endOfLineReached: (ZoomInputLine*) sender;
 
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *lastHistoryItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *nextHistoryItem;
 
 @end

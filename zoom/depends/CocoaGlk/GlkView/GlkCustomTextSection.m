@@ -24,7 +24,7 @@ NSString* GlkCustomSectionAttributeName = @"GlkCustomSectionAttributeName";
 // = Typesetting =
 
 - (void) placeBaselineAt: (NSPoint) point
-				forGlyph: (int) glyph {
+				forGlyph: (NSUInteger) glyph {
 	// Do nothing...
 }
 

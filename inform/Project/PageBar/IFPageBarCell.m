@@ -1,6 +1,6 @@
 //
 //  IFPageBarCell.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 06/04/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -19,12 +19,29 @@ static NSColor* foregroundColour() {
     }
 		
     // Keep the colour around for when we need it
-    [foreColour retain];
 	
 	return foreColour;
 }
 
-@implementation IFPageBarCell
+@implementation IFPageBarCell {
+    BOOL isRight;										// True if this cell is to be drawn on the right-hand side
+    BOOL isHighlighted;									// True if this cell is currently highlighted by a click
+    NSRect trackingFrame;								// The frame of this cell reported when the last mouse tracking started
+
+    id identifier;										// An identifier for this cell
+
+    // Pop-up
+    NSMenu* menu;										// The menu for this cell
+
+    // Radio
+    int radioGroup;										// The radio group identifier for this cell
+
+    // View
+    NSView* view;										// The view for this cell
+
+    // Key equivalent
+    NSString* keyEquivalent;							// The key equivalent string for this cell
+}
 
 + (NSImage*) dropDownImage {
 	return [IFImageCache loadResourceImage: @"App/PageBar/BarMenuArrow.png"];
@@ -32,7 +49,7 @@ static NSColor* foregroundColour() {
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -43,25 +60,22 @@ static NSColor* foregroundColour() {
 	return self;
 }
 
-- (id) initTextCell: (NSString*) text {
+- (instancetype) initTextCell: (NSString*) text {
 	self = [self init];
 	
 	if (self) {
 		NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																	   attributes: 
-			[NSDictionary dictionaryWithObjectsAndKeys: 
-				foregroundColour(), NSForegroundColorAttributeName,
-				[NSFont systemFontOfSize: 11], NSFontAttributeName,
-				nil]];
+			@{NSForegroundColorAttributeName: foregroundColour(),
+				NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 		
 		[self setAttributedStringValue: attrText];
-		[attrText release];
 	}
 	
 	return self;
 }
 
-- (id) initImageCell: (NSImage*) image {
+- (instancetype) initImageCell: (NSImage*) image {
 	self = [self init];
 	
 	if (self) {
@@ -72,17 +86,15 @@ static NSColor* foregroundColour() {
 }
 
 - (void) dealloc {
-	[menu release]; menu = nil;
-	[view release]; view = nil;
-	[identifier release]; identifier = nil;
-	[keyEquivalent release]; keyEquivalent = nil;
+	 menu = nil;
+	 view = nil;
+	 identifier = nil;
+	 keyEquivalent = nil;
 	
-	[super dealloc];
 }
 
 - (void) setIdentifier: (id) newIdentifier {
-	[identifier release];
-	identifier = [newIdentifier retain];
+	identifier = newIdentifier;
 }
 
 - (id) identifier {
@@ -92,13 +104,10 @@ static NSColor* foregroundColour() {
 - (void) setStringValue: (NSString*) text {
 	NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																   attributes: 
-		[NSDictionary dictionaryWithObjectsAndKeys: 
-			foregroundColour(), NSForegroundColorAttributeName,
-			[NSFont systemFontOfSize: 11], NSFontAttributeName,
-			nil]];
+		@{NSForegroundColorAttributeName: foregroundColour(),
+			NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 	
 	[self setAttributedStringValue: attrText];
-	[attrText release];	
 }
 
 // = Cell properties =
@@ -290,7 +299,7 @@ static NSColor* foregroundColour() {
 
 // = Cell states =
 
-- (int) nextState {
+- (NSInteger) nextState {
 	// Radio cells can be turned on (but get turned off manually)
 	if (radioGroup >= 0) {
 		return NSOnState;
@@ -300,7 +309,7 @@ static NSColor* foregroundColour() {
 	return NSOffState;
 }
 
-- (void) setState: (int) newState {
+- (void) setState: (NSInteger) newState {
 	if (newState == [self state]) {
 		return;
 	}
@@ -309,7 +318,7 @@ static NSColor* foregroundColour() {
 	[self update];
 	
 	if (radioGroup >= 0) {
-		[(IFPageBarView*)[self controlView] setState: newState
+		[(IFPageBarView*)[self controlView] setState: (int) newState
 											 forCell: self];
 	}
 }
@@ -336,8 +345,7 @@ static NSColor* foregroundColour() {
 // = Acting as a tab =
 
 - (void) setView: (NSView*) newView {
-	if (view) [view release];
-	view = [newView retain];
+	view = newView;
 }
 
 - (NSView*) view {
@@ -367,7 +375,7 @@ static NSColor* foregroundColour() {
 											 eventNumber: [[NSApp currentEvent] eventNumber]
 											  clickCount: 0
 												pressure: 1.0];
-		
+
 		[NSMenu popUpContextMenu: menu
 					   withEvent: fakeEvent
 						 forView: [self controlView]
@@ -379,8 +387,7 @@ static NSColor* foregroundColour() {
 }
 
 - (void) setMenu: (NSMenu*) newMenu {
-	[menu release];
-	menu = [newMenu retain];
+	menu = newMenu;
 	[self update];
 }
 
@@ -462,7 +469,6 @@ static NSColor* foregroundColour() {
 }
 
 - (void) setKeyEquivalent: (NSString*) newKeyEquivalent {
-	[keyEquivalent release];
 	keyEquivalent = [newKeyEquivalent copy];
 }
 

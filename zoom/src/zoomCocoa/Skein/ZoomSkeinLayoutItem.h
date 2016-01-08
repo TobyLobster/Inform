@@ -23,7 +23,6 @@
 	ZoomSkeinItem* item;
 	BOOL		   onSkeinLine;
 	BOOL		   recentlyPlayed;
-	float          width;
 	float		   fullWidth;
 	float		   position;
 	NSArray*	   children;
@@ -33,34 +32,29 @@
 
 // Initialisation
 
-- (id) initWithItem: (ZoomSkeinItem*) item
-			  width: (float) width
-		  fullWidth: (float) fullWidth
-			  level: (int) level;
+- (instancetype) initWithItem: (ZoomSkeinItem*) item
+                 commandWidth: (float) newCommandWidth
+              annotationWidth: (float) newAnnotationWidth
+                    fullWidth: (float) fullWidth
+                        level: (int) level NS_DESIGNATED_INITIALIZER;
 
 // Setting/getting properties
 
-- (ZoomSkeinItem*) item;
-- (float)		   width;
-- (float)		   fullWidth;
-- (float)		   position;
-- (NSArray*)	   children;
-- (int)			   level;
-- (BOOL)		   onSkeinLine;
-- (BOOL)		   recentlyPlayed;
-- (int)			   depth;
+@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *item;
+@property (NS_NONATOMIC_IOSONLY) float commandWidth;
+@property (NS_NONATOMIC_IOSONLY) float annotationWidth;
+@property (NS_NONATOMIC_IOSONLY) float fullWidth;
+@property (NS_NONATOMIC_IOSONLY) float position;
+@property (NS_NONATOMIC_IOSONLY, copy) NSArray *children;
+@property (NS_NONATOMIC_IOSONLY) int level;
+@property (NS_NONATOMIC_IOSONLY) BOOL onSkeinLine;
+@property (NS_NONATOMIC_IOSONLY) BOOL recentlyPlayed;
+@property (NS_NONATOMIC_IOSONLY, readonly) int depth;
 
-- (void) setItem: (ZoomSkeinItem*) newItem;
-- (void) setWidth: (float) newWidth;
-- (void) setFullWidth: (float) newFullWidth;
-- (void) setPosition: (float) newPosition;
-- (void) setChildren: (NSArray*) newChildren;
-- (void) setLevel: (int) newLevel;
-- (void) setOnSkeinLine: (BOOL) onSkeinLine;
-- (void) setRecentlyPlayed: (BOOL) recentlyPlayed;
 
 - (NSArray*) itemsOnLevel: (int) level;
 - (void) moveRightBy: (float) deltaX
          recursively: (BOOL) recursively;
+- (float) combinedWidth;
 
 @end

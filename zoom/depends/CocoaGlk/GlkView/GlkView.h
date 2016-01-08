@@ -28,74 +28,7 @@ typedef enum GlkLogStatus {
 //
 // Base class for CocoaGlk: a view object that an application can embed in order to run Glk client applications
 //
-@interface GlkView : NSView<GlkSession, GlkBuffer, GlkEventReceiver> {
-	// Windows
-	NSMutableDictionary* glkWindows;							// Maps identifiers to windows
-	NSSavePanel* lastPanel;										// Most recent save panel
-	GlkWindow* rootWindow;										// The root window
-	GlkWindow* lastRootWindow;									// The last root window
-	
-	BOOL windowsNeedLayout;										// Used when flushing the buffer
-	BOOL flushing;												// A buffer is currently flushing if YES
-	
-	// Styles
-	GlkPreferences* prefs;										// Active preferences
-	NSMutableDictionary* styles;								// Active styles
-	float scaleFactor;											// The active scale factor
-	int borderWidth;											// The border width to set for new pair windows
-	
-	// Streams
-	NSMutableDictionary* glkStreams;							// Maps identifiers to streams
-
-	NSObject<GlkStream>* inputStream;							// The input stream
-	NSMutableDictionary* extraStreamDictionary;					// Maps keys to extra input streams
-	NSObject<GlkFilePrompt>* promptHandler;						// Used while prompting for a file
-	NSArray* allowedFiletypes;									// Types of files we can show in the panels
-	
-	BOOL alwaysPageOnMore;										// YES if windows in this view should automatically page through more prompts
-	
-	// File handling
-	NSMutableDictionary* extensionsForUsage;					// Dictionary mapping the file usage strings to the list of allowed file types
-	
-	// Events
-	GlkEvent* arrangeEvent;										// The last Arrange event we received
-	NSObject<GlkEventListener>* listener;						// The listener for events
-	NSMutableArray* events;										// The queue of waiting events
-	
-	int syncCount;												// The synchronisation counter
-	
-	// The logo
-	NSWindow* logoWindow;										// Used to draw the fading logo
-	NSDate* fadeStart;											// The time we started fading the logo
-	NSTimer* fadeTimer;											// Used to fade out the logo
-
-	float waitTime;
-	float fadeTime;
-	
-	// The task
-	BOOL running;												// YES if the task is running
-	NSString* viewCookie;										// The session cookie to use with this view
-	NSTask* subtask;											// Only used if this is connected as a session via the launchClientApplication: method
-	
-	// The delegate
-	id delegate;												// Can respond to certain events if it likes
-	
-	// Images and graphics
-	NSObject<GlkImageSource>* imgSrc;							// Source of data for images
-	NSMutableDictionary* imageDictionary;						// Dictionary of images
-	NSMutableDictionary* flippedImageDictionary;				// Dictionary of flipped images
-	
-	// Input history
-	NSMutableArray* inputHistory;								// History of input lines
-	int historyPosition;										// Current history position
-	
-	// Automation
-	NSMutableArray* outputReceivers;							// The automation output receivers attached to this view
-	NSMutableArray* inputReceivers;								// The automation input receiver attached to this view
-	
-	NSMutableDictionary* windowPositionCache;					// The automation window identifier cache
-	NSMutableDictionary* windowIdCache;							// The automation window position -> GlkWindow cache
-}
+@interface GlkView : NSView<GlkSession, GlkBuffer, GlkEventReceiver>
 
 // Some shared settings
 + (NSImage*) defaultLogo;										// Image displayed while there is no root window
@@ -137,8 +70,8 @@ typedef enum GlkLogStatus {
 // Dealing with line history
 - (void) addHistoryItem: (NSString*) inputLine					// Adds a line history event to this view
 		forWindowWithId: (glui32) windowId;
-- (NSString*) previousHistoryItem;								// Retrieves the previous history item
-- (NSString*) nextHistoryItem;									// Retrieves the next history item
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *previousHistoryItem;								// Retrieves the previous history item
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *nextHistoryItem;									// Retrieves the next history item
 - (void) resetHistoryPosition;									// Causes the history position to move to the end
 
 // Layout
@@ -146,16 +79,17 @@ typedef enum GlkLogStatus {
 - (void) setScaleFactor: (float) scale;							// Sets the scale factor of this view and any subview (resizing fonts, etc)
 - (void) setBorderWidth: (float) borderWidth;					// Sets up the border width for new pair windows
 
-// Dealing with [ MORE ] prompts
-- (void) setAlwaysPageOnMore: (BOOL) alwaysPage;				// YES if this CocoaGlk window should always page on more
-- (BOOL) alwaysPageOnMore;										// Ditto
-- (BOOL) morePromptsPending;									// True if any windows are waiting on a [ MORE ] prompts
-- (BOOL) pageAll;												// Causes all windows that require it to page forwards (returns NO if no windows actually needed paging)
+// Dealing with [ MORE ] prompts				// YES if this CocoaGlk window should always page on more
+@property (NS_NONATOMIC_IOSONLY) BOOL alwaysPageOnMore;										// Ditto
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL morePromptsPending;									// True if any windows are waiting on a [ MORE ] prompts
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL pageAll;												// Causes all windows that require it to page forwards (returns NO if no windows actually needed paging)
+- (void) showMoreWindow;
+- (void) hideMoreWindow;
 
 // Various UI events
 - (void) performTabFrom: (GlkWindow*) window					// Perform a tab action from the specified GlkWindow (ie, changing focus)
 				forward: (BOOL) forward;
-- (BOOL) setFirstResponder;										// Tries to set the first responder again
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL setFirstResponder;										// Tries to set the first responder again
 
 // Automation
 - (void) addOutputReceiver: (NSObject<GlkAutomation>*) receiver;		// Adds an automation object to receive game and user output events
@@ -163,7 +97,7 @@ typedef enum GlkLogStatus {
 
 - (void) removeAutomationObject: (NSObject<GlkAutomation>*) receiver;	// Removes an automation object from input and/or output duties
 
-- (BOOL) canSendInput;											// Returns true if there are windows waiting for input (ie, a sendCharacters event will succeed)
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL canSendInput;											// Returns true if there are windows waiting for input (ie, a sendCharacters event will succeed)
 - (int) sendCharacters: (NSString*) characters					// Sends the specified characters to the given window number as a line or character input event
 			  toWindow: (int) window;
 - (int) sendClickAtX: (int) xpos								// Sends a mouse click at the specified position to the given window number
@@ -180,9 +114,9 @@ typedef enum GlkLogStatus {
 
 @interface NSObject(GlkViewDelegate)
 
-- (BOOL) disableLogo;											// Set to return YES to get rid of the CocoaGlk logo
-- (NSImage*) logo;												// If non-nil, then this will be the logo displayed instead of 'CocoaGlk'
-- (NSString*) taskDescription;									// A description of what is running in this window (or nil)
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL disableLogo;											// Set to return YES to get rid of the CocoaGlk logo
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *logo;												// If non-nil, then this will be the logo displayed instead of 'CocoaGlk'
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *taskDescription;									// A description of what is running in this window (or nil)
 
 - (void) showStatusText: (NSString*) status;					// Called to show warnings, etc
 - (void) showError: (NSString*) error;							// Called to show errors
@@ -194,7 +128,7 @@ typedef enum GlkLogStatus {
 - (void) taskHasCrashed;										// Additionally called when the task crashes
 
 - (NSString*) pathForNamedFile: (NSString*) name;				// This works out the 'real' path for a file requested by name (default is to remove control characters and stick it on the Desktop)
-- (NSString*) preferredSaveDirectory;							// This works out the 'preferred' directory for save files. CocoaGlk will use it's own judgement if this returns nil
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *preferredSaveDirectory;							// This works out the 'preferred' directory for save files. CocoaGlk will use it's own judgement if this returns nil
 - (void) savePreferredDirectory: (NSString*) finalDir;			// Called to give the delegate a chance to store the final directory chosen for a save in the preferences.
 
 - (BOOL) promptForFilesForUsage: (NSString*) usage				// The delegate can override this to provide custom saving behaviour for its files. This should return YES if the delegate is going to handle the event or NO otherwise

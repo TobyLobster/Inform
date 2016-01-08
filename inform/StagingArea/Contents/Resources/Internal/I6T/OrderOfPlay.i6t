@@ -388,7 +388,7 @@ the end of action generation: this is what prevents the time of day advancing,
 every turn rules from firing, and so forth -- see the Standard Rules.
 
 @c
-[ GENERATE_ACTION_R i j k l;
+[ GENERATE_ACTION_R i;
 	if (EarlyInTurnSequence == false) rfalse; ! Prevent use outside top level
 	EarlyInTurnSequence = false;
 
@@ -403,13 +403,8 @@ every turn rules from firing, and so forth -- see the Standard Rules.
 		inp2 = parser_results-->INP2_PRES; if (inp2 == 0) multiflag = true;
 	}
 
-	if (inp1 == 1) {
-		noun = nothing; ! noun = special_number1;
-	} else noun = inp1;
-	if (inp2 == 1) {
-		second = nothing;
-		! if (inp1 == 1) second = special_number2; else second = special_number1;
-	} else second = inp2;
+	if (inp1 == 1) noun = nothing; else noun = inp1;
+	if (inp2 == 1) second = nothing; else second = inp2;
 
 	if (multiflag) {
 		if (multiple_object-->0 == 0) {
@@ -420,6 +415,18 @@ every turn rules from firing, and so forth -- see the Standard Rules.
 			toomany_flag = false;
 			if (actor == player) { GENERATE_ACTION_RM('A'); }
 		}
+		i = multiple_object-->0;
+		FollowRulebook(MULTIPLE_ACTION_PROCESSING_RB);
+		if ((multiple_object-->0 == 1) && (i > 1)) {
+			multiflag = false;
+			if (inp1 == 0) noun = multiple_object-->1;
+			if ((inp2 == 0) && (parser_results-->NO_INPS_PRES >= 2))
+				second = multiple_object-->1;
+		}
+		if (multiple_object-->0 == 0) rfalse;
+	}
+	
+	if (multiflag) {
 		GenerateMultipleActions();
 		multiflag = false;
 	} else BeginAction(action, noun, second);
@@ -484,7 +491,7 @@ to be a blank slot in the timer array at or before the current position
 because we have just blanked one.
 
 @c
-[ TIMED_EVENTS_R i event_timer fire rule;
+[ TIMED_EVENTS_R i d event_timer fire rule;
 	for (i=1: i<=(TimedEventsTable-->0): i++)
 		if ((rule=TimedEventsTable-->i) ~= 0) {
 			event_timer = TimedEventTimesTable-->i; fire = false;
@@ -492,7 +499,8 @@ because we have just blanked one.
 				(TimedEventTimesTable-->i)++;
 				if (TimedEventTimesTable-->i == 0) fire = true;
 			} else {
-				if ((the_time >= event_timer) && (the_time < event_timer+30)) fire = true;
+				d = (the_time - event_timer + TWENTY_FOUR_HOURS) % TWENTY_FOUR_HOURS;
+				if ((d >= 0) && (d < 30)) fire = true;
 			}
 			if (fire) {
 				TimedEventsTable-->i = 0;

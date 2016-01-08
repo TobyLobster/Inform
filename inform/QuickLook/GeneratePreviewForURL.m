@@ -18,8 +18,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 {	
 	// Try to get the file that we're looking at
 	NSString* fileName = nil;
-	if ([(NSURL*)cfUrl isFileURL]) {
-		fileName = [(NSURL*)cfUrl path];
+	if ([(__bridge NSURL*)cfUrl isFileURL]) {
+		fileName = [(__bridge NSURL*)cfUrl path];
 	}
 	
 	if (!fileName) {
@@ -30,7 +30,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 	BOOL isInform6 = NO;
 	NSString* sourceCodeString = nil;
 	
-	NSString* uti = (NSString*) contentTypeUTI;
+	NSString* uti = (__bridge NSString*) contentTypeUTI;
 
 	if ([uti isEqualToString: @"org.inform-fiction.source.inform7"]
 		|| [uti isEqualToString: @"org.inform-fiction.inform7.extension"]) {
@@ -63,7 +63,14 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 			isInform6 = YES;
 		}
 		
-	} else {
+    } else if ([uti isEqualToString: @"org.inform-fiction.xproject"]) {
+        // extension project file
+
+        isInform6 = NO;
+        sourceCodeString = [NSString stringWithContentsOfFile: [[fileName stringByAppendingPathComponent: @"Source"] stringByAppendingPathComponent: @"extension.i7x"]
+                                                     encoding: NSUTF8StringEncoding
+                                                        error: nil];
+    } else {
 		NSLog(@"Unknown UTI: %@", uti);
 		return noErr;
 	}
@@ -84,13 +91,12 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 	// Produce the result
     NSData *theRTF = nil;
     if([storage length] > 0 ) {
-        theRTF = [storage RTFFromRange:NSMakeRange(0, [storage length])
-                    documentAttributes:nil];
+        theRTF = [storage RTFFromRange: NSMakeRange(0, [storage length])
+                    documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
     }
-	QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)theRTF, kUTTypeRTF, NULL);
+	QLPreviewRequestSetDataRepresentation(preview, (__bridge CFDataRef)theRTF, kUTTypeRTF, NULL);
 	
     [IFSyntaxManager unregisterTextStorage:storage];
-    [storage autorelease];
 
     return noErr;
 }

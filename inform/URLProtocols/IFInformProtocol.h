@@ -15,10 +15,6 @@
 // Maybe could write this as a policy delegate, but there's a header file
 // error there.
 //
-@interface IFInformProtocol : NSURLProtocol {
-	NSURLRequest* theURLRequest;					// The URL request we're supposed to be processing
-	NSCachedURLResponse* theCachedResponse;			// The associated cached response
-	id<NSURLProtocolClient> theClient;				// The client we're talking to
-}
+@interface IFInformProtocol : NSURLProtocol
 
 @end

@@ -9,8 +9,14 @@
 #import "IFPreferenceController.h"
 #import "IFPreferences.h"
 #import "IFUtility.h"
+#import "IFPreferencePane.h"
 
-@implementation IFPreferenceController
+@implementation IFPreferenceController {
+    // The toolbar
+    NSToolbar* preferenceToolbar;					// Contains the list of settings panes
+    NSMutableArray* preferenceViews;				// The settings panes themselves
+    NSMutableDictionary* toolbarItems;				// The toolbar items
+}
 
 // = Construction =
 
@@ -26,13 +32,13 @@
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	NSRect mainScreenRect = [[NSScreen mainScreen] frame];
 	
-	self = [super initWithWindow: [[[NSWindow alloc] initWithContentRect: NSMakeRect(NSMinX(mainScreenRect)+200, NSMaxY(mainScreenRect)-400, 512, 300) 
+	self = [super initWithWindow: [[NSWindow alloc] initWithContentRect: NSMakeRect(NSMinX(mainScreenRect)+200, NSMaxY(mainScreenRect)-400, 512, 300) 
 															   styleMask: NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask
 																 backing: NSBackingStoreBuffered 
-																   defer: YES] autorelease]];
+																   defer: YES]];
 	
 	if (self) {
 		// Set up window
@@ -50,13 +56,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[preferenceToolbar release];
-	[preferenceViews release];
-	[toolbarItems release];
-	
-	[super dealloc];
-}
 
 - (IBAction) showWindow: (id) sender {
 	// Set up the toolbar while showing the window
@@ -71,12 +70,12 @@
 		[[self window] setToolbar: preferenceToolbar];
 		[preferenceToolbar setVisible: YES];
 
-		[self switchToPreferencePane: [[preferenceViews objectAtIndex: 0] identifier]];
+		[self switchToPreferencePane: [preferenceViews[0] identifier]];
 	}
 
     // Set the window frame based on stored coordinates
     NSPoint topLeft = [[IFPreferences sharedPreferences] preferencesTopLeftPosition];
-    topLeft.y = [[[NSScreen screens] objectAtIndex:0] frame].size.height - topLeft.y;
+    topLeft.y = [[NSScreen screens][0] frame].size.height - topLeft.y;
     NSRect rect = [[self window] frame];
     rect.origin.x = topLeft.x;
     rect.origin.y = topLeft.y - rect.size.height;
@@ -99,7 +98,7 @@
         NSRect rect = [[self window] frame];
         topLeft.x = rect.origin.x;
         topLeft.y = rect.origin.y + rect.size.height;
-        topLeft.y = [[[NSScreen screens] objectAtIndex:0] frame].size.height - topLeft.y;
+        topLeft.y = [[NSScreen screens][0] frame].size.height - topLeft.y;
         [[IFPreferences sharedPreferences] setPreferencesTopLeftPosition: topLeft];
         
         // Remove notifier
@@ -127,16 +126,14 @@
 	[newItem setLabel: [newPane preferenceName]];
 	[newItem setToolTip: [newPane tooltip]];
 	
-	[toolbarItems setObject: newItem
-					 forKey: [newPane identifier]];
+	toolbarItems[[newPane identifier]] = newItem;
 
-    [newItem release];
 }
 
 -(void) removeAllPreferencePanes {
-	[preferenceToolbar release]; preferenceToolbar = nil;
-	[preferenceViews release]; preferenceViews = nil;
-	[toolbarItems release]; toolbarItems = nil;
+	 preferenceToolbar = nil;
+	 preferenceViews = nil;
+	 toolbarItems = nil;
 }
 
 // = Toolbar delegate =
@@ -166,7 +163,7 @@
 - (NSToolbarItem *)toolbar: (NSToolbar*) toolbar 
 	 itemForItemIdentifier: (NSString*) itemIdentifier 
  willBeInsertedIntoToolbar: (BOOL)flag {
-	return [toolbarItems objectForKey: itemIdentifier];
+	return toolbarItems[itemIdentifier];
 }
 
 // = Preference switching =
@@ -215,7 +212,7 @@
 		windowFrame.size.width  += (currentFrame.size.width - oldFrame.size.width);
 		windowFrame.size.height += (currentFrame.size.height - oldFrame.size.height);
 		
-		[[self window] setContentView: [[[NSView alloc] init] autorelease]];
+		[[self window] setContentView: [[NSView alloc] init]];
 		[[self window] setFrame: windowFrame
 						display: YES
 						animate: YES];

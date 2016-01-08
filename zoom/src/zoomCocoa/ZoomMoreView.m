@@ -11,7 +11,7 @@
 
 @implementation ZoomMoreView
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
@@ -22,14 +22,12 @@
 - (void) setSize {
     NSString* more = @"[More]";
     NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithDeviceRed: 0
+        @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+            NSBackgroundColorAttributeName: [NSColor colorWithDeviceRed: 0
                                   green: 0.6
                                    blue: 0.9
-                                  alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
-            nil];
+                                  alpha: 1.0],
+            NSForegroundColorAttributeName: [NSColor blackColor]};
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
     moreSize.width += 2;
@@ -42,14 +40,12 @@
 - (void)drawRect:(NSRect)rect {
     NSString* more = @"[More]";
     NSDictionary* moreAttributes =
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [NSFont systemFontOfSize: 12], NSFontAttributeName,
-            [NSColor colorWithDeviceRed: 0
+        @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+            NSBackgroundColorAttributeName: [NSColor colorWithDeviceRed: 0
                                   green: 0.6
                                    blue: 0.9
-                                  alpha: 1.0], NSBackgroundColorAttributeName,
-            [NSColor blackColor], NSForegroundColorAttributeName,
-            nil];
+                                  alpha: 1.0],
+            NSForegroundColorAttributeName: [NSColor blackColor]};
 
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self bounds];

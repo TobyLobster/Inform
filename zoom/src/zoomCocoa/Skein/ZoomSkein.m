@@ -21,7 +21,7 @@
 
 @implementation ZoomSkein
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -75,19 +75,20 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 - (void) inputCommand: (NSString*) command {
 	// Create/set the item to the appropraite item in the skein
 	ZoomSkeinItem* newItem = [activeItem addChild: [ZoomSkeinItem skeinItemWithCommand: command]];
-	
+
 	// Move the 'active' item
 	[activeItem release];
 	activeItem = [newItem retain];
-	
+
 	// Some values for this item
 	[activeItem setPlayed: YES];
+    [activeItem setChanged: NO];
 	[activeItem increaseTemporaryScore];
-	
+
 	// Create a buffer for any new output
 	if (currentOutput) [currentOutput release];
 	currentOutput = [[NSMutableString alloc] init];
-	
+
 	// Notify anyone who's watching that we've updated
 	[self zoomSkeinChanged];
 }
@@ -145,9 +146,10 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	// Append this text to the current outout
 	[currentOutput appendString: outputText];
 
-	//if ([currentOutput length] > 0) {
-	//	[activeItem setResult: currentOutput];
-	//}
+	if ([currentOutput length] > 0) {
+		[activeItem setResult: currentOutput];
+        [self zoomSkeinChanged];
+	}
 }
 
 - (void) zoomWaitingForInput {
@@ -229,7 +231,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		
 		// Add this item to the list of items in use
 		if ([item temporary]) {
-			[itemsInUse addObject: [NSNumber numberWithInt: [item temporaryScore]]];
+			[itemsInUse addObject: @([item temporaryScore])];
 		}
 		
 		// Push this item's children onto the stack
@@ -256,7 +258,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[itemStack removeLastObject];
 
 		// Remove this item if necessary
-		if ([item temporary] && [itemsToRemove containsObject: [NSNumber numberWithInt: [item temporaryScore]]]) {
+		if ([item temporary] && [itemsToRemove containsObject: @([item temporaryScore])]) {
 			[item removeFromParent];
 		} else {
 			// Push this item's children onto the stack

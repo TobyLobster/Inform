@@ -1,6 +1,6 @@
 //
 //  IFSingleController.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/06/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -15,6 +15,7 @@
 #import "IFProjectController.h"
 #import "IFSyntaxManager.h"
 #import "IFUtility.h"
+#import "IFSourceFileView.h"
 
 @interface IFSingleController(PrivateMethods)
 
@@ -23,9 +24,18 @@
 
 @end
 
-@implementation IFSingleController
+@implementation IFSingleController {
+    IBOutlet IFSourceFileView*	fileView;						// The textview used to display the document itself
+    IBOutlet NSView*			installWarning;					// The view used to warn when a .i7x file is not installed
+    IBOutlet NSView*			mainView;						// The 'main view' that fills the window when the install warning is hidden
+    BOOL                        isExtension;
+    BOOL                        isInform7;
+    NSRange                     initialSelectionRange;
 
--(id) initWithInitialSelectionRange: (NSRange) anInitialSelectionRange {
+    IFSourceSharedActions*      sharedActions;
+}
+
+-(instancetype) initWithInitialSelectionRange: (NSRange) anInitialSelectionRange {
     self = [super initWithWindowNibName: @"SingleFile"];
     if( self ) {
         sharedActions = [[IFSourceSharedActions alloc] init];
@@ -50,10 +60,7 @@
 		[[[self document] storage] removeLayoutManager: [fileView layoutManager]];
 	}
 
-    [sharedActions dealloc];
     sharedActions = nil;
-    
-	[super dealloc];
 }
 
 - (void)windowDidLoad {
@@ -72,7 +79,7 @@
     [fileView setEnabledTextCheckingTypes: 0];
     [fileView setSelectedRange: initialSelectionRange];
 
-	NSString* filename = [[[self document] fileName] stringByStandardizingPath];
+	NSString* filename = [[[[self document] fileURL] path] stringByStandardizingPath];
     NSString* dotExtension = [[filename pathExtension] lowercaseString];
 
 	isExtension = [dotExtension isEqualToString: @"i7x"] ||
@@ -258,7 +265,7 @@
 - (IBAction) installFile: (id) sender {
 	// Install this extension
 	NSString* finalPath = nil;
-	if ([[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [[self document] fileName]
+	if ([[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [[[self document] fileURL] path]
                                                                            finalPath: &finalPath
                                                                                title: nil
                                                                               author: nil
@@ -266,7 +273,7 @@
                                                                   showWarningPrompts: YES
                                                                               notify: YES]) {
 		// Find the new path
-		[[self document] setFileName: finalPath];
+        [[self document] setFileURL: [NSURL fileURLWithPath: finalPath]];
         // Hide the install prompt
         [self hideInstallPrompt: self];
 	} else {
@@ -286,12 +293,12 @@
 
 - (void) highlightSourceFileLine: (int) line
 						  inFile: (NSString*) file
-                           style: (enum lineStyle) style {
+                           style: (IFLineStyle) style {
     // Find out where the line is in the source view
     NSString* store = [[[self document] storage] string];
-    int length = [store length];
+    NSUInteger length = [store length];
 	
-    int x, lineno, linepos, lineLength;
+    NSUInteger x, lineno, linepos, lineLength;
     lineno = 1; linepos = 0;
 	if (line > lineno)
 	{

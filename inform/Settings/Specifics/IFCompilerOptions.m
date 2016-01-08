@@ -10,15 +10,15 @@
 
 #import "IFCompiler.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
-@implementation IFCompilerOptions
-
-- (id) init {
-	return [self initWithNibName: @"CompilerSettings"];
+@implementation IFCompilerOptions {
+    IBOutlet NSPopUpButton* compilerVersion;
+    IBOutlet NSButton* naturalInform;
 }
 
-- (void) dealloc {
-	[super dealloc];
+- (instancetype) init {
+	return [self initWithNibName: @"CompilerSettings"];
 }
 
 // = Misc info =

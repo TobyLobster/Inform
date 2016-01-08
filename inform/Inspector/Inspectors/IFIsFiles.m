@@ -10,10 +10,21 @@
 #import "IFProjectController.h"
 #import "IFUtility.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import "IFProject.h"
+#import "IFCompilerSettings.h"
 
 NSString* IFIsFilesInspector = @"IFIsFilesInspector";
 
-@implementation IFIsFiles
+@implementation IFIsFiles {
+    IBOutlet NSTableView* filesView;					// The table of files
+    IBOutlet NSButton* addFileButton;					// Button to add new files
+    IBOutlet NSButton* removeFileButton;				// Button to remove old files
+
+    IFProject* activeProject;							// The currently active project
+    IFProjectController* activeController;				// The currently active window controller (if a ProjectController)
+    NSArray* filenames;									// The filename sin the current project
+    NSWindow* activeWin;								// The currently active window
+}
 
 + (IFIsFiles*) sharedIFIsFiles {
 	static IFIsFiles* files = nil;
@@ -25,7 +36,7 @@ NSString* IFIsFilesInspector = @"IFIsFilesInspector";
 	return files;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -38,9 +49,8 @@ NSString* IFIsFilesInspector = @"IFIsFilesInspector";
 		filenames = nil;
 		
 		// Set the icon column to NSImageCell
-		[[[filesView tableColumns] objectAtIndex: 
-			[filesView columnWithIdentifier: @"icon"]] setDataCell: 
-			[[[NSImageCell alloc] init] autorelease]];
+		[[filesView tableColumns][[filesView columnWithIdentifier: @"icon"]] setDataCell: 
+			[[NSImageCell alloc] init]];
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(updateFiles)
@@ -52,12 +62,9 @@ NSString* IFIsFilesInspector = @"IFIsFilesInspector";
 }
 
 - (void) dealloc {
-	if (filenames) [filenames release];
-	if (activeProject) [activeProject release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	[super dealloc];
 }
 
 // = Inspecting things =
@@ -72,7 +79,6 @@ static NSInteger stringComparer(id a, id b, void * context) {
 - (void) inspectWindow: (NSWindow*) newWindow {
 	activeWin = newWindow;
 	
-	[activeProject release];
 	activeProject = nil;
 	activeController = nil;
 	
@@ -81,7 +87,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
 		activeController = (IFProjectController*)control;
-		activeProject = [[control document] retain];
+		activeProject = [control document];
 	}
 	
 	[self updateFiles];
@@ -89,7 +95,6 @@ static NSInteger stringComparer(id a, id b, void * context) {
 
 - (void) updateFiles {
 	if (filenames) {
-		[filenames release];
 		filenames = nil;
 	}
 	
@@ -97,7 +102,6 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	
 	filenames = [[[activeProject sourceFiles] allKeys] sortedArrayUsingFunction: stringComparer
 																		context: nil];
-	[filenames retain];
 
 	[filesView reloadData];
 	
@@ -121,7 +125,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 
 - (void) setSelectedFile {
 	if (activeController && [activeController isKindOfClass: [IFProjectController class]]) {
-		int fileRow = [filenames indexOfObject: [[activeController selectedSourceFile] lastPathComponent]];
+		NSUInteger fileRow = [filenames indexOfObject: [[activeController selectedSourceFile] lastPathComponent]];
 		
 		if (fileRow != NSNotFound) {
 			[filesView selectRowIndexes:[NSIndexSet indexSetWithIndex:fileRow]
@@ -143,17 +147,20 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	}
 }
 
+// Ignore the casting of constness in "(void*)CFBridgingRetain(status)"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wcast-qual"
+
 - (IBAction) removeFile: (id) sender {
 	if (activeWin == nil) return;
 	if ([filenames count] <= 0) return;
 	if ([filesView selectedRow] < 0) return;
 	
-	NSString* fileToRemove = [filenames objectAtIndex: [filesView selectedRow]];
+	NSString* fileToRemove = filenames[[filesView selectedRow]];
 	if (fileToRemove == nil) return;
 	
-	NSDictionary* status = [NSDictionary dictionaryWithObjectsAndKeys: 
-		fileToRemove, @"fileToRemove", [activeWin windowController], @"windowController", nil];
-	
+	NSDictionary* status = @{@"fileToRemove": fileToRemove, @"windowController": [activeWin windowController]};
+
 	NSBeginAlertSheet([IFUtility localizedString: @"FileRemove - Are you sure"
                                          default: @"Are you sure you want to remove this file?"],
 					  [IFUtility localizedString: @"FileRemove - keep file"
@@ -163,24 +170,32 @@ static NSInteger stringComparer(id a, id b, void * context) {
 					  nil, activeWin,
 					  self, 
 					  @selector(deleteFileFinished:returnCode:contextInfo:), nil, 
-					  [status retain],
+					  (void*)CFBridgingRetain(status),
 					  [IFUtility localizedString: @"FileRemove - description"
                                          default: @"Are you sure you wish to permanently remove the file '%@' from the project? This action cannot be undone"],
 					  fileToRemove);
 }
 
+#pragma clang diagnostic pop
+
 - (void) deleteFileFinished: (NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-	NSDictionary* fileInfo = contextInfo;
-	[fileInfo autorelease];
-	
+	NSDictionary* fileInfo = CFBridgingRelease(contextInfo);
+
 	// Verify that we're all set up to delete the file
-	if (activeWin == nil) return;
-	if (fileInfo == nil) return;
+    if (activeWin == nil) {
+        return;
+    }
+    if (fileInfo == nil) {
+        return;
+    }
 	
-	NSString* filename = [fileInfo objectForKey: @"fileToRemove"];
-	IFProjectController* controller = [fileInfo objectForKey: @"windowController"];
+	NSString* filename = fileInfo[@"fileToRemove"];
+	IFProjectController* controller = fileInfo[@"windowController"];
 	
-	if (filename == nil || controller == nil) return;
+	if (filename == nil || controller == nil)
+    {
+        return;
+    }
 	
 	if (![controller isKindOfClass: [IFProjectController class]]) {
 		return;
@@ -197,12 +212,12 @@ static NSInteger stringComparer(id a, id b, void * context) {
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView {
 	if (activeProject == nil) return 0;
 	
-	int fileRow = [filenames indexOfObject: [[activeController selectedSourceFile] lastPathComponent]];
+	NSUInteger fileRow = [filenames indexOfObject: [[activeController selectedSourceFile] lastPathComponent]];
 	
 	if (fileRow == NSNotFound)
-		return [filenames count] + 1;
+		return (int) [filenames count] + 1;
 	else
-		return [filenames count];
+		return (int) [filenames count];
 }
 
 - (id)				tableView:(NSTableView *)aTableView 
@@ -218,8 +233,8 @@ static NSInteger stringComparer(id a, id b, void * context) {
 		
 		fileColour = [NSColor blueColor];
 	} else {
-		path = [filenames objectAtIndex: rowIndex];
-		fullPath = [activeProject pathForFile: path];
+		path = filenames[rowIndex];
+		fullPath = [activeProject pathForSourceFile: path];
 	}
 	
 	if (path == nil) return nil;
@@ -234,9 +249,8 @@ static NSInteger stringComparer(id a, id b, void * context) {
 		
 		NSString* filenameToUse = [path stringByDeletingPathExtension];
 		
-		return [[[NSAttributedString alloc] initWithString: filenameToUse
-												attributes: [NSDictionary dictionaryWithObjectsAndKeys: fileColour, NSForegroundColorAttributeName, nil]]
-			autorelease];
+		return [[NSAttributedString alloc] initWithString: filenameToUse
+												attributes: @{NSForegroundColorAttributeName: fileColour}];
 	} else if ([[aTableColumn identifier] isEqualToString: @"icon"]) {
 		NSImage* icon;
 		
@@ -266,7 +280,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 		if (repToUse != nil) {
 			NSImage* newImg = [[NSImage alloc] init];
 			[newImg addRepresentation: repToUse];
-			return [newImg autorelease];
+			return newImg;
 		} else {
 			return icon;
 		}
@@ -279,7 +293,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
    setObjectValue:(id)anObject 
    forTableColumn:(NSTableColumn *)aTableColumn 
 			  row:(int)rowIndex {
-	NSString* oldFile = [filenames objectAtIndex: rowIndex];
+	NSString* oldFile = filenames[rowIndex];
 	if (![[aTableColumn identifier] isEqualToString: @"filename"]) return;
 	if (oldFile == nil) return;
 		
@@ -301,7 +315,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 		
 		[aTableView reloadData];
 		
-		int newIndex = [filenames indexOfObjectIdenticalTo: newName];
+		NSUInteger newIndex = [filenames indexOfObjectIdenticalTo: newName];
 		if (newIndex != NSNotFound) {
 			[aTableView selectRowIndexes: [NSIndexSet indexSetWithIndex:newIndex]
                     byExtendingSelection: NO];
@@ -316,7 +330,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	NSString* filename = nil;
 	
 	if ([filesView selectedRow] >= 0)
-		filename = [filenames objectAtIndex: [filesView selectedRow]];
+		filename = filenames[[filesView selectedRow]];
 	
 	if (filename) {
 		if ([activeController isKindOfClass: [IFProjectController class]]) {

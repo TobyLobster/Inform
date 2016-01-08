@@ -7,19 +7,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface IFProjectMaterialsPresenter : NSObject<NSFilePresenter> {
-    NSURL* primaryURL;
-    NSURL* secondaryURL;
-    NSURL* moveURL;
-    
-    NSOperationQueue* queue;
-}
+@interface IFProjectMaterialsPresenter : NSObject<NSFilePresenter>
 
-- (id) initWithURL:(NSURL*) mainURL;
+@property (atomic, readonly, copy)    NSURL *             presentedItemURL;
+@property (atomic, readonly, strong)  NSOperationQueue *  presentedItemOperationQueue;
+@property (atomic, readonly, copy)    NSURL *             primaryPresentedItemURL;
 
-- (NSURL *) presentedItemURL;
-- (NSOperationQueue *) presentedItemOperationQueue;
-- (NSURL *) primaryPresentedItemURL;
-
+- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithURL:(NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
 
 @end

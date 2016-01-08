@@ -1,19 +1,28 @@
 //
 //  IFSettingsPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
 #import "IFSettingsPage.h"
+#import "IFSettingsView.h"
+#import "IFSettingsController.h"
 #import "IFUtility.h"
+#import "IFProjectController.h"
+#import "IFProject.h"
+#import "IFCompilerSettings.h"
 
-@implementation IFSettingsPage
+@implementation IFSettingsPage {
+    // Settings
+    IBOutlet IFSettingsView*        settingsView;			// The settings view
+    IBOutlet IFSettingsController*  settingsController;     // The settings controller
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Settings"
 				projectController: controller];
 	
@@ -21,7 +30,7 @@
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(updateSettings)
 													 name: IFSettingNotification
-												   object: [[parent document] settings]];
+												   object: [[self.parent document] settings]];
 		
 		[self updateSettings];
 	}
@@ -31,9 +40,6 @@
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	[settingsController release];
-	
-	[super dealloc];
 }
 
 // = Details about this view =
@@ -46,8 +52,7 @@
 // = Settings =
 
 - (void) setSettingsController: (IFSettingsController*) controller {
-	[settingsController release];
-	settingsController = [controller retain];
+	settingsController = controller;
 }
 
 - (IFSettingsController*) settingsController {
@@ -55,11 +60,11 @@
 }
 
 - (void) updateSettings {
-	if (!parent) {
+	if (!self.parent) {
 		return; // Nothing to do
 	}
-	
-	[settingsController setCompilerSettings: [[parent document] settings]];
+
+	[settingsController setCompilerSettings: [[self.parent document] settings]];
 	[settingsController updateAllSettings];
 	
 	return;

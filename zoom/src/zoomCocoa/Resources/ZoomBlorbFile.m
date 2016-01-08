@@ -8,7 +8,30 @@
 
 #import "ZoomBlorbFile.h"
 
-@implementation ZoomBlorbFile
+@implementation ZoomBlorbFile {
+    NSObject<ZFile>* file;
+
+    NSString*       formID;
+    unsigned int    formLength;
+
+    NSMutableArray*		 iffBlocks;
+    NSMutableDictionary* typesToBlocks;
+    NSMutableDictionary* locationsToBlocks;
+
+    NSMutableDictionary* resourceIndex;
+
+    BOOL adaptive;
+    NSMutableSet* adaptiveImages;
+    NSData*       activePalette;
+
+    NSSize stdSize;
+    NSSize minSize;
+    NSSize maxSize;
+    NSMutableDictionary* resolution;
+
+    NSMutableDictionary* cache;
+    unsigned int maxCacheNum;
+}
 
 static unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
@@ -59,7 +82,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 
 // = Initialisation =
 
-- (id) initWithZFile: (NSObject<ZFile>*) f {
+- (instancetype) initWithZFile: (NSObject<ZFile>*) f {
 	self = [super init];
 	
 	if (self) {
@@ -126,25 +149,21 @@ static unsigned int Int4(const unsigned char* bytes) {
 			unsigned int blockLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 			
 			// Create the block data
-			NSDictionary* block = [NSDictionary dictionaryWithObjectsAndKeys:
-				blockID, @"id",
-				[NSNumber numberWithUnsignedInt: blockLength], @"length",
-				[NSNumber numberWithUnsignedInt: pos+8], @"offset",
-				nil];
+			NSDictionary* block = @{@"id": blockID,
+				@"length": @(blockLength),
+				@"offset": @(pos+8)};
 			
 			// Store it
 			[iffBlocks addObject: block];
 			
-			NSMutableArray* typeBlocks = [typesToBlocks objectForKey: blockID];
+			NSMutableArray* typeBlocks = typesToBlocks[blockID];
 			if (typeBlocks == nil) {
 				typeBlocks = [NSMutableArray array];
-				[typesToBlocks setObject: typeBlocks
-								  forKey: blockID];
+				typesToBlocks[blockID] = typeBlocks;
 			}
 			[typeBlocks addObject: block];
 			
-			[locationsToBlocks setObject: block
-								  forKey: [NSNumber numberWithUnsignedInt: pos]];
+			locationsToBlocks[@(pos)] = block;
 			
 			// Next position
 			pos += 8 + blockLength;
@@ -155,11 +174,11 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return self;
 }
 
-- (id) initWithData: (NSData*) blorbFile {
+- (instancetype) initWithData: (NSData*) blorbFile {
 	return [self initWithZFile: [[[ZDataFile alloc] initWithData: blorbFile] autorelease]];
 }
 
-- (id) initWithContentsOfFile: (NSString*) filename {
+- (instancetype) initWithContentsOfFile: (NSString*) filename {
 	return [self initWithZFile: [[[ZHandleFile alloc] initWithFileHandle:
 		[NSFileHandle fileHandleForReadingAtPath: filename]] autorelease]];
 }
@@ -187,24 +206,24 @@ static unsigned int Int4(const unsigned char* bytes) {
 // = Generic IFF data =
 
 - (NSArray*) chunksWithType: (NSString*) chunkType {
-	return [typesToBlocks objectForKey: chunkType];
+	return typesToBlocks[chunkType];
 }
 
 - (NSData*) dataForChunk: (id) chunk {
 	if (![chunk isKindOfClass: [NSDictionary class]]) return nil;
 	if (!file) return nil;
-	if (![[chunk objectForKey: @"offset"] isKindOfClass: [NSNumber class]]) return nil;
-	if (![[chunk objectForKey: @"length"] isKindOfClass: [NSNumber class]]) return nil;
+	if (![chunk[@"offset"] isKindOfClass: [NSNumber class]]) return nil;
+	if (![chunk[@"length"] isKindOfClass: [NSNumber class]]) return nil;
 	
 	NSDictionary* cD = chunk;
 	
-	[file seekTo: [[cD objectForKey: @"offset"] unsignedIntValue]];
+	[file seekTo: [cD[@"offset"] unsignedIntValue]];
 	
-	return [file readBlock: [[cD objectForKey: @"length"] unsignedIntValue]];
+	return [file readBlock: [cD[@"length"] unsignedIntValue]];
 }
 
 - (NSData*) dataForChunkWithType: (NSString*) chunkType {
-	return [self dataForChunk: [[self chunksWithType: chunkType] objectAtIndex: 0]];
+	return [self dataForChunk: [self chunksWithType: chunkType][0]];
 }
 
 // = The resource index =
@@ -230,22 +249,20 @@ static unsigned int Int4(const unsigned char* bytes) {
 	for (pos = 4; pos+12 <= [resourceChunk length]; pos += 12) {
 		// Read the chunk
         NSString* usage = [NSString stringWithFormat:@"%c%c%c%c", data[pos], data[pos+1], data[pos+2], data[pos+3]];
-		NSNumber* num   = [NSNumber numberWithUnsignedInt: (data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])];
-		NSNumber* start = [NSNumber numberWithUnsignedInt: (data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])];
+		NSNumber* num   = @((unsigned int)((data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])));
+		NSNumber* start = @((unsigned int)((data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])));
 		
 		// Store it in the index
-		NSMutableDictionary* usageDict = [resourceIndex objectForKey: usage];
+		NSMutableDictionary* usageDict = resourceIndex[usage];
 		if (usageDict == nil) {
 			usageDict = [NSMutableDictionary dictionary];
-			[resourceIndex setObject: usageDict
-							  forKey: usage];
+			resourceIndex[usage] = usageDict;
 		}
 		
-		[usageDict setObject: start
-					  forKey: num];
+		usageDict[num] = start;
 		
 		// Check against the data we've already parsed for this file
-		if ([locationsToBlocks objectForKey: start] == nil) {
+		if (locationsToBlocks[start] == nil) {
 			NSLog(@"ZoomBlorbFile: Warning: '%@' resource %@ not found (at %@)", usage, num, start);
 		}
 	}
@@ -261,7 +278,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		adaptiveImages = [[NSMutableSet alloc] init];
 		
 		for (pos=0; pos+4<=[aPal length]; pos+=4) {
-			NSNumber* num = [NSNumber numberWithUnsignedInt: Int4(pal + pos)];
+			NSNumber* num = @(Int4(pal + pos));
 			[adaptiveImages addObject: num];
 		}
 	}
@@ -291,28 +308,26 @@ static unsigned int Int4(const unsigned char* bytes) {
 	int x;
 	
 	for (x=24; x<[resData length]; x += 28) {
-		NSNumber* imageNum = [NSNumber numberWithUnsignedInt: Int4(data + x)];
+		NSNumber* imageNum = @(Int4(data + x));
 
 		unsigned int num, denom;
 		double ratio;
 		
 		num = Int4(data + x + 4); denom = Int4(data + x + 8);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* stdRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* stdRatio = @(ratio);
 		
 		num = Int4(data + x + 12); denom = Int4(data + x + 16);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* minRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* minRatio = @(ratio);
 		
 		num = Int4(data + x + 20); denom = Int4(data + x + 24);
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
-		NSNumber* maxRatio = [NSNumber numberWithDouble: ratio];
+		NSNumber* maxRatio = @(ratio);
 		
-		NSDictionary* entry = [NSDictionary dictionaryWithObjectsAndKeys:
-			stdRatio, @"stdRatio", minRatio, @"minRatio", maxRatio, @"maxRatio", nil];
+		NSDictionary* entry = @{@"stdRatio": stdRatio, @"minRatio": minRatio, @"maxRatio": maxRatio};
 
-		[resolution setObject: entry
-					   forKey: imageNum];
+		resolution[imageNum] = entry;
 	}
 }
 
@@ -323,9 +338,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	if (!resourceIndex) return NO;
 	
 	return 
-		[locationsToBlocks objectForKey: 
-			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]] != nil;
+		locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]] != nil;
 }
 
 // = Typed data =
@@ -343,9 +356,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	// Get the resource
 	return [self dataForChunk: 
-		[locationsToBlocks objectForKey: 
-			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]]];
+		locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]]];
 }
 
 - (NSData*) soundDataWithNumber: (int) num {
@@ -357,9 +368,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	// Get the resource
 	return [self dataForChunk: 
-		[locationsToBlocks objectForKey: 
-			[[resourceIndex objectForKey: @"Snd "] objectForKey: 
-				[NSNumber numberWithUnsignedInt: num]]]];
+		locationsToBlocks[resourceIndex[@"Snd "][@((unsigned int) num)]]];
 }
 
 // = Fiddling with PNG palettes =
@@ -367,7 +376,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) paletteForPng: (NSData*) png {
 	// (Appends the CRC to the palette, too)
 	const unsigned char* data = [png bytes];
-	unsigned int length = [png length];
+	unsigned int length = (int) [png length];
 	
 	unsigned int pos = 8;
 	
@@ -393,7 +402,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 	NSMutableData* newPng = [[png mutableCopy] autorelease];
 
 	const unsigned char* data = [newPng bytes];
-	unsigned int length = [newPng length];
+	unsigned int length = (unsigned int) [newPng length];
 	
 	unsigned int pos = 8;
 	
@@ -404,7 +413,7 @@ static unsigned int Int4(const unsigned char* bytes) {
 		
 		if ([type isEqualToString: @"PLTE"]) {
 			unsigned char lenBlock[4];
-			unsigned int newLen = [newPalette length];
+			unsigned int newLen = (unsigned int) [newPalette length];
 			
 			newLen -= 4;
 			lenBlock[0] = (unsigned char)(newLen>>24); lenBlock[1] = (unsigned char)(newLen>>16);
@@ -443,20 +452,19 @@ static const int cacheLowerLimit = 32;
 static const int cacheUpperLimit = 64;
 
 - (NSImage*) cachedImageWithNumber: (int) num {
-	NSDictionary* entry = [cache objectForKey: [NSNumber numberWithUnsignedInt: num]];
-	[self setActivePalette: [entry objectForKey: @"palette"]];
-	return [entry objectForKey: @"image"];
+	NSDictionary* entry = cache[@((unsigned int) num)];
+	[self setActivePalette: entry[@"palette"]];
+	return entry[@"image"];
 }
 
 - (NSData*) cachedPaletteForImage: (int) num {
-	return [[cache objectForKey: [NSNumber numberWithUnsignedInt: num]] objectForKey: @"palette"];
+	return cache[@((unsigned int) num)][@"palette"];
 }
 
 - (void) usedImageInCache: (int) num {
-	NSMutableDictionary* entry = [cache objectForKey: [NSNumber numberWithUnsignedInt: num]];
+	NSMutableDictionary* entry = cache[@((unsigned int) num)];
 	
-	[entry setObject: [NSNumber numberWithUnsignedInt: maxCacheNum++]
-			  forKey: @"usageNumber"];
+	entry[@"usageNumber"] = @(maxCacheNum++);
 }
 
 - (void) cacheImage: (NSImage*) img
@@ -468,18 +476,17 @@ static const int cacheUpperLimit = 64;
 	}
 	
 	// Add to the cache
-	[cache setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	cache[@((unsigned int) num)] = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 		img, @"image",
-		[NSNumber numberWithBool: isAdaptive], @"adaptive",
-		[NSNumber numberWithUnsignedInt: maxCacheNum++], @"usageNumber",
-		[NSNumber numberWithUnsignedInt: num], @"number",
+		@(isAdaptive), @"adaptive",
+		@(maxCacheNum++), @"usageNumber",
+		@((unsigned int) num), @"number",
 		palette, @"palette",
-		nil]
-			  forKey: [NSNumber numberWithUnsignedInt: num]];
+		nil];
 	
 	// Remove lowest-priority images if the cache gets too full
 	if ([cache count] >= cacheUpperLimit) {
-		NSLog(@"ImageCache: hit %i images (removing oldest entries)", [cache count]);
+        NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
 		
 		NSEnumerator* keyEnum = [cache keyEnumerator];
 		NSMutableArray* oldestEntries = [NSMutableArray array];
@@ -488,13 +495,13 @@ static const int cacheUpperLimit = 64;
 		while (key = [keyEnum nextObject]) {
 			// Find the place to put this particular entry
 			// Yeah, could binary search here. *Probably* not worth it
-			NSMutableDictionary* entry = [cache objectForKey: key];
-			unsigned int thisUsage = [[entry objectForKey: @"usageNumber"] unsignedIntValue];
+			NSMutableDictionary* entry = cache[key];
+			unsigned int thisUsage = [entry[@"usageNumber"] unsignedIntValue];
 			
 			int x;
 			for (x=0; x<[oldestEntries count]; x++) {
-				NSDictionary* thisEntry = [oldestEntries objectAtIndex: x];
-				unsigned int usage = [[thisEntry objectForKey: @"usageNumber"] unsignedIntValue];
+				NSDictionary* thisEntry = oldestEntries[x];
+				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];
 				
 				if (usage > thisUsage) break;
 			}
@@ -505,14 +512,14 @@ static const int cacheUpperLimit = 64;
 		
 		// Remove objects from the cache until there are cacheLowerLimit left
 		int x;
-		int numToRemove = [oldestEntries count] - cacheLowerLimit;
+		int numToRemove = (int) [oldestEntries count] - cacheLowerLimit;
 		
 		NSLog(@"%i entries to remove", numToRemove);
 
 		for (x=0; x<numToRemove; x++) {
-			NSDictionary* entry = [oldestEntries objectAtIndex: x];
+			NSDictionary* entry = oldestEntries[x];
 			
-			[cache removeObjectForKey: [entry objectForKey: @"num"]];
+			[cache removeObjectForKey: entry[@"num"]];
 		}
 	}
 }
@@ -524,16 +531,16 @@ static const int cacheUpperLimit = 64;
 	NSMutableArray* keysToRemove = [NSMutableArray array];
 	
 	while (key = [keyEnum nextObject]) {
-		NSDictionary* entry = [cache objectForKey: key];
+		NSDictionary* entry = cache[key];
 		
-		if ([[entry objectForKey: @"adaptive"] boolValue]) {
+		if ([entry[@"adaptive"] boolValue]) {
 			// This is an adaptive entry: cache for later removal
 			// (Have to cache to avoid mucking up the key enumerator)
 			[keysToRemove addObject: key];
 		}
 	}
 	
-	NSLog(@"Removing %i adaptive entries from the cache", [keysToRemove count]);
+	NSLog(@"Removing %lu adaptive entries from the cache", (unsigned long)[keysToRemove count]);
 	
 	keyEnum = [keysToRemove objectEnumerator];
 	while (key = [keyEnum nextObject]) {
@@ -551,13 +558,11 @@ static const int cacheUpperLimit = 64;
 	// Get the image
 	NSSize result;
 
-	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
-		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-			[NSNumber numberWithUnsignedInt: num]]];
+	NSDictionary* imageBlock = locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]];
 	
 	if (imageBlock == nil) return NSMakeSize(0,0);
 	
-	NSString* type = [imageBlock objectForKey: @"id"];
+	NSString* type = imageBlock[@"id"];
 	
 	if ([type isEqualToString: @"Rect"]) {
 		// Nonstandard extension: rectangle
@@ -577,7 +582,7 @@ static const int cacheUpperLimit = 64;
 	}
 	
 	// Get the resolution data
-	NSDictionary* resData = [resolution objectForKey: [NSNumber numberWithUnsignedInt: num]];
+	NSDictionary* resData = resolution[@((unsigned int) num)];
 	if (resData == nil) return result;
 	
 	// Work out the scaling factor
@@ -591,9 +596,9 @@ static const int cacheUpperLimit = 64;
 	else
 		erf = erf2;
 	
-	double minRatio = [[resData objectForKey: @"minRatio"] doubleValue];
-	double maxRatio = [[resData objectForKey: @"maxRatio"] doubleValue];
-	double stdRatio = [[resData objectForKey: @"stdRatio"] doubleValue];
+	double minRatio = [resData[@"minRatio"] doubleValue];
+	double maxRatio = [resData[@"maxRatio"] doubleValue];
+	double stdRatio = [resData[@"stdRatio"] doubleValue];
 	
 	double factor = 0;
 	
@@ -615,13 +620,11 @@ static const int cacheUpperLimit = 64;
 }
 
 - (NSImage*) imageWithNumber: (int) num {
-	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
-		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
-			[NSNumber numberWithUnsignedInt: num]]];
+	NSDictionary* imageBlock = locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]];
 	
 	if (imageBlock == nil) return nil;
 	
-	NSString* type = [imageBlock objectForKey: @"id"];
+	NSString* type = imageBlock[@"id"];
 	NSImage* res = nil;
 	
 	// Retrieve the image from the cache if possible
@@ -654,7 +657,7 @@ static const int cacheUpperLimit = 64;
 		NSData* pngData = [self dataForChunk: imageBlock];
 		
 		if (adaptive) {
-			if ([adaptiveImages containsObject: [NSNumber numberWithUnsignedInt: num]]) {
+			if ([adaptiveImages containsObject: @((unsigned int) num)]) {
 				pngData = [self adaptPng: pngData
 							 withPalette: activePalette];
 				wasAdaptive = YES;

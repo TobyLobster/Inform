@@ -8,13 +8,9 @@
 #import "IFProjectTypes.h"
 #import "IFPreferences.h"
 
-NSString* IFProjectFilesChangedNotification             = @"IFProjectFilesChangedNotification";
-NSString* IFProjectWatchExpressionsChangedNotification  = @"IFProjectWatchExpressionsChangedNotification";
-NSString* IFProjectBreakpointsChangedNotification       = @"IFProjectBreakpointsChangedNotification";
-NSString* IFProjectSourceFileRenamedNotification        = @"IFProjectSourceFileRenamedNotification";
-NSString* IFProjectSourceFileDeletedNotification        = @"IFProjectSourceFileDeletedNotification";
-NSString* IFProjectStartedBuildingSyntaxNotification    = @"IFProjectStartedBuildingSyntaxNotification";
-NSString* IFProjectFinishedBuildingSyntaxNotification   = @"IFProjectFinishedBuildingSyntaxNotification";
+NSString* IFProjectFilesChangedNotification         = @"IFProjectFilesChangedNotification";
+NSString* IFProjectBreakpointsChangedNotification   = @"IFProjectBreakpointsChangedNotification";
+NSString* IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenamedNotification";
 
 @implementation IFProjectTypes
 
@@ -75,12 +71,14 @@ NSString* IFProjectFinishedBuildingSyntaxNotification   = @"IFProjectFinishedBui
         return IFFileTypeInform7Project;
     }
 
+    if ([typeName isEqualTo: @"org.inform-fiction.xproject"] ) {
+        return IFFileTypeInform7ExtensionProject;
+    }
+
     //
     // Inform 6 source file
     //
-    if ( [typeName isEqualTo: @"inform source file"] ||
-         [typeName isEqualTo: @"inform header file"] ||
-         [typeName isEqualTo: @"inform 6 source file"] ||
+    if ( [typeName isEqualTo: @"inform 6 source file"] ||
          [typeName isEqualTo: @"org.inform-fiction.source.inform6"] ) {
         return IFFileTypeInform6SourceFile;
     }
@@ -134,13 +132,13 @@ NSString* IFProjectFinishedBuildingSyntaxNotification   = @"IFProjectFinishedBui
 }
 
 
-+ (id<IFSyntaxIntelligence,NSObject>) intelligenceForFilename: (NSString*) filename {
++ (NSObject<IFSyntaxIntelligence>*) intelligenceForFilename: (NSString*) filename {
 
     IFInformVersion version = [IFProjectTypes informVersionForFilename: filename];
     switch( version ) {
-        case IFInformVersion6:       return nil;                                          // Inform 6 file (no intelligence yet)
-        case IFInformVersion7:       return [[[IFNaturalIntel alloc] init] autorelease];  // Inform 7 file
-        case IFInformVersionUnknown: return nil;                                          // Unknown file type - no intelligence
+        case IFInformVersion6:       return nil;                            // Inform 6 file (no intelligence yet)
+        case IFInformVersion7:       return [[IFNaturalIntel alloc] init];  // Inform 7 file
+        case IFInformVersionUnknown: return nil;                            // Unknown file type - no intelligence
     }
 
 	// No intelligence

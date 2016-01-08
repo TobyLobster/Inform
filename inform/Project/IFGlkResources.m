@@ -1,78 +1,84 @@
 //
 //  IFGlkResources.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 29/08/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
 //
 
 #import "IFGlkResources.h"
+#import "IFProject.h"
+#import "IFImageCache.h"
 
+@implementation IFGlkResources {
+    IFProject* project;
+    NSDictionary* manifest;
+}
 
-@implementation IFGlkResources
+- (instancetype) init { self = [super init]; return self; }
 
-- (id) initWithProject: (IFProject*) newProject {
+- (instancetype) initWithProject: (IFProject*) newProject {
 	self = [super init];
 	
 	if (self) {
-		project = [newProject retain];
+		project = newProject;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[project release];
-	[manifest release];
-	
-	[super dealloc];
-}
 
 - (bycopy NSData*) dataForImageResource: (glui32) image {
 	// Get the location of the image directory
-	NSString* materials		= [project materialsPath];
-	NSString* projectPath	= [[project fileURL] path];
-	
-	// Get the (default) location of the image file
-	NSString* imageFile = [NSString stringWithFormat: @"Figure %i.png", image];
-		
+	NSURL* materialsURL = project.materialsDirectoryURL;
+	NSURL* projectURL	= project.fileURL;
+
 	// Load the manifest, if it exists
 	if (manifest == nil) {
 		// Try the project directory first
-		NSString* manifestFile = [projectPath stringByAppendingPathComponent: @"manifest.plist"];
-		
+		NSURL* manifestFileURL = [projectURL URLByAppendingPathComponent: @"manifest.plist"];
+
 		// If there's no manifest in the project, look in the materials directory
-		if (![[NSFileManager defaultManager] fileExistsAtPath: manifestFile]) {
-			manifestFile = [materials stringByAppendingPathComponent: @"manifest.plist"];			
+		if (![[NSFileManager defaultManager] fileExistsAtPath: manifestFileURL.path]) {
+			manifestFileURL = [materialsURL URLByAppendingPathComponent: @"manifest.plist"];
 		}
-		
+
 		// Load the manifest file if it appears to exist
-		if ([[NSFileManager defaultManager] fileExistsAtPath: manifestFile]) {
-			manifest = [[NSDictionary dictionaryWithContentsOfFile: manifestFile] retain];
-		}
-		
+		manifest = [NSDictionary dictionaryWithContentsOfFile: manifestFileURL.path];
+
 		// If there's no manifest file, then use a blank one
 		if (manifest == nil) {
-			manifest = [[NSDictionary dictionary] retain];
+			manifest = @{};
 		}
 	}
-	
+
 	// Get the graphics manifest
-	NSDictionary* graphics = [manifest objectForKey: @"Graphics"];
-	
+	NSDictionary* graphics = manifest[@"Graphics"];
+
+    // Get the (default) location of the image file
+    NSString* imageFile = nil;
+
 	// Get the image filename from the graphics manifest
 	if (graphics != nil) {
-		imageFile = [graphics objectForKey: [NSString stringWithFormat: @"%i", image]];
+		imageFile = graphics[[NSString stringWithFormat: @"%i", image]];
 	}
-	
+
+    // Fallback
+    if(imageFile == nil ) {
+        imageFile = [NSString stringWithFormat: @"Figure %i.png", image];
+    }
+
 	// Try to load the image
-	NSString* imagePath = [materials stringByAppendingPathComponent: imageFile];
-	if (imagePath != nil && [[NSFileManager defaultManager] fileExistsAtPath: imagePath]) {
-		return [NSData dataWithContentsOfFile: imagePath];
+	NSURL* imageURL = [materialsURL URLByAppendingPathComponent: imageFile];
+	if (imageURL != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageURL.path]) {
+		return [NSData dataWithContentsOfFile: imageURL.path];
 	}
-	
-	// Return nothing
-	return nil;
+
+    // Load the default image
+    NSImage * defaultImage = [IFImageCache loadResourceImage:@"Error.tiff"];
+
+    // Return NSData version
+    return [defaultImage TIFFRepresentation];
 }
 
 @end

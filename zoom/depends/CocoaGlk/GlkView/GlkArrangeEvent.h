@@ -15,6 +15,6 @@
 
 }
 
-- (id) initWithGlkWindow: (GlkWindow*) window;
+- (instancetype) initWithGlkWindow: (GlkWindow*) window NS_DESIGNATED_INITIALIZER;
 
 @end

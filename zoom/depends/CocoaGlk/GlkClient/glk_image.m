@@ -125,8 +125,8 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height) {
 	glui32 res = 0;
 	
 	// Use the cache for preference
-	NSNumber* imageKey = [NSNumber numberWithUnsignedInt: image];
-	NSValue* imageSizeValue = [imageSizeDictionary objectForKey: imageKey];
+	NSNumber* imageKey = @(image);
+	NSValue* imageSizeValue = imageSizeDictionary[imageKey];
 	NSSize imageSize;
 	
 	if (imageSizeValue != nil) {
@@ -136,8 +136,7 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height) {
 		// Retrieve the size of the image from the server
 		imageSize = [cocoaglk_session sizeForImageResource: image];
 		
-		[imageSizeDictionary setObject: [NSValue valueWithSize: imageSize]
-								forKey: imageKey];
+		imageSizeDictionary[imageKey] = [NSValue valueWithSize: imageSize];
 	}
 	
 	if (imageSize.width < 0) {

@@ -22,10 +22,11 @@ Each column |C| is also a |table| array, with |C-->1| holding the unique
 ID number for the column's name, |C-->2| holding the blank entry flags
 offset and |C-->3| up to |C-->(C-->0)| holding the entries.
 
-|C-->1| also contains four upper bit flags. These are also defined in
+|C-->1| also contains seven upper bit flags. These are also defined in
 "Tables.w" in the NI source, and the values must agree.
 
 @c
+Constant TB_COLUMN_REAL        $8000;
 Constant TB_COLUMN_SIGNED      $4000;
 Constant TB_COLUMN_TOPIC       $2000;
 Constant TB_COLUMN_DONTSORTME  $1000;
@@ -611,6 +612,9 @@ where other entries are not.
 	f = ((tab-->col)-->1);
 	if (f & TB_COLUMN_ALLOCATED) {
 		if (BlkValueCompare(val2, val1) < 0) return 1;
+		return -1;
+	} else if (f & TB_COLUMN_REAL) {
+		if (REAL_NUMBER_TY_Compare(val1, val2) > 0) return 1;
 		return -1;
 	} else if (f & TB_COLUMN_SIGNED) {
 		if (val1 > val2) return 1;

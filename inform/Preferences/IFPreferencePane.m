@@ -9,11 +9,14 @@
 #import "IFPreferencePane.h"
 #import "NSBundle+IFBundleExtensions.h"
 
-@implementation IFPreferencePane
+@implementation IFPreferencePane {
+    IBOutlet NSView* preferenceView;				// The view for these preferences
+}
 
 // = Initialisation =
+- (instancetype) init { self = [super init]; return self; }
 
-- (id) initWithNibName: (NSString*) nibName {
+- (instancetype) initWithNibName: (NSString*) nibName {
 	self = [super init];
 	
 	if (self) {
@@ -24,11 +27,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	if (preferenceView) [preferenceView release];
-	
-	[super dealloc];
-}
 
 // = Information about the preference window =
 

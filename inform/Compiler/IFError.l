@@ -38,7 +38,7 @@ static struct errorValue currentError;
 
 Copy\ blorb\ to:\ \[\[.*\]\]\n {
 	// Blorb copy request
-	int copyLen = strlen(yytext)-19;
+	int copyLen = (int)strlen(yytext)-19;
 	char* copyTo = calloc(copyLen, 1);
 	strncpy(copyTo, yytext + 17, copyLen);
 	copyTo[copyLen-1] = 0;
@@ -186,7 +186,7 @@ File\ \".*\";\ Line\  {
 %%
 
 int IFErrorScanString(const char* string) {
-    int len = strlen(string);
+    int len = (int)strlen(string);
 
     yy_delete_buffer(YY_CURRENT_BUFFER);
     

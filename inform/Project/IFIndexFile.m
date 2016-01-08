@@ -9,9 +9,15 @@
 #import "IFIndexFile.h"
 
 
-@implementation IFIndexFile
+@implementation IFIndexFile {
+    NSDictionary* index;
 
-- (id) initWithContentsOfFile: (NSString*) filename {
+    NSMutableDictionary* filenamesToIndexes;
+}
+
+- (instancetype) init { self = [super init]; return self; }
+
+- (instancetype) initWithContentsOfFile: (NSString*) filename {
 	self = [self initWithData: [NSData dataWithContentsOfFile: filename]];
 	
 	return self;
@@ -26,12 +32,11 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	return 0;
 }
 
-- (id) initWithData: (NSData*) data {
+- (instancetype) initWithData: (NSData*) data {
 	self = [super init];
 	
 	if (self) {
 		if (data == nil) {
-			[self release];
 			return nil;
 		}
 		
@@ -48,19 +53,16 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		// Sanity check
 		if (plist == nil) {
 			NSLog(@"IFIndexFile: found no data");
-			[self release];
 			return nil;
 		}
 		
 		if (error != nil) {
 			NSLog(@"IFIndexFile: error in file: %@", error);
-			[self release];
 			return nil;
 		}
 		
 		if (![plist isKindOfClass: [NSDictionary class]]) {
 			NSLog(@"IFIndexFile: property list does not contain a dictionary");
-			[self release];
 			return nil;
 		}
 		
@@ -77,28 +79,27 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		filenamesToIndexes = [[NSMutableDictionary alloc] init];
 		
 		for( NSString* key in orderedKeys ) {
-			NSDictionary* item = [index objectForKey: key];
+			NSDictionary* item = index[key];
 			
 			if ([item isKindOfClass: [NSDictionary class]] &&
-				[item objectForKey: @"Filename"] != nil &&
-				[item objectForKey: @"Indentation"] != nil &&
-				[item objectForKey: @"Level"] != nil &&
-				[item objectForKey: @"Line"] != nil &&
-				[item objectForKey: @"Title"] != nil) {
-				NSString* filename = [item objectForKey: @"Filename"];
-				int indent = [[item objectForKey: @"Indentation"] intValue];
-				int line   = [[item objectForKey: @"Line"] intValue];
-				NSString* title = [item objectForKey: @"Title"];
+				item[@"Filename"] != nil &&
+				item[@"Indentation"] != nil &&
+				item[@"Level"] != nil &&
+				item[@"Line"] != nil &&
+				item[@"Title"] != nil) {
+				NSString* filename = item[@"Filename"];
+				int indent = [item[@"Indentation"] intValue];
+				int line   = [item[@"Line"] intValue];
+				NSString* title = item[@"Title"];
 				
 				// HACK: only include the source files
 				if (![[filename stringByDeletingLastPathComponent] isEqualToString: @"Source"]) continue;
 				
 				// Get the initial index for this file
-				NSMutableArray* indexForFilename = [filenamesToIndexes objectForKey: filename];
+				NSMutableArray* indexForFilename = filenamesToIndexes[filename];
 				if (indexForFilename == nil) {
 					indexForFilename = [[NSMutableArray alloc] init];
-					[filenamesToIndexes setObject: [indexForFilename autorelease]
-										   forKey: filename];
+					filenamesToIndexes[filename] = indexForFilename;
 				} // indexForFilename == nil
 				
 				if ([title isEqualToString: @"--"]) continue; // Ignore these items
@@ -111,14 +112,14 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 				// Items are assumed to appear in order, and the hierarchy is assumed not to cross
 				// files
 				NSMutableDictionary* newItem = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-					title, @"Title", [NSNumber numberWithInt: line], @"Line", 
+					title, @"Title", @(line), @"Line", 
 					filename, @"Filename", nil];
 				
 				// Iterate down to the lowest item
 				NSMutableArray* indexToAdd = indexForFilename;
 				int x;
 				for (x=0; x<indent; x++) {
-					NSMutableArray* newIndex = [[indexToAdd lastObject] objectForKey: @"Contents"];
+					NSMutableArray* newIndex = [indexToAdd lastObject][@"Contents"];
 					if (newIndex == nil) {
 						if ([indexToAdd lastObject] == nil) {
 							NSLog(@"IFIndexFile BUG: found an empty index");
@@ -127,8 +128,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 						
 						// Need to add a new level
 						newIndex = [[NSMutableArray alloc] init];
-						[[indexToAdd lastObject] setObject: [newIndex autorelease]
-													forKey: @"Contents"];
+						[indexToAdd lastObject][@"Contents"] = newIndex;
 						indexToAdd = newIndex;
 						break;
 					}
@@ -146,17 +146,11 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	return self;
 }
 
-- (void) dealloc {
-	if (index) [index release];
-	if (filenamesToIndexes) [filenamesToIndexes release];
-	
-	[super dealloc];
-}
 
 // == We can be an NSOutlineView data source ==
 
 - (id)outlineView: (NSOutlineView *)outlineView 
-			child: (int)childIndex 
+			child: (NSInteger)childIndex
 		   ofItem: (id)item {
 	if (item == nil) {
 		// Root item
@@ -164,22 +158,22 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		
 		if (childIndex >= [allKeys count]) return nil;
 		
-		return [allKeys objectAtIndex: childIndex];
+		return allKeys[childIndex];
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
-		NSArray* filenameIndex = [filenamesToIndexes objectForKey: item];
+		NSArray* filenameIndex = filenamesToIndexes[item];
 		
 		if (childIndex >= [filenameIndex count]) return nil;
 		
-		return [filenameIndex objectAtIndex: childIndex];
+		return filenameIndex[childIndex];
 	} else {
 		// Is an item dictionary
 		NSDictionary* itemDictionary = item;
-		NSMutableArray* contents = [itemDictionary objectForKey: @"Contents"];
+		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
 		if (childIndex >= [contents count]) return nil;
 		
-		return [contents objectAtIndex: childIndex];
+		return contents[childIndex];
 	}
 }
 
@@ -190,7 +184,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		return YES;
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
-		NSArray* filenameIndex = [filenamesToIndexes objectForKey: item];
+		NSArray* filenameIndex = filenamesToIndexes[item];
 
 		if ([filenameIndex count] <= 0)
 			return NO;
@@ -199,7 +193,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	} else {
 		// Is an item dictionary
 		NSDictionary* itemDictionary = item;
-		NSMutableArray* contents = [itemDictionary objectForKey: @"Contents"];
+		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
 		if (contents == nil || [contents count] <= 0) 
 			return NO;
@@ -208,7 +202,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	}
 }
 
-- (int)			outlineView:(NSOutlineView *)outlineView 
+- (NSInteger)	outlineView:(NSOutlineView *)outlineView
 	 numberOfChildrenOfItem:(id)item {
 	if (item == nil) {
 		// Root item
@@ -217,18 +211,18 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		return [allKeys count];
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
-		NSArray* filenameIndex = [filenamesToIndexes objectForKey: item];
+		NSArray* filenameIndex = filenamesToIndexes[item];
 		
 		return [filenameIndex count];
 	} else {
 		// Is an item dictionary
 		NSDictionary* itemDictionary = item;
-		NSMutableArray* contents = [itemDictionary objectForKey: @"Contents"];
+		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
 		if (contents == nil || [contents count] <= 0) 
 			return 0;
 		else
-			return [contents count];
+			return (int) [contents count];
 	}
 }
 
@@ -254,9 +248,9 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		NSDictionary* itemDictionary = item;
 		
 		if ([identifier isEqualToString: @"title"]) {
-			return [itemDictionary objectForKey: @"Title"];
+			return itemDictionary[@"Title"];
 		} else if ([identifier isEqualToString: @"line"]) {
-			return [itemDictionary objectForKey: @"Line"];
+			return itemDictionary[@"Line"];
 		} else {
 			return nil;
 		}
@@ -279,8 +273,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		return nil;
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Filename items are strings
-		return [NSDictionary dictionaryWithObjectsAndKeys:
-			item, @"Filename", item, @"Title", nil]; // Note: no line numbers
+		return @{@"Filename": item, @"Title": item}; // Note: no line numbers
 	} else if ([item isKindOfClass: [NSDictionary class]]) {
 		// 'Normal' items are NSDictionaries
 		return item;
@@ -295,7 +288,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return nil;
 	
-	return [itemInfo objectForKey: @"Filename"];
+	return itemInfo[@"Filename"];
 }
 
 - (int) lineForItem: (id) item {
@@ -303,9 +296,9 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return -1;
 	
-	if ([itemInfo objectForKey: @"Line"] == nil) return -1;
+	if (itemInfo[@"Line"] == nil) return -1;
 	
-	return [[itemInfo objectForKey: @"Line"] intValue];
+	return [itemInfo[@"Line"] intValue];
 }
 
 - (NSString*) titleForItem: (id) item {
@@ -313,7 +306,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return nil;
 	
-	return [itemInfo objectForKey: @"Title"];
+	return itemInfo[@"Title"];
 }
 
 @end

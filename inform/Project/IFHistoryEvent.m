@@ -1,6 +1,6 @@
 //
 //  IFHistoryEvent.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 23/04/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -11,20 +11,22 @@
 //
 // Internal class used to create history events by proxy
 //
-@interface IFHistoryEventProxy : NSProxy {
-	IFHistoryEvent* event;
-}
+@interface IFHistoryEventProxy : NSProxy
 
-- (id) initWithEvent: (IFHistoryEvent*) event;
+- (instancetype) initWithEvent: (IFHistoryEvent*) event;
 
 @end
 
-@implementation IFHistoryEvent
+@implementation IFHistoryEvent {
+    NSMutableArray* invocations;							// The action(s) to perform when this history item is replayed
+    id target;												// The target to use when building the invocation by proxy
+}
 
 
 // = Initialisation =
+- (instancetype) init { self = [super init]; return self; }
 
-- (id) initWithInvocation: (NSInvocation*) newInvocation {
+- (instancetype) initWithInvocation: (NSInvocation*) newInvocation {
 	self = [super init];
 	
 	if (self) {
@@ -35,33 +37,26 @@
 	return self;
 }
 
-- (id) initWithObject: (id) newTarget {
+- (instancetype) initWithObject: (id) newTarget {
 	self = [super init];
 	
 	if (self) {
 		invocations = [[NSMutableArray alloc] init];
-		target = [newTarget retain];
+		target = newTarget;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[target release];
-	[invocations release];
-	
-	[super dealloc];
-}
 	
 // = Building the invocation =
 
 - (void) setTarget: (id) newTarget {
-	[target release];
-	target = [newTarget retain];
+	target = newTarget;
 }
 
 - (id) proxy {
-	return [[[IFHistoryEventProxy alloc] initWithEvent: self] autorelease];
+	return [[IFHistoryEventProxy alloc] initWithEvent: self];
 }
 
 - (id) target {
@@ -72,7 +67,7 @@
 	[newInvocation retainArguments];
 	[invocations addObject: newInvocation];
 	
-	[target release]; target = nil;
+	 target = nil;
 }
 
 // = Replaying =
@@ -85,23 +80,20 @@
 
 // = IFHistoryEventProxy =
 
-@implementation IFHistoryEventProxy
+@implementation IFHistoryEventProxy {
+    IFHistoryEvent* event;
+}
 
-- (id) initWithEvent: (IFHistoryEvent*) newEvent {
+- (instancetype) initWithEvent: (IFHistoryEvent*) newEvent {
 	// self = [super init];
 	
 	if (self) {
-		event = [newEvent retain];
+		event = newEvent;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[event release];
-	
-	[super dealloc];
-}
 
 + (BOOL)respondsToSelector:(SEL)aSelector {
 	return YES;
@@ -112,7 +104,7 @@
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
-	NSInvocation* invoke = [[anInvocation retain] autorelease];
+	NSInvocation* invoke = anInvocation;
 	
 	[invoke setTarget: [event target]];
 	[invoke retainArguments];

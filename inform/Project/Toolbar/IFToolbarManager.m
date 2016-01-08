@@ -11,12 +11,29 @@
 #import "IFToolbar.h"
 #import "IFCompilerSettings.h"
 #import "IFProject.h"
+#import "IFProjectController.h"
 #import "IFImageCache.h"
 #import "IFUtility.h"
+#import "IFProgress.h"
 
  // = Preferences =
 
-@implementation IFToolbarManager
+@implementation IFToolbarManager {
+    // The toolbar
+    NSToolbar* toolbar;
+    NSView*    toolbarView;
+    float      toolbarViewTitlebarHeight;
+
+    IFProjectController* projectController;
+    IFToolbarStatusView* toolbarStatusView;
+
+    // Progress indicators
+    NSMutableArray* progressObjects;
+}
+
+@synthesize testCasesPopUpButton;
+@synthesize goButton;
+@synthesize testCases;
 
 // == Toolbar items ==
 
@@ -26,6 +43,10 @@ static NSToolbarItem* replayItem			= nil;
 static NSToolbarItem* compileAndDebugItem	= nil;
 static NSToolbarItem* releaseItem			= nil;
 static NSToolbarItem* refreshIndexItem		= nil;
+
+static NSToolbarItem* testSelectorItem      = nil;
+static NSToolbarItem* installExtensionItem	= nil;
+static NSToolbarItem* testItem              = nil;
 
 static NSToolbarItem* stopItem				= nil;
 static NSToolbarItem* pauseItem				= nil;
@@ -44,9 +65,8 @@ static NSToolbarItem* toolbarStatusSpacingPaletteItem = nil;
 static NSToolbarItem*              toolbarStatusSpacingItem  = nil;
 static IFToolbarStatusSpacingView* toolbarStatusSpacingView  = nil;
 
-static NSDictionary*  itemDictionary = nil;
-
-static const float toolbarStatusWidth = 360.0f;
+static NSDictionary*  itemDictionary        = nil;
+static const float    toolbarStatusWidth    = 360.0f;
 
 + (void) initialize {
 	// Create the toolbar items
@@ -56,7 +76,11 @@ static const float toolbarStatusWidth = 360.0f;
     releaseItem         = [[NSToolbarItem alloc] initWithItemIdentifier: @"releaseItem"];
 	replayItem          = [[NSToolbarItem alloc] initWithItemIdentifier: @"replayItem"];
 	refreshIndexItem    = [[NSToolbarItem alloc] initWithItemIdentifier: @"refreshIndexItem"];
-	
+
+    testSelectorItem    = [[NSToolbarItem alloc] initWithItemIdentifier: @"testSelectorItem"];
+    installExtensionItem= [[NSToolbarItem alloc] initWithItemIdentifier: @"installExtensionItem"];
+    testItem            = [[NSToolbarItem alloc] initWithItemIdentifier: @"testItem"];
+
     stopItem            = [[NSToolbarItem alloc] initWithItemIdentifier: @"stopItem"];
     continueItem        = [[NSToolbarItem alloc] initWithItemIdentifier: @"continueItem"];
     pauseItem           = [[NSToolbarItem alloc] initWithItemIdentifier: @"pauseItem"];
@@ -76,32 +100,35 @@ static const float toolbarStatusWidth = 360.0f;
     toolbarStatusSpacingItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"toolbarStatusSpacingItem"];
     toolbarStatusSpacingView = [[IFToolbarStatusSpacingView alloc] initWithFrame:NSMakeRect(0, 0, 1, 30)];
     
-    itemDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-        compileItem,            @"compileItem",
-        compileAndRunItem,      @"compileAndRunItem",
-		replayItem,             @"replayItem",
-		refreshIndexItem,       @"refreshIndexItem",
-		compileAndDebugItem,    @"compileAndDebugItem",
-        releaseItem,            @"releaseItem",
-		stopItem,               @"stopItem",
-		pauseItem,              @"pauseItem",
-		continueItem,           @"continueItem",
-		stepItem,               @"stepItem",
-		stepOverItem,           @"stepOverItem",
-		stepOutItem,            @"stepOutItem",
-		watchItem,              @"watchItem",
-		breakpointItem,         @"breakpointItem",
-		searchDocsItem,         @"searchDocsItem",
-		searchProjectItem,      @"searchProjectItem",
-        toolbarStatusSpacingItem, @"toolbarStatusSpacingItem",
-        toolbarStatusSpacingPaletteItem, @"toolbarStatusSpacingPaletteItem",    // Item used for the customization palette
-        nil];
+    itemDictionary = @{ @"compileItem":                     compileItem,
+                        @"compileAndRunItem":               compileAndRunItem,
+                        @"replayItem":                      replayItem,
+                        @"refreshIndexItem":                refreshIndexItem,
+                        @"compileAndDebugItem":             compileAndDebugItem,
+                        @"releaseItem":                     releaseItem,
+                        @"testSelectorItem":                testSelectorItem,
+                        @"installExtensionItem":            installExtensionItem,
+                        @"testItem":                        testItem,
+                        @"stopItem":                        stopItem,
+                        @"pauseItem":                       pauseItem,
+                        @"continueItem":                    continueItem,
+                        @"stepItem":                        stepItem,
+                        @"stepOverItem":                    stepOverItem,
+                        @"stepOutItem":                     stepOutItem,
+                        @"watchItem":                       watchItem,
+                        @"breakpointItem":                  breakpointItem,
+                        @"searchDocsItem":                  searchDocsItem,
+                        @"searchProjectItem":               searchProjectItem,
+                        @"toolbarStatusSpacingItem":        toolbarStatusSpacingItem,
+                        @"toolbarStatusSpacingPaletteItem": toolbarStatusSpacingPaletteItem };
 
 	// Images
 	[compileItem            setImage: [IFImageCache loadResourceImage: @"App/Toolbar/compile.png"]];
 	[compileAndRunItem      setImage: [IFImageCache loadResourceImage: @"run.tiff"]];
 	[compileAndDebugItem    setImage: [IFImageCache loadResourceImage: @"App/Toolbar/debug.png"]];
 	[releaseItem            setImage: [IFImageCache loadResourceImage: @"release.tiff"]];
+    [installExtensionItem   setImage: [IFImageCache loadResourceImage: @"install.tiff"]];
+    [testItem               setImage: [IFImageCache loadResourceImage: @"test.tiff"]];
 	[replayItem             setImage: [IFImageCache loadResourceImage: @"replay.tiff"]];
 	[refreshIndexItem       setImage: [IFImageCache loadResourceImage: @"App/Toolbar/refresh_index.png"]];
 	
@@ -137,6 +164,9 @@ static const float toolbarStatusWidth = 360.0f;
 	[watchItem           setLabel: [IFUtility localizedString: @"Watch"]];
 	[breakpointItem      setLabel: [IFUtility localizedString: @"Breakpoints"]];
 	
+    [testSelectorItem     setLabel: [IFUtility localizedString: @"Test Case"]];
+    [installExtensionItem setLabel: [IFUtility localizedString: @"Install Extension"]];
+    [testItem             setLabel: [IFUtility localizedString: @"Test"]];
 
 	[searchDocsItem      setLabel: [IFUtility localizedString: @"Search Documentation"]];
 	[searchProjectItem   setLabel: [IFUtility localizedString: @"Search Project"]];
@@ -145,7 +175,7 @@ static const float toolbarStatusWidth = 360.0f;
     [toolbarStatusSpacingItem setMaxSize: NSMakeSize(10000, 1)];
     [toolbarStatusSpacingItem setView: toolbarStatusSpacingView];
     [toolbarStatusSpacingItem setLabel: @""];
-    
+
     // Set palette labels
     for(NSToolbarItem* item in [itemDictionary objectEnumerator]) {
         [item setPaletteLabel:[item label]];
@@ -177,7 +207,10 @@ static const float toolbarStatusWidth = 360.0f;
 	[searchProjectItem      setToolTip: [IFUtility localizedString: @"SearchProjectTip" default: nil]];
 	
 	[refreshIndexItem       setToolTip: [IFUtility localizedString: @"RefreshIndexTip"  default: nil]];
-	
+    [testSelectorItem       setToolTip: [IFUtility localizedString: @"TestSelectorTip"  default: nil]];
+    [installExtensionItem   setToolTip: [IFUtility localizedString: @"InstallExtensionTip"  default: nil]];
+    [testItem               setToolTip: [IFUtility localizedString: @"TestTip"              default: nil]];
+
     // The action heroes
     [compileItem            setAction: @selector(compile:)];
     [compileAndRunItem      setAction: @selector(compileAndRun:)];
@@ -196,11 +229,16 @@ static const float toolbarStatusWidth = 360.0f;
 	
 	[watchItem              setAction: @selector(showWatchpoints:)];
 	[breakpointItem         setAction: @selector(showBreakpoints:)];
+    [testSelectorItem       setAction: @selector(testSelector:)];
+    [installExtensionItem   setAction: @selector(installExtension:)];
+    [testItem               setAction: @selector(testMe:)];
+
 }
 
-// == Initialistion ==
+// == Initialisation ==
+- (instancetype)init { self = [super init]; return self; }
 
-- (id) initWithProjectController:(IFProjectController*) pc {
+- (instancetype) initWithProjectController:(IFProjectController*) pc {
     self = [super init];
 
     if (self) {
@@ -214,10 +252,6 @@ static const float toolbarStatusWidth = 360.0f;
         
         // Register for settings updates
         [[NSNotificationCenter defaultCenter] addObserver: self
-                                                 selector: @selector(updateSettings)
-                                                     name: IFSettingNotification
-                                                   object: [[projectController document] settings]];
-        [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(windowDidResize:)
                                                      name: NSWindowDidResizeNotification
                                                    object: nil];
@@ -225,8 +259,9 @@ static const float toolbarStatusWidth = 360.0f;
                                                  selector: @selector(toolbarChangedVisibility:)
                                                      name: IFToolbarChangedVisibility
                                                    object: nil];
-        if (floor(NSAppKitVersionNumber) >= NSAppKitVersionNumber10_7) {
-            // Only 10.7 Lion or later has Full Screen support
+
+        // Only 10.7 Lion or later has Full Screen support
+        if( [IFUtility hasFullscreenSupportFeature] ) {
             [[NSNotificationCenter defaultCenter] addObserver: self
                                                      selector: @selector(willEnterFullScreen:)
                                                          name: NSWindowWillEnterFullScreenNotification
@@ -284,10 +319,6 @@ static const float toolbarStatusWidth = 360.0f;
 
 	[progressObjects makeObjectsPerformSelector: @selector(setDelegate:)
 										withObject: nil];
-	[progressObjects release];
-
-    [toolbar release];
-    [super dealloc];
 }
 
 - (void) updateSettings {
@@ -295,7 +326,6 @@ static const float toolbarStatusWidth = 360.0f;
 	NSString* toolbarIdentifier = [self toolbarIdentifier];
 	
 	if (![[toolbar identifier] isEqualToString: toolbarIdentifier]) {
-		[toolbar autorelease];
 		
 		toolbar = [[IFToolbar alloc] initWithIdentifier: toolbarIdentifier];
 
@@ -308,6 +338,12 @@ static const float toolbarStatusWidth = 360.0f;
 }
 
 -(NSView*) toolbarStatusViewParent {
+    // Support for 10.11 and above
+    if( [IFUtility hasUpdatedToolbarFeature] ) {
+        return [[projectController.window standardWindowButton:NSWindowCloseButton] superview];
+    }
+
+    // Support for 10.6.8 to 10.10.X
     // Find the parent view, the superview of our status view. Sadly, if window is in fullscreen
     // mode, the parent view is different than normal mode.
     // See http://stackoverflow.com/questions/6169255/is-it-possible-to-draw-in-the-label-area-of-nstoolbar
@@ -315,7 +351,7 @@ static const float toolbarStatusWidth = 360.0f;
     if( isFullscreen ) {
         return [toolbarView superview];
     }
-    
+
     return [projectController.window.contentView superview];
 }
 
@@ -329,8 +365,17 @@ static const float toolbarStatusWidth = 360.0f;
     // subviews of the content view to find it. Once we've found it, we remember it.
     if( toolbarView == nil ) {
         for( NSView* subview in [[projectController.window.contentView superview] subviews] ) {
-            if( [subview isKindOfClass: NSClassFromString(@"NSToolbarView")] ) {
+            // 10.9 and earlier has an NSToolbarView
+            if( [subview isKindOfClass: NSClassFromString(@"NSToolbarView")]) {
                 toolbarView = subview;
+                toolbarViewTitlebarHeight = 0.0f;
+                break;
+            }
+
+            // 10.10 Yosemite has an NSTitlebarContainerView instead of NSToolbarView
+            if([subview isKindOfClass: NSClassFromString(@"NSTitlebarContainerView")]) {
+                toolbarView = subview;
+                toolbarViewTitlebarHeight = 20.0f;
                 break;
             }
         }
@@ -351,6 +396,9 @@ static const float toolbarStatusWidth = 360.0f;
         newFrame.origin.y += 6.0f;
         newFrame.size.height -= 7.0f;
         newFrame.size.width = toolbarStatusView.frame.size.width;
+
+        //newFrame.origin.y -= toolbarViewTitlebarHeight;
+        newFrame.size.height -= toolbarViewTitlebarHeight;
 
         // If we are small in height, give us some more room
         if( newFrame.size.height < 18 ) {
@@ -416,6 +464,9 @@ static const float toolbarStatusWidth = 360.0f;
 -(NSString*) toolbarIdentifier {
     // Create the view switch toolbar
 	if ([[projectController.document settings] usingNaturalInform]) {
+        if( [projectController.document projectFileType] == IFFileTypeInform7ExtensionProject ) {
+            return @"IFInform7ExtensionProjectToolbar";
+        }
 		return @"IFInform7Toolbar";
 	} else {
         return @"IFInform6Toolbar";
@@ -460,101 +511,115 @@ static const float toolbarStatusWidth = 360.0f;
             itemIdentifier = @"toolbarStatusSpacingItem";
         }
     }
-    
+
     // Make a copy of the item
-	NSToolbarItem* item = [[[itemDictionary objectForKey: itemIdentifier] copy] autorelease];
+	NSToolbarItem* item = [itemDictionary[itemIdentifier] copy];
 
 	// The search views need to be set up here
 	if ([itemIdentifier isEqualToString: @"searchDocsItem"]) {
-		NSSearchField* searchDocs = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,150,22)];
+		NSSearchField* searchDocs = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
 		[[searchDocs cell] setPlaceholderString: [IFUtility localizedString: @"Documentation"]];
 
-		[item setMinSize: NSMakeSize(100, 22)];
+		[item setMinSize: NSMakeSize(70, 22)];
 		[item setMaxSize: NSMakeSize(150, 22)];
-		[item setView: [searchDocs autorelease]];
+		[item setView: searchDocs];
 		[searchDocs sizeToFit];
         [[searchDocs cell] setScrollable:YES];
-		
+
 		[searchDocs setContinuous: NO];
-		[[searchDocs cell] setSendsWholeSearchString: YES];
+		[(NSSearchFieldCell*) [searchDocs cell] setSendsWholeSearchString: YES];
 		[searchDocs setTarget: projectController];
 		[searchDocs setAction: @selector(searchDocs:)];
 
-		[item setLabel: nil];
-		
+		[item setLabel: @""];
+
 		return item;
 	} else if ([itemIdentifier isEqualToString: @"searchProjectItem"]) {
-		NSSearchField* searchProject = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,150,22)];
+		NSSearchField* searchProject = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
 		[[searchProject cell] setPlaceholderString: [IFUtility localizedString: @"Project"]];
-		
-		[item setMinSize: NSMakeSize(100, 22)];
+
+		[item setMinSize: NSMakeSize(70, 22)];
 		[item setMaxSize: NSMakeSize(150, 22)];
-		[item setView: [searchProject autorelease]];
+		[item setView: searchProject];
 		[searchProject sizeToFit];
         [[searchProject cell] setScrollable:YES];
 
 		[searchProject setContinuous: NO];
-		[[searchProject cell] setSendsWholeSearchString: YES];
+		[(NSSearchFieldCell*) [searchProject cell] setSendsWholeSearchString: YES];
 		[searchProject setTarget: projectController];
 		[searchProject setAction: @selector(searchProject:)];
-		
-		[item setLabel: nil];
-		
+
+		[item setLabel: @""];
+
 		return item;
+    } else if ([itemIdentifier isEqualToString: @"testSelectorItem"]) {
+        testCasesPopUpButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 190, 22)];
+        [item setMinSize: NSMakeSize(100, 22)];
+        [item setMaxSize: NSMakeSize(190, 22)];
+        [item setView: testCasesPopUpButton];
+        [testCasesPopUpButton setTarget: projectController];
+        [testCasesPopUpButton setAction: @selector(testSelector:)];
     }
-	
+
 	return item;
 }
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar {
-    return [NSArray arrayWithObjects:
-        @"compileItem",
-        @"compileAndRunItem",
-        @"replayItem",
-        @"compileAndDebugItem",
-        @"refreshIndexItem",
-        @"pauseItem",
-        @"continueItem",
-        @"stepItem",
-		@"stepOverItem",
-        @"stepOutItem",
-        @"stopItem",
-        @"watchItem",
-        @"breakpointItem",
-        @"searchDocsItem",
-        @"searchProjectItem",
-        @"toolbarStatusSpacingItem",
-		NSToolbarSpaceItemIdentifier,
-        NSToolbarFlexibleSpaceItemIdentifier,
-		@"releaseItem",
-        nil];
+    return @[@"compileItem",
+             @"compileAndRunItem",
+             @"replayItem",
+             @"compileAndDebugItem",
+             @"refreshIndexItem",
+             @"pauseItem",
+             @"continueItem",
+             @"stepItem",
+             @"stepOverItem",
+             @"stepOutItem",
+             @"stopItem",
+             @"watchItem",
+             @"breakpointItem",
+             @"searchDocsItem",
+             @"searchProjectItem",
+             @"toolbarStatusSpacingItem",
+             NSToolbarSpaceItemIdentifier,
+             NSToolbarFlexibleSpaceItemIdentifier,
+             @"releaseItem",
+             @"testSelectorItem"];
 }
 
 - (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)tb {
-	if ([[tb identifier] isEqualToString: @"IFInform7Toolbar"]) {
-		return [NSArray arrayWithObjects:
-                @"compileAndRunItem",
-                @"replayItem",
-                @"releaseItem",
-                @"searchProjectItem",
-                @"toolbarStatusSpacingItem",
-                @"searchDocsItem",
-                nil];
-	} else {
-		return [NSArray arrayWithObjects:
-                @"compileAndRunItem",
-                @"replayItem",
-                @"compileAndDebugItem",
-                @"pauseItem",
-                @"continueItem",
-                @"stepOutItem",
-                @"stepOverItem",
-                @"stepItem",
-                @"releaseItem",
-                @"toolbarStatusSpacingItem",
-                @"breakpointItem",
-                @"watchItem",
-                nil];
+    NSString* identifier = [tb identifier];
+	if ([identifier isEqualToString: @"IFInform7Toolbar"]) {
+		return @[@"compileAndRunItem",
+                 @"replayItem",
+                 @"releaseItem",
+                 @"searchProjectItem",
+                 @"toolbarStatusSpacingItem",
+                 @"searchDocsItem"];
+    } else if ([identifier isEqualToString: @"IFInform7ExtensionProjectToolbar"]) {
+        return @[@"compileAndRunItem",
+                 @"testItem",
+                 @"testSelectorItem",
+                 @"installExtensionItem",
+                 @"toolbarStatusSpacingItem",
+                 @"searchProjectItem",
+                 @"searchDocsItem",
+                 ];
+    }
+    else {
+        // Inform 6 toolbar items
+		return @[@"compileAndRunItem",
+                 @"replayItem",
+                 @"compileAndDebugItem",
+                 @"pauseItem",
+                 @"continueItem",
+                 @"stepOutItem",
+                 @"stepOverItem",
+                 @"stepItem",
+                 @"releaseItem",
+                 @"toolbarStatusSpacingItem",
+                 @"breakpointItem",
+                 @"watchItem"];
 	}
 }
 
@@ -572,36 +637,56 @@ static const float toolbarStatusWidth = 360.0f;
 // == Toolbar item validation ==
 
 - (BOOL) validateToolbarItem: (NSToolbarItem*) item {
-	if ([[item itemIdentifier] isEqualToString: [pauseItem itemIdentifier]] &&
+    SEL itemSelector = [item action];
+    NSString* itemIdentifier = [item itemIdentifier];
+
+    if ([itemIdentifier isEqualToString: [pauseItem itemIdentifier]] &&
 		!projectController.canDebug) {
 		return NO;
 	}
 	
-	if ([[item itemIdentifier] isEqualToString: [stopItem itemIdentifier]] ||
-		[[item itemIdentifier] isEqualToString: [pauseItem itemIdentifier]]) {
+	if ([itemIdentifier isEqualToString: [stopItem itemIdentifier]] ||
+		[itemIdentifier isEqualToString: [pauseItem itemIdentifier]]) {
 		return projectController.isRunningGame;
 	}
 	
-	if ([[item itemIdentifier] isEqualToString: [continueItem itemIdentifier]] || 
-		[[item itemIdentifier] isEqualToString: [stepOutItem itemIdentifier]]  || 
-		[[item itemIdentifier] isEqualToString: [stepOverItem itemIdentifier]] || 
-		[[item itemIdentifier] isEqualToString: [stepItem itemIdentifier]]) {
+	if ([itemIdentifier isEqualToString: [continueItem itemIdentifier]] ||
+		[itemIdentifier isEqualToString: [stepOutItem itemIdentifier]]  ||
+		[itemIdentifier isEqualToString: [stepOverItem itemIdentifier]] ||
+		[itemIdentifier isEqualToString: [stepItem itemIdentifier]]) {
 		return projectController.isRunningGame ? projectController.isWaitingAtBreakpoint : NO;
 	}
 
-	SEL itemSelector = [item action];
-	
 	if (itemSelector == @selector(compileAndDebug:) &&
 		!projectController.canDebug) {
 		return NO;
 	}
 
-	if (itemSelector == @selector(compile:) || 
+    if( itemSelector == @selector(testMe:) ) {
+        if( [testCases count] == 0 ) {
+            return NO;
+        }
+        if( [projectController isCurrentlyTesting] ) {
+            return NO;
+        }
+    }
+
+	if (itemSelector == @selector(compile:) ||
 		itemSelector == @selector(release:) ||
+        itemSelector == @selector(releaseForTesting:) ||
 		itemSelector == @selector(compileAndRun:) ||
 		itemSelector == @selector(compileAndDebug:) ||
 		itemSelector == @selector(replayUsingSkein:) ||
 		itemSelector == @selector(compileAndRefresh:)) {
+
+        BOOL isExtensionProject = [projectController.document projectFileType] == IFFileTypeInform7ExtensionProject;
+        BOOL selectedNoTestCase = isExtensionProject && ((testCases.count == 0) ||
+                                                         ([self currentTestCase] == nil));
+
+        // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) buttons.
+        if( selectedNoTestCase ) {
+            return NO;
+        }
 		return ![projectController isCompiling];
 	}
 
@@ -653,7 +738,7 @@ static const float toolbarStatusWidth = 360.0f;
 - (void) updateProgress {
     IFProgress* best = [self currentProgress];
 
-    [toolbarStatusView canCancel: [best canCancel]];
+    [toolbarStatusView canCancel: [best canCancel] && ![best isCancelled]];
 	if ((best != nil) && ([best showsProgressBar])) {
         // Enable progress bar
         [toolbarStatusView startProgress];
@@ -735,6 +820,100 @@ static const float toolbarStatusWidth = 360.0f;
 
     // Make sure parent redraws (avoids blocky edges where semi-transparent pixels are repeatedly redrawn)
     [[self toolbarStatusViewParent] setNeedsDisplay: YES];
+}
+
+-(void) setIsExtensionProject:(BOOL) isExtensionProject {
+    toolbarStatusView.isExtensionProject = isExtensionProject;
+}
+
+-(void) setTestCases:(NSArray*) testCasesArray {
+    if( testCasesPopUpButton != nil ) {
+        // Remember current selected item
+        NSString* selectedTitle = [[testCasesPopUpButton selectedItem] title];
+
+        // Remove all items, then repopulate
+        [testCasesPopUpButton removeAllItems];
+
+        if( testCasesArray.count > 0 ) {
+            [testCasesPopUpButton addItemWithTitle: [IFUtility localizedString:@"Test All"]];
+        }
+
+        for( NSDictionary*  item in testCasesArray ) {
+            NSString* title = item[@"testTitle"];
+            title = [title stringByTrimmingCharactersInString:@"\""];
+            [testCasesPopUpButton addItemWithTitle: title];
+        }
+
+        if( selectedTitle != nil ) {
+            // Restore current selected item
+            [testCasesPopUpButton selectItemWithTitle: selectedTitle];
+
+            // If that didn't work, select the first item
+            if( [testCasesPopUpButton selectedItem] == nil ) {
+                if( [[testCasesPopUpButton itemArray] count] > 0 ) {
+                    [testCasesPopUpButton selectItemAtIndex:0];
+                }
+            }
+        }
+    }
+    testCases = testCasesArray;
+}
+
+-(BOOL) selectTestCase:(NSString*) testCase {
+    for(int i = 0; i < testCases.count; i++) {
+        if( [testCases[i][@"testKey"] isEqualToStringCaseInsensitive: testCase] ) {
+            [testCasesPopUpButton selectItemAtIndex: 1+i];
+
+            [projectController testSelector:testCasesPopUpButton];
+
+            return YES;
+        }
+    }
+    return NO;
+}
+
+
+-(int) getNumberOfTestCases {
+    if( !testCases ) {
+        return 0;
+    }
+    return (int) testCases.count;
+}
+
+
+-(NSString*) getTestCase:(int) index {
+    if( !testCases ) {
+        return nil;
+    }
+    if( index >= testCases.count ) {
+        return nil;
+    }
+    return testCases[index][@"testKey"];
+}
+
+-(int) getTestCaseIndex {
+    int selectedIndex = (int) [testCasesPopUpButton indexOfSelectedItem];
+    if( selectedIndex < 0 ) {
+        return -1;
+    }
+    if( selectedIndex == 0 ) {
+        // Test all case
+        return -1;
+    }
+
+    selectedIndex--;
+    return selectedIndex;
+}
+
+-(NSString*) currentTestCase {
+    int selectedIndex = [self getTestCaseIndex];
+    if( selectedIndex < 0 ) {
+        return nil;
+    }
+    if( selectedIndex >= testCases.count ) {
+        return nil;
+    }
+    return testCases[selectedIndex][@"testKey"];
 }
 
 @end

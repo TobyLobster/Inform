@@ -14,12 +14,8 @@
 #import "IFImageCache.h"
 
 @implementation IFSyntaxHighlightingOption
-@synthesize colour = _colour;
-@synthesize fontStyle = _fontStyle;
-@synthesize underline = _underline;
-@synthesize relativeFontSize = _relativeFontSize;
 
--(id) init {
+-(instancetype) init {
     self = [super init];
     if( self ) {
         self.colour           = [NSColor whiteColor];
@@ -34,19 +30,7 @@
 
 @implementation IFEditingPreferencesSet
 
-@synthesize fontFamily               = _fontFamily;
-@synthesize fontSize                 = _fontSize;
-@synthesize sourcePaperColor         = _sourcePaperColor;
-@synthesize extensionPaperColor      = _extensionPaperColor;
-@synthesize enableSyntaxHighlighting = _enableSyntaxHighlighting;
-@synthesize options                  = _options;
-@synthesize tabWidth                 = _tabWidth;
-@synthesize indentWrappedLines       = _indentWrappedLines;
-@synthesize autoIndentAfterNewline   = _autoIndentAfterNewline;
-@synthesize autoSpaceTableColumns    = _autoSpaceTableColumns;
-@synthesize autoNumberSections       = _autoNumberSections;
-
--(id) init {
+-(instancetype) init {
     self = [super init];
     if( self ) {
         self.fontFamily = @"Lucida Grande";
@@ -54,7 +38,7 @@
         self.sourcePaperColor    = [NSColor whiteColor];
         self.extensionPaperColor = [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0];
 
-        self.options = [[[NSMutableArray alloc] init] autorelease];
+        self.options = [[NSMutableArray alloc] init];
 
         // Syntax highlighting section
         self.enableSyntaxHighlighting = true;
@@ -67,7 +51,6 @@
         [option setUnderline:           false];
         [self.options insertObject: option atIndex: IFSHOptionHeadings];
 
-        [option release];
         option = [[IFSyntaxHighlightingOption alloc] init];
         
         // Main text
@@ -77,7 +60,6 @@
         [option setUnderline:           false];
         [self.options insertObject: option atIndex: IFSHOptionMainText];
 
-        [option release];
         option = [[IFSyntaxHighlightingOption alloc] init];
 
         // Comments
@@ -87,7 +69,6 @@
         [option setUnderline:           false];
         [self.options insertObject: option atIndex: IFSHOptionComments];
 
-        [option release];
         option = [[IFSyntaxHighlightingOption alloc] init];
 
         // Quoted text
@@ -97,7 +78,6 @@
         [option setUnderline:           false];
         [self.options insertObject: option atIndex: IFSHOptionQuotedText];
 
-        [option release];
         option = [[IFSyntaxHighlightingOption alloc] init];
 
         // Text substitutions
@@ -107,7 +87,6 @@
         [option setUnderline:           false];
         [self.options insertObject: option atIndex: IFSHOptionTextSubstitutions];
 
-        [option release];
 
         self.tabWidth = 24.0f;
 
@@ -122,14 +101,6 @@
     return self;
 }
 
--(void) dealloc {
-    [_options release];
-    [_fontFamily release];
-    [_sourcePaperColor release];
-    [_extensionPaperColor release];
-
-    [super dealloc];
-}
 
 -(void) updateAppPreferencesFromSet {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
@@ -144,7 +115,7 @@
     [prefs setEnableSyntaxHighlighting: self.enableSyntaxHighlighting];
     
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
-        IFSyntaxHighlightingOption* option = [self.options objectAtIndex: optionIndex];
+        IFSyntaxHighlightingOption* option = (self.options)[optionIndex];
         [prefs setSourceColour:           option.colour           forOptionType: optionIndex];
         [prefs setSourceFontStyle:        option.fontStyle        forOptionType: optionIndex];
         [prefs setSourceUnderline:        option.underline        forOptionType: optionIndex];
@@ -175,7 +146,7 @@
     // Syntax highlighting section
     self.enableSyntaxHighlighting = [prefs enableSyntaxHighlighting];
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
-        IFSyntaxHighlightingOption * option = [self.options objectAtIndex: optionIndex];
+        IFSyntaxHighlightingOption * option = (self.options)[optionIndex];
         option.colour           = [prefs sourceColourForOptionType:           optionIndex];
         option.fontStyle        = [prefs sourceFontStyleForOptionType:        optionIndex];
         option.underline        = [prefs sourceUnderlineForOptionType:        optionIndex];
@@ -195,7 +166,7 @@
 }
 
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type {
-    return (IFSyntaxHighlightingOption*) [self.options objectAtIndex:(int) type];
+    return (IFSyntaxHighlightingOption*) (self.options)[(int) type];
 }
 
 -(BOOL) isEqualToColor: (NSColor*) color1
@@ -226,8 +197,8 @@
         return NO;
     }
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
-        IFSyntaxHighlightingOption * option1 = [self.options objectAtIndex: optionIndex];
-        IFSyntaxHighlightingOption * option2 = [set.options  objectAtIndex: optionIndex];
+        IFSyntaxHighlightingOption * option1 = (self.options)[optionIndex];
+        IFSyntaxHighlightingOption * option2 = (set.options)[optionIndex];
         
         if( ![self isEqualToColor: option1.colour
                              with: option2.colour] ) {

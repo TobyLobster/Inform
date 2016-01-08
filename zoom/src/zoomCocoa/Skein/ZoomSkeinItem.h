@@ -33,42 +33,18 @@ extern NSString* ZoomSIChild;								// Child item (if relevant)
 //
 // Represents a single 'knot' in the skein
 //
-@interface ZoomSkeinItem : NSObject<NSCoding> {
-	ZoomSkeinItem* parent;
-	NSMutableSet* children;
-	
-	NSString*     command;
-	NSString*     result;
-	
-	BOOL temporary;
-	int  tempScore;
-	
-	BOOL played, changed;
-	
-	NSString* annotation;
-	NSString* commentary;
-	
-	// Cached layout items (text measuring is slow)
-	BOOL   commandSizeDidChange;
-	NSSize commandSize;
-	
-	BOOL   annotationSizeDidChange;
-	NSSize annotationSize;
-	
-	// Results of comparing the result to the commentary
-	ZoomSkeinComparison commentaryComparison;
-}
+@interface ZoomSkeinItem : NSObject<NSCoding>
 
 // Initialisation
 + (ZoomSkeinItem*) skeinItemWithCommand: (NSString*) command;
 
-- (id) initWithCommand: (NSString*) command;
+- (instancetype) initWithCommand: (NSString*) command NS_DESIGNATED_INITIALIZER;
 
 // Data accessors
 
 // Skein tree
-- (ZoomSkeinItem*) parent;
-- (NSSet*)         children;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomSkeinItem *parent;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSSet *children;
 - (ZoomSkeinItem*) childWithCommand: (NSString*) command;
 
 - (ZoomSkeinItem*) addChild: (ZoomSkeinItem*) childItem;
@@ -79,47 +55,41 @@ extern NSString* ZoomSIChild;								// Child item (if relevant)
 - (BOOL)           hasChildWithCommand: (NSString*) command; // Not recursive
 
 // Item data
-- (NSString*)      command; // Command input
-- (NSString*)      result;  // Command result
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *command; // Command input
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *result;  // Command result
 
-- (void) setCommand: (NSString*) command;
-- (void) setResult:  (NSString*) result;
 
 // Item state
-- (BOOL) temporary;			// Whether or not this item has been made permanent by saving
-- (int)  temporaryScore;	// Lower values are more likely to be removed
-- (BOOL) played;			// Whether or not this item has actually been played
-- (BOOL) changed;			// Whether or not this item's result has changed since this was last played
+@property (NS_NONATOMIC_IOSONLY) BOOL temporary;			// Whether or not this item has been made permanent by saving
+@property (NS_NONATOMIC_IOSONLY) int temporaryScore;	// Lower values are more likely to be removed
+@property (NS_NONATOMIC_IOSONLY) BOOL played;			// Whether or not this item has actually been played
+@property (NS_NONATOMIC_IOSONLY) BOOL changed;			// Whether or not this item's result has changed since this was last played
 							// (Automagically updated by setResult:)
 
-- (void) setTemporary: (BOOL) isTemporary;
 - (void) setBranchTemporary: (BOOL) isTemporary;
-- (void) setTemporaryScore: (int) score;
 - (void) increaseTemporaryScore;
-- (void) setPlayed: (BOOL) played;
-- (void) setChanged: (BOOL) changed;
 
 // Annotation
 
 // Allows the player to designate certain areas of the skein as having specific annotations and colours
 // (So, for example an area can be called 'solution to the maximum mouse melee puzzle')
 // Each 'annotation' colours a new area of the skein.
-- (NSString*) annotation;
-- (void)      setAnnotation: (NSString*) newAnnotation;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *annotation;
 
 // Commentary
 
 // Could be used by an IDE to store commentary or perhaps the 'ideal' text the game should be
 // producing for this item
-- (NSString*) commentary;
-- (void)      setCommentary: (NSString*) commentary;
-- (ZoomSkeinComparison) commentaryComparison;
-- (ZoomSkeinItem*) nextDiff;									// Finds the first item following this one that has a difference
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *commentary;
+@property (NS_NONATOMIC_IOSONLY, readonly) ZoomSkeinComparison commentaryComparison;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomSkeinItem *nextDiff;									// Finds the first item following this one that has a difference
+
+- (ZoomSkeinComparison) forceCommentaryComparison;
 
 // Drawing/sizing
-- (NSSize) commandSize;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize commandSize;
 - (void) drawCommandAtPosition: (NSPoint) position;
-- (NSSize) annotationSize;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize annotationSize;
 - (void) drawAnnotationAtPosition: (NSPoint) position;
 
 @end

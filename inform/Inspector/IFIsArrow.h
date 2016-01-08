@@ -14,10 +14,10 @@
 @interface IFIsArrow : NSControl {
 
 }
+// Sets whether the arrow is in the 'open' or 'closed' state
+// YES if the arrow is in the open state
+@property (atomic) BOOL open;
 
-- (void) setOpen: (BOOL) open;							// Sets whether the arrow is in the 'open' or 'closed' state
-- (BOOL) open;											// YES if the arrow is in the open state
-
-- (void) performFlip;									// Flips the arrow (animates it)
+- (void) performFlip;       // Flips the arrow (animates it)
 
 @end

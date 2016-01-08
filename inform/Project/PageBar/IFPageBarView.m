@@ -1,6 +1,6 @@
 //
 //  IFPageBarView.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 01/04/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -27,28 +27,22 @@
 //
 // Object used to represent the layout of an individual cell
 //
-@interface IFPageCellLayout : NSObject {
-	@public
-	float position;					// Offset from the left/right for this cell
-	float minWidth;					// Minimum size that this cell can be
-	float width;					// Actual size that this cell should be drawn at
-	BOOL hidden;					// If YES then this cell shouldn't be drawn
-	
-	NSImage* cellFirstImage;		// The image for this cell
-	NSImage* cellImage;             // The image for this cell
-	NSImage* animateFrom;			// The image to animate from
-}
+@interface IFPageCellLayout : NSObject
 
 @end
 
-@implementation IFPageCellLayout
+@implementation IFPageCellLayout {
+@public
+    float position;					// Offset from the left/right for this cell
+    float minWidth;					// Minimum size that this cell can be
+    float width;					// Actual size that this cell should be drawn at
+    BOOL hidden;					// If YES then this cell shouldn't be drawn
 
-- (void) dealloc {
-	[cellImage release];
-	[animateFrom release];
-	
-	[super dealloc];
+    NSImage* cellFirstImage;		// The image for this cell
+    NSImage* cellImage;             // The image for this cell
+    NSImage* animateFrom;			// The image to animate from
 }
+
 
 @end
 
@@ -57,7 +51,19 @@ static const float rightMargin = 14.0;			// Margin to put on the right (to accou
 static const float tabMargin =  0.0;			// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
 static const float leftMargin = 3.0;			// Margin on the left and right until we actually draw the first cell
 
-@implementation IFPageBarView
+@implementation IFPageBarView {
+    BOOL cellsNeedLayout;							// YES if we need to perform layout on the cells
+    BOOL isActive;									// YES if this page accepts keyboard input
+
+    NSMutableArray* leftCells;						// The cells that appear on the left of this view
+    NSMutableArray* rightCells;						// The cells that appear on the right of this view
+
+    NSMutableArray* leftLayout;						// Left-hand cell layout
+    NSMutableArray* rightLayout;					// Right-hand cell layout
+
+    NSCell* trackingCell;							// The cell that the mouse is down over
+    NSRect trackingCellFrame;						// The bounds for the cell that the mouse is down over
+}
 
 // = Images =
 
@@ -65,7 +71,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [[IFImageCache loadResourceImage: @"App/PageBar/BarBackground.png"] retain];
+		image = [IFImageCache loadResourceImage: @"App/PageBar/BarBackground.png"];
 	}
 	
 	return image;
@@ -75,7 +81,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [[IFImageCache loadResourceImage: @"App/PageBar/BarNormal.png"] retain];
+		image = [IFImageCache loadResourceImage: @"App/PageBar/BarNormal.png"];
 	}
 	
 	return image;
@@ -85,7 +91,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* graphiteImage = nil;	
 
 	if (!graphiteImage) {
-		graphiteImage = [[IFImageCache loadResourceImage: @"App/PageBar/BarSelectedGraphite.png"] retain];
+		graphiteImage = [IFImageCache loadResourceImage: @"App/PageBar/BarSelectedGraphite.png"];
 	}
 	
 	return graphiteImage;
@@ -95,7 +101,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [[IFImageCache loadResourceImage: @"App/PageBar/BarHighlighted.png"] retain];
+		image = [IFImageCache loadResourceImage: @"App/PageBar/BarHighlighted.png"];
 	}
 	
 	return image;
@@ -105,7 +111,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [[IFImageCache loadResourceImage: @"App/PageBar/BarSelected.png"] retain];
+		image = [IFImageCache loadResourceImage: @"App/PageBar/BarSelected.png"];
 	}
 	
 	if ([NSColor currentControlTint] == NSGraphiteControlTint) {
@@ -119,7 +125,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [[IFImageCache loadResourceImage: @"App/PageBar/BarInactive.png"] retain];
+		image = [IFImageCache loadResourceImage: @"App/PageBar/BarInactive.png"];
 	}
 	
 	return image;
@@ -127,7 +133,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 
 // = Initialisation =
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
 
     if (self) {
@@ -137,15 +143,6 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
     return self;
 }
 
-- (void) dealloc {
-	[leftCells release];
-	[rightCells release];
-	[leftLayout release];
-	[rightLayout release];
-	
-	[trackingCell release];	
-	[super dealloc];
-}
 
 // = Drawing =
 
@@ -237,7 +234,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	[cellImage unlockFocus];
 	
 	// Return the result
-	return [cellImage autorelease];
+	return cellImage;
 }
 
 - (void) drawCellsFrom: (NSArray*) cellList
@@ -254,22 +251,22 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 	
     BOOL isFirst = YES;
-    NSImage** cellImage = nil;
+    NSImage* cellImage = nil;
 	while ((cell = [cellEnum nextObject]) && (layout = [layoutEnum nextObject])) {
 		if (layout->hidden) continue;
 		
 		// Redraw the cell's cached images if required
         if( isFirst ) {
-            cellImage = &layout->cellFirstImage;
+            cellImage = layout->cellFirstImage;
         }
         else {
-            cellImage = &layout->cellImage;
+            cellImage = layout->cellImage;
 		}
-        if ((*cellImage) == nil) {
-            (*cellImage) = [[self renderCell: cell
-                                   forLayout: layout
-                                     isRight: right
-                                     isFirst: isFirst] retain];
+        if (cellImage == nil) {
+            cellImage = [self renderCell: cell
+                               forLayout: layout
+                                 isRight: right
+                                 isFirst: isFirst];
         }
 
 		// Draw the cell itself
@@ -285,10 +282,10 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		cellFrame.size.height -= 2; cellFrame.origin.y += 2;
 		cellSource.size.height -= 2; cellSource.origin.y += 2;
 				
-		[(*cellImage) drawInRect: NSIntegralRect(cellFrame)
-                        fromRect: cellSource
-                       operation: NSCompositeSourceOver
-                        fraction: ([cell isEnabled]?1.0:0.5) * (isActive?1.0:0.85)];
+		[cellImage drawInRect: NSIntegralRect(cellFrame)
+                     fromRect: cellSource
+                    operation: NSCompositeSourceOver
+                     fraction: ([cell isEnabled]?1.0:0.5) * (isActive?1.0:0.85)];
         isFirst = NO;
 	}
 }
@@ -319,20 +316,18 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 // = Managing cells =
 
 - (void) setLeftCells: (NSArray*) newLeftCells {
-	[leftCells release];
 	leftCells = [[NSMutableArray alloc] initWithArray: newLeftCells];
 	
-	[leftLayout release]; leftLayout = nil;
+	 leftLayout = nil;
 	cellsNeedLayout = YES;
 	
 	[self setNeedsDisplay: YES];
 }
 
 - (void) setRightCells: (NSArray*) newRightCells {
-	[rightCells release];
 	rightCells = [[NSMutableArray alloc] initWithArray: newRightCells];
 	
-	[rightLayout release]; rightLayout = nil;
+	 rightLayout = nil;
 	cellsNeedLayout = YES;
 	
 	[self setNeedsDisplay: YES];
@@ -357,7 +352,6 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		cellLayout->width = cellLayout->minWidth;
 
 		[layout addObject: cellLayout];
-		[cellLayout release];
 		position += cellLayout->width;
 	}
 }
@@ -365,8 +359,8 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 - (void) layoutCells {
 	if (!cellsNeedLayout) return;
 	
-	[leftLayout release]; leftLayout = nil;
-	[rightLayout release]; rightLayout = nil;
+	 leftLayout = nil;
+	 rightLayout = nil;
 	
 	leftLayout = [[NSMutableArray alloc] init];
 	rightLayout = [[NSMutableArray alloc] init];
@@ -539,7 +533,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	return 0;
 }
 
-- (NSRect) boundsForCellAtIndex: (int) index
+- (NSRect) boundsForCellAtIndex: (NSUInteger) index
 					  isOnRight: (BOOL) isRight {
 	// Update the cell layout
 	if (cellsNeedLayout) [self layoutCells];
@@ -548,7 +542,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 
-	IFPageCellLayout* layout = [isRight?rightLayout:leftLayout objectAtIndex: index];	
+	IFPageCellLayout* layout = (isRight?rightLayout:leftLayout)[index];	
 	
 	NSRect cellFrame = NSMakeRect(0,0, layout->width, bounds.size.height);
 	if (isRight) {
@@ -565,7 +559,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	// Update the cell layout
 	if (cellsNeedLayout) [self layoutCells];
 	
-	int cellIndex;
+	NSUInteger cellIndex;
 	NSMutableArray* layout = leftLayout;
 	BOOL isRight = NO;
 	
@@ -581,8 +575,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	if (cellIndex == NSNotFound) return;
 	
 	// Mark this cell as needing an update
-	IFPageCellLayout* cellLayout = [layout objectAtIndex: cellIndex];
-	[cellLayout->cellImage release];
+	IFPageCellLayout* cellLayout = layout[cellIndex];
 	cellLayout->cellImage = nil;
 	
 	// Refresh this cell
@@ -615,7 +608,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 
 - (void) mouseDown: (NSEvent*) event {
 	// Clear any tracking cell that might exist
-	[trackingCell release]; trackingCell = nil;
+	 trackingCell = nil;
 	
 	// Find which cell was clicked on
 	int index = [self indexOfCellAtPoint: [self convertPoint: [event locationInWindow]
@@ -626,13 +619,13 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		isOnRight = NO;
 		index--;
 		
-		trackingCell = [[leftCells objectAtIndex: index] retain];
+		trackingCell = leftCells[index];
 	} else if (index < 0) {
 		// Right-hand cell was clicked
 		isOnRight = YES;
 		index = (-index)-1;
 		
-		trackingCell = [[rightCells objectAtIndex: index] retain];
+		trackingCell = rightCells[index];
 	} else {
 		// No cell was clicked
 		return;

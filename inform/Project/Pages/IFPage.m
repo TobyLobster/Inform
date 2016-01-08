@@ -1,6 +1,6 @@
 //
 //  IFPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -8,15 +8,27 @@
 
 #import "IFPage.h"
 #import "NSBundle+IFBundleExtensions.h"
+#import "IFProjectFile.h"
+#import "IFProjectPane.h"
+#import "IFHistoryEvent.h"
 
 NSString* IFSwitchToPageNotification = @"IFSwitchToPageNotification";
 NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
-@implementation IFPage
+@implementation IFPage {
+    IFProjectPane* thisPane;		// The pane that contains this page (or nil, not retained)
+    NSObject<IFHistoryRecorder>* recorder;	// Object used for recording any history events for this object
+
+    BOOL pageIsVisible;						// YES if this page is currently displayed
+    BOOL releaseView;						// YES if the view has been set using setView: and should be released
+    NSArray *topLevelObjects;               // All top level objects for the nib loaded (so they can be released)
+}
+
+@synthesize view;
 
 // = Initialisation =
 
-- (id) initWithNibName: (NSString*) nib
+- (instancetype) initWithNibName: (NSString*) nib
 	 projectController: (IFProjectController*) controller {
 	self = [super init];
 	
@@ -26,28 +38,24 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
                             owner: self];
 		
 		// Set the parent
-		parent = controller;
+		_parent = controller;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	if (releaseView) [view release];
-	[super dealloc];
-}
 
 - (void) setThisPane: (IFProjectPane*) newThisPane {
 	thisPane = newThisPane;
 }
 
 - (void) setOtherPane: (IFProjectPane*) newOtherPane {
-	otherPane = newOtherPane;
+	_otherPane = newOtherPane;
 }
 
 - (void) finished {
-	parent = nil;
-	otherPane = nil;
+	_parent = nil;
+	_otherPane = nil;
 }
 
 // = Details about this view =
@@ -65,8 +73,7 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 }
 
 - (void) setView: (NSView*) newView {
-	if (releaseView) [view autorelease];
-	view = [newView retain];
+	view = newView;
 	releaseView = YES;
 }
 
@@ -89,18 +96,26 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 
 - (void) switchToPageWithIdentifier: (NSString*) identifier
 						   fromPage: (NSString*) oldPageIdentifier {
+    NSDictionary* userInfo;
+    if( oldPageIdentifier != nil )
+    {
+        userInfo = @{@"Identifier": identifier,
+                     @"OldPageIdentifier": oldPageIdentifier};
+    }
+    else
+    {
+        userInfo = @{@"Identifier": identifier};
+    }
 	// Post a notification that this page wants to be the frontmost
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFSwitchToPageNotification
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  identifier, @"Identifier", 
-														  oldPageIdentifier, @"OldPageIdentifier", nil]];
+													  userInfo: userInfo];
 }
 
 // = Dealing with the page bar =
 
 - (NSArray*) toolbarCells {
-	return [NSArray array];
+	return @[];
 }
 
 - (void) toolbarCellsHaveUpdated {

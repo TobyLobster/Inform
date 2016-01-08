@@ -8,10 +8,15 @@
 
 #import "IFDebugSettings.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
+@implementation IFDebugSettings {
+    IBOutlet NSButton* donotCompileNaturalInform;
+    IBOutlet NSButton* runBuildSh;
+    IBOutlet NSButton* runLoudly;
+    IBOutlet NSButton* debugMemory;
+}
 
-@implementation IFDebugSettings
-
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: @"DebugSettings"];
 }
 

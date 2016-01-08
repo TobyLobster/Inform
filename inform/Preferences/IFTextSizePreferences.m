@@ -11,9 +11,11 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-@implementation IFTextSizePreferences
+@implementation IFTextSizePreferences {
+    IBOutlet NSPopUpButton* appTextSize;
+}
 
-- (id) init {
+- (instancetype) init {
 	self = [super initWithNibName: @"TextSizePreferences"];
 	
 	if (self) {
@@ -39,7 +41,7 @@
 - (IBAction) setPreference: (id) sender {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 	
-	if (sender == appTextSize) [prefs setAppFontSizeMultiplierEnum: [appTextSize selectedTag]];
+	if (sender == appTextSize) [prefs setAppFontSizeMultiplierEnum: (int) [appTextSize selectedTag]];
 }
 
 // = PreferencePane overrides =

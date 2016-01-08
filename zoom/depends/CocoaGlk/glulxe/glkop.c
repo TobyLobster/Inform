@@ -1463,12 +1463,12 @@ static gidispatch_rock_t glulxe_array_restore(long bufkey,
   }
 
   if (elemsize == 1) {
-    char *cbuf = grab_temp_c_array(bufkey, len, FALSE);
+    char *cbuf = grab_temp_c_array((glui32) bufkey, len, FALSE);
     rock = glulxe_retained_register(cbuf, len, typecode);
     *arrayref = cbuf;
   }
   else {
-    glui32 *ubuf = grab_temp_i_array(bufkey, len, FALSE);
+    glui32 *ubuf = grab_temp_i_array((glui32) bufkey, len, FALSE);
     rock = glulxe_retained_register(ubuf, len, typecode);
     *arrayref = ubuf;
   }

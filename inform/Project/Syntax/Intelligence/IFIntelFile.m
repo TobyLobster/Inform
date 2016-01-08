@@ -7,6 +7,7 @@
 //
 
 #import "IFIntelFile.h"
+#import "IFIntelSymbol.h"
 
 #define IntelDebug 0
 
@@ -14,9 +15,16 @@
 // per symbol type;
 NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotification";
 
-@implementation IFIntelFile
+@implementation IFIntelFile {
+    // Data
+    NSMutableArray* symbols;	// List of symbols added to the file
+    int* symbolLines;			// We access this a lot: C-style array is faster. The line number each symbol in the symbols array occurs on (ie, one entry per symbol)
 
-- (id) init {
+    // Notifications
+    BOOL notificationPending;	// YES if we're preparing to send a notification that this object has changed
+}
+
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -27,11 +35,11 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	return self;
 }
 
-- (int) indexOfSymbolOnLine: (int) lineNumber {
+- (int) indexOfSymbolOnLine: (NSUInteger) lineNumber {
 	// BINARY SEARCH POWER! Is there anything this wacky algorithm cannot do?
 	
 	// Either the last item of the previous line, or the first item of this line
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	
 	if (nSymbols == 0) return -1;
 	
@@ -55,7 +63,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	return middle;
 }
 
-- (int) indexOfStartOfLine: (int) lineNumber {
+- (int) indexOfStartOfLine: (NSUInteger) lineNumber {
 	// Returns the symbol location of the symbol before the start of the line
 	int symbol = [self indexOfSymbolOnLine: lineNumber];
 	
@@ -67,7 +75,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 - (int) indexOfEndOfLine: (int) lineNumber {
 	// Returns the symbol location of the symbol after the start of the line
 	int symbol = [self indexOfSymbolOnLine: lineNumber];
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	
 	while (symbol >= 0 && symbolLines[symbol] >= lineNumber) symbol--;
 	if (symbol < 0) symbol = 0;
@@ -81,7 +89,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 - (void) insertLineBeforeLine: (int) line {
 	// Renumber lines as appropriate
 	int firstSymbol = [self indexOfStartOfLine: line] + 1;
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	int symbol;
 	
 #if IntelDebug
@@ -101,7 +109,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	
 	// Change the location of the remaining lines
 	int firstSymbol = [self indexOfStartOfLine: lines.location] + 1;
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	int symbol;
 	
 #if IntelDebug
@@ -119,7 +127,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	// These are EXCLUSIVE (remember?)
 	int firstSymbol = [self indexOfStartOfLine: lines.location];
 	int lastSymbol = [self indexOfStartOfLine: lines.location + lines.length] + 1;
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	
 	if (firstSymbol >= lastSymbol) {
 		// Should never happen (aka the Programmer's Lament)
@@ -141,24 +149,24 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	
 	// First remove from the list
 	IFIntelSymbol* first = nil;
-	if (firstSymbol >= 0) first = [symbols objectAtIndex: firstSymbol];
+	if (firstSymbol >= 0) first = symbols[firstSymbol];
 	
 	for (x=firstSymbol+1; x<lastSymbol; x++) {
-		IFIntelSymbol* thisSymbol = [symbols objectAtIndex: x];
+		IFIntelSymbol* thisSymbol = symbols[x];
 
 #if IntelDebug
 		NSLog(@"\tClearing symbol '%@' (line %i)", thisSymbol, symbolLines[x]);
 #endif
 		
-		thisSymbol->nextSymbol = nil;
-		thisSymbol->lastSymbol = nil;
+		thisSymbol.nextSymbol = nil;
+		thisSymbol.lastSymbol = nil;
 	}
 	
 	IFIntelSymbol* last = nil;
-	if (lastSymbol < [symbols count]) last = [symbols objectAtIndex: lastSymbol];
+	if (lastSymbol < [symbols count]) last = symbols[lastSymbol];
 	
-	if (first) first->nextSymbol = last;
-	if (last) last->lastSymbol = first;
+	if (first) first.nextSymbol = last;
+	if (last) last.lastSymbol = first;
 	
 	// Remove from the arrays
 	[symbols removeObjectsInRange: NSMakeRange(firstSymbol+1, lastSymbol-(firstSymbol+1))];
@@ -170,7 +178,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 - (void) addSymbol: (IFIntelSymbol*) newSymbol
 			atLine: (int) line {
 	int symbol = [self indexOfEndOfLine: line];
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	
 #if IntelDebug
 	NSLog(@"Inserting symbol %@ at line %i (symbol location %i)", newSymbol, line, symbol);
@@ -186,19 +194,19 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	
 	// Adjust the symbol list
 	if (symbol > 0)
-		newSymbol->lastSymbol = [symbols objectAtIndex: symbol-1];
+		newSymbol.lastSymbol = symbols[symbol-1];
 	else
-		newSymbol->lastSymbol = nil;
+		newSymbol.lastSymbol = nil;
 	
 	if (symbol < nSymbols)
-		newSymbol->nextSymbol = [symbols objectAtIndex: symbol+1];
+		newSymbol.nextSymbol = symbols[symbol+1];
 	else
-		newSymbol->nextSymbol = nil;
+		newSymbol.nextSymbol = nil;
 	
-	if (newSymbol->lastSymbol)
-		newSymbol->lastSymbol->nextSymbol = newSymbol;
-	if (newSymbol->nextSymbol)
-		newSymbol->nextSymbol->lastSymbol = newSymbol;
+	if (newSymbol.lastSymbol)
+		newSymbol.lastSymbol.nextSymbol = newSymbol;
+	if (newSymbol.nextSymbol)
+		newSymbol.nextSymbol.lastSymbol = newSymbol;
 	
 	[self intelFileHasChanged];
 }
@@ -208,11 +216,11 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 - (NSString*) description {
 	NSMutableString* res = [NSMutableString string];
 	
-	[res appendFormat: @"<IFIntelFile %i symbols:", [symbols count]];
+	[res appendFormat: @"<IFIntelFile %i symbols:", (int) [symbols count]];
 	
 	int symbol;
 	for (symbol=0; symbol<[symbols count]; symbol++) {
-		[res appendFormat: @"\n\tLine %i - %@", symbolLines[symbol], [symbols objectAtIndex: symbol]];
+		[res appendFormat: @"\n\tLine %i - %@", symbolLines[symbol], symbols[symbol]];
 	}
 	
 	[res appendFormat: @">"];
@@ -223,29 +231,29 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 // = Finding symbols =
 
 - (IFIntelSymbol*) nearestSymbolToLine: (int) line {
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	int symbol = [self indexOfStartOfLine: line];
 	
 	// Special case: for the very first symbol in the file, there is no 'preceding symbol', so we would otherwise abort here
-	if (nSymbols > 0 && symbol == -1 && symbolLines[0] == line) return [symbols objectAtIndex: 0];
+	if (nSymbols > 0 && symbol == -1 && symbolLines[0] == line) return symbols[0];
 	
 	if (symbol < 0) return nil;
 	if (symbol >= nSymbols) return nil;
-	if (symbol+1 == nSymbols) return [symbols objectAtIndex: symbol];
-	if (symbolLines[symbol+1] == line) return [symbols objectAtIndex: symbol+1];
+	if (symbol+1 == nSymbols) return symbols[symbol];
+	if (symbolLines[symbol+1] == line) return symbols[symbol+1];
 	
-	return [symbols objectAtIndex: symbol];
+	return symbols[symbol];
 }
 
 - (IFIntelSymbol*) firstSymbolOnLine: (int) line {
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	int symbol = [self indexOfStartOfLine: line];
 	
 	if (symbol < 0) return nil;
 	if (symbol+1 >= nSymbols) return nil;
 	if (symbolLines[symbol+1] != line) return nil;
 	
-	return [symbols objectAtIndex: symbol+1];
+	return symbols[symbol+1];
 }
 
 - (IFIntelSymbol*) lastSymbolOnLine: (int) line {
@@ -254,17 +262,15 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	if (symbol <= 0) return nil;
 	if (symbolLines[symbol-1] != line) return nil;
 	
-	return [symbols objectAtIndex: symbol-1];
+	return symbols[symbol-1];
 }
 
-- (int) lineForSymbol: (IFIntelSymbol*) symbolToFind {
-	// Slow, but we shouldn't be calling this very often (oops, actually forgot that we'd need this)
-	// (Many ways to speed up if required. Check back with Shark when everything's implemented)
+- (NSUInteger) lineForSymbol: (IFIntelSymbol*) symbolToFind {
 	int symbol;
-	int nSymbols = [symbols count];
+	int nSymbols = (int) [symbols count];
 	
 	for (symbol=0; symbol<nSymbols; symbol++) {
-		if ([symbols objectAtIndex: symbol] == symbolToFind)
+		if (symbols[symbol] == symbolToFind)
 			return symbolLines[symbol];
 	}
 	
@@ -275,7 +281,7 @@ NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotificatio
 	if ([symbols count] <= 0)
 		return nil;
 	
-	return [symbols objectAtIndex: 0];
+	return symbols[0];
 }
 
 - (void) intelFileHasChanged {

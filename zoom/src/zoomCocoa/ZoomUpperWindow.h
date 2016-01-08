@@ -11,23 +11,13 @@
 #import "ZoomView.h"
 
 @class ZoomView;
-@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding> {
-    ZoomView* theView;
+@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding>
 
-    int startLine, endLine;
+- (instancetype) initWithZoomView: (ZoomView*) view NS_DESIGNATED_INITIALIZER;
 
-    NSMutableArray* lines;
-    int xpos, ypos;
-
-    NSColor* backgroundColour;
-	ZStyle* inputStyle;
-}
-
-- (id) initWithZoomView: (ZoomView*) view;
-
-- (int) length;
-- (NSArray*) lines;
-- (NSColor*) backgroundColour;
+@property (NS_NONATOMIC_IOSONLY, readonly) int length;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *lines;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *backgroundColour;
 - (void)     cutLines;
 
 - (void) reformatLines;

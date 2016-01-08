@@ -14,8 +14,8 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 {
 	// Try to get the file that we're looking at
 	NSString* fileName = nil;
-	if ([(NSURL*)cfUrl isFileURL]) {
-		fileName = [(NSURL*)cfUrl path];
+	if ([(__bridge NSURL*)cfUrl isFileURL]) {
+		fileName = [(__bridge NSURL*)cfUrl path];
 	}
 	
 	if (!fileName) {
@@ -27,7 +27,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	BOOL isInform6 = NO;
 	NSString* sourceCodeString = nil;
 	
-	NSString* uti = (NSString*) contentTypeUTI;
+	NSString* uti = (__bridge NSString*) contentTypeUTI;
 	
 	if ([uti isEqualToString: @"org.inform-fiction.source.inform7"]
 		|| [uti isEqualToString: @"org.inform-fiction.inform7.extension"]) {
@@ -60,7 +60,14 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 			isInform6 = YES;
 		}
 		
-	} else {
+    } else if ([uti isEqualToString: @"org.inform-fiction.xproject"]) {
+        // extension project file
+
+        isInform6 = NO;
+        sourceCodeString = [NSString stringWithContentsOfFile: [[fileName stringByAppendingPathComponent: @"Source"] stringByAppendingPathComponent: @"extension.i7x"]
+                                                     encoding: NSUTF8StringEncoding
+                                                        error: nil];
+    } else {
 		NSLog(@"Unknown UTI: %@", uti);
 		return noErr;
 	}
@@ -71,9 +78,9 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	}
 	
 	// Create a suitable storage object and highlighter
-	int length = [sourceCodeString length];
+	int length = (int) [sourceCodeString length];
 	if (length > 4096) length = 4096;
-	NSTextStorage* storage = [[[NSTextStorage alloc] initWithString: [sourceCodeString substringToIndex: length]] autorelease];
+	NSTextStorage* storage = [[NSTextStorage alloc] initWithString: [sourceCodeString substringToIndex: length]];
     [IFSyntaxManager registerTextStorage: storage
                                     name: @"Thumbnail"
                                     type: isInform6 ? IFHighlightTypeInform6 : IFHighlightTypeInform7
@@ -107,25 +114,21 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 														 endingColor: [NSColor whiteColor]];
 	[gradient drawInRect: NSMakeRect(8,16, size.width-16, size.height - 24)
 				   angle: 250];
-	[gradient release];
-	[shadow release];
 	[NSGraphicsContext restoreGraphicsState];
 	
 	// Draw the source text
 	[storage drawInRect: NSMakeRect(16, 24, size.width-32, size.height - 40)];
 	
 	// Draw 'Inform'
-	NSMutableParagraphStyle* centered = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+	NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 	[centered setAlignment: NSCenterTextAlignment];
 	[@"Inform" drawInRect: NSMakeRect(16, 32, size.width-32, 70)
-		   withAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-							[NSFont boldSystemFontOfSize: 64], NSFontAttributeName,
-							[NSColor colorWithDeviceRed: 0
+		   withAttributes: @{NSFontAttributeName: [NSFont boldSystemFontOfSize: 64],
+							NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0
 												  green: 0
 												   blue: 0
-												  alpha: 0.6], NSForegroundColorAttributeName,
-							centered, NSParagraphStyleAttributeName,
-							nil]];
+												  alpha: 0.6],
+							NSParagraphStyleAttributeName: centered}];
 	
 	// Done with the drawing
 	[NSGraphicsContext restoreGraphicsState];

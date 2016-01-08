@@ -7,7 +7,7 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "IFProjectType.h"
+#import "IFProjectTypes.h"
 
 @class IFProjectType;
 
@@ -20,26 +20,15 @@ typedef enum IFNewProjectFlow {
 //
 // Window controller for the 'new project' window
 //
-@interface IFNewProject : NSWindowController<NSOpenSavePanelDelegate> {
-    IBOutlet NSView*                projectPaneView;	// The pane that contains the display for the current stage in the creation process
-    IBOutlet NSTextField*           promptTextField;
-
-    NSObject<IFProjectType>*        projectType;        // The current project type
-    NSObject<IFProjectSetupView>*   projectView;        // The view of (Inform 6 project) settings
-    NSArray*                        projectFileTypes;
-    NSString*                       projectTitle;
-    NSString*                       projectPrompt;
-    NSString*                       projectStory;
-    NSString*                       projectDefaultFilename;
-    IFNewProjectFlow                projectFlow;
-
-    NSURL*                          projectLocation;
-}
+@interface IFNewProject : NSWindowController<NSOpenSavePanelDelegate>
 
 -(IBAction) cancelButtonClicked: (id) sender;
 -(IBAction) okButtonClicked: (id) sender;
 
+- (void) createInform7ExtensionProject: (NSString*) title
+                      fromExtensionURL: (NSURL*) extensionURL;
 - (void) createInform7Project: (NSString*) title
+                     fileType: (IFFileType) fileType
                         story: (NSString*) story;
 - (void) createInform7Extension;
 - (void) createInform6Project;

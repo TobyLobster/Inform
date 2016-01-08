@@ -1,6 +1,6 @@
 //
 //  IFFindController.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 05/02/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -12,64 +12,7 @@
 ///
 /// Controller for the find window
 ///
-@interface IFFindController : NSWindowController {
-	// The components of the find dialog
-	IBOutlet NSComboBox*	findPhrase;									// The phrase to search for
-	IBOutlet NSComboBox*	replacePhrase;								// The phrase to replace it with
-
-	// Ignore case radio button
-	IBOutlet NSButton*		ignoreCase;									// The 'ignore case' checkbox
-
-    // Pull down menu of how to search
-	IBOutlet NSPopUpButton* searchType;									// The 'contains/begins with/complete word/regexp' pop-up button
-	IBOutlet NSMenuItem*	containsItem;								// Choices for the type of object to find
-	IBOutlet NSMenuItem*	beginsWithItem;
-	IBOutlet NSMenuItem*	completeWordItem;
-	IBOutlet NSMenuItem*	regexpItem;
-	
-    // Buttons
-	IBOutlet NSButton*		next;
-	IBOutlet NSButton*		previous;
-	IBOutlet NSButton*		replaceAndFind;
-	IBOutlet NSButton*		replace;
-	IBOutlet NSButton*		findAll;
-	IBOutlet NSButton*		replaceAll;
-
-    // Progress
-	IBOutlet NSProgressIndicator* findProgress;							// The 'searching' progress indicator
-    
-    // Parent view to position extra content
-	IBOutlet NSView*		auxViewPanel;								// The auxilary view panel
-	
-	// The regular expression help view
-	IBOutlet NSView*		regexpHelpView;								// The view containing information about regexps
-	
-	// The 'find all' views
-	IBOutlet NSView*		foundNothingView;							// The view to show if we don't find any matches
-	IBOutlet NSView*		findAllView;								// The main 'find all' view
-	IBOutlet NSTableView*	findAllTable;								// The 'find all' results table
-    IBOutlet NSTextField*   findCountText;                              // Text of how many results we have
-    float                   borders;                                    // Height of the window with the find all view open, but without the results table. A constant.
-	
-	// Things we've searched for
-	NSMutableArray*			replaceHistory;								// The 'replace' history
-	NSMutableArray*			findHistory;								// The 'find' history
-	NSString*				lastSearch;									// The last phrase that was searched for
-
-	BOOL					searching;									// YES if we're searching for results
-	NSMutableArray*			findAllResults;								// The 'find all' results view
-	int						findAllCount;								// Used to generate the identifier
-	id						findIdentifier;								// The current find all identifier
-	NSRect                  textViewSize;								// The original size of the text view
-	
-	// Auxiliary views
-	NSView* auxView;													// The auxiliary view that is being displayed
-	NSRect winFrame;													// The default window frame
-	NSRect contentFrame;												// The default size of the content frame
-	
-	// The delegate
-	id activeDelegate;													// The delegate that we've chosen to work with
-}
+@interface IFFindController : NSWindowController
 
 // Initialisation
 
@@ -111,7 +54,7 @@
 
 - (BOOL) canUseFindType: (IFFindType) find;								// Allows delegates to specify which type of file they can search on
 
-- (NSString*) currentSelectionForFind;									// Returns whatever was currently selected: used to implement the 'use selection for find' menu option
+@property (atomic, readonly, copy) NSString *currentSelectionForFind;	// Returns whatever was currently selected: used to implement the 'use selection for find' menu option
 
 // 'Find all'
 - (NSArray*) findAllMatches: (NSString*) match							// Should return an array of IFFindResults
@@ -128,6 +71,6 @@
 							withString: (NSString*) replacement
 								offset: (int*) offset;
 - (void) finishedReplaceAll: (IFFindController*) sender;				// The replace all operation has finished
-- (NSArray*) lastFoundGroups;                                           // returns an array of the groups found on the last regex search. Used in "Replace and Find" and "Replace"
+@property (atomic, readonly, copy) NSArray *lastFoundGroups;            // returns an array of the groups found on the last regex search. Used in "Replace and Find" and "Replace"
 
 @end

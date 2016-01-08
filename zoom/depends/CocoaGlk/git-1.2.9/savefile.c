@@ -250,7 +250,7 @@ git_sint32 saveToFile (git_sint32 * base, git_sint32 * sp, git_sint32 id)
 
     // Stack chunk.
     glk_put_string ("Stks");
-    writeWord ((sp - base) * 4);
+    writeWord ((git_sint32) (sp - base) * 4);
     for (n = 0 ; n < (git_uint32) (sp - base) ; ++n)
         writeWord (base [n]);
 

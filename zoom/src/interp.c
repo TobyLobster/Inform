@@ -111,7 +111,7 @@ static inline void push(ZStack* stack, const ZWord word)
   
   if (stack->stack_size <= 0)
     {
-      int stack_offset = stack->stack_top - stack->stack;
+      int stack_offset = (int) (stack->stack_top - stack->stack);
     
       stack->stack_total += 2048;
       if (!(stack->stack = realloc(stack->stack,
@@ -1043,7 +1043,7 @@ static void zcode_op_aread_5678(ZDWord* pc,
   }
   
   bufLen = mem[0];
-  buf = malloc(sizeof(int)*(bufLen+1));
+  buf = malloc(sizeof(unsigned int)*(bufLen+1));
 
   if (args->arg[7] != 0)
     {

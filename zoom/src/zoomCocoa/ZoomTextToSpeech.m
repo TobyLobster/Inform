@@ -24,7 +24,7 @@ static SpeechChannel channel = nil;
 #endif
 }
 
-- (id) init {
+- (instancetype) init {
 #ifndef UseCocoaSpeech
 	if (channel == nil) return nil;
 #endif

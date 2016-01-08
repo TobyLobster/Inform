@@ -1,6 +1,6 @@
 //
 //  IFRuntimeErrorParser.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 10/10/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -9,9 +9,12 @@
 #import "IFRuntimeErrorParser.h"
 
 
-@implementation IFRuntimeErrorParser
+@implementation IFRuntimeErrorParser {
+    id delegate;								// The delegate
+    NSMutableString* accumulator;				// The character accumulator
+}
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -21,10 +24,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[accumulator release];
-	[super dealloc];
-}
 
 - (void) setDelegate: (id) newDelegate {
 	delegate = newDelegate;
@@ -36,9 +35,9 @@
 	NSString* runtimeIndicator = @"*** Run-time problem ";
 	NSString* problemType = nil;
 	
-	int len = [outputText length];
+	int len = (int) [outputText length];
 	int pos;
-	int indicatorLen = [runtimeIndicator length];
+	int indicatorLen = (int) [runtimeIndicator length];
 	
 	for (pos = 0; pos<len-indicatorLen-1; pos++) {
 		unichar chr = [outputText characterAtIndex: pos];
@@ -94,7 +93,6 @@
                                                                    length: x - start]];
                 
                 [self outputText: accumulator];
-                [accumulator release];
                 accumulator = [[NSMutableString alloc] init];
                 start = x;
             }

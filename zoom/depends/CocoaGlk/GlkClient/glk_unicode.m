@@ -59,7 +59,7 @@ NSString* cocoaglk_string_from_uni_buf(const glui32* buf, glui32 len) {
 
 int cocoaglk_copy_string_to_uni_buf(NSString* string, glui32* buf, glui32 len) {
 	// Fetch the string into a UTF-16 buffer
-	int stringLength = [string length];
+	int stringLength = (int) [string length];
 	unichar characters[stringLength];
 	
 	[string getCharacters: characters];
@@ -164,16 +164,20 @@ glui32 glk_buffer_to_title_case_uni(glui32 *buf, glui32 len,
 		
 		[stringScanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString: @""]];
 		
-		NSString* lastWord;
-		NSString* lastWhitespace;
+		NSString* lastWord = nil;
+		NSString* lastWhitespace = nil;
 		
 		// Scan the string
 		while (![stringScanner isAtEnd]) {
+            lastWord = nil;
+            lastWhitespace = nil;
 			// Scan any whitespace at the start of the string
 			[stringScanner scanCharactersFromSet: whitespace
-									  intoString: &lastWhitespace];
-			
-			[result appendString: lastWhitespace];
+                                      intoString: &lastWhitespace];
+            if( lastWhitespace != nil )
+            {
+                [result appendString: lastWhitespace];
+            }
 			
 			// Give up if there's nothing following the whitespace
 			if ([stringScanner isAtEnd]) break;
@@ -181,19 +185,22 @@ glui32 glk_buffer_to_title_case_uni(glui32 *buf, glui32 len,
 			// Get the next word
 			[stringScanner scanUpToCharactersFromSet: whitespace
 										  intoString: &lastWord];
-			
+
 			// Capitalize the last word
-			NSString* capitalized = [lastWord capitalizedString];
-			
-			// Join the capitalized letter from the last word with whatever was in the original word
-			if ([lastWord length] > 0 && [capitalized length] > 0) {
-				lastWord = [[capitalized substringToIndex: 1] stringByAppendingString: [lastWord substringFromIndex: 1]];
-			}
-			
-			// Append to the result
-			[result appendString: lastWord];
+            if( lastWord != nil)
+            {
+                NSString* capitalized = [lastWord capitalizedString];
+
+                // Join the capitalized letter from the last word with whatever was in the original word
+                if ([lastWord length] > 0 && [capitalized length] > 0) {
+                    lastWord = [[capitalized substringToIndex: 1] stringByAppendingString: [lastWord substringFromIndex: 1]];
+                }
+
+                // Append to the result
+                [result appendString: lastWord];
+            }
 		}
-		
+
 		// Copy the buffer
 		int finalLength = cocoaglk_copy_string_to_uni_buf(result, buf, len);
 		
@@ -372,7 +379,7 @@ glui32 glk_get_buffer_stream_uni(strid_t str, glui32 *buf, glui32 len) {
 	
 	// Decode the characters that have been read
 	const unsigned char* bytes = [data bytes];
-	int numChars = [data length]/4;
+	int numChars = (int) [data length]/4;
 	int x;
 	for (x=0; x<numChars; x++) {
 		int pos = x*4;

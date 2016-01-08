@@ -1,6 +1,6 @@
 //
 //  IFExtensionsPage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -13,12 +13,26 @@
 #import "IFAppDelegate.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
+#import "IFProjectController.h"
+#import "IFPageBarCell.h"
 
-@implementation IFExtensionsPage
+@implementation IFExtensionsPage {
+    // The documentation view
+    WebView* wView;										// The web view that displays the documentation
+
+    // Page cells
+    IFPageBarCell* homeCell;                            // The 'Home' cell
+    IFPageBarCell* definitionsCell;						// The 'Definitions' cell
+    IFPageBarCell* publicLibraryCell;					// The 'Public Library' cell
+    NSDictionary* tabDictionary;                        // Maps URL paths to cells
+
+    bool reloadingBecauseCensusCompleted;
+    BOOL loadingFailureWebPage;
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Documentation"
 				projectController: controller];
 	
@@ -40,11 +54,9 @@
 		[publicLibraryCell setAction: @selector(showPublicLibrary:)];
 
         // Static dictionary mapping tab names to cells
-        tabDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         homeCell,          @"inform://Extensions/Extensions.html",
-                         definitionsCell,   @"inform://Extensions/ExtIndex.html",
-                         publicLibraryCell, [[IFUtility publicLibraryURL] absoluteString],
-                         nil];
+        tabDictionary = @{@"inform://Extensions/Extensions.html": homeCell,
+                          @"inform://Extensions/ExtIndex.html": definitionsCell,
+                          [[IFUtility publicLibraryURL] absoluteString]: publicLibraryCell};
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesChanged:)
@@ -55,31 +67,24 @@
 													 name: IFCensusFinishedNotification
 												   object: nil];
 		
-		if ((int)[[NSApp delegate] isWebKitAvailable]) {
-			// Create the view for the documentation tab
-			wView = [[WebView alloc] init];
-			[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-			[wView setResourceLoadDelegate: self];
-			[wView setFrameLoadDelegate: self];
-			
-			[wView setFrame: [view bounds]];
-			[wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-			[view addSubview: wView];
-			
-            NSURL* url = [NSURL URLWithString: @"inform://Extensions/Extensions.html"];
-            NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
-			[[wView mainFrame] loadRequest: urlRequest];
-            [urlRequest release];
-		} else {
-			wView = nil;
-		}		
-		
-		if ([[NSApp delegate] isWebKitAvailable]) {
-			[wView setPolicyDelegate: [parent extensionsPolicy]];
-			
-			[wView setUIDelegate: parent];
-			[wView setHostWindow: [parent window]];
-		}
+        // Create the view for the documentation tab
+        wView = [[WebView alloc] init];
+        [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+        [wView setResourceLoadDelegate: self];
+        [wView setFrameLoadDelegate: self];
+        
+        [wView setFrame: [self.view bounds]];
+        [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+        [self.view addSubview: wView];
+        
+        NSURL* url = [NSURL URLWithString: @"inform://Extensions/Extensions.html"];
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+        [[wView mainFrame] loadRequest: urlRequest];
+
+        [wView setPolicyDelegate: (id<WebPolicyDelegate>)[self.parent extensionsPolicy]];
+        
+        [wView setUIDelegate: (id<WebUIDelegate>)self.parent];
+        [wView setHostWindow: [self.parent window]];
 	}
 
 	return self;
@@ -88,14 +93,9 @@
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	[wView release];
     wView = nil;
 	
-	[homeCell release];
-    [definitionsCell release];
-    [publicLibraryCell release];
     
-	[super dealloc];
 }
 
 // = Details about this view =
@@ -125,7 +125,7 @@
 - (void) openURL: (NSURL*) url  {
 	[self switchToPage];
 	
-	[[wView mainFrame] loadRequest: [[[NSURLRequest alloc] initWithURL: url] autorelease]];
+	[[wView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 }
 
 - (void) openURLWithString: (NSString*) urlString {
@@ -136,10 +136,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [[tabDictionary objectForKey:key] setState:NSOnState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSOnState];
         }
         else {
-            [[tabDictionary objectForKey:key] setState:NSOffState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSOffState];
         }
     }
 }
@@ -161,7 +161,7 @@
 				   resource:(id)identifier 
 	didFailLoadingWithError:(NSError *)error 
 			 fromDataSource:(WebDataSource *)dataSource {
-    NSString *urlString = [error.userInfo objectForKey:@"NSErrorFailingURLStringKey"];
+    NSString *urlString = (error.userInfo)[@"NSErrorFailingURLStringKey"];
 
     if (error.code == NSURLErrorCancelled) {
         //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
@@ -185,7 +185,7 @@
         wds = [frame dataSource];
     }
     url = [[wds request] URL];
-    url = [[url copy] autorelease];
+    url = [url copy];
 
     // Highlight appropriate tab
     [self highlightTabForURL:[url absoluteString]];
@@ -215,7 +215,7 @@
         NSURLResponse* response = [wds response];
         if( [response isKindOfClass:[NSHTTPURLResponse class]] ) {
             NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*) response;
-            int statusCode = [httpResponse statusCode];
+            NSInteger statusCode = [httpResponse statusCode];
             if( statusCode >= 400 ) {
                 [frame stopLoading];
 
@@ -234,12 +234,12 @@
 - (void)        webView: (WebView *) sender
    didClearWindowObject: (WebScriptObject *) windowObject
                forFrame: (WebFrame *) frame {
-	if (otherPane) {
+	if (self.otherPane) {
 		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: otherPane];
+		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
 		
 		// Attach it to the script object
-		[[sender windowScriptObject] setValue: [js autorelease]
+		[[sender windowScriptObject] setValue: js
 									   forKey: @"Project"];
 	}
 }
@@ -263,12 +263,12 @@
 // = Page bar cells =
 
 - (NSArray*) toolbarCells {
-	return [NSArray arrayWithObjects: publicLibraryCell, definitionsCell, homeCell, nil];
+	return @[publicLibraryCell, definitionsCell, homeCell];
 }
 
 -(NSString*) urlStringForCell:(IFPageBarCell*) cell {
     for (NSString* key in tabDictionary) {
-        if( [tabDictionary objectForKey:key] == cell ) {
+        if( tabDictionary[key] == cell ) {
             return key;
         }
     }

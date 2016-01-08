@@ -11,7 +11,7 @@
 
 @implementation IFToolbarProgressIndicator
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if( self ) {
         // Use core animation, so we get to draw everything (including the current progress) in drawRect.

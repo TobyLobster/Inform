@@ -7,27 +7,25 @@
 //
 
 #import "IFInspector.h"
+#import "IFInspectorWindow.h"
 
+@implementation IFInspector {
+    IBOutlet NSView* inspectorView;								// The view that contains the inspector
+    NSString* title;											// The title of this inspector
+    IFInspectorWindow* inspectorWin;							// The window controller that contains this inspector
+}
 
-@implementation IFInspector
-
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
-		title = [@"Untitled inspector" retain];
+		title = @"Untitled inspector";
 		inspectorView = nil;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	if (inspectorView) [inspectorView release];
-	[title release];
-	
-	[super dealloc];
-}
 
 // = Titles =
 
@@ -52,8 +50,7 @@
 
 // = Inspector view =
 - (void) setInspectorView: (NSView*) view {
-	if (inspectorView) [inspectorView release];
-	inspectorView = [view retain];
+	inspectorView = view;
 }
 
 - (NSView*) inspectorView {

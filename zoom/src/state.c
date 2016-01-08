@@ -78,7 +78,7 @@ static inline void push(ZStack* stack, const ZWord word)
   
   if (stack->stack_size <= 0)
     {
-      int stack_offset = stack->stack_top - stack->stack;
+      int stack_offset = (int) (stack->stack_top - stack->stack);
     
       stack->stack_total += 2048;
       if (!(stack->stack = realloc(stack->stack,
@@ -370,8 +370,8 @@ ZByte* state_compile(ZStack* stack, ZDWord pc, ZDWord* len, int compress)
       sprintf(anno, "Version %i game, saved from Zoom version "
 	      VERSION " @%s", version, ctime(&now));
     }
-  wdword(strlen(anno), &state);
-  wblock(anno, strlen(anno), &state);
+  wdword((int) strlen(anno), &state);
+  wblock(anno, (int) strlen(anno), &state);
   if (strlen(anno)&1)
     wbyte(0, &state);
   

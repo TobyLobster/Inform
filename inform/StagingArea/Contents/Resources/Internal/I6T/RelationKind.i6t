@@ -328,12 +328,11 @@ been added yet.
 @c
 [ RELATION_TY_SetValency rel val  kov filled cur handler ext;
 	filled = BlkValueRead(rel, RRV_FILLED);
-	if (filled) { print "*** Illegal valency change ***^"; rfalse; }
+	if (filled) { RunTimeProblem(RTP_RELATIONCHANGEIMPOSSIBLE); rfalse; }
 	kov = BlkValueRead(rel, RRV_KIND);
 	if (val == RRVAL_EQUIV or RRVAL_SYM_V_TO_V or RRVAL_SYM_O_TO_O) {
 		if (KindBaseTerm(kov, 0) ~= KindBaseTerm(kov, 1)) {
-			print "*** Relation cannot be made symmetric ***^";
-			rfalse;
+			RunTimeProblem(RTP_RELATIONCHANGEIMPOSSIBLE); rfalse;
 		}
 	}
 	cur = BlkValueRead(rel, RRV_HANDLER);
@@ -345,7 +344,7 @@ been added yet.
 		RRVAL_EQUIV:		handler = EquivHashTableRelationHandler;
 		RRVAL_SYM_V_TO_V:	handler = ChooseRelationHandler(kov, true);
 		RRVAL_SYM_O_TO_O:	handler = Sym2in1HashTableRelationHandler;
-		default:		print "*** Illegal valency value ***^"; rfalse;
+		default:			RunTimeProblem(RTP_RELATIONCHANGEIMPOSSIBLE); rfalse;
 	}
 	if (cur == handler) rtrue;
 	! adjust size when going to or from 2-in-1
@@ -1115,14 +1114,14 @@ the existing pair $(X, Y)$.
 	mask = BlkValueRead(rel, RRV_STORAGE);
 	i = hashv & mask;
 !print "hv=", hashv, ", trying ", i;
-	if (HashCoreEntryMatches(rel, i, kx, X)) {
-!print " - found]^";
-		return i;
-	}
 	flags = BlkValueRead(rel, RRV_DATA_BASE + 3*i);
 	if (flags == 0) {
 !print " - not found]^";
 		return ~i;
+	}
+	if (HashCoreEntryMatches(rel, i, kx, X)) {
+!print " - found]^";
+		return i;
 	}
 	! not here, keep looking in sequence
 	free = -1;

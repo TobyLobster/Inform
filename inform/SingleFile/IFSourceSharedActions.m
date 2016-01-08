@@ -24,20 +24,15 @@
 
 // == Initialistion ==
 
-- (id) init {
+- (instancetype) init {
     self = [super init];
 
     if (self) {
-        // TODO
     }
 
     return self;
 }
 
-- (void) dealloc {
-    // TODO
-    [super dealloc];
-}
 
 // == View selection functions ==
 
@@ -62,15 +57,7 @@
 	// Tab string to insert
 	NSString* tabs = nil;
 	if (tabStops > 0) {
-		unichar chr[tabStops+1];
-		
-		for (x=0; x<tabStops; x++) {
-			chr[x] = '\t';
-		}
-		chr[x] = 0;
-		
-		tabs = [NSString stringWithCharacters: chr
-									   length: tabStops];
+        tabs = [@"" stringByPaddingToLength:tabStops withString: @"\t" startingAtIndex:0];
 	}
 	
 	// Shift each line in turn
@@ -201,10 +188,6 @@
 	NSUndoManager* undo = [document undoManager];
 	
 	// Renumber each section stored in the intelligence data
-	// This is pretty inefficient at the moment, but it's 'unlikely' that this will ever be a problem in sensible
-	// files. (Note O(n^2) semantics, due to inefficiency in lineForSymbol:)
-	// If we're being pedantic, I guess we have a problem with files with more than 2147483647 symbols too.
-	// If you're writing IF that big, then, er, wow. Fixing this should be no problem for you.
 	IFIntelFile*   intel   = [IFSyntaxManager intelligenceDataForStorage: storage];
 	IFIntelSymbol* section = [intel firstSymbol];
 
@@ -216,59 +199,54 @@
 	
 	while (section != nil) {
 		if ([section level] > 0) {
-			int lineNumber = [intel lineForSymbol: section];
+			NSUInteger lineNumber = [intel lineForSymbol: section];
 			
 			IFIntelSymbol* lastSection = [section previousSibling];
-			int lastLineNumber = [intel lineForSymbol: lastSection];
+			NSUInteger lastLineNumber = [intel lineForSymbol: lastSection];
 
-			[linesToRenumber addObject: [NSArray arrayWithObjects: [NSNumber numberWithInt: lineNumber], [NSNumber numberWithInt: lastLineNumber], nil]];
+			[linesToRenumber addObject: @[@(lineNumber), @(lastLineNumber)]];
 		}
 		
 		section = [section nextSymbol];
 	}
 
 	// Renumber these lines
-	// Note that if these operations were concatenated, we'd have a bug as the intelligence would sometimes delete symbols
+	// Note that if these operations were concatenated, we'd have a bug as
+    // the intelligence would sometimes delete symbols
 	for( NSArray* lineInfo in linesToRenumber ) {
-		int lineNumber = [[lineInfo objectAtIndex: 0] intValue];
+		int lineNumber = [lineInfo[0] intValue];
 		NSString* sectionLine = [IFSyntaxManager textForLineWithStorage: storage lineNumber: lineNumber];
 		NSArray*  words = [sectionLine componentsSeparatedByString: @" "];
 		
-		int sectionNumber = [words count]>1?[[words objectAtIndex: 1] intValue]:0;
+		int sectionNumber = [words count]>1 ? [words[1] intValue] : 0;
 		
 		if (sectionNumber > 0) {
 			// This looks like something we can renumber... Get the preceding number
-			int lastLineNumber = [[lineInfo objectAtIndex: 1] intValue];
+			int lastLineNumber = [lineInfo[1] intValue];
 			NSArray* lastWords = [[IFSyntaxManager textForLineWithStorage: storage lineNumber: lastLineNumber] componentsSeparatedByString: @" "];
 
-			int lastSectionNumber = [lastWords count]>1?[[lastWords objectAtIndex: 1] intValue]:0;
+			int lastSectionNumber = [lastWords count]>1?[lastWords[1] intValue]:0;
 			
 			if (lastSectionNumber >= 0 && lastSectionNumber+1 != sectionNumber) {
 				// This section needs renumbering
-				NSMutableArray* newWords = [words mutableCopy];			// Spoons!
-				
+				NSMutableArray* newWords = [words mutableCopy];
+
 				if ([newWords count] == 2) {
 					// Must be followed by a newline
-					[newWords replaceObjectAtIndex: 1
-										withObject: [NSString stringWithFormat: @"%i\n", lastSectionNumber+1]];
+					newWords[1] = [NSString stringWithFormat: @"%i\n", lastSectionNumber+1];
 				} else {
 					// Must not be followed by a newline
-					[newWords replaceObjectAtIndex: 1
-										withObject: [NSString stringWithFormat: @"%i", lastSectionNumber+1]];
+					newWords[1] = [NSString stringWithFormat: @"%i", lastSectionNumber+1];
 				}
-				
+
 				// OK, replace the text
 				[IFSyntaxManager replaceLineWithStorage: storage
                                              lineNumber: lineNumber
                                                withLine: [newWords componentsJoinedByString: @" "]];
-
-				[newWords release];
 			}
 		}
 	}
-	
-	[linesToRenumber release];
-	
+
 	[storage endEditing];
 	[undo endUndoGrouping];
 }

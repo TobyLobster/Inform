@@ -12,14 +12,21 @@
 #import "IFCollapsableView.h"
 
 
-@implementation IFCollapsableView
+@implementation IFCollapsableView {
+    NSMutableArray* views;						// Views to display
+    NSMutableArray* titles;						// Titles of views to display (one-to-one mapping with views)
+    NSMutableArray* states;						// Booleans, indicating if each view is shown or not. (UNUSED)
+
+    BOOL rearranging;							// YES if a rearrangement is in progress
+    BOOL reiterate;								// Set to YES to stop resizing that occurs while rearranging from causing infinite recursion (delays resizes if YES). Useful if we have, for example, auto-hiding scrollbars
+}
 
 #define BORDER 8.0
 #define FONTSIZE 13.0
 
 // = Init/housekeeping =
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		views = [[NSMutableArray alloc] init];
@@ -32,13 +39,9 @@
 }
 
 - (void) dealloc {
-	[views release];
-	[titles release];
-	[states release];
 
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 
-	[super dealloc];
 }
 
 // = Drawing =
@@ -49,10 +52,8 @@
 - (void)drawRect:(NSRect)rect {
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
 	NSDictionary* titleAttributes = 
-		[NSDictionary dictionaryWithObjectsAndKeys: 
-			titleFont, NSFontAttributeName,
-			[NSColor blackColor], NSForegroundColorAttributeName,
-			nil];
+		@{NSFontAttributeName: titleFont,
+			NSForegroundColorAttributeName: [NSColor blackColor]};
 	
 	// Draw the titles and frames
 	NSColor* frameColour = [NSColor colorWithDeviceRed: 0.5
@@ -63,15 +64,15 @@
     // Calculate the maximum width of all subviews
     int maxWidth = 0;
 	for (int x=0; x<[views count]; x++) {
-		NSView* thisView = [views objectAtIndex: x];
+		NSView* thisView = views[x];
 		NSRect thisFrame = [thisView frame];
         
         maxWidth = MAX(maxWidth, (int) thisFrame.size.width);
     }
 
 	for (int x=0; x<[views count]; x++) {
-		NSView* thisView = [views objectAtIndex: x];
-		NSString* thisTitle = [titles objectAtIndex: x];
+		NSView* thisView = views[x];
+		NSString* thisTitle = titles[x];
 		//BOOL visible = [[states objectAtIndex: x] boolValue];
 		
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
@@ -115,7 +116,7 @@
 		  withTitle: (NSString*) title {
 	[views addObject: subview];
 	[titles addObject: title];
-	[states addObject: [NSNumber numberWithBool: YES]];
+	[states addObject: @YES];
 	
     [self addSubview: subview];
     [subview setAutoresizingMask: (NSUInteger) (NSViewMaxYMargin | NSViewMaxXMargin)];

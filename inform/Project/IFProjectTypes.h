@@ -10,30 +10,50 @@
 #import "IFNaturalIntel.h"
 
 extern NSString* IFProjectFilesChangedNotification;
-extern NSString* IFProjectWatchExpressionsChangedNotification;
 extern NSString* IFProjectBreakpointsChangedNotification;
 extern NSString* IFProjectSourceFileRenamedNotification;
-extern NSString* IFProjectSourceFileDeletedNotification;
-extern NSString* IFProjectStartedBuildingSyntaxNotification;
-extern NSString* IFProjectFinishedBuildingSyntaxNotification;
 
-typedef enum {
+typedef NS_ENUM(unsigned int, IFInformVersion) {
     IFInformVersion6,
     IFInformVersion7,
     IFInformVersionUnknown
-} IFInformVersion;
+};
 
-typedef enum {
+typedef NS_ENUM(unsigned int, IFFileType) {
     IFFileTypeUnknown,
     
     IFFileTypeInform7Project,
+    IFFileTypeInform7ExtensionProject,
     IFFileTypeInform7SourceFile,
     IFFileTypeInform7ExtensionFile,
     
     IFFileTypeInform6ExtensionProject,
     IFFileTypeInform6SourceFile,
     IFFileTypeInform6ICLFile,
-} IFFileType;
+};
+
+typedef NS_ENUM(unsigned int, IFLineStyle) {
+    IFLineStyleNeutral = 0,
+
+    // Temporary highlights
+    IFLineStyle_Temporary = 1,  // Dummy style
+
+    IFLineStyleWarning = 1,     // Temp highlight
+    IFLineStyleError,           // Temp highlight
+    IFLineStyleFatalError,      // Temp highlight
+    IFLineStyleHighlight,
+
+    IFLineStyle_LastTemporary,
+
+    // 'Permanent highlights'
+    IFLineStyle_Permanent = 0xfff, // Dummy style
+
+    // Debugging
+    IFLineStyleBreakpoint,
+    IFLineStyleExecutionPoint
+};
+
+
 
 @interface IFProjectTypes : NSObject  {
 }
@@ -41,7 +61,7 @@ typedef enum {
 +(NSStringEncoding) encodingForFilename: (NSString*) filename;
 +(IFInformVersion) informVersionForFilename: (NSString*) filename;
 +(IFHighlightType) highlighterTypeForFilename: (NSString*) filename;
-+ (id<IFSyntaxIntelligence,NSObject>) intelligenceForFilename: (NSString*) filename;
++ (NSObject<IFSyntaxIntelligence> *) intelligenceForFilename: (NSString*) filename;
 
 +(IFFileType) fileTypeFromString: (NSString*) typeName;
 

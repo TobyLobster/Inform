@@ -8,10 +8,15 @@
 
 #import "IFMiscSettings.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
-@implementation IFMiscSettings
+@implementation IFMiscSettings {
+    IBOutlet NSButton* strictMode;
+    IBOutlet NSButton* infixMode;
+    IBOutlet NSButton* debugMode;
+}
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithNibName: @"MiscSettings"];
 }
 
@@ -29,8 +34,7 @@
 	if ([[self compilerSettings] usingNaturalInform]) {
 		[infixMode setEnabled: NO];
 		[infixMode setState: NSOffState];
-		[[self dictionary] setObject: [NSNumber numberWithBool: NO]
-							  forKey: IFSettingInfix];
+		[self dictionary][IFSettingInfix] = @NO;
 	} else {
 		[infixMode setEnabled: YES];
 	}
@@ -45,13 +49,12 @@
 // = The settings =
 
 - (void) setStrict: (BOOL) setting {
-    [[self dictionary] setObject: [NSNumber numberWithBool: setting]
-						  forKey: IFSettingStrict];
+    [self dictionary][IFSettingStrict] = @(setting);
     [self settingsHaveChanged: self];
 }
 
 - (BOOL) strict {
-    NSNumber* setting = [[self dictionary] objectForKey: IFSettingStrict];
+    NSNumber* setting = [self dictionary][IFSettingStrict];
 	
     if (setting) {
         return [setting boolValue];
@@ -61,13 +64,12 @@
 }
 
 - (void) setInfix: (BOOL) setting {
-    [[self dictionary] setObject: [NSNumber numberWithBool: setting]
-						  forKey: IFSettingInfix];
+    [self dictionary][IFSettingInfix] = @(setting);
     [self settingsHaveChanged: self];
 }
 
 - (BOOL) infix {
-    NSNumber* setting = [[self dictionary] objectForKey: IFSettingInfix];
+    NSNumber* setting = [self dictionary][IFSettingInfix];
 	
     if (setting) {
         return [setting boolValue];
@@ -77,13 +79,12 @@
 }
 
 - (void) setDebug: (BOOL) setting {
-    [[self dictionary] setObject: [NSNumber numberWithBool: setting]
-						  forKey: IFSettingDEBUG];
+    [self dictionary][IFSettingDEBUG] = @(setting);
     [self settingsHaveChanged: self];
 }
 
 - (BOOL) debug {
-    NSNumber* setting = [[self dictionary] objectForKey: IFSettingDEBUG];
+    NSNumber* setting = [self dictionary][IFSettingDEBUG];
 	
     if (setting) {
         return [setting boolValue];

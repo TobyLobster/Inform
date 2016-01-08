@@ -13,27 +13,14 @@
 
 @class ZoomView;
 @class ZoomUpperWindowView;
-@interface ZoomScrollView : NSScrollView {
-    ZoomView*            zoomView;
-    ZoomUpperWindowView* upperView;
-        
-    NSBox* upperDivider;
-	
-	float scaleFactor;
-	
-	NSSize lastFixedSize;
-	NSSize lastTileSize;
-	int lastUpperSize;
-	
-	BOOL useDivider;
-}
+@interface ZoomScrollView : NSScrollView
 
-- (id) initWithFrame: (NSRect) frame
+- (instancetype) initWithFrame: (NSRect) frame
             zoomView: (ZoomView*) zView;
 
 - (void) setScaleFactor: (float) factor;
 - (void) updateUpperWindows;
-- (ZoomUpperWindowView*) upperWindowView;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomUpperWindowView *upperWindowView;
 
 - (BOOL) setUseUpperDivider: (BOOL) useDivider;
 

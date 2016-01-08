@@ -33,7 +33,7 @@ ZFile* open_file(char* filename) {
     NSLog(@"Warning: open_file with filename '%s' called", filename);
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: [NSString stringWithCString: filename]];
+    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: @(filename)];
 
     if (handle == nil) {
         return NULL;
@@ -52,7 +52,7 @@ ZFile* open_file_write(char* filename) {
     NSLog(@"Warning: open_file_write with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForWritingAtPath: [NSString stringWithCString: filename]];
+    NSFileHandle* handle = [NSFileHandle fileHandleForWritingAtPath: @(filename)];
 
     if (handle == nil) {
         return NULL;
@@ -134,8 +134,8 @@ void write_dword(ZFile* file, ZDWord word) {
 }
 
 ZDWord get_file_size(char* filename) { 
-	return [[[[NSFileManager defaultManager] fileAttributesAtPath: [NSString stringWithCString: filename]
-													 traverseLink: YES] objectForKey: NSFileSize]
+	return [[[NSFileManager defaultManager] fileAttributesAtPath: @(filename)
+													 traverseLink: YES][NSFileSize]
 		intValue];
     return 0;
 }

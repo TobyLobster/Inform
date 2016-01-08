@@ -530,8 +530,23 @@ fairly thorough description of its output, which is written into the
 Get the input, do OOPS and AGAIN.
 
 @c
-    if (held_back_mode == 1) {
-        held_back_mode = 0;
+    if (held_back_mode) {
+        held_back_mode = false; wn = hb_wn;
+        if (verb_wordnum > 0) i = WordAddress(verb_wordnum); else i = WordAddress(1);
+        j = WordAddress(wn);
+        if (i<=j) for (: i<j : i++) i->0 = ' ';
+        i = NextWord();
+        if (i == AGAIN1__WD or AGAIN2__WD or AGAIN3__WD) {
+            ! Delete the words "then again" from the again buffer,
+            ! in which we have just realised that it must occur:
+            ! prevents an infinite loop on "i. again"
+
+            i = WordAddress(wn-2)-buffer;
+            if (wn > num_words) j = INPUT_BUFFER_LEN-1;
+            else j = WordAddress(wn)-buffer;
+            for (: i<j : i++) buffer3->i = ' ';
+        }
+
         VM_Tokenise(buffer, parse);
         jump ReParse;
     }
@@ -808,10 +823,8 @@ Get the verb: try all the syntax lines for that verb.
 @c
 	.NotConversation;
 	if (verb_word == 0 || ((verb_word->#dict_par1) & 1) == 0) {
-		if (actor == player) {
-			verb_word = UnknownVerb(verb_word);
-			if (verb_word ~= 0) jump VerbAccepted;
-		}
+		verb_word = UnknownVerb(verb_word);
+		if (verb_word ~= 0) jump VerbAccepted;
 		best_etype = VERB_PE;
 		jump GiveError;
 	}
@@ -1134,9 +1147,8 @@ so that it may be reprinted by the parser later on.
                 if (wn <= num_words) {
                     l = NextWord();
                     if (l == THEN1__WD or THEN2__WD or THEN3__WD or comma_word) {
-                        held_back_mode = 1; hb_wn = wn-1;
-                    }
-                    else {
+                        held_back_mode = true; hb_wn = wn-1;
+                    } else {
                         for (m=0 : m<32 : m++) pattern2-->m = pattern-->m;
                         pcount2 = pcount;
                         etype = UPTO_PE;
@@ -1218,7 +1230,7 @@ so that it may be reprinted by the parser later on.
                 ! ...and return from the parser altogether, having successfully matched
                 ! a line.
 
-                if (held_back_mode == 1) {
+                if (held_back_mode) {
                     wn=hb_wn;
                     jump LookForMore;
                 }
@@ -1392,23 +1404,9 @@ Last thing: check for THEN and further instructions(s), return.
            held_back_mode = false;
            return;
         }
-        if (verb_wordnum > 0) i = WordAddress(verb_wordnum); else i = WordAddress(1);
-        j = WordAddress(wn);
-        if (i<=j) for (: i<j : i++) i->0 = ' ';
-        i = NextWord();
-        if (i == AGAIN1__WD or AGAIN2__WD or AGAIN3__WD) {
-            ! Delete the words "then again" from the again buffer,
-            ! in which we have just realised that it must occur:
-            ! prevents an infinite loop on "i. again"
-
-            i = WordAddress(wn-2)-buffer;
-            if (wn > num_words) j = INPUT_BUFFER_LEN-1;
-            else j = WordAddress(wn)-buffer;
-            for (: i<j : i++) buffer3->i = ' ';
-        }
-        VM_Tokenise(buffer,parse);
+        hb_wn = wn;
         held_back_mode = true;
-        return;
+       return;
     }
     best_etype = UPTO_PE;
     jump GiveError;
@@ -1741,7 +1739,7 @@ Parse an object name.
                 wn = desc_wn;
                 jump TryAgain2;
             }
-            if (etype == MULTI_PE or TOOFEW_PE && multiflag) etype = STUCK_PE;
+            if (etype == MULTI_PE && multiflag) etype = STUCK_PE;
             etype=CantSee();
             jump FailToken;
         } ! Choose best error
@@ -2378,7 +2376,7 @@ because we want to allow duplicates).
 	for (i=1 : i<=answer_words : i++)
 		if (WordFrom(i, parse2) == comma_word) {
 			VM_CopyBuffer(buffer, buffer2);
-			return REPARSE_CODE;
+			jump RECONSTRUCT_INPUT;
 		}
 
     first_word=(parse2-->1);
@@ -2395,7 +2393,7 @@ because we want to allow duplicates).
         j = first_word->#dict_par1;
         if ((0 ~= j&1) && ~~LanguageVerbMayBeName(first_word)) {
             VM_CopyBuffer(buffer, buffer2);
-            return REPARSE_CODE;
+            jump RECONSTRUCT_INPUT;
         }
     }
 
@@ -2491,7 +2489,7 @@ because we want to allow duplicates).
     for (: i<INPUT_BUFFER_LEN : i++) buffer->i = ' ';
     #Endif; ! TARGET_ZCODE
 
-    return REPARSE_CODE;
+    jump RECONSTRUCT_INPUT;
 
 ]; ! end of NounDomain
 
@@ -2629,9 +2627,7 @@ routines to clear up this mess, so we can't economise on working them out).
             flag = 0;
             BeginActivity(DECIDING_WHETHER_ALL_INC_ACT, j);
             if ((ForActivity(DECIDING_WHETHER_ALL_INC_ACT, j)) == 0) {
-
                 if (j hasnt concealed && j hasnt worn) flag = 1;
-            
                 if (context == MULTIHELD_TOKEN or MULTIEXCEPT_TOKEN && parent(j) ~= actor)
                     flag = 0;
 
@@ -2664,6 +2660,7 @@ routines to clear up this mess, so we can't economise on working them out).
         }
         if (i < indef_wanted && indef_wanted < INDEF_ALL_WANTED) {
             etype = TOOFEW_PE; multi_wanted = indef_wanted;
+			 if (parser_trace >= 4) print "Too few found^";
             multi_had=i;
             return -1;
         }
@@ -3842,16 +3839,16 @@ Manual}, 4th edition.
 [ YesOrNo i j;
     for (::) {
         #Ifdef TARGET_ZCODE;
-        if (location == nothing || parent(player) == nothing) read buffer parse;
-        else read buffer parse DrawStatusLine;
-        j = parse->1;
+        if (location == nothing || parent(player) == nothing) read buffer2 parse2;
+        else read buffer2 parse2 DrawStatusLine;
+        j = parse2->1;
         #Ifnot; ! TARGET_GLULX;
         if (location ~= nothing && parent(player) ~= nothing) DrawStatusLine();
-        KeyboardPrimitive(buffer, parse);
-        j = parse-->0;
+        KeyboardPrimitive(buffer2, parse2);
+        j = parse2-->0;
         #Endif; ! TARGET_
         if (j) { ! at least one word entered
-            i = parse-->1;
+            i = parse2-->1;
             if (i == YES1__WD or YES2__WD or YES3__WD) rtrue;
             if (i == NO1__WD or NO2__WD or NO3__WD) rfalse;
         }

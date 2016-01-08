@@ -38,8 +38,6 @@ typedef union IFInform6State IFInform6State;
 // A syntax highlighter for Inform 6 files
 // (based on the Inform technical manual)
 //
-@interface IFInform6Highlighter : NSObject<IFSyntaxHighlighter> {
-	IFSyntaxData* activeData;
-}
+@interface IFInform6Highlighter : NSObject<IFSyntaxHighlighter>
 
 @end

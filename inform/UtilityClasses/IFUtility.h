@@ -6,17 +6,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "NSString+IFStringExtensions.h"
 
-@interface IFUtility : NSObject {
-}
+#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
+#define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
+
+float lerp(float progress, float from, float to);
+float smoothstep(float t);
+float easeOutQuad(float t);
+float easeOutCubic(float t);
+
+@interface IFUtility : NSObject
+
+// Unique identifier
++ (unsigned long) generateID;
 
 // String
 + (bool) safeString:(NSString*) string1 insensitivelyEqualsSafeString:(NSString*) string2;
-
-// URLs
 + (bool) url:(NSURL*) url1 equals:(NSURL*) url2;
-
-// Localization
 + (NSString*) localizedString:(NSString*) key;
 + (NSString*) localizedString: (NSString*) key
                       default: (NSString*) value;
@@ -47,6 +54,10 @@
                  contextInfo: (void *) contextInfo
                      message: (NSString*) formatString, ...;
 
+// Save transcript (handles save dialog)
++(void) saveTranscriptPanelWithString: (NSString*) string
+                               window: (NSWindow*) window;
+
 // Sandboxing
 + (BOOL) isSandboxed;
 
@@ -66,5 +77,24 @@
 + (NSString*) pathForInformInternalExtensions;          // Path to the internal Inform 7 extensions
 + (NSString*) pathForInformInternalLibraries;           // Path to the internal Inform 7 libraries
 + (NSString*) pathForInformInternalDocumentation;       // Path to the internal Inform 7 documentation
+
++ (NSURL*) temporaryDirectoryURL;
+
+// Decode the "source:" URL scheme link
++ (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
+
+// Decode the "skein:" URL scheme link
++ (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
+
+// OS version checking
++ (BOOL) hasFullscreenSupportFeature;
++ (BOOL) hasScrollElasticityFeature;
++ (BOOL) hasUpdatedToolbarFeature;
+
++ (void) performSelector:(SEL) selector object:(id) object;
+
+// Attributes for NSAttributedString
++(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
+                                     size: (float) fontSize;
 
 @end

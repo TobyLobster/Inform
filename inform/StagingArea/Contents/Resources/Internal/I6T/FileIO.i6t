@@ -248,6 +248,9 @@ asterisk or hyphen into the initial character as needed.
 ];
 
 @p Close File.
+Note that a call to the following, in write mode, must be followed by a
+|glk_stream_set_current()|, or else the next print statement will run into
+Glk errors.
 
 @c
 [ FileIO_Close extf  struc;
@@ -259,12 +262,6 @@ asterisk or hyphen into the initial character as needed.
 		AUXF_STATUS_IS_OPEN_FOR_WRITE or
 		AUXF_STATUS_IS_OPEN_FOR_APPEND)
 		return FileIO_Error(extf, "tried to close a file which is not open");
-	if ((struc-->AUXF_BINARY == false) &&
-		(struc-->AUXF_STATUS ==
-		AUXF_STATUS_IS_OPEN_FOR_WRITE or
-		AUXF_STATUS_IS_OPEN_FOR_APPEND)) {
-		glk_set_window(gg_mainwin);
-	}
 	if (struc-->AUXF_STATUS ==
 		AUXF_STATUS_IS_OPEN_FOR_WRITE or
 		AUXF_STATUS_IS_OPEN_FOR_APPEND) {
@@ -343,18 +340,20 @@ either as the whole file (if |append_flag| is false) or adding only to the
 end (if true).
 
 @c
-[ FileIO_PutContents extf text append_flag  struc str ch;
+[ FileIO_PutContents extf text append_flag  struc str ch oldstream;
 	if ((extf < 1) || (extf > NO_EXTERNAL_FILES))
 		return FileIO_Error(extf, "tried to access a non-file");
 	struc = TableOfExternalFiles-->extf;
 	if (struc-->AUXF_BINARY)
 		return FileIO_Error(extf, "writing text will not work with binary files");
+	oldstream = glk_stream_get_current();
 	str = FileIO_Open(extf, true, append_flag);
 	if (str == 0) rfalse;
 	@push say__p; @push say__pc;
 	ClearParagraphing(19);
 	TEXT_TY_Say(text);
 	FileIO_Close(extf);
+	if (oldstream) glk_stream_set_current(oldstream);
 	@pull say__pc; @pull say__p;
 	rfalse;
 ];
@@ -366,15 +365,17 @@ external file -- are Tables. Here we only carry out the file-handling; the
 actual translations are in "Tables.i6t".
 
 @c
-[ FileIO_PutTable extf tab rv  struc;
+[ FileIO_PutTable extf tab rv  struc oldstream;
 	if ((extf < 1) || (extf > NO_EXTERNAL_FILES))
 		return FileIO_Error(extf, "tried to write table to a non-file");
 	struc = TableOfExternalFiles-->extf;
 	if (struc-->AUXF_BINARY)
 		return FileIO_Error(extf, "writing a table will not work with binary files");
+	oldstream = glk_stream_get_current();
 	if (FileIO_Open(extf, true) == 0) rfalse;
 	rv = TablePrint(tab);
 	FileIO_Close(extf);
+	if (oldstream) glk_stream_set_current(oldstream);
 	if (rv) return RunTimeProblem(RTP_TABLE_CANTSAVE, tab);
 	rtrue;
 ];

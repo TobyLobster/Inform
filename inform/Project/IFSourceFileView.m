@@ -18,17 +18,21 @@ static NSImage* bottomTear		= nil;
 static NSImage* arrowNotPressed = nil;
 static NSImage* arrowPressed	= nil;
 
-@implementation IFSourceFileView
-
-- (void) loadImages {
-	if (!topTear)			topTear			= [[IFImageCache loadResourceImage: @"App/TornPages/torn_top.png"] retain];
-	if (!bottomTear)		bottomTear		= [[IFImageCache loadResourceImage: @"App/TornPages/torn_bottom.png"] retain];
-	
-	if (!arrowNotPressed)	arrowNotPressed = [[IFImageCache loadResourceImage: @"App/TornPages/TearArrow.png"] retain];
-	if (!arrowPressed)		arrowPressed	= [[IFImageCache loadResourceImage: @"App/TornPages/TearArrowPressed.png"] retain];
+@implementation IFSourceFileView {
+    BOOL tornAtTop;																// YES if we should draw a 'tear' at the top of the view
+    BOOL tornAtBottom;															// YES if we should draw a 'tear' at the bottom of the view
+    NSRect lastUsedRect;														// The last known 'used' rect (used to determine whether or not to update the bottom tear)
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (void) loadImages {
+	if (!topTear)			topTear			= [IFImageCache loadResourceImage: @"App/TornPages/torn_top.png"];
+	if (!bottomTear)		bottomTear		= [IFImageCache loadResourceImage: @"App/TornPages/torn_bottom.png"];
+	
+	if (!arrowNotPressed)	arrowNotPressed = [IFImageCache loadResourceImage: @"App/TornPages/TearArrow.png"];
+	if (!arrowPressed)		arrowPressed	= [IFImageCache loadResourceImage: @"App/TornPages/TearArrowPressed.png"];
+}
+
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		[self loadImages];
@@ -38,9 +42,6 @@ static NSImage* arrowPressed	= nil;
     return self;
 }
 
-- (void) dealloc {
-	[super dealloc];
-}
 
 - (void) keyDown: (NSEvent*) event {
 	IFProjectController* controller = [[self window] windowController];
@@ -49,7 +50,7 @@ static NSImage* arrowPressed	= nil;
 											 target: controller
 										   argument: nil
 											  order: 8
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 	}
 
 	[super keyDown: event];
@@ -67,9 +68,9 @@ static NSImage* arrowPressed	= nil;
 		NSPoint containerOrigin = [self textContainerOrigin];
 		NSPoint containerLocation = NSMakePoint(NSMinX(visibleRect)-containerOrigin.x, NSMinY(visibleRect)-containerOrigin.y);
 		
-		unsigned characterIndex = NSNotFound;
-		unsigned glyphIndex = [layout glyphIndexForPoint: containerLocation
-										 inTextContainer: [self textContainer]];
+		NSUInteger characterIndex = NSNotFound;
+		NSUInteger glyphIndex = [layout glyphIndexForPoint: containerLocation
+                                           inTextContainer: (NSTextContainer * __nonnull) [self textContainer]];
 		if (glyphIndex != NSNotFound) {
 			characterIndex = [layout characterIndexForGlyphAtIndex: glyphIndex];
 		}
@@ -202,11 +203,12 @@ static NSImage* arrowPressed	= nil;
 		NSSize tornSize = [topTear size];
 		
 		// Draw the tear
-		[topTear setFlipped: YES];
 		[topTear drawInRect: NSMakeRect(NSMinX(bounds), NSMinY(bounds), bounds.size.width, tornSize.height)
 				   fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
 				  operation: NSCompositeSourceOver
-				   fraction: 1.0];
+				   fraction: 1.0
+             respectFlipped: YES
+                      hints: nil];
 		
 		// Draw the 'up' arrow
 		NSImage* arrow = arrowNotPressed;
@@ -217,11 +219,12 @@ static NSImage* arrowPressed	= nil;
                                       floorf(NSMinY(bounds) + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
-		[arrow setFlipped: YES];
 		[arrow drawInRect: upRect
 				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
 				operation: NSCompositeSourceOver
-				 fraction: 1.0];
+                 fraction: 1.0
+           respectFlipped: YES
+                    hints: nil];
 	}
 	if (tornAtBottom) {
 		NSSize tornSize = [bottomTear size];
@@ -237,12 +240,13 @@ static NSImage* arrowPressed	= nil;
                               bounds.size.height - (origin.y + containerSize.height + tornSize.height)));
 		
 		// Draw the tear
-		[bottomTear setFlipped: YES];
 		[bottomTear drawInRect: NSMakeRect(NSMinX(bounds), origin.y + containerSize.height, bounds.size.width, tornSize.height)
 					  fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
 					 operation: NSCompositeSourceOver
-					  fraction: 1.0];
-		
+                      fraction: 1.0
+                respectFlipped: YES
+                         hints: nil];
+
 		// Draw the 'down' arrow
 		NSImage* arrow = arrowNotPressed;
 		NSSize upSize = [arrowNotPressed size];
@@ -252,11 +256,12 @@ static NSImage* arrowPressed	= nil;
                                       (origin.y + containerSize.height + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
-		[arrow setFlipped: NO];
 		[arrow drawInRect: upRect
 				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
 				operation: NSCompositeSourceOver
-				 fraction: 1.0];
+                 fraction: 1.0
+           respectFlipped: NO
+                    hints: nil];
 	}
 }
 

@@ -11,9 +11,9 @@
 
 @implementation ZoomUpperWindowView
 
-- (id)initWithFrame:(NSRect)frame
-           zoomView:(ZoomView*) view {
-    self = [super initWithFrame:frame];
+- (instancetype)initWithFrame: (NSRect)frame
+                     zoomView: (ZoomView*) view {
+    self = [super initWithFrame: frame];
     if (self) {
         zoomView = view;
 		
@@ -34,8 +34,7 @@
 
 - (void)drawRect:(NSRect)rect {
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
     
     NSEnumerator* upperEnum;
     int ypos = 0;
@@ -53,7 +52,7 @@
 
         // Work out how many to draw
         int maxY = [win length];
-        if (maxY > [lines count]) maxY = [lines count];
+        if (maxY > (int) [lines count]) maxY = (int) [lines count];
 
         // Fill in the background
         NSRect winRect = NSMakeRect(0,
@@ -65,7 +64,7 @@
         
         // Draw 'em
         for (y=0; y<maxY; y++) {
-            NSMutableAttributedString* line = [lines objectAtIndex: y];
+            NSMutableAttributedString* line = lines[y];
 
 			// Only draw the lines that we actually need to draw: keeps the processor usage down when
 			// flashing the cursor
@@ -103,8 +102,7 @@
 	NSPoint cp = [activeWindow cursorPosition];
 		
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
 	
 	return NSMakePoint(cp.x * fixedSize.width, cp.y * fixedSize.height);
 }
@@ -120,8 +118,7 @@
 	// Font size
 	NSFont* font = [zoomView fontWithStyle: ZFixedStyle];
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [zoomView fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
 	
 	// Get the cursor position
 	NSPoint cursorPos = [activeWindow cursorPosition];
@@ -192,7 +189,7 @@
 	[cursor positionAt: [self cursorPos]
 			  withFont: [zoomView fontWithStyle: ZFixedStyle]];
 	inputLinePos = [self cursorPos];
-	inputLinePos.y -= [[styleAttributes objectForKey: NSFontAttributeName] descender];
+	inputLinePos.y -= [styleAttributes[NSFontAttributeName] descender];
 	
 	if (!inputLine) {
 		inputLine = [[ZoomInputLine alloc] initWithCursor: cursor
@@ -260,10 +257,8 @@
 - (NSArray*) accessibilityAttributeNames {
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-								 NSAccessibilityRoleDescriptionAttribute,
-								 NSAccessibilityTitleAttribute,
-								 nil]];
+	[result addObjectsFromArray:@[NSAccessibilityRoleDescriptionAttribute,
+								 NSAccessibilityTitleAttribute]];
 	
 	return [result autorelease];
 }

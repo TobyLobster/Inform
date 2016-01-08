@@ -130,7 +130,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 	if (maxlen <= 0)
     {
 		maxlen += 512;
-		buf = realloc(buf, sizeof(int)*maxlen);
+		buf = realloc(buf, sizeof(unsigned int)*maxlen);
     }
 	
 	while (!fin)
@@ -150,7 +150,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 			if ((y+8) > maxlen)
 			{
 				maxlen += 1024;
-				buf = realloc(buf, sizeof(int)*maxlen);
+				buf = realloc(buf, sizeof(unsigned int)*maxlen);
 			}
 			
 			switch (abet)
@@ -264,7 +264,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						  while ((zlen+2) > maxlen)
 						  {
 							  maxlen += 1024;
-							  buf = realloc(buf, sizeof(int)*(maxlen));
+							  buf = realloc(buf, sizeof(unsigned int)*(maxlen));
 						  }
 						  
 						  for (z=0; abbrev[z] != 0; z++)
@@ -289,7 +289,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						while ((zlen+2) > maxlen)
 						{
 							maxlen+=1024;
-							buf = realloc(buf, sizeof(int)*(maxlen));
+							buf = realloc(buf, sizeof(unsigned int)*(maxlen));
 						}
 						
 						for (z=0; abbrev[z] != 0; z++)
@@ -348,7 +348,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 												if ((y+1) > maxlen)
 												{
 													maxlen += 1024;
-													buf = realloc(buf, sizeof(int)*maxlen);
+													buf = realloc(buf, sizeof(unsigned int)*maxlen);
 												}
 												
 												buf[y++] = (~((((unsigned)string[x])<<8)|((unsigned)string[x+1])))&0xffff;

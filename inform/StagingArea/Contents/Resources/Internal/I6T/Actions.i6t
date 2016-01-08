@@ -181,6 +181,7 @@ This is method (iv) in the summary above.
 Global converted_action_outcome = -1;
 [ GVS_Convert ac n s;
 	converted_action_outcome = BeginAction(ac, n, s);
+	if (converted_action_outcome == true) FollowRulebook( (+ after rules +), nothing, true );
 	rtrue;
 ];
 
@@ -346,6 +347,7 @@ more discussion of this.
 		Mstack_Create_Frame(ActionData-->(p1+AD_VARIABLES_CREATOR), frame_id);
 	}
 	if (ActionVariablesNotTypeSafe()) {
+		if (actor ~= player) { ACTION_PROCESSING_INTERNAL_RM('K'); new_line; }
 		if (frame_id ~= -1)
 			Mstack_Destroy_Frame(ActionData-->(p1+AD_VARIABLES_CREATOR), frame_id);
 		MStack_DestroyRBVars(ACTION_PROCESSING_RB);

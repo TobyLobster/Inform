@@ -74,7 +74,7 @@
 	[scrollView setAutohidesScrollers: NO];
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     
 	if (self) {
@@ -184,7 +184,7 @@
 	if (width < 0 || height < 0) 
 		totalSize = 0;
 	
-	int numSpaces = totalSize - [textStorage length];
+	int numSpaces = totalSize - (int) [textStorage length];
 	
 	if (numSpaces < 0) {
 		// Remove lines from the storage object
@@ -274,13 +274,15 @@
 		}
 		
 		int bufPos = xpos + ypos*width;
-		
+        if( bufPos < 0 )
+            break;
+
 		// Get the number of characters to draw
 		int amountToDraw = width - xpos;
 		if (bufPos + amountToDraw > [textStorage length]) {
-			amountToDraw = [textStorage length] - bufPos;
+			amountToDraw = (int) [textStorage length] - bufPos;
 		}
-		if (pos+amountToDraw > [string length]) amountToDraw = [string length]-pos;
+		if (pos+amountToDraw > (int) [string length]) amountToDraw = (int) [string length]-pos;
 		if (amountToDraw <= 0) break;
 		
 		// Draw the characters
@@ -308,9 +310,9 @@
 	NSPoint mousePos = [textView convertPoint: [event locationInWindow] 
 									 fromView: nil];
 		
-	int glyphPos = [[textView layoutManager] glyphIndexForPoint: mousePos
+	int glyphPos = (int) [[textView layoutManager] glyphIndexForPoint: mousePos
 												inTextContainer: [textView textContainer]];
-	int clickPos = [[textView layoutManager] characterIndexForGlyphAtIndex: glyphPos];
+	int clickPos = (int) [[textView layoutManager] characterIndexForGlyphAtIndex: glyphPos];
 	
 	int clickX = clickPos % width;
 	int clickY = clickPos / width;
@@ -365,8 +367,13 @@
 		return [[textStorage string] substringWithRange: NSMakeRange(startPos, lineInputLength)];
 	}
 	
-	return @"";	
+	return @"";
 }
+
+// Disable warning that [self textStorageDidProcessEditing: nil]; can't take a nil parameter,
+// since GlkTextWindow's textStorageDidProcessEditing function CAN take a nil parameter.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 - (void) requestLineInput {
 	if (!lineInput) {
@@ -402,7 +409,7 @@
 		
 		[string replaceCharactersInRange: NSMakeRange(startPos, [nextInputLine length])
 							  withString: nextInputLine];
-		lineInputLength = [nextInputLine length];
+		lineInputLength = (int) [nextInputLine length];
 	}
 	
 	[[self window] invalidateCursorRectsForView: self];
@@ -413,6 +420,9 @@
 	// This allows us to successfully copy+paste lines of text and have things look like they're working OK
 	[self textStorageDidProcessEditing: nil];
 }
+
+#pragma clang diagnostic pop
+
 
 
 - (void) setInputLine: (NSString*) inputLine {
@@ -428,7 +438,7 @@
 	int startPos = xpos + ypos*width;
 	int endPos = startPos + lineInputLength;
 	
-	int lengthChange = [replacementString length] - affectedCharRange.length;
+	int lengthChange = (int) [replacementString length] - (int) affectedCharRange.length;
 	
     if (affectedCharRange.location < startPos || affectedCharRange.location > endPos) {
         return NO;
@@ -464,7 +474,7 @@
 									range: [[textView textStorage] editedRange]];
 	
 	// Text editing should replace any text outside of the editable range
-	int lenChange = [[textView textStorage] changeInLength];
+	int lenChange = (int) [[textView textStorage] changeInLength];
 	
 	if (lenChange > 0) {
 		[[textView textStorage] deleteCharactersInRange: NSMakeRange(endPos+lenChange, lenChange)];
@@ -491,7 +501,7 @@
 										 target: self
 									   argument: [NSValue valueWithRange: NSMakeRange(edited.location+edited.length, 0)]
 										  order: 0
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 }
 
 - (void) fixHorribleCaretBehaviour: (NSValue*) caretPos {
@@ -543,7 +553,7 @@
 					// Generate the event, then...
 					GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
 												  windowIdentifier: [self identifier]
-															  val1: [inputLine length]
+															  val1: (int) [inputLine length]
 															  val2: 0];
 					[evt setLineInput: inputLine];
 					

@@ -16,23 +16,32 @@
 #import "IFProject.h"
 #import "IFProjectPane.h"
 #import "IFUtility.h"
+#import "IFSourcePage.h"
+#import "IFIntelSymbol.h"
 #import "NSBundle+IFBundleExtensions.h"
 
 NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 
-@implementation IFIsIndex
+@implementation IFIsIndex {
+    IBOutlet NSOutlineView* indexList;						// The outline view that will contain the index
+
+    BOOL canDisplay;										// YES if there's an index to display
+    NSWindow* activeWindow;									// Currently active window
+
+    NSMutableArray* itemCache;								// Cache of items retrieved from the index (used because the index can update before the display)
+}
 
 + (IFIsIndex*) sharedIFIsIndex {
 	static IFIsIndex* sharedIndex = nil;
 	
-	if (sharedIndex == nil && [IFAppDelegate isWebKitAvailable]) {
+	if (sharedIndex == nil ) {
 		sharedIndex = [[IFIsIndex alloc] init];
 	}
 	
 	return sharedIndex;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -50,9 +59,6 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	return self;
 }
 
-- (void) dealloc {
-	[super dealloc];
-}
 
 - (NSString*) key {
 	return IFIsIndexInspector;
@@ -88,7 +94,7 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 				 inCache: (NSMutableArray*) cache {
 	// Static data (saves some space)
 	static NSArray* noChildren = nil;
-	if (!noChildren) noChildren = [[NSArray array] retain];
+	if (!noChildren) noChildren = @[];
 	
 	// We store things in symbol, children order
  	IFIntelSymbol* currentSymbol = symbol;
@@ -103,9 +109,9 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 			[self cacheSiblingsOf: child
 						  inCache: childrenArray];
 			
-			[cache addObject: [NSArray arrayWithObjects: currentSymbol, childrenArray, nil]];
+			[cache addObject: @[currentSymbol, childrenArray]];
 		} else {
-			[cache addObject: [NSArray arrayWithObjects: currentSymbol, noChildren, nil]];
+			[cache addObject: @[currentSymbol, noChildren]];
 		}
 		
 		currentSymbol = sibling;
@@ -134,21 +140,21 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	if (canDisplay) {
 		IFProjectController* proj = [activeWindow windowController];
 		
-		int selectedRow = [indexList selectedRow];
+		int selectedRow = (int) [indexList selectedRow];
 		if (selectedRow < 0) return; // Nothing to do
 
 		id selectedItem = [indexList itemAtRow: selectedRow];
-		if ([selectedItem isKindOfClass: [NSArray class]] && [selectedItem count] == 2) selectedItem = [selectedItem objectAtIndex: 0];
+		if ([selectedItem isKindOfClass: [NSArray class]] && [selectedItem count] == 2) selectedItem = selectedItem[0];
 		
 		if ([selectedItem isKindOfClass: [IFIntelSymbol class]]) {
-			int lineNumber = [[proj currentIntelligence] lineForSymbol: selectedItem]+1;
+			NSUInteger lineNumber = [[proj currentIntelligence] lineForSymbol: selectedItem]+1;
 
 			if (lineNumber != NSNotFound) {
 				[proj removeAllTemporaryHighlights];
-				[proj highlightSourceFileLine: lineNumber
+				[proj highlightSourceFileLine: (int) lineNumber
 									   inFile: [[[proj sourcePane] sourcePage] currentFile]
 										style: IFLineStyleHighlight];
-				[proj moveToSourceFileLine: lineNumber];
+				[proj moveToSourceFileLine: (int) lineNumber];
 			}
 		} else {
 			IFIndexFile* index = [[proj document] indexFile];
@@ -177,14 +183,14 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 // This will display the real-time data instead of the indexfile data
 
 - (id)outlineView: (NSOutlineView *)outlineView 
-			child: (int)childIndex 
+			child: (NSInteger)childIndex
 		   ofItem: (id)item {
 	[self cacheItems];
 	
 	if (item == nil) {
-		return [itemCache objectAtIndex: childIndex];
+		return itemCache[childIndex];
 	} else if ([item isKindOfClass: [NSArray class]] && [item count] == 2) {
-		return [[item objectAtIndex: 1] objectAtIndex: childIndex];
+		return item[1][childIndex];
 	} else {
 		return @"<< BAD CHILD (no cookie!) >>";
 	}
@@ -195,20 +201,20 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	[self cacheItems];
 	
 	if ([item isKindOfClass: [NSArray class]] && [item count] == 2) {
-		return [[item objectAtIndex: 1] count] > 0;
+		return [item[1] count] > 0;
 	} else {
 		return NO;
 	}
 }
 
-- (int)			outlineView:(NSOutlineView *)outlineView 
+- (NSInteger)	outlineView:(NSOutlineView *)outlineView 
 	 numberOfChildrenOfItem:(id)item {
 	[self cacheItems];
 	
 	if (item == nil) {
 		return [itemCache count];
 	} else if ([item isKindOfClass: [NSArray class]] && [item count] == 2) {
-		return [[item objectAtIndex: 1] count];
+		return [item[1] count];
 	} else {
 		return 0;
 	}	
@@ -231,14 +237,14 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	
 	if ([item isKindOfClass: [NSArray class]] && [item count] == 2) {
 		if ([identifier isEqualToString: @"title"]) {
-			return [[item objectAtIndex: 0] name];
+			return [item[0] name];
 		} else if ([identifier isEqualToString: @"line"]) {
 			IFProjectController* proj = [activeWindow windowController];
 			IFIntelFile* intel = [proj currentIntelligence];
 			
-			int line = [intel lineForSymbol: [item objectAtIndex: 0]];
+			NSInteger line = [intel lineForSymbol: item[0]];
 			
-			return [NSString stringWithFormat: @"%i", line];
+			return [NSString stringWithFormat: @"%li", (long)line];
 		} else {
 			return @"--";
 		}
@@ -249,7 +255,6 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 }
 
 - (void) intelFileChanged: (NSNotification*) not {
-	[itemCache release]; 
 	itemCache = nil;
 	
 	[self cacheItems];

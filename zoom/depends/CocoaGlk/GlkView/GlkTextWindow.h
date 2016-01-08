@@ -53,12 +53,14 @@
 
 - (void) setUsesMorePrompt: (BOOL) useMorePrompt;		// Sets whether or not a [ MORE ] prompt should be displayed for this window
 - (void) setInfiniteSize;								// Sets this window to be infinite size
-- (float) currentMoreState;								// The current [ MORE ] animation state (0 = hidden, 1 = shown)
+@property (NS_NONATOMIC_IOSONLY, readonly) float currentMoreState;								// The current [ MORE ] animation state (0 = hidden, 1 = shown)
 - (void) displayMorePromptIfNecessary;					// A request to display the [ MORE ] prompt if necessary
 - (void) setMoreShown: (BOOL) shown;					// Sets whether or not the [ MORE ] prompt is shown
 - (void) resetMorePrompt: (int) pos						// Resets the [ MORE ] prompt position from the specified character position
 				  paging: (BOOL) paging;
 - (void) resetMorePrompt;								// Resets the [ MORE ] prompt position from the current input position
 - (void) scrollToEnd;									// Scroll to the end of the text view
+- (void) hideMoreWindow;
+- (void) showMoreWindow;
 
 @end

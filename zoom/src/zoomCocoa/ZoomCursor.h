@@ -11,24 +11,12 @@
 
 // Blinking cursor thing
 
-@interface ZoomCursor : NSObject {
-	NSRect cursorRect;
-	BOOL isBlinking, isShown, isActive, isFirst;
-	BOOL blink;
-	
-	NSPoint cursorPos;
-	
-	BOOL lastVisible, lastActive;
-	
-	id<NSObject> delegate;
-	
-	NSTimer* flasher;
-}
+@interface ZoomCursor : NSObject
 
 // Drawing
 - (void) draw;
-- (BOOL) visible;
-- (BOOL) activeStyle;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL visible;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL activeStyle;
 
 // Positioning
 - (void) positionAt: (NSPoint) pt
@@ -37,7 +25,7 @@
 		   withAttributes: (NSDictionary*) attributes
 		 atCharacterIndex: (int) index;
 
-- (NSRect) cursorRect;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSRect cursorRect;
 
 // Display status
 - (void) setBlinking: (BOOL) blink;  // Cursor blinks on/off

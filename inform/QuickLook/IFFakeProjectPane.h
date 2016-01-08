@@ -1,6 +1,6 @@
 //
 //  IFFakeProjectPane.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 27/10/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.

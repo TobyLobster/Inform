@@ -7,18 +7,14 @@
 
 #import "IFRecentFileCell.h"
 
-@implementation IFRecentFileCell
-
 static const int imageSize = 16;
 static const int borderWidth = 5;
 static const int borderHeight = 0;
 static const int recentFilesTabWidth = 130;
 
-@synthesize image;
+@implementation IFRecentFileCell
 
--(void) dealloc {
-    [super dealloc];
-}
+@synthesize image;
 
 - (id)copyWithZone:(NSZone *)zone
 {
@@ -27,10 +23,8 @@ static const int recentFilesTabWidth = 130;
         return nil;
     }
     
-    // Clear the image and subtitle as they won't be retained
-    cell->image = nil;
     [cell setImage:[self image]];
-    
+
     return cell;
 }
 
@@ -44,17 +38,13 @@ static const int recentFilesTabWidth = 130;
         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
         NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
                                                 location: recentFilesTabWidth];
-        paragraph.tabStops = [NSArray arrayWithObject: tab];
+        paragraph.tabStops = @[tab];
         paragraph.lineBreakMode = NSLineBreakByClipping;
-        [tab release];
 
-        NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   textColour, NSForegroundColorAttributeName,
-                                   paragraph, NSParagraphStyleAttributeName,
-                                   nil];
-        [paragraph autorelease];
+        NSDictionary *attrs = @{NSForegroundColorAttributeName: textColour,
+                                   NSParagraphStyleAttributeName: paragraph};
 
-        astr = [[[NSAttributedString alloc] initWithString:title attributes:attrs] autorelease];
+        astr = [[NSAttributedString alloc] initWithString:title attributes:attrs];
     }
     
     return astr;

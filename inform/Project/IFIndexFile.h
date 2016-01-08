@@ -9,14 +9,11 @@
 #import <Foundation/Foundation.h>
 
 
-@interface IFIndexFile : NSObject<NSOutlineViewDataSource> {
-	NSDictionary* index;
+@interface IFIndexFile : NSObject<NSOutlineViewDataSource>
 
-	NSMutableDictionary* filenamesToIndexes;
-}
-
-- (id) initWithContentsOfFile: (NSString*) filename;
-- (id) initWithData: (NSData*) data; // Designated initialiser
+- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithContentsOfFile: (NSString*) filename;
+- (instancetype) initWithData: (NSData*) data NS_DESIGNATED_INITIALIZER; // Designated initialiser
 
 // Getting info about a particular item
 - (NSString*) filenameForItem: (id) item;

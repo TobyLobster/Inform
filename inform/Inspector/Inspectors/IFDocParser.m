@@ -1,6 +1,6 @@
 //
 //  IFDocParser.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 28/10/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -9,22 +9,23 @@
 #import "IFDocParser.h"
 
 // = Information about a find within an example
-@implementation IFExampleInfo
--(id) initWithName:(NSString*) aName anchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
+@implementation IFExampleInfo {
+    NSString*   name;
+    NSString*   anchorTag;
+    NSRange     range;
+}
+
+-(instancetype) init { self = [super init]; return self; }
+
+-(instancetype) initWithName:(NSString*) aName anchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
 	self = [super init];
 	
 	if (self) {
-        name      = [aName retain];
-        anchorTag = [aAnchorTag retain];
+        name      = aName;
+        anchorTag = aAnchorTag;
         range     = aRange;
     }
     return self;
-}
-
--(void) dealloc {
-    [name release];
-    [anchorTag release];
-    [super dealloc];
 }
 
 -(NSString *) name {
@@ -40,20 +41,21 @@
 }
 @end
 
-@implementation IFCodeInfo
--(id) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
+@implementation IFCodeInfo {
+    NSString*   anchorTag;
+    NSRange     range;
+}
+
+-(instancetype) init { self = [super init]; return self; }
+
+-(instancetype) initWithAnchorTag:(NSString*) aAnchorTag range:(NSRange)aRange {
 	self = [super init];
 	
 	if (self) {
-        anchorTag = [aAnchorTag retain];
+        anchorTag = aAnchorTag;
         range     = aRange;
     }
     return self;
-}
-
--(void) dealloc {
-    [anchorTag release];
-    [super dealloc];
 }
 
 -(NSString *) anchorTag {
@@ -65,7 +67,14 @@
 }
 @end
 
-@implementation IFDocParser
+@implementation IFDocParser {
+    // The parse results
+    NSString*       plainText;				// The plain text version of the HTML document
+    NSDictionary*   attributes;             // The attributes associated with the HTML document
+    NSDictionary*   exampleInfo;            // Dictionary of examples in the document. Keys are string version of example name, values are IFExampleInfo.
+    NSArray*        codeInfo;               // Array of IFCodeInfo specifying ranges in the document where code occurs.
+    NSArray*        definitionInfo;         // Array of IFCodeInfo specifying ranges in the document where definitions occur.
+}
 
 NSString* IFDocHtmlTitleAttribute = @"IFDocHtmlTitle";
 NSString* IFDocTitleAttribute = @"IFDocTitle";
@@ -84,16 +93,14 @@ static NSDictionary* entities = nil;
 		ignoreTags = [[NSSet alloc] initWithObjects:
 			@"head", @"script", 
 			nil];
-		entities = [[NSDictionary alloc] initWithObjectsAndKeys:
-			@"<", @"lt",
-			@">", @"gt",
-			@"\"", @"quot",
-			@" ", @"nbsp",
-			nil];
+		entities = @{@"lt": @"<",
+			@"gt": @">",
+			@"quot": @"\"",
+			@"nbsp": @" "};
 	}
 }
 
-typedef enum {
+typedef NS_ENUM(unsigned int, ParseState) {
 	PlainText,
 	HtmlTagOrComment,
 	HtmlTag,
@@ -102,9 +109,11 @@ typedef enum {
 	HtmlCommentEnd1,
 	HtmlCommentEnd2,
 	HtmlEntity
-} ParseState;
+};
 
-- (id) initWithHtml: (NSString*) html {
+-(instancetype) init { self = [super init]; return self; }
+
+- (instancetype) initWithHtml: (NSString*) html {
 	self = [super init];
 	
 	if (self) {
@@ -115,7 +124,7 @@ typedef enum {
         NSMutableArray*         dfInfo   = [[NSMutableArray alloc] init];
 		
 		// Parse the HTML
-		int len = [html length];
+		int len = (int) [html length];
 		unichar* chrs = malloc(sizeof(unichar)*(len+1));
 		unichar* result = malloc(sizeof(unichar)*(len+1));
 		[html getCharacters: chrs];
@@ -210,7 +219,7 @@ typedef enum {
 							NSString* entity = [NSString stringWithCharacters: chrs + tagStart+1
 																	   length: x - (tagStart+1)];
 							entity = [entity lowercaseString];
-							NSString* entityValue = [entities objectForKey: entity];
+							NSString* entityValue = entities[entity];
 
 							// End of this entity
 							state = PlainText;
@@ -266,7 +275,7 @@ typedef enum {
 							// Get the tag
 							NSString* tag = [NSString stringWithCharacters: chrs + tagStart + 1
 																	length: x - (tagStart + 1)];
-							int spaceLoc = [tag rangeOfString: @" "].location;
+							NSUInteger spaceLoc = [tag rangeOfString: @" "].location;
 							if (spaceLoc != NSNotFound) tag = [tag substringToIndex: spaceLoc];
 								
 							tag = [tag lowercaseString];
@@ -337,6 +346,7 @@ typedef enum {
 				case HtmlCommentEnd2:
 					switch (chrs[x]) {
 						case '>':
+                        {
 							// End of this comment
 							state = PlainText;
 
@@ -349,35 +359,34 @@ typedef enum {
 							
 							// Look for interesting comments
 							if ([comment hasPrefix: @"START EXAMPLE \""]) {
-								int prefixLen = [@"START EXAMPLE \"" length];
+								int prefixLen = (int) [@"START EXAMPLE \"" length];
                                 // Remember the name, anchor id and location of the Example
 								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
 
                                 if( [array count] == 2 ) {
-                                    exampleName = [[array objectAtIndex:0] retain];
-                                    exampleAnchorTag = [[array objectAtIndex:1] retain];
+                                    exampleName = array[0];
+                                    exampleAnchorTag = array[1];
                                     exampleStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END EXAMPLE"]) {
                                 int exampleEndLocation = resultLength;
                                 // Record the range for this example
-                                if( [exInfo objectForKey: exampleName] == nil ) {
+                                if( exInfo[exampleName] == nil ) {
                                     NSRange range = NSMakeRange(exampleStartLocation, exampleEndLocation - exampleStartLocation);
                                     IFExampleInfo* info = [[IFExampleInfo alloc] initWithName: exampleName
                                                                                     anchorTag: exampleAnchorTag
                                                                                         range: range];
-                                    [exInfo setObject:info forKey: exampleName];
-                                    [info release];
+                                    exInfo[exampleName] = info;
                                 }
 							} else if ([comment hasPrefix: @"START CODE"]) {
-								int prefixLen = [@"START CODE \"" length];
+								int prefixLen = (int) [@"START CODE \"" length];
                                 // Remember the anchor id
 								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
                                 if( [array count] == 1 ) {
-                                    codeAnchorTag = [[array objectAtIndex:0] retain];
+                                    codeAnchorTag = array[0];
                                     codeStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END CODE"]) {
@@ -388,13 +397,13 @@ typedef enum {
                                                                                    range: range];
                                 [cdInfo addObject: info];
 							} else if ([comment hasPrefix: @"START PHRASE"]) {
-								int prefixLen = [@"START PHRASE \"" length];
+								int prefixLen = (int) [@"START PHRASE \"" length];
                                 // Remember the anchor id
 								NSString* postfix = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
                                 NSArray*  array   = [postfix componentsSeparatedByString:@"\" \""];
                                 
                                 if( [array count] == 1 ) {
-                                    definitionAnchorTag = [[array objectAtIndex:0] retain];
+                                    definitionAnchorTag = array[0];
                                     definitionStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END PHRASE"]) {
@@ -409,34 +418,36 @@ typedef enum {
 							} else if ([comment hasPrefix: @"END IGNORE"]) {
                                 ignoreSection = false;
 							} else if ([comment hasPrefix: @"SEARCH TITLE \""]) {
-								int prefixLen = [@"SEARCH TITLE \"" length];
+								int prefixLen = (int) [@"SEARCH TITLE \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								[attr setObject: comment
-										 forKey: IFDocTitleAttribute];
+								attr[IFDocTitleAttribute] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SECTION \""]) {
-								int prefixLen = [@"SEARCH SECTION \"" length];
+								int prefixLen = (int) [@"SEARCH SECTION \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								[attr setObject: comment
-										 forKey: IFDocSectionAttribute];
+								attr[IFDocSectionAttribute] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
-								int prefixLen = [@"SEARCH SORT \"" length];
+								int prefixLen = (int) [@"SEARCH SORT \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+2))];
 								
-								[attr setObject: comment
-										 forKey: IFDocSortAttribute];
+								attr[IFDocSortAttribute] = comment;
 							}
-							break;
+                        }
+						break;
 							
 						case '-':
+                        {
 							// Comment might end later on
-							break;
+                        }
+						break;
 							
 						default:
+                        {
 							// The comment continues
 							state = HtmlComment;
-							break;
+                        }
+						break;
 					}
 			}
 		}
@@ -448,19 +459,14 @@ typedef enum {
 		}
 
 		// Tidy up
-		[attr setObject: [NSString stringWithCharacters: title
-												 length: titleLength]
-				 forKey: IFDocHtmlTitleAttribute];
+		attr[IFDocHtmlTitleAttribute] = [NSString stringWithCharacters: title
+												 length: titleLength];
 
-		plainText       = [[NSString stringWithCharacters: result
-                                                   length: resultLength] retain];
-        exampleInfo     = [[NSDictionary dictionaryWithDictionary:exInfo] retain];
-        codeInfo        = [[NSArray arrayWithArray: cdInfo] retain];
-        definitionInfo  = [[NSArray arrayWithArray: dfInfo] retain];
-
-        [exInfo release];
-        [cdInfo release];
-        [dfInfo release];
+		plainText       = [NSString stringWithCharacters: result
+                                                  length: resultLength];
+        exampleInfo     = [NSDictionary dictionaryWithDictionary:exInfo];
+        codeInfo        = [NSArray arrayWithArray: cdInfo];
+        definitionInfo  = [NSArray arrayWithArray: dfInfo];
 
         exInfo      = nil;
         cdInfo      = nil;
@@ -472,14 +478,6 @@ typedef enum {
 	}
 
 	return self;
-}
-
-- (void) dealloc {
-	[plainText release];
-	[attributes release];
-	[exampleInfo release];
-	
-	[super dealloc];
 }
 
 // = The results =

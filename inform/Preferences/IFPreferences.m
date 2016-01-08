@@ -24,14 +24,32 @@ static NSString* IFPreferencesComments          = @"Comments";
 static NSString* IFPreferencesQuotedText        = @"QuotedText";
 static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
-@implementation IFPreferences
+@implementation IFPreferences {
+    // The preferences dictionary
+    NSMutableDictionary* preferences;
+
+    // Notification flag
+    BOOL batchEditingPreferences;
+    BOOL batchEditingDirty;
+    NSMutableArray* batchNotificationTypes;
+    NSString* notificationString;
+
+    // Caches
+    NSMutableDictionary* cacheFontSet;		// Maps 'font types' to fonts
+    NSMutableArray* cacheFontStyles;		// Maps styles to fonts
+    NSMutableArray* cacheColourSet;			// Choice of colours
+    NSMutableArray* cacheColours;			// Maps styles to colours
+    NSMutableArray* cacheUnderlines;		// Maps styles to underlines
+
+    NSMutableArray* styles;					// The array of actual styles (array of attribute dictionaries)
+
+    IFEditingPreferencesSet* defaultEditingPreferences;
+}
 
 // = Constructing the object =
 
 + (void) initialize {
-	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithObjectsAndKeys:
-		[NSDictionary dictionary], IFPreferencesDefault,
-		nil]];
+	[[NSUserDefaults standardUserDefaults] registerDefaults: @{IFPreferencesDefault: @{}}];
 }
 
 + (IFPreferences*) sharedPreferences {
@@ -44,7 +62,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	return sharedPrefs;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -65,17 +83,15 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (void) dealloc {
-    [defaultEditingPreferences release];    defaultEditingPreferences = nil;
-	[preferences release];					preferences = nil;
+    defaultEditingPreferences = nil;
+    preferences = nil;
 
-	[styles release];						styles = nil;
-	[cacheFontSet release];					cacheFontSet = nil;
-	[cacheFontStyles release];				cacheFontStyles = nil;
-	[cacheColourSet release];				cacheColourSet = nil;
-	[cacheColours release];					cacheColours = nil;
-    [cacheUnderlines release];              cacheUnderlines = nil;
-	
-	[super dealloc];
+    styles = nil;
+    cacheFontSet = nil;
+    cacheFontStyles = nil;
+    cacheColourSet = nil;
+    cacheColours = nil;
+    cacheUnderlines = nil;
 }
 
 // = Preference change notifications =
@@ -83,7 +99,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 - (void) preferencesHaveChanged {
     if ( !batchEditingPreferences ) {
         // Update the user defaults
-        [[NSUserDefaults standardUserDefaults] setObject: [[preferences copy] autorelease]
+        [[NSUserDefaults standardUserDefaults] setObject: [preferences copy]
                                                   forKey: IFPreferencesDefault];
         [self recalculateStyles];
 
@@ -122,7 +138,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(NSObject*) getPreference: (NSString*) key
                    default: (NSObject*) defaultValue {
-    NSObject * result = [preferences objectForKey: key];
+    NSObject * result = preferences[key];
     if( result != nil ) {
         return result;
     }
@@ -132,10 +148,9 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 -(void) setPreference: (NSString*) key
                 value: (NSObject*)value
          notification: (NSString*) notification {
-    if( ![[preferences objectForKey:key] isEqualTo: value] )
+    if( ![preferences[key] isEqualTo: value] )
     {
-        [preferences setObject: value
-                        forKey: key];
+        preferences[key] = value;
 
         notificationString = notification;
         [self preferencesHaveChanged];
@@ -160,14 +175,14 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
                    value: (int) value
             notification: notification {
     [self setPreference:key
-                  value:[NSNumber numberWithInt: value]
+                  value:@(value)
            notification: notification];
 }
 
 -(int) getPreferenceInt: (NSString*) key
                 default: (int) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: [NSNumber numberWithInt:defaultValue]];
+                                              default: @(defaultValue)];
     return [number intValue];
 }
 
@@ -176,14 +191,14 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
                      value: (float) value
               notification: notification {
     [self setPreference: key
-                  value: [NSNumber numberWithFloat: value]
+                  value: @(value)
            notification: notification];
 }
 
 -(int) getPreferenceFloat: (NSString*) key
                   default: (float) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: [NSNumber numberWithFloat: defaultValue]];
+                                              default: @(defaultValue)];
     return [number intValue];
 }
 
@@ -210,14 +225,14 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
                     value: (BOOL) value
              notification: notification {
     [self setPreference: key
-                  value: [NSNumber numberWithBool: value]
+                  value: @(value)
            notification: notification];
 }
 
 -(BOOL) getPreferenceBool: (NSString*) key
                   default: (BOOL) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
-                                              default: [NSNumber numberWithBool:defaultValue]];
+                                              default: @(defaultValue)];
     return [number boolValue];
 }
 
@@ -281,7 +296,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType {
     NSString * key = [NSString stringWithFormat:@"sourceFontStyle%d", (int) optionType];
-    IFSyntaxHighlightingOption * option = [defaultEditingPreferences.options objectAtIndex:(int) optionType];
+    IFSyntaxHighlightingOption * option = (defaultEditingPreferences.options)[(int) optionType];
     IFFontStyle result = [self getPreferenceInt: key
                                         default: (int) [option fontStyle]];
     return result;
@@ -297,7 +312,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(IFRelativeFontSize) sourceRelativeFontSizeForOptionType:(IFSyntaxHighlightingOptionType) optionType {
     NSString * key = [NSString stringWithFormat:@"sourceRelativeFontSize%d", (int) optionType];
-    IFSyntaxHighlightingOption * option = [defaultEditingPreferences.options objectAtIndex:(int) optionType];
+    IFSyntaxHighlightingOption * option = (defaultEditingPreferences.options)[(int) optionType];
     return (IFRelativeFontSize) [self getPreferenceInt: key
                                                default: (int) [option relativeFontSize]];
 }
@@ -312,7 +327,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(NSColor*) sourceColourForOptionType:(IFSyntaxHighlightingOptionType) optionType {
     NSString * key = [NSString stringWithFormat:@"sourceColour%d", (int) optionType];
-    IFSyntaxHighlightingOption * option = [defaultEditingPreferences.options objectAtIndex:(int) optionType];
+    IFSyntaxHighlightingOption * option = (defaultEditingPreferences.options)[(int) optionType];
     return [self getPreferenceColour: key
                              default: [option colour]];
 }
@@ -349,7 +364,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(BOOL) sourceUnderlineForOptionType:(IFSyntaxHighlightingOptionType) optionType {
     NSString * key = [NSString stringWithFormat:@"sourceUnderline%d", (int) optionType];
-    IFSyntaxHighlightingOption * option = [defaultEditingPreferences.options objectAtIndex:(int) optionType];
+    IFSyntaxHighlightingOption * option = (defaultEditingPreferences.options)[(int) optionType];
     return [self getPreferenceBool: key
                            default: [option underline]];
 }
@@ -501,29 +516,18 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	int x;
 	
 	// Deallocate the caches if they're currently allocated
-    [cacheFontSet release];
-    [cacheFontStyles release];
-    [cacheColourSet release];
-    [cacheColours release];
-    [cacheUnderlines release];
-	cacheFontSet	= nil;
-	cacheFontStyles	= nil;
 	cacheColourSet	= nil;
-	cacheColours	= nil;
-    cacheUnderlines = nil;
-	
-    [styles release];
+
 	styles			= [[NSMutableArray alloc] init];
 	
     // Cache of fonts we will use
-    cacheFontSet = [[NSMutableDictionary dictionaryWithObjectsAndKeys:
+    cacheFontSet = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                      [self fontForOption: IFSHOptionHeadings],          IFPreferencesHeadings,
                      [self fontForOption: IFSHOptionMainText],          IFPreferencesMainText,
                      [self fontForOption: IFSHOptionComments],          IFPreferencesComments,
                      [self fontForOption: IFSHOptionQuotedText],        IFPreferencesQuotedText,
                      [self fontForOption: IFSHOptionTextSubstitutions], IFPreferencesTextSubstitutions,
-                     nil]
-                    retain];
+                     nil];
 
 	// Map font styles to syntax styles
 	cacheFontStyles = [[NSMutableArray alloc] init];
@@ -531,7 +535,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
     cacheUnderlines = [[NSMutableArray alloc] init];
 	
 	// Default is just the base font
-	NSFont* baseFont = [cacheFontSet objectForKey: IFPreferencesMainText];
+	NSFont* baseFont = cacheFontSet[IFPreferencesMainText];
 	NSColor* black = [NSColor blackColor];
 	for (x=0; x<256; x++) {
 		[cacheFontStyles addObject: baseFont];
@@ -544,71 +548,68 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
     //
 
     // Inform 6
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxProperty        withObject: [cacheFontSet objectForKey: IFPreferencesQuotedText]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxAssembly        withObject: [cacheFontSet objectForKey: IFPreferencesQuotedText]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxEscapeCharacter withObject: [cacheFontSet objectForKey: IFPreferencesQuotedText]];
+    cacheFontStyles[IFSyntaxProperty] = cacheFontSet[IFPreferencesQuotedText];
+    cacheFontStyles[IFSyntaxAssembly] = cacheFontSet[IFPreferencesQuotedText];
+    cacheFontStyles[IFSyntaxEscapeCharacter] = cacheFontSet[IFPreferencesQuotedText];
 
     // Inform 7
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxTitle           withObject: [cacheFontSet objectForKey: IFPreferencesHeadings]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxHeading         withObject: [cacheFontSet objectForKey: IFPreferencesHeadings]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxNaturalInform   withObject: [cacheFontSet objectForKey: IFPreferencesMainText]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxComment         withObject: [cacheFontSet objectForKey: IFPreferencesComments]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxGameText        withObject: [cacheFontSet objectForKey: IFPreferencesQuotedText]];
-    [cacheFontStyles replaceObjectAtIndex: IFSyntaxSubstitution    withObject: [cacheFontSet objectForKey: IFPreferencesTextSubstitutions]];
+    cacheFontStyles[IFSyntaxTitle] = cacheFontSet[IFPreferencesHeadings];
+    cacheFontStyles[IFSyntaxHeading] = cacheFontSet[IFPreferencesHeadings];
+    cacheFontStyles[IFSyntaxNaturalInform] = cacheFontSet[IFPreferencesMainText];
+    cacheFontStyles[IFSyntaxComment] = cacheFontSet[IFPreferencesComments];
+    cacheFontStyles[IFSyntaxGameText] = cacheFontSet[IFPreferencesQuotedText];
+    cacheFontStyles[IFSyntaxSubstitution] = cacheFontSet[IFPreferencesTextSubstitutions];
 
     //
     // Set colours for each style
     //
 
     // Inform 6
-    [cacheColours replaceObjectAtIndex: IFSyntaxString          withObject: [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxDirective       withObject: [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxProperty        withObject: [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxFunction        withObject: [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxCode            withObject: [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxAssembly        withObject: [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxCodeAlpha       withObject: [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxEscapeCharacter withObject: [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0]];
+    cacheColours[IFSyntaxString] = [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0];
+    cacheColours[IFSyntaxDirective] = [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxProperty] = [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxFunction] = [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxCode] = [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0];
+    cacheColours[IFSyntaxAssembly] = [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0];
+    cacheColours[IFSyntaxCodeAlpha] = [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0];
+    cacheColours[IFSyntaxEscapeCharacter] = [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0];
 
     // Inform 7
-    [cacheColours replaceObjectAtIndex: IFSyntaxTitle           withObject: [self sourceColourForOptionType: IFSHOptionHeadings]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxHeading         withObject: [self sourceColourForOptionType: IFSHOptionHeadings]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxNaturalInform   withObject: [self sourceColourForOptionType: IFSHOptionMainText]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxComment         withObject: [self sourceColourForOptionType: IFSHOptionComments]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxGameText        withObject: [self sourceColourForOptionType: IFSHOptionQuotedText]];
-    [cacheColours replaceObjectAtIndex: IFSyntaxSubstitution    withObject: [self sourceColourForOptionType: IFSHOptionTextSubstitutions]];
+    cacheColours[IFSyntaxTitle] = [self sourceColourForOptionType: IFSHOptionHeadings];
+    cacheColours[IFSyntaxHeading] = [self sourceColourForOptionType: IFSHOptionHeadings];
+    cacheColours[IFSyntaxNaturalInform] = [self sourceColourForOptionType: IFSHOptionMainText];
+    cacheColours[IFSyntaxComment] = [self sourceColourForOptionType: IFSHOptionComments];
+    cacheColours[IFSyntaxGameText] = [self sourceColourForOptionType: IFSHOptionQuotedText];
+    cacheColours[IFSyntaxSubstitution] = [self sourceColourForOptionType: IFSHOptionTextSubstitutions];
 
     //
     // Set underscore for each style
     //
     // Inform 7
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxTitle           withObject: [self sourceUnderlineForOptionType: IFSHOptionHeadings] ? @YES : @NO];
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxHeading         withObject: [self sourceUnderlineForOptionType: IFSHOptionHeadings] ? @YES : @NO];
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxNaturalInform   withObject: [self sourceUnderlineForOptionType: IFSHOptionMainText] ? @YES : @NO];
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxComment         withObject: [self sourceUnderlineForOptionType: IFSHOptionComments] ? @YES : @NO];
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxGameText        withObject: [self sourceUnderlineForOptionType: IFSHOptionQuotedText] ? @YES : @NO];
-    [cacheUnderlines replaceObjectAtIndex: IFSyntaxSubstitution    withObject: [self sourceUnderlineForOptionType: IFSHOptionTextSubstitutions] ? @YES : @NO];
+    cacheUnderlines[IFSyntaxTitle] = [self sourceUnderlineForOptionType: IFSHOptionHeadings] ? @YES : @NO;
+    cacheUnderlines[IFSyntaxHeading] = [self sourceUnderlineForOptionType: IFSHOptionHeadings] ? @YES : @NO;
+    cacheUnderlines[IFSyntaxNaturalInform] = [self sourceUnderlineForOptionType: IFSHOptionMainText] ? @YES : @NO;
+    cacheUnderlines[IFSyntaxComment] = [self sourceUnderlineForOptionType: IFSHOptionComments] ? @YES : @NO;
+    cacheUnderlines[IFSyntaxGameText] = [self sourceUnderlineForOptionType: IFSHOptionQuotedText] ? @YES : @NO;
+    cacheUnderlines[IFSyntaxSubstitution] = [self sourceUnderlineForOptionType: IFSHOptionTextSubstitutions] ? @YES : @NO;
     
 	// Finally... build the actual set of styles
-	if (styles) [styles release];
 	styles = [[NSMutableArray alloc] init];
 	
-    NSNumber* underline = [NSNumber numberWithInt:NSUnderlineStyleSingle];
-    NSNumber* noUnderline = [NSNumber numberWithInt:NSUnderlineStyleNone];
+    NSNumber* underline = @(NSUnderlineStyleSingle);
+    NSNumber* noUnderline = @(NSUnderlineStyleNone);
     NSNumber* currentUnderline = nil;
     
 	for (x=0; x<256; x++) {
-        if( [[cacheUnderlines objectAtIndex:x] isEqualTo: @YES] ) {
+        if( [cacheUnderlines[x] isEqualTo: @YES] ) {
             currentUnderline = underline;
         }
         else {
             currentUnderline = noUnderline;
         }
-        [styles addObject: [NSDictionary dictionaryWithObjectsAndKeys:
-            [cacheFontStyles objectAtIndex: x], NSFontAttributeName,
-            [cacheColours objectAtIndex: x],    NSForegroundColorAttributeName,
-            currentUnderline,                   NSUnderlineStyleAttributeName,
-            nil]];
+        [styles addObject: @{NSFontAttributeName: cacheFontStyles[x],
+            NSForegroundColorAttributeName: cacheColours[x],
+            NSUnderlineStyleAttributeName: currentUnderline}];
 	}
 }
 
@@ -627,7 +628,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (NSString*) freshGameAuthorName {
-	NSString* value = [preferences objectForKey: @"newGameAuthorName"];
+	NSString* value = preferences[@"newGameAuthorName"];
 	
 	value = [value stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
 	
@@ -636,7 +637,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 		return [self longUserName];
 	} else {
 		// Use the specified value
-		return [[value copy] autorelease];
+		return [value copy];
 	}
 }
 
@@ -655,6 +656,11 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 - (BOOL) runBuildSh {
     return [self getPreferenceBool: @"runBuildSh"
+                           default: NO];
+}
+
+- (BOOL) alwaysCompile {
+    return [self getPreferenceBool: @"alwaysCompile"
                            default: NO];
 }
 
@@ -684,19 +690,19 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (NSString*) glulxInterpreter {
-	NSString* value = [preferences objectForKey: @"glulxInterpreter"];
+	NSString* value = preferences[@"glulxInterpreter"];
 	
 	if (value) {
-		return [[value copy] autorelease];
+		return [value copy];
 	} else {
 		// Work out the default client to use
 		NSString*		clientName = @"glulxe";
-		NSDictionary*	configSettings = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"InformConfiguration"];
+		NSDictionary*	configSettings = [[NSBundle mainBundle] infoDictionary][@"InformConfiguration"];
 		if (!configSettings) {
-			configSettings = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"InformConfiguration"];
+			configSettings = [[NSBundle mainBundle] infoDictionary][@"InformConfiguration"];
 		}
 		if (configSettings) {
-			clientName = (NSString*)[configSettings objectForKey: @"GlulxInterpreter"];
+			clientName = (NSString*)configSettings[@"GlulxInterpreter"];
 		}
 		if (!clientName) clientName = @"glulxe";
 		
@@ -718,6 +724,12 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 - (void) setRunBuildSh: (BOOL) value {
     [self setPreferenceBool: @"runBuildSh"
+                      value: value
+               notification: IFPreferencesAdvancedDidChangeNotification];
+}
+
+- (void) setAlwaysCompile: (BOOL) value {
+    [self setPreferenceBool: @"alwaysCompile"
                       value: value
                notification: IFPreferencesAdvancedDidChangeNotification];
 }

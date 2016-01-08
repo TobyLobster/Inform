@@ -15,45 +15,54 @@
 
 #include <wctype.h>
 
-@interface IFSearchItem : NSObject {
+@interface IFSearchItem : NSObject
+
+-(instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithText: (NSString*) textString
+      withFilePath: (NSString*) filepathString
+      withLocation: (IFFindLocation) locationType NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@implementation IFSearchItem {
 @public
     NSString*       text;
     NSString*       filepath;
     IFFindLocation  location;
 }
 
--(id) initWithText: (NSString*) textString
-      withFilePath: (NSString*) filepathString
-      withLocation: (IFFindLocation) locationType;
+-(instancetype) init { self = [super init]; return self; }
 
-@end
-
-@implementation IFSearchItem
-
--(id) initWithText: (NSString*) textString
+-(instancetype) initWithText: (NSString*) textString
       withFilePath: (NSString*) filepathString
       withLocation: (IFFindLocation) locationType {
 	self = [super init];
 	
 	if (self) {
-        text     = [textString retain];
-        filepath = [filepathString retain];
+        text     = textString;
+        filepath = filepathString;
         location = locationType;
     }
     return self;
 }
 
--(void) dealloc {
-    [text release];
-    [filepath release];
-    [super dealloc];
-}
 
 @end
 
-@implementation IFFindInFiles
+@implementation IFFindInFiles {
+    BOOL            searching;
+    NSMutableArray* searchItems;
+    NSMutableArray* results;
+    NSDictionary*   exampleInfo;
+    NSArray*        codeInfo;
+    NSArray*        definitionInfo;
 
--(id) init {
+    NSObject *      searchLock;
+    NSObject *      searchItemsLock;
+    NSObject *      searchResultsLock;
+}
+
+-(instancetype) init {
     self = [super init];
     
     if (self) {
@@ -66,15 +75,6 @@
     return self;
 }
 
--(void) dealloc {
-    [searchItems release];
-    [results release];
-    [searchLock release];
-    [searchItemsLock release];
-    [searchResultsLock release];
-    
-    [super dealloc];
-}
 
 -(void) foundMatchInFile: (NSString*)       filename
              rangeInFile: (NSRange)         fileRange
@@ -104,12 +104,11 @@
     @synchronized( searchResultsLock ) {
         [results addObject:result];
     }
-    [result release];
 }
 
 + (NSString*) getContextFromText: (NSString*) textString
-                    withLocation: (int) location
-                       andLength: (int) matchLength
+                    withLocation: (NSUInteger) location
+                       andLength: (NSUInteger) matchLength
              findingContextRange: (NSRange*) rangeOut {
     
     //
@@ -120,8 +119,8 @@
     NSRange endRange = [textString rangeOfCharacterFromSet:set
                                                    options:NSLiteralSearch
                                                      range:NSMakeRange(location + matchLength, [textString length] - (location + matchLength))];
-    int lowContext = (startRange.location == NSNotFound) ? 0 : startRange.location;
-    int highContext = (endRange.location == NSNotFound) ? [textString length] - 1 : endRange.location;
+    NSUInteger lowContext = (startRange.location == NSNotFound) ? 0 : startRange.location;
+    NSUInteger highContext = (endRange.location == NSNotFound) ? [textString length] - 1 : endRange.location;
     
     
     // Skip past whitespace / newlines at either end
@@ -144,7 +143,7 @@
 - (IFExampleInfo*) exampleInfoForRange: (NSRange) range {
     if( exampleInfo != nil ) {
         for( NSString* key in exampleInfo) {
-            IFExampleInfo* info = [exampleInfo objectForKey:key];
+            IFExampleInfo* info = exampleInfo[key];
             if(( range.location >= [info range].location ) &&
                ((range.location + range.length) <= ([info range].location + [info range].length))) {
                 return info;
@@ -183,19 +182,19 @@
                       locations: (IFFindLocation)               searchLocations
                   progressBlock: (IFFindInFilesProgressBlock)   progressBlock {
     // memory pool
-	NSAutoreleasePool* primaryPool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 
     @synchronized ( searchItemsLock )
     {
-        int totalSearchItems = [searchItems count];
+        int totalSearchItems = (int) [searchItems count];
         int progressCount = 0;
         dispatch_queue_t main = dispatch_get_main_queue();
         int resultCount;
 
         for( IFSearchItem* searchItem in searchItems ) {
             // Retrieve values from it
-            NSString* storage           = [searchItem->text retain];
-            NSString* filename          = [searchItem->filepath retain];
+            NSString* storage           = searchItem->text;
+            NSString* filename          = searchItem->filepath;
             IFFindLocation locationType = searchItem->location;
 
             NSString* displayName = [[filename lastPathComponent] stringByDeletingPathExtension];
@@ -227,11 +226,11 @@
                     NSString* fileContents = [NSString stringWithContentsOfFile: filename
                                                                        encoding: [IFProjectTypes encodingForFilename:filename]
                                                                           error: &error];
-                    if (fileContents) res = [[[NSAttributedString alloc] initWithString: fileContents] autorelease];
+                    if (fileContents) res = [[NSAttributedString alloc] initWithString: fileContents];
                 } else if ([extn isEqualToString: @"rtf"] ||
                            [extn isEqualToString: @"rtfd"]) {
-                    res = [[[NSAttributedString alloc] initWithPath: filename
-                                                 documentAttributes: nil] autorelease];
+                    res = [[NSAttributedString alloc] initWithPath: filename
+                                                 documentAttributes: nil];
                 } else if ([extn isEqualToString: @"html"] ||
                            [extn isEqualToString: @"htm"]) {
                     // Parse the file
@@ -239,29 +238,26 @@
                     NSString* fileString = [[NSString alloc] initWithData: fileData
                                                                  encoding: NSUTF8StringEncoding];
                     IFDocParser* fileContents = [[IFDocParser alloc] initWithHtml: fileString];
-                    [fileString release];
-                    [fileData release];
                     
                     // Retrieve the storage contents
                     storage = [fileContents plainText];
                     
                     // Work out the display name
-                    NSString* title = [[fileContents attributes] objectForKey: IFDocTitleAttribute];
-                    NSString* section = [[fileContents attributes] objectForKey: IFDocSectionAttribute];
+                    NSString* title = [fileContents attributes][IFDocTitleAttribute];
+                    NSString* section = [fileContents attributes][IFDocSectionAttribute];
                     
-                    sortKey = [[fileContents attributes] objectForKey: IFDocSortAttribute];
+                    sortKey = [fileContents attributes][IFDocSortAttribute];
                     
                     if (title != nil && section != nil) {
                         displayName = [NSString stringWithFormat: @"%@: %@", section, title];
                     } else {
-                        displayName = [[fileContents attributes] objectForKey: IFDocHtmlTitleAttribute];
+                        displayName = [fileContents attributes][IFDocHtmlTitleAttribute];
                     }
                     
                     exampleInfo     = [fileContents exampleInfo];
                     codeInfo        = [fileContents codeInfo];
                     definitionInfo  = [fileContents definitionInfo];
                     
-                    [fileContents autorelease];
                     onlyOneMatchPerSegment = true;
                 }
                 
@@ -269,12 +265,12 @@
                     storage = [res string];
                 }
             }
-            
+
             if (sortKey == nil) sortKey = displayName;
             
             // storage now contains the string for the file/internal data - search it
             if (storage) {
-                int searchPosition = 0;
+                NSUInteger searchPosition = 0;
                 NSRange matchRange;
                 NSArray* matchGroups;
                 
@@ -309,8 +305,7 @@
                             // The match is inside an example
                             //
                             alreadyFound = ( lastFoundInExample != nil ) && ([lastFoundInExample compare:[info name]] == NSOrderedSame);
-                            [lastFoundInExample release];
-                            lastFoundInExample = [[info name] retain];
+                            lastFoundInExample = [info name];
                         }
                         else {
                             //
@@ -380,31 +375,38 @@
                 }
                 while(matchRange.location != NSNotFound);
             }
-            [lastFoundInExample release];
+             filename = nil;
+             displayName = nil;
+             sortKey = nil;
+             storage = nil;
+             exampleInfo = nil;
+             codeInfo = nil;
+             definitionInfo = nil;
+
 
             // Update progress
             @synchronized( searchResultsLock ) {
-                resultCount = [results count];
+                resultCount = (int) [results count];
             }
             progressCount++;
-            
+
             dispatch_async(main, ^ {
                 progressBlock(progressCount, totalSearchItems + 1, resultCount);
             });
         }
-        
-        // clean up
-        [primaryPool release];
 
         // Finished searching - send one final update to the main thread
         @synchronized( searchResultsLock ) {
-            resultCount = [results count];
+            resultCount = (int) [results count];
         }
         dispatch_async(main, ^ {
             progressBlock(totalSearchItems + 1, totalSearchItems + 1, resultCount);
         });
 
         searching = NO;
+    }
+
+    // clean up
     }
 }
 
@@ -418,7 +420,6 @@
     
     IFSearchItem* item = [[IFSearchItem alloc] initWithText:text withFilePath:filepath withLocation:location];
     [searchItems addObject:item];
-    [item release];
 }
 
 -(void) addSearchFile:(NSString*) filepath
@@ -463,7 +464,7 @@
 	NSDictionary* sourceFiles = [project sourceFiles];
 
     for( NSString* filepath in sourceFiles) {
-		NSTextStorage* file = [sourceFiles objectForKey: filepath];
+		NSTextStorage* file = sourceFiles[filepath];
 		
 		[self addSearchText: [file string]
                withFilePath: filepath
@@ -477,7 +478,7 @@
 
 - (int) resultsCount {
     @synchronized (searchResultsLock) {
-        return [results count];
+        return (int) [results count];
     }
 }
 

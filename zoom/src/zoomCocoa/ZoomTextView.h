@@ -10,12 +10,7 @@
 #import "ZoomUpperWindow.h"
 
 @class ZoomUpperWindow;
-@interface ZoomTextView : NSTextView {
-    NSMutableArray* pastedLines; // Array of arrays ([NSValue<rect>, NSAttributedString])
-	
-	BOOL dragged;
-	float pastedScaleFactor;
-}
+@interface ZoomTextView : NSTextView
 
 - (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win;
 - (void) clearPastedLines;

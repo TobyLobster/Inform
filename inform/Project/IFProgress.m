@@ -8,11 +8,29 @@
 
 #import "IFProgress.h"
 
-@implementation IFProgress
+@implementation IFProgress {
+    // Constants
+    int  priority;
+    BOOL showsProgressBar;
+    BOOL canCancel;
+
+    // Current state
+    float percentage;
+    NSString* message;
+    BOOL storyActive;
+    BOOL inProgress;
+
+    BOOL cancelled;
+    SEL  cancelActionSelector;
+    id   cancelActionObject;
+
+    // Delegate
+    id delegate;
+}
 
 // = Initialisation =
 
-- (id) initWithPriority: (int) aPriority
+- (instancetype) initWithPriority: (int) aPriority
        showsProgressBar: (BOOL) aShowsProgressBar
               canCancel: (BOOL) aCanCancel {
 	self = [super init];
@@ -32,12 +50,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	if (message) [message release];
-	
-	[super dealloc];
-}
-
 // = Setting the current progress =
 
 - (void) setPercentage: (float) newPercentage {
@@ -50,9 +62,8 @@
 }
 
 - (void) setMessage: (NSString*) newMessage {
-	if (message) [message release];
 	message = [newMessage copy];
-	
+
 	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:message:)]) {
 		[delegate progressIndicator: self
 							message: message];

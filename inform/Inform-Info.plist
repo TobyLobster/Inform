@@ -17,6 +17,10 @@
 			<string>Inform project</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.inform-fiction.project</string>
+			</array>
 			<key>LSTypeIsPackage</key>
 			<true/>
 			<key>NSDocumentClass</key>
@@ -198,23 +202,45 @@
 			<key>LSTypeIsPackage</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>i7xp</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>informfile</string>
+			<key>CFBundleTypeName</key>
+			<string>Inform Extension Project</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.inform-fiction.xproject</string>
+			</array>
+			<key>LSTypeIsPackage</key>
+			<integer>1</integer>
+			<key>NSDocumentClass</key>
+			<string>IFProject</string>
+			<key>NSIsRelatedItemType</key>
+			<true/>
+		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>Inform</string>
 	<key>CFBundleIconFile</key>
 	<string>inform.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.inform7.inform-compiler</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.54</string>
+	<string>1.64</string>
 	<key>CFBundleSignature</key>
 	<string>INfm</string>
 	<key>CFBundleVersion</key>
-	<string>1.54.4</string>
+	<string>1.64.1</string>
 	<key>InformConfiguration</key>
 	<dict>
 		<key>AvailableInterpreters</key>
@@ -228,11 +254,11 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.8.3</string>
+	<string>10.6.8</string>
 	<key>NSAppleScriptEnabled</key>
 	<false/>
 	<key>NSHumanReadableCopyright</key>
-	<string>© 2014, Toby Nelson, Graham Nelson</string>
+	<string>© 2014,2015 Toby Nelson, Graham Nelson</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
@@ -355,6 +381,29 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.package</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Inform Extension Project</string>
+			<key>UTTypeIconFile</key>
+			<string>informfile</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.inform-fiction.xproject</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>i7xp</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
+    <key>NSAppTransportSecurity</key>  
+    <dict>  
+          <key>NSAllowsArbitraryLoads</key><true/>  
+    </dict>
 </dict>
 </plist>

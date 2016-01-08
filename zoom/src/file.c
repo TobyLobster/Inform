@@ -665,7 +665,7 @@ void write_dword(ZFile* file, ZDWord word)
 #endif
 
 void write_string(ZFile* file, const char* string) {
-  write_block(file, (unsigned char*)string, strlen(string));
+  write_block(file, (unsigned char*)string, (int) strlen(string));
 }
 
 void write_stringf(ZFile* file, const char* format, ...) {

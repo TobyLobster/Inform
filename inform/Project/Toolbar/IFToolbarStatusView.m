@@ -23,23 +23,42 @@ static float cancelHeight                  = 16.0f;
 static float gapWidthBetweenStoryAndCancel = 5.0f;
 static float gapBetweenWelcomeImageAndText = 10.0f;
 
-@implementation IFToolbarStatusView
+@implementation IFToolbarStatusView {
+    NSString*                   title;
+    float                       progress;
+    float                       total;
+    IFToolbarProgressIndicator* progressIndicator;
+    BOOL                        isInProgress;
+    BOOL                        isStoryActive;
+    BOOL                        canCancel;
+
+    NSTextField*                titleText;
+    NSTextField*                storyText;
+    NSButton*                   cancelButton;
+    NSImage*                    informImage;
+
+    // 'Welcome' objects
+    NSTextField*                welcomeTitle;
+    NSTextField*                welcomeBuild;
+    NSImageView*                welcomeImageView;
+
+    IFToolbarManager*           delegate;
+}
 
 // = Initialisation =
 
-- (id) initWithFrame: (NSRect)frameRect {
+- (instancetype) initWithFrame: (NSRect)frameRect {
 	self = [super initWithFrame: frameRect];
 	
 	if (self) {
         delegate = nil;
+        _isExtensionProject = NO;
 
         NSString* buildString  = [NSString stringWithFormat: [IFUtility localizedString: @"Build %@"], [IFUtility localizedString: @"Build Version"]];
         NSString* informString = [IFUtility localizedString: @"Inform"];
-        informImage = [[IFImageCache loadResourceImage: @"Blob-Logo.tiff"] retain];
+        informImage = [IFImageCache loadResourceImage: @"Blob-Logo.tiff"];
 
-        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [[[[NSTextField alloc] init] autorelease] font], NSFontAttributeName,
-                              nil];
+        NSDictionary* dict = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
         NSSize informSize = [informString sizeWithAttributes: dict];
         NSSize informBuildSize = [buildString sizeWithAttributes: dict];
 
@@ -134,7 +153,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(void) updateStoryTextAndCancelBox {
-    NSDictionary* attrs = [NSDictionary dictionaryWithObjectsAndKeys: [titleText font], NSFontAttributeName, nil];
+    NSDictionary* attrs = @{NSFontAttributeName: [titleText font]};
 
     // Cancel button rect
     NSRect cancelRect;
@@ -204,7 +223,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(void) adjustSubviews {
-    NSDictionary* attrs = [NSDictionary dictionaryWithObjectsAndKeys: [[[[NSTextField alloc] init] autorelease] font], NSFontAttributeName, nil];
+    NSDictionary* attrs = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
 
     float titleHeight                   = [@"Fg" sizeWithAttributes: attrs].height;
     float progressWidth                 = [self frame].size.width - leftBorder - rightProgressBorder;
@@ -278,18 +297,12 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [self updateStoryTextAndCancelBox];
 }
 
-- (void) dealloc {
-    [informImage release];
-	[titleText release];
-    [progressIndicator release];
-
-	[super dealloc];
-}
 
 - (void)drawRect: (NSRect) dirtyRect {
-    static NSShadow *   kDropShadow         = nil;
-    static NSGradient * kBackgroundGradient = nil;
-    static NSColor *    kBorderColor        = nil;
+    static NSShadow *   kDropShadow                  = nil;
+    static NSGradient * kBackgroundGradient          = nil;
+    static NSGradient * kExtensionBackgroundGradient = nil;
+    static NSColor *    kBorderColor                 = nil;
 
     if (kDropShadow == nil) {
         kDropShadow = [[NSShadow alloc] init];
@@ -297,11 +310,15 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         kDropShadow.shadowOffset = NSMakeSize(0, -1.0);
         kDropShadow.shadowBlurRadius = 1.0f;
 
-        kBorderColor = [[NSColor colorWithCalibratedRed:0.4f green:0.4f blue:0.4f alpha:1.0f] retain];
+        kBorderColor = [NSColor colorWithCalibratedRed:0.4f green:0.4f blue:0.4f alpha:1.0f];
         kBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
                                [NSColor colorWithCalibratedRed:160.0f/255.0f green:163.0f/255.0f blue:171.0f/255.0f alpha:1.0], 0.0,
                                [NSColor colorWithCalibratedRed:202.0f/255.0f green:207.0f/255.0f blue:211.0f/255.0f alpha:1.0], 1.0,
                                nil];
+        kExtensionBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+                                        [NSColor colorWithCalibratedRed:160.0f/255.0f green:163.0f/255.0f blue:171.0f/255.0f alpha:1.0], 0.0,
+                                        [NSColor colorWithCalibratedRed:202.0f/255.0f green:207.0f/255.0f blue:211.0f/255.0f alpha:1.0], 1.0,
+                                        nil];
     }
 
     NSRect bounds = [self bounds];
@@ -321,9 +338,16 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     }
 
     // Draw gradient
+    NSGradient* gradient;
+    if( _isExtensionProject ) {
+        gradient = kExtensionBackgroundGradient;
+    }
+    else {
+        gradient = kBackgroundGradient;
+    }
     {
-        [kBackgroundGradient drawInBezierPath: path
-                                        angle: -90.0];
+        [gradient drawInBezierPath: path
+                             angle: -90.0];
     }
 
     // Draw stroke
@@ -346,10 +370,6 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     NSDate *now = [[NSDate alloc] init];
     
     NSString *theTime = [timeFormat stringFromDate: now];
-    
-    [timeFormat release];
-    [now release];
-
     return theTime;
 }
 
@@ -386,6 +406,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 
 -(void) startStory {
     isStoryActive = YES;
+    canCancel = YES;
 
     [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@"], [[self class] currentTime]]];
     

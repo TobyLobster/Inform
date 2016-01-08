@@ -86,9 +86,8 @@ void cocoaglk_set_types_for_usage(glui32 usage, NSArray* extensions) {
 	if (!cocoaglk_usagetypes) cocoaglk_usagetypes = [[NSMutableDictionary alloc] init];
 	
 	// Remember the usages locally
-	[cocoaglk_usagetypes setObject: [[[NSArray alloc] initWithArray: extensions
-														  copyItems: YES] autorelease]
-							forKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
+	cocoaglk_usagetypes[@(usage&fileusage_TypeMask)] = [[[NSArray alloc] initWithArray: extensions
+														  copyItems: YES] autorelease];
 	
 	// Also remember them in the main client
 	[cocoaglk_session setFileTypes: extensions
@@ -97,7 +96,7 @@ void cocoaglk_set_types_for_usage(glui32 usage, NSArray* extensions) {
 
 NSArray* cocoaglk_types_for_usage(glui32 usage) {
 	// Retrieves a list of valid file types for a given usage
-	NSArray* result = [cocoaglk_usagetypes objectForKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
+	NSArray* result = cocoaglk_usagetypes[@(usage&fileusage_TypeMask)];
 	
 	// Use the user-supplied values if they're available
 	if (result) return result;
@@ -108,21 +107,20 @@ NSArray* cocoaglk_types_for_usage(glui32 usage) {
 	if (result) {
 		// Cache the value locally for future reference
 		if (!cocoaglk_usagetypes) cocoaglk_usagetypes = [[NSMutableDictionary alloc] init];
-		[cocoaglk_usagetypes setObject: [[[NSArray alloc] initWithArray: result
-															  copyItems: YES] autorelease]
-								forKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
+		cocoaglk_usagetypes[@(usage&fileusage_TypeMask)] = [[[NSArray alloc] initWithArray: result
+															  copyItems: YES] autorelease];
 		return result;
 	}
 	
 	// Otherwise, use the defaults (which are convienient if you're writing a GLULX interpreter, but probably stupid otherwise)
 	switch (usage&fileusage_TypeMask) {
-		case fileusage_Data: return [NSArray arrayWithObjects: @"dat", nil];
-		case fileusage_SavedGame: return [NSArray arrayWithObjects: @"sav", nil];
-		case fileusage_InputRecord: return [NSArray arrayWithObjects: @"txt", @"rec", nil];
-		case fileusage_Transcript: return [NSArray arrayWithObjects: @"txt", nil];
+		case fileusage_Data: return @[@"dat"];
+		case fileusage_SavedGame: return @[@"sav"];
+		case fileusage_InputRecord: return @[@"txt", @"rec"];
+		case fileusage_Transcript: return @[@"txt"];
 
-		case fileusage_cocoaglk_GameData: return [NSArray arrayWithObjects: @"blb", nil];
-		case fileusage_cocoaglk_GameFile: return [NSArray arrayWithObjects: @"blb", @"ulx", @"glb", @"gblorb", nil];
+		case fileusage_cocoaglk_GameData: return @[@"blb"];
+		case fileusage_cocoaglk_GameFile: return @[@"blb", @"ulx", @"glb", @"gblorb"];
 			
 		default: return nil;
 	}
@@ -192,7 +190,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
 	NSString* filename = [[[NSString alloc] initWithBytes: name
 												   length: strlen(name)
 												 encoding: NSISOLatin1StringEncoding] autorelease];
-	NSObject<GlkFileRef>* ref = [cocoaglk_fileref_bindings objectForKey: filename];
+	NSObject<GlkFileRef>* ref = cocoaglk_fileref_bindings[filename];
 	if (!ref) ref = [cocoaglk_session fileRefWithName: filename];
 	if (!ref) return NULL;
 	
@@ -489,9 +487,9 @@ void cocoaglk_unbind_file(const char* filename) {
 	}
 	
 	// Unbind this file
-	NSString* name = [NSString stringWithUTF8String: filename];
+	NSString* name = @(filename);
 	
-	if (cocoaglk_fileref_bindings == nil || [cocoaglk_fileref_bindings objectForKey: name] == nil) {
+	if (cocoaglk_fileref_bindings == nil || cocoaglk_fileref_bindings[name] == nil) {
 		cocoaglk_warning("cocoaglk_unbind_file called with a filename that is already unbound");
 		return;
 	}
@@ -522,11 +520,10 @@ void cocoaglk_bind_memory_to_named_file(const unsigned char* memory, int length,
 	if (cocoaglk_fileref_bindings == nil) cocoaglk_fileref_bindings = [[NSMutableDictionary alloc] init];
 	
 	// Bind this file
-	NSString* name = [NSString stringWithUTF8String: filename];
+	NSString* name = @(filename);
 	
 	NSData* data = [NSData dataWithBytesNoCopy: (unsigned char*)memory
 										length: length];
 	GlkMemoryFileRef* fileref = [[[GlkMemoryFileRef alloc] initWithData: data] autorelease];
-	[cocoaglk_fileref_bindings setObject: fileref
-								  forKey: name];
+	cocoaglk_fileref_bindings[name] = fileref;
 }

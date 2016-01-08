@@ -11,7 +11,7 @@
 
 @implementation ZoomLowerWindow
 
-- (id) initWithZoomView: (ZoomView*) zV {
+- (instancetype) initWithZoomView: (ZoomView*) zV {
     self = [super init];
 
     if (self) {
@@ -60,7 +60,8 @@
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style {
+                  withStyle: (in bycopy ZStyle*) style
+                  isCommand: (in bycopy BOOL) isCommand {
 	[zoomView writeAttributedString: [zoomView formatZString: string
 												   withStyle: style]];
     //[[[zoomView textView] textStorage] appendAttributedString:
@@ -69,8 +70,10 @@
     //[[zoomView buffer] appendAttributedString:
     //    [zoomView formatZString: string
     //                  withStyle: style]];
-    
-	[zoomView orOutputText: string];
+
+    if( !isCommand ) {
+        [zoomView orOutputText: string];
+    }
     [zoomView scrollToEnd];
     [zoomView displayMoreIfNecessary];
 }
@@ -80,8 +83,8 @@
 	[encoder encodeObject: backgroundStyle];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
-	self = [super init];
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [self initWithZoomView:nil];
 	
     if (self) {
 		backgroundStyle = [[decoder decodeObject] retain];

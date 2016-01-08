@@ -27,93 +27,10 @@ extern NSString* ZoomStyleAttributeName;
 @class ZoomScrollView;
 @class ZoomTextView;
 @class ZoomPixmapWindow;
-@interface ZoomView : NSView<NSTextViewDelegate, NSTextStorageDelegate, NSOpenSavePanelDelegate, ZDisplay, NSCoding> {
-    NSObject<ZMachine>* zMachine;
-
-    // Subviews
-	BOOL editingTextView;
-	BOOL willScrollToEnd;
-	BOOL willDisplayMore;
-    ZoomTextView* textView;
-    NSTextContainer* upperWindowBuffer; // Things hidden under the upper window
-    ZoomScrollView* textScroller;
-
-    int inputPos;
-    BOOL receiving;
-    BOOL receivingCharacters;
-
-    double morePoint;
-    double moreReferencePoint;
-    BOOL moreOn;
-
-    ZoomMoreView* moreView;
-
-    NSArray* fonts; // 16 entries
-	NSArray* originalFonts;			// As for fonts, used to cache the 'original' font definitions when scaling is in effect
-    NSArray* colours; // 11 entries
-
-    NSMutableArray* upperWindows;
-    NSMutableArray* lowerWindows; // Not that more than one makes any sort of sense
-    int lastUpperWindowSize;
-    int lastTileSize;
-    BOOL upperWindowNeedsRedrawing;
-
-    BOOL exclusiveMode;
-
-    // The task, if we're running it
-    NSTask* zoomTask;
-    NSPipe* zoomTaskStdout;
-    NSMutableString* zoomTaskData;
-
-    // The delegate
-    NSObject* delegate;
-    
-    // Details about the file we're currently saving
-    long creatorCode; // 'YZZY' for Zoom
-    long typeCode;
-	
-	// Preferences
-	ZoomPreferences* viewPrefs;
-	
-	float scaleFactor;
-	
-	// Command history
-	NSMutableArray* commandHistory;
-	int				historyPos;
-	
-	// Terminating characters
-	NSSet* terminatingChars;
-	
-	// View with input focus
-	NSObject<ZWindow>* focusedView;
-	
-	// Pixmap view
-	ZoomCursor*       pixmapCursor;
-	ZoomPixmapWindow* pixmapWindow;
-	
-	// Manual input
-	ZoomInputLine*    inputLine;
-	NSPoint			  inputLinePos;
-	
-	// Autosave
-	NSData* lastAutosave;
-	int		upperWindowsToRestore;
-	BOOL	restoring;
-	
-	// Output receivers
-	NSMutableArray* outputReceivers;
-	ZoomTextToSpeech* textToSpeechReceiver;
-	
-	// Input source
-	NSObject* inputSource;
-	
-	// Resources
-	ZoomBlorbFile* resources;
-}
+@interface ZoomView : NSView<NSTextViewDelegate, NSTextStorageDelegate, NSOpenSavePanelDelegate, ZDisplay, NSCoding>
 
 // The delegate
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
+@property (atomic, assign) id delegate;
 
 - (void) killTask;
 
@@ -126,8 +43,7 @@ extern NSString* ZoomStyleAttributeName;
 
 // Specifying what to run
 - (void) runNewServer: (NSString*) serverName;
-- (NSObject<ZMachine>*) zMachine;
-- (void) setZMachine: (NSObject<ZMachine>*) machine;
+@property (atomic, strong) NSObject<ZMachine> *zMachine;
 
 // Scrolling, more prompt
 - (void) scrollToEnd;
@@ -145,17 +61,16 @@ extern NSString* ZoomStyleAttributeName;
 - (NSAttributedString*) formatZString: (NSString*) zString
                             withStyle: (ZStyle*) style;
 
-- (ZoomTextView*) textView;
+@property (atomic, readonly, strong) ZoomTextView *textView;
 - (void) writeAttributedString: (NSAttributedString*) string;
 - (void) clearLowerWindowWithStyle: (ZStyle*) style;
 
 // Setting the focused view
-- (void) setFocusedView: (NSObject<ZWindow>*) view;
-- (NSObject<ZWindow>*) focusedView;
+@property (atomic, strong) NSObject<ZWindow> *focusedView;
 
 // Dealing with the history
-- (NSString*) lastHistoryItem;
-- (NSString*) nextHistoryItem;
+@property (atomic, readonly, copy) NSString *lastHistoryItem;
+@property (atomic, readonly, copy) NSString *nextHistoryItem;
 
 // Fonts, colours, etc
 - (NSFont*) fontWithStyle: (int) style;
@@ -167,14 +82,14 @@ extern NSString* ZoomStyleAttributeName;
 
 // File saving
 - (long) creatorCode;
-- (void) setCreatorCode: (long) code;
+- (void) setCreatorCode: (uint32_t) code;
 
 // The upper window
-- (int)  upperWindowSize;
+@property (atomic, readonly) int upperWindowSize;
 - (void) setUpperBuffer: (double) bufHeight;
-- (double) upperBufferHeight;
+@property (atomic, readonly) double upperBufferHeight;
 - (void) rearrangeUpperWindows;
-- (NSArray*) upperWindows;
+@property (atomic, readonly, copy) NSArray *upperWindows;
 - (void) padToLowerWindow;
 
 - (void) upperWindowNeedsRedrawing;
@@ -182,7 +97,7 @@ extern NSString* ZoomStyleAttributeName;
 // Event handling
 - (BOOL) handleKeyDown: (NSEvent*) theEvent;
 - (void) clickAtPointInWindow: (NSPoint) windowPos
-					withCount: (int) count;
+					withCount: (NSInteger) count;
 
 // Setting/updating preferences
 - (void) setPreferences: (ZoomPreferences*) prefs;
@@ -194,14 +109,13 @@ extern NSString* ZoomStyleAttributeName;
 - (BOOL) createAutosaveDataWithCoder: (NSCoder*) encoder;
 - (void) restoreAutosaveFromCoder: (NSCoder*) decoder;
 
-- (BOOL) isRunning;
+@property (atomic, getter=isRunning, readonly) BOOL running;
 
 - (void) restoreSaveState: (NSData*) state;
 
 // 'Manual' input
 - (void) setInputLinePos: (NSPoint) pos;
-- (void) setInputLine: (ZoomInputLine*) input;
-- (ZoomInputLine*) inputLine;
+@property (atomic, strong) ZoomInputLine *inputLine;
 
 // Output receivers
 - (void) addOutputReceiver: (id) receiver;
@@ -213,19 +127,18 @@ extern NSString* ZoomStyleAttributeName;
 - (void) orWaitingForInput;
 - (void) orInterpreterRestart;
 
-- (ZoomTextToSpeech*) textToSpeech;
+@property (atomic, readonly, strong) ZoomTextToSpeech *textToSpeech;
 
 // Input sources (nil = default, window input source)
 - (void) setInputSource: (id) source;
 - (void) removeInputSource: (id) source;
 
 // Resources
-- (void)		   setResources: (ZoomBlorbFile*) resources;
-- (ZoomBlorbFile*) resources;
+@property (atomic, strong) ZoomBlorbFile *resources;
 
 // Terminating characters
-- (void) setTerminatingCharacters: (NSSet*) chars;
-- (NSSet*) terminatingCharacters;
+-(NSSet *) terminatingCharacters;
+-(oneway void) setTerminatingCharacters:(in bycopy NSSet*) terminatingChars;
 
 @end
 
@@ -236,7 +149,7 @@ extern NSString* ZoomStyleAttributeName;
 - (void) zMachineFinished: (id) sender;
 
 - (NSString*) defaultSaveDirectory;
-- (BOOL)      useSavePackage;
+@property (atomic, readonly) BOOL useSavePackage;
 - (void)      prepareSavePackage: (ZPackageFile*) file;
 - (void)	  loadedSkeinData: (NSData*) skeinData;
 
@@ -269,9 +182,9 @@ extern NSString* ZoomStyleAttributeName;
 @interface NSObject(ZoomViewInputSource)
 
 // Retrieve the next command
-- (NSString*) nextCommand;
+@property (atomic, readonly, copy) NSString *nextCommand;
 
 // Return YES if you want to turn off more prompts
-- (BOOL) disableMorePrompt;
+@property (atomic, readonly) BOOL disableMorePrompt;
 
 @end

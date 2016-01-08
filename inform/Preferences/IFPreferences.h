@@ -8,8 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "IFInspector.h"
-
 // Notifications
 extern NSString* IFPreferencesAuthorDidChangeNotification;
 extern NSString* IFPreferencesEditingDidChangeNotification;
@@ -65,27 +63,7 @@ typedef enum IFFontStyle {
 //
 // Inform's application preferences are stored here
 //
-@interface IFPreferences : NSObject {
-	// The preferences dictionary
-	NSMutableDictionary* preferences;
-	
-	// Notification flag
-    BOOL batchEditingPreferences;
-    BOOL batchEditingDirty;
-    NSMutableArray* batchNotificationTypes;
-    NSString* notificationString;
-	
-	// Caches
-	NSMutableDictionary* cacheFontSet;		// Maps 'font types' to fonts
-	NSMutableArray* cacheFontStyles;		// Maps styles to fonts
-	NSMutableArray* cacheColourSet;			// Choice of colours
-	NSMutableArray* cacheColours;			// Maps styles to colours
-	NSMutableArray* cacheUnderlines;		// Maps styles to underlines
-	
-	NSMutableArray* styles;					// The array of actual styles (array of attribute dictionaries)
-    
-    IFEditingPreferencesSet* defaultEditingPreferences;
-}
+@interface IFPreferences : NSObject
 
 // Constructing the object
 + (IFPreferences*) sharedPreferences;										// The shared preference object
@@ -97,16 +75,12 @@ typedef enum IFFontStyle {
 -(void) endBatchEditing;
 
 // Editing preferences
-- (NSString*) sourceFontFamily;
-- (float) sourceFontSize;
-- (float) appFontSizeMultiplier;
-- (IFAppFontSize) appFontSizeMultiplierEnum;
-- (float) tabWidth;
+@property (atomic, copy) NSString *sourceFontFamily;
+@property (atomic) float sourceFontSize;
+@property (atomic, readonly) float appFontSizeMultiplier;
+@property (atomic) IFAppFontSize appFontSizeMultiplierEnum;
+@property (atomic) float tabWidth;
 
-- (void) setSourceFontFamily: (NSString*) fontFamily;
-- (void) setSourceFontSize: (float) pointSize;
-- (void) setAppFontSizeMultiplierEnum: (IFAppFontSize) appFontSize;
-- (void) setTabWidth: (float) newTabWidth;
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceFontStyle: (IFFontStyle) style
@@ -124,48 +98,33 @@ typedef enum IFFontStyle {
 -(void) setSourceUnderline: (BOOL) underline
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
-- (void) recalculateStyles;													// Regenerate the array of attribute dictionaries that make up the styles
-- (NSArray*) styles;														// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
+- (void) recalculateStyles;								// Regenerate the array of attribute dictionaries that make up the styles
+@property (atomic, readonly, copy) NSArray *styles;		// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
 
 // Intelligence preferences
-- (BOOL) enableSyntaxHighlighting;											// YES if source code should be displayed with syntax highlighting
-- (BOOL) indentWrappedLines;												// ... and indentation
-- (BOOL) elasticTabs;														// ... and elastic tabs
-- (BOOL) indentAfterNewline;												// ... which is used to generate indentation
-- (BOOL) autoNumberSections;												// ... which is used to auto-type section numbers
-- (NSString*) freshGameAuthorName;											// The default author to use for new Inform 7 games
+@property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
+@property (atomic) BOOL indentWrappedLines;				// ... and indentation
+@property (atomic) BOOL elasticTabs;					// ... and elastic tabs
+@property (atomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
+@property (atomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers
+@property (atomic, copy) NSString *freshGameAuthorName;	// The default author to use for new Inform 7 games
 
-- (void) setEnableSyntaxHighlighting: (BOOL) value;
-- (void) setIndentWrappedLines: (BOOL) value;
-- (void) setElasticTabs: (BOOL) value;
-- (void) setIndentAfterNewline: (BOOL) value;
-- (void) setAutoNumberSections: (BOOL) value;
-- (void) setFreshGameAuthorName: (NSString*) value;
 
--(NSColor*) sourcePaperColour;
--(void) setSourcePaperColour: (NSColor*) colour;
--(NSColor*) extensionPaperColour;
--(void) setExtensionPaperColour: (NSColor*) colour;
+@property (atomic, copy) NSColor *sourcePaperColour;
+@property (atomic, copy) NSColor *extensionPaperColour;
 
 // Advanced preferences
-- (BOOL) runBuildSh;														// YES if we should run the build.sh shell script to rebuild Inform 7
-- (BOOL) showDebuggingLogs;													// YES if we should show the Inform 7 debugging logs + generated Inform 6 source code
-- (BOOL) showConsoleDuringBuilds;                                           // YES if we want to see the console output during a build
-- (BOOL) publicLibraryDebug;                                                // YES if we want to debug the public library
-- (BOOL) cleanProjectOnClose;												// YES if we should clean the project when we close it (or when saving)
-- (BOOL) alsoCleanIndexFiles;												// YES if we should additionally clean out the index files
-- (NSString*) glulxInterpreter;												// The preferred glulx interpreter
+@property (atomic) BOOL runBuildSh;						// YES if we should run the build.sh shell script to rebuild Inform 7
+@property (atomic) BOOL alwaysCompile;					// YES if we should always compile the source (no make-style dependency checking)
+@property (atomic) BOOL showDebuggingLogs;				// YES if we should show the Inform 7 debugging logs + generated Inform 6 source code
+@property (atomic) BOOL showConsoleDuringBuilds;        // YES if we want to see the console output during a build
+@property (atomic) BOOL publicLibraryDebug;             // YES if we want to debug the public library
+@property (atomic) BOOL cleanProjectOnClose;            // YES if we should clean the project when we close it (or when saving)
+@property (atomic) BOOL alsoCleanIndexFiles;			// YES if we should additionally clean out the index files
+@property (atomic, copy) NSString *glulxInterpreter;	// The preferred glulx interpreter
 
-- (void) setRunBuildSh: (BOOL) value;
-- (void) setShowDebuggingLogs: (BOOL) value;
-- (void) setShowConsoleDuringBuilds: (BOOL) value;
-- (void) setPublicLibraryDebug: (BOOL) value;
-- (void) setCleanProjectOnClose: (BOOL) value;
-- (void) setAlsoCleanIndexFiles: (BOOL) value;
-- (void) setGlulxInterpreter: (NSString*) value;
 
 // Position of preferences window
--(NSPoint) preferencesTopLeftPosition;
--(void) setPreferencesTopLeftPosition:(NSPoint) point;
+@property (atomic) NSPoint preferencesTopLeftPosition;
 
 @end

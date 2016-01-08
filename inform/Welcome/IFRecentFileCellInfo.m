@@ -9,35 +9,29 @@
 
 @implementation IFRecentFileCellInfo
 
-@synthesize title;
-@synthesize image;
-@synthesize url;
-@synthesize type;
+- (instancetype)init { self = [super init]; return self; }
 
-- (id)initWithTitle: (NSString *) _title
-              image: (NSImage *) _image
-                url: (NSURL *) _url
-               type: (IFRecentFileType) _type {
+- (instancetype)initWithTitle: (NSString *) title
+                        image: (NSImage *) image
+                          url: (NSURL *) url
+                         type: (IFRecentFileType) type {
     self = [super init];
     if( self ) {
-        self.title      = _title;
-        self.image      = _image;
-        self.url        = _url;
-        type            = _type;
+        _title      = title;
+        _image      = image;
+        _url        = url;
+        _type       = type;
     }
     return self;
 }
 
--(void) dealloc {
-    [super dealloc];
-}
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    IFRecentFileCellInfo *cellInfo = [[IFRecentFileCellInfo alloc] initWithTitle: [self title]
-                                                                           image: [self image]
-                                                                             url: [self url]
-                                                                            type: [self type]];
+    IFRecentFileCellInfo *cellInfo = [[IFRecentFileCellInfo alloc] initWithTitle: _title
+                                                                           image: _image
+                                                                             url: _url
+                                                                            type: _type];
     return cellInfo;
 }
 

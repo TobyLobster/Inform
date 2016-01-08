@@ -7,8 +7,8 @@ use File::Basename;
 
 my $dirname = dirname(__FILE__);
 
-my $app_version_number = "1.54";
-my $app_version_build_number = "$app_version_number.4";
+my $app_version_number = "1.64";
+my $app_version_build_number = "$app_version_number.1";
 my $inform_source_version = "ABCD";
 my $full_version_prefix = "$app_version_number/6.33/";
 my $full_version = "";
@@ -110,10 +110,10 @@ replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleVersion", $app_v
 replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleShortVersionString", $app_version_number);
 
 # if the directory Inform-Source exists
-if [ -d "$dirname/../../Inform-Source" ]; then
+if ( -d "$dirname/../../Inform-Source" ) {
     # Read Inform-Source version string
     read_version("$dirname/../../Inform-Source/build_number.txt");
     replace_in_UTF16_strings_file("$dirname/../English.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
     replace_in_UTF8_strings_file("$dirname/../English.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
     print "Version number updated to $full_version successfully\n";
-fi
+}

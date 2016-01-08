@@ -29,20 +29,19 @@ extern NSString* GlkImageAttribute;
 }
 
 // Initialisation
-- (id) initWithImage: (NSImage*) image
+- (instancetype) initWithImage: (NSImage*) image
 		   alignment: (unsigned) alignment
 				size: (NSSize) size
-			position: (unsigned) characterPosition;
+			position: (unsigned) characterPosition NS_DESIGNATED_INITIALIZER;
 
 // Information
-- (NSImage*) image;								// The NSImage associated with this image
-- (NSSize) size;								// The size to draw this image with
-- (unsigned) alignment;							// The Glk alignment of this image
-- (unsigned) characterPosition;					// The character position of this image in the text stream
-
-- (void) setBounds: (NSRect) bounds;			// Sets the bounds of this image, marks it as calculated
-- (NSRect) bounds;								// Retrieves the bounds of this image
-- (BOOL) calculatedBounds;						// Returns YES if the bounds are calculated
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *image;								// The NSImage associated with this image
+@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;								// The size to draw this image with
+@property (NS_NONATOMIC_IOSONLY, readonly) unsigned int alignment;							// The Glk alignment of this image
+@property (NS_NONATOMIC_IOSONLY, readonly) unsigned int characterPosition;					// The character position of this image in the text stream
+			// Sets the bounds of this image, marks it as calculated
+@property (NS_NONATOMIC_IOSONLY) NSRect bounds;								// Retrieves the bounds of this image
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL calculatedBounds;						// Returns YES if the bounds are calculated
 - (void) markAsUncalculated;					// Marks this image as uncalculated
 
 @end

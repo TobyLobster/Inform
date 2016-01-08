@@ -1,6 +1,6 @@
 //
 //  IFSingleFile.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 23/06/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -17,11 +17,15 @@
 #import "IFCompilerSettings.h"
 #import "IFUtility.h"
 
-@implementation IFSingleFile
+@implementation IFSingleFile {
+    NSTextStorage* fileStorage;						// The contents of the file
+    NSStringEncoding fileEncoding;					// The encoding used for the file
+    NSRange initialSelectionRange;
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -35,10 +39,7 @@
 - (void) dealloc {
     [IFSyntaxManager unregisterTextStorage: fileStorage];
 
-    [fileStorage release];
     fileStorage = nil;
-	
-	[super dealloc];
 }
 
 // = Data =
@@ -46,7 +47,6 @@
 - (void)makeWindowControllers {
     IFSingleController *aController = [[IFSingleController alloc] initWithInitialSelectionRange: initialSelectionRange];
     [self addWindowController:aController];
-    [aController release];
 }
 
 - (NSData *)dataRepresentationOfType: (NSString*) type {
@@ -77,11 +77,12 @@
         case IFFileTypeInform7SourceFile:
         case IFFileTypeInform7ExtensionFile: {
             highlightType = IFHighlightTypeInform7;
-            intel = [[[IFNaturalIntel alloc] init] autorelease];
+            intel = [[IFNaturalIntel alloc] init];
             break;
         }
-        case IFFileTypeInform6ExtensionProject:
         case IFFileTypeInform7Project:
+        case IFFileTypeInform7ExtensionProject:
+        case IFFileTypeInform6ExtensionProject:
         case IFFileTypeUnknown:
         default: {
             NSAssert(false, @"Found invalid file type %d from type '%@'", (int) [IFProjectTypes fileTypeFromString: type], type);
@@ -105,8 +106,7 @@
 	}
 
     // Update fileStorage
-	[fileStorage release];
-	fileStorage = [[NSTextStorage alloc] initWithString: [fileString autorelease]];
+	fileStorage = [[NSTextStorage alloc] initWithString: fileString];
     [IFSyntaxManager registerTextStorage: fileStorage
                                     name: @"single file"
                                     type: highlightType
@@ -124,17 +124,17 @@
 // = Whether or not this should be treated as read-only =
 
 - (BOOL) isReadOnly {
-	if ([[self fileURL] path] == nil) return NO;
-	
-	NSString* filename = [[[self fileURL] path] stringByStandardizingPath];
-	
+	if (self.fileURL.path == nil) return NO;
+
+	NSString* filename = [self.fileURL.path stringByStandardizingPath];
+
 	// Files in the extensions directory in the application should be treated as read-only
 	NSString* appDir = [IFUtility pathForInformInternalExtensions];
-	
+
 	if ([[filename lowercaseString] hasPrefix: [appDir lowercaseString]]) {
 		return YES;
 	}
-	
+
 	// Default is read-write
 	return NO;
 }

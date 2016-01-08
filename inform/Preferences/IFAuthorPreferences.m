@@ -1,6 +1,6 @@
 //
 //  IFAuthorPreferences.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 18/10/2009.
 //  Copyright 2009 Andrew Hunter. All rights reserved.
@@ -12,9 +12,11 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-@implementation IFAuthorPreferences
+@implementation IFAuthorPreferences {
+    IBOutlet NSTextField* newGameName;					// The preferred name for new Natural Inform games
+}
 
-- (id) init {
+- (instancetype) init {
 	self = [super initWithNibName: @"AuthorPreferences"];
 	
 	if (self) {

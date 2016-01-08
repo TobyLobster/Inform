@@ -1,6 +1,6 @@
 //
 //  IFGamePage.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -8,12 +8,19 @@
 
 #import "IFGamePage.h"
 #import "IFErrorsPage.h"
+#import "IFSkein.h"
+#import "IFSkeinItem.h"
 #import "IFPreferences.h"
 #import "IFGlkResources.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFIsWatch.h"
-#import "IFTestMe.h"
+#import "IFTestCommands.h"
 #import "IFUtility.h"
+#import "IFProgress.h"
+#import "IFProjectController.h"
+#import "IFProjectTypes.h"
+#import "IFProject.h"
+#import <ZoomView/ZoomView.h>
 
 @interface IFSemiTransparentView : NSView
 
@@ -22,37 +29,45 @@
 @implementation IFSemiTransparentView
 
 - (void)drawRect:(NSRect)dirtyRect {
-    // When the game is not running, show this window (semi transpaerent white) over the top.
+    // When the game is not running, show this view (semi transparent white) over the top.
     [[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 0.5] setFill];
     NSRectFill(dirtyRect);
     [super drawRect:dirtyRect];
 }
 @end
 
-@interface IFGamePage(Private)
+@implementation IFGamePage {
+    GlkView*		 gView;					// The Glk (glulxe) view
+    ZoomView*        zView;					// The Z-Machine view
+    NSString*        gameToRun;				// The filename of the game to start
+    BOOL             switchToPage;          // YES to switch view to show the game page
 
-- (void) updatedBreakpoints: (NSNotification*) not;
+    IFProgress*      gameRunningProgress;	// The progress indicator (how much we've compiled, how the game is running, etc)
+    NSView*          semiTransparentView;
 
-@end
-
-@implementation IFGamePage
+    BOOL             setBreakpoint;			// YES if we are allowed to set breakpoints
+    NSArray*         testCommands;          // List of commands to automatically run once game has started
+}
 
 // = Initialisation =
 
-- (id) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Game"
 				projectController: controller];
 	
 	if (self) {
-        zView = nil;
-        gameToRun = nil;		
-        isRunningGame = NO;
+        zView           = nil;
+        gView           = nil;
+        gameToRun       = nil;
+        _isRunningGame  = NO;
+        testCommands    = nil;
+        switchToPage    = NO;
 
 		// Register for breakpoints updates
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(updatedBreakpoints:)
 													 name: IFProjectBreakpointsChangedNotification
-												   object: [parent document]];
+												   object: [self.parent document]];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesChanged:)
 													 name: IFPreferencesAppFontSizeDidChangeNotification
@@ -67,8 +82,7 @@
 
 	if (gameRunningProgress) {
         [gameRunningProgress stopProgress];
-		[parent removeProgressIndicator: gameRunningProgress];
-		[gameRunningProgress release];
+		[self.parent removeProgressIndicator: gameRunningProgress];
 		gameRunningProgress = nil;
 	}
 		
@@ -76,20 +90,15 @@
         [zView removeFromSuperview];
 		[zView setDelegate: nil];
 		[zView killTask];
-		[zView release];
 	}
 	if (gView) {
         [gView removeFromSuperview];
 		[gView setDelegate: nil];
 		[gView terminateClient];
-		[gView release];
 		gView = nil;
 	}
-    [pointToRunTo release];
-    [gameToRun release];
-    isRunningGame = NO;
+    _isRunningGame = NO;
 
-	[super dealloc];
 }
 
 // = Details about this view =
@@ -117,31 +126,28 @@
 }
 
 - (void) startRunningGame: (NSString*) fileName {
-	[[[parent document] skein] zoomInterpreterRestart];
+	[[[self.parent document] currentSkein] interpreterRestart];
 	
     if (zView) {
 		[zView killTask];
         [zView removeFromSuperview];
-        [zView release];
         zView = nil;
     }
 	
 	if (gView) {
 		[gView terminateClient];
 		[gView removeFromSuperview];
-		[gView release];
 		gView = nil;
 	}
     if( semiTransparentView == nil ) {
-        semiTransparentView = [[IFSemiTransparentView alloc] initWithFrame:[view frame]];
+        semiTransparentView = [[IFSemiTransparentView alloc] initWithFrame:[self.view frame]];
         semiTransparentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         
         // "Wants layer" is set so that the subviews (semiTransparentView and zView/gView) are ordered in Z correctly when sibling views overlap
-        view.wantsLayer = YES;
-        [view addSubview:semiTransparentView];
+        self.view.wantsLayer = YES;
+        [self.view addSubview:semiTransparentView];
     }
     
-    if (gameToRun) [gameToRun release];
     gameToRun = [fileName copy];
 	
 	if (!gameRunningProgress) {
@@ -149,19 +155,19 @@
                                                   showsProgressBar: NO
                                                          canCancel: YES];
         [gameRunningProgress setCancelAction: @selector(stopProcess:)
-                                   forObject: parent];
-		[parent addProgressIndicator: gameRunningProgress];
+                                   forObject: self.parent];
+		[self.parent addProgressIndicator: gameRunningProgress];
         [gameRunningProgress startProgress];
 	}
 
 	//[gameRunningProgress setMessage: [IFUtility localizedString: @"Loading story file"]];
 
 	if ([[gameToRun pathExtension] isEqualToString: @"ulx"]) {
-		IFRuntimeErrorParser* runtimeErrors = [[[IFRuntimeErrorParser alloc] init] autorelease];
-		[runtimeErrors setDelegate: parent];
+		IFRuntimeErrorParser* runtimeErrors = [[IFRuntimeErrorParser alloc] init];
+		[runtimeErrors setDelegate: self.parent];
 
 		// Screws up the first responder, will cause the GlkView object to force a new first responder after it starts
-		[[parent window] makeFirstResponder: [parent window]];
+		[[self.parent window] makeFirstResponder: [self.parent window]];
 		
 		// Work out the default client to use
 		NSString*		clientName = [[IFPreferences sharedPreferences] glulxInterpreter];
@@ -170,14 +176,14 @@
 		// Start running as a glulxe task
 		gView = [[GlkView alloc] init];
 		[gView setDelegate: self];
-		[gView addOutputReceiver: parent];
+		[gView addOutputReceiver: self.parent];
 		[gView addOutputReceiver: runtimeErrors];
 		
-		[gView setImageSource: [[[IFGlkResources alloc] initWithProject: [parent document]] autorelease]];
+		[gView setImageSource: [[IFGlkResources alloc] initWithProject: [self.parent document]]];
 		
 		[gView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-		[gView setFrame: [view bounds]];
-		[view addSubview: gView];
+		[gView setFrame: [self.view bounds]];
+		[self.view addSubview: gView];
 		
 		[gView setScaleFactor: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
@@ -192,47 +198,68 @@
 		// Start running as a Zoom task
 		IFRuntimeErrorParser* runtimeErrors = [[IFRuntimeErrorParser alloc] init];
 		
-		[runtimeErrors setDelegate: parent];
+		[runtimeErrors setDelegate: self.parent];
 		
 		zView = [[ZoomView alloc] init];
 		[zView setDelegate: self];
-		[[[parent document] skein] zoomInterpreterRestart];
-		[zView addOutputReceiver: [[parent document] skein]];
+		[[[self.parent document] currentSkein] interpreterRestart];
+		[zView addOutputReceiver: [[self.parent document] currentSkein]];
 		[zView addOutputReceiver: runtimeErrors];
 		[zView runNewServer: nil];
 		
-		[zView setColours: [NSArray arrayWithObjects:
-			[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
-			[NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
-			[NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
-			[NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha: 1],
-			[NSColor colorWithDeviceRed: 0 green: 0 blue: 1 alpha: 1],
-			[NSColor colorWithDeviceRed: 1 green: 0 blue: 1 alpha: 1],
-			[NSColor colorWithDeviceRed: 0 green: 1 blue: 1 alpha: 1],
-			[NSColor colorWithDeviceRed: 1 green: 1 blue: 1 alpha: 1],
-			
-			[NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
-			[NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
-			[NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1],
-			nil]];
-		
+		[zView setColours: @[[NSColor colorWithDeviceRed: 0 green: 0 blue: 0 alpha: 1],
+                             [NSColor colorWithDeviceRed: 1 green: 0 blue: 0 alpha: 1],
+                             [NSColor colorWithDeviceRed: 0 green: 1 blue: 0 alpha: 1],
+                             [NSColor colorWithDeviceRed: 1 green: 1 blue: 0 alpha: 1],
+                             [NSColor colorWithDeviceRed: 0 green: 0 blue: 1 alpha: 1],
+                             [NSColor colorWithDeviceRed: 1 green: 0 blue: 1 alpha: 1],
+                             [NSColor colorWithDeviceRed: 0 green: 1 blue: 1 alpha: 1],
+                             [NSColor colorWithDeviceRed: 1 green: 1 blue: 1 alpha: 1],
+                            
+                             [NSColor colorWithDeviceRed: .73 green: .73 blue: .73 alpha: 1],
+                             [NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
+                             [NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1]]];
+
 		[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
-		[zView setFrame: [view bounds]];
+		[zView setFrame: [self.view bounds]];
 		[zView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-		[view addSubview: zView];
+		[self.view addSubview: zView];
 	}
     [semiTransparentView setHidden: YES];
-    isRunningGame = YES;
+    _isRunningGame = YES;
 }
 
-- (void) setPointToRunTo: (ZoomSkeinItem*) item {
-	if (pointToRunTo) [pointToRunTo release];
-	pointToRunTo = [item retain];
+- (void) setPointToRunTo: (IFSkeinItem*) item {
+
+    NSMutableArray* commands = [[NSMutableArray alloc] init];
+
+    while( (item != nil) && (item.parent != nil) ) {
+        [commands insertObject: item.command atIndex:0];
+        item = item.parent;
+    }
+    [self setTestCommands: [NSArray arrayWithArray: commands]];
 }
 
-- (void) setTestMe: (BOOL) willTestMe {
-	testMe = willTestMe;
+- (void) setTestMe: (BOOL) testMe {
+    if( testMe ) {
+        [self setTestCommands: @[@"test me"]];
+    }
+    else {
+        [self setTestCommands: nil];
+    }
+}
+
+- (void) setTestCommands: (NSArray*) myTestCommands {
+    testCommands = myTestCommands;
+}
+
+- (BOOL) hasTestCommands {
+    return ( testCommands.count > 0 );
+}
+
+- (void) setSwitchToPage: (BOOL) willSwitchToPage {
+    switchToPage = willSwitchToPage;
 }
 
 - (void) stopRunningGame {
@@ -244,13 +271,15 @@
 		[gView terminateClient];
 	}
     
-    isRunningGame = NO;
+    _isRunningGame = NO;
+
+    [[[self.parent document] currentSkein] interpreterStop];
 
     // Make sure the semi transparent white window is shown on top of other views
     [semiTransparentView removeFromSuperview];
-    [view addSubview: semiTransparentView
-          positioned: NSWindowAbove
-          relativeTo: nil];
+    [self.view addSubview: semiTransparentView
+               positioned: NSWindowAbove
+               relativeTo: nil];
     [semiTransparentView setHidden: NO];
     [semiTransparentView setNeedsDisplay: YES];
     [gameRunningProgress stopStory];
@@ -270,37 +299,24 @@
 	return gView;
 }
 
-- (BOOL) isRunningGame {
-	return isRunningGame;
-}
-
 // (GlkView delegate functions)
 - (void) taskHasStarted {
-	[self switchToPage];
+    if ( switchToPage ) {
+        [self switchToPage];
+    }
 	
-	[parent glkTaskHasStarted: self];
+	[self.parent glkTaskHasStarted: self];
 	
     [gameRunningProgress stopProgress];
 	[gameRunningProgress startStory];
 	
-	if (pointToRunTo) {
-		[parent transcriptToPoint: pointToRunTo
-					  switchViews: NO];
-		
-		id inputSource = [ZoomSkein inputSourceFromSkeinItem: [[[parent document] skein] rootItem]
-													  toItem: pointToRunTo];
-		
-		[parent setGlkInputSource: inputSource];
-		[gView addInputReceiver: parent];
-		
-		[pointToRunTo release];
-		pointToRunTo = nil;
-		testMe = NO;
-	} else if (testMe) {
-		id inputSource = [[[IFTestMe alloc] init] autorelease];
-		[parent setGlkInputSource: inputSource];
-		[gView addInputReceiver: parent];
-	}
+	if (testCommands != nil) {
+        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
+        [inputSource setCommands: testCommands];
+        testCommands = nil;
+        [self.parent setGlkInputSource: inputSource];
+        [gView addInputReceiver: self.parent];
+    }
 }
 
 // (ZoomView delegate functions)
@@ -310,15 +326,15 @@
 }
 
 - (void) inputSourceHasFinished: (id) sender {
-	[parent inputSourceHasFinished: nil];
+	[self.parent inputSourceHasFinished: nil];
 }
 
 - (void) zMachineStarted: (id) sender {	
     [[zView zMachine] loadStoryFile: 
         [NSData dataWithContentsOfFile: gameToRun]];
 	
-	[[zView zMachine] loadDebugSymbolsFrom: [[[[parent document] fileName] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
-							withSourcePath: [[[parent document] fileName] stringByAppendingPathComponent: @"Source"]];
+	[[zView zMachine] loadDebugSymbolsFrom: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
+							withSourcePath: [[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Source"]];
 	
 	// Set the initial breakpoint if 'Debug' was selected
 	if (setBreakpoint) {
@@ -329,9 +345,9 @@
 	
 	// Set the other breakpoints anyway
 	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[parent document] breakpointCount]; breakpoint++) {
-		int line = [[parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[parent document] fileForBreakpointAtIndex: breakpoint];
+	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
+		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
+		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
 		
 		if (line >= 0) {
 			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
@@ -342,26 +358,18 @@
 	
 	setBreakpoint = NO;
 	
-	// Run to the appropriate point in the skein
-	if (pointToRunTo) {
-		[parent transcriptToPoint: pointToRunTo];
-		
-		id inputSource = [ZoomSkein inputSourceFromSkeinItem: [[[parent document] skein] rootItem]
-													  toItem: pointToRunTo];
-		
-		[zView setInputSource: inputSource];
-		
-		[pointToRunTo release];
-		pointToRunTo = nil;
-	} else if (testMe) {
-		id inputSource = [[[IFTestMe alloc] init] autorelease];
-		[zView setInputSource: inputSource];
-	} else {
-		[parent transcriptToPoint: [[[parent document] skein] rootItem]];
-	}
-	
-	[self switchToPage];
-    [[parent window] makeFirstResponder: [zView textView]];
+	// Run to the appropriate point in the current skein
+	if( testCommands ) {
+        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
+        [inputSource setCommands: testCommands];
+        testCommands = nil;
+        [zView setInputSource: inputSource];
+    }
+    if( switchToPage ) {
+        [self switchToPage];
+    }
+
+    [[self.parent window] makeFirstResponder: [zView textView]];
 	
     [gameRunningProgress stopProgress];
 	[gameRunningProgress startStory];
@@ -371,25 +379,25 @@
 	// Append .glkdata if the name has no extension
 	name = [name lastPathComponent];
 	name = [[name stringByDeletingPathExtension] stringByAppendingPathExtension: @"glkdata"];
-	
+
 	// Work out the location of the materials directory
-	NSString* projectPath	= [[parent document] fileName];
-	NSString* materials		= [[parent document] materialsPath];
-	
+	NSURL* projectURL	= [[self.parent document] fileURL];
+	NSURL* materialsURL	= [[self.parent document] materialsDirectoryURL];
+
 	// Default location is materials/Files
-	NSString* filesDir		= [materials stringByAppendingPathComponent: @"Files"];
-	
+	NSURL* filesDirURL = [materialsURL URLByAppendingPathComponent: @"Files"];
+
 	// Use this directory if it exists
 	BOOL isDir;
-	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: filesDir
+	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: filesDirURL.path
 													   isDirectory: &isDir];
 	
 	if (exists && isDir) {
 		// Use the files directory
-		return [filesDir stringByAppendingPathComponent: name];
+		return [filesDirURL URLByAppendingPathComponent: name].path;
 	} else {
 		// Use the directory the project is in
-		return [[projectPath stringByDeletingLastPathComponent] stringByAppendingPathComponent: name];
+		return [[projectURL URLByDeletingLastPathComponent] URLByAppendingPathComponent: name].path;
 	}
 }
 
@@ -405,9 +413,9 @@
 	
 	// Set the breakpoints
 	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[parent document] breakpointCount]; breakpoint++) {
-		int line = [[parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[parent document] fileForBreakpointAtIndex: breakpoint];
+	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
+		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
+		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
 		
 		if (line >= 0) {
 			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
@@ -421,11 +429,25 @@
 
 - (void) hitBreakpoint: (int) pc {
 	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
-	[parent hitBreakpoint: pc];
+	[self.parent hitBreakpoint: pc];
 }
 
 - (void) zoomWaitingForInput {
+    [self.parent zoomViewIsWaitingForInput];
+
 	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
+}
+
+-(void) didSwitchToPage {
+    if( gView ) {
+        [gView showMoreWindow];
+    }
+}
+
+-(void) didSwitchAwayFromPage {
+    if( gView ) {
+        [gView hideMoreWindow];
+    }
 }
 
 @end

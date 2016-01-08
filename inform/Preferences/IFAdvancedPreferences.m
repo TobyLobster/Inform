@@ -1,6 +1,6 @@
 //
 //  IFAdvancedPreferences.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 12/10/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -11,11 +11,23 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 
-@implementation IFAdvancedPreferences
+@implementation IFAdvancedPreferences {
+    IBOutlet NSButton* showDebugLogs;					// If checked, show the Inform 6 source and Inform 7 debugging logs
+    IBOutlet NSButton* runBuildSh;						// Causes the Inform 7 build process to be run
+    IBOutlet NSButton* alwaysCompile;                   // If checked, always compile the story (no make-style dependency checking)
+    IBOutlet NSButton* showConsole;                     // If checked, show the Console during building
+    IBOutlet NSButton* publicLibraryDebug;              // If checked, the public library is accessed from a different location (for debugging)
+
+    IBOutlet NSButton* cleanBuildFiles;					// If checked, build files are cleaned out
+    IBOutlet NSButton* alsoCleanIndexFiles;				// If checked, index files are cleaned out in addition to build files
+    IBOutlet NSPopUpButton*	glulxInterpreter;			// The glulx interpreter to use
+
+    NSMutableArray* interpreters;						// Array of interpreter names, indexed by tags in the glulxInterpreter menu
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super initWithNibName: @"AdvancedPreferences"];
 	
 	if (self) {
@@ -30,11 +42,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	[interpreters release];
-	
-	[super dealloc];
-}
 
 // = Preference overrides =
 
@@ -58,15 +65,17 @@
 - (IBAction) setPreference: (id) sender {
 	// Read the current state of the buttons
 	BOOL willBuildSh            = [runBuildSh state]==NSOnState;
+    BOOL willAlwaysCompile      = [alwaysCompile state]==NSOnState;
 	BOOL willDebug              = [showDebugLogs state]==NSOnState;
     BOOL willShowConsole        = [showConsole state]==NSOnState;
     BOOL willPublicLibraryDebug = [publicLibraryDebug state]==NSOnState;
 	BOOL willCleanBuild         = [cleanBuildFiles state]==NSOnState;
 	BOOL willAlsoCleanIndex     = [alsoCleanIndexFiles state]==NSOnState;
-	NSString* interpreter       = [interpreters objectAtIndex: [[glulxInterpreter selectedItem] tag]];
+	NSString* interpreter       = interpreters[[[glulxInterpreter selectedItem] tag]];
 	
 	// Set the shared preferences to suitable values
 	[[IFPreferences sharedPreferences] setRunBuildSh: willBuildSh];
+    [[IFPreferences sharedPreferences] setAlwaysCompile: willAlwaysCompile];
 	[[IFPreferences sharedPreferences] setShowDebuggingLogs: willDebug];
 	[[IFPreferences sharedPreferences] setShowConsoleDuringBuilds: willShowConsole];
   	[[IFPreferences sharedPreferences] setPublicLibraryDebug: willPublicLibraryDebug];
@@ -80,8 +89,7 @@
 	NSMenu* terpMenu = [glulxInterpreter menu];
 	while ([terpMenu numberOfItems] > 0) { [terpMenu removeItemAtIndex: 0]; }
 	
-	[interpreters autorelease];
-	interpreters = [[NSMutableArray alloc] initWithArray: [[[[NSBundle mainBundle] infoDictionary] objectForKey: @"InformConfiguration"] objectForKey: @"AvailableInterpreters"]];
+	interpreters = [[NSMutableArray alloc] initWithArray: [[NSBundle mainBundle] infoDictionary][@"InformConfiguration"][@"AvailableInterpreters"]];
 	int	selIndex = 0;
 	for( NSString* terp in interpreters ) {
 		// Get the description of this interpreter from the localised strings
@@ -95,13 +103,12 @@
 												  keyEquivalent: @""];
 		[newItem setTag: [terpMenu numberOfItems]];
 		if ([terp isEqualToString: [[IFPreferences sharedPreferences] glulxInterpreter]]) {
-			selIndex = [terpMenu numberOfItems];
+			selIndex = (int)[terpMenu numberOfItems];
 		}
 		
 		// Add it to the menu
 		[terpMenu addItem: newItem];
 
-        [newItem release];
 	}
 	
 	// Select the appropriate item in the menu
@@ -112,15 +119,16 @@
     [publicLibraryDebug setHidden: [IFUtility isSandboxed]];
 
 	// Set the buttons according to the current state of the preferences
-	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]?NSOnState:NSOffState];
-	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]?NSOnState:NSOffState];
-    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds]?NSOnState:NSOffState];
-    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]?NSOnState:NSOffState];
+	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]               ? NSOnState : NSOffState];
+    [alwaysCompile       setState: [[IFPreferences sharedPreferences] alwaysCompile]            ? NSOnState : NSOffState];
+	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]        ? NSOnState : NSOffState];
+    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds]  ? NSOnState : NSOffState];
+    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]       ? NSOnState : NSOffState];
 	
-	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]?NSOnState:NSOffState];
+	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]          ? NSOnState : NSOffState];
 	
 	if ([[IFPreferences sharedPreferences] cleanProjectOnClose]) {
-		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles]?NSOnState:NSOffState];
+		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles]  ? NSOnState : NSOffState];
 		[alsoCleanIndexFiles setEnabled: YES];
 	} else {
 		[alsoCleanIndexFiles setState: NSOffState];

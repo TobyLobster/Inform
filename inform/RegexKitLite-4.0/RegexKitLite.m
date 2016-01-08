@@ -1718,7 +1718,7 @@ static NSDictionary *rkl_userInfoDictionary(RKLUserInfoOptions userInfoOptions, 
   NSString * RKL_GC_VOLATILE errorNameString = [NSString stringWithUTF8String:RKL_ICU_FUNCTION_APPEND(u_errorName)(status)];
   
   addKeyAndObject(objects, keys, count, RKLICURegexRegexErrorKey,        regexString);
-  addKeyAndObject(objects, keys, count, RKLICURegexRegexOptionsErrorKey, [NSNumber numberWithUnsignedInt:options]);
+  addKeyAndObject(objects, keys, count, RKLICURegexRegexOptionsErrorKey, [NSNumber numberWithUnsignedInt:(unsigned int)options]);
   addKeyAndObject(objects, keys, count, RKLICURegexErrorCodeErrorKey,    [NSNumber numberWithInt:status]);
   addKeyAndObject(objects, keys, count, RKLICURegexErrorNameErrorKey,    errorNameString);
 

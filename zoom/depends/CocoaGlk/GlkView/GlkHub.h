@@ -37,16 +37,14 @@
 // The shared hub
 + (GlkHub*) sharedGlkHub;									// Creating your own hub is liable to be hairy and unsupported. You only need one per task anyway.
 
-// Naming
-- (void) setHubName: (NSString*) hubName;					// The name of this GlkHub. Calls resetConnection.
+// Naming					// The name of this GlkHub. Calls resetConnection.
 - (void) useProcessHubName;									// Auto-generates a name based on the process name
-- (NSString*) hubName;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *hubName;
 
-// Security
-- (void) setHubCookie: (NSString*) hubCookie;				// Clients must know this in order to connect to the hub. nil by default.
+// Security				// Clients must know this in order to connect to the hub. nil by default.
 - (void) setRandomHubCookie;								// Auto-generates a cookie. Not cryptographically secure (yet).
 - (void) setKeychainHubCookie;								// Auto-generates (if no cookie exists yet) and stores the hub cookie in the keychain.
-- (NSString*) hubCookie;
+@property (NS_NONATOMIC_IOSONLY, copy) NSString *hubCookie;
 
 // The connection
 - (void) resetConnection;									// Starts listening for connections if we're not already
@@ -57,14 +55,13 @@
 - (void) unregisterSession: (NSObject<GlkSession>*)session;	// Unregisters a session previously registered with registerSession
 
 // The delegate
-- (void) setDelegate: (id) hubDelegate;
-- (id)   delegate;
+@property (NS_NONATOMIC_IOSONLY, assign) id delegate;
 
 @end
 
 // Hub delegate functions
 @interface NSObject(GlkHubDelegate)
 
-- (NSObject<GlkSession>*) createAnonymousSession;			// Usually should return a GlkView. Called when a task starts with no session cookie
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSObject<GlkSession> *createAnonymousSession;			// Usually should return a GlkView. Called when a task starts with no session cookie
 
 @end

@@ -1,6 +1,6 @@
 //
 //  IFJSProject.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 29/08/2005.
 //  Copyright 2005 Andrew Hunter. All rights reserved.
@@ -9,13 +9,20 @@
 #import "IFJSProject.h"
 #import "IFExtensionsManager.h"
 #import "IFUtility.h"
+#import "IFSourcePage.h"
+#import "IFProjectPolicy.h"
+#import "IFProjectController.h"
 #import <CommonCrypto/CommonDigest.h>       // md5 hash
 
-@implementation IFJSProject
+@implementation IFJSProject {
+    IFProjectPane* pane;
+}
 
 // = Initialisation =
 
-- (id) initWithPane: (IFProjectPane*) newPane {
+- (instancetype) init { self = [super init]; return self; }
+
+- (instancetype) initWithPane: (IFProjectPane*) newPane {
 	self = [super init];
 	
 	if (self) {
@@ -26,9 +33,7 @@
 }
 
 - (void) dealloc {
-	pane = nil;
-	
-	[super dealloc];
+	pane = nil;	
 }
 
 // = JavaScript names for our selectors =
@@ -40,14 +45,6 @@
 		return @"createNewProject";
 	} else if (sel == @selector(pasteCode:)) {
 		return @"pasteCode";
-	} else if (sel == @selector(runStory:)) {
-		return @"runStory";
-	} else if (sel == @selector(replayStory:)) {
-		return @"replayStory";
-	} else if (sel == @selector(addCommand:)) {
-		return @"addCommand";
-	} else if (sel == @selector(clearCommands)) {
-		return @"clearCommands";
 	} else if (sel == @selector(openFile:)) {
 		return @"openFile";
 	} else if (sel == @selector(openUrl:)) {
@@ -69,9 +66,6 @@
 	if (  sel == @selector(selectView:) 
 		|| sel == @selector(createNewProject:story:)
 		|| sel == @selector(pasteCode:)
-		|| sel == @selector(replayStory:)
-		|| sel == @selector(addCommand:) 
-		|| sel == @selector(clearCommands)
 		|| sel == @selector(openFile:)
 		|| sel == @selector(openUrl:)
         || sel == @selector(askInterfaceForLocalVersionAuthor:title:available:)
@@ -101,8 +95,6 @@
 		[pane selectViewOfType: IFIndexPane];
 	} else if ([view isEqualToString: @"skein"]) {
 		[pane selectViewOfType: IFSkeinPane];
-	} else if ([view isEqualToString: @"transcript"]) {
-		[pane selectViewOfType: IFTranscriptPane];
 	} else {
 		// Other view types are not supported at present
 	}
@@ -118,7 +110,7 @@ static int valueForHexChar(unichar c) {
 
 - (NSString*) unescapeString: (NSString*) string {
 	// Change '\n', '\t', etc marks in a string to newlines, tabs, etc
-	int length = [string length];
+	int length = (int) [string length];
 	if (length == 0) return @"";
 
 	int outLength = -1;
@@ -236,18 +228,6 @@ static int valueForHexChar(unichar c) {
 	[[pane sourcePage] pasteSourceCode: [self unescapeString: code]];
 }
 
-- (void) runStory: (NSString*) game {
-}
-
-- (void) replayStory: (NSString*) game {
-}
-
-- (void) addCommand: (NSString*) command {
-}
-
-- (void) clearCommands {
-}
-
 - (void) openFile: (NSString*) filename {
 	[[NSWorkspace sharedWorkspace] openFile: filename];
 }
@@ -333,15 +313,15 @@ static int valueForHexChar(unichar c) {
             [array addObject:element];
     }
     //NSLog(@"array filled with %u elements !", [array count]);
-    return [array autorelease];
+    return array;
 }
 
 -(void) downloadMultipleExtensions:(WebScriptObject*) object {
     NSArray* array = [self arrayFromWebScriptObject: object];
 
     for(int index = 0; index < [array count]; index += 3) {
-        NSString* item      = [array objectAtIndex: index];
-        NSString* urlString = [array objectAtIndex: index + 1];
+        NSString* item      = array[index];
+        NSString* urlString = array[index + 1];
         //NSString* version   = [array objectAtIndex: index + 2];
         //NSLog(@"item is %@ for url %@ version %@", item, urlString, version);
 

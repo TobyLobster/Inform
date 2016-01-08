@@ -168,7 +168,7 @@ command once printing is done. To do this, we need to save the old player's
 command, and we do that by creating a text for the duration.
 
 @c
-[ STORED_ACTION_TY_Say stora text_of_command saved_command saved_pn saved_action K1 K2 at;
+[ STORED_ACTION_TY_Say stora text_of_command saved_command saved_pn saved_action K1 K2 at cf cw;
 	if ((stora==0) || (BlkValueWeakKind(stora) ~= STORED_ACTION_TY)) return;
 	text_of_command = BlkValueRead(stora, STORA_COMMAND_TEXT_F);
 	if (text_of_command) {
@@ -178,6 +178,7 @@ command, and we do that by creating a text for the duration.
 	}
 	saved_pn = parsed_number; saved_action = action;
 	action = BlkValueRead(stora, STORA_ACTION_F);
+	cf = consult_from; cw = consult_words;
 	at = FindAction(-1);
 	K1 = ActionData-->(at+AD_NOUN_KOV);
 	K2 = ActionData-->(at+AD_SECOND_KOV);
@@ -190,6 +191,7 @@ command, and we do that by creating a text for the duration.
 			BlkValueCopy(text_of_command, parsed_number);
 			SetPlayersCommand(text_of_command);
 			parsed_number = players_command;
+			consult_from = parsed_number/100; consult_words = parsed_number%100;
 		}
 	}
 	if (K2 ~= OBJECT_TY) {
@@ -201,6 +203,7 @@ command, and we do that by creating a text for the duration.
 			BlkValueCopy(text_of_command, parsed_number);
 			SetPlayersCommand(text_of_command);
 			parsed_number = players_command;
+			consult_from = parsed_number/100; consult_words = parsed_number%100;
 		}
 	}	
 	DB_Action(
@@ -210,6 +213,7 @@ command, and we do that by creating a text for the duration.
 		BlkValueRead(stora, STORA_NOUN_F),
 		BlkValueRead(stora, STORA_SECOND_F), true);
 	parsed_number = saved_pn; action = saved_action;
+	consult_from = cf; consult_words = cw;
 	if (text_of_command) {
 		SetPlayersCommand(saved_command);
 		BlkValueFree(saved_command);

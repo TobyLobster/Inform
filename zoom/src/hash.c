@@ -254,7 +254,11 @@ void *hash_get(hash  hash,
   unsigned long  value;
   struct bucket *bucket;
 
-  
+  if( hash == NULL )
+  {
+    return NULL;
+  }
+
   value = hash_hash(key,
 		    len)&(hash->n_buckets-1);
 

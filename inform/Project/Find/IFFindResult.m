@@ -1,6 +1,6 @@
 //
 //  IFFindResult.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 17/02/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -9,56 +9,59 @@
 #import "IFFindResult.h"
 #import "IFUtility.h"
 
-@implementation IFFindResult
+@implementation IFFindResult {
+    NSString*       filepath;
+    NSRange         fileRange;
+    NSString*       documentDisplayName;
+    NSString*       documentSortName;
+    IFFindLocation  locationType;
+    NSString*       context;
+    NSRange         contextRange;
+    NSString*       exampleName;
+    NSString*       exampleAnchorTag;
+    NSString*       codeAnchorTag;
+    NSString*       definitionAnchorTag;
+    NSArray*        regexFoundGroups;
 
+    BOOL            hasError;
+}
 
 // = Initialisation =
--(id)   initWithFilepath: (NSString*)       aFilepath
-             rangeInFile: (NSRange)         aFileRange
-     documentDisplayName: (NSString*)       aDocumentDisplayName
-        documentSortName: (NSString*)       aDocumentSortName
-            locationType: (IFFindLocation)  aLocationType
-                 context: (NSString*)       aContext
-            contextRange: (NSRange)         aContextRange
-             exampleName: (NSString*)       aExampleName
-        exampleAnchorTag: (NSString*)       aExampleAnchorTag
-           codeAnchorTag: (NSString*)       aCodeAnchorTag
-     definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
-        regexFoundGroups: (NSArray*)        aRegexFoundGroups {
-    
+- (instancetype) init { self = [super init]; return self; }
+
+-(instancetype)   initWithFilepath: (NSString*)       aFilepath
+                       rangeInFile: (NSRange)         aFileRange
+               documentDisplayName: (NSString*)       aDocumentDisplayName
+                  documentSortName: (NSString*)       aDocumentSortName
+                      locationType: (IFFindLocation)  aLocationType
+                           context: (NSString*)       aContext
+                      contextRange: (NSRange)         aContextRange
+                       exampleName: (NSString*)       aExampleName
+                  exampleAnchorTag: (NSString*)       aExampleAnchorTag
+                     codeAnchorTag: (NSString*)       aCodeAnchorTag
+               definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
+                  regexFoundGroups: (NSArray*)        aRegexFoundGroups {
+
 	self = [super init];
 	
 	if (self) {
-        filepath            = [aFilepath retain];
+        filepath            = aFilepath;
         fileRange           = aFileRange;
-        documentDisplayName = [aDocumentDisplayName retain];
-        documentSortName    = [aDocumentSortName retain];
+        documentDisplayName = aDocumentDisplayName;
+        documentSortName    = aDocumentSortName;
         locationType        = aLocationType;
-        context             = [aContext retain];
+        context             = aContext;
         contextRange        = aContextRange;
-        exampleName         = [aExampleName retain];
-        exampleAnchorTag    = [aExampleAnchorTag retain];
-        codeAnchorTag       = [aCodeAnchorTag retain];
-        definitionAnchorTag = [aDefinitionAnchorTag retain];
+        exampleName         = aExampleName;
+        exampleAnchorTag    = aExampleAnchorTag;
+        codeAnchorTag       = aCodeAnchorTag;
+        definitionAnchorTag = aDefinitionAnchorTag;
         regexFoundGroups    = [aRegexFoundGroups copy];
 	}
 
 	return self;
 }
 
-- (void) dealloc {
-    [filepath release];
-    [documentDisplayName release];
-    [documentSortName release];
-    [context release];
-    [exampleName release];
-    [exampleAnchorTag release];
-    [codeAnchorTag release];
-    [definitionAnchorTag release];
-    [regexFoundGroups release];
-	
-	[super dealloc];
-}
 
 // = Data =
 
@@ -169,11 +172,11 @@
                     [mutReplace deleteCharactersInRange: NSMakeRange(i-1, 1)];
 
                     NSString* groupString;
-                    groupString = [aRegexFoundGroups objectAtIndex:group];
+                    groupString = aRegexFoundGroups[group];
 
                     // Insert the matched string
                     [mutReplace insertString:groupString atIndex: i-1];
-                    i = (i-1) + ([groupString length]-1);
+                    i = (i-1) + (int) ([groupString length]-1);
                 }
             }
             else if ((c == 't') || (c == 'r') || (c == 'v') || (c == 'f') || (c == 'n')) {
@@ -197,7 +200,7 @@
             foundSlash = false;
         }
     }
-    return [mutReplace autorelease];
+    return mutReplace;
 }
 
 - (NSString*) stringByReplacingGroups:(NSString*) replace {
@@ -207,25 +210,33 @@
 - (NSAttributedString*) attributedContext {
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
-	NSDictionary* italicsAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSFont fontWithName:@"Helvetica" size: 11], NSFontAttributeName, // system font doesn't do italics, so we use Helvetica instead.
-									  hasError?[NSColor redColor]:nil, NSForegroundColorAttributeName,
-                                      style, NSParagraphStyleAttributeName,
-									  nil];
-	NSDictionary* normalAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-									  [NSFont systemFontOfSize: 11], NSFontAttributeName,
-									  hasError?[NSColor redColor]:nil, NSForegroundColorAttributeName,
-                                      style, NSParagraphStyleAttributeName,
-									  nil];
-	NSDictionary* boldAttributes = [NSDictionary dictionaryWithObjectsAndKeys: 
-									[NSFont systemFontOfSize: 12], NSFontAttributeName,
-									hasError?[NSColor redColor]:nil, NSForegroundColorAttributeName,
-                                    style, NSParagraphStyleAttributeName,
-									nil];
-    [style release];
+    NSDictionary* italicsAttributes;
+    NSDictionary* normalAttributes;
+    NSDictionary* boldAttributes;
+    if( hasError )
+    {
+        italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
+                               NSForegroundColorAttributeName: [NSColor redColor],
+                               NSParagraphStyleAttributeName: style };
+        normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
+                              NSForegroundColorAttributeName: [NSColor redColor],
+                              NSParagraphStyleAttributeName: style };
+        boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                            NSForegroundColorAttributeName: [NSColor redColor],
+                            NSParagraphStyleAttributeName: style };
+    }
+    else
+    {
+        italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
+                               NSParagraphStyleAttributeName: style};
+        normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
+                              NSParagraphStyleAttributeName: style};
+        boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                            NSParagraphStyleAttributeName: style};
+    }
 
-	NSMutableAttributedString* result = [[[NSMutableAttributedString alloc] initWithString: [self context]
-																				attributes: normalAttributes] autorelease];
+	NSMutableAttributedString* result = [[NSMutableAttributedString alloc] initWithString: [self context]
+																				attributes: normalAttributes];
     [result beginEditing];
 	[result addAttributes: boldAttributes
 					range: [self contextRange]];
@@ -236,7 +247,7 @@
         NSString* prefix = [IFUtility localizedString: @"SearchResultInExamplePrefix"
                                               default: @"(Example %@)  "];
         prefix = [NSString stringWithFormat: prefix, exampleName];
-        NSAttributedString* examplePrefix = [[[NSAttributedString alloc] initWithString:prefix attributes:italicsAttributes] autorelease];
+        NSAttributedString* examplePrefix = [[NSAttributedString alloc] initWithString:prefix attributes:italicsAttributes];
         [result insertAttributedString:examplePrefix atIndex:0];
 
         [result applyFontTraits: NSItalicFontMask
@@ -250,7 +261,7 @@
 // = Copying =
 
 - (id) copyWithZone: (NSZone*) zone {
-	return [self retain];
+	return self;
 }
 
 @end

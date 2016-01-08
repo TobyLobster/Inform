@@ -10,10 +10,22 @@
 
 #define BlinkInterval 0.6
 
-@implementation ZoomCursor
+@implementation ZoomCursor {
+    NSRect cursorRect;
+    BOOL isBlinking, isShown, isActive, isFirst;
+    BOOL blink;
+
+    NSPoint cursorPos;
+
+    BOOL lastVisible, lastActive;
+
+    id<NSObject> delegate;
+    
+    NSTimer* flasher;
+}
 
 // = Initialisation =
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -121,8 +133,7 @@
 	// Move the cursor
 	// One 'en'
     float width = [@"n" sizeWithAttributes:
-             [NSDictionary dictionaryWithObjectsAndKeys:
-               font, NSFontAttributeName, nil]].width;
+             @{NSFontAttributeName: font}].width;
     NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
 	float height = [lm defaultLineHeightForFont: font];
 		
@@ -148,13 +159,12 @@
 	isShown = NO;
 	[self ZCblunk];
 	
-	NSFont* font = [attributes objectForKey: NSFontAttributeName];
+	NSFont* font = attributes[NSFontAttributeName];
 	
 	// Move the cursor
 	// One 'en'
     float width = [@"n" sizeWithAttributes:
-                   [NSDictionary dictionaryWithObjectsAndKeys:
-                    font, NSFontAttributeName, nil]].width;
+                   @{NSFontAttributeName: font}].width;
     NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
 	float height = [lm defaultLineHeightForFont: font];
 	float offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;

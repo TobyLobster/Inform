@@ -284,8 +284,7 @@ static NSString* xmlEncode(NSString* str) {
 		}
 		
 		ZoomSkeinItem* newItem = [[ZoomSkeinItem alloc] initWithCommand: @"- PLACEHOLDER -"];
-		[itemDictionary setObject: newItem
-						   forKey: itemNodeId];
+		itemDictionary[itemNodeId] = newItem;
 		[newItem release];
 	}
 	
@@ -300,7 +299,7 @@ static NSString* xmlEncode(NSString* str) {
 			continue;
 		}
 		
-		ZoomSkeinItem* newItem = [itemDictionary objectForKey: itemNodeId];
+		ZoomSkeinItem* newItem = itemDictionary[itemNodeId];
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
@@ -355,7 +354,7 @@ static NSString* xmlEncode(NSString* str) {
 			continue;
 		}
 		
-		ZoomSkeinItem* newItem = [itemDictionary objectForKey: itemNodeId];
+		ZoomSkeinItem* newItem = itemDictionary[itemNodeId];
 		if (newItem == nil) {
 			// Should never happen
 			// (Hahaha)
@@ -379,7 +378,7 @@ static NSString* xmlEncode(NSString* str) {
 				continue;
 			}
 			
-			ZoomSkeinItem* kidItem = [itemDictionary objectForKey: kidNodeId];
+			ZoomSkeinItem* kidItem = itemDictionary[kidNodeId];
 			
 			if (kidItem == nil) {
 				NSLog(@"ZoomSkein: Warning: unable to find node %@", kidNodeId);
@@ -387,13 +386,12 @@ static NSString* xmlEncode(NSString* str) {
 			}
 			
 			ZoomSkeinItem* newKid = [newItem addChild: kidItem];
-			[itemDictionary setObject: newKid
-							   forKey: kidNodeId];
+			itemDictionary[kidNodeId] = newKid;
 		}
 	}
 	
 	// Root item
-	ZoomSkeinItem* newRoot = [itemDictionary objectForKey: rootNodeId];
+	ZoomSkeinItem* newRoot = itemDictionary[rootNodeId];
 	if (newRoot == nil) {
 		NSLog(@"ZoomSkein: No root node");
 		[xmlAutorelease release];
@@ -405,7 +403,7 @@ static NSString* xmlEncode(NSString* str) {
 	
 	[activeItem release];
 	if (activeNode != nil)
-		activeItem = [[itemDictionary objectForKey: activeNode] retain];
+		activeItem = [itemDictionary[activeNode] retain];
 	else
 		activeItem = [rootItem retain];
 	
@@ -468,7 +466,7 @@ static XMLCALL void charData    (void *userData,
 	XML_SetUserData(theParser, self);
 	
 	// Perform the parsing
-	int status = XML_Parse(theParser, [xml bytes], [xml length], 1);
+	int status = XML_Parse(theParser, [xml bytes], (int) [xml length], 1);
 	
 	// Tidy up the parser
 	XML_ParserFree(theParser);
@@ -487,15 +485,15 @@ static XMLCALL void charData    (void *userData,
 - (NSString*) innerTextForElement: (NSDictionary*) element {
 	NSMutableString* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	NSDictionary* child;
 	
 	while (child = [children nextObject]) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlCharData]) {
+		if ([child[xmlType] isEqualToString: xmlCharData]) {
 			if (res == nil) {
-				res = [[NSMutableString alloc] initWithString: [child objectForKey: xmlChars]];
+				res = [[NSMutableString alloc] initWithString: child[xmlChars]];
 			} else {
-				[res appendString: [child objectForKey: xmlChars]];
+				[res appendString: child[xmlChars]];
 			}
 		}
 	}
@@ -507,12 +505,12 @@ static XMLCALL void charData    (void *userData,
 					   withName: (NSString*) elementName {
 	NSMutableArray* res = nil;
 	
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	NSDictionary* child;
 	
 	while (child = [children nextObject]) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([child[xmlType] isEqualToString: xmlElement] &&
+			[child[xmlName] isEqualToString: elementName]) {
 			if (res == nil) {
 				res = [[NSMutableArray alloc] init];
 			}
@@ -526,12 +524,12 @@ static XMLCALL void charData    (void *userData,
 
 - (NSDictionary*) childForElement: (NSDictionary*) element
 						 withName: (NSString*) elementName {
-	NSEnumerator* children = [[element objectForKey: xmlChildren] objectEnumerator];
+	NSEnumerator* children = [element[xmlChildren] objectEnumerator];
 	NSDictionary* child;
 	
 	while (child = [children nextObject]) {
-		if ([[child objectForKey: xmlType] isEqualToString: xmlElement] &&
-			[[child objectForKey: xmlName] isEqualToString: elementName]) {
+		if ([child[xmlType] isEqualToString: xmlElement] &&
+			[child[xmlName] isEqualToString: elementName]) {
 			return child;
 		}
 	}
@@ -541,7 +539,7 @@ static XMLCALL void charData    (void *userData,
 
 - (NSString*) attributeValueForElement: (NSDictionary*) element
 							  withName: (NSString*) elementName {
-	return [[element objectForKey: xmlAttributes] objectForKey: elementName];
+	return element[xmlAttributes][elementName];
 }
 
 // = XML callback messages =
@@ -649,10 +647,8 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
 	NSMutableDictionary* element = [NSMutableDictionary dictionary];
 
-	[element setObject: xmlElement
-				forKey: xmlType];
-	[element setObject: makeString(name)
-				forKey: xmlName];
+	element[xmlType] = xmlElement;
+	element[xmlName] = makeString(name);
 	
 	// Attributes
 	if (atts != NULL) {
@@ -660,20 +656,17 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 		
 		int x;
 		for (x=0; atts[x] != NULL; x+=2) {
-			[attributes setObject: makeString(atts[x+1])
-						   forKey: makeString(atts[x])];
+			attributes[makeString(atts[x])] = makeString(atts[x+1]);
 		}
 		
-		[element setObject: attributes
-					forKey: xmlAttributes];
+		element[xmlAttributes] = attributes;
 	}
 	
 	// Add as a child of the previous element
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray* children = lastElement[xmlChildren];
 	if (children == nil) {
 		children = [NSMutableArray array];
-		[lastElement setObject: children
-						forKey: xmlChildren];
+		lastElement[xmlChildren] = children;
 	}
 	[children addObject: element];
 	
@@ -692,22 +685,20 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	
 	// Create this element
 	NSMutableDictionary* lastElement = [xmlStack lastObject];
-	NSMutableArray* children = [lastElement objectForKey: xmlChildren];
+	NSMutableArray* children = lastElement[xmlChildren];
 	NSMutableDictionary* element;
 	BOOL addAsChild;
 	
-	if (children && [[[children lastObject] objectForKey: xmlType] isEqualToString: xmlCharData]) {
+	if (children && [[children lastObject][xmlType] isEqualToString: xmlCharData]) {
 		element = [children lastObject];
-		[[element objectForKey: xmlChars] appendString: makeStringLen(s, len)];
+		[element[xmlChars] appendString: makeStringLen(s, len)];
 		
 		addAsChild = NO;
 	} else {
 		element = [NSMutableDictionary dictionary];
 		
-		[element setObject: xmlCharData
-					forKey: xmlType];
-		[element setObject: [[makeStringLen(s, len) mutableCopy] autorelease]
-					forKey: xmlChars];
+		element[xmlType] = xmlCharData;
+		element[xmlChars] = [[makeStringLen(s, len) mutableCopy] autorelease];
 		
 		addAsChild = YES;
 	}
@@ -716,8 +707,7 @@ static NSString* makeStringLen(const XML_Char* data, int lenIn) {
 	if (addAsChild) {
 		if (children == nil) {
 			children = [NSMutableArray array];
-			[lastElement setObject: children
-						forKey: xmlChildren];
+			lastElement[xmlChildren] = children;
 		}
 		[children addObject: element];
 	}

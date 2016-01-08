@@ -1,6 +1,6 @@
 //
 //  IFViewAnimator.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 01/09/2006.
 //  Copyright 2006 Andrew Hunter. All rights reserved.
@@ -21,26 +21,7 @@ typedef enum IFViewAnimationStyle {
 ///
 /// A class that can be used to perform various animations for a particular view
 ///
-@interface IFViewAnimator : NSView {
-	// The start and the end of the animation
-	NSImage* startImage;
-	NSImage* endImage;
-	
-	// Animation settings
-	NSTimeInterval animationTime;
-	IFViewAnimationStyle animationStyle;
-	
-	// Information used while animating
-	NSTimer* animationTimer;
-	NSRect originalFrame;
-	NSView* originalView;
-	NSView* originalSuperview;
-    NSView* originalFocusView;
-	NSDate* whenStarted;
-	
-	id finishedObject;
-	SEL finishedMessage;
-}
+@interface IFViewAnimator : NSView
 
 // Caching views
 + (NSImage*) cacheView: (NSView*) view;								// Returns an image with the contents of the specified view
@@ -50,12 +31,6 @@ typedef enum IFViewAnimationStyle {
 - (void) setTime: (float) animationTime;							// Set how long the animation should take
 - (void) prepareToAnimateView: (NSView*) view
                     focusView: (NSView*) focusView;					// Prepares to animate, using the specified view as a template
-
-// Begins animating the specified view so that transitions from the state set in
-// prepareToAnimateView to the new state
-- (void) animateTo: (NSView*) view
-			 style: (IFViewAnimationStyle) style
-         focusView: (NSView*) focusView;
 
 // Begins animating the specified view so that transitions from the state set in
 // prepareToAnimateView to the new state, sending the specified message to the specified

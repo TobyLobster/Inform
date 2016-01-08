@@ -1,6 +1,6 @@
 //
 //  IFHeader.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 19/12/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -11,17 +11,22 @@
 
 NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 
-@implementation IFHeader
+@implementation IFHeader {
+    NSString* headingName;						// The name of this header
+    IFHeader* parent;							// The parent of this header (NOT RETAINED)
+    NSMutableArray* children;					// The child headings for this heading
+    IFIntelSymbol* symbol;						// The symbol that is associated with this heading
+}
 
 // Initialisation
 
-- (id) init {
+- (instancetype) init {
 	return [self initWithName: @""
 					   parent: nil
 					 children: nil];
 }
 
-- (id) initWithName: (NSString*) name
+- (instancetype) initWithName: (NSString*) name
 			 parent: (IFHeader*) newParent
 		   children: (NSArray*) newChildren {
 	self = [super init];
@@ -49,11 +54,6 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
     for(IFHeader* child in children) {
 		[child setParent: nil];
 	}
-
-	[headingName release];
-	[children release];
-	
-	[super dealloc];
 }
 
 // Accessing values
@@ -64,24 +64,23 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 }
 
 - (NSString*) headingName {
-	return [[headingName retain] autorelease];
+	return headingName;
 }
 
 - (IFHeader*) parent {
-	return [[parent retain] autorelease];
+	return parent;
 }
 
 - (NSArray*) children {
-	return [[children retain] autorelease];
+	return children;
 }
 
 - (IFIntelSymbol*) symbol {
-	return [[symbol retain] autorelease];
+	return symbol;
 }
 
 - (void) setHeadingName: (NSString*) newName {
-	[headingName release];
-	headingName = [newName retain];
+	headingName = newName;
 	
 	[self hasChanged];
 }
@@ -98,7 +97,6 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 		[child setParent: nil];
 	}
 
-	[children release];
 	if (newChildren) {
 		children = [[NSMutableArray alloc] initWithArray: newChildren
 											   copyItems: NO];
@@ -114,8 +112,7 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 }
 
 - (void) setSymbol: (IFIntelSymbol*) newSymbol {
-	[symbol release]; symbol = nil;
-	symbol = [newSymbol retain];
+	symbol = newSymbol;
 }
 
 @end

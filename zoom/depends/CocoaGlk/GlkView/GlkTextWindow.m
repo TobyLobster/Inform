@@ -92,7 +92,7 @@
 	}
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
 
     if (self) {
@@ -102,10 +102,8 @@
 		//[self addSubview: scrollView];
 		
 		// Set the hyperlink style
-		NSDictionary* hyperStyle = [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSNumber numberWithInt: NSSingleUnderlineStyle], NSUnderlineStyleAttributeName,
-			[NSCursor pointingHandCursor], NSCursorAttributeName,
-			nil];
+		NSDictionary* hyperStyle = @{NSUnderlineStyleAttributeName: @(NSSingleUnderlineStyle),
+			NSCursorAttributeName: [NSCursor pointingHandCursor]};
 		if ([textView respondsToSelector: @selector(setLinkTextAttributes:)]) {
 			[textView setLinkTextAttributes: hyperStyle];
 		}
@@ -276,7 +274,7 @@
 		NSDictionary* oldAttributes = [[[textStorage attributesAtIndex: 0
 														effectiveRange: &attributeRange] retain] autorelease];
 		while (attributeRange.location < [textStorage length]) {
-			GlkStyle* oldStyle = [oldAttributes objectForKey: GlkStyleAttributeName];
+			GlkStyle* oldStyle = oldAttributes[GlkStyleAttributeName];
 			
 			if (oldStyle) {
 				[oldStyle retain];
@@ -311,7 +309,7 @@
 
 - (BOOL) textView: (NSTextView*) view
 	clickedOnLink: (id) link 
-		  atIndex: (unsigned) charIndex {
+		  atIndex: (NSUInteger) charIndex {
 	if ([link isKindOfClass: [NSNumber class]]) {
 		if (hyperlinkInput) {
 			// Generate the event for this hyperlink
@@ -408,12 +406,12 @@
 		[buffer appendString: @"\n"];
 		
 		// Reset the input position
-		inputPos = [buffer length];
+		inputPos = (int) [buffer length];
 		
 		// Generate the event
 		GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
 									  windowIdentifier: [self identifier]
-												  val1: [forcedInput length]
+												  val1: (int) [forcedInput length]
 												  val2: 0];
 		[evt setLineInput: forcedInput];
 
@@ -456,7 +454,7 @@
 			// Generate the event, then...
 			GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
 										  windowIdentifier: [self identifier]
-													  val1: [inputLine length]
+													  val1: (int) [inputLine length]
 													  val2: 0];
 			[evt setLineInput: inputLine];
 			
@@ -534,7 +532,7 @@
 										 target: self
 									   argument: nil
 										  order: 128
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 }
 
 - (void) fixInputStatus {
@@ -572,7 +570,7 @@
 										 target: self
 									   argument: nil
 										  order: 128
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 }
 
 - (void) requestLineInput {
@@ -601,7 +599,7 @@
 										 target: self
 									   argument: nil 
 										  order: 32
-										  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+										  modes: @[NSDefaultRunLoopMode]];
 
 	if (wasFlushing) {
 		[[textView textStorage] beginEditing];
@@ -662,7 +660,7 @@
 	float sb = [preferences scrollbackLength];
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
-		int len = [[textView textStorage] length];
+		int len = (int) [[textView textStorage] length];
 		float preserve = 4096.0 + powf(sb*10.0, 2);
 
 		if (len > ((int)preserve + 2048)) {
@@ -672,7 +670,7 @@
 		}
 	}
 	
-	if (inputPos > [[textView textStorage] length]) inputPos = [[textView textStorage] length];			// Shouldn't happen, but does for reasons that probably make sense to someone
+	if (inputPos > [[textView textStorage] length]) inputPos = (int) [[textView textStorage] length];			// Shouldn't happen, but does for reasons that probably make sense to someone
 }
 
 // = Graphics =
@@ -684,7 +682,7 @@
 	GlkImage* newImage = [[GlkImage alloc] initWithImage: image
 											   alignment: alignment
 													size: sz
-												position: [textStorage length]];
+												position: (int) [textStorage length]];
 	
 	// Add a suitable control character to the text
 	unichar imageChar = 11;
@@ -693,8 +691,7 @@
 	
 	// Construct the attributes that describe this image
 	NSMutableDictionary* imageDict = [[self currentTextAttributes] mutableCopy];
-	[imageDict setObject: [newImage autorelease]
-				  forKey: GlkCustomSectionAttributeName];
+	imageDict[GlkCustomSectionAttributeName] = [newImage autorelease];
 	NSAttributedString* imageAttributedString = [[[NSAttributedString alloc] initWithString: imageString
 																				 attributes: [imageDict autorelease]] autorelease];
 	
@@ -713,9 +710,7 @@
 													length: 1];
 	
 	// Construct the attributes that describe this clear margins character
-	NSDictionary* clearDict = [NSDictionary dictionaryWithObjectsAndKeys:
-		[clear autorelease], GlkCustomSectionAttributeName,
-		nil];
+	NSDictionary* clearDict = @{GlkCustomSectionAttributeName: [clear autorelease]};
 	NSAttributedString* clearAttributedString = [[[NSAttributedString alloc] initWithString: clearString
 																				 attributes: clearDict] autorelease];
 	
@@ -883,7 +878,7 @@
 											 target: self
 										   argument: nil
 											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 	}
 	
 	// Set the time that we started animating
@@ -915,7 +910,7 @@
 											 target: self 
 										   argument: nil 
 											  order: 16
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 	}
 }
 
@@ -1046,10 +1041,10 @@
 	
 	// Reset the more prompt using the first unlaid character
 	NSRange glyphRange = [[textView layoutManager] glyphRangeForTextContainer: [textView textContainer]];
-	int firstUnlaid = glyphRange.location + glyphRange.length;
+	NSUInteger firstUnlaid = glyphRange.location + glyphRange.length;
 	firstUnlaid = [[textView layoutManager] characterRangeForGlyphRange: NSMakeRange(firstUnlaid-1, 1)
 													   actualGlyphRange: nil].location;
-	[self resetMorePrompt: firstUnlaid
+	[self resetMorePrompt: (int) firstUnlaid
 				   paging: YES];
 	
 	// Redisplay the more prompt if required
@@ -1102,10 +1097,8 @@
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	if (!result) result = [[NSMutableArray alloc] init];
 	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-		NSAccessibilityContentsAttribute,
-		NSAccessibilityHelpAttribute,
-		nil]];
+	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
+		NSAccessibilityHelpAttribute]];
 	
 	return [result autorelease];
 }
@@ -1125,7 +1118,7 @@
 	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
 		return [self accessibilityFocusedUIElement];
 	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		return [NSArray arrayWithObjects: textView, nil];
+		return @[textView];
 	}
 		
 	return [super accessibilityAttributeValue: attribute];
@@ -1137,6 +1130,14 @@
 
 - (BOOL)accessibilityIsIgnored {
 	return NO;
+}
+
+- (void) hideMoreWindow {
+    [moreWindow orderOut: self];
+}
+
+- (void) showMoreWindow {
+    [moreWindow orderFront: self];
 }
 
 @end

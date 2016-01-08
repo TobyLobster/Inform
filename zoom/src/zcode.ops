@@ -1552,7 +1552,7 @@ OPCODE "random"         VAR:0x07 ARGS:1 STORE         VERSION all
       
       /* Reseed RNG */
       gettimeofday(&tv, NULL);
-      random_seed(tv.tv_sec^tv.tv_usec);
+      random_seed((int) tv.tv_sec^tv.tv_usec);
 #else
       random_seed((unsigned int) time(NULL));
 #endif

@@ -12,7 +12,27 @@
 
 NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNotification";
 
-@implementation GlkPreferences
+@implementation GlkPreferences {
+    // The fonts
+    NSFont* proportionalFont;
+    NSFont* fixedFont;
+
+    // The standard styles
+    NSMutableDictionary* styles;
+
+    // Typography
+    float textMargin;
+    BOOL useScreenFonts;
+    BOOL useHyphenation;
+    BOOL kerning;
+    BOOL ligatures;
+
+    // Misc bits
+    float scrollbackLength;
+
+    BOOL changeNotified;											// YES if the last change is being notified
+    int  changeCount;												// Number of changes
+}
 
 // = Initialisation =
 
@@ -26,7 +46,7 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	return sharedPrefs;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -138,7 +158,7 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 											 target: self
 										   argument: nil
 											  order: 64
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+											  modes: @[NSDefaultRunLoopMode]];
 		changeNotified = YES;
 	}
 }
@@ -208,8 +228,7 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 
 - (void) setStyle: (GlkStyle*) style
 		  forHint: (unsigned) glkHint {
-	[styles setObject: [[style copy] autorelease]
-			   forKey: [NSNumber numberWithUnsignedInt: glkHint]];
+	styles[@(glkHint)] = [[style copy] autorelease];
 	
 	[self preferencesHaveChanged];
 }

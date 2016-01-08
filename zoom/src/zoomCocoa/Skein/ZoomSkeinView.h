@@ -66,8 +66,7 @@ extern NSString* ZoomSkeinItemPboardType;
 }
 
 // Setting/getting the source
-- (ZoomSkein*) skein;
-- (void)       setSkein: (ZoomSkein*) skein;
+@property (atomic, strong) ZoomSkein *skein;
 
 // Laying things out
 - (void) skeinNeedsLayout;
@@ -76,16 +75,14 @@ extern NSString* ZoomSkeinItemPboardType;
 - (void) setItemHeight: (float) itemHeight;
 
 // The delegate
-- (void) setDelegate: (id) delegate;
-- (id)   delegate;
+@property (atomic, assign) id delegate;
 
 // Affecting the display
 - (void) scrollToItem: (ZoomSkeinItem*) item;
 
 - (void) editItem: (ZoomSkeinItem*) skeinItem;
 - (void) editItemAnnotation: (ZoomSkeinItem*) skeinItem;
-- (void) setSelectedItem: (ZoomSkeinItem*) skeinItem;
-- (ZoomSkeinItem*) selectedItem;
+@property (atomic, strong) ZoomSkeinItem *selectedItem;
 
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 

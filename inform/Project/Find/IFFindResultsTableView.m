@@ -7,7 +7,9 @@
 
 #import "IFFindResultsTableView.h"
 
-@implementation IFFindResultsTableView
+@implementation IFFindResultsTableView {
+    IBOutlet id<IFFindClickableTableViewDelegate> extendedDelegate;
+}
 
 @synthesize extendedDelegate;
 

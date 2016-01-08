@@ -44,14 +44,14 @@ void glulx_free(void *ptr)
 void glulx_setrandom(glui32 seed)
 {
   if (seed == 0)
-    seed = time(NULL);
+    seed = (glui32) time(NULL);
   srandom(seed);
 }
 
 /* Return a random number in the range 0 to 2^32-1. */
 glui32 glulx_random()
 {
-  return (random() << 16) ^ random();
+  return ((glui32) random() << 16) ^ (glui32) random();
 }
 
 #endif /* OS_UNIX */

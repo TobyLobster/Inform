@@ -153,17 +153,15 @@
 //
 // Class used to temporarily store bufferable operations before sending them to the server
 //
-@interface GlkBuffer : NSObject<NSCopying, NSCoding, GlkBuffer> {
-	NSMutableArray* operations;
-}
+@interface GlkBuffer : NSObject<NSCopying, NSCoding, GlkBuffer>
 
 // Adding a generic bufferred operation
 - (void) addOperation: (NSString*) name
 			arguments: (NSArray*) arguments;
 
 // Returns true if the buffer has anything to flush
-- (BOOL) shouldBeFlushed;
-- (BOOL) hasGotABitOnTheLargeSide;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldBeFlushed;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasGotABitOnTheLargeSide;
 
 // Flushing a buffer with a target
 - (void) flushToTarget: (id) target;

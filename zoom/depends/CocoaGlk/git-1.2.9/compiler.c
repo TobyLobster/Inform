@@ -91,7 +91,7 @@ void initCompiler (size_t size)
         fatalError ("Couldn't allocate code cache");
     
     memset (sBuffer, 0, size);
-    sBufferSize = size / 4;
+    sBufferSize = (int) size / 4;
 
     // Pick a reasonable size for the hash table. This should be
     // a power of two, and take up about a tenth of the buffer.
@@ -199,7 +199,7 @@ Block compile (git_uint32 pc)
             // Make sure we haven't generated over 32K of code.
 
             patchSize += sizeof(PatchNode) / 4;
-            codeSize = sCodeTop - (git_uint32*)gBlockHeader;
+            codeSize = (int) (sCodeTop - (git_uint32*)gBlockHeader);
 
             if (codeSize + patchSize > 32000)
             {
@@ -262,7 +262,7 @@ Block compile (git_uint32 pc)
 
     // Fix up the constant branches.
 
-    numNodes = sTempEnd - sTempStart;
+    numNodes = (int) (sTempEnd - sTempStart);
     for (i = 0 ; i < numNodes ; ++i)
     {
         git_uint32* constBranch;
@@ -290,7 +290,7 @@ Block compile (git_uint32 pc)
                 *op = *op - label_jump_const + label_jump_by;
 
                 // Turn the address into a relative offset.
-                *by = ((git_uint32*)gBlockHeader + p2->codeOffset) - (constBranch + 2);
+                *by = (git_uint32) (((git_uint32*)gBlockHeader + p2->codeOffset) - (constBranch + 2));
 
                 // And we're done.
                 break;
@@ -520,7 +520,7 @@ void compressCodeCache ()
     compressWithCutoff (n);
     rebuildHashTable ();
 
-    spaceUsed = sCodeTop - sCodeStart;
+    spaceUsed = (int) (sCodeTop - sCodeStart);
     spaceFree = sBufferSize - spaceUsed - gHashSize;
 
 //    {

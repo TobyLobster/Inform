@@ -291,6 +291,7 @@ where $N$ is the number of items in the list at present.
 	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return false;
 	if (nodups && (LIST_OF_TY_FindItem(list, v))) return list;
 	no_items = BlkValueRead(list, LIST_LENGTH_F);
+	BlkValueWrite(list, LIST_LENGTH_F, no_items); ! Forces the list to be mutable
 	contents_kind = BlkValueRead(list, LIST_ITEM_KOV_F);
 	if ((posnflag) && ((posn<1) || (posn > no_items+1))) {
 		print "*** Couldn't add at entry ", posn, " in the list ";
@@ -334,6 +335,7 @@ value |v| to insert, the specification is the same as for
 	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return false;
 	if ((more==0) || (BlkValueWeakKind(more) ~= LIST_OF_TY)) return list;
 	no_items = BlkValueRead(list, LIST_LENGTH_F);
+	BlkValueWrite(list, LIST_LENGTH_F, no_items); ! Forces the list to be mutable
 	if ((posnflag) && ((posn<1) || (posn > no_items+1))) {
 		print "*** Couldn't add at entry ", posn, " in the list ";
 		LIST_OF_TY_Say(list, true);
@@ -394,6 +396,7 @@ destroyed with |BlkValueFree| before being overwritten as the items shuffle down
 	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) rfalse;
 	cf = LIST_OF_TY_ComparisonFn(list);
 	no_items = BlkValueRead(list, LIST_LENGTH_F); odsize = no_items;
+	BlkValueWrite(list, LIST_LENGTH_F, no_items); ! Forces the list to be mutable
 	for (i=0: i<no_items: i++) {
 		delendum = BlkValueRead(list, i+LIST_ITEM_BASE);
 		if (cf == 0 or UnsignedCompare)
@@ -533,7 +536,7 @@ if |truncation_end| is 1, or from the start if it is $-1$.
 @c
 [ LIST_OF_TY_SetLength list newsize this_way_only truncation_end no_items ex i dv;
 	if ((list==0) || (BlkValueWeakKind(list) ~= LIST_OF_TY)) return 0;
-	if (newsize < 0) "*** Cannot resize a list to negative length ***";
+	if (newsize < 0) return RunTimeProblem(RTP_LISTSIZENEGATIVE, newsize);
 	BlkMakeMutable(list);
 	no_items = BlkValueRead(list, LIST_LENGTH_F);
 	if (no_items < newsize) {

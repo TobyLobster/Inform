@@ -1,6 +1,6 @@
 //
 //  IFHeaderView.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 02/01/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -8,30 +8,31 @@
 
 #import "IFHeaderView.h"
 #import "IFUtility.h"
+#import "IFHeaderController.h"
 
-@implementation IFHeaderView
+@implementation IFHeaderView {
+    int displayDepth;														// The display depth for this view
+    IFHeader* rootHeader;													// The root header that this view should display
+    IFHeaderNode* rootHeaderNode;											// The root header node
+    IFHeaderNode* editNode;													// The header node that we're editing at the moment
+    NSColor* backgroundColour;												// The background colour for this view
+    NSString* message;														// The message to display centered in the view
+
+    NSTextView* editor;														// The text view that's performing editing at the moment
+    NSTextStorage* editStorage;												// Text storage for the field editor
+
+    id delegate;															// The delegate (NOT RETAINED)
+}
 
 // = Initialisation =
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		displayDepth = 5;
 		backgroundColour = [[NSColor whiteColor] copy];
     }
     return self;
-}
-
-- (void) dealloc {
-	[rootHeader release];		rootHeader = nil;
-	[backgroundColour release];	backgroundColour = nil;
-	[message release];			message = nil;
-	
-	[editNode release];			editNode = nil;
-	[editStorage release];		editStorage = nil;
-	[editor release];			editor = nil;
-	
-	[super dealloc];
 }
 
 // = Information about this view =
@@ -60,12 +61,15 @@
 
 - (void) updateFromRoot {
 	// Replace the root header node
-	[rootHeaderNode release]; rootHeaderNode = nil;
 	rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
 												 position: NSMakePoint(0,0)
 													depth: 0];
-	[rootHeaderNode populateToDepth: displayDepth];
-	
+    int populateToDepth = displayDepth;
+    // HACK: If on level 5, include level 6 (examples)
+    if( populateToDepth == 5 ) populateToDepth++;
+
+	[rootHeaderNode populateToDepth: populateToDepth];
+
 	// Add a message if necessary
 	if ([[rootHeaderNode children] count] == 0) {
 		if ([[rootHeader children] count] == 0) {
@@ -85,7 +89,6 @@
 }
 
 - (void) setMessage: (NSString*) newMessage {
-	[message release];
 	if ([newMessage length] == 0) newMessage = nil;
 	message = [newMessage copy];
 	
@@ -121,7 +124,6 @@
 }
 
 - (void) setBackgroundColour: (NSColor*) colour {
-	[backgroundColour release];
 	backgroundColour = [colour copy];
 }
 
@@ -135,13 +137,11 @@
 	// Draw the message, if any
 	if (message) {
 		// Get the style for the message
-		NSMutableParagraphStyle* style = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
+		NSMutableParagraphStyle* style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 		[style setAlignment: NSCenterTextAlignment];
 		
-		NSDictionary* messageAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-										   [NSFont systemFontOfSize: 12], NSFontAttributeName,
-										   style, NSParagraphStyleAttributeName, 
-										   nil];
+		NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+										   NSParagraphStyleAttributeName: style};
 		
 		// Draw roughly centered
 		NSRect bounds = [self bounds];
@@ -162,13 +162,11 @@
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
 	// Get the root header from the controller
-	[rootHeader release]; rootHeader = nil;
-	rootHeader = [[controller rootHeader] retain];
+	rootHeader = [controller rootHeader];
 	
 	// Destroy the editor when the headers are updated
 	if (editor) {
 		[editor removeFromSuperview];
-		[editor autorelease];
 		editor = nil;
 	}
 	
@@ -186,21 +184,19 @@
 			 mouseEvent: (NSEvent*) mouseDown {
 	if (editor) {
 		[editor removeFromSuperview];
-		[editor autorelease];
 		editor = nil;
 	}
 	
 	// Stop editing the previous node
 	[editNode setEditing: NO];
 	[editNode setSelectionStyle: IFHeaderNodeUnselected];
-	[editNode autorelease];
 	editNode = nil;
 	
 	// Don't edit the title node
 	if ([[node header] parent] == nil) return;
 	
 	// Start editing the next node
-	editNode = [node retain];
+	editNode = node;
 	[editNode setSelectionStyle: IFHeaderNodeInputCursor];
 	[editNode setEditing: YES];
 	
@@ -212,10 +208,8 @@
 	headerNameRect.size.width = NSMaxX(bounds) - NSMinX(headerNameRect);
 	
 	// Assign the field editor to ourselves
-	[editor autorelease];
 	editor = (NSTextView*)[[self window] fieldEditor: YES
 										   forObject: node];
-	[editor retain];
 	
 	// Set up the editor storage
 	if (!editStorage) editStorage = [[NSTextStorage alloc] init];
@@ -327,12 +321,10 @@
 	// Finished with the edit node
 	[editNode setEditing: NO];
 	[editNode setSelectionStyle: IFHeaderNodeUnselected];
-	[editNode autorelease];
 	editNode = nil;
 	
 	// Finished with the field editor
 	[editor removeFromSuperview];
-	[editor autorelease];
 	editor = nil;
 	
 	[self setNeedsDisplay: YES];

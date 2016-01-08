@@ -10,9 +10,6 @@
 
 #import "IFInspector.h"
 
-#import "IFProject.h"
-#import "IFProjectController.h"
-
 // The inspector key for this window
 extern NSString* IFIsWatchInspector;
 
@@ -28,15 +25,7 @@ enum {
 // Unlike 'real' debuggers, Zoom can't break on watchpoints without seriously sacrificing performance, so
 // we don't do that.
 //
-@interface IFIsWatch : IFInspector {
-	IBOutlet NSTextField* expression;						// The 'quick watch' expression
-	IBOutlet NSTextField* expressionResult;					// Field that contains the result of evaluating the quick watch expression
-	IBOutlet NSTableView* watchTable;						// Table of more permanent watch expressions
-
-	NSWindow* activeWin;									// The currently active window
-	IFProject* activeProject;								// The currently active project
-	IFProjectController* activeController;					// The active window controller (if it's a ProjectController)
-}
+@interface IFIsWatch : IFInspector
 
 + (IFIsWatch*) sharedIFIsWatch;								// The shared watch inspector
 

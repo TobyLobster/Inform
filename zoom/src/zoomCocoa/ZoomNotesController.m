@@ -60,7 +60,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	} else {
 		// Update the notes for this story
 		NSData* rtfNotes = [[notes textStorage] RTFFromRange: NSMakeRange(0, [[notes textStorage] length])
-										  documentAttributes: nil];
+										  documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
 		if (rtfNotes != nil) {
 			[notesDictionary setObject: rtfNotes
 								forKey: [storyId description]];

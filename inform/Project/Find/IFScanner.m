@@ -6,28 +6,16 @@
 //
 
 #import "IFScanner.h"
-#import "RegexKitLite.h"
+#import "Regex.h"
 #include <wctype.h>
 
 @implementation IFScanner
 
-+(id) init {
-    self = [super init];
-    
-    if (self) {
-    }
-    return self;
-}
-
--(void) dealloc {
-    [super dealloc];
-}
-
 +(NSRange) findNextMatch: (NSString*) phrase
                  storage: (NSString*) storage
-                position: (int) searchPosition
+                position: (NSUInteger) searchPosition
                  options: (IFFindType) searchType
-        regexFoundGroups: (NSArray**) foundGroupsOut {
+        regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
     NSStringCompareOptions options;
     RKLRegexOptions regexOptions;
@@ -37,7 +25,7 @@
         *foundGroupsOut = nil;
     }
 
-    int storageLength = [storage length];
+    int storageLength = (int) [storage length];
     
     if( searchType & IFFindCaseInsensitive ) {
         options = (NSStringCompareOptions) (NSLiteralSearch | NSCaseInsensitiveSearch);
@@ -77,7 +65,7 @@
                                                                     range: NSMakeRange(searchPosition, storageLength - searchPosition)
                                                                     error: &error];
                 if( [array count] > 0 ) {
-                    *foundGroupsOut = [array retain];
+                    *foundGroupsOut = array;
                 }
             }
         } else {
@@ -172,12 +160,12 @@
 
 +(NSRange) findPreviousMatch: (NSString*) phrase
                      storage: (NSString*) storage
-                    position: (int) searchPosition
+                    position: (NSUInteger) searchPosition
                      options: (IFFindType) searchType
-            regexFoundGroups: (NSArray**) foundGroupsOut {
+            regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     NSRange lastResult = NSMakeRange(NSNotFound, 0);
     NSRange result;
-    int     currentPosition = 0;
+    NSUInteger currentPosition = 0;
     if( foundGroupsOut != nil ) {
         *foundGroupsOut = nil;
     }

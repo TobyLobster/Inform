@@ -1,18 +1,27 @@
 //
 //  IFHeaderController.m
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 19/12/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
 #import "IFHeaderController.h"
+#import "IFUtility.h"
+#import "IFSyntaxTypes.h"
+#import "IFIntelSymbol.h"
 
-@implementation IFHeaderController
+@implementation IFHeaderController {
+    IFHeader* rootHeader;												// The root of the headers being managed by this object
+    IFHeader* selectedHeader;											// The header that the user has most recently selected
+    IFIntelFile* intelFile;												// The most recent intel file object
+
+    NSMutableArray* headerViews;										// The header views being managed by this controller
+}
 
 // = Initialisation =
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -20,15 +29,6 @@
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[headerViews autorelease];		headerViews = nil;
-	[selectedHeader autorelease];	selectedHeader = nil;
-	[rootHeader autorelease];		rootHeader = nil;
-	[intelFile autorelease];		intelFile = nil;
-
-	[super dealloc];
 }
 
 // = Sending messages to the views =
@@ -44,8 +44,7 @@
 
 - (void) setSelectedHeader: (IFHeader*) newSelectedHeader {
 	// Update the currently selected header
-	[selectedHeader release];
-	selectedHeader = [newSelectedHeader retain];
+	selectedHeader = newSelectedHeader;
 	
 	// Send the setSelectedHeader message to all of the views that support it
 	for( NSObject* headerView in headerViews ) {
@@ -65,12 +64,12 @@
 	
 	// If the symbol has no children then don't add it to the list
 	if (!child) {
-		[root setChildren: [NSArray array]];
+		[root setChildren: @[]];
 		return;
 	}
 	
 	// Otherwise, build up the set of symbols from the children of this item
-	NSMutableArray* newChildren = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray* newChildren = [[NSMutableArray alloc] init];
 	while (child) {
 		// Build the new header
 		IFHeader* newChild = [[IFHeader alloc] initWithName: [child name]
@@ -89,7 +88,6 @@
 		}
 		
 		// Done with this item
-		[newChild release];
 
 		// Move onto the sibling for this header
 		child = [child sibling];
@@ -101,34 +99,62 @@
 
 - (void) updateFromIntelligence: (IFIntelFile*) intel {
 	// Change the intel file object
-	[intelFile autorelease];
-	intelFile = [intel retain];
+	intelFile = intel;
 	
 	// Firstly, build up a header structure from the intelligence object
-	IFHeader* newRoot = [[IFHeader alloc] initWithName: [[intel firstSymbol] name]
-												parent: nil 
-											  children: nil];
-	[newRoot autorelease];
-	[self setChildrenForHeader: newRoot
+
+    // "Story"
+	IFHeader* storyRoot = [[IFHeader alloc] initWithName: [[intel firstSymbol] name]
+                                                  parent: nil
+                                                children: nil];
+	[self setChildrenForHeader: storyRoot
 						symbol: [intel firstSymbol]
 					   recurse: YES];
-	
-	// Now, compare to the existing headings and update as appropriate, flagging those that
-	// need to be removed, added or updated.
-	// (TODO!)
-	[rootHeader release];
-	rootHeader = [newRoot retain];
+
+    // "---- DOCUMENTATION ----"
+    IFIntelSymbol* documentationRootSymbol = [intel firstSymbol];
+    while( documentationRootSymbol != nil ) {
+        documentationRootSymbol = [documentationRootSymbol nextSymbol];
+        if( [documentationRootSymbol level] == 0 ) {
+            break;
+        }
+    }
+
+    IFHeader* newRoot = nil;
+    if( documentationRootSymbol != nil ) {
+        [storyRoot setHeadingName: [IFUtility localizedString: @"HeaderExtensionTitle"]];
+
+        // Create documentation header
+        IFHeader* docRoot = [[IFHeader alloc] initWithName: [IFUtility localizedString: @"HeaderDocumentationTitle"]
+                                                    parent: nil
+                                                  children: nil];
+        [docRoot setSymbol: documentationRootSymbol];
+        [self setChildrenForHeader: docRoot
+                            symbol: documentationRootSymbol
+                           recurse: YES];
+
+        newRoot = [[IFHeader alloc] initWithName: [IFUtility localizedString: @"HeaderPage"]
+                                          parent: nil
+                                        children: @[storyRoot, docRoot]];
+    }
+    else {
+        newRoot = [[IFHeader alloc] initWithName: [IFUtility localizedString: @"HeaderPage"]
+                                          parent: nil
+                                        children: @[storyRoot]];
+    }
+
+	rootHeader = newRoot;
 	
 	// Cause a general update of the header list
 	[self refreshHeaders];
 }
 
 - (IFHeader*) rootHeader {
-	return [[rootHeader retain] autorelease];
+	return rootHeader;
 }
 
 - (IFHeader*) selectedHeader {
-	return [[selectedHeader retain] autorelease];
+	return selectedHeader;
 }
 
 - (IFIntelFile*) intelFile {
@@ -158,7 +184,7 @@
 
 - (void) removeHeaderView: (NSView*) oldHeaderView {
 	// Ensure that we don't accidentally self destruct a header view that's in use
-	[[oldHeaderView retain] autorelease];
+	//[[oldHeaderView retain] autorelease];
 	
 	// Remove the old header view from the list of headers
 	[headerViews removeObjectIdenticalTo: oldHeaderView];

@@ -1,6 +1,6 @@
 //
 //  IFHeaderPage.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 02/01/2008.
 //  Copyright 2008 Andrew Hunter. All rights reserved.
@@ -13,24 +13,12 @@
 ///
 /// Controller object that manages the headers page
 ///
-@interface IFHeaderPage : NSObject {
-	IBOutlet NSView* pageView;								// The main header page view
-	IBOutlet NSScrollView* scrollView;						// The scroll view
-	IBOutlet IFHeaderView* headerView;						// The header view that this object is managing
-    IBOutlet NSPopUpButton* depthButton;
-	
-	IFHeaderController* controller;							// The header controller that this page is using
-	
-	NSRange highlightLines;									// The highlight range to use
-	IFHeaderNode* selectedNode;								// The currently selected header node
-	
-	id delegate;											// The delegate for this page object
-}
+@interface IFHeaderPage : NSObject
 
 // The controller and view
 
-- (NSView*) pageView;										// The view that should be used to display the headers being managed by this class
-- (IFHeaderView*) headerView;                               // Header view
+@property (atomic, readonly, strong) NSView *pageView;										// The view that should be used to display the headers being managed by this class
+@property (atomic, readonly, strong) IFHeaderView *headerView;                               // Header view
 - (void) setController: (IFHeaderController*) controller;	// Specifies the header controller that should be used to manage updates to this page
 - (void) setDelegate: (id) delegate;						// Updates the delegate
 

@@ -16,9 +16,7 @@
 //
 // Class to gather intelligence data on Natural Inform files
 //
-@interface IFNaturalIntel : NSObject<IFSyntaxIntelligence> {
-	IFSyntaxData* highlighter;				// The highlighter that wants us to gather intelligence
-}
+@interface IFNaturalIntel : NSObject<IFSyntaxIntelligence>
 
 // Hacky way to enable/disable indentation and other rewriting while undoing
 + (void) disableIndentation;

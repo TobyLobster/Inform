@@ -16,9 +16,73 @@
 static NSString* IFFindHistoryPref		= @"IFFindHistory";
 static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 
-#define FIND_HISTORY_LENGTH 30
+static const int FIND_HISTORY_LENGTH = 30;
 
-@implementation IFFindInFilesController
+@implementation IFFindInFilesController {
+    // The components of the find dialog
+    IBOutlet NSComboBox*	findPhrase;									// The phrase to search for
+    IBOutlet NSComboBox*	replacePhrase;								// The phrase to replace it with
+
+    // Ignore case radio button
+    IBOutlet NSButton*		ignoreCase;									// The 'ignore case' checkbox
+
+    // Where to search
+    IBOutlet NSButton*		findInSource;                               // The 'Source' checkbox
+    IBOutlet NSButton*		findInExtensions;                           // The 'Extensions' checkbox
+    IBOutlet NSButton*		findInDocumentationBasic;                   // The 'Documentation Basic' checkbox
+    IBOutlet NSButton*		findInDocumentationSource;                  // The 'Documentation Source' checkbox
+    IBOutlet NSButton*		findInDocumentationDefinitions;             // The 'Documentation Definitions' checkbox
+
+    // Pull down menu of how to search
+    IBOutlet NSPopUpButton* searchType;									// The 'contains/begins with/complete word/regexp' pop-up button
+    IBOutlet NSMenuItem*	containsItem;								// Choices for the type of object to find
+    IBOutlet NSMenuItem*	beginsWithItem;
+    IBOutlet NSMenuItem*	completeWordItem;
+    IBOutlet NSMenuItem*	regexpItem;
+
+    // Buttons
+    IBOutlet NSButton*		findAll;
+    IBOutlet NSButton*		replaceAll;
+
+    // Progress
+    IBOutlet NSProgressIndicator* findProgress;							// The 'searching' progress indicator
+
+    // Parent view to position extra content
+    IBOutlet NSView*		auxViewPanel;								// The auxilary view panel
+    IBOutlet NSWindow*      findInFilesWindow;
+
+    // The regular expression help view
+    IBOutlet NSView*		regexpHelpView;								// The view containing information about regexps
+
+    // The 'find all' views
+    IBOutlet NSView*		foundNothingView;							// The view to show if we don't find any matches
+    IBOutlet NSView*		findAllView;								// The main 'find all' view
+    IBOutlet NSTableView*	findAllTable;								// The 'find all' results table
+    IBOutlet NSTextField*   findCountText;                              // The text count of how many results we have found
+
+    // Things we've searched for
+    NSMutableArray*			replaceHistory;								// The 'replace' history
+    NSMutableArray*			findHistory;								// The 'find' history
+
+    BOOL					searching;									// YES if we're searching for results
+    NSArray*                findAllResults;								// The 'find all' results view
+    int						findAllCount;								// Used to generate the identifier
+    id						findIdentifier;								// The current find all identifier
+    float                   borders;
+
+    // Auxiliary views
+    NSView*                 auxView;									// The auxiliary view that is being displayed
+    NSRect                  winFrame;									// The default window frame
+
+    // Project we are going to search
+    IFProject*                  project;                                // Project to search in
+    IFProjectController*        controller;                             // Project controller to use
+    IFFindInFiles*              findInFiles;                            // Object used to perform searching
+    
+    // The delegate
+    id activeDelegate;													// The delegate that we've chosen to work with
+}
+
 
 // = Initialisation =
 
@@ -32,7 +96,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	return sharedController;
 }
 
-- (id) initWithWindowNibName: (NSString*) nibName {
+- (instancetype) initWithWindowNibName: (NSString*) nibName {
 	self = [super initWithWindowNibName: (NSString*) nibName];
 	
 	if (self) {
@@ -59,24 +123,15 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 - (void) dealloc {
 	// Stop receiving notifications
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-	[auxView release];
-	
-	[findAllResults release];
-	[findIdentifier release];
-    [findInFiles release];
-	
-	// Finish up
-	[super dealloc];
 }
 
 // = Updating the history =
 
 - (void) addPhraseToFindHistory: (NSString*) phrase {
-	phrase = [[phrase copy] autorelease];
+	phrase = [phrase copy];
 	
 	// Ensure that we don't store a duplicate copy of the phrase
-	int lastIndex = [findHistory indexOfObject: phrase];
+	NSUInteger lastIndex = [findHistory indexOfObject: phrase];
 	if (lastIndex != NSNotFound) {
 		[findHistory removeObjectAtIndex: lastIndex];
 	}
@@ -91,7 +146,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	}
 	
 	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [[findHistory copy] autorelease]
+	[[NSUserDefaults standardUserDefaults] setObject: [findHistory copy]
 											  forKey: IFFindHistoryPref];
 	
 	// Update the combo box
@@ -99,10 +154,10 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 }
 
 - (void) addPhraseToReplaceHistory: (NSString*) phrase {
-	phrase = [[phrase copy] autorelease];
+	phrase = [phrase copy];
 	
 	// Ensure that we don't store a duplicate copy of the phrase
-	int lastIndex = [replaceHistory indexOfObject: phrase];
+	NSUInteger lastIndex = [replaceHistory indexOfObject: phrase];
 	if (lastIndex != NSNotFound) {
 		[replaceHistory removeObjectAtIndex: lastIndex];
 	}
@@ -117,7 +172,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	}
 	
 	// Store in the user defaults
-	[[NSUserDefaults standardUserDefaults] setObject: [[replaceHistory copy] autorelease]
+	[[NSUserDefaults standardUserDefaults] setObject: [replaceHistory copy]
 											  forKey: IFReplaceHistoryPref];
 	
 	// Update the combo box
@@ -320,21 +375,20 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	[self addPhraseToFindHistory: [findPhrase stringValue]];
 
 	// Create a new find identifier
-	[findIdentifier autorelease];
 	findAllCount++;
-	findIdentifier = [[NSNumber alloc] initWithInt: findAllCount];
-	
+	findIdentifier = @(findAllCount);
+
 	// Clear out the find results
-	[findAllResults release];
 	findAllResults = nil;
+    [findAllTable reloadData];
 
 	// Show progress
     [findProgress setHidden: NO];
-    [findProgress setDisplayedWhenStopped:NO];
-    [findProgress setMinValue:0.0f];
-    [findProgress setMaxValue:1.0f];
+    [findProgress setDisplayedWhenStopped: NO];
+    [findProgress setMinValue: 0.0f];
+    [findProgress setMaxValue: 1.0f];
     [findProgress startAnimation: sender];
-    
+
 	// Start the find
     IFFindLocation locations = [self currentFindLocation];
 
@@ -346,22 +400,22 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
         {
             // Update progress
             float progress = (float) num / (float) total;
-            [findProgress setDoubleValue:progress];
+            [self->findProgress setDoubleValue: progress];
 
-            @synchronized([findInFiles searchResultsLock])
+            @synchronized([self->findInFiles searchResultsLock])
             {
                 // Update results
-                if( [findInFiles resultsCount] != [findAllResults count] ) {
-                    NSArray* results = [findInFiles results];
-                    findAllResults = [results retain];
+                if( [self->findInFiles resultsCount] != [self->findAllResults count] ) {
+                    NSArray* results = [self->findInFiles results];
+                    self->findAllResults = results;
                     [self updateFindAllResults];
                 }
 
                 // Have we finished?
                 if( num == total ) {
                     // Stop the progress indicator
-                    [findProgress stopAnimation: self];
-                    [findProgress setHidden: YES];
+                    [self->findProgress stopAnimation: self];
+                    [self->findProgress setHidden: YES];
                     
                     // Update the results.
                     [self updateFindAllResults];
@@ -381,7 +435,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 // = The find all table =
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
-	return [findAllResults count];
+	return (int) [findAllResults count];
 }
 
 - (id)				tableView: (NSTableView*) aTableView 
@@ -392,10 +446,10 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
         return nil;
     }
 	NSString* ident = [aTableColumn identifier];
-	IFFindResult* row = [findAllResults objectAtIndex: rowIndex];
+	IFFindResult* row = findAllResults[rowIndex];
 	
 	if ([ident isEqualToString: @"location"]) {
-        return [self locationNameFromResult:row];
+        return [self locationNameFromResult: row];
 	} else if ([ident isEqualToString: @"context"]) {
 		return [row attributedContext];
 	}
@@ -408,23 +462,23 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     return document;
 }
 
-- (BOOL)                        tableView:(NSTableView *)tableView
-    shouldShowCellExpansionForTableColumn:(NSTableColumn *)tableColumn
-                                      row:(NSInteger)row {
+- (BOOL)                        tableView: (NSTableView *)tableView
+    shouldShowCellExpansionForTableColumn: (NSTableColumn *)tableColumn
+                                      row: (NSInteger)row {
     // Turn off expansion tooltips
     return NO;
 }
 
-- (void)tableView:(NSTableView *)tableView
-  willDisplayCell:(id)cell
-   forTableColumn:(NSTableColumn *)tableColumn
-              row:(NSInteger)rowIndex {
+- (void)tableView: (NSTableView *)tableView
+  willDisplayCell: (id)cell
+   forTableColumn: (NSTableColumn *)tableColumn
+              row: (NSInteger)rowIndex {
     NSAssert(rowIndex < [findAllResults count], @"Table display error");
     if( rowIndex >= [findAllResults count] ) {
         return;
     }
 
-    IFFindResult* row = [findAllResults objectAtIndex: rowIndex];
+    IFFindResult* row = findAllResults[rowIndex];
     if( [row isRecipeBookResult] ) {
         [cell setDrawsBackground: YES];
         NSColor* result = (rowIndex & 1) ? [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:210.0f/255.0f alpha:1.0f] :
@@ -436,8 +490,9 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     }
 }
 
-- (void)tableView:(NSTableView *)tableView didClickRow:(NSInteger)rowIndex {
-	IFFindResult* row = [findAllResults objectAtIndex: rowIndex];
+- (void)tableView: (NSTableView *)tableView
+      didClickRow: (NSInteger)rowIndex {
+	IFFindResult* row = findAllResults[rowIndex];
     
     NSString* anchorTag = @"";
     if( [[row definitionAnchorTag] length] > 0 ) {
@@ -449,11 +504,11 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     }
     
     //NSLog(@"tag is %@", anchorTag);
-    [controller searchSelectedItemAtLocation: [row fileRange].location
-                                      phrase: [row phrase]
-                                      inFile: [row filepath]
-                                        type: [row locationType]
-                                   anchorTag: anchorTag];
+    [controller searchShowSelectedItemAtLocation: (int) [row fileRange].location
+                                          phrase: [row phrase]
+                                          inFile: [row filepath]
+                                            type: [row locationType]
+                                       anchorTag: anchorTag];
 }
 
 
@@ -473,7 +528,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	if (!itemArray || index < 0 || index >= [itemArray count]) {
 		return nil;
 	} else {
-		return [itemArray objectAtIndex: index];
+		return itemArray[index];
 	}
 }
 
@@ -490,7 +545,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	if (!itemArray) {
 		return 0;
 	} else {
-		return [itemArray count];
+		return (int) [itemArray count];
 	}
 }
 
@@ -503,10 +558,9 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	// Hide the old auxiliary view
 	if (auxView) {
         [auxView removeFromSuperview];
-		[auxView autorelease];
 		auxView = nil;
 	}
-	
+
 	// Hack: Core animation is rubbish and screws everything up if you try to resize the window immediately after adding a layer to a view
 	[[self window] displayIfNeeded];
 	
@@ -534,7 +588,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	
 	// Add the new view
 	if (newAuxView) {
-		auxView		= [newAuxView retain];
+		auxView		= newAuxView;
 
 		auxFrame.origin		= NSMakePoint(0, NSMaxY(auxViewPanel.bounds)-auxFrame.size.height);
 		auxFrame.size.width = [[[self window] contentView] frame].size.width;
@@ -553,7 +607,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	}
 }
 
-- (void)controlTextDidChange:(NSNotification *)aNotification {
+- (void)controlTextDidChange: (NSNotification *)aNotification {
     if( aNotification.object == findPhrase ) {
         [self updateControls];
     }
@@ -565,7 +619,6 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     
     if( win == findInFilesWindow ) {
         // Clear the find all results
-        [findAllResults release];
         findAllResults = nil;
         [self showAuxiliaryView: nil];
         [win saveFrameUsingName:@"FindInFilesFrame"];

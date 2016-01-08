@@ -24,7 +24,89 @@
 // Turn on tracing of text editing events
 #undef  ZoomTraceTextEditing
 
-@implementation ZoomView
+@implementation ZoomView {
+    NSObject<ZMachine>* zMachine;
+
+    // Subviews
+    BOOL editingTextView;
+    BOOL willScrollToEnd;
+    BOOL willDisplayMore;
+    ZoomTextView* textView;
+    NSTextContainer* upperWindowBuffer; // Things hidden under the upper window
+    ZoomScrollView* textScroller;
+
+    int inputPos;
+    BOOL receiving;
+    BOOL receivingCharacters;
+
+    double morePoint;
+    double moreReferencePoint;
+    BOOL moreOn;
+
+    ZoomMoreView* moreView;
+
+    NSArray* fonts; // 16 entries
+    NSArray* originalFonts;			// As for fonts, used to cache the 'original' font definitions when scaling is in effect
+    NSArray* colours; // 11 entries
+
+    NSMutableArray* upperWindows;
+    NSMutableArray* lowerWindows; // Not that more than one makes any sort of sense
+    int lastUpperWindowSize;
+    int lastTileSize;
+    BOOL upperWindowNeedsRedrawing;
+
+    BOOL exclusiveMode;
+
+    // The task, if we're running it
+    NSTask* zoomTask;
+    NSPipe* zoomTaskStdout;
+    NSMutableString* zoomTaskData;
+
+    // The delegate
+    NSObject* delegate;
+
+    // Details about the file we're currently saving
+    uint32_t creatorCode; // 'YZZY' for Zoom
+    long typeCode;
+
+    // Preferences
+    ZoomPreferences* viewPrefs;
+
+    float scaleFactor;
+
+    // Command history
+    NSMutableArray* commandHistory;
+    int				historyPos;
+
+    // Terminating characters
+    NSSet* terminatingChars;
+
+    // View with input focus
+    NSObject<ZWindow>* focusedView;
+
+    // Pixmap view
+    ZoomCursor*       pixmapCursor;
+    ZoomPixmapWindow* pixmapWindow;
+
+    // Manual input
+    ZoomInputLine*    inputLine;
+    NSPoint			  inputLinePos;
+
+    // Autosave
+    NSData* lastAutosave;
+    int		upperWindowsToRestore;
+    BOOL	restoring;
+
+    // Output receivers
+    NSMutableArray* outputReceivers;
+    ZoomTextToSpeech* textToSpeechReceiver;
+    
+    // Input source
+    NSObject* inputSource;
+    
+    // Resources
+    ZoomBlorbFile* resources;
+}
 
 static ZoomView** allocatedViews = nil;
 static int        nAllocatedViews = 0;
@@ -88,6 +170,12 @@ static void finalizeViews(void) {
     creatorCode = 'YZZY';
     typeCode = '\?\?\?\?';
     
+    // Styles, fonts, etc
+    viewPrefs = nil;
+    [self setPreferences: [ZoomPreferences globalPreferences]];
+    fonts = [[viewPrefs fonts] retain];
+    colours = [[viewPrefs colours] retain];
+
     // Set up the scroll view...
     textScroller = [[ZoomScrollView alloc] initWithFrame: [self bounds]
                                                 zoomView: self];
@@ -141,12 +229,6 @@ static void finalizeViews(void) {
     moreView = [[ZoomMoreView alloc] init];
     [moreView setAutoresizingMask: NSViewMinXMargin|NSViewMinYMargin];
     
-    // Styles, fonts, etc
-    viewPrefs = nil;
-    [self setPreferences: [ZoomPreferences globalPreferences]];
-    fonts = [[viewPrefs fonts] retain];
-    colours = [[viewPrefs colours] retain];
-    
     // Get notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(boundsChanged:)
@@ -175,7 +257,7 @@ static void finalizeViews(void) {
     terminatingChars = nil;
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
 
     if (self) {
@@ -384,7 +466,7 @@ static void finalizeViews(void) {
 
 - (out byref NSObject<ZLowerWindow>*) createLowerWindow {
 	// Can only have one lower window
-	if ([lowerWindows count] > 0) return [lowerWindows objectAtIndex: 0];
+	if ([lowerWindows count] > 0) return lowerWindows[0];
 	
     ZoomLowerWindow* win = [[ZoomLowerWindow alloc] initWithZoomView: self];
 
@@ -398,7 +480,7 @@ static void finalizeViews(void) {
 	if (upperWindowsToRestore > 0) {
 		// Restoring upper windows from autosave
 		upperWindowsToRestore--;
-		return [upperWindows objectAtIndex: [upperWindows count] - (upperWindowsToRestore+1)];
+		return upperWindows[[upperWindows count] - (upperWindowsToRestore+1)];
 	}
 	
 	// Otherwise, create a brand new upper window
@@ -486,7 +568,7 @@ static void finalizeViews(void) {
 	float sb = [viewPrefs scrollbackLength];
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
-		int len = [[textView textStorage] length];
+		int len = (int) [[textView textStorage] length];
 		float preserve = 4096.0 + powf(sb*10.0, 2);
 		
 		if (len > ((int)preserve + 2048)) {
@@ -593,10 +675,15 @@ static void finalizeViews(void) {
 			
 			[zMachine inputText: nextInput];
 			[self orInputCharacter: nextInput];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 		}
 	}	
 }
+
+// Disable warning that [self textStorageDidProcessEditing: nil]; can't take a nil parameter,
+// since our textStorageDidProcessEditing function CAN take a nil parameter.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
 
 - (void) shouldReceiveText: (in int) maxLength {
 	if (lastAutosave) [lastAutosave release];
@@ -613,7 +700,7 @@ static void finalizeViews(void) {
 			lastTileSize = currentSize;
 		}
 	
-		historyPos = [commandHistory count];
+		historyPos = (int) [commandHistory count];
 
 		// Paste stuff
 		NSEnumerator* upperEnum = [upperWindows objectEnumerator];
@@ -717,16 +804,20 @@ static void finalizeViews(void) {
 			[inputStyle setForegroundColour: 4];
 			
 			[focusedView writeString: nextInput
-						   withStyle: inputStyle];
+						   withStyle: inputStyle
+                           isCommand: YES];
 			
 			[commandHistory addObject: nextInput];
 			
 			[zMachine inputText: nextInput];
 			[self orInputCommand: nextInput];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 		}
 	}
 }
+
+#pragma clang diagnostic pop
+
 
 - (void) stopReceiving {
     receiving = NO;
@@ -738,8 +829,7 @@ static void finalizeViews(void) {
 - (void) dimensionX: (out int*) xSize
                   Y: (out int*) ySize {
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        [NSDictionary dictionaryWithObjectsAndKeys:
-            [self fontWithStyle:ZFixedStyle], NSFontAttributeName, nil]];
+        @{NSFontAttributeName: [self fontWithStyle:ZFixedStyle]}];
     NSRect ourBounds = NSMakeRect(0,0,0,0);
 	
 	if (pixmapWindow == nil)
@@ -772,8 +862,7 @@ static void finalizeViews(void) {
 		NSFont* font = [self fontWithStyle: ZFixedStyle];
 	
         *width = [@"M" sizeWithAttributes:
-                            [NSDictionary dictionaryWithObjectsAndKeys:
-                             font, NSFontAttributeName, nil]].width;
+                            @{NSFontAttributeName: font}].width;
         NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
 		*height = ceilf([lm defaultLineHeightForFont: font])+1.0;
 	}
@@ -872,7 +961,7 @@ static void finalizeViews(void) {
 												 target: self
 											   argument: nil
 												  order: 65
-												  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
+												  modes: @[NSDefaultRunLoopMode]];
 			willDisplayMore = YES;
 		}
 		
@@ -958,7 +1047,7 @@ static void finalizeViews(void) {
 	}
 
     NSRange endGlyph;
-	int length = [[textView textStorage] length];
+	NSUInteger length = [[textView textStorage] length];
 	
 	if (length > 0) {
 		endGlyph = [textView selectionRangeForProposedRange:
@@ -1106,7 +1195,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     do {
         int x;
         NSString* str = [text string];
-        int len = [str length];
+        int len = (int) [str length];
 
         newlinePos = -1;
 
@@ -1125,7 +1214,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 																			newlinePos-inputPos)]];
             [zMachine inputText: inputText];
 			[self orInputCommand: inputText];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 
             inputPos = newlinePos + 1;
         }
@@ -1145,7 +1234,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		// Deal with terminating characters
 		NSString* chars = [theEvent characters];
 		unichar chr = [chars characterAtIndex: 0];
-		NSNumber* recv = [NSNumber numberWithInt: chr];
+		NSNumber* recv = @((int) chr);
 		
 		BOOL canTerminate = YES;
 		if (chr == 252 || chr == 253 || chr == 254) {
@@ -1168,10 +1257,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			NSString* str = [textView string];
 			NSString* inputText = [str substringWithRange: NSMakeRange(inputPos,
 																	   [str length]-inputPos)];
-			inputPos = [str length];
+			inputPos = (int) [str length];
 			
 			[zMachine inputText: inputText];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 			
 			return YES;
 		}
@@ -1192,7 +1281,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         
         [zMachine inputText: chars];
 		[self orInputCharacter: chars];
-		historyPos = [commandHistory count];
+		historyPos = (int) [commandHistory count];
         
         return YES;
     }
@@ -1216,7 +1305,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		// Up and down arrow keys have a different meaning if the cursor is beyond the
 		// end inputPos.
 		// (Arrow keys won't be caught above thanks to the NSFunctionKeyMask)
-		unsigned cursorPos = [textView selectedRange].location;
+		unsigned cursorPos = (int) [textView selectedRange].location;
 		
 		if (modifiers == NSFunctionKeyMask) {
 			int key = [chars characterAtIndex: 0];
@@ -1229,7 +1318,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 				if (key == NSDownArrowFunctionKey) historyPos++;
 				
 				if (historyPos < 0) historyPos = 0;
-				if (historyPos > [commandHistory count]) historyPos = [commandHistory count];
+				if (historyPos > [commandHistory count]) historyPos = (int) [commandHistory count];
 				
 				if (historyPos == oldPos) return YES;
 				
@@ -1239,7 +1328,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 				
 				// Put in the new string
 				if (historyPos < [commandHistory count]) {
-					[[[textView textStorage] mutableString] insertString: [commandHistory objectAtIndex: historyPos]
+					[[[textView textStorage] mutableString] insertString: commandHistory[historyPos]
 																 atIndex: inputPos];
 				}
 				
@@ -1267,7 +1356,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 }
 
 - (void) clickAtPointInWindow: (NSPoint) windowPos
-					withCount: (int) count {
+					withCount: (NSInteger) count {
 	// Note that clicking can only be accurate in the 'upper' window
 	// We'll have problems if the lower window is scrolled, too.
 	NSPoint pointInView = [self convertPoint: windowPos
@@ -1279,8 +1368,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 									  Y: pointInView.y];
 	} else {
 		// Point is in character coordinates
-		NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-            [self fontWithStyle:ZFixedStyle], NSFontAttributeName, nil];
+		NSDictionary* fixedAttributes = @{NSFontAttributeName: [self fontWithStyle:ZFixedStyle]};
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 		
 		int charX = floorf(pointInView.x / fixedSize.width);
@@ -1327,17 +1415,17 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         ([style fixed]?4:0)|
         ([style symbolic]?8:0);
 	
-    fontToUse = [fonts objectAtIndex: fontnum];
+    fontToUse = fonts[fontnum];
 	
     // Colour
     NSColor* foregroundColour = [style foregroundTrue];
     NSColor* backgroundColour = [style backgroundTrue];
 	
     if (foregroundColour == nil) {
-        foregroundColour = [colours objectAtIndex: [style foregroundColour]];
+        foregroundColour = colours[[style foregroundColour]];
     }
     if (backgroundColour == nil) {
-        backgroundColour = [colours objectAtIndex: [style backgroundColour]];
+        backgroundColour = colours[[style backgroundColour]];
     }
 	
     if ([style reversed]) {
@@ -1354,13 +1442,11 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 											 alpha: 1.0];
 	
     // Generate the new attributes
-    NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-        fontToUse, NSFontAttributeName,
-        foregroundColour, NSForegroundColorAttributeName,
-        backgroundColour, NSBackgroundColorAttributeName,
-		[NSNumber numberWithBool: [viewPrefs useLigatures]], NSLigatureAttributeName,
-		[[style copy] autorelease], ZoomStyleAttributeName,
-        nil];
+    NSDictionary* newAttr = @{NSFontAttributeName: fontToUse,
+        NSForegroundColorAttributeName: foregroundColour,
+        NSBackgroundColorAttributeName: backgroundColour,
+		NSLigatureAttributeName: @([viewPrefs useLigatures]),
+		ZoomStyleAttributeName: [[style copy] autorelease]};
 	
 	return newAttr;
 }
@@ -1383,17 +1469,17 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         ([style fixed]?4:0)|
         ([style symbolic]?8:0);
 
-    fontToUse = [fonts objectAtIndex: fontnum];
+    fontToUse = fonts[fontnum];
 
     // Colour
     NSColor* foregroundColour = [style foregroundTrue];
     NSColor* backgroundColour = [style backgroundTrue];
 
     if (foregroundColour == nil) {
-        foregroundColour = [colours objectAtIndex: [style foregroundColour]];
+        foregroundColour = colours[[style foregroundColour]];
     }
     if (backgroundColour == nil) {
-        backgroundColour = [colours objectAtIndex: [style backgroundColour]];
+        backgroundColour = colours[[style backgroundColour]];
     }
 	
     if ([style reversed]) {
@@ -1410,12 +1496,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 											 alpha: 1.0];
 	
     // Generate the new attributes
-    NSDictionary* newAttr = [NSDictionary dictionaryWithObjectsAndKeys:
-        fontToUse, NSFontAttributeName,
-        foregroundColour, NSForegroundColorAttributeName,
-        backgroundColour, NSBackgroundColorAttributeName,
-		[[style copy] autorelease], ZoomStyleAttributeName,
-        nil];
+    NSDictionary* newAttr = @{NSFontAttributeName: fontToUse,
+        NSForegroundColorAttributeName: foregroundColour,
+        NSBackgroundColorAttributeName: backgroundColour,
+		ZoomStyleAttributeName: [[style copy] autorelease]};
 
     // Create + append the newly attributed string
     result = [[NSMutableAttributedString alloc] initWithString: zString
@@ -1454,9 +1538,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
     if (res == nil) {
         if ([style reversed]) {
-            res = [colours objectAtIndex: [style backgroundColour]];
+            res = colours[[style backgroundColour]];
         } else {
-            res = [colours objectAtIndex: [style foregroundColour]];
+            res = colours[[style foregroundColour]];
         }
     }
 	
@@ -1480,9 +1564,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
     if (res == nil) {
         if (![style reversed]) {
-            res = [colours objectAtIndex: [style backgroundColour]];
+            res = colours[[style backgroundColour]];
         } else {
-            res = [colours objectAtIndex: [style foregroundColour]];
+            res = colours[[style foregroundColour]];
         }
     }
 
@@ -1494,7 +1578,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         return nil;
     }
 
-    return [fonts objectAtIndex: style];
+    return fonts[style];
 }
 
 - (int) upperWindowSize {
@@ -1559,8 +1643,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         lastUpperWindowSize = newSize;
 
         // Force text display onto lower window (or where the lower window will be)
-        NSDictionary* fixedAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-            [self fontWithStyle:ZFixedStyle], NSFontAttributeName, nil];
+        NSDictionary* fixedAttributes = @{NSFontAttributeName: [self fontWithStyle:ZFixedStyle]};
         NSSize fixedSize = [@"M" sizeWithAttributes: fixedAttributes];
 
         NSAttributedString* newLine = [[[NSAttributedString alloc] initWithString: @"\n"
@@ -1571,7 +1654,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         sepHeight -= [upperWindowBuffer containerSize].height;
 		
 		if (inputPos > [[textView textStorage] length])
-			inputPos = [[textView textStorage] length];
+			inputPos = (int) [[textView textStorage] length];
 		
         if ([[textView textStorage] length] == 0) {
             [[[textView textStorage] mutableString] insertString: @"\n"
@@ -1785,8 +1868,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
     // Prepare for launch
     [zoomTask setLaunchPath: serverName];	
-	[zoomTask setArguments: [NSArray arrayWithObjects: 
-		[NSString stringWithFormat: @"%i", getpid()], nil]];
+	[zoomTask setArguments: @[[NSString stringWithFormat: @"%i", getpid()]]];
     
 #if 0
     zoomTaskStdout = [[NSPipe alloc] init];
@@ -1859,7 +1941,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     [[textView textStorage] appendAttributedString: newline];
     [[textView textStorage] appendAttributedString: string];
     [[textView textStorage] appendAttributedString: newline];
-	inputPos = [[textView textStorage] length];
+	inputPos = (int) [[textView textStorage] length];
 	[textView setEditable: NO];
 
     // Update the windows
@@ -1995,44 +2077,44 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
         default:
         case ZFileQuetzal:
 			if (usePackage) {
-				[panel setAllowedFileTypes: [NSArray arrayWithObject:@"zoomSave"]];
+				[panel setAllowedFileTypes: @[@"zoomSave"]];
 			} else {
-				[panel setAllowedFileTypes: [NSArray arrayWithObject:@"qut"]];
+				[panel setAllowedFileTypes: @[@"qut"]];
 			}
             typeCode = 'IFZS';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ saved game (quetzal) file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: usePackage?@"zoomSave":@"qut", nil]];
+                [panel setAllowedFileTypes: @[usePackage?@"zoomSave":@"qut"]];
             }
             break;
             
         case ZFileData:
-            [panel setAllowedFileTypes: [NSArray arrayWithObject:@"dat"]];
+            [panel setAllowedFileTypes: @[@"dat"]];
             typeCode = '\?\?\?\?';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ data file", saveOpen]];
                 
                 // (Assume if setMessage is supported, we have 10.3)
                 [panel setAllowsOtherFileTypes: YES];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"dat", @"qut", nil]];
+                [panel setAllowedFileTypes: @[@"dat", @"qut"]];
             }
             break;
             
         case ZFileRecording:
-            [panel setAllowedFileTypes: [NSArray arrayWithObject:@"txt"]];
+            [panel setAllowedFileTypes: @[@"txt"]];
             typeCode = 'TEXT';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ command recording file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"txt", @"rec", nil]];
+                [panel setAllowedFileTypes: @[@"txt", @"rec"]];
             }
             break;
             
         case ZFileTranscript:
-            [panel setAllowedFileTypes: [NSArray arrayWithObject:@"txt"]];
+            [panel setAllowedFileTypes: @[@"txt"]];
             typeCode = 'TEXT';
             if (supportsMessage) {
                 [panel setMessage: [NSString stringWithFormat: @"%@ transcript recording file", saveOpen]];
-                [panel setAllowedFileTypes: [NSArray arrayWithObjects: @"txt", nil]];
+                [panel setAllowedFileTypes: @[@"txt"]];
             }
             break;
     }
@@ -2040,10 +2122,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 
 - (void) storePanelPrefs: (NSSavePanel*) panel {
     if( [panel directoryURL] ) {
-        [[NSUserDefaults standardUserDefaults] setObject: [[panel directoryURL] absoluteURL]
+        [[NSUserDefaults standardUserDefaults] setObject: [[[panel directoryURL] absoluteURL] path]
                                                   forKey: @"ZoomSaveURL"];
     }
-    [[NSUserDefaults standardUserDefaults] setObject: [NSNumber numberWithBool: [panel isExtensionHidden]]
+    [[NSUserDefaults standardUserDefaults] setObject: @([panel isExtensionHidden])
                                               forKey: @"ZoomHiddenExtension"];
 }
 
@@ -2051,7 +2133,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
     return creatorCode;
 }
 
-- (void) setCreatorCode: (long) code {
+- (void) setCreatorCode: (uint32_t) code {
     creatorCode = code;
 }
 
@@ -2069,7 +2151,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 	
 	if (directoryURL == nil) {
-		directoryURL = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSaveURL"];
+        NSObject* value = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSaveURL"];
+        if( [value isKindOfClass: [NSString class]] ) {
+            directoryURL = [NSURL fileURLWithPath: (NSString*) value];
+        }
 	}
 
 	if (directoryURL != nil) {
@@ -2103,13 +2188,11 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
                      int windowNumber = 0;
                      ZoomUpperWindow* previewWin;
                      
-                     [f setAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                        [NSNumber numberWithLong: creatorCode], NSFileHFSCreatorCode,
-                                        [NSNumber numberWithLong: typeCode], NSFileHFSTypeCode,
-                                        [NSNumber numberWithBool: [panel isExtensionHidden]], NSFileExtensionHidden,
-                                        nil]];
+                     [f setAttributes: @{NSFileHFSCreatorCode: [NSNumber numberWithLong: creatorCode],
+                                        NSFileHFSTypeCode: @(typeCode),
+                                        NSFileExtensionHidden: @([panel isExtensionHidden])}];
                      
-                     if ([upperWindows count] <= 0 || [(ZoomUpperWindow*)[upperWindows objectAtIndex: 0] length] > 0) {
+                     if ([upperWindows count] <= 0 || [(ZoomUpperWindow*)upperWindows[0] length] > 0) {
                          windowNumber = 0;
                      } else {
                          windowNumber = 1;
@@ -2118,7 +2201,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
                      if ([upperWindows count] <= 0) {
                          previewWin = nil;
                      } else {
-                         previewWin = [upperWindows objectAtIndex: windowNumber];
+                         previewWin = upperWindows[windowNumber];
                      }
                      
                      [f addData: [NSArchiver archivedDataWithRootObject: previewWin]
@@ -2143,11 +2226,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
                  if ([[NSFileManager defaultManager] createFileAtPath:fn
                                                              contents:[NSData data]
                                                            attributes:
-                      [NSDictionary dictionaryWithObjectsAndKeys: 
-                       [NSNumber numberWithLong: creator], NSFileHFSCreatorCode,
-                       [NSNumber numberWithLong: typeCode], NSFileHFSTypeCode,
-                       [NSNumber numberWithBool: [panel isExtensionHidden]], NSFileExtensionHidden,
-                       nil]]) {
+                      @{NSFileHFSCreatorCode: @((long) creator),
+                       NSFileHFSTypeCode: @(typeCode),
+                       NSFileExtensionHidden: @([panel isExtensionHidden])}]) {
                           file = [NSFileHandle fileHandleForWritingAtPath: fn];
                       }
                  
@@ -2180,7 +2261,10 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	}
 	
 	if (directoryURL == nil) {
-		directoryURL = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSaveURL"];
+        NSObject* value = [[NSUserDefaults standardUserDefaults] objectForKey: @"ZoomSaveURL"];
+        if( [value isKindOfClass: [NSString class]] ) {
+            directoryURL = [NSURL fileURLWithPath: (NSString*) value];
+        }
 	}
 
 	if (directoryURL != nil) {
@@ -2281,8 +2365,9 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[warningStyle setSymbolic: NO];
 		[warningStyle setUnderline: YES];
 		
-		[[lowerWindows objectAtIndex: 0] writeString: warningString
-										   withStyle: warningStyle];
+		[lowerWindows[0] writeString: warningString
+                           withStyle: warningStyle
+                           isCommand: YES];
         [warningStyle autorelease];
 	}
 }
@@ -2357,7 +2442,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	NSMutableAttributedString* storage = [textView textStorage];
 	NSRange attributedRange;
 	NSDictionary* attr;
-	int len = [storage length];
+	int len = (int) [storage length];
 	
 	attributedRange.location = 0;
 	
@@ -2374,7 +2459,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		if (attributedRange.length == 0) break;
 		
 		// Re-apply the style associated with this block of text
-		ZStyle* sty = [attr objectForKey: ZoomStyleAttributeName];
+		ZStyle* sty = attr[ZoomStyleAttributeName];
 		
 		if (sty) {
 			//
@@ -2400,7 +2485,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	
 	// Reset the background colour of the lower window
 	if ([lowerWindows count] > 0) {
-		[textView setBackgroundColor: [self backgroundColourForStyle: [(ZoomLowerWindow*)[lowerWindows objectAtIndex: 0] backgroundStyle]]];
+		[textView setBackgroundColor: [self backgroundColourForStyle: [(ZoomLowerWindow*)lowerWindows[0] backgroundStyle]]];
 	}
 
 	// Reformat the upper window(s) as necessary
@@ -2462,14 +2547,12 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	[encoder encodeValueOfObjCType: @encode(int) 
 								at: &autosaveVersion]; // HACK: required to support the old, broken, format
 	
-	NSDictionary* saveData = [NSDictionary dictionaryWithObjectsAndKeys:
-		lastAutosave, @"lastAutosave",
-		upperWindows, @"upperWindows",
-		lowerWindows, @"lowerWindows",
-		[textView textStorage], @"textStorage",
-		commandHistory, @"commandHistory",
-		pixmapWindow, @"pixmapWindow",
-		nil];
+	NSDictionary* saveData = @{@"lastAutosave": lastAutosave,
+		@"upperWindows": upperWindows,
+		@"lowerWindows": lowerWindows,
+		@"textStorage": [textView textStorage],
+		@"commandHistory": commandHistory,
+		@"pixmapWindow": pixmapWindow};
 	
 	[encoder encodeRootObject: saveData];
 #endif
@@ -2494,19 +2577,19 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		NSDictionary* restored = [decoder decodeObject];
 		
-		lastAutosave = [[restored objectForKey: @"lastAutosave"] retain];
-		upperWindows = [[restored objectForKey: @"upperWindows"] retain];
-		lowerWindows = [[restored objectForKey: @"lowerWindows"] retain];
-		commandHistory = [[restored objectForKey: @"commandHistory"] retain];
+		lastAutosave = [restored[@"lastAutosave"] retain];
+		upperWindows = [restored[@"upperWindows"] retain];
+		lowerWindows = [restored[@"lowerWindows"] retain];
+		commandHistory = [restored[@"commandHistory"] retain];
 		
-		NSTextStorage* storage = [restored objectForKey: @"textStorage"];
+		NSTextStorage* storage = restored[@"textStorage"];
 		
 		// Workaround for a Cocoa bug
 		[[textView textStorage] setAttributedString: [[[NSAttributedString alloc] initWithAttributedString: storage] autorelease]];
-		inputPos = [[textView textStorage] length];
+		inputPos = (int) [[textView textStorage] length];
 		
 		// Final setup
-		upperWindowsToRestore = [upperWindows count];
+		upperWindowsToRestore = (int) [upperWindows count];
 		
 		[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
 									  withObject: self];
@@ -2525,7 +2608,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[self reformatWindow];
 		[self resetMorePrompt];
 		[self scrollToEnd];
-		inputPos = [[textView textStorage] length];		
+		inputPos = (int) [[textView textStorage] length];
 	} else if (autosaveVersion == 100 || autosaveVersion == 101) {
 		// (Autosave versions only used up to 1.0.2beta1)
 		if (lastAutosave) [lastAutosave release];
@@ -2541,13 +2624,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		// Workaround for a Cocoa bug
 		[[textView textStorage] setAttributedString: [[[NSAttributedString alloc] initWithAttributedString: storage] autorelease]];
-		inputPos = [[textView textStorage] length];
+		inputPos = (int) [[textView textStorage] length];
 		
 		commandHistory = [[decoder decodeObject] retain];
 		if (autosaveVersion == 101) pixmapWindow = [[decoder decodeObject] retain];
 		
 		// Final setup
-		upperWindowsToRestore = [upperWindows count];
+		upperWindowsToRestore = (int) [upperWindows count];
 		
 		[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
 									  withObject: self];
@@ -2566,7 +2649,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		[self reformatWindow];
 		[self resetMorePrompt];
 		[self scrollToEnd];
-		inputPos = [[textView textStorage] length];
+		inputPos = (int) [[textView textStorage] length];
 	} else {
 		NSLog(@"Unknown autosave version (ignoring)");
 	}
@@ -2590,7 +2673,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	// All we need, I think
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder: decoder];
 	
     if (self) {
@@ -2619,7 +2702,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			[[textView textStorage] beginEditing];
 			// Workaround for a bug in Cocoa
 			[[textView textStorage] setAttributedString: [[[NSAttributedString alloc] initWithAttributedString: storage] autorelease]];
-			inputPos = [[textView textStorage] length];
+			inputPos = (int) [[textView textStorage] length];
 			
 			commandHistory = [[decoder decodeObject] retain];
 			
@@ -2628,7 +2711,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			}
 			
 			// Final setup
-			upperWindowsToRestore = [upperWindows count];
+			upperWindowsToRestore = (int) [upperWindows count];
 			
 			[upperWindows makeObjectsPerformSelector: @selector(setZoomView:)
 										  withObject: self];
@@ -2645,7 +2728,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			[self resetMorePrompt];
 			[self scrollToEnd];
 			[[textView textStorage] endEditing];
-			inputPos = [[textView textStorage] length];
+			inputPos = (int) [[textView textStorage] length];
 		} else {
 			NSLog(@"Unknown autosave version (ignoring)");
 			[self release];
@@ -2671,7 +2754,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	[self reformatWindow];
 	[self resetMorePrompt];
 	[self scrollToEnd];
-	inputPos = [[textView textStorage] length];
+	inputPos = (int) [[textView textStorage] length];
 }
 
 // = Debugging =
@@ -2792,7 +2875,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		[zMachine inputText: inputText];
 		[self orInputCommand: inputText];		
-		historyPos = [commandHistory count];
+		historyPos = (int) [commandHistory count];
 	}
 	
 	if (sender == inputLine) {
@@ -2816,7 +2899,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		// FIXME: might fail if there's an errant newline somewhere around
 		// Reset inputPos (accepting the input, but the z-machine allows the game to unaccept it later on, so that's alright)
-		inputPos = [str length];
+		inputPos = (int) [str length];
 		return res;
 	}
 }
@@ -2831,11 +2914,11 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		NSString* str = [[textView textStorage] string];
 		
 		// 'len' contains the amount of text we'll attempt to backtrack across
-		int len = [prefix length];
-		if (len > [str length]) len = [str length];
+		int len = (int) [prefix length];
+		if (len > [str length]) len = (int) [str length];
 		
 		// Cut out a substring according to the length (and the current input position)
-		if (inputPos > [str length]) inputPos = [str length];
+		if (inputPos > (int) [str length]) inputPos = (int) [str length];
 		str = [str substringWithRange: NSMakeRange(inputPos-len, len)];
 		
 		// We compare lowercase versions of the string: this allows for things like Beyond Zork which write 'EXAMINE' but add 'examine' to the buffer
@@ -2844,7 +2927,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		
 		// See how far back we can go
 		int offset = len-1;
-		int prefixOffset = [lowerPrefix length]-1;
+		int prefixOffset = (int) [lowerPrefix length]-1;
 		
 		while (offset >= 0 && prefixOffset >= 0 && [lowerPrefix characterAtIndex: prefixOffset] == [str characterAtIndex: offset]) {
 			offset--;
@@ -2979,7 +3062,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			
 			[zMachine inputText: nextInput];
 			[self orInputCharacter: nextInput];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 		}
 	} else if (receiving && [inputSource respondsToSelector: @selector(nextCommand)]) {
 		NSString* nextInput = [inputSource nextCommand];
@@ -3006,13 +3089,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 			[inputStyle setForegroundColour: 4];
 			
 			[focusedView writeString: nextInput
-						   withStyle: inputStyle];
+						   withStyle: inputStyle
+                           isCommand: YES];
 			
 			[commandHistory addObject: nextInput];
 			
 			[zMachine inputText: nextInput];
 			[self orInputCommand: nextInput];
-			historyPos = [commandHistory count];
+			historyPos = (int) [commandHistory count];
 		}
 	}
 }
@@ -3044,6 +3128,7 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (NSSize) sizeOfImageWithNumber: (int) number {
 	return [resources sizeForImageWithNumber: number
 							   forPixmapSize: [pixmapWindow size]];
+    /*
 	NSImage* img = [resources imageWithNumber: number];
 	
 	if (img != nil) {
@@ -3051,11 +3136,12 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	} else {
 		return NSMakeSize(0,0);
 	}
+    */
 }
 
 // = Terminating characters =
 
-- (void) setTerminatingCharacters: (NSSet*) termChars {
+- (oneway void) setTerminatingCharacters: (NSSet*) termChars {
 	if (terminatingChars) [terminatingChars release];
 	
 	terminatingChars = [termChars copy];
@@ -3074,12 +3160,12 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	historyPos--;
 				
 	if (historyPos < 0) historyPos = 0;
-	if (historyPos > [commandHistory count]) historyPos = [commandHistory count];
+	if (historyPos > [commandHistory count]) historyPos = (int) [commandHistory count];
 
 	if (historyPos == oldPos) return nil;
 
 	if (historyPos < [commandHistory count]) {
-		return [commandHistory objectAtIndex: historyPos];
+		return commandHistory[historyPos];
 	} else {
 		return nil;
 	}
@@ -3091,12 +3177,12 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 	historyPos++;
 				
 	if (historyPos < 0) historyPos = 0;
-	if (historyPos > [commandHistory count]) historyPos = [commandHistory count];
+	if (historyPos > [commandHistory count]) historyPos = (int) [commandHistory count];
 	
 	if (historyPos == oldPos) return nil;
 	
 	if (historyPos < [commandHistory count]) {
-		return [commandHistory objectAtIndex: historyPos];
+		return commandHistory[historyPos];
 	} else {
 		return nil;
 	}
@@ -3138,16 +3224,14 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 - (NSArray*) accessibilityAttributeNames {
 	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
 	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-								 NSAccessibilityChildrenAttribute,
-								 nil]];
+	[result addObjectsFromArray:@[NSAccessibilityChildrenAttribute]];
 	
 	return [result autorelease];
 }
 
 - (id)accessibilityAttributeValue:(NSString *)attribute {
 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		return [NSArray arrayWithObjects: [textScroller upperWindowView], textView, nil];
+		return @[[textScroller upperWindowView], textView];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
 		return [NSString stringWithFormat: @"Zoom view"];
 	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
@@ -3156,13 +3240,13 @@ shouldChangeTextInRange:(NSRange)affectedCharRange
 		NSView* viewResponder = (NSView*)[[self window] firstResponder];
 		if ([viewResponder isKindOfClass: [NSView class]]) {
 			while (viewResponder != nil) {
-				if (viewResponder == self) return [NSNumber numberWithBool: YES];
+				if (viewResponder == self) return @YES;
 				
 				viewResponder = [viewResponder superview];
 			}
 		}
 		
-		return [NSNumber numberWithBool: NO];
+		return @NO;
 	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
 		//return nil;
 	}

@@ -9,7 +9,11 @@
 #import "IFInformProtocol.h"
 #import "IFUtility.h"
 
-@implementation IFInformProtocol
+@implementation IFInformProtocol {
+    NSURLRequest* theURLRequest;					// The URL request we're supposed to be processing
+    NSCachedURLResponse* theCachedResponse;			// The associated cached response
+    id<NSURLProtocolClient> theClient;				// The client we're talking to
+}
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
 	// We respond to 'inform:///Foo' style URLs
@@ -26,28 +30,21 @@
 	return request;
 }
 
--(id)initWithRequest:(NSURLRequest *)request 
+-(instancetype)initWithRequest:(NSURLRequest *)request 
 	  cachedResponse:(NSCachedURLResponse *)cachedResponse 
 			  client:(id <NSURLProtocolClient>)client {
 	self = [super initWithRequest: request
 				   cachedResponse: cachedResponse
 						   client: client];
 	if (self) {
-		theURLRequest = [request retain];
-		theCachedResponse = [cachedResponse retain];
-		theClient = [client retain];
+		theURLRequest = request;
+		theCachedResponse = cachedResponse;
+		theClient = client;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[theURLRequest release];
-	[theCachedResponse release];
-	[theClient release];
-	
-	[super dealloc];
-}
 
 -(NSCachedURLResponse *)cachedResponse {
 	return theCachedResponse;
@@ -73,7 +70,7 @@
 	// Accept either the host or the path specifier containing 'extensions'
 	if ([[host lowercaseString] isEqualToString: @"extensions"] ||
 			(components != nil && [components count] > 1 && 
-			 [[[components objectAtIndex: 0] lowercaseString] isEqualToString: @"extensions"])) {
+			 [[components[0] lowercaseString] isEqualToString: @"extensions"])) {
 		int skip = 0;
 		int x;
 		
@@ -183,7 +180,7 @@
 												textEncodingName: nil];
 	
 	[theClient URLProtocol: self
-		didReceiveResponse: [response autorelease]
+		didReceiveResponse: response
 		cacheStoragePolicy: NSURLCacheStorageAllowedInMemoryOnly];
 	
 	// We loaded the data

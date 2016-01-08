@@ -1,6 +1,6 @@
 //
 //  IFSourcePage.h
-//  Inform-xc2
+//  Inform
 //
 //  Created by Andrew Hunter on 25/03/2007.
 //  Copyright 2007 Andrew Hunter. All rights reserved.
@@ -9,11 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 #import "IFPage.h"
-#import "IFIntelFile.h"
-#import "IFIsFiles.h"
-#import "IFSourceFileView.h"
-#import "IFHeaderPage.h"
-#import "IFClickThroughScrollView.h"
+
+@class IFIntelFile;
 
 //
 // The 'source' page
@@ -26,28 +23,12 @@
 
 @end
 
-@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation> {
-    IBOutlet NSMenu*            contextMenu;
-
-	NSTextStorage*              textStorage;					// The text storage object for this view
-    NSLayoutManager*            layoutManager;
-    NSTextContainer*            textContainer;
-    IFSourceFileView*           textView;
-    IFClickThroughScrollView*   scrollView;                     // Just allows mouseDown to come through
-
-	NSString*                   openSourceFilepath;				// The name of the file that is open in this page
-    
-	// The header page control
-	BOOL                        headerPageShown;
-	IFPageBarCell*              sourcePageControl;				// The 'source page' toggle
-	IFPageBarCell*              headerPageControl;				// The 'header page' toggle
-	IFHeaderPage*               headerPage;						// The header page
-}
+@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation>
 
 // Source pane controls
-- (void) prepareToCompile;										// Informs this pane that it's time to prepare to compile (or save) the document
+- (void) prepareToSave;                                         // Informs this pane that it's time to prepare to save the document
 
-- (NSRange) findLine: (int) line;								// Gets the range of characters that correspond to a specific line number
+- (NSRange) findLine: (NSUInteger) line;						// Gets the range of characters that correspond to a specific line number
 - (void) moveToLine: (int) line									// Scrolls the source view so that the given line/character to be visible
 		  character: (int) chr;
 - (void) moveToLine: (int) line;								// Scrolls the source view so that the given line to be visible
@@ -58,14 +39,14 @@
 - (void) pasteSourceCode: (NSString*) sourceCode;				// Pastes in the given code at the current insertion position (replacing any selected code and updating the undo manager)
 
 - (void) showSourceFile: (NSString*) file;						// Shows the source file with the given filename in the view
-- (NSString*) openSourceFilepath;								// Returns the unprocessed name of the currently open file (currentFile is usually more appropriate than this)
-- (NSString*) currentFile;										// Returns the currently displayed filename
-- (int) currentLine;											// Returns the line the cursor is currently on
+@property (atomic, readonly, copy) NSString *openSourceFilepath;	// Returns the unprocessed name of the currently open file (currentFile is usually more appropriate than this)
+@property (atomic, readonly, copy) NSString *currentFile;			// Returns the currently displayed filename
+@property (atomic, readonly) int currentLine;						// Returns the line the cursor is currently on
 
 - (void) indicateLine: (int) line;								// Shows an indicator for the specified line number
 - (void) updateHighlightedLines;								// Updates the temporary highlights (which display breakpoints, etc)
 
-- (IFIntelFile*) currentIntelligence;							// The active IntelFile object for the current view (ie, the object that's dealing with auto-tabs, the dynamic index, etc)
+@property (atomic, readonly, strong) IFIntelFile *currentIntelligence;	// The active IntelFile object for the current view (ie, the object that's dealing with auto-tabs, the dynamic index, etc)
 
 - (void) setSpellChecking: (BOOL) checkSpelling;				// Sets check-as-you-type on or off
 
@@ -83,6 +64,6 @@
 - (IBAction) showMoreHeadings: (id) sender;						// Increases the number of headings displayed around the cursor
 - (IBAction) showEntireSource: (id) sender;						// Displays the entire source code, keeping the cursor in the same position
 
-- (id) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller;
 
 @end
