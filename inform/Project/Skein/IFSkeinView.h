@@ -6,6 +6,7 @@
 //
 
 #import <AppKit/AppKit.h>
+#import <QuartzCore/CAAnimation.h>
 
 @class IFSkein;
 @class IFSkeinItem;
@@ -23,7 +24,7 @@
 
 
 
-@interface IFSkeinView : NSView<NSTextViewDelegate>
+@interface IFSkeinView : NSView<NSTextViewDelegate, CAAnimationDelegate>
 
 @property (atomic, strong)            IFSkein *           skein;
 @property (atomic, strong, readonly)  IFSkeinLayout*      layoutTree;

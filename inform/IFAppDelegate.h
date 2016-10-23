@@ -34,6 +34,8 @@
 - (IBAction) exportToEPub: (id) sender;
 
 - (void) updateExtensionsMenu;                      // Updates extensions menu
+- (void) createNewProject: (NSString*) title
+                    story: (NSString*) story;
 
 @property (atomic, readonly, copy) NSMenuItem *debugMenu;   // The Debug menu
 

@@ -14,10 +14,11 @@
 
 @interface GlkTextWindow : GlkWindow<NSTextStorageDelegate, NSTextViewDelegate> {
 	NSScrollView* scrollView;							// The scroller for the text view
-	GlkTextView* textView;								// The inner text view
+	@public GlkTextView* textView;						// The inner text view
 	GlkTypesetter* typesetter;							// The typesetter we should use for laying out images and other Glk-specific things
 	NSLayoutManager* layoutManager;						// The layout manager
-	NSTextStorage* textStorage;							// The text storage
+	NSTextStorage* textStorage;                         // The text storage
+    NSTextContainer* textContainer;                     // The text container
 	
 	int inputPos;										// The position in the text view that the game-supplied text ends, and the user-supplied text begins
 	float margin;										// The size of the margin for this window

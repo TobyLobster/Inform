@@ -1,4 +1,4 @@
-Inform
+Inform for macOS
 
 About Inform
 ------------
@@ -12,6 +12,7 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 History
 -------
+1.65.1   6M62   2016-10-21   macOS Sierra support. (Also another bug fix for 10.6.8 - Bug #1895)
 1.64.1   6M62   2016-01-06   Bugfixes (Fix for 10.6.8 support #1807, toolbar panel #1808, Syntax colouring #1815)
 1.64.0   6M62   2015-12-24   Includes new Testing panel, and support for Extension Projects
 1.54.4   6L38   2014-11-21   First Mac App Store version released
@@ -22,7 +23,7 @@ History
 
 Compiling Inform
 ----------------
-Inform is compiled with XCode 7.2 on Mac OS 10.11 (El Capitan)
+Inform is compiled with XCode 8 on macOS Sierra (10.12)
 
 Licensing
 ---------
@@ -31,4 +32,4 @@ See file 'COPYING'
 
 
 Toby Nelson
-toby@tnelson.demon.co.uk
+tobymnelson@gmail.com

@@ -107,7 +107,7 @@
 	}
 
     // Spell checking
-    [self setSourceSpellChecking: [[NSApp delegate] sourceSpellChecking]];
+    [self setSourceSpellChecking: [(IFAppDelegate *) [NSApp delegate] sourceSpellChecking]];
 
     [self setBackgroundColour];
 }

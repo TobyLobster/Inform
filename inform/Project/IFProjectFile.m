@@ -332,7 +332,7 @@
 
     // Add new items
     NSDictionary* itemsToAdd = [newWrapper fileWrappers];
-    for( NSFileWrapper* key in itemsToAdd ) {
+    for( NSString* key in itemsToAdd ) {
         [bundleDirectory addFileWrapper: itemsToAdd[key]];
     }
 }

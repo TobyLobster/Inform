@@ -7,7 +7,7 @@ use File::Basename;
 
 my $dirname = dirname(__FILE__);
 
-my $app_version_number = "1.64";
+my $app_version_number = "1.65";
 my $app_version_build_number = "$app_version_number.1";
 my $inform_source_version = "ABCD";
 my $full_version_prefix = "$app_version_number/6.33/";

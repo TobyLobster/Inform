@@ -22,41 +22,36 @@
 @implementation GlkTextWindow
 
 - (void) setupTextview {
-	// Construct the text system
-	textStorage = [[NSTextStorage alloc] init];
-	
-	layoutManager = [[NSLayoutManager alloc] init];
-	[textStorage addLayoutManager: layoutManager];
-	
+    // Create the text view and the scroller
+    textView = [[GlkTextView alloc] initWithFrame: [self frame]];
+    scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
+
+    // Create the typesetter
+    typesetter = [[GlkTypesetter alloc] init];
+
+    // Construct the text system
+	textStorage   = textView.textStorage;
+    layoutManager = textView.layoutManager;
+    textContainer = textView.textContainer;
+
 	margin = 0;
-	
-	// Create the typesetter
-	typesetter = [[GlkTypesetter alloc] init];
+
 	[layoutManager setTypesetter: typesetter];
 	[layoutManager setShowsControlCharacters: NO];
 	[layoutManager setShowsInvisibleCharacters: NO];
-	
+
 	// Create the text container
 	lastMorePos = 0;
 	nextMorePos = [self frame].size.height - MoreMargin;
-	NSTextContainer* newContainer = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(1e8, [self frame].size.height - MoreMargin)];
-	
-	[newContainer setLayoutManager: layoutManager];
-	[layoutManager addTextContainer: newContainer];
-	
-	[newContainer setContainerSize: NSMakeSize(1e8, 1e8)];
-	[newContainer setWidthTracksTextView: YES];
-	[newContainer setHeightTracksTextView: NO];
+
+	[textContainer setContainerSize: NSMakeSize(1e8, self.frame.size.height - MoreMargin)];
+	[textContainer setWidthTracksTextView: YES];
+	[textContainer setHeightTracksTextView: NO];
 				
-	// Create the text view and the scroller
-	textView = [[GlkTextView alloc] initWithFrame: [self frame]];
-	scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
-	
 	[typesetter setDelegate: textView];
-	[textView setTextContainer: newContainer];
-	[newContainer setTextView: textView];
-    [newContainer autorelease];
-				
+	[textView setTextContainer: textContainer];
+	[textContainer setTextView: textView];
+
 	// [[textView textContainer] setWidthTracksTextView: YES];
 	//[[textView textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
 	[textView setMinSize:NSMakeSize(0.0, 0.0)];
@@ -72,7 +67,7 @@
 	inputPos = 0;
 	[[textView textStorage] setDelegate: self];
 	[textView setDelegate: self];
-	
+
 	[scrollView setDocumentView: textView];
 	[scrollView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 	[scrollView setHasHorizontalScroller: NO];
@@ -120,7 +115,7 @@
 		[moreWindow setContentView: moreView];
 		[moreView release];
     }
-    
+
 	return self;
 }
 
@@ -132,8 +127,6 @@
 	[typesetter setDelegate: nil];
 	[textView release];  textView = nil;
 	
-	[textStorage release]; textStorage = nil;
-	[layoutManager release]; layoutManager = nil;
 	[typesetter release]; typesetter = nil;
 	
 	[[moreWindow parentWindow] removeChildWindow: moreWindow];
@@ -161,7 +154,9 @@
 // = Drawing =
 
 - (void) drawRect: (NSRect) r {
-	[[self backgroundColour] set];
+    [super drawRect:r];
+
+    [[self backgroundColour] set];
 	NSRectFill(r);
 }
 
@@ -174,7 +169,7 @@
 	
 	[textView setEditable: NO];
 }
-	
+
 - (void) clearWindow {
 	[[[textView textStorage] mutableString] deleteCharactersInRange: NSMakeRange(0, inputPos)];
 	inputPos = 0;
@@ -202,7 +197,8 @@
 }
 
 - (void) bufferHasFlushed {
-	// We've finished editing
+
+    // We've finished editing
 	if (flushing) {
 		flushing = NO;
 		[[textView textStorage] endEditing];
@@ -257,7 +253,7 @@
 
 - (void) setScaleFactor: (float) newScaleFactor {
 	if (scaleFactor == newScaleFactor) return;
-	
+
 	// First, do whatever GlkWindow wants to do with the scale factor
 	[super setScaleFactor: newScaleFactor];
 	
@@ -377,10 +373,11 @@
 }
 
 - (void)textStorageWillProcessEditing:(NSNotification*) aNotification {
-	// Force the typesetter to reset so that it doesn't try to lay out new glyphs with out-of-date metrics
+
+    // Force the typesetter to reset so that it doesn't try to lay out new glyphs with out-of-date metrics
 	[(GlkTypesetter*)[[textView layoutManager] typesetter] flushCache];
-	
-	// Perform no other action on edits that aren't in the input range
+
+    // Perform no other action on edits that aren't in the input range
 	if ([[textView textStorage] editedRange].location < inputPos) {
 		return;
 	}
@@ -395,7 +392,8 @@
 }
 
 - (void) forceLineInput: (NSString*) forcedInput {
-	if (lineInput) {
+
+    if (lineInput) {
 		// Switch off line input so our edits don't get sent to the task
 		lineInput = NO;
 		
@@ -506,7 +504,8 @@
 }
 
 - (void) makeTextEditable {
-	// setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
+
+    // setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
 	// in the process of flushing. This call defers the request.
 	
 	// If the request is already pending, then there's nothing to do
@@ -544,7 +543,7 @@
 }
 
 - (void) makeTextNonEditable {
-	// setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
+    // setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
 	// in the process of flushing. This call defers the request.
 	
 	// If the request is already pending, then there's nothing to do
@@ -618,7 +617,7 @@
 		
 		return [[textStorage string] substringWithRange: NSMakeRange(inputPos, [textStorage length] - inputPos)];
 	}
-	
+
 	return @"";
 }
 
@@ -647,7 +646,8 @@
 // = Streaming =
 
 - (void) putString: (in bycopy NSString*) string {
-	NSAttributedString* atStr = [[NSAttributedString alloc] initWithString: string
+
+    NSAttributedString* atStr = [[NSAttributedString alloc] initWithString: string
 																attributes: [self currentTextAttributes]];
 	
 	int insertionPos = inputPos;
@@ -678,7 +678,8 @@
 - (void) addImage: (NSImage*) image
 	withAlignment: (unsigned) alignment
 			 size: (NSSize) sz {
-	// Construct the GlkImage object
+
+    // Construct the GlkImage object
 	GlkImage* newImage = [[GlkImage alloc] initWithImage: image
 											   alignment: alignment
 													size: sz
@@ -850,7 +851,8 @@
 - (void) setMoreShown: (BOOL) isShown {
 	BOOL wasFlushing = flushing;
 	
-	if (wasFlushing) {
+
+    if (wasFlushing) {
 		flushing = NO;
 		[[textView textStorage] endEditing];
 	}
@@ -1133,10 +1135,13 @@
 }
 
 - (void) hideMoreWindow {
+    [[moreWindow parentWindow] removeChildWindow: moreWindow];
     [moreWindow orderOut: self];
 }
 
 - (void) showMoreWindow {
+    [[self window] addChildWindow: moreWindow
+                          ordered: NSWindowAbove];
     [moreWindow orderFront: self];
 }
 

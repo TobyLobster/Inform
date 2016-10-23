@@ -165,7 +165,7 @@
 		
 		[[glyph textSection] drawAtPoint: loc
 								  inView: self];		
-		
+
 		// Move on
 		imageIndex++;
 	}
@@ -177,7 +177,7 @@
 		GlkTextViewGlyph* glyph = marginGlyphs[firstUnlaidMarginGlyph];
 		NSUInteger glyphNum = [glyph glyph];
 		if (glyphNum >= firstUnlaid) break;
-		
+
 		// Work out the bounding box for this glyph
 		NSRange fragmentRange;
 		NSRect fragment = [layout lineFragmentRectForGlyphAtIndex: [glyph glyph]
@@ -208,7 +208,7 @@
 	
 	while (top >= bottom) {
 		int middle = (top+bottom)>>1;
-		
+
 		GlkTextViewGlyph* glyph = marginGlyphs[middle];
 		NSRect bounds = [glyph bounds];
 		float thisY = NSMinY(bounds);
@@ -238,7 +238,7 @@
 		NSRect bounds = [glyph bounds];
 		
 		if (NSMaxY(bounds) < NSMinY(rect)) break;
-		
+
 		// Draw this glyph
 		if ([glyph glyph] < [layout firstUnlaidGlyphIndex]) {
 			NSRange fragmentRange;

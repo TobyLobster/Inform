@@ -361,7 +361,7 @@
 - (void)drawRect:(NSRect)rect {
 	[[NSColor windowBackgroundColor] set];
 	NSRectFill(borderSliver);
-	
+
 	if (borderWidth >= 2) {
 		if (inputBorder) {
 			// Draw the input border around the left/right views as necessary

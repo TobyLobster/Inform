@@ -18,43 +18,34 @@
 // = Initialisation =
 
 - (void) setupTextview {
+    
 	// Text grid windows never have a more prompt
 	[self setUsesMorePrompt: NO];
 	
+    // Create the text view and the scroller
+    textView = [[GlkTextView alloc] initWithFrame: [self frame]];
+    scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
+    
 	// Construct the text system
-	textStorage = [[NSTextStorage alloc] init];
-	
-	layoutManager = [[NSLayoutManager alloc] init];
-	[textStorage addLayoutManager: layoutManager];
-	
+	textStorage   = textView.textStorage;
+	layoutManager = textView.layoutManager;
+    textContainer = textView.textContainer;
+
 	margin = 0;
 	
-	// Create the typesetter (TODO? Use the Grid typesetter)
+	// Create the typesetter (Use the Grid typesetter)
 	typesetter = [[GlkGridTypesetter alloc] init];
 	[layoutManager setTypesetter: typesetter];
 	[layoutManager setShowsControlCharacters: NO];
 	[layoutManager setShowsInvisibleCharacters: NO];
-	
-	// Create the text container
-	NSTextContainer* newContainer = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(1e8, 1e8)];
-	
-	[newContainer setLayoutManager: layoutManager];
-	[layoutManager addTextContainer: newContainer];
-	
-	[newContainer setContainerSize: NSMakeSize(1e8, 1e8)];
-	[newContainer setWidthTracksTextView: YES];
-	[newContainer setHeightTracksTextView: NO];
-    [newContainer setLineFragmentPadding:0.0f];
-				
-	// Create the text view and the scroller
-	textView = [[GlkTextView alloc] initWithFrame: [self frame]];
-	scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
-	
+
+	[textContainer setContainerSize: NSMakeSize(1e8, 1e8)];
+	[textContainer setWidthTracksTextView: YES];
+	[textContainer setHeightTracksTextView: NO];
+    [textContainer setLineFragmentPadding:0.0f];
+
 	[typesetter setDelegate: textView];
-	[textView setTextContainer: newContainer];
-	[newContainer setTextView: textView];
-    [newContainer autorelease];
-				
+
 	[textView setMinSize:NSMakeSize(0.0, 0.0)];
 	[textView setMaxSize:NSMakeSize(1e8, 1e8)];
 	[textView setVerticallyResizable:YES];

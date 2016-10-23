@@ -16,7 +16,6 @@
 #import "IFPreferences.h"
 #import "IFImageCache.h"
 #import "IFUtility.h"
-#import <QuartzCore/CAAnimation.h>
 
 // Constants
 static const float kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command

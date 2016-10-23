@@ -12,6 +12,7 @@
 #import "IFSourcePage.h"
 #import "IFProjectPolicy.h"
 #import "IFProjectController.h"
+#import "IFAppDelegate.h"
 #import <CommonCrypto/CommonDigest.h>       // md5 hash
 
 @implementation IFJSProject {
@@ -220,7 +221,7 @@ static int valueForHexChar(unichar c) {
     title = [self unescapeString: title];
     story = [self unescapeString: story];
 
-	[[NSApp delegate] createNewProject: title
+	[(IFAppDelegate *) [NSApp delegate] createNewProject: title
                                  story: story];
 }
 

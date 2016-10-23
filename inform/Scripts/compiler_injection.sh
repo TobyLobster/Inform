@@ -19,7 +19,6 @@ ln -sf ${INFORMPATH}/Inform.app ${SRCROOT}/..
 if [ -d "${SRCROOT}/../Inform-Source" ]; then
     echo Copy resources to StagingArea - started
 
-
     cd ${SRCROOT}/../Inform-Source
 
     echo INFORMPATH = $INFORMPATH
@@ -113,6 +112,14 @@ tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/replay.png"  "${RESOURCEARE
 tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/release.png" "${RESOURCEAREA}/App/Toolbar/release@2x.png" -out "${STAGINGAREA}/Resources/release.tiff"
 tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/test.png"    "${RESOURCEAREA}/App/Toolbar/test@2x.png"    -out "${STAGINGAREA}/Resources/test.tiff"
 tiffutil -cathidpicheck "${RESOURCEAREA}/App/Toolbar/install.png" "${RESOURCEAREA}/App/Toolbar/install@2x.png" -out "${STAGINGAREA}/Resources/install.tiff"
+
+#
+# Remove any "resource fork, Finder information, or similar detritus", otherwise it won't CodeSign
+#
+echo Remove resource fork and other metadata - start
+find "${SRCROOT}/StagingArea/Contents" -type f -print0 | xargs -0 chmod u+rw
+find "${SRCROOT}/StagingArea/Contents" -type f -print0 | xargs -0 xattr -c
+echo Remove resource fork and other metadata - done
 
 #
 # Copy resources from the StagingArea to the target build Inform.app

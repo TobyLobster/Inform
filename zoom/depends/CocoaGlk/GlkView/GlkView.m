@@ -834,8 +834,39 @@
 	}
 	
 	[rootWindow bufferHasFlushed];
-	
+
+    //[self debugTEST: @"DEBUG #1"];
+
 	flushing = NO;
+}
+
+-(void) debugTEST: (NSString*) message {
+    NSLog(@"%@: rootWindow = %@", message, rootWindow);
+
+    if (rootWindow != nil) {
+        GlkTextWindow* leftWindow = (GlkTextWindow*)((GlkPairWindow*) rootWindow).leftWindow;
+        GlkTextWindow* rightWindow = (GlkTextWindow*)((GlkPairWindow*) rootWindow).rightWindow;
+
+        //NSLog(@"%@: leftWindowTextView = %@", message, leftWindow->textView);
+        //NSLog(@"%@: rightWindowTextView = %@", message, rightWindow->textView);
+
+        if (leftWindow != nil) {
+            if (leftWindow->textView.textContainer == nil) {
+                NSLog(@"%@: leftWindow textContainer is nil", message);
+            }
+            else {
+                NSLog(@"%@: leftWindow textContainer is OK", message);
+            }
+        }
+        if (rightWindow != nil) {
+            if (rightWindow->textView.textContainer == nil) {
+                NSLog(@"%@: rightWindow textContainer is nil", message);
+            }
+            else {
+                NSLog(@"%@: rightWindow textContainer is OK", message);
+            }
+        }
+    }
 }
 
 - (void) performLayoutIfNecessary {

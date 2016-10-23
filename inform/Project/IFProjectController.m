@@ -199,7 +199,7 @@ static float        minDividerWidth     = 75.0f;
     betweenWindowLoadedAndBecomingMain = NO;
 
     // Hide the debug menu if we're not making a project where debugging is available
-	[[[NSApp delegate] debugMenu] setHidden: ![self canDebug]];
+	[[(IFAppDelegate*)[NSApp delegate] debugMenu] setHidden: ![self canDebug]];
 
     // The window accepts mouse move events
     [[self window] setAcceptsMouseMovedEvents:YES];
@@ -255,8 +255,8 @@ static float        minDividerWidth     = 75.0f;
     [projectPanes[0] selectViewOfType: IFSourcePane];
     [projectPanes[1] selectViewOfType: IFDocumentationPane];
 
-	[[projectPanes[0] sourcePage] setSpellChecking: [[NSApp delegate] sourceSpellChecking]];
-    [[projectPanes[1] sourcePage] setSpellChecking: [[NSApp delegate] sourceSpellChecking]];
+	[[projectPanes[0] sourcePage] setSpellChecking: [(IFAppDelegate*)[NSApp delegate] sourceSpellChecking]];
+    [[projectPanes[1] sourcePage] setSpellChecking: [(IFAppDelegate*)[NSApp delegate] sourceSpellChecking]];
 
     // Monitor for compiler finished notifications
     [[NSNotificationCenter defaultCenter] addObserver: self
@@ -2071,7 +2071,7 @@ static float        minDividerWidth     = 75.0f;
 - (void) setSourceSpellChecking: (BOOL) spellChecking {
 	// Update the panes
 	for( IFProjectPane* pane in projectPanes ) {
-		[[pane sourcePage] setSpellChecking: [[NSApp delegate] sourceSpellChecking]];
+		[[pane sourcePage] setSpellChecking: [(IFAppDelegate *) [NSApp delegate] sourceSpellChecking]];
 	}
 }
 
