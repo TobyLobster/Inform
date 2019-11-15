@@ -129,7 +129,7 @@
 	NSString* filename = [self.fileURL.path stringByStandardizingPath];
 
 	// Files in the extensions directory in the application should be treated as read-only
-	NSString* appDir = [IFUtility pathForInformInternalExtensions];
+    NSString* appDir = [IFUtility pathForInformInternalExtensions:@""];
 
 	if ([[filename lowercaseString] hasPrefix: [appDir lowercaseString]]) {
 		return YES;

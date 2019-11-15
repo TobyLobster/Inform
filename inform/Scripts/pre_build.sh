@@ -7,4 +7,4 @@
 rm "${CONFIGURATION_BUILD_DIR}/${INFOPLIST_PATH}"
 
 # Update plist (and strings files) with the current version of Inform in it
-perl ${PROJECT_DIR}/Scripts/replace_versions.pl
+/usr/bin/perl ${PROJECT_DIR}/Scripts/replace_versions.pl

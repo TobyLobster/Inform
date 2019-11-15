@@ -24,7 +24,6 @@
     NSView*    toolbarView;
     float      toolbarViewTitlebarHeight;
 
-    IFProjectController* projectController;
     IFToolbarStatusView* toolbarStatusView;
 
     // Progress indicators
@@ -34,6 +33,7 @@
 @synthesize testCasesPopUpButton;
 @synthesize goButton;
 @synthesize testCases;
+@synthesize projectController;
 
 // == Toolbar items ==
 

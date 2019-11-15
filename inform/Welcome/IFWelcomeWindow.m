@@ -240,7 +240,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                  @"inform:/AdviceCredits.html"];
 
     NSString* urlString = nil;
-    NSInteger index = [sender tag];
+    NSInteger index = [(NSView *)sender tag];
     if((index >= 0) && ( index < [linkArray count])) {
         urlString = linkArray[index];
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];

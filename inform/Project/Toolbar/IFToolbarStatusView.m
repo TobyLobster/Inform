@@ -10,6 +10,10 @@
 #import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFToolbarProgressIndicator.h"
+#import "IFProjectController.h"
+#import "IFCompilerSettings.h"
+#import "IFCompiler.h"
+#import "IFProject.h"
 
 static float idealTopBorder                = 6.0f;
 static float minTopBorder                  = 2.0f;
@@ -31,6 +35,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     BOOL                        isInProgress;
     BOOL                        isStoryActive;
     BOOL                        canCancel;
+    IFProjectController *       controller;
 
     NSTextField*                titleText;
     NSTextField*                storyText;
@@ -404,11 +409,36 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [welcomeImageView setHidden: welcomeIsHidden];
 }
 
+-(NSString*) getCompilerVersion
+{
+    IFToolbarManager * toolbar = delegate;
+    IFProjectController* projectController = toolbar.projectController;
+    IFProject * project = projectController.document;
+    return project.compiler.settings.compilerVersion;
+}
+
+-(BOOL) isLatestCompilerVersion: (NSString*) version {
+    if ([version isEqualToString: @"****"])
+    {
+        return YES;
+    }
+    return [[IFUtility coreBuildVersion] isEqualToString: version];
+}
+
 -(void) startStory {
     isStoryActive = YES;
     canCancel = YES;
 
-    [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@"], [[self class] currentTime]]];
+    NSString* version = [self getCompilerVersion];
+
+    if ([self isLatestCompilerVersion: version])
+    {
+        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@."], [[self class] currentTime]]];
+    }
+    else
+    {
+        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Started at %@."], version, [[self class] currentTime]]];
+    }
     
     [self updateVisibility];
 }
@@ -416,8 +446,17 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 -(void) stopStory {
     isStoryActive = NO;
 
-    [storyText setStringValue: [IFUtility localizedString:@"Story stopped"]];
-     
+    NSString* version = [self getCompilerVersion];
+
+    if ([self isLatestCompilerVersion: version])
+    {
+        [storyText setStringValue: [IFUtility localizedString:@"Story stopped."]];
+    }
+    else
+    {
+        [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Using historic version %@. Story stopped."], version]];
+    }
+
     [self updateVisibility];
 }
 

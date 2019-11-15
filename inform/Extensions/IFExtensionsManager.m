@@ -11,6 +11,7 @@
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
 #import "NSString+IFStringExtensions.h"
+#import "IFCompilerSettings.h"
 #import "IFJSProject.h"
 #import "IFProjectController.h"
 
@@ -359,8 +360,8 @@ didReceiveResponse: (NSURLResponse *)response
 		// Get the list of directories where extensions might live
 
         userLibraryCount = 1;
-        [self addExtensionCollectionDirectory: [IFUtility pathForInformExternalExtensions]];    // External directory of extensions
-		[self addExtensionCollectionDirectory: [IFUtility pathForInformInternalExtensions]];    // Internal directory of extensions
+        [self addExtensionCollectionDirectory: [IFUtility pathForInformExternalExtensions]];        // External directory of extensions
+        [self addExtensionCollectionDirectory: [IFUtility pathForInformInternalExtensions:@""]];    // Internal directory of extensions
 
         downloads = [[NSMutableArray alloc] init];
         numberOfBatchedExtensions = 0;
@@ -1028,7 +1029,7 @@ didReceiveResponse: (NSURLResponse *)response
 
 -(void) startCensus:(NSNumber*) notify {
     // Re-run the maintenance tasks
-    NSString *compilerPath = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"ni"];
+    NSString *compilerPath = [IFUtility pathForCompiler:@""];
     if (compilerPath != nil) {
         NSString* notifyType;
         if( [notify boolValue] ) {
@@ -1037,10 +1038,18 @@ didReceiveResponse: (NSURLResponse *)response
             notifyType = IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
         }
 
+        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+        NSArray * arguments = @[@"-census",
+                                @"-internal",
+                                [IFUtility pathForInformInternalAppSupport:@""],
+                                @"-external",
+                                externalPath];
+
+        NSLog(@"Compiler Path: %@", compilerPath);
+        NSLog(@"Arguments: %@", arguments);
+
         [[IFMaintenanceTask sharedMaintenanceTask] queueTask: compilerPath
-                                               withArguments: @[@"-census",
-                                                               @"-internal",
-                                                               [IFUtility pathForInformInternalAppSupport]]
+                                               withArguments: arguments
                                                   notifyType: notifyType];
     }
 }

@@ -21,7 +21,8 @@ extern NSString* IFSettingInfix;         // default NO
 extern NSString* IFSettingDEBUG;         // default YES
 extern NSString* IFSettingTestingTabHelpShown;  // default YES
 extern NSString* IFSettingTestingTabShownCount; // default 0
-extern NSString* IFSettingNobbleRng;
+extern NSString* IFSettingNobbleRng;            // default NO
+extern NSString* IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
 extern NSString* IFSettingCompileNatOutput;
@@ -62,6 +63,7 @@ extern NSString* IFCompilerNaturalInform;
 @property (atomic) BOOL nobbleRng;
 @property (atomic) BOOL testingTabHelpShown;
 @property (atomic) int  testingTabShownCount;
+@property (atomic) NSString * compilerVersion;
 
 
 @property (atomic, copy) NSString *libraryToUse;

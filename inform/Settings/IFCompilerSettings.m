@@ -35,6 +35,7 @@ NSString* IFSettingDEBUG                = @"IFSettingDEBUG";
 NSString* IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
 NSString* IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
 NSString* IFSettingNobbleRng            = @"IFSettingNobbleRng";
+NSString* IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
 NSString* IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
@@ -298,9 +299,15 @@ NSString* IFSettingNotification = @"IFSettingNotification";
         return nil;
     }
 
-    NSString *compilerPath = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"ni"];
+    NSString* version = [IFUtility fullCompilerVersion: [self compilerVersion]];
+    NSString* macOSFolder = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
+    NSString* currentVersion = [IFUtility coreBuildVersion];
 
-    return compilerPath;
+    if ([version isEqualToString:currentVersion])
+    {
+        return [macOSFolder stringByAppendingPathComponent: @"ni"];
+    }
+    return [[macOSFolder stringByAppendingPathComponent: version] stringByAppendingPathComponent:@"ni"];
 }
 
 - (NSArray*) naturalInformCommandLineArguments {
@@ -311,18 +318,56 @@ NSString* IFSettingNotification = @"IFSettingNotification";
     if (isLoudly) {
         [res addObject: @"-loudly"];
     }
-	
-	NSString* internalPath = [IFUtility pathForInformInternalAppSupport];
-	if (internalPath != nil) {
-		[res addObject: @"-internal"];
-		[res addObject: internalPath];
-	}
 
-    NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
-	if (externalPath != nil) {
-		[res addObject: @"-external"];
-		[res addObject: externalPath];
-	}
+    NSString* version = [self compilerVersion];
+    NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
+
+    if(result == NSOrderedAscending)
+    {
+        // Very old
+        NSString* internalPath = [IFUtility pathForInformInternalAppSupport:version];
+        if (internalPath != nil)
+        {
+            [res addObject: @"-rules"];
+            [res addObject: [internalPath stringByAppendingPathComponent: @"Extensions"]];
+        }
+
+        [res addObject: @"-log"];
+    }
+    else if(result == NSOrderedSame)
+    {
+        // Fairly old
+        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+        if (externalPath != nil)
+        {
+            [res addObject: @"-extensions"];
+            [res addObject: [externalPath stringByAppendingPathComponent: @"Extensions"]];
+        }
+
+        NSString* internalPath = [IFUtility pathForInformInternalAppSupport:version];
+        if (internalPath != nil)
+        {
+            [res addObject: @"-rules"];
+            [res addObject: [internalPath stringByAppendingPathComponent: @"Extensions"]];
+        }
+
+        [res addObject: @"-log"];
+    }
+    else
+    {
+        // New
+        NSString* internalPath = [IFUtility pathForInformInternalAppSupport:version];
+        if (internalPath != nil) {
+            [res addObject: @"-internal"];
+            [res addObject: internalPath];
+        }
+
+        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+        if (externalPath != nil) {
+            [res addObject: @"-external"];
+            [res addObject: externalPath];
+        }
+    }
 
     return res;
 }
@@ -425,6 +470,21 @@ NSString* IFSettingNotification = @"IFSettingNotification";
         return [setting boolValue];
     } else {
         return NO;
+    }
+}
+
+- (void) setCompilerVersion: (NSString *) setting {
+    [self dictionaryForClass: [IFOutputSettings class]][IFSettingCompilerVersion] = [setting copy];
+    [self settingsHaveChanged];
+}
+
+- (NSString *) compilerVersion {
+    NSString* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingCompilerVersion];
+
+    if (setting) {
+        return setting;
+    } else {
+        return @"";
     }
 }
 

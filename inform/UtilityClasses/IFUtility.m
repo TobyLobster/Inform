@@ -355,20 +355,85 @@ float easeOutCubic(float t) {
     return [IFUtility informSupportPath: @"Documentation", nil];
 }
 
-+ (NSString*) pathForInformInternalAppSupport {
-    return [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: @"Internal"];
++ (NSString*) fullCompilerVersion: (NSString*)version
+{
+    if ([version isEqualToStringCaseInsensitive: @""] ||
+        [version isEqualToStringCaseInsensitive: @"****"])
+    {
+        return [IFUtility coreBuildVersion];
+    }
+    return version;
 }
 
-+ (NSString*) pathForInformInternalExtensions {
-    return [[IFUtility pathForInformInternalAppSupport] stringByAppendingPathComponent:@"Extensions"];
++ (NSString*) pathForCompiler: (NSString *)compilerVersion
+{
+    NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
+    NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
+    NSString* currentVersion = [IFUtility coreBuildVersion];
+    if ([version isEqualToStringCaseInsensitive:currentVersion])
+    {
+        return [executablePath stringByAppendingPathComponent: @"ni"];
+    }
+    return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
 }
 
-+ (NSString*) pathForInformInternalLibraries {
-    return [[IFUtility pathForInformInternalAppSupport] stringByAppendingPathComponent:@"Libraries"];
++ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2
+{
+    version1 = [[self class] fullCompilerVersion: version1];
+    version2 = [[self class] fullCompilerVersion: version2];
+
+    return [version1 compare:version2 options: NSCaseInsensitiveSearch];
 }
 
-+ (NSString*) pathForInformInternalDocumentation {
-    return [[IFUtility pathForInformInternalAppSupport] stringByAppendingPathComponent:@"Documentation"];
++ (NSString*) compilerFormatParameterName:(NSString *)version
+{
+    NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
+
+    if(result != NSOrderedDescending)
+    {
+        // Old
+        return @"extension";
+    }
+    // New
+    return @"format";
+}
+
++ (NSString*) compilerProjectParameterName:(NSString *) version
+{
+    NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
+
+    if(result != NSOrderedDescending)
+    {
+        // Old
+        return @"package";
+    }
+    // New
+    return @"project";
+}
+
++ (NSString*) pathForInformInternalAppSupport: (NSString *)compilerVersion
+{
+    NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
+    NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString* currentVersion = [IFUtility coreBuildVersion];
+
+    if ([version isEqualToStringCaseInsensitive:currentVersion])
+    {
+        return [resourcePath stringByAppendingPathComponent: @"Internal"];
+    }
+    return [[resourcePath stringByAppendingPathComponent: @"retrospective"] stringByAppendingPathComponent: version];
+}
+
++ (NSString*) pathForInformInternalExtensions: (NSString *)version {
+    return [[IFUtility pathForInformInternalAppSupport:version] stringByAppendingPathComponent:@"Extensions"];
+}
+
++ (NSString*) pathForInformInternalLibraries: (NSString *)version {
+    return [[IFUtility pathForInformInternalAppSupport:version] stringByAppendingPathComponent:@"Libraries"];
+}
+
++ (NSString*) pathForInformInternalDocumentation: (NSString *)version {
+    return [[IFUtility pathForInformInternalAppSupport:version] stringByAppendingPathComponent:@"Documentation"];
 }
 
 +(NSURL*) temporaryDirectoryURL {
@@ -416,5 +481,8 @@ float easeOutCubic(float t) {
     return [mutableResult copy];
 }
 
++ (NSString*) coreBuildVersion {
+    return [IFUtility localizedString: @"Build Version"];
+}
 
 @end

@@ -52,7 +52,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		
 		// Sanity check
 		if (plist == nil) {
-			NSLog(@"IFIndexFile: found no data");
+			NSLog(@"IFIndexFile: found no data: %@", error);
 			return nil;
 		}
 		
@@ -156,14 +156,14 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		// Root item
 		NSArray* allKeys = [filenamesToIndexes allKeys];
 		
-		if (childIndex >= [allKeys count]) return nil;
+		if (childIndex >= [allKeys count]) return @"";
 		
 		return allKeys[childIndex];
 	} else if ([item isKindOfClass: [NSString class]]) {
 		// Happens with the filename indexes only...
 		NSArray* filenameIndex = filenamesToIndexes[item];
 		
-		if (childIndex >= [filenameIndex count]) return nil;
+		if (childIndex >= [filenameIndex count]) return @"";
 		
 		return filenameIndex[childIndex];
 	} else {
@@ -171,7 +171,7 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		NSDictionary* itemDictionary = item;
 		NSMutableArray* contents = itemDictionary[@"Contents"];
 		
-		if (childIndex >= [contents count]) return nil;
+		if (childIndex >= [contents count]) return @"";
 		
 		return contents[childIndex];
 	}

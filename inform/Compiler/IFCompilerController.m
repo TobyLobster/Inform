@@ -944,7 +944,18 @@ static IFCompilerController* activeController = nil;
         [textView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
         [textView setEditable: NO];
         [textView setUsesFindPanel: YES];
-        
+
+        NSMutableArray * tabStops = [[NSMutableArray alloc] init];
+        for(int i = 0; i < 50; i++)
+        {
+            NSTextTab * tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType location: (20 * i)];
+            [tabStops addObject: tab];
+        }
+        NSMutableParagraphStyle * nameParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+
+        [nameParagraphStyle setHeadIndent: 20.0];
+        [nameParagraphStyle setTabStops: tabStops];
+
 		// Load the data for the file
 		NSString* textData = [[NSString alloc] initWithData: [NSData dataWithContentsOfFile: file]
 												   encoding: NSUTF8StringEncoding];
@@ -952,8 +963,11 @@ static IFCompilerController* activeController = nil;
             textData = [[NSString alloc] initWithData: [NSData dataWithContentsOfFile: file]
                                              encoding: NSISOLatin1StringEncoding];
         }
-		[[[textView textStorage] mutableString] setString: textData];
+
+        NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString: textData
+                                                                                        attributes: @{ NSParagraphStyleAttributeName : nameParagraphStyle }];
         [[textView textStorage] setFont:[NSFont fontWithName:@"Monaco" size:11]];
+        [[textView textStorage] setAttributedString: attrString];
 
         // scrollView is the 'parent' of the textView
         [scrollView setDocumentView: textView];
@@ -1033,8 +1047,8 @@ static IFCompilerController* activeController = nil;
 		// HTML, text and inf files go in a tab view showing various different status messages
 		// With NI, the problems file is most important: we substitute this if the compiler wants
 		NSString* filename = [[key stringByDeletingPathExtension] lowercaseString];
-		
-        bool tempFile = [[[key substringToIndex: 4] lowercaseString] isEqualToString: @"temp"];
+
+        bool tempFile = ([key length] >= 4) && ([[[key substringToIndex: 4] lowercaseString] isEqualToString: @"temp"]);
         bool goodFileType = [type isEqualTo: @"inf"] ||
                             [type isEqualTo: @"txt"] ||
                             [type isEqualTo: @"html"] ||
@@ -1268,7 +1282,7 @@ static IFCompilerController* activeController = nil;
     }
 
 	selectedTabId = tab.tabId;
-    NSAssert(selectedTabId != IFTabInvalid, @"Invalid tab selected");
+    //NSAssert(selectedTabId != IFTabInvalid, @"Invalid tab selected");
 	
 	// Inform the delegate of the change
 	if (delegate && [delegate respondsToSelector: @selector(compiler:switchedToView:)]) {

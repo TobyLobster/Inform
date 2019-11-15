@@ -12,6 +12,8 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 History
 -------
+1.68.1   6M62   2019-11-14   Release with website bug fix.
+1.67.1   6M62   2019-10-25   macOS Catalina support.
 1.65.1   6M62   2016-10-21   macOS Sierra support. (Also another bug fix for 10.6.8 - Bug #1895)
 1.64.1   6M62   2016-01-06   Bugfixes (Fix for 10.6.8 support #1807, toolbar panel #1808, Syntax colouring #1815)
 1.64.0   6M62   2015-12-24   Includes new Testing panel, and support for Extension Projects

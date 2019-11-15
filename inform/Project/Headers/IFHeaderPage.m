@@ -50,9 +50,9 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	    NSColor* col = [NSColor whiteColor];
 		
 		if ([components isKindOfClass: [NSArray class]] && [components count] >= 3) {
-			col = [NSColor colorWithDeviceRed: [components[0] floatValue]
-										green: [components[1] floatValue]
-										 blue: [components[2] floatValue]
+			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] floatValue]
+										green: [(NSNumber *)components[1] floatValue]
+										 blue: [(NSNumber *)components[2] floatValue]
 										alpha: 1.0];
 		}
 		

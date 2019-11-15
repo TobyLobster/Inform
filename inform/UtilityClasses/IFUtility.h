@@ -73,10 +73,17 @@ float easeOutCubic(float t);
 + (NSString*) pathForInformExternalDocumentation;
 
 // Internal directories within the bundle resources
-+ (NSString*) pathForInformInternalAppSupport;          // Path to the internal Inform 7 app support
-+ (NSString*) pathForInformInternalExtensions;          // Path to the internal Inform 7 extensions
-+ (NSString*) pathForInformInternalLibraries;           // Path to the internal Inform 7 libraries
-+ (NSString*) pathForInformInternalDocumentation;       // Path to the internal Inform 7 documentation
++ (NSString*) pathForInformInternalAppSupport: (NSString *)version;          // Path to the internal Inform 7 app support
++ (NSString*) pathForInformInternalExtensions: (NSString *)version;          // Path to the internal Inform 7 extensions
++ (NSString*) pathForInformInternalLibraries: (NSString *)version;           // Path to the internal Inform 7 libraries
++ (NSString*) pathForInformInternalDocumentation: (NSString *)version;       // Path to the internal Inform 7 documentation
+
++ (NSString*) pathForCompiler: (NSString *)version;                          // Path to the compiler
++ (NSString*) compilerFormatParameterName:(NSString *)version;               // Command line parameter name for "-format=ulx"
++ (NSString*) compilerProjectParameterName:(NSString *) version;             // Command line parameter name for "-project" / "-package"
+
++ (NSString*) fullCompilerVersion: (NSString*)version;
++ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2; // Compare compiler version numbers
 
 + (NSURL*) temporaryDirectoryURL;
 
@@ -96,5 +103,6 @@ float easeOutCubic(float t);
 // Attributes for NSAttributedString
 +(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
                                      size: (float) fontSize;
++ (NSString*) coreBuildVersion;
 
 @end

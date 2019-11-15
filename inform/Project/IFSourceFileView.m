@@ -113,7 +113,7 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) mouseDown: (NSEvent*) event {
-	unsigned modifiers = [event modifierFlags];
+	unsigned long modifiers = [event modifierFlags];
 	
 	if ((modifiers&(NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) == 0
 		&& [event clickCount] == 1) {

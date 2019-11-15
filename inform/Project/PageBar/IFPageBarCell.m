@@ -61,9 +61,12 @@ static NSColor* foregroundColour() {
 }
 
 - (instancetype) initTextCell: (NSString*) text {
-	self = [self init];
+	self = [super init];
 	
 	if (self) {
+        radioGroup = -1;
+        view = nil;
+        
 		NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																	   attributes: 
 			@{NSForegroundColorAttributeName: foregroundColour(),
@@ -76,9 +79,12 @@ static NSColor* foregroundColour() {
 }
 
 - (instancetype) initImageCell: (NSImage*) image {
-	self = [self init];
+	self = [super init];
 	
 	if (self) {
+        radioGroup = -1;
+        view = nil;
+
 		[self setImage: image];
 	}
 	

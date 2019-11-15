@@ -170,9 +170,12 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     // Prepare the arguments
     NSMutableArray* args = [NSMutableArray arrayWithArray: [settings naturalInformCommandLineArguments]];
 
-    [args addObject: @"-project"];
+    [args addObject: [NSString stringWithFormat: @"-%@",
+                     [IFUtility compilerProjectParameterName: [settings compilerVersion]]]];
     [args addObject: [NSString stringWithString: [self currentStageInput]]];
-	[args addObject: [NSString stringWithFormat: @"-format=%@", [settings fileExtension]]];
+    [args addObject: [NSString stringWithFormat: @"-%@=%@",
+                      [IFUtility compilerFormatParameterName: [settings compilerVersion]],
+                      [settings fileExtension]]];
 	
 	if (release && !releaseForTesting) {
 		[args addObject: @"-release"];
@@ -506,6 +509,10 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
             if( endTextString ) {
                 [progress setMessage: endTextString];
                 endTextString = nil;
+            }
+            else
+            {
+                [progress setMessage: [[NSString alloc] initWithFormat:@"Error code %d", exitCode]];
             }
             
             // Notify everyone of the failure

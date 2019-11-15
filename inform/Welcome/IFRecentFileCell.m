@@ -30,7 +30,7 @@ static const int recentFilesTabWidth = 130;
 
 - (NSAttributedString *)attributedStringValue
 {
-    NSAttributedString *astr = nil;
+    NSAttributedString *astr = [[NSAttributedString alloc] initWithString: @""];
 
     NSString* title = [self stringValue];
     if (title) {

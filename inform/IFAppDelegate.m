@@ -42,6 +42,7 @@
 #import "IFCompilerOptions.h"
 #import "IFLibrarySettings.h"
 #import "IFDebugSettings.h"
+#import "IFCompilerVersionSettings.h"
 
 #import "IFSingleFile.h"
 #import "IFPreferences.h"
@@ -52,6 +53,7 @@
 #import "IFSkeinItemView.h"
 
 #import "IFSingleController.h"
+#import "IFCompilerList.h"
 
 #import <GlkView/GlkHub.h>
 
@@ -120,13 +122,14 @@ static NSRunLoop* mainRunLoop = nil;
 	[IFSettingsController addStandardSettingsClass: [IFCompilerOptions class]];
 	[IFSettingsController addStandardSettingsClass: [IFLibrarySettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFMiscSettings class]];
+    [IFSettingsController addStandardSettingsClass: [IFCompilerVersionSettings class]];
 
 	// Glk hub
 	[[GlkHub sharedGlkHub] setRandomHubCookie];
 	[[GlkHub sharedGlkHub] setHubName: @"GlkInform"];
 }
 
-- (void) applicationDidFinishLaunching: (NSNotification*) not {	
+- (void) applicationDidFinishLaunching: (NSNotification*) not {
 	// The standard inspectors
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsFiles sharedIFIsFiles]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsNotes sharedIFIsNotes]];

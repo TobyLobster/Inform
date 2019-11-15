@@ -7,14 +7,15 @@ use File::Basename;
 
 my $dirname = dirname(__FILE__);
 
-my $app_version_number = "1.65";
+my $app_version_number = "1.68";
 my $app_version_build_number = "$app_version_number.1";
-my $inform_source_version = "ABCD";
+my $inform_source_version = "6M62";
 my $full_version_prefix = "$app_version_number/6.33/";
 my $full_version = "";
+#my $inform_core="$dirname/../../../Inform Core";
 
 sub read_version {
-    my $file = $_[0];
+    my ($file) = shift;
 
     if (-e $file) {
         local $/ = undef;
@@ -31,9 +32,9 @@ sub read_version {
 }
 
 sub replace_in_plist_file {
-    my $infile = $_[0];
-    my $find = $_[1];
-    my $replace = $_[2];
+    my $infile = shift;
+    my $find = shift;
+    my $replace = shift;
 
     my $newfile = $infile . ".new";
     open(my $in,"<$infile") || die "$!";
@@ -60,9 +61,9 @@ sub replace_in_plist_file {
 }
 
 sub replace_in_UTF16_strings_file {
-    my $infile = $_[0];
-    my $find = $_[1];
-    my $replace = $_[2];
+    my $infile = shift;
+    my $find = shift;
+    my $replace = shift;
 
     my $newfile = $infile . ".new";
     open(my $in,"<:encoding(UTF-16)","$infile") || die "$!";
@@ -83,9 +84,9 @@ sub replace_in_UTF16_strings_file {
 }
 
 sub replace_in_UTF8_strings_file {
-    my $infile = $_[0];
-    my $find = $_[1];
-    my $replace = $_[2];
+    my $infile = shift;
+    my $find = shift;
+    my $replace = shift;
 
     my $newfile = $infile . ".new";
     open(my $in,"<:encoding(UTF-8)","$infile") || die "$!";
@@ -104,16 +105,20 @@ sub replace_in_UTF8_strings_file {
     move($newfile, $infile) or die "The move operation failed: $!";
 }
 
-
+print "Replace versions: Updating app version in plists\n";
 
 replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleVersion", $app_version_build_number);
 replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleShortVersionString", $app_version_number);
 
+print "Replace versions: Updating to four character version ('$inform_source_version') in strings\n";
+
 # if the directory Inform-Source exists
-if ( -d "$dirname/../../Inform-Source" ) {
+#if ( -d "$inform_core" ) {
     # Read Inform-Source version string
-    read_version("$dirname/../../Inform-Source/build_number.txt");
+    # print "Replace versions: Found '$inform_core'\n";
+    # read_version("$inform_core/build_number.txt");
     replace_in_UTF16_strings_file("$dirname/../English.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
     replace_in_UTF8_strings_file("$dirname/../English.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
     print "Version number updated to $full_version successfully\n";
-}
+#}
+print "Replace versions: Finished\n";

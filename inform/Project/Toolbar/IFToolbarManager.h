@@ -25,6 +25,7 @@
 @property (atomic, readonly, strong)  NSPopUpButton*  testCasesPopUpButton;
 @property (atomic, readonly, strong)  NSButton*       goButton;
 @property (atomic, readonly, strong)  NSArray*        testCases;              // Array of availabale test cases
+@property (atomic, readonly, strong)  IFProjectController* projectController;
 
 // Progress
 - (void) updateProgress;

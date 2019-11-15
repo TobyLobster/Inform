@@ -100,6 +100,7 @@ gidispatch_rock_t gidispatch_get_objrock(void *obj, glui32 objclass) {
 			
 		default:
 			cocoaglk_error("gidispatch_get_objrock called with an unknown object type");
+            res.ptr = nil;  // keep the compiler happy
 	}
 	
 	return res;
