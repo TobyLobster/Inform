@@ -13,8 +13,8 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 ## History
 
 
-|  |  |  |  | 
-| --- | --- | --- | ---|
+| Version | Build | Relase Date | Notes | 
+| --- | --- | --- | --- |
  1.68.1  | 6M62 | 2019-11-14 | Release with website bug fix.
  1.67.1  | 6M62 | 2019-10-25 | macOS Catalina support.
  1.65.1 | 6M62 | 2016-10-21  | macOS Sierra support. (Also another bug fix for 10.6.8 - Bug #1895)
