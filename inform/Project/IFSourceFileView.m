@@ -178,6 +178,10 @@ static NSImage* arrowPressed	= nil;
     return false;
 }
 
+- (NSTouchBar *)makeTouchBar {
+  return nil;
+}
+
 -(void) mouseMoved:(NSEvent *)theEvent {
     if( ![self setMouseCursorWithPosition:[theEvent locationInWindow]] ) {
         [super mouseMoved:theEvent];
