@@ -124,7 +124,6 @@
         [textView setRichText:NO];
         [textView setEnabledTextCheckingTypes:0];
         [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
-        [textView setInsertionPointColor: [NSColor blackColor]];
 
         [[textView textContainer] setContainerSize: NSMakeSize(contentSize.width, FLT_MAX)];
         [[textView textContainer] setWidthTracksTextView: YES];
