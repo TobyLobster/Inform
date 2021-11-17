@@ -46,6 +46,10 @@ static IFCompilerController* activeController = nil;
 
 @end
 
+@interface IFCompilerController ()
+@property (atomic, readwrite, copy) NSString *blorbLocation;
+@end
+
 @implementation IFCompilerController {
     BOOL awake;										// YES if we're all initialised (ie, loaded up from a nib)
 
