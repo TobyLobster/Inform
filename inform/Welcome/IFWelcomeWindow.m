@@ -136,14 +136,14 @@ static IFWelcomeWindow* sharedWindow = nil;
         // --- Items that create documents ---
         createInfoArray = [[NSMutableArray alloc] init];
         
-        NSImage* icon = [IFImageCache loadResourceImage: @"informfile.icns"];
+        NSImage* icon = [NSImage imageNamed: @"informfile"];
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
                                                                             image: icon
                                                                               url: nil
                                                                              type: IFRecentCreateProject];
         [createInfoArray addObject: info];
 
-        icon = [IFImageCache loadResourceImage: @"i7xfile.icns"];
+        icon = [NSImage imageNamed: @"i7xfile"];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
                                                       image: icon
                                                         url: nil
@@ -162,7 +162,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                  @"Copy Disenchantment Bay",    @"Disenchantment Bay.inform"];
 
         sampleInfoArray = [[NSMutableArray alloc] init];
-        icon = [IFImageCache loadResourceImage: @"informfile.icns"];
+        icon = [NSImage imageNamed: @"informfile"];
 
         NSString* pathStart = [[NSBundle mainBundle] resourcePath];
         pathStart = [pathStart stringByAppendingPathComponent: @"App"];

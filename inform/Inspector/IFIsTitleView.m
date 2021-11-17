@@ -32,7 +32,7 @@ static NSDictionary* fontAttributes;
 
 + (void) initialize {
 	// Background image
-	bgImage = [IFImageCache loadResourceImage: @"App/Inspector/Inspector-TitleBar.png"];
+	bgImage = [NSImage imageNamed: @"App/Inspector/Inspector-TitleBar"];
 	
 	// Font to use for titles, etc
 	titleFont = [NSFont systemFontOfSize: 11];

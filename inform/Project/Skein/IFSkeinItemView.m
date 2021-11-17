@@ -112,14 +112,14 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
 // Class initialisation
 + (void) initialize {
-    active          = [IFImageCache loadResourceImage: @"App/Skein/Skein-active.png"];
-    selected        = [IFImageCache loadResourceImage: @"App/Skein/Skein-selected.png"];
-    unselected      = [IFImageCache loadResourceImage: @"App/Skein/Skein-unselected.png"];
-    differsBadge    = [IFImageCache loadResourceImage: @"App/Skein/SkeinDiffersBadge.png"];
-    activeMenu      = [IFImageCache loadResourceImage: @"App/Skein/Skein-active-menu.png"];
-    selectedMenu    = [IFImageCache loadResourceImage: @"App/Skein/Skein-selected-menu.png"];
-    unselectedMenu  = [IFImageCache loadResourceImage: @"App/Skein/Skein-unselected-menu.png"];
-    overMenu        = [IFImageCache loadResourceImage: @"App/Skein/Skein-over-menu.png"];
+    active          = [NSImage imageNamed: @"App/Skein/Skein-active"];
+    selected        = [NSImage imageNamed: @"App/Skein/Skein-selected"];
+    unselected      = [NSImage imageNamed: @"App/Skein/Skein-unselected"];
+    differsBadge    = [NSImage imageNamed: @"App/Skein/SkeinDiffersBadge"];
+    activeMenu      = [NSImage imageNamed: @"App/Skein/Skein-active-menu"];
+    selectedMenu    = [NSImage imageNamed: @"App/Skein/Skein-selected-menu"];
+    unselectedMenu  = [NSImage imageNamed: @"App/Skein/Skein-unselected-menu"];
+    overMenu        = [NSImage imageNamed: @"App/Skein/Skein-over-menu"];
 
     NSColor* selectedColor = [NSColor colorWithCalibratedRed:  43.0f/255.0f
                                                        green: 123.0f/255.0f

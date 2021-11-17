@@ -104,7 +104,7 @@
     }
 
     // Add icon to folder
-    NSImage* image = [IFImageCache loadResourceImage: @"App/Icons/materialsfile.icns"];
+    NSImage* image = [NSImage imageNamed: @"materialsfile"];
     BOOL didSetIcon = [[NSWorkspace sharedWorkspace] setIcon: image
                                                      forFile: [secondaryURL path]
                                                      options: (NSWorkspaceIconCreationOptions) 0];

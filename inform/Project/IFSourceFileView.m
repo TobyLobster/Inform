@@ -25,11 +25,11 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) loadImages {
-	if (!topTear)			topTear			= [IFImageCache loadResourceImage: @"App/TornPages/torn_top.png"];
-	if (!bottomTear)		bottomTear		= [IFImageCache loadResourceImage: @"App/TornPages/torn_bottom.png"];
+	if (!topTear)			topTear			= [NSImage imageNamed: @"App/TornPages/torn_top"];
+	if (!bottomTear)		bottomTear		= [NSImage imageNamed: @"App/TornPages/torn_bottom"];
 	
-	if (!arrowNotPressed)	arrowNotPressed = [IFImageCache loadResourceImage: @"App/TornPages/TearArrow.png"];
-	if (!arrowPressed)		arrowPressed	= [IFImageCache loadResourceImage: @"App/TornPages/TearArrowPressed.png"];
+	if (!arrowNotPressed)	arrowNotPressed = [NSImage imageNamed: @"App/TornPages/TearArrow"];
+	if (!arrowPressed)		arrowPressed	= [NSImage imageNamed: @"App/TornPages/TearArrowPressed"];
 }
 
 - (instancetype)initWithFrame:(NSRect)frame {

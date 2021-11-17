@@ -320,8 +320,8 @@ static NSDictionary* IFSyntaxAttributes[256];
     [tabView setDelegate: self];
 	
 	// Set up the backwards/forwards buttons
-	backCell    = [[IFPageBarCell alloc] initImageCell: [IFImageCache loadResourceImage: @"App/PageBar/BackArrow.png"]];
-	forwardCell = [[IFPageBarCell alloc] initImageCell: [IFImageCache loadResourceImage: @"App/PageBar/ForeArrow.png"]];
+	backCell    = [[IFPageBarCell alloc] initImageCell: [NSImage imageNamed: @"App/PageBar/BackArrow"]];
+	forwardCell = [[IFPageBarCell alloc] initImageCell: [NSImage imageNamed: @"App/PageBar/ForeArrow"]];
 
 	[backCell    setKeyEquivalent: @"-"];
 	[forwardCell setKeyEquivalent: @"="];

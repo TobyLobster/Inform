@@ -133,8 +133,8 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         // Create cancel button
         cancelButton = [[NSButton alloc] init];
         [cancelButton setButtonType: NSMomentaryChangeButton];
-        [cancelButton setImage: [IFImageCache loadResourceImage: @"App/Toolbar/cancelOut.png"]];
-        [cancelButton setAlternateImage: [IFImageCache loadResourceImage: @"App/Toolbar/cancelIn.png"]];
+        [cancelButton setImage: [NSImage imageNamed: @"App/Toolbar/cancelOut"]];
+        [cancelButton setAlternateImage: [NSImage imageNamed: @"App/Toolbar/cancelIn"]];
         [cancelButton setBordered: NO];
         [cancelButton setAction: @selector(cancelAction)];
         [cancelButton setTarget: self];

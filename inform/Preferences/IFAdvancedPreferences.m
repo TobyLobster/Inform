@@ -52,7 +52,7 @@
 - (NSImage*) toolbarImage {
 	// Use the OS X standard 'advanced' image if we can
 	NSImage* image = [NSImage imageNamed: @"NSAdvanced"];
-	if (!image) image = [IFImageCache loadResourceImage: @"App/Preferences/Advanced.png"];
+	if (!image) image = [NSImage imageNamed: @"App/Preferences/Advanced"];
 	return image;
 }
 

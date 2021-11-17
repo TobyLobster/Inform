@@ -71,7 +71,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarBackground.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarBackground"];
 	}
 	
 	return image;
@@ -81,7 +81,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarNormal.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarNormal"];
 	}
 	
 	return image;
@@ -91,7 +91,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* graphiteImage = nil;	
 
 	if (!graphiteImage) {
-		graphiteImage = [IFImageCache loadResourceImage: @"App/PageBar/BarSelectedGraphite.png"];
+		graphiteImage = [NSImage imageNamed: @"App/PageBar/BarSelectedGraphite"];
 	}
 	
 	return graphiteImage;
@@ -101,7 +101,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarHighlighted.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarHighlighted"];
 	}
 	
 	return image;
@@ -111,7 +111,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarSelected.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarSelected"];
 	}
 	
 	if ([NSColor currentControlTint] == NSGraphiteControlTint) {
@@ -125,7 +125,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarInactive.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarInactive"];
 	}
 	
 	return image;

@@ -44,7 +44,7 @@ static NSColor* foregroundColour() {
 }
 
 + (NSImage*) dropDownImage {
-	return [IFImageCache loadResourceImage: @"App/PageBar/BarMenuArrow.png"];
+	return [NSImage imageNamed: @"App/PageBar/BarMenuArrow"];
 }
 
 // = Initialisation =

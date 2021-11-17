@@ -29,14 +29,14 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	BOOL isDir;
 	
 	// Start with the library directory
-	NSArray* libDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+	NSArray* libDirs = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
 	if ([libDirs count] == 0) {
 		NSLog(@"Could not locate library directory!");
 		return nil;
 	}
 	
 	// App support is in there somewhere (not going to bother with localisation)
-	NSString* supportDir = [[libDirs objectAtIndex: 0] stringByAppendingPathComponent: @"Application Support"];
+	NSString* supportDir = [libDirs objectAtIndex: 0];
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
 		isDir = YES;
 		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir attributes: nil];

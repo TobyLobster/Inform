@@ -29,9 +29,9 @@ static NSImage* arrow2;
 static NSImage* arrow3; 
 
 + (void) initialize {
-	arrow1 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-Closed.png"];
-	arrow2 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-PartOpen.png"];
-	arrow3 = [IFImageCache loadResourceImage: @"App/Inspector/Arrow-Open.png"];
+	arrow1 = [NSImage imageNamed: @"App/Inspector/Arrow-Closed"];
+	arrow2 = [NSImage imageNamed: @"App/Inspector/Arrow-PartOpen"];
+	arrow3 = [NSImage imageNamed: @"App/Inspector/Arrow-Open"];
 }
 
 - (instancetype) init {

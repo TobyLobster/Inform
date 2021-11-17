@@ -123,27 +123,27 @@ static const float    toolbarStatusWidth    = 360.0f;
                         @"toolbarStatusSpacingPaletteItem": toolbarStatusSpacingPaletteItem };
 
 	// Images
-	[compileItem            setImage: [IFImageCache loadResourceImage: @"App/Toolbar/compile.png"]];
-	[compileAndRunItem      setImage: [IFImageCache loadResourceImage: @"run.tiff"]];
-	[compileAndDebugItem    setImage: [IFImageCache loadResourceImage: @"App/Toolbar/debug.png"]];
-	[releaseItem            setImage: [IFImageCache loadResourceImage: @"release.tiff"]];
-    [installExtensionItem   setImage: [IFImageCache loadResourceImage: @"install.tiff"]];
-    [testItem               setImage: [IFImageCache loadResourceImage: @"test.tiff"]];
-	[replayItem             setImage: [IFImageCache loadResourceImage: @"replay.tiff"]];
-	[refreshIndexItem       setImage: [IFImageCache loadResourceImage: @"App/Toolbar/refresh_index.png"]];
+	[compileItem            setImage: [NSImage imageNamed: @"App/Toolbar/compile"]];
+	[compileAndRunItem      setImage: [NSImage imageNamed: @"App/Toolbar/run"]];
+	[compileAndDebugItem    setImage: [NSImage imageNamed: @"App/Toolbar/debug"]];
+	[releaseItem            setImage: [NSImage imageNamed: @"App/Toolbar/release"]];
+    [installExtensionItem   setImage: [NSImage imageNamed: @"App/Toolbar/install"]];
+    [testItem               setImage: [NSImage imageNamed: @"App/Toolbar/test"]];
+	[replayItem             setImage: [NSImage imageNamed: @"App/Toolbar/replay"]];
+	[refreshIndexItem       setImage: [NSImage imageNamed: @"App/Toolbar/refresh_index"]];
 	
-	[stopItem               setImage: [IFImageCache loadResourceImage: @"App/Toolbar/stop.png"]];
-	[pauseItem              setImage: [IFImageCache loadResourceImage: @"App/Toolbar/pause.png"]];
-	[continueItem           setImage: [IFImageCache loadResourceImage: @"App/Toolbar/continue.png"]];
+	[stopItem               setImage: [NSImage imageNamed: @"App/Toolbar/stop"]];
+	[pauseItem              setImage: [NSImage imageNamed: @"App/Toolbar/pause"]];
+	[continueItem           setImage: [NSImage imageNamed: @"App/Toolbar/continue"]];
 	
-	[stepItem               setImage: [IFImageCache loadResourceImage: @"App/Toolbar/step.png"]];
-	[stepOverItem           setImage: [IFImageCache loadResourceImage: @"App/Toolbar/stepover.png"]];
-	[stepOutItem            setImage: [IFImageCache loadResourceImage: @"App/Toolbar/stepout.png"]];
+	[stepItem               setImage: [NSImage imageNamed: @"App/Toolbar/step"]];
+	[stepOverItem           setImage: [NSImage imageNamed: @"App/Toolbar/stepover"]];
+	[stepOutItem            setImage: [NSImage imageNamed: @"App/Toolbar/stepout"]];
 	
-	[watchItem              setImage: [IFImageCache loadResourceImage: @"App/Toolbar/watch.png"]];
-	[breakpointItem         setImage: [IFImageCache loadResourceImage: @"App/Toolbar/breakpoint.png"]];
+	[watchItem              setImage: [NSImage imageNamed: @"App/Toolbar/watch"]];
+	[breakpointItem         setImage: [NSImage imageNamed: @"App/Toolbar/breakpoint"]];
 
-    [toolbarStatusSpacingPaletteItem setImage: [IFImageCache loadResourceImage: @"App/Toolbar/status.png"]];
+    [toolbarStatusSpacingPaletteItem setImage: [NSImage imageNamed: @"App/Toolbar/status"]];
 
 	// Labels
     [compileItem         setLabel: [IFUtility localizedString: @"Compile"]];
