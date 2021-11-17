@@ -71,11 +71,11 @@
 	// Try to load the image
 	NSURL* imageURL = [materialsURL URLByAppendingPathComponent: imageFile];
 	if (imageURL != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageURL.path]) {
-		return [NSData dataWithContentsOfFile: imageURL.path];
+		return [NSData dataWithContentsOfURL: imageURL];
 	}
 
     // Load the default image
-    NSImage * defaultImage = [IFImageCache loadResourceImage:@"Error.tiff"];
+    NSImage * defaultImage = [NSImage imageNamed:@"App/Interpreter/Error"];
 
     // Return NSData version
     return [defaultImage TIFFRepresentation];

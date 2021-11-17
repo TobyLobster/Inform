@@ -263,7 +263,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 	return [IFProjectPane attributeForStyle: style];
 }
 
-- (float) tabStopWidth {
+- (CGFloat) tabStopWidth {
 	return [[IFPreferences sharedPreferences] tabWidth];
 }
 

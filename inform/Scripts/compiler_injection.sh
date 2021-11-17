@@ -149,14 +149,6 @@ if [ -d "${INFORM_CORE}" ]; then
     echo Copy resources to StagingArea - done
 fi
 
-# Convert to hiDPI compliant tiffs
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Toolbar/run.png"       "${RESOURCE_AREA}/App/Toolbar/run@2x.png"       -out "${STAGING_AREA}/Resources/run.tiff"
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Toolbar/replay.png"    "${RESOURCE_AREA}/App/Toolbar/replay@2x.png"    -out "${STAGING_AREA}/Resources/replay.tiff"
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Toolbar/release.png"   "${RESOURCE_AREA}/App/Toolbar/release@2x.png"   -out "${STAGING_AREA}/Resources/release.tiff"
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Toolbar/test.png"      "${RESOURCE_AREA}/App/Toolbar/test@2x.png"      -out "${STAGING_AREA}/Resources/test.tiff"
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Toolbar/install.png"   "${RESOURCE_AREA}/App/Toolbar/install@2x.png"   -out "${STAGING_AREA}/Resources/install.tiff"
-tiffutil -cathidpicheck "${RESOURCE_AREA}/App/Interpreter/Error.png" "${RESOURCE_AREA}/App/Interpreter/Error@2x.png" -out "${STAGING_AREA}/Resources/Error.tiff"
-
 #
 # Remove any "resource fork, Finder information, or similar detritus", otherwise it won't CodeSign
 #

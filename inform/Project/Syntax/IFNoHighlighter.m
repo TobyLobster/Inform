@@ -57,7 +57,7 @@
 	return [IFProjectPane attributeForStyle: style];
 }
 
-- (float) tabStopWidth {
+- (CGFloat) tabStopWidth {
 	return [[IFPreferences sharedPreferences] tabWidth];
 }
 
