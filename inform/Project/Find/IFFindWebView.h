@@ -14,6 +14,6 @@
 ///
 /// WebView category that implements the find controller delegate functions
 ///
-@interface WebView(IFFindWebView) 
+@interface WebView(IFFindWebView) <IFFindDelegate>
 
 @end

@@ -149,6 +149,8 @@ extern NSAttributedStringKey const ZoomStyleAttributeName NS_SWIFT_NAME(zoomStyl
 //! Terminating characters
 @property (copy) NSSet<NSNumber*> *terminatingCharacters;
 
+- (oneway void) setTerminatingCharacters: (in bycopy NSSet<NSNumber*>*) characters;
+
 
 - (void) endOfLineReached: (ZoomInputLine*) sender;
 @end

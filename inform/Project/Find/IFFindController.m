@@ -72,7 +72,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     NSRect contentFrame;												// The default size of the content frame
     
     // The delegate
-    id activeDelegate;													// The delegate that we've chosen to work with
+    id<IFFindDelegate> activeDelegate;									// The delegate that we've chosen to work with
 }
 
 
@@ -329,19 +329,19 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	}
 }
 
-- (id) chooseDelegateFromWindow: (NSWindow*) window {
+- (id<IFFindDelegate>) chooseDelegateFromWindow: (NSWindow*) window {
 	// Default delegate behaviour is to look at the window controller first, then the window, then the views
 	// up the chain from the active view
 	if ([self isSuitableDelegate: [window windowController]]) {
 		return [window windowController];
 	} else if ([self isSuitableDelegate: window]) {
-		return window;
+		return (id<IFFindDelegate>)window;
 	}
 	
 	NSResponder* responder = [window firstResponder];
 	while (responder) {
 		if ([self isSuitableDelegate: responder]) {
-			return responder;
+			return (id<IFFindDelegate>)responder;
 		}
 		responder = [responder nextResponder];
 	}
@@ -408,7 +408,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	}
 }
 
-- (void) setActiveDelegate: (id) newDelegate {
+- (void) setActiveDelegate: (id<IFFindDelegate>) newDelegate {
 	if (newDelegate == activeDelegate) return;
 	
 	activeDelegate = newDelegate;
@@ -498,7 +498,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     [findCountText setStringValue:message];
 
     // Disable displaying stuff on screen while we adjust window/view size and positions
-    NSDisableScreenUpdates();
+//    NSDisableScreenUpdates();
 
     // Show the find all view
 	[self showAuxiliaryView: findAllView];
@@ -507,7 +507,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     [self resizeToFitResults];
 
     // Enable displaying stuff on screen now that we have adjusted window/view size and positions
-    NSEnableScreenUpdates();
+//    NSEnableScreenUpdates();
 }
 
 - (NSView*) findAllView {

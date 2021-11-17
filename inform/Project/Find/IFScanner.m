@@ -15,7 +15,7 @@
                  storage: (NSString*) storage
                 position: (NSUInteger) searchPosition
                  options: (IFFindType) searchType
-        regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
+        regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut {
 
     NSStringCompareOptions options;
     RKLRegexOptions regexOptions;
@@ -162,7 +162,7 @@
                      storage: (NSString*) storage
                     position: (NSUInteger) searchPosition
                      options: (IFFindType) searchType
-            regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
+            regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut {
     NSRange lastResult = NSMakeRange(NSNotFound, 0);
     NSRange result;
     NSUInteger currentPosition = 0;

@@ -658,10 +658,11 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	originalPlist = [plData copy];
 	
 	// Create the actual plist	
-	NSString* error;
-	NSData* res = [NSPropertyListSerialization dataFromPropertyList: plData
+	NSError* error;
+	NSData* res = [NSPropertyListSerialization dataWithPropertyList: plData
 															 format: NSPropertyListXMLFormat_v1_0
-												   errorDescription:&error];
+                                                            options: 0
+                                                              error: &error];
 	
 	if (!res) {
 		NSLog(@"Couldn't create settings data: %@", error);
@@ -706,12 +707,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	originalPlist = nil;
 	
 	// Parse the plist into a dictionary
-	NSString* error = nil;
+	NSError* error = nil;
 	NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
-	NSDictionary* plist = [NSPropertyListSerialization propertyListFromData: plData
-														   mutabilityOption: NSPropertyListMutableContainersAndLeaves
+	NSDictionary* plist = [NSPropertyListSerialization propertyListWithData: plData
+                                                                    options: NSPropertyListMutableContainersAndLeaves
 																	 format: &fmt
-														   errorDescription: &error];
+                                                                      error: &error];
 	
 	if (!plist) {
 		NSLog(@"Failed to load settings: %@", error);

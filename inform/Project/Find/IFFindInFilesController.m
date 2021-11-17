@@ -80,7 +80,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     IFFindInFiles*              findInFiles;                            // Object used to perform searching
     
     // The delegate
-    id activeDelegate;													// The delegate that we've chosen to work with
+    id<IFFindInFilesDelegate> activeDelegate;							// The delegate that we've chosen to work with
 }
 
 

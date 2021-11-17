@@ -1624,13 +1624,15 @@ static float        minDividerWidth     = 75.0f;
 	NSString* newFile = [npf getNewFilename];
 	if (newFile) {
 		if (![(IFProject*)[self document] addFile: newFile]) {
-			NSBeginAlertSheet([IFUtility localizedString: @"Unable to create file"],
-							  [IFUtility localizedString: @"FileUnable - Cancel"
-                                                 default: @"Cancel"], nil, nil,
-							  [self window], nil, nil, nil, nil,
-                              @"%@",
-							  [IFUtility localizedString: @"FileUnable - Description"
-                                                 default: @"Inform was unable to create that file: most probably because a file already exists with that name"]);
+            NSAlert *alert = [[NSAlert alloc] init];
+            alert.informativeText = [IFUtility localizedString: @"FileUnable - Description"
+                                                       default: @"Inform was unable to create that file: most probably because a file already exists with that name"];
+            alert.messageText = [IFUtility localizedString: @"Unable to create file"];
+            [alert addButtonWithTitle:[IFUtility localizedString: @"FileUnable - Cancel"
+                                                         default: @"Cancel"]];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+               // do nothing.
+            }];
 		}
 	}
 

@@ -58,7 +58,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 //
 @interface IFCompilerController : NSObject<NSTextStorageDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
 
-+ (NSDictionary*) defaultStyles;                            // The default styles for the error messages
++ (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;                            // The default styles for the error messages
 
 - (void)        resetCompiler;                              // Destroys + recreates the compiler (ie, resets it back to its initial state)	// Sets a specific compiler object to use
 @property (atomic, strong) IFCompiler *compiler;            // Retrieves the current compiler object

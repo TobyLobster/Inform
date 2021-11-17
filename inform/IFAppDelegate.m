@@ -204,7 +204,7 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
-                               message: confirm];
+                               message: @"%@", confirm];
         return;
     }
 

@@ -183,6 +183,9 @@ typedef NS_ENUM(NSInteger, GlkLogStatus) {
 
 @property (nonatomic, strong) id<GlkStream> inputStream;
 
+/// Stream created before the task was initialised (used, for example, for specifying which file was double-clicked on)
+- (byref id<GlkStream>) inputStream;
+
 // Writing log messages
 /// If the client supports logging, then tell it to display the specified log message
 - (void) logMessage: (NSString*) message
