@@ -6,20 +6,34 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import "GlkStreamProtocol.h"
+#ifndef __GLKVIEW_GLKFILEREFPROTOCOL_H__
+#define __GLKVIEW_GLKFILEREFPROTOCOL_H__
 
-//
-// Describes a fileref (mainly used for communicating files between the process and the server)
-//
-@protocol GlkFileRef
+#import <Foundation/Foundation.h>
+#import <GlkView/GlkStreamProtocol.h>
 
-- (byref NSObject<GlkStream>*) createReadOnlyStream;	// Creates a read only stream from this fileref
-- (byref NSObject<GlkStream>*) createWriteOnlyStream;	// Creates a write only stream from this fileref
-- (byref NSObject<GlkStream>*) createReadWriteStream;	// Creates a read/write stream from this fileref
+///
+/// Describes a fileref (mainly used for communicating files between the process and the server)
+///
+NS_SWIFT_NAME(GlkFileRefProtocol)
+@protocol GlkFileRef <NSObject>
 
-- (void) deleteFile;									// Deletes the file associated with this fileref
-- (BOOL) fileExists;									// Returns YES if the file associated with this fileref exists
-- (BOOL) autoflushStream;								// Whether or not the stream should be buffered in autoflush mode
-- (void) setAutoflush: (BOOL) autoflush;				// Sets whether or not this stream should be autoflushed
+/// Creates a read only stream from this fileref
+- (byref id<GlkStream>) createReadOnlyStream;
+/// Creates a write only stream from this fileref
+- (byref id<GlkStream>) createWriteOnlyStream;
+/// Creates a read/write stream from this fileref
+- (byref id<GlkStream>) createReadWriteStream;
+
+/// Deletes the file associated with this fileref
+- (void) deleteFile;
+/// Returns \c YES if the file associated with this fileref exists
+@property (nonatomic, readonly) BOOL fileExists;
+/// Whether or not the stream should be buffered in autoflush mode
+@property (nonatomic, readwrite, setter=setAutoflush:) BOOL autoflushStream;
+/// Sets whether or not this stream should be autoflushed
+- (void) setAutoflush: (BOOL) autoflush;
 
 @end
+
+#endif

@@ -6,14 +6,10 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 void glk_set_hyperlink(glui32 linkval) {

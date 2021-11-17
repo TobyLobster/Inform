@@ -11,11 +11,9 @@
 ///
 /// A javascript object used to report errors to Zoom
 ///
-@interface ZoomJSError : NSObject {
-	NSString* lastError;							// The last error to occur
-}
+@interface ZoomJSError : NSObject
 
-- (NSString*) lastError;
-- (void) setLastError: (NSString*) lastError;
+/// The last error to occur
+@property (copy, nullable) NSString *lastError;
 
 @end

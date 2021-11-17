@@ -27,13 +27,13 @@
 // = Setting up =
 
 - (void) updateFromCompilerSettings {
-    [strictMode setState: [self strict]?NSOnState:NSOffState];
-    [infixMode setState: [self infix]?NSOnState:NSOffState];
-    [debugMode setState: [self debug]?NSOnState:NSOffState];
+    [strictMode setState: [self strict]?NSControlStateValueOn:NSControlStateValueOff];
+    [infixMode setState: [self infix]?NSControlStateValueOn:NSControlStateValueOff];
+    [debugMode setState: [self debug]?NSControlStateValueOn:NSControlStateValueOff];
 	
 	if ([[self compilerSettings] usingNaturalInform]) {
 		[infixMode setEnabled: NO];
-		[infixMode setState: NSOffState];
+		[infixMode setState: NSControlStateValueOff];
 		[self dictionary][IFSettingInfix] = @NO;
 	} else {
 		[infixMode setEnabled: YES];
@@ -41,9 +41,9 @@
 }
 
 - (void) setSettings {
-	[self setStrict: [strictMode state]==NSOnState];
-	[self setInfix: [infixMode state]==NSOnState];
-	[self setDebug: [debugMode state]==NSOnState];
+	[self setStrict: [strictMode state]==NSControlStateValueOn];
+	[self setInfix: [infixMode state]==NSControlStateValueOn];
+	[self setDebug: [debugMode state]==NSControlStateValueOn];
 }
 
 // = The settings =

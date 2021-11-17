@@ -11,10 +11,10 @@
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
 
-float lerp(float progress, float from, float to);
-float smoothstep(float t);
-float easeOutQuad(float t);
-float easeOutCubic(float t);
+CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
+CGFloat smoothstep(CGFloat t);
+CGFloat easeOutQuad(CGFloat t);
+CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject
 
@@ -34,16 +34,16 @@ float easeOutCubic(float t);
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (NSWindow*) window
                              title: (NSString*) title
-                           message: (NSString*) formatString, ...;
+                           message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
 + (void) runAlertWarningWindow: (NSWindow*) window
                          title: (NSString*) title
-                       message: (NSString*) formatString, ...;
+                       message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(3,4);
 
 + (void) runAlertWindow: (NSWindow*) window
               localized: (BOOL) alreadyLocalized
                 warning: (BOOL) warningStyle
                   title: (NSString*) title
-                message: (NSString*) formatString, ...;
+                message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(5,6);
 
 + (void) runAlertYesNoWindow: (NSWindow*) window
                        title: (NSString*) title
@@ -52,7 +52,7 @@ float easeOutCubic(float t);
                modalDelegate: (id) modalDelegate
               didEndSelector: (SEL) alertDidEndSelector
                  contextInfo: (void *) contextInfo
-                     message: (NSString*) formatString, ...;
+                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(8,9);
 
 // Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
@@ -102,7 +102,7 @@ float easeOutCubic(float t);
 
 // Attributes for NSAttributedString
 +(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
-                                     size: (float) fontSize;
+                                     size: (CGFloat) fontSize;
 + (NSString*) coreBuildVersion;
 
 @end

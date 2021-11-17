@@ -6,36 +6,81 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKSTYLE_H__
+#define __GLKVIEW_GLKSTYLE_H__
+
+#import <Foundation/Foundation.h>
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 #import <GlkView/glk.h>
 
-extern NSString* GlkStyleAttributeName;									// Styles store themselves in the attributes to facilitate reformating after a change to a preference object
+/// Styles store themselves in the attributes to facilitate reformating after a change to a preference object
+extern NSAttributedStringKey const GlkStyleAttributeName;
 
-//
-// Description of a Glk style, and functions for turning a Glk style into a cocoa style
-//
-// (Maybe I should split this into a Mutable/Immutable pair)
-//
 
 @class GlkPreferences;
 
-@interface GlkStyle : NSObject<NSCopying>
+///
+/// Description of a Glk style, and functions for turning a Glk style into a cocoa style
+///
+/// (Maybe I should split this into a Mutable/Immutable pair)
+///
+@interface GlkStyle : NSObject<NSCopying> {
+	// Style attributes
+	CGFloat indentation;
+	CGFloat paraIndent;
+	NSTextAlignment alignment;
+	CGFloat size;
+	int weight;
+	BOOL oblique;
+	BOOL proportional;
+	GlkColor* textColour;
+	GlkColor* backColour;
+	BOOL reversed;
+	
+	// Caching the attributes
+	/// Change count for the preferences last time we cached the style dictionary
+	NSInteger prefChangeCount;
+	/// The last preference object this style was applied to
+	__weak GlkPreferences*	lastPreferences;
+	/// The scale factor the attributes were created at
+	CGFloat lastScaleFactor;
+	/// The attributes generated last time we needed to
+	NSDictionary* lastAttributes;
+}
 
 // Creating a style
-+ (GlkStyle*) style;													// 'Normal' style
+/// 'Normal' style
++ (instancetype) style;
 
-// The hints							// Measured in points						// Measured in points					// Glk doesn't allow us to support 'Natural' alignment											// Relative, in points										// -1 = lighter, 1 = bolder									// YES if an italic/oblique version of the font should be used (italics are used for preference)							// NO if fixed-pitch							// Foreground text colour							// Background text colour									// YES If text/back are reversed
+/// 'Normal' style
+- (instancetype)init;
 
-@property (NS_NONATOMIC_IOSONLY) float indentation;
-@property (NS_NONATOMIC_IOSONLY) float paraIndentation;
-@property (NS_NONATOMIC_IOSONLY) NSTextAlignment justification;
-@property (NS_NONATOMIC_IOSONLY) float size;
-@property (NS_NONATOMIC_IOSONLY) int weight;
-@property (NS_NONATOMIC_IOSONLY) BOOL oblique;
-@property (NS_NONATOMIC_IOSONLY) BOOL proportional;
-@property (NS_NONATOMIC_IOSONLY, copy) NSColor *textColour;
-@property (NS_NONATOMIC_IOSONLY, copy) NSColor *backColour;
-@property (NS_NONATOMIC_IOSONLY) BOOL reversed;
+// The hints
+/// Measured in points
+@property (nonatomic) CGFloat indentation;
+/// Measured in points
+@property (nonatomic) CGFloat paraIndentation;
+/// Glk doesn't allow us to support 'Natural' alignment
+@property (nonatomic) NSTextAlignment justification;
+/// Relative, in points
+@property (nonatomic) CGFloat size;
+/// -1 = lighter, 1 = bolder
+@property (nonatomic) int weight;
+/// \c YES if an italic/oblique version of the font should be used (italics are used for preference)
+@property (nonatomic) BOOL oblique;
+/// \c NO if fixed-pitch
+@property (nonatomic) BOOL proportional;
+/// Foreground text colour
+@property (nonatomic, copy) NSColor *textColour;
+/// Background text colour
+@property (nonatomic, copy) NSColor *backColour;
+/// \c YES If text/back are reversed
+@property (nonatomic, getter=isReversed) BOOL reversed;
 
 // Dealing with glk style hints
 - (void) setHint: (glui32) hint
@@ -44,13 +89,16 @@ extern NSString* GlkStyleAttributeName;									// Styles store themselves in th
 	toMatchStyle: (GlkStyle*) style;
 
 // Utility functions
-- (BOOL) canBeDistinguishedFrom: (GlkStyle*) style;						// Returns YES if this style will look different to the given style
+/// Returns \c YES if this style will look different to the given style
+- (BOOL) canBeDistinguishedFrom: (GlkStyle*) style;
 
 // Turning styles into dictionaries for attributed strings
-- (NSDictionary*) attributesWithPreferences: (GlkPreferences*) prefs
-								scaleFactor: (float) scaleFactor;		// Attributes suitable to use with an attributed string while displaying
-- (NSDictionary*) attributesWithPreferences: (GlkPreferences*) prefs;	// Attributes suitable to use with an attributed string while displaying
+/// Attributes suitable to use with an attributed string while displaying
+- (NSDictionary<NSAttributedStringKey,id>*) attributesWithPreferences: (GlkPreferences*) prefs
+														  scaleFactor: (CGFloat) scaleFactor;
+/// Attributes suitable to use with an attributed string while displaying
+- (NSDictionary<NSAttributedStringKey,id>*) attributesWithPreferences: (GlkPreferences*) prefs;
 
 @end
 
-#import <GlkView/GlkPreferences.h>
+#endif

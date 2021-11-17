@@ -13,19 +13,19 @@ static NSLock*       uniqueIdLock;
 static unsigned long uniqueId = 1000;
 static NSURL*        temporaryFolder = nil;
 
-float lerp(float progress, float from, float to) {
+CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
     return from + progress * (to - from);
 }
 
-float smoothstep(float t) {
+CGFloat smoothstep(CGFloat t) {
     return t*t*(3-2*t);
 }
 
-float easeOutQuad(float t) {
+CGFloat easeOutQuad(CGFloat t) {
     return -t*(t-2);
 };
 
-float easeOutCubic(float t) {
+CGFloat easeOutCubic(CGFloat t) {
     t--;
     return (t*t*t + 1);
 };
@@ -92,7 +92,7 @@ float easeOutCubic(float t) {
 + (NSDictionary*) queryParametersFromURL:(NSURL*) sourceURL {
     NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
 
-    NSString* path = [[sourceURL resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
     NSArray* query = [path componentsSeparatedByString: @"?"];
     if( [query count] < 2 ) {
         return results;
@@ -108,7 +108,7 @@ float easeOutCubic(float t) {
 }
 
 + (NSString*) fragmentFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
     NSArray* array = [path componentsSeparatedByString:@"#"];
     if( [array count] < 2 ) {
         return @"";
@@ -117,7 +117,7 @@ float easeOutCubic(float t) {
 }
 
 + (NSString*) heirarchyFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
     int query  = [path indexOf:@"?"];
     int hash   = [path indexOf:@"#"];
     int result = (int) [path length];
@@ -128,7 +128,7 @@ float easeOutCubic(float t) {
 }
 
 + (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByReplacingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
 
     // Get line number from fragment
     NSString* fragment = [IFUtility fragmentFromURL: sourceURL];
@@ -227,13 +227,11 @@ float easeOutCubic(float t) {
     [alert addButtonWithTitle:  [self localizedString: @"OK"]];
     [alert setMessageText:      alreadyLocalized ? title : [self localizedString: title]];
     [alert setInformativeText:  contents];
-    [alert setAlertStyle:       warningStyle ? NSWarningAlertStyle : NSInformationalAlertStyle];
+    [alert setAlertStyle:       warningStyle ? NSAlertStyleWarning : NSAlertStyleInformational];
 
-    // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
-    [alert beginSheetModalForWindow: window
-                      modalDelegate: nil
-                     didEndSelector: nil
-                        contextInfo: nil];
+    [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
 }
 
 + (void) runAlertYesNoWindow: (NSWindow*) window
@@ -255,7 +253,7 @@ float easeOutCubic(float t) {
     [alert addButtonWithTitle:  [self localizedString: no]];
     [alert setMessageText:      [self localizedString: title]];
     [alert setInformativeText:  contents];
-    [alert setAlertStyle: NSInformationalAlertStyle];
+    [alert setAlertStyle: NSAlertStyleInformational];
 
     // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
     [alert beginSheetModalForWindow: window
@@ -284,7 +282,7 @@ float easeOutCubic(float t) {
     // Show it
     [panel beginSheetModalForWindow: window completionHandler:^(NSInteger returnCode)
      {
-         if (returnCode != NSOKButton) return;
+         if (returnCode != NSModalResponseOK) return;
 
          // Remember the directory we last saved into
          if ( [[panel directoryURL] absoluteString] != nil ) {
@@ -472,7 +470,7 @@ float easeOutCubic(float t) {
 }
 
 +(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
-                                     size: (float) fontSize {
+                                     size: (CGFloat) fontSize {
     NSMutableDictionary* mutableResult = [dictionary mutableCopy];
     NSFont* font = mutableResult[NSFontAttributeName];
     font = [NSFont fontWithName: font.fontName

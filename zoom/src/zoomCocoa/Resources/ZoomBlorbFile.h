@@ -8,38 +8,54 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+extern NSErrorDomain const ZoomBlorbErrorDomain;
+typedef NS_ERROR_ENUM(ZoomBlorbErrorDomain, ZoomBlorbError) {
+	ZoomBlorbErrorTooSmall,
+	ZoomBlorbErrorNoFORMBlock
+};
 
 @interface ZoomBlorbFile : NSObject
 
 // Testing files
 + (BOOL) dataIsBlorbFile: (NSData*) data;
-+ (BOOL) fileContentsIsBlorb: (NSString*) filename;
-+ (BOOL) zfileIsBlorb: (NSObject<ZFile>*) file;
++ (BOOL) fileContentsIsBlorb: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +URLContentsAreBlorb: instead");
++ (BOOL) URLContentsAreBlorb: (NSURL*) filename;
++ (BOOL) zfileIsBlorb: (id<ZFile>) file;
 
 // Initialisation
-- (instancetype) initWithZFile: (NSObject<ZFile>*) file NS_DESIGNATED_INITIALIZER; // Designated initialiser
-- (instancetype) initWithData: (NSData*) blorbFile;
-- (instancetype) initWithContentsOfFile: (NSString*) filename;
+- (instancetype)init UNAVAILABLE_ATTRIBUTE;
+/// Designated initialiser
+- (nullable instancetype) initWithZFile: (id<ZFile>) file error: (NSError**) outError NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype) initWithZFile: (id<ZFile>) file DEPRECATED_MSG_ATTRIBUTE("Use -initWithZFile:error: instead") NS_SWIFT_UNAVAILABLE("");
+- (nullable instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError;
+- (nullable instancetype) initWithData: (NSData*) blorbFile DEPRECATED_MSG_ATTRIBUTE("Use -initWithData:error: instead") NS_SWIFT_UNAVAILABLE("");
+- (nullable instancetype) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
+- (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
 
 // Cache control
 - (void) removeAdaptiveImagesFromCache;
 
 // Generic IFF data
-- (NSArray*) chunksWithType: (NSString*) chunkType;
-- (NSData*) dataForChunk: (id) chunk;
-- (NSData*) dataForChunkWithType: (NSString*) chunkType;
+- (nullable NSArray<NSDictionary<NSString*,id>*>*) chunksWithType: (NSString*) chunkType;
+- (nullable NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk;
+- (nullable NSData*) dataForChunkWithType: (NSString*) chunkType;
 
 // The resource index
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL parseResourceIndex;
+- (BOOL) parseResourceIndex;
 - (BOOL) containsImageWithNumber: (int) num;
 
 // Typed data
-- (NSData*) imageDataWithNumber: (int) num;
-- (NSData*) soundDataWithNumber: (int) num;
+- (nullable NSData*) imageDataWithNumber: (int) num;
+- (nullable NSData*) soundDataWithNumber: (int) num;
 
 // Decoded data
-- (NSImage*) imageWithNumber: (int) num;
+- (nullable NSImage*) imageWithNumber: (int) num;
 - (NSSize) sizeForImageWithNumber: (int) num
 					forPixmapSize: (NSSize) pixmapSize;
 @end
+
+NS_ASSUME_NONNULL_END

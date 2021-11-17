@@ -16,6 +16,7 @@
 #include "zmachine.h"
 #include "blorb.h"
 #include "zscii.h"
+#include "rc.h"
 
 #ifdef DEBUG
 # define NOTE(x) NSLog(@"ZDisplay: %@", x)
@@ -23,8 +24,7 @@
 # define NOTE(x)
 #endif
 
-// = Display state =
-NSAutoreleasePool* displayPool = nil;
+#pragma mark - Display state
 static BOOL zDisplayForceFixed[8] = { NO, NO, NO, NO, NO, NO, NO, NO };
 static int is_v6 = 0;
 
@@ -33,7 +33,7 @@ ZStyle* zDisplayCurrentStyle = nil;
 
 BOOL zPixmapDisplay = NO;
 
-// = Display =
+#pragma mark - Display
 
 static int cocoa_to_zscii(int theChar) {
 	// Convert the character to ZSCII
@@ -98,9 +98,9 @@ static int cocoa_to_zscii(int theChar) {
 	return theChar;
 }
 
-// = Debugging functions =
+#pragma mark - Debugging functions
 
-void printf_debug(char* format, ...) {
+void printf_debug(const char* format, ...) {
     va_list  ap;
     char     string[8192];
 
@@ -113,17 +113,17 @@ void printf_debug(char* format, ...) {
     fputs(string, stdout);
 }
 
-void printf_info (char* format, ...) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+void printf_info (const char* format, ...) {
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_info_done(void) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
-void printf_error(char* format, ...) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+void printf_error(const char* format, ...) {
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 void printf_error_done(void) {
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
 }
 
 ZDisplay* display_get_info(void) {
@@ -169,7 +169,6 @@ ZDisplay* display_get_info(void) {
 void display_initialise(void) {
 	NOTE(@"display_initialise");
 
-	if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = [[ZStyle alloc] init];
 	
 	// Clear out the image cache
@@ -183,7 +182,6 @@ void display_initialise(void) {
 void display_reinitialise(void) {
 	NOTE(@"display_reinitialise");
 	
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = [[ZStyle alloc] init];
 	
 	// Clear out the image cache
@@ -198,7 +196,6 @@ void display_finalise(void) {
 	NOTE(@"display_finalise");
 	
     [mainMachine flushBuffers];
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
     zDisplayCurrentStyle = nil;
 }
 
@@ -214,7 +211,7 @@ void display_exit(int code) {
 
 // Clearing/erasure functions
 void display_clear(void) {
-    NSObject<ZWindow>* win;
+    id<ZWindow> win;
 	
 	NOTE(@"display_clear");
     
@@ -224,13 +221,13 @@ void display_clear(void) {
 
     win = [mainMachine windowNumber: 1];
     [win clearWithStyle: zDisplayCurrentStyle];
-    [(NSObject<ZUpperWindow>*)win startAtLine: 0];
-    [(NSObject<ZUpperWindow>*)win endAtLine: 0];
+    [(id<ZUpperWindow>)win startAtLine: 0];
+    [(id<ZUpperWindow>)win endAtLine: 0];
 
     win = [mainMachine windowNumber: 2];
     [win clearWithStyle: zDisplayCurrentStyle];
-    [(NSObject<ZUpperWindow>*)win startAtLine: 0];
-    [(NSObject<ZUpperWindow>*)win endAtLine: 0];
+    [(id<ZUpperWindow>)win startAtLine: 0];
+    [(id<ZUpperWindow>)win endAtLine: 0];
     
     win = [mainMachine windowNumber: 0];
     [win clearWithStyle: zDisplayCurrentStyle];
@@ -246,11 +243,11 @@ void display_erase_window(void) {
 void display_erase_line(int val) {
 	NOTE(@"display_erase_line");
 	
-    [[mainMachine buffer] eraseLineInWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    [[mainMachine buffer] eraseLineInWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
                                   withStyle: zDisplayCurrentStyle];
 }
 
-// = Display functions =
+#pragma mark - Display functions
 
 void display_prints(const int* buf) {
 	if (is_v6)
@@ -265,17 +262,26 @@ void display_prints(const int* buf) {
 
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    for (length=0; buf[length] != 0; length++) {}
+    
+    if (length == 0) return;
+    
+    NSString *str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: length * sizeof(int)]
+                                          encoding: NSUTF32LittleEndianStringEncoding];
+
+    if (!str) {
+    unichar* bufU = NULL;
 
     for (length=0; buf[length] != 0; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
         bufU[length] = buf[length];
     }
 
-    if (length == 0) return;
-
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	
 #ifdef DEBUG
 	NSLog(@"ZDisplay: display_prints(\"%@\")", str);
@@ -338,13 +344,13 @@ void display_printf(const char* format, ...) {
     display_prints_c(string);
 }
 
-// = Input =
+#pragma mark - Input
 
 int display_readline(int* buf, int len, long int timeout) {
 	NOTE(@"display_readline");
     [mainMachine flushBuffers];
     
-    NSObject<ZDisplay>* display = [mainMachine display];
+    id<ZDisplay> display = [mainMachine display];
 	
 	if (len <= 0) {
 		zmachine_fatal("display_readline called with a buffer length of %i", len);
@@ -352,25 +358,29 @@ int display_readline(int* buf, int len, long int timeout) {
 	}
 	
 	// Prefix
-	NSString* prefix = [@"" retain];
+    NSString* prefix = @"";
 	
-	if (buf[0] != 0) {
-		unichar* prefixBuf = malloc(sizeof(unichar)*len);
-		int x;
-		
-		for (x=0; x<len && buf[x] != 0; x++) {
-			prefixBuf[x] = buf[x];
-		}
-		
-		[prefix release];
-		prefix = [[NSString stringWithCharacters: prefixBuf
-										  length: x] retain];
-        free(prefixBuf);
-	}
+    if (buf[0] != 0) {
+        prefix = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                length: len * sizeof(int)]
+                                       encoding: NSUTF32LittleEndianStringEncoding];
+        
+        if (!prefix) {
+            unichar* prefixBuf = malloc(sizeof(unichar)*len);
+            int x;
+            
+            for (x=0; x<len && buf[x] != 0; x++) {
+                prefixBuf[x] = buf[x];
+            }
+            
+            prefix = [[NSString alloc] initWithCharactersNoCopy: prefixBuf
+                                                         length: x
+                                                   freeWhenDone: YES];
+        }
+    }
 
     // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
 	
 	// Reset the terminating character
 	[mainMachine inputTerminatedWithCharacter: 0];
@@ -386,7 +396,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	
 	if (prefix != nil && [prefix length] > 0) {
 		// Ask the display to backtrack input if possible
-		prefix = [[display backtrackInputOver: [prefix autorelease]] retain];
+        prefix = [display backtrackInputOver: prefix];
 	}
 
     NSDate* when;
@@ -396,27 +406,17 @@ int display_readline(int* buf, int len, long int timeout) {
     } else {
         when = [NSDate distantFuture];
     }
-
-    [when retain];
     
     // Wait for input
     while (mainMachine != nil &&
 		   [mainMachine terminatingCharacter] == 0 &&
            [[mainMachine inputBuffer] length] == 0 &&
-           [when compare: [NSDate date]] == NSOrderedDescending) {
-        // Cycle the autorelease pool
-        [displayPool release];
-        displayPool = [[NSAutoreleasePool alloc] init];
-        
+           [when compare: [NSDate date]] == NSOrderedDescending) @autoreleasepool {
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: when];
     }
-
-    [when release];
-
-    // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    
+    }
 
 	// If there was a timeout, get the text so far
 	NSString* inputToDate = nil;
@@ -429,7 +429,7 @@ int display_readline(int* buf, int len, long int timeout) {
     [display stopReceiving];
 	
     // Copy the data
-    NSMutableString* inputBuffer = inputToDate==nil?[mainMachine inputBuffer]:[[inputToDate mutableCopy] autorelease];
+    NSMutableString* inputBuffer = inputToDate==nil?[mainMachine inputBuffer]:[inputToDate mutableCopy];
 	
 	// Add the prefix, if any
 	if (prefix) {
@@ -441,7 +441,7 @@ int display_readline(int* buf, int len, long int timeout) {
 	NSLog(@"ZDisplay: display_readline = %@", inputBuffer);
 #endif
 
-    int realLen = (int) [inputBuffer length];
+    NSInteger realLen = [inputBuffer length];
     if (realLen > (len-1)) {
         realLen = len-1;
     }
@@ -482,7 +482,6 @@ int display_readline(int* buf, int len, long int timeout) {
 	}
 	
     [inputBuffer deleteCharactersInRange: NSMakeRange(0, realLen)];
-	[prefix release];
 
     return termChar;
 }
@@ -492,12 +491,10 @@ int display_readchar(long int timeout) {
 	
     [mainMachine flushBuffers];
 
-    NSObject<ZDisplay>* display = [mainMachine display];
+    id<ZDisplay> display = [mainMachine display];
 
     // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
-	
+    @autoreleasepool {
 	// Send the input style across
 	[[mainMachine windowNumber: zDisplayCurrentWindow] setInputStyle: zDisplayCurrentStyle];
 	
@@ -515,8 +512,6 @@ int display_readchar(long int timeout) {
         when = [NSDate distantFuture];
     }
 
-    [when retain];
-
     // Wait for input
     while (mainMachine != nil &&
            [[mainMachine inputBuffer] length] == 0 &&
@@ -524,12 +519,7 @@ int display_readchar(long int timeout) {
         [mainLoop acceptInputForMode: NSDefaultRunLoopMode
                           beforeDate: when];
     }
-
-    [when release];
-
-    // Cycle the autorelease pool
-    [displayPool release];
-    displayPool = [[NSAutoreleasePool alloc] init];
+    }
 
     // Finish up
     [display stopReceiving];
@@ -551,19 +541,45 @@ int display_readchar(long int timeout) {
     return theChar;
 }
 
-// = Used by the debugger =
+#pragma mark - Used by the debugger
+
+static int old_win;
+static int old_fore, old_back;
+static int old_style;
 
 void display_sanitise  (void) {
-	NOTE(@"display_santise");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NOTE(@"display_santise");
+    if (is_v6)
+    {
+        v6_reset_windows();
+        return;
+    }
+
+    old_win = zDisplayCurrentWindow;
+
+    display_set_window(0);
+
+    old_fore = zDisplayCurrentStyle.foregroundColour;
+    old_back = zDisplayCurrentStyle.backgroundColour;
+    old_style = ((zDisplayCurrentStyle.reversed?1:0)|
+                 (zDisplayCurrentStyle.bold?2:0)|
+                 (zDisplayCurrentStyle.underline?4:0)|
+                 (zDisplayCurrentStyle.fixed?8:0)|
+                 (zDisplayCurrentStyle.symbolic?16:0));
+
+    display_set_style(0);
+    display_set_colour(4, 7);
 }
 
 void display_desanitise(void) {
-	NOTE(@"display_desanitise");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    NOTE(@"display_desanitise");
+    // TODO: handle v6 games.
+    display_set_colour(old_fore, old_back);
+    display_set_style(old_style);
+    display_set_window(old_win);
 }
 
-// = Display styling =
+#pragma mark - Display styling
 
 void display_is_v6(void) { 
 	NOTE(@"display_is_v6");
@@ -597,14 +613,14 @@ int display_set_style(int style) {
     ZStyle* newStyle = [zDisplayCurrentStyle copy];
 
     int oldStyle =
-        ([newStyle reversed]?1:0)|
-        ([newStyle bold]?2:0)|
-        ([newStyle underline]?4:0)|
-        ([newStyle fixed]?8:0)|
-        ([newStyle symbolic]?16:0);
+        (newStyle.reversed?1:0)|
+        (newStyle.bold?2:0)|
+        (newStyle.underline?4:0)|
+        (newStyle.fixed?8:0)|
+        (newStyle.symbolic?16:0);
     
     // Not using this any more
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
+    if (zDisplayCurrentStyle) zDisplayCurrentStyle = nil;
 
     BOOL flag = (style<0)?NO:YES;
     if (style < 0) style = -style;
@@ -642,10 +658,10 @@ static NSColor* getTrue(int col) {
     g = ((double)(col&0x3e0))/992.0;
     b = ((double)(col&0x7c00))/31744.0;
 
-    return [NSColor colorWithDeviceRed: r
-                                 green: g
-                                  blue: b
-                                 alpha: 1.0];
+    return [NSColor colorWithSRGBRed: r
+                               green: g
+                                blue: b
+                               alpha: 1.0];
 }
 
 void display_set_colour(int fore, int back) {
@@ -653,7 +669,7 @@ void display_set_colour(int fore, int back) {
 	NSLog(@"ZDisplay: display_set_colour(%i, %i)", fore, back);
 #endif
 	
-    zDisplayCurrentStyle = [[zDisplayCurrentStyle autorelease] copy];
+    zDisplayCurrentStyle = [zDisplayCurrentStyle copy];
 
     if (fore == -1) fore = rc_get_foreground();
     if (back == -1) back = rc_get_background();
@@ -682,7 +698,7 @@ void display_split(int lines, int window) {
 	NSLog(@"ZDisplay: display_split(%i, %i)", lines, window);
 #endif
 
-    [[mainMachine buffer] setWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: window]
+    [[mainMachine buffer] setWindow: (id<ZUpperWindow>)[mainMachine windowNumber: window]
                           startLine: 0
                             endLine: lines];
 }
@@ -692,7 +708,7 @@ void display_join(int win1, int win2) {
 	NSLog(@"ZDisplay: display_join(%i, %i)", win1, win2);
 #endif
 	
-    [[mainMachine buffer] setWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: win2]
+    [[mainMachine buffer] setWindow: (id<ZUpperWindow>)[mainMachine windowNumber: win2]
                           startLine: 0
                             endLine: 0];
 }
@@ -708,7 +724,6 @@ void display_set_window(int window) {
 	ZStyle* newStyle = [zDisplayCurrentStyle copy];
 	[newStyle setForceFixed: zDisplayForceFixed[zDisplayCurrentWindow]];
 
-	[zDisplayCurrentStyle autorelease];
 	zDisplayCurrentStyle = newStyle;
 }
 
@@ -723,8 +738,8 @@ void display_set_cursor(int x, int y) {
 #endif
 
     if (zDisplayCurrentWindow > 0) {
-        [[mainMachine buffer] moveTo: NSMakePoint(x,y)
-                            inWindow: (NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]];
+        [[mainMachine buffer] moveCursorToPoint: NSMakePoint(x,y)
+                                       inWindow: (id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]];
     }
 }
 
@@ -738,7 +753,7 @@ int display_get_cur_x(void) {
 
     [mainMachine flushBuffers];
     
-    NSPoint pos = [(NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    NSPoint pos = [(id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
         cursorPosition];
     return pos.x;
 }
@@ -753,7 +768,7 @@ int display_get_cur_y(void) {
 
     [mainMachine flushBuffers];
 
-    NSPoint pos = [(NSObject<ZUpperWindow>*)[mainMachine windowNumber: zDisplayCurrentWindow]
+    NSPoint pos = [(id<ZUpperWindow>)[mainMachine windowNumber: zDisplayCurrentWindow]
         cursorPosition];
     return pos.y;
 }
@@ -851,7 +866,7 @@ int display_get_mouse_y(void) {
 
 void display_set_title(const char* title) {
 	NOTE(@"display_set_title");
-    NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__);
+    [mainMachine setWindowTitle: title ? @(title) : nil];
 }
 
 void display_update(void) {
@@ -866,7 +881,7 @@ void display_beep(void) {
 	NOTE(@"display_beep");
 }
 
-// = Getting files =
+#pragma mark - Getting files
 
 static ZFileType convert_file_type(ZFile_type typein) {
     switch (typein) {
@@ -897,41 +912,41 @@ static void wait_for_file(void) {
     }
 }
 
-ZFile* get_file_write(int* size, char* name, ZFile_type purpose) {
+ZFile* get_file_write(int* size, const char* name, ZFile_type purpose) {
     // FIXME: fill in size
-    NSObject<ZFile>* res = NULL;
+    id<ZFile> res = NULL;
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToWrite: convert_file_type(purpose)
-                                    defaultName: @(name)];
+                                    defaultName: name ? @(name) : nil];
     
     wait_for_file();
-    res = [[mainMachine lastFile] retain];
+    res = [mainMachine lastFile];
     [mainMachine clearFile];
 
     if (res) {
-        if (size) *size = [mainMachine lastSize];
-        return open_file_from_object([res autorelease]);
+        if (size) *size = (int)[mainMachine lastSize];
+        return open_file_from_object(res);
     } else {
         if (size) *size = -1;
         return NULL;
     }
 }
 
-ZFile* get_file_read(int* size, char* name, ZFile_type purpose) {
-    NSObject<ZFile>* res = NULL;
+ZFile* get_file_read(int* size, const char* name, ZFile_type purpose) {
+    id<ZFile> res = NULL;
     
     [mainMachine filePromptStarted];
     [[mainMachine display] promptForFileToRead: convert_file_type(purpose)
-                                   defaultName: @(name)];
+                                   defaultName: name ? @(name) : nil];
     
     wait_for_file();
-    res = [[mainMachine lastFile] retain];
+    res = [mainMachine lastFile];
     [mainMachine clearFile];
 
     if (res) {
-        if (size) *size = [mainMachine lastSize];
-        return open_file_from_object([res autorelease]);
+        if (size) *size = (int)[mainMachine lastSize];
+        return open_file_from_object(res);
     } else {
         if (size) *size = -1;
         return NULL;

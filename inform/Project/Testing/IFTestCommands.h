@@ -6,12 +6,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ZoomView/ZoomViewProtocols.h>
 
 
 ///
 /// Input source that can be used to send commands to the story
 ///
-@interface IFTestCommands : NSObject
+@interface IFTestCommands : NSObject <ZoomViewInputSource>
 
 -(NSString*) nextCommand;
 -(void) setCommands: (NSArray*) myCommands;

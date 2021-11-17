@@ -76,7 +76,7 @@ static IFCompilerController* activeController = nil;
 
     // Styles
     NSMutableDictionary* styles;					// The attributes used to render various strings recognised by the parser
-    int highlightPos;								// The position the highlighter has reached (see IFError.[hl])
+    NSInteger highlightPos;								// The position the highlighter has reached (see IFError.[hl])
 
     // Error messages
     NSMutableArray* errorFiles;						// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
@@ -97,7 +97,7 @@ static IFCompilerController* activeController = nil;
                                                             toHaveTrait: NSItalicFontMask];
 
     NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [centered setAlignment: NSCenterTextAlignment];
+    [centered setAlignment: NSTextAlignmentCenter];
     
     NSDictionary* baseStyle = @{NSFontAttributeName: baseFont,
         NSForegroundColorAttributeName: [NSColor blackColor]};
@@ -602,20 +602,18 @@ static IFCompilerController* activeController = nil;
     //return nil;
 }
 
-- (void)textStorageDidProcessEditing: (NSNotification *)aNotification {
-    NSTextStorage* storage = [compilerResults textStorage];
-    
+- (void)textStorage:(NSTextStorage *)storage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
     // Set the text to the base style
 	[storage beginEditing];
 
     // For each line since highlightPos...
     NSString* str = [storage string];
-    int len       = (int)[str length];
+    NSInteger len = [str length];
 
-    int newlinePos;
+    NSInteger newlinePos;
     
     do {
-        int x;
+        NSInteger x;
         
         newlinePos = -1;
 
@@ -1202,18 +1200,13 @@ static IFCompilerController* activeController = nil;
 	[listener use];
 }
 
-- (void) setBlorbLocation: (NSString*) location {
-	blorbLocation = [location copy];
-}
-
-- (NSString*) blorbLocation {
-	return blorbLocation;
-}
+@synthesize blorbLocation;
 
 - (void) overrideProblemsURL: (NSURL*) problemsURL {
 	overrideURL = [problemsURL copy];
 }
 
+@synthesize splitView;
 - (void) setSplitView: (NSSplitView*) newSplitView {
 	// Remember the new split view
 	splitView = newSplitView;
@@ -1240,15 +1233,9 @@ static IFCompilerController* activeController = nil;
     }
 }
 
-- (NSSplitView*) splitView {
-	return splitView;
-}
-
 // = Managing the set of views displayed by this object =
 
-- (IFCompilerTabId) selectedTabId {
-	return selectedTabId;
-}
+@synthesize selectedTabId;
 
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId {
 	NSUInteger index = [self tabIndexWithTabId:tabId];

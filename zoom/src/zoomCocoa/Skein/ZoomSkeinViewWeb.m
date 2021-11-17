@@ -7,11 +7,12 @@
 //
 
 #import "ZoomSkeinView.h"
+#import "ZoomSkeinWeb.h"
 
 @implementation ZoomSkeinView(ZoomSkeinViewWeb)
 
 - (void)setDataSource:(WebDataSource *)dataSource {
-	ZoomSkein* newSkein = [dataSource representation];
+	ZoomSkein* newSkein = (id)[dataSource representation];
 	
 	if ([newSkein isKindOfClass: [ZoomSkein class]]) {
 		[self setSkein: newSkein];
@@ -20,7 +21,7 @@
 	}
 }
 
-- (void)dataSourceUpdated:(WebDataSource *)dataSource {
+- (void)dataSourceUpdated:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkeinView: data source update");
 }
 
@@ -38,13 +39,14 @@
 	if (flag) {
 		skeinNeedsLayout = YES;
 	}
+	[super setNeedsLayout:flag];
 }
 
 - (void)viewDidMoveToHostWindow {
 	NSLog(@"ZoomSkeinView: viewDidMoveToHostWindow");
 }
 
-- (void)viewWillMoveToHostWindow:(NSWindow *)hostWindow {
+- (void)viewWillMoveToHostWindow:(__unused NSWindow *)hostWindow {
 	NSLog(@"ZoomSkeinView: viewWillMoveToHostWindow");
 }
 

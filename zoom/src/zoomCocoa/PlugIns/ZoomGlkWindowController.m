@@ -8,6 +8,7 @@
 
 #import "ZoomGlkWindowController.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomTextToSpeech.h"
 #import "ZoomSkeinController.h"
 #import "ZoomSkein.h"
@@ -17,7 +18,7 @@
 #import "ZoomWindowThatCanBecomeKey.h"
 #import "ZoomGlkSaveRef.h"
 #import "ZoomAppDelegate.h"
-#import "ZoomClearView.h"
+#import <ZoomPlugIns/ZoomPlugIns-swift.h>
 
 #import <GlkView/GlkHub.h>
 #import <GlkView/GlkView.h>
@@ -41,15 +42,10 @@
 	self = [super init];
 	
 	if (self) {
-		skein = [newSkein retain];
+		skein = newSkein;
 	}
 	
 	return self;
-}
-
-- (void) dealloc {
-	[skein release];
-	[super dealloc];
 }
 
 - (IBAction) glkTaskHasStarted: (id) sender {
@@ -95,7 +91,7 @@
 ///
 /// The window controller proper
 ///
-@interface ZoomGlkWindowController(ZoomPrivate)
+@interface ZoomGlkWindowController(/*ZoomPrivate*/)
 
 - (void) prefsChanged: (NSNotification*) not;
 
@@ -105,38 +101,39 @@
 
 + (void) initialize {
 	// Set up the Glk hub
-	[[GlkHub sharedGlkHub] useProcessHubName];
-	[[GlkHub sharedGlkHub] setRandomHubCookie];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[[GlkHub sharedGlkHub] useProcessHubName];
+		[[GlkHub sharedGlkHub] setRandomHubCookie];
+	});
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 + (GlkPreferences*) glkPreferencesFromZoomPreferences {
 	GlkPreferences* prefs = [[GlkPreferences alloc] init];
 	ZoomPreferences* zPrefs = [ZoomPreferences globalPreferences];
 	
 	// Set the fonts according to the Zoom preferences object
-	[prefs setProportionalFont: [[zPrefs fonts] objectAtIndex: 0]];
-	[prefs setFixedFont: [[zPrefs fonts] objectAtIndex: 4]];
+	prefs.proportionalFont = zPrefs.fonts[0];
+	prefs.fixedFont = zPrefs.fonts[4];
 	
 	// Set the typography options according to the Zoom preferences object
-	[prefs setTextMargin: [zPrefs textMargin]];
-	[prefs setUseScreenFonts: [zPrefs useScreenFonts]];
-	[prefs setUseHyphenation: [zPrefs useHyphenation]];
-	[prefs setUseKerning: [zPrefs useKerning]];
-	[prefs setUseLigatures: [zPrefs useLigatures]];
+	prefs.textMargin = zPrefs.textMargin;
+	prefs.useScreenFonts = zPrefs.useScreenFonts;
+	prefs.useHyphenation = zPrefs.useHyphenation;
+	prefs.useKerning = zPrefs.useKerning;
+	prefs.useLigatures = zPrefs.useLigatures;
 	
-	[prefs setScrollbackLength: [zPrefs scrollbackLength]];
+	prefs.scrollbackLength = zPrefs.scrollbackLength;
 	
 	// Set the foreground/background colours
-	NSColor* foreground = [[zPrefs colours] objectAtIndex: [zPrefs foregroundColour]];
-	NSColor* background = [[zPrefs colours] objectAtIndex: [zPrefs backgroundColour]];
+	NSColor* foreground = zPrefs.colours[zPrefs.foregroundColour];
+	NSColor* background = zPrefs.colours[zPrefs.backgroundColour];
 	
-	NSEnumerator* styleEnum = [[prefs styles] keyEnumerator];
 	NSMutableDictionary* newStyles = [NSMutableDictionary dictionary];
-	NSNumber* styleNum;
 
-	while (styleNum = [styleEnum nextObject]) {
+	for (NSNumber* styleNum in [prefs styles]) {
 		GlkStyle* thisStyle = [[prefs styles] objectForKey: styleNum];
 		
 		[thisStyle setTextColour: foreground];
@@ -148,10 +145,10 @@
 	
 	[prefs setStyles: newStyles];
 	
-	return [prefs autorelease];
+	return prefs;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super initWithWindowNibPath: [[NSBundle bundleForClass: [ZoomGlkWindowController class]] pathForResource: @"GlkWindow"
@@ -161,7 +158,7 @@
 	if (self) {
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												selector: @selector(prefsChanged:)
-													name: ZoomPreferencesHaveChangedNotification
+													 name: ZoomPreferences.preferencesHaveChangedNotification
 												  object: nil];
 		
 		skein = [[ZoomSkein alloc] init];
@@ -173,43 +170,31 @@
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
-	[clientPath release];
-	[inputPath release];
-	[savedGamePath release];
-	[logo release];
-	[tts release];
-	[skein release];
-	[normalWindow release];
-	[fullscreenWindow release];
-	
 	if (glkView) [glkView setDelegate: nil];
-	
-	[super dealloc];
 }
 
 - (void) maybeStartView {
 	// If we're sufficiently configured to start the application, then do so
-	if (glkView && clientPath && inputPath) {
-		[tts release];
+	if (glkView && clientPath && inputURL) {
 		tts = [[ZoomTextToSpeech alloc] init];
 		[tts setSkein: skein];
 
 		[glkView setDelegate: self];
-		[glkView addOutputReceiver: [[[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein] autorelease]];
+		[glkView addOutputReceiver: [[ZoomGlkSkeinOutputReceiver alloc] initWithSkein: skein]];
 		[glkView setPreferences: [ZoomGlkWindowController glkPreferencesFromZoomPreferences]];
-		[glkView setInputFilename: inputPath];
+		[glkView setInputFileURL: inputURL];
 		
-		if (savedGamePath) {
+		if (savedGameURL) {
 			if (canOpenSaveGames) {
-				NSString* saveSkeinPath = [savedGamePath stringByAppendingPathComponent: @"Skein.skein"];
-				NSString* saveDataPath = [savedGamePath stringByAppendingPathComponent: @"Save.data"];
+				NSURL* saveSkeinPath = [savedGameURL URLByAppendingPathComponent: @"Skein.skein" isDirectory: NO];
+				NSURL* saveDataPath = [savedGameURL URLByAppendingPathComponent: @"Save.data" isDirectory: NO];
 
-				if ([[NSFileManager defaultManager] fileExistsAtPath: saveDataPath]) {
-					[glkView addInputFilename: saveDataPath
-									  withKey: @"savegame"];
+				if ([saveDataPath checkResourceIsReachableAndReturnError: NULL]) {
+					[glkView addInputFileURL: saveDataPath
+									 withKey: @"savegame"];
 					
-					if ([[NSFileManager defaultManager] fileExistsAtPath: saveSkeinPath]) {
-						[skein parseXmlData: [NSData dataWithContentsOfFile: saveSkeinPath]];
+					if ([saveSkeinPath checkResourceIsReachableAndReturnError: NULL]) {
+						[skein parseXMLContentsAtURL: saveSkeinPath error: NULL];
 					}
 				}
 			}
@@ -225,24 +210,24 @@
 - (IBAction)showWindow:(id)sender {
 	[super showWindow: sender];
 	
-	if (savedGamePath && !canOpenSaveGames && !shownSaveGameWarning) {
+	if (savedGameURL && !canOpenSaveGames && !shownSaveGameWarning) {
 		shownSaveGameWarning = YES;
-		NSBeginAlertSheet(@"This interpreter is unable to load saved states", 
-						  @"Continue", nil, nil,
-						  [self window], nil, nil, nil, nil,
-						  @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"This interpreter is unable to load saved states", @"This interpreter is unable to load saved states");
+		alert.informativeText = NSLocalizedString(@"Interpreter can't load save games info", @"Due to a limitation in the design of the interpreter for this story, Zoom is unable to request that it load a saved state file.\n\nYou will need to use the story's own restore function to request that it load the state that you selected.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue", @"Continue")];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			//Do nothing
+		}];
 	}
 }
 
 - (void) windowDidLoad {
 	// Configure the view
 	[glkView setRandomViewCookie];
-	[logDrawer setLeadingOffset: 16];
-	[logDrawer setContentSize: NSMakeSize([logDrawer contentSize].width, 120)];
-	[logDrawer setMinContentSize: NSMakeSize(0, 120)];
 	
 	// Set the default log message
-	[logText setString: [NSString stringWithFormat: @"Zoom CocoaGlk Plugin\n"]];
+	[logText setString: @"Zoom CocoaGlk Plugin\n"];
 	
 	// Set up the window borders
 	if (![[ZoomPreferences globalPreferences] showGlkBorders])
@@ -269,68 +254,56 @@
 		[glkView setBorderWidth: 2];
 }
 
-// = Configuring the client =
+#pragma mark - Configuring the client
 
 - (void) setClientPath: (NSString*) newPath {
 	// Set the client path
-	[clientPath release];
-	clientPath = nil;
 	clientPath = [newPath copy];
 	
 	// Start it if we've got enough information
 	[self maybeStartView];
 }
 
-- (void) setSaveGame: (NSString*) path {
+- (void) setSaveGameURL: (NSURL*) path {
 	// Set the saved game path
-	[savedGamePath release];
-	savedGamePath = [path copy];
+	savedGameURL = [path copy];
 }
 
 - (void) setCanOpenSaveGame: (BOOL) newCanOpenSaveGame {
 	canOpenSaveGames = newCanOpenSaveGame;
 }
 
-- (void) setInputFilename: (NSString*) newPath {
+- (void) setInputFileURL: (NSURL*) newPath {
 	// Set the input path
-	[inputPath release];
-	inputPath = nil;
-	inputPath = [newPath copy];
+	inputURL = [newPath copy];
 	
 	// Start it if we've got enough information
 	[self maybeStartView];
 }
 
-- (void) setLogo: (NSImage*) newLogo {
-	[logo release];
-	logo = [newLogo copy];
-}
+@synthesize logo;
 
 - (BOOL) disableLogo {
 	return logo == nil || ![[ZoomPreferences globalPreferences] showCoverPicture];
 }
 
-- (NSImage*) logo {
-	return logo;
-}
-
-- (NSString*) preferredSaveDirectory {
-	if (!canOpenSaveGames && savedGamePath) {
+- (NSURL*) preferredSaveDirectory {
+	if (!canOpenSaveGames && savedGameURL) {
 		// If the user has requested a particular save game and the interpreter doesn't know how to load it, then open the directory containing the game that they wanted
-		return [savedGamePath stringByDeletingLastPathComponent];
+		return [savedGameURL URLByDeletingLastPathComponent];
 	} else {
 		// Otherwise use whatever the document thinks should be used
 		return [[self document] preferredSaveDirectory];
 	}
 }
 
-// = Log messages =
+#pragma mark - Log messages
 
 - (void) showLogMessage: (NSString*) message
 			 withStatus: (GlkLogStatus) status {
 	// Choose a style for this message
-	float msgSize = 10;
-	NSColor* msgColour = [NSColor grayColor];
+	CGFloat msgSize = 10;
+	NSColor* msgColour = [NSColor systemGrayColor];
 	BOOL isBold = NO;
 	
 	switch (status) {
@@ -343,26 +316,23 @@
 			
 		case GlkLogCustom:
 			msgSize = 12;
-			msgColour = [NSColor blackColor];
+			msgColour = [NSColor textColor];
 			break;
 			
 		case GlkLogWarning:
-			msgColour = [NSColor blueColor];
+			msgColour = [NSColor systemBlueColor];
 			msgSize = 12;
 			break;
 			
 		case GlkLogError:
 			msgSize = 12;
-			msgColour = [NSColor redColor];
+			msgColour = [NSColor systemRedColor];
 			isBold = YES;
 			break;
 			
 		case GlkLogFatalError:
 			msgSize = 12;
-			msgColour = [NSColor colorWithDeviceRed: 0.8
-											  green: 0
-											   blue: 0
-											  alpha: 1.0];
+			msgColour = [NSColor systemOrangeColor];
 			isBold = YES;
 			break;
 	}
@@ -376,33 +346,33 @@
 		font = [NSFont systemFontOfSize: msgSize];
 	}
 	
-	NSDictionary* msgAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-		font, NSFontAttributeName,
-		msgColour, NSForegroundColorAttributeName,
-		nil];
+	NSDictionary* msgAttributes = @{NSFontAttributeName: font,
+									NSForegroundColorAttributeName: msgColour};
 	
 	// Create the attributed string
 	NSAttributedString* newMsg = [[NSAttributedString alloc] initWithString: [message stringByAppendingString: @"\n"]
 																 attributes: msgAttributes];
 	
 	// Append this message to the log
-	[[logText textStorage] appendAttributedString: [newMsg autorelease]];
+	[[logText textStorage] beginEditing];
+	[[logText textStorage] appendAttributedString: newMsg];
+	[[logText textStorage] endEditing];
 	
 	// Show the log drawer
 	if (status >= GlkLogWarning && (status >= GlkLogFatalError || [[ZoomPreferences globalPreferences] displayWarnings])) {
-		[logDrawer open: self];
+		[logPanel makeKeyAndOrderFront: self];
 	}
 }
 
 - (void) showLog: (id) sender {
-	[logDrawer open: self];
+	[logPanel makeKeyAndOrderFront: self];
 }
 
 - (void) windowWillClose: (NSNotification*) not {
 	[glkView terminateClient];
 }
 
-// = The game info window =
+#pragma mark - The game info window
 
 - (IBAction) recordGameInfo: (id) sender {
 	ZoomGameInfoController* sgI = [ZoomGameInfoController sharedGameInfoController];
@@ -422,7 +392,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[(id)[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	}
 }
 
@@ -432,7 +402,7 @@
 	}
 }
 
-// = Gaining/losing focus =
+#pragma mark - Gaining/losing focus
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification {
 	[[ZoomSkeinController sharedSkeinController] setSkein: skein];
@@ -462,35 +432,31 @@
 	}
 }
 
-// = Closing the window =
-
-- (void) confirmFinish:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
-		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
-		// Close the window
-		closeConfirmed = YES;
-		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
-											 target: [self window]
-										   argument: self
-											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
-	}
-}
+#pragma mark - Closing the window
 
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
 	if (!closeConfirmed && running && [[ZoomPreferences globalPreferences] confirmGameClose]) {
-		BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
+		//BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
 		NSString* msg;
 		
-		msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
-		
-		NSBeginAlertSheet(@"Finish the game?",
-						  @"Finish", @"Continue playing", nil,
-						  [self window], self,
-						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, msg);
+		msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
+		alert.informativeText = msg;
+		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				// Close the window
+				self->closeConfirmed = YES;
+				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
+													 target: [self window]
+												   argument: self
+													  order: 32
+													  modes: @[NSDefaultRunLoopMode]];
+			}
+		}];
 		
 		return NO;
 	}
@@ -498,7 +464,7 @@
 	return YES;
 }
 
-// = Going fullscreen =
+#pragma mark - Going fullscreen
 
 - (IBAction) playInFullScreen: (id) sender {
 	if (isFullscreen) {
@@ -506,13 +472,13 @@
 		[NSMenu setMenuBarVisible: YES];
 		
 		// Stop being fullscreen
-		[glkView retain];
-		[glkView removeFromSuperview];
+		__strong GlkView *tmpView = glkView;
+		[tmpView removeFromSuperview];
 		
-		[glkView setScaleFactor: 1.0];
-		[glkView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: glkView];
-		[glkView release];
+		[tmpView setScaleFactor: 1.0];
+		[tmpView setFrame: [[normalWindow contentView] bounds]];
+		[[normalWindow contentView] addSubview: tmpView];
+		tmpView = nil;
 		
 		// Swap windows back
 		if (normalWindow) {
@@ -528,7 +494,7 @@
 			[normalWindow makeKeyAndOrderFront: self];
 			
 			[fullscreenWindow orderOut: self];
-			[fullscreenWindow release]; fullscreenWindow = nil;
+			fullscreenWindow = nil;
  		}
 		
 		//[self setWindowFrameAutosaveName: @"ZoomClientWindow"];
@@ -538,10 +504,10 @@
 		if (!running) return;
 		
 		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [[self window] retain];
+		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																			 styleMask: NSBorderlessWindowMask
+																			 styleMask: NSWindowStyleMaskBorderless
 																			   backing: NSBackingStoreBuffered
 																				 defer: YES];
 			
@@ -549,7 +515,7 @@
 			[fullscreenWindow setHidesOnDeactivate: YES];
 			[fullscreenWindow setReleasedWhenClosed: NO];
 			[fullscreenWindow setOpaque: NO];
-			if ([[NSApp delegate] leopard]) {
+			if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 				[fullscreenWindow setBackgroundColor: [NSColor clearColor]];				
 			}
 			
@@ -565,10 +531,10 @@
 						   display: NO];
 		[fullscreenWindow makeKeyAndOrderFront: self];
 		
-		[glkView retain];
-		[glkView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: glkView];
-		[glkView release];
+		__strong GlkView *tmpView = glkView;
+		[tmpView removeFromSuperview];
+		[[fullscreenWindow contentView] addSubview: tmpView];
+		tmpView = nil;
 		
 		[normalWindow setInitialFirstResponder: nil];
 		[normalWindow setDelegate: nil];
@@ -587,24 +553,24 @@
 		// Finish off glkView
 		NSSize oldGlkViewSize = [glkView frame].size;
 		
-		[glkView retain];
-		[glkView removeFromSuperviewWithoutNeedingDisplay];
+		tmpView = glkView;
+		[tmpView removeFromSuperviewWithoutNeedingDisplay];
 		
 		// Hide the menubar
 		[NSMenu setMenuBarVisible: NO];
 		
 		// Resize the window
 		NSRect frame = [[[self window] screen] frame];
-		if (![[NSApp delegate] leopard]) {
+		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSBorderlessWindowMask];
+											styleMask: NSWindowStyleMaskBorderless];
 			[[self window] setFrame: frame
 							display: YES
 							animate: YES];			
 			[normalWindow orderOut: self];
 		} else {
-			[[self window] setContentView: [[[ZoomClearView alloc] init] autorelease]];
+			[[self window] setContentView: [[ClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];
@@ -618,25 +584,25 @@
 		newGlkViewBounds.size   = newGlkViewFrame.size;
 		
 		double ratio = newGlkViewFrame.size.width/oldGlkViewSize.width;
-		[glkView setFrame: newGlkViewFrame];
-		[glkView setScaleFactor: ratio];
+		[tmpView setFrame: newGlkViewFrame];
+		[tmpView setScaleFactor: ratio];
 		
 		// Add it back in again
-		[[[self window] contentView] addSubview: glkView];
-		[glkView release];
+		[[[self window] contentView] addSubview: tmpView];
 		
 		// Perform an animation in Leopard
-		if ([[NSApp delegate] leopard]) {
-			[[[NSApp delegate] leopard] fullScreenView: glkView
-											 fromFrame: oldWindowFrame
-											   toFrame: frame];			
+		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
+			 fullScreenView: glkView
+			 fromFrame: oldWindowFrame
+			 toFrame: frame];			
 		}
 		
 		isFullscreen = YES;
 	}
 }
 
-// = Ending the game =
+#pragma mark - Ending the game
 
 - (void) taskHasStarted {
 	[[self window] setDocumentEdited: YES];	
@@ -658,100 +624,85 @@
 	running = NO;
 }
 
-// = Saving the game =
+#pragma mark - Saving the game
 
 - (BOOL) promptForFilesForUsage: (NSString*) usage
 					 forWriting: (BOOL) writing
-						handler: (NSObject<GlkFilePrompt>*) handler
-			 preferredDirectory: (NSString*) preferredDirectory {
+						handler: (id<GlkFilePrompt>) handler
+			 preferredDirectory: (NSURL*) preferredDirectory {
 	if (![usage isEqualToString: GlkFileUsageSavedGame]) {
 		// We only customise save game generation
 		return NO;
 	}
 	
 	// Remember the handler
-	[promptHandler release];
-	promptHandler = [handler retain];
+	promptHandler = handler;
 	
 	// Create the prompt window
 	if (writing) {
 		// Create a save dialog
 		NSSavePanel* panel = [NSSavePanel savePanel];
 		
-		[panel setRequiredFileType: @"glksave"];
-		if (preferredDirectory != nil) [panel setDirectory: preferredDirectory];
+		panel.allowedFileTypes = @[@"glksave"];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
-		[panel beginSheetForDirectory: preferredDirectory
-								 file: nil
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(panelDidEnd:returnCode:contextInfo:)
-						  contextInfo: nil];
+		[panel beginSheetModalForWindow: [self window] completionHandler: ^(NSModalResponse result) {
+			[self panelDidEnd:panel returnCode:result];
+		}];
 		
-		[lastPanel release]; lastPanel = [panel retain];		
+		lastPanel = panel;
 	} else {
 		// Create an open dialog
 		NSOpenPanel* panel = [NSOpenPanel openPanel];
 		
-		NSMutableArray* allowedFiletypes = [[[glkView fileTypesForUsage: usage] mutableCopy] autorelease];
+		NSMutableArray* allowedFiletypes = [[glkView fileTypesForUsage: usage] mutableCopy];
 		[allowedFiletypes insertObject: @"glksave"
 							   atIndex: 0];
 		
-		[panel setRequiredFileType: [allowedFiletypes objectAtIndex: 0]];
-		if (preferredDirectory != nil) [panel setDirectory: preferredDirectory];
+		if (preferredDirectory != nil) [panel setDirectoryURL: preferredDirectory];
 		
-		if ([panel respondsToSelector: @selector(setAllowedFileTypes:)]) {
-			// Only works on 10.3
-			[panel setAllowedFileTypes: allowedFiletypes];
-		}
+		[panel setAllowedFileTypes: allowedFiletypes];
 		
-		[panel beginSheetForDirectory: preferredDirectory
-								 file: nil
-								types: allowedFiletypes
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(panelDidEnd:returnCode:contextInfo:) 
-						  contextInfo: nil];
-		
-		[lastPanel release]; lastPanel = [panel retain];
+		[panel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+			[self panelDidEnd:panel returnCode:result];
+		}];
+
+		lastPanel = panel;
 	}
 	
 	return YES;
 }
 
 - (void) panelDidEnd: (NSSavePanel*) panel
-		  returnCode: (int) returnCode
-		 contextInfo: (void*) willBeNil {
+		  returnCode: (NSModalResponse) returnCode {
 	if (!promptHandler) return;
 	
-	if (returnCode == NSOKButton) {
+	if (returnCode == NSModalResponseOK) {
 		// TODO: preview
-		if ([[[[panel filename] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
+		if ([[[[panel URL] pathExtension] lowercaseString] isEqualToString: @"glksave"]) {
 			ZoomGlkSaveRef* saveRef = [[ZoomGlkSaveRef alloc] initWithPlugIn: [[self document] plugIn]
-																		path: [panel filename]];
+																		path: [[panel URL] path]];
 			[saveRef setSkein: skein];
 			[promptHandler promptedFileRef: saveRef];
-			[saveRef autorelease];
 		} else {
-			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel filename]];
+			GlkFileRef* promptRef = [[GlkFileRef alloc] initWithPath: [panel URL]];
 			[promptHandler promptedFileRef: promptRef];
-			[promptRef autorelease];			
 		}
 		
-		[[NSUserDefaults standardUserDefaults] setObject: [[panel directoryURL] path]
-												  forKey: @"GlkSaveDirectoryURL"];
+		[[NSUserDefaults standardUserDefaults] setURL: [panel directoryURL]
+											   forKey: @"GlkSaveDirectory"];
 		if ([self respondsToSelector: @selector(savePreferredDirectory:)]) {
-			[self savePreferredDirectory: [panel directory]];
+			[self savePreferredDirectory: [[panel directoryURL] path]];
 		}
 	} else {
 		[promptHandler promptCancelled];
 	}
 	
-	[promptHandler release]; promptHandler = nil;
-	[lastPanel release]; lastPanel = nil;
+	promptHandler = nil;
+	lastPanel = nil;
 }
 
-// = Speech commands =
+#pragma mark - Speech commands
 
 - (IBAction) stopSpeakingMove: (id) sender {
 	[tts beQuiet];

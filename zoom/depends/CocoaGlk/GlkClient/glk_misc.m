@@ -6,20 +6,16 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
 #include "glk_client.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 
 #include "gi_blorb.h"
 #include "gi_dispa.h"
 
-giblorb_map_t *cocoaglk_blorbmap = NULL;
+static giblorb_map_t *cocoaglk_blorbmap = NULL;
 
 gidispatch_rock_t (*cocoaglk_register)(void *obj, glui32 objclass) = NULL;
 void (*cocoaglk_unregister)(void *obj, glui32 objclass, gidispatch_rock_t objrock) = NULL;
@@ -66,7 +62,7 @@ void gidispatch_set_object_registry(gidispatch_rock_t (*reg)(void *obj, glui32 o
 }
 
 gidispatch_rock_t gidispatch_get_objrock(void *obj, glui32 objclass) {
-	gidispatch_rock_t res;
+	gidispatch_rock_t res = {0};
 	
 	switch (objclass) {
 		case gidisp_Class_Window:
@@ -100,7 +96,6 @@ gidispatch_rock_t gidispatch_get_objrock(void *obj, glui32 objclass) {
 			
 		default:
 			cocoaglk_error("gidispatch_get_objrock called with an unknown object type");
-            res.ptr = nil;  // keep the compiler happy
 	}
 	
 	return res;

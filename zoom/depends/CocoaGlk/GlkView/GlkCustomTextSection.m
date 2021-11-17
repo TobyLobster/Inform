@@ -8,31 +8,31 @@
 
 #import <GlkView/GlkCustomTextSection.h>
 
-NSString* GlkCustomSectionAttributeName = @"GlkCustomSectionAttributeName";
+NSString* const GlkCustomSectionAttributeName = @"GlkCustomSectionAttributeName";
 
 @implementation GlkCustomTextSection
 
-// = Formatting =
+#pragma mark - Formatting
 
-- (BOOL) formatSectionAtOffset: (float) offset
+- (BOOL) formatSectionAtOffset: (CGFloat) offset
 				  inTypesetter: (GlkTypesetter*) typesetter
 				 forGlyphRange: (NSRange) glyphs {
 	// The default implementation does nothing
 	return NO;
 }
 
-// = Typesetting =
+#pragma mark - Typesetting
 
 - (void) placeBaselineAt: (NSPoint) point
-				forGlyph: (NSUInteger) glyph {
+				forGlyph: (NSInteger) glyph {
 	// Do nothing...
 }
 
 
-// = Drawing =
+#pragma mark - Drawing
 
-- (void) drawAtPoint: (NSPoint) point
-			  inView: (NSView*) view {
+- (void) drawAtPoint: (GlkPoint) point
+			  inView: (GlkSuperView*) view {
 }
 
 @end

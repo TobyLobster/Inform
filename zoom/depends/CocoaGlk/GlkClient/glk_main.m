@@ -11,13 +11,13 @@
 //
 
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 int cocoaglk_loopIteration = 0;
@@ -78,7 +78,7 @@ void glk_tick(void) {
 	if ((ticker++) > 512) {
 		ticker = 0;
 		if ([cocoaglk_buffer hasGotABitOnTheLargeSide]) {
-			cocoaglk_loopIteration = [cocoaglk_session synchronisationCount];
+			cocoaglk_loopIteration = (int)[cocoaglk_session synchronisationCount];
 
 			cocoaglk_flushbuffer("512 tick large buffer flush");
 		}

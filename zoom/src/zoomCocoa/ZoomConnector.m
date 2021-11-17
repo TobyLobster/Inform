@@ -11,9 +11,12 @@
 #import "ZoomConnector.h"
 
 
-@implementation ZoomConnector
+@implementation ZoomConnector {
+	NSConnection* connection;
+	NSMutableArray<ZoomView*>* waitingViews;
+}
 
-// = The shared connector =
+#pragma mark - The shared connector
 
 + (ZoomConnector*) sharedConnector {
 	static ZoomConnector* sharedConnector = nil;
@@ -25,9 +28,9 @@
 	return sharedConnector;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -38,11 +41,11 @@
 		//
 		// Unlikely that anyone ever encountered this: you need ~200-odd running games before things go
 		// kaboom.
-		NSString* connectionName = [NSString stringWithFormat: @"97V36B3QYK.com.inform7.inform-compiler.Zoom-%i", getpid()];
+		NSString* connectionName = [NSString stringWithFormat: @"Zoom-%i", getpid()];
 		NSPort* port = [NSMachPort port];
 		
-		connection = [[NSConnection connectionWithReceivePort: port
-													 sendPort: port] retain];
+		connection = [NSConnection connectionWithReceivePort: port
+													sendPort: port];
 		[connection setRootObject: self];
 		[connection addRunLoop: [NSRunLoop currentRunLoop]];
 		if (![connection registerName: connectionName]) {
@@ -56,14 +59,10 @@
 }
 
 - (void) dealloc {
-	[waitingViews release];
 	[connection registerName: nil];
-	[connection release];
-
-	[super dealloc];
 }
 
-// = Connecting views to Z-Machines =
+#pragma mark - Connecting views to Z-Machines
 
 - (void) addViewWaitingForServer: (ZoomView*) view {
 	[self removeView: view];
@@ -76,7 +75,7 @@
 
 - (byref id<ZDisplay>) connectToDisplay: (in byref id<ZMachine>) zMachine {
 	// Get the view that's waiting
-	ZoomView* whichView = [[[waitingViews lastObject] retain] autorelease];	
+	ZoomView* whichView = [waitingViews lastObject];	
 	if (whichView == nil) {
 		NSLog(@"WARNING: attempt to connect to a display when no objects are available to connect to");
 		return nil;

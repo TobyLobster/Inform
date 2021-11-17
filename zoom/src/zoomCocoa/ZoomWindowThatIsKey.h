@@ -9,11 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-//
-// Window that inherits its key/main status from its parent window
-//
-@interface ZoomWindowThatIsKey : NSWindow {
-
-}
+//!
+//! Window that inherits its key/main status from its parent window
+//!
+@interface ZoomWindowThatIsKey : NSWindow
 
 @end

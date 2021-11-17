@@ -6,19 +6,32 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKFILEREF_H__
+#define __GLKVIEW_GLKFILEREF_H__
 
-#import "GlkFileRefProtocol.h"
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
+
+#import <GlkView/GlkFileRefProtocol.h>
 
 @interface GlkFileRef : NSObject<GlkFileRef> {
-	NSString* pathname;
+	NSURL* pathname;
 	
 	BOOL temporary;
 	BOOL autoflush;
 }
 
-- (instancetype) initWithPath: (NSString*) pathname NS_DESIGNATED_INITIALIZER;				// Designated initialiser
+- (instancetype) init UNAVAILABLE_ATTRIBUTE;
+/// Designated initialiser
+- (instancetype) initWithPath: (NSURL*) pathname NS_DESIGNATED_INITIALIZER;
 
-- (void) setTemporary: (BOOL) isTemp;					// Temporary filerefs are deleted when deallocated
+/// Temporary filerefs are deleted when deallocated
+@property (getter=isTemporary) BOOL temporary;
 
 @end
+
+#endif

@@ -10,15 +10,125 @@
 #import "ZoomAppDelegate.h"
 
 #include "ifmetabase.h"
+#include "ifmetadata.h"
 #include "ifmetaxml.h"
 
 #define ReportErrors
 
-NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
+NSString* const ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 
-@implementation ZoomMetadata
+NSErrorDomain const ZoomMetadataErrorDomain = @"uk.org.logicalshift.ZoomPlugIns.errors";
 
-// = Initialisation, etc =
+#define ZoomLocalizedStringWithDefaultValue(key, val, comment) \
+	NSLocalizedStringWithDefaultValue(key, @"ZoomErrors", [NSBundle bundleForClass: [ZoomMetadata class]], val, comment)
+
+@interface ZoomMetadata ()
+
+- (instancetype) initWithData: (NSData*) xmlData
+					  fileURL: (NSURL*) fname
+						error: (NSError**) error NS_DESIGNATED_INITIALIZER;
+
+@end
+
+@implementation ZoomMetadata {
+	NSURL* filename;
+	IFMetabase metadata;
+	
+	NSLock* dataLock;
+}
+
+#pragma mark - Initialisation, etc
+
++ (void)initialize
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		[NSError setUserInfoValueProviderForDomain:ZoomMetadataErrorDomain provider:^id _Nullable(NSError * _Nonnull err, NSErrorUserInfoKey  _Nonnull userInfoKey) {
+			switch ((ZoomMetadataError)err.code) {
+				case ZoomMetadataErrorProgrammerIsASpoon:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Programmer is a spoon";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Programmer Is A Spoon", @"Programmer is a spoon", @"Programmer is a spoon");
+					}
+					break;
+					
+				case ZoomMetadataErrorXML:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"XML parsing error";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError XML", @"XML parsing error", @"XML parsing error");
+					}
+					break;
+					
+				case ZoomMetadataErrorNotXML:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"File is not in XML format";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Not XML", @"File is not in XML format", @"File is not in XML format");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownVersion:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Unknown iFiction version number";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Version", @"Unknown iFiction version number", @"Unknown iFiction version number");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownTag:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Invalid iFiction tag encountered in file";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Tag", @"Invalid iFiction tag encountered in file", @"Invalid iFiction tag encountered in file");
+					}
+					break;
+					
+				case ZoomMetadataErrorNotIFIndex:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"No index found";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Not IF Index", @"No index found", @"No index found");
+					}
+					break;
+					
+				case ZoomMetadataErrorUnknownFormat:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Unknown story format";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Unknown Format", @"Unknown story format", @"Unknown story format");
+					}
+					break;
+					
+				case ZoomMetadataErrorMismatchedFormats:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Story and identification data specify different formats";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Mismatched Formats", @"Story and identification data specify different formats", @"Story and identification data specify different formats");
+					}
+					break;
+					
+				case ZoomMetadataErrorStoriesShareIDs:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"Two stories have the same ID";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Stories Share IDs", @"Two stories have the same ID", @"Two stories have the same ID");
+					}
+					break;
+					
+				case ZoomMetadataErrorDuplicateID:
+					if ([userInfoKey isEqualToString:NSDebugDescriptionErrorKey]) {
+						return @"One story contains the same ID twice";
+					} else if ([userInfoKey isEqualToString:NSLocalizedDescriptionKey]) {
+						return ZoomLocalizedStringWithDefaultValue(@"ZoomMetadataError Duplicate ID", @"One story contains the same ID twice", @"One story contains the same ID twice");
+					}
+					break;
+			}
+			return nil;
+		}];
+	});
+}
 
 - (id) init {
 	self = [super init];
@@ -33,6 +143,14 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 
 - (id) initWithData: (NSData*) xmlData
 		   filename: (NSString*) fname {
+	return [self initWithData: xmlData
+					  fileURL: [NSURL fileURLWithPath:fname]
+						error: NULL];
+}
+
+- (instancetype) initWithData: (NSData*) xmlData
+					  fileURL: (NSURL*) fname
+						error: (NSError**) error {
 	self = [super init];
 	
 	if (self) {
@@ -66,25 +184,40 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 }
 
 - (id) initWithContentsOfFile: (NSString*) fname {
-	return [self initWithData: [NSData dataWithContentsOfFile: fname]
-					 filename: fname];
+	return [self initWithContentsOfURL: [NSURL fileURLWithPath: fname]
+								 error: NULL];
+}
+
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
+	NSData *data = [NSData dataWithContentsOfURL: filename
+										 options: NSDataReadingMappedIfSafe
+										   error: outError];
+	if (!data) {
+		return nil;
+	}
+	return [self initWithData: data
+					  fileURL: filename
+						error: outError];
+}
+
+- (id) initWithData: (NSData*) xmlData
+			  error: (NSError**) outError {
+	return [self initWithData: xmlData
+					  fileURL: nil
+						error: outError];
 }
 
 - (id) initWithData: (NSData*) xmlData {
 	return [self initWithData: xmlData
-					 filename: nil];
+					  fileURL: nil
+						error: NULL];
 }
 
 - (void) dealloc {
 	IFMB_Free(metadata);
-	[dataLock release];
-	
-	if (filename) [filename release];
-	
-	[super dealloc];
 }
 
-// = Locking =
+#pragma mark - Locking
 
 - (void) lock {
 	[dataLock lock];
@@ -94,7 +227,7 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 	[dataLock unlock];
 }
 
-// = Finding information =
+#pragma mark - Finding information
 
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident {
 	if (ident == nil || [ident ident] == NULL) return NO;
@@ -115,7 +248,7 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 												 metadata: self];
 		
 		[dataLock unlock];
-		return [res autorelease];
+		return res;
 	} else {
 		[dataLock unlock];
 		return nil;
@@ -127,26 +260,23 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 	
 	IFStoryIterator iter;
 	IFStory story;
-	for (iter=IFMB_GetStoryIterator(metadata); story=IFMB_NextStory(iter);) {
+	for ((iter=IFMB_GetStoryIterator(metadata)); (story=IFMB_NextStory(iter));) {
 		ZoomStory* zStory = [[ZoomStory alloc] initWithStory: story
 													metadata: self];
 		
 		[res addObject: zStory];
-		[zStory release];
 	}
 	IFMB_FreeStoryIterator(iter);
 	
 	return res;
 }
 
-// = Storing information =
+#pragma mark - Storing information
 
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomMetadataWillDestroyStory
 														object: self
-													  userInfo: [NSDictionary dictionaryWithObjectsAndKeys: 
-														  ident, @"Ident",
-														  nil]];
+													  userInfo: @{@"Ident": ident}];
 	
 	[dataLock lock];
 	
@@ -170,10 +300,10 @@ NSString* ZoomMetadataWillDestroyStory = @"ZoomMetadataWillDestroyStory";
 }
 	
 
-// = Saving the file =
+#pragma mark - Saving the file
 
 static int dataWrite(const char* bytes, int length, void* userData) {
-	NSMutableData* data = userData;
+	NSMutableData* data = (__bridge NSMutableData *)(userData);
 	[data appendBytes: bytes
 			   length: length];
 	return 0;
@@ -183,27 +313,44 @@ static int dataWrite(const char* bytes, int length, void* userData) {
 	[dataLock lock];
 	NSMutableData* res = [[NSMutableData alloc] init];
 	
-	IF_WriteIfiction(metadata, dataWrite, res);
+	IF_WriteIfiction(metadata, dataWrite, (__bridge void *)(res));
 	
 	[dataLock unlock];
-	return [res autorelease];
+	return res;
 }
 
 - (BOOL) writeToFile: (NSString*)path
 		  atomically: (BOOL)flag {
-	return [[self xmlData] writeToFile: path atomically: flag];
+	return [self writeToURL: [NSURL fileURLWithPath: path]
+				 atomically: flag
+					  error: NULL];
+}
+
+- (BOOL)    writeToURL: (NSURL*)path
+			atomically: (BOOL)flag
+				 error: (NSError**)error {
+	return [[self xmlData] writeToURL: path
+							  options: (flag ? NSDataWritingAtomic : 0)
+								error: error];
 }
 
 - (BOOL) writeToDefaultFile {
-	// The app delegate may not be the best place for this routine... Maybe a function somewhere
-	// would be better?
-	NSString* configDir = [[NSApp delegate] zoomConfigDirectory];
-	
-	return [self writeToFile: [configDir stringByAppendingPathComponent: @"metadata.iFiction"]
-				  atomically: YES];
+	return [self writeToDefaultFileWithError: NULL];
 }
 
-// = Errors =
+- (BOOL) writeToDefaultFileWithError:(NSError *__autoreleasing *)outError {
+	// The app delegate may not be the best place for this routine... Maybe a function somewhere
+	// would be better?
+	NSString* configDir = [(ZoomAppDelegate*)[NSApp delegate] zoomConfigDirectory];
+	NSURL *configURL = [NSURL fileURLWithPath: configDir isDirectory: YES];
+	configURL = [configURL URLByAppendingPathComponent: @"metadata.iFiction" isDirectory: NO];
+	
+	return [self writeToURL: configURL
+				 atomically: YES
+					  error: outError];
+}
+
+#pragma mark - Errors
 - (NSArray*) errors {
 #if 0
 	int x;

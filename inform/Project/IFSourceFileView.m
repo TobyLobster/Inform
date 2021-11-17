@@ -205,7 +205,7 @@ static NSImage* arrowPressed	= nil;
 		// Draw the tear
 		[topTear drawInRect: NSMakeRect(NSMinX(bounds), NSMinY(bounds), bounds.size.width, tornSize.height)
 				   fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
-				  operation: NSCompositeSourceOver
+				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0
              respectFlipped: YES
                       hints: nil];
@@ -221,7 +221,7 @@ static NSImage* arrowPressed	= nil;
 		
 		[arrow drawInRect: upRect
 				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: YES
                     hints: nil];
@@ -242,7 +242,7 @@ static NSImage* arrowPressed	= nil;
 		// Draw the tear
 		[bottomTear drawInRect: NSMakeRect(NSMinX(bounds), origin.y + containerSize.height, bounds.size.width, tornSize.height)
 					  fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
-					 operation: NSCompositeSourceOver
+					 operation: NSCompositingOperationSourceOver
                       fraction: 1.0
                 respectFlipped: YES
                          hints: nil];
@@ -258,7 +258,7 @@ static NSImage* arrowPressed	= nil;
 		
 		[arrow drawInRect: upRect
 				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: NO
                     hints: nil];

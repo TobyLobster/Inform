@@ -10,16 +10,19 @@
 
 #import "ZoomClientController.h"
 #import "ZoomPreferenceWindow.h"
-#import "ZoomGameInfoController.h"
-#import "ZoomNotesController.h"
+#import <ZoomPlugIns/ZoomGameInfoController.h>
+#import <ZoomPlugIns/ZoomNotesController.h>
 #import "ZoomStoryOrganiser.h"
-#import "ZoomSkeinController.h"
-#import "ZoomConnector.h"
-#import "ZoomWindowThatCanBecomeKey.h"
+#import <ZoomView/ZoomSkeinController.h>
+#import <ZoomView/ZoomConnector.h>
+#import <ZoomPlugIns/ZoomWindowThatCanBecomeKey.h>
 #import "ZoomAppDelegate.h"
-#import "ZoomClearView.h"
+@import ZoomPlugIns.Swift;
+@import ZoomView.Swift;
+#import "Zoom-Swift.h"
 
 @implementation ZoomClientController
+@synthesize zoomView;
 
 - (id) init {
     self = [super initWithWindowNibName: @"ZoomClient"];
@@ -38,16 +41,9 @@
     if (zoomView) [zoomView setDelegate: nil];
     if (zoomView) [zoomView killTask];
 	
-	if (fullscreenWindow) [fullscreenWindow release];
-	if (normalWindow) [normalWindow release];
-
-	if (fadeStart) [fadeStart release];
 	if (fadeTimer) {
-		[fadeTimer invalidate]; [fadeTimer release];
+		[fadeTimer invalidate];
 	}
-	if (logoWindow) [logoWindow release];
-	
-    [super dealloc];
 }
 
 - (void) windowDidLoad {
@@ -58,7 +54,7 @@
 		
 		[zoomView removeFromSuperview];
 		//[zoomView release];
-		zoomView = [[[self document] defaultView] retain];
+		zoomView = [(ZoomClient*)[self document] defaultView];
 		
 		[superview addSubview: zoomView];
 		[zoomView setFrame: viewFrame];
@@ -88,20 +84,21 @@
 			// Combine them all into one huge error
 			NSMutableString* errorText = [NSMutableString string];
 			
-			NSEnumerator* errorEnum = [[[self document] loadingErrors] objectEnumerator];
-			NSString* error;
 			BOOL newline = NO;
 			
-			while (error = [errorEnum nextObject]) {
+			for (NSString* error in [[self document] loadingErrors]) {
 				if (newline) [errorText appendString: @"\n\n"];
 				[errorText appendString: error];
 				newline = YES;
 			}
 			
 			// Show an alert			
-			NSBeginAlertSheet(@"Problems were encountered while loading this game", @"Continue",nil, nil,
-							  [self window],
-							  nil, nil, nil, nil, errorText);
+			NSAlert *alert = [[NSAlert alloc] init];
+			alert.messageText = NSLocalizedString(@"Problems were encountered while loading this game", @"Problems were encountered while loading this game");
+			alert.informativeText = errorText;
+			[alert addButtonWithTitle:NSLocalizedString(@"Continue", @"Continue")];
+			[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			}];
 		}
 	}
 	
@@ -110,18 +107,16 @@
 }
 
 - (IBAction) reloadGame: (id) sender {
-	// Request from a menu item: close and re-open this file
-	[[self retain] autorelease];
-	
 	// Get the file we're going to re-open
-	NSString* filename = [[[[self document] fileName] retain] autorelease];
+	NSString* filename = [(NSDocument*)[self document] fileURL].path;
 	
 	// Close ourselves down
 	[[self document] close];
 	
 	// Reload the story
-	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [[[NSURL alloc] initFileURLWithPath: filename] autorelease]
-																		   display: YES];
+	[[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL: [NSURL fileURLWithPath:filename] display: YES completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+		//Do nothing
+	}];
 	
 	// Done: now we can die happy
 }
@@ -142,13 +137,15 @@
     [[zoomView zMachine] loadStoryFile: [[self document] gameData]];
 	
 	if ([[self document] autosaveData] != nil) {
-		NSUnarchiver* decoder;
+		NSCoder* decoder;
 		
-		decoder = [[NSUnarchiver alloc] initForReadingWithData: [[self document] autosaveData]];
+		decoder = [[NSKeyedUnarchiver alloc] initForReadingFromData: [[self document] autosaveData] error: NULL];
+		if (!decoder) {
+			decoder = [[NSUnarchiver alloc] initForReadingWithData: [[self document] autosaveData]];
+		}
 		
 		[zoomView restoreAutosaveFromCoder: decoder];
 		
-		[decoder release];
 		[[self document] setAutosaveData: nil];
 	}
 	
@@ -184,30 +181,24 @@
 }
 
 - (void) prepareSavePackage: (ZPackageFile*) file {
-	// (Secretly, we know skeinXML is an NSMutableString that we can edit ourselves)
-	// Normally, you aren't allowed to do this
-	NSMutableString* skeinXML = (NSMutableString*)[[[self document] skein] xmlData];
-	
-	if (![skeinXML isKindOfClass: [NSMutableString class]]) {
-		skeinXML = [skeinXML mutableCopy];
-	}
+	NSMutableString* skeinXML = [[[[self document] skein] xmlData] mutableCopy];
 	
 	[skeinXML insertString: @"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 				   atIndex: 0];
 	
-	[file addData: [[[[self document] skein] xmlData] dataUsingEncoding: NSUTF8StringEncoding]
+	[file addData: [skeinXML dataUsingEncoding: NSUTF8StringEncoding]
 	  forFilename: @"Skein.skein"];
 	
 	// Add information about our story ID
-	[file addData: [NSPropertyListSerialization dataFromPropertyList: [NSDictionary dictionaryWithObjectsAndKeys: 
-		[[[self document] storyId] description], @"ZoomStoryId", nil]
-																									   format: NSPropertyListXMLFormat_v1_0
-																							 errorDescription: nil]
+	[file addData: [NSPropertyListSerialization dataWithPropertyList: @{@"ZoomStoryId": [[[self document] storyId] description]}
+															  format: NSPropertyListXMLFormat_v1_0
+															 options: 0
+															   error: nil]
 													  forFilename: @"Info.plist"];
 }
 
-- (void) loadedSkeinData: (NSData*) skeinData {
-	[[[self document] skein] parseXmlData: skeinData];
+- (BOOL) loadedSkeinData: (NSData*) skeinData error:(NSError *__autoreleasing *)error {
+	return [[[self document] skein] parseXmlData: skeinData error: error];
 }
 
 - (NSString*) defaultSaveDirectory {
@@ -224,7 +215,9 @@
 		if (![[NSFileManager defaultManager] fileExistsAtPath: saveDir
 												  isDirectory: &isDir]) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: saveDir
-															attributes: nil]) {
+										   withIntermediateDirectories: NO
+															attributes: nil
+																 error: NULL]) {
 				// Couldn't create the directory
 				return nil;
 			}
@@ -257,10 +250,9 @@
     [NSApp endSheet: [gamePrefs window]];
 	
 	[[gamePrefs window] orderOut: self];
-	[gamePrefs release];
 }
 
-// = Setting up the game info window =
+#pragma mark - Setting up the game info window
 
 - (IBAction) recordGameInfo: (id) sender {
 	ZoomGameInfoController* sgI = [ZoomGameInfoController sharedGameInfoController];
@@ -287,7 +279,7 @@
 		[storyInfo setZarfian: [[sgIValues objectForKey: @"zarfRating"] unsignedIntValue]];
 		[storyInfo setRating: [[sgIValues objectForKey: @"rating"] floatValue]];
 		
-		[[[NSApp delegate] userMetadata] writeToDefaultFile];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] writeToDefaultFile];
 	}
 }
 
@@ -319,37 +311,34 @@
 	}
 }
 
-- (void) confirmFinish:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
-		   contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
-		// Close the window
-		closeConfirmed = YES;
-		[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
-											 target: [self window]
-										   argument: self
-											  order: 32
-											  modes: [NSArray arrayWithObject: NSDefaultRunLoopMode]];
-	}
-}
-
 - (BOOL) windowShouldClose: (id) sender {
 	// Get confirmation if required
 	if (!closeConfirmed && !finished && [[ZoomPreferences globalPreferences] confirmGameClose]) {
 		BOOL autosave = [[ZoomPreferences globalPreferences] autosaveGames];
-		NSString* msg = @"Spoon will be terminated.";
+		NSString* msg;
 		
 		if (autosave) {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.";
+			msg = NSLocalizedString(@"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.", @"There is still a story playing in this window. Are you sure you wish to finish it? The current state of the game will be automatically saved.");
 		} else {
-			msg = @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.";
+			msg = NSLocalizedString(@"Finish game question info", @"There is still a story playing in this window. Are you sure you wish to finish it without saving? The current state of the game will be lost.");
 		}
 		
-		NSBeginAlertSheet(@"Finish the game?",
-						  @"Finish", @"Continue playing", nil,
-						  [self window], self,
-						  @selector(confirmFinish:returnCode:contextInfo:), nil,
-						  nil, msg);
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Finish the game?", @"Finish the game?");
+		alert.informativeText = msg;
+		[alert addButtonWithTitle: NSLocalizedString(@"Finish", @"Finish")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Continue playing", @"Continue playing")];
+		[alert beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				// Close the window
+				self->closeConfirmed = YES;
+				[[NSRunLoop currentRunLoop] performSelector: @selector(performClose:)
+													 target: [self window]
+												   argument: self
+													  order: 32
+													  modes: @[NSDefaultRunLoopMode]];
+			}
+		}];
 		
 		return NO;
 	}
@@ -365,21 +354,20 @@
 	NSString* autosaveFile = [autosaveDir stringByAppendingPathComponent: @"autosave.zoomauto"];
 	
 	if (autosave) {
-		NSMutableData* autosaveData = [[NSMutableData alloc] init];
-		NSArchiver* theCoder = [[NSArchiver alloc] initForWritingWithMutableData: autosaveData];
+		NSKeyedArchiver* theCoder = [[NSKeyedArchiver alloc] initRequiringSecureCoding: YES];
 	
 		BOOL saveOK = [zoomView createAutosaveDataWithCoder: theCoder];
 	
-		[theCoder release];
-	
 		// Produce an autosave file
-		if (saveOK) [autosaveData writeToFile: autosaveFile atomically: YES];
-
-		[autosaveData release];
+		if (saveOK) {
+			[theCoder finishEncoding];
+			NSData* autosaveData = theCoder.encodedData;
+			[autosaveData writeToFile: autosaveFile atomically: YES];
+		}
 	} else {
 		if ([[NSFileManager defaultManager] fileExistsAtPath: autosaveFile]) {
-			[[NSFileManager defaultManager] removeFileAtPath: autosaveFile
-													 handler: nil];
+			[[NSFileManager defaultManager] removeItemAtPath: autosaveFile
+													   error: NULL];
 		}
 	}
 		
@@ -408,7 +396,7 @@
 	[[ZoomNotesController sharedNotesController] setInfoOwner: self];
 }
 
-// = GameInfo updates =
+#pragma mark - GameInfo updates
 
 - (IBAction) infoNameChanged: (id) sender {
 	[[[self document] storyInfo] setTitle: [[ZoomGameInfoController sharedGameInfoController] title]];
@@ -464,21 +452,20 @@
 	}
 }
 
-// = Various IB actions =
+#pragma mark - Various IB actions
 
 - (IBAction) playInFullScreen: (id) sender {
 	if (isFullscreen) {
+		ZoomView *theView = zoomView;
 		// Show the menubar
 		[NSMenu setMenuBarVisible: YES];
 
 		// Stop being fullscreen
-		[zoomView retain];
-		[zoomView removeFromSuperview];
+		[theView removeFromSuperview];
 		
-		[zoomView setScaleFactor: 1.0];
-		[zoomView setFrame: [[normalWindow contentView] bounds]];
-		[[normalWindow contentView] addSubview: zoomView];
-		[zoomView release];
+		[theView setScaleFactor: 1.0];
+		[theView setFrame: [[normalWindow contentView] bounds]];
+		[[normalWindow contentView] addSubview: theView];
 		
 		// Swap windows back
 		if (normalWindow) {
@@ -498,10 +485,10 @@
 		isFullscreen = NO;
 	} else {
 		// As of 10.4, we need to create a separate full-screen window (10.4 tries to be 'clever' with the window borders, which messes things up
-		if (!normalWindow) normalWindow = [[self window] retain];
+		if (!normalWindow) normalWindow = [self window];
 		if (!fullscreenWindow) {
 			fullscreenWindow = [[ZoomWindowThatCanBecomeKey alloc] initWithContentRect: [[[self window] contentView] bounds] 
-																				styleMask: NSBorderlessWindowMask
+																				styleMask: NSWindowStyleMaskBorderless
 																			   backing: NSBackingStoreBuffered
 																				 defer: YES];
 			
@@ -521,10 +508,9 @@
 						   display: NO];
 		[fullscreenWindow makeKeyAndOrderFront: self];
 		
-		[zoomView retain];
-		[zoomView removeFromSuperview];
-		[[fullscreenWindow contentView] addSubview: zoomView];
-		[zoomView release];
+		ZoomView *theView = zoomView;
+		[theView removeFromSuperview];
+		[[fullscreenWindow contentView] addSubview: theView];
 		
 		[normalWindow setInitialFirstResponder: nil];
 		[normalWindow setDelegate: nil];
@@ -545,7 +531,6 @@
 		// Finish off zoomView
 		NSSize oldZoomViewSize = [zoomView frame].size;
 		
-		[zoomView retain];
 		[zoomView removeFromSuperviewWithoutNeedingDisplay];
 		
 		// Hide the menubar
@@ -553,10 +538,10 @@
 				
 		// Resize the window
 		NSRect frame = [[[self window] screen] frame];
-		if (![[NSApp delegate] leopard]) {
+		if (![(ZoomAppDelegate*)[NSApp delegate] leopard]) {
 			[[self window] setShowsResizeIndicator: NO];
 			frame = [NSWindow frameRectForContentRect: frame
-											styleMask: NSBorderlessWindowMask];
+											styleMask: NSWindowStyleMaskBorderless];
 			[[self window] setFrame: frame
 							display: YES
 							animate: YES];			
@@ -564,7 +549,7 @@
 		} else {
 			[fullscreenWindow setOpaque: NO];
 			[fullscreenWindow setBackgroundColor: [NSColor clearColor]];
-			[[self window] setContentView: [[[ZoomClearView alloc] init] autorelease]];
+			[[self window] setContentView: [[ClearView alloc] init]];
 			[[self window] setFrame: frame
 							display: YES
 							animate: NO];
@@ -583,27 +568,27 @@
 		
 		// Add it back in again
 		[[[self window] contentView] addSubview: zoomView];
-		[zoomView release];
 		
 		// Perform an animation in Leopard
-		if ([[NSApp delegate] leopard]) {
-			[[[NSApp delegate] leopard] fullScreenView: zoomView
-											 fromFrame: oldWindowFrame
-											   toFrame: frame];			
+		if ([(ZoomAppDelegate*)[NSApp delegate] leopard]) {
+			[[(ZoomAppDelegate*)[NSApp delegate] leopard]
+			 fullScreenView: zoomView
+			 fromFrame: oldWindowFrame
+			 toFrame: frame];			
 		}
 		
 		isFullscreen = YES;
 	}
 }
 
-// = Showing a logo =
+#pragma mark - Showing a logo
 
 - (NSImage*) resizeLogo: (NSImage*) input {
 	NSSize oldSize = [input size];
 	NSImage* result = input;
 	
 	if (oldSize.width > 256 || oldSize.height > 256) {
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (oldSize.width > oldSize.height) {
 			scaleFactor = 256/oldSize.width;
@@ -613,13 +598,13 @@
 		
 		NSSize newSize = NSMakeSize(scaleFactor * oldSize.width, scaleFactor * oldSize.height);
 		
-		result = [[[NSImage alloc] initWithSize: newSize] autorelease];
+		result = [[NSImage alloc] initWithSize: newSize];
 		[result lockFocus];
 		[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 		
 		[input drawInRect: NSMakeRect(0,0, newSize.width, newSize.height)
-				 fromRect: NSMakeRect(0,0, oldSize.width, oldSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 		[result unlockFocus];
 	}
@@ -628,7 +613,7 @@
 }
 
 - (NSImage*) logo {
-	NSImage* result = [ZoomStoryOrganiser frontispieceForFile: [[self document] fileName]];
+	NSImage* result = [ZoomStoryOrganiser frontispieceForURL: [[self document] fileURL]];
 	if (result == nil) return nil;
 	
 	return [self resizeLogo: result];
@@ -665,7 +650,7 @@
 	
 	// Create the window
 	logoWindow = [[NSWindow alloc] initWithContentRect: [[[self window] contentView] frame]				// Gets the size, we position later
-											 styleMask: NSBorderlessWindowMask
+											 styleMask: NSWindowStyleMaskBorderless
 											   backing: NSBackingStoreBuffered
 												 defer: YES];
 	[logoWindow setOpaque: NO];
@@ -675,7 +660,7 @@
 	NSImageView* fadeContents = [[NSImageView alloc] initWithFrame: [[logoWindow contentView] frame]];
 	
 	[fadeContents setImage: logo];
-	[logoWindow setContentView: [fadeContents autorelease]];
+	[logoWindow setContentView: fadeContents];
 	
 	fadeTimer = [NSTimer timerWithTimeInterval: waitTime
 										target: self
@@ -705,13 +690,12 @@
 	[[NSRunLoop currentRunLoop] addTimer: fadeTimer
 								 forMode: NSDefaultRunLoopMode];
 	
-	[fadeStart release];
-	fadeStart = [[NSDate date] retain];
+	fadeStart = [NSDate date];
 }
 
 - (void) fadeLogo {
-	float timePassed = [[NSDate date] timeIntervalSinceDate: fadeStart];
-	float fadeAmount = timePassed/fadeTime;
+	NSTimeInterval timePassed = [[NSDate date] timeIntervalSinceDate: fadeStart];
+	CGFloat fadeAmount = timePassed/fadeTime;
 	
 	if (fadeAmount < 0 || fadeAmount > 1) {
 		// Finished fading: get rid of the window + the timer
@@ -719,10 +703,8 @@
 		fadeTimer = nil;
 		
 		[[logoWindow parentWindow] removeChildWindow: logoWindow];
-		[logoWindow release];
 		logoWindow = nil;
 		
-		[fadeStart release];
 		fadeStart = nil;
 	} else {
 		fadeAmount = -2.0*fadeAmount*fadeAmount*fadeAmount + 3.0*fadeAmount*fadeAmount;
@@ -731,7 +713,7 @@
 	}
 }
 
-// = Interacting with the skein =
+#pragma mark - Interacting with the skein
 
 - (void) restartGame {
 	 // Will force a restart
@@ -740,28 +722,25 @@
 
 - (void) playToPoint: (ZoomSkeinItem*) point
 		   fromPoint: (ZoomSkeinItem*) fromPoint {
-	 id inputSource = [ZoomSkein inputSourceFromSkeinItem: fromPoint
-												   toItem: point];
+	 id<ZoomViewInputSource> inputSource = [ZoomSkein
+											inputSourceFromSkeinItem: fromPoint
+											toItem: point];
 	 
 	 
 	 [[self zoomView] setInputSource: inputSource];
 }
 
-// = Window title =
+#pragma mark - Window title
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
 	if (finished) {
-		return [displayName stringByAppendingString: @" (finished)"];
+		return [NSString stringWithFormat: NSLocalizedString(@"%@ (finished)", @"Game finished window title formatter"), displayName];
 	}
 	
 	return displayName;
 }
 
-- (ZoomView*) zoomView {
-	return zoomView;
-}
-
-// = Text to speech =
+#pragma mark - Text to speech
 
 - (IBAction) stopSpeakingMove: (id) sender {
 	[[zoomView textToSpeech] beQuiet];

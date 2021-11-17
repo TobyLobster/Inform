@@ -6,11 +6,15 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "GlkTextWindow.h"
 
 #import "GlkImage.h"
 #import "GlkClearMargins.h"
 #import "GlkMoreView.h"
+#import <GlkView/GlkPairWindow.h>
+#import <GlkView/GlkView.h>
+
 
 // Number of pixels to shorten the maximum length of text before a more prompt is shown
 #define MoreMargin 16.0
@@ -22,36 +26,40 @@
 @implementation GlkTextWindow
 
 - (void) setupTextview {
-    // Create the text view and the scroller
-    textView = [[GlkTextView alloc] initWithFrame: [self frame]];
-    scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
-
-    // Create the typesetter
-    typesetter = [[GlkTypesetter alloc] init];
-
-    // Construct the text system
-	textStorage   = textView.textStorage;
-    layoutManager = textView.layoutManager;
-    textContainer = textView.textContainer;
-
+	// Construct the text system
+	textStorage = [[NSTextStorage alloc] init];
+	
+	layoutManager = [[NSLayoutManager alloc] init];
+	[textStorage addLayoutManager: layoutManager];
+	
 	margin = 0;
-
+	
+	// Create the typesetter
+	typesetter = [[GlkTypesetter alloc] init];
 	[layoutManager setTypesetter: typesetter];
 	[layoutManager setShowsControlCharacters: NO];
 	[layoutManager setShowsInvisibleCharacters: NO];
-
+	
 	// Create the text container
 	lastMorePos = 0;
 	nextMorePos = [self frame].size.height - MoreMargin;
-
-	[textContainer setContainerSize: NSMakeSize(1e8, self.frame.size.height - MoreMargin)];
-	[textContainer setWidthTracksTextView: YES];
-	[textContainer setHeightTracksTextView: NO];
+	NSTextContainer* newContainer = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(1e8, [self frame].size.height - MoreMargin)];
+	
+	[newContainer setLayoutManager: layoutManager];
+	[layoutManager addTextContainer: newContainer];
+	
+	[newContainer setContainerSize: NSMakeSize(1e8, 1e8)];
+	[newContainer setWidthTracksTextView: YES];
+	[newContainer setHeightTracksTextView: NO];
 				
+	// Create the text view and the scroller
+	textView = [[GlkTextView alloc] initWithFrame: [self frame]];
+	scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
+	
 	[typesetter setDelegate: textView];
-	[textView setTextContainer: textContainer];
-	[textContainer setTextView: textView];
-
+	[textView setTextContainer: newContainer];
+	[newContainer setTextView: textView];
+				
 	// [[textView textContainer] setWidthTracksTextView: YES];
 	//[[textView textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
 	[textView setMinSize:NSMakeSize(0.0, 0.0)];
@@ -60,14 +68,13 @@
 	[textView setHorizontallyResizable:NO];
 	[textView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 	[textView setEditable: NO];
+    [textView setRichText: YES];
 	[textView setUsesFindPanel: YES]; // FIXME: Won't work on Jaguar
-    [textView setMenu: nil];
-    [textView setEnabledTextCheckingTypes:0];
 	
 	inputPos = 0;
 	[[textView textStorage] setDelegate: self];
 	[textView setDelegate: self];
-
+	
 	[scrollView setDocumentView: textView];
 	[scrollView setAutoresizingMask:NSViewWidthSizable|NSViewHeightSizable];
 	[scrollView setHasHorizontalScroller: NO];
@@ -87,7 +94,7 @@
 	}
 }
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
 
     if (self) {
@@ -97,25 +104,23 @@
 		//[self addSubview: scrollView];
 		
 		// Set the hyperlink style
-		NSDictionary* hyperStyle = @{NSUnderlineStyleAttributeName: @(NSSingleUnderlineStyle),
+		NSDictionary* hyperStyle = @{
+			NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
 			NSCursorAttributeName: [NSCursor pointingHandCursor]};
-		if ([textView respondsToSelector: @selector(setLinkTextAttributes:)]) {
-			[textView setLinkTextAttributes: hyperStyle];
-		}
+		[textView setLinkTextAttributes: hyperStyle];
 		
 		// Construct the window that shows the [ MORE ] prompt
 		NSView* moreView = [[GlkMoreView alloc] init];
 		moreWindow = [[NSWindow alloc] initWithContentRect: [moreView bounds]
-												 styleMask: NSBorderlessWindowMask
+												 styleMask: NSWindowStyleMaskBorderless
 												   backing: NSBackingStoreBuffered
 													 defer: YES];
 
 		[moreWindow setBackgroundColor: [NSColor clearColor]];
 		[moreWindow setOpaque: NO];
 		[moreWindow setContentView: moreView];
-		[moreView release];
     }
-
+    
 	return self;
 }
 
@@ -123,24 +128,19 @@
 	[textView setDelegate: nil];
 	[[textView textStorage] setDelegate: nil];
 	
-	[scrollView release]; scrollView = nil;
-	[typesetter setDelegate: nil];
-	[textView release];  textView = nil;
-	
-	[typesetter release]; typesetter = nil;
-	
 	[[moreWindow parentWindow] removeChildWindow: moreWindow];
 	[moreWindow orderOut: self];
-	[moreWindow release]; moreWindow = nil;
-	
-	[super dealloc];
 }
 
 - (void) updateWithPrefs: (GlkPreferences*) prefs {
 	margin = [prefs textMargin];
 	[textView setTextContainerInset: NSMakeSize(margin, margin)];
 	[[textView layoutManager] setUsesScreenFonts: [prefs useScreenFonts]];
-	[[textView layoutManager] setHyphenationFactor: [prefs useHyphenation]?1:0];
+	if (@available(macOS 10.15, *)) {
+		[[textView layoutManager] setUsesDefaultHyphenation: [prefs useHyphenation]];
+	} else {
+		[[textView layoutManager] setHyphenationFactor: [prefs useHyphenation]?1:0];
+	}
 }
 
 - (void) setPreferences: (GlkPreferences*) prefs {
@@ -151,16 +151,14 @@
 	[self updateWithPrefs: prefs];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void) drawRect: (NSRect) r {
-    [super drawRect:r];
-
-    [[self backgroundColour] set];
+	[[self backgroundColour] set];
 	NSRectFill(r);
 }
 
-// = Window control =
+#pragma mark - Window control
 
 - (void) taskFinished {
 	// The text should be made non-editable
@@ -169,7 +167,7 @@
 	
 	[textView setEditable: NO];
 }
-
+	
 - (void) clearWindow {
 	[[[textView textStorage] mutableString] deleteCharactersInRange: NSMakeRange(0, inputPos)];
 	inputPos = 0;
@@ -197,8 +195,7 @@
 }
 
 - (void) bufferHasFlushed {
-
-    // We've finished editing
+	// We've finished editing
 	if (flushing) {
 		flushing = NO;
 		[[textView textStorage] endEditing];
@@ -211,7 +208,7 @@
 	}
 }
 
-// = Layout =
+#pragma mark - Layout
 
 - (void) layoutInRect: (NSRect) parentRect {
 	BOOL wasFlushing = flushing;
@@ -241,19 +238,19 @@
 	}
 }
 
-- (float) widthForFixedSize: (unsigned) size {
+- (CGFloat) widthForFixedSize: (unsigned) size {
 	NSSize baseSize = [@"M" sizeWithAttributes: [self currentTextAttributes]];
 	
-	return floorf(size * baseSize.width) + (margin*2);
+	return floor(size * baseSize.width) + (margin*2);
 }
 
-- (float) heightForFixedSize: (unsigned) size {
-	return floorf(size * [self lineHeight]) + (margin*2);
+- (CGFloat) heightForFixedSize: (unsigned) size {
+	return floor(size * [self lineHeight]) + (margin*2);
 }
 
-- (void) setScaleFactor: (float) newScaleFactor {
+- (void) setScaleFactor: (CGFloat) newScaleFactor {
 	if (scaleFactor == newScaleFactor) return;
-
+	
 	// First, do whatever GlkWindow wants to do with the scale factor
 	[super setScaleFactor: newScaleFactor];
 	
@@ -267,22 +264,17 @@
 	// Iterate through all of the attribute runs in this view...
 	if ([textStorage length] > 0) {
 		NSRange attributeRange;
-		NSDictionary* oldAttributes = [[[textStorage attributesAtIndex: 0
-														effectiveRange: &attributeRange] retain] autorelease];
+		NSDictionary* oldAttributes = [textStorage attributesAtIndex: 0
+													  effectiveRange: &attributeRange];
 		while (attributeRange.location < [textStorage length]) {
-			GlkStyle* oldStyle = oldAttributes[GlkStyleAttributeName];
+			GlkStyle* oldStyle = [oldAttributes objectForKey: GlkStyleAttributeName];
 			
 			if (oldStyle) {
-				[oldStyle retain];
-				
 				// Generate the new attributes for the old style
-				NSDictionary* newAttributes = [[oldStyle attributesWithPreferences: preferences
-																	   scaleFactor: newScaleFactor] retain];
+				NSDictionary* newAttributes = [oldStyle attributesWithPreferences: preferences
+																	  scaleFactor: newScaleFactor];
 				[textStorage setAttributes: newAttributes
 									 range: attributeRange];
-				[newAttributes release];
-				
-				[oldStyle release];
 			}
 			
 			// Move on
@@ -290,8 +282,8 @@
 				attributeRange.length = 1;
 			}
 			if (attributeRange.location + attributeRange.length >= [textStorage length]) break;
-			oldAttributes = [[[textStorage attributesAtIndex: attributeRange.location + attributeRange.length
-											  effectiveRange: &attributeRange] retain] autorelease];
+			oldAttributes = [textStorage attributesAtIndex: attributeRange.location + attributeRange.length
+											effectiveRange: &attributeRange];
 		}
 	}
 	
@@ -301,7 +293,7 @@
 	}
 }
 
-// = Hyperlink input =
+#pragma mark - Hyperlink input
 
 - (BOOL) textView: (NSTextView*) view
 	clickedOnLink: (id) link 
@@ -310,10 +302,10 @@
 		if (hyperlinkInput) {
 			// Generate the event for this hyperlink
 			GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_Hyperlink
-										  windowIdentifier: [self identifier]
+										  windowIdentifier: [self glkIdentifier]
 													  val1: [link unsignedIntValue]
 													  val2: 0];
-			[target queueEvent: [evt autorelease]];
+			[target queueEvent: evt];
 
 			hyperlinkInput = NO;
 		}
@@ -324,7 +316,7 @@
 	return NO;
 }
 
-// = Line input =
+#pragma mark - Line input
 
 - (void) updateCaretPosition {
 	if (inputPos > [textView selectedRange].location) {
@@ -372,28 +364,27 @@
     }
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification*) aNotification {
-
-    // Force the typesetter to reset so that it doesn't try to lay out new glyphs with out-of-date metrics
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+			  range:(NSRange)editedRange
+	 changeInLength:(NSInteger)delta {
+	// Force the typesetter to reset so that it doesn't try to lay out new glyphs with out-of-date metrics
 	[(GlkTypesetter*)[[textView layoutManager] typesetter] flushCache];
-
-    // Perform no other action on edits that aren't in the input range
-	if ([[textView textStorage] editedRange].location < inputPos) {
+	
+	// Perform no other action on edits that aren't in the input range
+	if (editedRange.location < inputPos) {
 		return;
 	}
 	
 	// Anything newly added should be in the input style
 	[[textView textStorage] setAttributes: [self attributes: style_Input]
-									range: [[textView textStorage] editedRange]];
+									range: editedRange];
 }
 
-- (int) inputPos {
-	return inputPos;
-}
+@synthesize inputPos;
 
 - (void) forceLineInput: (NSString*) forcedInput {
-
-    if (lineInput) {
+	if (lineInput) {
 		// Switch off line input so our edits don't get sent to the task
 		lineInput = NO;
 		
@@ -404,22 +395,22 @@
 		[buffer appendString: @"\n"];
 		
 		// Reset the input position
-		inputPos = (int) [buffer length];
+		inputPos = [buffer length];
 		
 		// Generate the event
 		GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
-									  windowIdentifier: [self identifier]
-												  val1: (int) [forcedInput length]
+									  windowIdentifier: [self glkIdentifier]
+												  val1: (int)[forcedInput length]
 												  val2: 0];
 		[evt setLineInput: forcedInput];
 
 		// Add to the line history
 		[[self containingView] resetHistoryPosition];
 		[[self containingView] addHistoryItem: forcedInput
-							  forWindowWithId: [self identifier]];
+							  forWindowWithId: [self glkIdentifier]];
 		
 		// ... send it
-		[target queueEvent: [evt autorelease]];
+		[target queueEvent: evt];
 		
 		// We're no longer editable
 		[self makeTextNonEditable];
@@ -428,7 +419,15 @@
 	}
 }
 
-- (void)textStorageDidProcessEditing:(NSNotification *)aNotification {
+- (void)hackTextStorageDidProcessEditing:(NSNotification *)aNotification {
+	// hack!
+	[self textStorage: [textView textStorage] didProcessEditing: NSTextStorageEditedCharacters range: NSMakeRange(0, 0) changeInLength: 0];
+}
+
+- (void)textStorage:(NSTextStorage *)textStorage
+  didProcessEditing:(NSTextStorageEditActions)editedMask
+			  range:(NSRange)editedRange
+	 changeInLength:(NSInteger)delta {
 	if (!lineInput) {
 		return;
 	}
@@ -439,8 +438,8 @@
 
 	// Check for any newlines in the input, and generate an event if we find one
 	// We only process one line at a time
-	NSString* string = [[textView textStorage] string];
-	int pos;
+	NSString* string = [textStorage string];
+	NSInteger pos;
 	
 	for (pos = inputPos; pos < [string length]; pos++) {
 		unichar chr = [string characterAtIndex: pos];
@@ -451,18 +450,18 @@
 			
 			// Generate the event, then...
 			GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
-										  windowIdentifier: [self identifier]
-													  val1: (int) [inputLine length]
+										  windowIdentifier: [self glkIdentifier]
+													  val1: (int)[inputLine length]
 													  val2: 0];
 			[evt setLineInput: inputLine];
 			
 			// ... send it
-			[target queueEvent: [evt autorelease]];
+			[target queueEvent: evt];
 			
 			// Add to the line history
 			[[self containingView] resetHistoryPosition];
 			[[self containingView] addHistoryItem: inputLine
-								  forWindowWithId: [self identifier]];
+								  forWindowWithId: [self glkIdentifier]];
 			
 			// Move the input position
 			inputPos = pos+1;
@@ -504,8 +503,7 @@
 }
 
 - (void) makeTextEditable {
-
-    // setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
+	// setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
 	// in the process of flushing. This call defers the request.
 	
 	// If the request is already pending, then there's nothing to do
@@ -543,7 +541,7 @@
 }
 
 - (void) makeTextNonEditable {
-    // setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
+	// setEditable: sometimes causes layout of the window, which results in an exception if the buffer is
 	// in the process of flushing. This call defers the request.
 	
 	// If the request is already pending, then there's nothing to do
@@ -594,7 +592,7 @@
 	// be added to the buffer (generating an immediate event)
 	//
 	// This allows us to successfully copy+paste lines of text and have things look like they're working OK
-	[[NSRunLoop currentRunLoop] performSelector: @selector(textStorageDidProcessEditing:)
+	[[NSRunLoop currentRunLoop] performSelector: @selector(hackTextStorageDidProcessEditing:)
 										 target: self
 									   argument: nil 
 										  order: 32
@@ -617,7 +615,7 @@
 		
 		return [[textStorage string] substringWithRange: NSMakeRange(inputPos, [textStorage length] - inputPos)];
 	}
-
+	
 	return @"";
 }
 
@@ -643,47 +641,43 @@
 	[super cancelCharInput];
 }
 
-// = Streaming =
+#pragma mark - Streaming
 
 - (void) putString: (in bycopy NSString*) string {
-
-    NSAttributedString* atStr = [[NSAttributedString alloc] initWithString: string
+	NSAttributedString* atStr = [[NSAttributedString alloc] initWithString: string
 																attributes: [self currentTextAttributes]];
 	
-	int insertionPos = inputPos;
+	NSInteger insertionPos = inputPos;
 	inputPos += [atStr length];
 	[[textView textStorage] insertAttributedString: atStr
 										   atIndex: insertionPos];
 
-	[atStr release];
-
-	float sb = [preferences scrollbackLength];
+	CGFloat sb = [preferences scrollbackLength];
 	if (sb < 100.0) {
 		// Number of characters to preserve (4096 -> 1 million)
-		int len = (int) [[textView textStorage] length];
-		float preserve = 4096.0 + powf(sb*10.0, 2);
+		NSInteger len = [[textView textStorage] length];
+		CGFloat preserve = 4096.0 + pow(sb * 10.0, 2.0);
 
 		if (len > ((int)preserve + 2048)) {
 			// Need to truncate
-			[[textView textStorage] deleteCharactersInRange: NSMakeRange(0, len - preserve)];
-			inputPos -= len-preserve;
+			[[textView textStorage] deleteCharactersInRange: NSMakeRange(0, (NSInteger)(len - preserve))];
+			inputPos -= (NSInteger)(len-preserve);
 		}
 	}
 	
-	if (inputPos > [[textView textStorage] length]) inputPos = (int) [[textView textStorage] length];			// Shouldn't happen, but does for reasons that probably make sense to someone
+	if (inputPos > [[textView textStorage] length]) inputPos = [[textView textStorage] length];			// Shouldn't happen, but does for reasons that probably make sense to someone
 }
 
-// = Graphics =
+#pragma mark - Graphics
 
 - (void) addImage: (NSImage*) image
 	withAlignment: (unsigned) alignment
 			 size: (NSSize) sz {
-
-    // Construct the GlkImage object
+	// Construct the GlkImage object
 	GlkImage* newImage = [[GlkImage alloc] initWithImage: image
 											   alignment: alignment
 													size: sz
-												position: (int) [textStorage length]];
+												position: (int)[textStorage length]];
 	
 	// Add a suitable control character to the text
 	unichar imageChar = 11;
@@ -692,12 +686,13 @@
 	
 	// Construct the attributes that describe this image
 	NSMutableDictionary* imageDict = [[self currentTextAttributes] mutableCopy];
-	imageDict[GlkCustomSectionAttributeName] = [newImage autorelease];
-	NSAttributedString* imageAttributedString = [[[NSAttributedString alloc] initWithString: imageString
-																				 attributes: [imageDict autorelease]] autorelease];
+	[imageDict setObject: newImage
+				  forKey: GlkCustomSectionAttributeName];
+	NSAttributedString* imageAttributedString = [[NSAttributedString alloc] initWithString: imageString
+																				attributes: imageDict];
 	
 	// Append the image to the text storage object
-	int insertionPos = inputPos;
+	NSInteger insertionPos = inputPos;
 	inputPos += [imageAttributedString length];
 	[[textView textStorage] insertAttributedString: imageAttributedString
 										   atIndex: insertionPos];
@@ -711,22 +706,22 @@
 													length: 1];
 	
 	// Construct the attributes that describe this clear margins character
-	NSDictionary* clearDict = @{GlkCustomSectionAttributeName: [clear autorelease]};
-	NSAttributedString* clearAttributedString = [[[NSAttributedString alloc] initWithString: clearString
-																				 attributes: clearDict] autorelease];
+	NSDictionary* clearDict = @{GlkCustomSectionAttributeName: clear};
+	NSAttributedString* clearAttributedString = [[NSAttributedString alloc] initWithString: clearString
+																				attributes: clearDict];
 	
 	// Append the clear margins object to the text storage object
-	int insertionPos = inputPos;
+	NSInteger insertionPos = inputPos;
 	inputPos += [clearAttributedString length];
 	[[textView textStorage] insertAttributedString: clearAttributedString
 										   atIndex: insertionPos];
 	
 	// Add a newline (GlkAlignTop will normally force the following line to the bottom of the current margn images)
-	// TODO: Put this in a very tiny font inc ase there's no flow to break
+	// TODO: Put this in a very tiny font in case there's no flow to break
 	[self putString: @"\n"];
 }
 
-// = Resizing and the more prompt =
+#pragma mark - Resizing and the more prompt
 
 - (void) positionMoreWindow {
 	// Work out the frame of this view, in screen coordinates
@@ -776,7 +771,7 @@
 	if ([[textView textStorage] length] <= 0) return;
     NSRange endGlyph = [textView selectionRangeForProposedRange: NSMakeRange([[textView textStorage] length]-1, 1)
                                                     granularity: NSSelectByCharacter];
-    if (endGlyph.location > 0xf0000000) {
+    if (endGlyph.location == NSNotFound) {
 		if (wasFlushing) {
 			[[textView textStorage] beginEditing];
 			flushing = YES;
@@ -800,11 +795,11 @@
 	}
 }
 
-- (float) currentMoreState {
-	float percent = 1.0;
+- (CGFloat) currentMoreState {
+	CGFloat percent = 1.0;
 	
 	if (whenMoreShown != nil) {
-		percent = [[NSDate date] timeIntervalSinceDate: whenMoreShown]/MoreAnimationTime;
+		percent = (CGFloat)([[NSDate date] timeIntervalSinceDate: whenMoreShown]/MoreAnimationTime);
 	}
 	
 	if (percent < 0) percent = 0;
@@ -824,13 +819,12 @@
 
 - (void) animateMore {
 	// Update the window alpha
-	float newMoreState = [self currentMoreState];
+	CGFloat newMoreState = [self currentMoreState];
 	[moreWindow setAlphaValue: newMoreState];
 	
 	// Stop the timer, if necessary
 	if (newMoreState == finalMoreState || newMoreState < 0 || newMoreState > 1) {
 		[moreAnimationTimer invalidate];
-		[moreAnimationTimer release];
 		moreAnimationTimer = nil;
 	}
 }
@@ -851,15 +845,14 @@
 - (void) setMoreShown: (BOOL) isShown {
 	BOOL wasFlushing = flushing;
 	
-
-    if (wasFlushing) {
+	if (wasFlushing) {
 		flushing = NO;
 		[[textView textStorage] endEditing];
 	}
 
 	// Set the current/final state of the prompt appropriately
 	lastMoreState = [self currentMoreState];
-	float newState = isShown?1.0:0.0;
+	CGFloat newState = isShown?1.0:0.0;
 	
 	if (newState == finalMoreState) {
 		// Nothing to do
@@ -884,8 +877,7 @@
 	}
 	
 	// Set the time that we started animating
-	[whenMoreShown release];
-	whenMoreShown = [[NSDate date] retain];
+	whenMoreShown = [NSDate date];
 	
 	// Reposition the more window
 	[self positionMoreWindow];
@@ -893,13 +885,12 @@
 	
 	// Reset the timer
 	[moreAnimationTimer invalidate];
-	[moreAnimationTimer release];
 	
-	moreAnimationTimer = [[NSTimer scheduledTimerWithTimeInterval: 0.01
-														   target: self
-														 selector: @selector(animateMore)
-														 userInfo: nil
-														  repeats: YES] retain];
+	moreAnimationTimer = [NSTimer scheduledTimerWithTimeInterval: 0.01
+														  target: self
+														selector: @selector(animateMore)
+														userInfo: nil
+														 repeats: YES];
 	
 	if (wasFlushing) {
 		flushing = YES;
@@ -921,7 +912,7 @@
 				   paging: NO];
 }
 
-- (void) resetMorePrompt: (int) moreChar
+- (void) resetMorePrompt: (NSInteger) moreChar
 				  paging: (BOOL) paging {
 	// Do nothing if the more prompt is turned off for this window
 	if (!hasMorePrompt) return;
@@ -938,7 +929,7 @@
 	}
 	
 	// Default is just to scroll forever
-	float maxHeight = 1e8;
+	CGFloat maxHeight = 1e8;
 	
 	// Get the visible rect of the current window
 	NSRect visibleRect = [textView visibleRect];
@@ -964,7 +955,7 @@
 
     NSRange endGlyph = [textView selectionRangeForProposedRange: NSMakeRange(moreChar, 1)
                                                     granularity: NSSelectByCharacter];
-    if (endGlyph.location > 0xf0000000) {
+    if (endGlyph.location == NSNotFound) {
 		NSSize containerSize = [[textView textContainer] containerSize];
 		nextMorePos = maxHeight;
 		[[textView textContainer] setContainerSize: NSMakeSize(containerSize.width, nextMorePos)];	
@@ -1043,10 +1034,10 @@
 	
 	// Reset the more prompt using the first unlaid character
 	NSRange glyphRange = [[textView layoutManager] glyphRangeForTextContainer: [textView textContainer]];
-	NSUInteger firstUnlaid = glyphRange.location + glyphRange.length;
+	NSInteger firstUnlaid = glyphRange.location + glyphRange.length;
 	firstUnlaid = [[textView layoutManager] characterRangeForGlyphRange: NSMakeRange(firstUnlaid-1, 1)
 													   actualGlyphRange: nil].location;
-	[self resetMorePrompt: (int) firstUnlaid
+	[self resetMorePrompt: firstUnlaid
 				   paging: YES];
 	
 	// Redisplay the more prompt if required
@@ -1058,82 +1049,40 @@
 	}
 }
 
-// = NSAccessibility =
+#pragma mark - NSAccessibility
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [super accessibilityIsAttributeSettable: attribute];;
+- (NSArray *)accessibilityContents {
+	return @[textView];
 }
 
-/*
-- (NSString *)accessibilityActionDescription: (NSString*) action {
-	if ([action isEqualToString: @"Repeat last command"])
-		return @"Read the output of the last command entered";
-
-	return [super accessibilityActionDescription: action];
+- (NSArray *)accessibilityChildren {
+	return @[textView];
 }
 
-- (NSArray *)accessibilityActionNames {
-	NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
-	
-	[result addObjectsFromArray:[NSArray arrayWithObjects: 
-		@"Read last command",
-		nil]];
-	
-	return [result autorelease];
+- (id)accessibilityParent {
+	return parentWindow;
 }
 
-- (void)accessibilityPerformAction:(NSString *)action {
-	NSLog(@"action");
-	return [super accessibilityPerformAction: action];
-}
-*/
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	// No settable attributes
-	return [super accessibilitySetValue: value
-						   forAttribute: attribute];
+- (NSString *)accessibilityRoleDescription {
+	if (!lineInput && !charInput) return @"Text window";
+	return [NSString stringWithFormat: @"GLK text window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
 }
 
-- (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
-	if (!result) result = [[NSMutableArray alloc] init];
-	
-	[result addObjectsFromArray:@[NSAccessibilityContentsAttribute,
-		NSAccessibilityHelpAttribute]];
-	
-	return [result autorelease];
+- (BOOL)isAccessibilityFocused {
+	return NO;
+	/* return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
+		[[self window] firstResponder] == textView]; */
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityContentsAttribute]) {
-		return textView;
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		//return parentWindow;
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!lineInput && !charInput) return @"Text window";
-		return [NSString stringWithFormat: @"GLK text window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
-		return NO;
-		/* return [NSNumber numberWithBool: [[self window] firstResponder] == self ||
-			[[self window] firstResponder] == textView]; */
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
-		return [self accessibilityFocusedUIElement];
-	} else if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		return @[textView];
-	}
-		
-	return [super accessibilityAttributeValue: attribute];
-}
+//- (id)accessibilityFocusedUIElement {
+//	return [self accessibilityFocusedUIElement];
+//}
 
 - (id)accessibilityFocusedUIElement {
 	return textView;
 }
 
-- (BOOL)accessibilityIsIgnored {
-	return NO;
-}
-
+#pragma mark -
 - (void) hideMoreWindow {
     [[moreWindow parentWindow] removeChildWindow: moreWindow];
     [moreWindow orderOut: self];

@@ -8,19 +8,32 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomView.h"
-#import "ZoomUpperWindowView.h"
+#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomUpperWindowView.h>
 
 @class ZoomView;
 @class ZoomUpperWindowView;
-@interface ZoomScrollView : NSScrollView
+@interface ZoomScrollView : NSScrollView {
+    __weak ZoomView*            zoomView;
+    ZoomUpperWindowView* upperView;
+        
+    NSBox* upperDivider;
+	
+	CGFloat scaleFactor;
+	
+	NSSize lastFixedSize;
+	NSSize lastTileSize;
+	int lastUpperSize;
+	
+	BOOL useDivider;
+}
 
-- (instancetype) initWithFrame: (NSRect) frame
+- (id) initWithFrame: (NSRect) frame
             zoomView: (ZoomView*) zView;
 
-- (void) setScaleFactor: (float) factor;
+@property (nonatomic) CGFloat scaleFactor;
 - (void) updateUpperWindows;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomUpperWindowView *upperWindowView;
+@property (readonly, strong) ZoomUpperWindowView *upperWindowView;
 
 - (BOOL) setUseUpperDivider: (BOOL) useDivider;
 

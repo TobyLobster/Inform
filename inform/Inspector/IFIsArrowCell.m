@@ -80,7 +80,7 @@ static NSImage* arrow3;
 		
 	[img drawInRect: cellFrame
 		   fromRect: imgRect
-		  operation: NSCompositeSourceOver
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0
      respectFlipped: [[self controlView] isFlipped]
               hints: nil];

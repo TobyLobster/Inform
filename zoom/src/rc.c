@@ -134,12 +134,12 @@ void rc_set_game(char* serial, int revision, int checksum)
   char hash[40];
 
   sprintf(hash, "%i.%.6s.%04x", revision, serial, (unsigned)checksum);
-  game = hash_get(rc_hash, (unsigned char*)hash, (int) strlen(hash));
+  game = hash_get(rc_hash, (unsigned char*)hash, (int)strlen(hash));
 
   if (game == NULL)
     {
       sprintf(hash, "%i.%.6s", revision, serial);
-      game = hash_get(rc_hash, (unsigned char*)hash, (int) strlen(hash));
+      game = hash_get(rc_hash, (unsigned char*)hash, (int)strlen(hash));
     }
   if (game == NULL)
     game = hash_get(rc_hash, (unsigned char*)"default", 7);
@@ -156,7 +156,7 @@ char* rc_get_game_name(char* serial, int revision)
   rc_game* game;
 
   sprintf(hash, "%i.%.6s", revision, serial);
-  game = hash_get(rc_hash, (unsigned char*)hash, (int) strlen(hash));
+  game = hash_get(rc_hash, (unsigned char*)hash, (int)strlen(hash));
   if (game == NULL)
     return NULL;
   return game->name;
@@ -266,9 +266,9 @@ char* rc_get_savedir(void)
 
 	  if (dir == NULL && machine.story_file != NULL)
 	    {
-	      int x;
+	      ssize_t x;
 
-	      for (x=(int) strlen(machine.story_file)-1;
+	      for (x=strlen(machine.story_file)-1;
 		   x>0 && machine.story_file[x] != '/'; 
 		   x--);
 

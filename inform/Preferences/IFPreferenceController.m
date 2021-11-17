@@ -36,7 +36,7 @@
 	NSRect mainScreenRect = [[NSScreen mainScreen] frame];
 	
 	self = [super initWithWindow: [[NSWindow alloc] initWithContentRect: NSMakeRect(NSMinX(mainScreenRect)+200, NSMaxY(mainScreenRect)-400, 512, 300) 
-															   styleMask: NSTitledWindowMask|NSClosableWindowMask|NSMiniaturizableWindowMask
+															   styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskMiniaturizable
 																 backing: NSBackingStoreBuffered 
 																   defer: YES]];
 	

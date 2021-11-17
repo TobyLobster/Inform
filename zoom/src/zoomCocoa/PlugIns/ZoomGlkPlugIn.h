@@ -16,14 +16,23 @@
 /// Base class for plugins that provide a Glk-based interpreter.
 ///
 @interface ZoomGlkPlugIn : ZoomPlugIn {
-	ZoomGlkDocument* document;										// Constructed on demand
+	//! Constructed on demand
+	ZoomGlkDocument* document;
 	
-	NSString* clientPath;											// Path to the client application
-	NSString* preferredSaveDir;										// Place to put save files
+	//! Path to the client application
+	NSString* clientPath;
+	//! Place to put save files
+	NSURL* preferredSaveDir;
 }
 
 // Configuring the client
-- (void) setClientPath: (NSString*) clientPath;						// Selects which GlkClient executable to run
-- (NSImage*) logo;													// If non-nil, sets the logo to display for this game
+//! Selects which GlkClient executable to run
+- (void) setClientPath: (NSString*) clientPath;
+//! If non-nil, sets the logo to display for this game
+- (NSImage*) logo;
+
+@property (copy) NSString *clientPath;
+
+@property (copy) NSURL *preferredSaveDirectoryURL;
 
 @end

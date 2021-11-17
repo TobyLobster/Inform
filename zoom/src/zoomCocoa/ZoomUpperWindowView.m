@@ -11,9 +11,9 @@
 
 @implementation ZoomUpperWindowView
 
-- (instancetype)initWithFrame: (NSRect)frame
-                     zoomView: (ZoomView*) view {
-    self = [super initWithFrame: frame];
+- (id)initWithFrame:(NSRect)frame
+           zoomView:(ZoomView*) view {
+    self = [super initWithFrame:frame];
     if (self) {
         zoomView = view;
 		
@@ -27,32 +27,25 @@
 
 - (void) dealloc {
 	[cursor setDelegate: nil];
-	[cursor release];
-	
-	[super dealloc];
 }
 
 - (void)drawRect:(NSRect)rect {
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
+						@{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
     
-    NSEnumerator* upperEnum;
     int ypos = 0;
-	float width = [self bounds].size.width;
-
-    upperEnum = [[zoomView upperWindows] objectEnumerator];
+	CGFloat width = [self bounds].size.width;
 
     // Draw each window in turn
-    ZoomUpperWindow* win;
-    while (win = [upperEnum nextObject]) {
-        int y;
+    for (ZoomUpperWindow* win in [zoomView upperWindows]) {
+        NSInteger y;
 
         // Get the lines from the window
         NSArray* lines = [win lines];
 
         // Work out how many to draw
-        int maxY = [win length];
-        if (maxY > (int) [lines count]) maxY = (int) [lines count];
+        NSInteger maxY = [win length];
+        if (maxY > [lines count]) maxY = [lines count];
 
         // Fill in the background
         NSRect winRect = NSMakeRect(0,
@@ -64,7 +57,7 @@
         
         // Draw 'em
         for (y=0; y<maxY; y++) {
-            NSMutableAttributedString* line = lines[y];
+            NSMutableAttributedString* line = [lines objectAtIndex: y];
 
 			// Only draw the lines that we actually need to draw: keeps the processor usage down when
 			// flashing the cursor
@@ -88,7 +81,7 @@
     return YES;
 }
 
-// = Flashing the cursor =
+#pragma mark - Flashing the cursor
 
 - (NSPoint) cursorPos {
 	// NOTE: will break in v3 games that get input in the upper window. Luckily, none exist.
@@ -102,7 +95,7 @@
 	NSPoint cp = [activeWindow cursorPosition];
 		
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
+						@{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
 	
 	return NSMakePoint(cp.x * fixedSize.width, cp.y * fixedSize.height);
 }
@@ -116,20 +109,17 @@
 	}
 	
 	// Font size
-	NSFont* font = [zoomView fontWithStyle: ZFixedStyle];
+	NSFont* font = [zoomView fontFromStyle: ZFontStyleFixed];
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
+						@{NSFontAttributeName: font}];
 	
 	// Get the cursor position
 	NSPoint cursorPos = [activeWindow cursorPosition];
 	int xp = cursorPos.x;
 	int yp = cursorPos.y;
 
-    NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-	
-    ZoomUpperWindow* win;
 	int startY = 0;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in zoomView.upperWindows) {
 		if (win == activeWindow) {
 			// Position the cursor
 			[cursor positionAt: NSMakePoint(fixedSize.width * xp, fixedSize.height * (yp + startY))
@@ -142,7 +132,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-- (void) blinkCursor: (ZoomCursor*) sender {
+- (void) blinkCursor: (__unused ZoomCursor*) sender {
 	// Draw the cursor
 	[self setNeedsDisplay: YES];
 	// [self setNeedsDisplayInRect: [cursor cursorRect]]; -- FAILS, for some reason the window does not get redrawn correctly
@@ -163,7 +153,7 @@
 	[super mouseUp: evt];
 }
 
-// = Input line =
+#pragma mark - Input line
 
 - (void) activateInputLine {
 	ZoomUpperWindow* activeWindow = (ZoomUpperWindow*)[zoomView focusedView];
@@ -173,11 +163,10 @@
 		return;
 	}
 
-	// FOXME: send input styles over from the server
+	// FIXME: send input styles over from the server
 	ZStyle* style = [activeWindow inputStyle];
 	if (style == nil) {
 		style = [[ZStyle alloc] init];
-		[style autorelease];
 		
 		[style setFixed: YES];
 		[style setReversed: YES];
@@ -187,9 +176,9 @@
 	NSDictionary* styleAttributes = [zoomView attributesForStyle: style];
 
 	[cursor positionAt: [self cursorPos]
-			  withFont: [zoomView fontWithStyle: ZFixedStyle]];
+			  withFont: [zoomView fontFromStyle: ZFontStyleFixed]];
 	inputLinePos = [self cursorPos];
-	inputLinePos.y -= [styleAttributes[NSFontAttributeName] descender];
+	inputLinePos.y -= [[styleAttributes objectForKey: NSFontAttributeName] descender];
 	
 	if (!inputLine) {
 		inputLine = [[ZoomInputLine alloc] initWithCursor: cursor
@@ -204,7 +193,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-- (void) inputLineHasChanged: (ZoomInputLine*) sender {
+- (void) inputLineHasChanged: (__unused ZoomInputLine*) sender {
 	[self setNeedsDisplay: YES];
 }
 
@@ -214,7 +203,6 @@
 	[cursor setShown: NO];
 	
 	if (sender == inputLine) {
-		[inputLine release];
 		inputLine = nil;
 	}
 }
@@ -237,74 +225,47 @@
 	return inputLine != nil;
 }
 
-// = Updating the cursor =
+#pragma mark - Updating the cursor
 
-- (void) windowDidBecomeKey: (NSNotification*) not {
+- (void) windowDidBecomeKey: (__unused NSNotification*) not {
 	if (cursor) {
 		[cursor setActive: YES];
 	}
 }
 
-- (void) windowDidResignKey: (NSNotification*) not {
+- (void) windowDidResignKey: (__unused NSNotification*) not {
 	if (cursor) {
 		[cursor setActive: NO];
 	}
 }
 
-// = Accessibility =
+#pragma mark - Accessibility
 
-
-- (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[super accessibilityAttributeNames] mutableCopy];
+- (NSString *)accessibilityValue
+{
+	NSMutableString* status = [NSMutableString string];
 	
-	[result addObjectsFromArray:@[NSAccessibilityRoleDescriptionAttribute,
-								 NSAccessibilityTitleAttribute]];
-	
-	return [result autorelease];
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityTitleAttribute]) {
-		NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-		NSMutableString* status = [NSMutableString string];
-		
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
-			NSArray* lines = [win lines];
-			NSEnumerator* linesEnum = [lines objectEnumerator];
-			NSMutableAttributedString* lineText;
-			while (lineText = [linesEnum nextObject]) {
-				[status appendString: [lineText string]];
-				[status appendString: @" "];
-			}
+	for (ZoomUpperWindow* win in [zoomView upperWindows]) {
+		for (NSMutableAttributedString* lineText in [win lines]) {
+			[status appendString: [lineText string]];
+			[status appendString: @" "];
 		}
-		
-		return status;
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-		NSMutableString* status = [NSMutableString string];
-		
-		ZoomUpperWindow* win;
-		while (win = [upperEnum nextObject]) {
-			NSArray* lines = [win lines];
-			NSEnumerator* linesEnum = [lines objectEnumerator];
-			NSMutableAttributedString* lineText;
-			while (lineText = [linesEnum nextObject]) {
-				[status appendString: [lineText string]];
-				[status appendString: @"%@"];
-			}
-		}
-
-		return [NSString stringWithFormat: @"Status bar"];
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		return zoomView;
 	}
 	
-	return [super accessibilityAttributeValue: attribute];
+	return [status copy];
 }
 
-- (BOOL)accessibilityIsIgnored {
-	return NO;
+- (NSString *)accessibilityRoleDescription {
+	return @"Status bar";
+}
+
+- (id)accessibilityParent
+{
+	return zoomView;
+}
+
+- (BOOL)isAccessibilityElement {
+	return YES;
 }
 
 @end

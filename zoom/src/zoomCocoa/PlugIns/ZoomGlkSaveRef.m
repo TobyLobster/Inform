@@ -10,10 +10,11 @@
 #import "ZoomSkein.h"
 #import <GlkView/GlkFileRef.h>
 #import <GlkView/GlkFileStream.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomGlkSaveRef
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) initWithPlugIn: (ZoomPlugIn*) newPlugin
 				 path: (NSString*) newPath {
@@ -28,57 +29,46 @@
 		}
 			
 		if (![[[newPath pathExtension] lowercaseString] isEqualToString: @"glksave"] || !isDir) {
-			[self autorelease];
-			return [[GlkFileRef alloc] initWithPath: path];
+			return (id)[[GlkFileRef alloc] initWithPath: [NSURL fileURLWithPath:path]];
 		}
 		
 		// Set up the plugin and path for this object
-		plugin = [newPlugin retain];
+		plugin = newPlugin;
 		path = [newPath copy];
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[delegate release];
-	[skein release];
-	[preview release];
-	[plugin release];
-	[path release];
-	
-	[super dealloc];
-}
-
-// = Creating the glksave package =
+#pragma mark - Creating the glksave package
 
 - (BOOL) createSavePackage {
 	// Constructs a save package at the specified path
-	NSString* error;
+	NSError* error;
 	
 	// Build the property list wrapper
 	NSDictionary* saveProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-		[plugin gameFilename], @"ZoomGlkGameFileName",
+		[plugin gameURL].path, @"ZoomGlkGameFileName",
 		[[plugin idForStory] description], @"ZoomGlkGameId",
 		[[plugin class] pluginDescription], @"ZoomGlkPluginDescription",
 		[[plugin class] pluginAuthor], @"ZoomGlkPluginAuthor",
 		[[plugin class] pluginVersion], @"ZoomGlkPluginVersion",
 		nil];
-	NSData* savePropertyList = [NSPropertyListSerialization dataFromPropertyList: saveProperties
+	NSData* savePropertyList = [NSPropertyListSerialization dataWithPropertyList: saveProperties
 																		  format: NSPropertyListXMLFormat_v1_0
-																errorDescription: &error]; 
+																		 options: 0
+																error: &error];
 	if (error) {
-		[error release];
 		error = nil;
 	}
 	
-	NSFileWrapper* savePropertyWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: savePropertyList] autorelease];
+	NSFileWrapper* savePropertyWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: savePropertyList];
 	[savePropertyWrapper setPreferredFilename: @"Info.plist"];
 	
 	// Build the save game file itself
 	NSData* emptySaveGame = [NSData data];
 	
-	NSFileWrapper* saveGameWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: emptySaveGame] autorelease];
+	NSFileWrapper* saveGameWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: emptySaveGame];
 	[saveGameWrapper setPreferredFilename: @"Save.data"];
 	
 	// Build the skein data
@@ -87,7 +77,7 @@
 	if (skein) {
 		NSData* skeinData = [[skein xmlData] dataUsingEncoding: NSUTF8StringEncoding];
 		if (skeinData) {
-			skeinWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: skeinData] autorelease];
+			skeinWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: skeinData];
 			[skeinWrapper setPreferredFilename: @"Skein.skein"];
 		}
 	}
@@ -96,27 +86,24 @@
 	NSFileWrapper* previewWrapper = nil;
 	
 	if (preview) {
-		NSData* previewData = [NSPropertyListSerialization dataFromPropertyList: preview
+		NSData* previewData = [NSPropertyListSerialization dataWithPropertyList: preview
 																		 format: NSPropertyListXMLFormat_v1_0
-															   errorDescription: &error];
+																		options: 0
+															   error: &error];
 		if (error) {
-			[error release];
 			error = nil;
 		}
 		
 		if (previewData) {
-			previewWrapper = [[[NSFileWrapper alloc] initRegularFileWithContents: previewData] autorelease];
+			previewWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: previewData];
 			[previewWrapper setPreferredFilename: @"Preview.plist"];
 		}
 	}
 	
 	// Build the final save wrapper
-	NSFileWrapper* saveWrapper = [[[NSFileWrapper alloc] initDirectoryWithFileWrappers:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-			savePropertyWrapper, @"Info.plist",
-			saveGameWrapper, @"Save.data",
-			nil, nil]]
-		autorelease];
+	NSFileWrapper* saveWrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:@{
+		@"Info.plist": savePropertyWrapper,
+		@"Save.data": saveGameWrapper}];
 	
 	if (skeinWrapper) {
 		[saveWrapper addFileWrapper: skeinWrapper];
@@ -126,39 +113,39 @@
 	}
 	
 	// Write it out
-	if (![saveWrapper writeToFile: path
-					   atomically: YES
-				  updateFilenames: YES]) {
+	if (![saveWrapper writeToURL: [NSURL fileURLWithPath: path]
+						 options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
+			 originalContentsURL: nil
+						   error: NULL]) {
 		return NO;
 	}
 	
 	// Set the icon
 	NSImage* iconImage = [plugin coverImage];
-	if (iconImage && [[NSWorkspace sharedWorkspace] respondsToSelector: @selector(setIcon:forFile:options:)]) {
+	if (iconImage) {
 		NSImage* originalImage = [[NSWorkspace sharedWorkspace] iconForFileType: @"glksave"];
 		NSImage* newImage = [[NSImage alloc] initWithSize: NSMakeSize(128, 128)];
 		
 		// Pick the 128x128 representation of the original
 		NSEnumerator* originalImageRepEnum = [[originalImage representations] objectEnumerator];
 		NSImageRep* rep;
-		while (rep = [originalImageRepEnum nextObject]) {
+		for (rep in originalImageRepEnum) {
 			if ([rep size].width >= 128.0) break;
 		}
 		
 		if (rep != nil) {
-			originalImage = [[[NSImage alloc] init] autorelease];
+			originalImage = [[NSImage alloc] init];
 			[originalImage addRepresentation: rep];
 		}
 		
 		NSSize iconSize = [iconImage size];
-		NSSize originalSize = [originalImage size];
 		
 		// Set the background for the image
 		[newImage lockFocus];
 		[[NSColor clearColor] set];
 		NSRectFill(NSMakeRect(0,0,128,128));
 		
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (originalImage == nil || iconSize.width > 256 || iconSize.height > 256) {
 			// Just use the cover image as the image for this save game
@@ -167,8 +154,8 @@
 			// Use a combined icon for this save game
 			scaleFactor = 64.0;
 			[originalImage drawInRect: NSMakeRect(0,0,128,128)
-							 fromRect: NSMakeRect(0,0,originalSize.width,originalSize.height)
-							operation: NSCompositeSourceOver
+							 fromRect: NSZeroRect
+							operation: NSCompositingOperationSourceOver
 							 fraction: 1.0];
 		}
 		
@@ -182,8 +169,8 @@
 		NSSize newSize = NSMakeSize(iconSize.width * scaleFactor, iconSize.height * scaleFactor);
 		
 		[iconImage drawInRect: NSMakeRect(64-newSize.width/2, 64-newSize.height/2, newSize.width, newSize.height)
-					 fromRect: NSMakeRect(0,0, iconSize.width, iconSize.height)
-					operation: NSCompositeSourceOver
+					 fromRect: NSZeroRect
+					operation: NSCompositingOperationSourceOver
 					 fraction: 1.0];
 		
 		// Finish up
@@ -199,37 +186,26 @@
 	return YES;
 }
 
-// = Properties =
+#pragma mark - Properties
 
-- (void) setDelegate: (id) newDelegate {
-	[delegate release];
-	delegate = [newDelegate retain];
-}
+@synthesize delegate;
 
 - (void) setPreview: (NSArray*) newPreview {
-	[preview release];
 	preview = [[NSArray alloc] initWithArray: newPreview
 								   copyItems: YES];
 }
 
-- (void) setSkein: (ZoomSkein*) newSkein {
-	[skein release];
-	skein = [newSkein retain];
-}
-
-- (ZoomSkein*) skein {
-	return skein;
-}
+@synthesize skein;
 	
-// = GlkFileRef implementation =
+#pragma mark - GlkFileRef implementation
 
-- (NSObject<GlkStream>*) createReadOnlyStream {
+- (byref id<GlkStream>) createReadOnlyStream {
 	// Load the skein from the path if it exists
 	NSString* skeinPath = [path stringByAppendingPathComponent: @"Skein.skein"];
 	if ([[NSFileManager defaultManager] fileExistsAtPath: skeinPath]) {
 		if (!skein) skein = [[ZoomSkein alloc] init];
 		
-		[skein parseXmlData: [NSData dataWithContentsOfFile: skeinPath]];
+		[skein parseXMLContentsAtURL: [NSURL fileURLWithPath: skeinPath] error: NULL];
 	}
 	
 	// Inform the delegate we're about to start reading
@@ -240,21 +216,21 @@
 	// Create a read-only stream
 	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 	
-	return [stream autorelease];			
+	return stream;
 }
 
-- (NSObject<GlkStream>*) createWriteOnlyStream {
+- (byref id<GlkStream>) createWriteOnlyStream {
 	if ([self createSavePackage]) {
 		GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 		
-		return [stream autorelease];		
+		return stream;
 	}
 	
 	// Couldn't (re)create the file
 	return nil;
 }
 
-- (NSObject<GlkStream>*) createReadWriteStream {
+- (byref id<GlkStream>) createReadWriteStream {
 	NSLog(@"WARNING: Save game files should not be opened read/write");
 	
 	// Try creating the savegame file
@@ -265,24 +241,18 @@
 	// Construct a read/write stream
 	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: [path stringByAppendingPathComponent: @"Save.data"]];
 	
-	return [stream autorelease];			
+	return stream;			
 }
 
 - (void) deleteFile {
-	[[NSFileManager defaultManager] removeFileAtPath: path 
-											 handler: nil];	
+	[[NSFileManager defaultManager] removeItemAtPath: path
+											   error: NULL];	
 }
 
 - (BOOL) fileExists {
 	return [[NSFileManager defaultManager] fileExistsAtPath: path];	
 }
 
-- (BOOL) autoflushStream {
-	return autoflush;
-}
-
-- (void) setAutoflush: (BOOL) newAutoflush {
-	autoflush = newAutoflush;
-}
+@synthesize autoflushStream = autoflush;
 
 @end

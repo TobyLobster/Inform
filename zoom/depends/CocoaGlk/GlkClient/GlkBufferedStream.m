@@ -12,9 +12,9 @@
 
 @implementation GlkBufferedStream
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (id) initWithStream: (NSObject<GlkStream>*) newSourceStream {
+- (id) initWithStream: (id<GlkStream>) newSourceStream {
 	self = [super init];
 	
 	if (self) {
@@ -39,7 +39,7 @@
 	[super dealloc];
 }
 
-// = Buffering =
+#pragma mark - Buffering
 
 - (void) setReadAhead: (int) newReadAhead {
 	if (bufferRemaining == readAhead) {
@@ -63,8 +63,8 @@
 	}
 	
 	// Fill from high tide to the end of the buffer
-	int remaining = (int) [fillData length];
-	int toCopy = remaining;
+	NSInteger remaining = [fillData length];
+	NSInteger toCopy = remaining;
 	
 	if (highTide + toCopy >= readAhead) toCopy = readAhead-highTide;
 	
@@ -89,7 +89,7 @@
 	return YES;
 }
 
-// = GlkStream implementation =
+#pragma mark - GlkStream implementation
 
 // Control
 
@@ -101,8 +101,8 @@
 	bufferRemaining = readAhead;
 }
 
-- (void) setPosition: (in int) position
-		  relativeTo: (in enum GlkSeekMode) seekMode {
+- (void) setPosition: (in NSInteger) position
+		  relativeTo: (in GlkSeekMode) seekMode {
 	// Work out the target position
 	if (seekMode == GlkSeekCurrent) {
 		position -= (readAhead-bufferRemaining);
@@ -121,7 +121,7 @@
 	[self fillBuffer];
 }
 
-- (unsigned) getPosition {
+- (unsigned long long) getPosition {
 	return [sourceStream getPosition] - (readAhead-bufferRemaining);
 }
 
@@ -151,11 +151,11 @@
 	return bytes[0];
 }
 
-- (bycopy NSString*) getLineWithLength: (int) maxLen {
+- (bycopy NSString*) getLineWithLength: (NSInteger) maxLen {
 	NSMutableString* res = [NSMutableString string];
 	
 	unichar ch;
-	int len = 0;
+	NSInteger len = 0;
 	do {
 		ch = [self getChar];
 		
@@ -173,7 +173,7 @@
 	return res;
  }
 
-- (bycopy NSData*) getBufferWithLength: (unsigned) length {
+- (bycopy NSData*) getBufferWithLength: (NSUInteger) length {
 	// Return nothing if there's nothing in the buffer and we can't fill it up
 	if (bufferRemaining == readAhead && ![self fillBuffer]) {
 		return nil;
@@ -181,11 +181,11 @@
 	
 	// Keep reading bytes until we run out of buffer
 	NSMutableData* result = [[[NSMutableData alloc] init] autorelease];
-	int toRead = length;
+	NSInteger toRead = length;
 	
 	while (bufferRemaining != readAhead && toRead > 0) {
 		// Work out how much to read this pass through
-		int thisPass = toRead;
+		NSInteger thisPass = toRead;
 		
 		if (lowTide + thisPass > readAhead) {
 			thisPass = readAhead - lowTide;

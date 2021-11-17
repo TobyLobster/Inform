@@ -16,10 +16,8 @@
 @end
 
 @interface ZoomCollapsingSplitView : NSSplitView 
-{
-}
 
-- (float)getSplitPercentage;
-- (void)resizeSubviewsToPercentage:(float)splitPercentage;
+- (CGFloat)getSplitPercentage;
+- (void)resizeSubviewsToPercentage:(CGFloat)splitPercentage;
 
 @end

@@ -382,7 +382,7 @@ void stream_printf(const char* const f, ...)
   vsprintf(string, f, ap);
   va_end(ap);
 
-  buf = malloc(sizeof(int)*(strlen(string)+1));
+  buf = malloc(sizeof(unsigned int)*(strlen(string)+1));
   for (x=0; string[x] != 0; x++)
     buf[x] = string[x];
   buf[x] = 0;

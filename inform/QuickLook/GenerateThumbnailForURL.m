@@ -121,7 +121,7 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	
 	// Draw 'Inform'
 	NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-	[centered setAlignment: NSCenterTextAlignment];
+	[centered setAlignment: NSTextAlignmentCenter];
 	[@"Inform" drawInRect: NSMakeRect(16, 32, size.width-32, 70)
 		   withAttributes: @{NSFontAttributeName: [NSFont boldSystemFontOfSize: 64],
 							NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0

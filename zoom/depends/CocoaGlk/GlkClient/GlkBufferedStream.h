@@ -6,11 +6,7 @@
 //  Copyright 2007 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #import "GlkStreamProtocol.h"
 
@@ -21,24 +17,33 @@
 /// This is only suitable for 8-bit streams.
 ///
 @interface GlkBufferedStream : NSObject<GlkStream> {
-	NSObject<GlkStream>* sourceStream;								// The stream that we're going to read from
+	/// The stream that we're going to read from
+	id<GlkStream> sourceStream;
 	
-	int readAhead;													// The amount to read ahead by
+	/// The amount to read ahead by
+	int readAhead;
 	
-	unsigned char* buffer;											// The buffer
-	BOOL eof;														// YES if the end of file has been reached
-	int lowTide;													// The buffer low tide mark
-	int highTide;													// The buffer high tide mark
-	int bufferRemaining;											// The amount of space left in the buffer
+	/// The buffer
+	unsigned char* buffer;
+	/// \c YES if the end of file has been reached
+	BOOL eof;
+	/// The buffer low tide mark
+	int lowTide;
+	/// The buffer high tide mark
+	int highTide;
+	/// The amount of space left in the buffer
+	int bufferRemaining;
 }
 
 // Initialisation
 
-- (id) initWithStream: (NSObject<GlkStream>*) sourceStream;
+- (instancetype) initWithStream: (id<GlkStream>) sourceStream;
 
 // Dealing with the buffer
 
-- (void) setReadAhead: (int) readAhead;								// Sets the read ahead (only has an effect when the buffer is empty)
-- (BOOL) fillBuffer;												// Fills the buffer
+/// Sets the read ahead (only has an effect when the buffer is empty)
+- (void) setReadAhead: (int) readAhead;
+/// Fills the buffer
+- (BOOL) fillBuffer;
 
 @end

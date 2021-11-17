@@ -6,9 +6,9 @@
 //  Copyright 2004 Andrew Hunter. All rights reserved.
 //
 
-#import <Carbon/Carbon.h>
-
 #import "ZoomTextToSpeech.h"
+
+#include <ApplicationServices/ApplicationServices.h>
 
 #undef UseCocoaSpeech
 
@@ -20,11 +20,14 @@ static SpeechChannel channel = nil;
 
 + (void) initialize {
 #ifndef UseCocoaSpeech
-	if (channel == nil) NewSpeechChannel(NULL, &channel);
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NewSpeechChannel(NULL, &channel);
+	});
 #endif
 }
 
-- (instancetype) init {
+- (id) init {
 #ifndef UseCocoaSpeech
 	if (channel == nil) return nil;
 #endif
@@ -42,20 +45,7 @@ static SpeechChannel channel = nil;
 	return self;
 }
 
-- (void) dealloc {
-	[text release];
-	[lastText release];
-	[skein release];
-	
-	if (synth) {
-		[synth stopSpeaking];
-		[synth release];
-	}
-	
-	[super dealloc];
-}
-
-// = Direct output =
+#pragma mark - Direct output
 
 - (void) inputCommand: (NSString*) command {
 	[text appendString: @"\n\n"];
@@ -63,24 +53,22 @@ static SpeechChannel channel = nil;
 	[text appendString: @"\n\n"];
 }
 
-- (void) inputCharacter: (NSString*) character {
+- (void) inputCharacter: (__unused NSString*) character {
 }
 
 - (void) outputText:     (NSString*) outputText {
 	[text appendString: outputText];
 }
 
-// = Status notifications =
+#pragma mark - Status notifications
 
 - (void) zoomWaitingForInput {
 	if (isImmediate) {
 		[self speak: text];		
 	}
 	
-	[lastText release];
 	lastText = [text copy];
 	
-	[text release];
 	text = [[NSMutableString alloc] init];
 	[self resetMoves];
 }
@@ -89,40 +77,38 @@ static SpeechChannel channel = nil;
 	[self zoomWaitingForInput];
 }
 
-// = Glk automation =
+#pragma mark - Glk automation
 
 
 // Notifications about events that have occured in the view (when using this automation object for output)
 
 - (void) receivedCharacters: (NSString*) characters					// Text has arrived at the specified text buffer window (from the game)
-					 window: (int) windowNumber
-				   fromView: (GlkView*) view {
+					 window: (__unused int) windowNumber
+				   fromView: (__unused GlkView*) view {
 	[text appendString: @"\n\n"];
 	[text appendString: characters];
 }
 
 - (void) userTyped: (NSString*) userInput							// The user has typed the specified string into the specified window (which is any window that is waiting for input)
-			window: (int) windowNumber
-		 lineInput: (BOOL) isLineInput
-		  fromView: (GlkView*) view {
+			window: (__unused int) windowNumber
+		 lineInput: (__unused BOOL) isLineInput
+		  fromView: (__unused GlkView*) view {
 	[text appendString: @"\n\n"];
 	[text appendString: userInput];
 	[text appendString: @"...\n"];
 }
 
-- (void) userClickedAtXPos: (int) xpos
-					  ypos: (int) ypos
-					window: (int) windowNumber
-				  fromView: (GlkView*) view {
+- (void) userClickedAtXPos: (__unused int) xpos
+					  ypos: (__unused int) ypos
+					window: (__unused int) windowNumber
+				  fromView: (__unused GlkView*) view {
 }
 
-- (void) viewWaiting: (GlkView*) view {
+- (void) viewWaiting: (__unused GlkView*) view {
 	[self zoomWaitingForInput];
 }
 
-- (void) setImmediate: (BOOL) immediateSpeech {
-	isImmediate = immediateSpeech;
-}
+@synthesize immediate=isImmediate;
 
 - (void) speakLastText {
 	if (lastText) {
@@ -134,11 +120,11 @@ static SpeechChannel channel = nil;
 
 - (void) speak: (NSString*) newText {
 #ifndef UseCocoaSpeech
-	char* buffer = NULL;
-	int bufLen = 0;
+	// TODO: Better iterating through string
+	NSMutableString* buffer = [NSMutableString string];
 	int x;
 	
-#define WriteBuffer(x) buffer = realloc(buffer, bufLen+1); buffer[bufLen++] = x;
+#define WriteBuffer(x) [buffer appendFormat:@"%C", (unichar)(x)]
 	
 	BOOL whitespace = YES;
 	BOOL newline = YES;
@@ -146,6 +132,12 @@ static SpeechChannel channel = nil;
 	
 	for (x=0; x<[newText length]; x++) {
 		unichar chr = [newText characterAtIndex: x];
+		
+		if (chr >= 127) {
+			whitespace = newline = punctuation = NO;
+			WriteBuffer(chr);
+			continue;
+		}
 		
 		if (chr != '\n' && chr != '\r' && (chr < 32 || chr >= 127)) chr = ' ';
 		
@@ -186,11 +178,8 @@ static SpeechChannel channel = nil;
 				WriteBuffer(chr);
 		}
 	}
-	WriteBuffer(0);
 	
-	SpeakBuffer(channel, buffer, bufLen-1, 0);
-	
-	free(buffer);
+	SpeakCFString(channel, (__bridge CFStringRef _Nonnull)(buffer), NULL);
 #else
 	[synth startSpeakingString: newText];
 #endif	
@@ -204,10 +193,7 @@ static SpeechChannel channel = nil;
 #endif
 }
 
-- (void) setSkein: (ZoomSkein*) newSkein {
-	[skein release];
-	skein = [newSkein retain];
-}
+@synthesize skein;
 
 - (BOOL) speakBehind: (int) position {
 	// Iterate up the skein until we get to the move we want
@@ -265,7 +251,7 @@ static SpeechChannel channel = nil;
 
 // Using this automation object for input
 
-- (void) viewIsWaitingForInput: (GlkView*) view {
+- (void) viewIsWaitingForInput: (__unused GlkView*) view {
 	[self zoomWaitingForInput];
 }
 

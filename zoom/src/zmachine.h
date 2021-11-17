@@ -212,7 +212,7 @@ typedef struct ZMachine
   ZByte*   dynamic_memory;
 
   ZFile*   file;
-  char*    story_file;
+  const char*story_file;
 
   ZByte* undo    [UNDO_LEVEL];
   ZDWord undo_len[UNDO_LEVEL];
@@ -301,13 +301,13 @@ typedef struct ZDictionary
   hash words;
 } ZDictionary;
 
-extern void  zmachine_load_story    (char* filename, ZMachine* machine);
+extern void  zmachine_load_story    (const char* filename, ZMachine* machine);
 extern void  zmachine_load_file     (ZFile* file, ZMachine* machine);
 extern void  zmachine_setup_header  (void);
 extern void  zmachine_resize_display(ZDisplay* dis);
-extern void  zmachine_fatal         (char* format, ...);
-extern void  zmachine_warning       (char* format, ...);
-extern void  zmachine_info          (char* format, ...);
+extern void  zmachine_fatal         (const char* format, ...) __dead2 __printflike(1, 2);
+extern void  zmachine_warning       (const char* format, ...) __printflike(1, 2);
+extern void  zmachine_info          (const char* format, ...) __printflike(1, 2);
 extern void  zmachine_mark_statusbar(void);
 extern char* zmachine_get_serial    (void);
 extern void  zmachine_dump_stack    (ZStack* stack);

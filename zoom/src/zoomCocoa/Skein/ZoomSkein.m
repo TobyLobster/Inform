@@ -9,24 +9,26 @@
 #define maxTempItems 30
 
 #import "ZoomSkein.h"
+#import "ZoomSkeinWeb.h"
 
-@interface ZoomSkeinInputSource : NSObject {
-	NSMutableArray* commandStack;
+@interface ZoomSkeinInputSource : NSObject <ZoomViewInputSource> {
+	NSMutableArray<NSString*>* commandStack;
 }
 
-- (void) setCommandStack: (NSMutableArray*) stack;
-- (NSString*) nextCommand;
+- (instancetype)initWithCommandStack: (NSArray<NSString*>*) stack;
 
 @end
 
-@implementation ZoomSkein
+@implementation ZoomSkein {
+	NSMutableString* currentOutput;
+}
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
 		rootItem = [[ZoomSkeinItem alloc] initWithCommand: @"- start -"];		
-		activeItem = [rootItem retain];
+		activeItem = rootItem;
 		currentOutput = [[NSMutableString alloc] init];
 		
 		[rootItem setTemporary: NO];
@@ -38,57 +40,34 @@
 	return self;
 }
 
-- (void) dealloc {
-	[activeItem release];
-	[rootItem release];
-	[currentOutput release];
-	
-	if (webData) [webData release];
-	
-	[super dealloc];
-}
+@synthesize rootItem;
+@synthesize activeItem;
 
-- (ZoomSkeinItem*) rootItem {
-	return rootItem;
-}
+#pragma mark - Notifications
 
-- (ZoomSkeinItem*) activeItem {
-	return activeItem;
-}
-
-- (void) setActiveItem: (ZoomSkeinItem*) active {
-	[activeItem release];
-	activeItem = [active retain];
-}
-
-// = Notifications =
-
-NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
+NSString* const ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 
 - (void) zoomSkeinChanged {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinChangedNotification
 														object: self];
 }
 
-// = Zoom output receiver =
+#pragma mark - Zoom output receiver
 
 - (void) inputCommand: (NSString*) command {
 	// Create/set the item to the appropraite item in the skein
 	ZoomSkeinItem* newItem = [activeItem addChild: [ZoomSkeinItem skeinItemWithCommand: command]];
-
+	
 	// Move the 'active' item
-	[activeItem release];
-	activeItem = [newItem retain];
-
+	activeItem = newItem;
+	
 	// Some values for this item
 	[activeItem setPlayed: YES];
-    [activeItem setChanged: NO];
 	[activeItem increaseTemporaryScore];
-
+	
 	// Create a buffer for any new output
-	if (currentOutput) [currentOutput release];
 	currentOutput = [[NSMutableString alloc] init];
-
+	
 	// Notify anyone who's watching that we've updated
 	[self zoomSkeinChanged];
 }
@@ -135,7 +114,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 									withString: [NSString stringWithCharacters: &key
 																		length: 1]];
 		
-		character = [newCharacter autorelease];
+		character = newCharacter;
 	}
 	
 	
@@ -146,10 +125,9 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	// Append this text to the current outout
 	[currentOutput appendString: outputText];
 
-	if ([currentOutput length] > 0) {
-		[activeItem setResult: currentOutput];
-        [self zoomSkeinChanged];
-	}
+	//if ([currentOutput length] > 0) {
+	//	[activeItem setResult: currentOutput];
+	//}
 }
 
 - (void) zoomWaitingForInput {
@@ -157,7 +135,6 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	if ([currentOutput length] > 0) {
 		[activeItem setResult: currentOutput];
 
-		[currentOutput release];
 		currentOutput = [[NSMutableString alloc] init];
 	}
 }
@@ -166,15 +143,14 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	[self zoomWaitingForInput];
 	
 	// Back to the top
-	[activeItem release];
-	activeItem = [rootItem retain];
+	activeItem = rootItem;
 	
 	[self zoomSkeinChanged];
 	
 	[self removeTemporaryItems: maxTempItems];
 }
 
-// = Creating a Zoom input receiver =
+#pragma mark - Creating a Zoom input receiver
 
 + (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
 						 toItem: (ZoomSkeinItem*) item2 {
@@ -183,7 +159,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	// item1 is not executed
 	if (item1 == nil || item2 == nil) return nil;
 	
-	NSMutableArray* commandsToExecute = [NSMutableArray array];
+	NSMutableArray<NSString*>* commandsToExecute = [NSMutableArray array];
 	ZoomSkeinItem* parent = item2;
 	
 	while (parent != item1) {
@@ -196,10 +172,9 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	}
 	
 	// commandsToExecute contains the list of commands we need to execute
-	ZoomSkeinInputSource* source = [[ZoomSkeinInputSource alloc] init];
+	ZoomSkeinInputSource* source = [[ZoomSkeinInputSource alloc] initWithCommandStack: commandsToExecute];
 	
-	[source setCommandStack: commandsToExecute];
-	return [source autorelease];
+	return source;
 }
 
 - (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
@@ -208,7 +183,7 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 										   toItem: item2];
 }
 
-// = Removing temporary items =
+#pragma mark - Removing temporary items
 
 - (void) removeTemporaryItems: (int) maxTemps {
 	//
@@ -230,14 +205,12 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 		[itemStack removeLastObject];
 		
 		// Add this item to the list of items in use
-		if ([item temporary]) {
+		if (item.temporary) {
 			[itemsInUse addObject: @([item temporaryScore])];
 		}
 		
 		// Push this item's children onto the stack
-		NSEnumerator* childEnum = [[item children] objectEnumerator];
-		ZoomSkeinItem* child;
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinItem* child in item.children) {
 			[itemStack addObject: child];
 		}
 	}
@@ -254,30 +227,23 @@ NSString* ZoomSkeinChangedNotification = @"ZoomSkeinChangedNotification";
 	
 	while ([itemStack count] > 0) {
 		// Pop the latest item from the stack
-		ZoomSkeinItem* item = [[itemStack lastObject] retain];
+		ZoomSkeinItem* item = [itemStack lastObject];
 		[itemStack removeLastObject];
 
 		// Remove this item if necessary
-		if ([item temporary] && [itemsToRemove containsObject: @([item temporaryScore])]) {
+		if (item.temporary && [itemsToRemove containsObject: @([item temporaryScore])]) {
 			[item removeFromParent];
 		} else {
 			// Push this item's children onto the stack
-			NSEnumerator* childEnum = [[item children] objectEnumerator];
-			ZoomSkeinItem* child;
-			while (child = [childEnum nextObject]) {
+			for (ZoomSkeinItem* child in item.children) {
 				[itemStack addObject: child];
 			}
 		}
-        [item release];
 	}
 }
 
 
-// = Annotation lists =
-
-static NSComparisonResult stringCompare(id a, id b, void* context) {
-	return [(NSString*)a compare: b];
-}
+#pragma mark - Annotation lists
 
 - (NSArray*) annotations {
 	if (rootItem == nil) return nil;
@@ -301,26 +267,22 @@ static NSComparisonResult stringCompare(id a, id b, void* context) {
 	}
 	
 	// Return the result
-	return [[resSet allObjects] sortedArrayUsingFunction: stringCompare
-												 context: nil];
+	return [[resSet allObjects] sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (NSMenu*) populateMenuWithAction: (SEL) action
 							target: (id) target {
-	NSMenu* result = [[[NSMenu alloc] init] autorelease];
+	NSMenu* result = [[NSMenu alloc] init];
 	
 	NSArray* items = [self annotations];
-	NSEnumerator* itemEnum = [items objectEnumerator];
-	NSString* item;
 	
-	while (item = [itemEnum nextObject]) {
+	for (NSString* item in items) {
 		NSMenuItem* newItem = [[NSMenuItem alloc] initWithTitle: item
 														 action: action
 												  keyEquivalent: @""];
 		[newItem setTarget: target];
 		
 		[result addItem: newItem];
-		[newItem release];
 	}
 	
 	return result;
@@ -363,7 +325,7 @@ static NSComparisonResult stringCompare(id a, id b, void* context) {
 	return res;
 }
 
-// = Converting to other formats =
+#pragma mark - Converting to other formats
 
 - (NSString*) transcriptToPoint: (ZoomSkeinItem*) item {
 	if (item == nil) item = activeItem;
@@ -392,7 +354,7 @@ static NSComparisonResult stringCompare(id a, id b, void* context) {
 		}
 	}
 	
-	return [result autorelease];
+	return result;
 }
 
 - (NSString*) recordingToPoint: (ZoomSkeinItem*) item {
@@ -419,41 +381,28 @@ static NSComparisonResult stringCompare(id a, id b, void* context) {
 		}
 	}
 	
-	return [result autorelease];
+	return result;
 }
 
 @end
 
-// = Our input source object =
+#pragma mark - Our input source object
 
 @implementation ZoomSkeinInputSource
 
-- (id) init {
-	self = [super init];
-	
-	if (self) {
-		commandStack = nil;
+- (instancetype) initWithCommandStack: (NSArray<NSString*>*) stack {
+	if (self = [super init]) {
+		commandStack = [stack mutableCopy];
 	}
-	
 	return self;
-}
-
-- (void) dealloc {
-	[commandStack release];
-	[super dealloc];
-}
-
-- (void) setCommandStack: (NSMutableArray*) stack {
-	[commandStack release];
-	commandStack = [stack retain];
 }
 
 - (NSString*) nextCommand {
 	if ([commandStack count] <= 0) return nil;
 	
-	NSString* nextCommand = [[commandStack lastObject] retain];
+	NSString* nextCommand = [commandStack lastObject];
 	[commandStack removeLastObject];
-	return [nextCommand autorelease];
+	return nextCommand;
 }
 
 - (BOOL) disableMorePrompt {

@@ -6,23 +6,24 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#ifndef __GLKVIEW_GLKIMAGESOURCEPROTOCOL_H__
+#define __GLKVIEW_GLKIMAGESOURCEPROTOCOL_H__
 
-//
-// When we have image resources, we need to be able to ask the client what they are. The client can provide
-// an object of this type to provide image data in any of the formats that Cocoa's NSImage class can
-// understand.
-//
-// By default, we use the gi_blorb_* functions to get image resources. glk doesn't have a means for getting
-// images from other sources by default.
-//
+#import <Foundation/Foundation.h>
 
-@protocol GlkImageSource
+///
+/// When we have image resources, we need to be able to ask the client what they are. The client can provide
+/// an object of this type to provide image data in any of the formats that Cocoa's \c NSImage class can
+/// understand.
+///
+/// By default, we use the \c gi_blorb_* functions to get image resources. glk doesn't have a means for getting
+/// images from other sources by default.
+///
+@protocol GlkImageSource <NSObject>
 
-- (bycopy NSData*) dataForImageResource: (glui32) image;	// Retrieve the image data for a specified resource
+/// Retrieve the image data for a specified resource
+- (bycopy NSData*) dataForImageResource: (glui32) image;
 
 @end
+
+#endif

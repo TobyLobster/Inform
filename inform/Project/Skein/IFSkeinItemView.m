@@ -68,7 +68,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 {
     BOOL result = YES;
     NSImage* scalingImage = [NSImage imageWithSize:[self size] flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        [self drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:dstRect operation:NSCompositeSourceOver fraction:1.0];
+        [self drawAtPoint:NSMakePoint(0.0, 0.0) fromRect:dstRect operation:NSCompositingOperationSourceOver fraction:1.0];
         return YES;
     }];
     NSRect proposedRect = NSMakeRect(0.0, 0.0, outputSizePx.width, outputSizePx.height);
@@ -316,7 +316,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
         [img drawInRect: bitToDraw
                fromRect: bitToDrawFrom
-              operation: NSCompositeSourceOver
+              operation: NSCompositingOperationSourceOver
                fraction: 1.0
          respectFlipped: YES
                   hints: nil];
@@ -325,7 +325,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     // Draw the edge bits
     [img drawInRect: NSMakeRect(pos.x, pos.y, kSkeinItemImageCommandLeftBorder, kSkeinItemImageHeight)
            fromRect: NSMakeRect(0,0,kSkeinItemImageCommandLeftBorder,kSkeinItemImageHeight)
-          operation: NSCompositeSourceOver
+          operation: NSCompositingOperationSourceOver
            fraction: 1.0
      respectFlipped: YES
               hints: nil];
@@ -333,7 +333,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
                                 kSkeinItemImageCommandRightBorder, kSkeinItemImageHeight)
            fromRect: NSMakeRect(kSkeinItemImageWidth - kSkeinItemImageCommandRightBorder, 0,
                                 kSkeinItemImageCommandRightBorder, kSkeinItemImageHeight)
-          operation: NSCompositeSourceOver
+          operation: NSCompositingOperationSourceOver
            fraction: 1.0
      respectFlipped: YES
               hints: nil];
@@ -363,12 +363,12 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
                                             floorf(self.frame.size.height) - backgroundMenu.size.height);
             [backgroundMenu drawAtPoint: drawPoint
                                fromRect: NSZeroRect
-                              operation: NSCompositeSourceOver
+                              operation: NSCompositingOperationSourceOver
                                fraction: 1.0];
             if( insideMenuArea ) {
                 [overMenu   drawAtPoint: drawPoint
                                fromRect: NSZeroRect
-                              operation: NSCompositeSourceOver
+                              operation: NSCompositingOperationSourceOver
                                fraction: 1.0];
             }
         }
@@ -387,7 +387,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
         [differsBadge drawAtPoint: NSMakePoint(0.0f,
                                                floorf(self.frame.size.height) - differsBadge.size.height)
                          fromRect: NSZeroRect
-                        operation: NSCompositeSourceOver
+                        operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
     }
     drawnStateHash = [layoutItem drawStateHash];
@@ -397,11 +397,11 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     NSRect menuAreaRect = NSMakeRect(commandX + commandSize.width + kDrawMenuOffsetX,
                                      self.frame.size.height - kMenuVisibleHeight,
                                      kMenuVisibleWidth, kMenuVisibleHeight);
-    NSRectFillUsingOperation(menuAreaRect, NSCompositeSourceOver);
+    NSRectFillUsingOperation(menuAreaRect, NSCompositingOperationSourceOver);
 
     [[NSColor colorWithCalibratedRed:0.0f green:1.0f blue:0.0f alpha:0.5f] set];
     NSRect localLozengeRect = [layoutItem localSpaceLozengeRect];
-    NSRectFillUsingOperation(localLozengeRect, NSCompositeSourceOver);
+    NSRectFillUsingOperation(localLozengeRect, NSCompositingOperationSourceOver);
     */
 }
 
@@ -464,12 +464,12 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
                                         floorf(height) - backgroundMenu.size.height);
         [backgroundMenu drawAtPoint: drawPoint
                            fromRect: NSZeroRect
-                          operation: NSCompositeSourceOver
+                          operation: NSCompositingOperationSourceOver
                            fraction: 1.0];
         if( insideMenu ) {
             [overMenu   drawAtPoint: drawPoint
                            fromRect: NSZeroRect
-                          operation: NSCompositeSourceOver
+                          operation: NSCompositingOperationSourceOver
                            fraction: 1.0];
         }
     }
@@ -487,7 +487,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     if (badge) {
         [differsBadge drawAtPoint: NSMakePoint(0.0f, floorf(height) - differsBadge.size.height)
                          fromRect: NSZeroRect
-                        operation: NSCompositeSourceOver
+                        operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
     }
 }

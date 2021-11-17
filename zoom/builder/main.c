@@ -43,7 +43,7 @@
 
 extern int    yyline;
 extern oplist zmachine;
-extern int    yyparse();
+extern int    yyparse(void);
 
 static char*  filename;
 

@@ -551,9 +551,9 @@ debug_breakpoint* debug_get_breakpoint(int address)
 
 int debug_clear_breakpoint(debug_breakpoint* bp)
 {
-  int x;
+  intptr_t x;
 
-  x = (int) (bp - debug_bplist);
+  x = bp - debug_bplist;
   if (x < 0 || x >= debug_nbps)
     return 0;
 
@@ -598,7 +598,7 @@ static void debug_add_symbol(char* name,
     }
   storename[x] = 0;
 
-  if (hash_get(debug_syms.symbol, (unsigned char*)storename, (int) strlen(name)) != NULL)
+  if (hash_get(debug_syms.symbol, (unsigned char*)storename, (int)strlen(name)) != NULL)
     {
       display_printf("=? Symbol space clash - %s\n", name);
     }
@@ -606,7 +606,7 @@ static void debug_add_symbol(char* name,
     debug_syms.nsymbols++;
   hash_store_happy(debug_syms.symbol,
 		   (unsigned char*)storename,
-		   (int) strlen(name),
+		   (int)strlen(name),
 		   sym);
   
   sym->next = debug_syms.first_symbol;
@@ -800,7 +800,7 @@ void debug_load_symbols(char* filename,
 
 	    hash_store_happy(debug_syms.file,
 			     (unsigned char*)fl->name,
-			     (int) strlen(fl->name),
+			     (int)strlen(fl->name),
 			     fl);
 	  }
 	  break;
@@ -1224,10 +1224,10 @@ debug_address debug_find_address(int address)
 int debug_find_named_address(const char* name)
 {
   static char* ourname = NULL;
-  int x, len;
+  long x, len;
   debug_symbol* sym;
 
-  len = (int) strlen(name);
+  len = strlen(name);
   ourname = realloc(ourname, sizeof(char)*(len+1));
   strcpy(ourname, name);
   
@@ -1242,7 +1242,7 @@ int debug_find_named_address(const char* name)
 
   sym = hash_get(debug_syms.symbol,
 		 ourname,
-		 len);
+		 (int)len);
 
   if (sym != NULL &&
       sym->type == dbg_routine)
@@ -1292,7 +1292,7 @@ int debug_find_named_address(const char* name)
 
       fl = hash_get(debug_syms.file,
 		    ourname,
-		    (int) strlen(ourname));
+		    (int)strlen(ourname));
       
       if (fl != NULL)
 	{
@@ -1407,9 +1407,9 @@ ZWord debug_symbol_value(const char*    symbol,
 {
   static char* sym = NULL;
   debug_symbol* res;
-  int x, len;
+  long x, len;
 
-  len = (int) strlen(symbol);
+  len = strlen(symbol);
   sym = realloc(sym, sizeof(char)*(len+1));
   for (x=0; x<len; x++)
     {
@@ -1433,7 +1433,7 @@ ZWord debug_symbol_value(const char*    symbol,
 
   res = hash_get(debug_syms.symbol,
 		 sym,
-		 len);
+		 (int)len);
 
   if (res != NULL)
     {

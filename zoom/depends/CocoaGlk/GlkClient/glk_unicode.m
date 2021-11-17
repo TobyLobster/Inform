@@ -6,14 +6,10 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 #import "GlkUcs4Stream.h"
@@ -21,8 +17,14 @@
 NSString* cocoaglk_string_from_uni_buf(const glui32* buf, glui32 len) {
 	// Convert these character to UTF-16
 	
+	// Try using Cocoa's built-in UTF32 converter first.
+	NSString *theStr = [[NSString alloc] initWithBytes:buf length:len * 4 encoding:NSUTF32LittleEndianStringEncoding];
+	if (theStr) {
+		return theStr;
+	}
+
 	// buf has a maximum length of twice as long as length
-	unichar uniBuf[len*2];
+	unichar uniBuf[len*2+1];
 	int uniLen = 0;
 	
 	// Run through the string...
@@ -32,7 +34,7 @@ NSString* cocoaglk_string_from_uni_buf(const glui32* buf, glui32 len) {
 		
 		if (chr >= 0xd800 && chr <= 0xdfff) {
 			// These UCS-4 characters have no valid Unicode equivalent
-			chr = '?';
+			chr = 0xfffd;
 		}
 		
 		if (chr <= 0xffff) {
@@ -48,7 +50,7 @@ NSString* cocoaglk_string_from_uni_buf(const glui32* buf, glui32 len) {
 			uniBuf[uniLen++] = 0xdc00|(x&0x3ff);
 		} else {
 			// This is a UCS-4 character outside the range of allowed unicode values
-			uniBuf[uniLen++] = '?';
+			uniBuf[uniLen++] = 0xfffd;
 		}
 	}
 	
@@ -58,15 +60,26 @@ NSString* cocoaglk_string_from_uni_buf(const glui32* buf, glui32 len) {
 }
 
 int cocoaglk_copy_string_to_uni_buf(NSString* string, glui32* buf, glui32 len) {
+	// Try using Cocoa's built-in UTF32 converter first.
+	NSData *ucs4Data = [string dataUsingEncoding:NSUTF32LittleEndianStringEncoding];
+	if (ucs4Data) {
+		// TODO: test if this adds a BOM to the data. We might not want that...
+		NSInteger copyLen = ucs4Data.length;
+		if (copyLen > len * 4) {
+			copyLen = len * 4;
+		}
+		memcpy(buf, ucs4Data.bytes, copyLen);
+		return (int)(ucs4Data.length / 4);
+	}
 	// Fetch the string into a UTF-16 buffer
-	int stringLength = (int) [string length];
+	NSInteger stringLength = [string length];
 	unichar characters[stringLength];
 	
 	[string getCharacters: characters];
 	
 	// Convert as much as possible to UCS-4
-	int finalLength = 0;
-	int pos;
+	NSInteger finalLength = 0;
+	NSInteger pos;
 	
 	for (pos = 0; pos<stringLength; pos++) {
 		// Retrieve this character
@@ -83,7 +96,7 @@ int cocoaglk_copy_string_to_uni_buf(NSString* string, glui32* buf, glui32 len) {
 			chr = (u<<16)|x;
 		} else if (chr >= 0xd800 && chr <= 0xdfff) {
 			// This is a lone surrogate character (can't be translated)
-			chr = '?';
+			chr = 0xfffd;
 		}
 		
 		// Add this character to the result
@@ -95,7 +108,7 @@ int cocoaglk_copy_string_to_uni_buf(NSString* string, glui32* buf, glui32 len) {
 		finalLength++;
 	}
 	
-	return finalLength;
+	return (int)finalLength;
 }
 
 //
@@ -155,59 +168,48 @@ glui32 glk_buffer_to_title_case_uni(glui32 *buf, glui32 len,
 		return cocoaglk_copy_string_to_uni_buf([cocoaglk_string_from_uni_buf(buf, numchars) capitalizedString],
 											   buf, len);
 	} else {
-		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-		
-		// If the flag is off, then only capitalise characters that come after whitespace
-		NSCharacterSet* whitespace = [NSCharacterSet whitespaceCharacterSet];
-		NSScanner* stringScanner = [[NSScanner alloc] initWithString: cocoaglk_string_from_uni_buf(buf, numchars)];
-		NSMutableString* result = [NSMutableString string];
-		
-		[stringScanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString: @""]];
-		
-		NSString* lastWord = nil;
-		NSString* lastWhitespace = nil;
-		
-		// Scan the string
-		while (![stringScanner isAtEnd]) {
-            lastWord = nil;
-            lastWhitespace = nil;
-			// Scan any whitespace at the start of the string
-			[stringScanner scanCharactersFromSet: whitespace
-                                      intoString: &lastWhitespace];
-            if( lastWhitespace != nil )
-            {
-                [result appendString: lastWhitespace];
-            }
+		int finalLength;
+		@autoreleasepool {
+			// If the flag is off, then only capitalise characters that come after whitespace
+			NSCharacterSet* whitespace = [NSCharacterSet whitespaceCharacterSet];
+			NSScanner* stringScanner = [[NSScanner alloc] initWithString: cocoaglk_string_from_uni_buf(buf, numchars)];
+			NSMutableString* result = [NSMutableString string];
 			
-			// Give up if there's nothing following the whitespace
-			if ([stringScanner isAtEnd]) break;
+			[stringScanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString: @""]];
 			
-			// Get the next word
-			[stringScanner scanUpToCharactersFromSet: whitespace
-										  intoString: &lastWord];
-
-			// Capitalize the last word
-            if( lastWord != nil)
-            {
-                NSString* capitalized = [lastWord capitalizedString];
-
-                // Join the capitalized letter from the last word with whatever was in the original word
-                if ([lastWord length] > 0 && [capitalized length] > 0) {
-                    lastWord = [[capitalized substringToIndex: 1] stringByAppendingString: [lastWord substringFromIndex: 1]];
-                }
-
-                // Append to the result
-                [result appendString: lastWord];
-            }
+			NSString* lastWord;
+			NSString* lastWhitespace;
+			
+			// Scan the string
+			while (![stringScanner isAtEnd]) {
+				// Scan any whitespace at the start of the string
+				[stringScanner scanCharactersFromSet: whitespace
+										  intoString: &lastWhitespace];
+				
+				[result appendString: lastWhitespace];
+				
+				// Give up if there's nothing following the whitespace
+				if ([stringScanner isAtEnd]) break;
+				
+				// Get the next word
+				[stringScanner scanUpToCharactersFromSet: whitespace
+											  intoString: &lastWord];
+				
+				// Capitalize the last word
+				NSString* capitalized = [lastWord capitalizedString];
+				
+				// Join the capitalized letter from the last word with whatever was in the original word
+				if ([lastWord length] > 0 && [capitalized length] > 0) {
+					lastWord = [[capitalized substringToIndex: 1] stringByAppendingString: [lastWord substringFromIndex: 1]];
+				}
+				
+				// Append to the result
+				[result appendString: lastWord];
+			}
+			
+			// Copy the buffer
+			finalLength = cocoaglk_copy_string_to_uni_buf(result, buf, len);
 		}
-
-		// Copy the buffer
-		int finalLength = cocoaglk_copy_string_to_uni_buf(result, buf, len);
-		
-		// Don't need the autorelease pool any more
-		[stringScanner release];
-		[pool release];
-		
 		// Return
 		return finalLength;
 	}
@@ -254,15 +256,49 @@ void glk_put_char_stream_uni(strid_t str, glui32 ch) {
 	
 	if (buf) {
 		// Write using the buffer
-		[buf putChar: ch
-			toStream: str->identifier];
+		if (ch < 0x10000) {
+			[buf putChar: ch
+				toStream: str->identifier];
+		} else if (ch <= 0x10ffff) {
+			// This is a character that can be represented by a surrogate pair
+			// 000uuuuuxxxxxxxxxxxxxxxx -> 110110wwwwxxxxxx 110111xxxxxxxxxx (wwww = uuuuu-1)
+			int w = (ch>>16)-1;
+			int x = (ch&0xffff);
+			
+			unichar chr = 0xd800|(w<<6)|(x>>10);
+			[buf putChar: chr
+				toStream: str->identifier];
+			str->bufferedAmount++;
+			chr = 0xdc00|(x&0x3ff);
+			[buf putChar: chr
+				toStream: str->identifier];
+		} else {
+			// *shrug*
+			[buf putChar: ch
+				toStream: str->identifier];
+		}
 		
 		str->bufferedAmount++;
 	} else {
 		// Write direct
 		cocoaglk_loadstream(str);
 		
-		[str->stream putChar: ch];
+		if (ch < 0x10000) {
+			[str->stream putChar: ch];
+		} else if (ch <= 0x10ffff) {
+			// This is a character that can be represented by a surrogate pair
+			// 000uuuuuxxxxxxxxxxxxxxxx -> 110110wwwwxxxxxx 110111xxxxxxxxxx (wwww = uuuuu-1)
+			int w = (ch>>16)-1;
+			int x = (ch&0xffff);
+			
+			unichar chr = 0xd800|(w<<6)|(x>>10);
+			[str->stream putChar: chr];
+			chr = 0xdc00|(x&0x3ff);
+			[str->stream putChar: chr];
+		} else {
+			// *shrug*
+			[str->stream putChar: ch];
+		}
 	}
 	
 	str->written++;
@@ -379,16 +415,16 @@ glui32 glk_get_buffer_stream_uni(strid_t str, glui32 *buf, glui32 len) {
 	
 	// Decode the characters that have been read
 	const unsigned char* bytes = [data bytes];
-	int numChars = (int) [data length]/4;
-	int x;
+	NSInteger numChars = [data length]/4;
+	NSInteger x;
 	for (x=0; x<numChars; x++) {
-		int pos = x*4;
+		NSInteger pos = x*4;
 		
 		buf[x] = (bytes[pos+0]<<24)|(bytes[pos+1]<<16)|(bytes[pos+2]<<8)|(bytes[pos+3]<<0);
 	}
 	
 	str->read += numChars;
-	return numChars;
+	return (glui32)numChars;
 }
 
 glui32 glk_get_line_stream_uni(strid_t str, glui32 *buf, glui32 len) {
@@ -464,10 +500,36 @@ void glk_request_line_event_uni(winid_t win, glui32 *buf,
 			[cocoaglk_buffer setInputLine: string
 					  forWindowIdentifier: win->identifier];
 		}
-		
-		[string release];
 	}
 	
 	// Buffer up the request
 	[cocoaglk_buffer requestLineEventsForWindowIdentifier: win->identifier];
+}
+
+glui32 glk_buffer_canon_decompose_uni(glui32 *buf, glui32 len,
+									  glui32 numchars)
+{
+	@autoreleasepool {
+		NSMutableString *str = [[NSMutableString alloc] initWithBytes:buf length:numchars*sizeof(glui32) encoding:NSUTF32LittleEndianStringEncoding];
+		CFStringNormalize((CFMutableStringRef)str, kCFStringNormalizationFormD);
+		NSData *strData = [str dataUsingEncoding:NSUTF32LittleEndianStringEncoding];
+		
+		[strData getBytes:buf length:MIN(len * sizeof(glui32), strData.length)];
+		
+		return (glui32)(strData.length/sizeof(glui32));
+	}
+}
+
+glui32 glk_buffer_canon_normalize_uni(glui32 *buf, glui32 len,
+									  glui32 numchars)
+{
+	@autoreleasepool {
+		NSMutableString *str = [[NSMutableString alloc] initWithBytes:buf length:numchars*sizeof(glui32) encoding:NSUTF32LittleEndianStringEncoding];
+		CFStringNormalize((CFMutableStringRef)str, kCFStringNormalizationFormC);
+		NSData *strData = [str dataUsingEncoding:NSUTF32LittleEndianStringEncoding];
+		
+		[strData getBytes:buf length:MIN(len * sizeof(glui32), strData.length)];
+		
+		return (glui32)(strData.length/sizeof(glui32));
+	}
 }

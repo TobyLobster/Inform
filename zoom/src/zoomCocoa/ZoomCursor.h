@@ -9,37 +9,53 @@
 #import <Cocoa/Cocoa.h>
 
 
-// Blinking cursor thing
+@protocol ZoomCursorDelegate;
 
-@interface ZoomCursor : NSObject
+//! Blinking cursor thing
+@interface ZoomCursor : NSObject {
+	NSRect cursorRect;
+	BOOL blink;
+	
+	NSPoint cursorPos;
+	
+	BOOL lastVisible, lastActive;
+	
+	NSTimer* flasher;
+}
 
-// Drawing
+#pragma mark Drawing
+
 - (void) draw;
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL visible;
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL activeStyle;
+@property (readonly, getter=isVisible) BOOL visible;
+@property (readonly) BOOL activeStyle;
 
 // Positioning
 - (void) positionAt: (NSPoint) pt
 		   withFont: (NSFont*) font;
 - (void) positionInString: (NSString*) string
-		   withAttributes: (NSDictionary*) attributes
-		 atCharacterIndex: (int) index;
+		   withAttributes: (NSDictionary<NSAttributedStringKey, id>*) attributes
+		 atCharacterIndex: (NSInteger) index;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) NSRect cursorRect;
+@property (readonly) NSRect cursorRect;
 
-// Display status
-- (void) setBlinking: (BOOL) blink;  // Cursor blinks on/off
-- (void) setShown:    (BOOL) shown;  // Cursor shown/hidden
-- (void) setActive:   (BOOL) active; // Whether or not the cursor is 'active' (ie the window has focus)
-- (void) setFirst:    (BOOL) first;  // Whether or not the cursor's view is the first responder
+#pragma mark Display status
 
-// Delegate
-- (id) delegate;
-- (void) setDelegate: (id<NSObject>) delegate;
+/// Cursor blinks on/off
+@property (nonatomic, getter=isBlinking) BOOL blinking;
+/// Cursor shown/hidden
+@property (nonatomic, getter=isShown) BOOL shown;
+/// Whether or not the cursor is 'active' (ie the window has focus)
+@property (nonatomic, getter=isActive) BOOL active;
+/// Whether or not the cursor's view is the first responder
+@property (nonatomic, getter=isFirst) BOOL first;
+
+/// Delegate
+@property (weak) id<ZoomCursorDelegate> delegate;
 
 @end
 
-@interface NSObject(ZoomCursorDelegate)
+@protocol ZoomCursorDelegate <NSObject>
+@optional
 
 - (void) blinkCursor: (ZoomCursor*) sender;
 

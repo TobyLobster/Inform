@@ -356,13 +356,17 @@ if test "$WINDOW_SYSTEM" = "1"; then
       
     # If Xft is installed, then there will be a xft-config file on the current path
     AC_MSG_CHECKING([for xft-config])
-    XFTCONFIG=`which xft-config`
+    XFTCONFIG=`which pkg-config`
     XFT_CFLAGS=""
     XFT_LIBS=""
     if test -x ${XFTCONFIG}; then
-    	AC_MSG_RESULT([$XFTCONFIG])
-    	XFT_CFLAGS=`${XFTCONFIG} --cflags`
-    	XFT_LIBS=`${XFTCONFIG} --libs`
+        if ${XFTCONFIG} xft; then
+            AC_MSG_RESULT([$XFTCONFIG])
+            XFT_CFLAGS=`${XFTCONFIG} --cflags xft`
+            XFT_LIBS=`${XFTCONFIG} --libs xft`
+        else
+            AC_MSG_RESULT(no)
+        fi
     else
     	AC_MSG_RESULT(no)
     fi

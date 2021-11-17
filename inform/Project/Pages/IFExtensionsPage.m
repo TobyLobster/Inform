@@ -136,10 +136,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSOnState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOn];
         }
         else {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSOffState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOff];
         }
     }
 }

@@ -73,7 +73,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	
 	NSPanel* ourWindow = [[NSPanel alloc] initWithContentRect: NSMakeRect(NSMaxX([mainScreen frame])-width-50, NSMaxY([mainScreen frame])-height-50, 
 																				 width, height)
-													styleMask: NSTitledWindowMask|NSClosableWindowMask|NSUtilityWindowMask
+													styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSUtilityWindowMask
 													  backing: NSBackingStoreBuffered
 														defer: YES];
 	

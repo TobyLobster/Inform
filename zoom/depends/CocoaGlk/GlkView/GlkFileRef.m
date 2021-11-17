@@ -12,19 +12,26 @@
 
 @implementation GlkFileRef
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) initWithPath: (NSString*) path {
+- (id) initWithPath: (NSURL*) path {
 	self = [super init];
 	
 	if (self) {
-		pathname = [[path stringByStandardizingPath] copy];
+		pathname = [[path URLByStandardizingPath] copy];
 		temporary = NO;
 		
+#if defined(COCOAGLK_IPHONE)
+		[[NSNotificationCenter defaultCenter] addObserver: self
+												 selector: @selector(applicationWillTerminate:)
+													 name: UIApplicationWillTerminateNotification
+												   object: [UIApplication sharedApplication]];
+#else
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(applicationWillTerminate:)
 													 name: NSApplicationWillTerminateNotification
 												   object: NSApp];
+#endif
 	}
 	
 	return self;
@@ -37,14 +44,9 @@
 		NSLog(@"Removing temporary file: %@", pathname);
 
 		// Delete any temporary files when deallocated
-        NSError* error;
-		[[NSFileManager defaultManager] removeItemAtURL: [NSURL fileURLWithPath: pathname]
-												 error: &error];
-	}
-
-	[pathname release]; pathname = nil;
-	
-	[super dealloc];
+		[[NSFileManager defaultManager] removeItemAtURL: pathname 
+                                                  error: nil];
+    }
 }
 
 - (void) applicationWillTerminate: (NSNotification*) not {
@@ -52,54 +54,44 @@
 		NSLog(@"Removing temporary file: %@", pathname);
 		
 		// Also delete any temporary files when the application terminates
-        NSError* error;
-		[[NSFileManager defaultManager] removeItemAtURL: [NSURL fileURLWithPath: pathname]
-												 error: &error];
+		[[NSFileManager defaultManager] removeItemAtURL: pathname
+                                                  error: nil];
 	}
 }
 
-// = Temporaryness =
+#pragma mark - Temporaryness
 
-- (void) setTemporary: (BOOL) isTemp {
-	temporary = isTemp;
+@synthesize temporary;
+
+#pragma mark - The fileref protocol
+
+- (byref id<GlkStream>) createReadOnlyStream {
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingFromFileURL: pathname];
+	
+	return stream;
 }
 
-// = The fileref protocol =
-
-- (byref NSObject<GlkStream>*) createReadOnlyStream {
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadingWithFilename: pathname];
+- (byref id<GlkStream>) createWriteOnlyStream; {
+	GlkFileStream* stream = [[GlkFileStream alloc] initForWritingToFileURL: pathname];
 	
-	return [stream autorelease];
+	return stream;
 }
 
-- (byref NSObject<GlkStream>*) createWriteOnlyStream; {
-	GlkFileStream* stream = [[GlkFileStream alloc] initForWritingWithFilename: pathname];
+- (byref id<GlkStream>) createReadWriteStream {
+	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFileURL: pathname];
 	
-	return [stream autorelease];
-}
-
-- (byref NSObject<GlkStream>*) createReadWriteStream {
-	GlkFileStream* stream = [[GlkFileStream alloc] initForReadWriteWithFilename: pathname];
-	
-	return [stream autorelease];
+	return stream;
 }
 
 - (void) deleteFile {
-    NSError* error;
-	[[NSFileManager defaultManager] removeItemAtURL: [NSURL fileURLWithPath: pathname]
-											 error: &error];
+	[[NSFileManager defaultManager] removeItemAtURL: pathname error: nil];
 }
 
 - (BOOL) fileExists {
-	return [[NSFileManager defaultManager] fileExistsAtPath: pathname];
+    if (![pathname isFileURL]) return NO;
+	return [[NSFileManager defaultManager] fileExistsAtPath: [pathname path]];
 }
 
-- (void) setAutoflush: (BOOL) newAutoflush {
-	autoflush = newAutoflush;
-}
-
-- (BOOL) autoflushStream {
-	return autoflush;
-}
+@synthesize autoflushStream = autoflush;
 
 @end

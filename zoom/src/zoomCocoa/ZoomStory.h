@@ -7,24 +7,27 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ZoomPlugins/ifmetabase.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class ZoomMetadata;
 
 // Notifications
-extern NSString* ZoomStoryDataHasChangedNotification;
+extern NSNotificationName const ZoomStoryDataHasChangedNotification;
 
-enum IFMB_Zarfian {
-	IFMD_Unrated = 0x0,
-	IFMD_Merciful,
-	IFMD_Polite,
-	IFMD_Tough,
-	IFMD_Nasty,
-	IFMD_Cruel
+typedef NS_ENUM(unsigned, IFMB_Zarfian) {
+	IFMD_Unrated NS_SWIFT_NAME(unrated) = 0x0,
+	IFMD_Merciful NS_SWIFT_NAME(merciful),
+	IFMD_Polite NS_SWIFT_NAME(polite),
+	IFMD_Tough NS_SWIFT_NAME(tough),
+	IFMD_Nasty NS_SWIFT_NAME(nasty),
+	IFMD_Cruel NS_SWIFT_NAME(cruel)
 };
 
 @class ZoomStoryID;
 @interface ZoomStory : NSObject {
-	struct IFStory* story;
+	IFStory story;
 	BOOL   needsFreeing;
 	
 	ZoomMetadata* metadata;
@@ -33,67 +36,62 @@ enum IFMB_Zarfian {
 }
 
 // Information
-+ (NSString*) nameForKey: (NSString*) key;
-+ (NSString*) keyForTag: (int) tag;
++ (nullable NSString*) nameForKey: (NSString*) key;
++ (nullable NSString*) keyForTag: (NSInteger) tag;
 
 // Initialisation
-+ (ZoomStory*) defaultMetadataForFile: (NSString*) filename;
++ (nullable ZoomStory*) defaultMetadataForFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use +defaultMetadataForURL:error: instead");
++ (nullable ZoomStory*) defaultMetadataForURL: (NSURL*) filename
+										error: (NSError**) outError;
 
-- (id) initWithStory: (struct IFStory*) story
-			metadata: (ZoomMetadata*) metadataContainer;
+- (instancetype) initWithStory: (IFStory) story
+					  metadata: (ZoomMetadata*) metadataContainer;
 
-- (struct IFStory*) story;
+@property (readonly, nullable) IFStory story NS_RETURNS_INNER_POINTER;
 - (void) addID: (ZoomStoryID*) newID;
 
 // Searching
 - (BOOL) containsText: (NSString*) text;
 
 // Accessors
-- (NSString*) title;
-- (NSString*) headline;
-- (NSString*) author;
-- (NSString*) genre;
-- (int)       year;
-- (NSString*) group;
-- (unsigned)  zarfian;
-- (NSString*) teaser;
-- (NSString*) comment;
-- (float)     rating;
+@property (copy, nullable) NSString *title;
+@property (copy, nullable) NSString *headline;
+@property (copy, nullable) NSString *author;
+@property (copy, nullable) NSString *genre;
+@property int		year;
+@property (copy, nullable) NSString *group;
+@property IFMB_Zarfian zarfian;
+@property (copy, nullable) NSString *teaser;
+@property (copy, nullable) NSString *comment;
+@property float rating;
 
-- (int)		  coverPicture;
-- (NSString*) description;
+@property int coverPicture;
+@property (readwrite, copy) NSString *description;
 
-- (id) objectForKey: (id) key; // Always returns an NSString (other objects are possible for other metadata)
+- (nullable id) objectForKey: (NSString*) key; //!< Always returns an NSString (other objects are possible for other metadata)
 
 // Setting data
-- (void) setTitle:		  (NSString*) newTitle;
-- (void) setHeadline:	  (NSString*) newHeadline;
-- (void) setAuthor:		  (NSString*) newAuthor;
-- (void) setGenre:		  (NSString*) genre;
-- (void) setYear:		  (int) year;
-- (void) setGroup:		  (NSString*) group;
-- (void) setZarfian:	  (unsigned) zarfian;
-- (void) setTeaser:		  (NSString*) teaser;
-- (void) setComment:	  (NSString*) comment;
-- (void) setRating:		  (float) rating;
 
-- (void) setCoverPicture: (int) picture;
-- (void) setDescription:  (NSString*) description;
-
-- (void) setObject: (id) value
-			forKey: (id) key;
+- (void) setObject: (nullable id) value
+			forKey: (NSString*) key;
 
 // Identifying and comparing stories
-- (ZoomStoryID*) storyID;								// Compound ID
-- (NSArray*) storyIDs;									// Array of ZoomStoryIDs
-- (BOOL)     hasID: (ZoomStoryID*) storyID;				// Story answers to this ID
-- (BOOL)     isEquivalentToStory: (ZoomStory*) story;   // Stories share an ID
+//! Compound ID
+@property (readonly, strong, nullable) ZoomStoryID *storyID;
+//! Array of ZoomStoryIDs
+@property (nonatomic, readonly, copy, nullable) NSArray<ZoomStoryID*> *storyIDs;
+//! Story answers to this ID
+- (BOOL)     hasID: (ZoomStoryID*) storyID;
+//! Stories share an ID
+- (BOOL)     isEquivalentToStory: (ZoomStory*) story;
 
 // Sending notifications
-- (void) heyLookThingsHaveChangedOohShiney; // Sends ZoomStoryDataHasChangedNotification
+//! Sends \c ZoomStoryDataHasChangedNotification
+- (void) heyLookThingsHaveChangedOohShiney;
 
-- (id) init;								// New story (DEPRECATED)
+//! New story (DEPRECATED)
+- (id) init UNAVAILABLE_ATTRIBUTE;
 
 @end
 
-#import "ZoomMetadata.h"
+NS_ASSUME_NONNULL_END

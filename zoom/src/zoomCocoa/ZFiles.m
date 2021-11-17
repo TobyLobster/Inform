@@ -13,11 +13,11 @@
 #include "display.h"
 
 struct ZFile {
-    NSObject<ZFile>* theFile;
+    id<ZFile> theFile;
 };
 
-// = Files =
-ZFile* open_file_from_object(NSObject<ZFile>* file) {
+#pragma mark - Files
+ZFile* open_file_from_object(id<ZFile> file) {
     if (file == nil)
         return NULL;
 
@@ -28,12 +28,12 @@ ZFile* open_file_from_object(NSObject<ZFile>* file) {
     return res;
 }
 
-ZFile* open_file(char* filename) {
+ZFile* open_file(const char* filename) {
     // This shouldn't normally be called in this version of Zoom
-    NSLog(@"Warning: open_file with filename '%s' called", filename);
+    NSLog(@"Warning: open_file with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath: @(filename)];
+    NSFileHandle* handle = [NSFileHandle fileHandleForReadingFromURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
 
     if (handle == nil) {
         return NULL;
@@ -47,12 +47,12 @@ ZFile* open_file(char* filename) {
     return f;
 }
 
-ZFile* open_file_write(char* filename) {
+ZFile* open_file_write(const char* filename) {
     // This shouldn't normally be called in this version of Zoom
     NSLog(@"Warning: open_file_write with filename called");
 
     // Open the file
-    NSFileHandle* handle = [NSFileHandle fileHandleForWritingAtPath: @(filename)];
+    NSFileHandle* handle = [NSFileHandle fileHandleForWritingToURL: [NSURL fileURLWithFileSystemRepresentation: filename isDirectory: NO relativeToURL: nil] error: NULL];
 
     if (handle == nil) {
         return NULL;
@@ -73,28 +73,34 @@ void close_file(ZFile* file) {
 }
 
 ZByte read_byte(ZFile* file) {
-    return (ZByte)[file->theFile readByte];
+    return [file->theFile readByte];
 }
 
 ZUWord read_word(ZFile* file) {
-    return (ZByte)[file->theFile readWord];
+    return [file->theFile readWord];
+}
+
+ZDWord read_dword(ZFile* file) {
+    return [file->theFile readDWord];
 }
 
 ZUWord read_rword(ZFile* file) {
-    NSLog(@"read_rword: Function not implemented: %s %i", __FILE__, __LINE__);
-    
-    return 0;
+    @autoreleasepool {
+#if 0
+        return __builtin_bswap16([file->theFile readWord]);
+#else
+        return [file->theFile readByte]|([file->theFile readByte]<<8);
+#endif
+    }
 }
 
 ZByte* read_page(ZFile* file, int page_no) {
-    NSLog(@"read_page: Function not implemented: %s %i", __FILE__, __LINE__);
-    
-    return NULL;
+    return read_block(file, 4096*page_no, 4096*page_no+4096);
 }
 
 ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
-    NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
-    static NSData* result = nil;
+    @autoreleasepool {
+    NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
     result = [file->theFile readBlock: end_pos - start_pos];
@@ -102,23 +108,25 @@ ZByte* read_block(ZFile* file, int start_pos, int end_pos) {
     ZByte* res2 = malloc([result length]);
     memcpy(res2, [result bytes], [result length]);
     
-    [p release];
     return res2;
+    }
 }
 
 void   read_block2(ZByte* block, ZFile* file, int start_pos, int end_pos) {
-    NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     NSData* result = nil;
 
     [file->theFile seekTo: start_pos];
     result = [file->theFile readBlock: end_pos - start_pos];
 
     memcpy(block, [result bytes], [result length]);
-    [p release];
+    }
 }
 
-void   write_block(ZFile* file, ZByte* block, int length) { 
+void   write_block(ZFile* file, const ZByte* block, int length) {
+    @autoreleasepool {
     [file->theFile writeBlock: [NSData dataWithBytes: block length: length]];
+    }
 }
 
 void write_byte(ZFile* file, ZByte byte) {
@@ -133,15 +141,15 @@ void write_dword(ZFile* file, ZDWord word) {
     [file->theFile writeDWord: word];
 }
 
-ZDWord get_file_size(char* filename) { 
-	return [[[NSFileManager defaultManager] fileAttributesAtPath: @(filename)
-													 traverseLink: YES][NSFileSize]
+ZDWord get_file_size(const char* filename) { 
+	return [[[[NSFileManager defaultManager] attributesOfItemAtPath: [[[NSFileManager defaultManager] stringWithFileSystemRepresentation:filename length:strlen(filename)] stringByResolvingSymlinksInPath]
+															  error: NULL] objectForKey: NSFileSize]
 		intValue];
     return 0;
 }
 
 ZDWord get_size_of_file(ZFile* file) {
-    return [file->theFile fileSize];
+    return (ZDWord)[file->theFile fileSize];
 }
 
 int end_of_file(ZFile* file) {

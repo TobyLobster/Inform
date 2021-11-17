@@ -6,11 +6,7 @@
 //  Copyright 2006 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #import "GlkFileRefProtocol.h"
 
@@ -25,6 +21,7 @@
 	BOOL autoflush;
 }
 
-- (id) initWithData: (NSData*) fileData;					// Initialise this fileref with the specified data
+/// Initialise this fileref with the specified data
+- (instancetype) initWithData: (NSData*) fileData;
 
 @end

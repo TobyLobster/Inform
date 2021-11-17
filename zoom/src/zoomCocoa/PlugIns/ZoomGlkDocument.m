@@ -8,84 +8,45 @@
 
 #import "ZoomGlkDocument.h"
 #import "ZoomGlkWindowController.h"
+#import "ZoomPlugIn.h"
 
 @implementation ZoomGlkDocument
 
-// = Initialisation/finalisation =
+#pragma mark - Initialisation/finalisation
 
-- (void) dealloc {
-	if (clientPath)		[clientPath release];
-	if (inputPath)		[inputPath release];
-	if (storyData)		[storyData release];
-	if (logo)			[logo release];
-	if (plugIn)			[plugIn release];
-	if (savedGamePath)	[savedGamePath release];
-	
-	[super dealloc];
-}
-
-- (NSData *)dataRepresentationOfType:(NSString *)type {
+- (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable *)outError  {
 	// Glk documents are never saved
     return nil;
 }
 
-- (BOOL) loadDataRepresentation: (NSData*) data
-						 ofType: (NSString*) type {
+- (BOOL) readFromData: (NSData*) data
+			   ofType: (NSString*) type
+				error: (NSError * _Nullable *)outError {
 	// Neither are they really loaded: we initialise via the plugin
     return YES;
 }
 
-// = Configuring the client =
+#pragma mark - Configuring the client
 
-- (void) setClientPath: (NSString*) newClientPath {
-	[clientPath release];
-	clientPath = [newClientPath copy];
-}
+@synthesize clientPath;
 
 - (void) setInputFilename: (NSString*) newInputPath {
-	[inputPath release];
-	inputPath = [newInputPath copy];
+	[self setInputURL: [NSURL fileURLWithPath: newInputPath]];
+}
+
+- (void) setInputURL: (NSURL*) inputPath {
+	inputURL = [inputPath copy];
 	
-	[self setFileName: newInputPath];
+	self.fileURL = inputPath;
 }
 
-- (void) setStoryData: (ZoomStory*) story {
-	[storyData release];
-	storyData = [story retain];
-}
+@synthesize storyData;
+@synthesize logo;
+@synthesize preferredSaveDirectory=preferredSaveDir;
+@synthesize plugIn;
+@synthesize saveGameURL=savedGamePath;
 
-- (void) setLogo: (NSImage*) newLogo {
-	[logo release];
-	logo = [newLogo retain];
-}
-
-- (ZoomStory*) storyData {
-	return storyData;
-}
-
-- (void) setPreferredSaveDirectory: (NSString*) dir {
-	preferredSaveDir = [dir copy];
-}
-
-- (NSString*) preferredSaveDirectory {
-	return preferredSaveDir;
-}
-
-- (void) setPlugIn: (ZoomPlugIn*) newPlugIn {
-	[plugIn release];
-	plugIn = [newPlugIn retain];
-}
-
-- (ZoomPlugIn*) plugIn {
-	return [[plugIn retain] autorelease];
-}
-
-- (void) setSaveGame: (NSString*) saveGame {
-	[savedGamePath release];
-	savedGamePath = [saveGame copy];
-}
-
-// = Constructing the window controllers =
+#pragma mark - Constructing the window controllers
 
 - (void) makeWindowControllers {
 	// Set up the window controller
@@ -93,16 +54,16 @@
 	
 	// Give it the paths
 	[controller setClientPath: clientPath];
-	[controller setInputFilename: inputPath];
+	[controller setInputFileURL: inputURL];
 	[controller setCanOpenSaveGame: [[plugIn class] canLoadSavegames]];
-	if (savedGamePath) [controller setSaveGame: savedGamePath];
+	if (savedGamePath) [controller setSaveGameURL: savedGamePath];
 	[controller setLogo: logo];
 	
 	// Add it as a controller for this document
-	[self addWindowController: [controller autorelease]];
+	[self addWindowController: controller];
 }
 
-// = The display name =
+#pragma mark - The display name
 
 - (NSString*) displayName {
 	if (storyData && [storyData title] && [[storyData title] length] > 0) {

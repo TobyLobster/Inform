@@ -93,7 +93,7 @@ static const int recentFilesTabWidth = 130;
     if (image) {
         [image drawInRect:imageRect
                  fromRect:NSZeroRect
-                operation:NSCompositeSourceOver
+                operation:NSCompositingOperationSourceOver
                  fraction:1.0
            respectFlipped:YES
                     hints:nil];

@@ -8,6 +8,7 @@
 
 #import "ZoomResourceDrop.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 #import "ZoomBlorbFile.h"
 
 static NSImage* needDropImage;
@@ -16,8 +17,11 @@ static NSImage* blorbImage;
 @implementation ZoomResourceDrop
 
 + (void) initialize {
-	needDropImage = [NSImage imageNamed: @"NeedDrop"];
-	blorbImage = [NSImage imageNamed: @"Blorb"];
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		needDropImage = [NSImage imageNamed: @"NeedDrop"];
+		blorbImage = [NSImage imageNamed: @"Blorb"];
+	});
 }
 
 - (id)initWithFrame:(NSRect)frame {
@@ -26,7 +30,7 @@ static NSImage* blorbImage;
     if (self) {
 		droppedFilename = nil;
 		
-		[self registerForDraggedTypes: [NSArray arrayWithObjects: NSFilenamesPboardType, NSFileContentsPboardType, NSURLPboardType, nil]];
+		[self registerForDraggedTypes: @[NSPasteboardTypeFileURL]];
 		
 		willOrganise = 2; // Take value from global preferences (default)
 		enabled = YES;
@@ -35,15 +39,8 @@ static NSImage* blorbImage;
     return self;
 }
 
-- (void) dealloc {
-	if (droppedFilename) [droppedFilename release];
-	if (droppedData) [droppedData release];
-	
-	[super dealloc];
-}
-
 - (void)drawRect:(NSRect)rect {
-	if (![self enabled]) return;
+	if (!self.enabled) return;
 	
 	NSRect bounds = [self bounds];
 	
@@ -55,38 +52,35 @@ static NSImage* blorbImage;
 	
 	// Image and text to draw
 	NSImage* img = nil;
-	NSString* description = @"Er";
+	NSString* description;
 	
 	if (droppedFilename) {
 		img = blorbImage;
-		description = @"Drag a Blorb resource file here to change the resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to change the resources for this game", @"Drag a Blorb resource file here to change the resources for this game");
 	} else {
 		img = needDropImage;
-		description = @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game";
+		description = NSLocalizedString(@"Drag a Blorb resource file here to set it as the graphics/sound resources for this game", @"Drag a Blorb resource file here to set it as the graphics/sound resources for this game");
 	}
 	
 	// Draw the image
-	NSRect sourceRect;
-	sourceRect.origin = NSMakePoint(0,0);
-	sourceRect.size = [img size];
-	
 	[img drawInRect: imgRect
-		   fromRect: sourceRect
-		  operation: NSCompositeSourceOver
+		   fromRect: NSZeroRect
+		  operation: NSCompositingOperationSourceOver
 		   fraction: 1.0];
 	
 	// Draw the text
 	NSRect remainingRect = bounds;
-	NSMutableParagraphStyle* paraStyle = [[[NSParagraphStyle defaultParagraphStyle] mutableCopy] autorelease];
-	[paraStyle setAlignment: NSCenterTextAlignment];
+	NSMutableParagraphStyle* paraStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+	[paraStyle setAlignment: NSTextAlignmentCenter];
 	
 	remainingRect.size.height -= imgRect.size.height + 8;
 	
 	[description drawInRect: remainingRect
-			 withAttributes: [NSDictionary dictionaryWithObjectsAndKeys: 
-				 [NSFont systemFontOfSize: 11], NSFontAttributeName,
-				 paraStyle, NSParagraphStyleAttributeName,
-				 nil]];
+			 withAttributes: @{
+		NSFontAttributeName:[NSFont systemFontOfSize: 11],
+		NSParagraphStyleAttributeName: paraStyle,
+		NSForegroundColorAttributeName: NSColor.textColor
+	}];
 }
 
 - (void) setWillOrganise: (BOOL) wO {
@@ -110,20 +104,10 @@ static NSImage* blorbImage;
 	}
 }
 
-- (BOOL) enabled {
-	return enabled;
-}
+@synthesize enabled;
+@synthesize droppedFilename;
 
-- (void) setDroppedFilename: (NSString*) filename {
-	if (droppedFilename) [droppedFilename release];
-	droppedFilename = [filename copy];
-}
-
-- (NSString*) droppedFilename {
-	return droppedFilename;
-}
-
-// = NSDraggingDestination methods =
+#pragma mark - NSDraggingDestination methods
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 	if (!enabled) return NSDragOperationNone;
@@ -131,7 +115,7 @@ static NSImage* blorbImage;
 	if ([self willOrganise]) {
 		return NSDragOperationCopy;
 	} else {
-		if ([[sender draggingPasteboard] dataForType: NSFilenamesPboardType] == nil) return NSDragOperationNone;
+		if ([[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}] == nil) return NSDragOperationNone;
 		return NSDragOperationLink;
 	}
 }
@@ -144,19 +128,19 @@ static NSImage* blorbImage;
 		return NO;
 	}
 		
-	NSArray* filenames = [[sender draggingPasteboard] propertyListForType: NSFilenamesPboardType];
+	NSArray<NSURL*>* filenames = [[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
 	if (filenames != nil && [filenames isKindOfClass: [NSArray class]]) {
 		// Is a filename array: we can handle one filename, which must be a .blb, .glb or .zlb file
 		if ([filenames count] != 1) goto notAFilename;
 		
-		NSString* filename = [filenames objectAtIndex: 0];
-		if (![filename isKindOfClass: [NSString class]]) goto notAFilename;
+		NSURL* filename = [filenames objectAtIndex: 0];
+		if (![filename isKindOfClass: [NSURL class]]) goto notAFilename;
 		
 		if (!([[filename pathExtension] isEqualToString: @"blb"] || 
 			  [[filename pathExtension] isEqualToString: @"zlb"] ||
 			  [[filename pathExtension] isEqualToString: @"glb"] ||
 			  [[filename pathExtension] isEqualToString: @"zblorb"] ||
-			  [ZoomBlorbFile fileContentsIsBlorb: filename])) {
+			  [ZoomBlorbFile URLContentsAreBlorb: filename])) {
 			// MAYBE IMPLEMENT ME: check if this is a blorb file anyway (look for an IFRS file?)
 			goto notAFilename;
 		}
@@ -178,12 +162,12 @@ notAFilename:
 		return NO;
 	}
 	
-	NSArray* filenames = [[sender draggingPasteboard] propertyListForType: NSFilenamesPboardType];
+	NSArray<NSURL*>* filenames = [[sender draggingPasteboard] readObjectsForClasses:@[[NSURL class]] options:@{NSPasteboardURLReadingFileURLsOnlyKey: @YES}];
 	if (filenames != nil && [filenames isKindOfClass: [NSArray class]]) {
 		// Is a filename array: we can handle one filename, which must be a .blb, .glb or .zlb file
 		if ([filenames count] != 1) return NO;
 		
-		NSString* filename = [filenames objectAtIndex: 0];
+		NSString* filename = [filenames objectAtIndex: 0].path;
 		if (![filename isKindOfClass: [NSString class]]) return NO;
 		
 		if (!([[filename pathExtension] isEqualToString: @"blb"] || 
@@ -194,7 +178,6 @@ notAFilename:
 		}
 		
 		if (droppedData != nil) {
-			[droppedData release];
 			droppedData = nil;
 			[self resourceDropDataChanged: self];
 		}
@@ -215,10 +198,7 @@ notAFilename:
 }
 
 // Delegate
-
-- (void) setDelegate: (id) dg {
-	delegate = dg;
-}
+@synthesize delegate;
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop {
 	if ([delegate respondsToSelector: @selector(resourceDropFilenameChanged:)]) {
@@ -226,17 +206,17 @@ notAFilename:
 	}
 	
 	NSLog(@"Resource drop filename changed... Checking:");
-	ZoomBlorbFile* file = [[ZoomBlorbFile alloc] initWithContentsOfFile: droppedFilename];
+	NSError *err;
+	ZoomBlorbFile* file = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: droppedFilename]
+																 error: &err];
 	if (file == nil) {
-		NSLog(@"Failed to load file");
+		NSLog(@"Failed to load file: %@", err.localizedDescription);
 		return;
 	}
 	
 	if (![file parseResourceIndex]) {
 		NSLog(@"Failed to parse index");
 	}
-	
-	[file release];
 }
 
 - (void) resourceDropDataChanged: (ZoomResourceDrop*) drop {

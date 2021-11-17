@@ -6,18 +6,32 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKTEXTGRIDWINDOW_H__
+#define __GLKVIEW_GLKTEXTGRIDWINDOW_H__
+
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 
 #import <GlkView/GlkWindow.h>
 #import <GlkView/GlkTextWindow.h>
 
-@interface GlkTextGridWindow : GlkTextWindow {
-	int lineInputLength;							// The amount of line input that we have accepted so far
+@interface GlkTextGridWindow : GlkTextWindow<NSTextStorageDelegate,NSTextViewDelegate> {
+	/// The amount of line input that we have accepted so far
+	NSInteger lineInputLength;
 	
-	int width,height;								// Current character width/height
-	int xpos,ypos;									// Current cursor position. Top left is 0,0.
+	/// Current character width/height
+	int width,height;
+	/// Current cursor position. Top left is 0,0.
+	int xpos,ypos;
 	
-	NSString* nextInputLine;						// The next input line to display
+	/// The next input line to display
+	NSString* nextInputLine;
 }
 
 @end
+
+#endif

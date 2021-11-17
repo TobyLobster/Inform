@@ -6,29 +6,21 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomTextView.h"
 #import "ZoomView.h"
 #import "ZoomPreferences.h"
+#import <ZoomView/ZoomView-Swift.h>
 
-@implementation ZoomTextView {
-    NSMutableArray* pastedLines; // Array of arrays ([NSValue<rect>, NSAttributedString])
+@implementation ZoomTextView
 
-    BOOL dragged;
-    float pastedScaleFactor;
-}
-
-- (instancetype) initWithFrame: (NSRect) frame {
+- (id) initWithFrame: (NSRect) frame {
     self = [super initWithFrame: frame];
     if (self) {
         pastedLines = [[NSMutableArray alloc] init];
 		pastedScaleFactor = 1.0;
     }
     return self;
-}
-
-- (void) dealloc {
-    [pastedLines release];
-    [super dealloc];
 }
 
 // Key event handling
@@ -46,7 +38,7 @@
     }
 }
 
-// = Mouse event handling =
+#pragma mark - Mouse event handling
 
 - (void) mouseDown: (NSEvent*) evt {
 	if (!dragged) {
@@ -64,12 +56,14 @@
 	[super mouseDown: evt];
 }
 
-- (BOOL)accessibilityIsIgnored {
-	if ([[ZoomPreferences globalPreferences] speakGameText]) return YES;
-	return [super accessibilityIsIgnored];
+- (BOOL)isAccessibilityElement {
+	if ([[ZoomPreferences globalPreferences] speakGameText]) {
+		return NO;
+	}
+	return [super isAccessibilityElement];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 // (Draw the overlays)
 - (void) drawRect: (NSRect) r {
@@ -93,12 +87,9 @@
     }
     ZoomView* zoomView = (ZoomView*) superview;
 
-    double offset = [zoomView upperBufferHeight]/pastedScaleFactor;
+    CGFloat offset = [zoomView upperBufferHeight]/pastedScaleFactor;
     
     // Draw pasted lines
-    NSEnumerator* lineEnum = [pastedLines objectEnumerator];
-    NSArray* line;
-	
 	NSAffineTransform* invertTransform = [NSAffineTransform transform];
 	[invertTransform scaleXBy: 1.0 
 						  yBy: -1.0];
@@ -107,8 +98,8 @@
 	[scaleTransform scaleXBy: pastedScaleFactor
 						 yBy: pastedScaleFactor];
 	
-    while (line = [lineEnum nextObject]) {
-        NSValue* rect = line[0];
+    for (NSArray* line in pastedLines) {
+        NSValue* rect = [line objectAtIndex: 0];
         NSRect   lineRect = [rect rectValue];
 
         lineRect.origin.y -= offset;
@@ -119,19 +110,19 @@
 		lineRect.size.width *= pastedScaleFactor;
 		lineRect.size.height *= pastedScaleFactor;
 		
-		lineRect.origin.x = floorf(lineRect.origin.x+0.5);
-		lineRect.origin.y = floorf(lineRect.origin.y+0.5);
-		lineRect.size.width = floorf(lineRect.size.width+0.5);
-		lineRect.size.height = floorf(lineRect.size.height+0.5);
+		lineRect.origin.x = floor(lineRect.origin.x+0.5);
+		lineRect.origin.y = floor(lineRect.origin.y+0.5);
+		lineRect.size.width = floor(lineRect.size.width+0.5);
+		lineRect.size.height = floor(lineRect.size.height+0.5);
 		
         if (NSIntersectsRect(r, lineRect)) {
-            NSAttributedString* str = line[1];
+            NSAttributedString* str = [line objectAtIndex: 1];
 			
             if (NSMaxY(lineRect) < NSMaxY(ourBounds)-superBounds.size.height) {
                 // Draw it faded out (so text underneath becomes increasingly visible)
                 NSImage* fadeImage;
 
-                double fadeAmount = (NSMaxY(ourBounds)-superBounds.size.height) - NSMaxY(lineRect);
+                CGFloat fadeAmount = (NSMaxY(ourBounds)-superBounds.size.height) - NSMaxY(lineRect);
                 fadeAmount /= 2048;
                 fadeAmount += 0.25;
                 if (fadeAmount > 0.75) fadeAmount = 0.75;
@@ -139,9 +130,8 @@
                 
                 fadeImage = [[NSImage alloc] initWithSize: lineRect.size];
 
-				[fadeImage setFlipped: NO];
                 [fadeImage setSize: lineRect.size];
-                [fadeImage lockFocus];
+                [fadeImage lockFocusFlipped:NO];
 
 				[[NSGraphicsContext currentContext] saveGraphicsState];					
 
@@ -160,10 +150,8 @@
 							 fromRect:NSMakeRect(0,0,
 												 lineRect.size.width,
 												 lineRect.size.height)
-							operation:NSCompositeSourceOver
+							operation:NSCompositingOperationSourceOver
 							 fraction:fadeAmount];
-
-                [fadeImage release];
             } else {
 				[[NSGraphicsContext currentContext] saveGraphicsState];	
 				[scaleTransform concat];
@@ -174,7 +162,7 @@
     }
 }
 
-// = Pasting overlays =
+#pragma mark - Pasting overlays
 
 // Things that are drawn in the upper window, but outside the point at which it has been split are
 // overlaid into the text view.
@@ -183,11 +171,9 @@
     [pastedLines removeAllObjects];
 }
 
-- (void) setPastedLineScaleFactor: (float) scaleFactor {
-	pastedScaleFactor = scaleFactor;
-}
+@synthesize pastedLineScaleFactor=pastedScaleFactor;
 
-- (void) pasteUpperWindowLinesFrom: (ZoomUpperWindow*) win {
+- (void) pasteUpperWindowLinesFromZoomWindow: (ZoomUpperWindow*) win {
     NSArray* lines = [win lines];
     BOOL changed;
     
@@ -221,12 +207,12 @@
 	//ourBounds = [self convertRect: ourBounds toView: container];
 	containerBounds = [self convertRect: containerBounds fromView: container];
 
-    double offset = [zoomView upperBufferHeight];
+    CGFloat offset = [zoomView upperBufferHeight];
 
-    double topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
+    CGFloat topPoint = NSMaxY(ourBounds) - containerBounds.size.height;
     
     NSSize fixedSize = [@"M" sizeWithAttributes:
-        @{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];
+                        @{NSFontAttributeName: [zoomView fontFromStyle:ZFontStyleFixed]}];
     
 	NSFontManager* fm = [NSFontManager sharedFontManager];
 	
@@ -235,10 +221,10 @@
 
     NSRect drawRect = NSZeroRect;
     
-    int l;
+    NSInteger l;
     for (l=[win length]; l<[lines count]; l++) {
         NSRect r;
-        NSAttributedString* str = lines[l];
+        NSAttributedString* str = [lines objectAtIndex: l];
 
         if ([str length] > 0) {
             r = NSMakeRect(0, topPoint+fixedSize.height*(l-[win length]), 0,0);
@@ -253,13 +239,13 @@
 				r.size.height /= pastedScaleFactor;
 
 				// Scale down the font size by the scale factor
-				NSMutableAttributedString* editedStr = [[str mutableCopy] autorelease];
+				NSMutableAttributedString* editedStr = [str mutableCopy];
 				
 				NSRange editRange;
 				NSDictionary* currentAttributes = [editedStr attributesAtIndex: 0
 																effectiveRange: &editRange];
 				for (;;) {
-					NSFont* oldFont = currentAttributes[NSFontAttributeName];
+					NSFont* oldFont = [currentAttributes objectForKey: NSFontAttributeName];
 					
 					if (oldFont != nil) {
 						NSFont* newFont = [fm convertFont: oldFont
@@ -269,7 +255,7 @@
 										  range: editRange];
 					}
 					
-					NSUInteger newPos = editRange.location + editRange.length;
+					NSInteger newPos = editRange.location + editRange.length;
 					if (editRange.length == 0) newPos++;
 					if (newPos >= [editedStr length]) break;
 					
@@ -281,8 +267,8 @@
 			}
 			
 			// Add this line to the set of pasted lines
-            [pastedLines addObject: @[[NSValue valueWithRect: r],
-                str]];
+            [pastedLines addObject: @[@(r),
+                                      str]];
 
             r.origin.y -= offset;
 
@@ -300,44 +286,39 @@
     [win cutLines];
 }
 
-- (void) offsetPastedLines: (float) offset {
+- (void) offsetPastedLines: (CGFloat) offset {
 	if (offset == 0) return;
 	offset /= pastedScaleFactor;
 	
 	// Subtract offset from all of the pasted lines, and remove any that have disappeared
 	NSMutableArray* newLines = [[NSMutableArray alloc] init];
 	
-	NSEnumerator* pastedEnum = [pastedLines objectEnumerator];
-	NSArray* line;
-	while (line = [pastedEnum nextObject]) {
+	for (NSArray* line in pastedLines) {
 		// Work out the new position of this line
-		NSRect lineRect = [line[0] rectValue];;
-		NSAttributedString* str = line[1];
+		NSRect lineRect = [[line objectAtIndex: 0] rectValue];
+		NSAttributedString* str = [line objectAtIndex: 1];
 		
 		lineRect.origin.y -= offset;
 
 		// If it's still in the view, then add it to the modified array
 		if (NSMaxY(lineRect) > 0) {
-			[newLines addObject: @[[NSValue valueWithRect: lineRect],
+			[newLines addObject: @[
+				@(lineRect),
 				str]];
 		}
 	}
 	
 	// Replace the pasted lines with the new set of lines
-	[pastedLines autorelease];
 	pastedLines = newLines;
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		NSView* parent = [self superview];
-		while (parent != nil && ![parent isKindOfClass: [ZoomView class]]) {
-			parent = [parent superview];
-		}
-		if (parent) return parent;
+- (id)accessibilityParent {
+	NSView* parent = [self superview];
+	while (parent != nil && ![parent isKindOfClass: [ZoomView class]]) {
+		parent = [parent superview];
 	}
-	
-	return [super accessibilityAttributeValue: attribute];
+	if (parent) return parent;
+	return [super accessibilityParent];
 }
 
 @end

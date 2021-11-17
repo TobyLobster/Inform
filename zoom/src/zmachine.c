@@ -213,7 +213,7 @@ void zmachine_load_file(ZFile* file, ZMachine* machine) {
 #endif
 }
 
-void zmachine_load_story(char* filename, ZMachine* machine)
+void zmachine_load_story(const char* filename, ZMachine* machine)
 {
   ZDWord size;
 
@@ -259,7 +259,7 @@ void zmachine_load_story(char* filename, ZMachine* machine)
 }
 
 #if WINDOW_SYSTEM==1 || WINDOW_SYSTEM==2 || WINDOW_SYSTEM==3
-void zmachine_fatal(char* format, ...)
+void zmachine_fatal(const char* format, ...)
 {
   va_list  ap;
   char     string[256];
@@ -373,7 +373,7 @@ void zmachine_fatal(char* format, ...)
     }
 }
 
-void zmachine_warning(char* format, ...)
+void zmachine_warning(const char* format, ...)
 {
 	va_list  ap;
 	char     string[256];
@@ -450,7 +450,7 @@ void zmachine_warning(char* format, ...)
 }
 #endif
 
-void zmachine_info(char* format, ...)
+void zmachine_info(const char* format, ...)
 {
   va_list  ap;
   char     string[256];

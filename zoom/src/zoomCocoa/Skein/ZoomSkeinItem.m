@@ -9,46 +9,36 @@
 #import <Cocoa/Cocoa.h>
 
 #import "ZoomSkeinItem.h"
+#import "ZoomSkeinInternal.h"
 
 // Skein item notifications
-NSString* ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
-NSString* ZoomSkeinItemHasBeenRemovedFromTree = @"ZoomSkeinItemHasBeenRemovedFromTree";	
-NSString* ZoomSkeinItemHasChanged = @"ZoomSkeinItemHasChanged";
-NSString* ZoomSkeinItemHasNewChild = @"ZoomSkeinItemHasNewChild";
+NSString*const ZoomSkeinItemIsBeingReplaced = @"ZoomSkeinItemIsBeingReplaced";
+NSString*const ZoomSkeinItemHasBeenRemovedFromTree = @"ZoomSkeinItemHasBeenRemovedFromTree";
+NSString*const ZoomSkeinItemHasChanged = @"ZoomSkeinItemHasChanged";
+NSString*const ZoomSkeinItemHasNewChild = @"ZoomSkeinItemHasNewChild";
 
 // Skein item notification dictionary keys
-NSString* ZoomSIItem = @"ZoomSIItem";
-NSString* ZoomSIOldItem = @"ZoomSIOldItem";
-NSString* ZoomSIOldParent = @"ZoomSIOldParent";
-NSString* ZoomSIChild = @"ZoomSIChild";
+NSString*const ZoomSIItem = @"ZoomSIItem";
+NSString*const ZoomSIOldItem = @"ZoomSIOldItem";
+NSString*const ZoomSIOldParent = @"ZoomSIOldParent";
+NSString*const ZoomSIChild = @"ZoomSIChild";
+
+@interface ZoomSkeinItem ()
+@property (readwrite, weak) ZoomSkeinItem* parent;
+@end
 
 @implementation ZoomSkeinItem {
-    ZoomSkeinItem* parent;
-    NSMutableSet* children;
-
-    NSString*     command;
-    NSString*     result;
-
-    BOOL temporary;
-    int  tempScore;
-
-    BOOL played, changed;
-
-    NSString* annotation;
-    NSString* commentary;
-
-    // Cached layout items (text measuring is slow)
-    BOOL   commandSizeDidChange;
-    NSSize commandSize;
-
-    BOOL   annotationSizeDidChange;
-    NSSize annotationSize;
-
-    // Results of comparing the result to the commentary
-    ZoomSkeinComparison commentaryComparison;
+	NSMutableSet<ZoomSkeinItem*>* children;
+	
+	// Cached layout items (text measuring is slow)
+	BOOL   commandSizeDidChange;
+	NSSize commandSize;
+	
+	BOOL   annotationSizeDidChange;
+	NSSize annotationSize;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 static NSString* convertCommand(NSString* command) {
 	if (command == nil) return nil;
@@ -74,20 +64,21 @@ static NSString* convertCommand(NSString* command) {
 	}
 	
 	if (needsChange) {
-		command = [NSString stringWithCharacters: uniBuf
-										  length: [command length] - spaces];
+		command = [[NSString alloc] initWithCharactersNoCopy: uniBuf
+													  length: [command length] - spaces
+												freeWhenDone: YES];
+	} else {
+		free(uniBuf);
 	}
-	
-	free(uniBuf);
 	
 	return command;
 }
 
 + (ZoomSkeinItem*) skeinItemWithCommand: (NSString*) com {
-	return [[[[self class] alloc] initWithCommand: com] autorelease];
+	return [[[self class] alloc] initWithCommand: com];
 }
 
-- (instancetype) initWithCommand: (NSString*) com {
+- (instancetype) initWithCommand: (nullable NSString*) com identifier: (NSUUID*) uuid {
 	self = [super init];
 	
 	if (self) {
@@ -95,24 +86,28 @@ static NSString* convertCommand(NSString* command) {
 		result  = nil;
 		
 		parent = nil;
+		_nodeIdentifier = uuid;
 		children = [[NSMutableSet alloc] init];
 		
 		temporary = YES;
 		tempScore = 0;
 		played    = NO;
 		changed   = YES;
-        commentaryComparison = ZoomSkeinNoResult;
-
+		
 		annotation = nil;
-
+		
 		annotationSizeDidChange = commandSizeDidChange = YES;
 	}
 	
 	return self;
 }
 
-- (instancetype) init {
-	return [self initWithCommand: nil];
+- (id) initWithCommand: (NSString*) com {
+	return [self initWithCommand: com identifier: [NSUUID UUID]];
+}
+
+- (id) init {
+	return [self initWithCommand: nil identifier: [NSUUID UUID]];
 }
 
 - (void) dealloc {
@@ -120,22 +115,15 @@ static NSString* convertCommand(NSString* command) {
 	NSMutableArray* childrenToDestroy = [NSMutableArray array];
 	NSEnumerator* objEnum = [children objectEnumerator];
 	ZoomSkeinItem* child;
-	while (child = [objEnum nextObject]) {
+	for (child in objEnum) {
 		[childrenToDestroy addObject: child];
 	}
 	
 	// Luke, I am your father
 	[childrenToDestroy makeObjectsPerformSelector: @selector(removeFromParent)];
 	
-	// Then just release everything
-	[children release];
-
-	if (command)	[command release];
-	if (result)		[result release];
-	if (annotation) [annotation release];
-	
 	// NOOOOOOO
-	[super dealloc];
+	//[super dealloc];
 }
 
 // **** Notification convienience functions ****
@@ -144,7 +132,7 @@ static NSString* convertCommand(NSString* command) {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemIsBeingReplaced
 														object: self
 													  userInfo: @{ZoomSIItem: item,
-														  ZoomSIOldItem: self}];
+																  ZoomSIOldItem: self}];
 }
 
 - (void) itemHasBeenRemovedFromTree {
@@ -157,7 +145,7 @@ static NSString* convertCommand(NSString* command) {
 	[[NSNotificationCenter defaultCenter] postNotificationName: ZoomSkeinItemHasNewChild
 														object: self
 													  userInfo: @{ZoomSIItem: self,
-														  ZoomSIChild: newChild}];
+																  ZoomSIChild: newChild}];
 }
 
 - (void) itemHasChanged {
@@ -168,26 +156,18 @@ static NSString* convertCommand(NSString* command) {
 
 // **** Data accessors ****
 
-// = Skein tree =
-
-- (void) setParent: (ZoomSkeinItem*) newParent {
-	parent = newParent;
-}
-
-- (ZoomSkeinItem*) parent {
-	return parent;
-}
+#pragma mark - Skein tree
+@synthesize parent;
 
 - (NSSet*) children {
-	return children;
+	return [children copy];
 }
 
 - (ZoomSkeinItem*) childWithCommand: (NSString*) com {
-	NSEnumerator* objEnum = [children objectEnumerator];
-	ZoomSkeinItem* skeinItem;
-	
-	while (skeinItem = [objEnum nextObject]) {
-		if ([[skeinItem command] isEqualToString: com]) return skeinItem;
+	for (ZoomSkeinItem* skeinItem in children) {
+		if ([[skeinItem command] isEqualToString: com]) {
+			return skeinItem;
+		}
 	}
 	
 	return nil;
@@ -195,10 +175,7 @@ static NSString* convertCommand(NSString* command) {
 
 - (void) mergeWith: (ZoomSkeinItem*) newItem {
 	// Merges this item with another
-	NSEnumerator* objEnum = [[newItem children] objectEnumerator];
-	ZoomSkeinItem* childItem;
-	
-	while (childItem = [objEnum nextObject]) {
+	for (ZoomSkeinItem* childItem in [newItem children]) {
 		ZoomSkeinItem* oldChild = [self childWithCommand: [childItem command]];
 		
 		// Same reasoning as addChild: - this saves us a message call, which might allow us to deal with deeper skeins
@@ -222,16 +199,15 @@ static NSString* convertCommand(NSString* command) {
 		if ([childItem annotation]) [oldChild setAnnotation: [childItem annotation]];
 		if ([childItem commentary]) [oldChild setCommentary: [childItem commentary]];
 		
-		if (![childItem temporary]) [oldChild setTemporary: NO];
+		if (!childItem.temporary) [oldChild setTemporary: NO];
 		[oldChild setPlayed: [childItem played]];
-        [oldChild setChanged: [childItem changed]];
-
+		[oldChild setChanged: [childItem changed]];
+		
 		// 'New' item is the old one
 		[childItem itemIsBeingReplacedBy: oldChild];
 		
 		return oldChild;
 	} else {
-		[[childItem retain] autorelease];
 		[childItem removeFromParent];
 		
 		// Otherwise, just add the new item
@@ -248,8 +224,6 @@ static NSString* convertCommand(NSString* command) {
 - (void) removeChild: (ZoomSkeinItem*) childItem {
 	if ([childItem parent] != self) return;
 
-	[[childItem retain] autorelease];
-	
 	[childItem setParent: nil];
 	[children removeObject: childItem];
 
@@ -266,10 +240,7 @@ static NSString* convertCommand(NSString* command) {
 	if (item == self) return YES;
 	//if ([children containsObject: child]) return YES;
 	
-	NSEnumerator* childEnum = [children objectEnumerator];
-	ZoomSkeinItem* child;
-	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		if ([child hasChild: item]) return YES;
 	}
 	
@@ -277,12 +248,9 @@ static NSString* convertCommand(NSString* command) {
 }
 
 - (BOOL) hasChildWithCommand: (NSString*) theCommand {
-	NSEnumerator* childEnum = [children objectEnumerator];
-	ZoomSkeinItem* child;
-	
 	if (theCommand == nil) theCommand = @"";
 	
-	while (child = [childEnum nextObject]) {
+	for (ZoomSkeinItem* child in children) {
 		NSString* childCommand = [child command];
 		if (childCommand == nil) childCommand = @"";
 		
@@ -292,20 +260,14 @@ static NSString* convertCommand(NSString* command) {
 	return NO;
 }
 
-// = Item data =
+#pragma mark - Item data
 
-- (NSString*) command {
-	return [[command copy] autorelease];
-}
-
-- (NSString*) result {
-	return [[result copy] autorelease];
-}
+@synthesize command;
+@synthesize result;
 
 - (void) setCommand: (NSString*) newCommand {
 	if ([newCommand isEqualToString: command]) return;			// Nothing to do
 	
-	if (command) [command release];
 	command = nil;
 	if (![newCommand isEqualToString: command]) commandSizeDidChange = YES;
 	if (newCommand) command = [convertCommand(newCommand) copy];
@@ -321,32 +283,19 @@ static NSString* convertCommand(NSString* command) {
 		return;							// Nothing else to do
 	}
 	
-	if (result) [result release];
-	result = nil;
-	if (newResult) result = [newResult copy];
+	result = [newResult copy];
 	
 	commentaryComparison = ZoomSkeinNotCompared;
 	
 	[self itemHasChanged];
 }
 
-// = Item state =
+#pragma mark - Item state
 
-- (BOOL) temporary {
-	return temporary;
-}
-
-- (int)  temporaryScore {
-	return tempScore;
-}
-
-- (BOOL) played {
-	return played;
-}
-
-- (BOOL) changed {
-	return changed;
-}
+@synthesize temporary;
+@synthesize temporaryScore = tempScore;
+@synthesize played;
+@synthesize changed;
 
 - (void) setTemporary: (BOOL) isTemporary {
 	temporary = isTemporary;
@@ -356,18 +305,15 @@ static NSString* convertCommand(NSString* command) {
 	// Also applies to parent items if set to 'NO'
 	if (!isTemporary) {
 		while (p != nil && [p parent] != nil) {
-			if (![p temporary]) break;
+			if (!p.temporary) break;
 			[p setTemporary: NO];
 			
 			p = [p parent];
 		}
 	} else {
 		// Applies to child items if set to 'YES'
-		NSEnumerator* childEnum = [[self children] objectEnumerator];
-		ZoomSkeinItem* child;
-		
-		while (child = [childEnum nextObject]) {
-			if (![child temporary]) [child setTemporary: YES];
+		for (ZoomSkeinItem* child in [self children]) {
+			if (!child.temporary) [child setTemporary: YES];
 		}
 	}
 	
@@ -379,7 +325,7 @@ static NSString* convertCommand(NSString* command) {
 	if (!isTemporary) {
 		// Find the lowermost item in this branch (ie, set this entire branch as temporary)		
 		while ([[lowerItem children] count] == 1) {
-			lowerItem = [[lowerItem children] allObjects][0];
+			lowerItem = [[[lowerItem children] allObjects] objectAtIndex: 0];
 		}
 	} else {
 		// Find the uppermost item in this branch (ie, set this entire branch as not temporary)
@@ -395,10 +341,6 @@ static int currentScore = 1;
 
 - (void) zoomSetTemporaryScore {
 	tempScore = currentScore;
-}
-
-- (void) setTemporaryScore: (int) score {
-	tempScore = score;
 }
 
 - (void) increaseTemporaryScore {
@@ -426,18 +368,15 @@ static int currentScore = 1;
 	if (oldChanged != newChanged) [self itemHasChanged];
 }
 
-// = Annotation =
+#pragma mark - Annotation
 
-- (NSString*) annotation {
-	return annotation;
-}
+@synthesize annotation;
 
 - (void) setAnnotation: (NSString*) newAnnotation {
 	if (annotation == nil || ![newAnnotation isEqualToString: annotation]) 
 		annotationSizeDidChange = YES;
 	else
 		return;					// Nothing to do
-	if (annotation) [annotation release];
 	annotation = nil;
 	if (newAnnotation && ![newAnnotation isEqualToString: @""]) annotation = [newAnnotation copy];
 	
@@ -448,16 +387,13 @@ static int currentScore = 1;
 	[self itemHasChanged];
 }
 
-// = Commentary =
+#pragma mark - Commentary
 
-- (NSString*) commentary {
-	return commentary;
-}
+@synthesize commentary;
 
 - (void) setCommentary: (NSString*) newCommentary {
 	if ([newCommentary isEqualToString: commentary]) return;				// Nothing to do
 	
-	[commentary release]; commentary = nil;
 	commentary = [newCommentary copy];
 
 	commentaryComparison = ZoomSkeinNotCompared;
@@ -470,8 +406,9 @@ static int currentScore = 1;
 }
 
 - (NSString*) stripWhitespace: (NSString*) otherString {
-	NSMutableString* res = [[otherString mutableCopy] autorelease];
+	NSMutableString* res = [otherString mutableCopy];
 	
+	// Sigh. Need perl. (stringByTrimmingCharactersInSet would have been perfect if it applied across the whole string)
 	int pos;
 	for (pos=0; pos<[res length]; pos++) {
 		unichar chr = [res characterAtIndex: pos];
@@ -491,36 +428,31 @@ static int currentScore = 1;
 	return res;
 }
 
-- (ZoomSkeinComparison) forceCommentaryComparison {
-    if (result == nil || [result length] == 0
-        || commentary == nil || [commentary length] == 0) {
-        // If either the result of commentary is of 0 length, then there is no result
-        commentaryComparison = ZoomSkeinNoResult;
-    } else {
-        // Compare the two strings (taking account of whitespace)
-        NSComparisonResult compareResult = [result compare: commentary];
-
-        if (compareResult == NSOrderedSame) {
-            // These two items are exactly the same
-            commentaryComparison = ZoomSkeinIdentical;
-        } else {
-            // Compare the two strings (ignoring whitespace)
-            compareResult = [[self stripWhitespace: result] compare: [self stripWhitespace: commentary]];
-
-            if (compareResult == NSOrderedSame) {
-                commentaryComparison = ZoomSkeinDiffersOnlyByWhitespace;
-            } else {
-                commentaryComparison = ZoomSkeinDifferent;
-            }
-        }
-    }
-    return commentaryComparison;
-}
-
-
+@synthesize commentaryComparison;
 - (ZoomSkeinComparison) commentaryComparison {
 	if (commentaryComparison == ZoomSkeinNotCompared) {
-        [self forceCommentaryComparison];
+		if (result == nil || [result length] == 0
+			|| commentary == nil || [commentary length] == 0) {
+			// If either the result of commentary is of 0 length, then there is no result
+			commentaryComparison = ZoomSkeinNoResult;
+		} else {
+			// Compare the two strings (taking account of whitespace)
+			NSComparisonResult compareResult = [result compare: commentary];
+			
+			if (compareResult == NSOrderedSame) {
+				// These two items are exactly the same
+				commentaryComparison = ZoomSkeinIdentical;
+			} else {
+				// Compare the two strings (ignoring whitespace)
+				compareResult = [[self stripWhitespace: result] compare: [self stripWhitespace: commentary]];
+				
+				if (compareResult == NSOrderedSame) {
+					commentaryComparison = ZoomSkeinDiffersOnlyByWhitespace;
+				} else {
+					commentaryComparison = ZoomSkeinDifferent;
+				}
+			}
+		}
 	}
 	
 	return commentaryComparison;
@@ -529,10 +461,9 @@ static int currentScore = 1;
 - (ZoomSkeinItem*) nextDiffDown {
 	// Finds the next difference (below this item)
 	NSEnumerator* childEnum = [[self children] objectEnumerator];
-	ZoomSkeinItem* child;
 	
-	while (child = [childEnum nextObject]) {
-		int compare = [child commentaryComparison];
+	for (ZoomSkeinItem* child in childEnum) {
+		ZoomSkeinComparison compare = [child commentaryComparison];
 		if (compare == ZoomSkeinDifferent
 			|| compare == ZoomSkeinDiffersOnlyByWhitespace) {
 			return child;
@@ -585,7 +516,7 @@ static int currentScore = 1;
 	return nil;
 }
 
-// = Taking part in a set =
+#pragma mark - Taking part in a set
 
 - (NSUInteger)hash {
 	// Items are distinguished by their command
@@ -608,7 +539,7 @@ static int currentScore = 1;
 	return [[otherItem command] isEqual: command];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 - (void) encodeWithCoder: (NSCoder*) encoder {
 	[encoder encodeObject: children
@@ -620,6 +551,8 @@ static int currentScore = 1;
 				   forKey: @"result"];
 	[encoder encodeObject: annotation
 				   forKey: @"annotation"];
+	[encoder encodeObject: _nodeIdentifier
+				   forKey: @"nodeUUID"];
 	
 	[encoder encodeBool: played
 				 forKey: @"played"];
@@ -631,15 +564,20 @@ static int currentScore = 1;
 				forKey: @"tempScore"];
 }
 
-- (instancetype)initWithCoder: (NSCoder *)decoder {
+- (id)initWithCoder: (NSCoder *)decoder {
 	self = [super init];
 	
 	if (self) {
-		children = [[decoder decodeObjectForKey: @"children"] retain];
+		children = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableSet class], [ZoomSkeinItem class], nil] forKey: @"children"];
 		
-		command = [[decoder decodeObjectForKey: @"command"] retain];
-		result = [[decoder decodeObjectForKey: @"result"] retain];
-		annotation = [[decoder decodeObjectForKey: @"annotation"] retain];
+		command = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
+		result = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
+		annotation = [decoder decodeObjectOfClass: [NSString class] forKey: @"annotation"];
+		_nodeIdentifier = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"nodeUUID"];
+		if (!_nodeIdentifier) {
+			// UUID decoder failure means old-style, pointer-derived xml.
+			_nodeIdentifier = [NSUUID UUID];
+		}
 		
 		played = [decoder decodeBoolForKey: @"played"];
 		changed = [decoder decodeBoolForKey: @"changed"];
@@ -647,8 +585,7 @@ static int currentScore = 1;
 		tempScore = [decoder decodeIntForKey: @"tempScore"];
 		
 		NSEnumerator* childEnum = [children objectEnumerator];
-		ZoomSkeinItem* child;
-		while (child = [childEnum nextObject]) {
+		for (ZoomSkeinItem* child in childEnum) {
 			child->parent = self;
 		}
 
@@ -658,7 +595,12 @@ static int currentScore = 1;
 	return self;
 }
 
-// = Drawing/sizing =
++ (BOOL)supportsSecureCoding
+{
+	return YES;
+}
+
+#pragma mark - Drawing/sizing
 
 //
 // These routines are implemented here for performance reasons
@@ -666,15 +608,7 @@ static int currentScore = 1;
 // Zoom
 //
 
-static NSDictionary* itemTextAttributes = nil;
-static NSDictionary* labelTextAttributes = nil;
-
 - (NSSize) commandSize {
-	if (!itemTextAttributes) {
-		itemTextAttributes = [@{NSFontAttributeName: [NSFont systemFontOfSize: 10],
-			NSForegroundColorAttributeName: [NSColor blackColor]} retain];
-	}
-	
 	if (commandSizeDidChange) {
 		commandSize = [command sizeWithAttributes: itemTextAttributes];
 	}
@@ -689,11 +623,6 @@ static NSDictionary* labelTextAttributes = nil;
 }
 
 - (NSSize) annotationSize {
-	if (!labelTextAttributes) {
-		labelTextAttributes = [@{NSFontAttributeName: [NSFont systemFontOfSize: 13],
-			NSForegroundColorAttributeName: [NSColor blackColor]} retain];
-	}
-	
 	if (annotationSizeDidChange) {
 		annotationSize = annotation?[annotation sizeWithAttributes: labelTextAttributes]:NSMakeSize(0,0);
 	}

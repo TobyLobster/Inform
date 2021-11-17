@@ -12,7 +12,7 @@
 
 @implementation ZoomPlugInController
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (ZoomPlugInController*) sharedPlugInController {
 	static ZoomPlugInController* sharedController = nil;
@@ -37,22 +37,22 @@
 
 - (void) windowDidLoad {
 	NSTableColumn* pluginColumn = [pluginTable tableColumnWithIdentifier: @"Plugin"];
-	[pluginColumn setDataCell: [[[ZoomPlugInCell alloc] init] autorelease]];	
+	[pluginColumn setDataCell: [[ZoomPlugInCell alloc] init]];
 }
 
-// = The data source for the plugin table =
+#pragma mark - The data source for the plugin table
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	return [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
 }
 
 - (id)				tableView:(NSTableView *)aTableView 
 	objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-						  row:(int)rowIndex {
-	return [NSNumber numberWithInt: rowIndex];
+						  row:(NSInteger)rowIndex {
+	return @(rowIndex);
 }
 
-// = Plugin manager delegate methods =
+#pragma mark - Plugin manager delegate methods
 
 - (void) pluginInformationChanged {
 	[pluginTable reloadData];
@@ -62,7 +62,7 @@
 	[pluginProgress setIndeterminate: YES];
 	[pluginProgress startAnimation: self];
 	
-	[statusField setStringValue: @"Checking for updates..."];
+	[statusField setStringValue: NSLocalizedString(@"Checking for updates...", @"Checking for updates...")];
 	[statusField setHidden: NO];
 	
 	[installButton setEnabled: NO];
@@ -84,8 +84,7 @@
 	// Show the window if there are any updates
 	BOOL updated = NO;
 	NSEnumerator* infoEnum = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [infoEnum nextObject]) {
+	for (ZoomPlugInInfo* info in infoEnum) {
 		switch ([info status]) {
 			case ZoomPlugInNew:
 			case ZoomPluginUpdateAvailable:
@@ -100,11 +99,16 @@
 	
 	if (updated && ![[self window] isVisible]) {
 		[self showWindow: self];
-
-		NSBeginAlertSheet(@"Zoom found updates to some of the installed plugins", 
-						  @"Install Now", @"Later", nil, [self window], self, 
-						  @selector(finishUpdating:returnCode:contextInfo:), nil, nil,
-						  @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.");
+		NSAlert *alert = [[NSAlert alloc] init];
+		alert.messageText = NSLocalizedString(@"Zoom found updates to some of the installed plugins", @"Zoom found updates to some of the installed plugins");
+		alert.informativeText = NSLocalizedString(@"Zoom found plug-in updates info", @"Zoom has found some updates to some of the plugins that are installed. You can install these now to update your interpreters to the latest versions.");
+		[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Now", @"Install Now")];
+		[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Later", @"Later")];
+		[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+			if (returnCode == NSAlertFirstButtonReturn) {
+				[self installUpdates: self];
+			}
+		}];
 	}
 }
 
@@ -114,7 +118,7 @@
 	[pluginProgress setMinValue: 0];
 	[pluginProgress setMaxValue: 100];
 	
-	[statusField setStringValue: @"Downloading updates..."];
+	[statusField setStringValue: NSLocalizedString(@"Downloading updates...", @"Downloading updates…")];
 	[statusField setHidden: NO];
 	
 	[installButton setEnabled: NO];
@@ -122,7 +126,7 @@
 }
 
 - (void) downloadProgress: (NSString*) status
-			   percentage: (float) percent {
+			   percentage: (CGFloat) percent {
 	if (percent >= 0) {
 		[pluginProgress setIndeterminate: NO];
 		[pluginProgress setDoubleValue: percent];
@@ -143,17 +147,23 @@
 
 - (void) needsRestart {
 	[self showWindow: self];
-	NSBeginAlertSheet(@"You must restart Zoom to complete the update", 
-					  @"Restart Now", @"Later", nil, [self window], self, 
-					  @selector(finishRestart:returnCode:contextInfo:), nil, nil,
-					  @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.");
+	NSAlert *alert = [[NSAlert alloc] init];
+	alert.messageText = NSLocalizedString(@"You must restart Zoom to complete the update", @"You must restart Zoom to complete the update");
+	alert.informativeText = NSLocalizedString(@"Restart Zoom Plug-in update", @"Zoom has installed updates for its interpreter plugins. In order for the update to be completed, you will need to restart Zoom.");
+	[alert addButtonWithTitle: NSLocalizedString(@"Restart Now", @"Restart Now")];
+	[alert addButtonWithTitle: NSLocalizedString(@"Install Update Plug-in Later", @"Later")];
+	[alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+		if (returnCode == NSAlertFirstButtonReturn) {
+			[self restartZoom];
+		}
+	}];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (void) restartZoom {
 	// Force Zoom to restart
-	NSMutableString* zoomPath = [[[[NSBundle mainBundle] bundlePath] mutableCopy] autorelease];
+	NSMutableString* zoomPath = [[[NSBundle mainBundle] bundlePath] mutableCopy];
 	
 	int x;
 	for (x=0; x<[zoomPath length]; x++) {
@@ -186,22 +196,6 @@
 
 	// I'll be back
 	[NSApp terminate: self];
-}
-
-- (void) finishRestart:(NSWindow *)sheet 
-			returnCode:(int)returnCode 
-		   contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
-		[self restartZoom];
-	}
-}
-
-- (void) finishUpdating:(NSWindow *)sheet 
-			 returnCode:(int)returnCode 
-			contextInfo:(void  *)contextInfo {
-	if (returnCode == NSAlertDefaultReturn) {
-		[self installUpdates: self];
-	}
 }
 
 - (IBAction) installUpdates: (id) sender {

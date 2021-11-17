@@ -6,17 +6,27 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKFILESTREAM_H__
+#define __GLKVIEW_GLKFILESTREAM_H__
 
-#import "GlkStreamProtocol.h"
+#import <Foundation/Foundation.h>
+
+#import <GlkView/GlkStreamProtocol.h>
 
 @interface GlkFileStream : NSObject<GlkStream> {
-	NSFileHandle* handle;						// The filehandle we're using to read/write from
+	/// The filehandle we're using to read/write from
+	NSFileHandle* handle;
 }
 
 // Initialisation
-- (instancetype) initForReadWriteWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
-- (instancetype) initForWritingWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
-- (instancetype) initForReadingWithFilename: (NSString*) filename NS_DESIGNATED_INITIALIZER;
+- (instancetype) initForReadWriteWithFilename: (NSString*) filename;
+- (instancetype) initForWritingWithFilename: (NSString*) filename;
+- (instancetype) initForReadingWithFilename: (NSString*) filename;
+
+- (instancetype) initForReadWriteWithFileURL: (NSURL*) filename;
+- (instancetype) initForWritingToFileURL: (NSURL*) filename;
+- (instancetype) initForReadingFromFileURL: (NSURL*) filename;
 
 @end
+
+#endif

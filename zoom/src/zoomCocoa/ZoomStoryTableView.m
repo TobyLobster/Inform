@@ -7,25 +7,25 @@
 //
 
 #import "ZoomStoryTableView.h"
+#import "ZoomiFictionController.h"
 
 #import <Carbon/Carbon.h>
 
 @implementation ZoomStoryTableView
 
-// draggingSourceOperationmaskForLocal:
-//
-//
-
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal
+-     (NSDragOperation)draggingSession:(NSDraggingSession *)session
+ sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
-    if( isLocal )
-	{
-        return NSDragOperationNone;
-    }
-	else
-	{
-        return NSDragOperationCopy;
-    }
+	switch (context) {
+		case NSDraggingContextOutsideApplication:
+			return NSDragOperationCopy;
+			break;
+			
+		default:
+		case NSDraggingContextWithinApplication:
+			return NSDragOperationNone;
+			break;
+	}
 }
 
 // keyDown:
@@ -50,7 +50,7 @@
             
 			if( [self numberOfSelectedRows] > 0 )
 			{
-                [[self dataSource] delete:self];
+                [(ZoomiFictionController*)[self dataSource] delete:self];
             }
         
 			break;
@@ -101,7 +101,7 @@
 {
 	[self performSelector:@selector(editSelectedCell:)
 		withObject:NULL
-		afterDelay:(GetDblTime()/60.0)];
+		afterDelay:[NSEvent doubleClickInterval]];
 }
 
 // cancelEditTimer

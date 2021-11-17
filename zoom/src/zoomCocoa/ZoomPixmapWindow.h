@@ -8,26 +8,25 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 
-@interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSCoding> {
-	ZoomView* zView;
+@interface ZoomPixmapWindow : NSObject<ZPixmapWindow, NSSecureCoding> {
 	NSImage* pixmap;
 	
 	NSPoint inputPos;
 	ZStyle* inputStyle;
 }
 
-// Initialisation
-- (instancetype) initWithZoomView: (ZoomView*) view NS_DESIGNATED_INITIALIZER;
-- (void) setZoomView: (ZoomView*) view;
+#pragma mark Initialisation
+- (instancetype) initWithZoomView: (ZoomView*) view;
+@property (weak) ZoomView* zoomView;
 
-// Getting the pixmap
-@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *pixmap;
+#pragma mark Getting the pixmap
+@property (readonly) NSSize size;
+@property (readonly, strong) NSImage *pixmap;
 
-// Input information
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPoint inputPos;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) ZStyle *inputStyle;
+#pragma mark Input information
+@property (readonly) NSPoint inputPos;
+- (ZStyle*) inputStyle;
 
 @end

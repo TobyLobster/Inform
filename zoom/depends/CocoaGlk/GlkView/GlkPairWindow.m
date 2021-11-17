@@ -6,14 +6,17 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "GlkPairWindow.h"
+#import <GlkView/GlkPairWindow.h>
+#import <GlkView/GlkView.h>
 
 
 @implementation GlkPairWindow
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -27,20 +30,12 @@
 - (void) dealloc {
 	[left setParent: nil];
 	[right setParent: nil];
-	
-	[key release]; key = nil;
-	[left release]; left = nil;
-	[right release]; right = nil;
-	
-	[super dealloc];
 }
 
-// = Setting the windows that make up this pair =
+#pragma mark - Setting the windows that make up this pair
 
 - (void) setKeyWindow: (GlkWindow*) newKey {
-	[key release];
-	
-	key = [newKey retain];
+	key = newKey;
 	
 	needsLayout = YES;
 }
@@ -55,9 +50,8 @@
 - (void) setLeftWindow: (GlkWindow*) newLeft {
 	[left setParent: nil];
 	[left removeFromSuperview];
-	[left release]; 
 
-	left = [newLeft retain];
+	left = newLeft;
 	[left setParent: self];
 	[left setScaleFactor: scaleFactor];
 	
@@ -67,28 +61,19 @@
 - (void) setRightWindow: (GlkWindow*) newRight {
 	[right setParent: nil];
 	[right removeFromSuperview];
-	[right release]; 
 	
-	right = [newRight retain];
+	right = newRight;
 	[right setParent: self];
 	[right setScaleFactor: scaleFactor];
 	
 	needsLayout = YES;
 }
 
-- (GlkWindow*) keyWindow {
-	return key;
-}
+@synthesize keyWindow = key;
+@synthesize leftWindow = left;
+@synthesize rightWindow = right;
 
-- (GlkWindow*) leftWindow {
-	return left;
-}
-
-- (GlkWindow*) rightWindow {
-	return right;
-}
-
-// = Size and arrangement =
+#pragma mark - Size and arrangement
 
 - (void) setSize: (unsigned) newSize {
 	size = newSize;
@@ -108,29 +93,14 @@
 	needsLayout = YES;
 }
 
-- (void) setAbove: (BOOL) newAbove {
-	above = newAbove;
-}
+@synthesize size;
+@synthesize fixed;
+@synthesize horizontal;
+@synthesize above;
 
-- (unsigned) size {
-	return size;
-}
+#pragma mark - Custom settings
 
-- (BOOL) fixed {
-	return fixed;
-}
-
-- (BOOL) horizontal {
-	return horizontal;
-}
-
-- (BOOL) above {
-	return above;
-}
-
-// = Custom settings =
-
-- (void) setBorderWidth: (float) newBorderWidth {
+- (void) setBorderWidth: (CGFloat) newBorderWidth {
 	borderWidth = newBorderWidth;
 	
 	needsLayout = YES;
@@ -142,9 +112,12 @@
 	needsLayout = YES;
 }
 
-// = Layout =
+@synthesize borderWidth;
+@synthesize inputBorder;
 
-- (void) setScaleFactor: (float) scale {
+#pragma mark - Layout
+
+- (void) setScaleFactor: (CGFloat) scale {
 	if (scale == scaleFactor) return;
 	
 	[super setScaleFactor: scale];
@@ -162,10 +135,10 @@
 		NSRect bounds = [self bounds];
 		
 		// Work out the sizes for the child windows
-		float availableSize = horizontal?parentRect.size.width:parentRect.size.height;
+		CGFloat availableSize = horizontal?parentRect.size.width:parentRect.size.height;
 		availableSize -= borderWidth;
 		
-		float leftSize, rightSize;
+		CGFloat leftSize, rightSize;
 		
 		if (fixed) {
 			if (horizontal) {
@@ -174,17 +147,17 @@
 				rightSize = [right heightForFixedSize: size];
 			}
 		} else {
-			rightSize = (availableSize * ((float)size))/100.0;
+			rightSize = (availableSize * ((CGFloat)size))/100.0;
 		}
 		
 		if (rightSize > availableSize) rightSize = availableSize-1.0;
 
-		rightSize = floorf(rightSize);		
-		leftSize = floorf(availableSize - rightSize);
+		rightSize = floor(rightSize);
+		leftSize = floor(availableSize - rightSize);
 		
 		NSRect leftRect;
 		NSRect rightRect;
-		float realBorderWidth = borderWidth;
+		CGFloat realBorderWidth = borderWidth;
 		if (inputBorder) realBorderWidth = 0;
 		
 		if (horizontal) {
@@ -273,9 +246,9 @@
 	lastSize = [self glkSize];
 }
 
-- (float) widthForFixedSize: (unsigned) sz {
+- (CGFloat) widthForFixedSize: (unsigned) sz {
 	if (key && [key closed]) {
-		[key release]; key = nil;
+		key = nil;
 	}
 	
 	if (key) {
@@ -285,9 +258,9 @@
 	}
 }
 
-- (float) heightForFixedSize: (unsigned) sz {
+- (CGFloat) heightForFixedSize: (unsigned) sz {
 	if (key && [key closed]) {
-		[key release]; key = nil;
+		key = nil;
 	}
 	
 	if (key) {
@@ -297,7 +270,7 @@
 	}
 }
 
-// = Window control =
+#pragma mark - Window control
 
 - (void) taskFinished {
 	// Pass on the message
@@ -305,7 +278,7 @@
 	[right taskFinished];
 }
 
-- (void) setEventTarget: (NSObject<GlkEventReceiver>*) newTarget {
+- (void) setEventTarget: (id<GlkEventReceiver>) newTarget {
 	[super setEventTarget: newTarget];
 	
 	// Propagate the handler
@@ -334,7 +307,7 @@
 	[right fixInputStatus];
 }
 
-// = Window metadata =
+#pragma mark - Window metadata
 
 - (void) setClosed: (BOOL) newClosed {
 	[super setClosed: newClosed];
@@ -344,14 +317,14 @@
 	[right setClosed: newClosed];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void) drawInputBorder: (GlkWindow*) view {
 	NSRect r = [view frame];
 	r = NSInsetRect(r, -borderWidth, -borderWidth);
 	
 	if ([view waitingForKeyboardInput]) {
-		[[NSColor blueColor] set];
+		[[NSColor systemBlueColor] set];
 	} else {
 		[[NSColor whiteColor] set];
 	}
@@ -361,7 +334,7 @@
 - (void)drawRect:(NSRect)rect {
 	[[NSColor windowBackgroundColor] set];
 	NSRectFill(borderSliver);
-
+	
 	if (borderWidth >= 2) {
 		if (inputBorder) {
 			// Draw the input border around the left/right views as necessary
@@ -389,64 +362,15 @@
 	}
 }
 
-// = NSAccessibility =
+#pragma mark - NSAccessibility
 
-/*
-- (NSString *)accessibilityActionDescription: (NSString*) action {
-	return @"";
+
+- (NSAccessibilityRole)accessibilityRole {
+	return NSAccessibilityGroupRole;
 }
 
-- (NSArray *)accessibilityActionNames {
-	return @[];
-}
-
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return NO;
-}
-
-- (void)accessibilityPerformAction:(NSString *)action {
-	// No actions
-}
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	// No settable attributes
-}
-
-- (NSArray*) accessibilityAttributeNames {
-    static NSMutableArray *attributes = nil;
-
-    if ( attributes == nil )
-    {
-        attributes = [[super accessibilityAttributeNames] mutableCopy];
-
-        NSArray *additionalAttributes = @[NSAccessibilityChildrenAttribute];
-
-        for ( NSString *attribute in additionalAttributes )
-        {
-            if ( ![attributes containsObject:attribute] )
-            {
-                [attributes addObject:attribute];
-            }
-        }
-    }
-
-    return [super accessibilityAttributeNames];
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
- 	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		//return [NSArray arrayWithObjects: left, right, nil];
-	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
-		return NSAccessibilityGroupRole;
-	}
-
-	return [super accessibilityAttributeValue: attribute];
-}
- */
-
-- (BOOL)accessibilityIsIgnored {
-    return YES;
+- (NSArray *)accessibilityChildren {
+	return @[left, right];
 }
 
 @end

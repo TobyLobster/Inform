@@ -10,22 +10,11 @@
 
 #define BlinkInterval 0.6
 
-@implementation ZoomCursor {
-    NSRect cursorRect;
-    BOOL isBlinking, isShown, isActive, isFirst;
-    BOOL blink;
+@implementation ZoomCursor
 
-    NSPoint cursorPos;
+#pragma mark - Initialisation
 
-    BOOL lastVisible, lastActive;
-
-    id<NSObject> delegate;
-    
-    NSTimer* flasher;
-}
-
-// = Initialisation =
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -40,7 +29,7 @@
 		delegate   = nil;
 		flasher = nil;
 		
-		lastVisible = [self visible];
+		lastVisible = [self isVisible];
 		lastActive = [self activeStyle];
 	}
 	
@@ -50,24 +39,27 @@
 - (void) dealloc {
 	if (flasher) {
 		[flasher invalidate];
-		[flasher release];
 	}
-	
-	[super dealloc];
 }
 
-// = Delegate =
-- (id) delegate {
-	return delegate;
+#pragma mark - Delegate
+
+@synthesize delegate;
+
+#pragma mark - Blinking
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingVisible
+{
+	return [NSSet setWithObjects:@"shown", @"blinking", @"blink", nil];
 }
 
-- (void) setDelegate: (id<NSObject>) dg {
-	delegate = dg;
-}
-
-// = Blinking =
-- (BOOL) visible {
+- (BOOL) isVisible {
 	return (isShown&&(!isBlinking||blink));
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingActiveStyle
+{
+	return [NSSet setWithObjects:@"active", @"first", nil];
 }
 
 - (BOOL) activeStyle {
@@ -78,7 +70,7 @@
 	// Cursor has, uh, blunked
 	
 	// Only send the message if our visibility has changed
-	BOOL nowVisible = [self visible];		
+	BOOL nowVisible = self.visible;
 	BOOL nowActive = [self activeStyle];
 	if (nowActive == lastActive &&
 		nowVisible == lastVisible) {
@@ -90,7 +82,7 @@
 
 	// Notify the delegate that we have blinked
 	if ([delegate respondsToSelector: @selector(blinkCursor:)]) {
-		[(NSObject*)delegate blinkCursor: self];
+		[delegate blinkCursor: self];
 	}
 }
 
@@ -103,15 +95,13 @@
 	[self ZCblunk];
 }
 
-// = Drawing =
+#pragma mark - Drawing
+
 - (void) draw {
-	if (![self visible]) return;
+	if (!self.visible) return;
 
 	// Cursor colour
-	[[NSColor colorWithDeviceRed: 0.3
-						   green: 0.8
-							blue: 1.0
-						   alpha: 0.6] set];
+	[[[NSColor controlAccentColor] colorWithAlphaComponent:0.6] set];
 	
 	// Draw the cursor
 	if ([self activeStyle]) {
@@ -122,7 +112,21 @@
 	}
 }
 
-// = Positioning =
+#pragma mark - Positioning
+
+- (NSSize) sizeOfFont: (NSFont*) font {
+    // Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
+    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
+    
+    // Width is one 'en'
+	CGFloat width = [@"n" sizeWithAttributes: @{NSFontAttributeName: font}].width;
+    
+    // Height is decided by the layout manager
+    CGFloat height = [layoutManager defaultLineHeightForFont: font];
+    
+    return NSMakeSize(width, height);
+}
+
 - (void) positionAt: (NSPoint) pt
 		   withFont: (NSFont*) font {
 	// Cause the delegate to undraw any previous cursor
@@ -131,13 +135,9 @@
 	[self ZCblunk];
 	
 	// Move the cursor
-	// One 'en'
-    float width = [@"n" sizeWithAttributes:
-             @{NSFontAttributeName: font}].width;
-    NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	float height = [lm defaultLineHeightForFont: font];
+    NSSize fontSize = [self sizeOfFont: font];
 		
-	cursorRect = NSMakeRect(pt.x, pt.y, width, height);
+	cursorRect = NSMakeRect(pt.x, pt.y, fontSize.width, fontSize.height);
 	
 	cursorRect.origin.x = floor(cursorRect.origin.x + 0.5) + 0.5;
 	cursorRect.origin.y = floor(cursorRect.origin.y + 0.5) + 0.5;
@@ -153,23 +153,19 @@
 
 - (void) positionInString: (NSString*) string
 		   withAttributes: (NSDictionary*) attributes
-		 atCharacterIndex: (int) index {
+		 atCharacterIndex: (NSInteger) index {
 	// Cause the delegate to undraw any previous cursor
 	BOOL wasShown = isShown;
 	isShown = NO;
 	[self ZCblunk];
 	
-	NSFont* font = attributes[NSFontAttributeName];
+	NSFont* font = [attributes objectForKey: NSFontAttributeName];
 	
 	// Move the cursor
-	// One 'en'
-    float width = [@"n" sizeWithAttributes:
-                   @{NSFontAttributeName: font}].width;
-    NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	float height = [lm defaultLineHeightForFont: font];
-	float offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;
+    NSSize fontSize = [self sizeOfFont: font];
+	CGFloat offset = [[string substringToIndex: index] sizeWithAttributes: attributes].width;
 	
-	cursorRect = NSMakeRect(cursorPos.x+offset, cursorPos.y, width, height);
+	cursorRect = NSMakeRect(cursorPos.x+offset, cursorPos.y, fontSize.width, fontSize.height);
 
 	// Redraw
 	isShown = wasShown;
@@ -181,7 +177,9 @@
 	return NSInsetRect(cursorRect, -2.0, -2.0);
 }
 
-// = Display status =
+#pragma mark - Display status
+
+@synthesize blinking = isBlinking;
 - (void) setBlinking: (BOOL) blnk {
 	if (blnk == isBlinking) return;
 	
@@ -193,7 +191,6 @@
 		
 		if (flasher) {
 			[flasher invalidate];
-			[flasher release];
 			flasher = nil;
 		}
 	} else {
@@ -203,12 +200,13 @@
 											selector: @selector(ZCblinky)
 											userInfo: nil
 											 repeats: YES];
-			[[NSRunLoop currentRunLoop] addTimer: [flasher retain]
+			[[NSRunLoop currentRunLoop] addTimer: flasher
 										 forMode: NSDefaultRunLoopMode];
 		}
 	}
 }
 
+@synthesize shown = isShown;
 - (void) setShown: (BOOL) shown {
 	if (shown == isShown) return;
 	
@@ -217,6 +215,7 @@
 	[self ZCblunk];
 }
 
+@synthesize active = isActive;
 - (void) setActive: (BOOL) active {
 	if (active == isActive) return;
 	
@@ -226,6 +225,7 @@
 	[self ZCblunk];
 }
 
+@synthesize first = isFirst;
 - (void) setFirst: (BOOL) first {
 	if (first == isFirst) return;
 	

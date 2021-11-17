@@ -172,7 +172,7 @@ static XML_Char* Xlower(XML_Char* s) {
 	return s;
 }
 
-static char* Xascii(XML_Char* s) {
+static char* Xascii(const XML_Char* s) {
 	/* Converts 's' to simple ASCII. The return value must be freed */
 	char* res;
 	int x;
@@ -193,7 +193,7 @@ static char* Xascii(XML_Char* s) {
 }
 
 /* Table pinched from the Unicode book */
-static unsigned char bytesFromUTF8[256] = {
+static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -203,7 +203,7 @@ static unsigned char bytesFromUTF8[256] = {
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5};
 
-static IFMDChar* Xmdchar(XML_Char* s) {
+static IFMDChar* Xmdchar(const XML_Char* s) {
 	/* Converts s to IFMDChars. Result needs to be freed */
 	int x, pos;
 	int len = Xstrlen(s);
@@ -250,7 +250,7 @@ static IFMDChar* Xmdchar(XML_Char* s) {
 		}
 	}
 	
-	res[pos++] = 0;
+	res[pos] = 0;
 	
 	return res;
 }
@@ -378,7 +378,7 @@ IFMetadata* IFMD_Parse(const IFMDByte* data, size_t length) {
 	XML_SetUserData(theParser, currentState);
 	
 	/* Go! */
-	status = XML_Parse(theParser, (const char*)data, length, 1);
+	status = XML_Parse(theParser, (const char*)data, (int)length, 1);
 	
 	if (status != XML_STATUS_OK) {
 		enum XML_Error error = XML_GetErrorCode(theParser);
@@ -535,7 +535,7 @@ struct IFMDUUID IFMD_ReadUUID(const char* uuidString) {
      * ... but this is slightly more generic, only paying attention to the hexadecimal bits until we reach the end of the 
      * string or we get enough bytes to make a UUID.
      */
-    struct IFMDUUID res;            /* The result */
+    struct IFMDUUID res={0};            /* The result */
     int x;
     
     int hexValue;                   /* Hex characters read to date */
@@ -1223,50 +1223,24 @@ CFStringRef IFStrCpyCF(const IFMDChar* src) {
 	unsigned short int* utf16 = GetUTF16(src, &len);
 	CFStringRef string;
 	
-	string = CFStringCreateWithCharacters(kCFAllocatorDefault, utf16, len);
-
-	free(utf16);
+	string = CFStringCreateWithCharactersNoCopy(kCFAllocatorDefault, utf16, len, kCFAllocatorMalloc);
 	
 	return string;
 }
 
 IFMDChar* IFMakeStrCF(const CFStringRef src) {
-	/* UTF-16 to UCS-4 */
+	/* UTF-16 to UTF-32 */
 	IFMDChar* res;
-	UniChar* buffer;
-	int len = CFStringGetLength(src);
-	int pos, x;
 	
-	CFRange r;
+	CFDataRef extData = CFStringCreateExternalRepresentation(NULL, src, kCFStringEncodingUTF32LE, '?');
+	CFIndex len = CFDataGetLength(extData);
+	res = malloc(len + 4); /* + 4 for terminating NULL */
+	CFDataGetBytes(extData, CFRangeMake(0, len), (UInt8 *)res);
+	CFRelease(extData);
 	
-	/* Allocate buffers */
-	buffer = malloc(sizeof(UniChar)*len); /* Always same length or shorter */
-	res = malloc(sizeof(IFMDChar)*(len+1));
+	/* null terminator */
+	res[len/4] = 0;
 	
-	r.location = 0; r.length = len;
-	CFStringGetCharacters(src, r, buffer);
-	
-	/* Perform conversion */
-	pos = 0;
-	for (x=0; x<len; x++) {
-		UniChar chr = buffer[x];
-		
-		if (chr >= 0xd800 && chr <= 0xdbff && (x+1)<len) {
-			/* High surrogate */
-			UniChar chr2 = buffer[++x];
-			
-			if (chr2 >= 0xdc00 && chr2 <= 0xdfff) {
-				/* Low surrogate */
-				res[pos++] = ((chr-0xd800)<<10) + (chr2-0xdfff) + 0x10000;
-			}
-		} else {
-			res[pos++] = chr;
-		}
-	}
-	
-	/* Tidy up */
-	res[pos] = 0;
-	free(buffer);
 	
 	/* Return results */
 	return res;
@@ -1669,7 +1643,7 @@ int IFMD_Save(IFMetadata* data,
 	int story;
 	unsigned char* utf8;
 
-#define ws(s) if (writeFunction((const char*)s, strlen((const char*)s), userData) != 0) return 1;
+#define ws(s) if (writeFunction((const char*)s, (int)strlen((const char*)s), userData) != 0) return 1;
 #define wutf(s) utf8 = makeutf8xml(s, 0); ws(utf8); free(utf8);
 #define wutfblock(s) utf8 = makeutf8xml(s, 1); ws(utf8); free(utf8);
 	

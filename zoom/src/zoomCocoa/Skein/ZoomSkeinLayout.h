@@ -7,55 +7,28 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinLayoutItem.h>
 
-#import "ZoomSkein.h"
-#import "ZoomSkeinLayoutItem.h"
-
-enum IFSkeinPackingStyle {
-	IFSkeinPackLoose,
-	IFSkeinPackTight,
-    IFSkeinPackBestFit,
+typedef NS_ENUM(int, IFSkeinPackingStyle) {
+	IFSkeinPackLoose NS_SWIFT_NAME(loose),
+	IFSkeinPackTight NS_SWIFT_NAME(tight)
 };
 
-@interface ZoomSkeinLayout : NSObject {
-	ZoomSkeinItem* rootItem;
-
-	// Item mapping
-	NSMutableDictionary* itemForItem;
-	
-	// The layout
-	ZoomSkeinLayoutItem* tree;
-	NSMutableArray* levels;
-	float globalOffset, globalWidth;
-    NSMutableArray* levelWidths;
-    NSMutableArray *levelArray;
-	
-	float itemWidth;
-	float itemHeight;
-	int packingStyle;
-	
-	// Highlighted skein line
-	ZoomSkeinItem* highlightedLineItem;
-	NSMutableSet*  highlightedSet;
-	
-	// Some extra status
-	ZoomSkeinItem* activeItem;
-	ZoomSkeinItem* selectedItem;
-}
+@interface ZoomSkeinLayout : NSObject
 
 // Initialisation
-- (instancetype) initWithRootItem: (ZoomSkeinItem*) item NS_DESIGNATED_INITIALIZER;
+- (id) initWithRootItem: (ZoomSkeinItem*) item;
 
 // Setting skein data
-- (void) setItemWidth: (float) itemWidth;
-- (void) setItemHeight: (float) itemHeight;
-- (void) setPackingStyle: (int) packingStyle;
+@property (nonatomic) CGFloat itemWidth;
+@property CGFloat itemHeight;
+@property IFSkeinPackingStyle packingStyle;
 
+@property (retain) ZoomSkeinItem *rootItem;
+@property (nonatomic, retain) ZoomSkeinItem *activeItem;
+@property (retain) ZoomSkeinItem *selectedItem;
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
-
-@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *rootItem;
-@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *activeItem;
-@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *selectedItem;
 
 // Performing the layout
 - (void) layoutSkein;
@@ -63,20 +36,20 @@ enum IFSkeinPackingStyle {
 - (void) layoutSkeinTight;
 
 // Getting layout data
-@property (NS_NONATOMIC_IOSONLY, readonly) int levels;
-- (NSArray*) itemsOnLevel: (int) level;
-- (NSArray*) dataForLevel: (int) level;
+@property (readonly) NSInteger levels;
+- (NSArray<ZoomSkeinItem*>*) itemsOnLevel: (NSInteger) level;
+- (NSArray*) dataForLevel: (NSInteger) level;
 
 - (ZoomSkeinLayoutItem*) dataForItem: (ZoomSkeinItem*) item;
 
 // General item data
-- (float)    xposForItem:      (ZoomSkeinItem*) item;
+- (CGFloat)  xposForItem:      (ZoomSkeinItem*) item;
 - (int)      levelForItem:     (ZoomSkeinItem*) item;
-- (float)    widthForItem:     (ZoomSkeinItem*) item;
-- (float)    fullWidthForItem: (ZoomSkeinItem*) item;
+- (CGFloat)  widthForItem:     (ZoomSkeinItem*) item;
+- (CGFloat)  fullWidthForItem: (ZoomSkeinItem*) item;
 
 // Item positioning data
-@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;
+@property (readonly) NSSize size;
 
 - (NSRect) activeAreaForItem: (ZoomSkeinItem*) itemData;
 - (NSRect) textAreaForItem: (ZoomSkeinItem*) itemData;
@@ -89,6 +62,6 @@ enum IFSkeinPackingStyle {
 - (void) drawItem: (ZoomSkeinItem*) item
 		  atPoint: (NSPoint) point;
 - (NSImage*) imageForItem: (ZoomSkeinItem*) item;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage *image;
+- (NSImage*) image;
 
 @end

@@ -6,14 +6,15 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#import <GlkView/GlkViewDefinitions.h>
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 #include "gi_blorb.h"
 
@@ -66,7 +67,7 @@ glui32 glk_image_draw(winid_t win, glui32 image, glsi32 val1, glsi32 val2) {
 		
 		[cocoaglk_buffer drawImageWithIdentifier: image
 						  inWindowWithIdentifier: win->identifier
-									  atPosition: NSMakePoint(val1, val2)];
+									  atPosition: GlkMakePoint(val1, val2)];
 	} else {
 		[cocoaglk_buffer drawImageWithIdentifier: image
 						  inWindowWithIdentifier: win->identifier
@@ -101,7 +102,7 @@ glui32 glk_image_draw_scaled(winid_t win, glui32 image,
 		
 		[cocoaglk_buffer drawImageWithIdentifier: image
 						  inWindowWithIdentifier: win->identifier
-										  inRect: NSMakeRect(val1, val2, width, height)];
+										  inRect: GlkMakeRect(val1, val2, width, height)];
 	} else {
 		NSLog(@"TRACE: glk_image_draw_scaled(%p, %u, %i, %i, %u, %u) = %i", win, image, val1, val2, width, height, res);		
 	}
@@ -117,7 +118,7 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height) {
 	if (!imageSourceSet) cocoaglk_set_image_source([[[GlkBlorbImageSource alloc] init] autorelease]);
 	
 	// This caches the image sizes, to avoid repeatedly calling the server process
-	static NSMutableDictionary* imageSizeDictionary = nil;	
+	static NSMutableDictionary<NSNumber*, NSValue*>* imageSizeDictionary = nil;	
 	if (!imageSizeDictionary) {
 		imageSizeDictionary = [[NSMutableDictionary alloc] init];
 	}
@@ -127,16 +128,22 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height) {
 	// Use the cache for preference
 	NSNumber* imageKey = @(image);
 	NSValue* imageSizeValue = imageSizeDictionary[imageKey];
-	NSSize imageSize;
+	GlkCocoaSize imageSize;
 	
 	if (imageSizeValue != nil) {
 		// Use the cached version of the size
+#ifdef COCOAGLK_IPHONE
+		imageSize = [imageSizeValue CGSizeValue];
+#else
 		imageSize = [imageSizeValue sizeValue];
+#endif
 	} else {
 		// Retrieve the size of the image from the server
 		imageSize = [cocoaglk_session sizeForImageResource: image];
 		
-		imageSizeDictionary[imageKey] = [NSValue valueWithSize: imageSize];
+		NSValue *sizeVal = @(imageSize);
+		
+		imageSizeDictionary[imageKey] = sizeVal;
 	}
 	
 	if (imageSize.width < 0) {
@@ -151,7 +158,7 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height) {
 	}
 	
 #if COCOAGLK_TRACE
-	NSLog(@"TRACE: glk_image_get_info(%p, %u, %p=%u, %p=%u) = %i", image, width, width?*width:0, height?*height:0, res);
+	NSLog(@"TRACE: glk_image_get_info(%u, %p=%u, %p=%u) = %i", image, width, width?*width:0, height, height?*height:0, res);
 #endif
 	
 	return res;
@@ -216,22 +223,22 @@ void glk_window_fill_rect(winid_t win, glui32 color,
 	
 #if !defined(COCOAGLK_IPHONE)
 	// Create an NSColor from the color value
-	NSColor* fillColour = [NSColor colorWithDeviceRed: ((float)(color&0xff0000))/16711680.0
-												green: ((float)(color&0xff00))/65280.0
-												 blue: ((float)(color&0xff))/255.0
-												alpha: 1.0];
+	NSColor* fillColour = [NSColor colorWithSRGBRed: ((CGFloat)(color&0xff0000))/16711680.0
+											  green: ((CGFloat)(color&0xff00))/65280.0
+											   blue: ((CGFloat)(color&0xff))/255.0
+											  alpha: 1.0];
 #else
 	// Create a UIColor from the color value
-	UIColor* fillColour = [UIColor colorWithRed: ((float)(color&0xff0000))/16711680.0
-										  green: ((float)(color&0xff00))/65280.0
-										   blue: ((float)(color&0xff))/255.0
+	UIColor* fillColour = [UIColor colorWithRed: ((CGFloat)(color&0xff0000))/16711680.0
+										  green: ((CGFloat)(color&0xff00))/65280.0
+										   blue: ((CGFloat)(color&0xff))/255.0
 										  alpha: 1.0];
 #endif
 	
 	// Tell the buffer to erase this window eventually
 	[cocoaglk_buffer fillAreaInWindowWithIdentifier: win->identifier
 										 withColour: fillColour
-										  rectangle: NSMakeRect(left, top, width, height)];
+										  rectangle: GlkMakeRect(left, top, width, height)];
 }
 
 //

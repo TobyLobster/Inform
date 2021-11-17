@@ -38,6 +38,10 @@
 
 #undef  IFMD_ALLOW_TESTING
 
+#ifdef __OBJC__
+#import <ZoomPlugins/ZoomStory.h>
+#endif
+
 /*
  * Some notes:
  *
@@ -70,14 +74,19 @@ struct IFMDData {
 	IFMDChar* genre;
 	unsigned int year;
 	IFMDChar* group;
-	enum {
+#ifndef __OBJC__
+	enum IFMB_Zarfian: unsigned {
 		IFMD_Unrated = 0x0,
 		IFMD_Merciful,
 		IFMD_Polite,
 		IFMD_Tough,
 		IFMD_Nasty,
 		IFMD_Cruel
-	} zarfian;
+	}
+#else
+	enum IFMB_Zarfian
+#endif
+	zarfian;
 	IFMDChar* teaser;
 	IFMDChar* comment;
 	float rating;
@@ -132,7 +141,7 @@ struct IFMDIdent {
 	enum IFMDFormat format;
 	
 	enum IFMDFormat dataFormat; /* May be different to format (usually if there's a UUID involved) */
-	union {
+	union IFMDIdentData {
 		struct IFMDZCode zcode;
 		struct IFMDGlulx glulx;
 		struct IFMDUUID  uuid;
@@ -191,7 +200,7 @@ enum IFMDErrorType {
 struct IFMDError {
 	enum IFMDSeverity severity;
 	enum IFMDErrorType type;
-	int lineNumber;
+	long lineNumber;
 
 	char* moreText;
 };
@@ -230,7 +239,7 @@ extern wchar_t*    IFStrnCpyW(wchar_t* dst, const IFMDChar* src, size_t sz); /* 
 #endif
 
 #ifdef HAVE_COREFOUNDATION
-extern CFStringRef IFStrCpyCF(const IFMDChar* src); /* UTF-16 */
+extern CFStringRef IFStrCpyCF(const IFMDChar* src) CF_RETURNS_RETAINED; /* UTF-16 */
 extern IFMDChar*   IFMakeStrCF(const CFStringRef src);
 #endif
 

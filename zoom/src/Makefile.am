@@ -106,42 +106,16 @@ EXTRA_DIST = zcode.ops zoomrc zoom.rc.in zoom.ico zoomsmall.ico \
 	zoomCocoa/ZoomWhiteView.h	zoomCocoa/ZoomWhiteView.m \
 	md5.c				md5.h \
 	zoomCocoa/Spotlight/schema.xml \
-	zoomCocoa/MainMenu.nib/classes.nib zoomCocoa/MainMenu.nib/info.nib \
-	zoomCocoa/MainMenu.nib/keyedobjects.nib \
-	zoomCocoa/MainMenu.nib/objects.nib \
-	zoomCocoa/ZoomClient.nib/classes.nib zoomCocoa/ZoomClient.nib/info.nib \
-	zoomCocoa/ZoomClient.nib/keyedobjects.nib \
-	zoomCocoa/ZoomClient.nib/objects.nib \
-    zoomCocoa/GameInfo.nib/classes.nib \
-    zoomCocoa/GameInfo.nib/info.nib \
-    zoomCocoa/GameInfo.nib/keyedobjects.nib \
-    zoomCocoa/GameInfo.nib/objects.nib \
-	zoomCocoa/Preferences.nib/classes.nib \
-	zoomCocoa/Preferences.nib/info.nib \
-	zoomCocoa/Preferences.nib/keyedobjects.nib \
-	zoomCocoa/Preferences.nib/objects.nib \
-	zoomCocoa/iFiction.nib/classes.nib \
-    zoomCocoa/iFiction.nib/info.nib \
-    zoomCocoa/iFiction.nib/keyedobjects.nib \
-    zoomCocoa/iFiction.nib/objects.nib \
-	zoomCocoa/iFiction-10.2.nib/classes.nib \
-	zoomCocoa/iFiction-10.2.nib/info.nib \
-	zoomCocoa/iFiction-10.2.nib/keyedobjects.nib \
-	zoomCocoa/iFiction-10.2.nib/objects.nib \
-	zoomCocoa/Skein.nib/classes.nib \
-	zoomCocoa/Skein.nib/info.nib \
-	zoomCocoa/Skein.nib/keyedobjects.nib \
-	zoomCocoa/Skein.nib/objects.nib \
-	zoomCocoa/NoteWindow.nib/classes.nib \
-	zoomCocoa/NoteWindow.nib/info.nib \
-	zoomCocoa/NoteWindow.nib/keyedobjects.nib \
-	zoomCocoa/PlugIns/English.lproj/GlkWindow.nib/classes.nib \
-	zoomCocoa/PlugIns/English.lproj/GlkWindow.nib/info.nib \
-	zoomCocoa/PlugIns/English.lproj/GlkWindow.nib/keyedobjects.nib \
-	zoomCocoa/PlugIns/English.lproj/GlkWindow.nib/objects.nib \
-	zoomCocoa/PluginManager.nib/classes.nib \
-	zoomCocoa/PluginManager.nib/info.nib \
-	zoomCocoa/PluginManager.nib/keyedobjects.nib \
+	zoomCocoa/Spotlight/en.lproj/schema.strings \
+	zoomCocoa/MainMenu.xib \
+	zoomCocoa/ZoomClient.nib/classes.xib \
+    zoomCocoa/GameInfo.xib \
+	zoomCocoa/Preferences.xib \
+	zoomCocoa/iFiction.xib \
+	zoomCocoa/Skein.xib \
+	zoomCocoa/NoteWindow.xib \
+	zoomCocoa/PlugIns/en.lproj/GlkWindow.xib \
+	zoomCocoa/PluginManager.xib \
 	infocom.iFiction archive.iFiction ifmetadata.c ifmetadata.h \
 	ifmetabase.c ifmetabase.h \
 	ifmetaxml.c ifmetaxml.h \
@@ -172,14 +146,14 @@ EXTRA_DIST = zcode.ops zoomrc zoom.rc.in zoom.ico zoomsmall.ico \
 	zoomCocoa/Skein-annotation.png \
 	zoomCocoa/SkeinDiffersBadge.png \
 	zoomCocoa/IFDB-back.png \
-	zoomCocoa/English.lproj/IFDB-connecting.png \
+	zoomCocoa/en.lproj/IFDB-connecting.png \
 	zoomCocoa/IFDB-downloading.png \
-	zoomCocoa/English.lproj/IFDB-error.png \
-	zoomCocoa/English.lproj/ifdb-failed.html \
+	zoomCocoa/en.lproj/IFDB-error.png \
+	zoomCocoa/en.lproj/ifdb-failed.html \
 	zoomCocoa/IFDB-forward.png \
 	zoomCocoa/IFDB-home.png \
-	zoomCocoa/English.lproj/ifdb-loading.html \
-	zoomCocoa/English.lproj/Credits.rtf
+	zoomCocoa/en.lproj/ifdb-loading.html \
+	zoomCocoa/en.lproj/Credits.rtf
 
 zoom_SOURCES = \
 	main.c interp.c file.c options.c zmachine.c zscii.c display.c \
@@ -219,11 +193,11 @@ if CARBON_VERSION
 	-mkdir Zoom.app/Contents
 	-mkdir Zoom.app/Contents/MacOS
 	-mkdir Zoom.app/Contents/Resources
-	-mkdir Zoom.app/Contents/Resources/English.lproj
+	-mkdir Zoom.app/Contents/Resources/en.lproj
 	-mkdir Zoom.app/Contents/Resources/Zoom\ Help
 	-mkdir Zoom.app/Contents/Resources/Zoom\ Help/main
 	cp zoom$(EXEEXT) Zoom.app/Contents/MacOS/Zoom
-	cp -Rf $(srcdir)/macos/zoom.nib Zoom.app/Contents/Resources/English.lproj
+	cp -Rf $(srcdir)/macos/zoom.nib Zoom.app/Contents/Resources/en.lproj
 	cp $(srcdir)/macos/zoom-app.icns $(srcdir)/macos/zoom-file.icns $(srcdir)/macos/zoom-game.icns $(srcdir)/macos/zoomrc Zoom.app/Contents/Resources
 	cp $(srcdir)/macos/Info.plist $(srcdir)/macos/PkgInfo Zoom.app/Contents
 	cp $(srcdir)/../manual/*.html $(srcdir)/../manual/*.png Zoom.app/Contents/Resources/Zoom\ Help/main

@@ -158,7 +158,7 @@
 // = Receiving data from/updating the interface =
 
 -(void) updateDependentUIElements {
-    bool enabled = ([enableSyntaxHighlighting state] == NSOnState);
+    bool enabled = ([enableSyntaxHighlighting state] == NSControlStateValueOn);
     
     [rowHeadings                setEnabled: enabled];
     [rowMainText                setEnabled: enabled];
@@ -205,7 +205,7 @@
         if (sender == extensionColor)               currentSet.extensionPaperColor      = [extensionColor color];
 
         // Syntax highlighting section
-        if (sender == enableSyntaxHighlighting)     currentSet.enableSyntaxHighlighting = ([enableSyntaxHighlighting state]==NSOnState);
+        if (sender == enableSyntaxHighlighting)     currentSet.enableSyntaxHighlighting = ([enableSyntaxHighlighting state]==NSControlStateValueOn);
 
         if (sender == headingsColor)                [[currentSet optionOfType: IFSHOptionHeadings]          setColour:     [headingsColor color]];
         if (sender == mainTextColor)                [[currentSet optionOfType: IFSHOptionMainText]          setColour:     [mainTextColor color]];
@@ -219,11 +219,11 @@
         if (sender == quotedTextFontStyle)          [[currentSet optionOfType: IFSHOptionQuotedText]        setFontStyle:  (int) [quotedTextFontStyle selectedTag]];
         if (sender == textSubstitutionsFontStyle)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setFontStyle:  (int) [textSubstitutionsFontStyle selectedTag]];
 
-        if (sender == headingsUnderline)            [[currentSet optionOfType: IFSHOptionHeadings]          setUnderline:  [headingsUnderline state] == NSOnState];
-        if (sender == mainTextUnderline)            [[currentSet optionOfType: IFSHOptionMainText]          setUnderline:  [mainTextUnderline state] == NSOnState];
-        if (sender == commentsUnderline)            [[currentSet optionOfType: IFSHOptionComments]          setUnderline:  [commentsUnderline state] == NSOnState];
-        if (sender == quotedTextUnderline)          [[currentSet optionOfType: IFSHOptionQuotedText]        setUnderline:  [quotedTextUnderline state] == NSOnState];
-        if (sender == textSubstitutionsUnderline)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setUnderline:  [textSubstitutionsUnderline state] == NSOnState];
+        if (sender == headingsUnderline)            [[currentSet optionOfType: IFSHOptionHeadings]          setUnderline:  [headingsUnderline state] == NSControlStateValueOn];
+        if (sender == mainTextUnderline)            [[currentSet optionOfType: IFSHOptionMainText]          setUnderline:  [mainTextUnderline state] == NSControlStateValueOn];
+        if (sender == commentsUnderline)            [[currentSet optionOfType: IFSHOptionComments]          setUnderline:  [commentsUnderline state] == NSControlStateValueOn];
+        if (sender == quotedTextUnderline)          [[currentSet optionOfType: IFSHOptionQuotedText]        setUnderline:  [quotedTextUnderline state] == NSControlStateValueOn];
+        if (sender == textSubstitutionsUnderline)   [[currentSet optionOfType: IFSHOptionTextSubstitutions] setUnderline:  [textSubstitutionsUnderline state] == NSControlStateValueOn];
 
         if (sender == headingsFontSize)             [[currentSet optionOfType: IFSHOptionHeadings]          setRelativeFontSize:  (int) [headingsFontSize selectedTag]];
         if (sender == mainTextFontSize)             [[currentSet optionOfType: IFSHOptionMainText]          setRelativeFontSize:  (int) [mainTextFontSize selectedTag]];
@@ -235,12 +235,12 @@
         if (sender == tabStopSlider)                currentSet.tabWidth                 = [tabStopSlider floatValue];
 
         // Indenting section
-        if (sender == indentWrappedLines)           currentSet.indentWrappedLines      = ([indentWrappedLines state]     == NSOnState);
-        if (sender == autoIndentAfterNewline)       currentSet.autoIndentAfterNewline  = ([autoIndentAfterNewline state] == NSOnState);
-        if (sender == autoSpaceTableColumns)        currentSet.autoSpaceTableColumns   = ([autoSpaceTableColumns state]  == NSOnState);
+        if (sender == indentWrappedLines)           currentSet.indentWrappedLines      = ([indentWrappedLines state]     == NSControlStateValueOn);
+        if (sender == autoIndentAfterNewline)       currentSet.autoIndentAfterNewline  = ([autoIndentAfterNewline state] == NSControlStateValueOn);
+        if (sender == autoSpaceTableColumns)        currentSet.autoSpaceTableColumns   = ([autoSpaceTableColumns state]  == NSControlStateValueOn);
 
         // Numbering section
-        if (sender == autoNumberSections)           currentSet.autoNumberSections      = ([autoNumberSections state] == NSOnState);
+        if (sender == autoNumberSections)           currentSet.autoNumberSections      = ([autoNumberSections state] == NSControlStateValueOn);
     }
 
     // Update dependent UI elements
@@ -284,36 +284,36 @@
     [extensionColor setColor: currentSet.extensionPaperColor];
 
     // Syntax highlighting section
-	[enableSyntaxHighlighting setState: currentSet.enableSyntaxHighlighting ? NSOnState : NSOffState];
+	[enableSyntaxHighlighting setState: currentSet.enableSyntaxHighlighting ? NSControlStateValueOn : NSControlStateValueOff];
 
     IFSyntaxHighlightingOption* option = (currentSet.options)[IFSHOptionHeadings];
     [headingsColor      setColor:          option.colour];
     [headingsFontStyle  selectItemAtIndex: option.fontStyle];
-    [headingsUnderline  setState:          option.underline ? NSOnState : NSOffState];
+    [headingsUnderline  setState:          option.underline ? NSControlStateValueOn : NSControlStateValueOff];
     [headingsFontSize   selectItemAtIndex: option.relativeFontSize];
 
     option = (currentSet.options)[IFSHOptionMainText];
     [mainTextColor      setColor:          option.colour];
     [mainTextFontStyle  selectItemAtIndex: option.fontStyle];
-    [mainTextUnderline  setState:          option.underline ? NSOnState : NSOffState];
+    [mainTextUnderline  setState:          option.underline ? NSControlStateValueOn : NSControlStateValueOff];
     [mainTextFontSize   selectItemAtIndex: option.relativeFontSize];
 
     option = (currentSet.options)[IFSHOptionComments];
     [commentsColor      setColor:          option.colour];
     [commentsFontStyle  selectItemAtIndex: option.fontStyle];
-    [commentsUnderline  setState:          option.underline ? NSOnState : NSOffState];
+    [commentsUnderline  setState:          option.underline ? NSControlStateValueOn : NSControlStateValueOff];
     [commentsFontSize   selectItemAtIndex: option.relativeFontSize];
 
     option = (currentSet.options)[IFSHOptionQuotedText];
     [quotedTextColor        setColor:          option.colour];
     [quotedTextFontStyle    selectItemAtIndex: option.fontStyle];
-    [quotedTextUnderline    setState:          option.underline ? NSOnState : NSOffState];
+    [quotedTextUnderline    setState:          option.underline ? NSControlStateValueOn : NSControlStateValueOff];
     [quotedTextFontSize     selectItemAtIndex: option.relativeFontSize];
 
     option = (currentSet.options)[IFSHOptionTextSubstitutions];
     [textSubstitutionsColor     setColor:          option.colour];
     [textSubstitutionsFontStyle selectItemAtIndex: option.fontStyle];
-    [textSubstitutionsUnderline setState:          option.underline ? NSOnState : NSOffState];
+    [textSubstitutionsUnderline setState:          option.underline ? NSControlStateValueOn : NSControlStateValueOff];
     [textSubstitutionsFontSize  selectItemAtIndex: option.relativeFontSize];
 
     // Tab width section
@@ -321,12 +321,12 @@
 	[tabStopSlider  setFloatValue: [prefs tabWidth]];
 
     // Indenting section
-    [indentWrappedLines     setState: currentSet.indentWrappedLines     ? NSOnState : NSOffState];
-    [autoIndentAfterNewline setState: currentSet.autoIndentAfterNewline ? NSOnState : NSOffState];
-    [autoSpaceTableColumns  setState: currentSet.autoSpaceTableColumns  ? NSOnState : NSOffState];
+    [indentWrappedLines     setState: currentSet.indentWrappedLines     ? NSControlStateValueOn : NSControlStateValueOff];
+    [autoIndentAfterNewline setState: currentSet.autoIndentAfterNewline ? NSControlStateValueOn : NSControlStateValueOff];
+    [autoSpaceTableColumns  setState: currentSet.autoSpaceTableColumns  ? NSControlStateValueOn : NSControlStateValueOff];
 
     // Numbering section
-    [autoNumberSections     setState: currentSet.autoNumberSections     ? NSOnState : NSOffState];
+    [autoNumberSections     setState: currentSet.autoNumberSections     ? NSControlStateValueOn : NSControlStateValueOff];
 
     // Update dependent elements
     [self updateDependentUIElements];
@@ -351,7 +351,7 @@
     [alert addButtonWithTitle: [IFUtility localizedString: @"Cancel"]];
     [alert setMessageText:     [IFUtility localizedString: @"Reset the editing preferences?"]];
     [alert setInformativeText: [IFUtility localizedString: @"This action cannot be undone."]];
-    [alert setAlertStyle:NSWarningAlertStyle];
+    [alert setAlertStyle:NSAlertStyleWarning];
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
         currentSet = [[IFEditingPreferencesSet alloc] init];

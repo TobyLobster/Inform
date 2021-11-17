@@ -7,11 +7,12 @@
 //
 
 #import "ZoomNotesController.h"
+#import "ZoomMetadata.h"
 
 
 @implementation ZoomNotesController
 
-// = The shared controller =
+#pragma mark - The shared controller
 
 static NSMutableDictionary* notesDictionary = nil;
 
@@ -43,12 +44,9 @@ static NSMutableDictionary* notesDictionary = nil;
 
 - (void) dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-	
-	[story release];
-	[super dealloc];
 }
 
-// = Editing delegate =
+#pragma mark - Editing delegate
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	ZoomStoryID* storyId = nil;
@@ -60,7 +58,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	} else {
 		// Update the notes for this story
 		NSData* rtfNotes = [[notes textStorage] RTFFromRange: NSMakeRange(0, [[notes textStorage] length])
-										  documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
+										  documentAttributes: @{}];
 		if (rtfNotes != nil) {
 			[notesDictionary setObject: rtfNotes
 								forKey: [storyId description]];
@@ -74,7 +72,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	if (story) [self textDidEndEditing: nil];
 }
 
-// = Setting up the window =
+#pragma mark - Setting up the window
 
 - (void) updateFromStory {
 	NSAttributedString* currentNotes = nil;
@@ -85,7 +83,7 @@ static NSMutableDictionary* notesDictionary = nil;
 	if (storyId == nil) {
 		// No notes available
 		[notes setEditable: NO];
-		[notes setString: @"No notes available"];
+		[notes setString: NSLocalizedString(@"No notes available", @"No notes available")];
 	} else {
 		// Should be some notes for this story
 		if (notesDictionary == nil) {
@@ -94,15 +92,13 @@ static NSMutableDictionary* notesDictionary = nil;
 		}
 		NSData* rtfNotes = [notesDictionary objectForKey: [storyId description]];
 		if (rtfNotes) {
-			currentNotes = [[[NSAttributedString alloc] initWithRTF: rtfNotes
-												 documentAttributes: nil] autorelease];
+			currentNotes = [[NSAttributedString alloc] initWithRTF: rtfNotes
+												 documentAttributes: nil];
 		}
 		
 		if (currentNotes == nil) {
-			currentNotes = [[[NSAttributedString alloc] initWithString: @"" 
-															attributes: [NSDictionary dictionaryWithObjectsAndKeys:
-																[NSFont systemFontOfSize: 10], NSFontAttributeName,
-																nil]] autorelease];
+			currentNotes = [[NSAttributedString alloc] initWithString: @""
+														   attributes: @{NSFontAttributeName: [NSFont systemFontOfSize: 10]}];
 		}
 		
 		[[notes textStorage] setAttributedString: currentNotes];
@@ -117,21 +113,15 @@ static NSMutableDictionary* notesDictionary = nil;
 	[self updateFromStory];
 }
 
+@synthesize gameInfo=story;
 - (void) setGameInfo: (ZoomStory*) newStory {
 	[self textDidEndEditing: nil];
 	
-	[story release];
-	story = [newStory retain];
+	story = newStory;
 	
 	[self updateFromStory];
 }
 
-- (void) setInfoOwner: (id) newOwner {
-	owner = newOwner;
-}
-
-- (id) infoOwner {
-	return owner;
-}
+@synthesize infoOwner=owner;
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation GlkWindowController
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super initWithWindowNibName: @"CocoaGlk"];
@@ -35,7 +35,7 @@
 	[glkView setDelegate: self];
 }
 
-// = The Glk view =
+#pragma mark - The Glk view
 
 - (GlkView*) glkView {
 	[self window];				// Ensures the window is loaded
@@ -43,7 +43,7 @@
 	return glkView;
 }
 
-// = GlkView delegate methods =
+#pragma mark - GlkView delegate methods
 
 - (void) taskHasStarted {
 	[self showStatusText: @"Running..."];

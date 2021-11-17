@@ -2,52 +2,42 @@
 #import "ZoomProtocol.h"
 
 #define maxBufferCount 1024
-NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
+NSString* const ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification";
 
-// Implementation of the various standard classes
-@implementation ZHandleFile {
-    NSFileHandle* handle;
-}
-
-- (instancetype) init {
-    self = [self initWithFileHandle: nil];
-
-    if (self) {
-        // Can't initialise without a valid file handle
-        [self release];
-        self = NULL;
-    }
-
-    return self;
-}
-
-- (instancetype) initWithFileHandle: (NSFileHandle*) hdl {
+#pragma mark Implementation of the various standard classes
+@implementation ZHandleFile
+- (id) init {
     self = [super init];
 
     if (self) {
-        handle = [hdl retain];
+        // Can't initialise without a valid file handle
+        return NULL;
     }
 
     return self;
 }
 
-- (void) dealloc {
-    [handle release];
+- (id) initWithFileHandle: (NSFileHandle*) hdl {
+    self = [super init];
 
-    [super dealloc];
+    if (self) {
+        handle = hdl;
+    }
+
+    return self;
 }
 
 // Read
-- (int) readByte {
+- (unsigned char) readByte {
     NSData* data = [handle readDataOfLength: 1];
-    if (data == nil || [data length] < 1) return -1;
+    if (data == nil || [data length] < 1) return 0xff;
 
     return ((unsigned char*)[data bytes])[0];
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
     NSData* data = [handle readDataOfLength: 2];
-    if (data == nil || [data length] < 2) return 0xffffffff;
+    if (data == nil || [data length] < 2) return 0xffff;
 
     const unsigned char* bytes = [data bytes];
     return (bytes[0]<<8)|bytes[1];
@@ -58,26 +48,26 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     if (data == nil || [data length] < 4) return 0xffffffff;
 
     const unsigned char* bytes = [data bytes];
-    return (bytes[0]<<8)|bytes[1];
+    return (bytes[0]<<24)|(bytes[1] << 16)|(bytes[2] << 8)|bytes[3];
 }
 
-- (bycopy NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (NSInteger) length {
     NSData* data = [handle readDataOfLength: length];
     return data;
 }
 
-- (oneway void) seekTo: (int) p {
+- (oneway void) seekTo: (off_t) p {
     [handle seekToFileOffset: p];
 }
 
 // Write
-- (oneway void) writeByte: (int) byte {
+- (oneway void) writeByte: (unsigned char) byte {
     NSData* data = [NSData dataWithBytes: &byte
                                   length: 1];
     [handle writeData: data];
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (short) word {
     unsigned char bytes[2];
 
     bytes[0] = (word>>8);
@@ -92,9 +82,9 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 - (oneway void) writeDWord: (unsigned int) dword {
     unsigned char bytes[4];
 
-    bytes[0] = (dword>>24);
-    bytes[1] = (dword>>16);
-    bytes[2] = (dword>>8);
+    bytes[0] = (dword>>24)&0xff;
+    bytes[1] = (dword>>16)&0xff;
+    bytes[2] = (dword>>8)&0xff;
     bytes[3] = dword&0xff;
 
     NSData* data = [NSData dataWithBytes: bytes
@@ -115,7 +105,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return @"";
 }
 
-- (int) fileSize {
+- (off_t) fileSize {
     unsigned long long pos = [handle offsetInFile];
 
     [handle seekToEndOfFile];
@@ -123,7 +113,7 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 
     [handle seekToFileOffset: pos];
 
-    return (int) res;
+    return res;
 }
 
 - (BOOL) endOfFile {
@@ -140,61 +130,51 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 }
 
 - (oneway void) close {
-    return; // Do nothing
+    [handle closeFile];
 }
 
 @end
 
-@implementation ZDataFile {
-    NSData* data;
-    int pos;
-}
-
-- (instancetype) init {
+@implementation ZDataFile
+- (id) init {
     self = [super init];
 
     if (self) {
         // Can't initialise without valid data
-        [self release];
-        self = NULL;
+        return NULL;
     }
 
     return self;
 }
 
-- (instancetype) initWithData: (NSData*) dt {
+- (id) initWithData: (NSData*) dt {
     self = [super init];
 
     if (self) {
-        data = [dt retain];
+        data = dt;
         pos = 0;
     }
 
     return self;
 }
 
-- (void) dealloc {
-    [data release];
-    
-    [super dealloc];
-}
-
-- (int) readByte {
+- (unsigned char) readByte {
     if (pos >= [data length]) {
-        return -1;
+        return 0xff;
     }
     
     return ((unsigned char*)[data bytes])[pos++];
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
     if ((pos+1) >= [data length]) {
-        return 0xffffffff;
+        return 0xffff;
     }
 
-    const unsigned char* bytes = [data bytes];
+    NSData* preBytes = [data subdataWithRange: NSMakeRange(pos, 2)];
+    const unsigned char* bytes = [preBytes bytes];
 
-    unsigned int res =  (bytes[pos]<<8) | bytes[pos+1];
+    unsigned short res =  (bytes[0]<<8) | bytes[1];
     pos+=2;
 
     return res;
@@ -205,56 +185,54 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
         return 0xffffffff;
     }
 
-    const unsigned char* bytes = [data bytes];
+    NSData* preBytes = [data subdataWithRange: NSMakeRange(pos, 4)];
+    const unsigned char* bytes = [preBytes bytes];
 
-    unsigned int res =  (bytes[pos]<<24) | (bytes[pos+1]<<16) |
-        (bytes[pos+2]<<8) | (bytes[pos+3]);
+    unsigned int res =  ((bytes[0]<<24) | (bytes[1]<<16) |
+                         (bytes[2]<<8) | (bytes[3]));
     pos+=4;
 
     return res;
 }
 
-- (bycopy NSData*) readBlock: (int) length {
-    const unsigned char* bytes = [data bytes];
-
+- (bycopy NSData*) readBlock: (NSInteger) length {
     if (pos >= [data length]) {
         return nil;
     }
 
     if ((pos + length) > [data length]) {
-        int diff = (pos+length) - (int) [data length];
+        NSInteger diff = (pos+length) - [data length];
 
         length -= diff;
     }
 
-    NSData* res =  [NSData dataWithBytes: bytes + pos
-                                  length: length];
+    NSData* res =  [data subdataWithRange: NSMakeRange(pos, length)];
 
     pos += length;
 
     return res;
 }
 
-- (oneway void) seekTo: (int) p {
-    pos = p;
+- (oneway void) seekTo: (off_t) p {
+    pos = (NSInteger)p;
     if (pos > [data length]) {
-        pos = (int) [data length];
+        pos = [data length];
     }
 }
 
-- (oneway void) writeByte: (int) byte {
+- (oneway void) writeByte: (__unused unsigned char) byte {
     return; // Do nothing
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (__unused short) word {
     return; // Do nothing
 }
 
-- (oneway void) writeDWord: (unsigned int) dword {
+- (oneway void) writeDWord: (__unused unsigned int) dword {
     return; // Do nothing
 }
 
-- (oneway void) writeBlock: (in bycopy NSData*) block {
+- (oneway void) writeBlock: (in bycopy __unused NSData*) block {
     return; // Do nothing
 }
 
@@ -266,8 +244,8 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
     return @"";
 }
 
-- (int) fileSize {
-    return (int) [data length];
+- (off_t) fileSize {
+    return [data length];
 }
 
 - (BOOL) endOfFile {
@@ -279,27 +257,11 @@ NSString* ZBufferNeedsFlushingNotification = @"ZBufferNeedsFlushingNotification"
 }
 @end
 
-// = ZStyle =
-NSString* ZStyleAttributeName = @"ZStyleAttribute";
+#pragma mark - ZStyle
 
-@implementation ZStyle {
-    // Colour
-    int foregroundColour;
-    int backgroundColour;
-    NSColor* foregroundTrue;
-    NSColor* backgroundTrue;
+@implementation ZStyle
 
-    // Style
-    BOOL isReversed;
-    BOOL isFixed;
-    BOOL isBold;
-    BOOL isUnderline;
-    BOOL isSymbolic;
-
-    BOOL isForceFixed;
-}
-
-- (instancetype) init {
+- (id) init {
     self = [super init];
     if (self) {
         foregroundTrue = backgroundTrue = NULL;
@@ -311,103 +273,23 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
     return self;
 }
 
-- (void) dealloc {
-    if (foregroundTrue) [foregroundTrue release];
-    if (backgroundTrue) [backgroundTrue release];
-    [super dealloc];
-}
+@synthesize foregroundColour;
+@synthesize backgroundColour;
+@synthesize foregroundTrue;
+@synthesize backgroundTrue;
+@synthesize fixed=isFixed;
+@synthesize forceFixed=isForceFixed;
+@synthesize bold=isBold;
+@synthesize underline=isUnderline;
+@synthesize symbolic=isSymbolic;
+@synthesize reversed=isReversed;
 
-- (void) setForegroundColour: (int) zColour {
-    foregroundColour = zColour;
-}
-
-- (void) setBackgroundColour: (int) zColour {
-    backgroundColour = zColour;
-}
-
-- (void) setForegroundTrue: (NSColor*) colour {
-    if (foregroundTrue) [foregroundTrue release];
-    if (colour)
-        foregroundTrue = [colour retain];
-    else
-        foregroundTrue = nil;
-}
-
-- (void) setBackgroundTrue: (NSColor*) colour {
-    if (backgroundTrue) [backgroundTrue release];
-    if (colour)
-        backgroundTrue = [colour retain];
-    else
-        backgroundTrue = nil;
-}
-
-- (void) setFixed: (BOOL) fixed {
-    isFixed = fixed;
-}
-
-- (void) setForceFixed: (BOOL) forceFixed {
-	isForceFixed = forceFixed;
-}
-
-- (void) setBold: (BOOL) bold {
-    isBold = bold;
-}
-
-- (void) setUnderline: (BOOL) underline {
-    isUnderline = underline;
-}
-
-- (void) setSymbolic: (BOOL) symbolic {
-    isSymbolic = symbolic;
-}
-
-- (void) setReversed: (BOOL) reversed {
-    isReversed = reversed;
-}
-
-- (int) foregroundColour {
-    return foregroundColour;
-}
-
-- (int) backgroundColour {
-    return backgroundColour;
-}
-
-- (NSColor*) foregroundTrue {
-    return foregroundTrue;
-}
-
-- (NSColor*) backgroundTrue {
-    return backgroundTrue;
-}
-
-- (BOOL) reversed {
-    return isReversed;
-}
-
-- (BOOL) fixed {
+- (BOOL) isFixed {
     return isFixed || isForceFixed;
 }
 
-- (BOOL) forceFixed {
-	return isForceFixed;
-}
-
-- (BOOL) bold {
-    return isBold;
-}
-
-- (BOOL) underline {
-    return isUnderline;
-}
-
-- (BOOL) symbolic {
-    return isSymbolic;
-}
-
 - (id) copyWithZone: (NSZone*) zone {
-    ZStyle* style;
-    style = [[[self class] alloc] init];
+    ZStyle* style = [[[self class] alloc] init];
 
     [style setForegroundColour: foregroundColour];
     [style setBackgroundColour: backgroundColour];
@@ -432,37 +314,74 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
                         isSymbolic?@"YES":@"NO"];
 }
 
+- (NSString*) debugDescription {
+    return [NSString stringWithFormat: @"Style - bold: %@, underline %@, fixed %@, symbolic %@",
+                        isBold?@"YES":@"NO",
+                        isUnderline?@"YES":@"NO",
+                        isFixed?@"YES":@"NO",
+                        isSymbolic?@"YES":@"NO"];
+}
+
+#define FLAGSCODINGKEY @"flags"
+#define TRUEFORECOLORCODINGKEY @"foregroundTrue"
+#define TRUEBACKCOLORCODINGKEY @"backgroundTrue"
+#define FOREGROUNDCOLORCODINGKEY @"foregroundColour"
+#define BACKGROUNDCOLORCODINGKEY @"backgroundColour"
+
 - (void) encodeWithCoder: (NSCoder*) coder {
     int flags = (isBold?1:0) | (isUnderline?2:0) | (isFixed?4:0) | (isSymbolic?8:0) | (isReversed?16:0) | (isForceFixed?32:0);
     
-    [coder encodeValueOfObjCType: @encode(int) at: &flags];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeInt: flags forKey: FLAGSCODINGKEY];
 
-    [coder encodeObject: foregroundTrue];
-    [coder encodeObject: backgroundTrue];
-    [coder encodeValueOfObjCType: @encode(int) at: &foregroundColour];
-    [coder encodeValueOfObjCType: @encode(int) at: &backgroundColour];
+		[coder encodeObject: foregroundTrue forKey: TRUEFORECOLORCODINGKEY];
+		[coder encodeObject: backgroundTrue forKey: TRUEBACKCOLORCODINGKEY];
+		[coder encodeInt: foregroundColour forKey: FOREGROUNDCOLORCODINGKEY];
+		[coder encodeInt: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
+	} else {
+		[coder encodeValueOfObjCType: @encode(int) at: &flags];
+		
+		[coder encodeObject: foregroundTrue];
+		[coder encodeObject: backgroundTrue];
+		[coder encodeValueOfObjCType: @encode(int) at: &foregroundColour];
+		[coder encodeValueOfObjCType: @encode(int) at: &backgroundColour];
+	}
 }
 
-- (instancetype) initWithCoder: (NSCoder*) coder {
+- (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
-        int flags;
-        
-        [coder decodeValueOfObjCType: @encode(int) at: &flags];
+		int flags;
+		if (coder.allowsKeyedCoding) {
+			flags = [coder decodeIntForKey: FLAGSCODINGKEY];
+			
+			foregroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEFORECOLORCODINGKEY];
+			backgroundTrue = [coder decodeObjectOfClass: [NSColor class] forKey: TRUEBACKCOLORCODINGKEY];
+
+			foregroundColour = [coder decodeIntForKey: FOREGROUNDCOLORCODINGKEY];
+			backgroundColour = [coder decodeIntForKey: BACKGROUNDCOLORCODINGKEY];
+		} else {
+			[coder decodeValueOfObjCType: @encode(int) at: &flags size: sizeof(int)];
+			
+			foregroundTrue   = [coder decodeObject];
+			backgroundTrue   = [coder decodeObject];
+			
+			[coder decodeValueOfObjCType: @encode(int) at: &foregroundColour size: sizeof(int)];
+			[coder decodeValueOfObjCType: @encode(int) at: &backgroundColour size: sizeof(int)];
+		}
         isBold = (flags&1)?YES:NO;
         isUnderline = (flags&2)?YES:NO;
         isFixed = (flags&4)?YES:NO;
         isSymbolic = (flags&8)?YES:NO;
         isReversed = (flags&16)?YES:NO;
 		isForceFixed = (flags&32)?YES:NO;
-
-        foregroundTrue   = [[coder decodeObject] retain];
-        backgroundTrue   = [[coder decodeObject] retain];
-        
-        [coder decodeValueOfObjCType: @encode(int) at: &foregroundColour];
-        [coder decodeValueOfObjCType: @encode(int) at: &backgroundColour];
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder
@@ -478,11 +397,11 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
 
     ZStyle* obj = object;
 
-    if ([obj bold]      == isBold &&
-        [obj underline] == isUnderline &&
-        [obj fixed]     == isFixed &&
-        [obj symbolic]  == isSymbolic &&
-        [obj reversed]  == isReversed &&
+    if (obj.bold      == isBold &&
+        obj.underline == isUnderline &&
+        obj.fixed     == isFixed &&
+        obj.symbolic  == isSymbolic &&
+        obj.reversed  == isReversed &&
         [obj foregroundColour] == foregroundColour &&
         [obj backgroundColour] == backgroundColour &&
         ((foregroundTrue == nil && [obj foregroundTrue] == nil) ||
@@ -497,37 +416,32 @@ NSString* ZStyleAttributeName = @"ZStyleAttribute";
 
 @end
 
-// == ZBuffer ==
+#pragma mark - ZBuffer
 
 // Buffer type strings
-NSString* ZBufferWriteString  = @"ZBWS";
-NSString* ZBufferClearWindow  = @"ZBCW";
-NSString* ZBufferMoveTo       = @"ZBMT";
-NSString* ZBufferEraseLine    = @"ZBEL";
-NSString* ZBufferSetWindow    = @"ZBSW";
+static NSString* const ZBufferWriteString  = @"ZBWS";
+static NSString* const ZBufferClearWindow  = @"ZBCW";
+static NSString* const ZBufferMoveTo       = @"ZBMT";
+static NSString* const ZBufferEraseLine    = @"ZBEL";
+static NSString* const ZBufferSetWindow    = @"ZBSW";
 
-NSString* ZBufferPlotRect     = @"ZBPR";
-NSString* ZBufferPlotText     = @"ZBPT";
-NSString* ZBufferPlotImage    = @"ZBPI";
-NSString* ZBufferScrollRegion = @"ZBSR";
+static NSString* const ZBufferPlotRect     = @"ZBPR";
+static NSString* const ZBufferPlotText     = @"ZBPT";
+static NSString* const ZBufferPlotImage    = @"ZBPI";
+static NSString* const ZBufferScrollRegion = @"ZBSR";
 
 @implementation ZBuffer {
-    NSMutableArray* buffer;
+    NSMutableArray<NSArray*>* buffer;
     int bufferCount;
 }
 
 // Initialisation
-- (instancetype) init {
+- (id) init {
     self = [super init];
     if (self) {
         buffer = [[NSMutableArray alloc] init];
     }
     return self;
-}
-
-- (void) dealloc {
-    [buffer release];
-    [super dealloc];
 }
 
 // NSCopying
@@ -536,8 +450,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     ZBuffer* buf;
     buf = [[[self class] alloc] init];
 
-    [buf->buffer release];
-    buf->buffer = [buffer mutableCopyWithZone: zone];
+    buf->buffer = [buffer mutableCopy];
 
     return buf;
 }
@@ -552,16 +465,28 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 }
 
 - (void) encodeWithCoder: (NSCoder*) coder {
-    [coder encodeObject: buffer];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeObject: buffer forKey: @"Buffer"];
+	} else {
+		[coder encodeObject: buffer];
+	}
 }
 
-- (instancetype) initWithCoder: (NSCoder*) coder {
+- (id) initWithCoder: (NSCoder*) coder {
     self = [super init];
     if (self) {
-        [buffer release];
-        buffer = [[coder decodeObject] retain];
+		if (coder.allowsKeyedCoding) {
+			buffer = [coder decodeObjectOfClasses: [NSSet setWithObjects: [NSString class], [ZStyle class], [NSValue class], [NSNumber class], [NSObject class], nil] forKey: @"Buffer"];
+		} else {
+			buffer = [coder decodeObject];
+		}
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
 // Buffering
@@ -569,20 +494,20 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 // General window routines
 - (void) writeString: (NSString*)          string
            withStyle: (ZStyle*)            style
-            toWindow: (NSObject<ZWindow>*) window {
+            toWindow: (id<ZWindow>) window {
     NSArray* lastTime;
 
     // If we can, merge this write with the preceding one
     lastTime = [buffer lastObject];
     if (lastTime) {
-        if ([lastTime[0] isEqualToString: ZBufferWriteString]) {
-            ZStyle* lastStyle             = lastTime[2];
+        if ([[lastTime objectAtIndex: 0] isEqualToString: ZBufferWriteString]) {
+            ZStyle* lastStyle             = [lastTime objectAtIndex: 2];
 
             if (lastStyle == style ||
                 [lastStyle isEqual: style]) {
-                NSObject<ZWindow>* lastWindow = lastTime[3];
+                id<ZWindow> lastWindow = [lastTime objectAtIndex: 3];
                 if (lastWindow == window) {
-                    NSMutableString* lastString   = lastTime[1];
+                    NSMutableString* lastString   = [lastTime objectAtIndex: 1];
 
                     [lastString appendString: string];
 					[self addedToBuffer];
@@ -595,98 +520,98 @@ NSString* ZBufferScrollRegion = @"ZBSR";
     // Create a new write
     [buffer addObject:
         @[ZBufferWriteString,
-            [NSMutableString stringWithString: string],
-            style,
-            window]];
+          [NSMutableString stringWithString: string],
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
-- (void) clearWindow: (NSObject<ZWindow>*) window
+- (void) clearWindow: (id<ZWindow>) window
            withStyle: (ZStyle*) style {
     [buffer addObject:
         @[ZBufferClearWindow,
-            style,
-            window]];
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
 // Upper window routines
-- (void) moveTo: (NSPoint) newCursorPos
-       inWindow: (NSObject<ZUpperWindow>*) window {
+- (void) moveCursorToPoint: (NSPoint) newCursorPos
+                  inWindow: (id<ZUpperWindow>) window {
     [buffer addObject:
         @[ZBufferMoveTo,
-            [NSValue valueWithPoint: newCursorPos],
-            window]];
+          @(newCursorPos),
+          window]];
 	[self addedToBuffer];
 }
 
-- (void) eraseLineInWindow: (NSObject<ZUpperWindow>*) window
+- (void) eraseLineInWindow: (id<ZUpperWindow>) window
                  withStyle: (ZStyle*) style {
     [buffer addObject:
         @[ZBufferEraseLine,
-            style,
-            window]];    
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
-- (void) setWindow: (NSObject<ZUpperWindow>*) window
+- (void) setWindow: (id<ZUpperWindow>) window
          startLine: (int) startLine
            endLine: (int) endLine {
     [buffer addObject:
         @[ZBufferSetWindow,
-            @(startLine),
-            @(endLine),
-            window]];
+          @(startLine),
+          @(endLine),
+          window]];
 	[self addedToBuffer];
 }
 
 // Pixmap window routines
 - (void) plotRect: (NSRect) rect
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) window {
+		 inWindow: (id<ZPixmapWindow>) window {
     [buffer addObject:
         @[ZBufferPlotRect,
-			[NSValue valueWithRect: rect],
-			style,
-			window]];
+          @(rect),
+          style,
+          window]];
 	[self addedToBuffer];
 }
 
 - (void) plotText: (NSString*) text
 		  atPoint: (NSPoint) point
 		withStyle: (ZStyle*) style
-		 inWindow: (NSObject<ZPixmapWindow>*) win {
+		 inWindow: (id<ZPixmapWindow>) win {
     [buffer addObject:
         @[ZBufferPlotText,
-			[[text copy] autorelease],
-			[NSValue valueWithPoint: point],
-			style,
-			win]];
+          [text copy],
+          @(point),
+          style,
+          win]];
 	[self addedToBuffer];
 }
 
 - (void) scrollRegion: (NSRect) region
 			  toPoint: (NSPoint) newPoint
-			 inWindow: (NSObject<ZPixmapWindow>*) win {
+			 inWindow: (id<ZPixmapWindow>) win {
 	[buffer addObject:
 		@[ZBufferScrollRegion,
-			[NSValue valueWithRect: region],
-			[NSValue valueWithPoint: newPoint],
-			win]];
+          @(region),
+          @(newPoint),
+          win]];
 }
 
 - (void) plotImage: (int) number
 		   atPoint: (NSPoint) point
-		  inWindow: (NSObject<ZPixmapWindow>*) win {
+		  inWindow: (id<ZPixmapWindow>) win {
 	[buffer addObject:
-		@[ZBufferPlotImage,
-			@(number),
-			[NSValue valueWithPoint: point],
-			win]];
+	 @[ZBufferPlotImage,
+	   @(number),
+	   @(point),
+	   win]];
 }
 
 // Unbuffering
-- (BOOL) empty {
+- (BOOL) isEmpty {
     if ([buffer count] < 1)
         return YES;
     else
@@ -698,30 +623,26 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	NSLog(@"Buffer: flushing... (%@)", buffer);
 #endif
 	
-    NSEnumerator* bufEnum = [buffer objectEnumerator];
-    NSArray*      entry;
-
-    while (entry = [bufEnum nextObject]) {
-        NSString* entryType = entry[0];
+    for (NSArray* entry in buffer) {
+        NSString* entryType = [entry objectAtIndex: 0];
 #ifdef DEBUG
 		NSLog(@"Buffer: %@", entryType);
 #endif
 
         if ([entryType isEqualToString: ZBufferWriteString]) {
-            NSString* str = entry[1];
-            ZStyle*   sty = entry[2];
-            NSObject<ZWindow>* win = entry[3];
+            NSString* str = [entry objectAtIndex: 1];
+            ZStyle*   sty = [entry objectAtIndex: 2];
+            id<ZWindow> win = [entry objectAtIndex: 3];
 
             [win writeString: str
-                   withStyle: sty
-                   isCommand: NO];
+                   withStyle: sty];
 			
 #ifdef DEBUG
 			NSLog(@"Buffer: ZBufferWriteString(%@)", str);
 #endif
         } else if ([entryType isEqualToString: ZBufferClearWindow]) {
-            ZStyle* sty = entry[1];
-            NSObject<ZWindow>* win = entry[2];
+            ZStyle* sty = [entry objectAtIndex: 1];
+            id<ZWindow> win = [entry objectAtIndex: 2];
 
             [win clearWithStyle: sty];
 			
@@ -729,8 +650,8 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			NSLog(@"Buffer: ZBufferClearWindow");
 #endif
         } else if ([entryType isEqualToString: ZBufferMoveTo]) {
-            NSPoint whereTo = [entry[1] pointValue];
-            NSObject<ZUpperWindow>* win = entry[2];
+            NSPoint whereTo = [[entry objectAtIndex: 1] pointValue];
+            id<ZUpperWindow> win = [entry objectAtIndex: 2];
 
             [win setCursorPositionX: whereTo.x
                                   Y: whereTo.y];
@@ -739,8 +660,8 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			NSLog(@"Buffer: ZBufferMoveTo(%g, %g)", whereTo.x, whereTo.y);
 #endif
         } else if ([entryType isEqualToString: ZBufferEraseLine]) {
-            ZStyle* sty = entry[1];
-            NSObject<ZUpperWindow>* win = entry[2];
+            ZStyle* sty = [entry objectAtIndex: 1];
+            id<ZUpperWindow> win = [entry objectAtIndex: 2];
 
             [win eraseLineWithStyle: sty];
 			
@@ -748,9 +669,9 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			NSLog(@"Buffer: ZBufferEraseLine");
 #endif
         } else if ([entryType isEqualToString: ZBufferSetWindow]) {
-            int startLine = [entry[1] intValue];
-            int endLine   = [entry[2] intValue];
-            NSObject<ZUpperWindow>* win = entry[3];
+            int startLine = [[entry objectAtIndex: 1] intValue];
+            int endLine   = [[entry objectAtIndex: 2] intValue];
+            id<ZUpperWindow> win = [entry objectAtIndex: 3];
 
             [win startAtLine: startLine];
             [win endAtLine: endLine];
@@ -759,32 +680,32 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			NSLog(@"Buffer: ZBufferSetWindow(%i, %i)", startLine, endLine);
 #endif
 		} else if ([entryType isEqualToString: ZBufferPlotRect]) {
-			NSRect rect = [entry[1] rectValue];
-			ZStyle* style = entry[2];
-			NSObject<ZPixmapWindow>* win = entry[3];
+			NSRect rect = [[entry objectAtIndex: 1] rectValue];
+			ZStyle* style = [entry objectAtIndex: 2];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win plotRect: rect
 				withStyle: style];
 		} else if ([entryType isEqualToString: ZBufferPlotText]) {
-			NSString* text = entry[1];
-			NSPoint point = [entry[2] pointValue];
-			ZStyle* style = entry[3];
-			NSObject<ZPixmapWindow>* win = entry[4];
+			NSString* text = [entry objectAtIndex: 1];
+			NSPoint point = [[entry objectAtIndex: 2] pointValue];
+			ZStyle* style = [entry objectAtIndex: 3];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 4];
 			
 			[win plotText: text
 				  atPoint: point
 				withStyle: style];
 		} else if ([entryType isEqualToString: ZBufferPlotImage]) {
-			int number = [entry[1] intValue];
-			NSPoint point = [entry[2] pointValue];
-			NSObject<ZPixmapWindow>* win = entry[3];
+			int number = [[entry objectAtIndex: 1] intValue];
+			NSPoint point = [[entry objectAtIndex: 2] pointValue];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win plotImageWithNumber: number
 							 atPoint: point];
 		} else if ([entryType isEqualToString: ZBufferScrollRegion]) {
-			NSRect region = [entry[1] rectValue];
-			NSPoint point = [entry[2] pointValue];
-			NSObject<ZPixmapWindow>* win = entry[3];
+			NSRect region = [[entry objectAtIndex: 1] rectValue];
+			NSPoint point = [[entry objectAtIndex: 2] pointValue];
+			id<ZPixmapWindow> win = [entry objectAtIndex: 3];
 			
 			[win scrollRegion: region
 					  toPoint: point];
@@ -807,24 +728,12 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 
 @end
 
-// = File wrappers =
-@implementation ZPackageFile {
-    NSFileWrapper* wrapper;
-    BOOL forWriting;
-    NSString* writePath;
-    NSString* defaultFile;
+#pragma mark - File wrappers
+@implementation ZPackageFile
 
-    NSFileWrapper* data;
-    NSMutableData* writeData;
-
-    NSDictionary* attributes;
-    
-    int pos;
-}
-
-- (instancetype) initWithPath: (NSString*) path
-		defaultFile: (NSString*) filename
-		 forWriting: (BOOL) write {
+- (instancetype) initWithURL: (NSURL*) path
+				 defaultFile: (NSString*) filename
+				  forWriting: (BOOL) write {
 	self = [super init];
 	
 	if (self) {
@@ -841,7 +750,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 		if (forWriting) {
 			// Setup for writing
 			writePath = [path copy];
-			wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: @{}];
+			wrapper = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: [NSDictionary dictionary]];
 			
 			data = nil;
 			writeData = [[NSMutableData alloc] init];
@@ -849,13 +758,15 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 			// Setup for reading
 			writePath = nil; // No writing!
 			writeData = nil;
-			wrapper = [[NSFileWrapper alloc] initWithPath: path];
+			wrapper = [[NSFileWrapper alloc] initWithURL: path
+												 options: (NSFileWrapperReadingOptions)0
+												   error: NULL];
 			
 			if (![wrapper isDirectory]) {
 				failed = YES;
 			}
 			
-			data = [[wrapper fileWrappers][defaultFile] retain];
+			data = [[wrapper fileWrappers] objectForKey: defaultFile];
 			
 			if (![data isRegularFile]) {
 				failed = YES;
@@ -864,7 +775,6 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 		
 		if (wrapper == nil || failed) {
 			// Couldn't open file
-			[self release];
 			return nil;
 		}
 	}
@@ -872,48 +782,41 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	return self;
 }
 
-- (void) setAttributes: (NSDictionary*) attr {
-	if (attributes) [attributes release];
-	attributes = [attr copy];
+- (id) initWithPath: (NSString*) path
+		defaultFile: (NSString*) filename
+		 forWriting: (BOOL) write {
+	return [self initWithURL: [NSURL fileURLWithPath:path] defaultFile: filename forWriting: write];
 }
 
-- (void) dealloc {
-	if (wrapper) [wrapper release];
-	if (writePath) [writePath release];
-	if (defaultFile) [defaultFile release];
+@synthesize attributes;
 
-	if (data) [data release];
-	if (writeData) [writeData release];
-	
-	if (attributes) [attributes release];
-	
-	[super dealloc];
-}
-
-- (int) readByte {
+- (unsigned char) readByte {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
 	
-	if (pos >= [[data regularFileContents] length]) return -1;
+	if (pos >= [[data regularFileContents] length]) return 0xff;
+    NSData *preBytes = [[data regularFileContents] subdataWithRange:NSMakeRange(pos++, 1)];
 	
-	return ((unsigned char*)[[data regularFileContents] bytes])[pos++];
+	return *((unsigned char*)preBytes.bytes);
 }
 
-- (unsigned int) readWord {
+- (unsigned short) readWord {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
+	NSData *rfc = [data regularFileContents];
 	
-	if ((pos+1) >= [[data regularFileContents] length]) {
-        return 0xffffffff;
+	if ((pos+1) >= [rfc length]) {
+        return 0xffff;
     }
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData *preBytes = [rfc subdataWithRange: NSMakeRange(pos, 2)];
+    const unsigned char* bytes = preBytes.bytes;
 	
-    unsigned int res =  (bytes[pos]<<8) | bytes[pos+1];
+    unsigned short res =  (bytes[0]<<8) | bytes[1];
     pos+=2;
 	
     return res;	
@@ -924,51 +827,52 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
+    NSData *rfc = [data regularFileContents];
 
-    if ((pos+3) >= [[data regularFileContents] length]) {
+    if ((pos+3) >= [rfc length]) {
         return 0xffffffff;
     }
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData *preBytes = [rfc subdataWithRange: NSMakeRange(pos, 4)];
+    const unsigned char* bytes = preBytes.bytes;
 	
-    unsigned int res =  (bytes[pos]<<24) | (bytes[pos+1]<<16) |
-        (bytes[pos+2]<<8) | (bytes[pos+3]);
+    unsigned int res =  ((bytes[0]<<24) | (bytes[1]<<16) |
+                         (bytes[2]<<8) | (bytes[3]));
     pos+=4;
 	
     return res;
 }
 
-- (bycopy NSData*) readBlock: (int) length {
+- (bycopy NSData*) readBlock: (NSInteger) length {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return nil;
 	}
 	
-    const unsigned char* bytes = [[data regularFileContents] bytes];
+    NSData* bytes = [data regularFileContents];
 	
-    if (pos >= [[data regularFileContents] length]) {
+    if (pos >= [bytes length]) {
         return nil;
     }
 	
-    if ((pos + length) > [[data regularFileContents] length]) {
-        int diff = (pos+length) - (int) [[data regularFileContents] length];
+    if ((pos + length) > [bytes length]) {
+        NSInteger diff = (NSInteger)((pos+length) - [bytes length]);
 		
         length -= diff;
     }
 	
-    NSData* res =  [NSData dataWithBytes: bytes + pos
-                                  length: length];
+    NSData* res = [bytes subdataWithRange: NSMakeRange(pos, length)];
 	
     pos += length;
 	
     return res;
 }
 
-- (oneway void) seekTo: (int) p {
+- (oneway void) seekTo: (off_t) p {
 	pos = p;
 }
 
-- (oneway void) writeByte: (int) byte {
+- (oneway void) writeByte: (unsigned char) byte {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -980,7 +884,7 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 					length: 1];
 }
 
-- (oneway void) writeWord: (int) word {
+- (oneway void) writeWord: (short) word {
 	if (!forWriting) {
 		[NSException raise: @"ZoomFileWriteException" format: @"Tried to write to a file open for reading"];
 		return;
@@ -1029,13 +933,13 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	return nil;
 }
 
-- (int) fileSize {
+- (off_t) fileSize {
 	if (forWriting) {
 		[NSException raise: @"ZoomFileReadException" format: @"Tried to read from a file open for writing"];
 		return 0;
 	}
 	
-	return (int) [[data regularFileContents] length];
+	return [[data regularFileContents] length];
 }
 
 - (BOOL) endOfFile {
@@ -1045,23 +949,22 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 - (oneway void) close {
 	if (forWriting) {
 		// Write out the file
-		if ([wrapper fileWrappers][defaultFile] != nil) {
-			[wrapper removeFileWrapper: [wrapper fileWrappers][defaultFile]];
+		if ([[wrapper fileWrappers] objectForKey: defaultFile] != nil) {
+			[wrapper removeFileWrapper: [[wrapper fileWrappers] objectForKey: defaultFile]];
 		}
 		
 		[wrapper addRegularFileWithContents: writeData
 						  preferredFilename: defaultFile];
+        if (attributes) {
+            NSMutableDictionary *attribDict = [wrapper.fileAttributes mutableCopy];
+            [attribDict addEntriesFromDictionary:attributes];
+            wrapper.fileAttributes = attribDict;
+        }
 		
-		[wrapper writeToFile: writePath
-				  atomically: YES
-			 updateFilenames: YES];
-		
-		if (attributes) {
-            NSError* error;
-			[[NSFileManager defaultManager] setAttributes: attributes
-                                             ofItemAtPath: writePath
-                                                    error: &error];
-		}
+		[wrapper writeToURL: writePath
+					options: (NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating)
+		originalContentsURL: nil
+					  error: NULL];
 	}
 }
 
@@ -1083,6 +986,18 @@ NSString* ZBufferScrollRegion = @"ZBSR";
 	}
 	
 	return [[wrapper fileWrappers][filename] regularFileContents];
+}
+
+@end
+
+@interface NSColorSpace (PortCoderCompat)
+@end
+
+@implementation NSColorSpace (PortCoderCompat)
+
+- (id)replacementObjectForPortCoder:(NSPortCoder *)encoder {
+    // Always copy!
+    return self;
 }
 
 @end

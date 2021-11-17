@@ -6,23 +6,24 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "GlkImage.h"
 #import "glk.h"
 
-NSString* GlkImageAttribute = @"GlkImageAttribute";
+NSString*const GlkImageAttribute = @"GlkImageAttribute";
 
 @implementation GlkImage
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) initWithImage: (NSImage*) img
+- (id) initWithImage: (GlkSuperImage*) img
 		   alignment: (unsigned) align
 				size: (NSSize) sz
-			position: (unsigned) charPos {
+			position: (NSUInteger) charPos {
 	self = [super init];
 	
 	if (self) {
-		image = [img retain];
+		image = img;
 		alignment = align;
 		size = sz;
 		characterPosition = charPos;
@@ -31,57 +32,36 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 	return self;
 }
 
-- (void) dealloc {
-	[image release];
-	
-	[super dealloc];
-}
+#pragma mark - Information
 
-// = Information =
+@synthesize image;
+@synthesize size;
+@synthesize alignment;
+@synthesize characterPosition;
 
-- (NSImage*) image {
-	return image;
-}
+#pragma mark - Cached information
 
-- (NSSize) size {
-	return size;
-}
-
-- (unsigned) alignment {
-	return alignment;
-}
-
-- (unsigned) characterPosition {
-	return characterPosition;
-}
-
-// = Cached information =
-
-- (void) setBounds: (NSRect) newBounds {
+- (void) setBounds: (GlkRect) newBounds {
 	calculatedBounds = YES;
 	bounds = newBounds;
 }
 
-- (NSRect) bounds {
-	return bounds;
-}
+@synthesize bounds;
 
-- (BOOL) calculatedBounds {
-	return calculatedBounds;
-}
+@synthesize calculatedBounds;
 
 - (void) markAsUncalculated {
 	calculatedBounds = NO;
 }
 
-// = Placing this image =
+#pragma mark - Placing this image
 
-- (BOOL) formatSectionAtOffset: (float) offset
+- (BOOL) formatSectionAtOffset: (CGFloat) offset
 				  inTypesetter: (GlkTypesetter*) typesetter
 				 forGlyphRange: (NSRange) glyphs {
 	scaleFactor = 1.0;
 	
-	float remainingMargin = [typesetter remainingMargin];
+	CGFloat remainingMargin = [typesetter remainingMargin];
 	
 	// Add a new line section for this image
 	switch (alignment) {
@@ -95,7 +75,7 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 			else if (alignment == imagealign_InlineDown)
 				secAlign = GlkAlignBottom;
 		
-			[typesetter addLineSection: NSMakeRect(offset, -size.height, size.width, size.height)
+			[typesetter addLineSection: GlkMakeRect(offset, -size.height, size.width, size.height)
 						   advancement: size.width
 								offset: offset
 							glyphRange: glyphs
@@ -112,7 +92,7 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 			marginOffset = [typesetter currentLeftMarginOffset];
 			[typesetter addToLeftMargin: (size.width*scaleFactor)+8
 								 height: size.height*scaleFactor];
-			[typesetter addLineSection: NSMakeRect(offset, -1, size.width, 1)
+			[typesetter addLineSection: GlkMakeRect(offset, -1, size.width, 1)
 						   advancement: 0
 								offset: offset
 							glyphRange: glyphs
@@ -127,7 +107,7 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 			
 			[typesetter addToRightMargin: (size.width*scaleFactor)+8
 								  height: size.height*scaleFactor];
-			[typesetter addLineSection: NSMakeRect(offset, -1, size.width, 1)
+			[typesetter addLineSection: GlkMakeRect(offset, -1, size.width, 1)
 						   advancement: 0
 								offset: offset
 							glyphRange: glyphs
@@ -141,12 +121,12 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 	return NO;
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
-- (void) drawAtPoint: (NSPoint) point
-			  inView: (NSView*) view {
-	NSRect drawRect;
-	NSRect imageRect;
+- (void) drawAtPoint: (GlkPoint) point
+			  inView: (GlkSuperView*) view {
+	GlkRect drawRect;
+	GlkRect imageRect;
 	
 	if (alignment == imagealign_MarginLeft) {
 		NSSize inset = [(NSTextView*)view textContainerInset];
@@ -157,21 +137,18 @@ NSString* GlkImageAttribute = @"GlkImageAttribute";
 
 		point.x = NSMaxX([view bounds])-marginOffset - inset.width;
 	} else {
-		float maxWidth = NSMaxX([view bounds]) - point.x - 8;
+		CGFloat maxWidth = NSMaxX([view bounds]) - point.x - 8;
 		if (maxWidth < size.width) scaleFactor = maxWidth/size.width;
 	}
 	
-	drawRect.origin = NSMakePoint(floorf(point.x), floorf(point.y));
+	drawRect.origin = NSMakePoint(floor(point.x), floor(point.y));
 	drawRect.size = size;
 	drawRect.size.width *= scaleFactor;
 	drawRect.size.height *= scaleFactor;
 	
-	imageRect.origin = NSMakePoint(0,0);
-	imageRect.size = [image size];
-	
 	[image drawInRect: drawRect
-			 fromRect: imageRect
-			operation: NSCompositeSourceOver
+			 fromRect: NSZeroRect
+			operation: NSCompositingOperationSourceOver
 			 fraction: 1.0];
 }
 

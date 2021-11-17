@@ -318,7 +318,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 	// Spell checking
 	if (itemSelector == @selector(toggleSourceSpellChecking:)) {
-		[menuItem setState: [self sourceSpellChecking] ? NSOnState : NSOffState];
+		[menuItem setState: [self sourceSpellChecking] ? NSControlStateValueOn : NSControlStateValueOff];
 		return YES;
 	}
 
@@ -596,7 +596,7 @@ static NSRunLoop* mainRunLoop = nil;
      {
          [panel setDelegate: nil];
 
-         if (result != NSOKButton) return;
+         if (result != NSModalResponseOK) return;
 
          // Just add the extension
          // Add the files
@@ -804,7 +804,7 @@ static NSRunLoop* mainRunLoop = nil;
     
     [exportPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              self->exportToEPubIndex = 0;
              [self exportNext: [[exportPanel URL] path]];
          }

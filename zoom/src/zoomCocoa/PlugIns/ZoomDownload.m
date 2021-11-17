@@ -8,12 +8,19 @@
 
 #import "ZoomDownload.h"
 
-#include "md5.h"
+#include <CommonCrypto/CommonDigest.h>
 
+@interface ZoomDownload () <NSURLSessionDataDelegate, NSURLSessionDelegate>
 
-@implementation ZoomDownload
+@end
 
-// = Initialisation =
+@implementation ZoomDownload {
+	NSURLSession *session;
+	/// The connection that the download will be loaded via
+	NSURLSessionDataTask *dataTask;
+}
+
+#pragma mark - Initialisation
 
 static NSString* downloadDirectory;
 static int lastDownloadId = 0;
@@ -25,7 +32,7 @@ static int lastDownloadId = 0;
 	
 	int pid = (int)getpid();
 	
-	downloadDirectory = [[tempDir stringByAppendingPathComponent: [NSString stringWithFormat: @"Zoom-Downloads-%i", pid]] retain];
+	downloadDirectory = [tempDir stringByAppendingPathComponent: [NSString stringWithFormat: @"Zoom-Downloads-%i", pid]];
 }
 
 + (void) removeTemporaryDirectory {
@@ -38,21 +45,25 @@ static int lastDownloadId = 0;
 												  isDirectory: &isDir];
 	if (exists) {
 		NSLog(@"Removing %@", downloadDirectory);
-		[[NSFileManager defaultManager] removeFileAtPath: downloadDirectory
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: downloadDirectory
+												   error: NULL];
 	}
 }
 
-- (id) initWithUrl: (NSURL*) newUrl {
+- (id) initWithURL: (NSURL*) newUrl {
 	self = [super init];
 	
 	if (self) {
 		if (newUrl == nil) {
-			[self release];
 			return nil;
 		}
 		
 		url = [newUrl copy];
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration.ephemeralSessionConfiguration copy];
+		config.networkServiceType = NSURLNetworkServiceTypeBackground;
+		session = [NSURLSession sessionWithConfiguration: config
+												delegate: self
+										   delegateQueue: nil];
 	}
 	
 	return self;
@@ -65,19 +76,19 @@ static int lastDownloadId = 0;
 	// Delete the temporary file
 	if ([[NSFileManager defaultManager] fileExistsAtPath: tmpFile]) {
 		NSLog(@"Removing: %@", tmpFile);
-		[[NSFileManager defaultManager] removeFileAtPath: tmpFile
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: tmpFile
+												   error: NULL];
 	}
 	
 	// Delete the temporary directory
-	BOOL isDir;
+	BOOL isDir=NO;
 	if (tmpDirectory 
 		&& [[NSFileManager defaultManager] fileExistsAtPath: tmpDirectory
 												isDirectory: &isDir]) {
 		if (isDir) {
 			NSLog(@"Removing: %@", tmpDirectory);
-			[[NSFileManager defaultManager] removeFileAtPath: tmpDirectory
-													 handler: nil];
+			[[NSFileManager defaultManager] removeItemAtPath: tmpDirectory
+													   error: NULL];
 		}
 	}
 	
@@ -87,45 +98,23 @@ static int lastDownloadId = 0;
 		[task terminate];
 	}
 	if (subtasks) {
-		NSEnumerator* subtaskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [subtaskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				[sub interrupt];
 				[sub terminate];
 			}
 		}
 	}
-
-	// Release our resources
-	[url release];
-	
-	if (connection)			[connection release];
-	if (tmpFile)			[tmpFile release];
-	if (tmpDirectory)		[tmpDirectory release];
-	
-	if (task)				[task release];
-	if (subtasks)			[subtasks release];
-	if (suggestedFilename)	[suggestedFilename release];
-	
-	[super dealloc];
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
+@synthesize expectedMD5=md5;
 
-- (void)setExpectedMD5:(NSData*)newMd5
-{
-	[md5 release];
-	md5 = [newMd5 retain];
-}
-
-// = Starting the download =
+#pragma mark - Starting the download
 
 - (void) startDownload {
 	// Do nothing if this download is already running
-	if (connection != nil) return;
+	if (dataTask != nil) return;
 	
 	// Let the delegate know
 	if (delegate && [delegate respondsToSelector: @selector(downloadStarting:)]) {
@@ -138,8 +127,8 @@ static int lastDownloadId = 0;
 	NSURLRequest* request = [NSURLRequest requestWithURL: url
 											 cachePolicy: NSURLRequestReloadIgnoringCacheData
 										 timeoutInterval: 30];
-	connection = [[NSURLConnection connectionWithRequest: request
-												delegate: self] retain];
+	dataTask = [session dataTaskWithRequest: request];
+	dataTask.taskDescription = [NSString stringWithFormat:@"Zoom: Downloading %@", url.lastPathComponent];
 }
 
 - (void) createDownloadDirectory {
@@ -152,15 +141,16 @@ static int lastDownloadId = 0;
 												  isDirectory: &isDir];
 	if (!exists) {
 		[[NSFileManager defaultManager] createDirectoryAtPath: downloadDirectory
-												   attributes: nil];
+												   withIntermediateDirectories: NO
+												   attributes: nil
+														error:NULL];
 	} else if (!isDir) {
-		[downloadDirectory autorelease];
-		downloadDirectory = [[downloadDirectory stringByAppendingString: @"-1"] retain];
+		downloadDirectory = [downloadDirectory stringByAppendingString: @"-1"];
 		[self createDownloadDirectory];
 	}
 }
 
-// = Status events =
+#pragma mark - Status events
 
 - (void) finished {
 	// Kill any tasks
@@ -169,9 +159,7 @@ static int lastDownloadId = 0;
 		[task terminate];
 	}
 	if (subtasks) {
-		NSEnumerator* subtaskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [subtaskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				[sub interrupt];
 				[sub terminate];
@@ -179,12 +167,12 @@ static int lastDownloadId = 0;
 		}
 	}
 
-	[connection cancel];
-	[connection autorelease]; connection = nil;
-	[tmpFile release]; tmpFile = nil;
-	[downloadFile release]; downloadFile = nil;	
-	[task release]; task = nil;
-	[subtasks release]; subtasks = nil;
+	[dataTask cancel];
+	dataTask = nil;
+	tmpFile = nil;
+	downloadFile = nil;
+	task = nil;
+	subtasks = nil;
 }
 
 - (void) failed: (NSString*) reason {
@@ -197,11 +185,10 @@ static int lastDownloadId = 0;
 }
 
 - (void) succeeded {
-	[connection release];
-	connection = nil;
+	dataTask = nil;
 
-	[task release]; task = nil;
-	[subtasks release]; subtasks = nil;
+	task = nil;
+	subtasks = nil;
 
 	// Let the download delegate know that the download has finished
 	if (delegate && [delegate respondsToSelector: @selector(downloadComplete:)]) {
@@ -209,7 +196,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = The unarchiver =
+#pragma mark - The unarchiver
 
 - (NSString*) directoryForUnarchiving {
 	if (tmpDirectory != nil) return tmpDirectory;
@@ -220,13 +207,15 @@ static int lastDownloadId = 0;
 	// Pick a directory name that doesn't already exist
 	while ([[NSFileManager defaultManager] fileExistsAtPath: directory]) {
 		lastDownloadId++;
-		NSString* directory = [downloadDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"unarchived-%i", lastDownloadId]];
+		directory = [downloadDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"unarchived-%i", lastDownloadId]];
 	}
 	
 	// Create the directory
 	if ([[NSFileManager defaultManager] createDirectoryAtPath: directory
-												   attributes: nil]) {
-		return tmpDirectory = [directory retain];
+								  withIntermediateDirectories: NO
+												   attributes: nil
+														error: NULL]) {
+		return tmpDirectory = [directory copy];
 	} else {
 		return nil;
 	}
@@ -248,26 +237,22 @@ static int lastDownloadId = 0;
 	NSString* pathExtension = [[filename pathExtension] lowercaseString];
 	NSString* withoutExtension = [filename stringByDeletingPathExtension];
 	BOOL needNextStage = NO;
-	NSTask* result = [[[NSTask alloc] init] autorelease];
+	NSTask* result = [[NSTask alloc] init];
 	
 	[result setLaunchPath: @"/usr/bin/env"];
 	
 	if ([pathExtension isEqualToString: @"zip"]) {
 		// Unarchive as a .zip file
-		[result setArguments: [NSArray arrayWithObjects:
-			@"ditto",
-			@"-x",
-			@"-k",
-			@"-",
-			directory,
-			nil]];
+		[result setArguments: @[@"ditto",
+								@"-x",
+								@"-k",
+								@"-",
+								directory]];
 	} else if ([pathExtension isEqualToString: @"tar"]) {
 		// Is a something.tar file
-		[result setArguments: [NSArray arrayWithObjects:
-			@"tar",
-			@"-xC",
-			directory,
-			nil]];
+		[result setArguments: @[@"tar",
+								@"-xC",
+								directory]];
 	} else if ([pathExtension isEqualToString: @"gz"]
 			   || [pathExtension isEqualToString: @"bz2"]
 			   || [pathExtension isEqualToString: @"z"]) {
@@ -282,9 +267,7 @@ static int lastDownloadId = 0;
 		if ([pathExtension isEqualToString: @"z"])		unarchiver = @"uncompress";
 		
 		// Create the unarchiver
-		[result setArguments: [NSArray arrayWithObjects: 
-			unarchiver,
-			nil]];
+		[result setArguments: @[unarchiver]];
 		
 		// Create the pipes to connect the next task to the unarchiver
 		NSPipe* pipe = [NSPipe pipe];
@@ -309,10 +292,7 @@ static int lastDownloadId = 0;
 												contents: [NSData data]
 											  attributes: nil];
 
-		[result setArguments: [NSArray arrayWithObjects: 
-			@"cat",
-			@"-",
-			nil]];
+		[result setArguments: @[@"cat", @"-"]];
 		[result setStandardOutput: [NSFileHandle fileHandleForWritingAtPath: destFile]];
 	}
 	
@@ -329,9 +309,9 @@ static int lastDownloadId = 0;
 	}
 	
 	// Create the unarchiving task
-	[task release]; task = nil;
-	task = [[self unarchiveFile: tmpFile
-					toDirectory: [self directoryForUnarchiving]] retain];
+	task = nil;
+	task = [self unarchiveFile: tmpFile
+					toDirectory: [self directoryForUnarchiving]];
 	
 	if (task == nil) {
 		// Oops: couldn't create the task
@@ -359,16 +339,14 @@ static int lastDownloadId = 0;
 	
 	// Start the tasks
 	if (subtasks != nil) {
-		NSEnumerator* taskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [taskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			[sub launch];
 		}
 	}
 	[task launch];
 }
 
-// = NSURLConnection delegate =
+#pragma mark - NSURLConnection delegate
 
 - (NSString*) fullExtensionFor: (NSString*) filename {
 	NSString* extension = [filename pathExtension];
@@ -384,22 +362,18 @@ static int lastDownloadId = 0;
 	}
 }
 
--(NSURLRequest *) connection:(NSURLConnection *)connection 
-			 willSendRequest:(NSURLRequest *)request 
-			redirectResponse:(NSURLResponse *)redirectResponse {
-	return request;
-}
-
-- (void)  connection:(NSURLConnection *)conn
-  didReceiveResponse:(NSURLResponse *)response {
-	int status = 200;
+- (void)URLSession:(NSURLSession *)session
+		  dataTask:(NSURLSessionDataTask *)dataTask
+didReceiveResponse:(NSURLResponse *)response
+ completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
+	NSInteger status = 200;
 	if ([response isKindOfClass: [NSHTTPURLResponse class]]) {
 		status = [(NSHTTPURLResponse*)response statusCode];
 	}
 	
 	if (status >= 400) {
 		// Failure: give up
-		NSLog(@"Error: %i", status);
+		NSLog(@"Error: %li", (long)status);
 		
 		switch (status)
 		{
@@ -423,8 +397,9 @@ static int lastDownloadId = 0;
 				[self failed: @"The server is currently unavailable"];
 				
 			default:
-				[self failed: [NSString stringWithFormat: @"Server reported code %i", status]];
+				[self failed: [NSString stringWithFormat: @"Server reported code %li", (long)status]];
 		}
+		completionHandler(NSURLSessionResponseCancel);
 		return;
 	}
 	
@@ -438,10 +413,8 @@ static int lastDownloadId = 0;
 	}
 	
 	// Create the download file
-	[tmpFile release];
 	tmpFile = [downloadDirectory stringByAppendingPathComponent: [NSString stringWithFormat: @"download-%i", lastDownloadId++]];
 	tmpFile = [tmpFile stringByAppendingPathExtension: [self fullExtensionFor: [response suggestedFilename]]];
-	[tmpFile retain];
 	
 	suggestedFilename = [[response suggestedFilename] copy];
 	
@@ -454,50 +427,32 @@ static int lastDownloadId = 0;
 	
 	if (downloadFile) {
 		[downloadFile closeFile];
-		[downloadFile release];
 		downloadFile = nil;
 	}
 	NSLog(@"Downloading to %@", tmpFile);
 	[[NSFileManager defaultManager] createFileAtPath: tmpFile
 											contents: [NSData data]
 										  attributes: nil];
-	downloadFile = [[NSFileHandle fileHandleForWritingAtPath: tmpFile] retain];
+	downloadFile = [NSFileHandle fileHandleForWritingAtPath: tmpFile];
 	
 	if (downloadFile == nil) {
 		// Failed to create the download file
 		NSLog(@"...Could not create file");
 		
 		[self failed: @"Unable to save the download to disk"];
+		completionHandler(NSURLSessionResponseCancel);
 		return;
 	}
 	
 	if (delegate && [delegate respondsToSelector: @selector(downloading:)]) {
 		[delegate downloading: self];
 	}
+	completionHandler(NSURLSessionResponseAllow);
 }
 
-- (void)connection:(NSURLConnection *)conn
-  didFailWithError:(NSError *)error {
-	// Delete the downloaded file
-	if (downloadFile) {
-		[downloadFile closeFile];
-		[downloadFile release];
-		downloadFile = nil;
-		
-		[[NSFileManager defaultManager] removeFileAtPath: tmpFile
-												 handler: nil];
-	}
-	
-	[tmpFile release];
-	tmpFile = nil;
-	
-	NSLog(@"Download failed with error: %@", error);
-	
-	// Inform the delegate, and give up
-	[self failed: [NSString stringWithFormat: @"Connection failed: %@", [error localizedDescription]]];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+- (void)URLSession:(NSURLSession *)session
+		  dataTask:(NSURLSessionDataTask *)dataTask
+	didReceiveData:(NSData *)data {
 	// Write to the download file
 	if (downloadFile) {
 		[downloadFile writeData: data];
@@ -506,7 +461,7 @@ static int lastDownloadId = 0;
 	// Let the delegate know of the progress
 	downloadedSoFar += [data length];
 	
-	if (expectedLength != nil) {
+	if (expectedLength != 0) {
 		float proportion = ((double)downloadedSoFar)/((double)expectedLength);
 		
 		if (delegate && [delegate respondsToSelector: @selector(download:completed:)]) {
@@ -516,17 +471,37 @@ static int lastDownloadId = 0;
 	}
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)conn {
+-    (void)URLSession:(NSURLSession *)session
+				 task:(NSURLSessionTask *)task
+ didCompleteWithError:(nullable NSError *)error {
+	if (error) {
+		// Delete the downloaded file
+		if (downloadFile) {
+			[downloadFile closeFile];
+			downloadFile = nil;
+			
+			[[NSFileManager defaultManager] removeItemAtPath: tmpFile
+													   error: nil];
+		}
+		
+		tmpFile = nil;
+		
+		NSLog(@"Download failed with error: %@", error);
+		
+		// Inform the delegate, and give up
+		[self failed: [NSString stringWithFormat: @"Connection failed: %@", [error localizedDescription]]];
+
+		return;
+	}
 	if (downloadFile) {
 		// Finish writing the file
 		[downloadFile closeFile];
-		[downloadFile release];
 		downloadFile = nil;
 		
 		// If we have an MD5, then verify that the file matches it
 		if (md5) {
-			md5_state_t state;
-			md5_init(&state);
+			CC_MD5_CTX state;
+			CC_MD5_Init(&state);
 			
 			NSFileHandle* readDownload = [NSFileHandle fileHandleForReadingAtPath: tmpFile];
 			if (readDownload == nil) {
@@ -535,22 +510,19 @@ static int lastDownloadId = 0;
 			}
 			
 			// Read in the file and update the MD5 sum
-			NSData* readBytes;
-			NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-			while ((readBytes = [readDownload readDataOfLength: 65536]) && [readBytes length] > 0) {
-				md5_append(&state, [readBytes bytes], [readBytes length]);
-				
-				[pool release];
-				pool = [[NSAutoreleasePool alloc] init];
+			@autoreleasepool {
+				NSData* readBytes;
+				while ((readBytes = [readDownload readDataOfLength: 65536]) && [readBytes length] > 0) {
+					CC_MD5_Update(&state, [readBytes bytes], (CC_LONG)[readBytes length]);
+				}
 			}
-			[pool release]; pool = nil;
 			
 			// Finish up and get the MD5 digest
-			md5_byte_t digest[16];
-			md5_finish(&state, digest);
+			unsigned char digest[CC_MD5_DIGEST_LENGTH];
+			CC_MD5_Final(digest, &state);
 			
 			NSData* digestData = [NSData dataWithBytes: digest
-												length: 16];
+												length: CC_MD5_DIGEST_LENGTH];
 			NSLog(@"MD5 digest is %@", digestData);
 			
 			if (![digestData isEqual: md5]) {
@@ -573,7 +545,7 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = NSTask delegate =
+#pragma mark - NSTask delegate
 
 - (void) taskDidTerminate: (NSNotification*) not {
 	// Do nothing if no task is running
@@ -584,9 +556,7 @@ static int lastDownloadId = 0;
 	BOOL succeeded = YES;
 	
 	if (subtasks) {
-		NSEnumerator* taskEnum = [subtasks objectEnumerator];
-		NSTask* sub;
-		while (sub = [taskEnum nextObject]) {
+		for (NSTask* sub in subtasks) {
 			if ([sub isRunning]) {
 				finished = NO;
 			} else if ([sub terminationStatus] != 0) {
@@ -612,18 +582,9 @@ static int lastDownloadId = 0;
 	}
 }
 
-// = Getting the download directory =
-
-- (NSURL*) url {
-	return url;
-}
-
-- (NSString*) downloadDirectory {
-	return tmpDirectory;
-}
-
-- (NSString*) suggestedFilename {
-	return suggestedFilename;
-}
+#pragma mark - Getting the download directory
+@synthesize url;
+@synthesize downloadDirectory=tmpDirectory;
+@synthesize suggestedFilename;
 
 @end

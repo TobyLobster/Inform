@@ -10,23 +10,21 @@
 
 
 @implementation ZoomInputLine {
-    ZoomCursor* cursor;
-
-    NSObject* delegate;
-
-    NSMutableString* lineString;
-    NSMutableDictionary* attributes;
-    int				 insertionPos;
+	ZoomCursor* cursor;
+	
+	NSMutableString* lineString;
+	NSMutableDictionary<NSAttributedStringKey, id>* attributes;
+	NSInteger		 insertionPos;
 }
 
 // Initialisation
-- (instancetype) initWithCursor: (ZoomCursor*) csr
-		   attributes: (NSDictionary*) attr {
+- (id) initWithCursor: (ZoomCursor*) csr
+		   attributes: (NSDictionary<NSAttributedStringKey, id>*) attr {
 	self = [super init];
 	
 	if (self) {
-		lineString = [@"" mutableCopy];
-		cursor = [csr retain];
+		lineString = [[NSMutableString alloc] init];
+		cursor = csr;
 		attributes = [attr mutableCopy];
 		
 		[attributes removeObjectForKey: NSBackgroundColorAttributeName];
@@ -35,17 +33,9 @@
 	return self;
 }
 
-- (void) dealloc {
-	[cursor release];
-	[lineString release];
-	[attributes release];
-	
-	[super dealloc];
-}
-
 // Drawing
 - (void) drawAtPoint: (NSPoint) point {
-	NSFont* font = attributes[NSFontAttributeName];
+	NSFont* font = [attributes objectForKey: NSFontAttributeName];
 	
 	point.y += [font descender];
 	
@@ -66,11 +56,11 @@
 	return r;
 }
 
-// Keys, editing
+#pragma mark Keys, editing
 - (void) updateCursor {
 	[cursor positionInString: lineString
 			  withAttributes: attributes
-			atCharacterIndex: insertionPos];
+			atCharacterIndex: (int)insertionPos];
 }
 
 - (void) stringHasUpdated {
@@ -82,21 +72,20 @@
 - (void) keyDown: (NSEvent*) evt {
 	NSString* input = [evt characters];
 	
-	int flags = [evt modifierFlags];
+	NSEventModifierFlags flags = [evt modifierFlags];
 	
 	// Ignore events with modifier keys
-	if ((flags&(NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask|NSHelpKeyMask)) != 0) {
+	if ((flags&(NSEventModifierFlagControl|NSEventModifierFlagOption|NSEventModifierFlagCommand|NSEventModifierFlagHelp)) != 0) {
 		return;
 	}
 	
 	[self stringHasUpdated];
 	
 	// Deal with/strip characters 0xf700-0xf8ff from the input string
-	int x;
 	BOOL endOfLine = NO;
 	NSMutableString* inString = [[NSMutableString alloc] init];
 		
-	for (x=0; x<[input length]; x++) {
+	for (NSInteger x=0; x<[input length]; x++) {
 		unichar chr = [input characterAtIndex: x];
 		
 		if (chr == 13 || chr == 10) {
@@ -132,7 +121,7 @@
 			
 			if (newItem) {
 				[lineString setString: newItem];
-				insertionPos = (int) [lineString length];
+				insertionPos = [lineString length];
 				
 				[self stringHasUpdated];
 				[self updateCursor];
@@ -148,7 +137,7 @@
 				[lineString setString: @""];
 			}
 
-			insertionPos = (int) [lineString length];
+			insertionPos = [lineString length];
 
 			[self stringHasUpdated];
 			[self updateCursor];
@@ -175,7 +164,7 @@
 				NSBeep();
 			}
 		} else if (chr == NSEndFunctionKey) {
-			insertionPos = (int) [lineString length];
+			insertionPos = [lineString length];
 			[self updateCursor];
 		} else if (chr == NSHomeFunctionKey) {
 			insertionPos = 0;
@@ -196,8 +185,6 @@
 		[self updateCursor];
 	}
 	
-	[inString release];
-	
 	// Deal with end of line
 	if (endOfLine) {
 		if (delegate && [delegate respondsToSelector: @selector(endOfLineReached:)]) {
@@ -207,13 +194,7 @@
 }
 
 // Delegate
-- (void) setDelegate: (id) dg {
-	delegate = dg;
-}
-
-- (id) delegate {
-	return delegate;
-}
+@synthesize delegate;
 
 - (NSString*) lastHistoryItem {
 	if (delegate && [delegate respondsToSelector: @selector(lastHistoryItem)]) {
@@ -233,7 +214,7 @@
 
 // Results
 - (NSString*) inputLine {
-	return [[lineString copy] autorelease];
+	return [lineString copy];
 }
 
 @end

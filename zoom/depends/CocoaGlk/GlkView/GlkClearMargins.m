@@ -8,16 +8,15 @@
 
 #import "GlkClearMargins.h"
 
-
 @implementation GlkClearMargins
 
-- (BOOL) formatSectionAtOffset: (float) offset
+- (BOOL) formatSectionAtOffset: (CGFloat) offset
 				  inTypesetter: (GlkTypesetter*) typesetter
 				 forGlyphRange: (NSRange) glyphs {
-	float height1 = [typesetter currentLeftMarginHeight];
-	float height2 = [typesetter currentRightMarginHeight];
+	CGFloat height1 = [typesetter currentLeftMarginHeight];
+	CGFloat height2 = [typesetter currentRightMarginHeight];
 	
-	float clearHeight = height1>height2?height1:height2;
+	CGFloat clearHeight = height1>height2?height1:height2;
 	
 	[typesetter addLineSection: NSMakeRect(offset, -clearHeight, 0.1, clearHeight)
 				   advancement: 0

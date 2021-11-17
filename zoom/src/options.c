@@ -169,7 +169,6 @@ void get_options(int argc, char** argv, arguments* args)
     {
       zmachine_fatal("Usage: %s [OPTION...] story-file [save-file]\n",
 	     argv[0]);
-      display_exit(1);
    }
   
   args->track_objs  = 0;

@@ -12,6 +12,8 @@
 //
 
 #import "ZoomSkein.h"
+#import "ZoomSkeinWeb.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomSkein(ZoomSkeinWebDocRepresentation)
 
@@ -27,26 +29,23 @@
 	return YES; // AKA trueYES according to Apple's webkit docs
 }
 
-- (void)setDataSource:(WebDataSource *)dataSource {
-	if (webData) [webData release];
-	
+- (void)setDataSource:(__unused WebDataSource *)dataSource {
 	webData = [[NSMutableData alloc] init];
 	
 	NSLog(@"ZoomSkein: loading from web");
 }
 
-- (void) receivedError: (NSError *)error 
-		withDataSource: (WebDataSource *)dataSource {
+- (void) receivedError: (__unused NSError *)error
+		withDataSource: (__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: received error");
 	
 	if (webData) {
-		[webData release];
 		webData = nil;
 	}
 }
 
 - (void) receivedData:(NSData *)data 
-	   withDataSource:(WebDataSource *)dataSource {
+	   withDataSource:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: received data");
 
 	if (webData) {
@@ -54,12 +53,11 @@
 	}
 }
 
-- (void)finishedLoadingWithDataSource:(WebDataSource *)dataSource {
+- (void)finishedLoadingWithDataSource:(__unused WebDataSource *)dataSource {
 	NSLog(@"ZoomSkein: finished loading");
 
 	if (webData) {
-		[self parseXmlData: webData];
-		[webData release];
+		[self parseXmlData: webData error: NULL];
 		webData = nil;
 	}
 }

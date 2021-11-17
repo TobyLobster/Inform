@@ -6,54 +6,99 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKPREFERENCES_H__
+#define __GLKVIEW_GLKPREFERENCES_H__
 
-//
-// General preferences used for a Glk view
-//
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 
-extern NSString* GlkPreferencesHaveChangedNotification;				// Notification sent whenever the preferences are changed (not necessarily sent immediately)
+/// Notification sent whenever the preferences are changed (not necessarily sent immediately)
+extern NSNotificationName const GlkPreferencesHaveChangedNotification;
 
 @class GlkStyle;
 
-@interface GlkPreferences : NSObject<NSCopying>
+///
+/// General preferences used for a Glk view
+///
+@interface GlkPreferences : NSObject<NSCopying> {
+	// The fonts
+	GlkFont* proportionalFont;
+	GlkFont* fixedFont;
+	
+	// The standard styles
+	NSMutableDictionary<NSNumber*,GlkStyle*>* styles;
+	
+	// Typography
+	CGFloat textMargin;
+	BOOL useScreenFonts;
+	BOOL useHyphenation;
+	BOOL kerning;
+	BOOL ligatures;
+	
+	// Misc bits
+	CGFloat scrollbackLength;
+	
+	/// YES if the last change is being notified
+	BOOL changeNotified;
+	/// Number of changes
+	int  changeCount;
+}
 
-// The shared preferences object (these are automagically stored in the user defaults)
-+ (GlkPreferences*) sharedPreferences;
+/// The shared preferences object (these are automagically stored in the user defaults)
+@property (class, readonly, retain) GlkPreferences *sharedPreferences;
 
 // Preferences and the user defaults
-- (void) setPreferencesFromDefaults: (NSDictionary*) defaults;		// Used to load the preferences from a defaults file
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDictionary *preferenceDefaults;								// These preferences in a format suitable for the user defaults file
+/// Used to load the preferences from a defaults file
+- (void) setPreferencesFromDefaults: (NSDictionary<NSString*,id>*) defaults;
+/// These preferences in a format suitable for the user defaults file
+@property (readonly, copy) NSDictionary<NSString*,id> *preferenceDefaults;
 
 // The preferences themselves
 
-// Font preferences					// The font used for proportional text							// The font used for fixed-pitch text
+// Font preferences
+/// The font used for proportional text
+@property (nonatomic, copy) NSFont *proportionalFont;
+/// The font used for fixed-pitch text
+@property (nonatomic, copy) NSFont *fixedFont;
 
-@property (NS_NONATOMIC_IOSONLY, copy) NSFont *proportionalFont;
-@property (NS_NONATOMIC_IOSONLY, copy) NSFont *fixedFont;
-
-- (void) setFontSize: (float) fontSize;								// Replaces the current fonts with ones of the given size
+/// Replaces the current fonts with ones of the given size
+- (void) setFontSize: (CGFloat) fontSize;
 
 // Typography preferences
-@property (NS_NONATOMIC_IOSONLY) float textMargin;												// The padding to use in text windows
-@property (NS_NONATOMIC_IOSONLY) BOOL useScreenFonts;											// Whether or not to use screen fonts
-@property (NS_NONATOMIC_IOSONLY) BOOL useHyphenation;											// Whether or not to use hyphenation
-@property (NS_NONATOMIC_IOSONLY) BOOL useLigatures;												// Whether or not to display ligatures
-@property (NS_NONATOMIC_IOSONLY) BOOL useKerning;												// Whether or not to use kerning								// Replaces the current padding that we should use
+/// The padding to use in text windows
+@property (nonatomic) CGFloat textMargin;
+/// Whether or not to use screen fonts
+@property (nonatomic) BOOL useScreenFonts;
+/// Whether or not to use hyphenation
+@property (nonatomic) BOOL useHyphenation;
+/// Whether or not to display ligatures
+@property (nonatomic) BOOL useLigatures;
+/// Whether or not to use kerning
+@property (nonatomic) BOOL useKerning;
+/// Replaces the current padding that we should use
+- (void) setTextMargin: (CGFloat) margin;
 
-// Style preferences							// Dictionary mapping NSNumbers with Glk styles to GlkStyle objects
-- (void) setStyle: (GlkStyle*) style								// Sets a style for a specific Glk hint
+// Style preferences
+/// Dictionary mapping \c NSNumbers with Glk styles to \c GlkStyle objects
+- (void) setStyles: (NSDictionary<NSNumber*,GlkStyle*>*) styles;
+/// Sets a style for a specific Glk hint
+- (void) setStyle: (GlkStyle*) style
 		  forHint: (unsigned) glkHint;
 
-@property (NS_NONATOMIC_IOSONLY, copy) NSDictionary *styles;											// The style dictionary
-
+/// The style dictionary
+@property (nonatomic, copy) NSDictionary<NSNumber*,GlkStyle*> *styles;
 // Misc preferences
-@property (NS_NONATOMIC_IOSONLY) float scrollbackLength;											// The amount of scrollback to support in text windows (0-100)
-						// Sets the amount of scrollback to retain
+/// The amount of scrollback to support in text windows (0-100)
+@property (nonatomic) CGFloat scrollbackLength;
 
 // Changes
-@property (NS_NONATOMIC_IOSONLY, readonly) int changeCount;												// Number of changes that have occured on this preference object
+/// Number of changes that have occured on this preference object
+@property (readonly) int changeCount;
 
 @end
 
-#import <GlkView/GlkStyle.h>
+#endif

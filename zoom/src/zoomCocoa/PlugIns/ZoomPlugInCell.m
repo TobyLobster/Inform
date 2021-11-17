@@ -11,20 +11,15 @@
 
 @implementation ZoomPlugInCell
 
-// = Initialisation =
-
-- (void) dealloc {
-	[objectValue release];
-	[super dealloc];
-}
+#pragma mark - Initialisation
 
 - (id) copyWithZone: (NSZone*) zone {
 	ZoomPlugInCell* copy = [super copyWithZone: zone];
-	copy->objectValue = [objectValue retain];
+	copy->objectValue = objectValue;
 	return copy;
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawInteriorWithFrame: (NSRect)cellFrame 
 					   inView: (NSView *)controlView {
@@ -35,28 +30,19 @@
 	// you compile for release.
 	//
 	// What's even MORE annoying is that even though the objectValue has an integer value, the intValue of this cell doesn't get set...
-	int pos = [[self objectValue] intValue];
-	int count = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
+	NSInteger pos = [[self objectValue] integerValue];
+	NSInteger count = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] count];
 	if (pos >= 0 && pos < count) {
-		[objectValue release];
-		objectValue = [[[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectAtIndex: pos] retain];		
+		objectValue = [[[ZoomPlugInManager sharedPlugInManager] informationForPlugins] objectAtIndex: pos];		
 	}
 	
 	// Load the image for this plugin
-	NSString* imageFile = [objectValue imagePath];
-	NSImage* pluginImage = nil;
-	if (imageFile != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageFile]) {
-		pluginImage = [[[NSImage alloc] initWithContentsOfFile: imageFile] autorelease];
-	} else {
-		pluginImage = [NSImage imageNamed: @"zoom-app"];
-	}
+	NSImage* pluginImage = objectValue.image;
 	
-	BOOL wasFlipped = [pluginImage isFlipped];
-	[pluginImage setCacheMode: NSImageCacheNever];
-	[pluginImage setFlipped: [controlView isFlipped]];
+//	[pluginImage setCacheMode: NSImageCacheNever];
 	
 	// Draw the image for this plugin
-	float drawHeight, drawWidth;
+	CGFloat drawHeight, drawWidth;
 	
 	if (pluginImage != nil) {
 		NSSize imageSize = [pluginImage size];
@@ -64,22 +50,22 @@
 		drawWidth = imageSize.width * (drawHeight/imageSize.height);
 		
 		[pluginImage drawInRect: NSMakeRect(NSMinX(cellFrame) + 2, NSMinY(cellFrame)+2, drawWidth, drawHeight)
-					   fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-					  operation: NSCompositeSourceOver
-					   fraction: 1.0];
+					   fromRect: NSZeroRect
+					  operation: NSCompositingOperationSourceOver
+					   fraction: 1.0
+				 respectFlipped: YES
+						  hints: nil];
 	} else {
 		drawWidth = drawHeight = cellFrame.size.height - 4;
 	}
 	
 	if (drawWidth < drawHeight) drawWidth = drawHeight;
 	
-	[pluginImage setFlipped: wasFlipped];
-	
 	// Decide on the fonts and colours to use
-	NSColor* standardColour = [NSColor blackColor];
-	NSColor* infoColour = [NSColor grayColor];
-	NSColor* highlightColour = [NSColor redColor];
-	NSColor* highlightColour2 = [NSColor blueColor];
+	NSColor* standardColour = [NSColor textColor];
+	NSColor* infoColour = [NSColor secondaryLabelColor];
+	NSColor* highlightColour = [NSColor systemRedColor];
+	NSColor* highlightColour2 = [NSColor systemBlueColor];
 	if ([self isHighlighted]) {
 		standardColour = [NSColor whiteColor];
 		highlightColour = [NSColor whiteColor];
@@ -170,47 +156,52 @@
 	
 	switch ([objectValue status]) {
 		case ZoomPluginUpdateAvailable:								// Update available to download
-			status = @"Update available";
+			status = NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available");
 			if ([objectValue updateInfo] != nil) {
-				status = [NSString stringWithFormat: @"Update available to v%@", [[objectValue updateInfo] version]];
+				status = [NSString stringWithFormat: NSLocalizedStringFromTableInBundle(@"Update available to v%@", nil, [NSBundle bundleForClass:[self class]], @"Update available to version value"), [[objectValue updateInfo] version]];
 			}
 			break;
 			
-		case ZoomPlugInNew:											// Not yet installed, available to download
-			status = @"New";
+			// Not yet installed, available to download
+		case ZoomPlugInNew:
+			status = NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in");
 			break;
 			
-		case ZoomPlugInUpdated:										// Installed plugin, update to be installed
-			status = @"Restart required";
+			// Installed plugin, update to be installed
+		case ZoomPlugInUpdated:
+			status = NSLocalizedStringFromTableInBundle(@"Restart required", nil, [NSBundle bundleForClass:[self class]], @"Restart required");
 			break;
 			
-		case ZoomPlugInDownloaded:									// Downloaded plugin available to install
-			status = @"Ready to install";
+			// Downloaded plugin available to install
+		case ZoomPlugInDownloaded:
+			status = NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install");
 			break;
 			
-		case ZoomPlugInDownloadFailed:								// Could not download the plugin for some reason
-			status = @"Could not download";
+			// Could not download the plugin for some reason
+		case ZoomPlugInDownloadFailed:
+			status = NSLocalizedStringFromTableInBundle(@"Could not download", nil, [NSBundle bundleForClass:[self class]], @"Could not download");
 			break;
 
 		case ZoomPlugInInstallFailed:
-			status = @"Failed to install";
+			status = NSLocalizedStringFromTableInBundle(@"Failed to install", nil, [NSBundle bundleForClass:[self class]], @"Failed to install");
 			break;
 			
 		case ZoomPlugInDownloading:
-			status = @"Downloading update";
+			status = NSLocalizedStringFromTableInBundle(@"Downloading update", nil, [NSBundle bundleForClass:[self class]], @"Downloading update");
 			break;
 			
-		case ZoomPlugInInstalled:									// Installed plugin
-			status = @"Installed";
+			// Installed plugin
+		case ZoomPlugInInstalled:
+			status = NSLocalizedStringFromTableInBundle(@"Installed plug-in", nil, [NSBundle bundleForClass:[self class]], @"Installed plug-in");
 			break;
 			
 		case ZoomPlugInDisabled:
-			status = @"Disabled";
+			status = NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in");
 			break;
 			
 		case ZoomPlugInNotKnown:									// Unknown status
 		default:
-			status = @"Error";
+			status = NSLocalizedStringFromTableInBundle(@"Unknown Plug Status", nil, [NSBundle bundleForClass:[self class]], @"Unknown Plug Status");
 			break;
 	}
 	
@@ -223,40 +214,41 @@
 }
 
 - (NSString*) stringValue {
-	NSMutableString* result = [[[objectValue name] mutableCopy] autorelease];
+	NSString* result = [objectValue name];
+	NSString *statusText = nil;
 	
 	switch ([objectValue status]) {
 		case ZoomPlugInDisabled:
-			[result appendString: @" (Disabled)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"Disabled plug-in", nil, [NSBundle bundleForClass:[self class]], @"Disabled plug-in");
 			break;
 		case ZoomPluginUpdateAvailable:
-			[result appendString: @" (Update available)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"Update available", nil, [NSBundle bundleForClass:[self class]], @"Update available");
 			break;
 		case ZoomPlugInNew:
-			[result appendString: @" (New)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"New Plug-in", nil, [NSBundle bundleForClass:[self class]], @"New Plug-in");
 			break;
 		case ZoomPlugInDownloadFailed:
-			[result appendString: @" (Download failed)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"Download failed", nil, [NSBundle bundleForClass:[self class]], @"Download failed");
 			break;
 		case ZoomPlugInInstallFailed:
-			[result appendString: @" (Installation failed)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"Installation failed", nil, [NSBundle bundleForClass:[self class]], @"Installation failed");
 			break;
 		case ZoomPlugInDownloaded:
-			[result appendString: @" (Ready to install)"];
+			statusText = NSLocalizedStringFromTableInBundle(@"Ready to install", nil, [NSBundle bundleForClass:[self class]], @"Ready to install");
 			break;
 		default:
 			break;
+	}
+	if (statusText) {
+		result = [NSString stringWithFormat:NSLocalizedStringWithDefaultValue(@"Plug-in Paren (%@, %@)", nil, [NSBundle bundleForClass:[self class]], @"%1$@ (%2$@)", @"Parantheses around status (#2) with name (#1)"), result, statusText];
 	}
 	
 	return result;
 }
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [self stringValue];
-	}
-	
-	return [super accessibilityAttributeValue: attribute];
+- (NSString *)accessibilityRoleDescription
+{
+	return [self stringValue];
 }
 
 @end

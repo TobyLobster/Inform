@@ -7,12 +7,11 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 #import "ZoomClient.h"
 
 
-@interface ZoomClientController : NSWindowController {
-    IBOutlet ZoomView* zoomView;
+@interface ZoomClientController : NSWindowController <NSWindowDelegate, ZoomViewDelegate> {
 	BOOL isFullscreen;
 	BOOL finished;
 	BOOL closeConfirmed;
@@ -20,11 +19,14 @@
 	
 	NSRect oldWindowFrame;
 	
-	NSWindow* fullscreenWindow;							// Alternative window used for full-screen view
-	NSWindow* normalWindow;								// The usual window
+	// TODO: migrate to newer full-screen window stuff
+	//! Alternative window used for full-screen view
+	NSWindow* fullscreenWindow;
+	//! The usual window
+	NSWindow* normalWindow;
 
-	float fadeTime;
-	float waitTime;
+	NSTimeInterval fadeTime;
+	NSTimeInterval waitTime;
 	NSDate* fadeStart;
 	NSTimer* fadeTimer;
 	NSWindow* logoWindow;
@@ -35,7 +37,7 @@
 
 - (IBAction) playInFullScreen: (id) sender;
 
-- (ZoomView*) zoomView;
+@property (strong) IBOutlet ZoomView *zoomView;
 - (void) showLogoWindow;
 
 @end

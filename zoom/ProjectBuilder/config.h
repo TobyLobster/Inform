@@ -72,7 +72,11 @@
 #define SIZEOF_INT 4
 
 /* The size of a `long int', as computed by sizeof. */
+#if __LP64__
+#define SIZEOF_LONG_INT 8
+#else
 #define SIZEOF_LONG_INT 4
+#endif
 
 /* The size of a `short int', as computed by sizeof. */
 #define SIZEOF_SHORT_INT 2
@@ -84,7 +88,7 @@
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "1.1.6"
+#define VERSION "1.1.7"
 
 /* Define if the X Window System is missing or not being used. */
 /* #undef X_DISPLAY_MISSING */

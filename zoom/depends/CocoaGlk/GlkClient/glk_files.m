@@ -6,35 +6,32 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #import "GlkMemoryFileRef.h"
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
-frefid_t cocoaglk_firstfref = NULL;
-NSMutableDictionary* cocoaglk_usagetypes = nil;
-NSMutableDictionary* cocoaglk_fileref_bindings = nil;
+static frefid_t cocoaglk_firstfref = NULL;
+static NSMutableDictionary<NSNumber*,NSArray<NSString*>*>* cocoaglk_usagetypes = nil;
+static NSMutableDictionary<NSString*,id<GlkFileRef>>* cocoaglk_fileref_bindings = nil;
 
-// = Prompt object =
+#pragma mark - Prompt object
 
 @interface GlkFilePrompt : NSObject<GlkFilePrompt> {
-	NSObject<GlkFileRef>* ref;
+	id<GlkFileRef> ref;
 	BOOL cancelled;
 }
 
-- (NSObject<GlkFileRef>*) fileRef;
-- (BOOL) cancelled;
+@property (retain, setter=promptedFileRef:) id<GlkFileRef> fileRef;
+@property (readonly) BOOL cancelled;
 
 @end
 
 @implementation GlkFilePrompt
+@synthesize fileRef = ref;
 
 - (id) init {
 	self = [super init];
@@ -53,12 +50,7 @@ NSMutableDictionary* cocoaglk_fileref_bindings = nil;
 	[super dealloc];
 }
 
-- (NSObject<GlkFileRef>*) fileRef { return ref; }
-- (BOOL) cancelled { return cancelled; }
-
-- (void) promptedFileRef: (in byref NSObject<GlkFileRef>*) fref {
-	ref = [fref retain];
-}
+@synthesize cancelled;
 
 - (void) promptCancelled {
 	cancelled = YES;
@@ -66,9 +58,9 @@ NSMutableDictionary* cocoaglk_fileref_bindings = nil;
 
 @end
 
-// = Utility functions =
+#pragma mark - Utility functions
 
-NSString* cocoaglk_key_for_usage(glui32 usage) {
+static NSString* cocoaglk_key_for_usage(glui32 usage) {
 	switch (usage) {
 		case fileusage_Data:				return GlkFileUsageData;
 		case fileusage_SavedGame:			return GlkFileUsageSavedGame;
@@ -86,8 +78,9 @@ void cocoaglk_set_types_for_usage(glui32 usage, NSArray* extensions) {
 	if (!cocoaglk_usagetypes) cocoaglk_usagetypes = [[NSMutableDictionary alloc] init];
 	
 	// Remember the usages locally
-	cocoaglk_usagetypes[@(usage&fileusage_TypeMask)] = [[[NSArray alloc] initWithArray: extensions
-														  copyItems: YES] autorelease];
+	[cocoaglk_usagetypes setObject: [[[NSArray alloc] initWithArray: extensions
+														  copyItems: YES] autorelease]
+							forKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
 	
 	// Also remember them in the main client
 	[cocoaglk_session setFileTypes: extensions
@@ -96,7 +89,7 @@ void cocoaglk_set_types_for_usage(glui32 usage, NSArray* extensions) {
 
 NSArray* cocoaglk_types_for_usage(glui32 usage) {
 	// Retrieves a list of valid file types for a given usage
-	NSArray* result = cocoaglk_usagetypes[@(usage&fileusage_TypeMask)];
+	NSArray* result = [cocoaglk_usagetypes objectForKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
 	
 	// Use the user-supplied values if they're available
 	if (result) return result;
@@ -107,8 +100,9 @@ NSArray* cocoaglk_types_for_usage(glui32 usage) {
 	if (result) {
 		// Cache the value locally for future reference
 		if (!cocoaglk_usagetypes) cocoaglk_usagetypes = [[NSMutableDictionary alloc] init];
-		cocoaglk_usagetypes[@(usage&fileusage_TypeMask)] = [[[NSArray alloc] initWithArray: result
-															  copyItems: YES] autorelease];
+		[cocoaglk_usagetypes setObject: [[[NSArray alloc] initWithArray: result
+															  copyItems: YES] autorelease]
+								forKey: [NSNumber numberWithUnsignedInt: usage&fileusage_TypeMask]];
 		return result;
 	}
 	
@@ -145,16 +139,14 @@ BOOL cocoaglk_frefid_sane(frefid_t ref) {
 	return YES;
 }
 
-// = Doing things with frefs =
+#pragma mark - Doing things with frefs
 
-//
-// This creates a reference to a temporary file. It is always a new file
-// (one which does not yet exist). The file (once created) will be somewhere
-// out of the player's way. [[This is why no name is specified; the player
-//	will never need to know it.]]
-//
+/// This creates a reference to a temporary file. It is always a new file
+/// (one which does not yet exist). The file (once created) will be somewhere
+/// out of the player's way. [[This is why no name is specified; the player
+///	will never need to know it.]]
 frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock) {
-	NSObject<GlkFileRef>* ref = [cocoaglk_session tempFileRef];
+	id<GlkFileRef> ref = [cocoaglk_session tempFileRef];
 	if (!ref) return NULL;
 	
 	frefid_t res = malloc(sizeof(struct glk_fileref_struct));
@@ -190,7 +182,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
 	NSString* filename = [[[NSString alloc] initWithBytes: name
 												   length: strlen(name)
 												 encoding: NSISOLatin1StringEncoding] autorelease];
-	NSObject<GlkFileRef>* ref = cocoaglk_fileref_bindings[filename];
+	id<GlkFileRef> ref = [cocoaglk_fileref_bindings objectForKey: filename];
 	if (!ref) ref = [cocoaglk_session fileRefWithName: filename];
 	if (!ref) return NULL;
 	
@@ -217,7 +209,7 @@ frefid_t glk_fileref_create_by_name(glui32 usage, char *name,
 	}
 	
 #if COCOAGLK_TRACE
-	NSLog(@"TRACE: glk_fileref_create_by_name(%u, \"%s\", rock) = %p", usage, name, rock, res);
+	NSLog(@"TRACE: glk_fileref_create_by_name(%u, \"%s\", %u) = %p", usage, name, rock, res);
 #endif
 	
 	return res;
@@ -258,7 +250,7 @@ frefid_t glk_fileref_create_by_prompt(glui32 usage, glui32 fmode,
 											beforeDate: [NSDate distantFuture]];
 	}
 	
-	NSObject<GlkFileRef>* ref = [[prompt fileRef] retain];
+	id<GlkFileRef> ref = [[prompt fileRef] retain];
 	
 	// Release the prompt
 	[prompt release];
@@ -359,7 +351,7 @@ frefid_t glk_fileref_create_from_fileref(glui32 usage, frefid_t fref,
 //
 void glk_fileref_destroy(frefid_t fref) {
 #if COCOAGLK_TRACE
-	NSLog(@"TRACE: glk_fileref_destroy(%u)", fref);
+	NSLog(@"TRACE: glk_fileref_destroy(%p)", fref);
 #endif
 
 	if (!cocoaglk_frefid_sane(fref)) {
@@ -487,9 +479,9 @@ void cocoaglk_unbind_file(const char* filename) {
 	}
 	
 	// Unbind this file
-	NSString* name = @(filename);
+	NSString* name = [NSString stringWithUTF8String: filename];
 	
-	if (cocoaglk_fileref_bindings == nil || cocoaglk_fileref_bindings[name] == nil) {
+	if (cocoaglk_fileref_bindings == nil || [cocoaglk_fileref_bindings objectForKey: name] == nil) {
 		cocoaglk_warning("cocoaglk_unbind_file called with a filename that is already unbound");
 		return;
 	}
@@ -520,10 +512,42 @@ void cocoaglk_bind_memory_to_named_file(const unsigned char* memory, int length,
 	if (cocoaglk_fileref_bindings == nil) cocoaglk_fileref_bindings = [[NSMutableDictionary alloc] init];
 	
 	// Bind this file
-	NSString* name = @(filename);
+	NSString* name = [NSString stringWithUTF8String: filename];
 	
 	NSData* data = [NSData dataWithBytesNoCopy: (unsigned char*)memory
 										length: length];
 	GlkMemoryFileRef* fileref = [[[GlkMemoryFileRef alloc] initWithData: data] autorelease];
-	cocoaglk_fileref_bindings[name] = fileref;
+	[cocoaglk_fileref_bindings setObject: fileref
+								  forKey: name];
+}
+
+#import <GlkView/GlkFileRef.h>
+
+frefid_t cocoaglk_open_file(NSURL *path, glui32 textmode,
+							glui32 rock)
+{
+	// Create the fref
+	frefid_t res = malloc(sizeof(struct glk_fileref_struct));
+	
+	res->key = GlkFileRefKey;
+	res->rock = rock;
+	res->fileref = [[GlkFileRef alloc] initWithPath:path];
+	res->usage = textmode == TRUE ? fileusage_TextMode : fileusage_BinaryMode;
+	
+	res->next = cocoaglk_firstfref;
+	res->last = NULL;
+	if (cocoaglk_firstfref) cocoaglk_firstfref->last = res;
+	cocoaglk_firstfref = res;
+	
+	if (cocoaglk_register) {
+		res->giRock = cocoaglk_register(res, gidisp_Class_Fileref);
+	}
+
+#if COCOAGLK_TRACE
+	NSLog(@"TRACE: cocoaglk_open_file(%@, %u, %u) = %p", path, textmode, rock, res);
+#endif
+	
+	// We're done
+	return res;
+
 }

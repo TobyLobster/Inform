@@ -1,0 +1,53 @@
+Installing glk-geas on OS X
+drj@pobox.com
+
+Introduction
+
+glk-geas is a version of geas that uses Glk as its user interface.
+
+
+Instructions for installing on OS X
+
+First you need to build a Glk library.  This document does not discuss
+that.
+
+Then you need to make sure you know what values to select for GLKDIR and
+GLKLIB:
+
+GLKDIR - the directory where the Glk library and its header file are
+  found.  The Makefile assumes that these two things are in the same
+  place.
+GLKLIB - the necessary libraries to link against in the form of "-l"
+  options passed to the linker.  These will be the Glk library itself
+  and any additional libraries that it requires.
+
+Building on OS X is carried out from within Terminal using make.
+
+You'll need gcc installed (you probably knew that if you read this far).
+It's in Developer Tools which should be an optional install on the
+original CDs or DVDs that came with your Mac.  Some versions of Developer
+Tools are available as a (huge) download from Apple.
+
+The make file for glk-geas is "Makefile-glk".  The make target for
+glk-geas is "glk-geas".  The values for GLKDIR and GLKLIB can either
+be changed by editing the file "Makefile" or can be specified on
+the command line:
+
+make -f Makefile-glk 'GLKDIR=../../../glkterm-078' 'GLKLIB=-lglkterm -lncurses' glk-geas
+
+This should produce the program called "glk-geas".  This can be run from
+terminal supplying it with the name of a Quest game file (currently
+stderr needs redirecting to avoid corrupting the display):
+
+$ ./glk-geas 2>&- Beam_1_10.cas
+
+Please get in touch (<drj@pobox.com>) if you have any problems.
+
+You may be interested to know that I cross-compiled a PowerPC binary,
+building it on my Intel Mac:
+
+make -f Makefile-glk 'GLKDIR=../../../glkterm-078-ppc' 'GLKLIB=-lglkterm -lncurses' 'CC=gcc -arch ppc' 'CXX=g++ -arch ppc' glk-geas
+
+That required that I had already built a PowerPC Glk library first,
+natch.
+

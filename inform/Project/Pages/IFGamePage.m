@@ -22,6 +22,10 @@
 #import "IFProject.h"
 #import <ZoomView/ZoomView.h>
 
+@interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver>
+
+@end
+
 @interface IFSemiTransparentView : NSView
 
 @end
@@ -187,7 +191,7 @@
 		
 		[gView setScaleFactor: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
-		[gView setInputFilename: fileName];
+        [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
         NSString * interpreterPath = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: clientName];
         //NSLog(@"Launching interpreter %@", interpreterPath);
@@ -333,7 +337,7 @@
     [[zView zMachine] loadStoryFile: 
         [NSData dataWithContentsOfFile: gameToRun]];
 	
-	[[zView zMachine] loadDebugSymbolsFrom: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
+	[[zView zMachine] loadDebugSymbolsFromFile: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
 							withSourcePath: [[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Source"]];
 	
 	// Set the initial breakpoint if 'Debug' was selected

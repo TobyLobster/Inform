@@ -6,31 +6,33 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __GLKVIEW_GLKBUFFER_H__
+#define __GLKVIEW_GLKBUFFER_H__
+
+#import <GlkView/GlkViewDefinitions.h>
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
-#import "GlkStreamProtocol.h"
+#import <GlkView/GlkStreamProtocol.h>
 
-#include "glk.h"
+#include <GlkView/glk.h>
 
 #define GlkNoWindow 0xffffffff
 
-//
-// The buffer is used to store operations before sending them across the communications link with the host task.
-// This is required as sending messages using the DistributedObject mechanism is somewhat slow.
-//
-// Note that in Zoom and previous versions of CocoaGlk, the buffering was done by storing dictionaries detailing the
-// operations to be performed. In this version, we presently send invocations. This might change later if this forces
-// too much client/server communications (to selectors and an array of arguments)
-//
-
-//
-// Buffer operations. These all must return void.
-//
-@protocol GlkBuffer
+///
+/// Buffer operations. These all must return void.
+///
+/// The buffer is used to store operations before sending them across the communications link with the host task.
+/// This is required as sending messages using the DistributedObject mechanism is somewhat slow.
+///
+/// Note that in Zoom and previous versions of CocoaGlk, the buffering was done by storing dictionaries detailing the
+/// operations to be performed. In this version, we presently send invocations. This might change later if this forces
+/// too much client/server communications (to selectors and an array of arguments)
+///
+@protocol GlkBuffer <NSObject>
 
 // Windows
 
@@ -58,7 +60,7 @@
 				  yPosition: (int) ypos;
 - (void) clearWindowIdentifier: (glui32) identifier;
 - (void) clearWindowIdentifier: (glui32) identifier
-		  withBackgroundColour: (in bycopy NSColor*) bgColour;
+		  withBackgroundColour: (in bycopy GlkColor*) bgColour;
 - (void) setInputLine: (in bycopy NSString*) inputLine
   forWindowIdentifier: (unsigned) windowIdentifier;
 - (void) arrangeWindow: (glui32) identifier
@@ -84,21 +86,15 @@
 					inStream: (glui32) streamIdentifier;
 
 // Graphics
-#if !defined(COCOAGLK_IPHONE)
 - (void) fillAreaInWindowWithIdentifier: (unsigned) identifier
-							 withColour: (in bycopy NSColor*) color
-							  rectangle: (NSRect) windowArea;
-#else
-- (void) fillAreaInWindowWithIdentifier: (unsigned) identifier
-							 withColour: (in bycopy UIColor*) color
-							  rectangle: (NSRect) windowArea;
-#endif
+							 withColour: (in bycopy GlkColor*) color
+							  rectangle: (GlkRect) windowArea;
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
-					  atPosition: (NSPoint) position;
+					  atPosition: (GlkPoint) position;
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
-						  inRect: (NSRect) imageRect;
+						  inRect: (GlkRect) imageRect;
 
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
@@ -106,27 +102,29 @@
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
 					   alignment: (unsigned) alignment
-							size: (NSSize) imageSize;
+							size: (GlkCocoaSize) imageSize;
 
 - (void) breakFlowInWindowWithIdentifier: (unsigned) identifier;
 
 // Streams
 
 // Registering streams
-- (void) registerStream: (in byref NSObject<GlkStream>*) stream
+- (void) registerStream: (in byref id<GlkStream>) stream
 		  forIdentifier: (unsigned) streamIdentifier;
 - (void) registerStreamForWindow: (unsigned) windowIdentifier
 				   forIdentifier: (unsigned) streamIdentifier;
 
 - (void) closeStreamIdentifier: (unsigned) streamIdentifier;
-- (void) unregisterStreamIdentifier: (unsigned) streamIdentifier;	// If the stream is closed immediately
+/// If the stream is closed immediately
+- (void) unregisterStreamIdentifier: (unsigned) streamIdentifier;
 
 // Buffering stream writes
 - (void) putChar: (unichar) ch
 		toStream: (unsigned) streamIdentifier;
 - (void) putString: (in bycopy NSString*) string
 		  toStream: (unsigned) streamIdentifier;
-- (void) putData: (in bycopy NSData*) data							// Note: do not pass in mutable data here, as the contents may change unexpectedly
+/// Note: do not pass in mutable data here, as the contents may change unexpectedly
+- (void) putData: (in bycopy NSData*) data
 		toStream: (unsigned) streamIdentifier;
 - (void) setStyle: (unsigned) style
 		 onStream: (unsigned) streamIdentifier;
@@ -150,20 +148,24 @@
 
 @end
 
-//
-// Class used to temporarily store bufferable operations before sending them to the server
-//
-@interface GlkBuffer : NSObject<NSCopying, NSCoding, GlkBuffer>
+///
+/// Class used to temporarily store bufferable operations before sending them to the server
+///
+@interface GlkBuffer : NSObject<NSCopying, NSSecureCoding, GlkBuffer> {
+	NSMutableArray* operations;
+}
 
-// Adding a generic bufferred operation
+/// Adding a generic bufferred operation
 - (void) addOperation: (NSString*) name
 			arguments: (NSArray*) arguments;
 
-// Returns true if the buffer has anything to flush
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL shouldBeFlushed;
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasGotABitOnTheLargeSide;
+/// Returns true if the buffer has anything to flush
+@property (readonly) BOOL shouldBeFlushed;
+@property (readonly) BOOL hasGotABitOnTheLargeSide;
 
-// Flushing a buffer with a target
-- (void) flushToTarget: (id) target;
+/// Flushing a buffer with a target
+- (void) flushToTarget: (id<GlkBuffer>) target;
 
 @end
+
+#endif

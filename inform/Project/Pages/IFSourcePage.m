@@ -173,7 +173,7 @@
 		[sourcePageControl setRadioGroup: 1];
 		[sourcePageControl setTarget: self];
 		[sourcePageControl setAction: @selector(showSourcePage:)];
-		[sourcePageControl setState: NSOnState];
+		[sourcePageControl setState: NSControlStateValueOn];
         
         [textView setSelectedRange: [doc initialSelectionRange]];
         [self setBackgroundColour];
@@ -869,8 +869,8 @@
                 sendMessage: @selector(animationFinished:)
                    toObject: self];
 
-		[sourcePageControl setState: NSOnState];
-		[headerPageControl setState: NSOffState];
+		[sourcePageControl setState: NSControlStateValueOn];
+		[headerPageControl setState: NSControlStateValueOff];
 		headerPageShown = NO;
 	} else {
 		// Show the header page
@@ -890,8 +890,8 @@
                 sendMessage: @selector(animationFinished:)
                    toObject: self];
 
-		[sourcePageControl setState: NSOffState];
-		[headerPageControl setState: NSOnState];
+		[sourcePageControl setState: NSControlStateValueOff];
+		[headerPageControl setState: NSControlStateValueOn];
 		headerPageShown = YES;
 	}
 }

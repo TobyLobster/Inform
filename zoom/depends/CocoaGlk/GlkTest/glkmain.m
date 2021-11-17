@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 
-#include <GlkClient/glk.h>
+#include <GlkView/glk.h>
 #include <GlkClient/cocoaglk.h>
 
 int main(int argv, const char** argc) {

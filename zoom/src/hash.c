@@ -35,6 +35,10 @@
 /* Number of collisions before a hash becomes 'unhappy' */
 #define UNHAPPY_THRESHOLD 4
 
+#ifdef DEBUG
+extern void printf_debug(const char* format, ...) __printflike(1, 2);
+#endif
+
 struct bucket
 {
   char *key;
@@ -164,7 +168,7 @@ void hash_store(hash  hash,
       bucket = malloc(sizeof(struct bucket));
 
 #ifdef DEBUG
-      printf_debug("*** Hash - storing new value in bucket 0x%x\n", value);
+      printf_debug("*** Hash - storing new value in bucket 0x%lx\n", value);
 #endif
 
       bucket->key = malloc(len+1);
@@ -186,7 +190,7 @@ void hash_store(hash  hash,
 #ifdef DEBUG
   else
     {
-      printf_debug("*** Hash - replacing value in bucket 0x%x\n", key, value);
+      printf_debug("*** Hash - replacing value in bucket %s in 0x%lx\n", key, value);
     }
 #endif
 
@@ -254,11 +258,7 @@ void *hash_get(hash  hash,
   unsigned long  value;
   struct bucket *bucket;
 
-  if( hash == NULL )
-  {
-    return NULL;
-  }
-
+  
   value = hash_hash(key,
 		    len)&(hash->n_buckets-1);
 

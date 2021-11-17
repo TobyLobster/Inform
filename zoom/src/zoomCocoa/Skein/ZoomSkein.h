@@ -6,26 +6,25 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <WebKit/WebKit.h>
+#import <Cocoa/Cocoa.h>
 
-#import "ZoomSkeinItem.h"
+#import <ZoomView/ZoomSkeinItem.h>
+#import <ZoomView/ZoomViewProtocols.h>
 
-extern NSString* ZoomSkeinChangedNotification;
+NS_ASSUME_NONNULL_BEGIN
 
-@interface ZoomSkein : NSObject {
-    ZoomSkeinItem* rootItem;
+extern NSNotificationName const ZoomSkeinChangedNotification NS_SWIFT_NAME(ZoomSkein.changedNotification);
 
-    NSMutableString* currentOutput;
-    ZoomSkeinItem* activeItem;
-
-    // Web data
-    NSMutableData* webData;
+@interface ZoomSkein : NSObject <ZoomViewOutputReceiver> {
+	ZoomSkeinItem* rootItem;
+	
+	/// Web data
+	NSMutableData* webData;
 }
 
 // Retrieving the root skein item
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) ZoomSkeinItem *rootItem;
-@property (NS_NONATOMIC_IOSONLY, strong) ZoomSkeinItem *activeItem;
+@property (readonly, strong) ZoomSkeinItem *rootItem;
+@property (strong) ZoomSkeinItem *activeItem;
 
 // Acting as a Zoom output receiver
 - (void) inputCommand:   (NSString*) command;
@@ -41,34 +40,39 @@ extern NSString* ZoomSkeinChangedNotification;
 - (void) removeTemporaryItems: (int) maxTemps;
 
 // Creating a Zoom input receiver
-+ (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
-						 toItem: (ZoomSkeinItem*) item2;
-- (id) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
-						 toItem: (ZoomSkeinItem*) item2;
++ (nullable id<ZoomViewInputSource>) inputSourceFromSkeinItem: (ZoomSkeinItem*) item1
+													   toItem: (ZoomSkeinItem*) item2;
 
 // Annotation lists
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *annotations;
+@property (nonatomic, readonly, copy, null_unspecified) NSArray<NSString*> *annotations;
 - (NSMenu*)  populateMenuWithAction: (SEL) action
 							 target: (id) target;
 - (void)	 populatePopupButton: (NSPopUpButton*) button;
-- (NSArray*) itemsWithAnnotation: (NSString*) annotation;
+- (null_unspecified NSArray<ZoomSkeinItem*>*) itemsWithAnnotation: (NSString*) annotation;
 
 // Converting to strings/other file formats
-- (NSString*) transcriptToPoint: (ZoomSkeinItem*) item;
-- (NSString*) recordingToPoint: (ZoomSkeinItem*) item;
+- (NSString*) transcriptToPoint: (nullable ZoomSkeinItem*) item;
+- (NSString*) recordingToPoint: (nullable ZoomSkeinItem*) item;
 
 @end
 
-// = Dealing with/creating XML data =
+#pragma mark - Dealing with/creating XML data
+
+extern NSErrorDomain const ZoomSkeinXMLParserErrorDomain;
+typedef NS_ERROR_ENUM(ZoomSkeinXMLParserErrorDomain, ZoomSkeinXMLError) {
+	ZoomSkeinXMLErrorParserFailed,
+	ZoomSkeinXMLErrorNoRootSkein,
+	ZoomSkeinXMLErrorNoRootNodeID,
+	ZoomSkeinXMLErrorProgrammerIsASpoon,
+	ZoomSkeinXMLErrorNoRootNode,
+};
 
 @interface ZoomSkein(ZoomSkeinXML)
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *xmlData;
-- (BOOL)      parseXmlData: (NSData*) data;
+//- (NSString*) xmlData; // Moved to ZoomSkeinXMLSwift
+- (BOOL) parseXmlData: (NSData*) data error: (NSError**) error;
+- (BOOL) parseXMLContentsAtURL: (NSURL*) url error: (NSError**) error;
 
 @end
 
-// = WebKit interface (b0rked: webkit doesn't really support this) =
-
-@interface ZoomSkein(ZoomSkeinWebDocRepresentation)<WebDocumentRepresentation>
-@end
+NS_ASSUME_NONNULL_END

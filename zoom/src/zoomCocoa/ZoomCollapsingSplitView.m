@@ -38,9 +38,9 @@
 //
 //
 
-- (float)getSplitPercentage
+- (CGFloat)getSplitPercentage
 {
-    float splitTotalSize;
+    CGFloat splitTotalSize;
     id subview = [[self subviews] objectAtIndex:0];
     
 	if ([self isSubviewCollapsed:subview]) 
@@ -66,9 +66,9 @@
 //
 //
 
-- (void)resizeSubviewsToPercentage:(float)splitPercentage
+- (void)resizeSubviewsToPercentage:(CGFloat)splitPercentage
 {
-    float splitTotalSize;
+    CGFloat splitTotalSize;
     id subview_0 = [[self subviews] objectAtIndex:0];
     
 	//

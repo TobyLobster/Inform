@@ -11,7 +11,7 @@
 
 @implementation ZoomLowerWindow
 
-- (instancetype) initWithZoomView: (ZoomView*) zV {
+- (id) initWithZoomView: (ZoomView*) zV {
     self = [super init];
 
     if (self) {
@@ -22,19 +22,11 @@
     return self;
 }
 
-- (void) dealloc {
-    // [zoomView release];
-	[backgroundStyle release];
-	[inputStyle release];
-    [super dealloc];
-}
-
 // Clears the window
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
     // Clear the lower part of all the upper windows
     NSEnumerator* upperEnum = [[zoomView upperWindows] objectEnumerator];
-    ZoomUpperWindow* win;
-    while (win = [upperEnum nextObject]) {
+    for (ZoomUpperWindow* win in upperEnum) {
         [win cutLines];
     }
     
@@ -45,13 +37,10 @@
     [zoomView resetMorePrompt];
 	[zoomView padToLowerWindow];
 	
-	[backgroundStyle release];
 	backgroundStyle = [style copy];
 }
 
-- (ZStyle*) backgroundStyle {
-	return backgroundStyle;
-}
+@synthesize backgroundStyle;
 
 // Sets the input focus to this window
 - (oneway void) setFocus {
@@ -60,8 +49,7 @@
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style
-                  isCommand: (in bycopy BOOL) isCommand {
+           withStyle: (in bycopy ZStyle*) style {
 	[zoomView writeAttributedString: [zoomView formatZString: string
 												   withStyle: style]];
     //[[[zoomView textView] textStorage] appendAttributedString:
@@ -70,42 +58,46 @@
     //[[zoomView buffer] appendAttributedString:
     //    [zoomView formatZString: string
     //                  withStyle: style]];
-
-    if( !isCommand ) {
-        [zoomView orOutputText: string];
-    }
+    
+	[zoomView orOutputText: string];
     [zoomView scrollToEnd];
     [zoomView displayMoreIfNecessary];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
+#define BACKGROUNDSTYLECODINGKEY @"backgroundStyle"
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	[encoder encodeObject: backgroundStyle];
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeObject: backgroundStyle forKey: BACKGROUNDSTYLECODINGKEY];
+	} else {
+		[encoder encodeObject: backgroundStyle];
+	}
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [self initWithZoomView:nil];
+- (id)initWithCoder:(NSCoder *)decoder {
+	self = [super init];
 	
     if (self) {
-		backgroundStyle = [[decoder decodeObject] retain];
+		if (decoder.allowsKeyedCoding) {
+			backgroundStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: BACKGROUNDSTYLECODINGKEY];
+		} else {
+			backgroundStyle = [decoder decodeObject];
+		}
     }
 	
     return self;
 }
 
-- (void) setZoomView: (ZoomView*) view {
-	zoomView = view;
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
-// = Input styles =
+@synthesize zoomView;
 
-- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
-	if (inputStyle) [inputStyle release];
-	inputStyle = [newInputStyle copy];
-}
+#pragma mark - Input styles
 
-- (bycopy ZStyle*) inputStyle {
-	return inputStyle;
-}
+@synthesize inputStyle;
 
 @end

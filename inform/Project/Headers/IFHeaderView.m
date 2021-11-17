@@ -138,7 +138,7 @@
 	if (message) {
 		// Get the style for the message
 		NSMutableParagraphStyle* style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-		[style setAlignment: NSCenterTextAlignment];
+		[style setAlignment: NSTextAlignmentCenter];
 		
 		NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
 										   NSParagraphStyleAttributeName: style};

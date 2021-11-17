@@ -185,7 +185,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	NSMenuItem* selected = [searchType selectedItem];
 	
 	IFFindType flags = IFFindInvalidType;
-	if ([ignoreCase state] == NSOnState) flags |= IFFindCaseInsensitive;
+	if ([ignoreCase state] == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
 	
 	if (selected == containsItem) {
 		return IFFindContains | flags;
@@ -202,11 +202,11 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (IFFindLocation) currentFindLocation {
     IFFindLocation locations = IFFindNowhere;
-    if( [findInSource state] == NSOnState )                   locations |= IFFindSource;
-    if( [findInExtensions state] == NSOnState )               locations |= IFFindExtensions;
-    if( [findInDocumentationBasic state] == NSOnState )       locations |= IFFindDocumentationBasic;
-    if( [findInDocumentationSource state] == NSOnState )      locations |= IFFindDocumentationSource;
-    if( [findInDocumentationDefinitions state] == NSOnState ) locations |= IFFindDocumentationDefinitions;
+    if( [findInSource state] == NSControlStateValueOn )                   locations |= IFFindSource;
+    if( [findInExtensions state] == NSControlStateValueOn )               locations |= IFFindExtensions;
+    if( [findInDocumentationBasic state] == NSControlStateValueOn )       locations |= IFFindDocumentationBasic;
+    if( [findInDocumentationSource state] == NSControlStateValueOn )      locations |= IFFindDocumentationSource;
+    if( [findInDocumentationDefinitions state] == NSControlStateValueOn ) locations |= IFFindDocumentationDefinitions;
     return locations;
 }
 
@@ -347,7 +347,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [findPhrase setStringValue:aPhrase];
 
     // Set options
-    [ignoreCase setState: (aType & IFFindCaseInsensitive) ? NSOnState : NSOffState];
+    [ignoreCase setState: (aType & IFFindCaseInsensitive) ? NSControlStateValueOn : NSControlStateValueOff];
     switch ( aType ) {
         case IFFindContains:     [searchType selectItem: containsItem]; break;
         case IFFindBeginsWith:   [searchType selectItem: beginsWithItem]; break;
@@ -356,11 +356,11 @@ static const int FIND_HISTORY_LENGTH = 30;
         default:                 [searchType selectItem: containsItem]; break;
     }
 
-    [findInSource                   setState: (aLocationType & IFFindSource)                   ? NSOnState : NSOffState];
-    [findInExtensions               setState: (aLocationType & IFFindExtensions)               ? NSOnState : NSOffState];
-    [findInDocumentationBasic       setState: (aLocationType & IFFindDocumentationBasic)       ? NSOnState : NSOffState];
-    [findInDocumentationSource      setState: (aLocationType & IFFindDocumentationSource)      ? NSOnState : NSOffState];
-    [findInDocumentationDefinitions setState: (aLocationType & IFFindDocumentationDefinitions) ? NSOnState : NSOffState];
+    [findInSource                   setState: (aLocationType & IFFindSource)                   ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInExtensions               setState: (aLocationType & IFFindExtensions)               ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationBasic       setState: (aLocationType & IFFindDocumentationBasic)       ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationSource      setState: (aLocationType & IFFindDocumentationSource)      ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationDefinitions setState: (aLocationType & IFFindDocumentationDefinitions) ? NSControlStateValueOn : NSControlStateValueOff];
 
     [self findTypeChanged: self];
     [self updateControls];

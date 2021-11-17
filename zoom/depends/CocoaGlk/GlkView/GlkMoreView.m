@@ -11,39 +11,51 @@
 
 @implementation GlkMoreView
 
-+ (NSImage*) image {
-	return [[[NSImage alloc] initWithContentsOfFile: [[NSBundle bundleForClass: [self class]] pathForImageResource: @"MorePrompt"]] autorelease];
++ (GlkSuperImage*) image {
+#if defined(COCOAGLK_IPHONE)
+	return [UIImage imageNamed:@"MorePrompt" inBundle:[NSBundle bundleForClass:[GlkMoreView class]] compatibleWithTraitCollection:nil];
+#else
+	return [[NSBundle bundleForClass: [self class]] imageForResource:@"MorePrompt"];
+#endif
 }
 
-- (instancetype) init {
+- (id) init {
+#if defined(COCOAGLK_IPHONE)
+	UIImage *img = [GlkMoreView image];
+	
+	CGRect frame;
+	
+	frame.origin = CGPointZero;
+	frame.size = img.size;
+#else
 	NSRect frame;
 	
-	NSImageRep* rep = [[GlkMoreView image] representations][0];
+	NSImageRep* rep = [[[GlkMoreView image] representations] objectAtIndex: 0];
 	
 	frame.origin = NSMakePoint(0,0);
 	
 	frame.size.width = [rep pixelsWide];
 	frame.size.height = [rep pixelsHigh];
+#endif
 	
 	return [self initWithFrame: frame];
 }
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(GlkRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		moreImage = [[GlkMoreView image] retain];
+		moreImage = [GlkMoreView image];
+#if !defined(COCOAGLK_IPHONE)
 		[moreImage setCacheMode: NSImageCacheNever];
+#endif
     }
     return self;
 }
 
-- (void) dealloc {
-	[moreImage release];
-	
-	[super dealloc];
-}
-
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(GlkRect)rect {
+#if defined(COCOAGLK_IPHONE)
+	[moreImage drawInRect: self.bounds];
+#else
 	NSRect imageRect;
 	
 	imageRect.origin = NSMakePoint(0,0);
@@ -51,8 +63,9 @@
 	
 	[moreImage drawInRect: [self bounds]
 				 fromRect: imageRect
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
+#endif
 }
 
 - (BOOL) isOpaque {

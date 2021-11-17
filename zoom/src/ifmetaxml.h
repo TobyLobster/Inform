@@ -15,7 +15,7 @@
  */
 
 #include <stdlib.h>
-#include "ifmetabase.h"
+#include <ZoomPlugIns/ifmetabase.h>
 
 /* Possible error codes */
 typedef enum IFXmlError {

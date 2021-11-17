@@ -7,38 +7,58 @@
 //
 
 #import "ZoomFlipView.h"
-#import "ZoomLFlipView.h"
 
 @implementation ZoomFlipView
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
 		animationTime = 0.2;
-#ifdef FlipUseCoreAnimation
-		useCoreAnimation = YES;
-#else
-		useCoreAnimation = NO;
-#endif
     }
     return self;
 }
 
 - (void) dealloc {
 	[self finishAnimation];
-	
-	[startImage release];
-	[endImage release];
-	[whenStarted release];
-	[props autorelease];
-	
-	[super dealloc];
 }
 
-// = Caching views =
+- (void) setupLayersForView: (NSView*) view {
+	// Build the root layer
+	if ([[self propertyDictionary] objectForKey: @"RootLayer"] == nil) {
+		CALayer* rootLayer;
+		[[self propertyDictionary] setObject: rootLayer = [CALayer layer]
+									  forKey: @"RootLayer"];
+		rootLayer.layoutManager = self;
+		rootLayer.backgroundColor = [NSColor textBackgroundColor].CGColor;
+		[rootLayer removeAllAnimations];
+	}
+	
+	// Set up the layers for this view
+	CALayer* viewLayer = [view layer];
+	if (viewLayer== nil) {
+		viewLayer = [CALayer layer];
+		viewLayer.backgroundColor = [NSColor textBackgroundColor].CGColor;
+		
+		[view setLayer: viewLayer];
+	}
+	[viewLayer removeAllAnimations];
+	
+	[viewLayer setFrame: [[self layer] bounds]];
+	viewLayer.autoresizingMask = kCALayerWidthSizable | kCALayerHeightSizable;
+	
+	if (![view wantsLayer]) {
+		[view setWantsLayer: YES];
+	}
+	if (![self wantsLayer]) {
+		[self setLayer: [[self propertyDictionary] objectForKey: @"RootLayer"]];
+		[self setWantsLayer: YES];
+	}
+}
+
+#pragma mark - Caching views
 
 + (void) detrackView: (NSView*) view {
 	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
@@ -52,61 +72,6 @@
 	}
 }
 
-+ (NSImage*) cacheView: (NSView*) view {
-	// TODO: instead of putting the view on the cached window, could directly call drawRect: on the
-	// view and its subviews, with the display focus locked to the image instead of the 'real' window.
-	
-	// Create the cached representation of the view
-	NSRect viewFrame = [view frame];
-	NSCachedImageRep* cacheRep = [[NSCachedImageRep alloc] initWithSize: viewFrame.size
-																  depth: [[NSScreen deepestScreen] depth]
-															   separate: YES
-																  alpha: YES];
-	
-	// Move the view to the cached rep's window
-	NSView* oldParent = [view superview];
-	[ZoomFlipView detrackView: view];
-	[view removeFromSuperviewWithoutNeedingDisplay];
-	
-	if ([[cacheRep window] contentView] == nil) {
-		[[cacheRep window] setContentView: [[[NSView alloc] init] autorelease]];
-	}
-	[[cacheRep window] setBackgroundColor: [NSColor clearColor]];
-	
-	[view setFrame: [cacheRep rect]];
-	[[[cacheRep window] contentView] addSubview: view];
-	[view setNeedsDisplay: YES];
-	
-	// Draw the view (initialising the image)
-	[[[cacheRep window] contentView] display];
-	
-	// Move the view back to where it belongs
-	[ZoomFlipView detrackView: view];
-	[view removeFromSuperviewWithoutNeedingDisplay];
-	[view setFrame: viewFrame];
-	[oldParent addSubview: view];
-	
-	[ZoomFlipView trackView: view];
-	
-	// Construct the final image
-	NSImage* result = [[NSImage alloc] initWithSize: viewFrame.size];
-	
-	NSArray* representations = [[[result representations] copy] autorelease];
-	NSEnumerator* repEnum = [representations objectEnumerator];
-	NSImageRep* rep;
-	while (rep = [repEnum nextObject]) {
-		[result removeRepresentation: rep];
-	}
-	
-	[result addRepresentation: [cacheRep autorelease]];
-	return [result autorelease];
-}
-
-- (void) cacheStartView: (NSView*) view {
-	[startImage release];
-	startImage = [[[self class] cacheView: view] retain];
-}
-
 - (NSMutableDictionary*) propertyDictionary {
 	if (props == nil) {
 		props = [[NSMutableDictionary alloc] init];
@@ -115,127 +80,146 @@
 	return props;
 }
 
-// = Animating =
+#pragma mark - Animating
 
 - (void) finishAnimation {
-	if (useCoreAnimation && [self respondsToSelector: @selector(leopardFinishAnimation)]) {
-		[self leopardFinishAnimation];
-	} else {
-		if (animationTimer) [self autorelease];
-		[animationTimer invalidate]; [animationTimer release]; animationTimer = nil;
+	if (originalView) {
+		NSView* finalView =[[self propertyDictionary] objectForKey: @"FinalView"];
+		if (finalView == nil) return;
 		
-		if (originalView != nil) {
-			[[self retain] autorelease];
-
-			[self removeFromSuperview];
-			
-			NSRect frame = originalFrame;
-			frame.size = [originalView frame].size;
-			
-			[originalView setFrame: frame];
-			[originalSuperview addSubview: originalView];
-			[originalView setNeedsDisplay: YES];
-			[pixelBuffer release]; pixelBuffer = nil;
-			[ZoomFlipView trackView: originalView];
-			
-			[originalView release]; originalView = nil;
-			[originalSuperview release]; originalSuperview = nil;
-		}		
+		// Self destruct
+		[originalView removeFromSuperview];
+		
+		// Move to the final view
+		[[originalView layer] removeFromSuperlayer];
+		
+		originalView = finalView;
+		[finalView setFrame: [self bounds]];
+		
+		// Set the properties for the new view
+		[[self propertyDictionary] setObject: finalView
+									  forKey: @"StartView"];
+		[[self propertyDictionary] setObject: [finalView layer]
+									  forKey: @"InitialLayer"];
+		[[self propertyDictionary] removeObjectForKey: @"FinalLayer"];
+		[[self propertyDictionary] removeObjectForKey: @"FinalView"];
 	}
 }
 
 - (void) prepareToAnimateView: (NSView*) view {
 	[self finishAnimation];
 	
-	if (useCoreAnimation && [self respondsToSelector: @selector(leopardPrepareViewForAnimation:)]) {
-		[self leopardPrepareViewForAnimation: view];
-	} else {
-		// Cache the initial view
-		[self cacheStartView: view];
-		
-		// Replace the specified view with the animating view (ie, this view)
-		[originalView autorelease];
-		[originalSuperview release];
-		originalView = [view retain];
-		originalSuperview = [[view superview] retain];
-		originalFrame = [view frame];
-		
-		[ZoomFlipView detrackView: originalView];
-		[originalView removeFromSuperviewWithoutNeedingDisplay];
-		[self setFrame: originalFrame];
-		[originalSuperview addSubview: self];
-		[self setNeedsDisplay: YES];
-		
-		[self setAutoresizingMask: [originalView autoresizingMask]];		
+	if (view == nil) return;
+	
+	if ([[view superview] isKindOfClass: [self class]] && [[view layer] superlayer] != nil) {
+		return;
 	}
+	
+	[[self propertyDictionary] setObject: view
+								  forKey: @"StartView"];
+	
+	// Setup the layers
+	[self setupLayersForView: view];
+	
+	// Gather some information
+	originalView = view;
+	originalSuperview = [view superview];
+	originalFrame = [view frame];
+	
+	// Move the view into this view
+	[self setFrame: originalFrame];
+	
+	[view removeFromSuperviewWithoutNeedingDisplay];
+	[view setFrame: [self bounds]];
+	
+	[self addSubview: view];
+	//[[self layer] addSublayer: [view layer]];
+	[[self propertyDictionary] setObject: [view layer]
+								  forKey: @"InitialLayer"];
+	
+	// Move this view to where the original view was
+	[self setAutoresizingMask: [view autoresizingMask]];
+	[self removeFromSuperview];
+	[self setFrame: originalFrame];
+	[originalSuperview addSubview: self];
 }
 
-- (void) setAnimationTime: (NSTimeInterval) newAnimationTime {
-	animationTime = newAnimationTime;
-}
-
-- (NSTimeInterval) animationTime {
-	return animationTime;
-}
+@synthesize animationTime;
 
 - (void) animateTo: (NSView*) view
 			 style: (ZoomViewAnimationStyle) style {
-	if (useCoreAnimation && [self respondsToSelector: @selector(leopardAnimateTo:style:)]) {
-		[self leopardAnimateTo: view
-						 style: style];
-	} else {
-		[whenStarted release];
-		whenStarted = [[NSDate date] retain];
-		
-		// Create the final image
-		[endImage release];
-		endImage = [[[self class] cacheView: view] retain];
-		
-		
-		// Construct the pixel buffer for this animation
-	#if 0
-		switch (style) {
-			case ZoomCubeUp:
-			case ZoomCubeDown:
-				NSRect bounds = [self bounds];
-				
-				pixelBuffer = [[NSOpenGLPixelBuffer alloc] initWithTextureTarget: GL_TEXTURE_RECTANGLE_EXT
-														   textureInternalFormat: GL_RGBA
-														   textureMaxMipMapLevel: 0
-																	  pixelsWide: bounds.size.width
-																	  pixelsHigh: bounds.size.height];
-		}
-	#endif
-		
-		// Replace the specified view with the animating view (ie, this view)
-		[originalView autorelease];
-		originalView = [view retain];
-		originalFrame = [view frame];
-		
-		[ZoomFlipView detrackView: originalView];
-		[self setFrame: originalFrame];
-		[originalSuperview addSubview: self];
-		[self setNeedsDisplay: YES];
-		
-		// Start running the animation
-		[self retain];
-		animationStyle = style;
-		animationTimer = [[NSTimer timerWithTimeInterval: 0.01
-												  target: self
-												selector: @selector(animationTick)
-												userInfo: nil
-												 repeats: YES] retain];
-		
-		[[NSRunLoop currentRunLoop] addTimer: animationTimer
-									 forMode: NSDefaultRunLoopMode];
-		[[NSRunLoop currentRunLoop] addTimer: animationTimer
-									 forMode: NSEventTrackingRunLoopMode];
+	if (view == nil || view == originalView) {
+		return;
 	}
+	
+	// If we're trying to re-animate a view that already has an animation, then continue to use that view
+	if ([[view superview] isKindOfClass: [self class]] && [[view layer] superlayer] != nil) {
+		[(ZoomFlipView*)[view superview] animateTo: view
+											 style: style];
+		return;
+	}
+	
+	[[self propertyDictionary] setObject: view
+								  forKey: @"FinalView"];
+	
+	// Setup the layers for the specified view
+	[self setupLayersForView: originalView];
+	[self setupLayersForView: view];
+	
+	// Move the view into this view
+	
+	[view removeFromSuperview];
+	[view setFrame: [self bounds]];
+	
+	[self addSubview: view];
+	//[[self layer] addSublayer: [view layer]];
+	[[self propertyDictionary] setObject: [view layer]
+								  forKey: @"FinalLayer"];
+	[[self propertyDictionary] setObject: [originalView layer]
+								  forKey: @"InitialLayer"];
+	
+	// Set the delegate and layout manager for this object
+	[self layer].delegate = self;
+	[self layer].layoutManager = nil;
+	
+	// Run the animation
+	[self setAnimationStyle: style];
+	
+	// Prepare to run the animation
+	CABasicAnimation* initialAnim	= [CABasicAnimation animation];
+	CABasicAnimation* finalAnim		= [CABasicAnimation animation];
+	NSRect bounds = [self bounds];
+	
+	// Set up the animations depending on the requested style
+	initialAnim.keyPath		= @"bounds";
+	initialAnim.fromValue	= @(bounds);
+	initialAnim.toValue		= @(NSMakeRect(bounds.origin.x + bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height));
+	
+	finalAnim.keyPath		= @"bounds";
+	finalAnim.fromValue		= @(NSMakeRect(bounds.origin.x - bounds.size.width, bounds.origin.y, bounds.size.width, bounds.size.height));
+	finalAnim.toValue		= @(bounds);
+	
+	// Set the common values
+	initialAnim.timingFunction  = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+	initialAnim.duration		= [self animationTime] * 8;
+	initialAnim.repeatCount		= 1;
+	initialAnim.delegate		= self;
+	
+	finalAnim.timingFunction	= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
+	finalAnim.duration			= [self animationTime] * 8;
+	finalAnim.repeatCount		= 1;
+	//finalAnim.delegate			= self;
+	
+	// Animate the two views
+	[[originalView layer] addAnimation: initialAnim
+								forKey: nil];
+	[[view layer] addAnimation: finalAnim
+						forKey: nil];
 }
 
-- (float) percentDone {
+- (CGFloat) percentDone {
 	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
-	float done = ((float)timePassed)/((float)animationTime);
+	CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
 	
 	if (done < 0) done = 0;
 	if (done > 1) done = 1.0;
@@ -252,91 +236,29 @@
 		[self setNeedsDisplay: YES];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
-- (void)drawRect:(NSRect)rect {
-	if (useCoreAnimation && [self respondsToSelector: @selector(leopardAnimateTo:style:)]) {
-		return;
-	}
-		
-	float percentDone = [self percentDone];
-	float percentNotDone = 1.0-percentDone;
-	
-	NSRect bounds = [self bounds];
-	NSSize startSize = [startImage size];
-	NSSize endSize = [endImage size];
-	NSRect startFrom, startTo;
-	NSRect endFrom, endTo;
-	
-	switch (animationStyle) {
-		case ZoomAnimateLeft:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(startSize.width*percentDone, 0);
-			startFrom.size = NSMakeSize(startSize.width*percentNotDone, startSize.height);
-			startTo.origin = NSMakePoint(0, NSMaxY(bounds)-startSize.height);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(0, 0);
-			endFrom.size = NSMakeSize(endSize.width*percentDone, endSize.height);
-			endTo.origin = NSMakePoint(startSize.width*percentNotDone, NSMaxY(bounds)-endSize.height);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositeSourceOver
-						fraction: 1.0];
-			break;
-			
-		case ZoomAnimateRight:
-			// Work out where to place the images
-			startFrom.origin = NSMakePoint(0, 0);
-			startFrom.size = NSMakeSize(startSize.width*percentNotDone, startSize.height);
-			startTo.origin = NSMakePoint(startSize.width*percentDone, NSMaxY(bounds)-startSize.height);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(endSize.width*percentNotDone, 0);
-			endFrom.size = NSMakeSize(endSize.width*percentDone, endSize.height);
-			endTo.origin = NSMakePoint(0, NSMaxY(bounds)-endSize.height);
-			endTo.size = endFrom.size;
-			
-			// Draw them
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositeSourceOver
-						fraction: 1.0];
-			break;
-			
-		case ZoomAnimateFade:
-			// Draw the images
-			startFrom.origin = NSMakePoint(0, 0);
-			startFrom.size = startSize;
-			startTo.origin = NSMakePoint(0,0);
-			startTo.size = startFrom.size;
-			
-			endFrom.origin = NSMakePoint(0, 0);
-			endFrom.size = endSize;
-			endTo.origin = NSMakePoint(0, 0);
-			endTo.size = endFrom.size;
 
-			[startImage drawInRect: startTo
-						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
-						  fraction: 1.0];
-			[endImage drawInRect: endTo
-						fromRect: endFrom
-					   operation: NSCompositeSourceOver
-						fraction: percentDone];			
-			break;
-	}
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
+	if (flag) [self finishAnimation];
+}
+
+#pragma mark - Animation properties
+
+- (void) setAnimationStyle: (ZoomViewAnimationStyle) style {
+	[[self propertyDictionary] setObject: @(style)
+								  forKey: @"AnimationStyle"];
+}
+
+- (ZoomViewAnimationStyle) animationStyle {
+	return [(NSNumber*)[[self propertyDictionary] objectForKey: @"AnimationStyle"] integerValue];
+}
+
+#pragma mark - Performing layout
+
+- (void)layoutSublayersOfLayer:(CALayer *)layer {
+	// TODO: if we ever make proper use of this, then this could be useful
+	return;
 }
 
 @end

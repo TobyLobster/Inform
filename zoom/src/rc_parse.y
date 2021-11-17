@@ -178,7 +178,7 @@ static int check_collision(char* ourid, char* name)
 {
   rc_game* game;
 
-  game = hash_get(rc_hash, ourid, (int) strlen(ourid));
+  game = hash_get(rc_hash, ourid, (int)strlen(ourid));
   if (game != NULL && strcmp(name, game->name) != 0)
     {
       if (!rc_merging)
@@ -245,7 +245,7 @@ RCDefn:		  DEFAULT STRING RCBlock
 			        {
 			          hash_store(rc_hash,
 					     (unsigned char*)next->string,
-					     (int) strlen(next->string),
+					     (int)strlen(next->string),
 					     game);
 			        }
 			      next = next->next;
@@ -274,7 +274,7 @@ RCDefn:		  DEFAULT STRING RCBlock
 			        {
 			          hash_store(rc_hash,
 					     (unsigned char*)next->string,
-					     (int) strlen(next->string),
+					     (int)strlen(next->string),
 					     game);
 			        }
 			      next = next->next;

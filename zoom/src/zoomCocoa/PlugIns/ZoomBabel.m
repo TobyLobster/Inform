@@ -13,7 +13,7 @@ static NSString* babelFolder = nil;
 static NSLock* babelLock;
 static NSMutableDictionary* babelCache = nil;
 
-@interface ZoomBabel(Private)
+@interface ZoomBabel()
 
 - (void) babelTaskFinished: (NSNotification*) not;
 - (void) handleBabelTaskFinished;
@@ -36,7 +36,7 @@ static NSMutableDictionary* babelCache = nil;
 		NSString* tempDir = NSTemporaryDirectory();
 		NSString* dirID = [NSString stringWithFormat: @"Zoom-Babel-%i", getpid()];
 		
-		babelFolder = [[tempDir stringByAppendingPathComponent: dirID] retain];
+		babelFolder = [tempDir stringByAppendingPathComponent: dirID];
 	}
 
 	// Create the directory if necessary
@@ -44,7 +44,9 @@ static NSMutableDictionary* babelCache = nil;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: babelFolder
 											  isDirectory: &isDir]) {
 		[[NSFileManager defaultManager] createDirectoryAtPath: babelFolder
-												   attributes: nil];
+								  withIntermediateDirectories: NO
+												   attributes: nil
+														error: NULL];
 		isDir = YES;
 	}
 	
@@ -54,11 +56,10 @@ static NSMutableDictionary* babelCache = nil;
 	return babelFolder;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (id) init {
 	self = [super init];
-	if (self) [self autorelease];
 	return nil;
 }
 
@@ -72,15 +73,12 @@ static NSMutableDictionary* babelCache = nil;
 	ZoomBabel* cachedVersion = [babelCache objectForKey: story];
 	if (cachedVersion != nil) {
 		// Use the cached version instead if possible
-		[cachedVersion retain];
-		[self autorelease];
 		[babelLock unlock];
 		return cachedVersion;
 	}
 	
 	// Empty the cache if it's too full (fairly dumb, but works for the expected usage patterns)
 	if ([babelCache count] > 10) {
-		[babelCache release];
 		babelCache = [[NSMutableDictionary alloc] init];
 	}
 	
@@ -112,7 +110,7 @@ static NSMutableDictionary* babelCache = nil;
 			[babelTask setLaunchPath: babelPath];
 			[babelTask setStandardOutput: [babelStdOut fileHandleForWriting]];
 			
-			[babelTask setArguments: [NSArray arrayWithObjects: @"-fish", filename, nil]];
+			[babelTask setArguments: @[@"-fish", filename]];
 			
 			[[NSNotificationCenter defaultCenter] addObserver: self
 													 selector: @selector(babelTaskFinished:)
@@ -135,28 +133,16 @@ static NSMutableDictionary* babelCache = nil;
 
 		[self babelTaskFinished: nil];
 		
-		[babelTask release];
 		babelTask = nil;
 	}
 	
 	if (ifidTask) {
 		[ifidTask terminate];
-		[ifidTask release];
 		ifidTask = nil;
 	}
-
-	[filename release]; filename = nil;
-	[babelStdOut release]; babelStdOut = nil;
-	[ifidStdOut release]; ifidStdOut = nil;
-	
-	[storyID release];
-	[metadata release];
-	[babelImage release];
-	
-	[super dealloc];
 }
 
-// = Raw reading =
+#pragma mark - Raw reading
 
 - (void) waitForBabel {
 	BOOL mustWait = NO;
@@ -170,7 +156,7 @@ static NSMutableDictionary* babelCache = nil;
 		[babelLock lock];
 		
 		NSRunLoop* rl = [NSRunLoop currentRunLoop];
-		NSDate* now = [NSDate date];
+		//NSDate* now = [NSDate date];
 		NSDate* terminate = [NSDate dateWithTimeIntervalSinceNow: timeout];
 		
 		[waitingForTask addObject: rl];
@@ -199,9 +185,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 }
 
-- (void) setTaskTimeout: (float) seconds {
-	timeout = seconds;
-}
+@synthesize taskTimeout=timeout;
 
 - (NSData*) rawMetadata {
 	[self waitForBabel];
@@ -215,7 +199,7 @@ static NSMutableDictionary* babelCache = nil;
 	return babelImage;
 }
 
-// = Interpreted reading =
+#pragma mark - Interpreted reading
 
 - (ZoomStory*) metadata {
 	// Get the metadata
@@ -223,7 +207,7 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, then extract the first ifiction record
 	if (storyData != nil) {
-		ZoomMetadata* storyMetadata = [[[ZoomMetadata alloc] initWithData: storyData] autorelease];
+		ZoomMetadata* storyMetadata = [[ZoomMetadata alloc] initWithData: storyData error: NULL];
 		if (storyMetadata != nil) {
 			NSArray* stories = [storyMetadata stories];
 			if ([stories count] >= 1) {
@@ -241,13 +225,13 @@ static NSMutableDictionary* babelCache = nil;
 	
 	// If non-nil, create a new image
 	if (imageData != nil) {
-		return [[[NSImage alloc] initWithData: imageData] autorelease];
+		return [[NSImage alloc] initWithData: imageData];
 	}
 	
 	return nil;
 }
 
-// = Story ID =
+#pragma mark - Story ID
 
 - (ZoomStoryID*) storyID {
 	if (!storyID) {
@@ -266,7 +250,7 @@ static NSMutableDictionary* babelCache = nil;
 			[ifidTask setLaunchPath: babelPath];
 			[ifidTask setStandardOutput: [ifidStdOut fileHandleForWriting]];
 			
-			[ifidTask setArguments: [NSArray arrayWithObjects: @"-ifid", filename, nil]];
+			[ifidTask setArguments: @[@"-ifid", filename]];
 			
 			[[NSNotificationCenter defaultCenter] addObserver: self
 													 selector: @selector(ifidTaskFinished:)
@@ -284,15 +268,13 @@ static NSMutableDictionary* babelCache = nil;
 	return storyID;
 }
 
-// = Notifications =
+#pragma mark - Notifications
 
 - (NSArray*) filesFromBabelOutput: (NSString*) output {
 	NSArray* lines = [output componentsSeparatedByString: @"\n"];
 	NSMutableArray* filenames = [NSMutableArray array];
 	
-	NSEnumerator* lineEnum = [lines objectEnumerator];
-	NSString* line;
-	while (line = [lineEnum nextObject]) {
+	for (NSString* line in lines) {
 		// File lines match the pattern 'Extracted <x>'
 		if ([line length] < 11) continue;
 		if ([[line substringToIndex: 10] isEqualToString: @"Extracted "]) {
@@ -300,14 +282,14 @@ static NSMutableDictionary* babelCache = nil;
 		}
 	}
 	
-	return filenames;
+	return [filenames copy];
 }
 
 - (NSString*) fixFile: (NSString*) file {
 	// Image files have the (size) suffix in the output from babel: remove this, as we don't care
 	if ([file length] <= 0) return file;
 	if ([file characterAtIndex: [file length] - 1] == ')') {
-		int pos = [file length]-1;
+		NSInteger pos = [file length]-1;
 		while (pos >= 0 && [file characterAtIndex: pos] != '(') {
 			if ([file characterAtIndex: pos] == '.') return file;
 			pos--;
@@ -324,14 +306,12 @@ static NSMutableDictionary* babelCache = nil;
 	// (Actually perform finishing the babel task without acquiring the lock)
 	// The babel task has finished...
 	NSString* dir = [babelTask currentDirectoryPath];
-	NSEnumerator* fileEnum;
-	NSString* file;
 	
 	// Get the output
 	[[babelStdOut fileHandleForWriting] closeFile];
 	
 	NSData* output = [[babelStdOut fileHandleForReading] readDataToEndOfFile];
-	NSString* outputString = [[[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding] autorelease];
+	NSString* outputString = [[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding];
 	NSLog(@"Babel> %@", outputString);
 	
 	NSArray* files = [self filesFromBabelOutput: outputString];
@@ -339,9 +319,7 @@ static NSMutableDictionary* babelCache = nil;
 	// Check the return code
 	if ([babelTask terminationStatus] == 0) {
 		// Read any files the babel task extracted
-		fileEnum = [files objectEnumerator];
-		
-		while (file = [fileEnum nextObject]) {
+		for (__strong NSString* file in files) {
 			// Image files have the (size) suffix in the output from babel: remove this, as we don't care
 			file = [self fixFile: file];
 			
@@ -356,7 +334,7 @@ static NSMutableDictionary* babelCache = nil;
 			// Check for known extensions
 			if ([extension isEqualToString: @"ifiction"]) {
 				// This is an iFiction record
-				metadata = [[NSData dataWithContentsOfFile: fullPath] retain];
+				metadata = [NSData dataWithContentsOfFile: fullPath];
 			} else if ([extension isEqualToString: @"jpg"]
 					   || [extension isEqualToString: @"jpeg"]
 					   || [extension isEqualToString: @"png"]
@@ -364,26 +342,23 @@ static NSMutableDictionary* babelCache = nil;
 					   || [extension isEqualToString: @"tif"]
 					   || [extension isEqualToString: @"tiff"]) {
 				// This is an image file
-				babelImage = [[NSData dataWithContentsOfFile: fullPath] retain];
+				babelImage = [NSData dataWithContentsOfFile: fullPath];
 			}
 		}
 	}
 	
 	// Delete any files the babel task extracted
-	fileEnum = [files objectEnumerator];
-	while (file = [fileEnum nextObject]) {
+	for (NSString* file in files) {
 		NSString* fullPath = [dir stringByAppendingPathComponent: [self fixFile: file]];
 		if (![[NSFileManager defaultManager] fileExistsAtPath: fullPath]) {
 			continue;
 		}
-		[[NSFileManager defaultManager] removeFileAtPath: fullPath
-												 handler: nil];
+		[[NSFileManager defaultManager] removeItemAtPath: fullPath
+												   error: NULL];
 	}
 	
 	// Finish up the task
-	[babelTask release];
 	babelTask = nil;
-	[babelStdOut release];
 	babelStdOut = nil;
 }
 	
@@ -417,15 +392,13 @@ static NSMutableDictionary* babelCache = nil;
 	[[ifidStdOut fileHandleForWriting] closeFile];
 	
 	NSData* output = [[ifidStdOut fileHandleForReading] readDataToEndOfFile];
-	NSString* outputString = [[[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding] autorelease];
+	NSString* outputString = [[NSString alloc] initWithData: output encoding: NSUTF8StringEncoding];
 	NSLog(@"Babel> %@", outputString);
 	
 	// Check the return code
 	if ([babelTask terminationStatus] == 0) {
 		NSArray* lines = [outputString componentsSeparatedByString: @"\n"];
-		NSEnumerator* lineEnum = [lines objectEnumerator];
-		NSString* line;
-		while (line = [lineEnum nextObject]) {
+		for (__strong NSString* line in lines) {
 			// IFIDs must be 3 characters long
 			if ([line length] < 3) continue;
 			

@@ -36,13 +36,13 @@
 /***                           ----// 888 \\----                           ***/
 
 /* Printing & housekeeping functions */
-extern void printf_debug(char* format, ...);
-extern void printf_info (char* format, ...);
+extern void printf_debug(const char* format, ...) __printflike(1, 2);
+extern void printf_info (const char* format, ...) __printflike(1, 2);
 extern void printf_info_done(void);
-extern void printf_error(char* format, ...);
+extern void printf_error(const char* format, ...) __printflike(1, 2);
 extern void printf_error_done(void);
 
-extern void display_exit(int code);
+extern void display_exit(int code) __dead2;
 
 /***                           ----// 888 \\----                           ***/
 
@@ -54,7 +54,7 @@ extern void display_clear     (void);
 extern void display_prints    (const int*);
 extern void display_prints_c  (const char*);
 extern void display_printc    (int);
-extern void display_printf    (const char*, ...);
+extern void display_printf    (const char*, ...) __printflike(1, 2);
 
 extern void display_sanitise  (void);
 extern void display_desanitise(void);

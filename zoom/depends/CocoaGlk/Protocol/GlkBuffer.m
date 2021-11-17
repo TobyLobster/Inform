@@ -10,86 +10,84 @@
 
 #define GlkBigBuffer 256
 
-// = Strings for actions =
+#pragma mark - Strings for actions
 
-// Windows
+#pragma mark Windows
 
 // Creating the various types of window
-static NSString* s_CreateBlankWindowWithIdentifier				= @"CBWI";
-static NSString* s_CreateTextGridWindowWithIdentifier			= @"CTGW";
-static NSString* s_CreateTextWindowWithIdentifier 				= @"CTWI";
-static NSString* s_CreateGraphicsWindowWithIdentifier 			= @"CGWI";
+static NSString* const s_CreateBlankWindowWithIdentifier			= @"CBWI";
+static NSString* const s_CreateTextGridWindowWithIdentifier			= @"CTGW";
+static NSString* const s_CreateTextWindowWithIdentifier 			= @"CTWI";
+static NSString* const s_CreateGraphicsWindowWithIdentifier 		= @"CGWI";
 
 // Placing windows in the tree
-static NSString* s_SetRootWindow								= @"WSRW";
-static NSString* s_CreatePairWindowWithIdentifier				= @"CPWI";
+static NSString* const s_SetRootWindow								= @"WSRW";
+static NSString* const s_CreatePairWindowWithIdentifier				= @"CPWI";
 
 // Closing windows
-static NSString* s_CloseWindowIdentifier 						= @"CLWI";
+static NSString* const s_CloseWindowIdentifier 						= @"CLWI";
 
 // Manipulating windows
-static NSString* s_MoveCursorInWindow 							= @"MCIW";
-static NSString* s_ClearWindowIdentifier 						= @"WINC";
-static NSString* s_ClearWindowIdentifierWithBackground 			= @"WIBC";
-static NSString* s_SetInputLine 								= @"WSIL";
-static NSString* s_ArrangeWindow 								= @"WARR";
+static NSString* const s_MoveCursorInWindow 						= @"MCIW";
+static NSString* const s_ClearWindowIdentifier 						= @"WINC";
+static NSString* const s_ClearWindowIdentifierWithBackground 		= @"WIBC";
+static NSString* const s_SetInputLine 								= @"WSIL";
+static NSString* const s_ArrangeWindow 								= @"WARR";
 
 // Styles
-static NSString* s_SetStyleHint 								= @"ISSH";
-static NSString* s_ClearStyleHint 								= @"ICSH";
+static NSString* const s_SetStyleHint 								= @"ISSH";
+static NSString* const s_ClearStyleHint 							= @"ICSH";
 
-static NSString* s_SetStyleHintStream 							= @"SSSH";
-static NSString* s_ClearStyleHintStream 						= @"SCSH";
-static NSString* s_SetCustomAttributesStream 					= @"SSCA";
+static NSString* const s_SetStyleHintStream 						= @"SSSH";
+static NSString* const s_ClearStyleHintStream 						= @"SCSH";
+static NSString* const s_SetCustomAttributesStream 					= @"SSCA";
 
 // Graphics
-static NSString* s_FillAreaInWindowWithIdentifier 				= @"GFAW";
-static NSString* s_DrawImageWithIdentifier 						= @"GDIP";
-static NSString* s_DrawImageWithIdentifierInRect 				= @"GDIR";
+static NSString* const s_FillAreaInWindowWithIdentifier 			= @"GFAW";
+static NSString* const s_DrawImageWithIdentifier 					= @"GDIP";
+static NSString* const s_DrawImageWithIdentifierInRect 				= @"GDIR";
 
-static NSString* s_DrawImageWithIdentifierAlign 				= @"GDIA";
-static NSString* s_DrawImageWithIdentifierAlignSize 			= @"GDIS";
+static NSString* const s_DrawImageWithIdentifierAlign 				= @"GDIA";
+static NSString* const s_DrawImageWithIdentifierAlignSize 			= @"GDIS";
 
-static NSString* s_BreakFlowInWindowWithIdentifier 				= @"GBFW";
+static NSString* const s_BreakFlowInWindowWithIdentifier 			= @"GBFW";
 
-// Streams
+#pragma mark Streams
 
 // Registering streams
-static NSString* s_RegisterStream 								= @"SRSS";
-static NSString* s_RegisterStreamForWindow 						= @"SRSW";
+static NSString* const s_RegisterStream 							= @"SRSS";
+static NSString* const s_RegisterStreamForWindow 					= @"SRSW";
 
-static NSString* s_CloseStreamIdentifier 						= @"SCSI";
-static NSString* s_UnregisterStreamIdentifier 					= @"SUSI";	// If the stream is closed immediately
+static NSString* const s_CloseStreamIdentifier 						= @"SCSI";
+static NSString* const s_UnregisterStreamIdentifier 				= @"SUSI";	// If the stream is closed immediately
 
 // Buffering stream writes
-static NSString* s_PutCharToStream 								= @"SPCH";
-static NSString* s_PutStringToStream 							= @"SPST";
-static NSString* s_PutDataToStream 								= @"SPDA";
-static NSString* s_SetStyle 									= @"SSSS";
+static NSString* const s_PutCharToStream 							= @"SPCH";
+static NSString* const s_PutStringToStream 							= @"SPST";
+static NSString* const s_PutDataToStream 							= @"SPDA";
+static NSString* const s_SetStyle 									= @"SSSS";
 
 // Hyperlinks on streams
-static NSString* s_SetHyperlink 								= @"SHYS";
-static NSString* s_ClearHyperlinkOnStream 						= @"SCLH";
+static NSString* const s_SetHyperlink 								= @"SHYS";
+static NSString* const s_ClearHyperlinkOnStream 					= @"SCLH";
 
-// Events
+#pragma mark Events
 
 // Requesting events
-static NSString* s_RequestLineEventsForWindowIdentifier 		= @"ERLE";
-static NSString* s_RequestCharEventsForWindowIdentifier			= @"ERCE";
-static NSString* s_RequestMouseEventsForWindowIdentifier		= @"ERME";
-static NSString* s_RequestHyperlinkEventsForWindowIdentifier	= @"ERHE";
+static NSString* const s_RequestLineEventsForWindowIdentifier 		= @"ERLE";
+static NSString* const s_RequestCharEventsForWindowIdentifier		= @"ERCE";
+static NSString* const s_RequestMouseEventsForWindowIdentifier		= @"ERME";
+static NSString* const s_RequestHyperlinkEventsForWindowIdentifier	= @"ERHE";
 
-static NSString* s_CancelCharEventsForWindowIdentifier 			= @"ECCE";
-static NSString* s_CancelMouseEventsForWindowIdentifier 		= @"ECME";
-static NSString* s_CancelHyperlinkEventsForWindowIdentifier 	= @"ECHE";
+static NSString* const s_CancelCharEventsForWindowIdentifier 		= @"ECCE";
+static NSString* const s_CancelMouseEventsForWindowIdentifier 		= @"ECME";
+static NSString* const s_CancelHyperlinkEventsForWindowIdentifier 	= @"ECHE";
 
-@implementation GlkBuffer {
-    NSMutableArray* operations;
-}
+@implementation GlkBuffer
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -99,26 +97,20 @@ static NSString* s_CancelHyperlinkEventsForWindowIdentifier 	= @"ECHE";
 	return self;
 }
 
-- (void) dealloc {
-	[operations release];
-	
-	[super dealloc];
-}
-
-// = Buffering =
+#pragma mark - Buffering
 
 static NSString* stringFromOp(NSArray* op) {
-	NSString* opType = op[0];
+	NSString* opType = [op objectAtIndex: 0];
 	
 	if ([opType isEqualToString: s_PutCharToStream]) {
-		unichar ch = [op[1][0] unsignedIntValue];
+		unichar ch = [[[op objectAtIndex: 1] objectAtIndex: 0] unsignedShortValue];
 		
 		if (ch < 32) return nil;
 		
 		return [NSString stringWithCharacters: &ch
 									   length: 1];
 	} else if ([opType isEqualToString: s_PutStringToStream]) {
-		NSString* str = op[1][0];
+		NSString* str = [[op objectAtIndex: 1] objectAtIndex: 0];
 		
 		return str;
 	}
@@ -150,31 +142,31 @@ static NSString* stringFromOp(NSArray* op) {
 		}
 #endif
 		
-		int 		opPos 		= (int)[operations count] - 1;
-		NSArray* 	lastOp 		= [operations lastObject];
-		int 		stream, lastStream;
+		NSInteger	opPos 		= [operations count] - 1;
+		NSArray*	lastOp 		= [operations lastObject];
+		int			stream=0, lastStream=0;
 		
-		while (lastOp && ([lastOp[0] isEqualToString: s_PutCharToStream] ||
-						  [lastOp[0] isEqualToString: s_PutStringToStream] ||
-						  [lastOp[0] isEqualToString: s_PutDataToStream])) {
+		while (lastOp && ([[lastOp objectAtIndex: 0] isEqualToString: s_PutCharToStream] ||
+						  [[lastOp objectAtIndex: 0] isEqualToString: s_PutStringToStream] ||
+						  [[lastOp objectAtIndex: 0] isEqualToString: s_PutDataToStream])) {
 			// Skip backwards past 'ignorable' selectors until we find a write to this stream
-			stream 		= [arguments[1] intValue];
-			lastStream	= [lastOp[1][1] intValue];
+			stream 		= [[arguments objectAtIndex: 1] intValue];
+			lastStream	= [[[lastOp objectAtIndex: 1] objectAtIndex: 1] intValue];
 			
 			if (stream == lastStream) break;	// We've found the 'interesting' operation
 			
 			// Go back to the previous operation
 			if (opPos > 0) {
 				opPos--;
-				lastOp = operations[opPos];
+				lastOp = [operations objectAtIndex: opPos];
 			} else {
 				lastOp = nil;
 			}
 		}
 		
 		if (lastOp &&
-			([lastOp[0] isEqualToString: s_PutCharToStream] ||
-			 [lastOp[0] isEqualToString: s_PutStringToStream]) &&
+			([[lastOp objectAtIndex: 0] isEqualToString: s_PutCharToStream] ||
+			 [[lastOp objectAtIndex: 0] isEqualToString: s_PutStringToStream]) &&
 			![name isEqualToString: s_PutDataToStream] &&
 			stream == lastStream) {
 			// If both of these have the same stream identifier, then we might be able to merge them into one operation
@@ -190,18 +182,18 @@ static NSString* stringFromOp(NSArray* op) {
 				return;
 			}
 		} else if (lastOp &&
-				   [lastOp[0] isEqualToString: s_PutDataToStream] &&
+				   [[lastOp objectAtIndex: 0] isEqualToString: s_PutDataToStream] &&
 				   [name isEqualToString: s_PutDataToStream] &&
 				   stream == lastStream) {
 			// Data writes can also be concatenated
-			NSData* oldData 	= lastOp[1][0];
-			NSData* nextData 	= arguments[0];
+			NSData* oldData 	= [[lastOp objectAtIndex: 1] objectAtIndex: 0];
+			NSData* nextData 	= [arguments objectAtIndex: 0];
 			
 			NSMutableData* newData = nil;
 			if ([oldData isKindOfClass: [NSMutableData class]]) {
 				newData = (NSMutableData*)oldData;
 			} else {
-				newData = [[oldData mutableCopy] autorelease];
+				newData = [oldData mutableCopy];
 			}
 			
 			if (newData && nextData) {
@@ -226,13 +218,19 @@ static NSString* stringFromOp(NSArray* op) {
 	return [operations count] > GlkBigBuffer;
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
-- (instancetype) initWithCoder: (NSCoder*) coder {
+- (id) initWithCoder: (NSCoder*) coder {
 	self = [super init];
 	
 	if (self) {
-		operations = [[NSMutableArray alloc] initWithArray: [coder decodeObject]
+		id decoded;
+		if (coder.allowsKeyedCoding) {
+			decoded = [coder decodeObjectOfClasses: [NSSet setWithObjects: [NSArray class], [NSNumber class], [NSString class], [NSColor class], [NSValue class], [NSData class], nil] forKey: @"Operations"];
+		} else {
+			decoded = [coder decodeObject];
+		}
+		operations = [[NSMutableArray alloc] initWithArray: decoded
 												 copyItems: NO];
 	}
 	
@@ -240,29 +238,39 @@ static NSString* stringFromOp(NSArray* op) {
 }
 
 - (void) encodeWithCoder: (NSCoder*) coder {
-	[coder encodeObject: operations];
+	if (coder.allowsKeyedCoding) {
+		[coder encodeObject: operations forKey: @"Operations"];
+	} else {
+		[coder encodeObject: operations];
+	}
 }
 
++ (BOOL)supportsSecureCoding
+{
+	return YES;
+}
+
+#ifndef COCOAGLK_IPHONE
 - (id)replacementObjectForPortCoder:(NSPortCoder *)encoder {
 	// This ensures that when we're passed in a bycopy way, we get passed as an actual copy and not a NSDistantObject
 	// (which would kind of defeat the whole purpose of the buffer in the first place)
 	if ([encoder isBycopy]) return self;
     return [super replacementObjectForPortCoder:encoder];	
 }
+#endif
 
-// = NSCopying =
+#pragma mark - NSCopying
 
 - (id) copyWithZone: (NSZone*) zone {
-	GlkBuffer* copy = [[GlkBuffer alloc] init];
+	GlkBuffer* copy = [[GlkBuffer allocWithZone: zone] init];
 	
-	[copy->operations release];
 	copy->operations = [[NSMutableArray alloc] initWithArray: operations
 												   copyItems: YES];
 	
 	return copy;
 }
 
-// = Method invocations =
+#pragma mark - Method invocations
 
 // Windows
 
@@ -300,12 +308,12 @@ static NSString* stringFromOp(NSArray* op) {
 								 method: (glui32) method
 								   size: (glui32) size {
 	[self addOperation: s_CreatePairWindowWithIdentifier
-			 arguments: @[@(identifier)
-                        , @(keyIdentifier)
-                        , @(leftIdentifier)
-                        , @(rightIdentifier)
-                        , @(method)
-                        , @(size)]];
+			 arguments: @[@(identifier),
+						  @(keyIdentifier),
+						  @(leftIdentifier),
+						  @(rightIdentifier),
+						  @(method),
+						  @(size)]];
 }
 
 // Closing windows
@@ -319,9 +327,9 @@ static NSString* stringFromOp(NSArray* op) {
 				toXposition: (int) xpos
 				  yPosition: (int) ypos {
 	[self addOperation: s_MoveCursorInWindow
-			 arguments: @[@(identifier)
-                         , [NSNumber numberWithUnsignedInt: xpos]
-                         , [NSNumber numberWithUnsignedInt: ypos]]];
+			 arguments: @[@(identifier),
+						  @(xpos),
+						  @(ypos)]];
 }
 
 - (void) clearWindowIdentifier: (glui32) identifier {
@@ -330,17 +338,17 @@ static NSString* stringFromOp(NSArray* op) {
 }
 
 - (void) clearWindowIdentifier: (glui32) identifier
-		  withBackgroundColour: (in bycopy NSColor*) bgColour {
+		  withBackgroundColour: (in bycopy GlkColor*) bgColour {
 	[self addOperation: s_ClearWindowIdentifierWithBackground
-			 arguments: @[@(identifier)
-			 		  	 , bgColour]];
+			 arguments: @[@(identifier),
+						  bgColour]];
 }
 
 - (void) setInputLine: (in bycopy NSString*) inputLine
   forWindowIdentifier: (unsigned) windowIdentifier {
 	[self addOperation: s_SetInputLine
-			 arguments: @[inputLine
-			 		  	 , @(windowIdentifier)]];
+			 arguments: @[inputLine,
+						  @(windowIdentifier)]];
 }
 
 - (void) arrangeWindow: (glui32) identifier
@@ -348,10 +356,10 @@ static NSString* stringFromOp(NSArray* op) {
 				  size: (glui32) size
 			 keyWindow: (glui32) keyIdentifier {
 	[self addOperation: s_ArrangeWindow
-			 arguments: @[@(identifier)
-                        , @(method)
-                        , @(size)
-                        , @(keyIdentifier)]];
+			 arguments: @[@(identifier),
+						  @(method),
+						  @(size),
+						  @(keyIdentifier)]];
 }
 
 // Styles
@@ -360,90 +368,90 @@ static NSString* stringFromOp(NSArray* op) {
 			  toValue: (glsi32) value
 		   windowType: (glui32) wintype {
 	[self addOperation: s_SetStyleHint
-			 arguments: @[@(hint)
-                        , @(style)
-                        , [NSNumber numberWithUnsignedInt: value]
-                        , @(wintype)]];
+			 arguments: @[@(hint),
+						  @(style),
+						  @(value),
+						  @(wintype)]];
 }
 
 - (void) clearStyleHint: (glui32) hint
 			   forStyle: (glui32) style
 			 windowType: (glui32) wintype {
 	[self addOperation: s_ClearStyleHint
-			 arguments: @[@(hint)
-                        , @(style)
-                        , @(wintype)]];
+			 arguments: @[@(hint),
+						  @(style),
+						  @(wintype)]];
 }
 
 - (void) setStyleHint: (glui32) hint
 			  toValue: (glsi32) value
 			 inStream: (glui32) streamIdentifier {
 	[self addOperation: s_SetStyleHintStream
-			 arguments: @[@(hint)
-                        , [NSNumber numberWithUnsignedInt: value]
-                        , @(streamIdentifier)]];
+			 arguments: @[@(hint),
+						  @(value),
+						  @(streamIdentifier)]];
 }
 
 - (void) clearStyleHint: (glui32) hint
 			   inStream: (glui32) streamIdentifier {
 	[self addOperation: s_ClearStyleHintStream
-			 arguments: @[@(hint)
-			 		  							 , @(streamIdentifier)]];
+			 arguments: @[@(hint),
+						  @(streamIdentifier)]];
 }
 
 - (void) setCustomAttributes: (NSDictionary*) attributes
 					inStream: (glui32) streamIdentifier {
 	[self addOperation: s_SetCustomAttributesStream
-			 arguments: @[attributes
-                        , @(streamIdentifier)]];
+			 arguments: @[attributes,
+						  @(streamIdentifier)]];
 }
 
 // Graphics
 - (void) fillAreaInWindowWithIdentifier: (unsigned) identifier
-							 withColour: (in bycopy NSColor*) color
-							  rectangle: (NSRect) windowArea {
+							 withColour: (in bycopy GlkColor*) color
+							  rectangle: (GlkRect) windowArea {
 	[self addOperation: s_FillAreaInWindowWithIdentifier
-			 arguments: @[@(identifier)
-                         , color
-                         , [NSValue valueWithRect: windowArea]]];
+			 arguments: @[@(identifier),
+						  color,
+						  @(windowArea)]];
 }
 
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
-					  atPosition: (NSPoint) position {
+					  atPosition: (GlkPoint) position {
 	[self addOperation: s_DrawImageWithIdentifier
-			 arguments: @[@(imageIdentifier)
-                        , @(windowIdentifier)
-                        , [NSValue valueWithPoint: position]]];
+			 arguments: @[@(imageIdentifier),
+						  @(windowIdentifier),
+						  @(position)]];
 }
 
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
-						  inRect: (NSRect) imageRect {
+						  inRect: (GlkRect) imageRect {
 	[self addOperation: s_DrawImageWithIdentifierInRect
-			 arguments: @[@(imageIdentifier)
-                        , @(windowIdentifier)
-                        , [NSValue valueWithRect: imageRect]]];
+			 arguments: @[@(imageIdentifier),
+						  @(windowIdentifier),
+						  @(imageRect)]];
 }
 
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
 					   alignment: (unsigned) alignment {
 	[self addOperation: s_DrawImageWithIdentifierAlign
-			 arguments: @[@(imageIdentifier)
-                        , @(windowIdentifier)
-                        , @(alignment)]];
+			 arguments: @[@(imageIdentifier),
+						  @(windowIdentifier),
+						  @(alignment)]];
 }
 
 - (void) drawImageWithIdentifier: (unsigned) imageIdentifier
 		  inWindowWithIdentifier: (unsigned) windowIdentifier
 					   alignment: (unsigned) alignment
-							size: (NSSize) imageSize {
+							size: (GlkCocoaSize) imageSize {
 	[self addOperation: s_DrawImageWithIdentifierAlignSize
-			 arguments: @[@(imageIdentifier)
-                        , @(windowIdentifier)
-                        , @(alignment)
-                        , [NSValue valueWithSize: imageSize]]];
+			 arguments: @[@(imageIdentifier),
+						  @(windowIdentifier),
+						  @(alignment),
+						  @(imageSize)]];
 }
 
 - (void) breakFlowInWindowWithIdentifier: (unsigned) identifier {
@@ -454,18 +462,18 @@ static NSString* stringFromOp(NSArray* op) {
 // Streams
 
 // Registering streams
-- (void) registerStream: (in byref NSObject<GlkStream>*) stream
+- (void) registerStream: (in byref id<GlkStream>) stream
 		  forIdentifier: (unsigned) streamIdentifier  {
 	[self addOperation: s_RegisterStream
-			 arguments: @[stream
-                        , @(streamIdentifier)]];
+			 arguments: @[stream,
+						  @(streamIdentifier)]];
 }
 
 - (void) registerStreamForWindow: (unsigned) windowIdentifier
 				   forIdentifier: (unsigned) streamIdentifier {
 	[self addOperation: s_RegisterStreamForWindow
-			 arguments: @[@(windowIdentifier)
-                        , @(streamIdentifier)]];
+			 arguments: @[@(windowIdentifier),
+						  @(streamIdentifier)]];
 }
 
 - (void) closeStreamIdentifier: (unsigned) streamIdentifier {
@@ -482,29 +490,29 @@ static NSString* stringFromOp(NSArray* op) {
 - (void) putChar: (unichar) ch
 		toStream: (unsigned) streamIdentifier {
 	[self addOperation: s_PutCharToStream
-			 arguments: @[[NSNumber numberWithUnsignedInt: ch]
-			 		  							 , @(streamIdentifier)]];
+			 arguments: @[[NSNumber numberWithUnsignedShort: ch],
+						  @(streamIdentifier)]];
 }
 
 - (void) putString: (in bycopy NSString*) string
 		  toStream: (unsigned) streamIdentifier  {
 	[self addOperation: s_PutStringToStream
-			 arguments: @[string
-												 , @(streamIdentifier)]];
+			 arguments: @[string,
+						  @(streamIdentifier)]];
 }
 
 - (void) putData: (in bycopy NSData*) data							// Note: do not pass in mutable data here, as the contents may change unexpectedly
 		toStream: (unsigned) streamIdentifier {
 	[self addOperation: s_PutDataToStream
-			 arguments: @[data
-			 		  							 , @(streamIdentifier)]];
+			 arguments: @[data,
+						  @(streamIdentifier)]];
 }
 
 - (void) setStyle: (unsigned) style
 		 onStream: (unsigned) streamIdentifier {
 	[self addOperation: s_SetStyle
-			 arguments: @[@(style)
-			 		  							 , @(streamIdentifier)]];
+			 arguments: @[@(style),
+						  @(streamIdentifier)]];
 }
 
 
@@ -512,8 +520,8 @@ static NSString* stringFromOp(NSArray* op) {
 - (void) setHyperlink: (unsigned int) value
 			 onStream: (unsigned) streamIdentifier {
 	[self addOperation: s_SetHyperlink
-			 arguments: @[@(value)
-			 		  							 , @(streamIdentifier)]];
+			 arguments: @[@(value),
+						  @(streamIdentifier)]];
 }
 
 - (void) clearHyperlinkOnStream: (unsigned) streamIdentifier {
@@ -559,164 +567,187 @@ static NSString* stringFromOp(NSArray* op) {
 		     arguments: @[@(windowIdentifier)]];
 }
 
-/// = Buffer flushing =
+#pragma mark - Buffer flushing
 
 
-- (void) flushToTarget: (id) target {
+- (void) flushToTarget: (id<GlkBuffer>) target {
 	// Iterate through the operations
 	NSEnumerator* bufferEnum = [operations objectEnumerator];
-	NSArray* op;
 	
 	// Decode each operation in turn using a giant if statements of death
-	while (op = [bufferEnum nextObject]) {
-		NSString*	opType 	= op[0];
-		NSArray* 	args 	= op[1];
+	for (NSArray* op in bufferEnum) {
+		NSString*	opType 	= [op objectAtIndex: 0];
+		NSArray* 	args 	= [op objectAtIndex: 1];
 			
 		// Buffering stream writes
 		if ([opType isEqualToString: s_PutCharToStream]) {
-			[target putChar: [args[0] unsignedIntValue]
-				 toStream: [args[1] unsignedIntValue]];
+			[target putChar: [[args objectAtIndex: 0] unsignedShortValue]
+				 toStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_PutStringToStream]) {
-			[target putString: args[0]
-				   toStream: [args[1] unsignedIntValue]];
+			[target putString: [args objectAtIndex: 0]
+				   toStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_PutDataToStream]) {
-			[target putData: args[0]
-				 toStream: [args[1] unsignedIntValue]];
+			[target putData: [args objectAtIndex: 0]
+				 toStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_SetStyle]) {
-			[target setStyle: [args[0] unsignedIntValue]
-			      onStream: [args[1] unsignedIntValue]];
+			[target setStyle: [[args objectAtIndex: 0] unsignedIntValue]
+			      onStream: [[args objectAtIndex: 1] unsignedIntValue]];
 
 		// Graphics
 		} else if ([opType isEqualToString: s_FillAreaInWindowWithIdentifier]) {
-			[target fillAreaInWindowWithIdentifier: [args[0] unsignedIntValue]
-				   			          withColour: args[1]
-			                           rectangle: [args[2] rectValue]];
+			GlkRect aRect;
+#ifdef COCOAGLK_IPHONE
+			aRect = [[args objectAtIndex: 2] CGRectValue];
+#else
+			aRect = [[args objectAtIndex: 2] rectValue];
+#endif
+			[target fillAreaInWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+				   			          withColour: [args objectAtIndex: 1]
+			                           rectangle: aRect];
 		} else if ([opType isEqualToString: s_DrawImageWithIdentifier]) {
-			[target drawImageWithIdentifier: [args[0] unsignedIntValue]
-			       inWindowWithIdentifier: [args[1] unsignedIntValue]
-			                   atPosition: [args[2] pointValue]];
+			GlkPoint aPoint;
+#ifdef COCOAGLK_IPHONE
+			aPoint = [[args objectAtIndex: 2] CGPointValue];
+#else
+			aPoint = [[args objectAtIndex: 2] pointValue];
+#endif
+			[target drawImageWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+			       inWindowWithIdentifier: [[args objectAtIndex: 1] unsignedIntValue]
+			                   atPosition: aPoint];
 		} else if ([opType isEqualToString: s_DrawImageWithIdentifierInRect]) {
-			[target drawImageWithIdentifier: [args[0] unsignedIntValue]
-				   inWindowWithIdentifier: [args[1] unsignedIntValue]
-								   inRect: [args[2] rectValue]];
+			GlkRect aRect;
+#ifdef COCOAGLK_IPHONE
+			aRect = [[args objectAtIndex: 2] CGRectValue];
+#else
+			aRect = [[args objectAtIndex: 2] rectValue];
+#endif
+			[target drawImageWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+				   inWindowWithIdentifier: [[args objectAtIndex: 1] unsignedIntValue]
+								   inRect: aRect];
 		
 		} else if ([opType isEqualToString: s_DrawImageWithIdentifierAlign]) {
-			[target drawImageWithIdentifier: [args[0] unsignedIntValue]
-				   inWindowWithIdentifier: [args[1] unsignedIntValue] 
-								alignment: [args[2] unsignedIntValue]];
+			[target drawImageWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+				   inWindowWithIdentifier: [[args objectAtIndex: 1] unsignedIntValue] 
+								alignment: [[args objectAtIndex: 2] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_DrawImageWithIdentifierAlignSize]) {
-			[target drawImageWithIdentifier: [args[0] unsignedIntValue]
-				   inWindowWithIdentifier: [args[1] unsignedIntValue] 
-								alignment: [args[2] unsignedIntValue]
-									 size: [args[3] sizeValue]];
+			GlkCocoaSize aSize;
+#ifdef COCOAGLK_IPHONE
+			aSize = [[args objectAtIndex: 3] CGSizeValue];
+#else
+			aSize = [[args objectAtIndex: 3] sizeValue];
+#endif
+			[target drawImageWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+				   inWindowWithIdentifier: [[args objectAtIndex: 1] unsignedIntValue] 
+								alignment: [[args objectAtIndex: 2] unsignedIntValue]
+									 size: aSize];
 		
 		} else if ([opType isEqualToString: s_BreakFlowInWindowWithIdentifier]) {
-			[target breakFlowInWindowWithIdentifier: [args[0] unsignedIntValue]];
+			[target breakFlowInWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		// Manipulating windows
 		} else if ([opType isEqualToString: s_MoveCursorInWindow]) {
-			[target moveCursorInWindow: [args[0] unsignedIntValue]
-						 toXposition: [args[1] unsignedIntValue] 
-						   yPosition: [args[2] unsignedIntValue]];
+			[target moveCursorInWindow: [[args objectAtIndex: 0] unsignedIntValue]
+						 toXposition: [[args objectAtIndex: 1] unsignedIntValue] 
+						   yPosition: [[args objectAtIndex: 2] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ClearWindowIdentifier]) {
-			[target clearWindowIdentifier: [args[0] unsignedIntValue]];
+			[target clearWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ClearWindowIdentifierWithBackground]) {
-			[target clearWindowIdentifier: [args[0] unsignedIntValue]
-				   withBackgroundColour: args[1]];
+			[target clearWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]
+				   withBackgroundColour: [args objectAtIndex: 1]];
 		} else if ([opType isEqualToString: s_SetInputLine]) {
-			[target setInputLine: args[0]
-		   forWindowIdentifier: [args[1] unsignedIntValue]];
+			[target setInputLine: [args objectAtIndex: 0]
+		   forWindowIdentifier: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ArrangeWindow]) {
-			[target arrangeWindow: [args[0] unsignedIntValue]
-						 method: [args[1] unsignedIntValue]
-						   size: [args[2] unsignedIntValue]
-					  keyWindow: [args[3] unsignedIntValue]];
+			[target arrangeWindow: [[args objectAtIndex: 0] unsignedIntValue]
+						 method: [[args objectAtIndex: 1] unsignedIntValue]
+						   size: [[args objectAtIndex: 2] unsignedIntValue]
+					  keyWindow: [[args objectAtIndex: 3] unsignedIntValue]];
 		
 		// Styles
 		} else if ([opType isEqualToString: s_SetStyleHint]) {
-			[target setStyleHint: [args[0] unsignedIntValue]
-					  forStyle: [args[1] unsignedIntValue]
-					   toValue: [args[2] unsignedIntValue] 
-					windowType: [args[3] unsignedIntValue]];
+			[target setStyleHint: [[args objectAtIndex: 0] unsignedIntValue]
+					  forStyle: [[args objectAtIndex: 1] unsignedIntValue]
+					   toValue: [[args objectAtIndex: 2] unsignedIntValue] 
+					windowType: [[args objectAtIndex: 3] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ClearStyleHint]) {
-			[target clearStyleHint: [args[0] unsignedIntValue] 
-						forStyle: [args[1] unsignedIntValue] 
-					  windowType: [args[2] unsignedIntValue]];
+			[target clearStyleHint: [[args objectAtIndex: 0] unsignedIntValue] 
+						forStyle: [[args objectAtIndex: 1] unsignedIntValue] 
+					  windowType: [[args objectAtIndex: 2] unsignedIntValue]];
 		
 		} else if ([opType isEqualToString: s_SetStyleHintStream]) {
-			[target setStyleHint: [args[0] unsignedIntValue] 
-					   toValue: [args[1] unsignedIntValue] 
-					  inStream: [args[2] unsignedIntValue]];
+			[target setStyleHint: [[args objectAtIndex: 0] unsignedIntValue] 
+					   toValue: [[args objectAtIndex: 1] unsignedIntValue] 
+					  inStream: [[args objectAtIndex: 2] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ClearStyleHintStream]) {
-			[target clearStyleHint: [args[0] unsignedIntValue] 
-						inStream: [args[1] unsignedIntValue]];
+			[target clearStyleHint: [[args objectAtIndex: 0] unsignedIntValue] 
+						inStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_SetCustomAttributesStream]) {
-			[target setCustomAttributes: args[0] 
-							 inStream: [args[1] unsignedIntValue]];
+			[target setCustomAttributes: [args objectAtIndex: 0] 
+							 inStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		
 		// Hyperlinks on streams
 		} else if ([opType isEqualToString: s_SetHyperlink]) {
-			[target setHyperlink: [args[0] unsignedIntValue]
-					  onStream: [args[1] unsignedIntValue]];
+			[target setHyperlink: [[args objectAtIndex: 0] unsignedIntValue]
+					  onStream: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_ClearHyperlinkOnStream]) {
-			[target clearHyperlinkOnStream: [args[0] unsignedIntValue]];
+			[target clearHyperlinkOnStream: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		// Registering streams
 		} else if ([opType isEqualToString: s_RegisterStream]) {
-			[target registerStream: args[0] 
-				   forIdentifier: [args[1] unsignedIntValue]];
+			[target registerStream: [args objectAtIndex: 0] 
+				   forIdentifier: [[args objectAtIndex: 1] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_RegisterStreamForWindow]) {
-			[target registerStreamForWindow: [args[0] unsignedIntValue]
-							forIdentifier: [args[1] unsignedIntValue]];
+			[target registerStreamForWindow: [[args objectAtIndex: 0] unsignedIntValue]
+							forIdentifier: [[args objectAtIndex: 1] unsignedIntValue]];
 		
 		} else if ([opType isEqualToString: s_CloseStreamIdentifier]) {
-			[target closeStreamIdentifier: [args[0] unsignedIntValue]];
+			[target closeStreamIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_UnregisterStreamIdentifier]) {
-			[target unregisterStreamIdentifier: [args[0] unsignedIntValue]];
+			[target unregisterStreamIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		// Creating the various types of window
 		} else if ([opType isEqualToString: s_CreateBlankWindowWithIdentifier]) {
-			[target createBlankWindowWithIdentifier: [args[0] unsignedIntValue]];
+			[target createBlankWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CreateTextGridWindowWithIdentifier]) {
-			[target createTextGridWindowWithIdentifier: [args[0] unsignedIntValue]];
+			[target createTextGridWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CreateTextWindowWithIdentifier]) {
-			[target createTextWindowWithIdentifier: [args[0] unsignedIntValue]];
+			[target createTextWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CreateGraphicsWindowWithIdentifier]) {
-			[target createGraphicsWindowWithIdentifier: [args[0] unsignedIntValue]];
+			[target createGraphicsWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		// Placing windows in the tree
 		} else if ([opType isEqualToString: s_SetRootWindow]) {
-			[target setRootWindow: [args[0] unsignedIntValue]];
+			[target setRootWindow: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CreatePairWindowWithIdentifier]) {
-			[target createPairWindowWithIdentifier: [args[0] unsignedIntValue] 
-									   keyWindow: [args[1] unsignedIntValue] 
-									  leftWindow: [args[2] unsignedIntValue] 
-									 rightWindow: [args[3] unsignedIntValue] 
-										  method: [args[4] unsignedIntValue] 
-											size: [args[5] unsignedIntValue]];
+			[target createPairWindowWithIdentifier: [[args objectAtIndex: 0] unsignedIntValue] 
+									   keyWindow: [[args objectAtIndex: 1] unsignedIntValue] 
+									  leftWindow: [[args objectAtIndex: 2] unsignedIntValue] 
+									 rightWindow: [[args objectAtIndex: 3] unsignedIntValue] 
+										  method: [[args objectAtIndex: 4] unsignedIntValue] 
+											size: [[args objectAtIndex: 5] unsignedIntValue]];
 		
 		// Closing windows
 		} else if ([opType isEqualToString: s_CloseWindowIdentifier]) {
-			[target closeWindowIdentifier: [args[0] unsignedIntValue]];
+			[target closeWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		// Events
 		
 		// Requesting events
 		} else if ([opType isEqualToString: s_RequestLineEventsForWindowIdentifier]) {
-			[target requestLineEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target requestLineEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_RequestCharEventsForWindowIdentifier]) {
-			[target requestCharEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target requestCharEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_RequestMouseEventsForWindowIdentifier]) {
-			[target requestMouseEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target requestMouseEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_RequestHyperlinkEventsForWindowIdentifier]) {
-			[target requestHyperlinkEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target requestHyperlinkEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		
 		} else if ([opType isEqualToString: s_CancelCharEventsForWindowIdentifier]) {
-			[target cancelCharEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target cancelCharEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CancelMouseEventsForWindowIdentifier]) {
-			[target cancelMouseEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target cancelMouseEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else if ([opType isEqualToString: s_CancelHyperlinkEventsForWindowIdentifier]) {
-			[target cancelHyperlinkEventsForWindowIdentifier: [args[0] unsignedIntValue]];
+			[target cancelHyperlinkEventsForWindowIdentifier: [[args objectAtIndex: 0] unsignedIntValue]];
 		} else {
 			
 			NSLog(@"Unknown action type: %@", opType);

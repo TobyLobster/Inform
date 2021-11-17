@@ -6,24 +6,30 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#ifndef __GLKVIEW_GLKHUBPROTOCOL_H__
+#define __GLKVIEW_GLKHUBPROTOCOL_H__
+
+#import <Foundation/Foundation.h>
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
-#import "GlkSessionProtocol.h"
+#import <GlkView/GlkSessionProtocol.h>
 
-//
-// Method used to communicate with the hub object used by the main Glk server process
-//
-
-@protocol GlkHub
+///
+/// Methods used to communicate with the hub object used by the main Glk server process.
+///
+NS_SWIFT_NAME(GlkHubProtocol)
+@protocol GlkHub <NSObject>
 
 // Setting up the connection
-- (byref NSObject<GlkSession>*) createNewSession;
-- (byref NSObject<GlkSession>*) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie;
-- (byref NSObject<GlkSession>*) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie
-												sessionCookie: (in bycopy NSString*) sessionCookie;
+- (nullable byref id<GlkSession>) createNewSession;
+- (nullable byref id<GlkSession>) createNewSessionWithHubCookie: (nullable in bycopy NSString*) hubCookie;
+- (nullable byref id<GlkSession>) createNewSessionWithHubCookie: (nullable in bycopy NSString*) hubCookie
+												  sessionCookie: (nullable in bycopy NSString*) sessionCookie;
 
 @end
+
+#endif

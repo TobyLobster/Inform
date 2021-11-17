@@ -1,18 +1,17 @@
 /* ZoomGameInfoController */
 
-// Controller for the game info window
-
 #import <Cocoa/Cocoa.h>
-#import "ZoomStory.h"
-#import "ZoomResourceDrop.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomResourceDrop.h>
 
-@interface ZoomGameInfoController : NSWindowController {
+/// Controller for the game info window
+@interface ZoomGameInfoController : NSWindowController <NSOpenSavePanelDelegate> {
 	IBOutlet NSMenu*      genreMenu;
 	
 	IBOutlet NSTextField* gameName;
 	IBOutlet NSTextField* headline;
 	IBOutlet NSTextField* author;
-	IBOutlet NSTextField* genre;
+	IBOutlet NSComboBox* genre;
 	IBOutlet NSTextField* year;
 	IBOutlet NSTextField* group;
 	
@@ -24,7 +23,7 @@
 	IBOutlet NSButton*      ratingOn;
 	
 	IBOutlet ZoomResourceDrop* resourceDrop;
-	IBOutlet NSTextField*      resourceFilename;
+	IBOutlet NSTextField*      resourceFilenameField;
 	IBOutlet NSButton*         chooseResourceButton;
 	
 	IBOutlet NSTabView*     tabs;
@@ -34,7 +33,7 @@
 	id infoOwner;
 }
 
-+ (ZoomGameInfoController*) sharedGameInfoController;
+@property (class, readonly, retain) ZoomGameInfoController *sharedGameInfoController;
 
 // Interface actions
 - (IBAction)selectGenre:(id)sender;
@@ -43,26 +42,24 @@
 - (IBAction)chooseResourceFile:(id)sender;
 
 // Setting up the game info window
-- (void) setGameInfo: (ZoomStory*) info;
-- (ZoomStory*) gameInfo;
+@property (nonatomic, retain) ZoomStory *gameInfo;
 
-- (void) setInfoOwner: (id) owner;
-- (id)   infoOwner;
+@property (strong) id infoOwner;
 
 // Reading the current (updated) contents of the game info window
-- (NSString*) title;
-- (NSString*) headline;
-- (NSString*) author;
-- (NSString*) genre;
-- (int)       year;
-- (NSString*) group;
-- (NSString*) comments;
-- (NSString*) teaser;
-- (unsigned)  zarfRating;
-- (float)     rating;
-- (NSString*) resourceFilename;
+@property (readonly, copy) NSString *title;
+@property (readonly, copy) NSString *headline;
+@property (readonly, copy) NSString *author;
+@property (readonly, copy) NSString *genre;
+@property (readonly) int year;
+@property (readonly, copy) NSString *group;
+@property (readonly, copy) NSString *comments;
+@property (readonly, copy) NSString *teaser;
+@property (readonly) IFMB_Zarfian zarfRating;
+@property (readonly) float rating;
+@property (readonly, copy) NSString *resourceFilename;
 
 // Read them all at once
-- (NSDictionary*) dictionary;
+- (NSDictionary<NSString*,id>*) dictionary;
 
 @end

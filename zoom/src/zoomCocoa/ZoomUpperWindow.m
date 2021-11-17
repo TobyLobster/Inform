@@ -7,48 +7,31 @@
 //
 
 #import "ZoomUpperWindow.h"
+#import "ZoomView.h"
 
+static NSString* blankLine(NSInteger length);
 
-@implementation ZoomUpperWindow {
-    ZoomView* theView;
+@implementation ZoomUpperWindow
 
-    int startLine, endLine;
-
-    NSMutableArray* lines;
-    int xpos, ypos;
-
-    NSColor* backgroundColour;
-    ZStyle* inputStyle;
-}
-
-- (instancetype) initWithZoomView: (ZoomView*) view {
+- (id) initWithZoomView: (ZoomView*) view {
     self = [super init];
     if (self) {
         theView = view;
         lines = [[NSMutableArray alloc] init];
-        backgroundColour = [[NSColor blueColor] retain];
+
+        backgroundColour = [NSColor blueColor];
+
         endLine = startLine = 0;
     }
     return self;
 }
 
-- (void) dealloc {
-    //[theView release];
-    [lines release];
-	[inputStyle release];
-    [backgroundColour release];
-    [super dealloc];
-}
-
 // Clears the window
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
-    [lines release];
     lines = [[NSMutableArray alloc] init];
     xpos = ypos = 0;
 
-    [backgroundColour release];
-    backgroundColour = [[style reversed]?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style]
-		retain];
+    backgroundColour = style.reversed?[theView foregroundColourForStyle: style]:[theView backgroundColourForStyle: style];
 }
 
 // Sets the input focus to this window
@@ -58,49 +41,43 @@
 
 // Sending data to a window
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style
-                  isCommand: (in bycopy BOOL) isCommand {
+                  withStyle: (in bycopy ZStyle*) style {
     [style setFixed: YES];
 
-    int x;
-    int len = (int) [string length];
-    for (x=0; x<len; x++) {
+    NSInteger len = [string length];
+    for (NSInteger x=0; x<len; x++) {
         if ([string characterAtIndex: x] == '\n') {
             [self writeString: [string substringToIndex: x]
-                    withStyle: style
-                    isCommand: isCommand];
+                    withStyle: style];
             ypos++; xpos = 0;
             [self writeString: [string substringFromIndex: x+1]
-                    withStyle: style
-                    isCommand: isCommand];
+                    withStyle: style];
             return;
         }
     }
 
     if (ypos >= [lines count]) {
-        int x;
-        for (x=(int) [lines count]; x<=ypos; x++) {
-            [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
+        for (NSInteger x=[lines count]; x<=ypos; x++) {
+            [lines addObject: [[NSMutableAttributedString alloc] init]];
         }
     }
 
     NSMutableAttributedString* thisLine;
-    thisLine = lines[ypos];
+    thisLine = [lines objectAtIndex: ypos];
 
-    int strlen = (int) [string length];
+    NSInteger strlen = [string length];
 
     // Make sure there is enough space on this line for the text
     if ([thisLine length] <= xpos+strlen) {
-        NSFont* fixedFont = [theView fontWithStyle: ZFixedStyle];
+        NSFont* fixedFont = [theView fontFromStyle: ZFontStyleFixed];
         NSDictionary* clearStyle = @{NSFontAttributeName: fixedFont};
+		NSInteger spacesLen = (xpos+strlen)-[thisLine length];
 
         NSAttributedString* spaceString = [[NSAttributedString alloc]
-                                    initWithString: blankLine((xpos+strlen)-(int) [thisLine length])
-                                        attributes: clearStyle];
+            initWithString: blankLine(spacesLen)
+                attributes: clearStyle];
         
         [thisLine appendAttributedString: spaceString];
-
-        [spaceString release];
     }
 
     // Replace the appropriate section of the line
@@ -126,7 +103,7 @@
 
 // Cursor positioning
 - (oneway void) setCursorPositionX: (in int) xp
-                                 Y: (in int) yp {
+								 Y: (in int) yp {
     xpos = xp; ypos = yp-startLine;
 	
 	if (xpos < 0) xpos = 0;
@@ -139,17 +116,21 @@
 
 
 // Line erasure
-static NSString* blankLine(int length) {
-	return [@"" stringByPaddingToLength: length
-                             withString: @" "
-                        startingAtIndex: 0];
+static NSString* blankLine(NSInteger length) {
+	char* cString = malloc(length);
+	
+	memset(cString, ' ', length);
+	NSData *cStrDat = [NSData dataWithBytesNoCopy:cString length:length freeWhenDone:YES];
+	
+	NSString* res = [[NSString alloc] initWithData:cStrDat encoding:NSASCIIStringEncoding];
+	
+	return res;
 }
 
 - (oneway void) eraseLineWithStyle: (in bycopy ZStyle*) style {
     if (ypos >= [lines count]) {
-        int x;
-        for (x=(int) [lines count]; x<=ypos; x++) {
-            [lines addObject: [[[NSMutableAttributedString alloc] init] autorelease]];
+        for (NSInteger x=[lines count]; x<=ypos; x++) {
+            [lines addObject: [[NSMutableAttributedString alloc] init]];
         }
     }
 
@@ -161,7 +142,7 @@ static NSString* blankLine(int length) {
 		newString = [theView formatZString: blankLine(xs+1)
 								 withStyle: style];
 		
-        [lines[ypos] setAttributedString: newString];
+        [[lines objectAtIndex: ypos] setAttributedString: newString];
 }
 
 // Maintainance
@@ -170,12 +151,10 @@ static NSString* blankLine(int length) {
 }
 
 - (NSArray*) lines {
-    return lines;
+    return [lines copy];
 }
 
-- (NSColor*) backgroundColour {
-    return backgroundColour;
-}
+@synthesize backgroundColour;
 
 - (void) cutLines {
 	int length = [self length];
@@ -186,13 +165,10 @@ static NSString* blankLine(int length) {
 }
 
 - (void) reformatLines {
-	NSEnumerator* lineEnum = [lines objectEnumerator];
-	NSMutableAttributedString* string;
-	
-	while (string = [lineEnum nextObject]) {
+	for (NSMutableAttributedString* string in lines) {
 		NSRange attributedRange;
 		NSDictionary* attr;
-		int len = (int) [string length];
+		NSInteger len = [string length];
 				
 		attributedRange.location = 0;
 		
@@ -204,7 +180,7 @@ static NSString* blankLine(int length) {
 			if (attributedRange.length == 0) break;
 			
 			// Re-apply the style associated with this block of text
-			ZStyle* sty = attr[ZoomStyleAttributeName];
+			ZStyle* sty = [attr objectForKey: ZoomStyleAttributeName];
 			
 			if (sty) {
 				NSDictionary* newAttr = [theView attributesForStyle: sty];
@@ -218,54 +194,79 @@ static NSString* blankLine(int length) {
 	}
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
+#define LINESCODINGKEY @"lines"
+#define BACKGROUNDCOLORCODINGKEY @"backgroundColour"
+#define STARTLINECODINGKEY @"startLine"
+#define ENDLINECODINGKEY @"endLine"
+#define XPOSCODINGKEY @"xpos"
+#define YPOSCODINGKEY @"ypos"
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &startLine];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &endLine];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &xpos];
-	[encoder encodeValueOfObjCType: @encode(int)
-								at: &ypos];
-	[encoder encodeObject: lines];
-	[encoder encodeObject: backgroundColour];
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeInt: startLine forKey: STARTLINECODINGKEY];
+		[encoder encodeInt: endLine forKey: ENDLINECODINGKEY];
+		[encoder encodeInt: xpos forKey: XPOSCODINGKEY];
+		[encoder encodeInt: ypos forKey: YPOSCODINGKEY];
+		[encoder encodeObject: lines forKey: LINESCODINGKEY];
+		[encoder encodeObject: backgroundColour forKey: BACKGROUNDCOLORCODINGKEY];
+	} else {
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &startLine];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &endLine];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &xpos];
+		[encoder encodeValueOfObjCType: @encode(int)
+									at: &ypos];
+		[encoder encodeObject: lines];
+		[encoder encodeObject: backgroundColour];
+	}
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [self initWithZoomView: nil];
+- (id)initWithCoder:(NSCoder *)decoder {
+	self = [super init];
 	
     if (self) {
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &startLine];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &endLine];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &xpos];
-		[decoder decodeValueOfObjCType: @encode(int)
-									at: &ypos];
-        [lines release];
-        [backgroundColour release];
-		lines = [[decoder decodeObject] retain];
-		backgroundColour = [[decoder decodeObject] retain];
+		if (decoder.allowsKeyedCoding) {
+			startLine = [decoder decodeIntForKey: STARTLINECODINGKEY];
+			endLine = [decoder decodeIntForKey: ENDLINECODINGKEY];
+			xpos = [decoder decodeIntForKey: XPOSCODINGKEY];
+			ypos = [decoder decodeIntForKey: YPOSCODINGKEY];
+			lines = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableAttributedString class], [NSMutableArray class], nil] forKey: LINESCODINGKEY];
+			backgroundColour = [decoder decodeObjectOfClass: [NSColor class] forKey: BACKGROUNDCOLORCODINGKEY];
+		} else {
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &startLine
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &endLine
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &xpos
+									  size: sizeof(int)];
+			[decoder decodeValueOfObjCType: @encode(int)
+										at: &ypos
+									  size: sizeof(int)];
+			lines = [decoder decodeObject];
+			backgroundColour = [decoder decodeObject];
+		}
     }
 	
     return self;
 }
 
-- (void) setZoomView: (ZoomView*) view {
-	theView = view;
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
-// = Input styles =
+#pragma mark -
 
-- (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
-	if (inputStyle) [inputStyle release];
-	inputStyle = [newInputStyle copy];
-}
+@synthesize zoomView = theView;
 
-- (bycopy ZStyle*) inputStyle {
-	return inputStyle;
-}
+#pragma mark - Input styles
+
+@synthesize inputStyle;
 
 @end

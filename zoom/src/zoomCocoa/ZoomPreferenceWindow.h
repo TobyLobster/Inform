@@ -8,9 +8,9 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomPreferences.h"
+#import <ZoomView/ZoomPreferences.h>
 
-@interface ZoomPreferenceWindow : NSWindowController {
+@interface ZoomPreferenceWindow : NSWindowController <NSToolbarDelegate, NSTableViewDataSource, NSTableViewDelegate> {
 	// The various views
 	IBOutlet NSView* generalSettingsView;
 	IBOutlet NSView* gameSettingsView;
@@ -60,14 +60,14 @@
 	IBOutlet NSButton* zoomBorders;
 	IBOutlet NSButton* showCoverPicture;
 	
-	// The toolbar
+	/// The toolbar
 	NSToolbar* toolbar;
 	
-	// The preferences that we're editing
+	/// The preferences that we're editing
 	ZoomPreferences* prefs;
 }
 
-- (void) setPreferences: (ZoomPreferences*) prefs;
+@property (nonatomic, strong) ZoomPreferences *preferences;
 
 // Interface actions
 - (IBAction) glulxInterpreterChanged: (id) sender;

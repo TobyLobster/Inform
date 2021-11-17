@@ -7,13 +7,14 @@
 //
 
 #import "ZoomClient.h"
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 #import "ZoomClientController.h"
 #import "ZoomStoryOrganiser.h"
+#import <ZoomView/ZoomView-Swift.h>
 
 #import "ZoomAppDelegate.h"
 
-#import "ifmetabase.h"
+#import <ZoomPlugIns/ifmetabase.h>
 
 // This deserves a note by itself: the autosave system is a bit weird. Strange bits are
 // handled by strange objects for strange reasons. This is because we have:
@@ -55,7 +56,10 @@
 // Oh, and, umm, official Zoom terminology is 'Story' rather than 'Game'. Except I always
 // forget that.
 
-@implementation ZoomClient
+@implementation ZoomClient {
+	BOOL wasRestored;
+	NSMutableArray<NSString*>* loadingErrors;
+}
 
 - (id) init {
     self = [super init];
@@ -73,121 +77,128 @@
     return self;
 }
 
-- (void) dealloc {
-    [gameData release];
-	if (story) [story release];
-	if (storyId) [storyId release];
-	
-	if (defaultView) [defaultView release];
-	if (saveData) [saveData release];
-	
-	if (resources) [resources release];
-	
-	[skein release];
-    
-    [super dealloc];
-}
-
-// = Creating the document =
+#pragma mark - Creating the document
 
 - (void) makeWindowControllers {
     ZoomClientController* controller = [[ZoomClientController alloc] init];
 
-    [self addWindowController: [controller autorelease]];
+    [self addWindowController: controller];
 }
 
-- (NSData *)dataRepresentationOfType:(NSString *)type {
+- (NSData *)dataOfType:(NSString *)type error:(NSError * _Nullable * _Nullable)outError {
     // Can't save, really
 
     return gameData;
 }
 
-- (BOOL)loadDataRepresentation:(NSData *)data
-						ofType:(NSString *)type {
+- (BOOL)readFromData:(NSData *)data
+			  ofType:(NSString *)type
+			   error:(NSError * _Nullable * _Nullable)outError {
+	ZoomIsSpotlightIndexing = NO;
 	const unsigned char* bytes = [data bytes];
 	BOOL isForm = NO;
 	
 	// No valid game can be less than 40 bytes long (in fact, it must be longer but 40 bytes is needed for the ID, etc)
-	if ([data length] < 40) return NO;
+	if ([data length] < 40) {
+		if (outError) {
+			*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+											code: NSFileReadCorruptFileError
+										userInfo: nil];
+		}
+		return NO;
+	}
 	
 	// See if this looks like a Blorb file (begins with 'FORM')
 	if (bytes[0] == 'F' && bytes[1] == 'O' && bytes[2] == 'R' && bytes[3] == 'M') isForm = YES;
 	
-	if ([[type lowercaseString] isEqualToString: @"blorb resource file"] || isForm) {
+	if ([type isEqualToString: @"public.blorb"] || isForm) {
 		// Blorb files already have their resources pre-packaged: get the Z-Code chunk out of this file
-		if (gameData) [gameData release];
 		gameData = nil;
 		
-		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data];
-		if (newRes == nil) return NO;
+		ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithData: data
+															  error: outError];
+		if (newRes == nil) {
+			return NO;
+		}
 		
-		[self setResources: [newRes autorelease]];
+		[self setResources: newRes];
 		
 		NSArray* zcodChunks = [newRes chunksWithType: @"ZCOD"];
 		if (zcodChunks == nil || [zcodChunks count] <= 0) {
 			NSLog(@"Not a Z-Code file");
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadCorruptFileError
+											userInfo: nil];
+			}
 			return NO;
 		}
 		
 		gameData = [newRes dataForChunk: [zcodChunks objectAtIndex: 0]];
-		if (gameData == nil) return NO;
-		
-		[gameData retain];
+		if (gameData == nil) {
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadCorruptFileError
+											userInfo: nil];
+			}
+			return NO;
+		}
 	} else {
 		// Just a plain z-code file: load the lot
-		if (gameData) [gameData release];
-		gameData = [data retain];
+		gameData = data;
 	}
 	
 	// Discover the metadata for this game
-	storyId = [[ZoomStoryID alloc] initWithZCodeStory: gameData];
+	storyId = [[ZoomStoryID alloc] initWithZCodeStory: gameData
+												error: outError];
 
 	if (storyId == nil) {
 		// Can't ID this story
-		[gameData release];
 		gameData = nil;
+		if (outError) {
+			*outError = [NSError errorWithDomain: ZoomStoryIDErrorDomain
+											code: ZoomStoryIDErrorNoIdentGenerated
+										userInfo: nil];
+		}
 		return NO;
 	}
 	
-	ZoomMetadata* userMetadata = [[NSApp delegate] userMetadata];
+	ZoomMetadata* userMetadata = [(ZoomAppDelegate*)[NSApp delegate] userMetadata];
 	
 	story = [userMetadata containsStoryWithIdent: storyId]?[userMetadata findOrCreateStory: storyId]:nil;
 	
 	if (!story) {
 		// If there is no metadata, then make some up
-		story = [[NSApp delegate] findStory: storyId];
+		story = [(ZoomAppDelegate*)[NSApp delegate] findStory: storyId];
 		
 		if (story == nil) {
-			story = [[ZoomStory defaultMetadataForFile: [self fileName]] retain];
-		} else {
-			[story retain];
+			story = [ZoomStory defaultMetadataForURL: [self fileURL] error: NULL];
 		}
 		
 		[story addID: storyId];
 		
-		[[[NSApp delegate] userMetadata] copyStory: story];
-		[story release];
+		[[(ZoomAppDelegate*)[NSApp delegate] userMetadata] copyStory: story];
 		
-		story = [[[NSApp delegate] userMetadata] findOrCreateStory: storyId];
-		[story retain];
+		story = [[(ZoomAppDelegate*)[NSApp delegate] userMetadata] findOrCreateStory: storyId];
 	} else {
 		// If there is some metadata, then keep it around
-		[story retain];
+//		[story retain];
 	}
 	
 	// Retrieve story resources (if available)
 	NSString* resourceFilename = [story objectForKey: @"ResourceFilename"];
 	if (resourceFilename != nil && [[NSFileManager defaultManager] fileExistsAtPath: resourceFilename]) {
 		// Try to load the resources set for this game
-		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfFile: resourceFilename];
+		NSError *err;
+		ZoomBlorbFile* newResources = [[ZoomBlorbFile alloc] initWithContentsOfURL: [NSURL fileURLWithPath: resourceFilename] error: &err];
 		
 		if (newResources) {
 			// Resources loaded OK: discard any resources we may have loaded earlier in findResourcesForFile
-			[resources release];
 			resources = newResources;
 		} else {
 			// Failed to load the resources that were set
 			[self addLoadingError: @"Failed to load resources: the resource file set for the story was found but is not a valid Blorb resource file"];
+			[self addLoadingError: err.localizedDescription];
 			[story setObject: nil
 					  forKey: @"ResourceFilename"];
 		}
@@ -200,31 +211,24 @@
 	}
 	
 	// Store/organise this story
-	[[ZoomStoryOrganiser sharedStoryOrganiser] addStory: [self fileName]
-											  withIdent: storyId
-											   organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]];
+	[[ZoomStoryOrganiser sharedStoryOrganiser] addStoryAtURL: [self fileURL]
+												withIdentity: storyId
+													organise: [[ZoomPreferences globalPreferences] keepGamesOrganised]
+													   error: NULL];
     
     return YES;
 }
 
-// = Document info =
+#pragma mark - Document info
 
-- (NSData*) gameData {
-    return gameData;
-}
-
-- (ZoomStory*) storyInfo {
-	return story;
-}
-
-- (ZoomStoryID*) storyId {
-	return storyId;
-}
+@synthesize gameData;
+@synthesize storyInfo=story;
+@synthesize storyId;
 
 - (NSString*) displayName {
 	if (story && [story title]) {
 		if (wasRestored) {
-			return [NSString stringWithFormat: @"%@ (restored from %@)", [story title], [super displayName]];
+			return [NSString stringWithFormat: NSLocalizedString(@"%@ (restored from %@)", @"%@ (restored from %@)"), [story title], [super displayName]];
 		} else {
 			return [story title];
 		}
@@ -233,19 +237,12 @@
 	return [super displayName];
 }
 
-// = Autosave =
+#pragma mark - Autosave
 
-- (void) setAutosaveData: (NSData*) data {
-	if (autosaveData) [autosaveData release];
-	autosaveData = [data retain];
-}
-
-- (NSData*) autosaveData {
-	return autosaveData;
-}
+@synthesize autosaveData;
 
 - (void) loadDefaultAutosave {
-	if (autosaveData) [autosaveData release];
+	if (autosaveData) autosaveData = nil;
 	
 	NSString* autosaveDir = [[ZoomStoryOrganiser sharedStoryOrganiser] directoryForIdent: storyId
 																				  create: NO];
@@ -256,24 +253,26 @@
 		return;
 	}
 	
-	autosaveData = [[NSData dataWithContentsOfFile: autosaveFile] retain];
+	autosaveData = [NSData dataWithContentsOfFile: autosaveFile];
 }
 
 - (BOOL) checkResourceFile: (NSString*) file {
-	NSFileManager* fm = [NSFileManager defaultManager];
+	return [self checkResourceURL: [NSURL fileURLWithPath: file] error: NULL];
+}
+
+- (BOOL) checkResourceURL: (NSURL*) file error: (NSError**) outError {
 	BOOL exists, isDir;
 	
 	// Check that the file exists
-	exists = [fm fileExistsAtPath: file
-					  isDirectory: &isDir];
+	exists = urlIsAvailableAndIsDirectory(file, &isDir, NULL, NULL, outError);
 	if (!exists || isDir) return NO;
 	
 	// Try to load it as a blorb resource file
-	ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithContentsOfFile: file];
+	ZoomBlorbFile* newRes = [[ZoomBlorbFile alloc] initWithContentsOfURL: file error: outError];
 	if (newRes == nil) return NO;
 	
 	// Set resources appropriately
-	[self setResources: [newRes autorelease]];
+	[self setResources: newRes];
 	
 	// Success!
 	return YES;
@@ -312,24 +311,29 @@
 	}
 }
 
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper 
-							   ofType:(NSString *)docType {
-	if (![[docType lowercaseString] isEqualToString: @"quetzal saved game"] && ![wrapper isDirectory]) {		
+- (BOOL)readFromFileWrapper:(NSFileWrapper *)wrapper
+					 ofType:(NSString *)docType
+					  error:(NSError * _Nullable * _Nullable)outError {
+	if (![docType isEqualToString: @"public.qut"] && ![wrapper isDirectory]) {
 		// Note that resources might come from elsewhere later on in the load process, too
-		[self findResourcesForFile: [self fileName]];
+		[self findResourcesForFile: [[self fileURL] path]];
 		
 		// Pass files onto the data loader
-		return [self loadDataRepresentation: [wrapper regularFileContents] 
-									 ofType: docType];
+		return [self readFromData: [wrapper regularFileContents]
+						   ofType: docType
+							error: outError];
 	}
 
-	if (![[docType lowercaseString] isEqualToString: @"zoom savegame"] &&
-		![[docType lowercaseString] isEqualToString: @"quetzal saved game"]) {
+	if (![docType isEqualToString: @"uk.org.logicalshift.zoomsave"] &&
+		![docType isEqualToString: @"public.qut"]) {
 		// Process only zoomSave files
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:nil];
+		}
 		return NO;
 	}
 	
-	BOOL isSingleFile = [[docType lowercaseString] isEqualToString: @"quetzal saved game"];
+	BOOL isSingleFile = [docType isEqualToString: @"public.qut"];
 	
 	// NOTE: a future version of Zoom will add a story type identifier to the zoomSave file format, to
 	// support various types of Glk games.
@@ -340,16 +344,18 @@
 	
 	if (quetzal == nil) {
 		// Not a valid zoomSave file
-		 NSBeginAlertSheet(@"Not a valid Zoom savegame package", 
-						   @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						   @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
-		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]]
+			}];
+		}
 		return NO;
 	}
 	
 	const unsigned char* bytes = [quetzal bytes];
-	unsigned int len = [quetzal length];
-	unsigned int pos = 16;
+	NSUInteger len = [quetzal length];
+	NSUInteger pos = 16;
 	
 	while (pos < len) {
 		unsigned int blockLength = (bytes[pos]<<24)  | (bytes[pos+1]<<16) | (bytes[pos+2]<<8) | bytes[pos+3];
@@ -365,7 +371,6 @@
 				storyID = [[ZoomStoryID alloc] initWithZcodeRelease: release
 															 serial: serial
 														   checksum: checksum];
-				[storyID autorelease];
 			}
 		}
 		
@@ -374,17 +379,25 @@
 	}
 	
 	if ((pos-4) > len) {
+		NSString *msg;
+		NSString *info;
 		// Not a valid zoomSave file
 		if (!isSingleFile) {
-			NSBeginAlertSheet(@"Not a valid Zoom savegame package", 
-							  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-							  @"%@ does not contain a valid 'save.qut' file", [[wrapper filename] lastPathComponent]);
+			msg = NSLocalizedString(@"Not a valid Zoom savegame package", @"Not a valid Zoom savegame package");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ does not contain a valid 'save.qut' file", @"%@ does not contain a valid 'save.qut' file"), [[wrapper filename] lastPathComponent]];
 		} else {
-			NSBeginAlertSheet(@"Not a valid Quetzal file", 
-							  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-							  @"%@ is not a valid Quetzal file", [[wrapper filename] lastPathComponent]);
+			msg = NSLocalizedString(@"Not a valid Quetzal file", @"Not a valid Quetzal file");
+			info = [NSString stringWithFormat: NSLocalizedString(@"%@ is not a valid Quetzal file", @"%@ is not a valid Quetzal file"), [[wrapper filename] lastPathComponent]];
 		}
 		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain
+											code:NSFileReadCorruptFileError
+										userInfo:@{
+				NSLocalizedDescriptionKey: msg,
+				NSLocalizedFailureReasonErrorKey: info,
+			}];
+		}
 		return NO;
 	}
 	
@@ -393,13 +406,13 @@
 		NSData* plist = [[[wrapper fileWrappers] objectForKey: @"Info.plist"] regularFileContents];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomStoryId"];
 			if (idString != nil) {
-				storyID = [[[ZoomStoryID alloc] initWithIdString: idString] autorelease];
+				storyID = [[ZoomStoryID alloc] initWithIdString: idString];
 			}
 		}
 	}
@@ -410,110 +423,102 @@
 	
 	if (gameFile == nil) {
 		// Couldn't find a story for this savegame
-		NSBeginAlertSheet(@"Unable to find story file", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom does not know where a valid story file for '%@' is and so is unable to load it", [[wrapper filename] lastPathComponent]);
-		
-		return NO;		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom does not know where a valid story file for '%@' is and so is unable to load it", @"Zoom does not know where a valid story file for '%@' is and so is unable to load it"), [[wrapper filename] lastPathComponent]]
+			}];
+		}
+		return NO;
 	}
 	
-	NSData* data = [NSData dataWithContentsOfFile: gameFile];
+	NSError *underlying;
+	NSData* data = [NSData dataWithContentsOfFile: gameFile options: 0 error: &underlying];
 	if (data == nil) {
 		// Couldn't find the story data for this savegame
-		NSBeginAlertSheet(@"Unable to find story file", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom is unable to load a valid story file for '%@' (tried '%@')", [[wrapper filename] lastPathComponent],
-						  gameFile);
-		
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to find story file", @"Unable to find story file"),
+				NSLocalizedFailureReasonErrorKey:[NSString stringWithFormat: NSLocalizedString(@"Zoom is unable to load a valid story file for '%@' (tried '%@')", @"Zoom is unable to load a valid story file for '%@' (tried '%@')"), [[wrapper filename] lastPathComponent], gameFile],
+				NSUnderlyingErrorKey: underlying
+			}];
+		}
 		return NO;		
 	}
 	
 	if (isSingleFile) {
 		// No more to do
-		if (saveData) [saveData release];
-		saveData = [[NSData dataWithBytes: ((unsigned char*)[quetzal bytes])+12 length: [quetzal length]-12] retain];
+		saveData = [quetzal subdataWithRange:NSMakeRange(12, quetzal.length - 12)];
 
 		wasRestored = YES;
 		
-		[self setFileName: gameFile];
-		return [self loadDataRepresentation: data
-									 ofType: @"ZCode story"];
+		[self setFileURL: [NSURL fileURLWithPath: gameFile]];
+		return [self readFromData: data
+						   ofType: @"public.zcode"
+							error: outError];
 	}
 	
 	// Get the saved view state for this game
 	NSData* savedViewArchive = [[[wrapper fileWrappers] objectForKey: @"ZoomStatus.dat"] regularFileContents];
 	ZoomView* savedView = nil;
 		
-	if (savedViewArchive) 
-		savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
+	if (savedViewArchive) {
+//		savedView = [NSKeyedUnarchiver unarchivedObjectOfClass: [ZoomView class] fromData: savedViewArchive error: NULL];
+		// Needed because some class in NSTextStorage doesn't play nice with secure coding.
+		savedView = [NSKeyedUnarchiver unarchiveObjectWithData: savedViewArchive];
+		if (!savedView) {
+			savedView = [NSUnarchiver unarchiveObjectWithData: savedViewArchive];
+		}
+	}
 	
 	if (savedView == nil || ![savedView isKindOfClass: [ZoomView class]]) {
-		NSBeginAlertSheet(@"Unable to load saved screen state", 
-						  @"Cancel", nil, nil, nil, nil, nil, nil, nil,
-						  @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", [[wrapper filename] lastPathComponent]);
+		if (outError) {
+			*outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{
+				NSLocalizedDescriptionKey: NSLocalizedString(@"Unable to load saved screen state", @"Unable to load saved screen state"),
+				NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat: NSLocalizedString(@"Zoom was unable to find the saved screen state for '%@', and so is unable to start it", @"Zoom was unable to find the saved screen state for '%@', and so is unable to start it"), [[wrapper filename] lastPathComponent]]
+			}];
+		}
 		return NO;
 	}
 	
 	// Get the skein for this game
 	NSData* skeinArchive = [[[wrapper fileWrappers] objectForKey: @"Skein.skein"] regularFileContents];
 	if (skeinArchive) {
-		[skein parseXmlData: skeinArchive];
+		//TODO: handle skein load failures
+		[skein parseXmlData: skeinArchive error: NULL];
 	}
 	
 	// OK, we're ready to roll!
-	if (defaultView) [defaultView release];
-	if (saveData) [saveData release];
-	
-	defaultView = [savedView retain];
-	saveData = [[NSData dataWithBytes: ((unsigned char*)[quetzal bytes])+12 length: [quetzal length]-12] retain];
+	defaultView = savedView;
+	saveData = [quetzal subdataWithRange:NSMakeRange(12, quetzal.length - 12)];
 	
 	// NOTE: saveData is the data minus the 'FORM' chunk - that is, valid input for state_decompile()
 	// (which doesn't use this chunk)
 	wasRestored = YES;
 	
-	[self setFileName: gameFile];
-	return [self loadDataRepresentation: data
-								 ofType: @"ZCode story"];
+	[self setFileURL: [NSURL fileURLWithPath: gameFile]];
+	return [self readFromData: data
+					   ofType: @"public.zcode"
+						error: outError];
 }
 
-- (ZoomView*) defaultView {
-	return defaultView;
-}
+@synthesize defaultView;
+@synthesize saveData;
+@synthesize skein;
+@synthesize resources;
 
-- (NSData*) saveData {
-	return saveData;
-}
-
-- (void) setSaveData: (NSData*) newSaveData {
-	[saveData release];
-	saveData = [newSaveData copy];
-}
-
-- (ZoomSkein*) skein {
-	return skein;
-}
-
-- (void) setResources: (ZoomBlorbFile*) res {
-	if (resources) [resources release];
-	resources = [res retain];
-}
-
-- (ZoomBlorbFile*) resources {
-	return resources;
-}
-
-// = Errors that might have happened but we recovered from =
+#pragma mark - Errors that might have happened but we recovered from
 
 - (void) addLoadingError: (NSString*) loadingError {
 	// Using this mechanism allows us to report that we couldn't find any resources (for instance) to the
 	// controller, so it can display a proper error messages
 	if (!loadingErrors) loadingErrors = [[NSMutableArray alloc] init];
 	
-	[loadingErrors addObject: [[loadingError copy] autorelease]];
+	[loadingErrors addObject: [loadingError copy]];
 }
 
 - (NSArray*) loadingErrors {
-	return loadingErrors;
+	return [loadingErrors copy];
 }
 
 @end

@@ -192,8 +192,8 @@ IFID IFMB_IdFromString(const char* idString) {
 	 */
 	
 	int x;
-	int idLen;
-	char lowerPrefix[10];
+	size_t idLen;
+	char lowerPrefix[10]="";
 	int systemLen;
 	int pos;
 	unsigned char md5[16];
@@ -732,7 +732,7 @@ int IFMB_CompareIds(IFID a, IFID b) {
 			if (a->data.glulx.checksum < b->data.glulx.checksum) return -1;
 				
 			if (a->data.glulx.release > b->data.glulx.release) return 1;
-			if (b->data.glulx.release < b->data.glulx.release) return -1;
+			if (a->data.glulx.release < b->data.glulx.release) return -1;
 						
 			for (x=0; x<6; x++) {
 				if (a->data.glulx.serial[x] > b->data.glulx.serial[x]) return 1;
@@ -750,7 +750,7 @@ int IFMB_CompareIds(IFID a, IFID b) {
 			
 		case ID_COMPOUND:
 			if (a->data.compound.count > b->data.compound.count) return 1;
-			if (b->data.compound.count < b->data.compound.count) return -1;
+			if (a->data.compound.count < b->data.compound.count) return -1;
 			
 			for (x=0; x<a->data.compound.count; x++) {
 				int comparison;
@@ -811,7 +811,7 @@ IFID IFMB_CopyId(IFID ident) {
 		strcpy(result->data.generic.idString, ident->data.generic.idString);
 	} else if (ident->type == ID_MD5) {
 		if (ident->data.md5.systemId != NULL) {
-			int len = strlen(ident->data.md5.systemId);
+			size_t len = strlen(ident->data.md5.systemId);
 			result->data.md5.systemId = malloc(sizeof(char)*(len+1));
 			strcpy(result->data.md5.systemId, ident->data.md5.systemId);
 		}

@@ -11,7 +11,7 @@
 
 @implementation ZoomMoreView
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code here.
@@ -20,32 +20,27 @@
 }
 
 - (void) setSize {
-    NSString* more = @"[More]";
-    NSDictionary* moreAttributes =
-        @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
-            NSBackgroundColorAttributeName: [NSColor colorWithDeviceRed: 0
-                                  green: 0.6
-                                   blue: 0.9
-                                  alpha: 1.0],
-            NSForegroundColorAttributeName: [NSColor blackColor]};
+    NSString* more = @"[More…]";
+    NSDictionary* moreAttributes = @{
+        NSFontAttributeName: [NSFont systemFontOfSize: 12],
+        NSBackgroundColorAttributeName: [NSColor controlAccentColor],
+        NSForegroundColorAttributeName: [NSColor labelColor]};
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self frame];
     moreSize.width += 2;
+    moreSize.width = ceil(moreSize.width);
     moreSize.height += 2;
     frame.size = moreSize;
     
     [self setFrame: frame];
 }
 
-- (void)drawRect:(NSRect)rect {
-    NSString* more = @"[More]";
-    NSDictionary* moreAttributes =
-        @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
-            NSBackgroundColorAttributeName: [NSColor colorWithDeviceRed: 0
-                                  green: 0.6
-                                   blue: 0.9
-                                  alpha: 1.0],
-            NSForegroundColorAttributeName: [NSColor blackColor]};
+- (void)drawRect:(__unused NSRect)rect {
+    NSString* more = NSLocalizedString(@"[More...]", @"[More…]");
+    NSDictionary* moreAttributes =@{
+        NSFontAttributeName: [NSFont systemFontOfSize: 12],
+        NSBackgroundColorAttributeName: [NSColor controlAccentColor],
+        NSForegroundColorAttributeName: [NSColor labelColor]};
 
     NSSize moreSize = [more sizeWithAttributes: moreAttributes];
     NSRect frame = [self bounds];
@@ -60,22 +55,14 @@
     // Draw the border
     [NSBezierPath setDefaultLineWidth: 0.5];
     
-    [[NSColor colorWithDeviceRed: 0
-                           green: .85
-                            blue: 1
-                           alpha: 1]
-        set];
+    [[NSColor selectedTextBackgroundColor] set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMinX(frame)+.5, NSMaxY(frame)-.5)];
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMaxY(frame)-.5)
                               toPoint: NSMakePoint(NSMaxX(frame)-.5, NSMaxY(frame)-.5)];;
     
-    [[NSColor colorWithDeviceRed: 0
-                           green: .25
-                            blue: .5
-                           alpha: 1]
-        set];
+    [[NSColor selectedContentBackgroundColor] set];
 
     [NSBezierPath strokeLineFromPoint: NSMakePoint(NSMinX(frame)+.5, NSMinY(frame)+.5)
                               toPoint: NSMakePoint(NSMaxX(frame)-.5, NSMinY(frame)+.5)];

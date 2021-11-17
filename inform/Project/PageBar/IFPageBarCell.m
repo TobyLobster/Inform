@@ -191,7 +191,7 @@ static NSColor* foregroundColour() {
 		} else {
 			backgroundImage = [IFPageBarView highlightedImage];
 		}
-	} else if ([self state] == NSOnState) {
+	} else if ([self state] == NSControlStateValueOn) {
 		backgroundImage = [IFPageBarView selectedImage];
 	}
 	
@@ -230,7 +230,7 @@ static NSColor* foregroundColour() {
 		
 		[dropDownArrow drawInRect: dropDownDrawRect
 						 fromRect: dropDownRect
-						operation: NSCompositeSourceOver
+						operation: NSCompositingOperationSourceOver
 						 fraction: 1.0];
 		
 		// Reduce the frame size
@@ -260,7 +260,7 @@ static NSColor* foregroundColour() {
 		
 		[image drawInRect: imageRect
 				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 		
 		// Draw the text
@@ -285,7 +285,7 @@ static NSColor* foregroundColour() {
 		
 		[image drawInRect: imageRect
 				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-				operation: NSCompositeSourceOver
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 	} else if (text) {
 		// Draw the text
@@ -308,11 +308,11 @@ static NSColor* foregroundColour() {
 - (NSInteger) nextState {
 	// Radio cells can be turned on (but get turned off manually)
 	if (radioGroup >= 0) {
-		return NSOnState;
+		return NSControlStateValueOn;
 	}
 	
 	// TODO: allow for push-on/push-off cells
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void) setState: (NSInteger) newState {
@@ -368,7 +368,7 @@ static NSColor* foregroundColour() {
 
 - (void) showPopupAtPoint: (NSPoint) pointInWindow {
 	if (menu) {
-		[self setState: NSOnState];
+		[self setState: NSControlStateValueOn];
 		isHighlighted = YES;
 		[self update];
 		
@@ -387,7 +387,7 @@ static NSColor* foregroundColour() {
 						 forView: [self controlView]
 						withFont: [NSFont systemFontOfSize: 11]];
 		
-		[self setState: NSOffState];
+		[self setState: NSControlStateValueOff];
 		[self update];
 	}
 }

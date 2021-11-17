@@ -6,12 +6,13 @@
 //  Copyright 2006 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "GlkGridTypesetter.h"
 
 
 @implementation GlkGridTypesetter
 
-// = Setting up the grid =
+#pragma mark - Setting up the grid
 
 - (void) invalidateAllLayout {
 	// Invalidates any layout performed in this text grid so far
@@ -25,15 +26,15 @@
 	[self invalidateAllLayout];
 }
 
-- (void) setCellSize: (NSSize) newSize {
+- (void) setCellSize: (GlkCocoaSize) newSize {
 	cellSize = newSize;
 	
 	[self invalidateAllLayout];
 }
 	
-// = Performing layout =
+#pragma mark - Performing layout
 
-- (NSUInteger) layoutLineFromGlyph: (NSUInteger) glyph {
+- (NSInteger) layoutLineFromGlyph: (NSInteger) glyph {
 	// Lays out a line fragment from the specified glyph
 	if (![self cacheGlyphsIncluding: glyph]) return glyph;
 	glyph -= cached.location;
@@ -42,22 +43,22 @@
 	
 	// Work out where in the grid we are currently located
 	NSUInteger charIndex = cacheCharIndexes[glyph];
-	NSUInteger x = charIndex % gridWidth;
-	NSUInteger y = charIndex / gridWidth;
-	NSPoint gridPos = NSMakePoint(cellSize.width*x+inset, cellSize.height*y);
+	NSInteger x = charIndex % gridWidth;
+	NSInteger y = charIndex / gridWidth;
+	GlkPoint gridPos = GlkMakePoint(cellSize.width*x+inset, cellSize.height*y);
 	
-	float charPos = gridPos.x;
-	float initialCharPos = charPos;
+	CGFloat charPos = gridPos.x;
+	CGFloat initialCharPos = charPos;
 	
 	// Perform layout for as many characters as possible
-	NSUInteger firstGlyph = glyph;
+	NSInteger firstGlyph = glyph;
 	NSUInteger lastChar = cacheCharIndexes[glyph];
-	float charWidth = 0;
-	NSUInteger lastBoundaryGlyph = glyph;
+	CGFloat charWidth = 0;
+	NSInteger lastBoundaryGlyph = glyph;
 	BOOL hitTheLastGlyph = NO;
 	
-	NSRect sectionBounds =  NSMakeRect(charPos, -cacheAscenders[glyph], 
-									   cacheAdvancements[glyph], cacheLineHeight[glyph]);
+	GlkRect sectionBounds =  GlkMakeRect(charPos, -cacheAscenders[glyph],
+										 cacheAdvancements[glyph], cacheLineHeight[glyph]);
 	
 	while (x < gridWidth && glyph < cached.length) {
 		NSUInteger thisChar = cacheCharIndexes[glyph];
@@ -74,7 +75,7 @@
 		}
 		
 		// Correct for any inaccuracies in the width of the characters
-		if (floorf(charPos) != floorf(gridPos.x) && thisChar != lastChar) {
+		if (floor(charPos) != floor(gridPos.x) && thisChar != lastChar) {
 			// Put all the characters so far in one line section
 			[self addLineSection: sectionBounds
 					 advancement: gridPos.x-initialCharPos
@@ -86,7 +87,7 @@
 			
 			// Start the next section
 			initialCharPos = charPos = gridPos.x;
-			sectionBounds =  NSMakeRect(charPos, -cacheAscenders[glyph], 
+			sectionBounds =  GlkMakeRect(charPos, -cacheAscenders[glyph],
 										cacheAdvancements[glyph], cacheLineHeight[glyph]);
 			firstGlyph = glyph;
 		}
@@ -95,7 +96,7 @@
 		lastChar = thisChar;
 		
 		// Measure this glyph
-		NSRect glyphBounds = NSMakeRect(charPos + charWidth, floorf(-cacheAscenders[glyph]), 
+		NSRect glyphBounds = NSMakeRect(charPos + charWidth, floor(-cacheAscenders[glyph]),
 										cacheAdvancements[glyph], cacheLineHeight[glyph]);
 		charWidth += cacheAdvancements[glyph];
 		sectionBounds = NSUnionRect(sectionBounds, glyphBounds);
@@ -146,7 +147,7 @@
 											movementDirection: NSLineMovesDown
 												remainingRect: &remaining];
 	
-	if (proposedRect.size.height == 0 && numLineSections > 0) {
+	if (proposedRect.size.height == 0 && sections.count > 0) {
 		// If the proposed rect is 0-height, then do no further layout
 		return sections[0].glyphRange.location;
 	}	
@@ -154,7 +155,7 @@
 	// Finish this line fragment
 	if (![self endLineFragment: hitTheLastGlyph
 					   newline: x == gridWidth]
-		&& numLineSections > 0) {
+		&& sections.count > 0) {
 		// Failed to lay anything out!
 		return sections[0].glyphRange.location;
 	}

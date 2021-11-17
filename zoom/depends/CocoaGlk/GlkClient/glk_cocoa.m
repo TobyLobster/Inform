@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
@@ -18,24 +18,29 @@
 #import "GlkSessionProtocol.h"
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 @class GlkCocoa;
 
-// = Variables =
+#pragma mark - Variables
 
 #if !defined(COCOAGLK_IPHONE)
-NSObject<GlkHub>* cocoaglk_hub = nil;									// Remote object that allows us to create sessions
-GlkCocoa* cocoaglk_obj = nil;											// Object that is notified when the remote session finishes
+/// Remote object that allows us to create sessions
+id<GlkHub> cocoaglk_hub = nil;
+/// Object that is notified when the remote session finishes
+static GlkCocoa* cocoaglk_obj = nil;
 #endif
 
-NSObject<GlkSession>* cocoaglk_session = nil;							// The active session
-GlkBuffer* cocoaglk_buffer = nil;										// The global buffer
+/// The active session
+id<GlkSession> cocoaglk_session = nil;
+/// The global buffer
+GlkBuffer* cocoaglk_buffer = nil;
 
-NSAutoreleasePool* cocoaglk_pool = nil;									// The autorelease pool
+/// The autorelease pool
+NSAutoreleasePool* cocoaglk_pool = nil;
 
-// = Object we use to receive some events =
+#pragma mark - Object we use to receive some events
 
 @interface GlkCocoa : NSObject
 
@@ -60,7 +65,7 @@ NSAutoreleasePool* cocoaglk_pool = nil;									// The autorelease pool
 
 @end
 
-// = Starting up =
+#pragma mark - Starting up
 
 #if !defined(COCOAGLK_IPHONE)
 
@@ -109,25 +114,25 @@ void cocoaglk_start(int argv, const char** argc) {
 	cocoaglk_obj = [[GlkCocoa alloc] init];
 	
 	// Attempt to connect to the hub
-	NSString* hubNameS = @(hubName);
+	NSString* hubNameS = [NSString stringWithUTF8String: hubName];
 	NSString* hubCookieS = nil;
 	NSString* sessionCookieS = nil;
 	
-	if (hubCookie) hubCookieS = @(hubCookie);
-	if (sessionCookie) sessionCookieS = @(sessionCookie);
+	if (hubCookie) hubCookieS = [NSString stringWithUTF8String: hubCookie];
+	if (sessionCookie) sessionCookieS = [NSString stringWithUTF8String: sessionCookie];
 	
-	NSString* connectionName = [NSString stringWithFormat: @"97V36B3QYK.com.inform7.inform-compiler.CocoaGlk-%@", hubNameS];
+	NSString* connectionName = [NSString stringWithFormat: @"CocoaGlk-%@", hubNameS];
 	
 	NSConnection* remoteConnection = [NSConnection connectionWithRegisteredName: connectionName
 																		   host: nil];
 	
 	if (remoteConnection == nil) {
-		NSLog(@"Failed to connect to Glk hub with name %@", hubNameS);
+		NSLog(@"Failed to connect to Glk hub with name %s", hubName);
 		NSLog(@"Unable to open display. Quitting");
 		exit(1);
 	}
 	
-	cocoaglk_hub = (NSObject<GlkHub>*)[remoteConnection rootProxy];
+	cocoaglk_hub = (id<GlkHub>)[remoteConnection rootProxy];
 	
 	if (cocoaglk_hub == nil) {
 		NSLog(@"Failed to retrieve hub object");
@@ -180,8 +185,8 @@ void cocoaglk_start(int argv, const char** argc) {
 
 #endif
 
-// Reports a warning to the server
-void cocoaglk_warning(char* warningText) {
+/// Reports a warning to the server
+void cocoaglk_warning(const char* warningText) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: cocoaglk_warning(\"%s\")", warningText);
 #endif
@@ -192,10 +197,10 @@ void cocoaglk_warning(char* warningText) {
 													   length: strlen(warningText)
 													 encoding: NSISOLatin1StringEncoding];
 	[cocoaglk_session showWarning: warningString];
-    [warningString release];
+	[warningString release];
 }
 
-// Reports an error to the server, then quits
+/// Reports an error to the server, then quits
 void cocoaglk_error(const char* errorText) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: cocoaglk_error(\"%s\")", errorText);
@@ -227,8 +232,8 @@ void cocoaglk_error(const char* errorText) {
 	}
 }
 
-// Logs a message to the server
-void cocoaglk_log(char* logText) {
+/// Logs a message to the server
+void cocoaglk_log(const char* logText) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: cocoaglk_log(\"%s\")", logText);
 #endif
@@ -239,11 +244,11 @@ void cocoaglk_log(char* logText) {
 												   length: strlen(logText)
 												 encoding: NSISOLatin1StringEncoding];
 	[cocoaglk_session logMessage: logString];
-    [logString release];
+	[logString release];
 }
 
-// Logs a message with priority to the server
-void cocoaglk_log_ex(char* logText, int priority) {
+/// Logs a message with priority to the server
+void cocoaglk_log_ex(const char* logText, int priority) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: cocoaglk_log_ex(\"%s\", %i)", logText, priority);
 #endif
@@ -255,10 +260,10 @@ void cocoaglk_log_ex(char* logText, int priority) {
 												 encoding: NSISOLatin1StringEncoding];
 	[cocoaglk_session logMessage: logString
 					withPriority: priority];
-    [logString release];
+	[logString release];
 }
 
-// Flushes the buffer
+/// Flushes the buffer
 void cocoaglk_flushbuffer(const char* reason) {
 	// Sanity checking
 	if (cocoaglk_session == nil) {
@@ -285,7 +290,7 @@ void cocoaglk_flushbuffer(const char* reason) {
 		[cocoaglk_buffer release];
 		cocoaglk_buffer = [[GlkBuffer alloc] init];
 		
-		cocoaglk_loopIteration = [cocoaglk_session synchronisationCount];
+		cocoaglk_loopIteration = (int)[cocoaglk_session synchronisationCount];
 		
 #if COCOAGLK_TRACE
 		NSLog(@"Main buffer flushed");

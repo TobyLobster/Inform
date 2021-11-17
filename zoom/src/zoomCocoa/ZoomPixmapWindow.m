@@ -6,19 +6,21 @@
 //  Copyright (c) 2004 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomPixmapWindow.h"
+#import "ZoomView.h"
 
 
 @implementation ZoomPixmapWindow
 
 // Initialisation
-- (instancetype) initWithZoomView: (ZoomView*) view {
+- (id) initWithZoomView: (ZoomView*) view {
 	self = [super init];
 	
 	if (self) {
-		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 480)];
-		[pixmap setFlipped: YES];
+		pixmap = [[NSImage alloc] initWithSize: NSMakeSize(640, 400)];
 		zView = view;
+		[zView.window setContentSize: NSMakeSize(640, 400)];
 		
 		inputStyle = nil;
 	}
@@ -26,29 +28,20 @@
 	return self;
 }
 
-- (void) dealloc {
-	[pixmap release];
-	[inputStyle release];
-	
-	[super dealloc];
-}
-
-// = Getting the pixmap =
+#pragma mark - Getting the pixmap
 
 - (NSSize) size {
 	return [pixmap size];
 }
 
-- (NSImage*) pixmap {
-	return pixmap;
-}
+@synthesize pixmap;
 
-// = Standard window commands =
+#pragma mark - Standard window commands
 
 - (oneway void) clearWithStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
-    NSColor* backgroundColour = [style reversed]?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
+    NSColor* backgroundColour = style.reversed?[zView foregroundColourForStyle: style]:[zView backgroundColourForStyle: style];
 	[backgroundColour set];
 	NSRectFill(NSMakeRect(0, 0, [pixmap size].width, [pixmap size].height));
 			   
@@ -58,9 +51,21 @@
 - (oneway void) setFocus {
 }
 
+- (NSSize) sizeOfFont: (NSFont*) font {
+    // Hack: require a layout manager for OS X 10.6, but we don't have the entire text system to fall back on
+    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
+    
+    // Width is one 'em'
+	CGFloat width = [@"M" sizeWithAttributes: @{NSFontAttributeName: font}].width;
+    
+    // Height is decided by the layout manager
+    CGFloat height = [layoutManager defaultLineHeightForFont: font];
+    
+    return NSMakeSize(width, height);
+}
+
 - (oneway void) writeString: (in bycopy NSString*) string
-                  withStyle: (in bycopy ZStyle*) style
-                  isCommand: (in bycopy BOOL) isCommand {
+				  withStyle: (in bycopy ZStyle*) style {
 	[pixmap lockFocus];
 	
 	NSLog(@"Warning: should not call standard ZWindow writeString on a pixmap window");
@@ -82,7 +87,7 @@
 
 - (void) plotRect: (in NSRect) rect
 		withStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocus];
+	[pixmap lockFocusFlipped:YES];
 	
     NSColor* foregroundColour = [zView foregroundColourForStyle: style];
 	[foregroundColour set];
@@ -95,17 +100,16 @@
 - (void) plotText: (in bycopy NSString*) text
 		  atPoint: (in NSPoint) point
 		withStyle: (in bycopy ZStyle*) style {
-	[pixmap lockFocus];
+	[pixmap lockFocusFlipped:YES];
 		
 	NSMutableDictionary* attr = [[zView attributesForStyle: style] mutableCopy];
 	
 	// Draw the background
-    NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	float height = [lm defaultLineHeightForFont: attr[NSFontAttributeName]];
-	float descender = [attr[NSFontAttributeName] descender];
+	CGFloat height = [self sizeOfFont: [attr objectForKey: NSFontAttributeName]].height;
+	CGFloat descender = [[attr objectForKey: NSFontAttributeName] descender];
 	NSSize size = [text sizeWithAttributes: attr];
 	
-	point.y -= ceilf(height)+1.0;
+	point.y -= ceil(height)+1.0;
 	
 	size.height = height;
 	NSRect backgroundRect;
@@ -113,12 +117,12 @@
 	backgroundRect.size = size;
 	backgroundRect.origin.y -= descender;
 	
-	backgroundRect.origin.x = floorf(backgroundRect.origin.x);
-	backgroundRect.origin.y = floorf(backgroundRect.origin.y);
-	backgroundRect.size.width = ceilf(backgroundRect.size.width);
-	backgroundRect.size.height = ceilf(backgroundRect.size.height) + 1.0;
+	backgroundRect.origin.x = floor(backgroundRect.origin.x);
+	backgroundRect.origin.y = floor(backgroundRect.origin.y);
+	backgroundRect.size.width = ceil(backgroundRect.size.width);
+	backgroundRect.size.height = ceil(backgroundRect.size.height) + 1.0;
 	
-	[(NSColor*)attr[NSBackgroundColorAttributeName] set];
+	[(NSColor*)[attr objectForKey: NSBackgroundColorAttributeName] set];
 	NSRectFill(backgroundRect);
 	
 	// Draw the text
@@ -126,29 +130,27 @@
 	[text drawAtPoint: point
 	   withAttributes: attr];
 	
-	[attr release];
-	
 	[pixmap unlockFocus];
 	[zView setNeedsDisplay: YES];
+	[zView orOutputText: text];
 }
 
 - (void) scrollRegion: (in NSRect) region
 			  toPoint: (in NSPoint) where {
-	[pixmap lockFocus];
+	[pixmap lockFocusFlipped:YES];
 	
 	// Used to use NSCopyBits but Apple randomly broke it sometime in Snow Leopard. The docs lied anyway.
 	// This is much slower :-(
 	NSBitmapImageRep*	copiedBits	= [[NSBitmapImageRep alloc] initWithFocusedViewRect: region];
 	NSImage*			copiedImage	= [[NSImage alloc] init];
 	[copiedImage addRepresentation: copiedBits];
-	[copiedImage setFlipped: YES];
 	[copiedImage drawInRect: NSMakeRect(where.x, where.y, region.size.width, region.size.height)
-				   fromRect: NSMakeRect(0,0, region.size.width, region.size.height)
-				  operation: NSCompositeSourceOver
-				   fraction: 1.0];
+				   fromRect: NSZeroRect
+				  operation: NSCompositingOperationSourceOver
+				   fraction: 1.0
+			 respectFlipped: YES
+					  hints: nil];
 	
-	[copiedBits release];
-    [copiedImage release];
 	
 	// Uh, docs say we should use NSNullObject here, but it's not defined. Making a guess at its value (sigh)
 	// This would be less of a problem in a view, because we can get the view's own graphics state. But you
@@ -157,32 +159,29 @@
 	[pixmap unlockFocus];
 }
 
-// = Measuring =
+#pragma mark - Measuring
 
 - (void) getInfoForStyle: (in bycopy ZStyle*) style
-				   width: (out float*) width
-				  height: (out float*) height
-				  ascent: (out float*) ascent
-				 descent: (out float*) descent {
-    int fontnum;
-	
-    fontnum =
-        ([style bold]?1:0)|
-        ([style underline]?2:0)|
-        ([style fixed]?4:0)|
-        ([style symbolic]?8:0);
+				   width: (out CGFloat*) width
+				  height: (out CGFloat*) height
+				  ascent: (out CGFloat*) ascent
+				 descent: (out CGFloat*) descent {
+	ZFontStyle fontnum =
+        (style.bold?ZFontStyleBold:0)|
+        (style.underline?ZFontStyleUnderline:0)|
+        (style.fixed?ZFontStyleFixed:0)|
+        (style.symbolic?ZFontStyleSymbolic:0);
 
-	NSFont* font = [zView fontWithStyle: fontnum];
+	NSFont* font = [zView fontFromStyle: fontnum];
+    NSSize fontSize = [self sizeOfFont: font];
 	
-    *width = [@"M" sizeWithAttributes:
-                   @{NSFontAttributeName: font}].width;
+	*width = fontSize.width;
 	*ascent = [font ascender];
 	*descent = [font descender];
-    NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	*height = floor([lm defaultLineHeightForFont: font])+1;
+	*height = fontSize.height+1;
 }
 
-- (out bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style {
+- (bycopy NSDictionary*) attributesForStyle: (in bycopy ZStyle*) style {
 	return [zView attributesForStyle: style];
 }
 
@@ -194,7 +193,7 @@
 }
 
 - (bycopy NSColor*) colourAtPixel: (NSPoint) point {
-	[pixmap lockFocus];
+	[pixmap lockFocusFlipped:YES];
 	
 	if (point.x <= 0) point.x = 1;
 	if (point.y <= 0) point.y = 1;
@@ -203,77 +202,86 @@
 	
 	[pixmap unlockFocus];
 	
-	return [[res copy] autorelease];
+	return [res copy];
 }
 
-// = Input =
+#pragma mark - Input
 
 - (void) setInputPosition: (NSPoint) point
 				withStyle: (in bycopy ZStyle*) style {
 	inputPos = point;
-	if (inputStyle) {
-		[inputStyle release];
-		inputStyle = style;
-	}
+	inputStyle = [style copy];
 }
 
-- (NSPoint) inputPos {
-	return inputPos;
-}
-
-- (ZStyle*) inputStyle {
-	return inputStyle;
-}
+@synthesize inputPos;
+@synthesize inputStyle;
 
 - (void) plotImageWithNumber: (in int) number
 					 atPoint: (in NSPoint) point {
 	NSImage* img = [[zView resources] imageWithNumber: number];
 
-	NSRect imgRect;
-	imgRect.origin = NSMakePoint(0,0);
-	imgRect.size = [img size];
-	
 	NSRect destRect;
 	destRect.origin = point;
 	destRect.size = [[zView resources] sizeForImageWithNumber: number
 												forPixmapSize: [pixmap size]];
 	
-	[pixmap lockFocus];
-	[img setFlipped: [pixmap isFlipped]];
+	[pixmap lockFocusFlipped:YES];
 	[img drawInRect: destRect
-		   fromRect: imgRect
-		  operation: NSCompositeSourceOver
-		   fraction: 1.0];
+		   fromRect: NSZeroRect
+		  operation: NSCompositingOperationSourceOver
+		   fraction: 1.0
+	 respectFlipped: YES
+			  hints: nil];
 	[pixmap unlockFocus];
 	
 	[zView setNeedsDisplay: YES];
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
+#define PIXMAPCODINGKEY @"PixMap"
+#define INPUTPOSCODINGKEY @"InputPos"
+#define INPUTSTYLECODINGKEY @"InPutStyle"
+
+
 - (void) encodeWithCoder: (NSCoder*) encoder {
-	[encoder encodeObject: pixmap];
-	
-	[encoder encodePoint: inputPos];
-	[encoder encodeObject: inputStyle];
+	if (encoder.allowsKeyedCoding) {
+		[encoder encodeObject: pixmap forKey: PIXMAPCODINGKEY];
+		[encoder encodePoint: inputPos forKey: INPUTPOSCODINGKEY];
+		[encoder encodeObject: inputStyle forKey: INPUTSTYLECODINGKEY];
+	} else {
+		[encoder encodeObject: pixmap];
+		
+		[encoder encodePoint: inputPos];
+		[encoder encodeObject: inputStyle];
+	}
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
+- (id)initWithCoder:(NSCoder *)decoder {
 	self = [super init];
 	
     if (self) {
-		pixmap = [[decoder decodeObject] retain];
-		inputPos = [decoder decodePoint];
-		inputStyle = [[decoder decodeObject] retain];
+		if (decoder.allowsKeyedCoding) {
+			pixmap = [decoder decodeObjectOfClass: [NSImage class] forKey: PIXMAPCODINGKEY];
+			inputPos = [decoder decodePointForKey: INPUTPOSCODINGKEY];
+			inputStyle = [decoder decodeObjectOfClass: [ZStyle class] forKey: INPUTSTYLECODINGKEY];
+		} else {
+			pixmap = [decoder decodeObject];
+			inputPos = [decoder decodePoint];
+			inputStyle = [decoder decodeObject];
+		}
     }
 	
     return self;
 }
 
-- (void) setZoomView: (ZoomView*) view {
-	zView = view;
++ (BOOL)supportsSecureCoding
+{
+	return YES;
 }
 
-// = Input styles =
+@synthesize zoomView=zView;
+
+#pragma mark - Input styles
 
 - (oneway void) setInputStyle: (in bycopy ZStyle*) newInputStyle {
 	// Do nothing

@@ -13,27 +13,31 @@
 
 @implementation GlkFileStream
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) initForReadWriteWithFilename: (NSString*) filename {
+- (instancetype) initForReadWriteWithFilename: (NSString*) filename
+{
+	return [self initForReadWriteWithFileURL:[NSURL fileURLWithPath:filename]];
+}
+
+- (id) initForReadWriteWithFileURL: (NSURL*) filename {
 	self = [super init];
 	
 	if (self) {
-		handle = [[NSFileHandle fileHandleForUpdatingAtPath: filename] retain];
+		handle = [NSFileHandle fileHandleForUpdatingURL: filename error: nil];
 		
 		if (!handle) {
-			if (![[NSFileManager defaultManager] createFileAtPath: filename
+			if (![filename isFileURL]
+                || ![[NSFileManager defaultManager] createFileAtPath: [filename path]
 														 contents: [NSData data]
 													   attributes: nil]) {
-				[self release];
 				return nil;
 			}			
 
-			handle = [[NSFileHandle fileHandleForUpdatingAtPath: filename] retain];
+			handle = [NSFileHandle fileHandleForUpdatingURL: filename error: nil];
 		}
 		
 		if (!handle) {
-			[self release];
 			return nil;
 		}
 	}
@@ -41,21 +45,25 @@
 	return self;
 }
 
-- (instancetype) initForWritingWithFilename: (NSString*) filename {
+- (instancetype) initForWritingWithFilename: (NSString*) filename
+{
+	return [self initForWritingToFileURL:[NSURL fileURLWithPath:filename]];
+}
+
+- (id) initForWritingToFileURL: (NSURL*) filename {
 	self = [super init];
 	
 	if (self) {
-		if (![[NSFileManager defaultManager] createFileAtPath: filename
-													 contents: [NSData data]
-												   attributes: nil]) {
-			[self release];
-			return nil;
-		}
+        if (![filename isFileURL]
+            || ![[NSFileManager defaultManager] createFileAtPath: [filename path]
+                                                        contents: [NSData data]
+                                                      attributes: nil]) {
+				return nil;
+			}			
 		
-		handle = [[NSFileHandle fileHandleForWritingAtPath: filename] retain];
+		handle = [NSFileHandle fileHandleForWritingToURL: filename error: nil];
 		
 		if (!handle) {
-			[self release];
 			return nil;
 		}
 		
@@ -65,14 +73,18 @@
 	return self;
 }
 
-- (instancetype) initForReadingWithFilename: (NSString*) filename {
+- (instancetype) initForReadingWithFilename: (NSString*) filename
+{
+	return [self initForReadingFromFileURL:[NSURL fileURLWithPath:filename]];
+}
+
+- (id) initForReadingFromFileURL: (NSURL*) filename {
 	self = [super init];
 	
 	if (self) {
-		handle = [[NSFileHandle fileHandleForReadingAtPath: filename] retain];
+		handle = [NSFileHandle fileHandleForReadingFromURL: filename error: nil];
 		
 		if (!handle) {
-			[self release];
 			return nil;
 		}
 	}
@@ -80,24 +92,17 @@
 	return self;
 }
 
-- (void) dealloc {
-	[handle release];
-	
-	[super dealloc];
-}
+#pragma mark - GlkStream methods
 
-// = GlkStream methods =
-
-// Control
+#pragma mark Control
 
 - (void) closeStream {
 	[handle closeFile];
-	[handle release];
 	handle = nil;
 }
 
-- (void) setPosition: (in int) position
-		  relativeTo: (in enum GlkSeekMode) seekMode {
+- (void) setPosition: (in NSInteger) position
+		  relativeTo: (in GlkSeekMode) seekMode {
 	unsigned long long offset = [handle offsetInFile];
 	
 	switch (seekMode) {
@@ -119,44 +124,29 @@
 	[handle seekToFileOffset: offset];
 }
 
-- (unsigned) getPosition {
-	return (unsigned) [handle offsetInFile];
+- (unsigned long long) getPosition {
+	return [handle offsetInFile];
 }
 
-// Writing
+#pragma mark Writing
 
 - (void) putChar: (in unichar) ch {
-	unsigned char data = ch;
-	if (ch > 255) data = '?';
+	NSString *preData = [NSString stringWithFormat:@"%C", ch];
 	
-	[handle writeData: [NSData dataWithBytes: &data
-									  length: 1]];
+	[handle writeData: [preData dataUsingEncoding:NSISOLatin1StringEncoding allowLossyConversion:YES]];
 }
 
 - (void) putString: (in bycopy NSString*) string {
-	int len = (int) [string length];
-	char* latin1 = malloc(sizeof(char)*[string length]);
-	
-	int x;
-	for (x=0; x<len; x++) {
-		unichar ch = [string characterAtIndex: x];
-		if (ch > 255) ch = '?';
-		latin1[x] = ch;
-	}
-	
-	NSData* latin1Data = [[NSData alloc] initWithBytesNoCopy: latin1
-													  length: len
-												freeWhenDone: YES];
+	NSData* latin1Data = [string dataUsingEncoding:NSISOLatin1StringEncoding allowLossyConversion:YES];
 
 	[handle writeData: latin1Data];
-    [latin1Data release];
 }
 
 - (void) putBuffer: (in bycopy NSData*) buffer {
 	[handle writeData: buffer];
 }
 
-// Reading
+#pragma mark Reading
 
 - (unichar) getChar {	
 	NSData* data = [handle readDataOfLength: 1];
@@ -166,7 +156,7 @@
 	return ((unsigned char*)[data bytes])[0];
 }
 
-- (bycopy NSString*) getLineWithLength: (int) maxLen {
+- (bycopy NSString*) getLineWithLength: (NSInteger) maxLen {
 	NSMutableString* res = [NSMutableString string];
 	
 	unichar ch;
@@ -188,7 +178,7 @@
 	return res;
 }
 
-- (bycopy NSData*) getBufferWithLength: (unsigned) length {
+- (bycopy NSData*) getBufferWithLength: (NSUInteger) length {
 	NSData* data = [handle readDataOfLength: length];
 	
 	if (data == nil || [data length] <= 0) return nil;
@@ -196,7 +186,7 @@
 	return data;
 }
 
-// Styles
+#pragma mark Styles
 
 - (void) setStyle: (int) styleId {
 	// Nothing to do
@@ -216,7 +206,7 @@
 - (void) setCustomAttributes: (NSDictionary*) customAttributes {
 }
 
-// Hyperlinks
+#pragma mark Hyperlinks
 
 - (void) clearHyperlink {
 }

@@ -8,20 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomProtocol.h"
-#import "ZoomView.h"
+#import <ZoomView/ZoomProtocol.h>
+#import <ZoomView/ZoomView.h>
 
-@interface ZoomLowerWindow : NSObject<ZLowerWindow, NSCoding> {
-    ZoomView* zoomView;
-	
+@interface ZoomLowerWindow : NSObject<ZLowerWindow, NSSecureCoding> {
 	ZStyle* backgroundStyle;
 	ZStyle* inputStyle;
 }
 
-- (instancetype) initWithZoomView: (ZoomView*) zoomView NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithZoomView: (ZoomView*) zoomView;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) ZStyle *backgroundStyle;
+@property (readonly, strong) ZStyle *backgroundStyle;
 
-- (void) setZoomView: (ZoomView*) view;
+@property (weak) ZoomView *zoomView;
 
 @end

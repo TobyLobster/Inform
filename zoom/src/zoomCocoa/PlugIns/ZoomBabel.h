@@ -11,41 +11,59 @@
 #import <ZoomPlugIns/ZoomStory.h>
 #import <ZoomPlugIns/ZoomStoryID.h>
 
-//
-// Objective-C interface to the babel command line tool
-//
+//!
+//! Objective-C interface to the babel command line tool
+//!
 @interface ZoomBabel : NSObject {
-	float timeout;											// Maximum time to block for before giving up
+	//! Maximum time to block for before giving up
+	NSTimeInterval timeout;
 	
-	NSString* filename;										// The file that needs identifying
-	NSTask* babelTask;										// The babel task
-	NSPipe* babelStdOut;									// The standard output from the babel task
+	//! The file that needs identifying
+	NSString* filename;
+	//! The babel task
+	NSTask* babelTask;
+	//! The standard output from the babel task
+	NSPipe* babelStdOut;
 	
-	NSData* metadata;										// The raw XML metadata
-	NSData* babelImage;										// The raw cover image
+	//! The raw XML metadata
+	NSData* metadata;
+	//! The raw cover image
+	NSData* babelImage;
 	
-	NSMutableArray* waitingForTask;							// Tasks waiting for babel to finish
+	//! Tasks waiting for babel to finish
+	NSMutableArray* waitingForTask;
 
-	NSTask* ifidTask;										// Task waiting for the IFID
-	NSPipe* ifidStdOut;										// Stdout from the ifid task
-	ZoomStoryID* storyID;									// Story ID that we last read
+	//! Task waiting for the IFID
+	NSTask* ifidTask;
+	//! Stdout from the ifid task
+	NSPipe* ifidStdOut;
+	//! Story ID that we last read
+	ZoomStoryID* storyID;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (id) initWithFilename: (NSString*) story;					// Initialise this object with the specified story (metadata and image extraction will start immediately)
+//! Initialise this object with the specified story (metadata and image extraction will start immediately)
+- (id) initWithFilename: (NSString*) story;
 
-// = Raw reading =
+#pragma mark - Raw reading
 
-- (void) setTaskTimeout: (float) seconds;					// Sets the maximum time to wait for the babel command to respond when blocking (default is 0.2 seconds)
+@property NSTimeInterval taskTimeout;
+//! Sets the maximum time to wait for the babel command to respond when blocking (default is 0.2 seconds)
+- (void) setTaskTimeout: (NSTimeInterval) seconds;
 
-- (NSData*) rawMetadata;									// Retrieves a raw XML metadata record (or nil)
-- (NSData*) rawCoverImage;									// Retrieves the raw cover image data (or nil)
+//! Retrieves a raw XML metadata record (or nil)
+- (NSData*) rawMetadata;
+//! Retrieves the raw cover image data (or nil)
+- (NSData*) rawCoverImage;
 
-// = Interpreted reading =
+#pragma mark - Interpreted reading
 
-- (ZoomStoryID*) storyID;									// Requests the IFID for the story file
-- (ZoomStory*) metadata;									// Retrieves the metadata for this file
-- (NSImage*) coverImage;									// Retrieves the cover image for this file
+//! Requests the IFID for the story file
+- (ZoomStoryID*) storyID;
+//! Retrieves the metadata for this file
+- (ZoomStory*) metadata;
+//! Retrieves the cover image for this file
+- (NSImage*) coverImage;
 
 @end

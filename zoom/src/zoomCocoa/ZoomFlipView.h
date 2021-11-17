@@ -7,26 +7,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
-#undef FlipUseCoreAnimation
-
-typedef enum ZoomViewAnimationStyle {
+typedef NS_ENUM(NSInteger, ZoomViewAnimationStyle) {
 	ZoomAnimateLeft,
 	ZoomAnimateRight,
 	ZoomAnimateFade,
 	
 	ZoomCubeDown,
 	ZoomCubeUp
-} ZoomViewAnimationStyle;
+};
 
 ///
-/// NSView subclass that allows us to flip between several views
+/// NSView subclass that allows us to flip between several views using Core Animation.
 ///
-@interface ZoomFlipView : NSView {
-	// The start and the end of the animation
-	NSImage* startImage;
-	NSImage* endImage;
-	
+@interface ZoomFlipView : NSView <CALayerDelegate, CALayoutManager, CAAnimationDelegate> {
 	// Animation settings
 	NSTimeInterval animationTime;
 	ZoomViewAnimationStyle animationStyle;
@@ -35,34 +30,32 @@ typedef enum ZoomViewAnimationStyle {
 	NSMutableDictionary* props;
 	
 	// Information used while animating
-	NSOpenGLPixelBuffer* pixelBuffer;
-	NSTimer* animationTimer;
 	NSRect originalFrame;
 	NSView* originalView;
 	NSView* originalSuperview;
 	NSDate* whenStarted;	
-	
-	BOOL useCoreAnimation;
 }
 
-// Caching views
-+ (NSImage*) cacheView: (NSView*) view;								// Returns an image with the contents of the specified view
-- (void) cacheStartView: (NSView*) view;							// Caches a specific image as the start of an animation
-
 // Animating
-- (void) setAnimationTime: (NSTimeInterval) animationTime;			// Changes the animation time
-- (NSTimeInterval) animationTime;									// The animation time
-- (void) prepareToAnimateView: (NSView*) view;						// Prepares to animate, using the specified view as a template
-- (void) animateTo: (NSView*) view									// Begins animating the specified view so that transitions from the state set in prepareToAnimateView to the new state
+/// The animation time
+@property NSTimeInterval animationTime;
+/// Prepares to animate, using the specified view as a template
+- (void) prepareToAnimateView: (NSView*) view;
+/// Begins animating the specified view so that transitions from the state set in prepareToAnimateView to the new state
+- (void) animateTo: (NSView*) view
 			 style: (ZoomViewAnimationStyle) style;
-- (void) finishAnimation;											// Abandons any running animation
-- (NSMutableDictionary*) propertyDictionary;						// Property dictionary used for the leopard extensions
+/// Abandons any running animation
+- (void) finishAnimation;
+/// Property dictionary used for the leopard extensions
+- (NSMutableDictionary*) propertyDictionary;
 
 @end
 
 @interface NSObject(ZoomViewAnimation)
 
-- (void) removeTrackingRects;										// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
-- (void) setTrackingRects;											// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
+/// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
+- (void) removeTrackingRects;
+/// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
+- (void) setTrackingRects;
 
 @end

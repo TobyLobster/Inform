@@ -378,11 +378,10 @@
     [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Watchpoints.plist"]];
 
     if ([watchExpressions count] > 0) {
-        NSString* plistError = nil;
-        
-        NSData* watchData = [NSPropertyListSerialization dataFromPropertyList: watchExpressions
+        NSData* watchData = [NSPropertyListSerialization dataWithPropertyList: watchExpressions
                                                                        format: NSPropertyListXMLFormat_v1_0
-                                                             errorDescription: &plistError];
+                                                                      options: 0
+                                                                        error: NULL];
         
         [bundleDirectory addRegularFileWithContents: watchData
                                   preferredFilename: @"Watchpoints.plist"];
@@ -394,11 +393,10 @@
     [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Breakpoints.plist"]];
 
     if ([breakpoints count] > 0) {
-        NSString* plistError = nil;
-        
-        NSData* breakData = [NSPropertyListSerialization dataFromPropertyList: breakpoints
+        NSData* breakData = [NSPropertyListSerialization dataWithPropertyList: breakpoints
                                                                        format: NSPropertyListXMLFormat_v1_0
-                                                             errorDescription: &plistError];
+                                                                      options: 0
+                                                                        error: NULL];
 
         [bundleDirectory addRegularFileWithContents: breakData
                                   preferredFilename: @"Breakpoints.plist"];

@@ -6,46 +6,58 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
+#import <tgmath.h>
 #import "GlkTextGridWindow.h"
 
 #import "GlkImage.h"
 #import "GlkClearMargins.h"
 #import "GlkMoreView.h"
 #import "GlkGridTypesetter.h"
+#import <GlkView/GlkPairWindow.h>
+#import <GlkView/GlkView.h>
 
 @implementation GlkTextGridWindow
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (void) setupTextview {
-    
+#if defined(COCOAGLK_IPHONE)
+#else
 	// Text grid windows never have a more prompt
 	[self setUsesMorePrompt: NO];
 	
-    // Create the text view and the scroller
-    textView = [[GlkTextView alloc] initWithFrame: [self frame]];
-    scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
-    
 	// Construct the text system
-	textStorage   = textView.textStorage;
-	layoutManager = textView.layoutManager;
-    textContainer = textView.textContainer;
-
+	textStorage = [[NSTextStorage alloc] init];
+	
+	layoutManager = [[NSLayoutManager alloc] init];
+	[textStorage addLayoutManager: layoutManager];
+	
 	margin = 0;
 	
-	// Create the typesetter (Use the Grid typesetter)
+	// Create the typesetter (TODO? Use the Grid typesetter)
 	typesetter = [[GlkGridTypesetter alloc] init];
 	[layoutManager setTypesetter: typesetter];
 	[layoutManager setShowsControlCharacters: NO];
 	[layoutManager setShowsInvisibleCharacters: NO];
-
-	[textContainer setContainerSize: NSMakeSize(1e8, 1e8)];
-	[textContainer setWidthTracksTextView: YES];
-	[textContainer setHeightTracksTextView: NO];
-    [textContainer setLineFragmentPadding:0.0f];
-
+	
+	// Create the text container
+	NSTextContainer* newContainer = [[NSTextContainer alloc] initWithContainerSize: NSMakeSize(1e8, 1e8)];
+	
+	[newContainer setLayoutManager: layoutManager];
+	[layoutManager addTextContainer: newContainer];
+	
+	[newContainer setContainerSize: NSMakeSize(1e8, 1e8)];
+	[newContainer setWidthTracksTextView: YES];
+	[newContainer setHeightTracksTextView: NO];
+				
+	// Create the text view and the scroller
+	textView = [[GlkTextView alloc] initWithFrame: [self frame]];
+	scrollView = [[NSScrollView alloc] initWithFrame: [self frame]];
+	
 	[typesetter setDelegate: textView];
-
+	[textView setTextContainer: newContainer];
+	[newContainer setTextView: textView];
+				
 	[textView setMinSize:NSMakeSize(0.0, 0.0)];
 	[textView setMaxSize:NSMakeSize(1e8, 1e8)];
 	[textView setVerticallyResizable:YES];
@@ -63,9 +75,10 @@
 	[scrollView setHasHorizontalScroller: NO];
 	[scrollView setHasVerticalScroller: NO];
 	[scrollView setAutohidesScrollers: NO];
+#endif
 }
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(GlkRect)frame {
     self = [super initWithFrame:frame];
     
 	if (self) {
@@ -78,33 +91,27 @@
     return self;
 }
 
-- (void) dealloc {
-	[nextInputLine release]; nextInputLine = nil;
-	
-	[super dealloc];
-}
+#pragma mark - Drawing
 
-// = Drawing =
-
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(GlkRect)rect {
 	[super drawRect: rect];
 }
 
-// = Layout =
+#pragma mark - Layout
 
-- (float) charWidth {
+- (CGFloat) charWidth {
 	// FIXME: we should cache this
 	return [@"M" sizeWithAttributes: [self currentTextAttributes]].width;
 }
 
-- (float) widthForFixedSize: (unsigned) size {
+- (CGFloat) widthForFixedSize: (unsigned) size {
 	NSSize baseSize = [@"M" sizeWithAttributes: [self currentTextAttributes]];
 	
-	return floorf(size * baseSize.width) + [textView textContainerInset].width*2 + [[textView textContainer] lineFragmentPadding]*2;
+	return floor(size * baseSize.width) + [textView textContainerInset].width*2 + [[textView textContainer] lineFragmentPadding]*2;
 }
 
-- (float) heightForFixedSize: (unsigned) size {
-	return floorf(size * [self lineHeight]) + [textView textContainerInset].height*2;
+- (CGFloat) heightForFixedSize: (unsigned) size {
+	return floor(size * [self lineHeight]) + [textView textContainerInset].height*2;
 }
 
 - (GlkSize) glkSize {
@@ -116,8 +123,8 @@
 	return res;
 }
 
-- (void) layoutInRect: (NSRect) parentRect {
-	int x;
+- (void) layoutInRect: (GlkRect) parentRect {
+	NSInteger x;
 	
 	// Set our frame
 	[super layoutInRect: parentRect];
@@ -126,21 +133,24 @@
 	int lastWidth = width;
 	int lastHeight = height;
 	
-	width  = (parentRect.size.width - [textView textContainerInset].width*2 - [[textView textContainer] lineFragmentPadding]*2)  / [self charWidth];
-	height = (parentRect.size.height - [textView textContainerInset].height*2) / [self lineHeight];
+	width  = (int)((parentRect.size.width - [textView textContainerInset].width*2 - [[textView textContainer] lineFragmentPadding]*2)  / [self charWidth]);
+	height = (int)((parentRect.size.height - [textView textContainerInset].height*2) / [self lineHeight]);
 	
 	if (width < 0) width = 0;
 	if (height < 0) height = 0;
 	
 	// Adjust the text container size
+#if defined(COCOAGLK_IPHONE)
+	[[textView textContainer] setSize: CGSizeMake(width * [self charWidth], height * [self lineHeight])];
+#else
 	[[textView textContainer] setContainerSize: NSMakeSize(width * [self charWidth], height * [self lineHeight])];
+#endif
 	
 	// Adjust the typesetter
-	[(GlkGridTypesetter*)typesetter setCellSize: NSMakeSize([self charWidth], [self lineHeight])];
+	[(GlkGridTypesetter*)typesetter setCellSize: GlkMakeSize([self charWidth], [self lineHeight])];
 	[(GlkGridTypesetter*)typesetter setGridWidth: width
 										  height: height];
 	[layoutManager invalidateLayoutForCharacterRange: NSMakeRange(0, [textStorage length])
-											  isSoft: NO
 								actualCharacterRange: nil];
 	
 	// Adjust the text storage object
@@ -161,8 +171,6 @@
 			[textStorage insertAttributedString: blankSpace
 										atIndex: x*width + lastWidth];
 		}
-		
-		[blankSpace release];
 	} else if (lastWidth > width) {
 		// Shrink the width of this grid view
 		for (x=0; x<lastHeight; x++) {
@@ -175,7 +183,7 @@
 	if (width < 0 || height < 0) 
 		totalSize = 0;
 	
-	int numSpaces = totalSize - (int) [textStorage length];
+	NSInteger numSpaces = totalSize - [textStorage length];
 	
 	if (numSpaces < 0) {
 		// Remove lines from the storage object
@@ -190,7 +198,6 @@
 																		 attributes: [self attributes: style_Normal]];
 		
 		[textStorage appendAttributedString: blankSpace];
-		[blankSpace release];
 	}
 	
 	// Request a sync if necessary
@@ -201,7 +208,7 @@
 	lastSize = [self glkSize];
 }
 
-// = Cursor positioning =
+#pragma mark - Cursor positioning
 
 - (void) moveCursorToXposition: (int) newXpos
 					 yPosition: (int) newYpos {
@@ -209,7 +216,7 @@
 	ypos = newYpos;
 }
 
-// = Window control =
+#pragma mark - Window control
 
 - (void) taskFinished {
 	// The text should be made non-editable
@@ -229,7 +236,7 @@
 	[self layoutInRect: [self frame]];
 }
 
-// = Streams =
+#pragma mark - Streams
 
 - (void) putString: (in bycopy NSString*) string {
 	int pos = 0;
@@ -265,15 +272,13 @@
 		}
 		
 		int bufPos = xpos + ypos*width;
-        if( bufPos < 0 )
-            break;
-
+		
 		// Get the number of characters to draw
-		int amountToDraw = width - xpos;
+		NSInteger amountToDraw = width - xpos;
 		if (bufPos + amountToDraw > [textStorage length]) {
-			amountToDraw = (int) [textStorage length] - bufPos;
+			amountToDraw = [textStorage length] - bufPos;
 		}
-		if (pos+amountToDraw > (int) [string length]) amountToDraw = (int) [string length]-pos;
+		if (pos+amountToDraw > [string length]) amountToDraw = [string length]-pos;
 		if (amountToDraw <= 0) break;
 		
 		// Draw the characters
@@ -281,7 +286,6 @@
 																		 attributes: [self currentTextAttributes]];
 		[textStorage replaceCharactersInRange: NSMakeRange(bufPos, amountToDraw)
 						 withAttributedString: partString];
-		[partString release];
 		
 		//[self setNeedsDisplay: YES];
 		
@@ -295,36 +299,38 @@
 	}
 }
 
-// = Mouse input =
+#if !defined(COCOAGLK_IPHONE)
+#pragma mark - Mouse input
 
 - (void) mouseDown: (NSEvent*) event {
 	NSPoint mousePos = [textView convertPoint: [event locationInWindow] 
 									 fromView: nil];
 		
-	int glyphPos = (int) [[textView layoutManager] glyphIndexForPoint: mousePos
+	NSInteger glyphPos = [[textView layoutManager] glyphIndexForPoint: mousePos
 												inTextContainer: [textView textContainer]];
-	int clickPos = (int) [[textView layoutManager] characterIndexForGlyphAtIndex: glyphPos];
+	NSInteger clickPos = [[textView layoutManager] characterIndexForGlyphAtIndex: glyphPos];
 	
-	int clickX = clickPos % width;
-	int clickY = clickPos / width;
+	NSInteger clickX = clickPos % width;
+	NSInteger clickY = clickPos / width;
 	
 	// TODO: do not report mouse dragged events (ie, things resulting in a selection)
 	
 	if (mouseInput) {
 		// Generate the event
 		GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_MouseInput
-									  windowIdentifier: [self identifier]
-												  val1: clickX
-												  val2: clickY];
+									  windowIdentifier: [self glkIdentifier]
+												  val1: (int)clickX
+												  val2: (int)clickY];
 		
 		// ... send it
-		[target queueEvent: [evt autorelease]];
+		[target queueEvent: evt];
 	} else {
 		[super mouseUp: event];
 	}
 }
+#endif
 
-// = MORE prompt =
+#pragma mark - MORE prompt
 
 - (void) resetMorePrompt: (int) moreChar {
 	// Text grid windows are not scrollable
@@ -334,22 +340,26 @@
 	// Text grid windows are not scrollable
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) updateWithPrefs: (GlkPreferences*) prefs {
 	// Overridden from GlkTextWindow
 	margin = 0;
 	[textView setTextContainerInset: NSMakeSize(margin, margin)];
 	[[textView layoutManager] setUsesScreenFonts: [prefs useScreenFonts]];
-	[[textView layoutManager] setHyphenationFactor: [prefs useHyphenation]?1:0];
+	if (@available(macOS 10.15, *)) {
+		[[textView layoutManager] setUsesDefaultHyphenation: [prefs useHyphenation]];
+	} else {
+		[[textView layoutManager] setHyphenationFactor: [prefs useHyphenation]?1:0];
+	}
 }
 
-// = Line input =
+#pragma mark - Line input
 
 - (NSString*) cancelLineInput {
 	if (lineInput) {
 		lineInput = NO;
-		[nextInputLine release]; nextInputLine = nil;
+		nextInputLine = nil;
 		
 		[self makeTextNonEditable];
 		[[self window] invalidateCursorRectsForView: self];
@@ -358,13 +368,8 @@
 		return [[textStorage string] substringWithRange: NSMakeRange(startPos, lineInputLength)];
 	}
 	
-	return @"";
+	return @"";	
 }
-
-// Disable warning that [self textStorageDidProcessEditing: nil]; can't take a nil parameter,
-// since GlkTextWindow's textStorageDidProcessEditing function CAN take a nil parameter.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wnonnull"
 
 - (void) requestLineInput {
 	if (!lineInput) {
@@ -400,7 +405,7 @@
 		
 		[string replaceCharactersInRange: NSMakeRange(startPos, [nextInputLine length])
 							  withString: nextInputLine];
-		lineInputLength = (int) [nextInputLine length];
+		lineInputLength = [nextInputLine length];
 	}
 	
 	[[self window] invalidateCursorRectsForView: self];
@@ -409,27 +414,28 @@
 	// be added to the buffer (generating an immediate event)
 	//
 	// This allows us to successfully copy+paste lines of text and have things look like they're working OK
-	[self textStorageDidProcessEditing: nil];
+//	[self textStorageDidProcessEditing: nil];
 }
-
-#pragma clang diagnostic pop
-
 
 
 - (void) setInputLine: (NSString*) inputLine {
-	[nextInputLine release]; 
 	nextInputLine = [inputLine copy];
 }
 
-- (BOOL)    	textView:(NSTextView *)aTextView
+- (BOOL)
+#if defined(COCOAGLK_IPHONE)
+textView:(UITextView *)aTextView
+#else
+textView:(NSTextView *)aTextView
+#endif
  shouldChangeTextInRange:(NSRange)affectedCharRange
 	   replacementString:(NSString *)replacementString {
 	if (!lineInput) return NO;
 	
-	int startPos = xpos + ypos*width;
-	int endPos = startPos + lineInputLength;
+	NSInteger startPos = xpos + ypos*width;
+	NSInteger endPos = startPos + lineInputLength;
 	
-	int lengthChange = (int) [replacementString length] - (int) affectedCharRange.length;
+	NSInteger lengthChange = [replacementString length] - affectedCharRange.length;
 	
     if (affectedCharRange.location < startPos || affectedCharRange.location > endPos) {
         return NO;
@@ -444,28 +450,29 @@
     }
 }
 
-- (void)textStorageWillProcessEditing:(NSNotification*) aNotification {
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+			  range:(NSRange)edited
+	 changeInLength:(NSInteger)delta {
 	if (!lineInput) return;
 	
-	int startPos = xpos + ypos*width;
-	int endPos = startPos + lineInputLength;
+	NSInteger startPos = xpos + ypos*width;
+	NSInteger endPos = startPos + lineInputLength;
 	
-	NSRange edited = [[textView textStorage] editedRange];
-
 	if (edited.location < startPos || edited.location > endPos) {
 		return;
 	}
 	
-	if (edited.location == endPos && edited.length != [[textView textStorage] changeInLength]) {
+	if (edited.location == endPos && edited.length != delta) {
 		return;
 	}
 	
 	// Anything newly added should be in the input style
 	[[textView textStorage] setAttributes: [self attributes: style_Input]
-									range: [[textView textStorage] editedRange]];
+									range: edited];
 	
 	// Text editing should replace any text outside of the editable range
-	int lenChange = (int) [[textView textStorage] changeInLength];
+	NSInteger lenChange = delta;
 	
 	if (lenChange > 0) {
 		[[textView textStorage] deleteCharactersInRange: NSMakeRange(endPos+lenChange, lenChange)];
@@ -477,9 +484,9 @@
 			spaces[x] = ' ';
 		}
 		
-		[[textView textStorage] insertAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithCharacters: spaces
-																															 length: -lenChange]
-																						 attributes: [self currentTextAttributes]] autorelease]
+		[[textView textStorage] insertAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithCharacters: spaces
+																															length: -lenChange]
+																						attributes: [self currentTextAttributes]]
 											   atIndex: endPos+lenChange];
 	}
 	
@@ -500,8 +507,8 @@
 }
 
 - (void) updateCaretPosition {
-	int startPos = xpos + ypos*width;
-	int endPos = startPos + lineInputLength;
+	NSInteger startPos = xpos + ypos*width;
+	NSInteger endPos = startPos + lineInputLength;
 
 	if (startPos > [textView selectedRange].location ||
 		endPos <= [textView selectedRange].location) {
@@ -509,10 +516,11 @@
 	}
 }
 
-- (int) inputPos {
+- (NSInteger) inputPos {
 	return xpos + ypos*width;
 }
 
+#if !defined(COCOAGLK_IPHONE)
 - (void) keyDown: (NSEvent*) evt {
 	int startPos = xpos + ypos*width;
 
@@ -543,21 +551,21 @@
 					
 					// Generate the event, then...
 					GlkEvent* evt = [[GlkEvent alloc] initWithType: evtype_LineInput
-												  windowIdentifier: [self identifier]
-															  val1: (int) [inputLine length]
+												  windowIdentifier: [self glkIdentifier]
+															  val1: (int)[inputLine length]
 															  val2: 0];
 					[evt setLineInput: inputLine];
 					
 					// ... send it
-					[target queueEvent: [evt autorelease]];
+					[target queueEvent: evt];
 					
 					// Add to the line history
 					[[self containingView] resetHistoryPosition];
 					[[self containingView] addHistoryItem: inputLine
-										  forWindowWithId: [self identifier]];
+										  forWindowWithId: [self glkIdentifier]];
 					
 					lineInput = NO;
-					[nextInputLine release]; nextInputLine = nil;
+					nextInputLine = nil;
 					[self makeTextNonEditable];
 					
 					// We're done
@@ -574,16 +582,13 @@
 		[super keyDown: evt];
 	}
 }
+#endif
 
-// = NSAccessibility =
+#pragma mark - NSAccessibility
 
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		if (!lineInput && !charInput) return @"Text grid";
-		return [NSString stringWithFormat: @"GLK text grid window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
-	}	
-	
-	return [super accessibilityAttributeValue: attribute];
+- (NSString *)accessibilityRoleDescription {
+	if (!lineInput && !charInput) return @"Text grid";
+	return [NSString stringWithFormat: @"GLK text grid window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];
 }
 
 - (id)accessibilityFocusedUIElement {

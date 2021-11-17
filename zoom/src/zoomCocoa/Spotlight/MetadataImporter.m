@@ -13,21 +13,19 @@
 #import <CoreServices/CoreServices.h>
 #import <Foundation/Foundation.h>
 
-#import "ifmetabase.h"
+#import <ZoomPlugIns/ifmetabase.h>
 
-#import "ZoomMetadata.h"
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
+#import <ZoomPlugIns/ZoomMetadata.h>
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
 
 // -----------------------------------------------------------------------------
 //	protos
 // -----------------------------------------------------------------------------
 
-ZoomStory * FindStory( ZoomStoryID * gameID );
-NSString * GetZoomConfigDirectory( void );
-NSArray * GetGameIndices( void );
+static ZoomStory * FindStory( ZoomStoryID * gameID );
+static NSString * GetZoomConfigDirectory( void );
+static NSArray<ZoomMetadata*> * GetGameIndices( void );
 
 // -----------------------------------------------------------------------------
 //	constants
@@ -74,25 +72,26 @@ NSArray * GetGameIndices( void );
 // and return it as a dictionary
 // -----------------------------------------------------------------------------
 
-Boolean GetMetadataForFile(void *thisInterface,
+static Boolean GetMetadataForFile(void *thisInterface,
 			   CFMutableDictionaryRef attributes,
 			   CFStringRef contentTypeUTI,
 			   CFStringRef pathToFile)
 {
+	@autoreleasepool {
+		ZoomIsSpotlightIndexing = YES;
+		NSMutableDictionary *nsAttribs = (__bridge NSMutableDictionary *)(attributes);
 	/* Pull any available metadata from the file at the specified path */
 	/* Return the attribute keys and attribute values in the dict */
 	/* Return TRUE if successful, FALSE if there was no data provided */
 
     Boolean success = NO;
 
-    NSAutoreleasePool * pool;
-
-	// Don't assume that there is an autorelease pool around the calling of this function.
-    pool = [[NSAutoreleasePool alloc] init];
-
 	// Get the story from the metadata database
-	ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFile:(NSString*)pathToFile];
+		ZoomStoryID * story_id = [[ZoomStoryID alloc] initWithZCodeFileAtURL: [NSURL fileURLWithPath: (__bridge NSString*)pathToFile] error: NULL];
 	ZoomStory * story = FindStory( story_id );
+		if (!story) {
+			return NO;
+		}
 
 //	NSLog( @"story_id = 0x%08lx story = 0x%08lx path = %@\n", story_id, story, pathToFile );
 	
@@ -105,7 +104,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * title = [story title];
 	if( title )
 	{
-		[(NSMutableDictionary *)attributes setObject:title forKey:(NSString *)kMDItemTitle];
+		[nsAttribs setObject:title forKey:(NSString *)kMDItemTitle];
 	}
 
 	//
@@ -115,7 +114,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * headline = [story headline];
 	if( headline )
 	{
-		[(NSMutableDictionary *)attributes setObject:headline forKey:(NSString *)kMDItemHeadline];
+		[nsAttribs setObject:headline forKey:(NSString *)kMDItemHeadline];
 	}
 	
 	//
@@ -125,7 +124,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * author = [story author];
 	if( author )
 	{
-		[(NSMutableDictionary *)attributes setObject:[NSArray arrayWithObject:author] forKey:(NSString *)kMDItemAuthors];
+		[nsAttribs setObject:@[author] forKey:(NSString *)kMDItemAuthors];
 	}
 
 	//
@@ -135,7 +134,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * genre = [story genre];
 	if( genre )
 	{
-		[(NSMutableDictionary *)attributes setObject:genre forKey:(NSString *)@"public_zcode_genre"];
+		[nsAttribs setObject:genre forKey:@"public_zcode_genre"];
 	}
 
 	//
@@ -146,8 +145,8 @@ Boolean GetMetadataForFile(void *thisInterface,
 	int year = [story year];
 	if( year )
 	{
-		NSNumber * year_object = [NSNumber numberWithUnsignedInt:year];
-		[(NSMutableDictionary *)attributes setObject:year_object forKey:(NSString *)@"public_zcode_year"];
+		NSNumber * year_object = @(year);
+		[nsAttribs setObject:year_object forKey:@"public_zcode_year"];
 	}
 	
 	//
@@ -157,7 +156,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * group = [story group];
 	if( group )
 	{
-		[(NSMutableDictionary *)attributes setObject:group forKey:(NSString *)@"public_zcode_group"];
+		[nsAttribs setObject:group forKey:(NSString *)@"public_zcode_group"];
 	}
 
 	//
@@ -169,7 +168,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	switch( zarfian ) 
 	{
 		case IFMD_Merciful: 
-			zarf_string = @"Merciful\n"; 
+			zarf_string = @"Merciful";
 			break;
 			
 		case IFMD_Polite: 
@@ -195,7 +194,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	
 	if( zarf_string )
 	{
-		[(NSMutableDictionary *)attributes setObject:zarf_string forKey:(NSString *)@"public_zcode_cruelty"];
+		[nsAttribs setObject:zarf_string forKey:@"public_zcode_cruelty"];
 	}
 
 	//
@@ -205,7 +204,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * teaser = [story teaser];
 	if( teaser )
 	{
-		[(NSMutableDictionary *)attributes setObject:teaser forKey:(NSString *)@"public_zcode_teaser"];
+		[nsAttribs setObject:teaser forKey:@"public_zcode_teaser"];
 	}
 
 	//
@@ -215,7 +214,7 @@ Boolean GetMetadataForFile(void *thisInterface,
 	NSString * comment = [story comment];
 	if( comment )
 	{
-		[(NSMutableDictionary *)attributes setObject:comment forKey:(NSString *)kMDItemComment];
+		[nsAttribs setObject:comment forKey:(NSString *)kMDItemComment];
 	}
 
 	//
@@ -225,30 +224,27 @@ Boolean GetMetadataForFile(void *thisInterface,
 	float rating = [story rating];
 	if( rating != -1.0 )
 	{
-		NSNumber * rating_object = [NSNumber numberWithFloat:rating];
-		[(NSMutableDictionary *)attributes setObject:rating_object forKey:(NSString *)kMDItemStarRating];
+		NSNumber * rating_object = @(rating);
+		[nsAttribs setObject:rating_object forKey:(NSString *)kMDItemStarRating];
 	}
 
 	//
 	// keywords
 	//
 	
-	NSArray * keywords = [NSArray arrayWithObjects:@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
-							@"ZCode", @"Z-Code", @"Text Adventure", @"Text Adventures", @"Adventure Game", 
-							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games", nil];	
-	if( keywords )
-	{
-		[(NSMutableDictionary *)attributes setObject:keywords forKey:(NSString *)kMDItemKeywords];
-	}
-		
-	[story_id release];
+//	NSArray * keywords = @[@"Zoom", @"Z-Machine", @"ZMachine", @"Interactive Fiction", @"IF",
+//							@"ZCode", @"Z-Code", @"Text Adventure", @"Text Adventures", @"Adventure Game", 
+//							@"Adventure Games", @"Text Game", @"Text Games", @"Game", @"Games"];	
+//	if( keywords )
+//	{
+//		[nsAttribs setObject:keywords forKey:(NSString *)kMDItemKeywords];
+//	}
 	
 	// return YES so that the attributes are imported
 	success=YES;
-	
-    [pool release];
-    
+		
 	return success;
+	}
 }
 
 // FindStory
@@ -261,10 +257,7 @@ ZoomStory * FindStory( ZoomStoryID * gameID )
 	
 	NSArray * game_indices = GetGameIndices();
 
-	NSEnumerator * enumerator = [game_indices objectEnumerator];
-	ZoomMetadata * repository;
-	
-	while( (repository = [enumerator nextObject]) ) {
+	for (ZoomMetadata * repository in game_indices) {
 		story = [repository containsStoryWithIdent: gameID]?[repository findOrCreateStory:gameID]:nil;
 		if( story ) 
 			break;
@@ -300,21 +293,21 @@ NSArray * GetGameIndices( void )
 		
 		if( userData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData:userData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData:userData]];
 		}
 		else
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] init] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] init]];
 		}
 		
 		if( infocomData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData: infocomData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: infocomData]];
 		}
 		
 		if( archiveData ) 
 		{
-			[game_indices addObject:[[[ZoomMetadata alloc] initWithData: archiveData] autorelease]];
+			[game_indices addObject:[[ZoomMetadata alloc] initWithData: archiveData]];
 		}
 	}
 	
@@ -329,9 +322,7 @@ NSString * GetZoomConfigDirectory( void )
 {
 	NSArray * library_directories = NSSearchPathForDirectoriesInDomains( NSLibraryDirectory, NSUserDomainMask, YES );
 
-	NSEnumerator * enumerator = [library_directories objectEnumerator];
-	NSString * directory;
-	while( (directory = [enumerator nextObject]) ) 
+	for ( NSString * directory in library_directories )
 	{
 		BOOL is_directory;
 		
@@ -387,12 +378,12 @@ typedef struct __MetadataImporterPluginType
 //	Forward declaration for the IUnknown implementation.
 //
 
-MetadataImporterPluginType *	AllocMetadataImporterPluginType( CFUUIDRef inFactoryID );
-void							DeallocMetadataImporterPluginType( MetadataImporterPluginType * thisInstance );
-HRESULT							MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID * ppv );
-void *							MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUUIDRef typeID );
-ULONG							MetadataImporterPluginAddRef( void * thisInstance );
-ULONG							MetadataImporterPluginRelease( void * thisInstance );
+static MetadataImporterPluginType *	AllocMetadataImporterPluginType( CFUUIDRef inFactoryID );
+static void							DeallocMetadataImporterPluginType( MetadataImporterPluginType * thisInstance );
+static HRESULT						MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID * ppv );
+extern void *						MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUUIDRef typeID );
+static ULONG						MetadataImporterPluginAddRef( void * thisInstance );
+static ULONG						MetadataImporterPluginRelease( void * thisInstance );
 
 // -----------------------------------------------------------------------------
 //	testInterfaceFtbl	definition
@@ -487,26 +478,23 @@ HRESULT MetadataImporterQueryInterface( void * thisInstance, REFIID iid, LPVOID 
 
         return S_OK;
     }
+	else if( CFEqual( interfaceID, IUnknownUUID ) )
+	{
+		// If the IUnknown interface was requested, same as above.
+		((MetadataImporterPluginType*)thisInstance )->conduitInterface->AddRef( thisInstance );
+		*ppv = thisInstance;
+		CFRelease( interfaceID );
+		
+		return S_OK;
+	}
 	else
 	{
-        if( CFEqual( interfaceID, IUnknownUUID ) )
-		{
-			// If the IUnknown interface was requested, same as above.
-            ((MetadataImporterPluginType*)thisInstance )->conduitInterface->AddRef( thisInstance );
-            *ppv = thisInstance;
-            CFRelease( interfaceID );
-			
-            return S_OK;
-        }
-		else
-		{
-			// Requested interface unknown, bail with error.
-            *ppv = NULL;
-            CFRelease( interfaceID );
-			
-            return E_NOINTERFACE;
-        }
-    }
+		// Requested interface unknown, bail with error.
+		*ppv = NULL;
+		CFRelease( interfaceID );
+		
+		return E_NOINTERFACE;
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -574,10 +562,3 @@ void * MetadataImporterPluginFactory( CFAllocatorRef allocator, CFUUIDRef typeID
 	
 	return NULL;
 }
-
-#else
-
-/* #error Oops, compiling for the wrong version of OS X */
-
-#endif
-

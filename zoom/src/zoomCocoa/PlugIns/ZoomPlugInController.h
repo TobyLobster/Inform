@@ -8,25 +8,35 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
+#import <ZoomPlugIns/ZoomPlugInManager.h>
 
 
 ///
 /// NSWindowController object that runs the plugins window
 ///
-@interface ZoomPlugInController : NSWindowController {
-	IBOutlet NSTableView* pluginTable;								// The table of plugins
-	IBOutlet NSProgressIndicator* pluginProgress;					// Download progress indicator
-	IBOutlet NSButton* installButton;								// The 'install' button
-	IBOutlet NSButton* checkForUpdates;								// The 'check for updates' button
-	IBOutlet NSTextField* statusField;								// The status field
+@interface ZoomPlugInController : NSWindowController<NSTableViewDataSource, ZoomPlugInManagerDelegate> {
+	//! The table of plugins
+	IBOutlet NSTableView* pluginTable;
+	//! Download progress indicator
+	IBOutlet NSProgressIndicator* pluginProgress;
+	//! The 'install' button
+	IBOutlet NSButton* installButton;
+	//! The 'check for updates' button
+	IBOutlet NSButton* checkForUpdates;
+	//! The status field
+	IBOutlet NSTextField* statusField;
 }
 
 // Initialisation
-+ (ZoomPlugInController*) sharedPlugInController;					// The shared plugin controller window
+//! The shared plugin controller window
+@property (class, readonly, retain) ZoomPlugInController *sharedPlugInController;
 
 // Actions
-- (IBAction) installUpdates: (id) sender;							// 'Install' button clicked
-- (IBAction) checkForUpdates: (id) sender;							// 'Check for updates' button clicked
-- (void) restartZoom;												// Forces Zoom to restart
+//! 'Install' button clicked
+- (IBAction) installUpdates: (id) sender;
+//! 'Check for updates' button clicked
+- (IBAction) checkForUpdates: (id) sender;
+//! Forces Zoom to restart
+- (void) restartZoom;
 
 @end

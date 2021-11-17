@@ -7,12 +7,13 @@
 //
 
 #import "ZoomGlulxe.h"
-#import "ZoomBlorbFile.h"
-#import "ZoomPreferences.h"
+#import <ZoomView/ZoomBlorbFile.h>
+#import <ZoomView/ZoomPreferences.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 @implementation ZoomGlulxe
 
-+ (BOOL) canRunPath: (NSString*) path {
++ (BOOL) canRunURL: (NSURL *)path {
 	NSString* extn = [[path pathExtension] lowercaseString];
 	
 	// We can run .ulx files
@@ -20,22 +21,20 @@
 	
 	// ... and we can run blorb files with a Glulx block in them
 	if ([extn isEqualToString: @"blb"] || [extn isEqualToString: @"glb"] || [extn isEqualToString: @"gblorb"] || [extn isEqualToString: @"zblorb"] || [extn isEqualToString: @"blorb"]) {
-		if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
+		if (![[NSFileManager defaultManager] fileExistsAtPath: path.path]) {
 			// If no file exists at the path, then claim ownership of it
 			return YES;
 		}
 		
-		ZoomBlorbFile* blorb = [[ZoomBlorbFile alloc] initWithContentsOfFile: path];
+		ZoomBlorbFile* blorb = [[ZoomBlorbFile alloc] initWithContentsOfURL: path
+																	  error: NULL];
 		
 		if (blorb != nil && [blorb dataForChunkWithType: @"GLUL"] != nil) {
-			[blorb release];
 			return YES;
 		}
-		
-		[blorb release];
 	}
 	
-	return [super canRunPath: path];
+	return [super canRunURL: path];
 }
 
 + (NSString*) pluginVersion {
@@ -50,9 +49,9 @@
 	return @"Andrew Hunter";
 }
 
-- (id) initWithFilename: (NSString*) gameFile {
+- (id) initWithURL: (NSURL*) gameFile {
 	// Initialise as usual
-	self = [super initWithFilename: gameFile];
+	self = [super initWithURL: gameFile];
 	
 	if (self) {
 		// Work out which client to use
@@ -71,21 +70,23 @@
 	return self;
 }
 
-// = Metadata =
+#pragma mark - Metadata
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
-	return [[[ZoomStoryID alloc] initWithGlulxFile: [self gameFilename]] autorelease];
+	return [[ZoomStoryID alloc] initWithGlulxFileAtURL: [self gameURL]
+												 error: NULL];
 }
 
-- (ZoomStory*) defaultMetadata {
+- (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForFile: [self gameFilename]]; 
+	return [ZoomStory defaultMetadataForURL: [self gameURL] error: outError];
 }
 
 - (NSImage*) coverImage {
 	// Try decoding the cover picture, if available
-	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: [self gameFilename]];
+	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: [self gameURL]
+																		error: NULL];
 	int coverPictureNumber = -1;
 	
 	// Try to retrieve the frontispiece tag (overrides metadata if present)
@@ -102,36 +103,31 @@
 			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 			
 			if (coverPictureData) {
-				NSImage* coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 				
 				// Sometimes the image size and pixel size do not match up
 				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
 				NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
 				
 				if (!NSEqualSizes(pixSize, [coverPicture size])) {
-					[coverPicture setScalesWhenResized: YES];
 					[coverPicture setSize: pixSize];
 				}
 				
 				if (coverPicture != nil) {
-					[decodedFile release];
 					return coverPicture;
 				}
 			}
 		}
 	}
 	
-	[decodedFile release];
-	
 	// Default to the Glulxe icon
-	return [[[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"GlkClient"
-																					 ofType: @"icns"]] 
-		autorelease];
+	return [NSImage imageNamed:@"GlkClient"];
 }
 
 - (NSImage*) logo {
 	// Try decoding the cover picture, if available
-	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfFile: [self gameFilename]];
+	ZoomBlorbFile* decodedFile = [[ZoomBlorbFile alloc] initWithContentsOfURL: [self gameURL]
+																		error: NULL];
 	int coverPictureNumber = -1;
 	
 	// Try to retrieve the frontispiece tag (overrides metadata if present)
@@ -148,26 +144,22 @@
 			NSData* coverPictureData = [decodedFile imageDataWithNumber: coverPictureNumber];
 			
 			if (coverPictureData) {
-				NSImage* coverPicture = [[[NSImage alloc] initWithData: coverPictureData] autorelease];
+				NSImage* coverPicture = [[NSImage alloc] initWithData: coverPictureData];
 				
 				// Sometimes the image size and pixel size do not match up
 				NSImageRep* coverRep = [[coverPicture representations] objectAtIndex: 0];
 				NSSize pixSize = NSMakeSize([coverRep pixelsWide], [coverRep pixelsHigh]);
 				
 				if (!NSEqualSizes(pixSize, [coverPicture size])) {
-					[coverPicture setScalesWhenResized: YES];
 					[coverPicture setSize: pixSize];
 				}
 				
 				if (coverPicture != nil) {
-					[decodedFile release];
 					return [self resizeLogo: coverPicture];
 				}
 			}
 		}
 	}
-	
-	[decodedFile release];
 	
 	return nil;
 }

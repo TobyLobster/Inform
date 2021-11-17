@@ -6,19 +6,15 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
-BOOL cocoaglk_eventwaiting = NO;
-int cocoaglk_timerlength = -1;
-NSDate* cocoaglk_nextTimerEvent = nil;
+static BOOL cocoaglk_eventwaiting = NO;
+static int cocoaglk_timerlength = -1;
+static NSDate* cocoaglk_nextTimerEvent = nil;
 
 @interface GlkListener : NSObject<GlkEventListener> 
 @end
@@ -32,12 +28,10 @@ NSDate* cocoaglk_nextTimerEvent = nil;
 
 @end
 
-//
-// Advance the time that the next timer event should occur at
-//
-void cocoaglk_next_time() {
+/// Advance the time that the next timer event should occur at
+static void cocoaglk_next_time(void) {
 	if (!cocoaglk_nextTimerEvent) return;
-	float interval = ((float)cocoaglk_timerlength)/1000.0;
+	CGFloat interval = ((CGFloat)cocoaglk_timerlength)/1000.0;
 	
 	do {
 		// Move cocoaglk_nextTimerEvent on
@@ -50,13 +44,12 @@ void cocoaglk_next_time() {
 	} while ([cocoaglk_nextTimerEvent compare: [NSDate date]] < 0);
 }
 
-//
-// Wait for the next event to come along
-//
+/// Wait for the next event to come along
 void glk_select(event_t *event) {
 	// Sanity check
 	if (event == NULL) {
 		cocoaglk_error("glk_select called with a NULL argument");
+		return;
 	}
 
 #if COCOAGLK_TRACE
@@ -84,7 +77,7 @@ void glk_select(event_t *event) {
 	[cocoaglk_session setEventListener: listener];
 
 	// Wait for and retrieve the next event
-	NSObject<GlkEvent>* evt = [cocoaglk_session nextEvent];
+	id<GlkEvent> evt = [cocoaglk_session nextEvent];
 	
 	while (evt == NULL) {
 		if (cocoaglk_eventwaiting) {
@@ -148,7 +141,7 @@ void glk_select(event_t *event) {
 					NSData*   latin1Input = [lineInput dataUsingEncoding: NSISOLatin1StringEncoding
 													allowLossyConversion: YES];
 					
-					int length = (int) [latin1Input length];
+					NSInteger length = [latin1Input length];
 					
 					if (event->win && event->win->inputBuf) {
 						if (length > event->win->bufLen) {
@@ -161,11 +154,11 @@ void glk_select(event_t *event) {
 						
 						// Echo the text
 						if (event->win->stream && event->win->stream->echo) {
-							glk_put_buffer_stream(event->win->stream->echo, event->win->inputBuf, length);
+							glk_put_buffer_stream(event->win->stream->echo, event->win->inputBuf, (int)length);
 							glk_put_char_stream_uni(event->win->stream->echo, '\n');
 						}
 						
-						event->val1 = length;
+						event->val1 = (int)length;
 					}
 
 					// Deregister the buffer
@@ -182,23 +175,22 @@ void glk_select(event_t *event) {
 	}
 }
 
-//
-// This checks if an internally-spawned event is available. If so, it stores
-// it in the structure pointed to by event. If not, it sets event->type to
-// evtype_None. Either way, it returns almost immediately.
-//
-// The first question you now ask is, what is an internally-spawned
-// event? glk_select_poll() does *not* check for or return evtype_CharInput,
-// evtype_LineInput, or evtype_MouseInput events. It is intended for you
-// to test conditions which may have occurred while you are computing, and
-// not interfacing with the player. For example, time may pass during slow
-// computations; you can use glk_select_poll() to see if a evtype_Timer
-// event has occured. (See section 4.4, "Timer Events".)
-// 
-// At the moment, glk_select_poll() checks for evtype_Timer, and possibly
-// evtype_Arrange and evtype_SoundNotify events. But see section 4.9,
-// "Other Events".
-//
+/// This checks if an internally-spawned event is available. If so, it stores
+/// it in the structure pointed to by event. If not, it sets \c event->type to
+/// evtype_None. Either way, it returns almost immediately.
+///
+/// The first question you now ask is, what is an internally-spawned
+/// event? \c glk_select_poll() does \b not check for or return evtype_CharInput,
+/// evtype_LineInput, or evtype_MouseInput events. It is intended for you
+/// to test conditions which may have occurred while you are computing, and
+/// not interfacing with the player. For example, time may pass during slow
+/// computations; you can use glk_select_poll() to see if a evtype_Timer
+/// event has occured. (See section 4.4, "Timer Events".)
+///
+/// At the moment, \c glk_select_poll() checks for evtype_Timer, and possibly
+/// \c evtype_Arrange and \c evtype_SoundNotify events. But see section 4.9,
+/// "Other Events".
+///
 void glk_select_poll(event_t *event) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: glk_select_poll(%p)", event);
@@ -207,6 +199,7 @@ void glk_select_poll(event_t *event) {
 	// Sanity check
 	if (event == NULL) {
 		cocoaglk_error("glk_select_poll called with a NULL argument");
+		return;
 	}
 	
 	// Clear the event structure
@@ -227,11 +220,9 @@ void glk_select_poll(event_t *event) {
 	}
 }
 
-//
-// You can request that an event be sent at fixed intervals, regardless of
-// what the player does. Unlike input events, timer events can be tested
-// for with glk_select_poll() as well as glk_select().
-//
+/// You can request that an event be sent at fixed intervals, regardless of
+/// what the player does. Unlike input events, timer events can be tested
+/// for with glk_select_poll() as well as glk_select().
 void glk_request_timer_events(glui32 millisecs) {
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: glk_request_timer_events(%u)", millisecs);
@@ -246,13 +237,11 @@ void glk_request_timer_events(glui32 millisecs) {
 	
 	if (cocoaglk_timerlength > 0) {
 		// Create the timer object
-		cocoaglk_nextTimerEvent = [[NSDate dateWithTimeIntervalSinceNow: ((float)millisecs)/1000.0] retain];
+		cocoaglk_nextTimerEvent = [[NSDate dateWithTimeIntervalSinceNow: ((NSTimeInterval)millisecs)/1000.0] retain];
 	}
 }
 
-//
-// Unregisters any line input buffers associated with the specified window
-//
+/// Unregisters any line input buffers associated with the specified window
 void cocoaglk_unregister_line_buffers(winid_t win) {
 	if (!win->registered) return;
 	win->registered = NO;
@@ -437,7 +426,7 @@ void glk_cancel_line_event(winid_t win, event_t *event) {
 		NSData*   latin1Input = [lineInput dataUsingEncoding: NSISOLatin1StringEncoding
 										allowLossyConversion: YES];
 		
-		NSUInteger length = [latin1Input length];
+		NSInteger length = [latin1Input length];
 		
 		if (win && win->inputBuf) {
 			if (length > win->bufLen) {
@@ -447,7 +436,7 @@ void glk_cancel_line_event(winid_t win, event_t *event) {
 			[latin1Input getBytes: win->inputBuf
 						   length: length];
 			
-			if (event) event->val1 = (int) length;
+			if (event) event->val1 = (glui32)length;
 		}
 	}
 	
@@ -493,3 +482,13 @@ void glk_cancel_mouse_event(winid_t win) {
 	// Buffer up the request
 	[cocoaglk_buffer cancelMouseEventsForWindowIdentifier: win->identifier];
 }
+
+#ifdef GIDISPATCH_AUTORESTORE_REGISTRY
+void gidispatch_set_autorestore_registry(long (*locatearr)(void *array, glui32 len, char *typecode,
+														   gidispatch_rock_t objrock, int *elemsizeref),
+										 gidispatch_rock_t (*restorearr)(long bufkey, glui32 len,
+																		 char *typecode, void **arrayref))
+{
+	
+}
+#endif

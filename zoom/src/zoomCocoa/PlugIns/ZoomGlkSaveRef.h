@@ -10,40 +10,53 @@
 #import <ZoomPlugIns/ZoomPlugIn.h>
 #import <GlkView/GlkFileRefProtocol.h>
 
+@protocol ZoomGlkSaveRefDelegate;
+
 ///
 /// GlkFileRef object that can be used to create a .glksave package
 ///
 @class ZoomSkein;
 @interface ZoomGlkSaveRef : NSObject<GlkFileRef> {
-	ZoomPlugIn* plugin;										// The plugin specifying what is creating this fileref
-	NSString* path;											// The path for this fileref
+	//! The plugin specifying what is creating this fileref
+	ZoomPlugIn* plugin;
+	//! The path for this fileref
+	NSString* path;
 	
-	NSArray* preview;										// The preview lines to save for this object
-	ZoomSkein* skein;										// The skein to save for this object (or the skein loaded for this object)
+	//! The preview lines to save for this object
+	NSArray<NSString*>* preview;
+	//! The skein to save for this object (or the skein loaded for this object)
+	ZoomSkein* skein;
 	
-	id delegate;											// The delegate for this object
-	BOOL autoflush;											// The autoflush flag
+	//! The delegate for this object
+	id<ZoomGlkSaveRefDelegate> delegate;
+	//! The autoflush flag
+	BOOL autoflush;
 }
 
 // Initialisation
-- (id) initWithPlugIn: (ZoomPlugIn*) plugin					// Initialises a saveref that saves files from the specified plugin object to the specified path
+//! Initialises a saveref that saves files from the specified plugin object to the specified path
+- (id) initWithPlugIn: (ZoomPlugIn*) plugin
 				 path: (NSString*) path;
 
 // Extra properties
-- (void) setDelegate: (id) delegate;						// Sets the delegate for this object (the delegate is retained)
+//! Sets the delegate for this object (the delegate is retained)
+@property (strong) id<ZoomGlkSaveRefDelegate> delegate;
 
-- (void) setPreview: (NSArray*) preview;					// An array of strings that can be used for the preview for this file
-- (void) setSkein: (ZoomSkein*) skein;						// Sets the skein that will be saved with this reference
-- (ZoomSkein*) skein;										// Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
+//! An array of strings that can be used for the preview for this file
+- (void) setPreview: (NSArray<NSString*>*) preview;
+//! Sets the skein that will be saved with this reference
+//! Retrieves a skein previously set with setSkein, or the skein most recently loaded for this file
+@property (retain) ZoomSkein *skein;
 
 @end
 
 ///
 /// ZoomGlkSaveRef delegate methods
 ///
+@protocol ZoomGlkSaveRefDelegate <NSObject>
+@optional
 
-@interface NSObject(ZoomGlkSaveRefDelegate)
-
-- (void) readingFromSaveFile: (ZoomGlkSaveRef*) file;		// Call back to indicate that we're reading from a specific save file
+//! Call back to indicate that we're reading from a specific save file
+- (void) readingFromSaveFile: (ZoomGlkSaveRef*) file;
 
 @end

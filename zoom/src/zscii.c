@@ -150,7 +150,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 			if ((y+8) > maxlen)
 			{
 				maxlen += 1024;
-				buf = realloc(buf, sizeof(unsigned int)*maxlen);
+				buf = realloc(buf, sizeof(int)*maxlen);
 			}
 			
 			switch (abet)
@@ -264,7 +264,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						  while ((zlen+2) > maxlen)
 						  {
 							  maxlen += 1024;
-							  buf = realloc(buf, sizeof(unsigned int)*(maxlen));
+							  buf = realloc(buf, sizeof(int)*(maxlen));
 						  }
 						  
 						  for (z=0; abbrev[z] != 0; z++)
@@ -289,7 +289,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 						while ((zlen+2) > maxlen)
 						{
 							maxlen+=1024;
-							buf = realloc(buf, sizeof(unsigned int)*(maxlen));
+							buf = realloc(buf, sizeof(int)*(maxlen));
 						}
 						
 						for (z=0; abbrev[z] != 0; z++)
@@ -348,7 +348,7 @@ unsigned int* zscii_to_unicode(ZByte* string, int* len)
 												if ((y+1) > maxlen)
 												{
 													maxlen += 1024;
-													buf = realloc(buf, sizeof(unsigned int)*maxlen);
+													buf = realloc(buf, sizeof(int)*maxlen);
 												}
 												
 												buf[y++] = (~((((unsigned)string[x])<<8)|((unsigned)string[x+1])))&0xffff;
@@ -573,7 +573,7 @@ void zscii_install_alphabet(void)
 			
 			if (conv == NULL)
 			{
-			  conv = malloc(sizeof(int*)*3);
+			  conv = malloc(sizeof(unsigned int*)*3);
 			  for (x=0; x<3; x++) {
 				conv[x] = malloc(sizeof(int)*32);
 				

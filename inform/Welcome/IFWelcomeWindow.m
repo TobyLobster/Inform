@@ -368,7 +368,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                 [chooseDirectoryPanel beginSheetModalForWindow: [sharedWindow window]
                                              completionHandler: ^(NSInteger result)
                  {
-                     if (result == NSOKButton) {
+                     if (result == NSModalResponseOK) {
                          NSURL* destination = [chooseDirectoryPanel URL];
 
                          // Append last path component of source onto destination

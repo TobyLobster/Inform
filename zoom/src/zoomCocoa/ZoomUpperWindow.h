@@ -8,20 +8,28 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
+#import <ZoomView/ZoomProtocol.h>
 
 @class ZoomView;
-@interface ZoomUpperWindow : NSObject<ZUpperWindow, NSCoding>
+@interface ZoomUpperWindow : NSObject <ZUpperWindow, NSSecureCoding> {
+    int startLine, endLine;
 
-- (instancetype) initWithZoomView: (ZoomView*) view NS_DESIGNATED_INITIALIZER;
+    NSMutableArray<NSMutableAttributedString*>* lines;
+    int xpos, ypos;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) int length;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *lines;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSColor *backgroundColour;
+    NSColor* backgroundColour;
+	ZStyle* inputStyle;
+}
+
+- (id) initWithZoomView: (ZoomView*) view;
+
+@property (readonly, nonatomic) int length;
+@property (readonly, copy) NSArray<NSMutableAttributedString*> *lines;
+@property (readonly, strong) NSColor *backgroundColour;
 - (void)     cutLines;
 
 - (void) reformatLines;
 
-- (void) setZoomView: (ZoomView*) view;
+@property (weak) ZoomView *zoomView;
 
 @end

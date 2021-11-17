@@ -33,14 +33,14 @@
     IFCompilerSettings* settings = [self compilerSettings];
 
 	// Natural Inform
-	[naturalInform setState: [settings usingNaturalInform]?NSOnState:NSOffState];
+	[naturalInform setState: [settings usingNaturalInform]?NSControlStateValueOn:NSControlStateValueOff];
 }
 
 - (void) setSettings {
     IFCompilerSettings* settings = [self compilerSettings];
 
 	// Whether or not to use Natural Inform
-	[settings setUsingNaturalInform: [naturalInform state]==NSOnState];
+	[settings setUsingNaturalInform: [naturalInform state]==NSControlStateValueOn];
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

@@ -10,9 +10,11 @@
 
 #import <GlkView/GlkView.h>
 
-@interface GlkWindowController : NSWindowController {
-	IBOutlet GlkView* glkView;					// The view in which the actual action takes place
-	IBOutlet NSTextField* status;				// The statusbar text
+@interface GlkWindowController : NSWindowController<GlkViewDelegate> {
+	/// The view in which the actual action takes place
+	IBOutlet GlkView* glkView;
+	/// The statusbar text
+	IBOutlet NSTextField* status;
 }
 
 // The GlkView

@@ -6,14 +6,10 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#import <Foundation/Foundation.h>
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 #import "GlkMemoryStream.h"
@@ -26,9 +22,9 @@ strid_t cocoaglk_currentstream = nil;
 strid_t cocoaglk_firststream = nil;
 unsigned cocoaglk_maxstreamid = 0;
 
-// = Utility functions =
+#pragma mark - Utility functions
 
-void cocoaglk_verify_streams(void) {
+static void cocoaglk_verify_streams(void) {
 	// Debug functions
 	strid_t str = cocoaglk_firststream;
 	while (str != NULL) {
@@ -190,7 +186,7 @@ BOOL cocoaglk_strid_read(strid_t str) {
 	}
 }
 
-// = Stream functions =
+#pragma mark - Stream functions
 
 //
 // You can open a stream which reads from or writes to a disk file.
@@ -216,7 +212,7 @@ strid_t glk_stream_open_file(frefid_t fileref, glui32 fmode,
 	}
 
 	// Get the stream
-	NSObject<GlkStream>* stream = nil;
+	id<GlkStream> stream = nil;
 	
 	if (fmode == filemode_ReadWrite || fmode == filemode_WriteAppend) {
 		stream = [fileref->fileref createReadWriteStream];
@@ -293,7 +289,7 @@ strid_t glk_stream_open_file_uni(frefid_t fileref, glui32 fmode,
 	}
 	
 	// Get the stream
-	NSObject<GlkStream>* stream = nil;
+	id<GlkStream> stream = nil;
 	
 	if (fmode == filemode_ReadWrite || fmode == filemode_WriteAppend) {
 		stream = [fileref->fileref createReadWriteStream];
@@ -321,8 +317,8 @@ strid_t glk_stream_open_file_uni(frefid_t fileref, glui32 fmode,
 	}
 	
 	// Convert to UCS-4
-	stream = [[[GlkUcs4Stream alloc] initWithStream: stream
-										  bigEndian: YES] autorelease];
+	stream = [[GlkUcs4Stream alloc] initWithStream: stream
+										 bigEndian: YES];
 	
 	// Create the stream
 	strid_t res = cocoaglk_stream();
@@ -340,7 +336,7 @@ strid_t glk_stream_open_file_uni(frefid_t fileref, glui32 fmode,
 	res->fmode = fmode;
 	
 	// Set the stream object
-	res->stream = [stream retain];
+	res->stream = stream;
 	
 	// The rock
 	res->rock = rock;
@@ -375,15 +371,15 @@ strid_t cocoaglk_get_stream_for_key(const char* key) {
 	}
 	
 	// Try to fetch a previously retrieved stream from the known streams list
-	NSString* strKey = @(key);
-	NSValue* oldStream = knownStreams[strKey];
+	NSString* strKey = [NSString stringWithUTF8String: key];
+	NSValue* oldStream = [knownStreams objectForKey: strKey];
 	
 	if (oldStream) {
 		return [oldStream pointerValue];
 	}
 	
 	// Try fetching the stream from the session instead
-	NSObject<GlkStream>* inputStream = [cocoaglk_session streamForKey: strKey];
+	id<GlkStream> inputStream = [cocoaglk_session streamForKey: strKey];
 	
 	if (!inputStream) return NULL;
 	
@@ -416,7 +412,8 @@ strid_t cocoaglk_get_stream_for_key(const char* key) {
 #endif
 	
 	// Store in in the known streams dictionary
-	knownStreams[strKey] = [NSValue valueWithPointer: res];
+	[knownStreams setObject: [NSValue valueWithPointer: res]
+					 forKey: strKey];
 	
 	return res;
 }
@@ -433,7 +430,7 @@ strid_t cocoaglk_get_input_stream(void) {
 		return instream;
 	}
 	
-	NSObject<GlkStream>* inputStream = [cocoaglk_session inputStream];
+	id<GlkStream> inputStream = [cocoaglk_session inputStream];
 	
 	if (!inputStream) return NULL;
 	
@@ -557,8 +554,10 @@ strid_t glk_stream_open_memory_uni(glui32 *buf, glui32 buflen,
 #  error Could not determine endianness
 # endif
 #endif
-	GlkUcs4Stream* ucsStr = [[GlkUcs4Stream alloc] initWithStream: [str autorelease]
+	GlkUcs4Stream* ucsStr = [[GlkUcs4Stream alloc] initWithStream: str
 														bigEndian: isBigEndian];
+	
+	[str release];
 	
 	// Create the resulting stream
 	strid_t res = cocoaglk_stream();
@@ -654,10 +653,7 @@ void glk_stream_close(strid_t str, stream_result_t *result) {
 	}
 	
 	// If we're echoing anywhere, then stop it
-	NSEnumerator* echoEnum = [str->echoesTo objectEnumerator];
-	NSValue* echoingTo;
-	
-	while (echoingTo = [echoEnum nextObject]) {
+	for (NSValue* echoingTo in str->echoesTo) {
 		strid_t eStr = [echoingTo pointerValue];
 		
 		if (!cocoaglk_strid_sane(eStr)) {
@@ -805,7 +801,7 @@ glui32 glk_stream_get_position(strid_t str) {
 	cocoaglk_loadstream(str);
 	cocoaglk_flushstream(str, "Retrieving the position in the stream");
 	
-	glui32 res = [str->stream getPosition];
+	glui32 res = (glui32)[str->stream getPosition];
 	
 #if COCOAGLK_TRACE
 	NSLog(@"TRACE: glk_stream_get_position(%p) = %u", str, res);
@@ -1091,13 +1087,11 @@ glsi32 glk_get_char_stream(strid_t str) {
 	return res;
 }
 
-//
-// This reads characters from the given stream, until either len-1 characters
-// have been read or a newline has been read. It then puts a terminal null
-// ('\0') character on the end. It returns the number of characters actually
-// read, including the newline (if there is one) but not including the
-// terminal null.
-//
+/// This reads characters from the given stream, until either len-1 characters
+/// have been read or a newline has been read. It then puts a terminal null
+/// ('\0') character on the end. It returns the number of characters actually
+/// read, including the newline (if there is one) but not including the
+/// terminal null.
 glui32 glk_get_line_stream(strid_t str, char *buf, glui32 len) {
 	// Sanity checking
 	if (!cocoaglk_strid_sane(str)) {
@@ -1136,7 +1130,7 @@ glui32 glk_get_line_stream(strid_t str, char *buf, glui32 len) {
 	NSData* latin1 = [line dataUsingEncoding: NSISOLatin1StringEncoding
 						allowLossyConversion: YES];
 	
-	int length = (int) [latin1 length];
+	NSInteger length = [latin1 length];
 	
 	if (length+1 > len) {
 		// Trim the line if the buffer is not big enough (this shouldn't happen)
@@ -1150,19 +1144,17 @@ glui32 glk_get_line_stream(strid_t str, char *buf, glui32 len) {
 #endif
 
 #if COCOAGLK_TRACE
-	NSLog(@"TRACE: glk_get_line_stream(%p, %p=\"%s\", %u) = %u", str, buf, buf, len, length);
+	NSLog(@"TRACE: glk_get_line_stream(%p, %p=\"%s\", %u) = %ld", str, buf, buf, len, (long)length);
 #endif
 		
 	// Return the result
 	str->read += len;
-	return length;
+	return (glui32)length;
 }
 
-//
-// This reads len characters from the given stream, unless the end of stream
-// is reached first. No terminal null is placed in the buffer. It returns
-// the number of characters actually read.
-//
+/// This reads len characters from the given stream, unless the end of stream
+/// is reached first. No terminal null is placed in the buffer. It returns
+/// the number of characters actually read.
 glui32 glk_get_buffer_stream(strid_t str, char *buf, glui32 len) {
 	// Sanity checking
 	if (!cocoaglk_strid_sane(str)) {
@@ -1183,7 +1175,7 @@ glui32 glk_get_buffer_stream(strid_t str, char *buf, glui32 len) {
 	// Next, use the stream object to get our result
 	NSData* data = [str->stream getBufferWithLength: len];
 	
-	int length = (int) [data length];
+	NSInteger length = [data length];
 	
 	if (length > len) {
 		NSLog(@"Warning: getBufferWithLength: returned more data than was asked for (trimming)");
@@ -1194,14 +1186,21 @@ glui32 glk_get_buffer_stream(strid_t str, char *buf, glui32 len) {
 	memcpy(buf, [data bytes], length);
 	
 #if COCOAGLK_TRACE
-	NSLog(@"TRACE: glk_get_buffer_stream(%p, %p, %i) = %u", str, buf, len, length);
+	NSLog(@"TRACE: glk_get_buffer_stream(%p, %p, %i) = %ld", str, buf, len, (long)length);
 #endif
 		
 	str->read += length;
-	return length;
+	return (glui32)length;
 }
 
-// = Custom styles =
+strid_t glkunix_stream_open_pathname(char *pathname, glui32 textmode,
+									 glui32 rock) {
+	NSURL *fileURL = [NSURL fileURLWithFileSystemRepresentation:pathname isDirectory:NO relativeToURL:nil];
+	frefid_t fileRef = cocoaglk_open_file(fileURL, textmode, rock);
+	return glk_stream_open_file(fileRef, filemode_Read, rock);
+}
+
+#pragma mark - Custom styles
 
 // Causes CocoaGlk to set a style hint immediately in the specified stream
 void cocoaglk_set_immediate_style_hint(strid_t str, glui32 hint, glsi32 value) {

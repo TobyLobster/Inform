@@ -7,18 +7,14 @@
 //
 
 #import "GlkWindow.h"
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_4
-
-#define NSAccessibilityTopLevelUIElementAttribute @""
-
-#endif
+#import <GlkView/GlkPairWindow.h>
+#import <GlkView/GlkView.h>
 
 @implementation GlkWindow
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(GlkRect)frame {
     self = [super initWithFrame:frame];
     
 	if (self) {
@@ -29,58 +25,29 @@
 	return self;
 }
 
-- (void) dealloc {
-	[styles release]; styles = nil;
-	[preferences release]; preferences = nil;
-	
-	[immediateStyle release]; immediateStyle = nil;
-	[customAttributes release]; customAttributes = nil;
-	
-	[super dealloc];
-}
+#pragma mark - Drawing
 
-// = Drawing =
-
-- (void)drawRect:(NSRect)rect {
+- (void)drawRect:(GlkRect)rect {
 	[[self backgroundColour] set];
-	NSRectFill(rect);
+	GlkRectFill(rect);
 }
 
 - (BOOL) isOpaque {
 	return YES;
 }
 
-// = Window metadata =
+#pragma mark - Window metadata
 
-- (void) setClosed: (BOOL) newClosed {
-	closed = newClosed;
-}
+@synthesize closed;
+@synthesize glkIdentifier=windowIdentifier;
 
-- (BOOL) closed {
-	return closed;
-}
+#pragma mark - The parent window
 
-- (void) setIdentifier: (unsigned) newWindowIdentifier {
-	windowIdentifier = newWindowIdentifier;
-}
+@synthesize parent = parentWindow;
 
-- (unsigned) identifier {
-	return windowIdentifier;
-}
+#pragma mark - Layout
 
-// = The parent window =
-
-- (void) setParent: (GlkPairWindow*) newParent {
-	parentWindow = newParent;
-}
-
-- (GlkPairWindow*) parent {
-	return parentWindow;
-}
-
-// = Layout =
-
-- (void) layoutInRect: (NSRect) parentRect {
+- (void) layoutInRect: (GlkRect) parentRect {
 	[self setFrame: parentRect];
 	
 	GlkSize newSize = [self glkSize];
@@ -90,66 +57,50 @@
 	lastSize = [self glkSize];
 }
 
-- (float) widthForFixedSize: (unsigned) size {
+- (CGFloat) widthForFixedSize: (unsigned) size {
 	return size;
 }
 
-- (float) heightForFixedSize: (unsigned) size {
+- (CGFloat) heightForFixedSize: (unsigned) size {
 	return size;
 }
 
-- (void) setBorder: (float) newBorder {
-	border = newBorder;
-}
+@synthesize border;
 
-- (float) border {
-	return border;
-}
-
-- (NSRect) contentRect {
-	return NSInsetRect([self bounds], border, border);
+- (GlkRect) contentRect {
+	return GlkInsetRect([self bounds], border, border);
 }
 
 - (GlkSize) glkSize {
-	NSRect contentRect = [self contentRect];
+	GlkRect contentRect = [self contentRect];
 	GlkSize res;
 	
-	res.width = contentRect.size.width;
-	res.height = contentRect.size.height;
+	res.width = (int)contentRect.size.width;
+	res.height = (int)contentRect.size.height;
 	
 	return res;
 }
 
-- (void) setScaleFactor: (float) newScaleFactor {
-	scaleFactor = newScaleFactor;
-	
-	// Nothing to do in most windows
-}
+@synthesize scaleFactor;
 
-// = Styles =
+#pragma mark - Styles
 
-- (void) setForceFixed: (BOOL) newForceFixed {
-	forceFixed = newForceFixed;
-}
+@synthesize forceFixed;
 
-- (BOOL) forceFixed {
-	return forceFixed;
-}
-
-- (NSColor*) backgroundColour {
+- (GlkColor*) backgroundColour {
 	return [[self style: style_Normal] backColour];
 }
 
-- (NSFont*) proportionalFont {
+- (GlkFont*) proportionalFont {
 	if (forceFixed) {
 		return [self fixedFont];
 	} else {
-		return [self attributes: style_Normal][NSFontAttributeName];
+		return [[self attributes: style_Normal] objectForKey: NSFontAttributeName];
 	}
 }
 
-- (NSFont*) fixedFont {
-	return [self attributes: style_Preformatted][NSFontAttributeName];
+- (GlkFont*) fixedFont {
+	return [[self attributes: style_Preformatted] objectForKey: NSFontAttributeName];
 }
 
 - (NSDictionary*) currentTextAttributes {
@@ -158,25 +109,27 @@
 	if (linkObject != nil) {
 		NSMutableDictionary* linkRes = [res mutableCopy];
 		
-		linkRes[NSLinkAttributeName] = linkObject;
+		[linkRes setObject: linkObject
+					forKey: NSLinkAttributeName];
 		
-		return [linkRes autorelease];
+		return linkRes;
 	}
 	
 	return res;
 }
 
-- (float) leading {
+- (CGFloat) leading {
 	return 0;
 }
 
-- (float) lineHeight {
-    NSLayoutManager* lm = [[[NSLayoutManager alloc] init] autorelease];
-	return [lm defaultLineHeightForFont: [self currentTextAttributes][NSFontAttributeName]];
+- (CGFloat) lineHeight {
+    NSFont* font = [[self currentTextAttributes] objectForKey: NSFontAttributeName];
+    NSLayoutManager* layoutManager = [[NSLayoutManager alloc] init];
+    
+    return [layoutManager defaultLineHeightForFont: font];
 }
 
 - (void) setStyles: (NSDictionary*) newStyles {
-	[styles release];
 	styles = [[NSDictionary alloc] initWithDictionary: newStyles
 											copyItems: YES];
 }
@@ -184,12 +137,12 @@
 - (GlkStyle*) style: (unsigned) glkStyle {
 	// If there aren't any styles yet, get the default styles from the preferences
 	if (!styles) {
-		if (!preferences) preferences = [[GlkPreferences sharedPreferences] retain];
+		if (!preferences) preferences = [GlkPreferences sharedPreferences];
 		[self setStyles: [preferences styles]];
 	}
 	
 	// Get the result from the styles object (use a default if we can't find a suitable style)
-	GlkStyle* res = styles[@(glkStyle)];	
+	GlkStyle* res = [styles objectForKey: @(glkStyle)];	
 	if (!res) res = [GlkStyle style];
 	
 	if (forceFixed && [res proportional]) [res setProportional: NO];
@@ -199,7 +152,7 @@
 }
 
 - (NSDictionary*) attributes: (unsigned) glkStyle {
-	if (!preferences) preferences = [[GlkPreferences sharedPreferences] retain];
+	if (!preferences) preferences = [GlkPreferences sharedPreferences];
 	
 	GlkStyle* sty;
 	if (!immediateStyle) {
@@ -212,8 +165,8 @@
 	
 	if (customAttributes) {
 		// Merge in the custom attributes if they're set
-		NSMutableDictionary* res = [[[sty attributesWithPreferences: preferences
-														scaleFactor: scaleFactor] mutableCopy] autorelease];
+		NSMutableDictionary* res = [[sty attributesWithPreferences: preferences
+													   scaleFactor: scaleFactor] mutableCopy];
 		[res addEntriesFromDictionary: customAttributes];
 		
 		return res;
@@ -225,8 +178,7 @@
 }
 
 - (void) setPreferences: (GlkPreferences*) prefs {
-	[preferences release];
-	preferences = [prefs retain];
+	preferences = prefs;
 }
 
 - (void) reformat {
@@ -241,7 +193,7 @@
 		immediateStyle = [[self style: style] copy];
 		if (!immediateStyle) immediateStyle = [[GlkStyle style] copy];
 	} else {
-		immediateStyle = [[immediateStyle autorelease] copy];
+		immediateStyle = [immediateStyle copy];
 	}
 	
 	// Set the style hint in the immediate style
@@ -255,7 +207,7 @@
 		immediateStyle = [[self style: style] copy];
 		if (!immediateStyle) immediateStyle = [[GlkStyle style] copy];
 	} else {
-		immediateStyle = [[immediateStyle autorelease] copy];
+		immediateStyle = [immediateStyle copy];
 	}
 	
 	// Get the default style
@@ -268,15 +220,12 @@
 }
 
 - (void) setCustomAttributes: (NSDictionary*) newCustomAttributes {
-	// Dispose of the old custom attributes
-	[customAttributes release];
-	
 	// Set the new attribtues from the dictionary
 	customAttributes = [[NSDictionary alloc] initWithDictionary: newCustomAttributes
 													  copyItems: YES];
 }
 
-// = Cursor positioning =
+#pragma mark - Cursor positioning
 
 - (void) moveCursorToXposition: (int) xpos
 					 yPosition: (int) ypos {
@@ -284,7 +233,7 @@
 }
 
 
-// = Window control =
+#pragma mark - Window control
 
 - (void) taskFinished {
 	// This window never liked the subtask anyway and is happy it's dead
@@ -294,9 +243,7 @@
 	// We can't get any clearer
 }
 
-- (void) setEventTarget: (NSObject<GlkEventReceiver>*) newTarget {
-	target = newTarget;
-}
+@synthesize eventTarget = target;
 
 - (void) requestCharInput {
 	if (lineInput) {
@@ -316,13 +263,9 @@
 	[[self window] invalidateCursorRectsForView: self];
 }
 
-- (BOOL) waitingForLineInput {
-	return lineInput;
-}
+@synthesize waitingForLineInput = lineInput;
 
-- (BOOL) waitingForCharInput {
-	return charInput;
-}
+@synthesize waitingForCharInput = charInput;
 
 - (BOOL) waitingForKeyboardInput {
 	return charInput || lineInput || [self needsPaging];
@@ -333,9 +276,11 @@
 	return charInput || lineInput;
 }
 
+#if !defined(COCOAGLK_IPHONE)
 - (NSResponder*) windowResponder {
 	return self;
 }
+#endif
 
 - (void) setInputLine: (NSString*) inputLine {
 	// As we don't support line input, there's nothing to do here
@@ -346,11 +291,11 @@
 	if (charInput) {
 		// Generate a character input event
 		GlkEvent* glkEvent = [[GlkEvent alloc] initWithType: evtype_CharInput
-										   windowIdentifier: [self identifier]
+										   windowIdentifier: [self glkIdentifier]
 													   val1: [[self class] keycodeForString: forcedInput]
 													   val2: 0];		
 		[self cancelCharInput];
-		[target queueEvent: [glkEvent autorelease]];
+		[target queueEvent: glkEvent];
 	}
 }
 
@@ -390,7 +335,7 @@
 	// Nothing to do for these windows
 }
 
-// = Standard mouse and input handlers =
+#pragma mark - Standard mouse and input handlers
 
 - (BOOL)acceptsFirstResponder {
 	// Note that we can't handle line input events by default, so we only accept if we have character events
@@ -427,6 +372,21 @@
 	
 	return NO;
 }
+
+#if defined(COCOAGLK_IPHONE)
+NS_ENUM(unichar) {
+	NSUpArrowFunctionKey = 0xF700,
+	NSDownArrowFunctionKey,
+	NSLeftArrowFunctionKey,
+	NSRightArrowFunctionKey,
+	
+	NSHomeFunctionKey = 0xF729,
+	NSEndFunctionKey = 0xF72B,
+	NSPageUpFunctionKey,
+	NSPageDownFunctionKey,
+};
+
+#endif
 
 + (unsigned) keycodeForString: (NSString*) string {
 	glui32 chr = keycode_Unknown;						// The Glk character
@@ -488,6 +448,7 @@
 	return chr;
 }
 
+#if !defined(COCOAGLK_IPHONE)
 + (unsigned) keycodeForEvent: (NSEvent*) evt {
 	return [[self class] keycodeForString: [evt characters]];
 }
@@ -499,19 +460,20 @@
 		//NSBeep();
 	} else if ([[evt characters] length] >= 1) {
 		GlkEvent* glkEvent = [[GlkEvent alloc] initWithType: evtype_CharInput
-										   windowIdentifier: [self identifier]
+										   windowIdentifier: [self glkIdentifier]
 													   val1: [[self class] keycodeForEvent: evt]
 													   val2: 0];
 		
 		[self cancelCharInput];
-		[target queueEvent: [glkEvent autorelease]];
+		[target queueEvent: glkEvent];
 	}
 }
+#endif
 
 - (void) updateCaretPosition {
 }
 
-- (int) inputPos {
+- (NSInteger) inputPos {
 	// Default is 0 (not managing a text view)
 	return 0;
 }
@@ -524,25 +486,25 @@
 	// The horrible taste of flies fails to wake us up
 }
 
-// = Streaming =
+#pragma mark - Streaming
 
-// Control
+#pragma mark Control
 
 - (void) closeStream {
 	// Nothing to do really
 }
 
-- (void) setPosition: (in int) position
-		  relativeTo: (in enum GlkSeekMode) seekMode {
+- (void) setPosition: (in NSInteger) position
+		  relativeTo: (in GlkSeekMode) seekMode {
 	// No effect
 }
 
-- (unsigned) getPosition {
+- (unsigned long long) getPosition {
 	// Spec isn't really clear on what do for window streams. We just say the position is always 0
 	return 0;
 }
 
-// Writing
+#pragma mark Writing
 
 - (void) putChar: (in unichar) ch {
 	unichar buf[1];
@@ -559,9 +521,8 @@
 
 - (void) putBuffer: (in bycopy NSData*) buffer {
 	// Assume that buffers are in ISO Latin-1 format
-	NSString* string = [[[NSString alloc] initWithBytes: [buffer bytes]
-												 length: [buffer length]
-											   encoding: NSISOLatin1StringEncoding] autorelease];
+	NSString* string = [[NSString alloc] initWithData: buffer
+											 encoding: NSISOLatin1StringEncoding];
 
 	// The view won't automate data events automatically
 	[containingView automateStream: self
@@ -571,37 +532,35 @@
 	[self putString: string];
 }
 
-// = Reading =
+#pragma mark - Reading
 
 - (unichar) getChar {
 	return 0;
 }
 
-- (bycopy NSString*) getLineWithLength: (int) len {
+- (bycopy NSString*) getLineWithLength: (NSInteger) len {
 	return nil;
 }
 
-- (bycopy NSData*) getBufferWithLength: (unsigned) length {
+- (bycopy NSData*) getBufferWithLength: (NSUInteger) length {
 	return nil;
 }
 
-// = Styles =
+#pragma mark - Styles
 
 - (void) setStyle: (int) styleId {
 	style = styleId;
 
 	if (immediateStyle) {
-		[immediateStyle release];
 		immediateStyle = nil;
 	}
 }
 
-- (int) style {
-	return style;
-}
+@synthesize style;
 
-// = Cursor rects =
+#pragma mark - Cursor rects
 
+#if !defined(COCOAGLK_IPHONE)
 - (void)resetCursorRects {
 	if (lineInput || charInput) {
 		[self addCursorRect: [self bounds]
@@ -612,19 +571,14 @@
 	} else {
 	}
 }
+#endif
 
 
-// = The containing view =
+#pragma mark - The containing view
 
-- (GlkView*) containingView {
-	return containingView;
-}
+@synthesize containingView;
 
-- (void) setContainingView: (GlkView*) view {
-	containingView = view;
-}
-
-// = Paging =
+#pragma mark - Paging
 
 - (BOOL) needsPaging {
 	// By default, windows have no paging
@@ -635,95 +589,54 @@
 	
 }
 
-// = Hyperlinks =
+#pragma mark - Hyperlinks
 
 - (void) setHyperlink: (unsigned int) value {
-	[linkObject release];
 	linkObject = [[NSNumber alloc] initWithUnsignedInt: value];
 }
 
 - (void) clearHyperlink {
-	[linkObject release];
 	linkObject = nil;
 }
 
-// = Accessibility =
+#pragma mark - Accessibility
 
-- (NSString *)accessibilityActionDescription: (NSString*) action {
-	return [super accessibilityActionDescription:  action];
+- (NSString *)accessibilityRoleDescription {
+	return [NSString stringWithFormat: @"GLK window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
 }
 
-- (NSArray *)accessibilityActionNames {
-	return [super accessibilityActionNames];
+- (NSArray *)accessibilityChildren {
+	// No children by default
+	return @[];
 }
 
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [super accessibilityIsAttributeSettable: attribute];;
-}
+- (BOOL)isAccessibilityFocused {
+	NSView* viewResponder = (NSView*)[[self window] firstResponder];
+	if ([viewResponder isKindOfClass: [NSView class]]) {
+		while (viewResponder != nil) {
+			if (viewResponder == self) return YES;
 
-- (void)accessibilityPerformAction:(NSString *)action {
-	[super accessibilityPerformAction: action];
-}
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	// No settable attributes
-	[super accessibilitySetValue: value
-					forAttribute: attribute];
-}
-
-- (NSArray*) accessibilityAttributeNames {
-    static NSMutableArray *attributes = nil;
-    if ( attributes == nil )
-    {
-        attributes = [[super accessibilityAttributeNames] mutableCopy];
-
-        NSArray *additionalAttributes = @[NSAccessibilityChildrenAttribute, NSAccessibilityFocusedAttribute];
-
-        for ( NSString *attribute in additionalAttributes )
-        {
-            if ( ![attributes containsObject:attribute] )
-            {
-                [attributes addObject:attribute];
-            }
-        }
-    }
-    return attributes;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityChildrenAttribute]) {
-		//return [NSArray array];
-	} else if ([attribute isEqualToString: NSAccessibilityRoleDescriptionAttribute]) {
-		return [NSString stringWithFormat: @"GLK window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];;
-	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
-		return NSAccessibilityUnknownRole;
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedAttribute]) {
-		NSView* viewResponder = (NSView*)[[self window] firstResponder];
-		if ([viewResponder isKindOfClass: [NSView class]]) {
-			while (viewResponder != nil) {
-				if (viewResponder == self) return @YES;
-				
-				viewResponder = [viewResponder superview];
-			}
+			viewResponder = [viewResponder superview];
 		}
-		
-		return @NO;
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		//return nil;
-	} else if ([attribute isEqualToString: NSAccessibilityFocusedUIElementAttribute]) {
-		return [self accessibilityFocusedUIElement];
 	}
 
-	return [super accessibilityAttributeValue: attribute];
+	return NO;
 }
 
-- (BOOL)accessibilityIsIgnored {
-    return NO;
+- (id)accessibilityApplicationFocusedUIElement {
+	return [self accessibilityFocusedUIElement];
+}
+
+- (NSString *)accessibilityLabel {
+	return [NSString stringWithFormat: @"GLK window%@%@", lineInput?@", waiting for commands":@"", charInput?@", waiting for a key press":@""];
+}
+
+- (NSAccessibilityRole)accessibilityRole {
+	return NSAccessibilityUnknownRole;
 }
 
 - (id)accessibilityFocusedUIElement {
 	return self;
-}
+ }
 
 @end

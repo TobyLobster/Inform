@@ -9,7 +9,7 @@
 #import "ZoomZMachine.h"
 #import "ZoomServer.h"
 
-#include "sys/time.h"
+#include <sys/time.h>
 
 
 #include "zmachine.h"
@@ -60,35 +60,26 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	
     if (windows[0])
-        [windows[0] release];
+        windows[0] = nil;
     if (windows[1])
-        [windows[1] release];
+        windows[1] = nil;
     if (windows[2])
-        [windows[2] release];
+        windows[2] = nil;
 
     int x;
     for (x=0; x<3; x++) {
-        [windowBuffer[x] release];
+        windowBuffer[x] = nil;
     }
-
-    [display release];
-    [inputBuffer release];
-    [outputBuffer release];
 
     mainMachine = nil;
     
-    if (lastFile) [lastFile release];
-
     if (machineFile) {
         close_file(machineFile);
     }
-	if (storyData) [storyData release];
-    
-    [super dealloc];
 }
 
 - (NSString*) description {
-    return @"Zoom 1.1.6 ZMachine object";
+    return @"Zoom " VERSION " ZMachine object";
 }
 
 - (void) connectionDied: (NSNotification*) notification {
@@ -96,12 +87,12 @@
 	abort();
 }
 
-// = Setup =
-- (void) loadStoryFile: (NSData*) storyFile {
+#pragma mark - Setup
+- (void) loadStoryFile: (in bycopy NSData*) storyFile {
     // Create the machine file
-	storyData = [storyFile retain];
+    storyData = storyFile;
     ZDataFile* file = [[ZDataFile alloc] initWithData: storyFile];
-    machineFile = open_file_from_object([file autorelease]);
+    machineFile = open_file_from_object(file);
 	
 	// Start initialising the Z-Machine
 	// (We do this so that we can load a save state at any time after this call)
@@ -111,7 +102,7 @@
     // RNG
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    random_seed((int) (tv.tv_sec^tv.tv_usec));
+    random_seed((ZDWord)(tv.tv_sec^tv.tv_usec));
 	
     // Some default options
 	// rc_load(); // DELETEME: TEST FOR BUG
@@ -143,12 +134,11 @@
     rc_set_game(zmachine_get_serial(), Word(ZH_release), Word(ZH_checksum));
 }
 
-// = Running =
-- (void) startRunningInDisplay: (in byref NSObject<ZDisplay>*) disp {
-    NSAutoreleasePool* mainPool = [[NSAutoreleasePool alloc] init];
-    
+#pragma mark - Running
+- (oneway void) startRunningInDisplay: (in byref id<ZDisplay>) disp {
+    @autoreleasepool {
 	// Remember the display
-    display = [disp retain];
+		display = disp;
 	
 	// Set up colours
 	if (rc_defgame) {
@@ -165,9 +155,6 @@
     windows[1] = NULL;
     windows[2] = NULL;
 
-    // Cycle the autorelease pool
-    displayPool = [[NSAutoreleasePool alloc] init];
-    
     switch (machine.header[0]) {
         case 3:
             // Status window
@@ -177,13 +164,13 @@
         case 7:
         case 8:
             // Upper/lower window
-            windows[0] = [[display createLowerWindow] retain];
-            windows[1] = [[display createUpperWindow] retain];
-            windows[2] = [[display createUpperWindow] retain];
+            windows[0] = [display createLowerWindow];
+            windows[1] = [display createUpperWindow];
+            windows[2] = [display createUpperWindow];
             break;
 
         case 6:
-			windows[0] = [[display createPixmapWindow] retain];
+            windows[0] = [display createPixmapWindow];
             break;
     }
 
@@ -250,12 +237,12 @@
 	display_flush();
 
     display_finalise();
-    [mainPool release];
+    }
 	
 	display_exit(0);
 }
 
-// = Debugging =
+#pragma mark - Debugging
 void cocoa_debug_handler(ZDWord pc) {
 	[mainMachine breakpoint: pc];
 }
@@ -265,20 +252,13 @@ void cocoa_debug_handler(ZDWord pc) {
 		// Notify the display of the breakpoint
 		waitingForBreakpoint = YES;
 		[self flushBuffers];
-		[display hitBreakpointAt: pc];
+		[display hitBreakpointAtCounter: pc];
 		
 		// Wait for the display to request resumption
-		NSAutoreleasePool* breakpointPool = [[NSAutoreleasePool alloc] init];
-		
-		while (waitingForBreakpoint && (mainMachine != nil)) {
-			[breakpointPool release];
-			breakpointPool = [[NSAutoreleasePool alloc] init];
-			
+        while (waitingForBreakpoint && (mainMachine != nil)) @autoreleasepool {
 			[mainLoop acceptInputForMode: NSDefaultRunLoopMode
 							  beforeDate: [NSDate distantFuture]];
 		}
-		
-		[breakpointPool release];
 	}
 }
 
@@ -321,7 +301,7 @@ void cocoa_debug_handler(ZDWord pc) {
 	waitingForBreakpoint = NO;
 }
 
-- (NSData*) staticMemory {
+- (bycopy NSData*) staticMemory {
 	NSData* result = [NSData dataWithBytesNoCopy: machine.memory 
 										  length: machine.story_length<65536?machine.story_length:65536];
 	
@@ -360,8 +340,8 @@ void cocoa_debug_handler(ZDWord pc) {
 	return 0;
 }
 
-- (unsigned) typeMasksForValue: (unsigned) value {
-	unsigned mask = 0;
+- (ZValueTypeMasks) typeMasksForValue: (unsigned) value {
+	ZValueTypeMasks mask = 0;
 	
 	// Get the region
 	int region = [self zRegion: value];
@@ -396,7 +376,14 @@ void cocoa_debug_handler(ZDWord pc) {
 static NSString* zscii_to_string(ZByte* buf) {
 	int len;
 	int* unistr = zscii_to_unicode(buf, &len);
+    NSData *dat = [[NSData alloc] initWithBytes: unistr
+                                         length: len * sizeof(int)];
 	
+    NSString *res = [[NSString alloc] initWithData: dat
+                                          encoding: NSUTF32LittleEndianStringEncoding];
+    if (res) {
+        return res;
+    }
 	int x;
 	int strLen = 0;
 	
@@ -409,14 +396,14 @@ static NSString* zscii_to_string(ZByte* buf) {
 	}
 	cBuf[strLen] = 0;
 	
-	NSString* res = [NSString stringWithCharacters: cBuf
-											length: strLen];
+	res = [[NSString alloc] initWithCharactersNoCopy: cBuf
+                                              length: strLen
+                                        freeWhenDone: YES];
 	
-	free(cBuf);
 	return res;
 }
 
-- (NSString*) descriptionForValue: (unsigned) value {
+- (bycopy NSString*) descriptionForValue: (ZValueTypeMasks) value {
 	NSMutableString* description = [NSMutableString string];
 	unsigned mask = [self typeMasksForValue: value];
 	
@@ -490,9 +477,9 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return description;
 }
 
-- (void) loadDebugSymbolsFrom: (NSString*) symbolFile
-			   withSourcePath: (NSString*) sourcePath {	
-	debug_load_symbols((char*)[symbolFile cString], (char*)[sourcePath cString]);
+- (void) loadDebugSymbolsFromFile: (NSString*) symbolFile
+				   withSourcePath: (NSString*) sourcePath {	
+	debug_load_symbols((char*)[symbolFile fileSystemRepresentation], (char*)[sourcePath fileSystemRepresentation]);
 
 	// Setup our debugger callback
 	debug_set_bp_handler(cocoa_debug_handler);
@@ -560,7 +547,7 @@ static NSString* zscii_to_string(ZByte* buf) {
 }
 
 - (int) addressForName: (NSString*) name {
-	return debug_find_named_address([name cString]);
+	return debug_find_named_address([name UTF8String]);
 }
 
 - (NSString*) nameForAddress: (int) address {
@@ -605,8 +592,8 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return addr.line->ch;
 }
 
-// = Autosave =
-- (NSData*) createGameSave {
+#pragma mark - Autosave
+- (bycopy NSData*) createGameSave {
 	// Create a save game, for autosave purposes
 	int len;
 	
@@ -621,15 +608,15 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return result;
 }
 
-- (NSData*) storyFile {
-	return storyData;
+- (bycopy NSData*) storyFile {
+    return [storyData copy];
 }
 
-- (NSString*) restoreSaveState: (NSData*) saveData {
+- (bycopy NSString*) restoreSaveState: (in bycopy NSData*) saveData {
 	const ZByte* gameData = [saveData bytes];
 	
 	// NOTE: suppresses a warning (but it should be OK)
-	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, (int) [saveData length])) {
+	if (!state_decompile((ZByte*)gameData, &machine.stack, &machine.zpc, (ZDWord)[saveData length])) {
 		NSLog(@"ZoomServer: restoreSaveState: failed");
 		return @(state_fail());
 	} else {
@@ -670,37 +657,28 @@ static NSString* zscii_to_string(ZByte* buf) {
 	return nil;
 }
 
-// = Receiving text/characters =
-- (void) inputText: (NSString*) text {
+#pragma mark - Receiving text/characters
+- (oneway void) inputText: (in bycopy NSString*) text {
     [inputBuffer appendString: text];
 }
 
-- (void) inputTerminatedWithCharacter: (unsigned int) termChar {
+- (oneway void) inputTerminatedWithCharacter: (unsigned int) termChar {
 	terminatingCharacter = termChar;
 }
 
-- (void) inputMouseAtPositionX: (int) posX
-							 Y: (int) posY {
+- (oneway void) inputMouseAtPositionX: (int) posX
+									Y: (int) posY {
 	mousePosX = posX;
 	mousePosY = posY;
 }
 
-- (int)	terminatingCharacter {
-	return terminatingCharacter;
-}
+@synthesize terminatingCharacter;
+@synthesize mousePosX;
+@synthesize mousePosY;
 
-- (int) mousePosX {
-	return mousePosX;
-}
-
-- (int) mousePosY {
-	return mousePosY;
-}
-
-// = Receiving files =
-- (void) filePromptCancelled {
+#pragma mark - Receiving files
+- (oneway void) filePromptCancelled {
     if (lastFile) {
-        [lastFile release];
         lastFile = nil;
         lastSize = -1;
     }
@@ -708,11 +686,9 @@ static NSString* zscii_to_string(ZByte* buf) {
     filePromptFinished = YES;
 }
 
-- (void) promptedFileIs: (NSObject<ZFile>*) file
-                   size: (long) size {
-    if (lastFile) [lastFile release];
-    
-    lastFile = [file retain];
+- (oneway void) promptedFileIs: (in byref id<ZFile>) file
+						  size: (NSInteger) size {
+    lastFile = file;
     lastSize = size;
     
     filePromptFinished = YES;
@@ -721,32 +697,22 @@ static NSString* zscii_to_string(ZByte* buf) {
 - (void) filePromptStarted {
     filePromptFinished = NO;
     if (lastFile) {
-        [lastFile release];
         lastFile = nil;
     }
 }
 
-- (BOOL) filePromptFinished {
-    return filePromptFinished;
-}
-
-- (NSObject<ZFile>*) lastFile {
-    return lastFile;
-}
-
-- (int) lastSize {
-    return (int) lastSize;
-}
+@synthesize filePromptFinished;
+@synthesize lastFile;
+@synthesize lastSize;
 
 - (void) clearFile {
     if (lastFile) {
-        [lastFile release];
         lastFile = nil;
     }
 }
 
-// = Our own functions =
-- (NSObject<ZWindow>*) windowNumber: (int) num {
+#pragma mark - Our own functions
+- (id<ZWindow>) windowNumber: (int) num {
     if (num < 0 || num > 2) {
         NSLog(@"*** BUG - window %i does not exist", num);
         return nil;
@@ -755,27 +721,26 @@ static NSString* zscii_to_string(ZByte* buf) {
     return windows[num];
 }
 
-- (NSObject<ZDisplay>*) display {
-    return display;
+@synthesize display;
+@synthesize inputBuffer;
+
+- (void)setWindowTitle:(in bycopy NSString *)text {
+    if (text == nil) {
+        text = @"";
+    }
+    [display setWindowTitle: text];
 }
 
-- (NSMutableString*) inputBuffer {
-    return inputBuffer;
-}
+#pragma mark - Buffering
 
-// = Buffering =
-
-- (ZBuffer*) buffer {
-    return outputBuffer;
-}
+@synthesize buffer = outputBuffer;
 
 - (void) flushBuffers {
     [display flushBuffer: outputBuffer];
-    [outputBuffer release];
     outputBuffer = [[ZBuffer alloc] init];
 }
 
-// = Display size =
+#pragma mark - Display size
 
 - (void) displaySizeHasChanged {
     zmachine_resize_display(display_get_info());
@@ -783,8 +748,8 @@ static NSString* zscii_to_string(ZByte* buf) {
 
 @end
 
-// = Fatal errors and warnings =
-void zmachine_fatal(char* format, ...) {
+#pragma mark - Fatal errors and warnings
+void zmachine_fatal(const char* format, ...) {
 	char fatalBuf[512];
 	va_list  ap;
 	
@@ -803,7 +768,7 @@ void zmachine_fatal(char* format, ...) {
 	display_exit(1);
 }
 
-void zmachine_warning(char* format, ...) {
+void zmachine_warning(const char* format, ...) {
 	char fatalBuf[512];
 	va_list  ap;
 	

@@ -9,12 +9,12 @@
 #import "GlkUcs4Stream.h"
 
 #include "glk.h"
-#include "cocoaglk.h"
+#import "cocoaglk.h"
 #import "glk_client.h"
 
 @implementation GlkUcs4Stream
 
-- (id) initWithStream: (NSObject<GlkStream>*) stream
+- (id) initWithStream: (id<GlkStream>) stream
 			bigEndian: (BOOL) isBigEndian {
 	self = [super init];
 	
@@ -36,13 +36,13 @@
 	[dataStream closeStream];
 }
 
-- (void) setPosition: (in int) position
-		  relativeTo: (in enum GlkSeekMode) seekMode {
+- (void) setPosition: (in NSInteger) position
+		  relativeTo: (in GlkSeekMode) seekMode {
 	[dataStream setPosition: position
 				 relativeTo: seekMode];
 }
 
-- (unsigned) getPosition {
+- (unsigned long long) getPosition {
 	return [dataStream getPosition];
 }
 
@@ -54,10 +54,22 @@
 }
 
 - (void) putString: (in bycopy NSString*) string {
-	int len = (int) [string length]*2;
+	NSStringEncoding encoding;
+	if (bigEndian) {
+		encoding = NSUTF32BigEndianStringEncoding;
+	} else {
+		encoding = NSUTF32LittleEndianStringEncoding;
+	}
+	NSData *strData = [string dataUsingEncoding:encoding];
+	if (strData) {
+		// TODO: test if this adds a BOM to the data. We might not want that...
+		[self putBuffer:strData];
+		return;
+	}
+	NSInteger len = [string length]*2;
 	glui32 buf[len];
 	
-	len = cocoaglk_copy_string_to_uni_buf(string, buf, len);
+	len = cocoaglk_copy_string_to_uni_buf(string, buf, (glui32)len);
 	
 	// Convert to a big-endian buffer
 	NSMutableData* data = [NSMutableData dataWithLength: len*4];
@@ -105,7 +117,7 @@
 		return '?';
 }
 
-- (bycopy NSString*) getLineWithLength: (int) maxLen {
+- (bycopy NSString*) getLineWithLength: (NSInteger) maxLen {
 	glui32* line = NULL;
 	int lineLength = 0;
 	int lineAllocated = 0;
@@ -131,13 +143,18 @@
 	}
 	
 	// Convert to a NSString
-	NSString* res = cocoaglk_string_from_uni_buf(line, lineLength);
+	NSString* res = [[[NSString alloc] initWithBytes:line length:lineLength*4 encoding:NSUTF32LittleEndianStringEncoding] autorelease];
+	
+	if (!res) {
+		// Convert to a NSString
+		res = cocoaglk_string_from_uni_buf(line, lineLength);
+	}
 	
 	free(line);
 	return res;
 }
 
-- (bycopy NSData*) getBufferWithLength: (unsigned) length {
+- (bycopy NSData*) getBufferWithLength: (NSUInteger) length {
 	return [dataStream getBufferWithLength: length];
 }
 

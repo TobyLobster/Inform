@@ -1,0 +1,179 @@
+Installing gtk-geas on OS X
+David Jones <drj@pobox.com>
+
+
+Introduction
+
+gtk-geas is an Open Source interpreter for the Quest format of computer
+text adventures.  gtk-geas was created by Mark Tilford.
+gtk-geas can be used to play the files produced by Quest, such
+as Beam_1_10.cas (an entry into the 2006 IFComp).
+
+This document is a series of instructions for building a runnable
+version of gtk-geas that runs on Mac OS X (gtk-geas was initially
+designed to run on Linux).  The author of this document used these
+instructions to run gtk-geas on Mac OS X 10.4.8 on Intel hardware.  It's
+entirely likely that other versions of Mac OS X and PowerPC hardware will
+work, but they're untested.  I would be pleased to receive reports of
+success.
+
+I have only a surface understanding of most of the technologies used in
+building gtk-geas so it's entirely possible that there are simpler ways
+or that this method does not work for you for some reason.  Please feel
+to get in touch (drj@pobox.com), but please don't be disappointed if I
+can't help.  If you have any comments or suggestions to improve this
+document then also get in touch.
+
+See INSTALL-OSX.txt and INSTALL-OSX-GLK for alternative installations on
+OS X.
+
+
+Overview and Prerequisites
+
+gtk-geas relies on a number of major technologies none of which come by
+default on Mac OS X, but all of which can be installed (either using
+Apple's installers provided with the OS installation media, or third
+party installers).  Let me warn you now, none of this is very Mac like;
+it's all very Unix like.  You'll need X11 server (Apple), X11 SDK
+(Apple), gcc (Apple), GTK (fink).
+
+The Apple installers come on the OS X installation discs, so you
+must have these discs.  These are the CDs or DVDs that came with
+your computer or the ones from the new OS if you upgraded from 10.3
+to 10.4 (or similar).
+
+You'll also need to use Apple's Terminal application (it's in
+/Applications/Utilities if you don't know where to find it).  Many steps
+in the procedure described below require you to type commands into a
+Terminal window.  If you're not familiar with Terminal then don't panic,
+but please be careful when typing.
+
+You will also need to execute these instructions from
+an account with administrator privileges (which if you're the only
+person using your Mac you almost certainly have).
+
+
+Procedure
+
+If you have a set of 10.4.6 install DVDs (like I do) then insert Disc 1.
+
+Installing gcc:
+
+[Skip this step if you know you already have gcc installed]
+
+Open the "Xcode Tools" folder.  Open the XcodeTools.mpkg document (it's
+a package installer).  This runs the Installer program.  Click your way
+through this until it's installed everything that it wanted to.  To
+check that it has worked, open a Terminal window and type "gcc" followed
+by Return.  You should get a response something like:
+"i686-apple-darwin8-gcc-4.0.1: no input files".
+
+
+Installing X11
+
+[Skip this step if you know you already have X11 installed]
+
+Open the "Optional Installs" package.  This is at the top level of the
+10.4.6 Install Disc 1 but you may need to scroll the Finer window to
+find it.  Click your way through this and when presented with a list of
+packages to install select the X11 package and continue until it's
+installed.  To check that X11 is installed open your Applications
+folder, there should be an X11 application now.
+
+
+Installing fink
+
+(fink is a repository of Unix software for OS X)
+
+[Skip this step if you know you already have fink installed]
+
+Download a fink binary installer from
+http://fink.sourceforge.net/download/bindist.php
+Open the installer, click it until it installs.
+I downloaded Fink-0.8.1-Intel-Installer.dmg .  You may need the PowerPC
+version, and there may be newer version by the time you read this.
+If you need more detailed hand-holding or are unsure on some aspect,
+please refer to the fink documentation on
+http://fink.sourceforge.net/doc/users-guide/index.php (specifically
+section 2).
+If you have Terminal windows open at this point then you should probably
+close them and reopen them (to get the new environment variables that
+allow you to run fink).
+
+
+Enabling fink's unstable tree
+
+[Skip this step if you know you already have the unstable tree for fink
+installed]
+
+(This is a summary of the instructions contained in FAQ question 5.8 for
+fink; please refer there for more detailed instructions:
+http://fink.sourceforge.net/faq/usage-fink.php?phpLang=en#unstable )
+
+The file /sw/etc/fink.conf needs editing; the line beginning Trees:
+needs the text " unstable/main unstable/crypto" adding to it.
+If you're Unix skills are good you can simply go to a Terminal window
+and type "sudo vi /sw/etc/fink.conf" and perform the edit.
+
+If you're a Unix novice, then do this:
+- First find the /sw/etc folder in Finder: use the Finder's "Go >>
+  Computer" menu item, then open the system disk.  In that disk you should
+  see a folder called "sw"; open it and then open the "etc" folder
+  contained within.
+- Copy the fink.conf file to the desktop (which I do by
+  dragging and using F11 to exposé my desktop).  Ctrl-click on the
+  fink.conf copy that you made and select "Open With >> TextEdit".
+- Find the line beginning "Trees:" and add the text " unstable/main
+  unstable/crypto" to the end of the line.  Save the file and close TextEdit.
+- Drag the fink.conf file from the Desktop back to the /sw/etc folder;
+  Finder will say that you need to authenticate and that you may be
+  overwriting a file.  Overwrite the file and authenticate (I have a
+  sneaking suspicion that things are not so simple in OS X 10.3).
+
+Having edited the fink.conf file you need to run some fink commands in
+order to make it take notice:
+Open a Terminal window (or use one already open) and type the commands:
+"run fink selfupdate; fink index; fink scanpackages" followed by Return.
+
+
+Installing gtkmm-2.4
+
+Go to a Terminal window and type "sudo fink install gtkmm2.4-dev"
+followed by Return.  Authenticate by using your password.
+This will take some while.
+
+
+Building gtk-geas
+
+All of this takes place in a Terminal window, so open one (or find one).
+
+cd to where the geas folder has been unpacked.  For me this is
+geas-osx-src-0.1 on my Desktop, and I use the following sequence of cd
+commands:
+  cd
+  cd Desktop
+  cd geas-osx-src-0.1
+type make to build geas:
+  make
+If successful this should have built a program in a file called
+gtk-geas.  Check by doing:
+  ls -l gtk-geas
+
+
+Running gtk-geas
+
+gtk-geas requires X11 and must be run from within an X11 window.  Start
+X11 (it's an application in Applications/Utilities).  You should see a
+window a bit like Terminal appear (like Terminal only faster and more
+ugly) titled "xterm".  From within this xterm window you need to cd to
+where you built gtk-geas and then run it:
+  cd
+  cd Desktop
+  cd geas-osx-src-0.1
+  ./gtk-geas &
+This should start gtk-geas.  gtk-geas may (and definitely will on early
+beta versions) print text and messages on the xterm window whence it was
+launched, you should ignore these.  Especially since I suspect they
+contain spoilers for any game you try and run.
+
+Enjoy.

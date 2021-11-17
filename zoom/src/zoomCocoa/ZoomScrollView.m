@@ -9,22 +9,9 @@
 #import "ZoomScrollView.h"
 
 
-@implementation ZoomScrollView {
-    ZoomView*            zoomView;
-    ZoomUpperWindowView* upperView;
+@implementation ZoomScrollView
 
-    NSBox* upperDivider;
-
-    float scaleFactor;
-
-    NSSize lastFixedSize;
-    NSSize lastTileSize;
-    int lastUpperSize;
-
-    BOOL useDivider;
-}
-
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         zoomView = nil;
@@ -40,7 +27,7 @@
     return self;
 }
 
-- (instancetype) initWithFrame: (NSRect) frame
+- (id) initWithFrame: (NSRect) frame
             zoomView: (ZoomView*) zView {
     self = [self initWithFrame:frame];
     if (self) {
@@ -48,15 +35,9 @@
 		scaleFactor = 1.0;
         
         upperView = [[ZoomUpperWindowView alloc] initWithFrame: frame
-                                                      zoomView: zView];
+													  zoomView: zView];
     }
     return self;
-}
-
-- (void) dealloc {
-    [upperDivider release];
-    [upperView release];
-    [super dealloc];
 }
 
 - (void) tile {
@@ -69,7 +50,8 @@
 
 	int upperHeight  = [zoomView upperWindowSize];
 	NSSize fixedSize = [@"M" sizeWithAttributes:
-		@{NSFontAttributeName: [zoomView fontWithStyle:ZFixedStyle]}];	
+		[NSDictionary dictionaryWithObjectsAndKeys:
+		 [zoomView fontFromStyle:ZFontStyleFixed], NSFontAttributeName, nil]];
 	
 	if (!NSEqualSizes(lastTileSize, thisTileSize) || lastUpperSize != upperHeight || !NSEqualSizes(lastFixedSize, fixedSize)) {
 		// Move the content view to accomodate the upper window
@@ -84,9 +66,11 @@
 		//contentFrame.size = [self contentSize];
 		contentFrame.origin = [self bounds].origin;
 		contentFrame.size = [[self class] contentSizeForFrameSize: [self frame].size
-											hasHorizontalScroller: [self hasHorizontalScroller]
-											  hasVerticalScroller: [self hasVerticalScroller]
-													   borderType: [self borderType]];
+										  horizontalScrollerClass: [[self horizontalScroller] class]
+											verticalScrollerClass: [[self verticalScroller] class]
+													   borderType: [self borderType]
+													  controlSize: NSControlSizeRegular
+													scrollerStyle: NSScrollerStyleOverlay];
 
 		contentFrame.size.height -= upperMargin;
 		contentFrame.origin.y    += upperMargin;
@@ -107,6 +91,7 @@
 
 		// The upper/lower view seperator
 		if (useDivider) {
+			sepFrame = [upperDivider frame];
 			sepFrame = contentFrame;
 			sepFrame.origin.y -= sepHeight;
 			sepFrame.size.height = sepHeight;
@@ -118,7 +103,7 @@
 		}
 
 		// The upper window view
-		[zoomView setUpperBuffer: (upperMargin*scaleFactor) + sepHeight];
+		[zoomView setUpperBufferHeight: (upperMargin*scaleFactor) + sepHeight];
 		
 		if (upperMargin > 0) {
 			// Resize the upper window
@@ -152,14 +137,13 @@
     [upperView setNeedsDisplay: YES];
 }
 
-- (void) setScaleFactor: (float) factor {
+@synthesize scaleFactor;
+- (void) setScaleFactor: (CGFloat) factor {
 	scaleFactor = factor;
 	[self tile];
 }
 
-- (ZoomUpperWindowView*) upperWindowView {
-	return upperView;
-}
+@synthesize upperWindowView = upperView;
 
 - (BOOL) setUseUpperDivider: (BOOL) newUseDivider {
 	useDivider = newUseDivider;

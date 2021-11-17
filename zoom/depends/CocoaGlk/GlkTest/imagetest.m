@@ -5,16 +5,16 @@
 // program. (This also demonstrates how to take your image resources from places other than blorb)
 //
 
-#include "GlkClient/glk.h"
+#include <GlkView/glk.h>
 #import "GlkClient/cocoaglk.h"
 
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
-#import <GlkClient/GlkImageSourceProtocol.h>
+#import <GlkView/GlkImageSourceProtocol.h>
 
 @interface GlkImageTestSource : NSObject<GlkImageSource> {
 }
@@ -25,7 +25,7 @@
 
 #if !defined(COCOAGLK_IPHONE)
 
-- (NSData*) dataForImageResource: (glui32) image {
+- (bycopy NSData*) dataForImageResource: (glui32) image {
 	static NSImage* ourImage = nil;
 	
 	if (!ourImage) {
@@ -124,7 +124,7 @@ void glk_main(void) {
 	glui32 imageWidth, imageHeight;
 
 	// Register our image provider
-	cocoaglk_set_image_source([[[GlkImageTestSource alloc] init] autorelease]);
+	cocoaglk_set_image_source([[GlkImageTestSource alloc] init]);
 	
 	// Open a graphics window
 	glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, 0xddffff);

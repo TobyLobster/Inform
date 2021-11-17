@@ -4,6 +4,8 @@
 
 #import "ZoomBabel.h"
 
+#pragma GCC visibility push(hidden)
+
 /* -----------------------------------------------------------------------------
     Generate a thumbnail for file
 
@@ -12,9 +14,9 @@
 
 OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thumbnail, CFURLRef cfUrl, CFStringRef contentTypeUTI, CFDictionaryRef options, CGSize maxSize)
 {
-	
-	NSString* uti = (NSString*) contentTypeUTI;
-	NSURL* url = (NSURL*) cfUrl;
+	@autoreleasepool {
+	NSString* uti = (__bridge NSString*) contentTypeUTI;
+	NSURL* url = (__bridge NSURL*) cfUrl;
 	
 	if ([uti isEqualToString: @"uk.org.logicalshift.glksave"]
 		|| [uti isEqualToString: @"uk.org.logicalshift.zoomsave"]) {
@@ -27,20 +29,23 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 		// Try to get the image via babel for this file
 		if (![url isFileURL]) return noErr;
 		
-		ZoomBabel* babel = [[[ZoomBabel alloc] initWithFilename: [url path]] autorelease];
+		ZoomBabel* babel = [[ZoomBabel alloc] initWithFilename: [url path]];
 		NSData* imageData = [babel rawCoverImage];
 		
 		if (imageData) {
 			// Use the image as the thumbnail
-			QLThumbnailRequestSetImageWithData(thumbnail, (CFDataRef)imageData, NULL);
+			QLThumbnailRequestSetImageWithData(thumbnail, (__bridge CFDataRef)imageData, NULL);
 		}
 		
 	}
 	
     return noErr;
+	}
 }
 
 void CancelThumbnailGeneration(void* thisInterface, QLThumbnailRequestRef thumbnail)
 {
     // implement only if supported
 }
+
+#pragma GCC visibility pop

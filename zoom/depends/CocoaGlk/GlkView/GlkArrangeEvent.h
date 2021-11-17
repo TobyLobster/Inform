@@ -6,15 +6,23 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKARRANGEEVENT_H__
+#define __GLKVIEW_GLKARRANGEEVENT_H__
+
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 
 #import <GlkView/GlkEvent.h>
 #import <GlkView/GlkWindow.h>
 
-@interface GlkArrangeEvent : GlkEvent {
+@interface GlkArrangeEvent : GlkEvent
 
-}
-
-- (instancetype) initWithGlkWindow: (GlkWindow*) window NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithGlkWindow: (GlkWindow*) window;
 
 @end
+
+#endif

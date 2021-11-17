@@ -16,6 +16,10 @@
 
 #include "ifmetaxml.h"
 
+#ifdef HAVE_COREFOUNDATION
+#include <CoreFoundation/CoreFoundation.h>
+#endif
+
 /* == Reading ifiction records == */
 
 #ifndef XMLCALL
@@ -94,7 +98,7 @@ void IF_ReadIfiction(IFMetabase meta, const unsigned char* xml, size_t size) {
 	XML_SetUserData(theParser, currentState);
 	
 	/* Ready? Go! */
-	XML_Parse(theParser, (const char*)xml, size, 1);
+	XML_Parse(theParser, (const char*)xml, (int)size, 1);
 	
 	/* Clear up any temp stuff we may have created */
 	if (currentState->storyId) IFMB_FreeId(currentState->storyId);
@@ -108,7 +112,9 @@ void IF_ReadIfiction(IFMetabase meta, const unsigned char* xml, size_t size) {
 
 /* Some string utility functions */
 
-static unsigned char bytesFromUTF8[256] = {
+/* This isn't used if we're using CoreFoundation. */
+#ifndef HAVE_COREFOUNDATION
+static const unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -117,6 +123,7 @@ static unsigned char bytesFromUTF8[256] = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
 	2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 3,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5};
+#endif
 
 /* Compare an XML string against a C string */
 static int XCstrcmp(const XML_Char* a, const char* b) {
@@ -165,6 +172,22 @@ static char* Xascii(const IFChar* s) {
 }
 
 static IFChar* Xmdchar(const XML_Char* s, int len) {
+#ifdef HAVE_COREFOUNDATION
+	if (len < 0) len = Xstrlen(s);
+	static_assert(sizeof(XML_Char) == sizeof(char), "Expected XML_Char to be the same size as a char, as is in Apple's built-in expat.");
+	CFStringRef str = CFStringCreateWithBytesNoCopy(NULL, s, len, kCFStringEncodingUTF8, true, kCFAllocatorNull);
+	CFDataRef utf16Data = CFStringCreateExternalRepresentation(NULL, str, kCFStringEncodingUTF16LE, '?');
+	CFRelease(str);
+	
+	size_t dataLen = CFDataGetLength(utf16Data);
+	IFChar* res = malloc(dataLen+2);
+	CFDataGetBytes(utf16Data, CFRangeMake(0, dataLen), (UInt8 *)res);
+	res[dataLen/2] = 0;
+	
+	CFRelease(utf16Data);
+	
+	return res;
+#else
 	int x, pos;
 	IFChar* res;
 	
@@ -211,9 +234,10 @@ static IFChar* Xmdchar(const XML_Char* s, int len) {
 		}
 	}
 	
-	res[pos++] = 0;
+	res[pos] = 0;
 	
 	return res;
+#endif
 }
 
 /* Error handling/reporting */
@@ -236,12 +260,12 @@ char* IF_StringForError(IFXmlError errorCode) {
 }
 
 static void Error(IFXmlState* state, IFXmlError errorType, void* errorData) {
-	int line, column;
+	XML_Size line, column;
 	
 	line = XML_GetCurrentLineNumber(state->parser);
 	column = XML_GetCurrentColumnNumber(state->parser);
 	
-	printf("**** Ifiction ERROR: %s <%i> (line=%i, column=%i)\n", IF_StringForError(errorType), errorType, line, column);
+	printf("**** Ifiction ERROR: %s <%i> (line=%lu, column=%lu)\n", IF_StringForError(errorType), errorType, line, column);
 }
 
 /* The XML parser itself */
@@ -447,7 +471,7 @@ static XMLCALL void StartElement(void *userData,
 				strcat(attributePath, "@");
 				strcat(attributePath, atts[x]);
 				
-				attributeValue = Xmdchar(atts[x+1], strlen(atts[x+1]));
+				attributeValue = Xmdchar(atts[x+1], (int)strlen(atts[x+1]));
 				
 				/* Set the value */
 				IFMB_SetValue(state->story, attributePath, attributeValue);
@@ -845,13 +869,8 @@ static unsigned char* MakeUtf8Xml(IFChar* string, int allowNewlines) {
 				} else if (chr < 0x800) {
 					add(0xc0 | (chr>>6));
 					add(0x80 | (chr&0x3f));
-				} else if (chr < 0x10000) {
+				} else if (chr <= 0xffff) {
 					add(0xe0 | (chr>>12));
-					add(0x80 | ((chr>>6)&0x3f));
-					add(0x80 | (chr&0x3f));
-				} else if (chr < 0x200000) {
-					add(0xf0 | (chr>>18));
-					add(0x80 | ((chr>>12)&0x3f));
 					add(0x80 | ((chr>>6)&0x3f));
 					add(0x80 | (chr&0x3f));
 				} else {
@@ -871,9 +890,9 @@ typedef struct ValueStackItem {
 } ValueStackItem;
 
 void IF_WriteIfiction(IFMetabase meta, int(*writeFunction)(const char* bytes, int length, void* userData), void* userData) {
-#define w(s) { unsigned char* res = s; writeFunction(res, strlen(res), userData); }
-#define wu(s) { unsigned char* res; res = MakeUtf8Xml(s, 1); writeFunction(res, strlen(res), userData); free(res); }
-#define wun(s) { unsigned char* res; res = MakeUtf8Xml(s, 0); writeFunction(res, strlen(res), userData); free(res); }
+#define w(s) { unsigned char* res = s; writeFunction(res, (int)strlen(res), userData); }
+#define wu(s) { unsigned char* res; res = MakeUtf8Xml(s, 1); writeFunction(res, (int)strlen(res), userData); free(res); }
+#define wun(s) { unsigned char* res; res = MakeUtf8Xml(s, 0); writeFunction(res, (int)strlen(res), userData); free(res); }
 	
 	IFStoryIterator stories;
 	ValueStackItem* values;
@@ -888,7 +907,7 @@ void IF_WriteIfiction(IFMetabase meta, int(*writeFunction)(const char* bytes, in
 	/* Iterate through the stories */
 	stories = IFMB_GetStoryIterator(meta);
 	
-	while (story = IFMB_NextStory(stories)) {
+	while ((story = IFMB_NextStory(stories))) {
 		int idCount;
 		IFID singleId[1];
 		IFID* storyIds;

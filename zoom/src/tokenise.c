@@ -155,8 +155,8 @@ ZDictionary* dictionary_cache(const ZUWord dict_pos)
 int cache = 1;
 
 static inline ZUWord lookup_word(unsigned int*  word,
-			  int            wordlen,
-			  ZUWord         dct)
+                                 int            wordlen,
+                                 ZUWord         dct)
 {
   ZByte packed[12];
   int zscii_len;

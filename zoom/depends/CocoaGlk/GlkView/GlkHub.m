@@ -11,9 +11,13 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-@implementation GlkHub
+@implementation GlkHub {
+	// The connection
+	/// The point at which the clients can connect to us
+	NSConnection* connection;
+}
 
-// = The shared hub =
+#pragma mark - The shared hub
 
 + (GlkHub*) sharedGlkHub {
 	static GlkHub* hub = nil;
@@ -25,9 +29,9 @@
 	return hub;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -38,38 +42,27 @@
 }
 
 - (void) dealloc {
-	[delegate release]; delegate = nil;
-
-	[hubName release]; hubName = nil;
-	[cookie release]; cookie = nil;
-	
-	[waitingSessions release]; waitingSessions = nil;
-	
 	if (connection) [connection registerName: nil];
-	[connection release]; connection = nil;
-	
-	[super dealloc];
 }
 
-// = The connection =
+#pragma mark - The connection
 
 - (void) resetConnection {
 	if (hubName == nil) {
-		hubName = [@"CocoaGlk" retain];
+		hubName = @"CocoaGlk";
 	}
 	
 	if (connection) {
 		// Kill off any old connection
 		[connection registerName: nil];			// As anything using the connection will likely retain it
-		[connection release];					// We're done with this connection
-		connection = nil;
+		connection = nil;						// We're done with this connection
 	}
 	
-	NSString* connectionName = [NSString stringWithFormat: @"97V36B3QYK.com.inform7.inform-compiler.CocoaGlk-%@", hubName];
+	NSString* connectionName = [NSString stringWithFormat: @"CocoaGlk-%@", hubName];
 	NSPort* port = [NSMachPort port];
 	
-	connection = [[NSConnection connectionWithReceivePort: port
-												 sendPort: port] retain];
+	connection = [NSConnection connectionWithReceivePort: port
+												sendPort: port];
 	[connection setRootObject: self];
 	// [connection addRequestMode: NSEventTrackingRunLoopMode]; // Causes a crash :-(. Would allow the client to update while resizing if it worked
 	[connection addRunLoop: [NSRunLoop currentRunLoop]];
@@ -79,43 +72,38 @@
 }
 
 
-// = Registering sessions for later consumption =
+#pragma mark - Registering sessions for later consumption
 
-- (void) registerSession: (NSObject<GlkSession>*) session
+- (void) registerSession: (id<GlkSession>) session
 			  withCookie: (NSString*) sessionCookie {
-	if (waitingSessions[sessionCookie] != nil) {
+	if ([waitingSessions objectForKey: sessionCookie] != nil) {
 		// Oops! This is not allowed
 		[NSException raise: @"GlkHubSessionAlreadyExistsException"
 					format: @"An attempt was made to register a session with the same cookie as an pre-existing session"];
 		return;
 	}
 	
-	waitingSessions[sessionCookie] = session;
+	[waitingSessions setObject: session
+						forKey: sessionCookie];
 }
 
-- (void) unregisterSession: (NSObject<GlkSession>*)session {
+- (void) unregisterSession: (id<GlkSession>)session {
 	// Iterate through the sessions until we find the one that we're supposed to be removing
-	NSEnumerator* sesEnum = [waitingSessions keyEnumerator];
-	NSString* sessionCookie;
-	NSObject<GlkSession>* ses;
-	
-	while (sessionCookie = [sesEnum nextObject]) {
-		ses = waitingSessions[sessionCookie];
+	for (NSString* sessionCookie in waitingSessions) {
+		id<GlkSession> ses = [waitingSessions objectForKey: sessionCookie];
 
 		if (ses == session) {
 			// This is the session to remove
-			[[waitingSessions[sessionCookie] retain] autorelease];
+//			[[[waitingSessions objectForKey: sessionCookie] retain] autorelease];
 			[waitingSessions removeObjectForKey: sessionCookie];
 			break;
 		}
 	}
 }
 
-// = Naming =
+#pragma mark - Naming
 
 - (void) setHubName: (NSString*) newHubName {
-	if (hubName) [hubName release];
-	
 	hubName = [newHubName copy];
 	
 	[self resetConnection];
@@ -125,17 +113,11 @@
 	[self setHubName: [NSString stringWithFormat: @"GlkHub-%04x", getpid()]];
 }
 
-- (NSString*) hubName {
-	return hubName;
-}
+@synthesize hubName;
 
-// = Security =
+#pragma mark - Security
 
-- (void) setHubCookie: (NSString*) newHubCookie {
-	if (cookie) [cookie release];
-	
-	cookie = [newHubCookie copy];
-}
+@synthesize hubCookie=cookie;
 
 - (void) setRandomHubCookie {
 	unichar randomCookie[16];
@@ -153,52 +135,40 @@
 	[self setRandomHubCookie];
 }
 
-- (NSString*) hubCookie {
-	return cookie;
-}
+#pragma mark - Setting up the session
 
-// = Setting up the session =
-
-- (byref NSObject<GlkSession>*) createNewSession {
+- (byref id<GlkSession>) createNewSession {
 	return [self createNewSessionWithHubCookie: nil
 								 sessionCookie: nil];
 }
 
-- (byref NSObject<GlkSession>*) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie {
+- (byref id<GlkSession>) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie {
 	return [self createNewSessionWithHubCookie: hubCookie
 								 sessionCookie: nil];
 }
 
-- (byref NSObject<GlkSession>*) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie
-                                                sessionCookie: (in bycopy NSString*) sessionCookie {
+- (byref id<GlkSession>) createNewSessionWithHubCookie: (in bycopy NSString*) hubCookie
+										 sessionCookie: (in bycopy NSString*) sessionCookie {
 	if (sessionCookie == nil) {
 		return [self createAnonymousSession];
 	} else {
 		// Look up the session in the session dictionary
-		NSObject<GlkSession>* session = waitingSessions[sessionCookie];
+		id<GlkSession> session = [waitingSessions objectForKey: sessionCookie];
 		if (session == nil) return nil;
 		
 		// Remove the session from the dictionary
-		[session retain];
 		[waitingSessions removeObjectForKey: sessionCookie];
 		
 		// Return the retrieved session object
-		return [session autorelease];
+		return session;
 	}
 }
 
-// = The delegate =
+#pragma mark - The delegate
 
-- (void) setDelegate: (id) hubDelegate {
-	if (delegate) [delegate release];
-	delegate = [hubDelegate retain];
-}
+@synthesize delegate;
 
-- (id) delegate {
-	return delegate;
-}
-
-- (NSObject<GlkSession>*) createAnonymousSession {
+- (id<GlkSession>) createAnonymousSession {
 	if (delegate && [delegate respondsToSelector: @selector(createAnonymousSession)]) {
 		return [delegate createAnonymousSession];
 	} else {

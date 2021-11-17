@@ -8,61 +8,70 @@
 
 #import "ZoomBlorbFile.h"
 
+NSErrorDomain const ZoomBlorbErrorDomain = @"uk.org.logicalshift.zoomview.blorb.errors";
+static NSString *const ZoomBlorbID = @"id";
+static NSString *const ZoomBlorbLength = @"length";
+static NSString *const ZoomBlorbOffset = @"offset";
+
 @implementation ZoomBlorbFile {
-    NSObject<ZFile>* file;
+	id<ZFile> file;
+	
+	NSString*       formID;
+	unsigned int    formLength;
 
-    NSString*       formID;
-    unsigned int    formLength;
-
-    NSMutableArray*		 iffBlocks;
-    NSMutableDictionary* typesToBlocks;
-    NSMutableDictionary* locationsToBlocks;
-
-    NSMutableDictionary* resourceIndex;
-
-    BOOL adaptive;
-    NSMutableSet* adaptiveImages;
-    NSData*       activePalette;
-
-    NSSize stdSize;
-    NSSize minSize;
-    NSSize maxSize;
-    NSMutableDictionary* resolution;
-
-    NSMutableDictionary* cache;
-    unsigned int maxCacheNum;
+	NSMutableArray<NSDictionary<NSString*,id>*>*		 iffBlocks;
+	NSMutableDictionary<NSString*,NSMutableArray<NSDictionary<NSString*,id>*>*>* typesToBlocks;
+	NSMutableDictionary<NSNumber*,NSDictionary<NSString*,id>*>* locationsToBlocks;
+	
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSNumber*,NSNumber*>*>* resourceIndex;
+	
+	BOOL adaptive;
+	NSMutableSet<NSNumber*>* adaptiveImages;
+	NSData*       activePalette;
+	
+	NSSize stdSize;
+	NSSize minSize;
+	NSSize maxSize;
+	NSMutableDictionary* resolution;
+	
+	NSMutableDictionary<NSNumber*, NSMutableDictionary<NSString*,id>*>* cache;
+	unsigned int maxCacheNum;
 }
 
 static unsigned int Int4(const unsigned char* bytes) {
 	return (bytes[0]<<24)|(bytes[1]<<16)|(bytes[2]<<8)|(bytes[3]<<0);
 }
 
-// = Testing files =
+#pragma mark - Testing files
 
 + (BOOL) dataIsBlorbFile: (NSData*) data {
-	NSObject<ZFile>* fl = [[ZDataFile alloc] initWithData: data];
+	id<ZFile> fl = [[ZDataFile alloc] initWithData: data];
 	
 	BOOL res = [self zfileIsBlorb: fl];
 	
 	[fl close];
-    [fl autorelease];
 	
 	return res;
+}
+
++ (BOOL) URLContentsAreBlorb: (NSURL*) filename {
+	ZHandleFile *fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingFromURL: filename error: NULL]];
+	
+	BOOL res = [self zfileIsBlorb: fl];
+	[fl close];
+
+	return res;
+
 }
 
 + (BOOL) fileContentsIsBlorb: (NSString*) filename {
-	NSObject<ZFile>* fl = [[ZHandleFile alloc] initWithFileHandle: [NSFileHandle fileHandleForReadingAtPath: filename]];
-	
-	BOOL res = [self zfileIsBlorb: fl];
-	[fl close];
-    [fl autorelease];
-	
-	return res;
+	return [self URLContentsAreBlorb: [NSURL fileURLWithPath: filename]];
 }
 
-+ (BOOL) zfileIsBlorb: (NSObject<ZFile>*) zfile {
++ (BOOL) zfileIsBlorb: (id<ZFile>) zfile {
 	// Possibly should write a faster means of doing this
-	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile];
+	ZoomBlorbFile* fl = [[[self class] alloc] initWithZFile: zfile
+													  error: NULL];
 	
 	if (fl == nil) return NO;
 	
@@ -75,54 +84,77 @@ static unsigned int Int4(const unsigned char* bytes) {
 	
 	if (![fl parseResourceIndex]) res = NO;
 	
-	[fl release];
-	
 	return res;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype) initWithZFile: (NSObject<ZFile>*) f {
+- (id) initWithZFile: (id<ZFile>) f {
+	return [self initWithZFile: f error: NULL];
+}
+
+- (id) initWithZFile: (id<ZFile>) f error: (NSError**) outError {
 	self = [super init];
 	
 	if (self) {
 		if (f == nil) {
-			[self release];
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSOSStatusErrorDomain
+												code: paramErr
+											userInfo: nil];
+			}
 			return nil;
 		}
 		
-		file = [f retain];
+		file = f;
 		
 		// Attempt to read the file
 		[file seekTo: 0];
 		NSData* header = [file readBlock: 12];
 		
 		if (header == nil) {
-			[self release];
+			if (outError) {
+				*outError = [NSError errorWithDomain: NSCocoaErrorDomain
+												code: NSFileReadNoSuchFileError
+											userInfo: nil];
+			}
 			return nil;
 		}
 		
 		if ([header length] != 12) {
-			[self release];
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorTooSmall
+											userInfo: nil];
+			}
 			return nil;
 		}
 		
 		// File must begin with 'FORM'
 		if (memcmp([header bytes], "FORM", 4) != 0) {
-			[self release];
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorNoFORMBlock
+											userInfo: nil];
+			}
 			return nil;
 		}
 		
 		// OK, we can get the form ID
-        char * form = (char*)[header bytes];
-        formID = [[NSString stringWithFormat:@"%c%c%c%c", form[8], form[9], form[10], form[11]] retain];
+		NSData *dataLen = [header subdataWithRange:NSMakeRange(8, 4)];
+
+		formID = [[NSString alloc] initWithData:dataLen encoding:NSMacOSRomanStringEncoding];
 		
 		// and the theoretical file length
 		const unsigned char* lBytes = [header bytes] + 4;
 		formLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 		
 		if (formLength + 8 > (unsigned)[file fileSize]) {
-			[self release];
+			if (outError) {
+				*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+												code: ZoomBlorbErrorTooSmall
+											userInfo: nil];
+			}
 			return nil;
 		}
 		
@@ -138,32 +170,39 @@ static unsigned int Int4(const unsigned char* bytes) {
 			NSData* blockHeader = [file readBlock: 8];
 			
 			if (blockHeader == nil || [blockHeader length] != 8) {
-				[self release];
+				if (outError) {
+					*outError = [NSError errorWithDomain: ZoomBlorbErrorDomain
+													code: ZoomBlorbErrorTooSmall
+												userInfo: nil];
+				}
 				return nil;
 			}
 			
 			// Decode it
-            char * blockChars = (char*)[blockHeader bytes];
-			NSString* blockID = [NSString stringWithFormat:@"%c%c%c%c", blockChars[0], blockChars[1], blockChars[2], blockChars[3]];
+			NSData *dataLen = [blockHeader subdataWithRange:NSMakeRange(0, 4)];
+			NSString* blockID = [[NSString alloc] initWithData:dataLen encoding:NSMacOSRomanStringEncoding];
 			lBytes = [blockHeader bytes]+4;
 			unsigned int blockLength = (lBytes[0]<<24)|(lBytes[1]<<16)|(lBytes[2]<<8)|(lBytes[3]<<0);
 			
 			// Create the block data
-			NSDictionary* block = @{@"id": blockID,
-				@"length": @(blockLength),
-				@"offset": @(pos+8)};
+			NSDictionary* block = @{
+				ZoomBlorbID: blockID,
+				ZoomBlorbLength: @(blockLength),
+				ZoomBlorbOffset: @(pos+8)};
 			
 			// Store it
 			[iffBlocks addObject: block];
 			
-			NSMutableArray* typeBlocks = typesToBlocks[blockID];
+			NSMutableArray* typeBlocks = [typesToBlocks objectForKey: blockID];
 			if (typeBlocks == nil) {
 				typeBlocks = [NSMutableArray array];
-				typesToBlocks[blockID] = typeBlocks;
+				[typesToBlocks setObject: typeBlocks
+								  forKey: blockID];
 			}
 			[typeBlocks addObject: block];
 			
-			locationsToBlocks[@(pos)] = block;
+			[locationsToBlocks setObject: block
+								  forKey: @(pos)];
 			
 			// Next position
 			pos += 8 + blockLength;
@@ -174,63 +213,64 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return self;
 }
 
-- (instancetype) initWithData: (NSData*) blorbFile {
-	return [self initWithZFile: [[[ZDataFile alloc] initWithData: blorbFile] autorelease]];
+- (id) initWithData: (NSData*) blorbFile {
+	return [self initWithData: blorbFile
+						error: NULL];
 }
 
-- (instancetype) initWithContentsOfFile: (NSString*) filename {
-	return [self initWithZFile: [[[ZHandleFile alloc] initWithFileHandle:
-		[NSFileHandle fileHandleForReadingAtPath: filename]] autorelease]];
+- (instancetype) initWithData: (NSData*) blorbFile error: (NSError**) outError {
+	return [self initWithZFile: [[ZDataFile alloc] initWithData: blorbFile]
+						 error: outError];
+}
+
+- (id) initWithContentsOfFile: (NSString*) filename {
+	return [self initWithContentsOfURL: [NSURL fileURLWithPath: filename]
+								 error: NULL];
+}
+
+- (id) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError {
+	NSFileHandle *fh = [NSFileHandle fileHandleForReadingFromURL: filename
+														   error: outError];
+	if (!fh) {
+		return nil;
+	}
+	return [self initWithZFile: [[ZHandleFile alloc] initWithFileHandle: fh]
+						 error: outError];
 }
 
 - (void) dealloc {
 	if (file) {
 		[file close];
-		[file release];
 	}
-	
-	if (formID) [formID release];
-	
-	if (iffBlocks) [iffBlocks release];
-	if (typesToBlocks) [typesToBlocks release];
-	if (locationsToBlocks) [locationsToBlocks release];
-	
-	if (resourceIndex)  [resourceIndex release];
-	if (resolution)		[resolution release];
-	if (adaptiveImages) [adaptiveImages release];
-	if (activePalette)  [activePalette release];
-	
-	[super dealloc];
 }
 
-// = Generic IFF data =
+#pragma mark - Generic IFF data
 
 - (NSArray*) chunksWithType: (NSString*) chunkType {
-	return typesToBlocks[chunkType];
+	return [typesToBlocks objectForKey: chunkType];
 }
 
-- (NSData*) dataForChunk: (id) chunk {
+- (NSData*) dataForChunk: (NSDictionary<NSString*,id>*) chunk {
 	if (![chunk isKindOfClass: [NSDictionary class]]) return nil;
 	if (!file) return nil;
-	if (![chunk[@"offset"] isKindOfClass: [NSNumber class]]) return nil;
-	if (![chunk[@"length"] isKindOfClass: [NSNumber class]]) return nil;
+	if (![[chunk objectForKey: ZoomBlorbOffset] isKindOfClass: [NSNumber class]]) return nil;
+	if (![[chunk objectForKey: ZoomBlorbLength] isKindOfClass: [NSNumber class]]) return nil;
 	
-	NSDictionary* cD = chunk;
+	NSDictionary<NSString*,NSNumber*>* cD = chunk;
 	
-	[file seekTo: [cD[@"offset"] unsignedIntValue]];
+	[file seekTo: cD[ZoomBlorbOffset].unsignedIntValue];
 	
-	return [file readBlock: [cD[@"length"] unsignedIntValue]];
+	return [file readBlock: cD[ZoomBlorbLength].unsignedIntValue];
 }
 
 - (NSData*) dataForChunkWithType: (NSString*) chunkType {
-	return [self dataForChunk: [self chunksWithType: chunkType][0]];
+	return [self dataForChunk: [[self chunksWithType: chunkType] objectAtIndex: 0]];
 }
 
-// = The resource index =
+#pragma mark - The resource index
 
 - (BOOL) parseResourceIndex {
 	if (resourceIndex) {
-		[resourceIndex release];
 		resourceIndex = nil;
 	}
 
@@ -248,21 +288,24 @@ static unsigned int Int4(const unsigned char* bytes) {
 	int pos;
 	for (pos = 4; pos+12 <= [resourceChunk length]; pos += 12) {
 		// Read the chunk
-        NSString* usage = [NSString stringWithFormat:@"%c%c%c%c", data[pos], data[pos+1], data[pos+2], data[pos+3]];
-		NSNumber* num   = @((unsigned int)((data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])));
-		NSNumber* start = @((unsigned int)((data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])));
+		NSData *usageDat = [resourceChunk subdataWithRange:NSMakeRange(pos, 4)];
+		NSString* usage = [[NSString alloc] initWithData:usageDat encoding:NSMacOSRomanStringEncoding];
+		NSNumber* num = [NSNumber numberWithUnsignedInt: (data[pos+4]<<24)|(data[pos+5]<<16)|(data[pos+6]<<8)|(data[pos+7])];
+		NSNumber* start = [NSNumber numberWithUnsignedInt: (data[pos+8]<<24)|(data[pos+9]<<16)|(data[pos+10]<<8)|(data[pos+11])];
 		
 		// Store it in the index
-		NSMutableDictionary* usageDict = resourceIndex[usage];
+		NSMutableDictionary* usageDict = [resourceIndex objectForKey: usage];
 		if (usageDict == nil) {
 			usageDict = [NSMutableDictionary dictionary];
-			resourceIndex[usage] = usageDict;
+			[resourceIndex setObject: usageDict
+							  forKey: usage];
 		}
 		
-		usageDict[num] = start;
+		[usageDict setObject: start
+					  forKey: num];
 		
 		// Check against the data we've already parsed for this file
-		if (locationsToBlocks[start] == nil) {
+		if ([locationsToBlocks objectForKey: start] == nil) {
 			NSLog(@"ZoomBlorbFile: Warning: '%@' resource %@ not found (at %@)", usage, num, start);
 		}
 	}
@@ -325,9 +368,11 @@ static unsigned int Int4(const unsigned char* bytes) {
 		if (denom == 0) ratio = 0; else ratio = ((double)num)/((double)denom);
 		NSNumber* maxRatio = @(ratio);
 		
-		NSDictionary* entry = @{@"stdRatio": stdRatio, @"minRatio": minRatio, @"maxRatio": maxRatio};
+		NSDictionary* entry = @{
+			@"stdRatio": stdRatio, @"minRatio": minRatio, @"maxRatio": maxRatio};
 
-		resolution[imageNum] = entry;
+		[resolution setObject: entry
+					   forKey: imageNum];
 	}
 }
 
@@ -338,10 +383,12 @@ static unsigned int Int4(const unsigned char* bytes) {
 	if (!resourceIndex) return NO;
 	
 	return 
-		locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]] != nil;
+		[locationsToBlocks objectForKey: 
+			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
+				@(num)]] != nil;
 }
 
-// = Typed data =
+#pragma mark - Typed data
 
 - (NSData*) gameHeader {
 	return [self dataForChunkWithType: @"IFhd"];
@@ -350,42 +397,45 @@ static unsigned int Int4(const unsigned char* bytes) {
 - (NSData*) imageDataWithNumber: (int) num {
 	// Get the index	
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) return nil;
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) return nil;
 	
 	// Get the resource
 	return [self dataForChunk: 
-		locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]]];
+		[locationsToBlocks objectForKey: 
+			[[resourceIndex objectForKey: @"Pict"] objectForKey: 
+				@(num)]]];
 }
 
 - (NSData*) soundDataWithNumber: (int) num {
 	// Get the index	
 	if (!resourceIndex) {
-		if (![self parseResourceIndex]) return NO;
+		if (![self parseResourceIndex]) return nil;
 	}
-	if (!resourceIndex) return NO;
+	if (!resourceIndex) return nil;
 	
 	// Get the resource
 	return [self dataForChunk: 
-		locationsToBlocks[resourceIndex[@"Snd "][@((unsigned int) num)]]];
+		[locationsToBlocks objectForKey: 
+			[[resourceIndex objectForKey: @"Snd "] objectForKey: 
+				@(num)]]];
 }
 
-// = Fiddling with PNG palettes =
+#pragma mark - Fiddling with PNG palettes
 
 - (NSData*) paletteForPng: (NSData*) png {
 	// (Appends the CRC to the palette, too)
 	const unsigned char* data = [png bytes];
-	unsigned int length = (int) [png length];
+	NSUInteger length = [png length];
 	
 	unsigned int pos = 8;
 	
 	while (pos+8 < length) {
 		unsigned int blockLength = Int4(data + pos);
-        const unsigned char * typeChars = data + pos + 4;
-        NSString* type = [NSString stringWithFormat:@"%c%c%c%c", typeChars[0], typeChars[1], typeChars[2], typeChars[3]];
-		
-		if ([type isEqualToString: @"PLTE"]) {
+		const void* type = data + pos + 4;
+
+		if (memcmp(type, "PLTE", 4) == 0) {
 			return [png subdataWithRange: NSMakeRange(pos+8, blockLength+4)];
 		}
 		
@@ -399,21 +449,20 @@ static unsigned int Int4(const unsigned char* bytes) {
 		 withPalette: (NSData*) newPalette {
 	if (newPalette == nil) return png;
 	
-	NSMutableData* newPng = [[png mutableCopy] autorelease];
+	NSMutableData* newPng = [png mutableCopy];
 
 	const unsigned char* data = [newPng bytes];
-	unsigned int length = (unsigned int) [newPng length];
+	NSUInteger length = [newPng length];
 	
 	unsigned int pos = 8;
 	
 	while (pos+8 < length) {
 		unsigned int blockLength = Int4(data + pos);
-        const unsigned char * typeChars = data + pos + 4;
-        NSString* type = [NSString stringWithFormat:@"%c%c%c%c", typeChars[0], typeChars[1], typeChars[2], typeChars[3]];
+		const void* type = data + pos + 4;
 		
-		if ([type isEqualToString: @"PLTE"]) {
+		if (memcmp(type, "PLTE", 4) == 0) {
 			unsigned char lenBlock[4];
-			unsigned int newLen = (unsigned int) [newPalette length];
+			NSUInteger newLen = [newPalette length];
 			
 			newLen -= 4;
 			lenBlock[0] = (unsigned char)(newLen>>24); lenBlock[1] = (unsigned char)(newLen>>16);
@@ -433,15 +482,14 @@ static unsigned int Int4(const unsigned char* bytes) {
 	return newPng;
 }
 
-// = Caching images =
+#pragma mark - Caching images
 
 - (void) setActivePalette: (NSData*) palette {
 	if (adaptive && palette != nil) {
 		if (![activePalette isEqualToData: palette]) {
 			NSLog(@"Palette shift");
 			
-			[activePalette release];
-			activePalette = [palette retain];
+			activePalette = palette;
 			
 			[self removeAdaptiveImagesFromCache];
 		}
@@ -452,19 +500,20 @@ static const int cacheLowerLimit = 32;
 static const int cacheUpperLimit = 64;
 
 - (NSImage*) cachedImageWithNumber: (int) num {
-	NSDictionary* entry = cache[@((unsigned int) num)];
+	NSDictionary* entry = cache[@(num)];
 	[self setActivePalette: entry[@"palette"]];
 	return entry[@"image"];
 }
 
 - (NSData*) cachedPaletteForImage: (int) num {
-	return cache[@((unsigned int) num)][@"palette"];
+	return cache[@(num)][@"palette"];
 }
 
 - (void) usedImageInCache: (int) num {
-	NSMutableDictionary* entry = cache[@((unsigned int) num)];
+	NSMutableDictionary* entry = [cache objectForKey: @(num)];
 	
-	entry[@"usageNumber"] = @(maxCacheNum++);
+	[entry setObject: @(maxCacheNum++)
+			  forKey: @"usageNumber"];
 }
 
 - (void) cacheImage: (NSImage*) img
@@ -476,29 +525,28 @@ static const int cacheUpperLimit = 64;
 	}
 	
 	// Add to the cache
-	cache[@((unsigned int) num)] = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+	[cache setObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:
 		img, @"image",
 		@(isAdaptive), @"adaptive",
 		@(maxCacheNum++), @"usageNumber",
-		@((unsigned int) num), @"number",
+		@(num), @"number",
 		palette, @"palette",
-		nil];
+		nil]
+			  forKey: @(num)];
 	
 	// Remove lowest-priority images if the cache gets too full
 	if ([cache count] >= cacheUpperLimit) {
-        NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
+		NSLog(@"ImageCache: hit %lu images (removing oldest entries)", (unsigned long)[cache count]);
 		
-		NSEnumerator* keyEnum = [cache keyEnumerator];
-		NSMutableArray* oldestEntries = [NSMutableArray array];
-		NSNumber* key;
+		NSMutableArray<NSDictionary*>* oldestEntries = [NSMutableArray array];
 		
-		while (key = [keyEnum nextObject]) {
+		for (NSNumber* key in cache) {
 			// Find the place to put this particular entry
 			// Yeah, could binary search here. *Probably* not worth it
-			NSMutableDictionary* entry = cache[key];
+			NSMutableDictionary<NSString*,id>* entry = cache[key];
 			unsigned int thisUsage = [entry[@"usageNumber"] unsignedIntValue];
 			
-			int x;
+			NSInteger x;
 			for (x=0; x<[oldestEntries count]; x++) {
 				NSDictionary* thisEntry = oldestEntries[x];
 				unsigned int usage = [thisEntry[@"usageNumber"] unsignedIntValue];
@@ -511,26 +559,20 @@ static const int cacheUpperLimit = 64;
 		}
 		
 		// Remove objects from the cache until there are cacheLowerLimit left
-		int x;
-		int numToRemove = (int) [oldestEntries count] - cacheLowerLimit;
+		NSInteger numToRemove = [oldestEntries count] - cacheLowerLimit;
 		
-		NSLog(@"%i entries to remove", numToRemove);
+		NSLog(@"%li entries to remove", (long)numToRemove);
 
-		for (x=0; x<numToRemove; x++) {
-			NSDictionary* entry = oldestEntries[x];
-			
+		for (NSDictionary* entry in oldestEntries) {
 			[cache removeObjectForKey: entry[@"num"]];
 		}
 	}
 }
 
 - (void) removeAdaptiveImagesFromCache {
-	NSEnumerator* keyEnum = [cache keyEnumerator];
-	NSNumber* key;
+	NSMutableArray<NSNumber*>* keysToRemove = [NSMutableArray array];
 	
-	NSMutableArray* keysToRemove = [NSMutableArray array];
-	
-	while (key = [keyEnum nextObject]) {
+	for (NSNumber* key in cache) {
 		NSDictionary* entry = cache[key];
 		
 		if ([entry[@"adaptive"] boolValue]) {
@@ -542,13 +584,10 @@ static const int cacheUpperLimit = 64;
 	
 	NSLog(@"Removing %lu adaptive entries from the cache", (unsigned long)[keysToRemove count]);
 	
-	keyEnum = [keysToRemove objectEnumerator];
-	while (key = [keyEnum nextObject]) {
-		[cache removeObjectForKey: key];
-	}
+	[cache removeObjectsForKeys: keysToRemove];
 }
 
-// = Decoded data =
+#pragma mark - Decoded data
 
 - (NSSize) sizeForImageWithNumber: (int) num
 					forPixmapSize: (NSSize) pixmapSize {
@@ -558,11 +597,13 @@ static const int cacheUpperLimit = 64;
 	// Get the image
 	NSSize result;
 
-	NSDictionary* imageBlock = locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]];
+	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
+		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
+			@(num)]];
 	
-	if (imageBlock == nil) return NSMakeSize(0,0);
+	if (imageBlock == nil) return NSZeroSize;
 	
-	NSString* type = imageBlock[@"id"];
+	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	
 	if ([type isEqualToString: @"Rect"]) {
 		// Nonstandard extension: rectangle
@@ -577,12 +618,12 @@ static const int cacheUpperLimit = 64;
 		}
 	} else {
 		NSImage* img = [self imageWithNumber: num];
-		if (img == nil) return NSMakeSize(0,0);
+		if (img == nil) return NSZeroSize;
 		result = [img size];
 	}
 	
 	// Get the resolution data
-	NSDictionary* resData = resolution[@((unsigned int) num)];
+	NSDictionary* resData = [resolution objectForKey: @(num)];
 	if (resData == nil) return result;
 	
 	// Work out the scaling factor
@@ -596,9 +637,9 @@ static const int cacheUpperLimit = 64;
 	else
 		erf = erf2;
 	
-	double minRatio = [resData[@"minRatio"] doubleValue];
-	double maxRatio = [resData[@"maxRatio"] doubleValue];
-	double stdRatio = [resData[@"stdRatio"] doubleValue];
+	double minRatio = [[resData objectForKey: @"minRatio"] doubleValue];
+	double maxRatio = [[resData objectForKey: @"maxRatio"] doubleValue];
+	double stdRatio = [[resData objectForKey: @"stdRatio"] doubleValue];
 	
 	double factor = 0;
 	
@@ -620,15 +661,17 @@ static const int cacheUpperLimit = 64;
 }
 
 - (NSImage*) imageWithNumber: (int) num {
-	NSDictionary* imageBlock = locationsToBlocks[resourceIndex[@"Pict"][@((unsigned int) num)]];
+	NSDictionary* imageBlock = [locationsToBlocks objectForKey: 
+		[[resourceIndex objectForKey: @"Pict"] objectForKey: 
+			@(num)]];
 	
 	if (imageBlock == nil) return nil;
 	
-	NSString* type = imageBlock[@"id"];
+	NSString* type = [imageBlock objectForKey: ZoomBlorbID];
 	NSImage* res = nil;
 	
 	// Retrieve the image from the cache if possible
-	res = [[[self cachedImageWithNumber: num] retain] autorelease];
+	res = [self cachedImageWithNumber: num];
 	if (res != nil) {
 		[self usedImageInCache: num];
 		return res;
@@ -651,13 +694,13 @@ static const int cacheUpperLimit = 64;
 		}
 		
 		NSLog(@"Warning: drawing Rect image");
-		res = [[[NSImage alloc] initWithSize: NSMakeSize(width, height)] autorelease];
+		res = [[NSImage alloc] initWithSize: NSMakeSize(width, height)];
 	} else if ([type isEqualToString: @"PNG "]) {
 		// PNG file
 		NSData* pngData = [self dataForChunk: imageBlock];
 		
 		if (adaptive) {
-			if ([adaptiveImages containsObject: @((unsigned int) num)]) {
+			if ([adaptiveImages containsObject: @(num)]) {
 				pngData = [self adaptPng: pngData
 							 withPalette: activePalette];
 				wasAdaptive = YES;
@@ -667,14 +710,14 @@ static const int cacheUpperLimit = 64;
 			}
 		}
 		
-		res = [[[NSImage alloc] initWithData: pngData] autorelease];
+		res = [[NSImage alloc] initWithData: pngData];
 	} else if ([type isEqualToString: @"JPEG"]) {
 		// JPEG file (no patent worries here, really)
-		res = [[[NSImage alloc] initWithData: [self dataForChunk: imageBlock]] autorelease];
+		res = [[NSImage alloc] initWithData: [self dataForChunk: imageBlock]];
 	} else {
 		// Could be anything
 		NSLog(@"WARNING: Unknown image chunk type: %@", type);
-		res = [[[NSImage alloc] initWithData: [self dataForChunk: imageBlock]] autorelease];
+		res = [[NSImage alloc] initWithData: [self dataForChunk: imageBlock]];
 	}
 	
 	// Cache the image

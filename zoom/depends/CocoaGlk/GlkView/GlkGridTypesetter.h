@@ -6,7 +6,15 @@
 //  Copyright 2006 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKGRIDTYPESETTER_H__
+#define __GLKVIEW_GLKGRIDTYPESETTER_H__
+
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 
 #import <GlkView/GlkTypesetter.h>
 
@@ -19,14 +27,21 @@
 /// layout options to the standard typesetter.
 ///
 @interface GlkGridTypesetter : GlkTypesetter {
-	int gridWidth;										// Width of the grid, in characters
-	int gridHeight;										// Height of the grid, in characters
-	NSSize cellSize;									// Size of a grid cell
+	/// Width of the grid, in characters
+	int gridWidth;
+	/// Height of the grid, in characters
+	int gridHeight;
+	/// Size of a grid cell
+	NSSize cellSize;
 }
 
 // Setting up the grid
-- (void) setGridWidth: (int) gridWidth					// Sets the number of characters for the grid width and height
+/// Sets the number of characters for the grid width and height
+- (void) setGridWidth: (int) gridWidth
 			   height: (int) gridHeight;
-- (void) setCellSize: (NSSize) cellSize;				// Sets the size of an individual cell in the grid
+/// Sets the size of an individual cell in the grid
+- (void) setCellSize: (NSSize) cellSize;
 
 @end
+
+#endif

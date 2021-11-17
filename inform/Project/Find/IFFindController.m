@@ -177,7 +177,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	NSMenuItem* selected = [searchType selectedItem];
 	
 	IFFindType flags = 0;
-	if ([ignoreCase state] == NSOnState) flags |= IFFindCaseInsensitive;
+	if ([ignoreCase state] == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
 	
 	if (selected == containsItem) {
 		return IFFindContains | flags;

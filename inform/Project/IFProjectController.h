@@ -160,4 +160,5 @@
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
 @property (atomic, getter=isWaitingAtBreakpoint, readonly) BOOL waitingAtBreakpoint;
 
+- (void) inputSourceHasFinished: (id) source;
 @end

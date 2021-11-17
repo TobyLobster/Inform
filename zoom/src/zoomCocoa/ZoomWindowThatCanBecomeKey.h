@@ -8,11 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-//
-// Apple, for reasons best known to themselves, have made it so that border windows can't be
-// key by default. So we need this class to override this behaviour.
-//
-@interface ZoomWindowThatCanBecomeKey : NSWindow {
-}
+//!
+//! Apple, for reasons best known to themselves, have made it so that border windows can't be
+//! key by default. So we need this class to override this behaviour.
+//!
+@interface ZoomWindowThatCanBecomeKey : NSWindow
 
 @end

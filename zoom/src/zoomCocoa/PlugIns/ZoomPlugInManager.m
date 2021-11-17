@@ -9,18 +9,58 @@
 #import "ZoomPlugInManager.h"
 #import <ZoomPlugIns/ZoomPlugInInfo.h>
 
-NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
+NSString*const ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChangedNotification";
 
-@implementation ZoomPlugInManager
+@implementation ZoomPlugInManager {
+	/// The plugin lock
+	NSLock* pluginLock;
+	
+	/// The bundles containing the loaded plugins
+	NSMutableArray<NSBundle*>* pluginBundles;
+	/// The ZoomPlugIn classes from the bundles
+	NSMutableArray<Class>* pluginClasses;
+	/// Array mapping plugin versions to names
+	NSMutableDictionary<NSString*,NSString*>* pluginsToVersions;
+	
+	/// Information about all plugins known about by this object (including those that live elsewhere)
+	NSMutableArray* pluginInformation;
+	
+	/// The path of the last plugin we retrieved a plist for
+	NSString* lastPlistPlugin;
+	/// The plist retrieved from the lastPlistPlugin
+	NSDictionary* lastPlist;
+	
+	/// Check for updates URLs that are still waiting to be processed
+	NSMutableArray<NSURL*>* checkUrls;
+	/// The last check for updates request that was sent
+	NSURLRequest* lastRequest;
+	/// The connection for the last request
+	NSURLSessionDataTask *checkConnectionTask;
+	/// The response to the last check for updates request
+	NSURLResponse* checkResponse;
+	/// The data returned for the last check for updates request
+	NSMutableData* checkData;
+	
+	/// Set to \c YES if a restart is required
+	BOOL restartRequired;
+	/// \c YES if we're downloading updates
+	BOOL downloading;
+	/// The plug in that we're performing a download for
+	ZoomPlugInInfo* downloadInfo;
+	/// The active download for this object
+	ZoomDownload* currentDownload;
+	
+	NSURLSession *session;
+}
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (ZoomPlugInManager*) sharedPlugInManager {
 	static ZoomPlugInManager* sharedManager = nil;
-	
-	if (!sharedManager) {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
 		sharedManager = [[ZoomPlugInManager alloc] init];
-	}
+	});
 	
 	return sharedManager;
 }
@@ -35,23 +75,11 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 		return nil;
 	}
 	
-	// App support is in there somewhere (not going to bother with localisation)
-	NSString* supportDir = [libDirs objectAtIndex: 0];
-	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
-		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir attributes: nil];
-	}
-	
-	if (!isDir) {
-		NSLog(@"%@ is not a directory!", supportDir);
-		return nil;
-	}
-	
 	// Use a Zoom directory inside for the rest of the contents
-	supportDir = [supportDir stringByAppendingPathComponent: @"Zoom"];
+	NSString *supportDir = [[libDirs objectAtIndex: 0] stringByAppendingPathComponent: @"Zoom"];
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir isDirectory: &isDir]) {
 		isDir = YES;
-		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir attributes: nil];
+		[[NSFileManager defaultManager] createDirectoryAtPath: supportDir withIntermediateDirectories:NO attributes:nil error:NULL];
 	}
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: supportDir]) {
@@ -85,46 +113,30 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	
 	if (self) {
 		pluginLock = [[NSLock alloc] init];
+		
+		NSURLSessionConfiguration *config = [NSURLSessionConfiguration.ephemeralSessionConfiguration copy];
+		config.networkServiceType = NSURLNetworkServiceTypeBackground;
+		session = [NSURLSession sessionWithConfiguration: config
+												delegate: self
+										   delegateQueue: nil];
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[pluginLock release];
-	[pluginBundles release];
-	[pluginClasses release];
-	[pluginsToVersions release];
-	
-	[lastPlist release];
-	[lastPlistPlugin release];
-	
-	[pluginInformation release];
-	
-	[currentDownload release];
-	currentDownload = nil;
-	
-	[super dealloc];
-}
-
 - (void) finishedWithObject {
-	[currentDownload release];
 	currentDownload = nil;
 	
-	[downloadInfo release];
 	downloadInfo = nil;
 	
-	[pluginInformation release];
 	pluginInformation = nil;
 }
 
-// = Setting the delegate =
+#pragma mark - Setting the delegate
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
-// = Dealing with existing plugins =
+#pragma mark - Dealing with existing plugins
 
 - (void) loadPlugIn: (NSString*) pluginBundlePath {
 	NSBundle* pluginBundle = [NSBundle bundleWithPath: pluginBundlePath];
@@ -137,39 +149,43 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	if (pluginBundle != nil && name != nil) {
-		if ([pluginBundle load]) {
+		@try {
+			if ([pluginBundle load]) {
 #if VERBOSITY >= 1
-			NSLog(@"== Plugin loaded: %@", [plugin stringByDeletingPathExtension]);
+				NSLog(@"== Plugin loaded: %@", [pluginBundlePath stringByDeletingPathExtension]);
 #endif
-			[pluginBundles addObject: pluginBundle];
-			
-			[pluginsToVersions setObject: version
-								  forKey: name];
-			
-			Class primaryClass = [pluginBundle principalClass];
-			[pluginClasses addObject: primaryClass];
+				[pluginBundles addObject: pluginBundle];
+				
+				[pluginsToVersions setObject: version
+									  forKey: name];
+				
+				Class primaryClass = [pluginBundle principalClass];
+				[pluginClasses addObject: primaryClass];
 #if VERBOSITY >= 2
-			NSLog(@"=== Principal class: %@", [primaryClass description]);
+				NSLog(@"=== Principal class: %@", [primaryClass description]);
 #endif
+			}
+		} @catch (NSException *exception) {
+			NSLog(@"Plugin %@ failed %@", pluginBundle, exception.callStackSymbols);
+		} @finally {
 		}
 	}	
 }
 
-- (void) loadPluginsFrom: (NSString*) pluginPath {
+- (void) loadPluginsFromPath: (NSString*) pluginPath {
 	if (!pluginBundles) pluginBundles = [[NSMutableArray alloc] init];
 	if (!pluginClasses) pluginClasses = [[NSMutableArray alloc] init];
 	if (!pluginsToVersions) pluginsToVersions = [[NSMutableDictionary alloc] init];
 	
-	[pluginInformation release];
 	pluginInformation = nil;
 	
 #if VERBOSITY >= 2
 	NSLog(@"= Loading plugins from: %@", pluginPath);
 #endif
-	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: pluginPath] objectEnumerator];
+	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pluginPath error: NULL] objectEnumerator];
 	
 	NSString* plugin;
-	while (plugin = [pluginEnum nextObject]) {
+	for (plugin in pluginEnum) {
 #if VERBOSITY >= 2
 		NSLog(@"= Found file: %@", plugin);
 #endif
@@ -192,39 +208,38 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 		
 		// Load the plugins
 		NSString* pluginPath = [[NSBundle mainBundle] builtInPlugInsPath];
-		[self loadPluginsFrom: pluginPath];
+		[self loadPluginsFromPath: pluginPath];
 		
 		if ([pluginClasses count] == 0) {
 			NSString* pluginPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent: @"Contents/PlugIns"];
 #if VERBOSITY >=1
 			NSLog(@"= Trying harder to load plugins");
 #endif
-			[self loadPluginsFrom: pluginPath];
+			[self loadPluginsFromPath: pluginPath];
 		}
 		
 		NSString* morePlugInsPath = [[self class] plugInsPath];
 		if (morePlugInsPath) {
 			if (![[NSFileManager defaultManager] fileExistsAtPath: morePlugInsPath]) {
 				[[NSFileManager defaultManager] createDirectoryAtPath: morePlugInsPath 
-														   attributes: nil];
+										  withIntermediateDirectories:NO
+														   attributes:nil
+																error:NULL];
 			}
-			[self loadPluginsFrom: morePlugInsPath];
+			[self loadPluginsFromPath: morePlugInsPath];
 		}
 	}	
 }
 
-- (Class) plugInForFile: (NSString*) filename {
+- (Class) plugInForURL: (NSURL*) fileName {
 #if VERBOSITY >= 3
 	NSLog(@"= Seeking a plugin for %@", filename);
 #endif
 	
 	[self loadPlugIns];
 	
-	NSEnumerator* pluginClassEnum = [pluginClasses objectEnumerator];
-	Class pluginClass;
-	
-	while (pluginClass = [pluginClassEnum nextObject]) {
-		if ([pluginClass canRunPath: filename]) {
+	for (Class pluginClass in pluginClasses) {
+		if ([pluginClass canRunURL: fileName]) {
 #if VERBOSITY >=3
 			NSLog(@"= Found %@", [pluginClass description]);
 #endif
@@ -238,10 +253,18 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	return nil;
 }
 
+- (Class) plugInForFile: (NSString*) filename {
+	return [self plugInForURL: [NSURL fileURLWithPath: filename]];
+}
+
 - (ZoomPlugIn*) instanceForFile: (NSString*) filename {
+	return [self instanceForURL: [NSURL fileURLWithPath: filename]];
+}
+
+- (ZoomPlugIn*) instanceForURL: (NSURL*) filename{
 	[pluginLock lock];
 	
-	Class pluginClass = [self plugInForFile: filename];
+	Class pluginClass = [self plugInForURL: filename];
 	if (pluginClass == nil) {
 		[pluginLock unlock];
 		return nil;
@@ -250,7 +273,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 #if VERBOSITY >= 3
 	NSLog(@"= Instantiating %@ for %@", [pluginClass description], filename);
 #endif
-	ZoomPlugIn* instance = [[[pluginClass alloc] initWithFilename: filename] autorelease];
+	ZoomPlugIn* instance = [[pluginClass alloc] initWithURL: filename];
 	
 	[pluginLock unlock];
 	return instance;	
@@ -269,24 +292,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 }
 
 - (NSArray*) arrayForVersion: (NSString*) version {
-	NSMutableArray* result = [NSMutableArray array];
-	
-	unichar chr;
-	int lastPos = 0;
-	int x;
-	for (x=0; x<[version length]; x++) {
-		chr = [version characterAtIndex: x];
-		
-		if (chr == '.') {
-			[result addObject: [version substringWithRange: NSMakeRange(lastPos, x-lastPos)]];
-			lastPos = x+1;
-		}
-	}
-	if (x != lastPos) {
-		[result addObject: [version substringWithRange: NSMakeRange(lastPos, x-lastPos)]];		
-	}
-	
-	return result;
+	return [version componentsSeparatedByString:@"."];
 }
 
 - (BOOL) version: (NSString*) oldVersion
@@ -295,9 +301,9 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	NSArray* oldVersionArray = [self arrayForVersion: oldVersion];
 	NSArray* newVersionArray = [self arrayForVersion: newVersion];
 	
-	int length = [oldVersionArray count];
+	NSInteger length = [oldVersionArray count];
 	if ([newVersionArray count] > length) length = [newVersionArray count];
-	int x;
+	NSInteger x;
 	for (x=length-1; x>=0; x--) {
 		NSString* old = x<[oldVersionArray count]?[oldVersionArray objectAtIndex: x]:@"0";
 		NSString* new = x<[newVersionArray count]?[newVersionArray objectAtIndex: x]:@"0";
@@ -308,9 +314,17 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	return NO;
 }
 
-// = Getting information about plugins =
+- (NSArray<NSString*>*)pluginSupportedFileTypes {
+	NSMutableArray *utis = [[NSMutableArray alloc] initWithCapacity:pluginClasses.count * 2];
+	for (Class plugClass in pluginClasses) {
+		[utis addObjectsFromArray: [plugClass supportedFileTypes]];
+	}
+	return utis;
+}
 
-- (NSDictionary*) plistForBundle: (NSString*) pluginBundle {
+#pragma mark - Getting information about plugins
+
+- (NSDictionary*) plistForBundleAtPath: (NSString*) pluginBundle {
 	if (pluginBundle == nil) return nil;
 	
 	// Standardise the plugin path
@@ -322,9 +336,6 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	// Clear the cache
-	[lastPlistPlugin release];
-	[lastPlist release];
-		
 	lastPlistPlugin = [pluginBundle copy];
 	lastPlist = nil;
 		
@@ -363,12 +374,12 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	}
 	
 	// Plugin is OK: return the result
-	return lastPlist = [plistDictionary retain];
+	return lastPlist = plistDictionary;
 }
 
 - (NSString*) nameForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -384,7 +395,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 
 - (NSString*) authorForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -403,7 +414,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 
 - (NSString*) versionForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -419,7 +430,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 
 - (NSString*) terpAuthorForBundle: (NSString*) pluginBundle {
 	// Get the plist for the plugin
-	NSDictionary* plist = [self plistForBundle: pluginBundle];
+	NSDictionary* plist = [self plistForBundleAtPath: pluginBundle];
 	if (plist == nil) return nil;
 	NSDictionary* zoomPlugins = [plist objectForKey: @"ZoomPlugin"];
 	
@@ -436,7 +447,7 @@ NSString* ZoomPlugInInformationChangedNotification = @"ZoomPlugInInformationChan
 	return result;		
 }
 
-// = Getting information about plugins =
+#pragma mark - Getting information about plugins
 
 - (void) pluginInformationChanged {
 	if (delegate && [delegate respondsToSelector: @selector(pluginInformationChanged)]) {
@@ -467,29 +478,24 @@ static int RankForStatus(ZoomPlugInStatus status) {
 	return 1;
 }
 
-static int SortPlugInInfo(id a, id b, void* context) {
-	ZoomPlugInInfo* first = a;
-	ZoomPlugInInfo* second = b;
-	
-	// First sort by status: unknown at the bottom, new and updated at the top
-	ZoomPlugInStatus firstStatus = [first status];
-	ZoomPlugInStatus secondStatus = [second status];
-	
-	if (RankForStatus(firstStatus) < RankForStatus(secondStatus))
-		return 1;
-	else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
-		return -1;
-	else
-		return 0;
-	
-	// Then sort by the name of the plugin
-	return [[first name] caseInsensitiveCompare: [second name]];
-}
-
 - (void) sortInformation {
 	// Sorts the plugin information array
-	[pluginInformation sortUsingFunction: SortPlugInInfo
-								 context: self];
+	[pluginInformation sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+		ZoomPlugInInfo* first = obj1;
+		ZoomPlugInInfo* second = obj2;
+		
+		// First sort by status: unknown at the bottom, new and updated at the top
+		ZoomPlugInStatus firstStatus = [first status];
+		ZoomPlugInStatus secondStatus = [second status];
+		
+		if (RankForStatus(firstStatus) < RankForStatus(secondStatus))
+			return NSOrderedDescending;
+		else if (RankForStatus(firstStatus) > RankForStatus(secondStatus))
+			return NSOrderedAscending;
+		
+		// Then sort by the name of the plugin
+		return [[first name] caseInsensitiveCompare: [second name]];
+	}];
 }
 
 - (void) addPlugInsFromDirectory: (NSString*) directory
@@ -500,11 +506,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 												  isDirectory: &isDir];
 	
 	if (exists && isDir) {
-		NSArray* plugins = [[NSFileManager defaultManager] directoryContentsAtPath: 
-			directory];
-		NSEnumerator* pluginEnum = [plugins objectEnumerator];
-		NSString* pluginName;
-		while (pluginName = [pluginEnum nextObject]) {
+		NSArray* plugins = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: directory error:NULL];
+		for (NSString* pluginName in plugins) {
 			NSString* fullPath = [directory stringByAppendingPathComponent: pluginName];
 			
 			// Get the info object
@@ -513,26 +516,23 @@ static int SortPlugInInfo(id a, id b, void* context) {
 			[information setStatus: status];
 			
 			// Store in the array
-			[pluginInformation addObject: [information autorelease]];
+			[pluginInformation addObject: information];
 		}
 	}	
 }
 
 - (void) setupInformation {
 	// Sets up the initial plugin information array
-	[pluginInformation release];
 	pluginInformation = [[NSMutableArray alloc] init];
 	
 	// Get the information for all of the loaded plugins
-	NSEnumerator* pluginEnum = [pluginBundles objectEnumerator];
-	NSBundle* bundle;
-	while (bundle = [pluginEnum nextObject]) {
+	for (NSBundle* bundle in pluginBundles) {
 		// Get the info object
 		ZoomPlugInInfo* information = [[ZoomPlugInInfo alloc] initWithBundleFilename: [bundle bundlePath]];
 		if (information == nil) continue;
 		
 		// Store in the array
-		[pluginInformation addObject: [information autorelease]];
+		[pluginInformation addObject: information];
 	}
 	
 	// Get the information for any plugins that are installed but disabled
@@ -565,17 +565,23 @@ static int SortPlugInInfo(id a, id b, void* context) {
 
 - (void) startNextCheck {
 	if (lastRequest != nil) return;
+
+    // Plug-in updates are disabled for now
+    [checkUrls removeAllObjects];
+    if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
+        [delegate finishedCheckingForUpdates];
+    }
+    return;
 	
 	// Get the next URL to check
 	NSURL* nextUrl = nil;
 	if ([checkUrls count] > 0) {
-		nextUrl = [[[checkUrls lastObject] retain] autorelease];
+		nextUrl = [checkUrls lastObject];
 		[checkUrls removeLastObject];
 	}
 	
 	// We've finished if the next URL is nil
 	if (nextUrl == nil) {
-		[checkUrls release];
 		checkUrls = nil;
 		
 		if (delegate && [delegate respondsToSelector: @selector(finishedCheckingForUpdates)]) {
@@ -586,20 +592,18 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	
 	// Create a new request
 	NSLog(@"Checking for plug-in updates from %@", nextUrl);
-	lastRequest = [[NSURLRequest requestWithURL: nextUrl
+	lastRequest = [NSURLRequest requestWithURL: nextUrl
 									cachePolicy: NSURLRequestReloadIgnoringCacheData
-								timeoutInterval: 20] retain];
-	[checkConnection release];
-	checkConnection = [[NSURLConnection connectionWithRequest: lastRequest
-													 delegate: self] retain];
+								timeoutInterval: 20];
+	checkConnectionTask = [session dataTaskWithRequest: lastRequest];
+	checkConnectionTask.taskDescription = @"Zoom plug-in update check";
 }
 
-- (void) checkForUpdatesFrom: (NSArray*) urls {
+- (void) checkForUpdatesFromURLs: (NSArray*) urls {
 	// Get the set of URLs to check
 	NSSet* uniqueUrls = [NSSet setWithArray: urls];
 	
 	// Store the set of URLs to check
-	[checkUrls release];
 	checkUrls = [[uniqueUrls allObjects] mutableCopy];
 	
 	// Notify the delegate that we're starting to check for updates
@@ -621,9 +625,7 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	
 	// If any of the plugins specify an update URL, add that to the list
 	NSArray* pluginInfo = [self informationForPlugins];
-	NSEnumerator* pluginEnum = [pluginInfo objectEnumerator];
-	ZoomPlugInInfo* plugin = nil;
-	while (plugin = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* plugin in pluginInfo) {
 		if ([plugin status] == ZoomPlugInInstalled && [plugin updateUrl] != nil) {
 			[whereToCheck addObject: [plugin updateUrl]];
 		}
@@ -635,19 +637,19 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	[whereToCheck addObject: [NSURL URLWithString: [[NSBundle mainBundle] objectForInfoDictionaryKey: @"ZoomPluginFeedURL"]]];
 	
 	// Start the check
-	[self checkForUpdatesFrom: whereToCheck];
-	[whereToCheck release];
+	[self checkForUpdatesFromURLs: whereToCheck];
 }
 
 - (BOOL) addUpdatedPlugin: (ZoomPlugInInfo*) plugin {
+    // This is disabled for now
+    return NO;
+    
 	// Find the old plugin that matches this one
 	ZoomPlugInInfo* oldPlugIn = nil;
 	
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* maybePlugin;
-	while (maybePlugin = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* maybePlugin in [self informationForPlugins]) {
 		if ([[plugin name] isEqualToString: [maybePlugin name]]) {
-			oldPlugIn = [[maybePlugin retain] autorelease];
+			oldPlugIn = maybePlugin;
 		}
 	}
 	
@@ -686,60 +688,57 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	return NO;
 }
 
-// = Handling URL events =
+#pragma mark - Handling URL events
 
-- (void)  connection:(NSURLConnection *)connection 
-  didReceiveResponse:(NSURLResponse *)response {
-	if (connection == checkConnection) {
+- (void)  URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
+  didReceiveResponse:(NSURLResponse *)response
+   completionHandler:(void (^)(NSURLSessionResponseDisposition disposition))completionHandler {
+	if (dataTask == checkConnectionTask) {
 		// Got a response to the last check for updates URL
-		[checkResponse release];
-		checkResponse = [response retain];
-		[checkData release];
+		checkResponse = response;
 		checkData = [[NSMutableData alloc] init];
+		completionHandler(NSURLSessionResponseAllow);
+	} else {
+		completionHandler(NSURLSessionResponseCancel);
 	}
 }
 
-- (void)connection:(NSURLConnection *)connection 
-  didFailWithError:(NSError *)error {
-	if (connection == checkConnection) {
-		// Got a response to the last check for updates URL
-		[checkResponse release];
-		checkResponse = nil;
-		
-		NSLog(@"Error while checking for updates: %@", error);
-	}
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	if (connection == checkConnection) {
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+	if (dataTask == checkConnectionTask) {
 		[checkData appendData: data];
 	}
 }
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-	if (connection == checkConnection) {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
+	if (task == checkConnectionTask) {
+		if (error) {
+			// Got a response to the last check for updates URL
+			checkResponse = nil;
+			
+			NSLog(@"Error while checking for updates: %@", error);
+			return;
+		}
 		NSDictionary* result = nil;
 		
 		if (checkResponse != nil && checkData != nil) {
 			// Handle the response
-			result = [NSPropertyListSerialization propertyListFromData: checkData
-													  mutabilityOption: NSPropertyListImmutable
+			result = [NSPropertyListSerialization propertyListWithData: checkData
+															   options: NSPropertyListImmutable
 																format: nil
-													  errorDescription: nil];
+																 error: nil];
 		}
 		
 		if (result != nil) {
 			// Iterate through the values in the result to get the current versions of the plugins specified in the XML file
 			NSEnumerator* valueEnum = [[result allValues] objectEnumerator];
-			NSDictionary* value;
 			BOOL updated = NO;
-			while (value = [valueEnum nextObject]) {
+			for (NSDictionary* value in valueEnum) {
 				// The entries must be dictionaries
 				if (![value isKindOfClass: [NSDictionary class]])
 					continue;
 				
 				// Work out the plugin information for this entry
-				ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initFromPList: value] autorelease];
+				ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initFromPList: value];
 				if (info == nil)
 					continue;
 				
@@ -758,23 +757,22 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		}
 		
 		// Move on to the next URL
-		[lastRequest release]; lastRequest = nil;
-		[checkConnection autorelease]; checkConnection = nil;
-		[checkResponse autorelease]; checkResponse = nil;
-		[checkData autorelease]; checkData = nil;
+		lastRequest = nil;
+		checkConnectionTask = nil;
+		checkResponse = nil;
+		checkData = nil;
 		
 		[self startNextCheck];
-	}	
+	}
 }
 
-// = Installing new plugins =
+#pragma mark - Installing new plugins
 
 - (void) installPendingPlugins {
 	// Work out the list of plugins with pending installations
 	NSMutableArray* pendingPlugins = [NSMutableArray array];
 	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in pluginEnum) {
 		if ([info status] == ZoomPlugInDownloaded) {
 			[pendingPlugins addObject: info];
 		}
@@ -782,14 +780,13 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	
 	// Actually perform the installations
 	NSEnumerator* installEnum = [pendingPlugins objectEnumerator];
-	while (info = [installEnum nextObject]) {
+	for (ZoomPlugInInfo* info in installEnum) {
 		// Work out where to install from
 		NSString* installPath = nil;
 		ZoomDownload* download = [info download];
 		
 		if (download) {
 			// Don't re-use this download
-			[[download retain] autorelease];
 			[info setDownload: nil];
 			[info setUpdateInfo: nil];
 			
@@ -797,9 +794,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 			NSString* downloadDir = [download downloadDirectory];
 			
 			if (downloadDir != nil) {
-				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: downloadDir] objectEnumerator];
-				NSString* downloaded;
-				while (downloaded = [downloadDirEnum nextObject]) {
+				NSEnumerator* downloadDirEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: downloadDir error: NULL] objectEnumerator];
+				for (NSString* downloaded in downloadDirEnum) {
 					// Need to find a .zoomplugin or .plugin file
 					NSString* extension = [[downloaded pathExtension] lowercaseString];
 					
@@ -847,9 +843,7 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	// Pick the next plug-in to download an update for
 	ZoomPlugInInfo* nextUpdate = nil;
 	
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in [self informationForPlugins]) {
 		if ([info download] != nil) continue;
 		if ([info location] == nil) continue;
 		
@@ -869,7 +863,6 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		[self installPendingPlugins];
 		
 		// Finish up, and let the delegate know that we're ready
-		[currentDownload release];
 		currentDownload = nil;
 		downloading = NO;
 		
@@ -888,7 +881,6 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	}
 	
 	// Start the new download
-	[currentDownload release];
 	currentDownload = nil;
 	
 	NSURL* url = [nextUpdate location];
@@ -896,7 +888,7 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		url = [[nextUpdate updateInfo] location];
 	}
 	
-	currentDownload = [[ZoomDownload alloc] initWithUrl: url];
+	currentDownload = [[ZoomDownload alloc] initWithURL: url];
 	if (currentDownload == nil) {
 		// Couldn't create a download for whatever reason
 		[nextUpdate setStatus: ZoomPlugInDownloadFailed];
@@ -928,8 +920,7 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	[currentDownload setDelegate: self];
 	[currentDownload startDownload];
 	
-	[downloadInfo release];
-	downloadInfo = [nextUpdate retain];
+	downloadInfo = nextUpdate;
 	
 	[nextUpdate setDownload: currentDownload];
 	[nextUpdate setStatus: ZoomPlugInDownloading];
@@ -943,13 +934,11 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	}
 }
 
-- (BOOL) restartRequired {
-	return restartRequired;
-}
+@synthesize restartRequired;
 
 - (BOOL) installPlugIn: (NSString*) pluginBundle {
 	// Get the information for the bundle
-	ZoomPlugInInfo* bundleInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundle] autorelease];
+	ZoomPlugInInfo* bundleInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundle];
 	
 	// Failed if we can't get the info for the plugin
 	if (!bundleInfo) return NO;
@@ -960,10 +949,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	// See if we can find an installed plugin that matches this one
 	BOOL alreadyInstalled = NO;
 	ZoomPlugInInfo* existingPlugIn = nil;
-	NSEnumerator* pluginEnum = [[self informationForPlugins] objectEnumerator];
-	ZoomPlugInInfo* info;
 
-	while (info = [pluginEnum nextObject]) {
+	for (ZoomPlugInInfo* info in [self informationForPlugins]) {
 		if ([[info name] isEqualToString: [bundleInfo name]]) {
 			if (existingPlugIn == nil) existingPlugIn = info;
 			
@@ -980,8 +967,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		&& [existingPlugIn status] == ZoomPlugInUpdated 
 		&& [[existingPlugIn location] isFileURL]) {
 		// Remove any existing update for the plugin
-		if (![[NSFileManager defaultManager] removeFileAtPath: [[existingPlugIn location] path]
-													  handler: nil]) {
+		if (![[NSFileManager defaultManager] removeItemAtPath: [[existingPlugIn location] path]
+														error: NULL]) {
 			return NO;
 		}
 	}
@@ -999,7 +986,9 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		if (!exists) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: pendingPlugIns
-															attributes: nil]) {
+										   withIntermediateDirectories: NO
+															attributes: nil
+																 error: NULL]) {
 				return NO;
 			}
 		}
@@ -1008,25 +997,24 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		// Delete from the pending directory if the plugin already exists there
 		if ([[NSFileManager defaultManager] fileExistsAtPath: pluginBundlePath]) {
-			if (![[NSFileManager defaultManager] removeFileAtPath: pluginBundlePath
-														  handler: nil]) {
+			if (![[NSFileManager defaultManager] removeItemAtPath: pluginBundlePath
+															error: NULL]) {
 				return NO;
 			}
 		}
 		
 		// Copy the bundle to the pending directory
-		if (![[NSFileManager defaultManager] copyPath: pluginBundle
-											   toPath: pluginBundlePath
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginBundle
+													 toPath: pluginBundlePath
+													  error: NULL]) {
 			return NO;
 		}
 		
 		// Update the previous plugin
-		ZoomPlugInInfo* newInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath] autorelease];
+		ZoomPlugInInfo* newInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath];
 		[newInfo setStatus: ZoomPlugInUpdated];
 		restartRequired = YES;
 		
-		[[existingPlugIn retain] autorelease];
 		[pluginInformation removeObjectIdenticalTo: existingPlugIn];
 		[pluginInformation addObject: newInfo];
 	} else {
@@ -1045,15 +1033,17 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		if (!exists) {
 			if (![[NSFileManager defaultManager] createDirectoryAtPath: plugins
-															attributes: nil]) {
+										   withIntermediateDirectories:NO
+															attributes:nil
+																 error:NULL]) {
 				return NO;
 			}
 		}
 		
 		// Copy the bundle to the plugin directory
-		if (![[NSFileManager defaultManager] copyPath: pluginBundle
-											   toPath: [plugins stringByAppendingPathComponent: [pluginBundle lastPathComponent]]
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginBundle
+													 toPath: [plugins stringByAppendingPathComponent: [pluginBundle lastPathComponent]]
+													  error: NULL]) {
 			return NO;
 		}
 		
@@ -1063,15 +1053,15 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		
 		// Add the information for this plugin
 		if (existingPlugIn) {
-			[[existingPlugIn retain] autorelease];
 			[pluginInformation removeObjectIdenticalTo: existingPlugIn];
 		}
 		
-		bundleInfo = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath] autorelease];
+		bundleInfo = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginBundlePath];
 		[bundleInfo setStatus: ZoomPlugInInstalled];
 		[pluginInformation addObject: bundleInfo];
 	}
 	
+#if 0
 	// Add the file information for this plugin to Zoom's plist file
 	NSMutableArray* icons = [NSMutableArray array];
 	
@@ -1181,9 +1171,9 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		NSString* source = [[[pluginBundle stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"] stringByAppendingPathComponent: iconFile];
 		NSString* dest = [[[mainBundle stringByAppendingPathComponent: @"Contents"] stringByAppendingPathComponent: @"Resources"] stringByAppendingPathComponent: iconFile];
 		
-		if (![[NSFileManager defaultManager] copyPath: source
-											   toPath: dest
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: source
+													 toPath: dest
+													  error: nil]) {
 			NSLog(@"Couldn't copy icon file %@ to %@", source, dest);
 		}
 	}
@@ -1203,12 +1193,14 @@ static int SortPlugInInfo(id a, id b, void* context) {
 
 	// Re-register the Zoom application
 	if (plistChanged) {
-		LSRegisterURL((CFURLRef)[NSURL fileURLWithPath: [[NSBundle mainBundle] bundlePath]], 1);
+		LSRegisterURL((CFURLRef)[[NSBundle mainBundle] bundleURL], 1);
 	}
+#endif
 	
 	// Notify of any changes to the plugin information
 	[self sortInformation];
 	[self pluginInformationChanged];
+	return YES;
 }
 
 - (void) finishUpdatingPlugins {
@@ -1234,12 +1226,11 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	NSLog(@"Will finish updating plugins");
 	NSMutableDictionary* pluginDictionary = [NSMutableDictionary dictionary];
 	
-	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: plugins] objectEnumerator];
-	NSString* pluginName;
-	while (pluginName = [pluginEnum nextObject]) {
+	NSEnumerator* pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: plugins error: NULL] objectEnumerator];
+	for (NSString* pluginName in pluginEnum) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [plugins stringByAppendingPathComponent: pluginName];
-		ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath] autorelease];
+		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];
 		if (!info) continue;
 		
 		// File it by the display name
@@ -1248,11 +1239,11 @@ static int SortPlugInInfo(id a, id b, void* context) {
 	}
 	
 	// Replace the old plugins with the new ones
-	pluginEnum = [[[NSFileManager defaultManager] directoryContentsAtPath: pendingPlugIns] objectEnumerator];
-	while (pluginName = [pluginEnum nextObject]) {
+	pluginEnum = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: pendingPlugIns error:NULL] objectEnumerator];
+	for (NSString* pluginName in pluginEnum) {
 		// Get the information for the next plugin
 		NSString* pluginPath = [pendingPlugIns stringByAppendingPathComponent: pluginName];
-		ZoomPlugInInfo* info = [[[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath] autorelease];
+		ZoomPlugInInfo* info = [[ZoomPlugInInfo alloc] initWithBundleFilename: pluginPath];
 		if (!info) {
 			NSLog(@"== While updating: %@ is not a valid plugin", pluginName);
 			continue;
@@ -1267,8 +1258,8 @@ static int SortPlugInInfo(id a, id b, void* context) {
 			}
 			
 			// Remove the old plugin
-			if (![[NSFileManager defaultManager] removeFileAtPath: [[oldPlugIn location] path]
-														  handler: nil]) {
+			if (![[NSFileManager defaultManager] removeItemAtPath: [[oldPlugIn location] path]
+															error: NULL]) {
 				NSLog(@"== While updating: could not delete %@", [oldPlugIn location]);
 				continue;
 			}
@@ -1280,25 +1271,25 @@ static int SortPlugInInfo(id a, id b, void* context) {
 		while ([[NSFileManager defaultManager] fileExistsAtPath: finalHome]) {
 			NSLog(@"== While updating: already have a plugin called %@ - picking a new name", [finalHome lastPathComponent]);
 			count++;
-			NSString* finalHome = [plugins stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-%i", pluginName, count]];
+			finalHome = [plugins stringByAppendingPathComponent: [NSString stringWithFormat: @"%@-%i", pluginName, count]];
 		}
 		
-		if (![[NSFileManager defaultManager] copyPath: pluginPath
-											   toPath: finalHome
-											  handler: nil]) {
+		if (![[NSFileManager defaultManager] copyItemAtPath: pluginPath
+													 toPath: finalHome
+													  error: NULL]) {
 			NSLog(@"== While updating: could not copy %@ to %@", pluginName, finalHome);
 			continue;
 		}
 	}
 	
 	// Finish up: delete the pending directory
-	if (![[NSFileManager defaultManager] removeFileAtPath: pendingPlugIns
-												  handler: nil]) {
+	if (![[NSFileManager defaultManager] removeItemAtPath: pendingPlugIns
+													error: NULL]) {
 		NSLog(@"== While updating: could not remove %@", pendingPlugIns);
 	}
 }
 
-// = ZoomDownload delegate functions =
+#pragma mark - ZoomDownload delegate functions
 
 - (void) downloadStarting: (ZoomDownload*) download {
 	

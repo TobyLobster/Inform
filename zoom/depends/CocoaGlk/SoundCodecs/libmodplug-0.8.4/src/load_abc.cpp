@@ -216,7 +216,7 @@ static int chordnotes[MAXCHORDNAMES][6];
 static int chordlen[MAXCHORDNAMES];
 static int chordsnamed = 0;
 
-static char *sig[] = {
+static const char *sig[] = {
 	" C D EF G A Bc d ef g a b",	// 7 sharps C#
 	" C D EF G AB c d ef g ab ",	// 6 sharps F#
 	" C DE F G AB c de f g ab ",	// 5 sharps B
@@ -235,7 +235,7 @@ static char *sig[] = {
 // 0123456789012345678901234	
 };
 
-static char *keySigs[] = {
+static const char *keySigs[] = {
 /* 0....:....1....:....2....:....3....:....4....:....5. */
 	"7 sharps: C#    A#m   G#Mix D#Dor E#Phr F#Lyd B#Loc ",
 	"6 sharps: F#    D#m   C#Mix G#Dor A#Phr BLyd  E#Loc ",
@@ -1447,7 +1447,7 @@ static void	abc_add_chord(const char *p, ABCHANDLE *h, ABCTRACK *tp, ULONG track
 	char d[6];
 	char s[8];
 	int i;
-	char *n = " C D EF G A Bc d ef g a b";
+	const char *n = " C D EF G A Bc d ef g a b";
 	d[0] = d[1] =	d[2] = d[3] = d[4] = d[5] = 0;
 	d[cmdflag] = 1;
 	d[command] = cmdchord;
@@ -2864,7 +2864,7 @@ static ULONG abc_tracktime(ABCTRACK *tp)
 	return tracktime;
 }
 
-static void abc_addchordname(char *s, int len, int *notes)
+static void abc_addchordname(const char *s, int len, int *notes)
 // adds chord name and note set to list of known chords
 {
 	int i, j;
@@ -3464,7 +3464,7 @@ static void abc_MIDI_beat(ABCHANDLE *h, const char *p)
 // and sixth notes in the bar, we could use the following 
 //
 // %%MIDI beatstring fppmpmp
-static void abc_MIDI_beatstring(ABCHANDLE *h, char *p)
+static void abc_MIDI_beatstring(ABCHANDLE *h, const char *p)
 {
 	while( isspace(*p) ) p++;
 	if( h->beatstring ) _mm_free(h->allochandle, h->beatstring);
@@ -3713,10 +3713,10 @@ BOOL CSoundFile::ReadABC(const BYTE *lpStream, DWORD dwMemLength)
 #define m_nDefaultTempo	of->inittempo
 #else
 	ABCHANDLE *h;
-	uint numpat;
+	unsigned int numpat;
 	MMFILE mm, *mmfile;
 #endif
-	uint t;
+	unsigned int t;
 	char	*line, *p, *pp, ch, ch0=0;
 	char barsig[52];	// for propagated accidental key signature within bar
 	char *abcparts;
@@ -5023,7 +5023,7 @@ BOOL CSoundFile::ReadABC(const BYTE *lpStream, DWORD dwMemLength)
 	m_nMinPeriod    = 28 << 2;
 	m_nMaxPeriod    = 1712 << 3;
 	// orderlist
-	for(t=0; t < (uint)orderlen; t++)
+	for(t=0; t < (unsigned int)orderlen; t++)
 		Order[t] = orderlist[t];
 	free(orderlist);	// get rid of orderlist memory
 #endif

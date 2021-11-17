@@ -26,9 +26,7 @@
 
 - (void) prepareToAnimateView: (NSView*) view
 						layer: (CALayer*) layer {
-	NSEnumerator* subviewEnum = [[view subviews] objectEnumerator];
-	NSView* subview;
-	while (subview = [subviewEnum nextObject]) {
+	for (NSView* subview in [view subviews]) {
 		[self prepareToAnimateView: subview
 							 layer: nil];		
 	}
@@ -37,13 +35,17 @@
 		[view setWantsLayer: YES];
 	}
 	
-	[view layer].backgroundColor = CGColorCreateGenericRGB(0, 0,0,0);
+	CGColorRef aColor = CGColorCreateGenericRGB(0, 0,0,0);
+	[view layer].backgroundColor = aColor;
+	CGColorRelease(aColor);
 }
 
 - (void) prepareToAnimateView: (NSView*) view {
 	CALayer* viewLayer = [CALayer layer];
 	
-	viewLayer.backgroundColor = CGColorCreateGenericRGB(0, 0,0,0);
+	CGColorRef aColor = CGColorCreateGenericRGB(0, 0,0,0);
+	viewLayer.backgroundColor = aColor;
+	CGColorRelease(aColor);
 
 	[self prepareToAnimateView: view
 						 layer: viewLayer];
@@ -84,8 +86,8 @@
 	CABasicAnimation* fadeAnimation = [CABasicAnimation animation];
 	
 	fadeAnimation.keyPath		= @"opacity";
-	fadeAnimation.fromValue		= [NSNumber numberWithDouble: 0];
-	fadeAnimation.toValue		= [NSNumber numberWithDouble: 1];
+	fadeAnimation.fromValue		= @0.0;
+	fadeAnimation.toValue		= @1.0;
 	fadeAnimation.repeatCount	= 1;
 	fadeAnimation.timingFunction= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
 	fadeAnimation.duration		= seconds*0.5;
@@ -147,8 +149,8 @@
 	CABasicAnimation* fadeAnimation = [CABasicAnimation animation];
 	
 	fadeAnimation.keyPath		= @"opacity";
-	fadeAnimation.fromValue		= [NSNumber numberWithDouble: 1];
-	fadeAnimation.toValue		= [NSNumber numberWithDouble: 0];
+	fadeAnimation.fromValue		= @1.0;
+	fadeAnimation.toValue		= @0.0;
 	fadeAnimation.repeatCount	= 1;
 	fadeAnimation.timingFunction= [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionEaseInEaseOut];
 	fadeAnimation.duration		= seconds;
@@ -178,9 +180,7 @@
 	if ([view wantsLayer]) {
 		[view setWantsLayer: NO];
 
-		NSEnumerator* subviewEnum = [[view subviews] objectEnumerator];
-		NSView* subview;
-		while (subview = [subviewEnum nextObject]) {
+		for (NSView* subview in view.subviews) {
 			[self clearLayersForView: subview];
 		}
 	}
@@ -196,8 +196,8 @@
 	[view setWantsLayer: YES];
 	[[view layer] display];
 	
-	float ratioX = oldWindowFrame.size.width / newWindowFrame.size.width;
-	float ratioY = oldWindowFrame.size.height / newWindowFrame.size.height;
+	CGFloat ratioX = oldWindowFrame.size.width / newWindowFrame.size.width;
+	CGFloat ratioY = oldWindowFrame.size.height / newWindowFrame.size.height;
 	
 	CATransform3D scaleFrom = CATransform3DIdentity;
 	scaleFrom = CATransform3DScale(scaleFrom, ratioX, ratioY, 1.0);
@@ -230,11 +230,11 @@
 	[finishInvocations addObject: view];
 }
 
-// = Animation delegate functions =
+#pragma mark - Animation delegate functions
 
 - (void)animationDidStop:(CAAnimation *)theAnimation
 				finished:(BOOL)flag {
-	int index = [animationsWillFinish indexOfObject: theAnimation];
+	NSInteger index = [animationsWillFinish indexOfObject: theAnimation];
 
 	while (index != NSNotFound) {
 		id invocation = [finishInvocations objectAtIndex: index];

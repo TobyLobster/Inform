@@ -95,7 +95,7 @@
 		[newCell setRadioGroup: 128];
 		
         if( [compilerController selectedTabId] == tab.tabId ) {
-			[newCell setState: NSOnState];
+			[newCell setState: NSControlStateValueOn];
 		}
 		
 		[pageCells addObject: newCell];
@@ -128,9 +128,9 @@
 	
 	for( IFPageBarCell* cell in pageCells ) {
 		if ([compilerController selectedTabId] == [[cell identifier] intValue]) {
-			[cell setState: NSOnState];
+			[cell setState: NSControlStateValueOn];
 		} else {
-			[cell setState: NSOffState];
+			[cell setState: NSControlStateValueOff];
 		}
 	}
 }

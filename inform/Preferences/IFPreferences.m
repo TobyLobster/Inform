@@ -205,7 +205,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 -(void) setPreferenceColour: (NSString*) key
                       value: (NSColor*) value
                notification: notification {
-    NSData *theData = [NSArchiver archivedDataWithRootObject: value];
+    NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: value];
     [self setPreference: key
                   value: theData
            notification: notification];
@@ -216,7 +216,11 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
     NSData *theData = (NSData *) [self getPreference: key
                                              default: nil];
     if (theData != nil) {
-        return (NSColor *)[NSUnarchiver unarchiveObjectWithData:theData];
+        NSColor *col = [NSKeyedUnarchiver unarchivedObjectOfClass: [NSColor class] fromData: theData error: NULL];
+        if (!col) {
+            col = [NSUnarchiver unarchiveObjectWithData: theData];
+        }
+        return col;
     }
     return defaultValue;
 }

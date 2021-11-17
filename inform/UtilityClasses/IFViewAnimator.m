@@ -249,11 +249,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -272,11 +272,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -295,11 +295,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -318,11 +318,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 			
@@ -339,11 +339,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: percentDone];
 			break;
 			
@@ -358,7 +358,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw the old view
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			
 			// Draw the new view
@@ -375,7 +375,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: percentDone];
 			break;
 		}
@@ -391,7 +391,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw the old view
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			
 			// Draw the new view
@@ -408,7 +408,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: percentNotDone];
 			break;
 		}

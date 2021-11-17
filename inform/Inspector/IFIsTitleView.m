@@ -150,7 +150,7 @@ static NSDictionary* fontAttributes;
 	while (x < NSMaxX(rect)) {
 		[bgImage drawAtPoint: NSMakePoint(x, 0)
 					fromRect: imgRect
-				   operation: NSCompositeSourceOver
+				   operation: NSCompositingOperationSourceOver
 					fraction: 1.0];
 		x+=w;
 	}

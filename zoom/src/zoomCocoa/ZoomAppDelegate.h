@@ -8,32 +8,38 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
 #import "ZoomPreferenceWindow.h"
-#import "ZoomMetadata.h"
-#import "ZoomStory.h"
+#import <ZoomPlugIns/ZoomMetadata.h>
+#import <ZoomPlugIns/ZoomStory.h>
 #import "ZoomiFictionController.h"
-#import "ZoomView.h"
+#import <ZoomView/ZoomView.h>
 #import "ZoomLeopard.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class SUUpdater;
-@interface ZoomAppDelegate : NSObject {
+@interface ZoomAppDelegate : NSObject <NSApplicationDelegate, NSOpenSavePanelDelegate, NSMenuItemValidation> {
 	ZoomPreferenceWindow* preferencePanel;
 	IBOutlet SUUpdater* updater;
 	
-	NSMutableArray* gameIndices;
+	NSMutableArray<ZoomMetadata*>* gameIndices;
 	id<ZoomLeopard> leopard;
 }
 
-- (NSArray*) gameIndices;
-- (ZoomStory*) findStory: (ZoomStoryID*) gameID;
+@property (readonly, copy) NSArray<ZoomMetadata*> *gameIndices;
+- (nullable ZoomStory*) findStory: (ZoomStoryID*) gameID;
 - (ZoomMetadata*) userMetadata;
 
-- (NSString*) zoomConfigDirectory;
-- (id<ZoomLeopard>) leopard;
+@property (readonly, copy, null_unspecified) NSString *zoomConfigDirectory;
+@property (readonly, strong) id<ZoomLeopard> leopard;
 
-- (IBAction) fixedOpenDocument: (id) sender;
-- (IBAction) showPluginManager: (id) sender;
-- (IBAction) checkForUpdates: (id) sender;
+- (IBAction) fixedOpenDocument: (nullable id) sender;
+- (IBAction) showPluginManager: (nullable id) sender;
+- (IBAction) checkForUpdates: (nullable id) sender;
 
 @end
+
+BOOL urlIsAvailableAndIsDirectory(NSURL *url, BOOL *__nullable isDirectory, BOOL *__nullable isPackage, BOOL *__nullable isReadable, NSError **error) NS_SWIFT_NAME(urlIsAvailable(_:isDirectory:isPackage:isReadable:error:)) NS_SWIFT_NOTHROW;
+
+NS_ASSUME_NONNULL_END

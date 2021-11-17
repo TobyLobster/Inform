@@ -8,37 +8,56 @@
 
 #import <Foundation/Foundation.h>
 
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 // Notifications
-extern NSString* ZoomMetadataWillDestroyStory;			// A story with a particular ID will be destroyed
+//! A story with a particular ID will be destroyed
+extern NSNotificationName const ZoomMetadataWillDestroyStory;
 
-// Cocoa interface to the C ifmetadata class
-
-@interface ZoomMetadata : NSObject {
-	NSString* filename;
-	struct IFMetabase* metadata;
+extern NSErrorDomain const ZoomMetadataErrorDomain;
+typedef NS_ERROR_ENUM(ZoomMetadataErrorDomain, ZoomMetadataError) {
+	ZoomMetadataErrorProgrammerIsASpoon,
+	ZoomMetadataErrorXML,
+	ZoomMetadataErrorNotXML,
+	ZoomMetadataErrorUnknownVersion,
+	ZoomMetadataErrorUnknownTag,
+	ZoomMetadataErrorNotIFIndex,
+	ZoomMetadataErrorUnknownFormat,
+	ZoomMetadataErrorMismatchedFormats,
 	
-	NSLock* dataLock;
-}
+	ZoomMetadataErrorStoriesShareIDs,
+	ZoomMetadataErrorDuplicateID
+};
+
+//! Cocoa interface to the C ifmetadata class
+@interface ZoomMetadata : NSObject
 
 // Initialisation
-- (id) init;											// Blank metadata
-- (id) initWithContentsOfFile: (NSString*) filename;	// Calls initWithData
-- (id) initWithData: (NSData*) xmlData;					// Designated initialiser
+//! Blank metadata
+- (id) init NS_DESIGNATED_INITIALIZER;
+//! Calls initWithData
+- (nullable id) initWithContentsOfFile: (NSString*) filename DEPRECATED_MSG_ATTRIBUTE("Use -initWithContentsOfURL:error: instead");
+//! Calls initWithData
+- (nullable instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
+
+- (nullable id) initWithData: (NSData*) xmlData NS_SWIFT_UNAVAILABLE("");
+//! Designated initialiser
+- (nullable id) initWithData: (NSData*) xmlData error: (NSError**) outError;
 
 // Thread safety [called by ZoomStory]
 - (void) lock;
 - (void) unlock;
 	
 // Information about the parse
-- (NSArray*) errors;
+@property (readonly, copy) NSArray<NSString*> *errors;
 
 // Retrieving information
 - (BOOL) containsStoryWithIdent: (ZoomStoryID*) ident;
 - (ZoomStory*) findOrCreateStory: (ZoomStoryID*) ident;
-- (NSArray*)   stories;
+@property (readonly, nonatomic, copy) NSArray<ZoomStory*> *stories;
 
 // Storing information
 - (void) copyStory: (ZoomStory*) story;
@@ -50,6 +69,12 @@ extern NSString* ZoomMetadataWillDestroyStory;			// A story with a particular ID
 - (NSData*) xmlData;
 - (BOOL)    writeToFile: (NSString*)path
 			 atomically: (BOOL)flag;
-- (BOOL) writeToDefaultFile;
+- (BOOL)    writeToURL: (NSURL*)path
+			atomically: (BOOL)flag
+				 error: (NSError**)error;
+- (BOOL) writeToDefaultFileWithError: (NSError**) outError;
+- (BOOL) writeToDefaultFile NS_SWIFT_UNAVAILABLE("");
 
 @end
+
+NS_ASSUME_NONNULL_END

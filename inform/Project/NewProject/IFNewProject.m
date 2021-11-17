@@ -207,7 +207,7 @@
     [panel beginSheetModalForWindow: win
                   completionHandler: ^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              self->projectLocation = [panel URL];
 
              [self validate];

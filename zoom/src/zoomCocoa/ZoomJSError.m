@@ -11,14 +11,9 @@
 
 @implementation ZoomJSError
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (void) dealloc {
-	[lastError release];
-	[super dealloc];
-}
-
-// = JavaScript names for our selectors =
+#pragma mark - JavaScript names for our selectors
 
 + (NSString *) webScriptNameForSelector: (SEL)sel {
 	if (sel == @selector(lastError)) {
@@ -35,15 +30,8 @@
 	return YES;
 }
 
-// = Dealing with errors =
+#pragma mark - Dealing with errors
 
-- (NSString*) lastError {
-	return lastError;
-}
-
-- (void) setLastError: (NSString*) newLastError {
-	[lastError release];
-	lastError = [newLastError copy];
-}
+@synthesize lastError;
 
 @end

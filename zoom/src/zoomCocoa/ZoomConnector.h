@@ -8,18 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomView.h"
-#import "ZoomProtocol.h"
+#import <ZoomView/ZoomProtocol.h>
+#import <ZoomView/ZoomView.h>
 
-// Class used to connect the server to the view
+/// Class used to connect the server to the view
+@interface ZoomConnector : NSObject<ZClient>
 
-@interface ZoomConnector : NSObject<ZClient> {
-	NSConnection* connection;
-	NSMutableArray* waitingViews;
-}
-
-// Retrieving the shared connector
-+ (ZoomConnector*) sharedConnector;
+/// Retrieving the shared connector
+@property (class, readonly, retain) ZoomConnector *sharedConnector;
 
 // Adding/removing views from the queue
 - (void) addViewWaitingForServer: (ZoomView*) view;

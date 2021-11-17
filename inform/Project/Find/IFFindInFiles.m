@@ -229,8 +229,10 @@
                     if (fileContents) res = [[NSAttributedString alloc] initWithString: fileContents];
                 } else if ([extn isEqualToString: @"rtf"] ||
                            [extn isEqualToString: @"rtfd"]) {
-                    res = [[NSAttributedString alloc] initWithPath: filename
-                                                 documentAttributes: nil];
+                    res = [[NSAttributedString alloc] initWithURL: [NSURL fileURLWithPath: filename]
+                                                          options: @{}
+                                               documentAttributes: nil
+                                                            error: NULL];
                 } else if ([extn isEqualToString: @"html"] ||
                            [extn isEqualToString: @"htm"]) {
                     // Parse the file

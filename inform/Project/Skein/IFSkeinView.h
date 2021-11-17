@@ -30,7 +30,7 @@
 @property (atomic, strong, readonly)  IFSkeinLayout*      layoutTree;
 @property (atomic, strong)            IFSkeinItem *       selectedItem;
 
-@property (atomic, assign) NSObject<IFSkeinViewDelegate>* delegate;
+@property (atomic, weak) id<IFSkeinViewDelegate> delegate;
 
 - (void) layoutSkeinWithAnimation:(BOOL) animate;
 

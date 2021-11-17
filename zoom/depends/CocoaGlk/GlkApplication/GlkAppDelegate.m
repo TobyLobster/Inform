@@ -14,7 +14,7 @@
 
 @implementation GlkAppDelegate
 
-// = Application delegate =
+#pragma mark - Application delegate
 
 - (void)applicationWillFinishLaunching: (NSNotification*) aNotification {
 	// Set up the hub
@@ -45,9 +45,9 @@
 #endif
 }
 
-// = GlkHub delegate =
+#pragma mark - GlkHub delegate
 
-- (NSObject<GlkSession>*) createAnonymousSession {
+- (id<GlkSession>) createAnonymousSession {
 	return nil;
 	
 	GlkWindowController* control = [[GlkWindowController alloc] init];

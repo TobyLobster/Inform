@@ -7,13 +7,17 @@
 //
 
 #if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
+# import <UIKit/UIKit.h>
 #else
 # import <Cocoa/Cocoa.h>
 #endif
 
 #include "glk.h"
 #import "glk_client.h"
+
+struct glk_schannel_struct {
+	
+};
 
 schanid_t glk_schannel_create(glui32 rock) {
 	UndefinedFunction();

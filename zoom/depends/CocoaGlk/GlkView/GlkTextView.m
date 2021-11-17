@@ -12,73 +12,66 @@
 #import "GlkWindow.h"
 #import "GlkTextWindow.h"
 #import "GlkImage.h"
+#import <GlkView/GlkPairWindow.h>
+#import <GlkView/GlkView.h>
 
 ///
 /// Private class used to store information about a custom glyph
 ///
 @interface GlkTextViewGlyph : NSObject {
-	NSUInteger glyph;
+	NSInteger glyph;
 	GlkCustomTextSection* textSection;
 	
 	NSRect bounds;
 }
 
-- (id) initWithGlyph: (NSUInteger) glyph
+- (id) initWithGlyph: (NSInteger) glyph
 		 textSection: (GlkCustomTextSection*) container;
 
-- (void) setBounds: (NSRect) bounds;
-
-- (NSRect) bounds;
-- (NSUInteger) glyph;
-- (GlkCustomTextSection*) textSection;
+@property NSRect bounds;
+@property (readonly) NSInteger glyph;
+@property (readonly, retain) GlkCustomTextSection *textSection;
 
 @end
 
 @implementation GlkTextViewGlyph
 
-- (id) initWithGlyph: (NSUInteger) newGlyph
+- (id) initWithGlyph: (NSInteger) newGlyph
 		 textSection: (GlkCustomTextSection*) section {
 	self = [super init];
 	
 	if (self) {
 		glyph = newGlyph;
-		textSection = [section retain];
+		textSection = section;
 		bounds = NSMakeRect(0,0,0,0);
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[textSection release];
-	
-	[super dealloc];
-}
-
-- (void) setBounds: (NSRect) newBounds {
-	bounds = newBounds;
-}
-
-- (NSRect) bounds {
-	return bounds;
-}
-
-- (NSUInteger) glyph {
-	return glyph;
-}
-
-- (GlkCustomTextSection*) textSection {
-	return textSection;
-}
-
+@synthesize bounds;
+@synthesize glyph;
+@synthesize textSection;
 
 @end
 
-@implementation GlkTextView
+@implementation GlkTextView {
+	// Character input
+	/// Set to true if we're waiting for single-character input
+	BOOL receivingCharacters;
+	
+	// Custom glyphs (ordered)
+	/// Ordered list of custom inline glyphs (images, mostly)
+	NSMutableArray<GlkTextViewGlyph*>* customGlyphs;
+	/// Ordered list of custom margin images
+	NSMutableArray<GlkTextViewGlyph*>* marginGlyphs;
+	/// The first unlaid margin glyph (index into marginGlyphs)
+	NSInteger firstUnlaidMarginGlyph;
+}
 
-// = Initialisation =
+#pragma mark - Initialisation
 
-- (instancetype)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
 		receivingCharacters = NO;
@@ -89,13 +82,7 @@
     return self;
 }
 
-- (void) dealloc {
-	[customGlyphs release];
-	[marginGlyphs release];
-	[super dealloc];
-}
-
-// = Drawing =
+#pragma mark - Drawing
 
 - (void) recalculateBoundsForGlyph: (GlkTextViewGlyph*) glyph {
 }
@@ -125,15 +112,15 @@
 																  inTextContainer: [self textContainer]];
 	
 	// Find the first image to draw
-	int top = (int) [customGlyphs count]-1;
-	int bottom = 0;
-	int firstUnlaid = (int) [layout firstUnlaidGlyphIndex];
+	NSInteger top = [customGlyphs count]-1;
+	NSInteger bottom = 0;
+	NSInteger firstUnlaid = [layout firstUnlaidGlyphIndex];
 	
 	while (top >= bottom) {
-		int middle = (top+bottom)>>1;
-		GlkTextViewGlyph* glyph = customGlyphs[middle];
+		NSInteger middle = (top+bottom)>>1;
+		GlkTextViewGlyph* glyph = [customGlyphs objectAtIndex: middle];
 		
-		NSUInteger thisGlyph = [glyph glyph];
+		NSInteger thisGlyph = [glyph glyph];
 		
 		if (thisGlyph < glyphRange.location) bottom = middle + 1;
 		else if (thisGlyph > glyphRange.location) top = middle - 1;
@@ -143,12 +130,12 @@
 		}
 	}
 	
-	int imageIndex = bottom;
+	NSInteger imageIndex = bottom;
 	
 	// Draw images until we reach the end of the glyph range
 	while (imageIndex < [customGlyphs count]) {
-		GlkTextViewGlyph* glyph = customGlyphs[imageIndex];
-		NSUInteger glyphNum = [glyph glyph];
+		GlkTextViewGlyph* glyph = [customGlyphs objectAtIndex: imageIndex];
+		NSInteger glyphNum = [glyph glyph];
 		
 		if (glyphNum >= firstUnlaid || glyphNum >= glyphRange.location + glyphRange.length) {
 			break;
@@ -165,7 +152,7 @@
 		
 		[[glyph textSection] drawAtPoint: loc
 								  inView: self];		
-
+		
 		// Move on
 		imageIndex++;
 	}
@@ -174,10 +161,10 @@
 	
 	// Calculate the position of any so far unlaid margin images
 	while (firstUnlaidMarginGlyph < [marginGlyphs count]) {
-		GlkTextViewGlyph* glyph = marginGlyphs[firstUnlaidMarginGlyph];
-		NSUInteger glyphNum = [glyph glyph];
+		GlkTextViewGlyph* glyph = [marginGlyphs objectAtIndex: firstUnlaidMarginGlyph];
+		NSInteger glyphNum = [glyph glyph];
 		if (glyphNum >= firstUnlaid) break;
-
+		
 		// Work out the bounding box for this glyph
 		NSRange fragmentRange;
 		NSRect fragment = [layout lineFragmentRectForGlyphAtIndex: [glyph glyph]
@@ -200,25 +187,25 @@
 	}
 	
 	// Find the glyph nearest the top of rect
-	float ypos = NSMaxY(rect)-inset.height;
+	CGFloat ypos = NSMaxY(rect)-inset.height;
 	
 	bottom = 0;
-	top = (int) [marginGlyphs count]-1;
+	top = [marginGlyphs count]-1;
 	if (top >= firstUnlaidMarginGlyph) top = firstUnlaidMarginGlyph-1;
 	
 	while (top >= bottom) {
-		int middle = (top+bottom)>>1;
-
-		GlkTextViewGlyph* glyph = marginGlyphs[middle];
+		NSInteger middle = (top+bottom)>>1;
+		
+		GlkTextViewGlyph* glyph = [marginGlyphs objectAtIndex: middle];
 		NSRect bounds = [glyph bounds];
-		float thisY = NSMinY(bounds);
+		CGFloat thisY = NSMinY(bounds);
 		
 		if (thisY > ypos) top = middle - 1;
 		else if (thisY < ypos) bottom = middle + 1;
 		else {
 			// Go forward to the last glyph that shares our ypos
 			while (middle < firstUnlaidMarginGlyph && middle < [marginGlyphs count]) {
-				GlkTextViewGlyph* glyph = marginGlyphs[middle];
+				GlkTextViewGlyph* glyph = [marginGlyphs objectAtIndex: middle];
 				if (NSMinY([glyph bounds]) != ypos) break;
 				
 				middle++;
@@ -230,15 +217,15 @@
 	}
 	
 	// top now contains the first glyph with a ypos <= the maximum position in the region we're drawing
-	int marginIndex = top;
+	NSInteger marginIndex = top;
 	
 	while (marginIndex >= 0) {
-		GlkTextViewGlyph* glyph = marginGlyphs[marginIndex];
-		NSUInteger glyphNum = [glyph glyph];
+		GlkTextViewGlyph* glyph = [marginGlyphs objectAtIndex: marginIndex];
+		NSInteger glyphNum = [glyph glyph];
 		NSRect bounds = [glyph bounds];
 		
 		if (NSMaxY(bounds) < NSMinY(rect)) break;
-
+		
 		// Draw this glyph
 		if ([glyph glyph] < [layout firstUnlaidGlyphIndex]) {
 			NSRange fragmentRange;
@@ -260,7 +247,7 @@
 	}
 }
 
-// = Receiving characters =
+#pragma mark - Receiving characters
 
 - (void) requestCharacterInput {
 	receivingCharacters = YES;
@@ -290,7 +277,7 @@
 	
 	if ([[evt characters] isEqualToString: @"\t"]) {
 		[[(GlkWindow*)sview containingView] performTabFrom: (GlkWindow*)sview
-												   forward: ([evt modifierFlags]&NSShiftKeyMask)==0];
+												   forward: ([evt modifierFlags]&NSEventModifierFlagShift)==0];
 		return;
 	}
 	
@@ -301,7 +288,7 @@
 	} else if (receivingCharacters && [GlkWindow keycodeForEvent: evt] != keycode_Unknown) {
 		// Send character input events directly to the GlkWindow object
 		[sview keyDown: evt];
-	} else if (![win waitingForLineInput] && ([evt modifierFlags]&NSFunctionKeyMask) == 0) {
+	} else if (![win waitingForLineInput] && ([evt modifierFlags]&NSEventModifierFlagFunction) == 0) {
 		// If not waiting for line input, then try changing the first responder to a view that
 		// is actually waiting for input
 		BOOL foundNewResponder = [[win containingView] setFirstResponder];
@@ -339,19 +326,19 @@
 	}
 }
 
-// = Dealing with custom glyphs =
+#pragma mark - Dealing with custom glyphs
 
-- (int) invalidateCustomGlyphs: (NSRange) range
-					   inArray: (NSMutableArray*) glyphArray {
+- (NSInteger) invalidateCustomGlyphs: (NSRange) range
+							 inArray: (NSMutableArray*) glyphArray {
 	// Binary search for the first glyph
-	int top = (int) [glyphArray count] - 1;
-	int bottom = 0;
+	NSInteger top = [glyphArray count] - 1;
+	NSInteger bottom = 0;
 	
 	while (top >= bottom) {
-		int middle = (top + bottom)>>1;
+		NSInteger middle = (top + bottom)>>1;
 		
-		GlkTextViewGlyph* thisGlyph = glyphArray[middle];
-		NSUInteger thisLoc = [thisGlyph glyph];
+		GlkTextViewGlyph* thisGlyph = [glyphArray objectAtIndex: middle];
+		NSInteger thisLoc = [thisGlyph glyph];
 		
 		if (thisLoc > range.location) top = middle - 1;
 		else if (thisLoc < range.location) bottom = middle + 1;
@@ -361,18 +348,18 @@
 		}
 	}
 	
-	int firstToRemove = bottom;
+	NSInteger firstToRemove = bottom;
 	if (firstToRemove >= [glyphArray count]) return 0x7fffffff;
 	
 	// Binary search for the final glyph
-	int finalGlyph = (int) (range.location + range.length);
+	NSInteger finalGlyph = range.location + range.length;
 	bottom = firstToRemove;
-	top = (int) [glyphArray count] - 1;
+	top = [glyphArray count] - 1;
 	while (top >= bottom) {
-		int middle = (top + bottom)>>1;
+		NSInteger middle = (top + bottom)>>1;
 		
-		GlkTextViewGlyph* thisGlyph = glyphArray[middle];
-		NSUInteger thisLoc = [thisGlyph glyph];
+		GlkTextViewGlyph* thisGlyph = [glyphArray objectAtIndex: middle];
+		NSInteger thisLoc = [thisGlyph glyph];
 		
 		if (thisLoc > finalGlyph) top = middle - 1;
 		else if (thisLoc < finalGlyph) bottom = middle + 1;
@@ -382,7 +369,7 @@
 		}
 	}
 	
-	int lastToRemove = top;
+	NSInteger lastToRemove = top;
 	if (lastToRemove < firstToRemove) return 0x7fffffff;
 	
 	[glyphArray removeObjectsInRange: NSMakeRange(firstToRemove, lastToRemove-firstToRemove+1)];
@@ -390,27 +377,27 @@
 	return firstToRemove;
 }
 
-- (void) addCustomGlyph: (NSUInteger) location
+- (void) addCustomGlyph: (NSInteger) location
 				section: (GlkCustomTextSection*) section
-				inArray: (NSMutableArray*) glyphArray {
+				inArray: (NSMutableArray<GlkTextViewGlyph*>*) glyphArray {
 	GlkTextViewGlyph* newGlyph = [[GlkTextViewGlyph alloc] initWithGlyph: location
 															 textSection: section];
 	
 	// Perform a binary search on the existing set of glyphs to find where to add this new glyph
-	int top = (int) [glyphArray count]-1;;
-	int bottom = 0;
+	NSInteger top = [glyphArray count]-1;;
+	NSInteger bottom = 0;
 	
 	while (top >= bottom) {
-		int middle = (top + bottom)>>1;
+		NSInteger middle = (top + bottom)>>1;
 		
-		GlkTextViewGlyph* thisGlyph = glyphArray[middle];
-		NSUInteger thisLoc = [thisGlyph glyph];
+		GlkTextViewGlyph* thisGlyph = [glyphArray objectAtIndex: middle];
+		NSInteger thisLoc = [thisGlyph glyph];
 		
 		if (thisLoc > location) top = middle - 1;
 		else if (thisLoc < location) bottom = middle + 1;
 		else {
-			glyphArray[middle] = newGlyph;
-			[newGlyph release];
+			[glyphArray replaceObjectAtIndex: middle
+									withObject: newGlyph];
 			return;
 		}
 	}
@@ -420,15 +407,14 @@
 					   atIndex: bottom];
 	
 	// We're done
-	[newGlyph release];
 }
 
 - (void) invalidateCustomGlyphs: (NSRange) range {
 	// Invalidate both the custom and the margin glyph arrays
 	[self invalidateCustomGlyphs: range
 						 inArray: customGlyphs];
-	int marginInvalid = [self invalidateCustomGlyphs: range
-											 inArray: marginGlyphs];
+	NSInteger marginInvalid = [self invalidateCustomGlyphs: range
+												   inArray: marginGlyphs];
 	
 	// Reset the first unlaid margin glyph
 	if (marginInvalid < firstUnlaidMarginGlyph) {
@@ -436,7 +422,7 @@
 	}
 }
 
-- (void) addCustomGlyph: (NSUInteger) location
+- (void) addCustomGlyph: (NSInteger) location
 				section: (GlkCustomTextSection*) section {
 	if ([section isKindOfClass: [GlkImage class]]) {
 		GlkImage* image = (GlkImage*)section;
@@ -458,7 +444,7 @@
 	}
 }
 
-// = Mouse events =
+#pragma mark - Mouse events
 
 - (NSView*) mouseParent {
 	// Find a parent view that might want to know about any mouse events we may have received
@@ -501,14 +487,14 @@
 	}
 }
 
-// = First responder =
+#pragma mark - First responder
 
 - (void) postFocusNotification {
 	NSView* glkWindowView = self;
 	while (glkWindowView != nil && ![glkWindowView isKindOfClass: [GlkWindow class]]) {
 		glkWindowView = [glkWindowView superview];
 	}
-	NSAccessibilityPostNotification(glkWindowView, NSAccessibilityFocusedUIElementChangedNotification);	
+	NSAccessibilityPostNotification(glkWindowView, NSAccessibilityFocusedUIElementChangedNotification);
 }
 
 - (BOOL)becomeFirstResponder {
@@ -539,66 +525,19 @@
 	return NO;
 }
 
-// = NSAccessibility =
+#pragma mark - NSAccessibility
 
-#if 1
-
-- (NSString *)accessibilityActionDescription: (NSString*) action {
-	if ([action isEqualToString: @"Repeat last command"])
-		return @"Read the output of the last command entered";
-	
-	return [super accessibilityActionDescription: action];
+- (NSString *)accessibilityHelp {
+	if (!receivingCharacters) return @"Text window";
+	return [NSString stringWithFormat: @"GLK text window%@%@", @"", receivingCharacters?@", waiting for a key press":@""];
 }
 
-- (NSArray *)accessibilityActionNames {
-	NSMutableArray* result = [[super accessibilityActionNames] mutableCopy];
-	
-	[result addObjectsFromArray:@[@"Read last command"]];
-	
-	return [result autorelease];
+- (id)accessibilityParent {
+	return nil;
 }
 
-- (void)accessibilityPerformAction:(NSString *)action {
-	[super accessibilityPerformAction: action];
+- (NSAccessibilityRole)accessibilityRole {
+	return NSAccessibilityTextAreaRole;
 }
-
-- (BOOL)accessibilityIsAttributeSettable:(NSString *)attribute {
-	return [super accessibilityIsAttributeSettable: attribute];;
-}
-
-- (void)accessibilitySetValue: (id)value
-				 forAttribute: (NSString*) attribute {
-	[super accessibilitySetValue: value
-					forAttribute: attribute];
-}
-
-- (NSArray*) accessibilityAttributeNames {
-	NSMutableArray* result = [[[super accessibilityAttributeNames] mutableCopy] autorelease];
-	if (!result) result = [[[NSMutableArray alloc] init] autorelease];
-	
-	[result addObjectsFromArray:@[NSAccessibilityHelpAttribute,
-		NSAccessibilityParentAttribute]];
-		
-	return result;
-}
-
-- (id)accessibilityAttributeValue:(NSString *)attribute {
-	if ([attribute isEqualToString: NSAccessibilityHelpAttribute]) {
-		if (!receivingCharacters) return @"Text window";
-		return [NSString stringWithFormat: @"GLK text window%@%@", @"", receivingCharacters?@", waiting for a key press":@""];
-	} else if ([attribute isEqualToString: NSAccessibilityParentAttribute]) {
-		//return nil;
-	} else if ([attribute isEqualToString: NSAccessibilityRoleAttribute]) {
-		return NSAccessibilityTextAreaRole;
-	}
-	
-	return [super accessibilityAttributeValue: attribute];
-}
-
-- (BOOL)accessibilityIsIgnored {
-	return NO;
-}
-
-#endif
 
 @end

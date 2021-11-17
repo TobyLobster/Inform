@@ -8,97 +8,50 @@
 
 #import <AppKit/AppKit.h>
 
-#import "ZoomSkein.h"
-#import "ZoomSkeinItem.h"
-#import "ZoomSkeinLayout.h"
+#import <ZoomView/ZoomSkein.h>
+#import <ZoomView/ZoomSkeinItem.h>
+#import <ZoomView/ZoomSkeinLayout.h>
 
-extern NSString* ZoomSkeinItemPboardType;
+@protocol ZoomSkeinViewDelegate;
 
-@interface ZoomSkeinView : NSView<NSTextViewDelegate> {
-	ZoomSkein* skein;
-	
+extern NSPasteboardType const ZoomSkeinItemPboardType NS_SWIFT_NAME(zoomSkeinItem);
+extern NSString * const ZoomSkeinTranscriptURLDefaultsKey;
+
+@interface ZoomSkeinView : NSView <NSTextViewDelegate, NSDraggingDestination, NSDraggingSource, NSControlTextEditingDelegate> {
 	BOOL skeinNeedsLayout;
-	
-	// Layout
-	ZoomSkeinLayout* layout;
-	
-	// Cursor flags
-	BOOL overWindow;
-	BOOL overItem;
-	
-	NSMutableArray* trackingRects;
-	NSMutableArray* trackingItems;
-	ZoomSkeinItem* trackedItem;
-	ZoomSkeinItem* clickedItem;
-	
-	// Dragging items
-	BOOL    dragCanMove;
-
-	// Drag scrolling
-	BOOL    dragScrolling;
-	NSPoint dragOrigin;
-	NSRect  dragInitialVisible;
-	
-	// Clicking buttons
-	int activeButton;
-	int lastButton;
-	
-	// Annoyingly poor support for tracking rects band-aid
-	NSRect lastVisibleRect;
-	
-	// Editing things
-	ZoomSkeinItem* itemToEdit;
-	ZoomSkeinItem* mostRecentItem;
-	NSScrollView* fieldScroller;
-	NSTextView* fieldEditor;
-	NSTextStorage* fieldStorage;
-	
-	BOOL editingAnnotation;
-	
-	float itemWidth;
-	float itemHeight;
-	
-	// The delegate
-	NSObject* delegate;
-	
-	// Context menu
-	ZoomSkeinItem* contextItem;
 }
 
-// Setting/getting the source
-@property (atomic, strong) ZoomSkein *skein;
+/// Setting/getting the source
+@property (nonatomic, strong) ZoomSkein* skein;
 
 // Laying things out
 - (void) skeinNeedsLayout;
 
-- (void) setItemWidth: (float) itemWidth;
-- (void) setItemHeight: (float) itemHeight;
+@property (nonatomic) CGFloat itemWidth;
+@property (nonatomic) CGFloat itemHeight;
 
-// The delegate
-@property (atomic, assign) id delegate;
+/// The delegate
+@property (weak) id<ZoomSkeinViewDelegate> delegate;
 
 // Affecting the display
 - (void) scrollToItem: (ZoomSkeinItem*) item;
 
 - (void) editItem: (ZoomSkeinItem*) skeinItem;
 - (void) editItemAnnotation: (ZoomSkeinItem*) skeinItem;
-@property (atomic, strong) ZoomSkeinItem *selectedItem;
+@property (retain) ZoomSkeinItem *selectedItem;
 
 - (void) highlightSkeinLine: (ZoomSkeinItem*) itemOnLine;
 
 - (void) layoutSkein;
 
-@end
-
-// = Using with the web kit =
-#import <WebKit/WebKit.h>
-
-@interface ZoomSkeinView(ZoomSkeinViewWeb)<WebDocumentView>
+- (IBAction)updateSkein:(id)sender;
 
 @end
 
-// = Delegate =
-@interface NSObject(ZoomSkeinViewDelegate)
+
+#pragma mark - Delegate
+@protocol ZoomSkeinViewDelegate <NSObject>
+@optional
 
 // Playing the game
 - (void) restartGame;
@@ -109,7 +62,9 @@ extern NSString* ZoomSkeinItemPboardType;
 - (void) transcriptToPoint: (ZoomSkeinItem*) point;
 
 // Various types of possible error
-- (void) cantDeleteActiveBranch;										// User attempted to delete an item on the active skein branch (which can't be done)
-- (void) cantEditRootItem;												// User attemptted to edit the root skein item
+/// User attempted to delete an item on the active skein branch (which can't be done)
+- (void) cantDeleteActiveBranch;
+/// User attemptted to edit the root skein item
+- (void) cantEditRootItem;
 
 @end

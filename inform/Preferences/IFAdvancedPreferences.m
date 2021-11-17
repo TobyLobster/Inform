@@ -64,13 +64,13 @@
 
 - (IBAction) setPreference: (id) sender {
 	// Read the current state of the buttons
-	BOOL willBuildSh            = [runBuildSh state]==NSOnState;
-    BOOL willAlwaysCompile      = [alwaysCompile state]==NSOnState;
-	BOOL willDebug              = [showDebugLogs state]==NSOnState;
-    BOOL willShowConsole        = [showConsole state]==NSOnState;
-    BOOL willPublicLibraryDebug = [publicLibraryDebug state]==NSOnState;
-	BOOL willCleanBuild         = [cleanBuildFiles state]==NSOnState;
-	BOOL willAlsoCleanIndex     = [alsoCleanIndexFiles state]==NSOnState;
+	BOOL willBuildSh            = [runBuildSh state]==NSControlStateValueOn;
+    BOOL willAlwaysCompile      = [alwaysCompile state]==NSControlStateValueOn;
+	BOOL willDebug              = [showDebugLogs state]==NSControlStateValueOn;
+    BOOL willShowConsole        = [showConsole state]==NSControlStateValueOn;
+    BOOL willPublicLibraryDebug = [publicLibraryDebug state]==NSControlStateValueOn;
+	BOOL willCleanBuild         = [cleanBuildFiles state]==NSControlStateValueOn;
+	BOOL willAlsoCleanIndex     = [alsoCleanIndexFiles state]==NSControlStateValueOn;
 	NSString* interpreter       = interpreters[[[glulxInterpreter selectedItem] tag]];
 	
 	// Set the shared preferences to suitable values
@@ -119,19 +119,19 @@
     [publicLibraryDebug setHidden: [IFUtility isSandboxed]];
 
 	// Set the buttons according to the current state of the preferences
-	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]               ? NSOnState : NSOffState];
-    [alwaysCompile       setState: [[IFPreferences sharedPreferences] alwaysCompile]            ? NSOnState : NSOffState];
-	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]        ? NSOnState : NSOffState];
-    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds]  ? NSOnState : NSOffState];
-    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]       ? NSOnState : NSOffState];
+	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]               ? NSControlStateValueOn : NSControlStateValueOff];
+    [alwaysCompile       setState: [[IFPreferences sharedPreferences] alwaysCompile]            ? NSControlStateValueOn : NSControlStateValueOff];
+	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]        ? NSControlStateValueOn : NSControlStateValueOff];
+    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds]  ? NSControlStateValueOn : NSControlStateValueOff];
+    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]       ? NSControlStateValueOn : NSControlStateValueOff];
 	
-	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]          ? NSOnState : NSOffState];
+	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]          ? NSControlStateValueOn : NSControlStateValueOff];
 	
 	if ([[IFPreferences sharedPreferences] cleanProjectOnClose]) {
-		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles]  ? NSOnState : NSOffState];
+		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles]  ? NSControlStateValueOn : NSControlStateValueOff];
 		[alsoCleanIndexFiles setEnabled: YES];
 	} else {
-		[alsoCleanIndexFiles setState: NSOffState];
+		[alsoCleanIndexFiles setState: NSControlStateValueOff];
 		[alsoCleanIndexFiles setEnabled: NO];
 	}
 }

@@ -1,9 +1,17 @@
 #import "ZoomGameInfoController.h"
 #import "ZoomPreferences.h"
 
+@interface UnknownSelectors: NSObject
+- (IBAction)infoGenreChanged:(id)sender;
+- (IBAction)infoCommentsChanged:(id)sender;
+- (IBAction)infoMyRatingChanged:(id)sender;
+- (IBAction)infoTeaserChanged:(id)sender;
+- (IBAction)infoResourceChanged:(id)sender;
+@end
+
 @implementation ZoomGameInfoController
 
-// = Shared info controller =
+#pragma mark - Shared info controller
 + (ZoomGameInfoController*) sharedGameInfoController {
 	static ZoomGameInfoController* shared = NULL;
 	
@@ -14,7 +22,7 @@
 	return shared;
 }
 
-// = Initialisation/finalisation =
+#pragma mark - Initialisation/finalisation
 
 - (id) init {
 	self = [self initWithWindowNibPath: [[NSBundle bundleForClass: [ZoomGameInfoController class]] pathForResource: @"GameInfo"
@@ -29,25 +37,14 @@
 }
 
 - (void) dealloc {
-	if (gameInfo) [gameInfo release];
-	
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
-	[super dealloc];
 }
 
-// = Owner =
+#pragma mark - Owner
 
-- (void) setInfoOwner: (id) newOwner {
-	if (infoOwner) [infoOwner release];
-	infoOwner = [newOwner retain];
-}
+@synthesize infoOwner;
 
-- (id) infoOwner {
-	return infoOwner;
-}
-
-// = Interface actions =
+#pragma mark - Interface actions
 
 - (IBAction)selectGenre:(id)sender {
 	NSString* name = nil;
@@ -84,7 +81,7 @@
 }
 
 - (IBAction)activateRating:(id)sender {
-	if ([ratingOn state] == NSOnState) {
+	if ([ratingOn state] == NSControlStateValueOn) {
 		[rating setEnabled: YES];
 	} else {
 		[rating setEnabled: NO];
@@ -106,7 +103,6 @@ static NSString* stringOrEmpty(NSString* str) {
 	[self window]; // (Make sure the window is loaded)
 	
 	if (info == nil) {
-		if (gameInfo) [gameInfo release];
 		gameInfo = nil;
 		
 		[gameName setEnabled: NO];		[gameName setStringValue: @"No game selected"];
@@ -121,12 +117,11 @@ static NSString* stringOrEmpty(NSString* str) {
 		
 		[zarfRating setEnabled: NO];	[zarfRating selectItemAtIndex: 0];
 		[rating setEnabled: NO];		[rating setIntValue: 5.0];
-		[ratingOn setEnabled: NO];		[ratingOn setState: NSOffState];
+		[ratingOn setEnabled: NO];		[ratingOn setState: NSControlStateValueOff];
 		
 		[resourceDrop setEnabled: NO]; [chooseResourceButton setEnabled: NO];
 	} else {		
-		if (gameInfo) [gameInfo release];
-		gameInfo = [info retain];
+		gameInfo = info;
 
 		[gameName setEnabled: YES];		[gameName setStringValue: stringOrEmpty([info title])];
 		[headline setEnabled: YES];		[headline setStringValue: stringOrEmpty([info headline])];
@@ -150,21 +145,25 @@ static NSString* stringOrEmpty(NSString* str) {
 		float rat = [info rating];
 		if (rat >= 0) {
 			[rating setEnabled: YES];		[rating setIntValue: rat];
-			[ratingOn setEnabled: YES];		[ratingOn setState: NSOnState];
+			[ratingOn setEnabled: YES];		[ratingOn setState: NSControlStateValueOn];
 		} else {
 			[rating setEnabled: NO];		[rating setIntValue: 5.0];
-			[ratingOn setEnabled: YES];		[ratingOn setState: NSOffState];
+			[ratingOn setEnabled: YES];		[ratingOn setState: NSControlStateValueOff];
 		}
 		
 		// FIXME: need improved metadata handling to implement this properly
-		[resourceDrop setDroppedFilename: [info objectForKey: @"ResourceFilename"]];
+		NSString *resfilnam = [info objectForKey: @"ResourceFilename"];
+		[resourceDrop setDroppedFilename: resfilnam];
+		if (resfilnam) {
+			resourceFilenameField.stringValue = resfilnam;
+		} else {
+			resourceFilenameField.stringValue = @"";
+		}
 		[resourceDrop setEnabled: YES]; [chooseResourceButton setEnabled: YES];
 	}
 }
 
-- (ZoomStory*) gameInfo {
-	return gameInfo;
-}
+@synthesize gameInfo;
 
 // Reading the current (updated) contents of the game info window
 - (NSString*) title {
@@ -199,12 +198,12 @@ static NSString* stringOrEmpty(NSString* str) {
 	return [teaser string];
 }
 
-- (unsigned) zarfRating {
-	return [zarfRating indexOfSelectedItem];
+- (IFMB_Zarfian) zarfRating {
+	return (IFMB_Zarfian)[zarfRating indexOfSelectedItem];
 }
 
 - (float) rating {
-	if ([ratingOn state] == NSOnState) {
+	if ([ratingOn state] == NSControlStateValueOn) {
 		return [rating floatValue];
 	} else {
 		return -1;
@@ -212,21 +211,19 @@ static NSString* stringOrEmpty(NSString* str) {
 }
 
 - (NSDictionary*) dictionary {
-	return [NSDictionary dictionaryWithObjectsAndKeys:
-		[self title], @"title",
-		[self headline], @"headline",
-		[self author], @"author",
-		[self genre], @"genre",
-		[NSNumber numberWithInt: [self year]], @"year",
-		[self group], @"group",
-		[self comments], @"comments",
-		[self teaser], @"teaser",
-		[NSNumber numberWithUnsignedInt: [self zarfRating]], @"zarfRating",
-		[NSNumber numberWithFloat: [self rating]], @"rating",
-		nil];
+	return @{@"title": [self title],
+			 @"headline": [self headline],
+			 @"author": [self author],
+			 @"genre": [self genre],
+			 @"year": @([self year]),
+			 @"group": [self group],
+			 @"comments": [self comments],
+			 @"teaser": [self teaser],
+			 @"zarfRating": @([self zarfRating]),
+			 @"rating": @([self rating])};
 }
 
-// = NSText delegate =
+#pragma mark - NSText delegate
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	NSTextView* textView = [aNotification object];
@@ -244,7 +241,7 @@ static NSString* stringOrEmpty(NSString* str) {
 	}
 }
 
-// = Resource files =
+#pragma mark - Resource files
 
 - (NSString*) resourceFilename {
 	return [resourceDrop droppedFilename];
@@ -253,39 +250,36 @@ static NSString* stringOrEmpty(NSString* str) {
 - (void) setResourceFile: (NSString*) filename {
 	[resourceDrop setDroppedFilename: filename];
 	[resourceDrop setNeedsDisplay: YES];
+	resourceFilenameField.stringValue = filename;
 	[NSApp sendAction: @selector(infoResourceChanged:)
 				   to: nil
 				 from: self];
 }
 
-- (void) finishedChoosingResourceFile: (NSOpenPanel *)sheet
-						   returnCode: (int)returnCode
-						  contextInfo: (void *)contextInfo {
-	if (returnCode != NSOKButton) return;
-	
-	[self setResourceFile: [sheet filename]];
-}
-
 - (IBAction)chooseResourceFile:(id)sender {
 	NSOpenPanel* openPanel = [NSOpenPanel openPanel];
-	NSArray* filetypes = [NSArray arrayWithObjects: @"blb", @"blorb", nil];
+	NSArray* filetypes = @[@"blb", @"blorb"];
 	
 	[openPanel setAllowsMultipleSelection: NO];
 	[openPanel setCanChooseDirectories: NO];
 	[openPanel setCanChooseFiles: YES];
 	[openPanel setDelegate: self];
+	openPanel.allowedFileTypes = filetypes;
 	
 	NSString* directory = nil;
 	if ([self resourceFilename] != nil) {
 		directory = [[self resourceFilename] stringByDeletingLastPathComponent];
 	}
 	
-	[openPanel beginSheetForDirectory: directory
-								 file: [self resourceFilename]
-					   modalForWindow: [self window]
-						modalDelegate: self
-					   didEndSelector: @selector(finishedChoosingResourceFile:returnCode:contextInfo:)
-						  contextInfo: nil];
+	if (directory) {
+		openPanel.directoryURL = [NSURL fileURLWithPath:directory];
+	}
+	
+	[openPanel beginSheetModalForWindow:[self window] completionHandler:^(NSModalResponse result) {
+		if (result != NSModalResponseOK) return;
+		
+		[self setResourceFile: [[openPanel URL] path]];
+	}];
 }
 
 - (void) resourceDropFilenameChanged: (ZoomResourceDrop*) drop {

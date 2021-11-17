@@ -1379,7 +1379,7 @@
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
-             if (result == NSOKButton) {
+             if (result == NSModalResponseOK) {
                  NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
                  NSError* error;
                  [[NSFileManager defaultManager] copyItemAtPath: [iFictionURL path]
@@ -1471,7 +1471,7 @@
     // Show it
     [panel beginSheetModalForWindow: window
                   completionHandler: ^(NSInteger result) {
-        if (result == NSOKButton) {
+        if (result == NSModalResponseOK) {
             NSError* error;
             NSString* whereToSave = [[panel URL] path];
 
@@ -1493,7 +1493,7 @@
                 [alert addButtonWithTitle:  [IFUtility localizedString: @"Cancel"]];
                 [alert setMessageText:      [IFUtility localizedString: @"Unable to save file"]];
                 [alert setInformativeText:  contents];
-                [alert setAlertStyle:       NSWarningAlertStyle];
+                [alert setAlertStyle:       NSAlertStyleWarning];
 
                 // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
                 [alert beginSheetModalForWindow: window
@@ -1649,7 +1649,7 @@
     // Display the panel
     [importPanel beginSheetModalForWindow: window completionHandler:^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              NSString* path = [[importPanel URL] path];
              NSString* extn = [[path pathExtension] lowercaseString];
 
@@ -1725,7 +1725,7 @@
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
-             if (result == NSOKButton) {
+             if (result == NSModalResponseOK) {
                  NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
                  NSError* error;
 

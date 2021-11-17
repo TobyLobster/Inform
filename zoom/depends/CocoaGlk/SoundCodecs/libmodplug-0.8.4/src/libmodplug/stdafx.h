@@ -62,7 +62,7 @@ typedef void VOID;
 inline LONG MulDiv (long a, long b, long c)
 {
   // if (!c) return 0;
-  return ((uint64_t) a * (uint64_t) b ) / c;
+  return (LONG)(((uint64_t) a * (uint64_t) b ) / c);
 }
 
 #define MODPLUG_NO_FILESAVE

@@ -167,7 +167,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		
 		[overlay drawInRect: destRect
 				   fromRect: sourceRect
-				  operation: NSCompositeSourceOver 
+				  operation: NSCompositingOperationSourceOver 
 				   fraction: fraction];		
 	}
 }
@@ -284,7 +284,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 				
 		[cellImage drawInRect: NSIntegralRect(cellFrame)
                      fromRect: cellSource
-                    operation: NSCompositeSourceOver
+                    operation: NSCompositingOperationSourceOver
                      fraction: ([cell isEnabled]?1.0:0.5) * (isActive?1.0:0.85)];
         isFirst = NO;
 	}
@@ -424,7 +424,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	}
 	
 	// If we're not turning a cell on, then we don't need to do anything more
-	if (state != NSOnState) {
+	if (state != NSControlStateValueOn) {
 		return;
 	}
 	
@@ -435,14 +435,14 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSOffState) continue;
+		if ([otherCell state] == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
 		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSOffState];
+		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
 	}
 
 	for( NSCell* otherCell in rightCells ) {
@@ -450,14 +450,14 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSOffState) continue;
+		if ([otherCell state] == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
 		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSOffState];
+		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
 	}
 }
 

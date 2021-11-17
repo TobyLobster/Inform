@@ -6,6 +6,8 @@
 #import "ZoomMetadata.h"
 #import "ZoomBabel.h"
 
+#pragma GCC visibility push(hidden)
+
 /* -----------------------------------------------------------------------------
    Generate a preview for file
 
@@ -15,12 +17,7 @@
 static NSString* zoomConfigDirectory() {
 	NSArray* libraryDirs = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 	
-	NSEnumerator* libEnum;
-	NSString* libDir;
-	
-	libEnum = [libraryDirs objectEnumerator];
-	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libraryDirs) {
 		BOOL isDir;
 		
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
@@ -31,12 +28,12 @@ static NSString* zoomConfigDirectory() {
 		}
 	}
 	
-	libEnum = [libraryDirs objectEnumerator];
-	
-	while (libDir = [libEnum nextObject]) {
+	for (NSString* libDir in libraryDirs) {
 		NSString* zoomLib = [[libDir stringByAppendingPathComponent: @"Preferences"] stringByAppendingPathComponent: @"uk.org.logicalshift.zoom"];
 		if ([[NSFileManager defaultManager] createDirectoryAtPath: zoomLib
-													   attributes:nil]) {
+									  withIntermediateDirectories: NO
+													   attributes: nil
+															error: NULL]) {
 			return zoomLib;
 		}
 	}
@@ -50,19 +47,18 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 								 CFStringRef contentTypeUTI, 
 								 CFDictionaryRef options) {
 	// Can't deal with file URLs.
-	NSURL* url = (NSURL*)cfUrl;
+	NSURL* url = (__bridge NSURL*)cfUrl;
 	if (![url isFileURL]) return noErr;
 	
 	// Get the metadata for the story
-	ZoomBabel* babel = [[[ZoomBabel alloc] initWithFilename: [url path]] autorelease];
+	ZoomBabel* babel = [[ZoomBabel alloc] initWithFilename: [url path]];
 	ZoomStory* story = [babel metadata];
 	ZoomStoryID* storyID = [story storyID];
 	NSImage* image = [babel coverImage];
 	
 	if (image == nil) {
 		// If there's no image, then we need to use a default one
-		image = [[[NSImage alloc] initWithContentsOfFile: [[NSBundle bundleWithIdentifier: @"uk.org.logicalshift.zoom.save.quicklook"] pathForResource: @"zoom-game"
-																																				ofType: @"icns"]] autorelease];
+		image = [[NSBundle bundleWithIdentifier: @"uk.org.logicalshift.zoom.save.quicklook"] imageForResource:@"zoom-game"];
 	}
 
 	// Try to use babel to work out the story ID, if we have no metadata
@@ -78,14 +74,14 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	// Try to load Zoom's built-in metadata if we can
 	ZoomMetadata* metadata = nil;
 	NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-	if (userData) metadata = [[[ZoomMetadata alloc] initWithData: userData] autorelease];
+	if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData error: NULL];
 	
 	if (metadata) {
 		story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:story;
 	}
 	
 	// If there's no metadata returned, then give up
-	if (story == nil) return;
+	if (story == nil) return noErr;
 	
 	// Generate an attributed string describing the story
 	NSFont* titleFont		= [NSFont boldSystemFontOfSize: 24];
@@ -116,29 +112,29 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 							   background, NSBackgroundColorAttributeName,
 							   nil];
 	
-	NSMutableAttributedString* description = [[[NSMutableAttributedString alloc] init] autorelease];
+	NSMutableAttributedString* description = [[NSMutableAttributedString alloc] init];
 	
 	if ([story title]) {
-		[description appendAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@\n", [story title]]
-																			  attributes: titleAttr] autorelease]];		
+		[description appendAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"%@\n", [story title]]
+																			  attributes: titleAttr]];
 	}
-	[description appendAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"IFID: %@\n", [storyID description]]
-																		  attributes: ifidAttr] autorelease]];
+	[description appendAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"IFID: %@\n", [storyID description]]
+																		  attributes: ifidAttr]];
 	if ([story author] && [[story author] length] > 0) {
 		NSString* publication = @"";
 		if ([story year] > 0) {
 			publication = [NSString stringWithFormat: @", published %i", [story year]];
 		}
-		[description appendAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"by %@%@\n", [story author], publication]
-																			  attributes: smallAttr] autorelease]];		
+		[description appendAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"by %@%@\n", [story author], publication]
+																			  attributes: smallAttr]];
 	}
 	
 	if ([story description] && [[story description] length] > 0) {
-		[description appendAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"\n%@", [story description]]
-																			  attributes: descrAttr] autorelease]];				
+		[description appendAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"\n%@", [story description]]
+																			  attributes: descrAttr]];
 	} else if ([story teaser] && [[story teaser] length] > 0) {
-		[description appendAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"\n%@", [story teaser]]
-																			  attributes: descrAttr] autorelease]];		
+		[description appendAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"\n%@", [story teaser]]
+																			  attributes: descrAttr]];
 	}
 	
 	// Decide on the size of the graphics context
@@ -164,8 +160,8 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	CGContextRef cgContext = QLPreviewRequestCreateContext(preview, previewSize,
 														 false, NULL);
 	
-	NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort: cgContext
-																			flipped: NO];
+	NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithCGContext: cgContext
+																		 flipped: NO];
 	
 	// Start drawing
 	[NSGraphicsContext saveGraphicsState];
@@ -177,7 +173,7 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 	if (image) {
 		NSSize imageSize = [image size];
 		imageRect = NSMakeRect(8,8, previewSize.height - 16, previewSize.height - 16);
-		float ratio = imageSize.height / imageSize.width;
+		CGFloat ratio = imageSize.height / imageSize.width;
 		if (ratio < 1) {
 			imageRect.size.height *= ratio;			
 		} else {
@@ -186,8 +182,8 @@ OSStatus GeneratePreviewForBabel(void *thisInterface,
 		}
 		
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 	}
 	
@@ -211,13 +207,14 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 							   CFStringRef contentTypeUTI, 
 							   CFDictionaryRef options)
 {
-	NSURL* url = (NSURL*)cfUrl;
+	@autoreleasepool {
+	NSURL* url = (__bridge NSURL*)cfUrl;
 	NSData* skeinData = nil;
 	ZoomSkein* skein = nil;
 	ZoomStoryID* storyID = nil;
 	
 	// Read the data for this file
-	if ([(NSString*)contentTypeUTI isEqualToString: @"uk.org.logicalshift.zoomsave"]) {
+	if ([(__bridge NSString*)contentTypeUTI isEqualToString: @"uk.org.logicalshift.zoomsave"]) {
 		// .zoomsave package
 		
 		// Read in the skein
@@ -229,17 +226,17 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomStoryId"];
 			if (idString != nil) {
-				storyID = [[[ZoomStoryID alloc] initWithIdString: idString] autorelease];
+				storyID = [[ZoomStoryID alloc] initWithIdString: idString];
 			}
 		}
 		
-	} else if ([(NSString*)contentTypeUTI isEqualToString: @"uk.org.logicalshift.glksave"]) {
+	} else if ([(__bridge NSString*)contentTypeUTI isEqualToString: @"uk.org.logicalshift.glksave"]) {
 		// .glksave package
 		
 		// Read in the skein
@@ -252,13 +249,13 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		NSData* plist = [NSData dataWithContentsOfURL: plistUrl];
 		
 		if (plist != nil) {
-			NSDictionary* plistDict = [NSPropertyListSerialization propertyListFromData: plist
-																	   mutabilityOption: NSPropertyListImmutable
+			NSDictionary* plistDict = [NSPropertyListSerialization propertyListWithData: plist
+																				options: NSPropertyListImmutable
 																				 format: nil
-																	   errorDescription: nil];
+																				  error: nil];
 			NSString* idString  = [plistDict objectForKey: @"ZoomGlkGameId"];
 			if (idString != nil) {
-				storyID = [[[ZoomStoryID alloc] initWithIdString: idString] autorelease];
+				storyID = [[ZoomStoryID alloc] initWithIdString: idString];
 			}
 		}
 	} else {
@@ -270,15 +267,15 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 	
 	// Try to parse the skein
 	if (skeinData) {
-		skein = [[[ZoomSkein alloc] init] autorelease];
-		if (![skein parseXmlData: skeinData]) {
+		skein = [[ZoomSkein alloc] init];
+		if (![skein parseXmlData: skeinData error: NULL]) {
 			skein = nil;
 		}
 	}
 	
 	// If we've got a skein, then generate an attributed string to represent the transcript of play
 	if (skein && [skein activeItem]) {
-		NSMutableAttributedString* result = [[[NSMutableAttributedString alloc] init] autorelease];
+		NSMutableAttributedString* result = [[NSMutableAttributedString alloc] init];
 		ZoomSkeinItem* activeItem = [skein activeItem];
 		
 		// Set up the attributes for the fonts
@@ -307,8 +304,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 		NSDictionary* titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys: 
 										 titleFont, NSFontAttributeName,
 										 nil];
-		NSAttributedString* newline = [[[NSAttributedString alloc] initWithString: @"\n"
-																	   attributes: transcriptAttributes] autorelease];
+		NSAttributedString* newline = [[NSAttributedString alloc] initWithString: @"\n"
+																	  attributes: transcriptAttributes];
 		
 		// Build the transcript
 		while (activeItem != nil) {
@@ -336,10 +333,6 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 									   atIndex: 0];				
 			}
 			
-			// Finish up
-			[inputString release];
-			[responseString release];
-			
 			// Move up the tree
 			activeItem = [activeItem parent];
 		}
@@ -351,15 +344,15 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 								   atIndex: 0];
 			[result insertAttributedString: newline
 								   atIndex: 0];
-			[result insertAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"IFID: %@", [storyID description]]
-																			 attributes: inputAttributes] autorelease]
+			[result insertAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"IFID: %@", [storyID description]]
+																			 attributes: inputAttributes]
 								   atIndex: 0];
 			
 			// Try to read the metadata for this story, if there is any
 			ZoomMetadata* metadata = nil;
 			ZoomStory* story = nil;
 			NSData* userData = [NSData dataWithContentsOfFile: [zoomConfigDirectory() stringByAppendingPathComponent: @"metadata.iFiction"]];
-			if (userData) metadata = [[[ZoomMetadata alloc] initWithData: userData] autorelease];
+			if (userData) metadata = [[ZoomMetadata alloc] initWithData: userData];
 			
 			if (metadata) {
 				story = [metadata containsStoryWithIdent: storyID]?[metadata findOrCreateStory: storyID]:nil;
@@ -368,21 +361,24 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 			if (story && [[story title] length] > 0) {
 				[result insertAttributedString: newline
 									   atIndex: 0];
-				[result insertAttributedString: [[[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"Saved game from %@", [story title]]
-																				 attributes: titleAttributes] autorelease]
+				[result insertAttributedString: [[NSAttributedString alloc] initWithString: [NSString stringWithFormat: @"Saved game from %@", [story title]]
+																				 attributes: titleAttributes]
 									   atIndex: 0];				
 			}
 		}
 		
 		// Set the quicklook data
-		NSData *theRTF = [result RTFFromRange:NSMakeRange(0, [result length]-1) documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
-		QLPreviewRequestSetDataRepresentation(preview, (CFDataRef)theRTF, kUTTypeRTF, NULL);
+		NSData *theRTF = [result RTFFromRange:NSMakeRange(0, [result length]-1) documentAttributes:@{}];
+		QLPreviewRequestSetDataRepresentation(preview, (__bridge CFDataRef)theRTF, kUTTypeRTF, NULL);
 	}
 	
     return noErr;
+	}
 }
 
 void CancelPreviewGeneration(void* thisInterface, QLPreviewRequestRef preview)
 {
     // implement only if supported
 }
+
+#pragma GCC visibility pop

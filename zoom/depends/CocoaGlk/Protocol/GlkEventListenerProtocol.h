@@ -6,18 +6,19 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#ifndef __GLKVIEW_GLKEVENTLISTENERPROTOCOL_H__
+#define __GLKVIEW_GLKEVENTLISTENERPROTOCOL_H__
 
-//
-// When executing glk_select() and co, we need this to get notifications of when events arrive
-//
+#import <Foundation/Foundation.h>
 
-@protocol GlkEventListener
+///
+/// When executing \c glk_select() and co, we need this to get notifications of when events arrive
+///
+@protocol GlkEventListener <NSObject>
 
-- (oneway void) eventReady: (int) syncCount;			// Called by the session object whenever an event arrives
+/// Called by the session object whenever an event arrives
+- (oneway void) eventReady: (int) syncCount;
 
 @end
+
+#endif

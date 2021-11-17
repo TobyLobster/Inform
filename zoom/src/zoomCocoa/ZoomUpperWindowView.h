@@ -7,29 +7,26 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "ZoomView.h"
-#import "ZoomCursor.h"
-#import "ZoomInputLine.h"
+#import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomCursor.h>
+#import <ZoomView/ZoomInputLine.h>
 
 @class ZoomView;
-@interface ZoomUpperWindowView : NSView {
-    ZoomView* zoomView;	
+@interface ZoomUpperWindowView : NSView <ZoomInputLineDelegate, ZoomCursorDelegate, NSAccessibilityStaticText> {
+    __weak ZoomView* zoomView;	
 	ZoomCursor* cursor;
 	
 	ZoomInputLine* inputLine;
 	NSPoint inputLinePos;
 }
-
-- (instancetype)initWithFrame:(NSRect)frame
-                     zoomView:(ZoomView*) view;
-
-@property (NS_NONATOMIC_IOSONLY, readonly) NSPoint cursorPos;
+- (instancetype)initWithFrame:(NSRect)frame zoomView:(ZoomView*) view;
+@property (readonly) NSPoint cursorPos;
 - (void) updateCursor;
 - (void) setFlashCursor: (BOOL) flash;
 
 - (void) activateInputLine;
 
-- (void) windowDidBecomeKey: (NSNotification*) not;
-- (void) windowDidResignKey: (NSNotification*) not;
+- (void) windowDidBecomeKey: (NSNotification*) noti;
+- (void) windowDidResignKey: (NSNotification*) noti;
 
 @end

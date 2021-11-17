@@ -296,7 +296,7 @@
 
     // Highlight the pane tab to something appropriate for the new URL
     for (IFPageBarCell*cell in indexCells) {
-        [cell setState: NSOffState];
+        [cell setState: NSControlStateValueOff];
     }
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
@@ -307,7 +307,7 @@
             int tabIdentifier = [tabDictionary[tabName] intValue];
             NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
 
-            [(NSCell*)indexCells[tabIndex] setState: NSOnState];
+            [(NSCell*)indexCells[tabIndex] setState: NSControlStateValueOn];
         }
     }
 }

@@ -6,20 +6,35 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#ifndef __GLKVIEW_GLKGRAPHICSWINDOW_H__
+#define __GLKVIEW_GLKGRAPHICSWINDOW_H__
+
+#import <GlkView/GlkViewDefinitions.h>
+#if defined(COCOAGLK_IPHONE)
+# import <UIKit/UIKit.h>
+#else
+# import <Cocoa/Cocoa.h>
+#endif
 
 #import <GlkView/GlkWindow.h>
 
 @interface GlkGraphicsWindow : GlkWindow {
-	NSImage* windowImage;							// The image buffer for this window
-	NSColor* backgroundColour;						// The background colour for this window
+	/// The image buffer for this window
+	NSImage* windowImage;
+	/// The background colour for this window
+	GlkColor* backgroundColour;
 }
 
 // Drawing in the graphics window
-- (void) fillRect: (NSRect) rect					// Fills in an area in a solid colour
+/// Fills in an area in a solid colour
+- (void) fillRect: (NSRect) rect
 	   withColour: (NSColor*) col;
-- (void) setBackgroundColour: (NSColor*) col;		// Sets the background colour of the window to the specified colour
-- (void) drawImage: (NSImage*) img					// Draws an image, scaled to the given rectangle
+/// Sets the background colour of the window to the specified colour
+@property (retain) GlkColor *backgroundColour;
+/// Draws an image, scaled to the given rectangle
+- (void) drawImage: (NSImage*) img
 			inRect: (NSRect) imgRect;
 
 @end
+
+#endif

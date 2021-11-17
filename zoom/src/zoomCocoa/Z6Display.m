@@ -6,6 +6,7 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
+#include <tgmath.h>
 #import "ZoomProtocol.h"
 #import "ZoomZMachine.h"
 #import "ZoomServer.h"
@@ -14,21 +15,17 @@
 #include "display.h"
 #include "v6display.h"
 
-extern int zDisplayCurrentWindow;
-extern ZStyle* zDisplayCurrentStyle;
-extern BOOL zPixmapDisplay;
-
 #undef  MEASURE_REMOTELY		// Set to force measuring of font sizes, etc, on the Zoom process rather than this one. Will be slower
 
 struct BlorbImage* zoomImageCache = NULL;
 int zoomImageCacheSize = 0;
 
-// = V6 display =
+#pragma mark - V6 display
 
 // Initialisation
 
 int display_init_pixmap(int width, int height) {
-	[(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] setSize: NSMakeSize(width, height)];
+	[(id<ZPixmapWindow>)[mainMachine windowNumber: 0] setSize: NSMakeSize(width, height)];
 	zPixmapDisplay = YES;
 	
 	return 1;
@@ -43,14 +40,14 @@ static int set_style(int style) {
     ZStyle* newStyle = [zDisplayCurrentStyle copy];
 	
     int oldStyle =
-        ([newStyle reversed]?1:0)|
-        ([newStyle bold]?2:0)|
-        ([newStyle underline]?4:0)|
-        ([newStyle fixed]?8:0)|
-        ([newStyle symbolic]?16:0);
+        (newStyle.reversed?1:0)|
+        (newStyle.bold?2:0)|
+        (newStyle.underline?4:0)|
+        (newStyle.fixed?8:0)|
+        (newStyle.symbolic?16:0);
     
     // Not using this any more
-    if (zDisplayCurrentStyle) [zDisplayCurrentStyle release];
+    if (zDisplayCurrentStyle) zDisplayCurrentStyle = nil;
 	
     BOOL flag = (style<0)?NO:YES;
     if (style < 0) style = -style;
@@ -85,7 +82,7 @@ extern void  display_plot_rect(int x, int y,
 							   int width, int height) { 
 	[[mainMachine buffer] plotRect: NSMakeRect(x, y, width, height)
 						 withStyle: zDisplayCurrentStyle
-						  inWindow: (NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0]];
+						  inWindow: (id<ZPixmapWindow>)[mainMachine windowNumber: 0]];
 	
 #ifdef DEBUG
 	NSLog(@"display_plot_rect(%i, %i, %i, %i)", x, y, width, height);
@@ -95,10 +92,14 @@ extern void  display_plot_rect(int x, int y,
 void  display_plot_gtext(const int* buf, int len,
 						 int style, int x, int y) {	
 	set_style(style);
-	
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: len * sizeof(int)]
+                                          encoding: NSUTF32LittleEndianStringEncoding];
+    
+    if (!str) {
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    unichar* bufU = NULL;
 	
     for (length=0; length < len; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
@@ -108,13 +109,15 @@ void  display_plot_gtext(const int* buf, int len,
     if (length == 0) return;
 	
 	// Plot the text
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	
 	[[mainMachine buffer] plotText: str
 						   atPoint: NSMakePoint(x, y)
 						 withStyle: zDisplayCurrentStyle
-						  inWindow: (NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0]];
+						  inWindow: (id<ZPixmapWindow>)[mainMachine windowNumber: 0]];
 
 #ifdef DEBUG
 	NSLog(@"display_plot_gtext(%@, %i, %i, %i, %i)", str, len, style, x, y);
@@ -137,44 +140,43 @@ void display_scroll_region(int x, int y,
 	
 	[[mainMachine buffer] scrollRegion: NSMakeRect(x, y, width, height)
 							   toPoint: NSMakePoint(x+xoff, y+yoff)
-							  inWindow: (NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0]];
+							  inWindow: (id<ZPixmapWindow>)[mainMachine windowNumber: 0]];
 }
 
 // Measuring
 
 static int lastStyle = -12763;
-static float lastWidth = -1;
-static float lastHeight = -1;
-static float lastAscent = -1;
-static float lastDescent = -1;
+static CGFloat lastWidth = -1;
+static CGFloat lastHeight = -1;
+static CGFloat lastAscent = -1;
+static CGFloat lastDescent = -1;
 
 static void measureStyle(int style) {
 	if (style == lastStyle) return;
 
 	set_style(style);
-	[(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] getInfoForStyle: zDisplayCurrentStyle
-																	   width: &lastWidth
-																	  height: &lastHeight
-																	  ascent: &lastAscent
-																	 descent: &lastDescent];
+	[(id<ZPixmapWindow>)[mainMachine windowNumber: 0] getInfoForStyle: zDisplayCurrentStyle
+																width: &lastWidth
+															   height: &lastHeight
+															   ascent: &lastAscent
+															  descent: &lastDescent];
 	lastStyle = style;
 }
 
-static NSDictionary* styleAttributes(ZStyle* style) {
+static NSDictionary<NSAttributedStringKey, id>* styleAttributes(ZStyle* style) {
 	static ZStyle* attributeStyle = nil;
-	static NSDictionary* lastAttributes = nil;
+	static NSDictionary<NSAttributedStringKey, id>* lastAttributes = nil;
 	
 	if (attributeStyle != nil &&
 		[attributeStyle isEqual: style]) {
 		return lastAttributes;
 	}
 	
-	[lastAttributes release]; lastAttributes = nil;
-	[attributeStyle release]; attributeStyle = nil;
+    lastAttributes = nil;
+    attributeStyle = nil;
 	
 	attributeStyle = [style copy];
-	lastAttributes = [(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] attributesForStyle: style];
-	[lastAttributes retain];
+	lastAttributes = [(id<ZPixmapWindow>)[mainMachine windowNumber: 0] attributesForStyle: style];
 	
 	return lastAttributes;
 }
@@ -182,9 +184,13 @@ static NSDictionary* styleAttributes(ZStyle* style) {
 float display_measure_text(const int* buf, int len, int style) { 
 	set_style(style);
 	
+    NSString* str = [[NSString alloc] initWithData: [NSData dataWithBytes: buf
+                                                                   length: len * sizeof(int)]
+                                          encoding: NSUTF32LittleEndianStringEncoding];
+    if (!str) {
     // Convert buf to an NSString
     int length;
-    static unichar* bufU = NULL;
+    unichar* bufU = NULL;
 	
     for (length=0; length < len; length++) {
         bufU = realloc(bufU, sizeof(unichar)*((length>>4)+1)<<4);
@@ -193,14 +199,15 @@ float display_measure_text(const int* buf, int len, int style) {
 	
     if (length == 0) return 0;
 	
-    NSString* str = [NSString stringWithCharacters: bufU
-                                            length: length];
-	
+        str = [[NSString alloc] initWithCharactersNoCopy: bufU
+                                                  length: length
+                                            freeWhenDone: YES];
+    }
 	// Measure the string
 	
 #ifdef MEASURE_REMOTELY
-	NSSize sz = [(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] measureString: str
-																			 withStyle: zDisplayCurrentStyle];
+	NSSize sz = [(id<ZPixmapWindow>)[mainMachine windowNumber: 0] measureString: str
+																	  withStyle: zDisplayCurrentStyle];
 #else
 	NSSize sz = [str sizeWithAttributes: styleAttributes(zDisplayCurrentStyle)];
 #endif
@@ -228,7 +235,7 @@ float display_get_font_height(int style) {
 	NSLog(@"display_get_font_height = %g", lastHeight);
 #endif
 	
-	return ceilf(lastHeight)+1.0;
+	return ceil(lastHeight)+1.0;
 }
 
 float display_get_font_ascent(int style) {
@@ -238,7 +245,7 @@ float display_get_font_ascent(int style) {
 	NSLog(@"display_get_font_ascent = %g", lastAscent);
 #endif
 	
-	return ceilf(lastAscent);
+	return ceil(lastAscent);
 }
 
 float display_get_font_descent(int style) { 
@@ -248,28 +255,28 @@ float display_get_font_descent(int style) {
 	NSLog(@"display_get_font_descent = %g", -lastDescent);
 #endif
 	
-	return ceilf(-lastDescent);
+	return ceil(-lastDescent);
 }
 
 int display_get_pix_colour(int x, int y) {
 	[mainMachine flushBuffers];
 	
-	NSColor* pixColour = [(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] colourAtPixel: NSMakePoint(x, y)];
+	NSColor* pixColour = [(id<ZPixmapWindow>)[mainMachine windowNumber: 0] colourAtPixel: NSMakePoint(x, y)];
 	
-	int redComponent = floorf([pixColour redComponent] * 31.0);
-	int greenComponent = floorf([pixColour greenComponent] * 31.0);
-	int blueComponent = floorf([pixColour blueComponent] * 31.0);
+	int redComponent = floor([pixColour redComponent] * 31.0);
+	int greenComponent = floor([pixColour greenComponent] * 31.0);
+	int blueComponent = floor([pixColour blueComponent] * 31.0);
 	
 	return ((redComponent)|(greenComponent<<5)|(blueComponent<<10)) + 16;
 }
 
-// = Input =
+#pragma mark - Input
 
 void display_set_input_pos(int style, int x, int y, int width) { 
 	set_style(style);
 	
-	[(NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0] setInputPosition: NSMakePoint(x, y)
-																	withStyle: zDisplayCurrentStyle];
+	[(id<ZPixmapWindow>)[mainMachine windowNumber: 0] setInputPosition: NSMakePoint(x, y)
+															 withStyle: zDisplayCurrentStyle];
 }
 
 void display_wait_for_more(void) {
@@ -280,9 +287,15 @@ void display_wait_for_more(void) {
 	[[mainMachine display] displayMore: NO];
 }
 
-// = Mouse =
+#pragma mark - Mouse
 
-extern void  display_read_mouse      (void) { NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__); }
+extern void  display_read_mouse      (void) {
+//	if ([mainMachine respondsToSelector:@selector(readMouse)]) {
+//		NSPoint mousePoint = [mainMachine readMouse];
+//	} else {
+		NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__);
+//	}
+}
 
 int display_get_pix_mouse_b (void) { 
 	return 1;
@@ -296,21 +309,21 @@ int display_get_pix_mouse_y (void) {
 	return [mainMachine mousePosY];
 }
 
-extern void  display_set_mouse_win   (int x, int y, int width, int height) { NSLog(@"Function not implemented: %s %i", __FILE__, __LINE__); }
+extern void  display_set_mouse_win   (int x, int y, int width, int height) { NSLog(@"Function not implemented: %s %s:%i", __FUNCTION__, __FILE__, __LINE__); }
 
 void display_flush(void) {
 	[mainMachine flushBuffers];
 }
 
-// = Images =
+#pragma mark - Images
 
 void display_plot_image(BlorbImage* img, int x, int y) {
 	[[mainMachine buffer] plotImage: img->number
 							atPoint: NSMakePoint(x, y)
-						   inWindow: (NSObject<ZPixmapWindow>*)[mainMachine windowNumber: 0]];
+						   inWindow: (id<ZPixmapWindow>)[mainMachine windowNumber: 0]];
 }
 
-// = Blorb =
+#pragma mark - Blorb
 
 // We re-implement blorb here, mainly because images really should be on the other side of the connection
 // (plus, I want to use NSImages, avoid libpng, etc)
@@ -364,7 +377,7 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 	}
 
 	// Get information on this image from the remote system
-	NSObject<ZDisplay>* disp = [mainMachine display];
+	id<ZDisplay> disp = [mainMachine display];
 	
 	if (![disp containsImageWithNumber: num]) {
 		// Image not available: mark it as so
@@ -382,8 +395,8 @@ BlorbImage* blorb_findimage(BlorbFile* blorb, int num) {
 	res->loaded = (image_data*)res; // HACK! See below
 	res->in_use = 1;
 	
-	res->width = ceilf(imageSize.width);
-	res->height = ceilf(imageSize.height);
+	res->width = ceil(imageSize.width);
+	res->height = ceil(imageSize.height);
 	
 	res->std_n = 1; res->std_d = 1;
 	res->min_n = 1; res->min_d = 1;

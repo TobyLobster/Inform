@@ -435,7 +435,7 @@ static NSDictionary* itemTextAttributes;
 	[fieldScroller setFrame: itemFrame];
 	[fieldEditor setFrame: itemFrame];
 
-	[fieldEditor setAlignment: NSCenterTextAlignment];
+	[fieldEditor setAlignment: NSTextAlignmentCenter];
 	[fieldEditor setFont: itemTextAttributes[NSFontAttributeName]];
 
 	[fieldEditor setRichText:NO];

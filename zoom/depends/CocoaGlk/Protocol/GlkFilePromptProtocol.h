@@ -6,21 +6,23 @@
 //  Copyright 2005 Andrew Hunter. All rights reserved.
 //
 
-#if defined(COCOAGLK_IPHONE)
-# include <UIKit/UIKit.h>
-#else
-# import <Cocoa/Cocoa.h>
-#endif
+#ifndef __GLKVIEW_GLKFILEPROPMTPROTOCOL_H__
+#define __GLKVIEW_GLKFILEPROPMTPROTOCOL_H__
 
-#import "GlkFileRefProtocol.h"
+#import <Foundation/Foundation.h>
 
-//
-// Protocol used to get the results after we've requested a file prompt
-//
+#import <GlkView/GlkFileRefProtocol.h>
 
-@protocol GlkFilePrompt
+///
+/// Protocol used to get the results after we've requested a file prompt
+///
+@protocol GlkFilePrompt <NSObject>
 
-- (void) promptedFileRef: (in byref NSObject<GlkFileRef>*) fref;	// Called when the user chooses a file
-- (void) promptCancelled;											// Called when the user gives up on us
+/// Called when the user chooses a file
+- (void) promptedFileRef: (in byref id<GlkFileRef>) fref;
+/// Called when the user gives up on us
+- (void) promptCancelled;
 
 @end
+
+#endif

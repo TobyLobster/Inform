@@ -8,36 +8,43 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "ZoomCursor.h"
+#import <ZoomView/ZoomCursor.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@protocol ZoomInputLineDelegate;
 
 @interface ZoomInputLine : NSObject
 
-- (instancetype) initWithCursor: (ZoomCursor*) cursor
-		   attributes: (NSDictionary*) attr NS_DESIGNATED_INITIALIZER;
+- (id) initWithCursor: (ZoomCursor*) cursor
+		   attributes: (NSDictionary<NSAttributedStringKey, id>*) attr;
 
 - (void) drawAtPoint: (NSPoint) point;
-@property (NS_NONATOMIC_IOSONLY, readonly) NSSize size;
+@property (readonly) NSSize size;
 - (NSRect) rectForPoint: (NSPoint) point;
 
 - (void) keyDown: (NSEvent*) evt;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *inputLine;
+@property (readonly, copy) NSString *inputLine;
 
-@property (NS_NONATOMIC_IOSONLY, assign) id delegate;
+@property (weak) id<ZoomInputLineDelegate> delegate;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *lastHistoryItem;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *nextHistoryItem;
+@property (readonly, copy, nullable) NSString *lastHistoryItem;
+@property (readonly, copy, nullable) NSString *nextHistoryItem;
 
 - (void) updateCursor;
 
 @end
 
-@interface NSObject(ZoomInputLineDelegate)
+@protocol ZoomInputLineDelegate <NSObject>
+@optional
 
 - (void) inputLineHasChanged: (ZoomInputLine*) sender;
 - (void) endOfLineReached: (ZoomInputLine*) sender;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *lastHistoryItem;
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *nextHistoryItem;
+@property (nonatomic, readonly, copy, nullable) NSString *lastHistoryItem;
+@property (nonatomic, readonly, copy, nullable) NSString *nextHistoryItem;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,9 +10,15 @@
 #import "ZoomPlugIn.h"
 
 
-@implementation ZoomPlugIn
+@implementation ZoomPlugIn {
+@private
+	/// The game that this plugin will play
+	NSURL* gameFile;
+	/// The game data (loaded on demand)
+	NSData* gameData;
+}
 
-// = Informational functions (subclasses should normally override) =
+#pragma mark - Informational functions (subclasses should normally override)
 
 + (NSString*) pluginVersion {
 	NSLog(@"Warning: loaded a plugin which does not provide pluginVersion");
@@ -37,10 +43,18 @@
 }
 
 + (BOOL) canRunPath: (NSString*) path {
+	return [self canRunURL: [NSURL fileURLWithPath: path]];
+}
+
++ (BOOL) canRunURL: (NSURL*) path {
 	return NO;
 }
 
-// = Designated initialiser =
++ (NSArray<NSString*>*)supportedFileTypes {
+	return @[];
+}
+
+#pragma mark - Designated initialiser
 
 - (id) init {
 	[NSException raise: @"ZoomNoPlugInFilename"
@@ -50,38 +64,38 @@
 }
 
 - (id) initWithFilename: (NSString*) filename {
+	return [self initWithURL: [NSURL fileURLWithPath:filename]];
+}
+
+- (id) initWithURL:(NSURL *)fileURL {
 	self = [super init];
 	
 	if (self) {
-		gameFile = [filename copy];
+		gameFile = [fileURL copy];
 		gameData = nil;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	[gameData release]; gameData = nil;
-	[gameFile release]; gameFile = nil;
-	
-	[super dealloc];
-}
+#pragma mark - Getting information about what this plugin should be doing
 
-// = Getting information about what this plugin should be doing =
+@synthesize gameURL=gameFile;
+@synthesize gameData;
 
-- (NSString*) gameFilename {
-	return gameFile;
+- (NSString *)gameFilename {
+	return gameFile.path;
 }
 
 - (NSData*) gameData {
 	if (gameData == nil) {
-		gameData = [[NSData alloc] initWithContentsOfFile: gameFile];
+		gameData = [[NSData alloc] initWithContentsOfURL: gameFile];
 	}
 	
 	return gameData;
 }
 
-// = The game window =
+#pragma mark - The game window
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story {
 	[NSException raise: @"ZoomNoPlugInInterface" 
@@ -92,31 +106,46 @@
 
 - (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
 								saveGame: (NSString*) saveGame {
-	[NSException raise: @"ZoomNoPlugInInterface" 
-				format: @"An attempt was made to load a game whose plugin does not provide an interface"];
-	
-	return nil;	
+	return [self gameDocumentWithMetadata: story
+							  saveGameURL: saveGame ? [NSURL fileURLWithPath: saveGame] : nil];
 }
 
-// = Dealing with game metadata =
+- (NSDocument*) gameDocumentWithMetadata: (ZoomStory*) story
+							 saveGameURL: (NSURL *)saveGame {
+	[NSException raise: @"ZoomNoPlugInInterface"
+				format: @"An attempt was made to load a game whose plugin does not provide an interface"];
+	
+	return nil;
+}
+
+#pragma mark - Dealing with game metadata
 
 - (ZoomStoryID*) idForStory {
 	// Generate an MD5-based ID
-	return [[[ZoomStoryID alloc] initWithData: [self gameData]] autorelease];
+	return [[ZoomStoryID alloc] initWithData: [self gameData]];
 }
 
 - (ZoomStory*) defaultMetadata {
 	// Just use the default metadata-establishing routine
-	return [ZoomStory defaultMetadataForFile: gameFile]; 
+	return [self defaultMetadataWithError: NULL];
+}
+
+- (ZoomStory*) defaultMetadataWithError:(NSError *__autoreleasing *)outError {
+	// Just use the default metadata-establishing routine
+	return [ZoomStory defaultMetadataForURL: gameFile error: outError];
 }
 
 - (NSImage*) coverImage {
 	return nil;
 }
 
-// = More information =
+#pragma mark - More information
 
 - (void) setPreferredSaveDirectory: (NSString*) dir {
+	[self setPreferredSaveDirectoryURL: [NSURL fileURLWithPath: dir]];
+}
+
+- (void) setPreferredSaveDirectoryURL: (NSURL *) dir {
 	// Default implementation does nothing
 }
 
@@ -125,7 +154,7 @@
 	NSImage* result = input;
 		
 	if (oldSize.width > 256 || oldSize.height > 256) {
-		float scaleFactor;
+		CGFloat scaleFactor;
 		
 		if (oldSize.width > oldSize.height) {
 			scaleFactor = 256/oldSize.width;
@@ -135,13 +164,13 @@
 		
 		NSSize newSize = NSMakeSize(scaleFactor * oldSize.width, scaleFactor * oldSize.height);
 		
-		result = [[[NSImage alloc] initWithSize: newSize] autorelease];
+		result = [[NSImage alloc] initWithSize: newSize];
 		[result lockFocus];
 		[[NSGraphicsContext currentContext] setImageInterpolation: NSImageInterpolationHigh];
 		
 		[input drawInRect: NSMakeRect(0,0, newSize.width, newSize.height)
-				 fromRect: NSMakeRect(0,0, oldSize.width, oldSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
 		[result unlockFocus];
 	}

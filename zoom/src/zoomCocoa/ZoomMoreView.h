@@ -9,9 +9,7 @@
 #import <AppKit/AppKit.h>
 
 
-@interface ZoomMoreView : NSView {
-
-}
+@interface ZoomMoreView : NSView
 
 - (void) setSize;
 

@@ -11,13 +11,11 @@
 
 @interface ZoomStoryTableView : NSTableView {
 
-	int selectedRow;
-	int selectedColumn;
+	NSInteger selectedRow;
+	NSInteger selectedColumn;
 	
 	BOOL willEdit;
 }
-
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal;
 
 - (void)keyDown:(NSEvent *)theEvent;
 - (void)mouseDown:(NSEvent*)theEvent;

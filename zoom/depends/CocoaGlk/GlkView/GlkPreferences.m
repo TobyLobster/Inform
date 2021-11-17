@@ -7,34 +7,15 @@
 //
 
 #import "GlkPreferences.h"
+#import "GlkStyle.h"
 
 #include "glk.h"
 
-NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNotification";
+NSString* const GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNotification";
 
-@implementation GlkPreferences {
-    // The fonts
-    NSFont* proportionalFont;
-    NSFont* fixedFont;
+@implementation GlkPreferences
 
-    // The standard styles
-    NSMutableDictionary* styles;
-
-    // Typography
-    float textMargin;
-    BOOL useScreenFonts;
-    BOOL useHyphenation;
-    BOOL kerning;
-    BOOL ligatures;
-
-    // Misc bits
-    float scrollbackLength;
-
-    BOOL changeNotified;											// YES if the last change is being notified
-    int  changeCount;												// Number of changes
-}
-
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (GlkPreferences*) sharedPreferences {
 	static GlkPreferences* sharedPrefs = nil;
@@ -46,7 +27,7 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	return sharedPrefs;
 }
 
-- (instancetype) init {
+- (id) init {
 	self = [super init];
 	
 	if (self) {
@@ -71,10 +52,10 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
                                            size: 12] copy];
 		
 		// Choose alternative fonts if our defaults are not available
-		if (proportionalFont == nil) proportionalFont = [NSFont systemFontOfSize: 12];
-		if (fixedFont == nil) fixedFont = [NSFont fontWithName: @"Monaco"
-														  size: 12];
-		if (fixedFont == nil) fixedFont = [NSFont systemFontOfSize: 12];
+		if (proportionalFont == nil) proportionalFont = [GlkFont systemFontOfSize: 12];
+		if (fixedFont == nil) fixedFont = [GlkFont fontWithName: @"Monaco"
+														   size: 12];
+		if (fixedFont == nil) fixedFont = [GlkFont systemFontOfSize: 12];
 		
 		// Default styles
 		styles = [[NSMutableDictionary alloc] init];
@@ -104,7 +85,7 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 		[header setSize: 4];
 		[subheader setSize: 1];
 		
-		[header setJustification: NSCenterTextAlignment];
+		[header setJustification: NSTextAlignmentCenter];
 		
 		[preformatted setProportional: NO];
 		
@@ -138,19 +119,9 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	return self;
 }
 
-- (void) dealloc {
-	[styles release];
-	[proportionalFont release];
-	[fixedFont release];
-	
-	[super dealloc];
-}
+#pragma mark - Changes
 
-// = Changes =
-
-- (int) changeCount {
-	return changeCount;
-}
+@synthesize changeCount;
 
 - (void) preferencesHaveChanged {
 	if (!changeNotified) {
@@ -169,42 +140,35 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 														object: self];
 }
 
-// = Preferences and the user defaults =
+#pragma mark - Preferences and the user defaults
 
 - (void) setPreferencesFromDefaults: (NSDictionary*) defaults {
-	// Not implemented yet
+	// TODO: Not implemented yet
 }
 
 - (NSDictionary*) preferenceDefaults {
-	// Not implemented yet
+	// TODO: Not implemented yet
 	return nil;
 }
 
-// = Font preferences =
+#pragma mark - Font preferences
 
 - (void) setProportionalFont: (NSFont*) propFont {
-	[proportionalFont release];
 	proportionalFont = [propFont copy];
 	
 	[self preferencesHaveChanged];
 }
 
 - (void) setFixedFont: (NSFont*) newFixedFont {
-	[fixedFont release];
 	fixedFont = [newFixedFont copy];
 	
 	[self preferencesHaveChanged];
 }
 
-- (NSFont*) proportionalFont {
-	return proportionalFont;
-}
+@synthesize proportionalFont;
+@synthesize fixedFont;
 
-- (NSFont*) fixedFont {
-	return fixedFont;
-}
-
-- (void) setFontSize: (float) fontSize {
+- (void) setFontSize: (CGFloat) fontSize {
 	NSFontManager* mgr = [NSFontManager sharedFontManager];
 	
 	NSFont* newProp = [mgr convertFont: proportionalFont
@@ -216,10 +180,9 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	[self setFixedFont: newFixed];
 }
 
-// = Style preferences =
+#pragma mark - Style preferences
 
 - (void) setStyles: (NSDictionary*) newStyles {
-	[styles release]; styles = nil;
 	styles = [[NSMutableDictionary alloc] initWithDictionary: newStyles
 												   copyItems: YES];
 	
@@ -228,7 +191,8 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 
 - (void) setStyle: (GlkStyle*) style
 		  forHint: (unsigned) glkHint {
-	styles[@(glkHint)] = [[style copy] autorelease];
+	[styles setObject: [style copy]
+			   forKey: @(glkHint)];
 	
 	[self preferencesHaveChanged];
 }
@@ -237,32 +201,19 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	return styles;
 }
 
-// = Typography preferences =
+#pragma mark - Typography preferences
 
-- (float) textMargin {
-	return textMargin;
-}
+@synthesize textMargin;
 
-- (void) setTextMargin: (float) margin {
+- (void) setTextMargin: (CGFloat) margin {
 	textMargin = margin;
 	[self preferencesHaveChanged];
 }
 
-- (BOOL) useScreenFonts {
-	return useScreenFonts;
-}
-
-- (BOOL) useHyphenation {
-	return useHyphenation;
-}
-
-- (BOOL) useLigatures {
-	return ligatures;
-}
-
-- (BOOL) useKerning {
-	return kerning;
-}
+@synthesize useScreenFonts;
+@synthesize useHyphenation;
+@synthesize useLigatures = ligatures;
+@synthesize useKerning = kerning;
 
 - (void) setUseScreenFonts: (BOOL) value {
 	useScreenFonts = value;
@@ -284,21 +235,19 @@ NSString* GlkPreferencesHaveChangedNotification = @"GlkPreferencesHaveChangedNot
 	[self preferencesHaveChanged];
 }
 
-// = Misc preferences =
+#pragma mark - Misc preferences
 
-- (float) scrollbackLength {
-	return scrollbackLength;
-}
+@synthesize scrollbackLength;
 
-- (void) setScrollbackLength: (float) length {
+- (void) setScrollbackLength: (CGFloat) length {
 	scrollbackLength = length;
 	[self preferencesHaveChanged];
 }
 
-// = NSCopying =
+#pragma mark - NSCopying
 
 - (id) copyWithZone: (NSZone*) zone {
-	GlkPreferences* copy = [[GlkPreferences alloc] init];
+	GlkPreferences* copy = [[GlkPreferences allocWithZone: zone] init];
 	
 	[copy setProportionalFont: proportionalFont];
 	[copy setFixedFont: fixedFont];

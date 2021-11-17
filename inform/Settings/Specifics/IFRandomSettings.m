@@ -27,13 +27,13 @@
 - (void) updateFromCompilerSettings {
     IFCompilerSettings* settings = [self compilerSettings];
 	
-	[makePredictable setState: [settings nobbleRng]?NSOnState:NSOffState];
+	[makePredictable setState: [settings nobbleRng]?NSControlStateValueOn:NSControlStateValueOff];
 }
 
 - (void) setSettings {
     IFCompilerSettings* settings = [self compilerSettings];
 
-	[settings setNobbleRng: [makePredictable state] == NSOnState];
+	[settings setNobbleRng: [makePredictable state] == NSControlStateValueOn];
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

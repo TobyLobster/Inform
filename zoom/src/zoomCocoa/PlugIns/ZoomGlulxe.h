@@ -13,9 +13,6 @@
 ///
 /// Glulxe plug-in for Zoom
 ///
-
-@interface ZoomGlulxe : ZoomGlkPlugIn {
-
-}
+@interface ZoomGlulxe : ZoomGlkPlugIn
 
 @end

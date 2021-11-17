@@ -39,6 +39,7 @@
 #import "IFImageCache.h"
 #import "NSBundle+IFBundleExtensions.h"
 #import <ZoomView/ZoomView.h>
+#import <ZoomView/ZoomView-Swift.h>
 
 
 static NSDictionary* IFSyntaxAttributes[256];

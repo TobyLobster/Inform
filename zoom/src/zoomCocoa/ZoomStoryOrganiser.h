@@ -7,40 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ZoomStory.h"
-#import "ZoomStoryID.h"
-#import "ZoomBlorbFile.h"
+#import <ZoomPlugIns/ZoomStory.h>
+#import <ZoomPlugIns/ZoomStoryID.h>
+#import <ZoomView/ZoomBlorbFile.h>
 
-
-@protocol ZoomStoryIDFetcherProtocol
-
-- (out bycopy ZoomStoryID*) idForFile: (in bycopy NSString*) filename;
-- (void) renamedIdent: (in bycopy ZoomStoryID*) ident
-		   toFilename: (in bycopy NSString*) filename;
-
-@end
 
 // The story organiser is used to store story locations and identifications
 // (Mainly to build up the iFiction window)
 
 // Notifications
-extern NSString* ZoomStoryOrganiserChangedNotification;
-extern NSString* ZoomStoryOrganiserProgressNotification;
+extern NSNotificationName const ZoomStoryOrganiserChangedNotification NS_SWIFT_NAME(ZoomStoryOrganiser.changedNotification);
+extern NSNotificationName const ZoomStoryOrganiserProgressNotification NS_SWIFT_NAME(ZoomStoryOrganiser.progressNotification);
 
-@interface ZoomStoryOrganiser : NSObject<ZoomStoryIDFetcherProtocol> {
+/// The story organiser is used to store story locations and identifications
+/// (Mainly to build up the iFiction window)
+@interface ZoomStoryOrganiser : NSObject {
 	// Arrays of the stories and their idents
-	NSMutableArray* storyFilenames;
-	NSMutableArray* storyIdents;
+	NSMutableArray<NSString*>* storyFilenames;
+	NSMutableArray<ZoomStoryID*>* storyIdents;
 	
 	// Dictionaries associating them
-	NSMutableDictionary* filenamesToIdents;
-	NSMutableDictionary* identsToFilenames;
-	
-	// Preference loading/checking thread
-	NSPort* port1;
-	NSPort* port2;
-	NSConnection* mainThread;
-	NSConnection* subThread;
+	NSMutableDictionary<NSString*,ZoomStoryID*>* filenamesToIdents;
+	NSMutableDictionary<ZoomStoryID*,NSString*>* identsToFilenames;
 	
 	NSLock* storyLock;
 	
@@ -48,12 +36,8 @@ extern NSString* ZoomStoryOrganiserProgressNotification;
 	BOOL alreadyOrganising;
 }
 
-// The shared organiser
-+ (ZoomStoryOrganiser*) sharedStoryOrganiser;
-
-// Image management
-+ (NSImage*) frontispieceForBlorb: (ZoomBlorbFile*) decodedFile;
-+ (NSImage*) frontispieceForFile: (NSString*) filename;
+//! The shared organiser
+@property (class, readonly, retain) ZoomStoryOrganiser *sharedStoryOrganiser;
 
 // Storing stories
 - (void) addStory: (NSString*) filename
@@ -61,6 +45,10 @@ extern NSString* ZoomStoryOrganiserProgressNotification;
 - (void) addStory: (NSString*) filename
 		withIdent: (ZoomStoryID*) ident
 		 organise: (BOOL) organise;
+- (BOOL) addStoryAtURL: (NSURL*) filename
+		  withIdentity: (ZoomStoryID*) ident
+			  organise: (BOOL) organise
+				 error: (NSError**)error;
 
 - (void) removeStoryWithIdent: (ZoomStoryID*) ident
 		   deleteFromMetadata: (BOOL) delete;
@@ -72,8 +60,8 @@ extern NSString* ZoomStoryOrganiserProgressNotification;
 - (NSString*) filenameForIdent: (ZoomStoryID*) ident;
 - (ZoomStoryID*) identForFilename: (NSString*) filename;
 
-- (NSArray*) storyFilenames;
-- (NSArray*) storyIdents;
+@property (nonatomic, readonly, copy) NSArray<NSString*> *storyFilenames;
+@property (nonatomic, readonly, copy) NSArray<ZoomStoryID*> *storyIdents;
 
 // Story-specific data
 - (NSString*) directoryForIdent: (ZoomStoryID*) ident
@@ -88,6 +76,6 @@ extern NSString* ZoomStoryOrganiserProgressNotification;
 - (void)      organiseStory: (ZoomStory*) story
 				  withIdent: (ZoomStoryID*) ident;
 - (void)      organiseAllStories;
-- (void)      reorganiseStoriesTo: (NSString*) newStoryDirectory;
+- (void)      reorganiseStoriesToNewDirectory: (NSString*) newStoryDirectory;
 
 @end

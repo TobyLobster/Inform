@@ -38,6 +38,6 @@ typedef struct
   font_char chr[96];
 } font3;
 
-extern font3 font_3;
+extern const font3 font_3;
 
 #endif

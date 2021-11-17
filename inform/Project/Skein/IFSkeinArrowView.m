@@ -72,11 +72,11 @@ static const float kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
         float y = floorf(self.frame.size.height * 0.5f) + 0.5f;
         float h = kSkeinArrowHeadHalfHeight;
         float m = self.frame.size.width - kSkeinArrowHeadLength - 2.0f;
-        NSRectFillUsingOperation(NSMakeRect(0, y - 2.0f, m, 4.0f), NSCompositeSourceOver);
+        NSRectFillUsingOperation(NSMakeRect(0, y - 2.0f, m, 4.0f), NSCompositingOperationSourceOver);
         NSRectFillUsingOperation(NSMakeRect(m,
                                             y - h - kSkeinArrowLineThickness,
                                             kSkeinArrowHeadLength + 2.0f,
-                                            2.0*h + 2.0f*kSkeinArrowLineThickness), NSCompositeSourceOver);
+                                            2.0*h + 2.0f*kSkeinArrowLineThickness), NSCompositingOperationSourceOver);
     }
 
     // Draw shadow
