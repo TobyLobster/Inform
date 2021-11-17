@@ -121,21 +121,21 @@ static NSCharacterSet* nonWhitespace;
     return [NSString stringWithString:lpMutableString];
 }
 
-- (int) indexOf:(NSString *)text {
+- (NSInteger) indexOf:(NSString *)text {
     NSRange range = [self rangeOfString:text];
     if ( range.length > 0 ) {
-        return (int) range.location;
+        return range.location;
     } else {
-        return -1;
+        return NSNotFound;
     }
 }
 
-- (int) lastIndexOf:(NSString *)text {
+- (NSInteger) lastIndexOf:(NSString *)text {
     NSRange range = [self rangeOfString: text options: NSBackwardsSearch];
     if ( range.length > 0 ) {
-        return (int) range.location;
+        return range.location;
     } else {
-        return -1;
+        return NSNotFound;
     }
 }
 

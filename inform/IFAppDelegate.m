@@ -266,7 +266,9 @@ static NSRunLoop* mainRunLoop = nil;
     
     [docControl openDocumentWithContentsOfURL: destination
                                       display: YES
-                                        error: &error];
+                            completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable ourerror) {
+        // do nothing
+    }];
 
     return YES;
 }
@@ -714,7 +716,7 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmFileCopyDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
-                               message: confirm];
+                               message: @"%@", confirm];
         return NO;
     }
 

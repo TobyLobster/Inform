@@ -118,11 +118,11 @@ CGFloat easeOutCubic(CGFloat t) {
 
 + (NSString*) heirarchyFromURL:(NSURL*) sourceURL {
     NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
-    int query  = [path indexOf:@"?"];
-    int hash   = [path indexOf:@"#"];
-    int result = (int) [path length];
-    if( query >= 0 ) result = MIN(result, query);
-    if( hash  >= 0 ) result = MIN(result, hash);
+    NSInteger query  = [path indexOf:@"?"];
+    NSInteger hash   = [path indexOf:@"#"];
+    NSInteger result = (int) [path length];
+    if( query != NSNotFound ) result = MIN(result, query);
+    if( hash  != NSNotFound ) result = MIN(result, hash);
 
     return [path substringToIndex: result];
 }

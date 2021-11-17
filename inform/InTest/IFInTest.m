@@ -8,10 +8,10 @@
 #import "IFInTest.h"
 #import "IFUtility.h"
 
-NSString* IFInTestStartingNotification = @"IFInTestStartingNotification";
-NSString* IFInTestStdoutNotification   = @"IFInTestStdoutNotification";
-NSString* IFInTestStderrNotification   = @"IFInTestStderrNotification";
-NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
+NSString* const IFInTestStartingNotification = @"IFInTestStartingNotification";
+NSString* const IFInTestStdoutNotification   = @"IFInTestStdoutNotification";
+NSString* const IFInTestStderrNotification   = @"IFInTestStderrNotification";
+NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
 
 @interface ConcordancePair : NSObject  {
@@ -130,7 +130,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     [message appendFormat:@"Command: %@\n", command];
     [message appendString:@"Args: "];
     for(NSString* arg in args) {
-        bool hasSpaces = ( [arg indexOf:@" "] >= 0 );
+        bool hasSpaces = ( [arg indexOf:@" "] != NSNotFound );
         if( hasSpaces ) [message appendString: @"'"];
         [message appendString: arg];
         if( hasSpaces ) [message appendString: @"'"];
@@ -204,8 +204,8 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     {
         NSArray* lines = [stdOut componentsSeparatedByString:@"\n"];
         for( NSString* line in lines ) {
-            int equalsIndex = [line indexOf: @" "];
-            if( equalsIndex >= 0 )
+            NSInteger equalsIndex = [line indexOf: @" "];
+            if( equalsIndex != NSNotFound )
             {
                 NSString* left  = [[line substringToIndex: equalsIndex] stringByTrimmingWhitespace];
                 NSString* right = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
@@ -242,8 +242,8 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         NSArray* lines = [stdOut componentsSeparatedByString:@"\n"];
         for( NSString* line in lines ) {
             if( [line startsWith: @"extension "] ) {
-                int equalsIndex = [line indexOf: @"="];
-                if( equalsIndex >= 0 )
+                NSInteger equalsIndex = [line indexOf: @"="];
+                if( equalsIndex != NSNotFound )
                 {
                     unichar buffer[2];
                     buffer[0] = 'A' + [testCases count];

@@ -98,8 +98,8 @@
     if( string == nil ) {
         return @"";
     }
-    int lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
-    if( lastCarriageReturnIndex < 0 ) {
+    NSInteger lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
+    if( lastCarriageReturnIndex == NSNotFound ) {
         return string;
     }
     return [string substringToIndex: lastCarriageReturnIndex];
@@ -110,8 +110,8 @@
     if( string == nil ) {
         return @"";
     }
-    int lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
-    if( lastCarriageReturnIndex < 0 ) {
+    NSInteger lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
+    if( lastCarriageReturnIndex == NSNotFound ) {
         return @"";
     }
     return [string substringFromIndex: lastCarriageReturnIndex + 1];
@@ -491,16 +491,16 @@
 
 +(NSString*) commandForEntry:(NSString*) entry index:(int) index {
     NSString* command = [entry stringByTrimmingWhitespace];
-    int returnIndex = [command indexOf:@"\n"];
-    if( returnIndex >= 0 ) {
+    NSInteger returnIndex = [command indexOf:@"\n"];
+    if( returnIndex != NSNotFound ) {
         command = [command substringToIndex: returnIndex];
     }
     return [NSString stringWithFormat: @"%@", command];
 }
 
 +(NSString*) outputForEntry:(NSString*) entry {
-    int returnIndex = [entry indexOf:@"\n"];
-    if( returnIndex >= 0 ) {
+    NSInteger returnIndex = [entry indexOf:@"\n"];
+    if( returnIndex != NSNotFound ) {
         return [entry substringFromIndex: returnIndex+1];
     }
     return @"";
