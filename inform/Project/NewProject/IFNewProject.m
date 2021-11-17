@@ -27,8 +27,8 @@
     IBOutlet NSView*                    projectPaneView;	// The pane that contains the display for the current stage in the creation process
     IBOutlet NSTextField*               promptTextField;
 
-    NSObject<IFNewProjectProtocol>*     projectType;        // The current project type
-    NSObject<IFNewProjectSetupView>*    projectView;        // The view of (Inform 6 project) settings
+    id<IFNewProjectProtocol>            projectType;        // The current project type
+    id<IFNewProjectSetupView>           projectView;        // The view of (Inform 6 project) settings
     NSArray*                            projectFileTypes;
     NSString*                           projectTitle;
     NSString*                           projectPrompt;

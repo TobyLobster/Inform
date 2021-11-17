@@ -55,13 +55,12 @@ typedef NS_ENUM(unsigned int, IFLineStyle) {
 
 
 
-@interface IFProjectTypes : NSObject  {
-}
+@interface IFProjectTypes : NSObject
 
 +(NSStringEncoding) encodingForFilename: (NSString*) filename;
 +(IFInformVersion) informVersionForFilename: (NSString*) filename;
 +(IFHighlightType) highlighterTypeForFilename: (NSString*) filename;
-+ (NSObject<IFSyntaxIntelligence> *) intelligenceForFilename: (NSString*) filename;
++ (id<IFSyntaxIntelligence>) intelligenceForFilename: (NSString*) filename;
 
 +(IFFileType) fileTypeFromString: (NSString*) typeName;
 

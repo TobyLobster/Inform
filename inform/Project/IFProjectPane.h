@@ -50,7 +50,7 @@ typedef enum IFProjectPaneType {
 
 @end
 
-@protocol IFHistoryRecorder
+@protocol IFHistoryRecorder <NSObject>
 
 - (IFHistoryEvent*) historyEvent;                               // Retrieves a history event that can have new events recorded via the proxy
 

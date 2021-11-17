@@ -15,7 +15,7 @@
 //
 // The 'source' page
 //
-@protocol IFSourceNavigation
+@protocol IFSourceNavigation <NSObject>
 
 // Navigating through sections
 - (void) sourceFileShowPreviousSection: (id) sender;			// User clicked on the top tear

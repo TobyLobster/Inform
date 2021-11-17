@@ -19,11 +19,11 @@
 
 static int mod = 0;
 
-NSString* IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
-NSString* IFCompilerStartingNotification     = @"IFCompilerStartingNotification";
-NSString* IFCompilerStdoutNotification       = @"IFCompilerStdoutNotification";
-NSString* IFCompilerStderrNotification       = @"IFCompilerStderrNotification";
-NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification";
+NSString* const IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
+NSString* const IFCompilerStartingNotification     = @"IFCompilerStartingNotification";
+NSString* const IFCompilerStdoutNotification       = @"IFCompilerStdoutNotification";
+NSString* const IFCompilerStderrNotification       = @"IFCompilerStderrNotification";
+NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification";
 
 @implementation IFCompiler {
     // The task
@@ -39,7 +39,7 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     BOOL deleteOutputFile;					// YES if the output file should be deleted when the compiler is dealloced
 
     NSURL* problemsURL;						// The URL of the problems page we should show
-    NSObject<IFCompilerProblemHandler>* problemHandler;	// The current problem handler
+    id<IFCompilerProblemHandler> problemHandler;	// The current problem handler
 
     // Queue of processes to run
     NSMutableArray* runQueue;				// Queue of tasks to run to produce the end result
@@ -58,7 +58,7 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     NSString* endTextString;                // Message to show at end of tasks
 
     // Delegate
-    id delegate;							// The delegate object.
+    __weak id<IFCompilerDelegate> delegate;	// The delegate object.
 }
 
 // == Initialisation, etc ==
@@ -105,21 +105,8 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     releaseForTesting = testing;
 }
 
-- (void) setSettings: (IFCompilerSettings*) set {
-    settings = set;
-}
-
-- (void) setInputFile: (NSString*) path {
-    inputFile = [path copy];
-}
-
-- (NSString*) inputFile {
-    return inputFile;
-}
-
-- (IFCompilerSettings*) settings {
-    return settings;
-}
+@synthesize settings;
+@synthesize inputFile;
 
 - (void) deleteOutput {
     if (outputFile) {
@@ -138,7 +125,7 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
 - (void) addCustomBuildStage: (NSString*) command
                withArguments: (NSArray*) arguments
               nextStageInput: (NSString*) file
-				errorHandler: (NSObject<IFCompilerProblemHandler>*) handler
+				errorHandler: (id<IFCompilerProblemHandler>) handler
 					   named: (NSString*) stageName {
     if (theTask) {
         // This starts a new build process, so we kill the old task if it's still
@@ -434,21 +421,8 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     deleteOutputFile = deletes;
 }
 
-- (void) setDelegate: (id<NSObject>) dg {
-	delegate = dg;
-}
-
-- (id) delegate {
-    return delegate;
-}
-
-- (void) setDirectory: (NSString*) path {
-    workingDirectory = [path copy];
-}
-
-- (NSString*) directory {
-    return [workingDirectory copy];
-}
+@synthesize delegate;
+@synthesize directory = workingDirectory;
 
 - (void) taskHasReallyFinished {
 	int exitCode = [theTask terminationStatus];
@@ -547,8 +521,7 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
 
 // == Notifications ==
 - (void) sendStdOut: (NSString*) data {
-	if (delegate &&
-		[delegate respondsToSelector: @selector(receivedFromStdOut:)]) {
+	if ([delegate respondsToSelector: @selector(receivedFromStdOut:)]) {
 		[delegate receivedFromStdOut: data]; 
 	}
 	
@@ -586,8 +559,7 @@ NSString* IFCompilerFinishedNotification     = @"IFCompilerFinishedNotification"
     if ([inData length]) {
         NSString* newStr = [[NSString alloc] initWithData:inData
                                                   encoding:NSISOLatin1StringEncoding];
-        if (delegate &&
-            [delegate respondsToSelector: @selector(receivedFromStdErr:)]) {
+        if ([delegate respondsToSelector: @selector(receivedFromStdErr:)]) {
             [delegate receivedFromStdErr: newStr];
         }
 

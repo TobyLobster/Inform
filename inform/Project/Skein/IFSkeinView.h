@@ -13,7 +13,7 @@
 @class IFSkeinLayout;
 
 
-@protocol IFSkeinViewDelegate
+@protocol IFSkeinViewDelegate <NSObject>
 
 // Playing the game
 - (void) stopGame;
