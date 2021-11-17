@@ -65,7 +65,7 @@ static IFCompilerController* activeController = nil;
 
     double messagesSize;							// When we've got some messages to display, this is how high the pane will be
 
-    IBOutlet NSObject* delegate;					// This object receives our delegate messages
+    id<IFCompilerControllerDelegate> delegate;					// This object receives our delegate messages
 
     IFProjectController*    projectController;      // Project controller
 
@@ -1092,13 +1092,7 @@ static IFCompilerController* activeController = nil;
 
 // == Delegate ==
 
-- (void) setDelegate: (NSObject*) dg {
-	delegate = dg;
-}
-
-- (NSObject*) delegate {
-    return delegate;
-}
+@synthesize delegate;
 
 // = Web policy delegate methods =
 

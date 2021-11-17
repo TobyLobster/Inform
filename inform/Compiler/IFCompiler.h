@@ -41,22 +41,28 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 
 @end
 
-//
-// Class that handles actually running a compiler (more like a 'make' class these days)
-//
+///
+/// Class that handles actually running a compiler (more like a 'make' class these days)
+///
 @interface IFCompiler : NSObject
 
 //+ (NSString*) compilerExecutable;
-- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing;         // If set, debug options will be turned off while building								// Sets the settings to use while compiling											// Sets the initial input file											// Sets the build products directory
+/// If set, debug options will be turned off while building
+- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing;
+/// Sets the initial input file
 /// Retrieves the input file name
 @property (atomic, copy) NSString *inputFile;
 /// Retrieves the settings
+/// Sets the settings to use while compiling
 @property (atomic, strong) IFCompilerSettings *settings;
+/// Sets the build products directory
 /// Retrieves the working directory path
 @property (atomic, copy) NSString *directory;
 
-- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase;    // Prepares the first task for launch
-@property (atomic, getter=isRunning, readonly) BOOL running;						// YES if a compiler is running
+/// Prepares the first task for launch
+- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase;
+/// YES if a compiler is running
+@property (atomic, getter=isRunning, readonly) BOOL running;
 
 /// Adds a new build stage to the compiler
 - (void) addCustomBuildStage: (NSString*) command

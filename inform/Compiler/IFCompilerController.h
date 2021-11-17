@@ -50,29 +50,40 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 
 @end
 
-//
-// The compiler controller handles the interface between the compiler and the UI
-//
-// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
-// compilers can go anywhere, so it's not any more)
-//
+@protocol IFCompilerControllerDelegate;
+
+///
+/// The compiler controller handles the interface between the compiler and the UI
+///
+/// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
+/// compilers can go anywhere, so it's not any more)
+///
 @interface IFCompilerController : NSObject<NSTextStorageDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
 
-+ (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;                            // The default styles for the error messages
+/// The default styles for the error messages
++ (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;
 
-- (void)        resetCompiler;                              // Destroys + recreates the compiler (ie, resets it back to its initial state)	// Sets a specific compiler object to use
-@property (atomic, strong) IFCompiler *compiler;            // Retrieves the current compiler object
+/// Destroys + recreates the compiler (ie, resets it back to its initial state)
+- (void)        resetCompiler;
+/// Sets a specific compiler object to use
+/// Retrieves the current compiler object
+@property (atomic, strong) IFCompiler *compiler;
 
-@property (atomic, readonly) BOOL startCompiling;           // Tells the compiler to start
-@property (atomic, readonly) BOOL abortCompiling;           // Tells the compiler to stop
+/// Tells the compiler to start
+@property (atomic, readonly) BOOL startCompiling;
+/// Tells the compiler to stop
+@property (atomic, readonly) BOOL abortCompiling;
 
-- (void) addErrorForFile: (NSString*) file                  // Adds an error to the display
+/// Adds an error to the display
+- (void) addErrorForFile: (NSString*) file
                   atLine: (int) line
                 withType: (IFLex) type
                  message: (NSString*) message;
 
-- (void) showWindow: (id) sender;                           // Displays the window thats displaying the compiler messages
-@property (atomic, strong) NSObject *delegate;              // The delegate object
+/// Displays the window thats displaying the compiler messages
+- (void) showWindow: (id) sender;
+/// The delegate object
+@property (atomic, strong) IBOutlet id<IFCompilerControllerDelegate> delegate;
 
 - (void) overrideProblemsURL: (NSURL*) problemsURL;         // No matter the exit/RTP supplied by the compiler, use this problems URL instead
 - (void) showRuntimeError: (NSURL*) errorURL;               // Creates a tab for the 'runtime error' file given by errorURL (displayed by webkit)
@@ -90,10 +101,13 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 @property (atomic, readonly, copy) NSArray *viewTabs;		// Returns the tabs this controller can display
 - (int) tabIdWithTabIndex: (int) tabIndex;
 
+- (void) setProjectController: (IFProjectController*) pc;
+
 @end
 
 // Delegate methods
-@interface NSObject(IFCompilerControllerDelegate)
+@protocol IFCompilerControllerDelegate <NSObject>
+@optional
 
 // Status updates
 //- (void) compileStarted: (IFCompilerController*) sender;                  // Called when the compiler starts doing things
