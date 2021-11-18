@@ -60,7 +60,7 @@ if [ -d "${INFORM_CORE}" ]; then
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/English"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/App/Icons"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/English.lproj"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/en.lproj"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/map_icons"
 
     if [ -f $TESTFILE ];
@@ -101,14 +101,14 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/inform.icns"             "${STAGING_AREA}/Resources/App/Icons/inform.icns"
 
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/informfile.icns"         "${STAGING_AREA}/Resources/App/Icons/informfile.icns"
-    cp -f "${INFORM_CORE}/resources/Imagery/app_images/Materials Diagram.png"   "${STAGING_AREA}/Resources/English.lproj/MaterialsDiagram.png"
+    cp -f "${INFORM_CORE}/resources/Imagery/app_images/Materials Diagram.png"   "${STAGING_AREA}/Resources/en.lproj/MaterialsDiagram.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/materialsfile.icns"      "${STAGING_AREA}/Resources/App/Icons/materialsfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/nifile.icns"             "${STAGING_AREA}/Resources/App/Icons/nifile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/skeinfile.icns"          "${STAGING_AREA}/Resources/App/Icons/skeinfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner.png"      "${STAGING_AREA}/Resources/Welcome Banner.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner@2x.png"   "${STAGING_AREA}/Resources/Welcome Banner@2x.png"
-    cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/English.lproj/Inform - A Design System for Interactive Fiction.epub"
-    cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/English.lproj/Changes to Inform.epub"
+    cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
+    cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
 
     # Convert to hiDPI compliant tiffs
     tiffutil -cathidpicheck "${INFORM_CORE}/resources/Imagery/app_images/Blob Logo.png" "${INFORM_CORE}/resources/Imagery/app_images/Blob Logo@2x.png" -out "${STAGING_AREA}/Resources/Blob-Logo.tiff"
