@@ -130,6 +130,33 @@
 		return;
 	}
 	
+    // Check if the file is in an asset catalog.
+    BOOL notThere = [[NSBundle mainBundle] pathForImageResource:[path stringByDeletingPathExtension]] == nil;
+    NSImage *img = [NSImage imageNamed: [path stringByDeletingPathExtension]];
+    
+    if (notThere && img != nil) {
+        //Just output TIFF: it uses the least amount of code:
+        NSData *urlData = [img TIFFRepresentation];
+        //Which means a TIFF MIME type. Regardless of
+        NSString *ourType = @"image/tiff";
+        
+        // Create the response
+        NSURLResponse* response = [[NSURLResponse alloc] initWithURL: [theURLRequest URL]
+                                                            MIMEType: ourType
+                                               expectedContentLength: [urlData length]
+                                                    textEncodingName: nil];
+        
+        [theClient URLProtocol: self
+            didReceiveResponse: response
+            cacheStoragePolicy: NSURLCacheStorageAllowedInMemoryOnly];
+        
+        // We loaded the data
+        [theClient URLProtocol: self
+                   didLoadData: urlData];
+        
+        // We finished loading
+        [theClient URLProtocolDidFinishLoading: self];
+    } else {
 	// Check that the file exists and is not a directory
 	BOOL isDir = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: path
@@ -189,6 +216,7 @@
 	
 	// We finished loading
 	[theClient URLProtocolDidFinishLoading: self];
+    }
 }
 
 - (void) stopLoading {

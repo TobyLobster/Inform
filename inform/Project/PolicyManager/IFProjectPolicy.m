@@ -94,7 +94,7 @@
         [newPath addObjectsFromArray: urlPath];
 
         // Escape encode the paths, as they were (unhelpfully) unescaped with the .path method
-        for(int index = 0; index < [newPath count]; index++) {
+        for(NSInteger index = 0; index < [newPath count]; index++) {
             NSString* escapedString = [newPath[index] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
             newPath[index] = escapedString;
         }

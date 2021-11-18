@@ -17,15 +17,19 @@
 
 // Drawing 'tears' at the top and bottom
 
-- (void) setTornAtTop: (BOOL) tornAtTop;										// Sets whether or not a 'tear' should appear at the top of the view
-- (void) setTornAtBottom: (BOOL) tornAtBottom;									// Sets whether or not a 'tear' should appear at the bottom of the view
+/// Sets whether or not a 'tear' should appear at the top of the view
+- (void) setTornAtTop: (BOOL) tornAtTop;
+/// Sets whether or not a 'tear' should appear at the bottom of the view
+- (void) setTornAtBottom: (BOOL) tornAtBottom;
 -(bool) setMouseCursorWithPosition:(NSPoint) mousePoint;
 
 @end
 
 @interface NSObject(IFSourceFileViewDelegate)
 
-- (void) sourceFileShowPreviousSection: (id) sender;							// User clicked on the top tear
-- (void) sourceFileShowNextSection: (id) sender;								// User clicked on the bottom tear
+/// User clicked on the top tear
+- (void) sourceFileShowPreviousSection: (id) sender;
+/// User clicked on the bottom tear
+- (void) sourceFileShowNextSection: (id) sender;
 
 @end

@@ -105,7 +105,7 @@ static NSImage* arrowPressed	= nil;
 			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
 												  inTextContainer: [self textContainer]].origin;
 			charPoint.x = 0;
-			charPoint.y += containerOrigin.y - wasTornAtTop?[topTear size].height:0;
+			charPoint.y += containerOrigin.y - (wasTornAtTop?[topTear size].height:0);
 			
 			[self scrollPoint: charPoint];
 		}
@@ -113,9 +113,9 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) mouseDown: (NSEvent*) event {
-	unsigned long modifiers = [event modifierFlags];
+	NSEventModifierFlags modifiers = [event modifierFlags];
 	
-	if ((modifiers&(NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) == 0
+	if ((modifiers & (NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagCommand)) == 0
 		&& [event clickCount] == 1) {
 		// Single click, no modifiers
 		NSRect bounds = [self bounds];
