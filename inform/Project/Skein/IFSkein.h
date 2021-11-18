@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import <ZoomView/ZoomView.h>
 
 @class IFSkeinItem;
 
@@ -20,7 +21,7 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 
 @class IFProject;
 
-@interface IFSkein : NSObject {
+@interface IFSkein : NSObject <ZoomViewOutputReceiver> {
 @private
     IFSkeinItem*    _rootItem;
     IFSkeinItem*    _activeItem;

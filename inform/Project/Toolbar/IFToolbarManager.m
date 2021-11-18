@@ -347,7 +347,7 @@ static const float    toolbarStatusWidth    = 360.0f;
     // Find the parent view, the superview of our status view. Sadly, if window is in fullscreen
     // mode, the parent view is different than normal mode.
     // See http://stackoverflow.com/questions/6169255/is-it-possible-to-draw-in-the-label-area-of-nstoolbar
-    BOOL isFullscreen = (([projectController.window styleMask] & NSFullScreenWindowMask) == NSFullScreenWindowMask);
+    BOOL isFullscreen = (([projectController.window styleMask] & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen);
     if( isFullscreen ) {
         return [toolbarView superview];
     }

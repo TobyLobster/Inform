@@ -9,7 +9,7 @@
 #import "IFProjectFile.h"
 #import "NSString+IFStringExtensions.h"
 
-#include "uuid/uuid.h"
+#include <uuid/uuid.h>
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFCompilerSettings.h"
@@ -23,15 +23,7 @@
 -(void) createUUID {
     if ([bundleDirectory fileWrappers][@"uuid.txt"] == nil) {
         // Generate a UUID string
-        uuid_t newUID;
-        uuid_clear(newUID);
-        uuid_generate(newUID);
-        
-        char uid[40];
-        uuid_unparse(newUID, uid);
-        
-        NSString* uidString = @(uid);
-        [bundleDirectory addRegularFileWithContents: [uidString dataUsingEncoding: NSUTF8StringEncoding]
+        [bundleDirectory addRegularFileWithContents: [NSUUID.UUID.UUIDString dataUsingEncoding: NSUTF8StringEncoding]
                                   preferredFilename: @"uuid.txt"];
     }
 }

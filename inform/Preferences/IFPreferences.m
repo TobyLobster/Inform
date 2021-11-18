@@ -205,7 +205,7 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
 -(void) setPreferenceColour: (NSString*) key
                       value: (NSColor*) value
                notification: notification {
-    NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: value];
+    NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: value requiringSecureCoding: YES error: NULL];
     [self setPreference: key
                   value: theData
            notification: notification];

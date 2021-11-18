@@ -22,7 +22,7 @@
 #import "IFProject.h"
 #import <ZoomView/ZoomView.h>
 
-@interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver>
+@interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver, ZoomViewDelegate>
 
 @end
 
@@ -329,7 +329,7 @@
     return YES;
 }
 
-- (void) inputSourceHasFinished: (id) sender {
+- (void) inputSourceHasFinished: (id<ZoomViewInputSource>) sender {
 	[self.parent inputSourceHasFinished: nil];
 }
 

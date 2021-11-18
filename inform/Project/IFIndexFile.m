@@ -43,12 +43,12 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 		// Data is provided as a property list file, which makes things easy for us to parse
 		// Req 10.2 (surely no-one is still seriously using 10.1?)
 		NSPropertyListFormat format;
-		NSString* error = nil;
+		NSError* error = nil;
 		
-		id plist =  [NSPropertyListSerialization propertyListFromData: data
-													 mutabilityOption: NSPropertyListImmutable
-															   format: &format
-													 errorDescription: &error];
+		id plist =  [NSPropertyListSerialization propertyListWithData: data
+                                                              options: NSPropertyListImmutable
+                                                               format: &format
+                                                                error: &error];
 		
 		// Sanity check
 		if (plist == nil) {
