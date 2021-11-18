@@ -123,7 +123,13 @@ static int maxErrorMessagesToDisplay = 3;
 @end
 
 // *******************************************************************************************
-@implementation IFExtensionDownload
+@interface IFExtensionDownload () <NSURLSessionDataDelegate>
+
+@end
+
+@implementation IFExtensionDownload {
+    NSURLSession *urlSession;
+}
 
 -(instancetype) init { self = [super init]; return self; }
 
@@ -141,6 +147,9 @@ static int maxErrorMessagesToDisplay = 3;
         self.notifyDelegate = notifyDelegate;
         self.javascriptId   = javascriptId;
         self.expectedLength = NSURLResponseUnknownLength;
+        urlSession = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.ephemeralSessionConfiguration
+                                                   delegate: self
+                                              delegateQueue: nil];
     }
 
     return self;
@@ -162,8 +171,7 @@ static int maxErrorMessagesToDisplay = 3;
                                             timeoutInterval: 10.0];
 
     // Create the connection with the request and start loading the data
-    self.connection = [[NSURLConnection alloc] initWithRequest: theRequest
-                                                       delegate: self];
+    self.connection = [urlSession dataTaskWithRequest: theRequest];
     if (self.connection == nil) {
         self.receivedData = [NSMutableData data];
         return NO;
@@ -174,10 +182,12 @@ static int maxErrorMessagesToDisplay = 3;
     return YES;
 }
 
-- (void)connection: (NSURLConnection *)connection
+- (void)URLSession: (NSURLSession *)session
+          dataTask: (NSURLSessionDataTask *)dataTask
 didReceiveResponse: (NSURLResponse *)response
+ completionHandler: (void (^)(NSURLSessionResponseDisposition))completionHandler
 {
-    if (connection == self.connection)
+    if (dataTask == self.connection)
     {
         if ( [response isKindOfClass: [NSHTTPURLResponse class]] )
         {
@@ -185,15 +195,16 @@ didReceiveResponse: (NSURLResponse *)response
             if (statusCode >= 400)
             {
                 NSString* localizedStringForStatusCode = [NSHTTPURLResponse localizedStringForStatusCode: statusCode];
-                [connection cancel];  // stop connecting; no more delegate messages
+                completionHandler(NSURLSessionResponseCancel);// stop connecting; no more delegate messages
                 NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:
                                                       [IFUtility localizedString:@"Server returned status code %d, local string %@"],
                                                       statusCode, localizedStringForStatusCode]};
                 NSError *statusError = [NSError errorWithDomain: @"Error"
                                                            code: statusCode
                                                        userInfo: errorInfo];
-                [self   connection: connection
-                  didFailWithError: statusError];
+                [self   URLSession: session
+                              task: dataTask
+              didCompleteWithError: statusError];
                 return;
             }
         }
@@ -208,53 +219,52 @@ didReceiveResponse: (NSURLResponse *)response
         
         self.expectedLength = [response expectedContentLength];
     }
+    completionHandler(NSURLSessionResponseAllow);
 }
 
-- (void)connection: (NSURLConnection *)connection
+- (void)URLSession: (NSURLSession *)session
+          dataTask: (NSURLSessionDataTask *)dataTask
     didReceiveData: (NSData *)data
 {
-    if (connection == self.connection)
+    if (dataTask == self.connection)
     {
         // do something with the data object.
         [self.receivedData appendData:data];
     }
 }
 
-- (void)connection: (NSURLConnection *)connection
-  didFailWithError: (NSError *)error
+- (void)   URLSession: (NSURLSession *)session
+                 task: (NSURLSessionTask *)task
+ didCompleteWithError: (NSError *)error
 {
-    if (connection == self.connection)
-    {
-        //NSString* file = [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey];
-
-        // Log message
-        NSString* message = [NSString stringWithFormat:[IFUtility localizedString: @"Failed to Download Extension Explanation - %@"],
-                             [error localizedDescription]];
-        
-        [[IFExtensionsManager sharedNaturalInformExtensionsManager] addError: message];
-        
-        self.state        = IFExtensionDownloadFailed;
-        self.connection   = nil;
-        self.receivedData = nil;
-        
-        [[IFExtensionsManager sharedNaturalInformExtensionsManager] downloadAndInstallFinished: self];
-    }
-}
-
-- (void)connectionDidFinishLoading: (NSURLConnection *)connection
-{
-    if (connection == self.connection)
+    if (task == self.connection)
     {
         IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
         //NSLog(@"Download succeeded! Received %d bytes of data", [self.receivedData length]);
         
+        if (error) {
+            //NSString* file = [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey];
+
+            // Log message
+            NSString* message = [NSString stringWithFormat:[IFUtility localizedString: @"Failed to Download Extension Explanation - %@"],
+                                 [error localizedDescription]];
+            
+            [mgr addError: message];
+            
+            self.state        = IFExtensionDownloadFailed;
+            self.connection   = nil;
+            self.receivedData = nil;
+            
+            [mgr downloadAndInstallFinished: self];
+            return;
+        }
+        
         // Get temporary filename
         char tempFilename[256];
-        sprintf(tempFilename, "%stemp.XXXXXX", [NSTemporaryDirectory() cStringUsingEncoding:NSUTF8StringEncoding]);
+        sprintf(tempFilename, "%stemp.XXXXXX", [NSTemporaryDirectory() fileSystemRepresentation]);
         int result = mkstemp(tempFilename);
         if( result != -1 ) {
-            NSString* filename = [[NSString alloc] initWithCString: tempFilename
-                                                           encoding: NSUTF8StringEncoding];
+            NSString* filename = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFilename length: strlen(tempFilename)];
             
             // Save the data to a temporary file
             if( [self.receivedData writeToFile: filename
@@ -284,9 +294,9 @@ didReceiveResponse: (NSURLResponse *)response
                 }
 
                 // Remove temporary file
-                NSError* error;
+                NSError* ourError;
                 [[NSFileManager defaultManager] removeItemAtPath: filename
-                                                           error: &error];
+                                                           error: &ourError];
             }
             else {
                 self.state = IFExtensionInstallFailed;
@@ -312,26 +322,36 @@ didReceiveResponse: (NSURLResponse *)response
 // *******************************************************************************************
 @implementation IFExtensionsManager {
     // Collection directories to look
-    NSMutableArray* extensionCollectionDirectories;		// Standard set of extension directories
-
+    /// Standard set of extension directories
+    NSMutableArray* extensionCollectionDirectories;
+    
     // Cache data
-    NSDictionary* cacheExtensionDictionary;				// Caches the extension dictionary until we next clear the cache
-    NSArray*      cacheAvailableExtensions;             // Caches the available extensions array until we next clear the cache
-    int           userLibraryCount;                     // Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
+    /// Caches the extension dictionary until we next clear the cache
+    NSDictionary* cacheExtensionDictionary;
+    /// Caches the available extensions array until we next clear the cache
+    NSArray*      cacheAvailableExtensions;
+    /// Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
+    int           userLibraryCount;
 
     // Update extensions
-    BOOL          updatingExtensions;					// Set to YES if an update is pending
+    /// Set to \c YES if an update is pending
+    BOOL          updatingExtensions;
 
     BOOL _rebuildAvailableExtensionsCache;
     BOOL _rebuildExtensionDictionaryCache;
     BOOL _cacheChanged;
 
     // Download and install
-    NSMutableArray* downloads;                          // Mutable array of current downloads
-    int numberOfBatchedExtensions;                      // How many things we are downloading and installing
-    int numberOfErrors;                                 // Number of failed download / installs
-    NSMutableString* errorString;                       // Multiple error messages are accumulated into this string
-    IFProgress* dlProgress;                             // Progress
+    /// Mutable array of current downloads
+    NSMutableArray* downloads;
+    /// How many things we are downloading and installing
+    int numberOfBatchedExtensions;
+    /// Number of failed download / installs
+    int numberOfErrors;
+    /// Multiple error messages are accumulated into this string
+    NSMutableString* errorString;
+    /// Progress
+    IFProgress* dlProgress;
 }
 
 // = Shared extension manager =
@@ -563,22 +583,20 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 - (NSArray*) availableAuthors {
-    NSMutableArray* authors = [NSMutableArray array];
+    NSMutableSet<NSString*>* authors = [NSMutableSet set];
 
     for( IFExtensionInfo* info in [self availableExtensions] ) {
-        if( ![authors containsObject: info.author] ) {
-            [authors addObject: info.author];
-        }
+        [authors addObject: info.author];
     }
-	[authors sortUsingSelector: @selector(caseInsensitiveCompare:)];
-    return authors;
+    return [[authors allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (NSArray*) availableExtensionsByAuthor:(NSString*) author {
+    author = [author lowercaseString];
     NSMutableArray* extensions = [NSMutableArray array];
 
     for( IFExtensionInfo* info in [self availableExtensions] ) {
-        if([[info.author lowercaseString] isEqualToString:[author lowercaseString]]) {
+        if([[info.author lowercaseString] isEqualToString:author]) {
             [extensions addObject:info];
         }
     }

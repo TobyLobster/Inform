@@ -13,7 +13,8 @@ extern NSString* IFExtensionsUpdatedNotification;				// Sent when the extensions
 extern NSString* IFCensusFinishedNotification;
 extern NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
-// *******************************************************************************************
+#pragma mark -
+
 @interface IFExtensionInfo : NSObject
 
 @property (atomic, strong) NSString* displayName;
@@ -39,19 +40,20 @@ extern NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
 @end
 
-// *******************************************************************************************
-typedef enum IFExtensionDownloadState {
+#pragma mark -
+
+typedef NS_ENUM(int, IFExtensionDownloadState) {
     IFExtensionDownloadNotStarted,
     IFExtensionDownloadInProgress,
     IFExtensionDownloadFailed,
     IFExtensionInstallFailed,
     IFExtensionDownloadAndInstallSucceeded,
-} IFExtensionDownloadState;
+};
 
 @interface IFExtensionDownload : NSObject
 
 @property (atomic) IFExtensionDownloadState state;
-@property (atomic, strong) NSURLConnection* connection;
+@property (atomic, strong) NSURLSessionDataTask* connection;
 @property (atomic, strong) NSMutableData*   receivedData;
 @property (atomic) long long                expectedLength;
 @property (atomic, strong) NSWindow*        window;
@@ -75,21 +77,23 @@ typedef enum IFExtensionDownloadState {
 @end
 
 
-// *******************************************************************************************
-//
-// Class used to manage extensions
-//
-// This class can be used as a delegate for NSSave/Open panel delegates to only allow valid extensions
-// to be selected.
-//
+#pragma mark -
+
+///
+/// Class used to manage extensions
+///
+/// This class can be used as a delegate for NSSave/Open panel delegates to only allow valid extensions
+/// to be selected.
+///
 @interface IFExtensionsManager : NSObject<NSTableViewDataSource, NSOpenSavePanelDelegate>
 
 @property (atomic) BOOL rebuildAvailableExtensionsCache;
 @property (atomic) BOOL rebuildExtensionDictionaryCache;
 @property (atomic) BOOL cacheChanged;
 
-// Shared managers
+/// Shared managers
 + (IFExtensionsManager*) sharedNaturalInformExtensionsManager;
+@property (class, atomic, readonly, strong) IFExtensionsManager *sharedNaturalInformExtensionsManager;
 
 // Setting up
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
@@ -97,23 +101,28 @@ typedef enum IFExtensionDownloadState {
 - (void) dirtyCache;
 
 // Retrieving the list of installed extensions
-@property (atomic, readonly, copy) NSArray *availableExtensions;										// Array of available extension information
-@property (atomic, readonly, copy) NSArray *availableAuthors;                                          // Array of available authors
-- (NSArray*) availableExtensionsByAuthor:(NSString*) author;            // Array of available extensions for a given author
+/// Array of available extension information
+@property (atomic, readonly, copy) NSArray<IFExtensionInfo*> *availableExtensions;
+/// Array of available authors
+@property (atomic, readonly, copy) NSArray<NSString*> *availableAuthors;
+/// Array of available extensions for a given author
+- (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor:(NSString*) author;
 
 - (BOOL) isFileInstalled:(NSString*) fullPath;
 
 // ... and the list of files within a given extension (full paths)
-- (NSArray*) filesInExtensionWithName: (NSString*) name;				// Complete list of files in the given extension
-- (NSArray*) sourceFilesInExtensionWithName: (NSString*) name;			// Complete list of source files in the given extension
+/// Complete list of files in the given extension
+- (NSArray*) filesInExtensionWithName: (NSString*) name;
+/// Complete list of source files in the given extension
+- (NSArray*) sourceFilesInExtensionWithName: (NSString*) name;
 
-// From a file potentially containing a natural inform extension, works out the author, title, version information
+/// From a file potentially containing a natural inform extension, works out the author, title, version information
 - (BOOL) infoForNaturalInformExtension: (NSString*) file
                                 author: (NSString*__strong*) authorOut
                                  title: (NSString*__strong*) titleOut
                                version: (NSString*__strong*) versionOut;
 
-// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
+/// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
 - (BOOL) installExtension: (NSString*) extensionPath
                 finalPath: (NSString*__strong*) finalPathOut
                     title: (NSString*__strong*) titleOut
