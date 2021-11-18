@@ -52,7 +52,7 @@ static NSImage* curseOverImage;
 
 -(void) updateImage {
     self.image = [self imageForState];
-    [self setNeedsDisplay];
+    [self setNeedsDisplay: YES];
 }
 
 -(void) setBlessState:(BOOL)theBlessState {

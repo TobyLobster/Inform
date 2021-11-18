@@ -947,25 +947,31 @@ didReceiveResponse: (NSURLResponse *)response
                     
                     // WARNING: About to overwrite a later version with an earlier one!
                     if( comparison == NSOrderedDescending ) {
-                        NSInteger overwrite = NSRunAlertPanel([NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension"], existingTitle, existingAuthor],
-                                                        [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension Explanation"], existingVersion, version],
-                                                        [IFUtility localizedString: @"Cancel"],
-                                                        [IFUtility localizedString: @"Replace"],
-                                                        nil,
-                                                        nil);
-                        if (overwrite != NSAlertAlternateReturn) {
+                        NSAlert *alert = [[NSAlert alloc] init];
+                        alert.messageText = [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension"], existingTitle, existingAuthor];
+                        alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension Explanation"], existingVersion, version];
+                        [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                        NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
+                        if (@available(macOS 11, *)) {
+                            destructive.hasDestructiveAction = YES;
+                        }
+                        NSModalResponse overwrite = [alert runModal];
+                        if (overwrite != NSAlertSecondButtonReturn) {
                             return YES;
                         }
                     }
                     else {
                         // WARNING: About to overwrite on earlier or equal version with a later version.
-                        NSInteger overwrite = NSRunAlertPanel([NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension"], existingTitle, existingAuthor],
-                                                        [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension Explanation"], existingVersion, version],
-                                                        [IFUtility localizedString: @"Cancel"],
-                                                        [IFUtility localizedString: @"Replace"],
-                                                        nil,
-                                                        nil);
-                        if (overwrite != NSAlertAlternateReturn) {
+                        NSAlert *alert = [[NSAlert alloc] init];
+                        alert.messageText = [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension"], existingTitle, existingAuthor];
+                        alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension Explanation"], existingVersion, version];
+                        [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                        NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
+                        if (@available(macOS 11, *)) {
+                            destructive.hasDestructiveAction = YES;
+                        }
+                        NSModalResponse overwrite = [alert runModal];
+                        if (overwrite != NSAlertSecondButtonReturn) {
                             return YES;
                         }
                     }
@@ -1056,23 +1062,22 @@ didReceiveResponse: (NSURLResponse *)response
 
 // = NSSavePanel delegate methods =
 
-- (BOOL)           panel: (id) sender
-	  shouldShowFilename: (NSString *) filename {
-	BOOL isDir;
-	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
-													   isDirectory: &isDir];
-	
-	if (!exists) return NO;
-	if (isDir) return YES;
-	
-	NSString* extn = [[filename pathExtension] lowercaseString];
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: url.path
+                                                       isDirectory: &isDir];
+    
+    if (!exists) return NO;
+    if (isDir) return YES;
+    
+    NSString* extn = [[url pathExtension] lowercaseString];
 
     if( ![extn isEqualToString: @"i7x"] &&
         ![extn isEqualToString: @""] ) {
         return NO;
     }
 
-	return YES;
+    return YES;
 }
 
 // = Download and Install =

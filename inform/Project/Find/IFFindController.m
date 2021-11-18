@@ -498,7 +498,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     [findCountText setStringValue:message];
 
     // Disable displaying stuff on screen while we adjust window/view size and positions
-//    NSDisableScreenUpdates();
+    NSDisableScreenUpdates();
 
     // Show the find all view
 	[self showAuxiliaryView: findAllView];
@@ -507,7 +507,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     [self resizeToFitResults];
 
     // Enable displaying stuff on screen now that we have adjusted window/view size and positions
-//    NSEnableScreenUpdates();
+    NSEnableScreenUpdates();
 }
 
 - (NSView*) findAllView {

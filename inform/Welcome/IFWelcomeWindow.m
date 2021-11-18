@@ -316,10 +316,11 @@ static IFWelcomeWindow* sharedWindow = nil;
                              from: self];
             } else if ( info.type == IFRecentFile ) {
                 NSDocumentController* docControl = [NSDocumentController sharedDocumentController];
-                NSError* error = nil;
                 [docControl openDocumentWithContentsOfURL: info.url
                                                   display: YES
-                                                    error: &error];
+                                        completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+                    //Do nothing
+                }];
             }            
         }
     } else if( [aNotification object] == createDocumentsTableView ) {

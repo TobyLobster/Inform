@@ -411,7 +411,10 @@
 //      (a) first delete one range of characters, and then
 //      (b) add a new different bunch of characters starting at the same location.
 //
-- (void)textStorageWillProcessEditing:(NSNotification *)notification
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta
 {
     if (self.isHighlighting) {
         return;
@@ -424,8 +427,7 @@
        }
     }
 
-    NSTextStorage *textStorage  = [notification object];
-    NSRange newRange            = [textStorage editedRange];
+    NSRange newRange = editedRange;
     NSString *newString = [[textStorage string] substringWithRange: newRange];
 
 	// Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
@@ -562,7 +564,10 @@
 //      (a) first delete one range of characters, and then
 //      (b) add a new different bunch of characters starting at the same location.
 //
--(void) textStorageDidProcessEditing: (NSNotification *)notification
+-(void) textStorage:(NSTextStorage *)textStorage
+  didProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)changeInLength
 {
     if( self.isHighlighting ) {
         return;
@@ -570,9 +575,7 @@
 
     self.isHighlighting = true;
 
-    NSTextStorage *textStorage  = [notification object];
-    NSInteger changeInLength    = [textStorage changeInLength];
-    NSRange newRange            = [textStorage editedRange];
+    NSRange newRange            = editedRange;
     NSRange oldRange            = NSMakeRange(newRange.location, newRange.length - changeInLength);
 
     // Start editing

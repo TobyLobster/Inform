@@ -204,6 +204,7 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
+                      destructiveIndex: 0
                                message: @"%@", confirm];
         return;
     }
@@ -716,6 +717,7 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmFileCopyDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
+                      destructiveIndex: 0
                                message: @"%@", confirm];
         return NO;
     }

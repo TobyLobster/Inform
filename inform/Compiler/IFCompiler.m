@@ -398,10 +398,9 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [theTask launch];
 }
 
-- (NSURL*) problemsURL {
-	return problemsURL;
-}
+@synthesize problemsURL;
 
+@synthesize outputFile;
 - (NSString*) outputFile {
     if (outputFile == nil) {
         outputFile = [NSString stringWithFormat: @"%@/Inform-%x-%x.%@",
@@ -409,7 +408,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
         deleteOutputFile = YES;
     }
 
-    return [NSString stringWithString: outputFile];
+    return [outputFile copy];
 }
 
 - (void) setOutputFile: (NSString*) file {

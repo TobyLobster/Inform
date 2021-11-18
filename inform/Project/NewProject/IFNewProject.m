@@ -163,7 +163,7 @@
                              modalDelegate: self
                             didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                                contextInfo: nil
-                                   message: confirm];
+                                   message: @"%@", confirm];
             return NO;
         }
     }

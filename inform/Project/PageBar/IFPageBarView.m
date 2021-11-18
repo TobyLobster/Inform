@@ -649,14 +649,14 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (!trackResult) {
 			// If the mouse is still down, continue tracking it in case it re-enters
 			// the control
-			while ((trackingEvent = [NSApp nextEventMatchingMask: NSLeftMouseDraggedMask|NSLeftMouseUpMask
+			while ((trackingEvent = [NSApp nextEventMatchingMask: NSEventMaskLeftMouseDragged|NSEventMaskLeftMouseUp
 													  untilDate: [NSDate distantFuture]
 														 inMode: NSEventTrackingRunLoopMode
 														dequeue: YES])) {
-				if ([trackingEvent type] == NSLeftMouseUp) {
+				if ([trackingEvent type] == NSEventTypeLeftMouseUp) {
 					// All finished
 					return;
-				} else if ([trackingEvent type] == NSLeftMouseDragged) {
+				} else if ([trackingEvent type] == NSEventTypeLeftMouseDragged) {
 					// Restart tracking if the mouse has re-entered the cell
 					NSPoint location = [self convertPoint: [trackingEvent locationInWindow]
 												 fromView: nil];

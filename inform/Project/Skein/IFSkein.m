@@ -28,7 +28,7 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
 
 
 @interface IFSkein ()
-@property (atomic, assign) IFProject*   project;
+@property (atomic, weak) IFProject*   project;
 @end
 
 #pragma mark - "Skein"
@@ -291,7 +291,7 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
 // Return the first node with differences, or the active node
 -(IFSkeinItem*) nodeToReport {
     if( _activeItem == nil ) {
-        return NO;
+        return nil;
     }
 
     IFSkeinItem* differedItem = _activeItem;

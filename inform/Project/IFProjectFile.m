@@ -261,12 +261,12 @@
     // Load the watchpoints file (if present)
     NSFileWrapper* watchWrapper = [bundleDirectory fileWrappers][@"Watchpoints.plist"];
     if (watchWrapper != nil && [watchWrapper regularFileContents] != nil) {
-        NSString* propError = nil;
+        NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListFromData: [watchWrapper regularFileContents]
-                                                          mutabilityOption: NSPropertyListImmutable
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: [watchWrapper regularFileContents]
+                                                          options: NSPropertyListImmutable
                                                                     format: &format
-                                                          errorDescription: &propError];
+                                                          error: &propError];
         return [array mutableCopy];
     }
     return nil;
@@ -276,12 +276,12 @@
     // Load the breakpoints file (if present)
     NSFileWrapper* breakWrapper = [bundleDirectory fileWrappers][@"Breakpoints.plist"];
     if (breakWrapper != nil && [breakWrapper regularFileContents] != nil) {
-        NSString* propError = nil;
+        NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListFromData: [breakWrapper regularFileContents]
-                                                           mutabilityOption: NSPropertyListImmutable
-                                                                     format: &format
-                                                           errorDescription: &propError];
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: [breakWrapper regularFileContents]
+                                                                   options: NSPropertyListImmutable
+                                                                    format: &format
+                                                                     error: &propError];
         return [array mutableCopy];
     }
     return nil;

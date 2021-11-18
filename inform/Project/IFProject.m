@@ -793,17 +793,6 @@
     return NO;
 }
 
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper
-							   ofType:(NSString *)docType {
-    NSLog(@"Trying to load doc type %@", docType);
-    NSError* error;
-    BOOL result = [self readFromFileWrapper: wrapper
-                                     ofType: docType
-                                      error: &error];
-    NSLog(@"Load of doc type %@ = %d", docType, (int) result);
-    return result;
-}
-
 -(NSData*) dataForSourceFileWithKey: (NSString*) key {
     // Get data
     NSString* ext = [[key pathExtension] lowercaseString];
@@ -973,9 +962,10 @@
     NSFileWrapper* newFileWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: data];
     [newFileWrapper setPreferredFilename: newFile];
     [newFileWrapper setFilename: newFile];
-    [newFileWrapper writeToFile: destinationURL.path
-                     atomically: NO
-                updateFilenames: YES];
+    [newFileWrapper writeToURL: destinationURL
+                       options: NSFileWrapperWritingWithNameUpdating
+           originalContentsURL: nil
+                         error: NULL];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectFilesChangedNotification
 														object: self];
@@ -1135,7 +1125,9 @@
     NSString*		indexPath		= self.indexDirectoryURL.path;
     
     if ([[NSFileManager defaultManager] fileExistsAtPath: indexPath]) {
-        indexWrapper = [[NSFileWrapper alloc] initWithPath: indexPath];
+        indexWrapper = [[NSFileWrapper alloc] initWithURL: self.indexDirectoryURL
+                                                  options: (NSFileWrapperReadingOptions)0
+                                                    error: NULL];
         [indexWrapper setPreferredFilename: @"Index"];
     }
 
@@ -1169,7 +1161,9 @@
     NSString*		path    = self.sourceDirectoryURL.path;
 
     if ([[NSFileManager defaultManager] fileExistsAtPath: path]) {
-        wrapper = [[NSFileWrapper alloc] initWithPath: path];
+        wrapper = [[NSFileWrapper alloc] initWithURL: self.sourceDirectoryURL
+                                             options: (NSFileWrapperReadingOptions)0
+                                               error: NULL];
         [wrapper setPreferredFilename: @"Source"];
     }
 
@@ -1495,28 +1489,21 @@
                 [alert setInformativeText:  contents];
                 [alert setAlertStyle:       NSAlertStyleWarning];
 
-                // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
                 [alert beginSheetModalForWindow: window
-                                  modalDelegate: self
-                                 didEndSelector: @selector(compilerFaultAlertDidEnd:returnCode:contextInfo:)
-                                    contextInfo: nil];
+                              completionHandler:^(NSModalResponse returnCode) {
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [[NSRunLoop currentRunLoop] performSelector: @selector(saveCompilerOutputWithWindow:)
+                                                             target: self
+                                                           argument: self->tempInternalWindow
+                                                              order: 128
+                                                              modes: @[NSDefaultRunLoopMode]]; // Try again
+                    }
+                    self->tempInternalWindow = nil;
+                }];
                 return;
             }
         }
     }];
-    self->tempInternalWindow = nil;
-}
-
-- (void)compilerFaultAlertDidEnd: (NSWindow *)sheet
-                      returnCode: (int)returnCode
-                     contextInfo: (void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        [[NSRunLoop currentRunLoop] performSelector: @selector(saveCompilerOutputWithWindow:)
-                                             target: self
-                                           argument: self->tempInternalWindow
-                                              order: 128
-                                              modes: @[NSDefaultRunLoopMode]]; // Try again
-    }
     self->tempInternalWindow = nil;
 }
 
@@ -1688,17 +1675,13 @@
                      loadError = [IFUtility localizedString: @"Skein Load Failure" default: nil];
 
                  [importPanel close];
-                 NSBeginAlertSheet([IFUtility localizedString: @"Could not import skein"],
-                                   [IFUtility localizedString: @"Cancel"],
-                                   nil,
-                                   nil,
-                                   window,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   @"%@",
-                                   loadError);
+                 NSAlert *alert = [[NSAlert alloc] init];
+                 alert.messageText = [IFUtility localizedString: @"Could not import skein"];
+                 alert.informativeText = loadError;
+                 [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                 [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+                     // do nothing.
+                 }];
              }
          }
      }];

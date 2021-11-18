@@ -92,7 +92,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 - (void) clearTabViews;                                     // Gets rid of the file tabs created by the previous function
 
 @property (atomic, readonly, copy) NSString *blorbLocation; // Where cblorb thinks the final blorb file should be copied to
-@property (atomic, strong) NSSplitView *splitView;			// The splitter view for this object
+@property (nonatomic, strong) NSSplitView *splitView;		// The splitter view for this object
 
 @property (atomic, readonly) IFCompilerTabId selectedTabId;	// The tab identifier of the currently selected view
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId;    // Switches to a view with the specified tab identifier

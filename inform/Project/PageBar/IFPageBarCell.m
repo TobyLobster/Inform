@@ -372,7 +372,7 @@ static NSColor* foregroundColour() {
 		isHighlighted = YES;
 		[self update];
 		
-		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSLeftMouseDown
+		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
 												location: pointInWindow
 										   modifierFlags: (NSUInteger) 0 // 10.10: (NSEventModifierFlags) 0
 											   timestamp: [[NSApp currentEvent] timestamp]

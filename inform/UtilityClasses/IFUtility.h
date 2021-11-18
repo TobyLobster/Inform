@@ -54,6 +54,16 @@ CGFloat easeOutCubic(CGFloat t);
                  contextInfo: (void *) contextInfo
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(8,9);
 
++ (void) runAlertYesNoWindow: (NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (id) modalDelegate
+              didEndSelector: (SEL) alertDidEndSelector
+                 contextInfo: (void *) contextInfo
+            destructiveIndex: (NSInteger) desIdx
+                     message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
+
 // Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window;

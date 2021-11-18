@@ -241,12 +241,11 @@ CGFloat easeOutCubic(CGFloat t) {
                modalDelegate: (id) modalDelegate
               didEndSelector: (SEL) alertDidEndSelector
                  contextInfo: (void *) contextInfo
-                     message: (NSString*) formatString, ... {
-    va_list args;
-    va_start(args, formatString);
+            destructiveIndex: (NSInteger) desIdx
+                     message: (NSString*) formatString
+                        args: (va_list) args {
     NSString* contents = [[NSString alloc] initWithFormat: [self localizedString:formatString]
                                                  arguments: args];
-    va_end(args);
 
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  [self localizedString: yes]];
@@ -254,12 +253,55 @@ CGFloat easeOutCubic(CGFloat t) {
     [alert setMessageText:      [self localizedString: title]];
     [alert setInformativeText:  contents];
     [alert setAlertStyle: NSAlertStyleInformational];
+    if (@available(macOS 11.0, *)) {
+        switch (desIdx) {
+            case NSNotFound:
+                // do nothing
+                break;
+                
+            case 0:
+            case 1:
+                [alert buttons][desIdx].hasDestructiveAction = YES;
+                
+            default:
+                break;
+        }
+    }
 
-    // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
+    // NOTE: We should use [NSAlert beginSheetModalForWindow:completionHandler:] since we're targeting 10.9 or later.
     [alert beginSheetModalForWindow: window
                       modalDelegate: modalDelegate
                      didEndSelector: alertDidEndSelector
                         contextInfo: contextInfo];
+}
+
++ (void) runAlertYesNoWindow: (NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (id) modalDelegate
+              didEndSelector: (SEL) alertDidEndSelector
+                 contextInfo: (void *) contextInfo
+                     message: (NSString*) formatString, ... {
+    va_list args;
+    va_start(args, formatString);
+    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:NSNotFound message:formatString args:args];
+    va_end(args);
+}
+
++ (void) runAlertYesNoWindow: (NSWindow*) window
+                       title: (NSString*) title
+                         yes: (NSString*) yes
+                          no: (NSString*) no
+               modalDelegate: (id) modalDelegate
+              didEndSelector: (SEL) alertDidEndSelector
+                 contextInfo: (void *) contextInfo
+            destructiveIndex: (NSInteger) desIdx
+                     message: (NSString*) formatString, ... {
+    va_list args;
+    va_start(args, formatString);
+    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:desIdx message:formatString args:args];
+    va_end(args);
 }
 
 // Save transcript (handles save dialog)

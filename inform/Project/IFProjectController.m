@@ -1923,10 +1923,11 @@ static float        minDividerWidth     = 75.0f;
 // We only implement a fairly limited subset of the UI methods, mainly to help show status
 - (void)						webView:(WebView *)sender 
 	 runJavaScriptAlertPanelWithMessage:(NSString *)message {
-	NSRunAlertPanel([IFUtility localizedString: @"JavaScript Alert"],
-					@"%@",
-					[IFUtility localizedString: @"Continue"],
-					nil, nil, message);
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = [IFUtility localizedString: @"JavaScript Alert"];
+    alert.informativeText = message;
+    [alert addButtonWithTitle: [IFUtility localizedString: @"Continue"]];
+    [alert runModal];
 }
 
 // = IFRuntimeErrorParser delegate methods =

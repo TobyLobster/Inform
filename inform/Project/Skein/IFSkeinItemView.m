@@ -780,7 +780,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
         self.skein.draggingItem = layoutItem.item;
         dragCanMove = ![layoutItem.item hasDescendant: self.skein.activeItem];
 
-        NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSDragPboard];
+        NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSPasteboardNameDrag];
         [pboard declareTypes:@[IFSkeinItemPboardType] owner:self];
 
         [pboard setData: [NSKeyedArchiver archivedDataWithRootObject: layoutItem.item]
@@ -924,7 +924,9 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     NSData*       data = [pboard dataForType: IFSkeinItemPboardType];
     if (data == nil) return NO;
 
-    IFSkeinItem* newItem = [NSKeyedUnarchiver unarchiveObjectWithData: data];
+    IFSkeinItem* newItem = [NSKeyedUnarchiver unarchivedObjectOfClass: [IFSkeinItem class]
+                                                             fromData: data
+                                                                error: NULL];
     if (newItem == nil) return NO;
 
     // Add this as a child of the old item

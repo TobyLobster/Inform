@@ -49,14 +49,15 @@
     [self addWindowController:aController];
 }
 
-- (NSData *)dataRepresentationOfType: (NSString*) type {
+- (NSData *)dataOfType: (NSString*) type error:(NSError *__autoreleasing  _Nullable * _Nullable)outError {
     return [[fileStorage string] dataUsingEncoding: fileEncoding];
 }
 
-- (BOOL)loadDataRepresentation: (NSData*) data
-						ofType: (NSString*) type {
+- (BOOL)readFromData: (NSData*) data
+              ofType: (NSString*) type
+               error: (NSError *__autoreleasing  _Nullable * _Nullable)outError {
     IFHighlightType                     highlightType   = IFHighlightTypeNone;
-    id<IFSyntaxIntelligence,NSObject>   intel           = nil;
+    id<IFSyntaxIntelligence>            intel           = nil;
 
 	fileEncoding = NSUTF8StringEncoding;
 
@@ -101,6 +102,9 @@
 	}
 
 	if (fileString == nil) {
+        if (outError) {
+            *outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownStringEncodingError userInfo:@{NSLocalizedDescriptionKey: @"Error: failed to load file: could not find an acceptable character encoding"}];
+        }
 		NSLog(@"Error: failed to load file: could not find an acceptable character encoding");
 		return NO;
 	}
