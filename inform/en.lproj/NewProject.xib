@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFNewProject">
+            <connections>
+                <outlet property="projectPaneView" destination="7" id="q5G-Zz-Sxj"/>
+                <outlet property="promptTextField" destination="40" id="gSd-B3-OkA"/>
+                <outlet property="window" destination="5" id="33"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Create New Project" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5" userLabel="Window">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="140" y="979" width="480" height="419"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <value key="minSize" type="size" width="350" height="360"/>
+            <view key="contentView" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="419"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                        <rect key="frame" x="0.0" y="62" width="480" height="299"/>
+                    </customView>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                        <rect key="frame" x="383" y="13" width="84" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="aYG-zA-CFw"/>
+                        </constraints>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="57">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="okButtonClicked:" target="-2" id="FXC-gB-jeV"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                        <rect key="frame" x="13" y="13" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="59">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancelButtonClicked:" target="-2" id="dJb-Fs-tD3"/>
+                        </connections>
+                    </button>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                        <rect key="frame" x="0.0" y="59" width="480" height="5"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="438" translatesAutoresizingMaskIntoConstraints="NO" id="40">
+                        <rect key="frame" x="20" y="371" width="140" height="28"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="New Project" id="60">
+                            <font key="font" metaFont="systemBold" size="24"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="41">
+                        <rect key="frame" x="0.0" y="360" width="480" height="5"/>
+                    </box>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="40" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="22" id="1F6-Nk-pMq"/>
+                    <constraint firstItem="7" firstAttribute="leading" secondItem="12" secondAttribute="leading" id="2YT-Aq-z6O"/>
+                    <constraint firstAttribute="trailing" secondItem="41" secondAttribute="trailing" id="8cd-ia-heM"/>
+                    <constraint firstItem="41" firstAttribute="trailing" secondItem="7" secondAttribute="trailing" id="AzZ-pV-AfW"/>
+                    <constraint firstItem="7" firstAttribute="top" secondItem="41" secondAttribute="bottom" constant="1" id="B5U-w7-eFI"/>
+                    <constraint firstItem="8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="11" secondAttribute="trailing" constant="12" symbolic="YES" id="G8n-4v-iWY"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="40" secondAttribute="trailing" constant="20" symbolic="YES" id="KIB-Jx-ZKc"/>
+                    <constraint firstItem="41" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="S5s-Bw-x9x"/>
+                    <constraint firstItem="12" firstAttribute="top" secondItem="7" secondAttribute="bottom" id="Sv7-cx-h5s"/>
+                    <constraint firstItem="41" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="V3i-PG-cWl"/>
+                    <constraint firstItem="41" firstAttribute="top" secondItem="40" secondAttribute="bottom" constant="8" symbolic="YES" id="Yu0-iS-2u1"/>
+                    <constraint firstItem="7" firstAttribute="trailing" secondItem="12" secondAttribute="trailing" id="aR6-cf-CFw"/>
+                    <constraint firstAttribute="bottom" secondItem="11" secondAttribute="bottom" constant="20" id="cr8-l3-4Uv"/>
+                    <constraint firstItem="11" firstAttribute="top" secondItem="12" secondAttribute="bottom" constant="21" id="ddP-9L-4n1"/>
+                    <constraint firstItem="40" firstAttribute="top" secondItem="6" secondAttribute="top" constant="20" symbolic="YES" id="kEe-4C-nnT"/>
+                    <constraint firstItem="11" firstAttribute="baseline" secondItem="8" secondAttribute="baseline" id="nBX-tZ-Gn8"/>
+                    <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" id="np0-PQ-xjR"/>
+                    <constraint firstItem="11" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" id="ono-sO-CLK"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="45"/>
+                <outlet property="initialFirstResponder" destination="7" id="50"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="133"/>
+        </window>
+    </objects>
+</document>
