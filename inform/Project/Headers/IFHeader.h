@@ -24,7 +24,7 @@ extern NSNotificationName const IFHeaderChangedNotification;
 /// Constructs a new header object
 - (instancetype) initWithName: (NSString*) name
                        parent: (IFHeader*) parent
-                     children: (NSArray*) children NS_DESIGNATED_INITIALIZER;
+                     children: (NSArray<IFHeader*>*) children NS_DESIGNATED_INITIALIZER;
 
 // Accessing values
 /// The name of this header
@@ -32,7 +32,7 @@ extern NSNotificationName const IFHeaderChangedNotification;
 /// The parent of this header
 @property (nonatomic, weak) IFHeader *parent;
 /// The headings 'beneath' this one
-@property (atomic, copy) NSArray *children;
+@property (atomic, copy) NSArray<IFHeader*> *children;
 /// The symbol for this heading
 @property (atomic, strong) IFIntelSymbol *symbol;
 
