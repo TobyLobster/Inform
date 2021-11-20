@@ -125,9 +125,9 @@ static const BOOL trace_diff = NO;
             NSAssert(matchRangeA2.location >= rangeA.location, @"oops #1");
             NSRange matchRangeA1 = NSMakeRange(rangeA.location, matchRangeA2.location - rangeA.location);
 
-            int A_pre_len  = (int) matchRangeA1.length;
-            int A_ver_len  = (int) matchRangeA2.length;
-            int A_post_len = (int) rangeA.length - A_pre_len - A_ver_len;
+            NSInteger A_pre_len  = matchRangeA1.length;
+            NSInteger A_ver_len  = matchRangeA2.length;
+            NSInteger A_post_len = rangeA.length - A_pre_len - A_ver_len;
 
             NSRange matchRangeB2 = [_actual rangeOfRegex: regEx
                                                  options: RKLNoOptions
@@ -138,9 +138,9 @@ static const BOOL trace_diff = NO;
                 NSAssert(matchRangeB2.location >= rangeB.location, @"oops #2");
                 NSRange matchRangeB1 = NSMakeRange(rangeB.location, matchRangeB2.location - rangeB.location);
 
-                int B_pre_len  = (int) matchRangeB1.length;
-                int B_ver_len  = (int) matchRangeB2.length;
-                int B_post_len = (int) rangeB.length - B_pre_len - B_ver_len;
+                NSInteger B_pre_len  = matchRangeB1.length;
+                NSInteger B_ver_len  = matchRangeB2.length;
+                NSInteger B_post_len = rangeB.length - B_pre_len - B_ver_len;
 
                 [self diffInnerRangeA: matchRangeA1 rangeB: matchRangeB1];
                 [_differences addObject: [[IFDiffEdit alloc] initWithRange: matchRangeB2 form: PRESERVE_ACTUAL_EDIT]];
@@ -175,7 +175,7 @@ static const BOOL trace_diff = NO;
      words, or at any rate, ending at a word boundary (in both texts).
      */
     // Any common prefix can be preserved
-    int i;
+    NSInteger i;
     for( i = 0; (i < rangeA.length) && (i < rangeB.length); i++ ) {
         if( charAt(_ideal, rangeA.location+i) != charAt(_actual, rangeB.location+i) ) {
             break;
@@ -222,16 +222,16 @@ static const BOOL trace_diff = NO;
      diff the text afterwards.
      */
     // Splice around the longest common substring
-    int max_i = -1;
-    int max_j = -1;
-    int max_len = 0;
+    NSInteger max_i = -1;
+    NSInteger max_j = -1;
+    NSInteger max_len = 0;
 
     for (i = 0; i < (int) rangeA.length; i++) {
         if ((i == 0) || (isWordBoundary(_ideal, rangeA.location + i-1))) {
             for (int j = 0; j < rangeB.length; j++) {
                 if ((j == 0) || (isWordBoundary(_actual, rangeB.location + j-1))) {
-                    int k;
-                    for (k = 0; (i+k < (int) rangeA.length) && (j+k < (int) rangeB.length) && (charAt(_ideal, rangeA.location + i+k) == charAt(_actual, rangeB.location + j+k)); k++)
+                    NSInteger k;
+                    for (k = 0; (i+k < rangeA.length) && (j+k < rangeB.length) && (charAt(_ideal, rangeA.location + i+k) == charAt(_actual, rangeB.location + j+k)); k++)
                         ;
                     while ((k > MINIMUM_SPLICE_WORTH_BOTHERING_WITH) &&
                            (!(isWordBoundary(_ideal, rangeA.location + i+k-1)))) {
@@ -248,7 +248,7 @@ static const BOOL trace_diff = NO;
     }
     if (max_len >= MINIMUM_SPLICE_WORTH_BOTHERING_WITH) {
         if (trace_diff) NSLog(@"substring: ");
-        for (int c=0; c<max_len; c++) {
+        for (NSInteger c=0; c<max_len; c++) {
             if (trace_diff) NSLog(@"%c", charAt(_ideal, rangeA.location + max_i+c));
             NSAssert( charAt(_ideal, rangeA.location + max_i+c) == charAt(_actual, rangeB.location + max_j+c), @"oops #3");
         }

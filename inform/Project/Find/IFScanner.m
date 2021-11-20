@@ -28,7 +28,7 @@
     int storageLength = (int) [storage length];
     
     if( searchType & IFFindCaseInsensitive ) {
-        options = (NSStringCompareOptions) (NSLiteralSearch | NSCaseInsensitiveSearch);
+        options = NSLiteralSearch | NSCaseInsensitiveSearch;
         regexOptions = RKLCaseless;
     }
     else {
