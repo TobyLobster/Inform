@@ -7,7 +7,6 @@
 //
 
 #import "IFInspectorWindow.h"
-#import "IFIsArrow.h"
 #import "IFInspectorView.h"
 #import "IFIsFlippedView.h"
 #import "IFProjectController.h"
