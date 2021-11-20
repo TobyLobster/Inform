@@ -40,7 +40,7 @@
 - (IFProjectPane*) oppositePane: (IFProjectPane*) pane;
 
 // Communication from the containing panes
-- (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId;
+- (BOOL) showTestCase: (NSString*) testCase skeinNode:(NSUUID*) skeinNodeId;
 - (BOOL) selectSourceFile: (NSString*) fileName;
 - (void) moveToSourceFilePosition: (int) location;
 - (void) moveToSourceFileLine: (int) line;

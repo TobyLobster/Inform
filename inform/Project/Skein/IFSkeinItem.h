@@ -21,7 +21,7 @@
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com;
 - (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com identifier: (NSUUID*) uuid NS_DESIGNATED_INITIALIZER;
--(instancetype) initWithCoder: (NSCoder *) decoder;
+-(instancetype) initWithCoder: (NSCoder *) decoder NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Properties
 @property (atomic, readonly, strong)  NSUUID *        uniqueId;
@@ -44,7 +44,7 @@
 -(void)             removeFromParent;
 
 +(BOOL)             isTestCommand:(NSString*) command;
--(IFSkeinItem*)     findItemWithNodeId: (unsigned long) skeinNodeId;
+-(IFSkeinItem*)     findItemWithNodeId: (NSUUID*) skeinNodeId;
 
 #pragma mark - Undo helpers
 -(void)             removeFromChildrenArray: (IFSkeinItem*) itemToRemove;

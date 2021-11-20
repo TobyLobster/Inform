@@ -841,7 +841,7 @@ static NSDictionary* itemTextAttributes;
     [self scrollViewToItem: item];
 }
 
-- (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId {
+- (BOOL) selectItemWithNodeId: (NSUUID*) skeinItemNodeId {
     IFSkeinItem* item = [skein.rootItem findItemWithNodeId: skeinItemNodeId];
     if( item ) {
         [self selectItem: item];

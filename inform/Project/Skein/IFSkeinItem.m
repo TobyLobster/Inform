@@ -31,7 +31,7 @@
 
 - (instancetype) initWithSkein: (IFSkein*) skein
                        command: (NSString*) com {
-    return [self initWithSkein: skein command:com identifier: nil];
+    return [self initWithSkein: skein command:com identifier: [NSUUID UUID]];
 }
 - (instancetype) initWithSkein:(IFSkein*) skein
                        command: (NSString*) com
@@ -39,7 +39,7 @@
 	self = [super init];
 
 	if (self) {
-        _uniqueId       = uuid ? uuid : [NSUUID UUID];
+        _uniqueId       = uuid;
         _command        = [[self class] sanitizeCommand: com];
 		_actual         = @"";
         _ideal          = @"";
@@ -70,12 +70,13 @@
 }
 
 - (instancetype)initWithCoder: (NSCoder *)decoder {
-    self = [self initWithSkein: nil command: @""];
+    self = [super init];
 
     if (self) {
-        _uniqueId       = [decoder decodeObjectForKey: @"uniqueID"];
-        if (!_uniqueId) {
-            _uniqueId = [NSUUID UUID];
+        if ([decoder containsValueForKey:@"uniqueID"]) {
+            _uniqueId   = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"uniqueID"];
+        } else {
+            _uniqueId   = [NSUUID UUID];
         }
         _children       = [decoder decodeObjectForKey: @"children"];
         _command        = [decoder decodeObjectForKey: @"command"];
@@ -587,8 +588,8 @@
     return [command startsWithCaseInsensitive: @"test "];
 }
 
--(IFSkeinItem*) findItemWithNodeId: (unsigned long) skeinNodeId {
-    if( self.uniqueId == skeinNodeId ) {
+-(IFSkeinItem*) findItemWithNodeId: (NSUUID*) skeinNodeId {
+    if( self.uniqueId == skeinNodeId || [self.uniqueId isEqual:skeinNodeId] ) {
         return self;
     }
 
@@ -663,10 +664,10 @@
 
 #pragma mark - Debugging
 -(void) printDEBUG {
-    NSLog(@"Item(%lu) '%@'\n", _uniqueId, _command);
+    NSLog(@"Item(%@) '%@'\n", _uniqueId, _command);
     int childCount = 0;
     for(IFSkeinItem* child in _children) {
-        NSLog(@"Item(%lu) child #%d:\n", _uniqueId, childCount);
+        NSLog(@"Item(%@) child #%d:\n", _uniqueId, childCount);
         [child printDEBUG];
         childCount++;
     }

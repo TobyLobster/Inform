@@ -23,6 +23,6 @@
 - (instancetype) initWithProjectController: (IFProjectController*) controller;
 
 - (void) selectActiveSkeinItem;
--(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId;
+-(BOOL) selectSkeinItemWithNodeId:(NSUUID*) skeinItemNodeId;
 
 @end

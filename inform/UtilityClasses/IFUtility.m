@@ -168,14 +168,13 @@ CGFloat easeOutCubic(CGFloat t) {
 
     // Get node id from heirarchy
     NSString* nodeIdString = [IFUtility heirarchyFromURL: skeinURL];
-    unsigned long nodeId = [nodeIdString integerValue];
 
     // Get test case from query parameters
     NSDictionary * parameters = [IFUtility queryParametersFromURL: skeinURL];
     NSString* testCase = [parameters objectForKey:@"case"];
     if( testCase == nil ) testCase = @"";
 
-    return @[testCase, @(nodeId)];
+    return @[testCase, nodeIdString];
 }
 
 #pragma mark - Alert dialogs
