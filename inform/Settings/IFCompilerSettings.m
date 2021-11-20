@@ -25,32 +25,32 @@
 
 #import "IFSettingsController.h"
 
-NSString* IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
-NSString* IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
+NSString* const IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
+NSString* const IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
 
-NSString* IFSettingNaturalInform        = @"IFSettingNaturalInform";
-NSString* IFSettingStrict               = @"IFSettingStrict";
-NSString* IFSettingInfix                = @"IFSettingInfix";
-NSString* IFSettingDEBUG                = @"IFSettingDEBUG";
-NSString* IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
-NSString* IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
-NSString* IFSettingNobbleRng            = @"IFSettingNobbleRng";
-NSString* IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
+NSString* const IFSettingNaturalInform        = @"IFSettingNaturalInform";
+NSString* const IFSettingStrict               = @"IFSettingStrict";
+NSString* const IFSettingInfix                = @"IFSettingInfix";
+NSString* const IFSettingDEBUG                = @"IFSettingDEBUG";
+NSString* const IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
+NSString* const IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
+NSString* const IFSettingNobbleRng            = @"IFSettingNobbleRng";
+NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
-NSString* IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
-NSString* IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
-NSString* IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
+NSString* const IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
+NSString* const IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
+NSString* const IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
 
 // Natural Inform
-NSString* IFSettingLoudly = @"IFSettingLoudly";
+NSString* const IFSettingLoudly = @"IFSettingLoudly";
 
 // Compiler types
-NSString* IFCompilerInform6		  = @"IFCompilerInform6";
-NSString* IFCompilerNaturalInform = @"IFCompilerNaturalInform";
+NSString* const IFCompilerInform6		  = @"IFCompilerInform6";
+NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
 
 // Notifications
-NSString* IFSettingNotification = @"IFSettingNotification";
+NSString* const IFSettingNotification = @"IFSettingNotification";
 
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
@@ -63,10 +63,13 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 
 @implementation IFCompilerSettings
 {
-    NSMutableDictionary* store;						// (DEPRECATED) Maps keys to settings
-    NSArray* genericSettings;						// IFSetting object that deals with specific settings areas
+    /// (DEPRECATED) Maps keys to settings
+    NSMutableDictionary* store;
+    /// \c IFSetting object that deals with specific settings areas
+    NSArray<IFSetting*>* genericSettings;
 
-    NSDictionary* originalPlist;					// The PList we loaded to construct this object (used if there's some settings in the plist that aren't handled)
+    /// The PList we loaded to construct this object (used if there's some settings in the plist that aren't handled)
+    NSDictionary* originalPlist;
 }
 
 // == Possible locations for the library ==

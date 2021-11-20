@@ -8,15 +8,19 @@
 
 #import "IFMaintenanceTask.h"
 
-NSString* IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
-NSString* IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
+NSString* const IFMaintenanceTasksStarted = @"IFMaintenanceTasksStarted";
+NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 
 @implementation IFMaintenanceTask {
-    NSTask* activeTask;											// The task that's currently running
-    NSMutableArray* pendingTasks;								// The tasks that are going to be run
-    NSString* activeTaskNotificationType;                       // Current notification type for activeTask
+    /// The task that's currently running
+    NSTask* activeTask;
+    /// The tasks that are going to be run
+    NSMutableArray* pendingTasks;
+    /// Current notification type for activeTask
+    NSString* activeTaskNotificationType;
 
-    BOOL haveFinished;											// YES if we've notified of a finish event
+    /// \c YES if we've notified of a finish event
+    BOOL haveFinished;
 }
 
 // = Initialisation =

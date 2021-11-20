@@ -14,14 +14,11 @@
 
 // Page notifications
 
-// Notification sent by a page when it wishes to become frontmost
-extern NSString* IFSwitchToPageNotification;
+/// Notification sent by a page when it wishes to become frontmost
+extern NSNotificationName const IFSwitchToPageNotification;
 
-// Notification sent when a page wants to cause an invokation on the 'opposite' pane
-extern NSString* IFOtherPaneInvokationNotification;
-
-// Notification that the items on the toolbar for a page have changed
-extern NSString* IFUpdatePageBarCellsNotification;
+/// Notification that the items on the toolbar for a page have changed
+extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
 //#define LOG_HISTORY
 #ifdef LOG_HISTORY
@@ -30,11 +27,12 @@ extern NSString* IFUpdatePageBarCellsNotification;
 #define LogHistory(format, ... )
 #endif
 
-//
-// Controller class that represents a page in a project pane
-//
 @protocol IFProjectPane;
 @protocol IFHistoryRecorder;
+
+///
+/// Controller class that represents a page in a project pane
+///
 @interface IFPage : NSObject
 
 /// The project controller that 'owns' this page

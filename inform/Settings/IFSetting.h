@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 // Notification strings
-extern NSString* IFSettingHasChangedNotification;
+extern NSNotificationName const IFSettingHasChangedNotification;
 
 @class IFCompilerSettings;
 
@@ -25,7 +25,8 @@ extern NSString* IFSettingHasChangedNotification;
 - (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;    // Initialises the setting object, and loads the given nib
 
 // Setting up the view
-@property (atomic, strong) NSView *settingView;			// The settings view
+/// The settings view
+@property (atomic, strong) IBOutlet NSView *settingView;
 
 // Information about this settings view
 @property (atomic, readonly, copy) NSString *title;		// (OVERRIDE) Retrieves the title for these settings

@@ -10,12 +10,15 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFCompilerSettings.h"
 
-NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
+NSString* const IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 
 @implementation IFSetting {
-    IBOutlet NSView*    settingView;		// The view that can be used to edit the settings
-    IFCompilerSettings* compilerSettings;	// The compiler settings object that this setting should manage
-    BOOL                settingsChanging;   // YES if the settings are in the process of changing
+    /// The view that can be used to edit the settings
+    NSView*             settingView;
+    /// The compiler settings object that this setting should manage
+    IFCompilerSettings* compilerSettings;
+    /// YES if the settings are in the process of changing
+    BOOL                settingsChanging;
 }
 
 // = Initialisation =
@@ -42,13 +45,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 
 // = Setting up the view =
 
-- (NSView*) settingView {
-	return settingView;
-}
-
-- (void) setSettingView: (NSView*) newSettingView {
-	settingView = newSettingView;
-}
+@synthesize settingView;
 
 - (NSString*) title {
 	return @"Setting";
@@ -56,13 +53,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 
 // = Setting/retrieving the model =
 
-- (void) setCompilerSettings: (IFCompilerSettings*) newSettings {
-	compilerSettings = newSettings;
-}
-
-- (IFCompilerSettings*) compilerSettings {
-	return compilerSettings;
-}
+@synthesize compilerSettings;
 
 // = Communicating with the IFCompilerSettings object =
 

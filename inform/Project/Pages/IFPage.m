@@ -12,8 +12,8 @@
 #import "IFProjectPane.h"
 #import "IFHistoryEvent.h"
 
-NSString* IFSwitchToPageNotification = @"IFSwitchToPageNotification";
-NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
+NSString* const IFSwitchToPageNotification = @"IFSwitchToPageNotification";
+NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
 @implementation IFPage {
     /// The pane that contains this page (or nil, not retained)

@@ -11,13 +11,13 @@
 
 @class IFSkeinItem;
 
-extern NSString* IFSkeinChangedNotification;
-extern NSString* IFSkeinReplacedNotification;
-extern NSString* IFSkeinChangedAnimateKey;
-extern NSString* IFSkeinKeepActiveVisibleKey;
+extern NSString* const IFSkeinChangedNotification;
+extern NSString* const IFSkeinReplacedNotification;
+extern NSString* const IFSkeinChangedAnimateKey;
+extern NSString* const IFSkeinKeepActiveVisibleKey;
 
-extern NSString* IFSkeinSelectionChangedNotification;
-extern NSString* IFSkeinSelectionChangedItemKey;
+extern NSString* const IFSkeinSelectionChangedNotification;
+extern NSString* const IFSkeinSelectionChangedItemKey;
 
 @class IFProject;
 
@@ -93,7 +93,9 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 
 @interface IFSkein(IFSkeinXML)
 
-- (NSString *)  getXMLString;                   // Create XML string for output
-- (BOOL)        parseXmlData: (NSData*) data;   // Read XML input into skein data structure
+/// Create XML string for output
+- (NSString *)  getXMLString;
+/// Read XML input into skein data structure
+- (BOOL)        parseXmlData: (NSData*) data;
 
 @end

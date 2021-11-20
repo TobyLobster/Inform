@@ -7,7 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString* IFToolbarChangedVisibility;
+extern NSNotificationName const IFToolbarChangedVisibility;
 
 @interface IFToolbar : NSToolbar {
 }

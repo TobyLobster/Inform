@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "IFProgress.h"
 
-extern NSString* IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
-extern NSString* IFCensusFinishedNotification;
-extern NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
+extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
+extern NSNotificationName const IFCensusFinishedNotification;
+extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
 #pragma mark -
 
@@ -33,7 +33,7 @@ extern NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
                   md5Hash: (NSString*) md5Hash
                 isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
 
-// Remove leading "The " and trailing proviso (in brackets) from a display name to get title used for extension filename
+/// Remove leading "The " and trailing proviso (in brackets) from a display name to get title used for extension filename
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;
 -(BOOL) isEqual: (id) other;

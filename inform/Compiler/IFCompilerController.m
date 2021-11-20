@@ -23,22 +23,22 @@
 #import "IFProgress.h"
 
 // Possible styles (stored in the styles dictionary)
-NSString* IFStyleBase               = @"IFStyleBase";
+NSString* const IFStyleBase               = @"IFStyleBase";
 
 // Basic compiler messages
-NSString* IFStyleCompilerVersion    = @"IFStyleCompilerVersion";
-NSString* IFStyleCompilerMessage    = @"IFStyleCompilerMessage";
-NSString* IFStyleCompilerWarning    = @"IFStyleCompilerWarning";
-NSString* IFStyleCompilerError      = @"IFStyleCompilerError";
-NSString* IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
-NSString* IFStyleProgress			= @"IFStyleProgress";
+NSString* const IFStyleCompilerVersion    = @"IFStyleCompilerVersion";
+NSString* const IFStyleCompilerMessage    = @"IFStyleCompilerMessage";
+NSString* const IFStyleCompilerWarning    = @"IFStyleCompilerWarning";
+NSString* const IFStyleCompilerError      = @"IFStyleCompilerError";
+NSString* const IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
+NSString* const IFStyleProgress			= @"IFStyleProgress";
 
-NSString* IFStyleFilename           = @"IFStyleFilename";
+NSString* const IFStyleFilename           = @"IFStyleFilename";
 
 // Compiler statistics/dumps/etc
-NSString* IFStyleAssembly           = @"IFStyleAssembly";
-NSString* IFStyleHexDump            = @"IFStyleHexDump";
-NSString* IFStyleStatistics         = @"IFStyleStatistics";
+NSString* const IFStyleAssembly           = @"IFStyleAssembly";
+NSString* const IFStyleHexDump            = @"IFStyleHexDump";
+NSString* const IFStyleStatistics         = @"IFStyleStatistics";
 
 static IFCompilerController* activeController = nil;
 

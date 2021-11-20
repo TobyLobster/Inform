@@ -11,7 +11,6 @@
 #import "IFCompilerSettings.h"
 #import "IFCompilerListEntry.h"
 #import "Inform-Swift.h"
-#import "Regex.h"
 
 @implementation IFCompilerVersionSettings {
     IBOutlet NSPopUpButton* compilerVersionBox;

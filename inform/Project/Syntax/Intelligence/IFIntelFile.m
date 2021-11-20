@@ -13,7 +13,7 @@
 
 // FIXME: symbols are supposed to be deliniated by type, so we should really be using one of these objects
 // per symbol type;
-NSString* IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotification";
+NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotification";
 
 @implementation IFIntelFile {
     // Data

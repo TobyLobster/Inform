@@ -10,19 +10,19 @@
 #import "IFEditingPreferencesSet.h"
 #import "IFProjectPane.h"
 
-NSString* IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
-NSString* IFPreferencesEditingDidChangeNotification     = @"IFPreferencesEditingDidChangeNotification";
-NSString* IFPreferencesAdvancedDidChangeNotification    = @"IFPreferencesAdvancedDidChangeNotification";
-NSString* IFPreferencesAppFontSizeDidChangeNotification = @"IFPreferencesAppFontSizeDidChangeNotification";
-NSString* IFPreferencesSkeinDidChangeNotification       = @"IFPreferencesSkeinDidChangeNotification";
+NSString* const IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
+NSString* const IFPreferencesEditingDidChangeNotification     = @"IFPreferencesEditingDidChangeNotification";
+NSString* const IFPreferencesAdvancedDidChangeNotification    = @"IFPreferencesAdvancedDidChangeNotification";
+NSString* const IFPreferencesAppFontSizeDidChangeNotification = @"IFPreferencesAppFontSizeDidChangeNotification";
+NSString* const IFPreferencesSkeinDidChangeNotification       = @"IFPreferencesSkeinDidChangeNotification";
 
-NSString* IFPreferencesDefault                  = @"IFApplicationPreferences";
+NSString* const IFPreferencesDefault                  = @"IFApplicationPreferences";
 
-static NSString* IFPreferencesHeadings          = @"Headings";
-static NSString* IFPreferencesMainText          = @"MainText";
-static NSString* IFPreferencesComments          = @"Comments";
-static NSString* IFPreferencesQuotedText        = @"QuotedText";
-static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
+static NSString* const IFPreferencesHeadings          = @"Headings";
+static NSString* const IFPreferencesMainText          = @"MainText";
+static NSString* const IFPreferencesComments          = @"Comments";
+static NSString* const IFPreferencesQuotedText        = @"QuotedText";
+static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 @implementation IFPreferences {
     // The preferences dictionary
@@ -195,12 +195,28 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
            notification: notification];
 }
 
+-(void) setPreferenceDouble: (NSString*) key
+                      value: (double) value
+               notification: notification {
+    [self setPreference: key
+                  value: @(value)
+           notification: notification];
+}
+
 -(int) getPreferenceFloat: (NSString*) key
                   default: (float) defaultValue {
     NSNumber* number = (NSNumber*)[self getPreference: key
                                               default: @(defaultValue)];
-    return [number intValue];
+    return [number floatValue];
 }
+
+-(int) getPreferenceDouble: (NSString*) key
+                  default: (double) defaultValue {
+    NSNumber* number = (NSNumber*)[self getPreference: key
+                                              default: @(defaultValue)];
+    return [number doubleValue];
+}
+
 
 -(void) setPreferenceColour: (NSString*) key
                       value: (NSColor*) value
@@ -253,28 +269,28 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
                  notification: IFPreferencesEditingDidChangeNotification];
 }
 
-- (float) sourceFontSize {
-    return [self getPreferenceFloat: @"sourceFontSize" default: defaultEditingPreferences.fontSize];
+- (CGFloat) sourceFontSize {
+    return [self getPreferenceDouble: @"sourceFontSize" default: defaultEditingPreferences.fontSize];
 }
 
-- (void) setSourceFontSize: (float) pointSize {
-    [self setPreferenceFloat: @"sourceFontSize"
-                       value: pointSize
-                notification: IFPreferencesEditingDidChangeNotification];
+- (void) setSourceFontSize: (CGFloat) pointSize {
+    [self setPreferenceDouble: @"sourceFontSize"
+                        value: pointSize
+                 notification: IFPreferencesEditingDidChangeNotification];
 }
 
-- (float) appFontSizeMultiplier {
+- (CGFloat) appFontSizeMultiplier {
     IFAppFontSize appFontSize = [self appFontSizeMultiplierEnum];
     switch ( appFontSize ) {
-        case IFAppFontSizeMinus100: return 1.0f/2.0f;
-        case IFAppFontSizeMinus75:  return 1.0f/1.75f;
-        case IFAppFontSizeMinus50:  return 1.0f/1.5f;
-        case IFAppFontSizeMinus25:  return 1.0f/1.25f;
-        case IFAppFontSizeNormal:   return 1.0f;
-        case IFAppFontSizePlus25:   return 1.25f;
-        case IFAppFontSizePlus50:   return 1.5f;
-        case IFAppFontSizePlus75:   return 1.75f;
-        case IFAppFontSizePlus100:  return 2.0f;
+        case IFAppFontSizeMinus100: return 1.0/2.0;
+        case IFAppFontSizeMinus75:  return 1.0/1.75;
+        case IFAppFontSizeMinus50:  return 1.0/1.5;
+        case IFAppFontSizeMinus25:  return 1.0/1.25;
+        case IFAppFontSizeNormal:   return 1.0;
+        case IFAppFontSizePlus25:   return 1.25;
+        case IFAppFontSizePlus50:   return 1.5;
+        case IFAppFontSizePlus75:   return 1.75;
+        case IFAppFontSizePlus100:  return 2.0;
     }
 }
 
@@ -288,12 +304,12 @@ static NSString* IFPreferencesTextSubstitutions = @"TextSubstitutions";
             notification: IFPreferencesAppFontSizeDidChangeNotification];
 }
 
-- (float) tabWidth {
-    return [self getPreferenceFloat: @"tabWidth" default: defaultEditingPreferences.tabWidth];
+- (CGFloat) tabWidth {
+    return [self getPreferenceDouble: @"tabWidth" default: defaultEditingPreferences.tabWidth];
 }
 
-- (void) setTabWidth: (float) newTabWidth {
-    [self setPreferenceFloat: @"tabWidth"
+- (void) setTabWidth: (CGFloat) newTabWidth {
+    [self setPreferenceDouble: @"tabWidth"
                        value: newTabWidth
                 notification: IFPreferencesEditingDidChangeNotification];
 }

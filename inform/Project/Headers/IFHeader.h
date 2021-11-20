@@ -10,7 +10,8 @@
 
 @class IFIntelSymbol;
 
-extern NSString* IFHeaderChangedNotification;	// Notification send when this heading has changed
+/// Notification send when this heading has changed
+extern NSNotificationName const IFHeaderChangedNotification;
 
 ///
 /// Model class representing a header in the header browser.
@@ -20,14 +21,19 @@ extern NSString* IFHeaderChangedNotification;	// Notification send when this hea
 @interface IFHeader : NSObject
 
 // Initialisation
-- (instancetype) initWithName: (NSString*) name			// Constructs a new header object
-			 parent: (IFHeader*) parent
-		   children: (NSArray*) children NS_DESIGNATED_INITIALIZER;
+/// Constructs a new header object
+- (instancetype) initWithName: (NSString*) name
+                       parent: (IFHeader*) parent
+                     children: (NSArray*) children NS_DESIGNATED_INITIALIZER;
 
 // Accessing values
-@property (atomic, copy) NSString *headingName;							// The name of this header
-@property (atomic, strong) IFHeader *parent;							// The parent of this header
-@property (atomic, copy) NSArray *children;								// The headings 'beneath' this one
-@property (atomic, strong) IFIntelSymbol *symbol;						// The symbol for this heading
+/// The name of this header
+@property (nonatomic, copy) NSString *headingName;
+/// The parent of this header
+@property (nonatomic, weak) IFHeader *parent;
+/// The headings 'beneath' this one
+@property (atomic, copy) NSArray *children;
+/// The symbol for this heading
+@property (atomic, strong) IFIntelSymbol *symbol;
 
 @end

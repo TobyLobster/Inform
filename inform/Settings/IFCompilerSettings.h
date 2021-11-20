@@ -11,33 +11,33 @@
 #import <Foundation/Foundation.h>
 
 // The settings keys
-extern NSString* IFSettingLibraryToUse; // default is `Standard'
-extern NSString* IFSettingZCodeVersion; // default is 5, 256 = GLULX
+extern NSString* const IFSettingLibraryToUse; // default is `Standard'
+extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
 
 // Switches
-extern NSString* IFSettingNaturalInform; // default NO
-extern NSString* IFSettingStrict;        // default YES
-extern NSString* IFSettingInfix;         // default NO
-extern NSString* IFSettingDEBUG;         // default YES
-extern NSString* IFSettingTestingTabHelpShown;  // default YES
-extern NSString* IFSettingTestingTabShownCount; // default 0
-extern NSString* IFSettingNobbleRng;            // default NO
-extern NSString* IFSettingCompilerVersion;      // default "Latest"
+extern NSString* const IFSettingNaturalInform; // default NO
+extern NSString* const IFSettingStrict;        // default YES
+extern NSString* const IFSettingInfix;         // default NO
+extern NSString* const IFSettingDEBUG;         // default YES
+extern NSString* const IFSettingTestingTabHelpShown;  // default YES
+extern NSString* const IFSettingTestingTabShownCount; // default 0
+extern NSString* const IFSettingNobbleRng;            // default NO
+extern NSString* const IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
-extern NSString* IFSettingCompileNatOutput;
-extern NSString* IFSettingRunBuildScript;
-extern NSString* IFSettingMemoryDebug;
+extern NSString* const IFSettingCompileNatOutput;
+extern NSString* const IFSettingRunBuildScript;
+extern NSString* const IFSettingMemoryDebug;
 
 // Notifications
-extern NSString* IFSettingNotification;
+extern NSNotificationName const IFSettingNotification;
 
 // Natural Inform
-extern NSString* IFSettingLoudly;
+extern NSString* const IFSettingLoudly;
 
 // Compiler types
-extern NSString* IFCompilerInform6;
-extern NSString* IFCompilerNaturalInform;
+extern NSString* const IFCompilerInform6;
+extern NSString* const IFCompilerNaturalInform;
 
 @class IFSetting;
 
@@ -46,12 +46,16 @@ extern NSString* IFCompilerNaturalInform;
 //
 @interface IFCompilerSettings : NSObject<NSCoding>
 
-+ (NSArray*) inform6LibraryPaths;							// The paths to Inform 6 libraries
-+ (NSString*) pathForLibrary: (NSString*) library;			// Path to an Inform 6 library with a specific name
-+ (NSArray*) availableLibraries;							// Set of available Inform 6 library
+/// The paths to Inform 6 libraries
++ (NSArray*) inform6LibraryPaths;
+/// Path to an Inform 6 library with a specific name
++ (NSString*) pathForLibrary: (NSString*) library;
+/// Set of available Inform 6 library
++ (NSArray*) availableLibraries;
 
 // Getting information on what is going on
-@property (atomic, readonly, copy) NSString *primaryCompilerType;	// The primary compiler type represented by these settings
+/// The primary compiler type represented by these settings
+@property (atomic, readonly, copy) NSString *primaryCompilerType;
 
 // Setting up the settings (deprecated: use an IFSetting object if at all possible)
 @property (atomic) BOOL usingNaturalInform;
@@ -76,7 +80,8 @@ extern NSString* IFCompilerNaturalInform;
 
 @property (atomic) BOOL debugMemory;
 
-- (void) settingsHaveChanged;										// Generates a settings changed notification
+/// Generates a settings changed notification
+- (void) settingsHaveChanged;
 
 // Generic settings (IFSetting)
 - (void)      setGenericSettings: (NSArray*) genericSettings;		// Sets the set of IFSetting objects to use

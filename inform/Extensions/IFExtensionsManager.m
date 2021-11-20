@@ -15,9 +15,9 @@
 #import "IFJSProject.h"
 #import "IFProjectController.h"
 
-NSString* IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";
-NSString* IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
-NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
+NSString* const IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";
+NSString* const IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
+NSString* const IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
 
 static int maxErrorMessagesToDisplay = 3;
 

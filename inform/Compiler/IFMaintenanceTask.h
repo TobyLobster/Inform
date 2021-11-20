@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 
-extern NSString* IFMaintenanceTasksStarted;
-extern NSString* IFMaintenanceTasksFinished;
+extern NSNotificationName const IFMaintenanceTasksStarted;
+extern NSNotificationName const IFMaintenanceTasksFinished;
 
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)

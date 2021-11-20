@@ -15,16 +15,16 @@
 // Notifications and their keys
 
 // Skein changed notification
-NSString* IFSkeinChangedNotification          = @"IFSkeinChangedNotification";
-NSString* IFSkeinChangedAnimateKey            = @"IFSkeinChangedAnimateKey";
-NSString* IFSkeinKeepActiveVisibleKey         = @"IFSkeinKeepActiveVisibleKey";
+NSString* const IFSkeinChangedNotification          = @"IFSkeinChangedNotification";
+NSString* const IFSkeinChangedAnimateKey            = @"IFSkeinChangedAnimateKey";
+NSString* const IFSkeinKeepActiveVisibleKey         = @"IFSkeinKeepActiveVisibleKey";
 
 // Skein replaced notification
-NSString* IFSkeinReplacedNotification         = @"IFSkeinReplacedNotification";
+NSString* const IFSkeinReplacedNotification         = @"IFSkeinReplacedNotification";
 
 // Skein selection changed notification
-NSString* IFSkeinSelectionChangedNotification = @"IFSkeinSelectionChangedNotification";
-NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey";
+NSString* const IFSkeinSelectionChangedNotification = @"IFSkeinSelectionChangedNotification";
+NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey";
 
 
 @interface IFSkein ()

@@ -9,13 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 // Notifications
-extern NSString* IFPreferencesAuthorDidChangeNotification;
-extern NSString* IFPreferencesEditingDidChangeNotification;
-extern NSString* IFPreferencesAdvancedDidChangeNotification;
-extern NSString* IFPreferencesAppFontSizeDidChangeNotification;	// Change to app font size
-extern NSString* IFPreferencesSkeinDidChangeNotification;
+extern NSString* const IFPreferencesAuthorDidChangeNotification;
+extern NSString* const IFPreferencesEditingDidChangeNotification;
+extern NSString* const IFPreferencesAdvancedDidChangeNotification;
+extern NSString* const IFPreferencesAppFontSizeDidChangeNotification;	// Change to app font size
+extern NSString* const IFPreferencesSkeinDidChangeNotification;
 
-extern NSString* IFPreferencesDefault;
+extern NSString* const IFPreferencesDefault;
 typedef enum IFAppFontSize {
     IFAppFontSizeMinus100,
     IFAppFontSizeMinus75,
@@ -39,7 +39,7 @@ typedef enum IFRelativeFontSize {
     IFFontSizePlus30,
 } IFRelativeFontSize;
 
-typedef enum IFSyntaxHighlightingOptionType {
+typedef NS_ENUM(int, IFSyntaxHighlightingOptionType) {
     IFSHOptionHeadings,
     IFSHOptionMainText,
     IFSHOptionComments,
@@ -47,14 +47,14 @@ typedef enum IFSyntaxHighlightingOptionType {
     IFSHOptionTextSubstitutions,
     
     IFSHOptionCount
-} IFSyntaxHighlightingOptionType;
+};
 
-typedef enum IFFontStyle {
+typedef NS_OPTIONS(UInt32, IFFontStyle) {
     IFFontStyleRegular,
     IFFontStyleItalic,
     IFFontStyleBold,
     IFFontStyleBoldItalic,
-} IFFontStyle;
+};
 
 @class IFEditingPreferencesSet;
 
@@ -66,20 +66,22 @@ typedef enum IFFontStyle {
 @interface IFPreferences : NSObject
 
 // Constructing the object
-+ (IFPreferences*) sharedPreferences;										// The shared preference object
+/// The shared preference object
++ (IFPreferences*) sharedPreferences;
 
 // Preferences
-- (void) preferencesHaveChanged;											// Generates a notification that preferences have changed
+/// Generates a notification that preferences have changed
+- (void) preferencesHaveChanged;
 
 -(void) startBatchEditing;
 -(void) endBatchEditing;
 
 // Editing preferences
 @property (atomic, copy) NSString *sourceFontFamily;
-@property (atomic) float sourceFontSize;
-@property (atomic, readonly) float appFontSizeMultiplier;
+@property (atomic) CGFloat sourceFontSize;
+@property (atomic, readonly) CGFloat appFontSizeMultiplier;
 @property (atomic) IFAppFontSize appFontSizeMultiplierEnum;
-@property (atomic) float tabWidth;
+@property (atomic) CGFloat tabWidth;
 
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType;
@@ -98,8 +100,10 @@ typedef enum IFFontStyle {
 -(void) setSourceUnderline: (BOOL) underline
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
-- (void) recalculateStyles;								// Regenerate the array of attribute dictionaries that make up the styles
-@property (atomic, readonly, copy) NSArray *styles;		// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
+/// Regenerate the array of attribute dictionaries that make up the styles
+- (void) recalculateStyles;
+/// Retrieves an array of attribute dictionaries that describe how the styles should be displayed
+@property (atomic, readonly, copy) NSArray *styles;
 
 // Intelligence preferences
 @property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
@@ -114,14 +118,22 @@ typedef enum IFFontStyle {
 @property (atomic, copy) NSColor *extensionPaperColour;
 
 // Advanced preferences
-@property (atomic) BOOL runBuildSh;						// YES if we should run the build.sh shell script to rebuild Inform 7
-@property (atomic) BOOL alwaysCompile;					// YES if we should always compile the source (no make-style dependency checking)
-@property (atomic) BOOL showDebuggingLogs;				// YES if we should show the Inform 7 debugging logs + generated Inform 6 source code
-@property (atomic) BOOL showConsoleDuringBuilds;        // YES if we want to see the console output during a build
-@property (atomic) BOOL publicLibraryDebug;             // YES if we want to debug the public library
-@property (atomic) BOOL cleanProjectOnClose;            // YES if we should clean the project when we close it (or when saving)
-@property (atomic) BOOL alsoCleanIndexFiles;			// YES if we should additionally clean out the index files
-@property (atomic, copy) NSString *glulxInterpreter;	// The preferred glulx interpreter
+/// \c YES if we should run the build.sh shell script to rebuild Inform 7
+@property (atomic) BOOL runBuildSh;
+/// \c YES if we should always compile the source (no make-style dependency checking)
+@property (atomic) BOOL alwaysCompile;
+/// \c YES if we should show the Inform 7 debugging logs + generated Inform 6 source code
+@property (atomic) BOOL showDebuggingLogs;
+/// \c YES if we want to see the console output during a build
+@property (atomic) BOOL showConsoleDuringBuilds;
+/// \c YES if we want to debug the public library
+@property (atomic) BOOL publicLibraryDebug;
+/// \c YES if we should clean the project when we close it (or when saving)
+@property (atomic) BOOL cleanProjectOnClose;
+/// \c YES if we should additionally clean out the index files
+@property (atomic) BOOL alsoCleanIndexFiles;
+/// The preferred glulx interpreter
+@property (atomic, copy) NSString *glulxInterpreter;
 
 
 // Position of preferences window

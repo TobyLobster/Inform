@@ -6,7 +6,7 @@
 //
 
 #import "IFToolbar.h"
-NSString* IFToolbarChangedVisibility = @"IFToolbarChangedVisibility";
+NSString* const IFToolbarChangedVisibility = @"IFToolbarChangedVisibility";
 
 @implementation IFToolbar
 
