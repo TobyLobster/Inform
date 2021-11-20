@@ -93,8 +93,8 @@ OSStatus GenerateThumbnailForURL(void *thisInterface, QLThumbnailRequestRef thum
 	size.height = 840;
 	CGContextRef cgContext = QLThumbnailRequestCreateContext(thumbnail, size, true, NULL);
 	
-	NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithGraphicsPort: cgContext
-																			flipped: NO];
+    NSGraphicsContext* context = [NSGraphicsContext graphicsContextWithCGContext: cgContext
+                                                                         flipped: NO];
 	
 	// Start drawing
 	[NSGraphicsContext saveGraphicsState];

@@ -12,7 +12,7 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFProject.h"
 
-NSString* IFIsNotesInspector = @"IFIsNotesInspector";
+NSString* const IFIsNotesInspector = @"IFIsNotesInspector";
 
 @implementation IFIsNotes {
     IFProject* activeProject;				// Currently selected project

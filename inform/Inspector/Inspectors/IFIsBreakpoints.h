@@ -10,20 +10,25 @@
 
 #import "IFInspector.h"
 
-// The inspector key for this window
-extern NSString* IFIsBreakpointsInspector;
+/// The inspector key for this window
+extern NSString* const IFIsBreakpointsInspector;
 
-//
-// The breakpoints inspector
-//
+///
+/// The breakpoints inspector
+///
 @interface IFIsBreakpoints : IFInspector
 
-+ (IFIsBreakpoints*) sharedIFIsBreakpoints; // Retrieves the shared breakpoint inspector
+/// Retrieves the shared breakpoint inspector
++ (IFIsBreakpoints*) sharedIFIsBreakpoints;
 
-// Menu actions
-- (IBAction) cut:    (id) sender;			// Cuts the current breakpoint
-- (IBAction) copy:   (id) sender;			// Copies the current breakpoint
-- (IBAction) paste:  (id) sender;			// Pastes a breakpoint on the clipboard
-- (IBAction) delete: (id) sender;			// Deletes the current breakpoint
+#pragma mark Menu actions
+/// Cuts the current breakpoint
+- (IBAction) cut:    (id) sender;
+/// Copies the current breakpoint
+- (IBAction) copy:   (id) sender;
+/// Pastes a breakpoint on the clipboard
+- (IBAction) paste:  (id) sender;
+/// Deletes the current breakpoint
+- (IBAction) delete: (id) sender;
 
 @end

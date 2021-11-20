@@ -10,15 +10,19 @@
 
 #import "IFInspector.h"
 
-extern NSString* IFIsFilesInspector;
+extern NSString* const IFIsFilesInspector;
 
-@interface IFIsFiles : IFInspector
+@interface IFIsFiles : IFInspector <NSTableViewDataSource, NSTableViewDelegate>
 
-+ (IFIsFiles*) sharedIFIsFiles;							// The shared files inspector
+/// The shared files inspector
++ (IFIsFiles*) sharedIFIsFiles;
 
-- (IBAction) removeFile: (id) sender;					// Removes the currently selected file(s) from the project
+/// Removes the currently selected file(s) from the project
+- (IBAction) removeFile: (id) sender;
 
-- (void) updateFiles;									// Updates the list of files
-- (void) setSelectedFile;								// Sets the currently selected file to the one being displayed in the source pane of the current window
+/// Updates the list of files
+- (void) updateFiles;
+/// Sets the currently selected file to the one being displayed in the source pane of the current window
+- (void) setSelectedFile;
 
 @end

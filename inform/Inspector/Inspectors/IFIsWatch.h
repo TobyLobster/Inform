@@ -10,8 +10,8 @@
 
 #import "IFInspector.h"
 
-// The inspector key for this window
-extern NSString* IFIsWatchInspector;
+/// The inspector key for this window
+extern NSString* const IFIsWatchInspector;
 
 // 'Special' evaluation values
 enum {
@@ -19,19 +19,23 @@ enum {
 	IFEvalNoGame = 0xfffffffe
 };
 
-//
-// Inspector that provides the interface to watch or evaluate expressions
-//
-// Unlike 'real' debuggers, Zoom can't break on watchpoints without seriously sacrificing performance, so
-// we don't do that.
-//
+///
+/// Inspector that provides the interface to watch or evaluate expressions
+///
+/// Unlike 'real' debuggers, Zoom can't break on watchpoints without seriously sacrificing performance, so
+/// we don't do that.
+///
 @interface IFIsWatch : IFInspector
 
-+ (IFIsWatch*) sharedIFIsWatch;								// The shared watch inspector
+/// The shared watch inspector
++ (IFIsWatch*) sharedIFIsWatch;
 
-- (IBAction) expressionChanged: (id) sender;				// Called when the quick watch expression has changed to a new value
+/// Called when the quick watch expression has changed to a new value
+- (IBAction) expressionChanged: (id) sender;
 
-- (unsigned) evaluateExpression: (NSString*) expression;	// Returns the integer result of evaluating an Inform expression
-- (void) refreshExpressions;								// Refreshes the expressions displayed in the watch table
+/// Returns the integer result of evaluating an Inform expression
+- (unsigned) evaluateExpression: (NSString*) expression;
+/// Refreshes the expressions displayed in the watch table
+- (void) refreshExpressions;
 
 @end

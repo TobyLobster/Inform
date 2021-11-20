@@ -54,11 +54,9 @@ enum {
 	newFilename = nil;
 	
 	// Run the sheet
-	[NSApp beginSheet: [self window]
-	   modalForWindow: [projectController window]
-		modalDelegate: nil
-	   didEndSelector: nil
-		  contextInfo: nil];
+    [[projectController window] beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+        // do nothing?
+    }];
 	[NSApp runModalForWindow: [self window]];
 	[NSApp endSheet: [self window]];
 	[[self window] orderOut: self];

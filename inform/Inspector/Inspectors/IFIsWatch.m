@@ -18,16 +18,22 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import <ZoomView/ZoomView.h>
 
-NSString* IFIsWatchInspector = @"IFIsWatchInspector";
+NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 
 @implementation IFIsWatch {
-    IBOutlet NSTextField* expression;						// The 'quick watch' expression
-    IBOutlet NSTextField* expressionResult;					// Field that contains the result of evaluating the quick watch expression
-    IBOutlet NSTableView* watchTable;						// Table of more permanent watch expressions
+    /// The 'quick watch' expression
+    IBOutlet NSTextField* expression;
+    /// Field that contains the result of evaluating the quick watch expression
+    IBOutlet NSTextField* expressionResult;
+    /// Table of more permanent watch expressions
+    IBOutlet NSTableView* watchTable;
 
-    NSWindow* activeWin;									// The currently active window
-    IFProject* activeProject;								// The currently active project
-    IFProjectController* activeController;					// The active window controller (if it's a ProjectController)
+    /// The currently active window
+    NSWindow* activeWin;
+    /// The currently active project
+    IFProject* activeProject;
+    /// The active window controller (if it's a ProjectController)
+    IFProjectController* activeController;
 }
 
 // = Initialisation =

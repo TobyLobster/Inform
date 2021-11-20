@@ -448,8 +448,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 			}
 		}
 
-        if (delegate &&
-            [delegate respondsToSelector: @selector(taskFinished:)]) {
+        if ([delegate respondsToSelector: @selector(taskFinished:)]) {
             [delegate taskFinished: exitCode];
         }
 

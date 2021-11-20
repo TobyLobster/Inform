@@ -10,13 +10,14 @@
 
 #import "IFInspector.h"
 
-extern NSString* IFIsNotesInspector;
+extern NSString* const IFIsNotesInspector;
 
-//
-// RTF notes inspector
-//
+///
+/// RTF notes inspector
+///
 @interface IFIsNotes : IFInspector
 
-+ (IFIsNotes*) sharedIFIsNotes;				// Gets the shared instance of the inspector class
+/// Gets the shared instance of the inspector class
++ (IFIsNotes*) sharedIFIsNotes;
 
 @end

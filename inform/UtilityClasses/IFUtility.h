@@ -26,10 +26,10 @@ CGFloat easeOutCubic(CGFloat t);
 + (bool) url:(NSURL*) url1 equals:(NSURL*) url2;
 + (NSString*) localizedString:(NSString*) key;
 + (NSString*) localizedString: (NSString*) key
-                      default: (NSString*) value;
+                      default: (NSString*) value NS_FORMAT_ARGUMENT(2);
 + (NSString*) localizedString: (NSString*) key
                       default: (NSString*) value
-                        table: (NSString*) table;
+                        table: (NSString*) table NS_FORMAT_ARGUMENT(2);
 
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (NSWindow*) window
@@ -111,7 +111,7 @@ CGFloat easeOutCubic(CGFloat t);
 + (void) performSelector:(SEL) selector object:(id) object;
 
 // Attributes for NSAttributedString
-+(NSDictionary*) adjustAttributesFontSize: (NSDictionary*) dictionary
++(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
 + (NSString*) coreBuildVersion;
 

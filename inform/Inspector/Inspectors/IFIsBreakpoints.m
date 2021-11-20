@@ -13,14 +13,18 @@
 #import "IFProjectController.h"
 #import "IFCompilerSettings.h"
 
-NSString* IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
+NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 
 @implementation IFIsBreakpoints {
-    NSWindow* activeWin;								// The currently active window
-    IFProject* activeProject;							// The currently active project
-    IFProjectController* activeController;				// The currently active window controller (if it's a ProjectController)
+    /// The currently active window
+    NSWindow* activeWin;
+    /// The currently active project
+    IFProject* activeProject;
+    /// The currently active window controller (if it's a ProjectController)
+    IFProjectController* activeController;
 
-    IBOutlet NSTableView* breakpointTable;				// The table that will contain the list of breakpoints
+    /// The table that will contain the list of breakpoints
+    IBOutlet NSTableView* breakpointTable;
 }
 
 // = Initialisation =
