@@ -19,11 +19,12 @@
 
 #pragma mark - Initialization
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com;
+- (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com identifier: (NSUUID*) uuid NS_DESIGNATED_INITIALIZER;
 -(instancetype) initWithCoder: (NSCoder *) decoder;
 
 #pragma mark - Properties
-@property (atomic, readonly)          unsigned long   uniqueId;
+@property (atomic, readonly, strong)  NSUUID *        uniqueId;
 @property (atomic, strong)            IFSkein *       skein;
 @property (nonatomic, weak)           IFSkeinItem *   parent;
 @property (atomic, readonly, copy)    NSArray<IFSkeinItem*> *       children;

@@ -114,30 +114,18 @@
 											   ofType: [urlPath pathExtension]
                                           inDirectory: [urlPath stringByDeletingLastPathComponent]];
 	}
-
-	if (path == nil) {
-		// If that fails, then just append to the resourcePath of the main bundle
-		path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingString: @"/"] stringByAppendingString: urlPath];
-	}
-
-	// Check that this is the right kind of URL for us
-	if (path == nil || ![[[theURLRequest URL] scheme] isEqualToString: @"inform"]) {
-		// Doh - not a valid inform: URL
-		[theClient URLProtocol: self
-			  didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
-													code: NSURLErrorBadURL
-												userInfo: nil]];
-		return;
-	}
-	
-    // Check if the file is in an asset catalog.
-    BOOL notThere = [[NSBundle mainBundle] pathForImageResource:[path stringByDeletingPathExtension]] == nil;
-    NSImage *img = [NSImage imageNamed: [path stringByDeletingPathExtension]];
     
-    if (notThere && img != nil) {
+    // Check if the file is in an asset catalog.
+    NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
+    if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
+        assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
+    }
+    NSImage *img = [NSImage imageNamed: assetCheckPath];
+    
+    if (path == nil && img != nil) {
         //Just output TIFF: it uses the least amount of code:
         NSData *urlData = [img TIFFRepresentation];
-        //Which means a TIFF MIME type. Regardless of
+        //Which means a TIFF MIME type. Regardless of extension.
         NSString *ourType = @"image/tiff";
         
         // Create the response
@@ -156,7 +144,24 @@
         
         // We finished loading
         [theClient URLProtocolDidFinishLoading: self];
-    } else {
+        return;
+    }
+
+	if (path == nil) {
+		// If that fails, then just append to the resourcePath of the main bundle
+		path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingString: @"/"] stringByAppendingString: urlPath];
+	}
+
+	// Check that this is the right kind of URL for us
+	if (path == nil || ![[[theURLRequest URL] scheme] isEqualToString: @"inform"]) {
+		// Doh - not a valid inform: URL
+		[theClient URLProtocol: self
+			  didFailWithError: [NSError errorWithDomain: NSURLErrorDomain
+													code: NSURLErrorBadURL
+												userInfo: nil]];
+		return;
+	}
+    
 	// Check that the file exists and is not a directory
 	BOOL isDir = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: path
@@ -216,7 +221,6 @@
 	
 	// We finished loading
 	[theClient URLProtocolDidFinishLoading: self];
-    }
 }
 
 - (void) stopLoading {

@@ -11,7 +11,7 @@
 
 static NSString* idForNode(IFSkeinItem* item) {
     // Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
-    return [NSString stringWithFormat: @"node-%lu", item.uniqueId];
+    return item.uniqueId.UUIDString;
 }
 
 @implementation IFSkein(IFSkeinXML)
@@ -68,6 +68,10 @@ static NSString* idForNode(IFSkeinItem* item) {
             NSLog(@"IFSkein: Warning - found item with no ID");
             continue;
         }
+        NSUUID *nodeUUID = [[NSUUID alloc] initWithUUIDString: itemNodeId];
+        if (!nodeUUID) {
+            nodeUUID = [NSUUID UUID];
+        }
 
         NSString* command = [IFSkein firstChildOf: item withName: @"command"].stringValue;
         NSString* actual  = [IFSkein firstChildOf: item withName: @"result"].stringValue;
@@ -78,7 +82,7 @@ static NSString* idForNode(IFSkeinItem* item) {
             command = @"";
         }
 
-        IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
+        IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command identifier: nodeUUID];
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 
@@ -206,9 +210,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         [itemStack removeLastObject];
 
         // Push any children of this node
-        for( IFSkeinItem* childNode in [node children] ) {
-            [itemStack addObject: childNode];
-        }
+        [itemStack addObjectsFromArray: node.children];
 
         // We only output non-test nodes
         if( !node.isTestSubItem ) {

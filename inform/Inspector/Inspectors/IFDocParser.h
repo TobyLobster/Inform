@@ -10,10 +10,10 @@
 
 typedef NSString *IFDocAttributeKey NS_STRING_ENUM;
 
-extern IFDocAttributeKey const IFDocHtmlTitleAttribute;
-extern IFDocAttributeKey const IFDocTitleAttribute;
-extern IFDocAttributeKey const IFDocSectionAttribute;
-extern IFDocAttributeKey const IFDocSortAttribute;
+extern IFDocAttributeKey const IFDocAttributeHtmlTitle;
+extern IFDocAttributeKey const IFDocAttributeTitle;
+extern IFDocAttributeKey const IFDocAttributeSection;
+extern IFDocAttributeKey const IFDocAttributeSort;
 
 ///
 /// Information about an example section foun in the HTML

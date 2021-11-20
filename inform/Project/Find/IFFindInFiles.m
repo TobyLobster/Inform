@@ -245,15 +245,15 @@
                     storage = [fileContents plainText];
                     
                     // Work out the display name
-                    NSString* title = [fileContents attributes][IFDocTitleAttribute];
-                    NSString* section = [fileContents attributes][IFDocSectionAttribute];
+                    NSString* title = [fileContents attributes][IFDocAttributeTitle];
+                    NSString* section = [fileContents attributes][IFDocAttributeSection];
                     
-                    sortKey = [fileContents attributes][IFDocSortAttribute];
+                    sortKey = [fileContents attributes][IFDocAttributeSort];
                     
                     if (title != nil && section != nil) {
                         displayName = [NSString stringWithFormat: @"%@: %@", section, title];
                     } else {
-                        displayName = [fileContents attributes][IFDocHtmlTitleAttribute];
+                        displayName = [fileContents attributes][IFDocAttributeHtmlTitle];
                     }
                     
                     exampleInfo     = [fileContents exampleInfo];

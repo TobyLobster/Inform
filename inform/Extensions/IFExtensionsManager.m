@@ -69,6 +69,10 @@ static int maxErrorMessagesToDisplay = 3;
     NSString* result = displayName;
     if( [[result lowercaseString] startsWith: @"the "] ) {
         result = [result substringFromIndex:4];
+    } else if( [[result lowercaseString] startsWith: @"a "] ) {
+        result = [result substringFromIndex:2];
+    } else if( [[result lowercaseString] startsWith: @"an "] ) {
+        result = [result substringFromIndex:3];
     }
     
     // Remove proviso in brackets

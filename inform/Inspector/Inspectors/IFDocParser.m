@@ -69,10 +69,10 @@
     NSArray<IFCodeInfo*>*        definitionInfo;
 }
 
-NSString* const IFDocHtmlTitleAttribute = @"IFDocHtmlTitle";
-NSString* const IFDocTitleAttribute = @"IFDocTitle";
-NSString* const IFDocSectionAttribute = @"IFDocSection";
-NSString* const IFDocSortAttribute = @"IFDocSort";
+NSString* const IFDocAttributeHtmlTitle = @"IFDocHtmlTitle";
+NSString* const IFDocAttributeTitle = @"IFDocTitle";
+NSString* const IFDocAttributeSection = @"IFDocSection";
+NSString* const IFDocAttributeSort = @"IFDocSort";
 
 // = Static dictionaries =
 
@@ -414,17 +414,17 @@ typedef NS_ENUM(unsigned int, ParseState) {
 								int prefixLen = (int) [@"SEARCH TITLE \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								attr[IFDocTitleAttribute] = comment;
+								attr[IFDocAttributeTitle] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SECTION \""]) {
 								int prefixLen = (int) [@"SEARCH SECTION \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								attr[IFDocSectionAttribute] = comment;
+								attr[IFDocAttributeSection] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
 								int prefixLen = (int) [@"SEARCH SORT \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+2))];
 								
-								attr[IFDocSortAttribute] = comment;
+								attr[IFDocAttributeSort] = comment;
 							}
                         }
 						break;
@@ -452,7 +452,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 		}
 
 		// Tidy up
-		attr[IFDocHtmlTitleAttribute] = [[NSString alloc] initWithCharactersNoCopy: title
+		attr[IFDocAttributeHtmlTitle] = [[NSString alloc] initWithCharactersNoCopy: title
                                                                             length: titleLength
                                                                       freeWhenDone: YES];
 

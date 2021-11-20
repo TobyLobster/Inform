@@ -33,7 +33,7 @@ extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNo
                   md5Hash: (NSString*) md5Hash
                 isBuiltIn: (BOOL) isBuiltIn NS_DESIGNATED_INITIALIZER;
 
-/// Remove leading "The " and trailing proviso (in brackets) from a display name to get title used for extension filename
+/// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;
 -(BOOL) isEqual: (id) other;

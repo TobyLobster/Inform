@@ -31,10 +31,15 @@
 
 - (instancetype) initWithSkein: (IFSkein*) skein
                        command: (NSString*) com {
+    return [self initWithSkein: skein command:com identifier: nil];
+}
+- (instancetype) initWithSkein:(IFSkein*) skein
+                       command: (NSString*) com
+                    identifier: (NSUUID*) uuid {
 	self = [super init];
 
 	if (self) {
-        _uniqueId       = [IFUtility generateID];
+        _uniqueId       = uuid ? uuid : [NSUUID UUID];
         _command        = [[self class] sanitizeCommand: com];
 		_actual         = @"";
         _ideal          = @"";
@@ -60,6 +65,7 @@
     [encoder encodeObject: _children    forKey: @"children"];
     [encoder encodeObject: _command     forKey: @"command"];
     [encoder encodeObject: _actual      forKey: @"result"];
+    [encoder encodeObject: _uniqueId    forKey: @"uniqueID"];
     [encoder encodeBool: _isTestSubItem forKey: @"isTestSubItem"];
 }
 
@@ -67,7 +73,10 @@
     self = [self initWithSkein: nil command: @""];
 
     if (self) {
-        _uniqueId       = [IFUtility generateID];
+        _uniqueId       = [decoder decodeObjectForKey: @"uniqueID"];
+        if (!_uniqueId) {
+            _uniqueId = [NSUUID UUID];
+        }
         _children       = [decoder decodeObjectForKey: @"children"];
         _command        = [decoder decodeObjectForKey: @"command"];
         _actual         = [decoder decodeObjectForKey: @"result"];
@@ -520,7 +529,7 @@
         IFSkeinItem* mergedItem = self;
 
         // Go through remaining entries, inserting test child items as we go
-        for( int index = 1; index < actualResults.count; index++ ) {
+        for( NSInteger index = 1; index < actualResults.count; index++ ) {
             NSString* actualEntry = actualResults[index];
             NSString* actualCommand = [IFSkeinItem commandForEntry: actualEntry index:index];
             NSString* actualOutput  = [IFSkeinItem outputForEntry: actualEntry];
