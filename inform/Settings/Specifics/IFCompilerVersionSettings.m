@@ -9,7 +9,6 @@
 #import "IFCompilerVersionSettings.h"
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
-#import "IFCompilerListEntry.h"
 #import "Inform-Swift.h"
 
 @implementation IFCompilerVersionSettings {

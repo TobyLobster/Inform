@@ -10,7 +10,7 @@ import Foundation
 @objcMembers final class CompilerList: NSObject {
 	static let compilerList = readCompilerRetrospectiveFile()
 	
-	static func readCompilerRetrospectiveFile() -> [IFCompilerListEntry] {
+	static func readCompilerRetrospectiveFile() -> [Entry] {
 		let fileURL = Bundle.main.url(forResource: "retrospective", withExtension: "txt", subdirectory: "App/Compilers")!
 		let contents = try! String(contentsOf: fileURL, encoding: .utf8)
 		
@@ -24,14 +24,33 @@ import Foundation
 			return String(theString)
 		}
 		
-		return matches.map { match -> IFCompilerListEntry in
+		return matches.map { match -> Entry in
 			let identifier = getString(in: match, capture: 1)
 			let displayName = getString(in: match, capture: 2)
 			let description = getString(in: match, capture: 3)
 			
-			return IFCompilerListEntry(id: identifier, displayName: displayName, description: description)
+			return Entry(identifier: identifier, displayName: displayName, description: description)
 		}
 	}
 	
 	private override init() {}
+	
+	@objcMembers @objc(IFCompilerListEntry) class Entry: NSObject {
+		@objc(id) let identifier: String
+
+		let displayName: String
+
+		override var description: String {
+			return ourdescription
+		}
+
+		private let ourdescription: String
+		
+		init(identifier: String, displayName: String, description: String) {
+			self.identifier = identifier
+			self.displayName = displayName
+			ourdescription = description
+		}
+	}
+
 }
