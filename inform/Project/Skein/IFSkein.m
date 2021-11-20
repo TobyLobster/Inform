@@ -7,10 +7,10 @@
 
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
-#import "IFTestCommands.h"
 #import "IFProject.h"
 #import "NSString+IFStringExtensions.h"
 #import <Foundation/Foundation.h>
+#import "Inform-Swift.h"
 
 // Notifications and their keys
 
@@ -231,8 +231,8 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
 }
 
 // = Creating an input receiver =
-+ (id) inputSourceFromSkeinItem: (IFSkeinItem*) item1
-						 toItem: (IFSkeinItem*) item2 {
++ (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
+                                              toItem: (IFSkeinItem*) item2 {
 	// item1 must be a parent of item2, and neither can be nil
 	// item1 is not executed
 	if (item1 == nil || item2 == nil) return nil;
@@ -251,9 +251,8 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
 	}
 
 	// commandsToExecute contains the list of commands we need to execute
-	IFTestCommands* source = [[IFTestCommands alloc] init];
+    TestCommands* source = [[TestCommands alloc] initWithCommands: commandsToExecute];
 
-	[source setCommands: commandsToExecute];
 	return source;
 }
 

@@ -39,20 +39,23 @@ typedef enum IFProjectPaneType {
 	IFUnknownPane       = 256
 } IFProjectPaneType;
 
-//
-// Protocol that can be implemented by other objects that wish to act like the 'other' panel when actions
-// can span both panels
-//
+///
+/// Protocol that can be implemented by other objects that wish to act like the 'other' panel when actions
+/// can span both panels
+///
 @protocol IFProjectPane<NSTabViewDelegate>
 
-- (void) selectViewOfType: (IFProjectPaneType) pane;            // Changes the view displayed in this pane to the specified setting
-- (IFSourcePage*) sourcePage;                                   // The page representing the source page
+/// Changes the view displayed in this pane to the specified setting
+- (void) selectViewOfType: (IFProjectPaneType) pane;
+/// The page representing the source page
+- (IFSourcePage*) sourcePage;
 
 @end
 
 @protocol IFHistoryRecorder <NSObject>
 
-- (IFHistoryEvent*) historyEvent;                               // Retrieves a history event that can have new events recorded via the proxy
+/// Retrieves a history event that can have new events recorded via the proxy
+- (IFHistoryEvent*) historyEvent;
 
 @end
 
@@ -62,8 +65,10 @@ typedef enum IFProjectPaneType {
 @interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder>
 
 // Class methods
-+ (IFProjectPane*) standardPane;								// Create/load a project pane
-+ (NSDictionary*) attributeForStyle: (IFSyntaxStyle) style;		// Retrieve the attributes to use for a certain syntax highlighting style
+/// Create/load a project pane
++ (IFProjectPane*) standardPane;
+/// Retrieve the attributes to use for a certain syntax highlighting style
++ (NSDictionary<NSAttributedStringKey, id>*) attributeForStyle: (IFSyntaxStyle) style;
 
 // Sets the project controller (once the nib has loaded and the project controller been set, we are considered 'awake')
 - (IFProjectController*) controller;
@@ -72,50 +77,77 @@ typedef enum IFProjectPaneType {
 
 
 // Dealing with the contents of the NIB file
-@property (atomic, readonly, strong) NSView *                 paneView;			// The main pane view
-@property (atomic, readonly, strong) NSView *                 activeView;			// The presently displayed pane
-@property (atomic, readonly, strong) IFCompilerController *   compilerController;	// The compiler controller associated with this view
-@property (atomic, readonly) IFProjectPaneType                currentView;        // Returns the currently displayed view (IFUnknownPane is a possibility for some views I haven't added code to check for)
-@property (atomic, readonly, strong) NSTabView *              tabView;            // The tab view itself
+/// The main pane view
+@property (atomic, readonly, strong) NSView *                 paneView;
+/// The presently displayed pane
+@property (atomic, readonly, strong) NSView *                 activeView;
+/// The compiler controller associated with this view
+@property (atomic, readonly, strong) IFCompilerController *   compilerController;
+/// Returns the currently displayed view (\c IFUnknownPane is a possibility for some views I haven't added code to check for)
+@property (atomic, readonly) IFProjectPaneType                currentView;
+/// The tab view itself
+@property (atomic, readonly, strong) NSTabView *              tabView;
 
 // Pages
-@property (atomic, readonly, strong) IFSourcePage *           sourcePage;         // The page representing the source code
-@property (atomic, readonly, strong) IFErrorsPage *           errorsPage;			// The page displaying the results from the compiler
-@property (atomic, readonly, strong) IFIndexPage *            indexPage;			// The page representing the index
-@property (atomic, readonly, strong) IFSkeinPage *            skeinPage;			// The page representing the skein
-@property (atomic, readonly, strong) IFSettingsPage *         settingsPage;		// The page representing the settings for this project
-@property (atomic, readonly, strong) IFGamePage *             gamePage;			// The page representing the running game
-@property (atomic, readonly, strong) IFDocumentationPage *    documentationPage;	// The page representing the documentation
-@property (atomic, readonly, strong) IFExtensionsPage *       extensionsPage;     // The page representing the extensions
+/// The page representing the source code
+@property (atomic, readonly, strong) IFSourcePage *           sourcePage;
+/// The page displaying the results from the compiler
+@property (atomic, readonly, strong) IFErrorsPage *           errorsPage;
+/// The page representing the index
+@property (atomic, readonly, strong) IFIndexPage *            indexPage;
+/// The page representing the skein
+@property (atomic, readonly, strong) IFSkeinPage *            skeinPage;
+/// The page representing the settings for this project
+@property (atomic, readonly, strong) IFSettingsPage *         settingsPage;
+/// The page representing the running game
+@property (atomic, readonly, strong) IFGamePage *             gamePage;
+/// The page representing the documentation
+@property (atomic, readonly, strong) IFDocumentationPage *    documentationPage;
+/// The page representing the extensions
+@property (atomic, readonly, strong) IFExtensionsPage *       extensionsPage;
 
 
-- (void) willClose;												// Notification from the controller that this object will be destroyed shortly
-- (void) removeFromSuperview;									// Removes the pane from its superview
+/// Notification from the controller that this object will be destroyed shortly
+- (void) willClose;
+/// Removes the pane from its superview
+- (void) removeFromSuperview;
 
 // Dealing with pages
-- (void) addPage: (IFPage*) newPage;							// Adds a new page to this control
+/// Adds a new page to this control
+- (void) addPage: (IFPage*) newPage;
 
-- (void) setIsActive: (BOOL) isActive;							// Sets whether or not this pane should be the default for keyboard events
+/// Sets whether or not this pane should be the default for keyboard events
+- (void) setIsActive: (BOOL) isActive;
 
 // Selecting the view
-- (void) selectViewOfType: (IFProjectPaneType) pane;            // Changes the view displayed in this pane to the specified setting
+/// Changes the view displayed in this pane to the specified setting
+- (void) selectViewOfType: (IFProjectPaneType) pane;
 
 // The source page
-- (void) prepareToSave;                                         // Informs this pane that it's time to prepare to save the document
-- (void) showSourceFile: (NSString*) file;                      // Sets the source page to show a specific source file
+/// Informs this pane that it's time to prepare to save the document
+- (void) prepareToSave;
+/// Sets the source page to show a specific source file
+- (void) showSourceFile: (NSString*) file;
 
 // The game page
-- (void) stopRunningGame;                                       // Convenience method
+/// Convenience method
+- (void) stopRunningGame;
 
 // Search/replace
-- (void) performFindPanelAction: (id) sender;                   // Called to invoke the find panel for the current pane
+/// Called to invoke the find panel for the current pane
+- (void) performFindPanelAction: (id) sender;
 
 // History
-@property (atomic, readonly, strong) IFHistoryEvent * historyEvent;	// Gets the current history event for this run through the loop
-@property (atomic, readonly, strong) id               history;		// Returns a proxy for this object for a new history item
-- (void) addHistoryInvocation: (NSInvocation*) invoke;                              // Adds a new invocation to the forward/backwards history
-- (IBAction) goForwards: (id) sender;                                               // Go forwards in the history
-- (IBAction) goBackwards: (id) sender;                                              // Go backwards in the history
+/// Gets the current history event for this run through the loop
+@property (atomic, readonly, strong) IFHistoryEvent * historyEvent;
+/// Returns a proxy for this object for a new history item
+@property (atomic, readonly, strong) id               history;
+/// Adds a new invocation to the forward/backwards history
+- (void) addHistoryInvocation: (NSInvocation*) invoke;
+/// Go forwards in the history
+- (IBAction) goForwards: (id) sender;
+/// Go backwards in the history
+- (IBAction) goBackwards: (id) sender;
 
 // Extension updated
 - (void) extensionUpdated:(NSString*) javascriptId;

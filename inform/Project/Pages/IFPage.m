@@ -16,12 +16,17 @@ NSString* IFSwitchToPageNotification = @"IFSwitchToPageNotification";
 NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
 @implementation IFPage {
-    IFProjectPane* thisPane;		// The pane that contains this page (or nil, not retained)
-    NSObject<IFHistoryRecorder>* recorder;	// Object used for recording any history events for this object
+    /// The pane that contains this page (or nil, not retained)
+    __weak IFProjectPane* thisPane;
+    /// Object used for recording any history events for this object
+    __weak id<IFHistoryRecorder> recorder;
 
-    BOOL pageIsVisible;						// YES if this page is currently displayed
-    BOOL releaseView;						// YES if the view has been set using setView: and should be released
-    NSArray *topLevelObjects;               // All top level objects for the nib loaded (so they can be released)
+    /// \c YES if this page is currently displayed
+    BOOL pageIsVisible;
+    /// YES if the view has been set using setView: and should be released
+    BOOL releaseView;
+    /// All top level objects for the nib loaded (so they can be released)
+    NSArray *topLevelObjects;
 }
 
 @synthesize view;
@@ -44,7 +49,6 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 	return self;
 }
 
-
 - (void) setThisPane: (IFProjectPane*) newThisPane {
 	thisPane = newThisPane;
 }
@@ -62,10 +66,6 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 
 - (NSString*) title {
 	return @"Untitled";
-}
-
-- (NSView*) view {
-	return view;
 }
 
 - (NSView*) activeView {
@@ -125,9 +125,7 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 
 // = History =
 
-- (void) setRecorder: (NSObject<IFHistoryRecorder>*) newRecorder {
-	recorder = newRecorder;
-}
+@synthesize recorder;
 
 - (id) history {
 	IFHistoryEvent* event = nil;
@@ -144,13 +142,7 @@ NSString* IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification"
 	return nil;
 }
 
-- (void) setPageIsVisible: (BOOL) newIsVisible {
-	pageIsVisible = newIsVisible;
-}
-
-- (BOOL) pageIsVisible {
-	return pageIsVisible;
-}
+@synthesize pageIsVisible;
 
 - (void) didSwitchToPage {
 	// Do nothing

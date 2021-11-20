@@ -14,13 +14,13 @@
 #import "IFGlkResources.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFIsWatch.h"
-#import "IFTestCommands.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
 #import "IFProjectController.h"
 #import "IFProjectTypes.h"
 #import "IFProject.h"
 #import <ZoomView/ZoomView.h>
+#import "Inform-Swift.h"
 
 @interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver, ZoomViewDelegate>
 
@@ -41,16 +41,23 @@
 @end
 
 @implementation IFGamePage {
-    GlkView*		 gView;					// The Glk (glulxe) view
-    ZoomView*        zView;					// The Z-Machine view
-    NSString*        gameToRun;				// The filename of the game to start
-    BOOL             switchToPage;          // YES to switch view to show the game page
+    /// The Glk (glulxe) view
+    GlkView*		 gView;
+    /// The Z-Machine view
+    ZoomView*        zView;
+    /// The filename of the game to start
+    NSString*        gameToRun;
+    /// \c YES to switch view to show the game page
+    BOOL             switchToPage;
 
-    IFProgress*      gameRunningProgress;	// The progress indicator (how much we've compiled, how the game is running, etc)
+    /// The progress indicator (how much we've compiled, how the game is running, etc)
+    IFProgress*      gameRunningProgress;
     NSView*          semiTransparentView;
 
-    BOOL             setBreakpoint;			// YES if we are allowed to set breakpoints
-    NSArray*         testCommands;          // List of commands to automatically run once game has started
+    /// \c YES if we are allowed to set breakpoints
+    BOOL             setBreakpoint;
+    /// List of commands to automatically run once game has started
+    NSArray<NSString*>* testCommands;
 }
 
 // = Initialisation =
@@ -315,8 +322,7 @@
 	[gameRunningProgress startStory];
 	
 	if (testCommands != nil) {
-        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
-        [inputSource setCommands: testCommands];
+        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
         testCommands = nil;
         [self.parent setGlkInputSource: inputSource];
         [gView addInputReceiver: self.parent];
@@ -364,8 +370,7 @@
 	
 	// Run to the appropriate point in the current skein
 	if( testCommands ) {
-        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
-        [inputSource setCommands: testCommands];
+        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
         testCommands = nil;
         [zView setInputSource: inputSource];
     }
@@ -416,10 +421,11 @@
 	[[zView zMachine] removeAllBreakpoints];
 	
 	// Set the breakpoints
+    IFProject *parentDocument = self.parent.document;
 	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
-		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
+	for (breakpoint = 0; breakpoint < [parentDocument breakpointCount]; breakpoint++) {
+		int line = [parentDocument lineForBreakpointAtIndex: breakpoint];
+		NSString* file = [parentDocument fileForBreakpointAtIndex: breakpoint];
 		
 		if (line >= 0) {
 			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {

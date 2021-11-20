@@ -150,12 +150,9 @@
 }
 
 #pragma mark - Properties
-- (IFSkeinItem*) parent {
-    return _parent;
-}
 
 - (NSArray*) children {
-	return _children;
+	return [_children copy];
 }
 
 - (NSArray*) nonTestChildren {
@@ -319,21 +316,6 @@
 }
 
 #pragma mark - Item Data
--(NSString*) command {
-    return _command;
-}
-
--(NSString*) ideal {
-    return _ideal;
-}
-
--(NSString*) actual {
-    return _actual;
-}
-
--(BOOL) isTestSubItem {
-    return _isTestSubItem;
-}
 
 - (void) setCommand: (NSString*) newCommand {
     newCommand = [[self class] sanitizeCommand: newCommand];

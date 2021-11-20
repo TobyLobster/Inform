@@ -12,6 +12,7 @@
 #import "IFProjectTypes.h"
 #import "IFFindResult.h"
 #import "IFSourceSharedActions.h"
+#import "IFRuntimeErrorParser.h"
 
 @class ZoomView;
 @class IFSkeinItem;
@@ -25,7 +26,8 @@
                                                     NSToolbarDelegate,
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
-                                                    IFSkeinViewDelegate>
+                                                    IFSkeinViewDelegate,
+                                                    IFRuntimeErrorParserDelegate>
 
 - (void) layoutPanes;
 

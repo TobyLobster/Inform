@@ -46,39 +46,59 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 @implementation IFProjectPane {
     // Outlets
-    IBOutlet NSView*    paneView;				// The main pane view
-    IBOutlet NSTabView* tabView;				// The tab view
+    /// The main pane view
+    IBOutlet NSView*    paneView;
+    /// The tab view
+    IBOutlet NSTabView* tabView;
 
     // The page bar
-    IBOutlet IFPageBarView* pageBar;			// The page toolbar
+    /// The page toolbar
+    IBOutlet IFPageBarView* pageBar;
 
-    IFPageBarCell* forwardCell;					// The 'forward' button
-    IFPageBarCell* backCell;					// The 'backwards' button
+    /// The 'forward' button
+    IFPageBarCell* forwardCell;
+    /// The 'backwards' button
+    IFPageBarCell* backCell;
 
     // History
-    NSMutableArray* history;					// The history actions for this object
-    IFHistoryEvent* lastEvent;					// The last history event created
-    int             historyPos;					// The position that we are in the history
-    BOOL            replaying;					// If true, then new history items are not created
+    /// The history actions for this object
+    NSMutableArray<IFHistoryEvent*>* history;
+    /// The last history event created
+    IFHistoryEvent* lastEvent;
+    /// The position that we are in the history
+    NSInteger       historyPos;
+    /// If true, then new history items are not created
+    BOOL            replaying;
 
     // The pages
-    NSMutableArray* pages;						// Pages being managed by this control
+    /// Pages being managed by this control
+    NSMutableArray<IFPage*>* pages;
 
     // The pages
-    IFSourcePage*           sourcePage;			// The source page
-    IFErrorsPage*           errorsPage;			// The errors page
-    IFIndexPage*            indexPage;			// The index page
-    IFSkeinPage*            skeinPage;			// The skein page
-    IFGamePage*             gamePage;			// The game page
-    IFDocumentationPage*    documentationPage;  // The documentation page
-    IFExtensionsPage*       extensionsPage;     // The extensions page
-    IFSettingsPage*         settingsPage;		// The settings page
+    /// The source page
+    IFSourcePage*           sourcePage;
+    /// The errors page
+    IFErrorsPage*           errorsPage;
+    /// The index page
+    IFIndexPage*            indexPage;
+    /// The skein page
+    IFSkeinPage*            skeinPage;
+    /// The game page
+    IFGamePage*             gamePage;
+    /// The documentation page
+    IFDocumentationPage*    documentationPage;
+    /// The extensions page
+    IFExtensionsPage*       extensionsPage;
+    /// The settings page
+    IFSettingsPage*         settingsPage;
 
     IFProjectController *   controller;
 
     // Other variables
-    BOOL awake;									// YES if we've loaded from the nib and initialised properly
-    IFProjectController* parent;				// The 'parent' project controller (not retained)
+    /// \c YES if we've loaded from the nib and initialised properly
+    BOOL awake;
+    /// The 'parent' project controller (not retained)
+    __weak IFProjectController* parent;
 }
 
 
@@ -226,14 +246,15 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) setupFromControllerWithViewIndex:(int) viewIndex {
     IFProject* doc;
+    IFProjectController* ourParent = parent;
 	
-    doc = [parent document];
+    doc = [ourParent document];
 	
 	// Remove the first tab view item - which we can't do in interface builder :-/
 	[tabView removeTabViewItem: [tabView tabViewItems][0]];
 	
 	// Source page
-	sourcePage = [[IFSourcePage alloc] initWithProjectController: parent];
+	sourcePage = [[IFSourcePage alloc] initWithProjectController: ourParent];
 	[self addPage: sourcePage];
 
     if( [doc mainSourceFile] != nil ) {
@@ -242,25 +263,25 @@ static NSDictionary* IFSyntaxAttributes[256];
     }
 	
 	// Errors page
-	errorsPage = [[IFErrorsPage alloc] initWithProjectController: parent];
+	errorsPage = [[IFErrorsPage alloc] initWithProjectController: ourParent];
 	[self addPage: errorsPage];
     
 	// Compiler (lives on the errors page)
     [[errorsPage compilerController] setCompiler: [doc compiler]];
-    [[errorsPage compilerController] setProjectController: parent];
+    [[errorsPage compilerController] setProjectController: ourParent];
 
     // Game page
     if( viewIndex == 1 ) {
-        gamePage = [[IFGamePage alloc] initWithProjectController: parent];
+        gamePage = [[IFGamePage alloc] initWithProjectController: ourParent];
         [self addPage: gamePage];
     }
     
     // Skein page
-    skeinPage = [[IFSkeinPage alloc] initWithProjectController: parent];
+    skeinPage = [[IFSkeinPage alloc] initWithProjectController: ourParent];
     [self addPage: skeinPage];
     
 	// Index page
-	indexPage = [[IFIndexPage alloc] initWithProjectController: parent];
+	indexPage = [[IFIndexPage alloc] initWithProjectController: ourParent];
 	[self addPage: indexPage];
 	
 	[indexPage updateIndexView];
@@ -268,19 +289,19 @@ static NSDictionary* IFSyntaxAttributes[256];
     [indexPage switchToTab:IFIndexWelcome];
 	
 	// Documentation page
-	documentationPage = [[IFDocumentationPage alloc] initWithProjectController: parent];
+	documentationPage = [[IFDocumentationPage alloc] initWithProjectController: ourParent];
 	[self addPage: documentationPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) documentationPage:showToc", self);
 	[(IFDocumentationPage*)[documentationPage history] showToc: self];
 	
     // Extensions page
-    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: parent];
+    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: ourParent];
 	[self addPage: extensionsPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) extensionsPage:showHome", self);
 	[(IFExtensionsPage*)[extensionsPage history] showHome: self];
 
 	// Settings
-	settingsPage = [[IFSettingsPage alloc] initWithProjectController: parent];
+	settingsPage = [[IFSettingsPage alloc] initWithProjectController: ourParent];
 	[self addPage: settingsPage];
 
     [settingsPage updateSettings];
@@ -297,8 +318,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 	NSRect tabRect      = [tabView frame];
 
 	//float leftMissing = NSMinX(clientRect) - NSMinX(parentRect);
-	float topMissing    = NSMinY(clientRect) - NSMinY(parentRect);
-	float bottomMissing = NSMaxY(parentRect) - NSMaxY(clientRect);
+	CGFloat topMissing    = NSMinY(clientRect) - NSMinY(parentRect);
+    CGFloat bottomMissing = NSMaxY(parentRect) - NSMaxY(clientRect);
 
 	//tabRect.origin.x -= leftMissing;
 	//tabRect.size.width += leftMissing;
@@ -455,37 +476,14 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 // = The pages =
 
-- (IFSourcePage*) sourcePage {
-	return sourcePage;
-}
-
-- (IFErrorsPage*) errorsPage {
-	return errorsPage;
-}
-
-- (IFIndexPage*) indexPage {
-	return indexPage;
-}
-
-- (IFSkeinPage*) skeinPage {
-	return skeinPage;
-}
-
-- (IFGamePage*) gamePage {
-	return gamePage;
-}
-
-- (IFDocumentationPage*) documentationPage {
-	return documentationPage;
-}
-
-- (IFExtensionsPage*) extensionsPage {
-	return extensionsPage;
-}
-
-- (IFSettingsPage*) settingsPage {
-	return settingsPage;
-}
+@synthesize sourcePage;
+@synthesize errorsPage;
+@synthesize indexPage;
+@synthesize skeinPage;
+@synthesize gamePage;
+@synthesize documentationPage;
+@synthesize extensionsPage;
+@synthesize settingsPage;
 
 // = The game page =
 

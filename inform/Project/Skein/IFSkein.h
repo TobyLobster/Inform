@@ -48,11 +48,12 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 - (void) interpreterStop;
 
 // Dirty flags
--(void) setLayoutDirty;     // Does the skein need laying out?
+/// Does the skein need laying out?
+-(void) setLayoutDirty;
 
-// Has the skein changed since we last reset the flag?
-// Used to detect whether the skein actually changed due to executing a command in a story,
-// which then is used to mark the document as changed, ie. needing save.
+/// Has the skein changed since we last reset the flag?
+/// Used to detect whether the skein actually changed due to executing a command in a story,
+/// which then is used to mark the document as changed, ie. needing save.
 -(void) setSkeinChanged;
 
 // Notification of change
@@ -61,8 +62,8 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 
 
 // Creating an input receiver
-+ (id) inputSourceFromSkeinItem: (IFSkeinItem*) item1
-						 toItem: (IFSkeinItem*) item2;
++ (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
+                                              toItem: (IFSkeinItem*) item2;
 
 
 // Converting to strings / other file formats
@@ -72,8 +73,10 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 -(NSString*) reportStateForSkein;
 
 // Dragging
-@property (atomic) IFSkeinItem*   draggingItem;                   // Current item being dragged
-@property (atomic) BOOL           draggingSourceNeedsUpdating;    // Used to animate after dragging
+/// Current item being dragged
+@property (atomic) IFSkeinItem*   draggingItem;
+/// Used to animate after dragging
+@property (atomic) BOOL           draggingSourceNeedsUpdating;
 
 // Undo helpers
 - (void) setParentOf:                   (IFSkeinItem*) item parent:         (IFSkeinItem*) newParent;
