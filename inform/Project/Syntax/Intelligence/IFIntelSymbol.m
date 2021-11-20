@@ -8,7 +8,7 @@
 
 #import "IFIntelSymbol.h"
 
-NSString* IFSectionSymbolType = @"IFSectionSymbolType";
+NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 
 @implementation IFIntelSymbol {
     // Our data
@@ -39,13 +39,9 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 
 // = Symbol data =
 
-- (NSString*) name {
-	return name;
-}
-
-- (NSString*) type {
-	return type;
-}
+@synthesize name;
+@synthesize type;
+@synthesize level;
 
 - (int) level {
 	if (level < 0) {
@@ -53,10 +49,10 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 			return levelDelta;
 		
 		// Relative level
-		if (_lastSymbol == nil)
+		if (lastSymbol == nil)
 			return levelDelta<0?0:levelDelta;
 		
-		int realLevel = [_lastSymbol level] + levelDelta;
+		int realLevel = [lastSymbol level] + levelDelta;
 		
 		return realLevel<0?0:levelDelta;
 	}
@@ -64,33 +60,8 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 	return level;
 }
 
-- (enum IFSymbolRelation) relation {
-	return relation;
-}
-
-- (int) levelDelta {
-	return levelDelta;
-}
-
-- (void) setName: (NSString*) newName {
-	name = [newName copy];
-}
-
-- (void) setType: (NSString*) newType {
-	type = [newType copy];
-}
-
-- (void) setLevel: (int) newLevel {
-	level = newLevel;
-}
-
-- (void) setRelation: (enum IFSymbolRelation) newRelation {
-	relation = newRelation;
-}
-
-- (void) setLevelDelta: (int) newDelta {
-	levelDelta = newDelta;
-}
+@synthesize relation;
+@synthesize levelDelta;
 
 // = Debug =
 
@@ -105,18 +76,18 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 // = Our relation to other symbols in the file =
 
 - (IFIntelSymbol*) parent {
-	IFIntelSymbol* parent = _lastSymbol;
+	IFIntelSymbol* parent = lastSymbol;
 	int myLevel = [self level];
 	
 	while (parent != nil && [parent level] >= myLevel) {
-		parent = parent->_lastSymbol;
+		parent = parent->lastSymbol;
 	}
 	
 	return parent;
 }
 
 - (IFIntelSymbol*) child {
-	IFIntelSymbol* child = _nextSymbol;
+	IFIntelSymbol* child = nextSymbol;
 	
 	if (child == nil) return nil;
 	if ([child level] > [self level]) return child;
@@ -125,10 +96,10 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 - (IFIntelSymbol*) sibling {
-	IFIntelSymbol* sibling = _nextSymbol;
+	IFIntelSymbol* sibling = nextSymbol;
 	int myLevel = [self level];
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->_nextSymbol;
+	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->nextSymbol;
 		
 	if (sibling == nil) return nil;
 	if ([sibling level] == myLevel) return sibling;
@@ -141,16 +112,19 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 - (IFIntelSymbol*) previousSibling {
-	IFIntelSymbol* sibling = _lastSymbol;
+	IFIntelSymbol* sibling = lastSymbol;
 	int myLevel = [self level];
 	
-	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->_lastSymbol;
+	while (sibling != nil && [sibling level] > myLevel) sibling = sibling->lastSymbol;
 	
 	if (sibling == nil) return nil;
 	if ([sibling level] == [self level]) return sibling;
 	
 	return nil;
 }
+
+@synthesize nextSymbol;
+@synthesize lastSymbol;
 
 // = NSCoding =
 
@@ -167,9 +141,9 @@ NSString* IFSectionSymbolType = @"IFSectionSymbolType";
 				forKey: @"relation"];
 	[encoder encodeInt: levelDelta
 				forKey: @"levelDelta"];
-	[encoder encodeObject: _nextSymbol
+	[encoder encodeObject: nextSymbol
 				   forKey: @"nextSymbol"];
-	[encoder encodeObject: _lastSymbol
+	[encoder encodeObject: lastSymbol
 				   forKey: @"lastSymbol"];
 }
 
