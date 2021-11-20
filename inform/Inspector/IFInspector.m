@@ -10,9 +10,12 @@
 #import "IFInspectorWindow.h"
 
 @implementation IFInspector {
-    IBOutlet NSView* inspectorView;								// The view that contains the inspector
-    NSString* title;											// The title of this inspector
-    IFInspectorWindow* inspectorWin;							// The window controller that contains this inspector
+    /// The view that contains the inspector
+    NSView* inspectorView;
+    /// The title of this inspector
+    NSString* title;
+    /// The window controller that contains this inspector
+    IFInspectorWindow* inspectorWin;
 }
 
 - (instancetype) init {
@@ -29,6 +32,7 @@
 
 // = Titles =
 
+@synthesize title;
 - (void) setTitle: (NSString*) newTitle {
 	title = [newTitle copy];
 
@@ -49,13 +53,7 @@
 }
 
 // = Inspector view =
-- (void) setInspectorView: (NSView*) view {
-	inspectorView = view;
-}
-
-- (NSView*) inspectorView {
-	return inspectorView;
-}
+@synthesize inspectorView;
 
 - (BOOL) available {
 	// Override to make inspectors disappear when required

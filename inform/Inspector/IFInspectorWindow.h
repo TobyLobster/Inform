@@ -11,35 +11,48 @@
 @class IFInspectorView;
 @class IFInspector;
 
-//
-// The window controller for the window that contains the inspectors
-//
+///
+/// The window controller for the window that contains the inspectors
+///
 @interface IFInspectorWindow : NSWindowController<NSWindowDelegate>
 
 // The shared instance
-+ (IFInspectorWindow*) sharedInspectorWindow;					// The application-wide inspector controller
+/// The application-wide inspector controller
++ (IFInspectorWindow*) sharedInspectorWindow;
+@property (class, readonly, strong) IFInspectorWindow *sharedInspectorWindow;
 
 // Dealing with inspector views
-- (void) addInspector: (IFInspector*) newInspector;				// Adds a new inspector to this window
+/// Adds a new inspector to this window
+- (void) addInspector: (IFInspector*) newInspector;
 
-- (void) setInspectorState: (BOOL) shown						// Sets whether or not a particular inspector should be displayed (expanded)
+/// Sets whether or not a particular inspector should be displayed (expanded)
+- (void) setInspectorState: (BOOL) shown
 					forKey: (NSString*) key;
-- (BOOL) inspectorStateForKey: (NSString*) key;					// Returns YES if a particular inspector is displayed (expanded)
+/// Returns \c YES if a particular inspector is displayed (expanded)
+- (BOOL) inspectorStateForKey: (NSString*) key;
 
-- (void) showInspector: (IFInspector*) inspector;				// Shows a specific inspector
-- (void) showInspectorWithKey: (NSString*) key;					// Shows an inspector with a specific key
-- (void) hideInspector: (IFInspector*) inspector;				// Hides a specific inspector
-- (void) hideInspectorWithKey: (NSString*) key;					// Hides an inspector with a specific key
+/// Shows a specific inspector
+- (void) showInspector: (IFInspector*) inspector;
+/// Shows an inspector with a specific key
+- (void) showInspectorWithKey: (NSString*) key;
+/// Hides a specific inspector
+- (void) hideInspector: (IFInspector*) inspector;
+/// Hides an inspector with a specific key
+- (void) hideInspectorWithKey: (NSString*) key;
 
 // Dealing with updates
-- (void) updateInspectors;										// Updates the layout of the inspectors (ie, rearranges shown/hidden inspectors, resizes the window, etc)
-@property (atomic, readonly, strong) NSWindow *activeWindow;										// Returns the 'active' window, which is usually the same as Cocoa's main window
+/// Updates the layout of the inspectors (ie, rearranges shown/hidden inspectors, resizes the window, etc)
+- (void) updateInspectors;
+/// Returns the 'active' window, which is usually the same as Cocoa's main window
+@property (atomic, readonly, strong) NSWindow *activeWindow;
 
-- (void) inspectorViewDidChange: (IFInspectorView*) view		// Inspector views can call this to indicate they should be expanded/shrunk
+/// Inspector views can call this to indicate they should be expanded/shrunk
+- (void) inspectorViewDidChange: (IFInspectorView*) view
 						toState: (BOOL) expanded;
 
 // Status
-@property (atomic, getter=isHidden, readonly) BOOL hidden;		// Returns YES if the window is not currently onscreen for some reason
+/// Returns \c YES if the window is not currently onscreen for some reason
+@property (atomic, getter=isHidden, readonly) BOOL hidden;
 @property (atomic, getter=isInform7ProjectActive, readonly) bool inform7ProjectActive;
 
 @end

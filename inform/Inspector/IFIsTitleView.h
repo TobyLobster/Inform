@@ -9,12 +9,14 @@
 #import <AppKit/AppKit.h>
 
 
-//
-// View that displays the inspector title and the the graduated background.
-//
+///
+/// View that displays the inspector title and the the graduated background.
+///
 @interface IFIsTitleView : NSView
 
-+ (float) titleHeight;								// Recommended height of a title view
-- (void) setTitle: (NSString*) title;				// Sets the title string to display
+/// Recommended height of a title view
++ (CGFloat) titleHeight;
+/// Sets the title string to display
+- (void) setTitle: (NSString*) title;
 
 @end

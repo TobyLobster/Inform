@@ -20,9 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="299" height="253"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <scrollView toolTip="Enter Inform 6 expressions in the expression column to track their values as the story runs." fixedFrame="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                <scrollView toolTip="Enter Inform 6 expressions in the expression column to track their values as the story runs." horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                     <rect key="frame" x="0.0" y="0.0" width="299" height="189"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="KFB-fF-K9I">
                         <rect key="frame" x="1" y="1" width="297" height="187"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -92,27 +91,24 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <textField autoresizesSubviews="NO" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                    <rect key="frame" x="90" y="197" width="192" height="14"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField autoresizesSubviews="NO" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="188" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                    <rect key="frame" x="85" y="197" width="197" height="14"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" placeholderString="Answer" id="31">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField autoresizesSubviews="NO" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="67" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="17" y="197" width="71" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField autoresizesSubviews="NO" horizontalHuggingPriority="750" verticalHuggingPriority="750" preferredMaxLayoutWidth="67" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <rect key="frame" x="36" y="197" width="47" height="14"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Result =" id="30">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField autoresizesSubviews="NO" toolTip="Enter an Inform 6 expression here to see its value in real time." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                    <rect key="frame" x="93" y="217" width="186" height="19"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField autoresizesSubviews="NO" toolTip="Enter an Inform 6 expression here to see its value in real time." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <rect key="frame" x="88" y="217" width="191" height="19"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" placeholderString="Expression" drawsBackground="YES" id="29">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -122,9 +118,8 @@
                         <action selector="expressionChanged:" target="-2" id="22"/>
                     </connections>
                 </textField>
-                <textField autoresizesSubviews="NO" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="67" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                    <rect key="frame" x="17" y="219" width="71" height="14"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField autoresizesSubviews="NO" horizontalHuggingPriority="750" verticalHuggingPriority="750" preferredMaxLayoutWidth="67" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <rect key="frame" x="17" y="219" width="66" height="14"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Evaluate &gt;&gt;" id="28">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -132,6 +127,23 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5" secondAttribute="leading" constant="19" id="0i3-Qn-osa"/>
+                <constraint firstItem="12" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="9g5-xb-kYj"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" id="CQ8-6q-m2s"/>
+                <constraint firstItem="12" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="FFG-su-2Oz"/>
+                <constraint firstAttribute="bottom" secondItem="12" secondAttribute="bottom" id="Gar-d2-r3P"/>
+                <constraint firstItem="9" firstAttribute="leading" secondItem="8" secondAttribute="trailing" constant="6" id="QKm-dv-lT4"/>
+                <constraint firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="19" id="UEO-U3-FcK"/>
+                <constraint firstItem="6" firstAttribute="trailing" secondItem="8" secondAttribute="trailing" id="Vzy-5E-mEl"/>
+                <constraint firstItem="6" firstAttribute="baseline" secondItem="7" secondAttribute="baseline" id="dlU-Bt-ZUR"/>
+                <constraint firstItem="7" firstAttribute="centerX" secondItem="9" secondAttribute="centerX" id="fAd-ga-1Kb"/>
+                <constraint firstAttribute="trailing" secondItem="12" secondAttribute="trailing" id="fYs-mY-Cbs"/>
+                <constraint firstItem="8" firstAttribute="baseline" secondItem="9" secondAttribute="baseline" id="iqK-pV-7wh"/>
+                <constraint firstAttribute="trailing" secondItem="7" secondAttribute="trailing" constant="20" symbolic="YES" id="ka1-L1-b1e"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8" symbolic="YES" id="nbk-De-4ti"/>
+                <constraint firstItem="7" firstAttribute="leading" secondItem="6" secondAttribute="trailing" constant="7" id="w0W-8c-fF3"/>
+            </constraints>
             <point key="canvasLocation" x="139" y="143"/>
         </customView>
     </objects>

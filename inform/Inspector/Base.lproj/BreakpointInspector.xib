@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IFIsBreakpoints">
@@ -17,16 +18,16 @@
             <rect key="frame" x="0.0" y="0.0" width="275" height="172"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <scrollView toolTip="This shows the list of currently set breakpoints" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="7">
+                <scrollView toolTip="This shows the list of currently set breakpoints" fixedFrame="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
                     <rect key="frame" x="0.0" y="0.0" width="275" height="172"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="qpi-Zj-cnw">
-                        <rect key="frame" x="1" y="17" width="262" height="143"/>
+                        <rect key="frame" x="1" y="1" width="273" height="170"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView autoresizesSubviews="NO" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveName="Breakpoints" rowHeight="14" headerView="33" id="6">
-                                <rect key="frame" x="0.0" y="0.0" width="238" height="16"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="273" height="153"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <tableViewGridLines key="gridStyleMask" vertical="YES" horizontal="YES"/>
@@ -34,7 +35,6 @@
                                 <tableColumns>
                                     <tableColumn identifier="enabled" width="16" minWidth="16" maxWidth="16" id="9">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -46,7 +46,6 @@
                                     </tableColumn>
                                     <tableColumn identifier="file" width="127" minWidth="32" maxWidth="1000" id="8">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="File">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -57,9 +56,8 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>
-                                    <tableColumn identifier="line" width="86" minWidth="26" maxWidth="1000" id="10">
+                                    <tableColumn identifier="line" width="57" minWidth="26" maxWidth="1000" id="10">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Line">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                         </tableHeaderCell>
@@ -78,22 +76,22 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
-                    <scroller key="horizontalScroller" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="32">
-                        <rect key="frame" x="1" y="160" width="262" height="11"/>
+                    <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="YES" id="32">
+                        <rect key="frame" x="1" y="157" width="273" height="14"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
-                    <scroller key="verticalScroller" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="34">
-                        <rect key="frame" x="263" y="17" width="11" height="143"/>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" controlSize="small" horizontal="NO" id="34">
+                        <rect key="frame" x="260" y="18" width="14" height="153"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="33">
-                        <rect key="frame" x="0.0" y="0.0" width="262" height="17"/>
+                        <rect key="frame" x="0.0" y="0.0" width="273" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
             </subviews>
+            <point key="canvasLocation" x="139" y="142"/>
         </customView>
         <menu title="Menu" id="12">
             <items>
@@ -121,6 +119,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="139" y="-63"/>
         </menu>
     </objects>
 </document>

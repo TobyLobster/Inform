@@ -10,7 +10,7 @@
 #import "IFInspectorView.h"
 #import "IFImageCache.h"
 
-#import "objc/objc-runtime.h"
+#import <objc/objc-runtime.h>
 
 
 @implementation IFIsTitleView {
@@ -23,7 +23,7 @@
 
 static NSImage* bgImage = nil;
 static NSFont* titleFont = nil;
-static float titleHeight = 0;
+static CGFloat titleHeight = 0;
 
 static NSDictionary* fontAttributes;
 
@@ -59,8 +59,8 @@ static NSDictionary* fontAttributes;
 
 }
 
-+ (float) titleHeight {
-	return ceilf([titleFont ascender] + [titleFont descender]) + 8;
++ (CGFloat) titleHeight {
+	return ceil([titleFont ascender] + [titleFont descender]) + 8;
 }
 
 - (instancetype)initWithFrame:(NSRect)frame {
@@ -86,10 +86,10 @@ static NSDictionary* fontAttributes;
 	keyEquiv = nil;
 	if (equiv == nil || [equiv length] <= 0) return;
 	
-	static unichar returnChars[] = { 0x21a9 };
-	static unichar escapeChars[] = { 0x238b };
-	static unichar backspaceChars[] = { 0x232b };
-	static unichar tabChars[] = { 0x21e5 };
+	static const unichar returnChars[] = { 0x21a9 };
+	static const unichar escapeChars[] = { 0x238b };
+	static const unichar backspaceChars[] = { 0x232b };
+	static const unichar tabChars[] = { 0x21e5 };
 	
 	switch ([keyEquiv characterAtIndex: 0]) {
 		case '\r':
@@ -139,11 +139,11 @@ static NSDictionary* fontAttributes;
 	[[NSColor windowBackgroundColor] set];
 	//NSRectFill(rect);
 	
-	float x = 0;
+	CGFloat x = 0;
 	NSRect imgRect;
 	imgRect.origin = NSMakePoint(0,0);
 	imgRect.size = [bgImage size];
-	float w = imgRect.size.width;
+    CGFloat w = imgRect.size.width;
 	imgRect.size.height = [IFIsTitleView titleHeight];
 	
 	while (x < rect.origin.x) x += w;
