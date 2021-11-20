@@ -11,11 +11,14 @@
 @class IFDiffer;
 @class IFSkein;
 
+/// Paseboard type for drag and drop
+extern NSString* const IFSkeinItemPboardType;
+
 #pragma mark - "Skein Item"
 ///
 /// Represents a single 'knot' in the skein
 ///
-@interface IFSkeinItem : NSObject<NSCoding>
+@interface IFSkeinItem : NSObject<NSSecureCoding, NSPasteboardWriting>
 
 #pragma mark - Initialization
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;

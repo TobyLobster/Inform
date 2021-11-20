@@ -19,25 +19,37 @@
 
 #define SELECTION_OPTION_1    1
 
-static const float kMenuVisibleWidth        = 21.0f;    // Visible size of the menu image
-static const float kMenuVisibleHeight       = 21.0f;    // Visible size of the menu image
-static const float kDrawMenuOffsetX         = -3.0f;    // Offset from end of command to draw menu image
+/// Visible size of the menu image
+static const CGFloat kMenuVisibleWidth        = 21.0;
+/// Visible size of the menu image
+static const CGFloat kMenuVisibleHeight       = 21.0;
+/// Offset from end of command to draw menu image
+static const CGFloat kDrawMenuOffsetX         = -3.0;
 
-static const float kMenuMouseOverOffsetX    = 6.0f;
-static const float kMenuMouseOverOffsetY    = 4.0f;
+static const CGFloat kMenuMouseOverOffsetX    = 6.0;
+static const CGFloat kMenuMouseOverOffsetY    = 4.0;
 
-static const float kSkeinItemImageCommandWidth = kSkeinItemImageWidth - kSkeinItemImageCommandLeftBorder - kSkeinItemImageCommandRightBorder;
+static const CGFloat kSkeinItemImageCommandWidth = kSkeinItemImageWidth - kSkeinItemImageCommandLeftBorder - kSkeinItemImageCommandRightBorder;
 
 // Images
-static NSImage* active;         // Active item
-static NSImage* selected;       // Selected item
-static NSImage* unselected;     // Unselected item
-static NSImage* differsBadge;   // Output differs from blessed transcript
-static NSImage* untestedBadge;  // No blessed transcript to test against
-static NSImage* activeMenu;     // Active item
-static NSImage* selectedMenu;   // Selected item
-static NSImage* unselectedMenu; // Unselected item
-static NSImage* overMenu;       // highlight when mouse over
+/// Active item
+static NSImage* active;
+/// Selected item
+static NSImage* selected;
+/// Unselected item
+static NSImage* unselected;
+/// Output differs from blessed transcript
+static NSImage* differsBadge;
+/// No blessed transcript to test against
+static NSImage* untestedBadge;
+/// Active item
+static NSImage* activeMenu;
+/// Selected item
+static NSImage* selectedMenu;
+/// Unselected item
+static NSImage* unselectedMenu;
+/// highlight when mouse over
+static NSImage* overMenu;
 
 static NSDictionary* itemTextActiveAttributes           = nil;
 static NSDictionary* itemTextSelectedAttributes         = nil;
@@ -50,12 +62,6 @@ static NSDictionary* itemTestMeTextUnselectedAttributes = nil;
 static NSDictionary* itemTextRootActiveAttributes       = nil;
 static NSDictionary* itemTextRootSelectedAttributes     = nil;
 static NSDictionary* itemTextRootUnselectedAttributes   = nil;
-
-
-// Paseboard type for drag and drop
-static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
-
-
 
 #if defined(DEBUG_EXPORT_HELP_IMAGES)
 
@@ -164,21 +170,21 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     // "Test me" attributes
     if (!itemTestMeTextSelectedAttributes) {
         itemTestMeTextSelectedAttributes = @{ NSFontAttributeName:        testMeFont,
-                                              NSObliquenessAttributeName:     @(0.2f),
+                                              NSObliquenessAttributeName:     @(0.2),
                                               NSBackgroundColorAttributeName: selectedColor,
                                               NSForegroundColorAttributeName: testMeTextColor };
     }
 
     if (!itemTestMeTextActiveAttributes) {
         itemTestMeTextActiveAttributes = @{ NSFontAttributeName:            testMeFont,
-                                            NSObliquenessAttributeName:     @(0.2f),
+                                            NSObliquenessAttributeName:     @(0.2),
                                             NSBackgroundColorAttributeName: activeColor,
                                             NSForegroundColorAttributeName: testMeTextColor };
     }
 
     if (!itemTestMeTextUnselectedAttributes) {
         itemTestMeTextUnselectedAttributes = @{ NSFontAttributeName:            testMeFont,
-                                                NSObliquenessAttributeName:     @(0.2f),
+                                                NSObliquenessAttributeName:     @(0.2),
                                                 NSBackgroundColorAttributeName: unselectedColor,
                                                 NSForegroundColorAttributeName: testMeTextColor };
     }
@@ -222,7 +228,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 }
 
 +(void) adjustAttributesToFontSize {
-    float size = [IFSkeinView fontSize];
+    CGFloat size = [IFSkeinView fontSize];
 
     itemTextRootUnselectedAttributes    = [IFUtility adjustAttributesFontSize: itemTextRootUnselectedAttributes   size: size];
     itemTextRootSelectedAttributes      = [IFUtility adjustAttributesFontSize: itemTextRootSelectedAttributes     size: size];
@@ -237,7 +243,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
 
 +(NSDictionary*) attributesForLayoutItem: (IFSkeinLayoutItem*) layoutItem
-                                    size: (float) fontSize{
+                                    size: (CGFloat) fontSize {
     int index = 0;
 
     // Unselected, selected, active
@@ -293,46 +299,20 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
 + (void) drawLozengeImage: (NSImage*) img
                   atPoint: (NSPoint) pos
-                withWidth: (float) width {
-    pos.x = floorf(pos.x);
-    pos.y = floorf(pos.y);
-    width = floorf(width);
+                withWidth: (CGFloat) width {
+    pos.x = floor(pos.x);
+    pos.y = floor(pos.y);
+    width = floor(width);
 
     if (width <= 0.0) width = 1.0;
 
-    // Draw the middle bit
-    NSRect bitToDraw     = NSMakeRect(pos.x + kSkeinItemImageCommandLeftBorder, pos.y,
-                                      kSkeinItemImageCommandWidth, kSkeinItemImageHeight);
-    NSRect bitToDrawFrom = NSMakeRect(kSkeinItemImageCommandLeftBorder, 0,
-                                      kSkeinItemImageCommandWidth, kSkeinItemImageHeight);
-
-    for (float p = width; p >= 0.0f; p -= kSkeinItemImageCommandWidth) {
-        if (p < kSkeinItemImageCommandWidth) {
-            bitToDrawFrom.size.width = p;
-            bitToDraw.size.width     = p;
-        }
-
-        bitToDraw.origin.x = pos.x + kSkeinItemImageCommandLeftBorder + p - bitToDraw.size.width;
-
-        [img drawInRect: bitToDraw
-               fromRect: bitToDrawFrom
-              operation: NSCompositingOperationSourceOver
-               fraction: 1.0
-         respectFlipped: YES
-                  hints: nil];
-    }
-
-    // Draw the edge bits
-    [img drawInRect: NSMakeRect(pos.x, pos.y, kSkeinItemImageCommandLeftBorder, kSkeinItemImageHeight)
-           fromRect: NSMakeRect(0,0,kSkeinItemImageCommandLeftBorder,kSkeinItemImageHeight)
-          operation: NSCompositingOperationSourceOver
-           fraction: 1.0
-     respectFlipped: YES
-              hints: nil];
-    [img drawInRect: NSMakeRect(pos.x + kSkeinItemImageCommandLeftBorder + width, pos.y,
-                                kSkeinItemImageCommandRightBorder, kSkeinItemImageHeight)
-           fromRect: NSMakeRect(kSkeinItemImageWidth - kSkeinItemImageCommandRightBorder, 0,
-                                kSkeinItemImageCommandRightBorder, kSkeinItemImageHeight)
+    // Using image slicing makes this so much easier.
+    NSRect drawRect = (NSRect){pos, NSMakeSize(width, kSkeinItemImageHeight)};
+    // TODO: Test this!
+    drawRect.origin.x -= kSkeinItemImageCommandLeftBorder;
+    drawRect.size.width += kSkeinItemImageCommandLeftBorder + kSkeinItemImageCommandRightBorder;
+    [img drawInRect: drawRect
+           fromRect: NSZeroRect
           operation: NSCompositingOperationSourceOver
            fraction: 1.0
      respectFlipped: YES
@@ -345,10 +325,10 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     // Draw the background
     NSImage* background = [[self class] backgroundForLayoutItem: layoutItem];
     NSSize commandSize  = [[self class] commandSize: layoutItem];
-    float commandX = kSkeinItemImageCommandLeftBorder;
+    CGFloat commandX = kSkeinItemImageCommandLeftBorder;
 
-    float imageHeight = background.size.height;
-    float commandY = floorf((imageHeight - commandSize.height) / 2.0f + 1.0f);
+    CGFloat imageHeight = background.size.height;
+    CGFloat commandY = floor((imageHeight - commandSize.height) / 2.0f + 1.0f);
 
     // Draw the lozenge
     [[self class] drawLozengeImage: background
@@ -359,8 +339,8 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     if( insideLozengeArea || insideMenuArea ) {
         if( [self.skeinView hasMenu: layoutItem.item] ) {
             NSImage* backgroundMenu = [[self class] backgroundMenuForLayoutItem: layoutItem];
-            NSPoint drawPoint = NSMakePoint(floorf(commandX + commandSize.width + kDrawMenuOffsetX),
-                                            floorf(self.frame.size.height) - backgroundMenu.size.height);
+            NSPoint drawPoint = NSMakePoint(floor(commandX + commandSize.width + kDrawMenuOffsetX),
+                                            floor(self.frame.size.height) - backgroundMenu.size.height);
             [backgroundMenu drawAtPoint: drawPoint
                                fromRect: NSZeroRect
                               operation: NSCompositingOperationSourceOver
@@ -379,13 +359,13 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
                                                                          size: [IFSkeinView fontSize]];
 
 
-    [layoutItem.item.command drawAtPoint: NSMakePoint(floorf(commandX), floorf(commandY))
+    [layoutItem.item.command drawAtPoint: NSMakePoint(floor(commandX), floor(commandY))
                           withAttributes: sizedTextAttributes];
 
     // Draw the badge if necessary
     if (layoutItem.item.hasBadge) {
-        [differsBadge drawAtPoint: NSMakePoint(0.0f,
-                                               floorf(self.frame.size.height) - differsBadge.size.height)
+        [differsBadge drawAtPoint: NSMakePoint(0.0,
+                                               floor(self.frame.size.height) - differsBadge.size.height)
                          fromRect: NSZeroRect
                         operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
@@ -448,10 +428,10 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     // Draw the background
     NSDictionary* attributes = root ? itemTextRootActiveAttributes : itemTextActiveAttributes;
     NSSize commandSize       = [title sizeWithAttributes: attributes];
-    float commandX           = kSkeinItemImageCommandLeftBorder;
+    CGFloat commandX         = kSkeinItemImageCommandLeftBorder;
 
-    float imageHeight = background.size.height;
-    float commandY = floorf((imageHeight - commandSize.height) / 2.0f + 1.0f);
+    CGFloat imageHeight = background.size.height;
+    CGFloat commandY = floor((imageHeight - commandSize.height) / 2.0 + 1.0);
 
     // Draw the lozenge
     [[self class] drawLozengeImage: background
@@ -460,8 +440,8 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
     // Draw the menu if necessary
     if( showMenu ) {
-        NSPoint drawPoint = NSMakePoint(floorf(commandX + commandSize.width + kDrawMenuOffsetX),
-                                        floorf(height) - backgroundMenu.size.height);
+        NSPoint drawPoint = NSMakePoint(floor(commandX + commandSize.width + kDrawMenuOffsetX),
+                                        floor(height) - backgroundMenu.size.height);
         [backgroundMenu drawAtPoint: drawPoint
                            fromRect: NSZeroRect
                           operation: NSCompositingOperationSourceOver
@@ -485,7 +465,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
 
     // Draw the badge if necessary
     if (badge) {
-        [differsBadge drawAtPoint: NSMakePoint(0.0f, floorf(height) - differsBadge.size.height)
+        [differsBadge drawAtPoint: NSMakePoint(0.0, floor(height) - differsBadge.size.height)
                          fromRect: NSZeroRect
                         operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
@@ -680,7 +660,7 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     // Add tracking areas
     {
         // Add the menu tracking area
-        float commandX = kSkeinItemImageCommandLeftBorder;
+        CGFloat commandX = kSkeinItemImageCommandLeftBorder;
         NSSize commandSize  = [[self class] commandSize: layoutItem];
         NSRect menuAreaRect = NSMakeRect(commandX + commandSize.width + kDrawMenuOffsetX,
                                          self.frame.size.height - kMenuVisibleHeight,
@@ -780,26 +760,23 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
         self.skein.draggingItem = layoutItem.item;
         dragCanMove = ![layoutItem.item hasDescendant: self.skein.activeItem];
 
-        NSPasteboard *pboard = [NSPasteboard pasteboardWithName: NSPasteboardNameDrag];
-        [pboard declareTypes:@[IFSkeinItemPboardType] owner:self];
+        NSDraggingItem *dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter: layoutItem.item];
+//        [dragItem setImageComponentsProvider:^NSArray<NSDraggingImageComponent *> * _Nonnull{
+//            NSDraggingImageComponent *dragImage = [[NSDraggingImageComponent alloc] initWithKey: NSDraggingImageComponentIconKey];
+//            dragImage.contents = itemImage;
+//
+//            return @[dragImage];
+//        }];
+        [dragItem setDraggingFrame:(NSRect){NSZeroPoint, itemImage.size} contents:itemImage];
 
-        [pboard setData: [NSKeyedArchiver archivedDataWithRootObject: layoutItem.item]
-                forType: IFSkeinItemPboardType];
-
-        [self dragImage: itemImage
-                     at: NSZeroPoint
-                 offset: NSZeroSize
-                  event: event
-             pasteboard: pboard
-                 source: self
-              slideBack: YES];
+        [self beginDraggingSessionWithItems: @[dragItem] event:event source:self];
     }
 }
 
 // = NSDraggingSource protocol =
 
-- (NSDragOperation)draggingSourceOperationMaskForLocal:(BOOL)isLocal {
-    if (isLocal) {
+- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
+    if (context == NSDraggingContextWithinApplication) {
         if (dragCanMove) {
             return NSDragOperationCopy | NSDragOperationMove;
         } else {
@@ -810,9 +787,9 @@ static NSString* IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     }
 }
 
--(void) draggedImage: (NSImage *) image
-             endedAt: (NSPoint) screenPoint
-           operation: (NSDragOperation) operation {
+- (void)draggingSession: (NSDraggingSession *) session
+           endedAtPoint: (NSPoint) screenPoint
+              operation: (NSDragOperation) operation {
     if ((operation & NSDragOperationMove) && self.skein.draggingItem != nil && dragCanMove) {
 
         // Keep selected item valid...

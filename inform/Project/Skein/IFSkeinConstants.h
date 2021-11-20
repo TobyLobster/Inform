@@ -80,13 +80,13 @@ static const CGFloat kSkeinArrowHeadLength             =   5.0f;
 
 #pragma mark Animation timing
 /// Adjust overall animation timing
-static const NSTimeInterval kSkeinAnimationMultiplier         =   1.0f;
-static const NSTimeInterval kSkeinAnimationDuration           =   0.75f * kSkeinAnimationMultiplier;
-static const NSTimeInterval kSkeinAnimationReportFadeIn       =   0.2f  * kSkeinAnimationMultiplier;
-static const NSTimeInterval kSkeinAnimationReportFadeOut      =   0.2f  * kSkeinAnimationMultiplier;
-static const NSTimeInterval kSkeinAnimationArrowFadeIn        =   0.2f  * kSkeinAnimationMultiplier;
-static const NSTimeInterval kSkeinAnimationArrowFadeOut       =   0.01f * kSkeinAnimationMultiplier;
-static const NSTimeInterval kSkeinAnimationItemFadeIn         =   0.2f  * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationMultiplier         =   1.0;
+static const NSTimeInterval kSkeinAnimationDuration           =   0.75 * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationReportFadeIn       =   0.2  * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationReportFadeOut      =   0.2  * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationArrowFadeIn        =   0.2  * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationArrowFadeOut       =   0.01 * kSkeinAnimationMultiplier;
+static const NSTimeInterval kSkeinAnimationItemFadeIn         =   0.2  * kSkeinAnimationMultiplier;
 
 #pragma mark Derived constants
 static const CGFloat kSkeinLeftBorder   = kSkeinBorder;

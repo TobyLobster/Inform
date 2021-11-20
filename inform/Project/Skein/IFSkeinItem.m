@@ -12,6 +12,9 @@
 #import "IFProject.h"
 #import "IFSkein.h"
 
+// Paseboard type for drag and drop
+NSString* const IFSkeinItemPboardType = @"IFSkeinItemPboardType";
+
 #pragma mark - "Skein Item"
 @implementation IFSkeinItem {
     NSMutableArray* _children;
@@ -68,9 +71,9 @@
 
     if (self) {
         _uniqueId       = [IFUtility generateID];
-        _children       = [decoder decodeObjectForKey: @"children"];
-        _command        = [decoder decodeObjectForKey: @"command"];
-        _actual         = [decoder decodeObjectForKey: @"result"];
+        _children       = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableArray class], [IFSkeinItem class], nil] forKey: @"children"];
+        _command        = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
+        _actual         = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
         _isTestSubItem  = [decoder decodeBoolForKey:   @"isTestSubItem"];
 
         for( IFSkeinItem* child in _children ) {
@@ -78,6 +81,10 @@
         }
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
 }
 
 #pragma mark - Class Helpers
@@ -661,6 +668,24 @@
         [child printDEBUG];
         childCount++;
     }
+}
+
+#pragma mark - NSPasteboardWriting implementation
+
+- (nullable id)pasteboardPropertyListForType:(nonnull NSPasteboardType)type {
+    if ([type isEqualToString:IFSkeinItemPboardType]) {
+        return [NSKeyedArchiver archivedDataWithRootObject: self
+                                     requiringSecureCoding: YES
+                                                     error: NULL];
+    }
+    return nil;
+}
+
+- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
+    if ([pasteboard.name isEqualToString: NSPasteboardNameDrag]) {
+        return @[IFSkeinItemPboardType];
+    }
+    return @[];
 }
 
 @end

@@ -19,7 +19,7 @@
 // The shared instance
 /// The application-wide inspector controller
 + (IFInspectorWindow*) sharedInspectorWindow;
-@property (class, readonly, strong) IFInspectorWindow *sharedInspectorWindow;
+@property (class, atomic, readonly, strong) IFInspectorWindow *sharedInspectorWindow;
 
 // Dealing with inspector views
 /// Adds a new inspector to this window
