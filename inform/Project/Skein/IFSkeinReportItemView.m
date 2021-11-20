@@ -10,8 +10,8 @@
 #import "IFSkeinBlessButton.h"
 #import "IFSkeinConstants.h"
 
-static const float kBlessButtonWidth  = 13.0f;
-static const float kBlessButtonHeight = 13.0f;
+static const CGFloat kBlessButtonWidth  = 13.0f;
+static const CGFloat kBlessButtonHeight = 13.0f;
 
 @implementation IFSkeinReportItemView
 

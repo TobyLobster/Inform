@@ -11,7 +11,7 @@
 
 static NSString* idForNode(IFSkeinItem* item) {
     // Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
-    return item.uniqueId.UUIDString;
+    return [NSString stringWithFormat: @"node-%lu", item.uniqueId];
 }
 
 @implementation IFSkein(IFSkeinXML)
@@ -68,10 +68,6 @@ static NSString* idForNode(IFSkeinItem* item) {
             NSLog(@"IFSkein: Warning - found item with no ID");
             continue;
         }
-        NSUUID *nodeUUID = [[NSUUID alloc] initWithUUIDString: itemNodeId];
-        if (!nodeUUID) {
-            nodeUUID = [NSUUID UUID];
-        }
 
         NSString* command = [IFSkein firstChildOf: item withName: @"command"].stringValue;
         NSString* actual  = [IFSkein firstChildOf: item withName: @"result"].stringValue;
@@ -82,7 +78,7 @@ static NSString* idForNode(IFSkeinItem* item) {
             command = @"";
         }
 
-        IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command identifier: nodeUUID];
+        IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 

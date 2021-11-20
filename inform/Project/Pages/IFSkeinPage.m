@@ -241,7 +241,7 @@ static const float webViewHeight = 250.0f;
     }
 }
 
--(BOOL) selectSkeinItemWithNodeId:(NSUUID*) skeinItemNodeId {
+-(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId {
     if( skeinView ) {
         return [skeinView selectItemWithNodeId: skeinItemNodeId];
     }

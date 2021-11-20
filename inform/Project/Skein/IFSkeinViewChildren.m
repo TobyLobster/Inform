@@ -56,7 +56,7 @@ static const float  kPositionEpsilon            = 0.01f;
 
 -(void) addSubtreeItems: (IFSkeinLayoutItem*) root
                      to: (NSMutableDictionary*) array {
-    [array setObject: root forKey: root.item.uniqueId];
+    [array setObject: root forKey: @(root.item.uniqueId)];
     for( IFSkeinLayoutItem* child in root.children ) {
         [self addSubtreeItems: child to: array];
     }
@@ -569,12 +569,12 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
 }
 
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item {
-    IFSkeinItemView * itemView = itemViews[item.uniqueId];
+    IFSkeinItemView * itemView = itemViews[@(item.uniqueId)];
     return itemView.layoutItem;
 }
 
 -(NSRect) rectForItem:(IFSkeinItem*) item {
-    IFSkeinItemView * itemView = itemViews[item.uniqueId];
+    IFSkeinItemView * itemView = itemViews[@(item.uniqueId)];
     NSRect result = NSZeroRect;
     if( itemView ) {
         result = itemView.frame;

@@ -31,15 +31,10 @@
 
 - (instancetype) initWithSkein: (IFSkein*) skein
                        command: (NSString*) com {
-    return [self initWithSkein: skein command:com identifier: [NSUUID UUID]];
-}
-- (instancetype) initWithSkein:(IFSkein*) skein
-                       command: (NSString*) com
-                    identifier: (NSUUID*) uuid {
 	self = [super init];
 
 	if (self) {
-        _uniqueId       = uuid;
+        _uniqueId       = [IFUtility generateID];
         _command        = [[self class] sanitizeCommand: com];
 		_actual         = @"";
         _ideal          = @"";
@@ -65,7 +60,6 @@
     [encoder encodeObject: _children    forKey: @"children"];
     [encoder encodeObject: _command     forKey: @"command"];
     [encoder encodeObject: _actual      forKey: @"result"];
-    [encoder encodeObject: _uniqueId    forKey: @"uniqueID"];
     [encoder encodeBool: _isTestSubItem forKey: @"isTestSubItem"];
 }
 
@@ -73,11 +67,7 @@
     self = [super init];
 
     if (self) {
-        if ([decoder containsValueForKey:@"uniqueID"]) {
-            _uniqueId   = [decoder decodeObjectOfClass: [NSUUID class] forKey: @"uniqueID"];
-        } else {
-            _uniqueId   = [NSUUID UUID];
-        }
+        _uniqueId       = [IFUtility generateID];
         _children       = [decoder decodeObjectForKey: @"children"];
         _command        = [decoder decodeObjectForKey: @"command"];
         _actual         = [decoder decodeObjectForKey: @"result"];
@@ -588,8 +578,8 @@
     return [command startsWithCaseInsensitive: @"test "];
 }
 
--(IFSkeinItem*) findItemWithNodeId: (NSUUID*) skeinNodeId {
-    if( self.uniqueId == skeinNodeId || [self.uniqueId isEqual:skeinNodeId] ) {
+-(IFSkeinItem*) findItemWithNodeId: (unsigned long) skeinNodeId {
+    if( self.uniqueId == skeinNodeId ) {
         return self;
     }
 
@@ -664,10 +654,10 @@
 
 #pragma mark - Debugging
 -(void) printDEBUG {
-    NSLog(@"Item(%@) '%@'\n", _uniqueId, _command);
+    NSLog(@"Item(%lu) '%@'\n", _uniqueId, _command);
     int childCount = 0;
     for(IFSkeinItem* child in _children) {
-        NSLog(@"Item(%@) child #%d:\n", _uniqueId, childCount);
+        NSLog(@"Item(%lu) child #%d:\n", _uniqueId, childCount);
         [child printDEBUG];
         childCount++;
     }

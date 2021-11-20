@@ -35,7 +35,7 @@
 - (void) layoutSkeinWithAnimation:(BOOL) animate;
 
 - (void) selectItem: (IFSkeinItem*) item;
-- (BOOL) selectItemWithNodeId: (NSUUID*) skeinItemNodeId;
+- (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId;
 -(void) scrollViewToItem: (IFSkeinItem*) scrollToItem;
 
 - (void) editItem: (IFSkeinItem*) skeinItem;

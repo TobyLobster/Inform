@@ -1324,7 +1324,7 @@ static float        minDividerWidth     = 75.0f;
 	return NO;
 }
 
-- (BOOL) showTestCase: (NSString*) testCase skeinNode:(NSUUID*) skeinNodeId {
+- (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId {
     // Select this test case
     if( ![toolbarManager selectTestCase: testCase] ) {
         return NO;
