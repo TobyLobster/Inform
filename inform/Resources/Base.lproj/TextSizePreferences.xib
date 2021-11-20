@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IFTextSizePreferences">
@@ -12,14 +13,16 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="5" userLabel="Text Size Preferences">
             <rect key="frame" x="0.0" y="0.0" width="497" height="120"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <popUpButton verticalHuggingPriority="750" id="OKA-uZ-7Jt">
-                    <rect key="frame" x="188" y="65" width="122" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OKA-uZ-7Jt">
+                    <rect key="frame" x="188" y="63" width="122" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="115" id="LD1-KK-Nzs"/>
+                    </constraints>
                     <popUpButtonCell key="cell" type="push" title="+100%" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="8" inset="2" selectedItem="vmm-AV-ive" id="mWS-Zn-6db">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -59,18 +62,16 @@
                         <action selector="setPreference:" target="-2" id="veX-hD-6Fk"/>
                     </connections>
                 </popUpButton>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="if0-G2-lSD">
-                    <rect key="frame" x="29" y="71" width="155" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="if0-G2-lSD">
+                    <rect key="frame" x="54" y="70" width="130" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Application text size:" id="qBN-7C-UXx">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="GmY-pw-5iV">
-                    <rect key="frame" x="-2" y="20" width="501" height="34"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GmY-pw-5iV">
+                    <rect key="frame" x="74" y="20" width="350" height="32"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" id="0zk-Pj-HSv">
                         <font key="font" metaFont="system"/>
                         <string key="title">Adjusts the size of text within this application. 
@@ -80,6 +81,18 @@ Source text is controlled separately from the Editing tab.</string>
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="GmY-pw-5iV" secondAttribute="bottom" constant="20" symbolic="YES" id="CKa-wg-cYp"/>
+                <constraint firstItem="GmY-pw-5iV" firstAttribute="centerX" secondItem="5" secondAttribute="centerX" id="Eg4-f2-bYt"/>
+                <constraint firstItem="OKA-uZ-7Jt" firstAttribute="centerX" secondItem="GmY-pw-5iV" secondAttribute="centerX" id="GEq-kC-iq6"/>
+                <constraint firstItem="OKA-uZ-7Jt" firstAttribute="leading" secondItem="if0-G2-lSD" secondAttribute="trailing" constant="9" id="JBo-ii-olH"/>
+                <constraint firstItem="if0-G2-lSD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5" secondAttribute="leading" constant="31" id="ZWv-0U-oka"/>
+                <constraint firstItem="OKA-uZ-7Jt" firstAttribute="firstBaseline" secondItem="if0-G2-lSD" secondAttribute="firstBaseline" id="ZjC-U4-QUo"/>
+                <constraint firstItem="GmY-pw-5iV" firstAttribute="top" secondItem="OKA-uZ-7Jt" secondAttribute="bottom" constant="15" id="bG5-KD-QMJ"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GmY-pw-5iV" secondAttribute="trailing" id="jOD-kP-Jzg"/>
+                <constraint firstItem="GmY-pw-5iV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5" secondAttribute="leading" id="sFc-nx-hse"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="136"/>
         </customView>
     </objects>
 </document>

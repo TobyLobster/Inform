@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IFOutputSettings">
@@ -13,14 +14,13 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="n49-MO-O35" userLabel="View (Inform 7)">
-            <rect key="frame" x="0.0" y="0.0" width="487" height="218"/>
+            <rect key="frame" x="0.0" y="0.0" width="487" height="202"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="vnm-T5-EZG">
-                    <rect key="frame" x="17" y="156" width="453" height="42"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="449" translatesAutoresizingMaskIntoConstraints="NO" id="vnm-T5-EZG">
+                    <rect key="frame" x="17" y="140" width="449" height="42"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="pDI-wn-Us7">
                         <font key="font" metaFont="smallSystem"/>
                         <string key="title">Inform translates the source text into a story file which can have either of two standard formats. You can change your mind about the format at any time, but some language features require Glulx to be used.</string>
@@ -28,9 +28,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <matrix verticalHuggingPriority="750" tag="1" selectionByRect="NO" allowsEmptySelection="NO" autosizesCells="NO" id="7Hh-dq-kuz">
-                    <rect key="frame" x="20" y="104" width="447" height="38"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <matrix verticalHuggingPriority="750" tag="1" selectionByRect="NO" allowsEmptySelection="NO" autosizesCells="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Hh-dq-kuz">
+                    <rect key="frame" x="20" y="94" width="447" height="38"/>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     <size key="cellSize" width="447" height="18"/>
                     <size key="intercellSpacing" width="4" height="2"/>
@@ -55,9 +54,8 @@
                         <action selector="settingsHaveChanged:" target="-2" id="lAH-zR-Rxx"/>
                     </connections>
                 </matrix>
-                <textField verticalHuggingPriority="750" id="0zO-UT-8XT">
-                    <rect key="frame" x="17" y="48" width="453" height="42"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="449" translatesAutoresizingMaskIntoConstraints="NO" id="0zO-UT-8XT">
+                    <rect key="frame" x="17" y="44" width="437" height="42"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="x4I-mE-Atk">
                         <font key="font" metaFont="smallSystem"/>
                         <string key="title">When released, the story file is normally bound up into a Blorb file along with bibliographic data, cover art and any other resources it needs. If you need the raw story file, uncheck this option.</string>
@@ -65,9 +63,8 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button id="7Hz-MF-OsQ">
-                    <rect key="frame" x="17" y="18" width="451" height="18"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="7Hz-MF-OsQ">
+                    <rect key="frame" x="17" y="19" width="233" height="18"/>
                     <string key="toolTip">If selected (the default), then Inform will collate your story file with a library card on release to create a runnable Blorb archive file.</string>
                     <buttonCell key="cell" type="check" title="Bind up into a Blorb file on release" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="RKc-HM-wKh">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -78,6 +75,20 @@
                     </connections>
                 </button>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7Hz-MF-OsQ" secondAttribute="trailing" constant="20" symbolic="YES" id="9cz-5e-63B"/>
+                <constraint firstItem="7Hh-dq-kuz" firstAttribute="top" secondItem="vnm-T5-EZG" secondAttribute="bottom" constant="8" symbolic="YES" id="FYC-yh-7rt"/>
+                <constraint firstItem="0zO-UT-8XT" firstAttribute="leading" secondItem="7Hz-MF-OsQ" secondAttribute="leading" id="LcY-mf-dcB"/>
+                <constraint firstItem="vnm-T5-EZG" firstAttribute="leading" secondItem="n49-MO-O35" secondAttribute="leading" constant="19" id="OVc-SQ-uAV"/>
+                <constraint firstItem="0zO-UT-8XT" firstAttribute="top" secondItem="7Hh-dq-kuz" secondAttribute="bottom" constant="8" symbolic="YES" id="VQv-cE-zQY"/>
+                <constraint firstItem="7Hh-dq-kuz" firstAttribute="leading" secondItem="n49-MO-O35" secondAttribute="leading" constant="20" symbolic="YES" id="Vni-Fx-eS6"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0zO-UT-8XT" secondAttribute="trailing" constant="20" symbolic="YES" id="eCg-U1-Lb9"/>
+                <constraint firstItem="7Hz-MF-OsQ" firstAttribute="top" secondItem="0zO-UT-8XT" secondAttribute="bottom" constant="8" symbolic="YES" id="fMh-KK-hbX"/>
+                <constraint firstItem="vnm-T5-EZG" firstAttribute="top" secondItem="n49-MO-O35" secondAttribute="top" constant="20" symbolic="YES" id="jf8-3b-Fu0"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vnm-T5-EZG" secondAttribute="trailing" constant="20" symbolic="YES" id="jqa-yH-PcZ"/>
+                <constraint firstItem="vnm-T5-EZG" firstAttribute="leading" secondItem="0zO-UT-8XT" secondAttribute="leading" id="sQl-CT-GC1"/>
+            </constraints>
+            <point key="canvasLocation" x="138.5" y="128"/>
         </customView>
     </objects>
 </document>

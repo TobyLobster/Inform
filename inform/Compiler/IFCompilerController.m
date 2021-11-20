@@ -1151,7 +1151,7 @@ static IFCompilerController* activeController = nil;
                 return;
             }
             NSString* testCase = results[0];
-            NSUUID *skeinNodeId = [[NSUUID alloc] initWithUUIDString: results[1]];
+            unsigned long skeinNodeId = [results[1] unsignedLongValue];
 
             // Move to the appropriate place in the file
             if (![projectController showTestCase: testCase skeinNode: skeinNodeId]) {
