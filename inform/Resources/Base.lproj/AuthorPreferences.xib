@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1060" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IFAuthorPreferences">
@@ -12,35 +13,35 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1" userLabel="AuthorPreferences">
             <rect key="frame" x="0.0" y="0.0" width="521" height="144"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" id="2">
-                    <rect key="frame" x="17" y="89" width="77" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2">
+                    <rect key="frame" x="17" y="92" width="75" height="14"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Author name:" id="3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" id="4">
-                    <rect key="frame" x="20" y="70" width="481" height="19"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="20" y="65" width="481" height="19"/>
                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="John Q. Writer" drawsBackground="YES" id="5">
                         <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
                         <action selector="setPreference:" target="-2" id="10"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" id="6">
-                    <rect key="frame" x="17" y="25" width="487" height="37"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="483" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <rect key="frame" x="17" y="20" width="487" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="37" id="5Pe-fp-ils"/>
+                    </constraints>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" alignment="center" title="The author name is automatically filled in when creating new stories and extensions. " id="7">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -48,6 +49,18 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="2" secondAttribute="trailing" constant="20" symbolic="YES" id="3hF-9d-t8C"/>
+                <constraint firstItem="2" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="19" id="9bl-Dm-9Bq"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="2" secondAttribute="bottom" constant="8" symbolic="YES" id="I8N-RN-bTB"/>
+                <constraint firstItem="4" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="Ino-02-KQ5"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="8" symbolic="YES" id="OIm-gX-qK9"/>
+                <constraint firstItem="2" firstAttribute="top" secondItem="1" secondAttribute="top" constant="38" id="ak1-3j-BS7"/>
+                <constraint firstItem="2" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="iAU-r5-Q3X"/>
+                <constraint firstItem="4" firstAttribute="centerX" secondItem="6" secondAttribute="centerX" id="j5f-Bs-u0i"/>
+                <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="20" symbolic="YES" id="jHS-un-awL"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="142"/>
         </customView>
     </objects>
 </document>

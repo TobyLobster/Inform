@@ -19,18 +19,19 @@
             <rect key="frame" x="0.0" y="0.0" width="450" height="326"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                    <rect key="frame" x="17" y="286" width="166" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <rect key="frame" x="17" y="288" width="166" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="162" id="Afj-q2-djz"/>
+                    </constraints>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Descriptive title:" id="22">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="Enter a name for the new extension here." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="11">
-                    <rect key="frame" x="188" y="284" width="242" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField toolTip="Enter a name for the new extension here." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                    <rect key="frame" x="189" y="285" width="241" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="21">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -40,18 +41,16 @@
                         <outlet property="nextKeyView" destination="6" id="25"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="7">
-                    <rect key="frame" x="17" y="256" width="166" height="17"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="162" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <rect key="frame" x="17" y="259" width="166" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Author's name:" id="20">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField toolTip="You can change the name of the author of the extension here." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6">
-                    <rect key="frame" x="188" y="254" width="242" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField toolTip="You can change the name of the author of the extension here." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <rect key="frame" x="189" y="256" width="241" height="21"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="19">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -61,9 +60,8 @@
                         <outlet property="nextKeyView" destination="11" id="16"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="26">
-                    <rect key="frame" x="17" y="166" width="416" height="70"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="26">
+                    <rect key="frame" x="17" y="182" width="416" height="56"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="27">
                         <font key="font" metaFont="smallSystem"/>
                         <string key="title">Extensions enrich the Inform language by providing new features which can be used by other projects, and by other authors. They are identified by the author's name and then a short descriptive title: for example, "Adaptive Hints by Eric Eve".</string>
@@ -72,6 +70,21 @@
                     </textFieldCell>
                 </textField>
             </subviews>
+            <constraints>
+                <constraint firstItem="26" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="18" id="LG2-Xd-Wdb"/>
+                <constraint firstItem="6" firstAttribute="firstBaseline" secondItem="7" secondAttribute="firstBaseline" id="N09-FD-SNb"/>
+                <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" symbolic="YES" id="O5Z-h8-kO4"/>
+                <constraint firstItem="7" firstAttribute="leading" secondItem="26" secondAttribute="leading" id="XEC-SI-v1m"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="8" id="XbB-av-thO"/>
+                <constraint firstItem="12" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="bHK-EF-i9H"/>
+                <constraint firstItem="11" firstAttribute="trailing" secondItem="6" secondAttribute="trailing" id="cIq-ep-a8M"/>
+                <constraint firstItem="11" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="i4B-ro-CGk"/>
+                <constraint firstItem="12" firstAttribute="trailing" secondItem="7" secondAttribute="trailing" id="jFR-HW-RTv"/>
+                <constraint firstItem="11" firstAttribute="leading" secondItem="12" secondAttribute="trailing" constant="8" symbolic="YES" id="oVh-MY-eF5"/>
+                <constraint firstItem="11" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" id="ofC-9n-dZ7"/>
+                <constraint firstItem="26" firstAttribute="centerX" secondItem="5" secondAttribute="centerX" id="rph-7H-I7o"/>
+                <constraint firstItem="11" firstAttribute="firstBaseline" secondItem="12" secondAttribute="firstBaseline" id="uCh-Dw-Of9"/>
+            </constraints>
             <connections>
                 <outlet property="nextKeyView" destination="11" id="24"/>
             </connections>

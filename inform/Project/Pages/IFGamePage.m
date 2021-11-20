@@ -234,7 +234,7 @@
 		[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
 		[zView setFrame: [self.view bounds]];
-		[zView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+		[zView setAutoresizingMask: NSViewWidthSizable|NSViewHeightSizable];
 		[self.view addSubview: zView];
 	}
     [semiTransparentView setHidden: YES];
