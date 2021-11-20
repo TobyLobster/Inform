@@ -10,7 +10,7 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 #import "IFCompilerListEntry.h"
-#import "IFCompilerList.h"
+#import "Inform-Swift.h"
 #import "Regex.h"
 
 @implementation IFCompilerVersionSettings {
@@ -49,7 +49,7 @@
 // = Setting up =
 
 -(IFCompilerListEntry *) getSelectedListEntryFromDisplayName: (NSString*) displayName {
-    NSMutableArray *list = [IFCompilerList compilerList];
+    NSArray *list = [CompilerList compilerList];
     for(IFCompilerListEntry * entry in list)
     {
         if ([entry.displayName isEqualToString:[compilerVersionBox title]])
@@ -61,7 +61,7 @@
 }
 
 - (IFCompilerListEntry*) getSelectedListEntryFromId:(NSString*) currentSelectedId {
-    NSMutableArray *list = [IFCompilerList compilerList];
+    NSArray *list = [CompilerList compilerList];
     IFCompilerListEntry *selectedEntry = nil;
     for(IFCompilerListEntry * entry in list)
     {

@@ -53,18 +53,22 @@
 #import "IFSkeinItemView.h"
 
 #import "IFSingleController.h"
-#import "IFCompilerList.h"
 
 #import <GlkView/GlkHub.h>
 
 @implementation IFAppDelegate {
-    IBOutlet NSMenuItem* newExtensionProjectMenu;   // The 'New Extension Project' menu
-    IBOutlet NSMenuItem* openExtensionMenu;         // The 'Open Extension' menu
-    IBOutlet NSMenuItem* debugMenu;					// The Debug menu
+    /// The 'New Extension Project' menu
+    IBOutlet NSMenuItem* newExtensionProjectMenu;
+    /// The 'Open Extension' menu
+    IBOutlet NSMenuItem* openExtensionMenu;
+    /// The Debug menu
+    IBOutlet NSMenuItem* debugMenu;
 
-    NSMutableArray* extensionSources;				// Maps extension menu tags to source file names
+    /// Maps extension menu tags to source file names
+    NSMutableArray* extensionSources;
 
-    NSOpenPanel* openExtensionPanel;				// The 'open extension' panel
+    /// The 'open extension' panel
+    NSOpenPanel* openExtensionPanel;
 
     // Used for copying sample projects
     NSURL*   copySource;
@@ -76,8 +80,8 @@
     int exportToEPubIndex;
 }
 
-static NSString* IFSourceSpellChecking = @"IFSourceSpellChecking";
-static float     pixelWidthBetweenExtensionNameAndVersion = 10.0f;
+static NSString* const IFSourceSpellChecking = @"IFSourceSpellChecking";
+static CGFloat   pixelWidthBetweenExtensionNameAndVersion = 10.0f;
 static IFNewProject* newProj = nil;
 
 static NSRunLoop* mainRunLoop = nil;
@@ -86,20 +90,7 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 + (BOOL)isWebKitAvailable {
-    static BOOL _webkitAvailable=NO;
-    static BOOL _initialized=NO;
-    
-    if (_initialized)
-        return _webkitAvailable;
-	
-    NSBundle* webKitBundle;
-    webKitBundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/WebKit.framework"];
-    if (webKitBundle) {
-        _webkitAvailable = [webKitBundle load];
-    }
-    _initialized=YES;
-    
-    return _webkitAvailable;
+    return YES;
 }
 
 - (void) applicationWillFinishLaunching: (NSNotification*) not {

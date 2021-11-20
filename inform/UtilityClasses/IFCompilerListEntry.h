@@ -5,10 +5,9 @@
 //  Created by Toby Nelson on 17/02/2019.
 //
 
-@interface IFCompilerListEntry : NSObject {
+#import <Foundation/Foundation.h>
 
-    
-}
+@interface IFCompilerListEntry : NSObject
 
 @property (atomic, copy) NSString *    id;
 @property (atomic, copy) NSString *    displayName;

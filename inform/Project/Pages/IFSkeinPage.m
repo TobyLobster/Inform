@@ -357,8 +357,8 @@ static const float webViewHeight = 250.0f;
 
     NSRect rect0 = [[[split subviews] objectAtIndex:0] frame];
     NSRect rect1 = [[[split subviews] objectAtIndex:1] frame];
-    float minSize0 = -1;
-    float height0 = 0;
+    CGFloat minSize0 = -1;
+    CGFloat height0 = 0;
 
     rect0.origin = NSMakePoint(0, 0);
     rect0.size.width = newFrame.size.width;
