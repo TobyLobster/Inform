@@ -10,21 +10,25 @@
 
 #import "IFProjectPane.h"
 
-//
-// Class designed to provide a JavaScript interface to a project window.
-//
-// This makes it possible to create buttons that, for example, paste code into the source window.
-//
+///
+/// Class designed to provide a JavaScript interface to a project window.
+///
+/// This makes it possible to create buttons that, for example, paste code into the source window.
+///
 @interface IFJSProject : NSObject
 
 // Initialisation
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;	// Initialise this object: we'll control the given pane. Note that this is *NOT* retained to avoid a retain loop (the pane retains the web view, which retains us...)
+/// Initialise this object: we'll control the given pane. Note that this is \b NOT retained to avoid a retain loop (the pane retains the web view, which retains us...)
+- (instancetype) initWithPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 // JavaScript operations on the pane
-- (void) selectView: (NSString*) view;					// Selects a specific view (valid names are source, documentation, skein, etc)
-- (void) pasteCode: (NSString*) code;					// Pastes some code into the source view at the current insertion point
+/// Selects a specific view (valid names are source, documentation, skein, etc)
+- (void) selectView: (NSString*) view;
+/// Pastes some code into the source view at the current insertion point
+- (void) pasteCode: (NSString*) code;
+/// Creates a new project with some code in the source view
 - (void) createNewProject: (NSString*) title
-                    story: (NSString*) code;			// Creates a new project with some code in the source view
+                    story: (NSString*) code;
 
 @end

@@ -16,7 +16,7 @@
 #import <CommonCrypto/CommonDigest.h>       // md5 hash
 
 @implementation IFJSProject {
-    IFProjectPane* pane;
+    __weak IFProjectPane* pane;
 }
 
 // = Initialisation =
