@@ -67,8 +67,8 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 - (instancetype) init {
 	// Create ourselves a window
 	NSScreen* mainScreen = [NSScreen mainScreen];
-	float width = 240;
-	float height = 10;
+    CGFloat width = 240;
+    CGFloat height = 10;
 	
 	NSPanel* ourWindow = [[NSPanel alloc] initWithContentRect: NSMakeRect(NSMaxX([mainScreen frame])-width-50, NSMaxY([mainScreen frame])-height-50, 
 																				 width, height)
@@ -171,9 +171,9 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Work out the maximum height of the inspector window
 	NSRect screenRect = [[[self window] screen] frame];
 	NSRect currentFrame = [[self window] frame];
-	float difference = currentFrame.size.height - [[[self window] contentView] frame].size.height;
+    CGFloat difference = currentFrame.size.height - [[[self window] contentView] frame].size.height;
 
-	float maxHeight = screenRect.size.height - (NSMaxY(screenRect) - NSMaxY(currentFrame));
+    CGFloat maxHeight = screenRect.size.height - (NSMaxY(screenRect) - NSMaxY(currentFrame));
 	maxHeight -= difference;
 		
 	// Return if there's only one open inspector
@@ -182,7 +182,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Work out the current height of the inspector window
 	NSEnumerator* realInspectorEnum = [inspectors objectEnumerator];
 	IFInspector* inspector;
-	float currentHeight = 0;
+    CGFloat currentHeight = 0;
 	
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
@@ -293,7 +293,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	NSMutableDictionary* inspectorState = [[NSMutableDictionary alloc] init];
 	
 	// Position all the inspectors
-	float ypos = contentFrame.origin.y;
+    CGFloat ypos = contentFrame.origin.y;
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
 		
@@ -340,7 +340,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Need to do things this way as Jaguar has no proper calculation routines
 	NSRect currentFrame = [[self window] frame];
 	
-	float difference = currentFrame.size.height - contentFrame.size.height;
+    CGFloat difference = currentFrame.size.height - contentFrame.size.height;
 	
 	NSRect newFrame = currentFrame;
 	newFrame.size.height = ypos + difference;

@@ -15,7 +15,7 @@
     BOOL canCancel;
 
     // Current state
-    float percentage;
+    CGFloat percentage;
     NSString* message;
     BOOL storyActive;
     BOOL inProgress;
@@ -25,7 +25,7 @@
     id   cancelActionObject;
 
     // Delegate
-    id delegate;
+    __weak id<IFProgressDelegate> delegate;
 }
 
 // = Initialisation =
@@ -52,7 +52,8 @@
 
 // = Setting the current progress =
 
-- (void) setPercentage: (float) newPercentage {
+@synthesize percentage;
+- (void) setPercentage: (CGFloat) newPercentage {
 	percentage = newPercentage;
 	
 	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:percentage:)]) {
@@ -61,6 +62,7 @@
 	}
 }
 
+@synthesize message;
 - (void) setMessage: (NSString*) newMessage {
 	message = [newMessage copy];
 
@@ -100,23 +102,11 @@
 	}
 }
 
-- (float) percentage {
-	return percentage;
-}
-
-- (NSString*) message {
-	return message;
-}
-
-- (BOOL) storyActive {
-    return storyActive;
-}
+@synthesize storyActive;
 
 // = Setting the delegate =
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
 
 // Cancelling
@@ -137,23 +127,10 @@
     }
 }
 
-- (BOOL) isCancelled {
-    return cancelled;
-}
+@synthesize cancelled;
+@synthesize inProgress;
+@synthesize priority;
+@synthesize showsProgressBar;
+@synthesize canCancel;
 
-- (BOOL) isInProgress {
-    return inProgress;
-}
-
-- (int) priority {
-    return priority;
-}
-
-- (BOOL) showsProgressBar {
-    return showsProgressBar;
-}
-
-- (BOOL)      canCancel {
-    return canCancel;
-}
 @end

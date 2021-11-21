@@ -143,7 +143,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                                                          green: 0.8f
                                                           blue: 0.8f
                                                          alpha: 1.0f];
-    float size = [IFSkeinView fontSize];
+    CGFloat size = [IFSkeinView fontSize];
     NSFont* standardFont = [NSFont systemFontOfSize: size];
     NSFont* testMeFont   = [NSFont systemFontOfSize: size];
     NSFont* rootFont     = [NSFont boldSystemFontOfSize: size];
@@ -460,7 +460,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                                            itemTestMeTextUnselectedAttributes,itemTestMeTextSelectedAttributes, itemTestMeTextActiveAttributes
                                           ][textAttributesIndex];
 
-    [title drawAtPoint: NSMakePoint(floorf(commandX), floorf(commandY))
+    [title drawAtPoint: NSMakePoint(floor(commandX), floor(commandY))
         withAttributes: sizedTextAttributes];
 
     // Draw the badge if necessary

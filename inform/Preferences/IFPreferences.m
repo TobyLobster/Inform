@@ -455,7 +455,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 
 - (NSFont*) fontWithName: (NSString*) name
-					size: (float) size {
+					size: (CGFloat) size {
 	NSFont* result = [NSFont fontWithName: name
 									 size: size];
 	
@@ -468,9 +468,9 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (NSFont*) fontWithFamily: (NSString*) family
-					traits: (int) traits
+					traits: (NSFontTraitMask) traits
 					weight: (int) weight
-					  size: (float) size {
+					  size: (CGFloat) size {
 	NSFont* font = [[NSFontManager sharedFontManager] fontWithFamily: family
 															  traits: traits
 															  weight: weight
@@ -512,7 +512,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     else if ( style == IFFontStyleBold )        mask = NSBoldFontMask;
     else if ( style == IFFontStyleBoldItalic )  mask = NSBoldFontMask | NSItalicFontMask;
 
-    float fontSize = [self sourceFontSize];
+    CGFloat fontSize = [self sourceFontSize];
     switch ([self sourceRelativeFontSizeForOptionType: optionType] ) {
         case IFFontSizeMinus30: fontSize *= 0.7f; break;
         case IFFontSizeMinus20: fontSize *= 0.8f; break;

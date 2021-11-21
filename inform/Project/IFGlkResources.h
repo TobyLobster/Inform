@@ -18,7 +18,7 @@
 
 - (instancetype)init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
 
-// Initialise this resource file to get image resources from the specified project
+/// Initialise this resource file to get image resources from the specified project
 - (instancetype) initWithProject: (IFProject*) project NS_DESIGNATED_INITIALIZER;
 
 @end

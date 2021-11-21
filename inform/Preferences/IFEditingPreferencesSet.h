@@ -28,7 +28,7 @@
 @property (atomic, strong) NSColor*     extensionPaperColor;
 @property (atomic) bool                 enableSyntaxHighlighting;
 @property (atomic, strong) NSMutableArray*      options;            // Array of IFSyntaxHighlightingOptions
-@property (atomic) float                tabWidth;
+@property (atomic) CGFloat              tabWidth;
 @property (atomic) bool                 indentWrappedLines;
 @property (atomic) bool                 autoIndentAfterNewline;
 @property (atomic) bool                 autoSpaceTableColumns;

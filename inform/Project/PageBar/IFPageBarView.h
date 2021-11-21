@@ -24,7 +24,7 @@
 + (void) drawOverlay: (NSImage*) overlay			// Draws (part of) the background image for this bar
 			  inRect: (NSRect) rect
 		 totalBounds: (NSRect) bounds
-			fraction: (float) fraction;
+			fraction: (CGFloat) fraction;
 
 // = Managing cells =
 

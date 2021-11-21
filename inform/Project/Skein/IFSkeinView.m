@@ -18,7 +18,7 @@
 #import "IFUtility.h"
 
 // Constants
-static const float kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command
+static const CGFloat kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command
 
 // Drawing info
 static NSDictionary* itemTextAttributes;
@@ -405,10 +405,10 @@ static NSDictionary* itemTextAttributes;
 	}
 
 	// 'overflow' border
-	itemFrame.origin.x      = floorf(itemFrame.origin.x - 14.0f);
-	itemFrame.origin.y      = floorf(itemFrame.origin.y + 4.0f);
-	itemFrame.size.width    = floorf(itemFrame.size.width + 20.0f);
-	itemFrame.size.height   = floorf(itemFrame.size.height);
+	itemFrame.origin.x      = floor(itemFrame.origin.x - 14.0f);
+	itemFrame.origin.y      = floor(itemFrame.origin.y + 4.0f);
+	itemFrame.size.width    = floor(itemFrame.size.width + 20.0f);
+	itemFrame.size.height   = floor(itemFrame.size.height);
 
     [self scrollRectToVisible: itemFrame];
 
@@ -882,7 +882,7 @@ static NSDictionary* itemTextAttributes;
                      keepActiveVisible: NO];
 }
 
-+ (float) fontSize {
++ (CGFloat) fontSize {
     return kSkeinDefaultItemFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
 }
 

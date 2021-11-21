@@ -78,13 +78,13 @@
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
 		NSRect thisFrame = [thisView frame];
 		
-		float ypos = thisFrame.origin.y - (titleSize.height*1.2);
+        CGFloat ypos = thisFrame.origin.y - (titleSize.height*1.2);
 		
 		// Draw the border rect
-		NSRect borderRect = NSMakeRect(floorf(BORDER)+0.5,
-                                       floorf(ypos)+0.5,
-									   (float) maxWidth,
-                                       floorf(thisFrame.size.height + (titleSize.height * 1.2)));
+		NSRect borderRect = NSMakeRect(floor(BORDER)+0.5,
+                                       floor(ypos)+0.5,
+									   (CGFloat) maxWidth,
+                                       floor(thisFrame.size.height + (titleSize.height * 1.2)));
 		[frameColour set];
 		[NSBezierPath strokeRect: borderRect];
 		
@@ -119,7 +119,7 @@
 	[states addObject: @YES];
 	
     [self addSubview: subview];
-    [subview setAutoresizingMask: (NSUInteger) (NSViewMaxYMargin | NSViewMaxXMargin)];
+    [subview setAutoresizingMask: NSViewMaxYMargin | NSViewMaxXMargin];
 	[subview setNeedsDisplay: YES];
 	
 	// Rearrange the views
@@ -135,10 +135,10 @@
 	NSRect oldBounds;
 	NSRect newBounds = [self bounds];
 	
-	float newHeight;
+    CGFloat newHeight;
 	
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
-	float titleHeight = [titleFont ascender] - [titleFont descender];
+    CGFloat titleHeight = [titleFont ascender] - [titleFont descender];
 	
 	oldBounds = newBounds;
 	
@@ -161,7 +161,7 @@
     //
 	// Stage two: Position the views appropriately
     //
-	float ypos = BORDER;
+    CGFloat ypos = BORDER;
 	
 	for( NSView* subview in views ) {
 		NSRect viewFrame = [subview frame];

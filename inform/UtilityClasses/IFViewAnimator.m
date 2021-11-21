@@ -78,7 +78,7 @@
 
 // = Animating =
 
-- (void) setTime: (float) newAnimationTime {
+- (void) setTime: (NSTimeInterval) newAnimationTime {
 	animationTime = newAnimationTime;
 }
 
@@ -111,7 +111,7 @@
             // Send finished message
             [finishedObject performSelector: finishedMessage
                                  withObject: self
-                                 afterDelay: 0.0f];
+                                 afterDelay: 0.0];
 			finishedObject = nil;
 		}
 	}
@@ -180,9 +180,9 @@
 								 forMode: NSEventTrackingRunLoopMode];
 }
 
-- (float) percentDone {
+- (CGFloat) percentDone {
 	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
-	float done = ((float)timePassed)/((float)animationTime);
+    CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
 	
 	if (done < 0) done = 0;
 	if (done > 1) done = 1.0;
@@ -224,8 +224,8 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 	}
 	
 	// Draw the appropriate animation frame
-	float percentDone = [self percentDone];
-	float percentNotDone = 1.0-percentDone;
+    CGFloat percentDone = [self percentDone];
+    CGFloat percentNotDone = 1.0-percentDone;
 	
 	NSRect bounds = [self bounds];
 	NSSize startSize = [startImage size];
@@ -367,7 +367,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			endTo = endFrom;
 			endTo.origin = bounds.origin;
 			
-			float scaleFactor = 0.95 + 0.05*percentDone;
+            CGFloat scaleFactor = 0.95 + 0.05*percentDone;
 			endTo.size.height *= scaleFactor;
 			endTo.size.width *= scaleFactor;
 			endTo.origin.x += (endFrom.size.width - endTo.size.width) / 2;
@@ -400,7 +400,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			startTo = startFrom;
 			startTo.origin = bounds.origin;
 			
-			float scaleFactor = 0.95 + 0.05*percentNotDone;
+            CGFloat scaleFactor = 0.95 + 0.05*percentNotDone;
 			startTo.size.height *= scaleFactor;
 			startTo.size.width *= scaleFactor;
 			startTo.origin.x += (startFrom.size.width - startTo.size.width) / 2;

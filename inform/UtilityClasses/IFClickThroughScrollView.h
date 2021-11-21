@@ -14,8 +14,6 @@
 /// editor system, namely that you can't get clicks outside of the text container for text views 
 /// where the field editor is active.
 ///
-@interface IFClickThroughScrollView : NSScrollView {
-
-}
+@interface IFClickThroughScrollView : NSScrollView
 
 @end

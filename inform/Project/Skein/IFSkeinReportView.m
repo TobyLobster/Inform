@@ -49,7 +49,7 @@ static NSDictionary* deleteAttr = nil;
 }
 
 +(void) adjustAttributesToFontSize {
-    float fontSize = kSkeinDefaultReportFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    CGFloat fontSize = kSkeinDefaultReportFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
     commandAttr = [IFUtility adjustAttributesFontSize: commandAttr size: fontSize];
     normalAttr  = [IFUtility adjustAttributesFontSize: normalAttr  size: fontSize];
     insertAttr  = [IFUtility adjustAttributesFontSize: insertAttr  size: fontSize];
@@ -158,7 +158,7 @@ static NSDictionary* deleteAttr = nil;
 
         // Create and position new subviews
         IFSkeinLayoutItem* layoutItem = leafItem;
-        float totalHeight = 0.0f;
+        CGFloat totalHeight = 0.0f;
         int itemViewsIndex = 0;
         int maxLevel = layoutItem.level;
 
@@ -199,10 +199,10 @@ static NSDictionary* deleteAttr = nil;
                                     forceChange: forceResizeDueToFontSizeChange];
 
             // Resize based on size of text. Includes borders and ensures a minimum height for each item.
-            float viewHeight = reportItemView.textHeight;
+            CGFloat viewHeight = reportItemView.textHeight;
 
             // Work out height between items
-            float fullStrideHeight = reportItemView.topBorderHeight + viewHeight;
+            CGFloat fullStrideHeight = reportItemView.topBorderHeight + viewHeight;
             if( itemViewsIndex == 0 ) {
                 fullStrideHeight += kSkeinReportInsideBottomBorder;
             } else {
@@ -267,12 +267,12 @@ static NSDictionary* deleteAttr = nil;
     CGFloat dashArray[] = { 8.0f, 6.0f };
     [path setLineDash: dashArray count: 2 phase: 0.0f];
 
-    float totalHeight = 0;
+    CGFloat totalHeight = 0;
     for( int index = (int) [reportDetails count] - 1; index > 0; index-- ) {
-        float height = [reportDetails[index] floatValue];
+        CGFloat height = [reportDetails[index] doubleValue];
         totalHeight += height;
 
-        float y = floorf(totalHeight) - (kDottedSeparatorLineThickness * 0.5f);
+        CGFloat y = floor(totalHeight) - (kDottedSeparatorLineThickness * 0.5f);
         [path moveToPoint: NSMakePoint(0.0f, y)];
         [path lineToPoint: NSMakePoint(self.frame.size.width, y)];
     }

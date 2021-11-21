@@ -10,7 +10,7 @@
 #import "IFSkeinArrowView.h"
 #import "IFSkeinConstants.h"
 
-static const float kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
+static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
 
 @implementation IFSkeinArrowView
 
@@ -35,10 +35,10 @@ static const float kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     NSBezierPath * path = [NSBezierPath bezierPath];
     [path setLineWidth: kSkeinArrowLineThickness];
 
-    float y = floorf(self.frame.size.height * 0.5f) + 0.5f + offset.y;
-    float h = kSkeinArrowHeadHalfHeight;
-    float w = self.frame.size.width;
-    float m = self.frame.size.width - kSkeinArrowHeadLength + offset.x;
+    CGFloat y = floor(self.frame.size.height * 0.5) + 0.5 + offset.y;
+    CGFloat h = kSkeinArrowHeadHalfHeight;
+    CGFloat w = self.frame.size.width;
+    CGFloat m = self.frame.size.width - kSkeinArrowHeadLength + offset.x;
 
     // Draw arrow head
     [path setLineJoinStyle: NSMiterLineJoinStyle];
@@ -51,10 +51,10 @@ static const float kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     [path stroke];
 
     // Draw dotted line for stalk
-    CGFloat dashArray[] = { 1.0f, 3.0f };
-    [path setLineDash: dashArray count: 2 phase: 0.0f];
+    CGFloat dashArray[] = { 1.0, 3.0 };
+    [path setLineDash: dashArray count: 2 phase: 0.0];
 
-    [path moveToPoint: NSMakePoint(0.0f, y)];
+    [path moveToPoint: NSMakePoint(0.0, y)];
     [path lineToPoint: NSMakePoint(w, y)];
     [path stroke];
 }
@@ -69,9 +69,9 @@ static const float kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
                                 blue: 1.0f
                                alpha: 0.8f] set];
 
-        float y = floorf(self.frame.size.height * 0.5f) + 0.5f;
-        float h = kSkeinArrowHeadHalfHeight;
-        float m = self.frame.size.width - kSkeinArrowHeadLength - 2.0f;
+        CGFloat y = floor(self.frame.size.height * 0.5) + 0.5;
+        CGFloat h = kSkeinArrowHeadHalfHeight;
+        CGFloat m = self.frame.size.width - kSkeinArrowHeadLength - 2.0f;
         NSRectFillUsingOperation(NSMakeRect(0, y - 2.0f, m, 4.0f), NSCompositingOperationSourceOver);
         NSRectFillUsingOperation(NSMakeRect(m,
                                             y - h - kSkeinArrowLineThickness,

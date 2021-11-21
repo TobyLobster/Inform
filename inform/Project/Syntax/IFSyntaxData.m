@@ -1256,7 +1256,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	int x;
 
     // Set up member variable 'tabStops' - a standard set of tabs at the current width
-	float stopWidth = [highlighter tabStopWidth];
+    CGFloat stopWidth = [highlighter tabStopWidth];
 	if (stopWidth < 1.0) stopWidth = 1.0;
 	
 	tabStops = [[NSMutableArray alloc] init];
@@ -1271,7 +1271,7 @@ static inline BOOL IsWhitespace(unichar c) {
 
 - (NSDictionary*) generateParagraphStyleForTabStops: (int) numberOfTabStops {
     // Get the width of a tabstop
-	float stopWidth = [highlighter tabStopWidth];
+    CGFloat stopWidth = [highlighter tabStopWidth];
 	if (stopWidth < 1.0) stopWidth = 1.0;
 
 	NSMutableParagraphStyle* res = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -1287,7 +1287,7 @@ static inline BOOL IsWhitespace(unichar c) {
     // Set head indent
 	if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
         // Indent half a tabstop width beyond the normal indent
-        float headIndent = stopWidth * ((float) numberOfTabStops) + (stopWidth/2.0);
+        CGFloat headIndent = stopWidth * ((CGFloat) numberOfTabStops) + (stopWidth/2.0);
 
 		[res setHeadIndent: headIndent];
 		[res setFirstLineHeadIndent: 0];
@@ -1500,7 +1500,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	}
 	
 	// Work out the widths for each column
-	float margin = 8.0;							// size of column margin
+    CGFloat margin = 8.0;							// size of column margin
 	
 	NSMutableArray* elasticTabStops = [[NSMutableArray alloc] init];
 	int colNum;
@@ -1515,21 +1515,21 @@ static inline BOOL IsLineEnd(unichar c) {
 			NSSize				thisSize	= [colString size];
 			
 			// Get the current width of this column
-			float currentWidth = [elasticTabStops[colNum] floatValue];
+            CGFloat currentWidth = [elasticTabStops[colNum] doubleValue];
 			
 			// Adjust as necessary
 			if (thisSize.width + margin > currentWidth) {
-				currentWidth = floorf(thisSize.width + margin);
+				currentWidth = floor(thisSize.width + margin);
 				elasticTabStops[colNum] = @(currentWidth);
 			}
 		}
 	}
 	
 	// Tab stops are currently widths: need to change them to NSTextTab objects locations
-	float lastPosition = 0;
+    CGFloat lastPosition = 0;
 	for (colNum=0; colNum < numColumns; colNum++) {
-		float currentValue	= [elasticTabStops[colNum] floatValue];
-		float newValue		= floorf(currentValue + lastPosition);
+        CGFloat currentValue	= [elasticTabStops[colNum] doubleValue];
+        CGFloat newValue		= floor(currentValue + lastPosition);
 		lastPosition = newValue;
 		
 		elasticTabStops[colNum] = [[NSTextTab alloc] initWithType: NSLeftTabStopType

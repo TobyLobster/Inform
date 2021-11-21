@@ -204,7 +204,7 @@ static NSRunLoop* mainRunLoop = nil;
                                               to: destination];
 }
 
-- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
 	if (returnCode == NSAlertFirstButtonReturn) {
         [[self class] copyProjectWithoutConfirmation: copySource
                                                   to: copyDestination];
@@ -340,8 +340,8 @@ static NSRunLoop* mainRunLoop = nil;
 
 // Construct an attributed string containing the extension name and version in the menu
 -(NSAttributedString*) attributedStringForExtensionInfo: (IFExtensionInfo*) info
-                                           withTabWidth: (float) tabWidth
-                                               widthOut: (float*) widthOut {
+                                           withTabWidth: (CGFloat) tabWidth
+                                               widthOut: (CGFloat*) widthOut {
     NSFont* systemFont       = [NSFont menuFontOfSize: 14];
     NSFont* smallFont        = [NSFont menuFontOfSize: [systemFont pointSize] - 4];
 
@@ -424,15 +424,15 @@ static NSRunLoop* mainRunLoop = nil;
 	// Generate the extensions menu
     for( NSString* author in [mgr availableAuthors] ) {
         // Find the maximum width of all extensions by this author
-        float maxWidth = 0.0f;
+        CGFloat maxWidth = 0.0f;
         for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
-            float width;
+            CGFloat width;
             [self attributedStringForExtensionInfo: info
                                       withTabWidth: 0.0f
                                           widthOut: &width ];
             maxWidth = MAX(maxWidth, width);
         }
-        float tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
+        CGFloat tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
 
         // Create menu and menu item for the 'Open Installed Extension' menu
         NSMenu* openAuthorMenu = [[NSMenu alloc] init];
@@ -745,7 +745,7 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (void) confirmFileCopyDidEnd: (NSWindow *) sheet
-                    returnCode: (int) returnCode
+                    returnCode: (NSModalResponse) returnCode
                    contextInfo: (void *) contextInfo {
     NSString* sourceCopy = [fileCopySource copy];
     NSString* destCopy   = [fileCopyDestination copy];

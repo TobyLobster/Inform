@@ -910,7 +910,7 @@
 
 // = Helping out with the cursor =
 
-- (float) cursorOffset {
+- (CGFloat) cursorOffset {
 	// Returns the offset of the cursor (beginning of the current selection) relative to the top
 	// of the view
 	
@@ -964,7 +964,7 @@
 - (void) limitToRange: (NSRange) range
 	preserveScrollPos: (BOOL) preserveScrollPos {
 	// Record the current cursor offset and selection if preservation is turned on
-	float originalCursorOffset	= 0;
+    CGFloat originalCursorOffset	= 0;
 	NSRange selectionRange		= NSMakeRange(0, 0);
 	
 	if (preserveScrollPos) {
@@ -1041,8 +1041,8 @@
 		[textView scrollPoint: NSMakePoint(0,0)];
 
 		// Get the cursor scroll offset
-		float newCursorOffset	= [self cursorOffset];
-		float scrollOffset		= floorf(newCursorOffset - originalCursorOffset);
+        CGFloat newCursorOffset	    = [self cursorOffset];
+        CGFloat scrollOffset		= floor(newCursorOffset - originalCursorOffset);
 		
 		// Scroll the view
 		NSPoint scrollPos = [[scrollView contentView] documentVisibleRect].origin;

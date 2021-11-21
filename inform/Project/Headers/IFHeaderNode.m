@@ -25,24 +25,36 @@ static NSString* IFHeaderIndent		= @"IFHeaderIndent";
 static NSString* IFHeaderGap		= @"IFHeaderGap";
 static NSString* IFHeaderCorner		= @"IFHeaderCorner";
 
-static float pointSize = 11.0;
+static CGFloat pointSize = 11.0;
 
 @implementation IFHeaderNode {
-    NSPoint position;								// The position of this node
-    NSRect frame;									// The frame for this node, including all it's children
-    NSRect exclusiveFrame;							// The frame for this node, not including any children
-    int depth;										// The depth of this node in the tree
-    IFHeaderNodeSelectionStyle selected;			// The selection style of this node
-    BOOL editing;									// YES if we're editing this node
+    /// The position of this node
+    NSPoint position;
+    /// The frame for this node, including all its children
+    NSRect frame;
+    /// The frame for this node, not including any children
+    NSRect exclusiveFrame;
+    /// The depth of this node in the tree
+    int depth;
+    /// The selection style of this node
+    IFHeaderNodeSelectionStyle selected;
+    /// \c YES if we're editing this node
+    BOOL editing;
 
-    IFHeader* header;								// The IFHeader item associated with this node
-    NSMutableArray* children;						// The child nodes of this node
+    /// The IFHeader item associated with this node
+    IFHeader* header;
+    /// The child nodes of this node
+    NSMutableArray* children;
 
     // Parameters representing how this node should be laid out
-    float margin;									// Margin to the items
-    float indent;									// Indentation per level
-    float gap;										// Vertical gap around items
-    float corner;									// Size of a corner for an item
+    /// Margin to the items
+    CGFloat margin;
+    /// Indentation per level
+    CGFloat indent;
+    /// Vertical gap around items
+    CGFloat gap;
+    /// Size of a corner for an item
+    CGFloat corner;
 }
 
 
@@ -51,7 +63,7 @@ static float pointSize = 11.0;
 + (void) initialize {
 	// Register the preferences for this class
 	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-		@{IFHeaderPointSize: @((float) [NSFont smallSystemFontSize]),
+		@{IFHeaderPointSize: @([NSFont smallSystemFontSize]),
 			IFHeaderMargin: @5.0f,
 			IFHeaderIndent: @12.0f,
 			IFHeaderGap: @8.0f,
@@ -97,10 +109,10 @@ static float pointSize = 11.0;
 	// The total height is different if there are children for this item (depending on the y position of the final child)
 	if (children && [children count] > 0) {
 		// The width is that of the widest child element
-		float maxX = NSMaxX(frame);
+        CGFloat maxX = NSMaxX(frame);
 		
 		for( IFHeaderNode* child in children ) {
-			float childMaxX = NSMaxX([child frame]);
+            CGFloat childMaxX = NSMaxX([child frame]);
 			if (childMaxX > maxX) maxX = childMaxX;
 		}
 		
@@ -108,7 +120,7 @@ static float pointSize = 11.0;
 
 		// The height is based on the maximum Y position of the final child
 		NSRect lastFrame = [(IFHeaderNode*)[children lastObject] frame];
-		float maxY = NSMaxY(lastFrame);
+        CGFloat maxY = NSMaxY(lastFrame);
 		frame.size.height = maxY - NSMinY(frame);
 	}
 }
@@ -141,10 +153,10 @@ static float pointSize = 11.0;
 		children = nil;
 		
 		// Set up the parameters
-		margin	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderMargin] floatValue];
-		indent	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderIndent] floatValue];
-		gap		= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderGap] floatValue];
-		corner	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderCorner] floatValue];
+		margin	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderMargin] doubleValue];
+		indent	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderIndent] doubleValue];
+		gap		= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderGap] doubleValue];
+		corner	= [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderCorner] doubleValue];
 	}
 	
 	return self;
@@ -164,7 +176,7 @@ static float pointSize = 11.0;
 	children = [[NSMutableArray alloc] init];
 	
 	// Work out the position for the first child node
-	NSPoint childPoint = NSMakePoint(NSMinX(frame), floorf(NSMaxY(frame)));
+	NSPoint childPoint = NSMakePoint(NSMinX(frame), floor(NSMaxY(frame)));
 	
 	// Populate it
 	for( IFHeader* childNode in [header children] ) {
@@ -180,7 +192,7 @@ static float pointSize = 11.0;
 		[children addObject: newChildNode];
 		
 		// Update the position of the next child element
-		childPoint.y = floorf(NSMaxY([newChildNode frame]));
+		childPoint.y = floor(NSMaxY([newChildNode frame]));
 	}
 	
 	// Update the frame of this node
@@ -189,21 +201,9 @@ static float pointSize = 11.0;
 
 // = Getting information about this node =
 
-- (NSRect) frame {
-	return frame;
-}
-
-- (IFHeader*) header {
-	return header;
-}
-
-- (IFHeaderNodeSelectionStyle) selectionStyle {
-	return selected;
-}
-
-- (void) setSelectionStyle: (IFHeaderNodeSelectionStyle) selectionStyle {
-	selected = selectionStyle;
-}
+@synthesize frame;
+@synthesize header;
+@synthesize selectionStyle=selected;
 
 - (NSArray*) children {
 	if (!children || [children count] == 0) return nil;
@@ -328,7 +328,7 @@ static float pointSize = 11.0;
 }
 
 - (NSBezierPath*) truncatedHighlightPathForFrame: (NSRect) drawFrame {
-	float height = gap + [[self font] ascender] - [[self font] descender];
+    CGFloat height = gap + [[self font] ascender] - [[self font] descender];
 	if (height + corner >= frame.size.height) {
 		return [self highlightPathForFrame: drawFrame];
 	}
@@ -454,7 +454,7 @@ static float pointSize = 11.0;
 	NSSize uneditableSize = [uneditablePortion sizeWithAttributes: [self attributes]];
 	NSSize nameSize = [editablePortion sizeWithAttributes: [self attributes]];
 	return NSMakeRect(frame.origin.x + margin + depth*indent + uneditableSize.width,
-                      frame.origin.y + floorf(gap/2),
+                      frame.origin.y + floor(gap/2),
                       nameSize.width,
                       nameSize.height);
 }
@@ -507,7 +507,7 @@ static float pointSize = 11.0;
 	}
 	
 	// Draw the node title, truncating if necessary
-	[name drawAtPoint: NSMakePoint(frame.origin.x + margin + depth * indent, frame.origin.y + floorf(gap/2))
+	[name drawAtPoint: NSMakePoint(frame.origin.x + margin + depth * indent, frame.origin.y + floor(gap/2))
 	   withAttributes: [self attributes]];
 	
 	// Draw the node children

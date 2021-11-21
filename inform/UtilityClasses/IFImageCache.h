@@ -1,8 +1,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface IFImageCache : NSObject {
-}
+@interface IFImageCache : NSObject
 
 + (NSImage *)loadResourceImage:(NSString *)relativePath;
 

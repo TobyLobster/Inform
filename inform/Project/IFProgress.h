@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol IFProgressDelegate;
+
 static const int IFProgressPriorityTestAll    = 50;
 static const int IFProgressPriorityCompiler   = 40;
 static const int IFProgressPriorityRunGame    = 30;
@@ -30,8 +32,8 @@ static const int IFProgressPrioritySyntax     = 10;
 - (void)      startProgress;
 - (void)      stopProgress;
 
-@property (atomic) float percentage;
-@property (atomic, copy) NSString *message;
+@property (nonatomic) CGFloat percentage;
+@property (nonatomic, copy) NSString *message;
 @property (atomic, readonly) BOOL storyActive;
 @property (atomic, getter=isInProgress, readonly) BOOL inProgress;
 
@@ -41,20 +43,21 @@ static const int IFProgressPrioritySyntax     = 10;
 @property (atomic, readonly) BOOL canCancel;
 
 // Setting the delegate
-- (void) setDelegate: (id) delegate;
+@property (atomic, weak) id<IFProgressDelegate> delegate;
 - (void) cancelProgress;
 @property (atomic, getter=isCancelled, readonly) BOOL cancelled;
 - (void) setCancelAction: (SEL) selector forObject:(id) object;
 
 @end
 
-//
-// Progress indicator delegate methods
-//
-@interface NSObject(IFProgressDelegate)
+///
+/// Progress indicator delegate methods
+///
+@protocol IFProgressDelegate <NSObject>
+@optional
 
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage;
+				percentage: (CGFloat) newPercentage;
 - (void) progressIndicator: (IFProgress*) indicator
 				   message: (NSString*) newMessage;
 - (void) progressIndicatorStartStory: (IFProgress*) indicator;

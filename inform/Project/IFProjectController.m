@@ -58,7 +58,7 @@
 
 // Preferences
 static NSString*    IFSplitViewSizes    = @"IFSplitViewSizes";
-static float        minDividerWidth     = 75.0f;
+static CGFloat      minDividerWidth     = 75.0f;
 
 // *******************************************************************************************
 @interface IFProjectController(Private)
@@ -332,9 +332,9 @@ static float        minDividerWidth     = 75.0f;
 			dividerProportions = @[@1.0f];
         }
 
-		float totalWidth = 0;
+        CGFloat totalWidth = 0;
 		for (view=0; view<nviews; view++) {
-			float width;
+            CGFloat width;
 			
 			if (view >= [dividerProportions count]) {
 				width = [dividerProportions[[dividerProportions count]-1] floatValue];
@@ -349,7 +349,7 @@ static float        minDividerWidth     = 75.0f;
 		}
 
 		// Work out the actual widths to use, and size and add the views appropriately
-		float proportion = remaining / totalWidth;
+        CGFloat proportion = remaining / totalWidth;
 
         // Insert the views
         NSSplitView* lastView = nil;
@@ -361,7 +361,7 @@ static float        minDividerWidth     = 75.0f;
 
             [pane setController: self viewIndex: view];
 			
-			viewWidth = floorf(proportion * [realDividerWidths[view] floatValue]);
+			viewWidth = floor(proportion * [realDividerWidths[view] floatValue]);
 
             // Resize the splitview
             NSRect splitFrame;
@@ -418,13 +418,13 @@ static float        minDividerWidth     = 75.0f;
 	
 	NSMutableArray* viewSizes = [NSMutableArray array];
 	
-	float totalWidth = [[self window] frame].size.width;
+    CGFloat totalWidth = [[self window] frame].size.width;
 	
 	for (view=0; view<nviews; view++) {
 		IFProjectPane* pane = projectPanes[view];
 		NSRect paneFrame = [[pane paneView] frame];
 		
-		[viewSizes addObject: @((float) (paneFrame.size.width/totalWidth))];
+		[viewSizes addObject: @((CGFloat) (paneFrame.size.width/totalWidth))];
 	}
 	
 	[[NSUserDefaults standardUserDefaults] setObject: viewSizes
@@ -1703,7 +1703,7 @@ static float        minDividerWidth     = 75.0f;
 }
 
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage {
+				percentage: (CGFloat) newPercentage {
 	[toolbarManager progressIndicator: indicator
                            percentage: newPercentage];
 }
@@ -2230,7 +2230,7 @@ static float        minDividerWidth     = 75.0f;
 
     int done  = currentTestCaseIndex - startTestCaseIndex + 1;
     int total = 1 + (endTestCaseIndex - startTestCaseIndex);
-    float percentage = 100.0f * (float) done / (float) total;
+    CGFloat percentage = 100.0 * (CGFloat) done / (CGFloat) total;
     NSString* message;
     message = [NSString stringWithFormat: [IFUtility localizedString:@"Testing %d of %d"], done, total];
     [testAllProgress setPercentage: percentage];
@@ -2450,7 +2450,7 @@ static float        minDividerWidth     = 75.0f;
    constrainMaxCoordinate: (CGFloat) proposedMaximumPosition
               ofSubviewAt: (NSInteger) dividerIndex
 {
-    float limit = MAX(minDividerWidth, [splitView bounds].size.width - minDividerWidth);
+    CGFloat limit = MAX(minDividerWidth, [splitView bounds].size.width - minDividerWidth);
     if (proposedMaximumPosition > limit) {
         proposedMaximumPosition = limit;
     }

@@ -32,7 +32,7 @@
 - (void) addProgressIndicator: (IFProgress*) indicator;
 - (void) removeProgressIndicator: (IFProgress*) indicator;
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage;
+				percentage: (CGFloat) newPercentage;
 - (void) progressIndicator: (IFProgress*) indicator
 				   message: (NSString*) newMessage;
 - (void) progressIndicatorStartStory: (IFProgress*) indicator;

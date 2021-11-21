@@ -33,23 +33,33 @@
 
 @implementation IFPageCellLayout {
 @public
-    float position;					// Offset from the left/right for this cell
-    float minWidth;					// Minimum size that this cell can be
-    float width;					// Actual size that this cell should be drawn at
-    BOOL hidden;					// If YES then this cell shouldn't be drawn
+    /// Offset from the left/right for this cell
+    CGFloat position;
+    /// Minimum size that this cell can be
+    CGFloat minWidth;
+    /// Actual size that this cell should be drawn at
+    CGFloat width;
+    /// If \c YES then this cell shouldn't be drawn
+    BOOL hidden;
 
-    NSImage* cellFirstImage;		// The image for this cell
-    NSImage* cellImage;             // The image for this cell
-    NSImage* animateFrom;			// The image to animate from
+    /// The image for this cell
+    NSImage* cellFirstImage;
+    /// The image for this cell
+    NSImage* cellImage;
+    /// The image to animate from
+    NSImage* animateFrom;
 }
 
 
 @end
 
 // = Constants =
-static const float rightMargin = 14.0;			// Margin to put on the right (to account for scrollbars, tabs, etc)
-static const float tabMargin =  0.0;			// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
-static const float leftMargin = 3.0;			// Margin on the left and right until we actually draw the first cell
+/// Margin to put on the right (to account for scrollbars, tabs, etc)
+static const CGFloat rightMargin = 14.0;
+/// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
+static const CGFloat tabMargin =  0.0;
+/// Margin on the left and right until we actually draw the first cell
+static const CGFloat leftMargin = 3.0;
 
 @implementation IFPageBarView {
     BOOL cellsNeedLayout;							// YES if we need to perform layout on the cells
@@ -149,7 +159,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 + (void) drawOverlay: (NSImage*) overlay
 			  inRect: (NSRect) rect
 		 totalBounds: (NSRect) bounds
-			fraction: (float) fraction {
+			fraction: (CGFloat) fraction {
 	// Draws an overlay image, given the bounds of this control and the area to draw
 	NSSize imageSize = [overlay size];
 	NSRect sourceRect;
@@ -215,8 +225,8 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 				 inView: self];
 	
 	// Draw the borders
-	float marginLeftPos  = NSMinX(cellFrame)+0.5;
-	float marginRightPos = NSMaxX(cellFrame)-0.5;
+	CGFloat marginLeftPos  = NSMinX(cellFrame)+0.5;
+    CGFloat marginRightPos = NSMaxX(cellFrame)-0.5;
 	
 	[[[NSColor controlShadowColor] colorWithAlphaComponent: 0.4] set];
     
@@ -335,7 +345,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 
 - (void) addCells: (NSMutableArray*) cells
 		 toLayout: (NSMutableArray*) layout {
-	float position = 0;
+	CGFloat position = 0;
 	for( NSCell* cell in cells ) {
 		IFPageCellLayout* cellLayout = [[IFPageCellLayout alloc] init];
 		
@@ -383,7 +393,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 
-	float maxLeftPos = 0;
+    CGFloat maxLeftPos = 0;
 	if ([leftCells count] > 0) {
 		IFPageCellLayout* lastLeftLayout = [leftLayout lastObject];
 		maxLeftPos = lastLeftLayout->position + lastLeftLayout->width;

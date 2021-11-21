@@ -1168,7 +1168,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     int done  = numberOfBatchedExtensions - (int) [downloads count];
     int total = numberOfBatchedExtensions;
-    float percentage = 100.0f * (float) done / (float) total;
+    CGFloat percentage = 100.0f * (CGFloat) done / (CGFloat) total;
     NSString* message;
     if( numberOfErrors > 0 ) {
         message = [NSString stringWithFormat: [IFUtility localizedString:@"Installed %d of %d (%d failed)"], done - numberOfErrors, total, numberOfErrors];

@@ -173,7 +173,7 @@
     return YES;
 }
 
-- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
 	if (returnCode == NSAlertFirstButtonReturn) {
 		[self createItem];
         [self close];

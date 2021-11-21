@@ -171,8 +171,8 @@ static NSColor* foregroundColour() {
 	
 	// Add a border for the margins
 	size.width += 8;
-	size.width = floorf(size.width+0.5);
-	size.height = floorf(size.height);
+	size.width = floor(size.width+0.5);
+	size.height = floor(size.height);
 	
 	return size;
 }

@@ -16,13 +16,17 @@
 #import "IFUtility.h"
 #import "IFProgress.h"
 
+@interface IFToolbarManager () <IFProgressDelegate>
+
+@end
+
  // = Preferences =
 
 @implementation IFToolbarManager {
     // The toolbar
     NSToolbar* toolbar;
     NSView*    toolbarView;
-    float      toolbarViewTitlebarHeight;
+    CGFloat    toolbarViewTitlebarHeight;
 
     IFToolbarStatusView* toolbarStatusView;
 
@@ -66,7 +70,7 @@ static NSToolbarItem*              toolbarStatusSpacingItem  = nil;
 static IFToolbarStatusSpacingView* toolbarStatusSpacingView  = nil;
 
 static NSDictionary*  itemDictionary        = nil;
-static const float    toolbarStatusWidth    = 360.0f;
+static const CGFloat  toolbarStatusWidth    = 360.0f;
 
 + (void) initialize {
 	// Create the toolbar items
@@ -402,15 +406,15 @@ static const float    toolbarStatusWidth    = 360.0f;
 
         // If we are small in height, give us some more room
         if( newFrame.size.height < 18 ) {
-            float increment = 18 - newFrame.size.height;
+            CGFloat increment = 18 - newFrame.size.height;
             newFrame.origin.y -= increment;
             newFrame.size.height = 18;
         }
 
-        newFrame.origin.x = floorf(newFrame.origin.x);
-        newFrame.origin.y = floorf(newFrame.origin.y);
-        newFrame.size.width = floorf(newFrame.size.width);
-        newFrame.size.height = floorf(newFrame.size.height);
+        newFrame.origin.x = floor(newFrame.origin.x);
+        newFrame.origin.y = floor(newFrame.origin.y);
+        newFrame.size.width = floor(newFrame.size.width);
+        newFrame.size.height = floor(newFrame.size.height);
         
         // Make sure we position ourselves within the bounds of the special IFToolbarStatusSpacingView item
         BOOL found = NO;
@@ -751,7 +755,7 @@ static const float    toolbarStatusWidth    = 360.0f;
 	[toolbarStatusView setProgressMaxValue: 100.0f];
 	
 	// Set percentage
-    float currentProgress = [best percentage];
+    CGFloat currentProgress = [best percentage];
 	if (currentProgress > 0.0f) {
         [toolbarStatusView updateProgress: currentProgress];
 		[toolbarStatusView setProgressIndeterminate: NO];
@@ -782,7 +786,7 @@ static const float    toolbarStatusWidth    = 360.0f;
 }
 
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage {
+				percentage: (CGFloat) newPercentage {
 	[self updateProgress];
 }
 

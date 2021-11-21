@@ -8,6 +8,7 @@
 #import "IFUtility.h"
 #import "IFPreferences.h"
 #import <Foundation/NSCache.h>
+#import <objc/objc-runtime.h>
 
 static NSLock*       uniqueIdLock;
 static unsigned long uniqueId = 1000;
@@ -101,7 +102,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     NSArray* keyValues = [query[0] componentsSeparatedByString: @"="];
 
-    for( int i = 0; i < (keyValues.count-1); i += 2 ) {
+    for( NSInteger i = 0; i < (keyValues.count-1); i += 2 ) {
         [results setObject:keyValues[i+1] forKey:keyValues[i]];
     }
     return results;
@@ -267,11 +268,27 @@ CGFloat easeOutCubic(CGFloat t) {
         }
     }
 
-    // NOTE: We should use [NSAlert beginSheetModalForWindow:completionHandler:] since we're targeting 10.9 or later.
-    [alert beginSheetModalForWindow: window
-                      modalDelegate: modalDelegate
-                     didEndSelector: alertDidEndSelector
-                        contextInfo: contextInfo];
+    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse returnCode) {
+        if (!modalDelegate || !alertDidEndSelector) {
+            return;
+        }
+#if 0
+        NSMethodSignature * methodSignature = [[modalDelegate class]
+                                        instanceMethodSignatureForSelector: alertDidEndSelector];
+        NSInvocation * delegateInvocation = [NSInvocation
+                                       invocationWithMethodSignature:methodSignature];
+
+        [delegateInvocation setArgument:(void*)&window atIndex:2];
+        [delegateInvocation setArgument:&returnCode atIndex:3];
+        [delegateInvocation setArgument:(void*)&contextInfo atIndex:4];
+        [delegateInvocation invoke];
+#else
+        // Hack!
+        IMP imp = [modalDelegate methodForSelector: alertDidEndSelector];
+        void (*func)(id, SEL, NSWindow*, NSInteger, void *) = (void *) imp;
+        func(modalDelegate, alertDidEndSelector, alert.window, returnCode, contextInfo);
+#endif
+    }];
 }
 
 + (void) runAlertYesNoWindow: (NSWindow*) window

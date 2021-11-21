@@ -15,22 +15,22 @@
 #import "IFCompiler.h"
 #import "IFProject.h"
 
-static float idealTopBorder                = 6.0f;
-static float minTopBorder                  = 2.0f;
-static float minBottomBorder               = 4.0f;
-static float leftBorder                    = 20.0f;
-static float rightCancelBorder             = 10.0f;
-static float rightProgressBorder           = 20.0f;
-static float cancelWidth                   = 16.0f;
-static float idealGapBetweenTitleAndStory  = 5.0f;
-static float cancelHeight                  = 16.0f;
-static float gapWidthBetweenStoryAndCancel = 5.0f;
-static float gapBetweenWelcomeImageAndText = 10.0f;
+static CGFloat idealTopBorder                = 6.0f;
+static CGFloat minTopBorder                  = 2.0f;
+static CGFloat minBottomBorder               = 4.0f;
+static CGFloat leftBorder                    = 20.0f;
+static CGFloat rightCancelBorder             = 10.0f;
+static CGFloat rightProgressBorder           = 20.0f;
+static CGFloat cancelWidth                   = 16.0f;
+static CGFloat idealGapBetweenTitleAndStory  = 5.0f;
+static CGFloat cancelHeight                  = 16.0f;
+static CGFloat gapWidthBetweenStoryAndCancel = 5.0f;
+static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
 @implementation IFToolbarStatusView {
     NSString*                   title;
-    float                       progress;
-    float                       total;
+    CGFloat                     progress;
+    CGFloat                     total;
     IFToolbarProgressIndicator* progressIndicator;
     BOOL                        isInProgress;
     BOOL                        isStoryActive;
@@ -47,7 +47,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     NSTextField*                welcomeBuild;
     NSImageView*                welcomeImageView;
 
-    IFToolbarManager*           delegate;
+    __weak IFToolbarManager*    delegate;
 }
 
 // = Initialisation =
@@ -212,14 +212,14 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [titleText setHidden: NO];
     }
     
-    titleRect.origin.x = floorf(titleRect.origin.x);
-    titleRect.origin.y = floorf(titleRect.origin.y);
-    storyRect.origin.x = floorf(storyRect.origin.x);
-    storyRect.origin.y = floorf(storyRect.origin.y);
-    progressRect.origin.x = floorf(progressRect.origin.x);
-    progressRect.origin.y = floorf(progressRect.origin.y);
-    cancelRect.origin.x = floorf(cancelRect.origin.x);
-    cancelRect.origin.y = floorf(cancelRect.origin.y);
+    titleRect.origin.x = floor(titleRect.origin.x);
+    titleRect.origin.y = floor(titleRect.origin.y);
+    storyRect.origin.x = floor(storyRect.origin.x);
+    storyRect.origin.y = floor(storyRect.origin.y);
+    progressRect.origin.x = floor(progressRect.origin.x);
+    progressRect.origin.y = floor(progressRect.origin.y);
+    cancelRect.origin.x = floor(cancelRect.origin.x);
+    cancelRect.origin.y = floor(cancelRect.origin.y);
 
     [titleText setFrame: titleRect];
     [cancelButton setFrame: cancelRect];
@@ -230,9 +230,9 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 -(void) adjustSubviews {
     NSDictionary* attrs = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
 
-    float titleHeight                   = [@"Fg" sizeWithAttributes: attrs].height;
-    float progressWidth                 = [self frame].size.width - leftBorder - rightProgressBorder;
-    float progressHeight                = 8.0f;
+    CGFloat titleHeight                 = [@"Fg" sizeWithAttributes: attrs].height;
+    CGFloat progressWidth               = [self frame].size.width - leftBorder - rightProgressBorder;
+    CGFloat progressHeight              = 8.0f;
 
     if( canCancel ) {
         progressWidth -= (2.0f * leftBorder) - cancelWidth;
@@ -283,18 +283,18 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [progressIndicator setFrame: progressRect];
 
     // Update welcome items
-    float frameLeft  = floorf(([self frame].size.width / 2)  - (informImage.size.width / 2));
-    float frameTop   = floorf(([self frame].size.height / 2) - (informImage.size.height / 2));
-    float frameRight = frameLeft + informImage.size.width;
+    CGFloat frameLeft  = floor(([self frame].size.width / 2)  - (informImage.size.width / 2));
+    CGFloat frameTop   = floor(([self frame].size.height / 2) - (informImage.size.height / 2));
+    CGFloat frameRight = frameLeft + informImage.size.width;
     [welcomeImageView setFrame: NSMakeRect(frameLeft, frameTop, informImage.size.width, informImage.size.height)];
     frameLeft  -= gapBetweenWelcomeImageAndText;
     frameRight += gapBetweenWelcomeImageAndText;
     [welcomeTitle setFrame: NSMakeRect(0.0f,
-                                       floorf(([self frame].size.height / 2) - ([welcomeTitle frame].size.height/2)),
+                                       floor(([self frame].size.height / 2) - ([welcomeTitle frame].size.height/2)),
                                        frameLeft,
                                        [welcomeTitle frame].size.height)];
     [welcomeBuild setFrame: NSMakeRect(frameRight,
-                                       floorf(([self frame].size.height / 2) - ([welcomeBuild frame].size.height/2)),
+                                       floor(([self frame].size.height / 2) - ([welcomeBuild frame].size.height/2)),
                                        [self frame].size.width - frameRight,
                                        [welcomeBuild frame].size.height)];
 
@@ -472,11 +472,11 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [self updateVisibility];
 }
 
--(void) setProgressMaxValue: (float) maxValue {
+-(void) setProgressMaxValue: (CGFloat) maxValue {
     [progressIndicator setMaxValue: maxValue];
 }
 
--(void) updateProgress: (float) progressValue {
+-(void) updateProgress: (CGFloat) progressValue {
     [progressIndicator setDoubleValue: progressValue];
 }
 

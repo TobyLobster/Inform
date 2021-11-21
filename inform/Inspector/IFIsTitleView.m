@@ -38,7 +38,7 @@ static NSDictionary* fontAttributes;
 	titleFont = [NSFont systemFontOfSize: 11];
 	titleHeight = [titleFont ascender] + [titleFont descender];
 	titleHeight /= 2;
-	titleHeight = ceilf(titleHeight);
+	titleHeight = ceil(titleHeight);
 	
 	// Font attributes
     /*

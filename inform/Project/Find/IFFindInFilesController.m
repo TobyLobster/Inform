@@ -68,7 +68,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     NSArray*                findAllResults;								// The 'find all' results view
     int						findAllCount;								// Used to generate the identifier
     id						findIdentifier;								// The current find all identifier
-    float                   borders;
+    CGFloat                 borders;
 
     // Auxiliary views
     NSView*                 auxView;									// The auxiliary view that is being displayed
@@ -284,11 +284,11 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (void) resizeToFitResults {
     // Calculate new height of table based on the number of results we have.
-    float newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
+    CGFloat newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
 
     NSRect windowFrame = self.window.frame;                     // Get current height of window
-    float newHeight = borders + newTableHeight;                 // Calculate new height of window
-    float delta = newHeight - windowFrame.size.height;          // Find out the difference
+    CGFloat newHeight = borders + newTableHeight;               // Calculate new height of window
+    CGFloat delta = newHeight - windowFrame.size.height;        // Find out the difference
     windowFrame.origin.y -= delta;                              // Adjust the window origin so the top-left of the window remains in the same place
     windowFrame.size.height = newHeight;                        // Adjust to the new height
     [self.window setFrame:windowFrame display:YES animate:NO];  // Set the window frame
@@ -399,7 +399,7 @@ static const int FIND_HISTORY_LENGTH = 30;
                           withProgressBlock: ^void(int num, int total, int found)
         {
             // Update progress
-            float progress = (float) num / (float) total;
+            CGFloat progress = (CGFloat) num / (CGFloat) total;
             [self->findProgress setDoubleValue: progress];
 
             @synchronized([self->findInFiles searchResultsLock])
@@ -580,7 +580,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	// Resize the window
 	NSRect newWinFrame = [[self window] frame];
 
-	float heightDiff		= (winFrame.size.height + auxFrame.size.height) - newWinFrame.size.height;
+    CGFloat heightDiff		= (winFrame.size.height + auxFrame.size.height) - newWinFrame.size.height;
 	newWinFrame.size.height += heightDiff;
 	newWinFrame.origin.y	-= heightDiff;
 

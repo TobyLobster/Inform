@@ -36,8 +36,8 @@
 
 - (IFSkeinItem*) itemAtPoint: (NSPoint) point;
 
-- (NSRange) rangeOfLevelsBetweenMinViewY: (float) minY
-                             andMaxViewY: (float) maxY;
+- (NSRange) rangeOfLevelsBetweenMinViewY: (CGFloat) minY
+                             andMaxViewY: (CGFloat) maxY;
 
 - (void) updateLayoutWithReportDetails: (NSArray*) array;
 

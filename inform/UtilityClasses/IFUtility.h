@@ -18,7 +18,7 @@ CGFloat easeOutCubic(CGFloat t);
 
 @interface IFUtility : NSObject
 
-// Unique identifier
+/// Unique identifier
 + (unsigned long) generateID;
 
 // String
@@ -64,14 +64,15 @@ CGFloat easeOutCubic(CGFloat t);
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
 
-// Save transcript (handles save dialog)
+/// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window;
 
-// Sandboxing
+/// Sandboxing
 + (BOOL) isSandboxed;
+@property (class, readonly, atomic, getter=isSandboxed) BOOL sandboxed;
 
-// Paths to common resources
+/// Paths to common resources
 + (NSURL*) publicLibraryURL;
 
 + (NSString*) informSupportPath: (NSString *)firstString, ... NS_REQUIRES_NIL_TERMINATION;
@@ -83,30 +84,41 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) pathForInformExternalDocumentation;
 
 // Internal directories within the bundle resources
-+ (NSString*) pathForInformInternalAppSupport: (NSString *)version;          // Path to the internal Inform 7 app support
-+ (NSString*) pathForInformInternalExtensions: (NSString *)version;          // Path to the internal Inform 7 extensions
-+ (NSString*) pathForInformInternalLibraries: (NSString *)version;           // Path to the internal Inform 7 libraries
-+ (NSString*) pathForInformInternalDocumentation: (NSString *)version;       // Path to the internal Inform 7 documentation
+/// Path to the internal Inform 7 app support
++ (NSString*) pathForInformInternalAppSupport: (NSString *)version;
+/// Path to the internal Inform 7 extensions
++ (NSString*) pathForInformInternalExtensions: (NSString *)version;
+/// Path to the internal Inform 7 libraries
++ (NSString*) pathForInformInternalLibraries: (NSString *)version;
+/// Path to the internal Inform 7 documentation
++ (NSString*) pathForInformInternalDocumentation: (NSString *)version;
 
-+ (NSString*) pathForCompiler: (NSString *)version;                          // Path to the compiler
-+ (NSString*) compilerFormatParameterName:(NSString *)version;               // Command line parameter name for "-format=ulx"
-+ (NSString*) compilerProjectParameterName:(NSString *) version;             // Command line parameter name for "-project" / "-package"
+/// Path to the compiler
++ (NSString*) pathForCompiler: (NSString *)version;
+/// Command line parameter name for "-format=ulx"
++ (NSString*) compilerFormatParameterName:(NSString *)version;
+/// Command line parameter name for "-project" / "-package"
++ (NSString*) compilerProjectParameterName:(NSString *) version;
 
 + (NSString*) fullCompilerVersion: (NSString*)version;
-+ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2; // Compare compiler version numbers
+/// Compare compiler version numbers
++ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2;
 
 + (NSURL*) temporaryDirectoryURL;
 
-// Decode the "source:" URL scheme link
+/// Decode the "source:" URL scheme link
 + (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL;
 
-// Decode the "skein:" URL scheme link
+/// Decode the "skein:" URL scheme link
 + (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL;
 
 // OS version checking
 + (BOOL) hasFullscreenSupportFeature;
+@property (class, readonly, atomic) BOOL hasFullscreenSupportFeature;
 + (BOOL) hasScrollElasticityFeature;
+@property (class, readonly, atomic) BOOL hasScrollElasticityFeature;
 + (BOOL) hasUpdatedToolbarFeature;
+@property (class, readonly, atomic) BOOL hasUpdatedToolbarFeature;
 
 + (void) performSelector:(SEL) selector object:(id) object;
 
@@ -114,5 +126,6 @@ CGFloat easeOutCubic(CGFloat t);
 +(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
 + (NSString*) coreBuildVersion;
+@property (class, readonly, copy, nonatomic) NSString *coreBuildVersion;
 
 @end

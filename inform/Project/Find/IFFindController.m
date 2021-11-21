@@ -53,7 +53,7 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     IBOutlet NSView*		findAllView;								// The main 'find all' view
     IBOutlet NSTableView*	findAllTable;								// The 'find all' results table
     IBOutlet NSTextField*   findCountText;                              // Text of how many results we have
-    float                   borders;                                    // Height of the window with the find all view open, but without the results table. A constant.
+    CGFloat                 borders;                                    // Height of the window with the find all view open, but without the results table. A constant.
 
     // Things we've searched for
     NSMutableArray*			replaceHistory;								// The 'replace' history
@@ -459,18 +459,18 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 }
 
 // = 'Find all' =
-- (float) heightToFitResults {
+- (CGFloat) heightToFitResults {
     // Calculate new height of table based on the number of results we have.
-    float newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
+    CGFloat newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
 
     // Hieght of window = height of everything else + height of table
     return borders + newTableHeight;                 // Calculate new height of window
 }
 
 - (void) resizeToFitResults {
-    float newHeight = [self heightToFitResults];                // Calculate new window height required
+    CGFloat newHeight = [self heightToFitResults];              // Calculate new window height required
     NSRect windowFrame = self.window.frame;                     // Get current height of window
-    float delta = newHeight - windowFrame.size.height;          // Find out the difference
+    CGFloat delta = newHeight - windowFrame.size.height;        // Find out the difference
     windowFrame.origin.y -= delta;                              // Adjust the window origin so the top-left of the window remains in the same place
     windowFrame.size.height = newHeight;                        // Adjust to the new height
     [self.window setFrame:windowFrame display:YES animate:NO];  // Set the window frame
@@ -701,9 +701,9 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
 	// Resize the window
 	NSRect currentWinFrame = [[self window] frame];
     
-    float newWindowHeight = (winFrame.size.height + auxFrame.size.height);
+    CGFloat newWindowHeight = (winFrame.size.height + auxFrame.size.height);
     
-	float heightDiff = newWindowHeight - currentWinFrame.size.height;
+    CGFloat heightDiff = newWindowHeight - currentWinFrame.size.height;
 	currentWinFrame.size.height += heightDiff;
 	currentWinFrame.origin.y	-= heightDiff;
     

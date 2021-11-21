@@ -16,7 +16,7 @@
 #import "IFPageBarCell.h"
 #import "IFProjectController.h"
 
-static const float webViewHeight = 250.0f;
+static const CGFloat webViewHeight = 250.0f;
 
 @implementation IFSkeinPage {
     // The skein view
@@ -335,7 +335,7 @@ static const float webViewHeight = 250.0f;
    constrainSplitPosition: (CGFloat) proposedPosition
               ofSubviewAt: (NSInteger) dividerIndex
 {
-    float limit = MAX(webViewHeight, [split bounds].size.height - webViewHeight);
+    CGFloat limit = MAX(webViewHeight, [split bounds].size.height - webViewHeight);
     return limit;
 }
 

@@ -215,8 +215,8 @@ static NSImage* arrowPressed	= nil;
 		NSSize upSize = [arrowNotPressed size];
 		NSRect upRect;
 		
-		upRect.origin	= NSMakePoint(floorf(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
-                                      floorf(NSMinY(bounds) + (tornSize.height - upSize.height)/2));
+		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
+                                      floor(NSMinY(bounds) + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
 		[arrow drawInRect: upRect
@@ -252,7 +252,7 @@ static NSImage* arrowPressed	= nil;
 		NSSize upSize = [arrowNotPressed size];
 		NSRect upRect;
 		
-		upRect.origin	= NSMakePoint(floorf(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
+		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
                                       (origin.y + containerSize.height + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
@@ -275,12 +275,12 @@ static NSImage* arrowPressed	= nil;
 	NSSize inset = NSMakeSize(3,6);
 	
 	if (tornAtTop) {
-		inset.height += floorf([topTear size].height);
+		inset.height += floor([topTear size].height);
 	}
 	if (tornAtBottom) {
-		inset.height += floorf([bottomTear size].height);
+		inset.height += floor([bottomTear size].height);
 	}
-	inset.height = floorf(inset.height/2);
+	inset.height = floor(inset.height/2);
 
 	// Update the display
 	[self setTextContainerInset: inset];
@@ -298,7 +298,7 @@ static NSImage* arrowPressed	= nil;
 			NSRect bounds = [self bounds];
 			lastUsedRect = newUsedRect;
 			
-			float minY = NSMinY(lastUsedRect);
+            CGFloat minY = NSMinY(lastUsedRect);
 			if (NSMinY(newUsedRect) < minY) minY = NSMinY(newUsedRect);
 			
 			NSRect needsDisplay = NSMakeRect(NSMinX(bounds), minY, bounds.size.width, NSMaxY(bounds)-minY);

@@ -50,7 +50,7 @@
 - (void) saveTranscript: (id) sender;
 
 // Font size handling
-+ (float) fontSize;
++ (CGFloat) fontSize;
 - (void) fontSizePreferenceChanged: (NSNotification*) not;
 
 - (BOOL) isAnyItemPurple;
