@@ -8,7 +8,6 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "IFSkeinBlessButton.h"
-#import "IFImageCache.h"
 
 static NSImage* blessImage;
 static NSImage* blessOverImage;

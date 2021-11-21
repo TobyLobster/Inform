@@ -8,7 +8,6 @@
 
 #import "IFPageBarView.h"
 #import "IFPageBarCell.h"
-#import "IFImageCache.h"
 
 //
 // Notes (in no particular order)

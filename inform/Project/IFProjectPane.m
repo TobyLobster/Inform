@@ -36,7 +36,6 @@
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
 
-#import "IFImageCache.h"
 #import "NSBundle+IFBundleExtensions.h"
 #import <ZoomView/ZoomView.h>
 #import <ZoomView/ZoomView-Swift.h>

@@ -14,7 +14,6 @@
 #import "IFSkeinViewChildren.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 // Constants

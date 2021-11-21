@@ -8,7 +8,6 @@
 
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
-#import "IFImageCache.h"
 
 static NSColor* foregroundColour() {
 	static NSColor* foreColour = nil;

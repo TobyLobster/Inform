@@ -7,7 +7,6 @@
 // This class allows us to read/write to a project's materials folder in a sandboxed app.
 
 #import "IFProjectMaterialsPresenter.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFProjectMaterialsPresenter {

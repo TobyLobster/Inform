@@ -6,7 +6,6 @@
 //
 
 #import "IFSkeinLayout.h"
-#import "IFImageCache.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinItemView.h"
 #import "IFSkeinLayoutItem.h"

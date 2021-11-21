@@ -8,7 +8,6 @@
 
 #import "IFIsTitleView.h"
 #import "IFInspectorView.h"
-#import "IFImageCache.h"
 
 #import <objc/objc-runtime.h>
 

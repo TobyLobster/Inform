@@ -47,7 +47,6 @@
 #import "IFSingleFile.h"
 #import "IFPreferences.h"
 #import "IFProject.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 #import "IFSkeinItemView.h"
@@ -646,8 +645,6 @@ static NSRunLoop* mainRunLoop = nil;
     // Clean up preference panes
     //
     [[IFPreferenceController sharedPreferenceController] removeAllPreferencePanes];
-    
-    [IFImageCache dealloc];
 }
 
 - (NSMenuItem*) debugMenu {

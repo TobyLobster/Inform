@@ -7,7 +7,6 @@
 
 #import "IFToolbarStatusSpacingView.h"
 #import "IFUtility.h"
-#import "IFImageCache.h"
 
 @implementation IFToolbarStatusSpacingView
 

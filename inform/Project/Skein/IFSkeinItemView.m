@@ -14,7 +14,6 @@
 #import "IFSkeinView.h"
 #import "IFSkeinConstants.h"
 #import "IFUtility.h"
-#import "IFImageCache.h"
 #import "IFPreferences.h"
 
 #define SELECTION_OPTION_1    1

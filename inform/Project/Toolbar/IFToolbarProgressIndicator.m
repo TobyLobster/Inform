@@ -6,7 +6,6 @@
 //
 
 #import "IFToolbarProgressIndicator.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFToolbarProgressIndicator

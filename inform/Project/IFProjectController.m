@@ -51,7 +51,6 @@
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 
-#import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFThinSplitView.h"
 #import <ZoomView/ZoomView.h>

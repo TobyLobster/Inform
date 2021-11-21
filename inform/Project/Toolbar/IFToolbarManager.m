@@ -12,7 +12,6 @@
 #import "IFCompilerSettings.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
 

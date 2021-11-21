@@ -15,7 +15,6 @@
 #import "IFRecentFileCell.h"
 
 #import "IFMaintenanceTask.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"

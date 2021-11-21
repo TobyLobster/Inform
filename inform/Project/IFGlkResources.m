@@ -8,7 +8,6 @@
 
 #import "IFGlkResources.h"
 #import "IFProject.h"
-#import "IFImageCache.h"
 
 @implementation IFGlkResources {
     IFProject* project;

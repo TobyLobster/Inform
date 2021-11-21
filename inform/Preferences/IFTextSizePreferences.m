@@ -8,7 +8,6 @@
 #import "IFTextSizePreferences.h"
 
 #import "IFPreferences.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFTextSizePreferences {

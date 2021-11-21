@@ -11,7 +11,6 @@
 #import "IFNaturalHighlighter.h"
 
 #import "IFPreferences.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFEditingPreferences {

@@ -11,7 +11,6 @@
 #import "IFNaturalIntel.h"
 #import "IFSourcePage.h"
 #import "IFSyntaxManager.h"
-#import "IFImageCache.h"
 
 static NSImage* topTear			= nil;
 static NSImage* bottomTear		= nil;
