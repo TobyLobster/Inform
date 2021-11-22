@@ -9,7 +9,6 @@
 #import "IFProjectFile.h"
 #import "NSString+IFStringExtensions.h"
 
-#include <uuid/uuid.h>
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFCompilerSettings.h"
