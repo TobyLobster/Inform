@@ -52,6 +52,7 @@
 // Font size handling
 + (CGFloat) fontSize;
 @property (class, atomic, readonly) CGFloat fontSize;
+
 - (void) fontSizePreferenceChanged: (NSNotification*) not;
 
 - (BOOL) isAnyItemPurple;
@@ -61,6 +62,6 @@
 - (BOOL) isTickVisible;
 - (BOOL) isCrossVisible;
 - (BOOL) isBadgedItemVisible;
-- (NSInteger) itemsVisible;
+@property (nonatomic, readonly) NSInteger itemsVisible;
 
 @end

@@ -28,7 +28,7 @@
 @property (atomic, readonly)  CGFloat             visibleWidth;   // Visible lozenge width
 @property (atomic)            NSRect              boundingRect;
 @property (atomic, weak)      IFSkeinLayoutItem * parent;
-@property (nonatomic, copy)   NSArray *           children;
+@property (nonatomic, copy)   NSArray<IFSkeinLayoutItem*> * children;
 @property (atomic)            int                 level;
 @property (atomic)            BOOL                onSelectedLine;
 @property (atomic)            BOOL                recentlyPlayed;

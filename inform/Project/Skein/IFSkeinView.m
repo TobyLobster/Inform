@@ -916,9 +916,7 @@ typedef BOOL(^checkFunc)(IFSkeinLayoutItem* item);
         if( checkFunction(layoutItem) ) {
             return YES;
         }
-        for (IFSkeinLayoutItem* child in layoutItem.children) {
-            [queue addObject: child];
-        }
+        [queue addObjectsFromArray:layoutItem.children];
     }
     return NO;
 }
