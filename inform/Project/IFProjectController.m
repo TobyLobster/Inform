@@ -56,11 +56,11 @@
 #import <ZoomView/ZoomView.h>
 
 // Preferences
-static NSString*    IFSplitViewSizes    = @"IFSplitViewSizes";
-static CGFloat      minDividerWidth     = 75.0f;
+static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
+static CGFloat const      minDividerWidth     = 75.0f;
 
 // *******************************************************************************************
-@interface IFProjectController(Private)
+@interface IFProjectController()
 
 - (void) refreshIndexTabs;
 - (void) runCompilerOutput;
@@ -1663,8 +1663,8 @@ static CGFloat      minDividerWidth     = 75.0f;
 - (void) playToPoint: (IFSkeinItem*) point
 		   fromPoint: (IFSkeinItem*) currentPoint {
     if ([self.gamePage isRunningGame]) {
-		id inputSource = [IFSkein inputSourceFromSkeinItem: currentPoint
-                                                    toItem: point];
+		id<ZoomViewInputSource> inputSource = [IFSkein inputSourceFromSkeinItem: currentPoint
+                                                                         toItem: point];
 	
 		ZoomView* zView = [[self runningGamePage] zoomView];
 		GlkView* gView = [[self runningGamePage] glkView];

@@ -302,7 +302,7 @@ static NSDictionary* itemTextAttributes;
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	// Check if the user left the field before committing changes and end the edit.
-	BOOL success = [[aNotification userInfo][@"NSTextMovement"] intValue] != NSIllegalTextMovement;
+	BOOL success = [[aNotification userInfo][NSTextMovementUserInfoKey] integerValue] != NSTextMovementOther;
 	
 	if (success)
 		[self finishEditing: fieldEditor];				// Store the results
@@ -700,7 +700,7 @@ static NSDictionary* itemTextAttributes;
     contextItem = nil;
 }
 
--(void) insertNextItem: (id) sender {
+- (IBAction) insertNextItem: (id) sender {
     if( [self canInsertNextItem: contextItem] ) {
         if( contextItem.children.count == 1 ) {
             contextItem = contextItem.children[0];
@@ -863,9 +863,9 @@ static NSDictionary* itemTextAttributes;
         anim.fromValue = @(startingRect);
         anim.toValue = @(endingRect);
         anim.delegate = self;
-        [self setAnimations:@{@"frame": anim}];
+        self.animations = @{@"frame": anim};
 
-        [[self animator] setFrame: endingRect];
+        self.animator.frame = endingRect;
     }
 }
 

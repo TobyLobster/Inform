@@ -55,13 +55,13 @@
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not;
 
-- (BOOL) isAnyItemPurple;
-- (BOOL) isAnyItemGrey;
-- (BOOL) isAnyItemBlue;
-- (BOOL) isReportVisible;
-- (BOOL) isTickVisible;
-- (BOOL) isCrossVisible;
-- (BOOL) isBadgedItemVisible;
+@property (atomic, readonly, getter=isAnyItemPurple) BOOL anyItemPurple;
+@property (atomic, readonly, getter=isAnyItemGrey) BOOL anyItemGrey;
+@property (atomic, readonly, getter=isAnyItemBlue) BOOL anyItemBlue;
+@property (atomic, readonly, getter=isReportVisible) BOOL reportVisible;
+@property (atomic, readonly, getter=isTickVisible) BOOL tickVisible;
+@property (atomic, readonly, getter=isCrossVisible) BOOL crossVisible;
+@property (atomic, readonly, getter=isBadgedItemVisible) BOOL badgedItemVisible;
 @property (nonatomic, readonly) NSInteger itemsVisible;
 
 @end
