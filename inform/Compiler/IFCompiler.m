@@ -27,26 +27,39 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 @implementation IFCompiler {
     // The task
-    NSTask* theTask;						// Task where the compiler is running
+    /// Task where the compiler is running
+    NSTask* theTask;
 
     // Settings, input, output
-    IFCompilerSettings* settings;			// Settings for the compiler
-    BOOL release;							// YES if compiling for release
-    BOOL releaseForTesting;                 // YES if compiling for releaseForTesting;
-    NSString* inputFile;					// The input file for this compiler
-    NSString* outputFile;					// The output filename for this compiler
-    NSString* workingDirectory;				// The working directory for this stage
-    BOOL deleteOutputFile;					// YES if the output file should be deleted when the compiler is dealloced
+    /// Settings for the compiler
+    IFCompilerSettings* settings;
+    /// \c YES if compiling for release
+    BOOL release;
+    /// \c YES if compiling for releaseForTesting;
+    BOOL releaseForTesting;
+    /// The input file for this compiler
+    NSString* inputFile;
+    /// The output filename for this compiler
+    NSString* outputFile;
+    /// The working directory for this stage
+    NSString* workingDirectory;
+    /// \c YES if the output file should be deleted when the compiler is dealloced
+    BOOL deleteOutputFile;
 
-    NSURL* problemsURL;						// The URL of the problems page we should show
-    id<IFCompilerProblemHandler> problemHandler;	// The current problem handler
+    /// The URL of the problems page we should show
+    NSURL* problemsURL;
+    /// The current problem handler
+    id<IFCompilerProblemHandler> problemHandler;
 
     // Queue of processes to run
-    NSMutableArray* runQueue;				// Queue of tasks to run to produce the end result
+    /// Queue of tasks to run to produce the end result
+    NSMutableArray* runQueue;
 
     // Output/input streams
-    NSPipe* stdErr;							// stdErr pipe
-    NSPipe* stdOut;							// stdOut pipe
+    /// stdErr pipe
+    NSPipe* stdErr;
+    /// stdOut pipe
+    NSPipe* stdOut;
 
     NSFileHandle* stdErrH;					// File handle for std err
     NSFileHandle* stdOutH;					// ... and for std out
@@ -54,14 +67,16 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     int finishCount;						// When =3, notify the delegate that the task is dead
 
     // Progress
-    IFProgress* progress;					// Progress indicator for compilation
-    NSString* endTextString;                // Message to show at end of tasks
+    /// Progress indicator for compilation
+    IFProgress* progress;
+    /// Message to show at end of tasks
+    NSString* endTextString;
 
     // Delegate
-    __weak id<IFCompilerDelegate> delegate;	// The delegate object.
+    __weak id<IFCompilerDelegate> delegate;	
 }
 
-// == Initialisation, etc ==
+#pragma mark - Initialisation, etc
 
 - (instancetype) init {
     self = [super init];
@@ -97,7 +112,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// == Setup ==
+#pragma mark - Setup
 
 - (void) setBuildForRelease: (BOOL) willRelease
                  forTesting: (BOOL) testing {
@@ -416,10 +431,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     deleteOutputFile = NO;
 }
 
-- (void) setDeletesOutput: (BOOL) deletes {
-    deleteOutputFile = deletes;
-}
-
+@synthesize deletesOutput = deleteOutputFile;
 @synthesize delegate;
 @synthesize directory = workingDirectory;
 
@@ -584,12 +596,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     }
 }
 
-- (IFProgress*) progress {
-	return progress;
-}
-
-- (void) setEndTextString: (NSString*) aEndTextString {
-    endTextString = aEndTextString;
-}
+@synthesize progress;
+@synthesize endTextString;
 
 @end

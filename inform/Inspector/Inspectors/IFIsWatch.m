@@ -162,7 +162,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	[self refreshExpressions];
 }
 
-// = Tableview delegate and data source =
+#pragma mark - Tableview delegate and data source
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
 	if (!activeProject) return 0;

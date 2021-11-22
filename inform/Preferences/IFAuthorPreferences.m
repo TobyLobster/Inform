@@ -12,7 +12,8 @@
 #import "IFUtility.h"
 
 @implementation IFAuthorPreferences {
-    IBOutlet NSTextField* newGameName;					// The preferred name for new Natural Inform games
+    /// The preferred name for new Natural Inform games
+    IBOutlet NSTextField* newGameName;
 }
 
 - (instancetype) init {
@@ -51,8 +52,7 @@
 }
 
 - (NSImage*) toolbarImage {
-	NSImage* image = [NSImage imageNamed: @"NSUser"];
-	if (!image) image = [NSImage imageNamed: @"App/Preferences/Inspectors"];
+	NSImage* image = [NSImage imageNamed: NSImageNameUser];
 	return image;
 }
 

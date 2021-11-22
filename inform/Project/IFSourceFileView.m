@@ -18,9 +18,12 @@ static NSImage* arrowNotPressed = nil;
 static NSImage* arrowPressed	= nil;
 
 @implementation IFSourceFileView {
-    BOOL tornAtTop;																// YES if we should draw a 'tear' at the top of the view
-    BOOL tornAtBottom;															// YES if we should draw a 'tear' at the bottom of the view
-    NSRect lastUsedRect;														// The last known 'used' rect (used to determine whether or not to update the bottom tear)
+    /// \c YES if we should draw a 'tear' at the top of the view
+    BOOL tornAtTop;
+    /// \c YES if we should draw a 'tear' at the bottom of the view
+    BOOL tornAtBottom;
+    /// The last known 'used' rect (used to determine whether or not to update the bottom tear)
+    NSRect lastUsedRect;
 }
 
 - (void) loadImages {

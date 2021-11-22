@@ -494,9 +494,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     [self updateVisibility];
 }
 
--(void) setDelegate: (id) aDelegate {
-    delegate = aDelegate;
-}
+@synthesize delegate;
 
 -(void) cancelAction {
     [cancelButton setHidden: YES];

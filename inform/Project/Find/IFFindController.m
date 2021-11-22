@@ -72,7 +72,8 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     NSRect contentFrame;												// The default size of the content frame
     
     // The delegate
-    id<IFFindDelegate> activeDelegate;									// The delegate that we've chosen to work with
+    /// The delegate that we've chosen to work with
+    __weak id<IFFindDelegate> activeDelegate;
 }
 
 

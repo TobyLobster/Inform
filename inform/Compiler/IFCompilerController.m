@@ -63,9 +63,11 @@ static IFCompilerController* activeController = nil;
 
     IBOutlet NSWindow*      window;					// We're attached to this window
 
-    double messagesSize;							// When we've got some messages to display, this is how high the pane will be
+    /// When we've got some messages to display, this is how high the pane will be
+    CGFloat messagesSize;
 
-    id<IFCompilerControllerDelegate> delegate;					// This object receives our delegate messages
+    /// This object receives our delegate messages
+    __weak id<IFCompilerControllerDelegate> delegate;
 
     IFProjectController*    projectController;      // Project controller
 

@@ -321,7 +321,7 @@ static const CGFloat webViewHeight = 250.0f;
     assert(testingTemplate);
 }
 
-// -- Split view delegate --
+#pragma mark - Split view delegate
 
 - (BOOL)    splitView: (NSSplitView *) split
    canCollapseSubview: (NSView *) subview {

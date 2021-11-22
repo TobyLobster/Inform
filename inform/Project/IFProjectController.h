@@ -59,6 +59,7 @@
 - (void) removeAllTemporaryHighlights;
 
 -(BOOL) isCurrentlyTesting;
+@property (readonly, atomic, getter=isCurrentlyTesting) BOOL currentlyTesting;
 
 @property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
 
@@ -146,7 +147,7 @@
 
 // The GLK view
 - (IBAction) glkTaskHasStarted: (id) sender;
-- (void) setGlkInputSource: (id) glkInputSource;
+@property (atomic, strong) id<ZoomViewInputSource> glkInputSource;
 
 // Headers
 @property (atomic, readonly, strong) IFHeaderController *headerController;

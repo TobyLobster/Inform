@@ -11,7 +11,7 @@
 #import "IFCompilerSettings.h"
 #import "IFProjectController.h"
 
-enum {
+NS_ENUM(NSInteger) {
 	inform6FileTag = 0,
 	niFileTag = 1,
 	textFileTag = 2,
@@ -19,12 +19,16 @@ enum {
 };
 
 @implementation IFNewProjectFile {
-    IFProjectController* projectController;			// The project controller for the project that's getting a new file
+    /// The project controller for the project that's getting a new file
+    IFProjectController* projectController;
 
-    IBOutlet NSPopUpButton* fileType;				// Used to select the type of file
-    IBOutlet NSTextField*   fileName;				// Used to enter the new file name
+    /// Used to select the type of file
+    IBOutlet NSPopUpButton* fileType;
+    /// Used to enter the new file name
+    IBOutlet NSTextField*   fileName;
 
-    NSString* newFilename;							// Stores the filename that the new file will have
+    /// Stores the filename that the new file will have
+    NSString* newFilename;
 }
 
 - (instancetype) initWithProjectController: (IFProjectController*) control {
@@ -40,6 +44,7 @@ enum {
 
 
 // = Actions =
+@synthesize newFilename;
 - (NSString*) getNewFilename {
 	if ([[[projectController document] settings] usingNaturalInform]) {
 		// Default is to create a 'ni' file

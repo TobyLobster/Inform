@@ -9,9 +9,9 @@
 #import "IFSyntaxTypes.h"
 
 // *******************************************************************************************
-//
-// Data about a restricted region of text storage
-//
+///
+/// Data about a restricted region of text storage
+///
 @interface IFSyntaxRestricted : NSObject
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
@@ -26,9 +26,13 @@
 
 
 // *******************************************************************************************
-//
-// Records useful syntax information about an NSTextStorage object
-//
+///
+/// Class holds the model for a text file currently being shown in a project. Each object owns
+/// the full text of a file, and up to two restricted versions (for the left/right hand panes of
+/// the project).
+///
+/// Records useful syntax information about an NSTextStorage object
+///
 @interface IFSyntaxData : NSObject<NSTextStorageDelegate>
 
 @property (atomic, strong)  NSTextStorage*  textStorage;
@@ -43,7 +47,7 @@
 -(instancetype) initWithStorage: (NSTextStorage*) aStorage
                  name: (NSString*) aName
                  type: (IFHighlightType) aType
-         intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+         intelligence: (id<IFSyntaxIntelligence>) intelligence
           undoManager: (NSUndoManager*) aUndoManager NS_DESIGNATED_INITIALIZER;
 -(void) dealloc;
 
@@ -51,42 +55,66 @@
 - (void) highlightAllForceUpdateTabs: (bool) forceUpdateTabs;
 
 // Communication from the highlighter
-- (void) pushState;												// Pushes the current state onto the stack
-@property (atomic, readonly) IFSyntaxState popState;			// Pops a state from the stack (which is returned)
+/// Pushes the current state onto the stack
+- (void) pushState;
+/// Pops a state from the stack (which is returned)
+@property (atomic, readonly) IFSyntaxState popState;
 
-- (void) backtrackWithStyle: (IFSyntaxStyle) newStyle			// Overwrites the styles backwards from the current position
+/// Overwrites the styles backwards from the current position
+- (void) backtrackWithStyle: (IFSyntaxStyle) newStyle
 					 length: (int) backtrackLength;
-		// Allows the highlighter to run in different 'modes' (basically, extends the state data to 64 bits)
-@property (atomic) IFHighlighterMode highlighterMode;			// Retrieves the current highlighter mode
-- (BOOL) preceededByKeyword: (NSString*) keyword				// If the given keyword occurs offset characters behind the current position, returns YES (ie, if the given keyword occurs and ends offset characters previously)
+		
+/// Allows the highlighter to run in different 'modes' (basically, extends the state data to 64 bits)
+/// Retrieves the current highlighter mode
+@property (atomic) IFHighlighterMode highlighterMode;
+/// If the given keyword occurs offset characters behind the current position, returns \c YES (ie, if the given keyword occurs and ends offset characters previously)
+- (BOOL) preceededByKeyword: (NSString*) keyword
 					 offset: (int) offset;
 
-- (void) preferencesChanged: (NSNotification*) not;				// Forces a rehighlight (to take account of new preferences)
+/// Forces a rehighlight (to take account of new preferences)
+- (void) preferencesChanged: (NSNotification*) not;
 
 // Elastic Tabs
-- (NSRange) rangeOfElasticRegionAtIndex: (NSUInteger) charIndex;		// Given a character index, works out the character range that elastic tabs should be applied to. Uses NSNotFound if elastic tabs shouldn't be applied to this range
-- (NSArray*) elasticTabsInRegion: (NSRange) region;                     // Given a region, returns the set of tab stops to use for elastic tabs
-- (NSDictionary*) paragraphStyleForTabStops: (int) numberOfTabstops;	// Gets a paragraph style for the given number of tab stops
+/// Given a character index, works out the character range that elastic tabs should be applied to. Uses \c NSNotFound if elastic tabs shouldn't be applied to this range
+- (NSRange) rangeOfElasticRegionAtIndex: (NSUInteger) charIndex;
+/// Given a region, returns the set of tab stops to use for elastic tabs
+- (NSArray*) elasticTabsInRegion: (NSRange) region;
+/// Gets a paragraph style for the given number of tab stops
+- (NSDictionary*) paragraphStyleForTabStops: (int) numberOfTabstops;
 
 // Gathering/retrieving intelligence data
-- (void) setIntelligence: (id<IFSyntaxIntelligence,NSObject>) intel;	// Sets the intelligence object for this highlighter
-- (id<IFSyntaxIntelligence>) intelligence;                              // Retrieves the current intelligence object
-@property (atomic, readonly, strong) IFIntelFile *intelligenceData;	// Retrieves the intel data for the current intelligence object
+/// Sets the intelligence object for this highlighter
+- (void) setIntelligence: (id<IFSyntaxIntelligence>) intel;
+/// Retrieves the current intelligence object
+- (id<IFSyntaxIntelligence>) intelligence;
+@property (nonatomic, strong) id<IFSyntaxIntelligence> intelligence;
+/// Retrieves the intel data for the current intelligence object
+@property (atomic, readonly, strong) IFIntelFile *intelligenceData;
 
 // Intelligence callbacks (rewriting lines)
-@property (atomic, readonly) int editingLineNumber;             // (To be called from rewriteInput) the number of the line being rewritten
-- (int) numberOfTabStopsForLine: (int) lineNumber;				// (To be called from rewriteInput) the number of tab stops on the given line
-- (NSString*) textForLine: (int) lineNumber;					// (To be called from rewriteInput) the text for a specific line number (which must be lower than the current line number)
+/// (To be called from rewriteInput) the number of the line being rewritten
+@property (atomic, readonly) int editingLineNumber;
+/// (To be called from rewriteInput) the number of tab stops on the given line
+- (int) numberOfTabStopsForLine: (int) lineNumber;
+/// (To be called from rewriteInput) the text for a specific line number (which must be lower than the current line number)
+- (NSString*) textForLine: (int) lineNumber;
 
-- (IFSyntaxStyle) styleAtStartOfLine: (int) lineNumber;			// (To be called from rewriteInput) the syntax highlighting style at the start of a specific line
-- (IFSyntaxStyle) styleAtEndOfLine: (int) lineNumber;			// (To be called from rewriteInput) the style at the end of a specific line
+/// (To be called from rewriteInput) the syntax highlighting style at the start of a specific line
+- (IFSyntaxStyle) styleAtStartOfLine: (int) lineNumber;
+/// (To be called from rewriteInput) the style at the end of a specific line
+- (IFSyntaxStyle) styleAtEndOfLine: (int) lineNumber;
 
-- (unichar) characterAtEndOfLine: (int) lineNumber;				// (To be called from rewriteInput) the character at the end of a specific line
+/// (To be called from rewriteInput) the character at the end of a specific line
+- (unichar) characterAtEndOfLine: (int) lineNumber;
 
-- (void) callbackForEditing: (SEL) selector						// (To be called from rewriteInput) callback allows editing outside the current line
+/// (To be called from rewriteInput) callback allows editing outside the current line
+- (void) callbackForEditing: (SEL) selector
 				  withValue: (id) parameter;
-- (void) replaceLine: (int) lineNumber							// (To be called from the callbackForEditing) replaces a line with another line
-			withLine: (NSString*) newLine;                      // DANGEROUS! May change styles, invoke the highlighter, etc
+/// (To be called from the callbackForEditing) replaces a line with another line
+///
+/// DANGEROUS! May change styles, invoke the highlighter, etc
+- (void) replaceLine: (int) lineNumber
+			withLine: (NSString*) newLine;
 
 //
 // Restricted text storage

@@ -49,7 +49,7 @@
 }
 
 - (NSImage*) toolbarImage {
-	// Use the OS X standard 'advanced' image if we can
+	// Use the OS X standard 'advanced' image
 	NSImage* image = [NSImage imageNamed: NSImageNameAdvanced];
 	return image;
 }

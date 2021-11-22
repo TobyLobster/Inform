@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "IFNewProjectProtocol.h"
 
-//
-// Project type that creates a project with an empty Inform 6 file
-//
+///
+/// Project type that creates a project with an empty Inform 6 file
+///
 @interface IFNewEmptyInform6Project : NSObject<IFNewProjectProtocol> {
 
 }

@@ -44,7 +44,7 @@
                               default: @"Errors"];
 }
 
-// = IFCompilerController delegate methods =
+#pragma mark - IFCompilerController delegate methods
 
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line

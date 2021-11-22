@@ -10,7 +10,7 @@
 #import "NSBundle+IFBundleExtensions.h"
 
 @implementation IFPreferencePane {
-    IBOutlet NSView* preferenceView;				// The view for these preferences
+    NSView* preferenceView;				// The view for these preferences
 }
 
 // = Initialisation =

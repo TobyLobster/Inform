@@ -8,9 +8,9 @@
 
 #import "IFHistoryEvent.h"
 
-//
-// Internal class used to create history events by proxy
-//
+///
+/// Internal class used to create history events by proxy
+///
 @interface IFHistoryEventProxy : NSProxy
 
 - (instancetype) initWithEvent: (IFHistoryEvent*) event;
@@ -18,8 +18,10 @@
 @end
 
 @implementation IFHistoryEvent {
-    NSMutableArray* invocations;							// The action(s) to perform when this history item is replayed
-    id target;												// The target to use when building the invocation by proxy
+    /// The action(s) to perform when this history item is replayed
+    NSMutableArray* invocations;
+    /// The target to use when building the invocation by proxy
+    id target;
 }
 
 
@@ -51,23 +53,17 @@
 	
 // = Building the invocation =
 
-- (void) setTarget: (id) newTarget {
-	target = newTarget;
-}
+@synthesize target;
 
 - (id) proxy {
 	return [[IFHistoryEventProxy alloc] initWithEvent: self];
-}
-
-- (id) target {
-	return target;
 }
 
 - (void) addInvocation: (NSInvocation*) newInvocation {
 	[newInvocation retainArguments];
 	[invocations addObject: newInvocation];
 	
-	 target = nil;
+    target = nil;
 }
 
 // = Replaying =

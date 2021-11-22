@@ -11,7 +11,7 @@
 
 #import "IFInspector.h"
 
-extern NSString* const IFIsIndexInspector;
+extern IFIsInspectorKey const IFIsIndexInspector;
 
 ///
 /// Dynamic or XML (depending on preferences) index inspector
@@ -20,6 +20,7 @@ extern NSString* const IFIsIndexInspector;
 
 /// Retrieves the shared index inspector
 + (IFIsIndex*) sharedIFIsIndex;
+@property (class, atomic, readonly, strong) IFIsIndex *sharedIFIsIndex;
 
 /// Updates the index from a specific window controller (to have an index, it must be a ProjectController)
 - (void) updateIndexFrom: (NSWindowController*) window;

@@ -85,13 +85,14 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 @property (atomic, readonly, copy) NSURL *problemsURL;
 // Sets the file that the compiler should target
 /// If YES, the output is deleted when the compiler is deallocated
+@property (atomic) BOOL deletesOutput;
 - (void)      setDeletesOutput: (BOOL) deletes;
 
 /// Sets the delegate object for the compiler. The delegate is NOT RETAINED.
 - (void) setDelegate: (id<IFCompilerDelegate>) delegate;
 /// Retrieves the delegate object.
 - (id<IFCompilerDelegate>)   delegate;
-
+/// The delegate object.
 @property (atomic, weak) id<IFCompilerDelegate> delegate;
 
 /// Clears the console
@@ -105,7 +106,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 /// Retrieves the progress indicator for this compiler
 @property (atomic, readonly, strong) IFProgress *progress;
 
-- (void) setEndTextString: (NSString*) aEndTextString;
+@property (atomic, readwrite, copy) NSString *endTextString;
 
 @end
 

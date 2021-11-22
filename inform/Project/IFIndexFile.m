@@ -23,7 +23,7 @@
 	return self;
 }
 
-static NSInteger intValueComparer(id a, id b, void* context) {
+static NSComparisonResult intValueComparer(id a, id b, void* context) {
 	int aV = [a intValue];
 	int bV = [b intValue];
 	
@@ -283,16 +283,26 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	}
 }
 
+/// Given an item in the outline view, work out the filename that it refers to
 - (NSString*) filenameForItem: (id) item {
-	// Given an item in the outline view, work out the filename that it refers to
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return nil;
 	
 	return itemInfo[@"Filename"];
 }
 
+/// Given an item in the outline view, work out the file URL that it refers to
+- (NSURL*) fileURLForItem: (id) item {
+    NSString *filename = [self filenameForItem:item];
+    if (filename == nil) {
+        return nil;
+    }
+    
+    return [NSURL fileURLWithPath: filename];
+}
+
+/// Given an item in the outline view, work out the line number that it refers to
 - (int) lineForItem: (id) item {
-	// Given an item in the outline view, work out the line number that it refers to
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return -1;
 	
@@ -301,8 +311,8 @@ static NSInteger intValueComparer(id a, id b, void* context) {
 	return [itemInfo[@"Line"] intValue];
 }
 
+/// Given an item in the outline view, work out the line number that it refers to
 - (NSString*) titleForItem: (id) item {
-	// Given an item in the outline view, work out the line number that it refers to
 	NSDictionary* itemInfo = [self itemForItem: item];
 	if (itemInfo == nil) return nil;
 	

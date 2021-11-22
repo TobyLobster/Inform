@@ -18,8 +18,6 @@
 /// The 'Is' from the prefix 'IFIs' stands for 'Inspector System', as opposed to being part of
 /// isFlipped.
 ///
-@interface IFIsFlippedView : NSView {
-
-}
+@interface IFIsFlippedView : NSView
 
 @end

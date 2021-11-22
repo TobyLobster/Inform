@@ -27,7 +27,7 @@
 @class IFSettingsPage;
 @class IFCompilerController;
 
-typedef enum IFProjectPaneType {
+typedef NS_ENUM(int, IFProjectPaneType) {
     IFSourcePane        = 1,
     IFErrorPane         = 2,
     IFGamePane          = 3,
@@ -37,7 +37,7 @@ typedef enum IFProjectPaneType {
     IFExtensionsPane    = 9,
 
 	IFUnknownPane       = 256
-} IFProjectPaneType;
+};
 
 ///
 /// Protocol that can be implemented by other objects that wish to act like the 'other' panel when actions
@@ -86,7 +86,7 @@ typedef enum IFProjectPaneType {
 /// Returns the currently displayed view (\c IFUnknownPane is a possibility for some views I haven't added code to check for)
 @property (atomic, readonly) IFProjectPaneType                currentView;
 /// The tab view itself
-@property (atomic, readonly, strong) NSTabView *              tabView;
+@property (atomic, readwrite, strong) IBOutlet NSTabView *    tabView;
 
 // Pages
 /// The page representing the source code

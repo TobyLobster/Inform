@@ -13,9 +13,11 @@
 #import "IFSyntaxData.h"
 
 @implementation IFNaturalHighlighter {
-    IFSyntaxData* activeData;					// Syntax data that we're using
+    /// Syntax data that we're using
+    IFSyntaxData* activeData;
 
-    IFInform6Highlighter* inform6Highlighter;		// Highlighter for portions of the file that are Inform 6 code
+    /// Highlighter for portions of the file that are Inform 6 code
+    IFInform6Highlighter* inform6Highlighter;
 }
 
 // = Initialisation =

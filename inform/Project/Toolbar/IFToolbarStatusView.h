@@ -26,7 +26,7 @@
 -(void) setProgressIndeterminate: (BOOL) indeterminate;
 -(void) stopProgress;
 
--(void) setDelegate: (IFToolbarManager*) delegate;
+@property (weak, atomic) IFToolbarManager *delegate;
 -(void) updateToolbar;
 
 @end

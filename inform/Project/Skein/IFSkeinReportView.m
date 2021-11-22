@@ -347,7 +347,7 @@ static NSDictionary* deleteAttr = nil;
         IFSkeinLayoutItem* layoutItem = [rootTree leafSelectedLineItem];
         while( layoutItem ) {
             if( layoutItem.item.uniqueId == uniqueId ) {
-                if( delegate && [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {
+                if( [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {
                     [delegate setItemBlessed: layoutItem.item bless: !button.blessState];
                 }
                 break;

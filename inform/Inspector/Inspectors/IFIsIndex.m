@@ -92,7 +92,7 @@ NSString* const IFIsIndexInspector = @"IFIsIndexInspector";
 	}
 }
 
-// = NSOutlineView delegate methods =
+#pragma mark - NSOutlineView delegate methods
 
 - (void) cacheSiblingsOf: (IFIntelSymbol*) symbol 
 				 inCache: (NSMutableArray*) cache {

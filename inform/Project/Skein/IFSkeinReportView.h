@@ -22,7 +22,7 @@
 
 @property (atomic, strong) NSMutableArray*    reportDetails;
 @property (atomic, strong) IFSkeinLayoutItem* rootTree;
-@property (atomic, strong) id                 delegate;
+@property (atomic, strong) id<IFSkeinReportBlessDelegate> delegate;
 @property (atomic)         BOOL               forceResizeDueToFontSizeChange;
 
 

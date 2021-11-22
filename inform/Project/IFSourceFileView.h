@@ -8,11 +8,11 @@
 
 #import <AppKit/AppKit.h>
 
-// Variation on NSTextView that supports line highlighting
 
 // Highlight array contains entries of type NSArray
 //   Each entry contains (line, style) as NSNumbers
 
+/// Variation on NSTextView that supports line highlighting
 @interface IFSourceFileView : NSTextView
 
 // Drawing 'tears' at the top and bottom

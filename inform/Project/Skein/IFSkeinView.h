@@ -36,7 +36,7 @@
 
 - (void) selectItem: (IFSkeinItem*) item;
 - (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId;
--(void) scrollViewToItem: (IFSkeinItem*) scrollToItem;
+- (void) scrollViewToItem: (IFSkeinItem*) scrollToItem;
 
 - (void) editItem: (IFSkeinItem*) skeinItem;
 
@@ -51,6 +51,7 @@
 
 // Font size handling
 + (CGFloat) fontSize;
+@property (class, atomic, readonly) CGFloat fontSize;
 - (void) fontSizePreferenceChanged: (NSNotification*) not;
 
 - (BOOL) isAnyItemPurple;
@@ -60,6 +61,6 @@
 - (BOOL) isTickVisible;
 - (BOOL) isCrossVisible;
 - (BOOL) isBadgedItemVisible;
-- (int) itemsVisible;
+- (NSInteger) itemsVisible;
 
 @end

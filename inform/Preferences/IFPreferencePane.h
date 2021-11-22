@@ -9,19 +9,25 @@
 #import <Cocoa/Cocoa.h>
 
 
-//
-// Class that represents a specific preference pane in the preferences window
-//
+///
+/// Class that represents a specific preference pane in the preferences window
+///
 @interface IFPreferencePane : NSObject
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;		// Initialises and loads the given nib
+/// Initialises and loads the given nib
+- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;
 
 // Information about the preference window
-@property (atomic, readonly, copy) NSImage *toolbarImage;		// The image that should show up in the toolbar
-@property (atomic, readonly, copy) NSString *preferenceName;	// The name of this pane (appears until the toolbar item)
-@property (atomic, readonly, copy) NSString *identifier;		// The unique identifier for this pane (subclasses don't need to override this)
-@property (atomic, readonly, copy) NSString *tooltip;			// The tooltip for this preference
-@property (atomic, readonly, strong) NSView *preferenceView;	// The view that describes the UI for this preference pane
+/// The image that should show up in the toolbar
+@property (atomic, readonly, copy) NSImage *toolbarImage;
+/// The name of this pane (appears until the toolbar item)
+@property (atomic, readonly, copy) NSString *preferenceName;
+/// The unique identifier for this pane (subclasses don't need to override this)
+@property (atomic, readonly, copy) NSString *identifier;
+/// The tooltip for this preference
+@property (atomic, readonly, copy) NSString *tooltip;
+/// The view that describes the UI for this preference pane
+@property (atomic, readonly, strong) IBOutlet NSView *preferenceView;
 
 @end

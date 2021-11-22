@@ -12,7 +12,8 @@
 #import "IFSyntaxData.h"
 
 @implementation IFNoHighlighter {
-    IFSyntaxData* activeData;					// Syntax data that we're using
+    /// Syntax data that we're using
+    IFSyntaxData* activeData;
 }
 
 // = Initialisation =

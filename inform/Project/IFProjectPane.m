@@ -48,7 +48,7 @@ static NSDictionary* IFSyntaxAttributes[256];
     /// The main pane view
     IBOutlet NSView*    paneView;
     /// The tab view
-    IBOutlet NSTabView* tabView;
+    NSTabView* tabView;
 
     // The page bar
     /// The page toolbar
@@ -490,7 +490,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[gamePage stopRunningGame];
 }
 
-// = Tab view delegate =
+#pragma mark - Tab view delegate
 
 - (BOOL)            tabView: (NSTabView *)view 
     shouldSelectTabViewItem: (NSTabViewItem *)item {
@@ -550,9 +550,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 // = The tab view =
 
-- (NSTabView*) tabView {
-	return tabView;
-}
+@synthesize tabView;
 
 // = Find =
 

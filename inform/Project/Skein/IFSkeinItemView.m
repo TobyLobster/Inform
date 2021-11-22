@@ -308,7 +308,6 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     // Using image slicing makes this so much easier.
     NSRect drawRect = (NSRect){pos, NSMakeSize(width, kSkeinItemImageHeight)};
     // TODO: Test this!
-    drawRect.origin.x -= kSkeinItemImageCommandLeftBorder;
     drawRect.size.width += kSkeinItemImageCommandLeftBorder + kSkeinItemImageCommandRightBorder;
     [img drawInRect: drawRect
            fromRect: NSZeroRect

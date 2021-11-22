@@ -16,7 +16,7 @@ extern NSString* const IFPreferencesAppFontSizeDidChangeNotification;	// Change 
 extern NSString* const IFPreferencesSkeinDidChangeNotification;
 
 extern NSString* const IFPreferencesDefault;
-typedef enum IFAppFontSize {
+typedef NS_ENUM(int, IFAppFontSize) {
     IFAppFontSizeMinus100,
     IFAppFontSizeMinus75,
     IFAppFontSizeMinus50,
@@ -26,10 +26,10 @@ typedef enum IFAppFontSize {
     IFAppFontSizePlus50,
     IFAppFontSizePlus75,
     IFAppFontSizePlus100,
-} IFAppFontSize;
+};
 
 // Types
-typedef enum IFRelativeFontSize {
+typedef NS_ENUM(int, IFRelativeFontSize) {
     IFFontSizeMinus30,
     IFFontSizeMinus20,
     IFFontSizeMinus10,
@@ -37,16 +37,16 @@ typedef enum IFRelativeFontSize {
     IFFontSizePlus10,
     IFFontSizePlus20,
     IFFontSizePlus30,
-} IFRelativeFontSize;
+};
 
 typedef NS_ENUM(int, IFSyntaxHighlightingOptionType) {
-    IFSHOptionHeadings,
-    IFSHOptionMainText,
-    IFSHOptionComments,
-    IFSHOptionQuotedText,
-    IFSHOptionTextSubstitutions,
+    IFSHOptionHeadings NS_SWIFT_NAME(headings),
+    IFSHOptionMainText NS_SWIFT_NAME(mainText),
+    IFSHOptionComments NS_SWIFT_NAME(comments),
+    IFSHOptionQuotedText NS_SWIFT_NAME(quotedText),
+    IFSHOptionTextSubstitutions NS_SWIFT_NAME(textSubstitutions),
     
-    IFSHOptionCount
+    IFSHOptionCount NS_SWIFT_NAME(count)
 };
 
 typedef NS_OPTIONS(UInt32, IFFontStyle) {
@@ -58,16 +58,17 @@ typedef NS_OPTIONS(UInt32, IFFontStyle) {
 
 @class IFEditingPreferencesSet;
 
-//
-// General preferences class
-//
-// Inform's application preferences are stored here
-//
+///
+/// General preferences class
+///
+/// Inform's application preferences are stored here
+///
 @interface IFPreferences : NSObject
 
 // Constructing the object
 /// The shared preference object
 + (IFPreferences*) sharedPreferences;
+@property (class, atomic, readonly, strong) IFPreferences *sharedPreferences;
 
 // Preferences
 /// Generates a notification that preferences have changed
@@ -136,7 +137,7 @@ typedef NS_OPTIONS(UInt32, IFFontStyle) {
 @property (atomic, copy) NSString *glulxInterpreter;
 
 
-// Position of preferences window
+/// Position of preferences window
 @property (atomic) NSPoint preferencesTopLeftPosition;
 
 @end

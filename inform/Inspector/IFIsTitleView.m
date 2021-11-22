@@ -26,9 +26,6 @@ static CGFloat titleHeight = 0;
 
 static NSDictionary* fontAttributes;
 
-// Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-//static NSString* IFNSShadowAttributeName = @"NSShadow";
-
 + (void) initialize {
 	// Background image
 	bgImage = [NSImage imageNamed: @"App/Inspector/Inspector-TitleBar"];
@@ -40,21 +37,16 @@ static NSDictionary* fontAttributes;
 	titleHeight = ceil(titleHeight);
 	
 	// Font attributes
-    /*
-	NSShadow* shadow = nil;
-	if (objc_lookUpClass("NSShadow") != nil && 0) {
-		shadow = [[NSShadow alloc] init];
+    
+	NSShadow* shadow = [[NSShadow alloc] init];
 		
 		[shadow setShadowOffset:NSMakeSize(1, -2)];
 		[shadow setShadowBlurRadius:2.5];
 		[shadow setShadowColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.75]];
-		[shadow autorelease];
-	}
-    */
 
 	fontAttributes = @{NSFontAttributeName: titleFont,
-		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6]/*,
-		IFNSShadowAttributeName: shadow*/};
+		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6],
+                       NSShadowAttributeName: shadow};
 
 }
 

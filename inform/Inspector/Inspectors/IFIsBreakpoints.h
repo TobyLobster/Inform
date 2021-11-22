@@ -11,7 +11,7 @@
 #import "IFInspector.h"
 
 /// The inspector key for this window
-extern NSString* const IFIsBreakpointsInspector;
+extern IFIsInspectorKey const IFIsBreakpointsInspector;
 
 ///
 /// The breakpoints inspector
@@ -20,6 +20,7 @@ extern NSString* const IFIsBreakpointsInspector;
 
 /// Retrieves the shared breakpoint inspector
 + (IFIsBreakpoints*) sharedIFIsBreakpoints;
+@property (class, atomic, readonly, strong) IFIsBreakpoints *sharedIFIsBreakpoints;
 
 #pragma mark Menu actions
 /// Cuts the current breakpoint

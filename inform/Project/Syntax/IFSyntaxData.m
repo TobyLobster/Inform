@@ -37,11 +37,6 @@
 
 @end
 
-//
-// Class holds the model for a text file currently being shown in a project. Each object owns
-// the full text of a file, and up to two restricted versions (for the left/right hand panes of
-// the project).
-//
 @implementation IFSyntaxData {
 
     // Restricted storage
@@ -73,17 +68,23 @@
     //
     // Paragraph styles
     //
-    NSMutableArray*	tabStops;               // Tab stop array
-    NSMutableArray*	paragraphStyles;        // Maps number of tabs at the start of a line to the appropriate paragraph style
-    BOOL			computingElasticTabs;	// YES if we're currently computing elastic tab sizes
+    
+    /// Tab stop array
+    NSMutableArray*	tabStops;
+    /// Maps number of tabs at the start of a line to the appropriate paragraph style
+    NSMutableArray*	paragraphStyles;
+    /// \c YES if we're currently computing elastic tab sizes
+    BOOL			computingElasticTabs;
 
     //
     // 'Intelligence'
     //
-    id<IFSyntaxIntelligence,NSObject> intelSource;
-    IFIntelFile* intelData;				// 'Intelligence' data
+    id<IFSyntaxIntelligence> intelSource;
+    /// 'Intelligence' data
+    IFIntelFile* intelData;
     
-    NSRange editingRange;				// Used while rewriting
+    /// Used while rewriting
+    NSRange editingRange;
 }
 
 @synthesize textStorage     = _textStorage;
@@ -97,7 +98,7 @@
 - (instancetype) initWithStorage: (NSTextStorage*) aStorage
                             name: (NSString*) aName
                             type: (IFHighlightType) aType
-                    intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+                    intelligence: (id<IFSyntaxIntelligence>) intelligence
                      undoManager: (NSUndoManager*) aUndoManager {
     self = [super init];
 
@@ -395,7 +396,7 @@
     return nil;
 }
 
-// = Delegate methods =
+#pragma mark - Delegate methods
 
 //
 // When the textView is *about to* accept a change (i.e. update it's text), this method can
@@ -1545,6 +1546,7 @@ static inline BOOL IsLineEnd(unichar c) {
 
 // = Gathering/retrieving intelligence data =
 
+@synthesize intelligence;
 - (void) setIntelligence: (id<IFSyntaxIntelligence,NSObject>) intel {
 	if (intelSource) {
 		[intelSource setSyntaxData: nil];
@@ -1556,13 +1558,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	[intelSource setSyntaxData: self];
 }
 
-- (id<IFSyntaxIntelligence>) intelligence {
-	return intelSource;
-}
-
-- (IFIntelFile*) intelligenceData {
-	return intelData;
-}
+@synthesize intelligenceData = intelData;
 
 // = Intelligence callbacks =
 

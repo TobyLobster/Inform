@@ -10,7 +10,7 @@
 
 #import "IFInspector.h"
 
-extern NSString* const IFIsNotesInspector;
+extern IFIsInspectorKey const IFIsNotesInspector;
 
 ///
 /// RTF notes inspector
@@ -19,5 +19,6 @@ extern NSString* const IFIsNotesInspector;
 
 /// Gets the shared instance of the inspector class
 + (IFIsNotes*) sharedIFIsNotes;
+@property (class, atomic, readonly, strong) IFIsNotes *sharedIFIsNotes;
 
 @end

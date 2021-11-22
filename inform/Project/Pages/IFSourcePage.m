@@ -200,11 +200,9 @@
                               default: @"Source"];
 }
 
-- (NSView*) activeView {
-	return textView;
-}
+@synthesize activeView;
 
-// = Text view delegate methods =
+#pragma mark - Text view delegate methods
 
 - (NSUndoManager *)undoManagerForTextView:(NSTextView *)aTextView {
 	// Always use the document undo manager
@@ -934,7 +932,7 @@
 	return NSMinY(boundingRect);
 }
 
-// = Header page delegate methods =
+#pragma mark - Header page delegate methods
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
 	// Relayed via the IFHeaderPage (where it's relayed via the view)

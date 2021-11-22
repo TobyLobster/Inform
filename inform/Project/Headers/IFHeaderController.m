@@ -16,7 +16,7 @@
     IFHeader* selectedHeader;											// The header that the user has most recently selected
     IFIntelFile* intelFile;												// The most recent intel file object
 
-    NSMutableArray* headerViews;										// The header views being managed by this controller
+    NSMutableArray<NSView<IFHeaderView>*>* headerViews;										// The header views being managed by this controller
 }
 
 // = Initialisation =
@@ -35,7 +35,7 @@
 
 - (void) refreshHeaders {
 	// Send the refreshHeaders message to all of the views that support it
-	for( NSObject* headerView in headerViews ) {
+	for( NSObject<IFHeaderView>* headerView in headerViews ) {
 		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
 			[headerView refreshHeaders: self];
 		}
@@ -47,7 +47,7 @@
 	selectedHeader = newSelectedHeader;
 	
 	// Send the setSelectedHeader message to all of the views that support it
-	for( NSObject* headerView in headerViews ) {
+	for( NSObject<IFHeaderView>* headerView in headerViews ) {
 		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
 			[headerView setSelectedHeader: newSelectedHeader
 							   controller: self];
@@ -149,21 +149,13 @@
 	[self refreshHeaders];
 }
 
-- (IFHeader*) rootHeader {
-	return rootHeader;
-}
-
-- (IFHeader*) selectedHeader {
-	return selectedHeader;
-}
-
-- (IFIntelFile*) intelFile {
-	return intelFile;
-}
+@synthesize rootHeader;
+@synthesize selectedHeader;
+@synthesize intelFile;
 
 // = Managing the views being controlled =
 
-- (void) addHeaderView: (NSView*) newHeaderView {
+- (void) addHeaderView: (NSView<IFHeaderView>*) newHeaderView {
 	if (!newHeaderView) {
 		return;
 	}
@@ -182,7 +174,7 @@
 	}
 }
 
-- (void) removeHeaderView: (NSView*) oldHeaderView {
+- (void) removeHeaderView: (NSView<IFHeaderView>*) oldHeaderView {
 	// Ensure that we don't accidentally self destruct a header view that's in use
 	//[[oldHeaderView retain] autorelease];
 	

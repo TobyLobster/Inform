@@ -7,7 +7,7 @@
 
 #import <AppKit/AppKit.h>
 
-// Subclass a split view to make a thinner divider
+/// Subclass a split view to make a thinner divider
 @interface IFThinSplitView : NSSplitView
 @property (atomic, readonly) CGFloat dividerThickness;
 @end

@@ -10,12 +10,13 @@
 
 #import "IFInspector.h"
 
-extern NSString* const IFIsFilesInspector;
+extern IFIsInspectorKey const IFIsFilesInspector;
 
 @interface IFIsFiles : IFInspector <NSTableViewDataSource, NSTableViewDelegate>
 
 /// The shared files inspector
 + (IFIsFiles*) sharedIFIsFiles;
+@property (class, atomic, readonly, strong) IFIsFiles *sharedIFIsFiles;
 
 /// Removes the currently selected file(s) from the project
 - (IBAction) removeFile: (id) sender;

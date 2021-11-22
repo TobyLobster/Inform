@@ -43,7 +43,7 @@
 		}
 
 		// Load the manifest file if it appears to exist
-		manifest = [NSDictionary dictionaryWithContentsOfFile: manifestFileURL.path];
+		manifest = [NSDictionary dictionaryWithContentsOfURL: manifestFileURL];
 
 		// If there's no manifest file, then use a blank one
 		if (manifest == nil) {

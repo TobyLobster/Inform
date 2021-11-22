@@ -17,6 +17,7 @@
 
 // Getting info about a particular item
 - (NSString*) filenameForItem: (id) item;
+- (NSURL*)    fileURLForItem: (id) item;
 - (int)       lineForItem: (id) item;
 - (NSString*) titleForItem: (id) item;
 

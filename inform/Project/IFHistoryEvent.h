@@ -18,16 +18,21 @@
 // Initialisation
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithInvocation: (NSInvocation*) invocation NS_DESIGNATED_INITIALIZER;		// Initialise with the specified invocation
-- (instancetype) initWithObject: (id) target NS_DESIGNATED_INITIALIZER;							// Initialise with the specified object as an invocation target
+/// Initialise with the specified invocation
+- (instancetype) initWithInvocation: (NSInvocation*) invocation NS_DESIGNATED_INITIALIZER;
+/// Initialise with the specified object as an invocation target
+- (instancetype) initWithObject: (id) target NS_DESIGNATED_INITIALIZER;
 
 // Building the invocation
 
-- (void) setTarget: (id) newTarget;				// Sets the target for the proxy object
-@property (atomic, readonly, strong) id proxy;	// The proxy object to use for this history item
+/// The target for the proxy object
+@property (atomic, readwrite, strong) id target;
+/// The proxy object to use for this history item
+@property (atomic, readonly, strong) id proxy;
 
 // Replaying
 
-- (void) replay;								// Replays the event specified by this object
+/// Replays the event specified by this object
+- (void) replay;
 
 @end

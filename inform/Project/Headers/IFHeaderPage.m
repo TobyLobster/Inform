@@ -15,17 +15,17 @@
 static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 @implementation IFHeaderPage {
-    IBOutlet NSView* pageView;								// The main header page view
+    NSView* pageView;
     IBOutlet NSScrollView* scrollView;						// The scroll view
-    IBOutlet IFHeaderView* headerView;						// The header view that this object is managing
+    IFHeaderView* headerView;
     IBOutlet NSPopUpButton* depthButton;
 
-    IFHeaderController* controller;							// The header controller that this page is using
+    IFHeaderController* controller;
 
-    NSRange highlightLines;									// The highlight range to use
-    IFHeaderNode* selectedNode;								// The currently selected header node
-
-    id delegate;											// The delegate for this page object
+    /// The highlight range to use
+    NSRange highlightLines;
+    /// The currently selected header node
+    IFHeaderNode* selectedNode;
 }
 
 // = Initialisation =
@@ -46,13 +46,13 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 		[headerView setDelegate: self];
 		
 		// Set the colours
-		NSArray* components = [[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderBackgroundColour];
+		NSArray* components = [[NSUserDefaults standardUserDefaults] arrayForKey: IFHeaderBackgroundColour];
 	    NSColor* col = [NSColor whiteColor];
 		
 		if ([components isKindOfClass: [NSArray class]] && [components count] >= 3) {
-			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] floatValue]
-										green: [(NSNumber *)components[1] floatValue]
-										 blue: [(NSNumber *)components[2] floatValue]
+			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] doubleValue]
+										green: [(NSNumber *)components[1] doubleValue]
+										 blue: [(NSNumber *)components[2] doubleValue]
 										alpha: 1.0];
 		}
 		
@@ -78,17 +78,8 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 // = KVC stuff for the page view/header view =
 
-- (NSView*) pageView {
-	return pageView;
-}
-
-- (IFHeaderView*) headerView {
-	return headerView;
-}
-
-- (void) setPageView: (NSView*) newPageView {
-	pageView = newPageView;
-}
+@synthesize pageView;
+@synthesize headerView;
 
 - (void) setHeaderView: (IFHeaderView*) newHeaderView {
 	if (controller && headerView) [controller removeHeaderView: headerView];
@@ -100,6 +91,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 // = Managing the controller =
 
+@synthesize controller;
 - (void) setController: (IFHeaderController*) newController {
 	if (controller) {
 		[controller removeHeaderView: headerView];
@@ -112,9 +104,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
 // = Controller delegate messages (relayed via the view) =
 
@@ -124,7 +114,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 	
 	if (delegate && [delegate respondsToSelector: @selector(refreshHeaders:)]) {
-		[delegate refreshHeaders: control];
+		[(id<IFHeaderView>)delegate refreshHeaders: control];
 	}
 }
 

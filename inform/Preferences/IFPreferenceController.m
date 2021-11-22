@@ -136,7 +136,7 @@
 	 toolbarItems = nil;
 }
 
-// = Toolbar delegate =
+#pragma mark - Toolbar delegate
 
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
 	NSMutableArray* result = [NSMutableArray array];

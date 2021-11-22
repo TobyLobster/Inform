@@ -8,16 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
-//
-// Variant of ZoomCollapsableView. Used to display the set of settings views.
-//
+///
+/// Variant of ZoomCollapsableView. Used to display the set of settings views.
+///
 @interface IFCollapsableView : NSView
 
-- (void) addSubview: (NSView*) subview						// Adds a new subview with a given title
+/// Adds a new subview with a given title
+- (void) addSubview: (NSView*) subview
 		  withTitle: (NSString*) title;
-- (void) removeAllSubviews;									// Cleans out all the subviews
-- (void) startRearranging;									// Called when rearranging starts
-- (void) finishRearranging;									// Called when rearranging finishes
-- (void) rearrangeSubviews;									// Lays out the subviews
+/// Cleans out all the subviews
+- (void) removeAllSubviews;
+/// Called when rearranging starts
+- (void) startRearranging;
+/// Called when rearranging finishes
+- (void) finishRearranging;
+/// Lays out the subviews
+- (void) rearrangeSubviews;
 
 @end

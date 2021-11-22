@@ -490,7 +490,7 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     [self adjustToolbarStatusView];
 }
 
-// == Toolbar delegate functions ==
+#pragma mark - Toolbar delegate functions
 
 - (NSToolbarItem *)toolbar: (NSToolbar *) toolbar
      itemForItemIdentifier: (NSString *)  itemIdentifier

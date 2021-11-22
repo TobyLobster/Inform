@@ -11,7 +11,7 @@
 
 @class IFSyntaxData;
 
-union IFInform6State {
+typedef union IFInform6State {
 	struct IFInform6Outer {
 		int comment:1;
 		int singleQuote:1;
@@ -30,14 +30,12 @@ union IFInform6State {
 	} bitmap;
 	
 	unsigned int state;
-};
+} IFInform6State;
 
-typedef union IFInform6State IFInform6State;
-
-//
-// A syntax highlighter for Inform 6 files
-// (based on the Inform technical manual)
-//
+///
+/// A syntax highlighter for Inform 6 files
+/// (based on the Inform technical manual)
+///
 @interface IFInform6Highlighter : NSObject<IFSyntaxHighlighter>
 
 @end

@@ -82,7 +82,9 @@
 - (void) saveDocumentWithoutUserInteraction;
 - (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
-- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;				// Removes compiler-generated files that are less useful to keep around
+/// Removes compiler-generated files that are less useful to keep around
+- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;
+
 - (void) unregisterProjectTextStorage;
 
 
@@ -117,9 +119,13 @@
 
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;
--(void) refreshTestCases;                                               // update the array of test cases
--(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase;    // Get the source text for a test case
--(NSArray*) redirectLinksToExtensionSourceCode: (NSArray*) link;        // Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
+/// update the array of test cases
+-(void) refreshTestCases;
+/// Get the source text for a test case
+-(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase;
+/// Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
+-(NSArray*) redirectLinksToExtensionSourceCode: (NSArray*) link;
+
 -(NSArray*) testCommandsForExtensionTestCase: (NSString*) testCase;
 - (BOOL) generateReportForTestCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode

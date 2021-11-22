@@ -74,8 +74,10 @@ static CGFloat      minDividerWidth     = 75.0f;
 @implementation IFProjectController {
     // Panes
     IBOutlet NSView*        panesView;
-    NSMutableArray*         projectPanes;           // Collection of panes
-    NSMutableArray*         splitViews;             // Collection of pane split views
+    /// Collection of panes
+    NSMutableArray*         projectPanes;
+    /// Collection of pane split views
+    NSMutableArray*         splitViews;
 
     // Toolbar
     IFToolbarManager*       toolbarManager;
@@ -84,15 +86,18 @@ static CGFloat      minDividerWidth     = 75.0f;
     IFHeaderController*     headerController;
 
     // The current tab view (used for the various tab selection menu items)
-    NSTabView*              currentTabView;         // The active tab view
-    IFProjectPane*          currentPane;            // The active project pane
+    /// The active tab view
+    NSTabView*              currentTabView;
+    /// The active project pane
+    IFProjectPane*          currentPane;
 
     // Source highlighting (indexed by file)
     NSMutableDictionary*    lineHighlighting;
     BOOL                    temporaryHighlights;
 
     // Compiling
-    SEL                     compileFinishedAction;  // Action after a compile has finished
+    /// Action after a compile has finished
+    SEL                     compileFinishedAction;
     BOOL                    isCompiling;
 
     // The last file selected
@@ -102,20 +107,27 @@ static CGFloat      minDividerWidth     = 75.0f;
     BOOL                    waitingAtBreakpoint;
 
     // Stack of skein items
-    NSMutableArray*         skeinNodeStack;         // Used when running the entire skein (array of IFSkeinItem objects)
+    /// Used when running the entire skein (array of IFSkeinItem objects)
+    NSMutableArray<IFSkeinItem*>*         skeinNodeStack;
 
     // Glk automation
-    id                      glkInputSource;
+    id<ZoomViewInputSource> glkInputSource;
 
     BOOL                    betweenWindowLoadedAndBecomingMain;
     BOOL                    testCaseChangedSinceLastSuccessfulCompile;
-    int                     currentTestCaseIndex;   // Current index of test cases to test
-    int                     startTestCaseIndex;     // Range of test cases to test
-    int                     endTestCaseIndex;       // Range of test cases to test
-    int                     numberOfTestCases;      // Number of test cases tested
+    /// Current index of test cases to test
+    int                     currentTestCaseIndex;
+    /// Range of test cases to test
+    int                     startTestCaseIndex;
+    /// Range of test cases to test
+    int                     endTestCaseIndex;
+    /// Number of test cases tested
+    int                     numberOfTestCases;
 
-    IFPolicyManager*        policyManager;          // Policy delegates (for handling custom URLs like 'library://')
-    IFSourceSharedActions*  sharedActions;          // Actions that can be shared between project and single controllers
+    /// Policy delegates (for handling custom URLs like 'library://')
+    IFPolicyManager*        policyManager;
+    /// Actions that can be shared between project and single controllers
+    IFSourceSharedActions*  sharedActions;
 
     IFProgress*             testAllProgress;
 }
@@ -123,7 +135,7 @@ static CGFloat      minDividerWidth     = 75.0f;
 + (void) initialize {
 	// Register our preferences
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	[defaults registerDefaults: @{IFSplitViewSizes: @[@0.5f, @0.5f]}];
+	[defaults registerDefaults: @{IFSplitViewSizes: @[@0.5, @0.5]}];
 }
 
 // == Initialistion ==
@@ -1875,7 +1887,7 @@ static CGFloat      minDividerWidth     = 75.0f;
     
     [[IFFindInFilesController sharedFindInFilesController] showFindInFilesWindow: self];
     [[IFFindInFilesController sharedFindInFilesController] startFindInFilesSearchWithPhrase: [sender stringValue]
-                                                                           withLocationType: (IFFindLocation) (IFFindDocumentationBasic | IFFindDocumentationSource | IFFindDocumentationDefinitions)
+                                                                           withLocationType: (IFFindDocumentationBasic | IFFindDocumentationSource | IFFindDocumentationDefinitions)
                                                                                    withType: (IFFindType) (IFFindContains | IFFindCaseInsensitive)];
 }
 
@@ -2085,9 +2097,7 @@ static CGFloat      minDividerWidth     = 75.0f;
 	[currentSkein interpreterRestart];
 }
 
-- (void) setGlkInputSource: (id) newSource {
-	glkInputSource = newSource;
-}
+@synthesize glkInputSource;
 
 - (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber

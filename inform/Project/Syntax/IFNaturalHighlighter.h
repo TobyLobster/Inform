@@ -32,9 +32,9 @@ enum {
 	IFNaturalModeInform6MightEnd
 };
 
-//
-// Natural Inform syntax highlighter
-//
+///
+/// Natural Inform syntax highlighter
+///
 @interface IFNaturalHighlighter : NSObject<IFSyntaxHighlighter>
 
 @end

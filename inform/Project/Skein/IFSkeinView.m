@@ -989,8 +989,8 @@ typedef BOOL(^checkFunc)(IFSkeinLayoutItem* item);
     }];
 }
 
-- (int) itemsVisible {
-    int __block count = 0;
+- (NSInteger) itemsVisible {
+    NSInteger __block count = 0;
     [self recursiveCheckItems: ^(IFSkeinLayoutItem* layoutItem) {
         count++;
         return NO;

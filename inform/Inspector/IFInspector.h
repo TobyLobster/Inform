@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class IFInspectorWindow;
 
+typedef NSString *IFIsInspectorKey NS_STRING_ENUM;
+
 ///
 /// Definition of an individual inspector: inspectors should subclass this and hook up the
 /// 'inspectorView' outlet in their nibs.
@@ -32,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Should be overridden by subclasses. Returns \c YES if the inspector is available in the current context. Normally this is dependant on the type of window being inspected.
 @property (atomic, readonly) BOOL available;
 /// The unique key string for this inspector. Must be overridden by subclasses, must be unique.
-@property (atomic, readonly, copy) NSString *key;
+@property (atomic, readonly, copy) IFIsInspectorKey key;
 
 // The controller
 /// Sets the window controller that will own this inspector

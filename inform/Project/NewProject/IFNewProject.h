@@ -11,15 +11,15 @@
 
 @class IFProjectType;
 
-typedef enum IFNewProjectFlow {
+typedef NS_ENUM(int, IFNewProjectFlow) {
     IFNewProjectNone     = 0,
     IFNewProjectOptions  = 1,
     IFNewProjectLocation = 2,
-} IFNewProjectFlow;
+};
 
-//
-// Window controller for the 'new project' window
-//
+///
+/// Window controller for the 'new project' window
+///
 @interface IFNewProject : NSWindowController<NSOpenSavePanelDelegate>
 
 -(IBAction) cancelButtonClicked: (id) sender;

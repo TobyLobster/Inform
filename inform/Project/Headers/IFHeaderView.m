@@ -11,17 +11,20 @@
 #import "IFHeaderController.h"
 
 @implementation IFHeaderView {
-    int displayDepth;														// The display depth for this view
-    IFHeader* rootHeader;													// The root header that this view should display
-    IFHeaderNode* rootHeaderNode;											// The root header node
-    IFHeaderNode* editNode;													// The header node that we're editing at the moment
-    NSColor* backgroundColour;												// The background colour for this view
-    NSString* message;														// The message to display centered in the view
+    /// The display depth for this view
+    int displayDepth;
+    /// The root header that this view should display
+    IFHeader* rootHeader;
+    /// The root header node
+    IFHeaderNode* rootHeaderNode;
+    /// The header node that we're editing at the moment
+    IFHeaderNode* editNode;
+    NSColor* backgroundColour;												
 
-    NSTextView* editor;														// The text view that's performing editing at the moment
-    NSTextStorage* editStorage;												// Text storage for the field editor
-
-    id delegate;															// The delegate (NOT RETAINED)
+    /// The text view that's performing editing at the moment
+    NSTextView* editor;
+    /// Text storage for the field editor
+    NSTextStorage* editStorage;
 }
 
 // = Initialisation =
@@ -37,9 +40,7 @@
 
 // = Information about this view =
 
-- (IFHeaderNode*) rootHeaderNode {
-	return rootHeaderNode;
-}
+@synthesize rootHeaderNode;
 
 // = Updating the view =
 
@@ -88,6 +89,7 @@
 	[self setNeedsDisplay: YES];	
 }
 
+@synthesize message;
 - (void) setMessage: (NSString*) newMessage {
 	if ([newMessage length] == 0) newMessage = nil;
 	message = [newMessage copy];
@@ -102,9 +104,7 @@
 	return YES;
 }
 
-- (int) displayDepth {
-	return displayDepth;
-}
+@synthesize displayDepth;
 
 - (void) setDisplayDepth: (int) newDisplayDepth {
 	// Set the display depth for this view
@@ -119,13 +119,8 @@
     return YES;
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
-
-- (void) setBackgroundColour: (NSColor*) colour {
-	backgroundColour = [colour copy];
-}
+@synthesize delegate;
+@synthesize backgroundColour;
 
 // = Drawing =
 
@@ -174,7 +169,7 @@
 	[self updateFromRoot];
 	
 	if (delegate && [delegate respondsToSelector:@selector(refreshHeaders:)]) {
-		[delegate refreshHeaders: controller];
+		[(id<IFHeaderView>)delegate refreshHeaders: controller];
 	}
 }
 

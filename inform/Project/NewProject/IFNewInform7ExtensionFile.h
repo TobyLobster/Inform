@@ -10,15 +10,16 @@
 
 #import "IFNewProjectProtocol.h"
 
-//
-// Project type that makes it possible to create new Natural Inform extensions directories
-//
 @class IFNewInform7ExtensionView;
+
+///
+/// Project type that makes it possible to create new Natural Inform extensions directories
+///
 @interface IFNewInform7ExtensionFile : NSObject<IFNewProjectProtocol>
 
 @end
 
-// (This class name sounds suspiciously likes a free sample from one of those spams...)
+/// (This class name sounds suspiciously likes a free sample from one of those spams...)
 @interface IFNewInform7ExtensionView : NSObject<IFNewProjectSetupView>
 
 - (void) setupControls;

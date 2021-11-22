@@ -76,11 +76,11 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 @property (atomic, readonly, copy) NSString *title;
 /// A unique identifier for this page
 @property (atomic, readonly, copy) NSString *identifier;
-/// The view that is considered to have focus for this page    // Sets the view to use
+/// The view that is considered to have focus for this page
 @property (atomic, readonly, strong) NSView *activeView;
 
 // Page validation
-/// YES if this page is valid to be shown
+/// \c YES if this page is valid to be shown
 @property (atomic, readonly) BOOL shouldShowPage;
 
 // Dealing with the page bar

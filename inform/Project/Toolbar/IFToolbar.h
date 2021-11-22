@@ -9,7 +9,6 @@
 
 extern NSNotificationName const IFToolbarChangedVisibility;
 
-@interface IFToolbar : NSToolbar {
-}
+@interface IFToolbar : NSToolbar
 
 @end

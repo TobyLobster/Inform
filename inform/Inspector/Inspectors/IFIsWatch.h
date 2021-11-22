@@ -11,7 +11,7 @@
 #import "IFInspector.h"
 
 /// The inspector key for this window
-extern NSString* const IFIsWatchInspector;
+extern IFIsInspectorKey const IFIsWatchInspector;
 
 // 'Special' evaluation values
 enum {
@@ -29,6 +29,7 @@ enum {
 
 /// The shared watch inspector
 + (IFIsWatch*) sharedIFIsWatch;
+@property (class, atomic, readonly, strong) IFIsWatch *sharedIFIsWatch;
 
 /// Called when the quick watch expression has changed to a new value
 - (IBAction) expressionChanged: (id) sender;

@@ -8,11 +8,10 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxData.h"
 
-//
-// Manages NSTextStorage objects registered
-//
-@interface IFSyntaxManager : NSObject {
-}
+///
+/// Manages NSTextStorage objects registered
+///
+@interface IFSyntaxManager : NSObject
 
 //
 // Registration

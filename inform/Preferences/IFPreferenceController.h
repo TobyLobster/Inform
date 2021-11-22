@@ -18,14 +18,18 @@
 @interface IFPreferenceController : NSWindowController<NSWindowDelegate, NSToolbarDelegate>
 
 // Construction, etc
-+ (IFPreferenceController*) sharedPreferenceController;				// The general preference controller
+/// The general preference controller
++ (IFPreferenceController*) sharedPreferenceController;
 
 // Adding new preference views
-- (void) addPreferencePane: (IFPreferencePane*) newPane;			// Adds a new preference pane
+/// Adds a new preference pane
+- (void) addPreferencePane: (IFPreferencePane*) newPane;
 - (void) removeAllPreferencePanes;
 
 // Choosing a preference pane
-- (void) switchToPreferencePane: (NSString*) paneIdentifier;		// Switches to a specific preference pane
-- (IFPreferencePane*) preferencePane: (NSString*) paneIdentifier;	// Retrieves a pane with a specific identifier
+/// Switches to a specific preference pane
+- (void) switchToPreferencePane: (NSString*) paneIdentifier;
+/// Retrieves a pane with a specific identifier
+- (IFPreferencePane*) preferencePane: (NSString*) paneIdentifier;
 
 @end
