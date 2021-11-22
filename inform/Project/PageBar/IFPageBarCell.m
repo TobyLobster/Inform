@@ -216,11 +216,19 @@
 		
 		if (isRight) dropDownDrawRect.origin.x += 2;
 		
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(dropDownDrawRect), NSMaxY(dropDownDrawRect))];
+        [layer lockFocus];
 		[dropDownArrow drawInRect: dropDownDrawRect
 						 fromRect: dropDownRect
 						operation: NSCompositingOperationSourceOver
 						 fraction: 1.0];
-		
+        if (dropDownArrow.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(dropDownDrawRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+        
 		// Reduce the frame size
 		cellFrame.size.width -= dropDownSize.width+4;
 	}
@@ -245,12 +253,22 @@
 		imageRect.origin = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-size.width)/2,
 									   cellFrame.origin.y + (cellFrame.size.height+2-imageSize.height)/2);
 		imageRect.size = imageSize;
-		
+        
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(imageRect), NSMaxY(imageRect))];
+        [layer lockFocus];
+        
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
+				 fromRect: NSZeroRect
 				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
-		
+        
+        if (image.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+        
 		// Draw the text
 		NSPoint textPoint = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-size.width)/2 + imageSize.width + 2,
 										cellFrame.origin.y + (cellFrame.size.height+2-textSize.height)/2);
@@ -270,11 +288,19 @@
 		imageRect.origin = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-imageSize.width)/2,
 									   cellFrame.origin.y + (cellFrame.size.height+2-imageSize.height)/2);
 		imageRect.size = imageSize;
-		
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(imageRect), NSMaxY(imageRect))];
+        [layer lockFocus];
+        
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
+				 fromRect: NSZeroRect
 				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
+        if (image.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
 	} else if (text) {
 		// Draw the text
 		NSSize textSize = [text size];
@@ -332,13 +358,7 @@
 	
 // = Acting as a tab =
 
-- (void) setView: (NSView*) newView {
-	view = newView;
-}
-
-- (NSView*) view {
-	return view;
-}
+@synthesize view;
 
 // = Acting as a pop-up =
 
