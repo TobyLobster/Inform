@@ -11,8 +11,8 @@
 #import "IFComboBox.h"
 #import "IFUtility.h"
 
-static NSString* IFFindHistoryPref		= @"IFFindHistory";
-static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
+static NSString* const IFFindHistoryPref		= @"IFFindHistory";
+static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 #define FIND_HISTORY_LENGTH 30
 
@@ -25,8 +25,10 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     IBOutlet NSButton*		ignoreCase;									// The 'ignore case' checkbox
 
     // Pull down menu of how to search
-    IBOutlet NSPopUpButton* searchType;									// The 'contains/begins with/complete word/regexp' pop-up button
-    IBOutlet NSMenuItem*	containsItem;								// Choices for the type of object to find
+    /// The 'contains/begins with/complete word/regexp' pop-up button
+    IBOutlet NSPopUpButton* searchType;
+    /// Choices for the type of object to find
+    IBOutlet NSMenuItem*	containsItem;
     IBOutlet NSMenuItem*	beginsWithItem;
     IBOutlet NSMenuItem*	completeWordItem;
     IBOutlet NSMenuItem*	regexpItem;
@@ -40,7 +42,8 @@ static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
     IBOutlet NSButton*		replaceAll;
 
     // Progress
-    IBOutlet NSProgressIndicator* findProgress;							// The 'searching' progress indicator
+    /// The 'searching' progress indicator
+    IBOutlet NSProgressIndicator* findProgress;
 
     // Parent view to position extra content
     IBOutlet NSView*		auxViewPanel;								// The auxilary view panel

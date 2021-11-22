@@ -13,8 +13,8 @@
 #import "IFComboBox.h"
 #import "IFUtility.h"
 
-static NSString* IFFindHistoryPref		= @"IFFindHistory";
-static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
+static NSString* const IFFindHistoryPref		= @"IFFindHistory";
+static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 static const int FIND_HISTORY_LENGTH = 30;
 

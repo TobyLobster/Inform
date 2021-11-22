@@ -80,7 +80,7 @@
 }
 
 static NSString* const IFSourceSpellChecking = @"IFSourceSpellChecking";
-static CGFloat   pixelWidthBetweenExtensionNameAndVersion = 10.0f;
+static CGFloat   const pixelWidthBetweenExtensionNameAndVersion = 10.0;
 static IFNewProject* newProj = nil;
 
 static NSRunLoop* mainRunLoop = nil;

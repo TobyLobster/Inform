@@ -15,15 +15,15 @@
 
 static NSFont* headerNodeFont = nil;
 static NSFont* boldHeaderNodeFont = nil;
-static NSString* bulletPoint = nil;
+static NSString* const bulletPoint = @" \u2022 ";
 
 // = Preferences =
 
-static NSString* IFHeaderPointSize	= @"IFHeaderPointSize";
-static NSString* IFHeaderMargin		= @"IFHeaderMargin";
-static NSString* IFHeaderIndent		= @"IFHeaderIndent";
-static NSString* IFHeaderGap		= @"IFHeaderGap";
-static NSString* IFHeaderCorner		= @"IFHeaderCorner";
+static NSString* const IFHeaderPointSize	= @"IFHeaderPointSize";
+static NSString* const IFHeaderMargin		= @"IFHeaderMargin";
+static NSString* const IFHeaderIndent		= @"IFHeaderIndent";
+static NSString* const IFHeaderGap		    = @"IFHeaderGap";
+static NSString* const IFHeaderCorner		= @"IFHeaderCorner";
 
 static CGFloat pointSize = 11.0;
 
@@ -64,10 +64,10 @@ static CGFloat pointSize = 11.0;
 	// Register the preferences for this class
 	[[NSUserDefaults standardUserDefaults] registerDefaults: 
 		@{IFHeaderPointSize: @([NSFont smallSystemFontSize]),
-			IFHeaderMargin: @5.0f,
-			IFHeaderIndent: @12.0f,
-			IFHeaderGap: @8.0f,
-			IFHeaderCorner: @5.0f}];
+			IFHeaderMargin: @5.0,
+			IFHeaderIndent: @12.0,
+			IFHeaderGap: @8.0,
+			IFHeaderCorner: @5.0}];
 	
 	pointSize = [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderPointSize] floatValue];
 }
@@ -136,14 +136,7 @@ static CGFloat pointSize = 11.0;
 		// If the fonts don't exist, then update them
 		if (!headerNodeFont)		headerNodeFont		= [NSFont systemFontOfSize: pointSize];
 		if (!boldHeaderNodeFont)	boldHeaderNodeFont	= [NSFont boldSystemFontOfSize: pointSize];
-		
-		// Create a bullet point
-		if (!bulletPoint) {
-			unichar bulletPointChars[] = { 0x20, 0x2022, 0x20, 0 };
-			bulletPoint = [[NSString alloc] initWithCharacters: bulletPointChars
-														length: 3];
-		}
-		
+        
 		// Update the contents of this node
 		header = newHeader;
 		depth = newDepth;

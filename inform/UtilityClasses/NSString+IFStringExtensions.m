@@ -72,7 +72,7 @@ static NSCharacterSet* nonWhitespace;
 -(NSString*) trailingWhitespace
 {
     // Search backwards from the end of the string for a non-whitespace character
-    for(int i = (int) self.length - 1; i >= 0; i--) {
+    for(NSInteger i = self.length - 1; i >= 0; i--) {
         if( ![whitespace characterIsMember: [self characterAtIndex:i]]) {
             return [self substringFromIndex:i+1];
         }
