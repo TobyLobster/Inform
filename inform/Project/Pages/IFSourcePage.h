@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "IFPage.h"
+#import "IFHeaderPage.h"
 
 @class IFIntelFile;
 
@@ -23,7 +24,7 @@
 
 @end
 
-@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation>
+@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation, IFHeaderPageDelegate>
 
 // Source pane controls
 - (void) prepareToSave;                                         // Informs this pane that it's time to prepare to save the document

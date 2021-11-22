@@ -478,13 +478,13 @@ NSString* const IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     return results;
 }
 
-+(NSString*) commandForEntry:(NSString*) entry index:(int) index {
++(NSString*) commandForEntry:(NSString*) entry index:(NSInteger) index {
     NSString* command = [entry stringByTrimmingWhitespace];
     NSInteger returnIndex = [command indexOf:@"\n"];
     if( returnIndex != NSNotFound ) {
         command = [command substringToIndex: returnIndex];
     }
-    return [NSString stringWithFormat: @"%@", command];
+    return [command copy];
 }
 
 +(NSString*) outputForEntry:(NSString*) entry {
