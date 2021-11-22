@@ -222,7 +222,7 @@ static NSImage* arrowPressed	= nil;
 		upRect.size		= upSize;
 		
 		[arrow drawInRect: upRect
-				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
+				 fromRect: NSZeroRect
 				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: YES
@@ -259,7 +259,7 @@ static NSImage* arrowPressed	= nil;
 		upRect.size		= upSize;
 		
 		[arrow drawInRect: upRect
-				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
+				 fromRect: NSZeroRect
 				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: NO

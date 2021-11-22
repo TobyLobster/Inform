@@ -15,7 +15,7 @@
 
 static NSFont* headerNodeFont = nil;
 static NSFont* boldHeaderNodeFont = nil;
-static NSString* const bulletPoint = @" \u2022 ";
+static NSString* const bulletPoint = @" • ";
 
 // = Preferences =
 

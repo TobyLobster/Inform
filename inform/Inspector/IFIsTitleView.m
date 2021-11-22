@@ -130,21 +130,20 @@ static NSDictionary* fontAttributes;
 	[[NSColor windowBackgroundColor] set];
 	//NSRectFill(rect);
 	
-	CGFloat x = 0;
 	NSRect imgRect;
 	imgRect.origin = NSMakePoint(0,0);
 	imgRect.size = [bgImage size];
-    CGFloat w = imgRect.size.width;
 	imgRect.size.height = [IFIsTitleView titleHeight];
+    NSRect drawRect;
+    drawRect.origin = NSZeroPoint;
+    drawRect.size.width = rect.size.width;
+    drawRect.size.height = imgRect.size.height;
 	
-	while (x < rect.origin.x) x += w;
-	while (x < NSMaxX(rect)) {
-		[bgImage drawAtPoint: NSMakePoint(x, 0)
-					fromRect: imgRect
-				   operation: NSCompositingOperationSourceOver
-					fraction: 1.0];
-		x+=w;
-	}
+    // TODO: Test me!
+    [bgImage drawInRect: drawRect
+               fromRect: imgRect
+              operation: NSCompositingOperationSourceOver
+               fraction: 1.0];
 	
 	// Draw a line underneath
 	[[NSColor controlShadowColor] set];
