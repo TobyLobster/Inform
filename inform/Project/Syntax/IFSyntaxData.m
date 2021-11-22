@@ -1546,8 +1546,9 @@ static inline BOOL IsLineEnd(unichar c) {
 
 // = Gathering/retrieving intelligence data =
 
-@synthesize intelligence;
-- (void) setIntelligence: (id<IFSyntaxIntelligence,NSObject>) intel {
+@synthesize intelligence = intelSource;
+
+- (void) setIntelligence: (id<IFSyntaxIntelligence>) intel {
 	if (intelSource) {
 		[intelSource setSyntaxData: nil];
 	}

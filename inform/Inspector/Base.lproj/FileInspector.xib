@@ -20,9 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="223" height="270"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <scrollView toolTip="This shows the list of files in the current project." fixedFrame="YES" borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                <scrollView toolTip="This shows the list of files in the current project." borderType="none" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16">
                     <rect key="frame" x="0.0" y="0.0" width="223" height="236"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="Tk7-zT-2aS">
                         <rect key="frame" x="0.0" y="0.0" width="223" height="236"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -75,13 +74,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="11">
+                <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="11">
                     <rect key="frame" x="0.0" y="235" width="223" height="5"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </box>
-                <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9">
-                    <rect key="frame" x="152" y="239" width="35" height="29"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                    <rect key="frame" x="175" y="242" width="22" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="pQU-BQ-Noe"/>
+                    </constraints>
                     <buttonCell key="cell" type="smallSquare" title="-" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="33">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -90,9 +90,12 @@
                         <action selector="removeFile:" target="-2" id="27"/>
                     </connections>
                 </button>
-                <button toolTip="Click this to add a new file to the project" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8">
-                    <rect key="frame" x="186" y="239" width="35" height="29"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                <button toolTip="Click this to add a new file to the project" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <rect key="frame" x="196" y="242" width="22" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="22" id="Mot-H2-57w"/>
+                        <constraint firstAttribute="height" constant="22" id="w1F-EZ-heT"/>
+                    </constraints>
                     <buttonCell key="cell" type="smallSquare" title="+" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="32">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -103,7 +106,22 @@
                     </connections>
                 </button>
             </subviews>
-            <point key="canvasLocation" x="139" y="142"/>
+            <constraints>
+                <constraint firstItem="16" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="1" id="CiP-pe-5hH"/>
+                <constraint firstItem="16" firstAttribute="centerX" secondItem="7" secondAttribute="centerX" id="KJ7-4B-LBT"/>
+                <constraint firstItem="16" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="OrF-O9-BaT"/>
+                <constraint firstItem="11" firstAttribute="leading" secondItem="7" secondAttribute="leading" id="RdR-6q-xow"/>
+                <constraint firstItem="8" firstAttribute="leading" secondItem="9" secondAttribute="trailing" constant="-1" id="Swm-im-GT9"/>
+                <constraint firstItem="11" firstAttribute="top" secondItem="9" secondAttribute="bottom" constant="5" id="VN6-To-eyS"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="7" secondAttribute="top" constant="5" id="ZpX-1J-PAf"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="9" secondAttribute="top" id="h2C-fk-wrL"/>
+                <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" id="jiU-wS-v6Z"/>
+                <constraint firstItem="8" firstAttribute="bottom" secondItem="9" secondAttribute="bottom" id="oDh-Z9-9bI"/>
+                <constraint firstItem="9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7" secondAttribute="leading" constant="20" id="sUm-yO-9kd"/>
+                <constraint firstAttribute="bottom" secondItem="16" secondAttribute="bottom" id="tbN-cP-EKi"/>
+                <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="5" id="vBY-eR-Hjb"/>
+            </constraints>
+            <point key="canvasLocation" x="138.5" y="142"/>
         </customView>
     </objects>
     <resources>

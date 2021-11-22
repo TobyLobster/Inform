@@ -18,9 +18,11 @@
             <rect key="frame" x="0.0" y="0.0" width="415" height="147"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="17">
-                    <rect key="frame" x="332" y="13" width="35" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="17">
+                    <rect key="frame" x="350" y="19" width="23" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="M1X-ct-TYT"/>
+                    </constraints>
                     <buttonCell key="cell" type="smallSquare" title="-" bezelStyle="smallSquare" image="NSRemoveTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="22">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -29,9 +31,11 @@
                         <action selector="deleteExtension:" target="-2" id="18"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16">
-                    <rect key="frame" x="365" y="13" width="35" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="16">
+                    <rect key="frame" x="372" y="19" width="23" height="19"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="23" id="mRs-0Q-64L"/>
+                    </constraints>
                     <buttonCell key="cell" type="smallSquare" title="+" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="only" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="21">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -40,9 +44,8 @@
                         <action selector="addExtension:" target="-2" id="19"/>
                     </connections>
                 </button>
-                <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                <scrollView autohidesScrollers="YES" horizontalLineScroll="16" horizontalPageScroll="10" verticalLineScroll="16" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
                     <rect key="frame" x="20" y="45" width="375" height="82"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="KLt-Ne-j9A">
                         <rect key="frame" x="1" y="1" width="373" height="80"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,6 +102,18 @@
                     </tableHeaderView>
                 </scrollView>
             </subviews>
+            <constraints>
+                <constraint firstItem="16" firstAttribute="leading" secondItem="17" secondAttribute="trailing" constant="-1" id="0vz-5g-vhq"/>
+                <constraint firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" id="1Jj-7W-DP6"/>
+                <constraint firstItem="17" firstAttribute="top" secondItem="16" secondAttribute="top" id="AKU-US-rY4"/>
+                <constraint firstItem="17" firstAttribute="bottom" secondItem="16" secondAttribute="bottom" id="Anu-PK-P1Q"/>
+                <constraint firstAttribute="bottom" secondItem="17" secondAttribute="bottom" constant="20" symbolic="YES" id="Ny4-VD-44h"/>
+                <constraint firstAttribute="trailing" secondItem="16" secondAttribute="trailing" constant="20" id="Vrt-Y9-FOD"/>
+                <constraint firstAttribute="trailing" secondItem="6" secondAttribute="trailing" constant="20" symbolic="YES" id="bti-ol-YeM"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" id="cAd-Td-bBB"/>
+                <constraint firstItem="17" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8" symbolic="YES" id="fJU-Oc-2Ue"/>
+                <constraint firstItem="16" firstAttribute="width" secondItem="17" secondAttribute="width" id="nIo-Ed-dk2"/>
+            </constraints>
             <point key="canvasLocation" x="139" y="143"/>
         </customView>
     </objects>

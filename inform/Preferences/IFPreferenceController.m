@@ -42,10 +42,13 @@
 	
 	if (self) {
 		// Set up window
-		[self setWindowFrameAutosaveName: @"PreferenceWindow"];
-		[[self window] setDelegate: self];
-		[[self window] setTitle: [IFUtility localizedString: @"Inform Preferences"]];
-				
+		self.windowFrameAutosaveName = @"PreferenceWindow";
+        self.window.delegate = self;
+        self.window.title = [IFUtility localizedString: @"Inform Preferences"];
+        if (@available(macOS 11.0, *)) {
+            self.window.toolbarStyle = NSWindowToolbarStylePreference;
+        }
+        
 		// Set up preference toolbar
 		toolbarItems = [[NSMutableDictionary alloc] init];
 		
