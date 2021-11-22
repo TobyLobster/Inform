@@ -23,9 +23,9 @@
 // the most important, followed by the background animations.
 //
 
-//
-// Object used to represent the layout of an individual cell
-//
+///
+/// Object used to represent the layout of an individual cell
+///
 @interface IFPageCellLayout : NSObject
 
 @end
@@ -123,11 +123,7 @@ static const CGFloat leftMargin = 3.0;
 		image = [NSImage imageNamed: @"App/PageBar/BarSelected"];
 	}
 	
-	if ([NSColor currentControlTint] == NSGraphiteControlTint) {
-		return [IFPageBarView graphiteSelectedImage];
-	} else {
-		return image;
-	}
+    return image;
 }
 
 + (NSImage*) inactiveImage {
@@ -178,7 +174,9 @@ static const CGFloat leftMargin = 3.0;
 				   fromRect: sourceRect
 				  operation: NSCompositingOperationSourceOver 
 				   fraction: fraction];		
-	}
+        [NSColor.controlAccentColor set];
+        NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
+    }
 }
 
 - (NSImage*) renderCell: (NSCell*) cell
