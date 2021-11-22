@@ -373,8 +373,7 @@
 - (void) showPopupAtPoint: (NSPoint) pointInWindow {
 	if (menu) {
 		[self setState: NSControlStateValueOn];
-		super.highlighted = YES;
-		[self update];
+		self.highlighted = YES;
 		
 		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
 												location: pointInWindow
@@ -414,8 +413,7 @@
 												   toView: nil];
 		[self showPopupAtPoint: NSMakePoint(NSMinX(winFrame)+1, NSMinY(winFrame)-3)];
 		
-        super.highlighted = NO;
-		[self update];
+        self.highlighted = NO;
 		
 		return YES;
 	}
@@ -437,8 +435,7 @@
 
 - (BOOL)startTrackingAt: (NSPoint)startPoint 
 				 inView: (NSView*)controlView {
-    super.highlighted = YES;
-	[self update];
+    self.highlighted = YES;
 	
 	// TODO: if this is a menu or pop-up cell, only send the action when the user makes a selection
 	// [self sendActionOn: 0];
@@ -454,8 +451,7 @@
 	shouldBeHighlighted = NSPointInRect(currentPoint, 
 										trackingFrame);
 	if (shouldBeHighlighted != self.highlighted) {
-        super.highlighted = shouldBeHighlighted;
-		[self update];
+        self.highlighted = shouldBeHighlighted;
 	}
 	
 	return YES;
@@ -465,8 +461,7 @@
 				  at:(NSPoint)stopPoint
 			  inView:(NSView *)controlView 
 		   mouseIsUp:(BOOL)flag {
-    super.highlighted = NO;
-	[self update];
+    self.highlighted = NO;
 
 	return;
 }
