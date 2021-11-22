@@ -110,9 +110,6 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
     cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
 
-    # Convert to hiDPI compliant tiffs
-    tiffutil -cathidpicheck "${INFORM_CORE}/resources/Imagery/app_images/Blob Logo.png" "${INFORM_CORE}/resources/Imagery/app_images/Blob Logo@2x.png" -out "${STAGING_AREA}/Resources/Blob-Logo.tiff"
-
     # Copy retrospective files
     #cp -f "${INFORM_CORE}/retrospective/retrospective.txt"                      "${STAGING_AREA}/Resources/App/Compilers/retrospective.txt"
 

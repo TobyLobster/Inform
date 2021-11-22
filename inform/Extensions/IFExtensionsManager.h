@@ -17,14 +17,14 @@ extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNo
 
 @interface IFExtensionInfo : NSObject
 
-@property (atomic, strong) NSString* displayName;
-@property (atomic, strong) NSString* filepath;
-@property (atomic, strong) NSString* author;
-@property (atomic, strong) NSString* version;
-@property (atomic, strong) NSString* md5Hash;
+@property (atomic, copy)   NSString* displayName;
+@property (atomic, copy)   NSString* filepath;
+@property (atomic, copy)   NSString* author;
+@property (atomic, copy)   NSString* version;
+@property (atomic, copy)   NSString* md5Hash;
 @property (atomic)         BOOL      isBuiltIn;
 
--(instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+-(instancetype) init NS_UNAVAILABLE;
 
 -(instancetype) initWithDisplayName: (NSString*) displayName
                  filepath: (NSString*) filepath

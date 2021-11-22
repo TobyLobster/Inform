@@ -24,8 +24,6 @@ static int maxErrorMessagesToDisplay = 3;
 // *******************************************************************************************
 @implementation IFExtensionInfo
 
--(instancetype) init { self = [super init]; return self; }
-
 -(instancetype) initWithDisplayName: (NSString*) displayName
                  filepath: (NSString*) filepath
                    author: (NSString*) author

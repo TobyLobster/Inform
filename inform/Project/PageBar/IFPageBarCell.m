@@ -12,8 +12,6 @@
 @implementation IFPageBarCell {
     /// True if this cell is to be drawn on the right-hand side
     BOOL isRight;
-    /// True if this cell is currently highlighted by a click
-    BOOL isHighlighted;
     /// The frame of this cell reported when the last mouse tracking started
     NSRect trackingFrame;
 
@@ -110,12 +108,8 @@
 	[(NSControl*)[self controlView] updateCell: self];
 }
 
-- (BOOL) isHighlighted {
-	return isHighlighted;
-}
-
 - (void) setHighlighted: (BOOL) highlighted {
-	isHighlighted = highlighted;
+    super.highlighted = highlighted;
 	[self update];
 }
 
@@ -173,7 +167,7 @@
 	// Draw the background
 	NSImage* backgroundImage = nil;
 	
-	if (isHighlighted) {
+	if (self.highlighted) {
 		if ([self isPopup]) {
 			backgroundImage = [IFPageBarView graphiteSelectedImage];
 		} else {
@@ -207,7 +201,6 @@
 		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
 		NSSize dropDownSize = [dropDownArrow size];
 		
-		NSRect dropDownRect = NSMakeRect(0,0, dropDownSize.width, dropDownSize.height);
 		NSRect dropDownDrawRect;
 		
 		dropDownDrawRect.origin = NSMakePoint(NSMaxX(cellFrame) - dropDownSize.width - 6,
@@ -219,7 +212,7 @@
         NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(dropDownDrawRect), NSMaxY(dropDownDrawRect))];
         [layer lockFocus];
 		[dropDownArrow drawInRect: dropDownDrawRect
-						 fromRect: dropDownRect
+						 fromRect: NSZeroRect
 						operation: NSCompositingOperationSourceOver
 						 fraction: 1.0];
         if (dropDownArrow.template) {
@@ -227,7 +220,10 @@
             NSRectFillUsingOperation(dropDownDrawRect, NSCompositingOperationSourceAtop);
         }
         [layer unlockFocus];
-        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
         
 		// Reduce the frame size
 		cellFrame.size.width -= dropDownSize.width+4;
@@ -267,7 +263,10 @@
             NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
         }
         [layer unlockFocus];
-        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
         
 		// Draw the text
 		NSPoint textPoint = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-size.width)/2 + imageSize.width + 2,
@@ -300,7 +299,10 @@
             NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
         }
         [layer unlockFocus];
-        [layer drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
 	} else if (text) {
 		// Draw the text
 		NSSize textSize = [text size];
@@ -371,12 +373,12 @@
 - (void) showPopupAtPoint: (NSPoint) pointInWindow {
 	if (menu) {
 		[self setState: NSControlStateValueOn];
-		isHighlighted = YES;
+		super.highlighted = YES;
 		[self update];
 		
 		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
 												location: pointInWindow
-										   modifierFlags: (NSUInteger) 0 // 10.10: (NSEventModifierFlags) 0
+										   modifierFlags: (NSEventModifierFlags) 0
 											   timestamp: [[NSApp currentEvent] timestamp]
 											windowNumber: [[[self controlView] window] windowNumber]
 												 context: nil
@@ -412,7 +414,7 @@
 												   toView: nil];
 		[self showPopupAtPoint: NSMakePoint(NSMinX(winFrame)+1, NSMinY(winFrame)-3)];
 		
-		isHighlighted = NO;
+        super.highlighted = NO;
 		[self update];
 		
 		return YES;
@@ -435,7 +437,7 @@
 
 - (BOOL)startTrackingAt: (NSPoint)startPoint 
 				 inView: (NSView*)controlView {
-	isHighlighted = YES;
+    super.highlighted = YES;
 	[self update];
 	
 	// TODO: if this is a menu or pop-up cell, only send the action when the user makes a selection
@@ -451,8 +453,8 @@
 	
 	shouldBeHighlighted = NSPointInRect(currentPoint, 
 										trackingFrame);
-	if (shouldBeHighlighted != isHighlighted) {
-		isHighlighted = shouldBeHighlighted;
+	if (shouldBeHighlighted != self.highlighted) {
+        super.highlighted = shouldBeHighlighted;
 		[self update];
 	}
 	
@@ -463,7 +465,7 @@
 				  at:(NSPoint)stopPoint
 			  inView:(NSView *)controlView 
 		   mouseIsUp:(BOOL)flag {
-	isHighlighted = NO;
+    super.highlighted = NO;
 	[self update];
 
 	return;
