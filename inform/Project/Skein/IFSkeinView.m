@@ -860,9 +860,9 @@ static NSDictionary* itemTextAttributes;
         endingRect.origin = rect.origin;
 
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"frame"];
-        [anim setFromValue:[NSValue valueWithRect: startingRect]];
-        [anim setToValue:[NSValue valueWithRect: endingRect]];
-        [anim setDelegate:self];
+        anim.fromValue = @(startingRect);
+        anim.toValue = @(endingRect);
+        anim.delegate = self;
         [self setAnimations:@{@"frame": anim}];
 
         [[self animator] setFrame: endingRect];

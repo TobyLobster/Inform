@@ -225,9 +225,9 @@ CGFloat easeOutCubic(CGFloat t) {
 
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  [self localizedString: @"OK"]];
-    [alert setMessageText:      alreadyLocalized ? title : [self localizedString: title]];
-    [alert setInformativeText:  contents];
-    [alert setAlertStyle:       warningStyle ? NSAlertStyleWarning : NSAlertStyleInformational];
+    alert.messageText = alreadyLocalized ? title : [self localizedString: title];
+    alert.informativeText = contents;
+    alert.alertStyle = warningStyle ? NSAlertStyleWarning : NSAlertStyleInformational;
 
     [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
         

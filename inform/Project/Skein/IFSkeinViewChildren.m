@@ -149,7 +149,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
             t = easeOutCubic(t);
             NSPoint pos = NSMakePoint( lerp(t, startPosition.x, finalPosition.x),
                                        lerp(t, startPosition.y, finalPosition.y) );
-            [positionValues addObject: [NSValue valueWithPoint: pos]];
+            [positionValues addObject: @(pos)];
         }
         thePositionAnimation.values = positionValues;
         thePositionAnimation.calculationMode = kCAAnimationLinear;
@@ -285,7 +285,7 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
             angleRadians = atan2(delta.y, delta.x);
 
             NSRect frame = NSMakeRect( from.x, from.y, length, round(kSkeinLinkViewThickness) );
-            [positionValues addObject: [NSValue valueWithPoint: frame.origin]];
+            [positionValues addObject: @(frame.origin)];
             [sizeValues     addObject: @(length)];
             [angleValues    addObject: @(angleRadians)];
         }
