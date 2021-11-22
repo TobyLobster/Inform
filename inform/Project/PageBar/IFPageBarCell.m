@@ -9,37 +9,32 @@
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
 
-static NSColor* foregroundColour() {
-	static NSColor* foreColour = nil;
-	
-	if (!foreColour) {
-		// Use black by default
-		foreColour = [[NSColor controlTextColor] colorWithAlphaComponent: 0.8];
-    }
-		
-    // Keep the colour around for when we need it
-	
-	return foreColour;
-}
-
 @implementation IFPageBarCell {
-    BOOL isRight;										// True if this cell is to be drawn on the right-hand side
-    BOOL isHighlighted;									// True if this cell is currently highlighted by a click
-    NSRect trackingFrame;								// The frame of this cell reported when the last mouse tracking started
+    /// True if this cell is to be drawn on the right-hand side
+    BOOL isRight;
+    /// True if this cell is currently highlighted by a click
+    BOOL isHighlighted;
+    /// The frame of this cell reported when the last mouse tracking started
+    NSRect trackingFrame;
 
-    id identifier;										// An identifier for this cell
+    /// An identifier for this cell
+    id identifier;
 
     // Pop-up
-    NSMenu* menu;										// The menu for this cell
+    /// The menu for this cell
+    NSMenu* menu;
 
     // Radio
-    int radioGroup;										// The radio group identifier for this cell
+    /// The radio group identifier for this cell
+    int radioGroup;
 
     // View
-    NSView* view;										// The view for this cell
+    /// The view for this cell
+    NSView* view;
 
     // Key equivalent
-    NSString* keyEquivalent;							// The key equivalent string for this cell
+    /// The key equivalent string for this cell
+    NSString* keyEquivalent;
 }
 
 + (NSImage*) dropDownImage {
@@ -68,7 +63,7 @@ static NSColor* foregroundColour() {
         
 		NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																	   attributes: 
-			@{NSForegroundColorAttributeName: foregroundColour(),
+			@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 				NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 		
 		[self setAttributedStringValue: attrText];
@@ -98,18 +93,12 @@ static NSColor* foregroundColour() {
 	
 }
 
-- (void) setIdentifier: (id) newIdentifier {
-	identifier = newIdentifier;
-}
-
-- (id) identifier {
-	return identifier;
-}
+@synthesize identifier;
 
 - (void) setStringValue: (NSString*) text {
 	NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																   attributes: 
-		@{NSForegroundColorAttributeName: foregroundColour(),
+		@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 			NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 	
 	[self setAttributedStringValue: attrText];
@@ -339,13 +328,7 @@ static NSColor* foregroundColour() {
 
 // = Acting as part of a radio group =
 
-- (void) setRadioGroup: (int) group {
-	radioGroup = group;
-}
-
-- (int) radioGroup {
-	return radioGroup;
-}
+@synthesize radioGroup;
 	
 // = Acting as a tab =
 
