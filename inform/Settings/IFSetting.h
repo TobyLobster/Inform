@@ -10,6 +10,7 @@
 
 // Notification strings
 extern NSNotificationName const IFSettingHasChangedNotification;
+extern NSString* const IFSettingCreateBlorb;
 
 @class IFCompilerSettings;
 

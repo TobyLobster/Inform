@@ -10,8 +10,6 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
-static NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
-
 @implementation IFOutputSettings {
     IBOutlet NSMatrix* zmachineVersion;
     IBOutlet NSButton* releaseBlorb;
