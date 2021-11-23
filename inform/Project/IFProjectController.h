@@ -42,13 +42,13 @@
 // Communication from the containing panes
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId;
 - (BOOL) selectSourceFile: (NSString*) fileName;
-- (void) moveToSourceFilePosition: (int) location;
-- (void) moveToSourceFileLine: (int) line;
+- (void) moveToSourceFilePosition: (NSInteger) location;
+- (void) moveToSourceFileLine: (NSInteger) line;
 @property (atomic, readonly, copy) NSString *selectedSourceFile;
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file;
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style;
 - (NSArray*) highlightsForFile: (NSString*) file;
@@ -136,7 +136,7 @@
 - (IBAction) testMe:            (id) sender;
 
 - (void) changeFirstResponder: (NSResponder*) first;
-- (void) searchShowSelectedItemAtLocation: (int) location
+- (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type

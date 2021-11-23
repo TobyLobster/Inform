@@ -16,13 +16,16 @@
 // Predefined states
 //
 
-enum {
+typedef unsigned int  IFHighlighterMode;
+typedef unsigned int  IFSyntaxState;
+
+NS_ENUM(IFSyntaxState) {
 	IFSyntaxStateDefault = 0,
   	IFSyntaxStateNotHighlighted = 0xffffffff
 };
 
-// Syntax styles
-enum {
+/// Syntax styles
+typedef NS_OPTIONS(unsigned char, IFSyntaxStyle) {
     // Basic syntax types
     IFSyntaxNone = 0,
     IFSyntaxString,
@@ -41,14 +44,21 @@ enum {
 	// Styles between 0x20-0x40 are the same as above but with a flag set
     
     // Natural inform syntax types
-    IFSyntaxHeading = 0x80,				// Heading style
-	IFSyntaxPlain,						// 'No highlighting' style - lets user defined styles show through
-	IFSyntaxGameText,					// Text that appears in the game
-	IFSyntaxSubstitution,				// Substitution instructions
-	IFSyntaxNaturalInform,				// Natural inform standard text
-	IFSyntaxTitle,						// The title of a Natural Inform game
+    /// Heading style
+    IFSyntaxHeading = 0x80,
+    /// 'No highlighting' style - lets user defined styles show through
+	IFSyntaxPlain,
+    /// Text that appears in the game
+	IFSyntaxGameText,
+    /// Substitution instructions
+	IFSyntaxSubstitution,
+    /// Natural inform standard text
+	IFSyntaxNaturalInform,
+    /// The title of a Natural Inform game
+	IFSyntaxTitle,
 	
-	IFSyntaxStyleNotHighlighted = 0xf0,	// Used internally by the highlighter to indicate that the highlights are invalid for a particular range
+    /// Used internally by the highlighter to indicate that the highlights are invalid for a particular range
+	IFSyntaxStyleNotHighlighted = 0xf0,
     
     // Debugging syntax types
     IFSyntaxDebugHighlight = 0xa0
@@ -60,10 +70,6 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
     IFHighlightTypeInform7,
 };
 
-typedef unsigned int  IFHighlighterMode;
-typedef unsigned int  IFSyntaxState;
-typedef unsigned char IFSyntaxStyle;
-
 @class IFSyntaxData;
 
 ///
@@ -71,7 +77,7 @@ typedef unsigned char IFSyntaxStyle;
 ///
 @protocol IFSyntaxHighlighter <NSObject>
 
-// Notifying of the highlighter currently in use
+#pragma mark - Notifying of the highlighter currently in use
 /// Sets the syntax data that the highlighter is (currently) dealing with
 - (void) setSyntaxData: (IFSyntaxData*) data;
 
@@ -83,14 +89,15 @@ typedef unsigned char IFSyntaxStyle;
 - (IFSyntaxStyle) styleForCharacter: (unichar) chr
 						  nextState: (IFSyntaxState) nextState
 						  lastState: (IFSyntaxState) lastState;
-/// Opportunity to highlight keywords, etc missed by the first syntax highlighting pass. styles has one entry per character in the line specified, and can be rewritten as required
+/// Opportunity to highlight keywords, etc missed by the first syntax highlighting pass. \c styles has
+/// one entry per character in the line specified, and can be rewritten as required
 - (void) rehintLine: (NSString*) line
 			 styles: (IFSyntaxStyle*) styles
 	   initialState: (IFSyntaxState) state;
 
-// Styles
+#pragma mark - Styles
 /// Retrieves the text attributes a specific style should use
-- (NSDictionary*) attributesForStyle: (IFSyntaxStyle) style;
+- (NSDictionary<NSAttributedStringKey,id>*) attributesForStyle: (IFSyntaxStyle) style;
 /// Retrieves the width of a tab stop
 @property (readonly) CGFloat tabStopWidth;
 
@@ -102,7 +109,7 @@ typedef unsigned char IFSyntaxStyle;
 ///
 @protocol IFSyntaxIntelligence <NSObject>
 
-// Notifying of the highlighter currently in use
+#pragma mark - Notifying of the highlighter currently in use
 /// Sets the syntax data that the intelligence object should use
 - (void) setSyntaxData: (IFSyntaxData*) data;
 

@@ -10,9 +10,9 @@
 
 #import "IFSetting.h"
 
-//
-// Some miscellaneous Inform 6 settings
-//
+///
+/// Some miscellaneous Inform 6 settings
+///
 @interface IFMiscSettings : IFSetting
 
 @property (atomic) BOOL strict;

@@ -12,16 +12,20 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 
 @implementation IFIntelSymbol {
     // Our data
-    NSString* name;							// Name of the symbol (as displayed in the index)
-    NSString* type;							// Type of the symbol (see above)
-    int level;								// Level of the symbol in the tree (calculated)
-    enum IFSymbolRelation relation;			// If IFSymbolDeltaLevel, level is relative to the level of the preceding symbol
-    int levelDelta;							// If relation is IFSymbolDelta, the difference in levels, otherwise the absolute level
+    /// Name of the symbol (as displayed in the index)
+    NSString* name;
+    /// Type of the symbol (see above)
+    NSString* type;
+    /// Level of the symbol in the tree (calculated)
+    int level;
+    /// If \c IFSymbolDeltaLevel , level is relative to the level of the preceding symbol
+    IFSymbolRelation relation;
+    /// If \c relation is \c IFSymbolDelta , the difference in levels, otherwise the absolute level
+    int levelDelta;
 
     // The file we're stored in
-    IFIntelFile* ourFile;					// The IntelFile that owns this symbol
-
-    // Our relation in the list of symbols
+    /// The \c IntelFile that owns this symbol
+    IFIntelFile* ourFile;
 }
 
 // = Initialisation =
@@ -126,7 +130,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 @synthesize nextSymbol;
 @synthesize lastSymbol;
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 // (This is required in order to use these objects in a menu, though is not especially useful in general)
 
@@ -151,8 +155,8 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 	self = [super init];
 	
 	if (self) {
-		name = [decoder decodeObjectForKey: @"name"];
-		type = [decoder decodeObjectForKey: @"type"];
+        name = [decoder decodeObjectOfClass: [NSString class] forKey: @"name"];
+		type = [decoder decodeObjectOfClass: [NSString class] forKey: @"type"];
 		level = [decoder decodeIntForKey: @"level"];
 		relation = [decoder decodeIntForKey: @"relation"];
 		levelDelta = [decoder decodeIntForKey: @"levelDelta"];
@@ -163,6 +167,10 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 	}
 	
 	return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
 }
 
 @end

@@ -61,17 +61,25 @@ static const CGFloat tabMargin =  0.0;
 static const CGFloat leftMargin = 3.0;
 
 @implementation IFPageBarView {
-    BOOL cellsNeedLayout;							// YES if we need to perform layout on the cells
-    BOOL isActive;									// YES if this page accepts keyboard input
+    /// YES if we need to perform layout on the cells
+    BOOL cellsNeedLayout;
+    /// YES if this page accepts keyboard input
+    BOOL isActive;
 
-    NSMutableArray* leftCells;						// The cells that appear on the left of this view
-    NSMutableArray* rightCells;						// The cells that appear on the right of this view
+    /// The cells that appear on the left of this view
+    NSMutableArray<__kindof NSCell*>* leftCells;
+    /// The cells that appear on the right of this view
+    NSMutableArray<__kindof NSCell*>* rightCells;
 
-    NSMutableArray* leftLayout;						// Left-hand cell layout
-    NSMutableArray* rightLayout;					// Right-hand cell layout
+    /// Left-hand cell layout
+    NSMutableArray* leftLayout;
+    /// Right-hand cell layout
+    NSMutableArray* rightLayout;
 
-    NSCell* trackingCell;							// The cell that the mouse is down over
-    NSRect trackingCellFrame;						// The bounds for the cell that the mouse is down over
+    /// The cell that the mouse is down over
+    __weak NSCell* trackingCell;
+    /// The bounds for the cell that the mouse is down over
+    NSRect trackingCellFrame;
 }
 
 // = Images =
@@ -609,9 +617,7 @@ static const CGFloat leftMargin = 3.0;
 
 // = Mouse events =
 
-- (NSCell*) lastTrackedCell {
-	return trackingCell;
-}
+@synthesize lastTrackedCell=trackingCell;
 
 - (void) mouseDown: (NSEvent*) event {
 	// Clear any tracking cell that might exist

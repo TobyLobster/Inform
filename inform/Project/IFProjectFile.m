@@ -27,8 +27,6 @@
     }
 }
 
-- (instancetype) init { self = [super init]; return self; }
-
 // = Empty project creation =
 
 - (instancetype) initWithEmptyProject {
@@ -344,7 +342,7 @@
                               preferredFilename: toFilename];
 }
 
--(void) writeSkeins: (NSArray*) skeins isExtensionProject: (BOOL) isExtensionProject {
+-(void) writeSkeins: (NSArray<IFSkein*>*) skeins isExtensionProject: (BOOL) isExtensionProject {
     if( isExtensionProject ) {
         // Load all skeins for an extension project
         int alphabetCount = 0;
@@ -359,7 +357,7 @@
     }
     else {
         // Set the root command to the title of the project
-        ((IFSkein*)skeins[0]).rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
+        (skeins[0]).rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
         [self writeSkein: [skeins[0] getXMLString] toFilename: @"Skein.skein"];
     }
 }

@@ -44,7 +44,7 @@
 	return [IFUtility localizedString: @"Compiler Version Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 -(IFCompilerListEntry *) getSelectedListEntryFromDisplayName: (NSString*) displayName {
     NSArray *list = [CompilerList compilerList];

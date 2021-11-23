@@ -10,8 +10,7 @@
 @class IFProjectPolicy;
 @class IFProjectController;
 
-@interface IFPolicyManager : NSObject {
-}
+@interface IFPolicyManager : NSObject
 
 @property (atomic) IFProjectPolicy* generalPolicy;
 @property (atomic) IFProjectPolicy* docPolicy;

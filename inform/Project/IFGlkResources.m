@@ -14,8 +14,6 @@
     NSDictionary* manifest;
 }
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithProject: (IFProject*) newProject {
 	self = [super init];
 	

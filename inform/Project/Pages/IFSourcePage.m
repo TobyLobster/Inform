@@ -511,12 +511,12 @@
     [textView setSelectedRange: range];
 }
 
-- (void) moveToLine: (int) line {
+- (void) moveToLine: (NSInteger) line {
 	[self moveToLine: line
 		   character: 0];
 }
 
-- (void) moveToLine: (int) line
+- (void) moveToLine: (NSInteger) line
 		  character: (int) chrNo {
     // Find out where the line is in the source view
     NSString* store = [[textView textStorage] string];
@@ -525,7 +525,7 @@
     NSUInteger x;
     NSUInteger lineLength;
     NSUInteger linepos = 0;
-    int        lineno = 1;
+    NSInteger  lineno = 1;
 
 	if (line > lineno)
 	{
@@ -570,7 +570,7 @@
 	[self selectTextRange: NSMakeRange(linepos,0)];
 }
 
-- (void) moveToLocation: (int) location {
+- (void) moveToLocation: (NSInteger) location {
 	[self selectTextRange: NSMakeRange(location, 0)];
 }
 

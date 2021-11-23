@@ -52,8 +52,8 @@
 #import "IFCompilerSettings.h"
 
 #import "IFUtility.h"
-#import "IFThinSplitView.h"
 #import <ZoomView/ZoomView.h>
+#import "Inform-Swift.h"
 
 // Preferences
 static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
@@ -314,16 +314,16 @@ static CGFloat const      minDividerWidth     = 75.0f;
         [panesView addSubview: [firstPane paneView]];
     } else {
         // Create the splitViews
-        int view, nviews;
-        double dividerWidth = 5;
+        NSInteger view, nviews;
+        CGFloat dividerWidth = 5;
 
-        nviews = (int) [projectPanes count];
+        nviews = [projectPanes count];
         for (view=0; view<nviews-1; view++) {
-            NSSplitView* newView = [[IFThinSplitView alloc] init];
+            NSSplitView* newView = [[ThinSplitView alloc] init];
 
             [newView setVertical: YES];
             [newView setDelegate: self];
-            [newView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+            [newView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
 
             dividerWidth = [newView dividerThickness];
 
@@ -331,13 +331,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
         }
 
         // Remaining space for other dividers
-        double remaining        = [panesView bounds].size.width - dividerWidth*(double)(nviews-1);
-        double totalRemaining   = [panesView bounds].size.width;
-        double viewWidth        = floor(remaining / (double)nviews);
+        CGFloat remaining        = [panesView bounds].size.width - dividerWidth*(CGFloat)(nviews-1);
+        CGFloat totalRemaining   = [panesView bounds].size.width;
+        CGFloat viewWidth        = floor(remaining / (CGFloat)nviews);
 
 		// Work out the widths of the dividers using the preferences
-		NSMutableArray* realDividerWidths = [NSMutableArray array];
-		NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] objectForKey: IFSplitViewSizes];
+		NSMutableArray<NSNumber*>* realDividerWidths = [NSMutableArray array];
+		NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] arrayForKey: IFSplitViewSizes];
 
         if (![dividerProportions isKindOfClass: [NSArray class]] || [dividerProportions count] <= 0) {
 			dividerProportions = @[@1.0f];
@@ -348,9 +348,9 @@ static CGFloat const      minDividerWidth     = 75.0f;
             CGFloat width;
 			
 			if (view >= [dividerProportions count]) {
-				width = [dividerProportions[[dividerProportions count]-1] floatValue];
+				width = [dividerProportions[[dividerProportions count]-1] doubleValue];
 			} else {
-				width = [dividerProportions[view] floatValue];
+				width = [dividerProportions[view] doubleValue];
 			}
 			
 			if (width <= 0) width = 1.0;
@@ -372,7 +372,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
             [pane setController: self viewIndex: view];
 			
-			viewWidth = floor(proportion * [realDividerWidths[view] floatValue]);
+			viewWidth = floor(proportion * [realDividerWidths[view] doubleValue]);
 
             // Resize the splitview
             NSRect splitFrame;
@@ -1377,7 +1377,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	return [[self sourcePage] currentFile];
 }
 
-- (void) moveToSourceFileLine: (int) line {
+- (void) moveToSourceFileLine: (NSInteger) line {
 	IFProjectPane* thePane = [self sourcePane];
 
     [thePane selectViewOfType: IFSourcePane];
@@ -1385,7 +1385,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [[self window] makeFirstResponder: [thePane activeView]];
 }
 
-- (void) moveToSourceFilePosition: (int) location {
+- (void) moveToSourceFilePosition: (NSInteger) location {
 	IFProjectPane* thePane = [self sourcePane];
 	
     [thePane selectViewOfType: IFSourcePane];
@@ -1450,14 +1450,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	temporaryHighlights = NO;
 }
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file {
     [self highlightSourceFileLine: line
 						   inFile: file
                             style: IFLineStyleNeutral];
 }
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style {
 	// Get the 'true' path to this file
@@ -1787,7 +1787,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 // = Dealing with search panels =
 
-- (void) searchShowSelectedItemAtLocation: (int) location
+- (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type

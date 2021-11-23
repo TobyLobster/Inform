@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 // Our relationship to the preceding symbol in the file
-enum IFSymbolRelation {
+typedef NS_ENUM(int, IFSymbolRelation) {
     /// Delta = the level the symbol is on compared to the preceeding symbol of the same type
 	IFSymbolOnLevel = 0,
     /// Delta = number of levels up (or down if negative) for this symbol
@@ -25,8 +25,9 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 ///
 /// A single symbol gathered by the 'intelligence'
 ///
-@interface IFIntelSymbol : NSObject<NSCoding> {
+@interface IFIntelSymbol : NSObject<NSSecureCoding> {
 @protected
+    // Our relation in the list of symbols
     // Only public to IFIntelFile
     __weak IFIntelSymbol* nextSymbol;
     __weak IFIntelSymbol* lastSymbol;
@@ -40,7 +41,7 @@ extern NSString* const IFSectionSymbolType;	// Natural Inform section
 @property (atomic, copy) NSString *name;
 @property (atomic, copy) NSString *type;
 @property (nonatomic) int level;
-@property (atomic) enum IFSymbolRelation relation;
+@property (atomic) IFSymbolRelation relation;
 @property (atomic) int levelDelta;
 
 

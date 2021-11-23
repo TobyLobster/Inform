@@ -27,20 +27,18 @@
 }
 
 // = Initialisation =
-- (instancetype) init { self = [super init]; return self; }
-
--(instancetype)   initWithFilepath: (NSString*)       aFilepath
-                       rangeInFile: (NSRange)         aFileRange
-               documentDisplayName: (NSString*)       aDocumentDisplayName
-                  documentSortName: (NSString*)       aDocumentSortName
-                      locationType: (IFFindLocation)  aLocationType
-                           context: (NSString*)       aContext
-                      contextRange: (NSRange)         aContextRange
-                       exampleName: (NSString*)       aExampleName
-                  exampleAnchorTag: (NSString*)       aExampleAnchorTag
-                     codeAnchorTag: (NSString*)       aCodeAnchorTag
-               definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
-                  regexFoundGroups: (NSArray*)        aRegexFoundGroups {
+- (instancetype)   initWithFilepath: (NSString*)       aFilepath
+                        rangeInFile: (NSRange)         aFileRange
+                documentDisplayName: (NSString*)       aDocumentDisplayName
+                   documentSortName: (NSString*)       aDocumentSortName
+                       locationType: (IFFindLocation)  aLocationType
+                            context: (NSString*)       aContext
+                       contextRange: (NSRange)         aContextRange
+                        exampleName: (NSString*)       aExampleName
+                   exampleAnchorTag: (NSString*)       aExampleAnchorTag
+                      codeAnchorTag: (NSString*)       aCodeAnchorTag
+                definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
+                   regexFoundGroups: (NSArray*)        aRegexFoundGroups {
 
 	self = [super init];
 	

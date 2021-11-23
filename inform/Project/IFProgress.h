@@ -16,9 +16,9 @@ static const int IFProgressPriorityRunGame    = 30;
 static const int IFProgressPriorityExtensions = 20;
 static const int IFProgressPrioritySyntax     = 10;
 
-//
-// A progress indicator object
-//
+///
+/// A progress indicator object
+///
 @interface IFProgress : NSObject
 
 - (instancetype) init __attribute__((unavailable));

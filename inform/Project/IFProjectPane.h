@@ -71,14 +71,14 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 + (NSDictionary<NSAttributedStringKey, id>*) attributeForStyle: (IFSyntaxStyle) style;
 
 // Sets the project controller (once the nib has loaded and the project controller been set, we are considered 'awake')
-- (IFProjectController*) controller;
+@property (atomic, readonly, strong) IFProjectController *controller;
 - (void) setController: (IFProjectController*) p
-             viewIndex: (int) viewIndex;
+             viewIndex: (NSInteger) viewIndex;
 
 
 // Dealing with the contents of the NIB file
 /// The main pane view
-@property (atomic, readonly, strong) NSView *                 paneView;
+@property (nonatomic, readwrite, strong) IBOutlet NSView *    paneView;
 /// The presently displayed pane
 @property (atomic, readonly, strong) NSView *                 activeView;
 /// The compiler controller associated with this view

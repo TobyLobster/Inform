@@ -18,8 +18,11 @@
 #import "IFUtility.h"
 
 @implementation IFSingleFile {
-    NSTextStorage* fileStorage;						// The contents of the file
-    NSStringEncoding fileEncoding;					// The encoding used for the file
+    /// The contents of the file
+    NSTextStorage* fileStorage;
+    /// The encoding used for the file
+    NSStringEncoding fileEncoding;
+    
     NSRange initialSelectionRange;
 }
 
@@ -125,10 +128,10 @@
 	return fileStorage;
 }
 
-// = Whether or not this should be treated as read-only =
+#pragma mark - Whether or not this should be treated as read-only
 
 - (BOOL) isReadOnly {
-	if (self.fileURL.path == nil) return NO;
+	if (self.fileURL == nil) return NO;
 
 	NSString* filename = [self.fileURL.path stringByStandardizingPath];
 
@@ -151,12 +154,6 @@
 	return YES;
 }
 
--(void) setInitialSelectionRange: (NSRange) anInitialSelectionRange {
-    initialSelectionRange = anInitialSelectionRange;
-}
-
--(NSRange) initialSelectionRange {
-    return initialSelectionRange;
-}
+@synthesize initialSelectionRange;
 
 @end

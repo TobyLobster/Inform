@@ -22,7 +22,6 @@
 @synthesize restrictedTextStorage   = _restrictedTextStorage;
 @synthesize restrictedRange         = _restrictedRange;
 
-- (instancetype) init { self = [super init]; return self; }
 - (instancetype) initWithTextView: (NSTextView*) view
                             range: (NSRange) range {
     self = [super init];
@@ -93,8 +92,6 @@
 @synthesize undoManager     = _undoManager;
 @synthesize isHighlighting  = _isHighlighting;
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithStorage: (NSTextStorage*) aStorage
                             name: (NSString*) aName
                             type: (IFHighlightType) aType
@@ -148,7 +145,7 @@
         nLines = 1;
         [lineStates addObject:
             [NSMutableArray arrayWithObjects:
-                @[@((unsigned int)IFSyntaxStateDefault),
+                @[@(IFSyntaxStateDefault),
                     @0U],
              nil]]; // Initial stack starts with the default state
 
@@ -165,7 +162,7 @@
         [_textStorage beginEditing];
         self.isHighlighting = true;
 
-        int length = (int) [_textStorage length];
+        NSInteger length = [_textStorage length];
         [self updateAfterEditingRange: NSMakeRange(0, length)
                        changeInLength: length
                       forceUpdateTabs: true];

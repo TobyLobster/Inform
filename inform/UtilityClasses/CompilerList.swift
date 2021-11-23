@@ -52,5 +52,4 @@ import Foundation
 			ourdescription = description
 		}
 	}
-
 }

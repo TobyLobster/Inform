@@ -291,7 +291,7 @@
 
 // = Highlighting lines =
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style {
     // Find out where the line is in the source view

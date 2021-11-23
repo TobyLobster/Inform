@@ -12,16 +12,20 @@
 
 @implementation IFSettingsController {
     // UI + model
-    IBOutlet IFSettingsView* settingsView;					// (V) The view that will contain the settings (IFSettingsView is derived from IFCollapsableView)
-    IBOutlet IFCompilerSettings* compilerSettings;			// (M) The compiler settings object that contains the settings data
+    /// (V) The view that will contain the settings (IFSettingsView is derived from IFCollapsableView)
+    IFSettingsView* settingsView;
+    /// (M) The compiler settings object that contains the settings data
+    IFCompilerSettings* compilerSettings;
 
     // Settings to display
-    NSMutableArray* settings;								// Array of IFSetting.
+    /// Array of IFSetting.
+    NSMutableArray<IFSetting*>* settings;
 
-    BOOL settingsChanging;									// YES if we're dealing with a change of settings (stops settings from updating at the wrong time)
+    /// \c YES if we're dealing with a change of settings (stops settings from updating at the wrong time)
+    BOOL settingsChanging;
 }
 
-// = Settings methods =
+#pragma mark - Settings methods
 
 static NSMutableArray* standardSettingsClasses = nil;
 
@@ -54,7 +58,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 	return res;
 }
 
-// = Initialisation, etc =
+#pragma mark - Initialisation, etc
 
 - (instancetype) init {
 	self = [super init];
@@ -72,7 +76,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = User interface =
+#pragma mark - User interface
 
 - (void) settingChangedNotification: (NSNotification*) not {
 	[self settingsHaveChanged: [not object]];
@@ -116,9 +120,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 							  withObject: [self compilerSettings]];
 }
 
-- (IFSettingsView*) settingsView {
-	return settingsView;
-}
+@synthesize settingsView;
 
 - (void) setSettingsView: (IFSettingsView*) view {
 	settingsView = view;
@@ -151,11 +153,9 @@ static NSMutableArray* standardSettingsClasses = nil;
 	[compilerSettings settingsHaveChanged];
 }
 
-// = Model =
+#pragma mark - Model
 
-- (IFCompilerSettings*) compilerSettings {
-	return compilerSettings;
-}
+@synthesize compilerSettings;
 
 - (void) setCompilerSettings: (IFCompilerSettings*) cSettings {
 	if (cSettings == compilerSettings) return;

@@ -1200,21 +1200,21 @@
 	[watchExpressions addObject: [expression copy]];
 }
 
-- (void) replaceWatchExpressionAtIndex: (unsigned) index
+- (void) replaceWatchExpressionAtIndex: (NSInteger) index
 						withExpression: (NSString*) expression {
 	watchExpressions[index] = [expression copy];
 }
 
-- (void) removeWatchExpressionAtIndex: (unsigned) index {
+- (void) removeWatchExpressionAtIndex: (NSInteger) index {
 	[watchExpressions removeObjectAtIndex: index];
 }
 
-- (NSString*) watchExpressionAtIndex: (unsigned) index {
+- (NSString*) watchExpressionAtIndex: (NSInteger) index {
 	return watchExpressions[index];
 }
 
-- (unsigned int) watchExpressionCount {
-	return (unsigned int)[watchExpressions count];
+- (NSInteger) watchExpressionCount {
+	return [watchExpressions count];
 }
 
 // Breakpoints
@@ -1231,7 +1231,7 @@
 	[self breakpointsHaveChanged];
 }
 
-- (void) replaceBreakpointAtIndex: (unsigned) index
+- (void) replaceBreakpointAtIndex: (NSInteger) index
 			 withBreakpointAtLine: (int) line
 						   inFile: (NSString*) filename {
 	breakpoints[index] = @[@(line), [filename copy]];
@@ -1239,35 +1239,35 @@
 	[self breakpointsHaveChanged];
 }
 
-- (int) lineForBreakpointAtIndex: (unsigned) index {
+- (int) lineForBreakpointAtIndex: (NSInteger) index {
 	return [breakpoints[index][0] intValue];
 }
 
-- (NSString*) fileForBreakpointAtIndex: (unsigned) index {
+- (NSString*) fileForBreakpointAtIndex: (NSInteger) index {
 	return breakpoints[index][1];
 }
 
-- (unsigned int) breakpointCount {
-	return (unsigned int)[breakpoints count];
+- (NSInteger) breakpointCount {
+	return [breakpoints count];
 }
 
-- (void) removeBreakpointAtIndex: (unsigned) index {
+- (void) removeBreakpointAtIndex: (NSInteger) index {
 	[breakpoints removeObjectAtIndex: index];
 	
 	[self breakpointsHaveChanged];
 }
 
-- (void) removeBreakpointAtLine: (int) line
+- (void) removeBreakpointAtLine: (NSInteger) line
 						 inFile: (NSString*) file {
 	NSArray* bp =  @[@(line), [file copy]];
 	NSUInteger index = [breakpoints indexOfObject: bp];
 	
 	if (index == NSNotFound) {
-		NSLog(@"Attempt to remove nonexistant breakpoint %@:%i", file, line);
+        NSLog(@"Attempt to remove nonexistant breakpoint %@:%li", file, (long)line);
 		return;
 	}
 	
-	[self removeBreakpointAtIndex: (int) index];
+	[self removeBreakpointAtIndex: index];
 }
 
 // = Cleaning =
@@ -1319,14 +1319,14 @@
             if( data != nil )
             {
                 // Create intermediate directories
-                [[NSFileManager defaultManager] createDirectoryAtPath: authorURL.path
+                [[NSFileManager defaultManager] createDirectoryAtURL: authorURL
                                           withIntermediateDirectories: YES
                                                            attributes: nil
                                                                 error: NULL];
                 // Write to destination path
-                return [[NSFileManager defaultManager] createFileAtPath: fileURL.path
-                                                               contents: data
-                                                             attributes: nil];
+                return [data writeToURL: fileURL
+                                options: (NSDataWritingOptions)0
+                                  error: NULL];
             }
         }
     }

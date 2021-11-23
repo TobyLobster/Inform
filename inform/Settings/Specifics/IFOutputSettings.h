@@ -10,9 +10,9 @@
 
 #import "IFSetting.h"
 
-//
-// The Z-Machine (or glulx) version settings
-//
+///
+/// The Z-Machine (or glulx) version settings
+///
 @interface IFOutputSettings : IFSetting
 
 @property (atomic) BOOL createBlorbForRelease;

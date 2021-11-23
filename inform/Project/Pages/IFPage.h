@@ -12,7 +12,7 @@
 @class IFProjectController;
 @class IFProjectPane;
 
-// Page notifications
+#pragma mark Page notifications
 
 /// Notification sent by a page when it wishes to become frontmost
 extern NSNotificationName const IFSwitchToPageNotification;
@@ -43,7 +43,7 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 @property (nonatomic, readonly, strong) IBOutlet NSView* view;
 
 
-// Initialising
+#pragma mark - Initialising
 - (instancetype) initWithNibName: (NSString*) nib
                projectController: (IFProjectController*) controller;
 /// The history recorder for this item [NOT RETAINED]
@@ -55,8 +55,8 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 /// Called when the owning object has finished with this object
 - (void) finished;
 
-// Page actions	- Called by whatever is managing this page to set it to visible or not
-/// YES if this page is currently visible
+#pragma mark - Page actions - Called by whatever is managing this page to set it to visible or not
+/// \c YES if this page is currently visible
 @property (atomic) BOOL pageIsVisible;
 /// Request that the UI switches to displaying this page
 - (void) switchToPage;
@@ -71,7 +71,7 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 /// Returns a proxy object that can be used to record history actions
 @property (atomic, readonly, strong) id history;
 
-// Page properties
+#pragma mark - Page properties
 /// The name of the tab this page appears under
 @property (atomic, readonly, copy) NSString *title;
 /// A unique identifier for this page
@@ -79,11 +79,11 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 /// The view that is considered to have focus for this page
 @property (atomic, readonly, strong) NSView *activeView;
 
-// Page validation
+#pragma mark - Page validation
 /// \c YES if this page is valid to be shown
 @property (atomic, readonly) BOOL shouldShowPage;
 
-// Dealing with the page bar
+#pragma mark - Dealing with the page bar
 /// The cells to put on the page bar for this item
 @property (atomic, readonly, copy) NSArray *toolbarCells;
 /// Call to cause the set of cells being displayed in the toolbar to be updated

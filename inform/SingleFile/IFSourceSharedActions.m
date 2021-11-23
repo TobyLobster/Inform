@@ -14,7 +14,7 @@
 #import "IFSourceSharedActions.h"
 #import "IFUtility.h"
 
- // = Preferences =
+#pragma mark Preferences
 
 @implementation IFSourceSharedActions
 
@@ -22,7 +22,7 @@
 	// Register our preferences
 }
 
-// == Initialistion ==
+#pragma mark - Initialistion
 
 - (instancetype) init {
     self = [super init];
@@ -34,9 +34,9 @@
 }
 
 
-// == View selection functions ==
+#pragma mark - View selection functions
 
-// = Menu options =
+#pragma mark Menu options
 
 - (NSRange) shiftRange: (NSRange) range
 			 inStorage: (NSTextStorage*) storage
@@ -251,7 +251,7 @@
 	[undo endUndoGrouping];
 }
 
-// = Commenting out source =
+#pragma mark Commenting out source
 
 - (void) undoCommentOutInDocument: (NSDocument*) document
                             range: (NSRange) range

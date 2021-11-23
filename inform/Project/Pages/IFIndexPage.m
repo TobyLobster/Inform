@@ -80,9 +80,7 @@
 }
 
 // = Page validation =
-- (BOOL) indexAvailable {
-	return indexAvailable;
-}
+@synthesize indexAvailable;
 
 - (BOOL) shouldShowPage {
 	return indexAvailable;
@@ -91,7 +89,7 @@
 // = Helper functions =
 -(NSUInteger) indexOfItemWithTabId: (int) tabIdentifier {
     id identifier = @(tabIdentifier);
-	int index = 0;
+	NSInteger index = 0;
 	for( IFPageBarCell* cell in indexCells ) {
 		if ([[cell identifier] isEqual: identifier]) return index;
 		index++;

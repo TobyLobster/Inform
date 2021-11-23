@@ -13,7 +13,7 @@
 @property (atomic, readonly, strong)  NSOperationQueue *  presentedItemOperationQueue;
 @property (atomic, readonly, copy)    NSURL *             primaryPresentedItemURL;
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithURL:(NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
 
 @end

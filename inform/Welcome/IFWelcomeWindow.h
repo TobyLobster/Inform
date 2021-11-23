@@ -10,9 +10,13 @@
 
 @interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource>
 
-+ (IFWelcomeWindow*) sharedWelcomeWindow;				// Gets the shared welcome window
-+ (void) hideWelcomeWindow;								// Hide the welcome window
-+ (void) showWelcomeWindow;                             // Show the welcome window
+/// Gets the shared welcome window
++ (IFWelcomeWindow*) sharedWelcomeWindow;
+/// Hide the welcome window
++ (void) hideWelcomeWindow;
+/// Show the welcome window
++ (void) showWelcomeWindow;
+
 - (void) hideWebView;
 - (void) showWebView;
 

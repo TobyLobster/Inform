@@ -13,12 +13,18 @@
 
 
 @implementation IFCollapsableView {
-    NSMutableArray* views;						// Views to display
-    NSMutableArray* titles;						// Titles of views to display (one-to-one mapping with views)
-    NSMutableArray* states;						// Booleans, indicating if each view is shown or not. (UNUSED)
+    /// Views to display
+    NSMutableArray* views;
+    /// Titles of views to display (one-to-one mapping with views)
+    NSMutableArray* titles;
+    /// Booleans, indicating if each view is shown or not. (UNUSED)
+    NSMutableArray* states;
 
-    BOOL rearranging;							// YES if a rearrangement is in progress
-    BOOL reiterate;								// Set to YES to stop resizing that occurs while rearranging from causing infinite recursion (delays resizes if YES). Useful if we have, for example, auto-hiding scrollbars
+    /// YES if a rearrangement is in progress
+    BOOL rearranging;
+    /// Set to \c YES to stop resizing that occurs while rearranging from causing infinite recursion
+    /// (delays resizes if \c YES ). Useful if we have, for example, auto-hiding scrollbars
+    BOOL reiterate;
 }
 
 #define BORDER 8.0
@@ -53,7 +59,7 @@
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
 	NSDictionary* titleAttributes = 
 		@{NSFontAttributeName: titleFont,
-			NSForegroundColorAttributeName: [NSColor blackColor]};
+			NSForegroundColorAttributeName: [NSColor textColor]};
 	
 	// Draw the titles and frames
 	NSColor* frameColour = [NSColor colorWithDeviceRed: 0.5

@@ -20,26 +20,40 @@
 #import "IFPreferences.h"
 
 @implementation IFWelcomeWindow {
-    IBOutlet NSProgressIndicator*   backgroundProgress;         // Progress indicator that shows when a background process is running
-    IBOutlet NSScrollView*          recentDocumentsScrollView;  // Recent document scroll view
-    IBOutlet NSTableView*           recentDocumentsTableView;   // Recent document Table View
-    IBOutlet NSScrollView*          createDocumentsScrollView;  // Create document scroll view
-    IBOutlet NSTableView*           createDocumentsTableView;   // Create document Table View
-    IBOutlet NSScrollView*          sampleDocumentsScrollView;  // Sample document scroll view
-    IBOutlet NSTableView*           sampleDocumentsTableView;   // Sample document Table View
-    IBOutlet NSView*                parentView;                 // Parent
-    IBOutlet WebView*               webView;                    // Show a web page (for advice)
-    IBOutlet NSView*                middleView;                 // Show the middle section
-    IBOutlet NSButton*              imageButton;                // Top banner image, as a button
+    /// Progress indicator that shows when a background process is running
+    IBOutlet NSProgressIndicator*   backgroundProgress;
+    /// Recent document scroll view
+    IBOutlet NSScrollView*          recentDocumentsScrollView;
+    /// Recent document Table View
+    IBOutlet NSTableView*           recentDocumentsTableView;
+    /// Create document scroll view
+    IBOutlet NSScrollView*          createDocumentsScrollView;
+    /// Create document Table View
+    IBOutlet NSTableView*           createDocumentsTableView;
+    /// Sample document scroll view
+    IBOutlet NSScrollView*          sampleDocumentsScrollView;
+    /// Sample document Table View
+    IBOutlet NSTableView*           sampleDocumentsTableView;
+    /// Parent
+    IBOutlet NSView*                parentView;
+    /// Show a web page (for advice)
+    IBOutlet WebView*               webView;
+    /// Show the middle section
+    IBOutlet NSView*                middleView;
+    /// Top banner image, as a button
+    IBOutlet NSButton*              imageButton;
 
-    NSMutableArray*                 recentInfoArray;            // Array of recent file info
-    NSMutableArray*                 createInfoArray;            // Array of create file info
-    NSMutableArray*                 sampleInfoArray;            // Array of sample file info
+    /// Array of recent file info
+    NSMutableArray*                 recentInfoArray;
+    /// Array of create file info
+    NSMutableArray*                 createInfoArray;
+    /// Array of sample file info
+    NSMutableArray*                 sampleInfoArray;
 }
 
 static const int maxItemsInRecentMenu = 8;
 
-// Shared welcome window
+/// Shared welcome window
 static IFWelcomeWindow* sharedWindow = nil;
 
 // = Initialisation =
@@ -85,9 +99,11 @@ static IFWelcomeWindow* sharedWindow = nil;
     NSImage* icon;
     recentInfoArray = [[NSMutableArray alloc] init];
     
-    int index = 0;
+    NSInteger index = 0;
     for( NSURL* url in [[NSDocumentController sharedDocumentController] recentDocumentURLs] ) {
-        icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
+        if (![url getResourceValue:&icon forKey:NSURLEffectiveIconKey error: NULL]) {
+            icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
+        }
         
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [url lastPathComponent]
                                                                             image: icon

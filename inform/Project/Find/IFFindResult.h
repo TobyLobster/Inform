@@ -71,7 +71,7 @@ typedef NS_OPTIONS(unsigned int, IFFindLocation) {
 @property (atomic, readonly, copy) NSAttributedString *attributedContext;
 
 // Initialisation
--(instancetype)   init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+-(instancetype)   init NS_UNAVAILABLE;
 
 -(instancetype)   initWithFilepath: (NSString*)       filepath
                        rangeInFile: (NSRange)         fileRange

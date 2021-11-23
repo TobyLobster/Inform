@@ -16,7 +16,7 @@
 ///
 @interface IFGlkResources : NSObject<GlkImageSource>
 
-- (instancetype)init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 /// Initialise this resource file to get image resources from the specified project
 - (instancetype) initWithProject: (IFProject*) project NS_DESIGNATED_INITIALIZER;

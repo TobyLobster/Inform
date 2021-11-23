@@ -46,7 +46,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 @implementation IFProjectPane {
     // Outlets
     /// The main pane view
-    IBOutlet NSView*    paneView;
+    NSView*    paneView;
     /// The tab view
     NSTabView* tabView;
 
@@ -223,6 +223,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	return [[IFPreferences sharedPreferences] styles][(unsigned)style];
 }
 
+@synthesize paneView;
 - (NSView*) paneView {
     if (!awake) {
         [NSBundle oldLoadNibNamed: @"ProjectPane"
@@ -243,7 +244,7 @@ static NSDictionary* IFSyntaxAttributes[256];
     [paneView removeFromSuperview];
 }
 
-- (void) setupFromControllerWithViewIndex:(int) viewIndex {
+- (void) setupFromControllerWithViewIndex:(NSInteger) viewIndex {
     IFProject* doc;
     IFProjectController* ourParent = parent;
 	
@@ -355,12 +356,10 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[pageBar setLeftCells: @[backCell, forwardCell]];
 }
 
-- (IFProjectController *) controller {
-    return controller;
-}
+@synthesize controller;
 
 - (void) setController: (IFProjectController*) p
-             viewIndex: (int) viewIndex {
+             viewIndex: (NSInteger) viewIndex {
     if (!awake) {
         [NSBundle oldLoadNibNamed: @"ProjectPane"
                             owner: self];

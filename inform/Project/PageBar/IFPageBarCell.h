@@ -9,39 +9,47 @@
 #import <Cocoa/Cocoa.h>
 
 
-//
-// A cell that can be placed on the left or right of the IFPageBarView.
-//
-// These cells can contain an image or text. Additionally, they can contain a drop-down menu or a pop-up 
-// window. The assumption is that these will be rendered as part of the page bar view.
-//
+///
+/// A cell that can be placed on the left or right of the IFPageBarView.
+///
+/// These cells can contain an image or text. Additionally, they can contain a drop-down menu or a pop-up
+/// window. The assumption is that these will be rendered as part of the page bar view.
+///
 @interface IFPageBarCell : NSActionCell
 
-@property (atomic, strong) id identifier;					// Gets the identifier for this cell
+/// Gets the identifier for this cell
+@property (atomic, strong) id identifier;
 
-- (void) setKeyEquivalent: (NSString*) keyEquivalent;       // Sets the key equivalent for this cell
+/// Sets the key equivalent for this cell
+- (void) setKeyEquivalent: (NSString*) keyEquivalent;
 
 // Drawing the cell
-- (void) update;                                            // Forces this cell to refresh
+/// Forces this cell to refresh
+- (void) update;
 
 // Acting as a pop-up
-@property (atomic, getter=isPopup, readonly) BOOL popup;	// YES if this is a pop-up cell of some kind
-- (void) showPopupAtPoint: (NSPoint) pointInWindow;         // Request to run the pop-up
-- (void) setMenu: (NSMenu*) menu;                           // The pop-up menu
+/// \c YES if this is a pop-up cell of some kind
+@property (atomic, getter=isPopup, readonly) BOOL popup;
+/// Request to run the pop-up
+- (void) showPopupAtPoint: (NSPoint) pointInWindow;
+/// The pop-up menu
+- (void) setMenu: (NSMenu*) menu;
 
-// Acting as part of a radio group                          // Sets this cell up as an on/off cell as part of a radio group
-@property (atomic) int radioGroup;							// Retrieves the radio group for this cell
+/// Acting as part of a radio group
+@property (atomic) int radioGroup;
 
 // Acting as a tab (you'll need to implement another control to make this work)
-@property (atomic, strong) NSView *view;					// The view to display for this item
+/// The view to display for this item
+@property (atomic, strong) NSView *view;
 
 @end
 
-//
-// Optional methods that may be implemented by a cell in a page bar
-//
+///
+/// Optional methods that may be implemented by a cell in a page bar
+///
 @interface NSCell(IFPageBarCell)
 
-- (void) setIsRight: (BOOL) isRight;					// Whether or not this cell is to be drawn on the right-hand side of the bar
+/// Whether or not this cell is to be drawn on the right-hand side of the bar
+- (void) setIsRight: (BOOL) isRight;
 
 @end

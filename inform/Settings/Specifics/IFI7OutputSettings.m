@@ -23,7 +23,7 @@
 	return [IFUtility localizedString: @"Output Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (BOOL) createBlorbForRelease {
     IFCompilerSettings* settings = [self compilerSettings];

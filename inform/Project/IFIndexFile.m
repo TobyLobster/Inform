@@ -15,8 +15,6 @@
     NSMutableDictionary* filenamesToIndexes;
 }
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithContentsOfFile: (NSString*) filename {
 	self = [self initWithData: [NSData dataWithContentsOfFile: filename]];
 	
@@ -27,9 +25,9 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 	int aV = [a intValue];
 	int bV = [b intValue];
 	
-	if (aV < bV) return -1;
-	if (aV > bV) return 1;
-	return 0;
+	if (aV < bV) return NSOrderedAscending;
+	if (aV > bV) return NSOrderedDescending;
+	return NSOrderedSame;
 }
 
 - (instancetype) initWithData: (NSData*) data {

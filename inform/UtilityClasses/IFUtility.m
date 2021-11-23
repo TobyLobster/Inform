@@ -531,8 +531,7 @@ CGFloat easeOutCubic(CGFloat t) {
                                      size: (CGFloat) fontSize {
     NSMutableDictionary* mutableResult = [dictionary mutableCopy];
     NSFont* font = mutableResult[NSFontAttributeName];
-    font = [NSFont fontWithName: font.fontName
-                           size: fontSize];
+    font = [font fontWithSize: fontSize];
     [mutableResult setObject: font forKey: NSFontAttributeName];
     return [mutableResult copy];
 }

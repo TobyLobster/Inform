@@ -12,7 +12,7 @@
 @class IFSyntaxData;
 
 // Natural Inform states
-enum {
+NS_ENUM(IFSyntaxState) {
 	IFNaturalStateSpace = IFSyntaxStateDefault,
 	IFNaturalStateText,
 	IFNaturalStateComment,
@@ -26,7 +26,7 @@ enum {
 };
 
 // Natural Inform modes
-enum {
+NS_ENUM(IFHighlighterMode) {
 	IFNaturalModeStandard = 0,
 	IFNaturalModeInform6,
 	IFNaturalModeInform6MightEnd

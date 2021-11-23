@@ -13,7 +13,7 @@
 @interface IFProjectPolicy : NSObject<WebPolicyDelegate>
 
 // Initialisation
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithProjectController: (IFProjectController*) pane NS_DESIGNATED_INITIALIZER;
 
 // Setting up

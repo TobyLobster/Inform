@@ -51,21 +51,21 @@
 		withNewName: (NSString*) newFile;
 
 #pragma mark - Useful URLs
-- (NSURL*) buildDirectoryURL;
-- (NSURL*) materialsDirectoryURL;
-- (NSURL*) mainSourceFileURL;
-- (NSURL*) buildOutputFileURL;
-- (NSURL*) buildIndexFileURL;
-- (NSURL*) settingsFileURL;
-- (NSURL*) indexDirectoryURL;
-- (NSURL*) currentSkeinURL;
-- (NSURL*) currentReportURL;
-- (NSURL*) normalProblemsURL;
-- (NSURL*) baseReportURL;
-- (NSURL*) combinedReportURL;
+@property (atomic, readonly, copy) NSURL *buildDirectoryURL;
+@property (atomic, readonly, copy) NSURL *materialsDirectoryURL;
+@property (atomic, readonly, copy) NSURL *mainSourceFileURL;
+@property (atomic, readonly, copy) NSURL *buildOutputFileURL;
+@property (atomic, readonly, copy) NSURL *buildIndexFileURL;
+@property (atomic, readonly, copy) NSURL *settingsFileURL;
+@property (atomic, readonly, copy) NSURL *indexDirectoryURL;
+@property (atomic, readonly, copy) NSURL *currentSkeinURL;
+@property (atomic, readonly, copy) NSURL *currentReportURL;
+@property (atomic, readonly, copy) NSURL *normalProblemsURL;
+@property (atomic, readonly, copy) NSURL *baseReportURL;
+@property (atomic, readonly, copy) NSURL *combinedReportURL;
 
 - (NSString*) pathForSourceFile: (NSString*) file;
-- (NSString*) projectOutputPathName;
+@property (atomic, readonly, copy) NSString *projectOutputPathName;
 
 #pragma mark - Materials folder
 - (void) createMaterials;
@@ -83,37 +83,39 @@
 - (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
 /// Removes compiler-generated files that are less useful to keep around
-- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;
+- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex NS_SWIFT_NAME(cleanOutUnnecessaryFiles(alsoCleanIndex:));
 
 - (void) unregisterProjectTextStorage;
 
 
 #pragma mark - Debugging
 - (BOOL) canDebug;
+@property (atomic, readonly) BOOL canDebug;
 
 // Watchpoints
 - (void) addWatchExpression: (NSString*) expression;
-- (void) replaceWatchExpressionAtIndex: (unsigned) index
+- (void) replaceWatchExpressionAtIndex: (NSInteger) index
 						withExpression: (NSString*) expression;
-- (NSString*) watchExpressionAtIndex: (unsigned) index;
-@property (atomic, readonly) unsigned int watchExpressionCount;
-- (void) removeWatchExpressionAtIndex: (unsigned) index;
+- (NSString*) watchExpressionAtIndex: (NSInteger) index;
+@property (atomic, readonly) NSInteger watchExpressionCount;
+- (void) removeWatchExpressionAtIndex: (NSInteger) index;
 
 // Breakpoints
 - (void) addBreakpointAtLine: (int) line
 					  inFile: (NSString*) filename;
-- (void) replaceBreakpointAtIndex: (unsigned) index
+- (void) replaceBreakpointAtIndex: (NSInteger) index
 			 withBreakpointAtLine: (int) line
 						   inFile: (NSString*) filename;
-- (int) lineForBreakpointAtIndex: (unsigned) index;
-- (NSString*) fileForBreakpointAtIndex: (unsigned) index;
-- (unsigned int) breakpointCount;
-- (void) removeBreakpointAtIndex: (unsigned) index;
-- (void) removeBreakpointAtLine: (int) line
+- (int) lineForBreakpointAtIndex: (NSInteger) index;
+- (NSString*) fileForBreakpointAtIndex: (NSInteger) index;
+- (NSInteger) breakpointCount;
+@property (atomic, readonly) NSInteger breakpointCount;
+- (void) removeBreakpointAtIndex: (NSInteger) index;
+- (void) removeBreakpointAtLine: (NSInteger) line
 						 inFile: (NSString*) file;
 
 #pragma mark - Extension projects
--(BOOL) isExtensionProject;
+@property (atomic, readonly) BOOL isExtensionProject;
 -(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
