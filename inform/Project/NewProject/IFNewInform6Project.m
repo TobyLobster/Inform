@@ -122,21 +122,25 @@ static NSString* quoteInformString(NSString* stringIn) {
 
 @end
 
-// *******************************************************************************************
+#pragma mark -
+
 @implementation IFNewInform6ProjectView {
-    IBOutlet NSTextField* name;						// Field that contains the initial name of the game
-    IBOutlet NSTextField* headline;					// Field that contains the games initial headline
-    IBOutlet NSTextView*  teaser;					// Field that contains the games initial teaser
-    IBOutlet NSTextField* initialRoom;				// Field that contains the name of the games initial room
-    IBOutlet NSTextView*  initialRoomDescription;	// Field that contains the description of the games initial room
+    /// Field that contains the initial name of the game
+    IBOutlet NSTextField* name;
+    /// Field that contains the games initial headline
+    IBOutlet NSTextField* headline;
+    /// Field that contains the games initial teaser
+    IBOutlet NSTextView*  teaser;
+    /// Field that contains the name of the games initial room
+    IBOutlet NSTextField* initialRoom;
+    /// Field that contains the description of the games initial room
+    IBOutlet NSTextView*  initialRoomDescription;
 
-    IBOutlet NSView*      view;						// View that contains the lot
+    /// View that contains the lot
+    NSView*      view;
 }
 
-
-- (NSView*) view {
-    return view;
-}
+@synthesize view;
 
 - (NSString*) name {
     return [name stringValue];
