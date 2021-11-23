@@ -17,7 +17,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
     /// The view that can be used to edit the settings
     NSView*             settingView;
     /// The compiler settings object that this setting should manage
-    IFCompilerSettings* compilerSettings;
+    __weak IFCompilerSettings* compilerSettings;
     /// YES if the settings are in the process of changing
     BOOL                settingsChanging;
 }

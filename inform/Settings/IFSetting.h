@@ -35,7 +35,7 @@ extern NSString* const IFSettingCreateBlorb;
 
 // Setting/retrieving the model
 /// The compiler settings object that this setting will use
-@property (atomic, strong) IFCompilerSettings *compilerSettings;
+@property (atomic, weak) IFCompilerSettings *compilerSettings;
 /// Retrieves the settings dictionary for this object
 - (NSMutableDictionary*) dictionary;
 
