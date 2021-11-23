@@ -142,7 +142,7 @@
 		// Decode the file
 		NSString* creator = [theCoder decodeObject];
 		int version = -1;
-		[theCoder decodeValueOfObjCType: @encode(int) at: &version];
+		[theCoder decodeValueOfObjCType: @encode(int) at: &version size:sizeof(int)];
 		IFCompilerSettings* settings = [theCoder decodeObject];
 
 		// Release the decoder
