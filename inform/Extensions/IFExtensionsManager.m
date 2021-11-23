@@ -200,7 +200,7 @@ didReceiveResponse: (NSURLResponse *)response
                 completionHandler(NSURLSessionResponseCancel);// stop connecting; no more delegate messages
                 NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:
                                                       [IFUtility localizedString:@"Server returned status code %d, local string %@"],
-                                                      statusCode, localizedStringForStatusCode]};
+                                                      (int)statusCode, localizedStringForStatusCode]};
                 NSError *statusError = [NSError errorWithDomain: @"Error"
                                                            code: statusCode
                                                        userInfo: errorInfo];

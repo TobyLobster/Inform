@@ -104,13 +104,13 @@ NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 
 // = Table data source =
 
-- (int)numberOfRowsInTableView: (NSTableView*) aTableView {
+- (NSInteger)numberOfRowsInTableView: (NSTableView*) aTableView {
 	return [activeProject breakpointCount];
 }
 
 - (id)				tableView: (NSTableView*) aTableView 
 	objectValueForTableColumn: (NSTableColumn*) aTableColumn
-						  row: (int) rowIndex {
+						  row: (NSInteger) rowIndex {
 	NSString* ident = [aTableColumn identifier];
 	
 	if ([ident isEqualToString: @"enabled"]) {

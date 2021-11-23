@@ -16,7 +16,7 @@ extern IFIsInspectorKey const IFIsBreakpointsInspector;
 ///
 /// The breakpoints inspector
 ///
-@interface IFIsBreakpoints : IFInspector
+@interface IFIsBreakpoints : IFInspector <NSTableViewDataSource>
 
 /// Retrieves the shared breakpoint inspector
 + (IFIsBreakpoints*) sharedIFIsBreakpoints;

@@ -164,10 +164,10 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 
 #pragma mark - Tableview delegate and data source
 
-- (int)numberOfRowsInTableView: (NSTableView*) aTableView {
+- (NSInteger)numberOfRowsInTableView: (NSTableView*) aTableView {
 	if (!activeProject) return 0;
 	
-	int count = [activeProject watchExpressionCount] + 1;
+	NSInteger count = [activeProject watchExpressionCount] + 1;
 	
 	// Minimum of 9 rows (ensures that the user can start editing anywhere)
 	if (count < 9) count = 9;
@@ -177,12 +177,12 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 
 - (id)				tableView: (NSTableView*) aTableView 
 	objectValueForTableColumn: (NSTableColumn*) aTableColumn
-						  row: (int) rowIndex {
+						  row: (NSInteger) rowIndex {
 	// If there's no active project, this should never actually end up being called
 	if (!activeProject) return @"## No active project";
 	
 	// Generic information
-	unsigned numberOfRows = [activeProject watchExpressionCount];
+	NSInteger numberOfRows = [activeProject watchExpressionCount];
 	NSString* expr= @"";
 	
 	if (rowIndex >= numberOfRows) return @"";		// Last row is blank
@@ -217,11 +217,11 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 - (void)		tableView: (NSTableView*) aTableView 
 		   setObjectValue: (id) anObject 
 		   forTableColumn: (NSTableColumn *) aTableColumn 
-					  row: (int)rowIndex {
+					  row: (NSInteger)rowIndex {
 	if (![[aTableColumn identifier] isEqualToString: @"expression"]) return;		// Can only edit the value column
 	if (!activeProject) return;		// Can't edit anything if there's no active project
 	
-	unsigned numberOfRows = [activeProject watchExpressionCount];
+	NSInteger numberOfRows = [activeProject watchExpressionCount];
 	
 	if (![anObject isKindOfClass: [NSString class]]) return;	// Must be a string of some sort
 	
