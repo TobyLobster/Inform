@@ -25,7 +25,6 @@
 #import "IFIsWatch.h"
 #import "IFIsBreakpoints.h"
 
-#import "Preferences/IFPreferenceController.h"
 #import "Preferences/IFAuthorPreferences.h"
 #import "Preferences/IFEditingPreferences.h"
 #import "Preferences/IFTextSizePreferences.h"
@@ -54,6 +53,7 @@
 #import "IFSingleController.h"
 
 #import <GlkView/GlkHub.h>
+#import "Inform-Swift.h"
 
 @implementation IFAppDelegate {
     /// The 'New Extension Project' menu
@@ -128,10 +128,10 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsBreakpoints sharedIFIsBreakpoints]];
 	
 	// The standard preferences
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAuthorPreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAuthorPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
 	[self updateExtensionsMenu];
@@ -186,7 +186,6 @@ static NSRunLoop* mainRunLoop = nil;
         copyDestination = destination;
         
         // Ask for confirmation
-        NSString* confirm = [NSString stringWithFormat: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
         [IFUtility runAlertYesNoWindow: nil
                                  title: [IFUtility localizedString: @"Are you sure?"]
                                    yes: [IFUtility localizedString: @"Overwrite"]
@@ -195,7 +194,7 @@ static NSRunLoop* mainRunLoop = nil;
                         didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
                       destructiveIndex: 0
-                               message: @"%@", confirm];
+                               message: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
         return;
     }
 
@@ -351,16 +350,16 @@ static NSRunLoop* mainRunLoop = nil;
     paragraph.tabStops = @[tab];
     paragraph.lineBreakMode = NSLineBreakByClipping;
 
-    NSDictionary* greyDictionary  = @{NSForegroundColorAttributeName: [NSColor grayColor],
+    NSDictionary* greyDictionary  = @{NSForegroundColorAttributeName: [NSColor systemGrayColor],
                                                  NSFontAttributeName: systemFont,
                                        NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* smallBlackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* smallBlackDictionary = @{NSForegroundColorAttributeName: [NSColor textColor],
                                                       NSFontAttributeName: smallFont,
                                             NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* smallGreyDictionary = @{NSForegroundColorAttributeName: [NSColor grayColor],
+    NSDictionary* smallGreyDictionary = @{NSForegroundColorAttributeName: [NSColor systemGrayColor],
                                                      NSFontAttributeName: smallFont,
                                            NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* blackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* blackDictionary = @{NSForegroundColorAttributeName: [NSColor textColor],
                                                  NSFontAttributeName: systemFont,
                                        NSParagraphStyleAttributeName: paragraph};
     NSDictionary* dict;
@@ -533,7 +532,7 @@ static NSRunLoop* mainRunLoop = nil;
     [IFSkeinItemView exportHelpImages];
 #endif // defined(DEBUG_EXPORT_HELP_IMAGES)
 
-	[[IFPreferenceController sharedPreferenceController] showWindow: self];
+	[[PreferenceController sharedPreferenceController] showWindow: self];
 }
 
 // = The help menu =
@@ -644,7 +643,7 @@ static NSRunLoop* mainRunLoop = nil;
     //
     // Clean up preference panes
     //
-    [[IFPreferenceController sharedPreferenceController] removeAllPreferencePanes];
+    [[PreferenceController sharedPreferenceController] removeAllPreferencePanes];
 }
 
 - (NSMenuItem*) debugMenu {

@@ -24,7 +24,7 @@
 /// The name of this pane (appears until the toolbar item)
 @property (atomic, readonly, copy) NSString *preferenceName;
 /// The unique identifier for this pane (subclasses don't need to override this)
-@property (atomic, readonly, copy) NSString *identifier;
+@property (atomic, readonly, copy) NSToolbarItemIdentifier identifier;
 /// The tooltip for this preference
 @property (atomic, readonly, copy) NSString *tooltip;
 /// The view that describes the UI for this preference pane
