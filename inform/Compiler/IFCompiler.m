@@ -529,7 +529,8 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     }
 }
 
-// == Notifications ==
+#pragma mark - Notifications
+
 - (void) sendStdOut: (NSString*) data {
 	if ([delegate respondsToSelector: @selector(receivedFromStdOut:)]) {
 		[delegate receivedFromStdOut: data]; 

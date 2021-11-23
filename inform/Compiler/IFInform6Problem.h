@@ -10,11 +10,9 @@
 
 #import "IFCompiler.h"
 
-//
-// Class that deals with problems with the Inform 6 stage of a Natural Inform build process
-//
-@interface IFInform6Problem : NSObject<IFCompilerProblemHandler> {
-
-}
+///
+/// Class that deals with problems with the Inform 6 stage of a Natural Inform build process
+///
+@interface IFInform6Problem : NSObject<IFCompilerProblemHandler>
 
 @end

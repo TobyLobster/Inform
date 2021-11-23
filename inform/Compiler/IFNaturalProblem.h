@@ -10,11 +10,9 @@
 
 #import "IFCompiler.h"
 
-//
-// Class that deals with problems with the Natural Inform compiler
-//
-@interface IFNaturalProblem : NSObject<IFCompilerProblemHandler> {
-
-}
+///
+/// Class that deals with problems with the Natural Inform compiler
+///
+@interface IFNaturalProblem : NSObject<IFCompilerProblemHandler>
 
 @end

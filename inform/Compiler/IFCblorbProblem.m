@@ -13,8 +13,6 @@
     NSString* buildDir;			// nil, or the build directory that should be inspected for problem files
 }
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithBuildDir: (NSString*) newBuildDir {
 	self = [super init];
 	

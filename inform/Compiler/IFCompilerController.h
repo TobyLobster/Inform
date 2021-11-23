@@ -70,9 +70,9 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 @property (atomic, strong) IFCompiler *compiler;
 
 /// Tells the compiler to start
-@property (atomic, readonly) BOOL startCompiling;
+- (BOOL) startCompiling;
 /// Tells the compiler to stop
-@property (atomic, readonly) BOOL abortCompiling;
+- (BOOL) abortCompiling;
 
 /// Adds an error to the display
 - (void) addErrorForFile: (NSString*) file
@@ -124,20 +124,23 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 // Status updates
 //- (void) compileStarted: (IFCompilerController*) sender;                  // Called when the compiler starts doing things
 //- (void) compileCompletedAndSucceeded: (IFCompilerController*) sender;	// Called when the compiler has finished and reports success
-//- (void) compileCompletedAndFailed: (IFCompilerController*) sender;		// Called when the compiler has finished and reports failure
+/// Called when the compiler has finished and reports failure
+- (void) compileCompletedAndFailed: (IFCompilerController*) sender;
 
 // User interface notification
-//- (void) errorMessagesCleared: (IFCompilerController*) sender;	// Called when the list of errors are cleared
+/// Called when the list of errors are cleared
+- (void) errorMessagesCleared: (IFCompilerController*) sender;
 
 /// Called when the user selects a specific error
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line
                           inFile: (NSString*) file;
-//- (void) compilerAddError: (IFCompilerController*) sender			// Called when the compiler generates a new error
-//                  forFile: (NSString*) file
-//                   atLine: (int) line
-//                 withType: (IFLex) type
-//                  message: (NSString*) message;
+/// Called when the compiler generates a new error
+- (void) compilerAddError: (IFCompilerController*) sender
+                  forFile: (NSString*) file
+                   atLine: (int) line
+                 withType: (IFLex) type
+                  message: (NSString*) message;
 
 /// First chance opportunity to redirect URL requests (used so that NI error URLs are handled)
 - (BOOL) handleURLRequest: (NSURLRequest*) request;

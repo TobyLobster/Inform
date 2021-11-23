@@ -133,8 +133,6 @@ static int maxErrorMessagesToDisplay = 3;
     NSURLSession *urlSession;
 }
 
--(instancetype) init { self = [super init]; return self; }
-
 -(instancetype) initWithURL: (NSURL*) url
            window: (NSWindow*) aWindow
    notifyDelegate: (NSObject*) notifyDelegate

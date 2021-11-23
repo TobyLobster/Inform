@@ -111,7 +111,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 // = Queuing tasks =
 
 - (void) queueTask: (NSString*) command
-	 withArguments: (NSArray*) arguments
+	 withArguments: (NSArray<NSString*>*) arguments
         notifyType: (NSString*) notifyType {
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
