@@ -6,7 +6,7 @@
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
 
-#import "Appkit/Appkit.h"
+#import <AppKit/AppKit.h>
 #import "IFIntelSymbol.h"
 #import "IFIntelFile.h"
 #import "IFSyntaxManager.h"

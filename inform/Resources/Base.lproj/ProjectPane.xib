@@ -19,17 +19,14 @@
             <rect key="frame" x="0.0" y="0.0" width="454" height="593"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="575" customClass="IFPageBarView">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="575" customClass="IFPageBarView">
                     <rect key="frame" x="0.0" y="575" width="454" height="18"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                 </customView>
-                <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="571">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="571">
                     <rect key="frame" x="0.0" y="0.0" width="454" height="575"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <tabView fixedFrame="YES" controlSize="small" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="572">
+                        <tabView controlSize="small" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="572">
                             <rect key="frame" x="-8" y="-10" width="462" height="589"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <tabViewItems>
                                 <tabViewItem label="Settings" identifier="7" id="573">
                                     <view key="view" id="574">
@@ -40,8 +37,24 @@
                             </tabViewItems>
                         </tabView>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="572" firstAttribute="top" secondItem="571" secondAttribute="top" id="AMB-5s-OFp"/>
+                        <constraint firstAttribute="bottom" secondItem="572" secondAttribute="bottom" id="Aek-qI-QfX"/>
+                        <constraint firstAttribute="trailing" secondItem="572" secondAttribute="trailing" constant="5" id="UY3-C4-RUp"/>
+                        <constraint firstItem="572" firstAttribute="leading" secondItem="571" secondAttribute="leading" constant="-1" id="hiY-7m-RYQ"/>
+                    </constraints>
                 </customView>
             </subviews>
+            <constraints>
+                <constraint firstItem="575" firstAttribute="leading" secondItem="571" secondAttribute="leading" id="1MD-RL-EKd"/>
+                <constraint firstItem="571" firstAttribute="top" secondItem="575" secondAttribute="bottom" id="4Ns-Y6-LC2"/>
+                <constraint firstItem="575" firstAttribute="trailing" secondItem="571" secondAttribute="trailing" id="BeP-XZ-Hde"/>
+                <constraint firstItem="575" firstAttribute="top" secondItem="5" secondAttribute="top" id="Oae-a4-1Ic"/>
+                <constraint firstAttribute="trailing" secondItem="575" secondAttribute="trailing" id="bdC-WN-FJL"/>
+                <constraint firstItem="575" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="cTH-V9-JxQ"/>
+                <constraint firstItem="571" firstAttribute="top" secondItem="5" secondAttribute="top" constant="18" id="nxv-E4-pF8"/>
+                <constraint firstAttribute="bottom" secondItem="571" secondAttribute="bottom" id="qEu-3S-4iz"/>
+            </constraints>
             <point key="canvasLocation" x="139" y="143"/>
         </customView>
     </objects>

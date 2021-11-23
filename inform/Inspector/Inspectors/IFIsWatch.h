@@ -25,7 +25,7 @@ enum {
 /// Unlike 'real' debuggers, Zoom can't break on watchpoints without seriously sacrificing performance, so
 /// we don't do that.
 ///
-@interface IFIsWatch : IFInspector
+@interface IFIsWatch : IFInspector <NSTableViewDataSource>
 
 /// The shared watch inspector
 + (IFIsWatch*) sharedIFIsWatch;

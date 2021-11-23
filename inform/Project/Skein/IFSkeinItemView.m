@@ -28,8 +28,6 @@ static const CGFloat kDrawMenuOffsetX         = -3.0;
 static const CGFloat kMenuMouseOverOffsetX    = 6.0;
 static const CGFloat kMenuMouseOverOffsetY    = 4.0;
 
-static const CGFloat kSkeinItemImageCommandWidth = kSkeinItemImageWidth - kSkeinItemImageCommandLeftBorder - kSkeinItemImageCommandRightBorder;
-
 // Images
 /// Active item
 static NSImage* active;

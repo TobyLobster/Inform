@@ -735,7 +735,7 @@ static NSRunLoop* mainRunLoop = nil;
                                                    error: error]) {
         [IFUtility runAlertWarningWindow: nil
                                    title: @"Export failed"
-                                 message: [IFUtility localizedString:@"Export to %@ failed - error code %x"], destination, [*error localizedDescription]];
+                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, [*error localizedDescription]];
         return NO;
     }
     return YES;
