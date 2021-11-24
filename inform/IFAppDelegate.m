@@ -25,7 +25,6 @@
 #import "IFIsWatch.h"
 #import "IFIsBreakpoints.h"
 
-#import "Preferences/IFAuthorPreferences.h"
 #import "Preferences/IFEditingPreferences.h"
 #import "Preferences/IFTextSizePreferences.h"
 #import "Preferences/IFAdvancedPreferences.h"
@@ -128,7 +127,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsBreakpoints sharedIFIsBreakpoints]];
 	
 	// The standard preferences
-	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAuthorPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[AuthorPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
