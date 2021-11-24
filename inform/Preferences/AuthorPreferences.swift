@@ -29,7 +29,6 @@ final class AuthorPreferences : IFPreferencePane {
 		if sender === newGameName {
 			prefs.freshGameAuthorName = newGameName?.stringValue
 		}
-		
 	}
 	
 	@objc func reflectCurrentPreferences() {
