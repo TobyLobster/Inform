@@ -15,9 +15,11 @@
 NSString* const IFIsNotesInspector = @"IFIsNotesInspector";
 
 @implementation IFIsNotes {
-    IFProject* activeProject;				// Currently selected project
+    /// Currently selected project
+    IFProject* activeProject;
 
-    IBOutlet NSTextView* text;				// The text view that will contain the notes
+    /// The text view that will contain the notes
+    IBOutlet NSTextView* text;
 }
 
 + (IFIsNotes*) sharedIFIsNotes {

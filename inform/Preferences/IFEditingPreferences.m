@@ -132,15 +132,11 @@
 }
 
 -(void) dealloc {
-
     [IFSyntaxManager unregisterTextStorage:previewStorage];
     [IFSyntaxManager unregisterTextStorage:tabStopStorage];
-
-
-    
 }
 
-// = PreferencePane overrides =
+#pragma mark - PreferencePane overrides
 
 - (NSString*) preferenceName {
 	return @"Editing";
@@ -154,7 +150,7 @@
 	return [IFUtility localizedString: @"Editing preferences tooltip"];
 }
 
-// = Receiving data from/updating the interface =
+#pragma mark - Receiving data from/updating the interface
 
 -(void) updateDependentUIElements {
     bool enabled = ([enableSyntaxHighlighting state] == NSControlStateValueOn);

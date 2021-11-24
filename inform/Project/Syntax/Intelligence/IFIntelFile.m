@@ -17,11 +17,14 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 
 @implementation IFIntelFile {
     // Data
-    NSMutableArray* symbols;	// List of symbols added to the file
-    int* symbolLines;			// We access this a lot: C-style array is faster. The line number each symbol in the symbols array occurs on (ie, one entry per symbol)
+    /// List of symbols added to the file
+    NSMutableArray<IFIntelSymbol*>* symbols;
+    /// We access this a lot: C-style array is faster. The line number each symbol in the symbols array occurs on (ie, one entry per symbol)
+    int* symbolLines;
 
     // Notifications
-    BOOL notificationPending;	// YES if we're preparing to send a notification that this object has changed
+    /// YES if we're preparing to send a notification that this object has changed
+    BOOL notificationPending;
 }
 
 - (instancetype) init {
@@ -278,10 +281,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 }
 
 - (IFIntelSymbol*) firstSymbol {
-	if ([symbols count] <= 0)
-		return nil;
-	
-	return symbols[0];
+    return symbols.firstObject;
 }
 
 - (void) intelFileHasChanged {

@@ -25,7 +25,7 @@ static NSString* const IFPreferencesQuotedText        = @"QuotedText";
 static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 @implementation IFPreferences {
-    // The preferences dictionary
+    /// The preferences dictionary
     NSMutableDictionary* preferences;
 
     // Notification flag
@@ -35,18 +35,24 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     NSString* notificationString;
 
     // Caches
-    NSMutableDictionary* cacheFontSet;		// Maps 'font types' to fonts
-    NSMutableArray* cacheFontStyles;		// Maps styles to fonts
-    NSMutableArray* cacheColourSet;			// Choice of colours
-    NSMutableArray* cacheColours;			// Maps styles to colours
-    NSMutableArray* cacheUnderlines;		// Maps styles to underlines
+    /// Maps 'font types' to fonts
+    NSMutableDictionary* cacheFontSet;
+    /// Maps styles to fonts
+    NSMutableArray* cacheFontStyles;
+    /// Choice of colours
+    NSMutableArray* cacheColourSet;
+    /// Maps styles to colours
+    NSMutableArray* cacheColours;
+    /// Maps styles to underlines
+    NSMutableArray* cacheUnderlines;
 
-    NSMutableArray* styles;					// The array of actual styles (array of attribute dictionaries)
+    /// The array of actual styles (array of attribute dictionaries)
+    NSMutableArray* styles;
 
     IFEditingPreferencesSet* defaultEditingPreferences;
 }
 
-// = Constructing the object =
+#pragma mark - Constructing the object
 
 + (void) initialize {
 	[[NSUserDefaults standardUserDefaults] registerDefaults: @{IFPreferencesDefault: @{}}];
@@ -94,7 +100,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     cacheUnderlines = nil;
 }
 
-// = Preference change notifications =
+#pragma mark - Preference change notifications
 
 - (void) preferencesHaveChanged {
     if ( !batchEditingPreferences ) {
@@ -117,7 +123,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     notificationString = nil;
 }
 
-// = batch editing of preferences =
+#pragma mark -  batch editing of preferences
+
 -(void) startBatchEditing {
     NSAssert(batchEditingPreferences == NO, @"error updating preferences (start batch)");
     batchEditingPreferences = YES;
@@ -134,7 +141,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     notificationString = nil;
 }
 
-// = Helper methods =
+#pragma mark - Helper methods
 
 -(NSObject*) getPreference: (NSString*) key
                    default: (NSObject*) defaultValue {
@@ -258,7 +265,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     return [number boolValue];
 }
 
-// = Editing preferences =
+#pragma mark - Editing preferences
 
 -(NSString*) sourceFontFamily {
     return [self getPreferenceString: @"sourceFontFamily"
@@ -535,7 +542,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (void) recalculateStyles {
-	int x;
+	NSInteger x;
 	
 	// Deallocate the caches if they're currently allocated
 	cacheColourSet	= nil;
@@ -636,7 +643,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 - (NSArray*) styles {
-	return styles;
+	return [styles copy];
 }
 
 // = Author's name =
@@ -674,7 +681,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
                  notification: IFPreferencesAuthorDidChangeNotification];
 }
 
-// = Advanced preferences =
+#pragma mark - Advanced preferences
 
 - (BOOL) runBuildSh {
     return [self getPreferenceBool: @"runBuildSh"
@@ -784,20 +791,20 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 -(NSPoint) preferencesTopLeftPosition {
     NSPoint result;
     
-    result.x = [self getPreferenceFloat: @"PreferencesWindowX"
-                                default: 50.0f];
-    result.y = [self getPreferenceFloat: @"PreferencesWindowY"
-                                default: 50.0f];
+    result.x = [self getPreferenceDouble: @"PreferencesWindowX"
+                                 default: 50.0f];
+    result.y = [self getPreferenceDouble: @"PreferencesWindowY"
+                                 default: 50.0f];
     return result;
 }
 
 -(void) setPreferencesTopLeftPosition:(NSPoint) point {
-    [self setPreferenceFloat: @"PreferencesWindowX"
-                       value: point.x
-                notification: nil];
-    [self setPreferenceFloat: @"PreferencesWindowY"
-                       value: point.y
-                notification: nil];
+    [self setPreferenceDouble: @"PreferencesWindowX"
+                        value: point.x
+                 notification: nil];
+    [self setPreferenceDouble: @"PreferencesWindowY"
+                        value: point.y
+                 notification: nil];
 }
 
 @end

@@ -9,8 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface IFProjectPane : NSObject {
-
-}
+@interface IFProjectPane : NSObject
 
 @end

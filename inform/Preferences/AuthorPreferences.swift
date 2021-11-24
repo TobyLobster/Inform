@@ -7,7 +7,7 @@
 
 import Cocoa
 
-class AuthorPreferences : IFPreferencePane {
+final class AuthorPreferences : IFPreferencePane {
 	/// The preferred name for new Natural Inform games
 	@IBOutlet weak var newGameName: NSTextField?
 	
