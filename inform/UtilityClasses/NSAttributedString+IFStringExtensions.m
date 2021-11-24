@@ -21,7 +21,12 @@
                                  options: 0
                               usingBlock: ^(id value, NSRange range, BOOL *stop) {
         NSFont* font = value;
-        font = [value fontWithSize: fontSize];
+        if (@available(macOS 10.15, *)) {
+            font = [value fontWithSize: fontSize];
+        } else {
+            font = [NSFont fontWithName: font.fontName
+                                   size: fontSize];
+        }
 
         [attributedString removeAttribute:NSFontAttributeName range:range];
         [attributedString addAttribute:NSFontAttributeName value:font range:range];
