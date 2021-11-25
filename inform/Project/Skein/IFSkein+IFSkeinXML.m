@@ -139,7 +139,7 @@ static NSString* idForNode(IFSkeinItem* item) {
     return YES;
 }
 
-// Create XML
+#pragma mark Create XML
 
 // Helper methods
 +(NSXMLNode*) addAttribute: (NSXMLElement*) element

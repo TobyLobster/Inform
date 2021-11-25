@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ZoomView.ZoomView.Protocols
+import ZoomView.Protocols
 
 class TestCommands: NSObject, ZoomViewInputSource {
     private var commands: [String]
