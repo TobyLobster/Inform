@@ -49,7 +49,7 @@ typedef NS_ENUM(int, IFSyntaxHighlightingOptionType) {
     IFSHOptionCount NS_SWIFT_NAME(count)
 };
 
-typedef NS_OPTIONS(UInt32, IFFontStyle) {
+typedef NS_ENUM(UInt32, IFFontStyle) {
     IFFontStyleRegular,
     IFFontStyleItalic,
     IFFontStyleBold,

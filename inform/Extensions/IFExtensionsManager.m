@@ -133,8 +133,6 @@ static int maxErrorMessagesToDisplay = 3;
     NSURLSession *urlSession;
 }
 
--(instancetype) init { self = [super init]; return self; }
-
 -(instancetype) initWithURL: (NSURL*) url
            window: (NSWindow*) aWindow
    notifyDelegate: (NSObject*) notifyDelegate
@@ -425,7 +423,7 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 // Returns a dictionary where key is author name, value is an array of directory paths for that author
-- (NSDictionary*) extensionDictionary {
+- (NSDictionary<NSString*,NSArray<NSString*>*>*) extensionDictionary {
 	if (!self.rebuildExtensionDictionaryCache && cacheExtensionDictionary) {
         return cacheExtensionDictionary;
     }
@@ -492,7 +490,7 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 -(BOOL) isBuiltIn:(NSString*) fullPath {
-    int count = 0;
+    NSInteger count = 0;
 	for( NSString* extnDir in extensionCollectionDirectories ) {
         if( [fullPath startsWith: extnDir] ) {
             if (count >= userLibraryCount ) {
@@ -640,7 +638,7 @@ didReceiveResponse: (NSURLResponse *)response
 	NSMutableArray* result = [[resultDict allValues] mutableCopy];
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
-	return result;
+	return [result copy];
 }
 
 // Returns full filepaths for files we can open in the given extension directory (author) name
@@ -686,7 +684,7 @@ didReceiveResponse: (NSURLResponse *)response
     // Sort alphabetically
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
-	return result;
+	return [result copy];
 }
 
 // Create directories

@@ -29,7 +29,7 @@
 	return self;
 }
 
-// = Setting ourselves up =
+#pragma mark - Setting ourselves up
 
 - (void) reflectCurrentPreferences {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
@@ -43,7 +43,7 @@
 	if (sender == appTextSize) [prefs setAppFontSizeMultiplierEnum: (int) [appTextSize selectedTag]];
 }
 
-// = PreferencePane overrides =
+#pragma mark - PreferencePane overrides
 
 - (NSString*) preferenceName {
 	return @"Text Size";

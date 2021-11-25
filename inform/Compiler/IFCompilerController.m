@@ -328,12 +328,10 @@ static IFCompilerController* activeController = nil;
 	
 	overrideURL = nil;
 
-    /*
     if (delegate &&
         [delegate respondsToSelector: @selector(errorMessagesCleared:)]) {
         [delegate errorMessagesCleared: self];
     }
-    */
 
     [[[compilerResults textStorage] mutableString] setString: @""];
     highlightPos = 0;
@@ -405,12 +403,10 @@ static IFCompilerController* activeController = nil;
 				break;
 		}
 
-        /*
         if (delegate &&
             [delegate respondsToSelector: @selector(compileCompletedAndFailed:)]) {
             [delegate compileCompletedAndFailed: self];
         }
-        */
     }
 
     [self scrollToEnd];
@@ -703,7 +699,6 @@ static IFCompilerController* activeController = nil;
     }
 
     // Notify the delegate
-    /*
     if (delegate != nil &&
         [delegate respondsToSelector: @selector(compilerAddError:forFile:atLine:withType:message:)]) {
         [delegate compilerAddError: self
@@ -712,7 +707,6 @@ static IFCompilerController* activeController = nil;
                           withType: type
                            message: message];
     }
-    */
 }
 
 - (NSInteger)   outlineView: (NSOutlineView *) outlineView

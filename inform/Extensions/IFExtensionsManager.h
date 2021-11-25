@@ -65,7 +65,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 @property (atomic, strong) NSURL*           url;
 
 // Download and install
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithURL: (NSURL*) url
                       window: (NSWindow*) aWindow
               notifyDelegate: (NSObject*) notifyDelegate

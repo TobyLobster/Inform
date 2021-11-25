@@ -182,7 +182,7 @@ NSString* const IFIsIndexInspector = @"IFIsIndexInspector";
 	}
 }
 
-// = NSOutlineView data source =
+#pragma mark - NSOutlineView data source
 
 // This will display the real-time data instead of the indexfile data
 

@@ -15,7 +15,7 @@
 ///
 @interface IFCblorbProblem : NSObject<IFCompilerProblemHandler>
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithBuildDir: (NSString*) buildDir NS_DESIGNATED_INITIALIZER;
 
 @end

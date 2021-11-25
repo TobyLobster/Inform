@@ -31,7 +31,7 @@
 @property (atomic, readonly, copy) NSString *initialRoom;
 @property (atomic, readonly, copy) NSString *initialRoomDescription;
 
-@property (atomic, readonly, strong) NSView *view;
+@property (atomic, readwrite, strong) IBOutlet NSView *view;
 - (void) setInitialFocus:(NSWindow *)window;
 
 @end
