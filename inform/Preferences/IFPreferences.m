@@ -725,7 +725,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 		return [value copy];
 	} else {
 		// Work out the default client to use
-		NSString*		clientName = @"glulxe-client";
+		NSString*		clientName = @"glulxe";
 		NSDictionary*	configSettings = [[NSBundle mainBundle] infoDictionary][@"InformConfiguration"];
 		if (!configSettings) {
 			configSettings = [[NSBundle mainBundle] infoDictionary][@"InformConfiguration"];
@@ -733,7 +733,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 		if (configSettings) {
 			clientName = (NSString*)configSettings[@"GlulxInterpreter"];
 		}
-		if (!clientName) clientName = @"glulxe-client";
+		if (!clientName) clientName = @"glulxe";
 		
 		return clientName;
 	}
