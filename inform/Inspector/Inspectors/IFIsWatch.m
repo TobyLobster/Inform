@@ -208,7 +208,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	
 	if ([[value substringToIndex: 2] isEqualToString: @"##"]) {
 		return [[NSAttributedString alloc] initWithString: value
-												attributes: @{NSForegroundColorAttributeName: [NSColor redColor]}];
+												attributes: @{NSForegroundColorAttributeName: [NSColor systemRedColor]}];
 	} else {
 		return value;
 	}

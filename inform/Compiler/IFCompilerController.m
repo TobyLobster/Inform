@@ -51,17 +51,25 @@ static IFCompilerController* activeController = nil;
 @end
 
 @implementation IFCompilerController {
-    BOOL awake;										// YES if we're all initialised (ie, loaded up from a nib)
+    /// \c YES if we're all initialised (ie, loaded up from a nib)
+    BOOL awake;
 
-    IBOutlet NSTextView* compilerResults;			// Output from the compiler ends up here
-    IBOutlet NSScrollView* resultScroller;			// ...and is scrolled around by this thingmebob
+    /// Output from the compiler ends up here
+    IBOutlet NSTextView* compilerResults;
+    /// ...and is scrolled around by this thingmebob
+    IBOutlet NSScrollView* resultScroller;
 
-    IBOutlet NSSplitView*   splitView;				// Yin/yang?
-    IBOutlet NSView*        superView;              // Superview of split view
-    IBOutlet NSScrollView*  messageScroller;		// This scrolls around our parsed messages
-    IBOutlet NSOutlineView* compilerMessages;		// ...and this actually displays them
+    /// Yin/yang?
+    IBOutlet NSSplitView*   splitView;
+    /// Superview of split view
+    IBOutlet NSView*        superView;
+    /// This scrolls around our parsed messages
+    IBOutlet NSScrollView*  messageScroller;
+    /// ...and this actually displays them
+    IBOutlet NSOutlineView* compilerMessages;
 
-    IBOutlet NSWindow*      window;					// We're attached to this window
+    /// We're attached to this window
+    IBOutlet NSWindow*      window;
 
     /// When we've got some messages to display, this is how high the pane will be
     CGFloat messagesSize;
@@ -69,25 +77,37 @@ static IFCompilerController* activeController = nil;
     /// This object receives our delegate messages
     __weak id<IFCompilerControllerDelegate> delegate;
 
-    IFProjectController*    projectController;      // Project controller
+    /// Project controller
+    IFProjectController*    projectController;
 
-    NSMutableArray*  tabs;                          // Tabs - array of IFCompilerTab objects
-    IFCompilerTabId  selectedTabId;                 // Currently selected tab
-    NSDictionary*    tabDictionary;                 // Fixed dictionary of document names and their tabs
+    /// Tabs - array of IFCompilerTab objects
+    NSMutableArray*  tabs;
+    /// Currently selected tab
+    IFCompilerTabId  selectedTabId;
+    /// Fixed dictionary of document names and their tabs
+    NSDictionary*    tabDictionary;
 
     // The subtask
-    IFCompiler* compiler;							// This is the actual compiler
-    NSURL* lastProblemURL;							// The last problem URL returned by the compiler
-    NSURL* overrideURL;								// The overridden problems URL
+    /// This is the actual compiler
+    IFCompiler* compiler;
+    /// The last problem URL returned by the compiler
+    NSURL* lastProblemURL;
+    /// The overridden problems URL
+    NSURL* overrideURL;
 
     // Styles
-    NSMutableDictionary* styles;					// The attributes used to render various strings recognised by the parser
-    NSInteger highlightPos;								// The position the highlighter has reached (see IFError.[hl])
+    /// The attributes used to render various strings recognised by the parser
+    NSMutableDictionary<NSString*,NSDictionary<NSString*,id>*>* styles;
+    /// The position the highlighter has reached (see IFError.[hl])
+    NSInteger highlightPos;
 
     // Error messages
-    NSMutableArray* errorFiles;						// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
-    NSMutableArray* errorMessages;					// A list of the error messages that the compiler has reported
-    NSString* blorbLocation;						// Where cblorb has requested that the blorb file be copied
+    /// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
+    NSMutableArray* errorFiles;
+    /// A list of the error messages that the compiler has reported
+    NSMutableArray* errorMessages;
+    /// Where cblorb has requested that the blorb file be copied
+    NSString* blorbLocation;
 }
 
 // == Styles ==
@@ -106,22 +126,29 @@ static IFCompilerController* activeController = nil;
     [centered setAlignment: NSTextAlignmentCenter];
     
     NSDictionary* baseStyle = @{NSFontAttributeName: baseFont,
-        NSForegroundColorAttributeName: [NSColor blackColor]};
+        NSForegroundColorAttributeName: [NSColor textColor]};
 
     NSDictionary* versionStyle = @{NSFontAttributeName: bigFont,
+        NSForegroundColorAttributeName: [NSColor textColor],
         NSParagraphStyleAttributeName: centered};
     
-    NSDictionary* filenameStyle = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* filenameStyle = @{NSForegroundColorAttributeName: [NSColor textColor],
         NSFontAttributeName: boldFont};
     
-    NSDictionary* messageStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0 green: 0.5 blue: 0 alpha: 1.0]};
-    NSDictionary* warningStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0 green: 0 blue: 0.7 alpha: 1.0],
+    NSColor *indigoColor;
+    if (@available(macOS 10.15, *)) {
+        indigoColor = [NSColor systemIndigoColor];
+    } else {
+        indigoColor = [NSColor colorNamed: @"Compiler/Indigo"];
+    }
+    NSDictionary* messageStyle = @{NSForegroundColorAttributeName: [NSColor systemGreenColor]};
+    NSDictionary* warningStyle = @{NSForegroundColorAttributeName: [NSColor systemBlueColor],
         NSFontAttributeName: boldFont};
-    NSDictionary* errorStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.7 green: 0 blue: 0.0 alpha: 1.0],
+    NSDictionary* errorStyle = @{NSForegroundColorAttributeName: [NSColor colorNamed: @"Compiler/DarkRed"],
         NSFontAttributeName: boldFont};
-    NSDictionary* fatalErrorStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 1.0 green: 0 blue: 0.0 alpha: 1.0],
+    NSDictionary* fatalErrorStyle = @{NSForegroundColorAttributeName: [NSColor systemRedColor],
         NSFontAttributeName: italicFont};
-    NSDictionary* progressStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0 blue: 0.6 alpha: 1.0],
+    NSDictionary* progressStyle = @{NSForegroundColorAttributeName: indigoColor,
         NSFontAttributeName: smallFont};
 	
     return @{IFStyleBase: baseStyle,

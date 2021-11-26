@@ -36,6 +36,8 @@ static NSDictionary* insertAttr = nil;
 static NSDictionary* deleteAttr = nil;
 
 +(void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
     commandAttr   = @{ NSFontAttributeName: [NSFont boldSystemFontOfSize: kSkeinDefaultReportFontSize] };
     normalAttr    = @{ NSFontAttributeName: [NSFont systemFontOfSize: kSkeinDefaultReportFontSize] };
     insertAttr    = @{ NSFontAttributeName: [NSFont systemFontOfSize: kSkeinDefaultReportFontSize],
@@ -46,6 +48,7 @@ static NSDictionary* deleteAttr = nil;
                        NSStrikethroughColorAttributeName: [NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:1.0f] };
 
     [IFSkeinReportView adjustAttributesToFontSize];
+    });
 }
 
 +(void) adjustAttributesToFontSize {

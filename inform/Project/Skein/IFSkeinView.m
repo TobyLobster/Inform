@@ -51,8 +51,11 @@ static NSDictionary* itemTextAttributes;
 @synthesize selectedItem;
 
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 	itemTextAttributes = @{ NSFontAttributeName:            [NSFont systemFontOfSize: [IFSkeinView fontSize]],
                             NSForegroundColorAttributeName: [NSColor blackColor] };
+    });
 }
 
 - (instancetype)initWithFrame: (NSRect)frame {

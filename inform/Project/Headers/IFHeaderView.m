@@ -136,6 +136,7 @@
 		[style setAlignment: NSTextAlignmentCenter];
 		
 		NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                                            NSForegroundColorAttributeName: [NSColor textColor],
 										   NSParagraphStyleAttributeName: style};
 		
 		// Draw roughly centered

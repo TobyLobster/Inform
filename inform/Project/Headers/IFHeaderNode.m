@@ -348,7 +348,8 @@ static CGFloat pointSize = 11.0;
 }
 
 - (NSDictionary*) attributes { 
-	return @{NSFontAttributeName: [self font]};
+    return @{NSFontAttributeName: [self font],
+             NSForegroundColorAttributeName: [NSColor textColor]};
 }
 
 - (int) uneditablePartLength {

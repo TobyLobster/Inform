@@ -124,22 +124,22 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     unselectedMenu  = [NSImage imageNamed: @"App/Skein/Skein-unselected-menu"];
     overMenu        = [NSImage imageNamed: @"App/Skein/Skein-over-menu"];
 
-    NSColor* selectedColor = [NSColor colorWithCalibratedRed:  43.0f/255.0f
-                                                       green: 123.0f/255.0f
-                                                        blue: 156.0f/255.0f
-                                                       alpha:   1.0f];
-    NSColor* activeColor = [NSColor colorWithCalibratedRed: 120.0f/255.0f
-                                                     green:  74.0f/255.0f
-                                                      blue: 145.0f/255.0f
-                                                     alpha:   1.0f];
-    NSColor* unselectedColor = [NSColor colorWithCalibratedRed: 93.0f/255.0f
-                                                         green: 93.0f/255.0f
-                                                          blue: 93.0f/255.0f
-                                                         alpha:  1.0f];
-    NSColor* testMeTextColor = [NSColor colorWithCalibratedRed: 0.8f
-                                                         green: 0.8f
-                                                          blue: 0.8f
-                                                         alpha: 1.0f];
+    NSColor* selectedColor = [NSColor colorWithCalibratedRed:  43.0/255.0
+                                                       green: 123.0/255.0
+                                                        blue: 156.0/255.0
+                                                       alpha:   1.0];
+    NSColor* activeColor = [NSColor colorWithCalibratedRed: 120.0/255.0
+                                                     green:  74.0/255.0
+                                                      blue: 145.0/255.0
+                                                     alpha:   1.0];
+    NSColor* unselectedColor = [NSColor colorWithCalibratedRed: 93.0/255.0
+                                                         green: 93.0/255.0
+                                                          blue: 93.0/255.0
+                                                         alpha:  1.0];
+    NSColor* testMeTextColor = [NSColor colorWithCalibratedRed: 0.8
+                                                         green: 0.8
+                                                          blue: 0.8
+                                                         alpha: 1.0];
     CGFloat size = [IFSkeinView fontSize];
     NSFont* standardFont = [NSFont systemFontOfSize: size];
     NSFont* testMeFont   = [NSFont systemFontOfSize: size];

@@ -214,22 +214,25 @@
     if( hasError )
     {
         italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
-                               NSForegroundColorAttributeName: [NSColor redColor],
+                               NSForegroundColorAttributeName: [NSColor systemRedColor],
                                NSParagraphStyleAttributeName: style };
         normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
-                              NSForegroundColorAttributeName: [NSColor redColor],
+                              NSForegroundColorAttributeName: [NSColor systemRedColor],
                               NSParagraphStyleAttributeName: style };
         boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
-                            NSForegroundColorAttributeName: [NSColor redColor],
+                            NSForegroundColorAttributeName: [NSColor systemRedColor],
                             NSParagraphStyleAttributeName: style };
     }
     else
     {
         italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
+                               NSForegroundColorAttributeName: [NSColor textColor],
                                NSParagraphStyleAttributeName: style};
         normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
+                              NSForegroundColorAttributeName: [NSColor textColor],
                               NSParagraphStyleAttributeName: style};
         boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                            NSForegroundColorAttributeName: [NSColor textColor],
                             NSParagraphStyleAttributeName: style};
     }
 

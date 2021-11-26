@@ -34,7 +34,7 @@ static const int recentFilesTabWidth = 130;
 
     NSString* title = [self stringValue];
     if (title) {
-        NSColor *textColour = [self isHighlighted] ? [NSColor whiteColor] : [NSColor blackColor];
+        NSColor *textColour = [self isHighlighted] ? [NSColor selectedTextColor] : [NSColor textColor];
         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
         NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
                                                 location: recentFilesTabWidth];

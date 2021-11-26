@@ -238,11 +238,11 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	if (fullPath == nil) return nil;
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: fullPath]) {
-		fileColour = [NSColor redColor];
+		fileColour = [NSColor systemRedColor];
 	}
 	
 	if ([[aTableColumn identifier] isEqualToString: @"filename"]) {
-		if (fileColour == nil) fileColour = [NSColor blackColor];
+		if (fileColour == nil) fileColour = [NSColor textColor];
 		
 		NSString* filenameToUse = [path stringByDeletingPathExtension];
 		

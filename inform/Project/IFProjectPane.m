@@ -106,6 +106,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
     NSFont* systemFont       = [NSFont systemFontOfSize: 11];
     NSFont* smallFont        = [NSFont boldSystemFontOfSize: 9];
     NSFont* boldSystemFont   = [NSFont boldSystemFontOfSize: 11];
@@ -117,7 +119,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 
     // Default style
     NSDictionary* defaultStyle = @{NSFontAttributeName: systemFont,
-        NSForegroundColorAttributeName: [NSColor blackColor]};
+        NSForegroundColorAttributeName: [NSColor textColor]};
 
     for (int x = 0; x < 256; x++) {
         IFSyntaxAttributes[x] = defaultStyle;
@@ -170,22 +172,23 @@ static NSDictionary* IFSyntaxAttributes[256];
 
     // Natural inform syntax types
 	IFSyntaxAttributes[IFSyntaxNaturalInform] = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSForegroundColorAttributeName: [NSColor textColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
     IFSyntaxAttributes[IFSyntaxHeading]       = @{ NSFontAttributeName:            headerSystemFont,
-                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSForegroundColorAttributeName: [NSColor textColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 	IFSyntaxAttributes[IFSyntaxGameText]      = @{ NSFontAttributeName:            boldSystemFont,
                                                    NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 	IFSyntaxAttributes[IFSyntaxSubstitution]  = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0],
+                                                   NSForegroundColorAttributeName: [NSColor systemPurpleColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 
 	// The 'plain' style is a bit of a special case. It's used for files that we want to run the syntax
 	// highlighter on, but where we want the user to be able to set styles. The user will be able to set
 	// certain styles even for things that are affected by the highlighter.
-	IFSyntaxAttributes[IFSyntaxPlain] = @{};
+	IFSyntaxAttributes[IFSyntaxPlain] = @{NSForegroundColorAttributeName: [NSColor textColor]};
+    });
 }
 
 - (instancetype) init {
