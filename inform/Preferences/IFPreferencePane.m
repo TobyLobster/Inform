@@ -42,9 +42,7 @@
 	return [[self class] description];
 }
 
-- (NSView*) preferenceView {
-	return preferenceView;
-}
+@synthesize preferenceView;
 
 - (NSString*) tooltip {
 	return nil;

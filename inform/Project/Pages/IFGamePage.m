@@ -192,7 +192,7 @@
 		
 		[gView setImageSource: [[IFGlkResources alloc] initWithProject: [self.parent document]]];
 		
-		[gView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+		[gView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
 		[gView setFrame: [self.view bounds]];
 		[self.view addSubview: gView];
 		
@@ -302,13 +302,8 @@
 	}
 }
 
-- (ZoomView*) zoomView {
-	return zView;
-}
-
-- (GlkView*) glkView {
-	return gView;
-}
+@synthesize zoomView = zView;
+@synthesize glkView = gView;
 
 // (GlkView delegate functions)
 - (void) taskHasStarted {

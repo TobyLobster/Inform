@@ -16,8 +16,10 @@
 
 @implementation IFSettingsPage {
     // Settings
-    IBOutlet IFSettingsView*        settingsView;			// The settings view
-    IBOutlet IFSettingsController*  settingsController;     // The settings controller
+    /// The settings view
+    IBOutlet IFSettingsView*        settingsView;
+    /// The settings controller
+    IFSettingsController*  settingsController;
 }
 
 // = Initialisation =
@@ -51,13 +53,7 @@
 
 // = Settings =
 
-- (void) setSettingsController: (IFSettingsController*) controller {
-	settingsController = controller;
-}
-
-- (IFSettingsController*) settingsController {
-	return settingsController;
-}
+@synthesize settingsController;
 
 - (void) updateSettings {
 	if (!self.parent) {

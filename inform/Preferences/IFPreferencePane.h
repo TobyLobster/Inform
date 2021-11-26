@@ -28,6 +28,6 @@
 /// The tooltip for this preference
 @property (atomic, readonly, copy) NSString *tooltip;
 /// The view that describes the UI for this preference pane
-@property (atomic, readonly, strong) IBOutlet NSView *preferenceView;
+@property (atomic, readwrite, strong) IBOutlet NSView *preferenceView;
 
 @end

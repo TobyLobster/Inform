@@ -136,7 +136,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		
 		guard let toolId = toolId,
 			  let preferencePane = toolId.preferenceView,
-			  window?.contentView === preferencePane else {
+			  window?.contentView !== preferencePane else {
 				  return
 			  }
 		
@@ -162,6 +162,32 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 						 animate: true)
 		window?.contentView = preferencePane
 	}
+	
+	// MARK: - Toolbar delegate
+	
+	func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+		return preferenceViews.map { toolId in
+			return toolId.identifier
+		}
+	}
+	
+	func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+		var res = toolbarAllowedItemIdentifiers(toolbar)
+		
+		res.append(NSToolbarItem.Identifier.flexibleSpace)
+		
+		return res
+	}
+	
+	func toolbarSelectableItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+		return toolbarAllowedItemIdentifiers(toolbar)
+	}
+	
+	func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+		return toolbarItems[itemIdentifier]
+	}
+	
+	// MARK: - Preference switching
 	
 	/// Retrieves a pane with a specific identifier
 	public func preferencePane(_ paneIdentifier: NSToolbarItem.Identifier) -> IFPreferencePane? {
