@@ -15,9 +15,9 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
     /// The task that's currently running
     NSTask* activeTask;
     /// The tasks that are going to be run
-    NSMutableArray* pendingTasks;
+    NSMutableArray<NSArray*>* pendingTasks;
     /// Current notification type for activeTask
-    NSString* activeTaskNotificationType;
+    NSNotificationName activeTaskNotificationType;
 
     /// \c YES if we've notified of a finish event
     BOOL haveFinished;
@@ -112,7 +112,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
-        notifyType: (NSString*) notifyType {
+        notifyType: (NSNotificationName) notifyType {
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
     if( [pendingTasks count] > 0 ) {

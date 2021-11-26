@@ -23,6 +23,6 @@ extern NSNotificationName const IFMaintenanceTasksFinished;
 // Queues a task to run the given command (with arguments)
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
-        notifyType: (NSString*) notifyType;
+        notifyType: (NSNotificationName) notifyType;
 
 @end
