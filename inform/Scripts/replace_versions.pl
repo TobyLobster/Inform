@@ -117,8 +117,8 @@ print "Replace versions: Updating to four character version ('$inform_source_ver
     # Read Inform-Source version string
     # print "Replace versions: Found '$inform_core'\n";
     # read_version("$inform_core/build_number.txt");
-    replace_in_UTF8_strings_file("$dirname/../en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
-    replace_in_UTF8_strings_file("$dirname/../en.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
+    replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
+    replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
     print "Version number updated to $full_version successfully\n";
 #}
 print "Replace versions: Finished\n";

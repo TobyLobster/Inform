@@ -182,6 +182,7 @@
 		
 		// Work out the default client to use
 		NSString*		clientName = [[IFPreferences sharedPreferences] glulxInterpreter];
+        clientName = [clientName stringByAppendingString:@"-client"];
 		//NSLog(@"Using glulx interpreter '%@'", clientName);
 		
 		// Start running as a glulxe task
@@ -192,7 +193,7 @@
 		
 		[gView setImageSource: [[IFGlkResources alloc] initWithProject: [self.parent document]]];
 		
-		[gView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+		[gView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
 		[gView setFrame: [self.view bounds]];
 		[self.view addSubview: gView];
 		
@@ -200,7 +201,7 @@
 		
         [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
-        NSString * interpreterPath = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: clientName];
+        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable:clientName];
         //NSLog(@"Launching interpreter %@", interpreterPath);
 
 		[gView launchClientApplication: interpreterPath
@@ -302,13 +303,8 @@
 	}
 }
 
-- (ZoomView*) zoomView {
-	return zView;
-}
-
-- (GlkView*) glkView {
-	return gView;
-}
+@synthesize zoomView = zView;
+@synthesize glkView = gView;
 
 // (GlkView delegate functions)
 - (void) taskHasStarted {
