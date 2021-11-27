@@ -78,11 +78,11 @@ class NaturalProblem: NSObject, IFCompilerProblemHandler {
 		var fileURLString = "inform:/Error0.html"
 		
 		// See if we've got a file for this specific error code
-		let specificFile = String(format: "Error%i", errorCode)
-		let resourcePath = Bundle.main.path(forResource: specificFile, ofType: "html")
+		let specificFile = "Error\(errorCode)"
 		
-		if let resourcePath = resourcePath, FileManager.default.fileExists(atPath: resourcePath) {
-			fileURLString = String(format: "inform:/%@.html", specificFile)
+		if let resourcePath = Bundle.main.path(forResource: specificFile, ofType: "html"),
+		   FileManager.default.fileExists(atPath: resourcePath) {
+			fileURLString = "inform:/\(specificFile).html"
 		}
 		
 		// Return the result

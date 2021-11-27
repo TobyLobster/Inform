@@ -32,7 +32,7 @@ extern NSString* const IFStyleAssembly;
 extern NSString* const IFStyleHexDump;
 extern NSString* const IFStyleStatistics;
 
-// List of tabs
+/// List of tabs
 typedef NS_ENUM(unsigned int, IFCompilerTabId) {
     IFTabReport,
     IFTabConsole,

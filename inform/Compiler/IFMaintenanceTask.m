@@ -63,7 +63,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	// Set up a new task
 	activeTask = [[NSTask alloc] init];
 	
-	[activeTask setLaunchPath: newTask[0]];
+	[activeTask setExecutableURL: newTask[0]];
 	[activeTask setArguments: newTask[1]];
     activeTaskNotificationType = newTask[2];
 	
@@ -113,11 +113,19 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
         notifyType: (NSNotificationName) notifyType {
+    [self queueTaskAtURL: [NSURL fileURLWithPath: command]
+           withArguments: arguments
+              notifyType: notifyType];
+}
+
+- (void) queueTaskAtURL: (NSURL*) command
+          withArguments: (NSArray<NSString*>*) arguments
+             notifyType: (NSNotificationName) notifyType {
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
     if( [pendingTasks count] > 0 ) {
         NSArray* lastObject   = [pendingTasks lastObject];
-        NSString* lastCommand = lastObject[0];
+        NSURL* lastCommand = lastObject[0];
         NSArray*  lastArgs    = lastObject[1];
         NSString* lastNotifyType = lastObject[2];
         
@@ -131,7 +139,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
                 }
                 i++;
             }
-            if( [lastCommand isEqualToString: command] &&
+            if( [lastCommand isEqual: command] &&
                 argsEqual &&
                 [lastNotifyType isEqualToString: notifyType] ) {
                 //NSLog(@"Skipping, already added to queue");
