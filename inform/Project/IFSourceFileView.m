@@ -364,7 +364,7 @@ static NSImage* arrowPressed	= nil;
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
         
-        [self insertText: pbItem];
+        [[[self textStorage] mutableString] appendString:pbItem];
     }
     else {
         [super paste:sender];
