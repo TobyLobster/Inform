@@ -45,9 +45,7 @@
 		557AB309274D96CB000E8F0B /* PreferenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AB308274D96CB000E8F0B /* PreferenceController.swift */; };
 		557AB30B274E1A6F000E8F0B /* AuthorPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557AB30A274E1A6F000E8F0B /* AuthorPreferences.swift */; };
 		55BFABF0274481760049646A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55BFABEF274481760049646A /* Images.xcassets */; };
-		55C916EB27518B6B003725D4 /* CBlorbProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C916EA27518B6B003725D4 /* CBlorbProblem.swift */; };
-		55C9170527518F15003725D4 /* Inform6Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C9170427518F15003725D4 /* Inform6Problem.swift */; };
-		55C91707275191B9003725D4 /* NaturalProblem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C91706275191B9003725D4 /* NaturalProblem.swift */; };
+		55C916EB27518B6B003725D4 /* ProblemHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C916EA27518B6B003725D4 /* ProblemHandlers.swift */; };
 		FF00CB7919085EB200B5D911 /* IFI7OutputSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = FF00CB7719085EB200B5D911 /* IFI7OutputSettings.m */; };
 		FF00CB7C190860D300B5D911 /* OutputSettingsI7.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF00CB7A190860D300B5D911 /* OutputSettingsI7.xib */; };
 		FF0508DE18B4D5AE004081FF /* AdvancedPreferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF0508DA18B4D5AE004081FF /* AdvancedPreferences.xib */; };
@@ -616,9 +614,7 @@
 		55BA27B627466AFC006BD6D1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Inform6Extensions.strings; sourceTree = "<group>"; };
 		55BFABEF274481760049646A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		55BFABF62744983B0049646A /* CocoaGlk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaGlk.xcodeproj; path = /Users/cwbetts/makestuff/Inform/zoom/depends/CocoaGlk/CocoaGlk.xcodeproj; sourceTree = "<absolute>"; };
-		55C916EA27518B6B003725D4 /* CBlorbProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBlorbProblem.swift; sourceTree = "<group>"; usesTabs = 1; };
-		55C9170427518F15003725D4 /* Inform6Problem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inform6Problem.swift; sourceTree = "<group>"; };
-		55C91706275191B9003725D4 /* NaturalProblem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaturalProblem.swift; sourceTree = "<group>"; };
+		55C916EA27518B6B003725D4 /* ProblemHandlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemHandlers.swift; sourceTree = "<group>"; usesTabs = 1; };
 		FF00CB7619085EB200B5D911 /* IFI7OutputSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IFI7OutputSettings.h; sourceTree = "<group>"; };
 		FF00CB7719085EB200B5D911 /* IFI7OutputSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IFI7OutputSettings.m; sourceTree = "<group>"; };
 		FF05095218B98B9F004081FF /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = "RegexKitLite-4.0/RegexKitLite.h"; sourceTree = SOURCE_ROOT; };
@@ -1211,7 +1207,7 @@
 		4B96DF5C04F126F200A8E303 /* Compiler */ = {
 			isa = PBXGroup;
 			children = (
-				55C916EA27518B6B003725D4 /* CBlorbProblem.swift */,
+				55C916EA27518B6B003725D4 /* ProblemHandlers.swift */,
 				FF71A80C18F1492500CB9B31 /* IFCompiler.h */,
 				FF71A80D18F1492500CB9B31 /* IFCompiler.m */,
 				FF71A80E18F1492500CB9B31 /* IFCompilerController.h */,
@@ -1219,10 +1215,8 @@
 				FF05092D18B4D74E004081FF /* Compiling.xib */,
 				FF71A81018F1492500CB9B31 /* IFError.h */,
 				FF71A81118F1492500CB9B31 /* IFError.l */,
-				55C9170427518F15003725D4 /* Inform6Problem.swift */,
 				FF71A81418F1492500CB9B31 /* IFMaintenanceTask.h */,
 				FF71A81518F1492500CB9B31 /* IFMaintenanceTask.m */,
-				55C91706275191B9003725D4 /* NaturalProblem.swift */,
 			);
 			path = Compiler;
 			sourceTree = "<group>";
@@ -2052,7 +2046,7 @@
 				FF671EA21B9ADEBB00246820 /* IFSkeinSplitView.m in Sources */,
 				FF71A82318F1492500CB9B31 /* IFMaintenanceTask.m in Sources */,
 				FF47129F18F18832006717B3 /* IFGamePage.m in Sources */,
-				55C916EB27518B6B003725D4 /* CBlorbProblem.swift in Sources */,
+				55C916EB27518B6B003725D4 /* ProblemHandlers.swift in Sources */,
 				FFB92D3418FE5D8A00D6D28D /* IFProjectMaterialsPresenter.m in Sources */,
 				FFEBA3821B0EA259008A7473 /* IFSkeinReportItemView.m in Sources */,
 				FF47129B18F18832006717B3 /* IFErrorsPage.m in Sources */,
@@ -2074,7 +2068,6 @@
 				4BFA76A30830EAC5007C7076 /* IFAppDelegate.m in Sources */,
 				FF71A84C18F14A4100CB9B31 /* IFIsIndex.m in Sources */,
 				FF12D9091B04F3CB00547504 /* IFSkeinViewChildren.m in Sources */,
-				55C9170527518F15003725D4 /* Inform6Problem.swift in Sources */,
 				FF71A87818F14B9B00CB9B31 /* IFProjectController.m in Sources */,
 				FF71A81B18F1492500CB9B31 /* IFCompiler.m in Sources */,
 				FF71A91618F151A200CB9B31 /* IFOutputSettings.m in Sources */,
@@ -2104,7 +2097,6 @@
 				FF71A87018F14B9B00CB9B31 /* IFHistoryEvent.m in Sources */,
 				557AB309274D96CB000E8F0B /* PreferenceController.swift in Sources */,
 				FF71A85218F14A4100CB9B31 /* IFIsWatch.m in Sources */,
-				55C91707275191B9003725D4 /* NaturalProblem.swift in Sources */,
 				FF71A91C18F151EE00CB9B31 /* IFSourceSharedActions.m in Sources */,
 				FF4712A318F18832006717B3 /* IFPage.m in Sources */,
 				FF4712A518F18832006717B3 /* IFSettingsPage.m in Sources */,
