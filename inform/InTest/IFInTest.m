@@ -56,9 +56,9 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     /// stdOut pipe
     NSPipe*         stdOutPipe;
 
-    /// File handle for std err
+    /// File handle for stderr
     NSFileHandle*   stdErrH;
-    /// ... and for std out
+    /// File handle for std out
     NSFileHandle*   stdOutH;
 
     // Results

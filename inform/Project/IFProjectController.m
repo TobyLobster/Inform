@@ -1488,7 +1488,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 	
 	[lineHighlight addObject: @[@(line), 
-		@((int) style)]];
+		@(style)]];
 	
 	// Display the highlight
 	if (style >= IFLineStyle_Temporary && style < IFLineStyle_LastTemporary)
