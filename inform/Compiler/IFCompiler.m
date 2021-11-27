@@ -375,15 +375,15 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 			// Work out the new output file
 			NSString* oldOutput  = [self outputFile];
-			NSString* newOutput  = [NSString stringWithFormat: @"%@.%@", [oldOutput stringByDeletingPathExtension], extension];
+			NSString* newOutput  = [[oldOutput stringByDeletingPathExtension] stringByAppendingPathExtension: extension];
 
 			// Work out where the blorb is coming from
             NSString* buildDir   = [[self currentStageInput] stringByDeletingLastPathComponent];
             NSString* projectdir = [buildDir stringByDeletingLastPathComponent];
-			NSString* blorbFile  = [NSString stringWithFormat: @"%@/Release.blurb", projectdir];
+			NSString* blorbFile  = [projectdir stringByAppendingPathComponent: @"Release.blurb"];
 
 			// Add a cBlorb stage
-            NSString *cBlorbLocation = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"cBlorb"];
+            NSString *cBlorbLocation = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"cBlorb"];
 
 			[self addCustomBuildStage: cBlorbLocation
 						withArguments: @[blorbFile, newOutput]

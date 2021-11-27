@@ -289,7 +289,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (NSString*) compilerToUse {
-    return [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"inform6"];
+    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"inform6"];
 }
 
 - (NSArray*) supportedZMachines {
@@ -308,7 +308,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
     if ([version isEqualToString:currentVersion])
     {
-        return [macOSFolder stringByAppendingPathComponent: @"ni"];
+        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
     }
     return [[macOSFolder stringByAppendingPathComponent: version] stringByAppendingPathComponent:@"ni"];
 }

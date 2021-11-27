@@ -22,7 +22,7 @@
 @interface IFGamePage : IFPage
 
 #pragma mark - Properties
-/// The zoom view associated with the currently running game (NULL if a GLK game is running)
+/// The zoom view associated with the currently running game (\c nil if a GLK game is running)
 @property (atomic, readonly, strong) ZoomView *   zoomView;
 /// The glk view associated with the currently running game (if applicable)
 @property (atomic, readonly, strong) GlkView *    glkView;
@@ -45,7 +45,7 @@
 /// Do we want to switch to the game page?
 - (void) setSwitchToPage: (BOOL) switchToPage;
 /// Do we have test commands?
-- (BOOL) hasTestCommands;
+@property (atomic, readonly) BOOL hasTestCommands;
 
 /// Starts running the game file with the given name in the game pane
 - (void) startRunningGame: (NSString*) fileName;

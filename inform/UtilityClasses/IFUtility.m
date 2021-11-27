@@ -428,7 +428,7 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* currentVersion = [IFUtility coreBuildVersion];
     if ([version isEqualToStringCaseInsensitive:currentVersion])
     {
-        return [executablePath stringByAppendingPathComponent: @"ni"];
+        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
     }
     return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
 }

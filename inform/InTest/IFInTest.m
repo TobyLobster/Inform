@@ -109,7 +109,7 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         theTask = nil;
     }
 
-    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable:@"intest"];
+    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"intest"];
 
     // InTest Start notification
     NSDictionary* uiDict = @{@"command": command,

@@ -201,7 +201,7 @@
 		
         [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
-        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable:clientName];
+        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable: clientName];
         //NSLog(@"Launching interpreter %@", interpreterPath);
 
 		[gView launchClientApplication: interpreterPath
@@ -250,7 +250,7 @@
         [commands insertObject: item.command atIndex:0];
         item = item.parent;
     }
-    [self setTestCommands: [NSArray arrayWithArray: commands]];
+    [self setTestCommands: [commands copy]];
 }
 
 - (void) setTestMe: (BOOL) testMe {
@@ -263,7 +263,7 @@
 }
 
 - (void) setTestCommands: (NSArray*) myTestCommands {
-    testCommands = myTestCommands;
+    testCommands = [myTestCommands copy];
 }
 
 - (BOOL) hasTestCommands {
