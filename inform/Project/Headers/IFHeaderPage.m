@@ -16,7 +16,9 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 @implementation IFHeaderPage {
     NSView* pageView;
-    IBOutlet NSScrollView* scrollView;						// The scroll view
+    /// The scroll view
+    IBOutlet NSScrollView* scrollView;
+    
     IFHeaderView* headerView;
     IBOutlet NSPopUpButton* depthButton;
 
@@ -28,11 +30,14 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
     IFHeaderNode* selectedNode;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
-	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-	 @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSUserDefaults standardUserDefaults] registerDefaults:
+         @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
+    });
 }
 
 - (instancetype) init {
@@ -76,7 +81,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	[headerView setDelegate: nil];
 }
 
-// = KVC stuff for the page view/header view =
+#pragma mark - KVC stuff for the page view/header view
 
 @synthesize pageView;
 @synthesize headerView;
@@ -89,7 +94,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	if (controller && headerView) [controller addHeaderView: headerView];
 }
 
-// = Managing the controller =
+#pragma mark - Managing the controller
 
 @synthesize controller;
 - (void) setController: (IFHeaderController*) newController {
@@ -106,7 +111,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 @synthesize delegate;
 
-// = Controller delegate messages (relayed via the view) =
+#pragma mark - Controller delegate messages (relayed via the view)
 
 - (void) refreshHeaders: (IFHeaderController*) control {
 	if (highlightLines.location != NSNotFound) {
@@ -118,7 +123,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 }
 
-// = Choosing objects =
+#pragma mark - Choosing objects
 
 - (void) selectNode: (IFHeaderNode*) node {
 	highlightLines.location = NSNotFound;
@@ -140,7 +145,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	highlightLines = lines;
 }
 
-// = User actions =
+#pragma mark - User actions =
 
 - (IBAction) updateDepthPopup: (id) sender {
     int depth = 1 + (int) [depthButton indexOfSelectedItem];
@@ -151,7 +156,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 }
 
-// = Header view delegate methods =
+#pragma mark - Header view delegate methods
 
 - (void) headerView: (IFHeaderView*) view
 	  clickedOnNode: (IFHeaderNode*) node {

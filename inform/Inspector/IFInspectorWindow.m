@@ -20,23 +20,32 @@ static NSString* IFInspectorDefaults = @"IFInspectorDefaults";
 static NSString* IFInspectorShown = @"IFInspectorShown";
 
 @implementation IFInspectorWindow {
-    NSMutableDictionary* inspectorDict;							// The dictionary of inspectors (maps inspector keys to inspectors)
+    /// The dictionary of inspectors (maps inspector keys to inspectors)
+    NSMutableDictionary* inspectorDict;
 
-    NSMutableArray* inspectors;									// The list of inspectors
-    NSMutableArray* inspectorViews;								// The list of inspector views
+    /// The list of inspectors
+    NSMutableArray* inspectors;
+    /// The list of inspector views
+    NSMutableArray<IFInspectorView*>* inspectorViews;
 
-    BOOL updating;												// YES if we're in the middle of updating
+    /// \c YES if we're in the middle of updating
+    BOOL updating;
 
     // The main window
-    BOOL newMainWindow;											// Flag that indicates if we've processed a new main window event yet
-    NSWindow* activeMainWindow;									// The 'main window' that we're inspecting
+    /// Flag that indicates if we've processed a new main window event yet
+    BOOL newMainWindow;
+    /// The 'main window' that we're inspecting
+    NSWindow* activeMainWindow;
 
     // Whether or not the main window should pop up when inspectors suddenly show up
-    BOOL hidden;												// YES if the inspector window is currently offscreen (because, for example, none of the inspectors are returning yes to [available])
-    BOOL shouldBeShown;											// YES if the inspector window should be shown again (ie, the window was closed because there was nothing to show, not because the user dismissed it)
+    /// \c YES if the inspector window is currently offscreen (because, for example, none of the inspectors are returning yes to [available])
+    BOOL hidden;
+    /// \c YES if the inspector window should be shown again (ie, the window was closed because there was nothing to show, not because the user dismissed it)
+    BOOL shouldBeShown;
 
     // List of most/least recently shown inspectors
-    NSMutableArray* shownInspectors;							// Array of inspectors in the order that the user asked for them
+    /// Array of inspectors in the order that the user asked for them
+    NSMutableArray* shownInspectors;
 }
 
 + (IFInspectorWindow*) sharedInspectorWindow {
@@ -231,7 +240,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 		return NO;
 	}
 	
-	return [inspectorViews[[insNum intValue]] expanded];
+	return [inspectorViews[[insNum intValue]] isExpanded];
 }
 
 - (void) showInspector: (IFInspector*) inspector {
@@ -297,7 +306,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
 		
-		inspectorState[[inspector key]] = @([inspector expanded]);
+		inspectorState[[inspector key]] = @([inspector isExpanded]);
 		
         // Inspectors are only shown for Inform 6 projects.
 		if ([inspector available] && !inform7Project) {

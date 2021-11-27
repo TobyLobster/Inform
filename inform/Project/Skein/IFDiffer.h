@@ -7,12 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum EFormOfEdit {
+typedef NS_ENUM(int, EFormOfEdit) {
     DELETE_EDIT           = -1,
     PRESERVE_EDIT         =  0,
     PRESERVE_ACTUAL_EDIT  =  1,
     INSERT_EDIT           =  2
-} EFormOfEdit;
+};
 
 // *******************************************************************************************
 @interface IFDiffEdit : NSObject {

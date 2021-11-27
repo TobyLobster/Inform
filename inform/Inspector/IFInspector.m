@@ -48,8 +48,12 @@
 							 forKey: [self key]];
 }
 
-- (BOOL) expanded {
+- (BOOL) isExpanded {
 	return [inspectorWin inspectorStateForKey: [self key]];
+}
+
+- (BOOL) expanded {
+    return [self isExpanded];
 }
 
 // = Inspector view =

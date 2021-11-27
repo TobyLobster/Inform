@@ -18,7 +18,7 @@
 @interface IFJSProject : NSObject
 
 // Initialisation
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 /// Initialise this object: we'll control the given pane. Note that this is \b NOT retained to avoid a retain loop (the pane retains the web view, which retains us...)
 - (instancetype) initWithPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 

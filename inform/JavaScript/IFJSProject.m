@@ -21,8 +21,6 @@
 
 // = Initialisation =
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithPane: (IFProjectPane*) newPane {
 	self = [super init];
 	

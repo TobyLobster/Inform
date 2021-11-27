@@ -1566,9 +1566,9 @@
     if (fileString == nil) return nil;
 
     // Pull out the lines from the file
-    int lineStart = 0;
-    int pos = 0;
-    int len = (int) [fileString length];
+    NSInteger lineStart = 0;
+    NSInteger pos = 0;
+    NSInteger len = [fileString length];
 
     // Maximum length of 500k characters
     if (len > 500000) return nil;
