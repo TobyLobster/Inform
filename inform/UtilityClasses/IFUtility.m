@@ -495,11 +495,11 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) temporaryDirectoryURL {
     if( temporaryFolder == nil ) {
         NSError* error;
-        temporaryFolder = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]] isDirectory:YES];
-        [[NSFileManager defaultManager] createDirectoryAtPath: temporaryFolder.path
-                                  withIntermediateDirectories: YES
-                                                   attributes: nil
-                                                        error: &error];
+        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [[NSProcessInfo processInfo] globallyUniqueString] isDirectory: YES];
+        [[NSFileManager defaultManager] createDirectoryAtURL: temporaryFolder
+                                 withIntermediateDirectories: YES
+                                                  attributes: nil
+                                                       error: &error];
     }
     return temporaryFolder;
 }
