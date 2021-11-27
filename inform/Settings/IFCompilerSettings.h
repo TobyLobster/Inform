@@ -72,8 +72,7 @@ extern NSString* const IFCompilerNaturalInform;
 
 @property (atomic, copy) NSString *libraryToUse;
 
-- (void)      setZCodeVersion: (int) version;
-@property (atomic, readonly) int zcodeVersion;
+@property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
 
 @property (atomic) BOOL loudly;
