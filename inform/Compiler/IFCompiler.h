@@ -49,7 +49,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 
 //+ (NSString*) compilerExecutable;
 /// If set, debug options will be turned off while building
-- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing;
+- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing NS_SWIFT_NAME(setBuild(forRelease:forTesting:));
 /// The input file name.
 @property (atomic, copy) NSString *inputFile;
 /// Retrieves the settings

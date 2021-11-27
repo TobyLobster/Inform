@@ -9,7 +9,7 @@ import Foundation
 
 /// Class that deals with problems with the cblorb stage.
 class CBlorbProblem: NSObject, IFCompilerProblemHandler {
-	/// nil, or the build directory that should be inspected for problem files
+	/// `nil`, or the build directory that should be inspected for problem files.
 	private let buildDir: URL?
 	
 	@objc(initWithBuildDirectoryURL:)
