@@ -10,7 +10,7 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFHeaderController.h"
 
-// = Preferences =
+#pragma mark Preferences
 
 static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
@@ -21,8 +21,6 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
     
     IFHeaderView* headerView;
     IBOutlet NSPopUpButton* depthButton;
-
-    IFHeaderController* controller;
 
     /// The highlight range to use
     NSRange highlightLines;

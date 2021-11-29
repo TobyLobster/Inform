@@ -39,7 +39,7 @@
 	return [NSImage imageNamed: @"App/PageBar/BarMenuArrow"];
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -102,7 +102,7 @@
 	[self setAttributedStringValue: attrText];
 }
 
-// = Cell properties =
+#pragma mark - Cell properties
 
 - (void) update {
 	[(NSControl*)[self controlView] updateCell: self];
@@ -113,7 +113,7 @@
 	[self update];
 }
 
-// = Sizing and rendering =
+#pragma mark - Sizing and rendering
 
 - (void) setIsRight: (BOOL) newIsRight {
 	isRight = newIsRight;
@@ -319,7 +319,7 @@
 	}
 }
 
-// = Cell states =
+#pragma mark - Cell states
 
 - (NSInteger) nextState {
 	// Radio cells can be turned on (but get turned off manually)
@@ -354,15 +354,15 @@
 }
 
 
-// = Acting as part of a radio group =
+#pragma mark - Acting as part of a radio group
 
 @synthesize radioGroup;
 	
-// = Acting as a tab =
+#pragma mark - Acting as a tab
 
 @synthesize view;
 
-// = Acting as a pop-up =
+#pragma mark - Acting as a pop-up
 
 - (BOOL) isPopup {
 	if (menu) return YES;
@@ -400,7 +400,7 @@
 	[self update];
 }
 
-// = Tracking =
+#pragma mark - Tracking
 
 - (BOOL)trackMouse:(NSEvent *)theEvent
 			inRect:(NSRect)cellFrame 
@@ -466,7 +466,7 @@
 	return;
 }
 
-// = Key equivalent =
+#pragma mark - Key equivalent
 
 - (NSString*) keyEquivalent {
 	if (keyEquivalent == nil) return @"";

@@ -87,7 +87,7 @@
         [self.options insertObject: option atIndex: IFSHOptionTextSubstitutions];
 
 
-        self.tabWidth = 24.0f;
+        self.tabWidth = 24.0;
 
         // Indenting
         self.indentWrappedLines      = true;
@@ -165,7 +165,7 @@
 }
 
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type {
-    return (IFSyntaxHighlightingOption*) (self.options)[(int) type];
+    return (self.options)[(NSInteger) type];
 }
 
 -(BOOL) isEqualToColor: (NSColor*) color1

@@ -137,7 +137,8 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Dealing with inspector views =
+#pragma mark - Dealing with inspector views
+
 - (void) addInspector: (IFInspector*) newInspector {
 	// Add the inspector
 	[newInspector setInspectorWindow: self];
@@ -261,7 +262,8 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 					 forKey: key];
 }
 
-// = Dealing with updates =
+#pragma mark - Dealing with updates
+
 - (void) updateInspectors: (NSNotification*) not {
 	[self updateInspectors];
 }
@@ -359,10 +361,9 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 					display: YES];
 }
 
-// = Dealing with window changes =
-- (NSWindow*) activeWindow {
-	return activeMainWindow;
-}
+#pragma mark - Dealing with window changes
+
+@synthesize activeWindow = activeMainWindow;
 
 - (void) newMainWindow: (NSNotification*) notification {
 	// Notify the inspectors of the change
@@ -429,8 +430,6 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	}
 }
 
-- (BOOL) isHidden {
-	return hidden;
-}
+@synthesize hidden;
 
 @end

@@ -455,7 +455,8 @@ static IFCompilerController* activeController = nil;
 	[[compilerResults textStorage] appendAttributedString: newString];
 }
 
-// = intest support =
+#pragma mark - intest support
+
 - (void) intestStarting: (NSNotification*) not {
     NSString* command = [not userInfo][@"command"];
     NSArray*  args    = [not userInfo][@"args"];
@@ -520,7 +521,7 @@ static IFCompilerController* activeController = nil;
 }
 
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) preferencesChanged: (NSNotification*) not {
     // Report
@@ -1117,7 +1118,7 @@ static IFCompilerController* activeController = nil;
 
 @synthesize delegate;
 
-// = Web policy delegate methods =
+#pragma mark - Web policy delegate methods
 
 - (void)        webView: (WebView *) sender
    didClearWindowObject: (WebScriptObject *) windowObject
@@ -1254,7 +1255,7 @@ static IFCompilerController* activeController = nil;
     }
 }
 
-// = Managing the set of views displayed by this object =
+#pragma mark - Managing the set of views displayed by this object
 
 @synthesize selectedTabId;
 

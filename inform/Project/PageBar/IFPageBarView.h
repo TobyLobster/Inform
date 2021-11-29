@@ -15,7 +15,7 @@
 ///
 @interface IFPageBarView : NSControl
 
-// = Drawing =
+#pragma mark - Drawing
 
 /// The unselected background image
 + (NSImage*) normalImage;
@@ -32,7 +32,7 @@
 		 totalBounds: (NSRect) bounds
 			fraction: (CGFloat) fraction;
 
-// = Managing cells =
+#pragma mark - Managing cells
 
 /// Sets whether or not this page bar accepts keyboard input
 - (void) setIsActive: (BOOL) isActive;

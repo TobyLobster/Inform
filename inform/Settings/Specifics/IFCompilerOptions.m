@@ -21,13 +21,13 @@
 	return [self initWithNibName: @"CompilerSettings"];
 }
 
-// = Misc info =
+#pragma mark - Misc info
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Compiler Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
     IFCompilerSettings* settings = [self compilerSettings];

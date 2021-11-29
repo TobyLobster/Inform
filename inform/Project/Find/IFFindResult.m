@@ -26,7 +26,8 @@
     BOOL            hasError;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (instancetype)   initWithFilepath: (NSString*)       aFilepath
                         rangeInFile: (NSRange)         aFileRange
                 documentDisplayName: (NSString*)       aDocumentDisplayName
@@ -61,59 +62,25 @@
 }
 
 
-// = Data =
+#pragma mark - Data
 
-- (NSString*) filepath {
-	return filepath;
-}
-
-- (NSRange) fileRange {
-    return fileRange;
-}
+@synthesize filepath;
+@synthesize fileRange;
 
 - (NSString*) phrase {
     return [[self context] substringWithRange:[self contextRange]];
 }
 
-- (NSString*) documentDisplayName {
-    return documentDisplayName;
-}
-
-- (NSString*) documentSortName {
-    return documentSortName;
-}
-
-- (IFFindLocation) locationType {
-	return locationType;
-}
-
-- (NSString*) context {
-	return context;
-}
-
-- (NSRange) contextRange {
-	return contextRange;
-}
-
-- (NSString*) exampleName {
-	return exampleName;
-}
-
-- (NSString*) exampleAnchorTag {
-    return exampleAnchorTag;
-}
-
-- (NSString*) codeAnchorTag {
-    return codeAnchorTag;
-}
-
-- (NSString*) definitionAnchorTag {
-    return definitionAnchorTag;
-}
-
-- (NSArray*) regexFoundGroups {
-    return regexFoundGroups;
-}
+@synthesize documentDisplayName;
+@synthesize documentSortName;
+@synthesize locationType;
+@synthesize context;
+@synthesize contextRange;
+@synthesize exampleName;
+@synthesize exampleAnchorTag;
+@synthesize codeAnchorTag;
+@synthesize definitionAnchorTag;
+@synthesize regexFoundGroups;
 
 - (NSString*) foundMatchString {
     return [context substringWithRange:contextRange];
@@ -259,7 +226,7 @@
 	return result;
 }
 
-// = Copying =
+#pragma mark - Copying
 
 - (id) copyWithZone: (NSZone*) zone {
 	return self;

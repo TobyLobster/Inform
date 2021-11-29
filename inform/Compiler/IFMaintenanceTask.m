@@ -23,7 +23,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
     BOOL haveFinished;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFMaintenanceTask*) sharedMaintenanceTask {
 	static IFMaintenanceTask* maintenanceTask = nil;
@@ -50,7 +50,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 }
 
 
-// = Starting tasks =
+#pragma mark - Starting tasks
 
 - (BOOL) startNextTask {
 	if (activeTask != nil) return YES;
@@ -108,7 +108,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	}
 }
 
-// = Queuing tasks =
+#pragma mark - Queuing tasks
 
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments

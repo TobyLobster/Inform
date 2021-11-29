@@ -499,7 +499,7 @@ NSString* const IFSkeinItemPboardType = @"IFSkeinItemPboardType";
     return [self decomposeActual: actual ideal: [self composedIdeal]];
 }
 
-// For any "test me" style commands, separate out the testing commands into separate "isTestSubItem" child nodes
+/// For any "test me" style commands, separate out the testing commands into separate "isTestSubItem" child nodes
 -(IFSkeinItem*) decomposeActual:(NSString*) actual ideal:(NSString*) ideal {
     if( ![[self class] isTestCommand:_command] ) {
         // This not a "test " command.

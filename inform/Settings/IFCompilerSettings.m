@@ -174,7 +174,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	}
 }
 
-// = Getting information on what is going on =
+#pragma mark - Getting information on what is going on
 
 - (NSString*) primaryCompilerType {
 	if ([self usingNaturalInform]) {
@@ -375,7 +375,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     return res;
 }
 
-// = Setting up the settings =
+#pragma mark - Setting up the settings
 
 // Originally, there was only this object for dealing with settings, which did not require the 
 // structured approach we're now using. Using these routines is deprecated: use a settings controller
@@ -591,7 +591,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	return library;
 }
 
-// = Generic settings =
+#pragma mark - Generic settings
 
 - (void) setGenericSettings: (NSArray*) newGenericSettings {
 	if (newGenericSettings == genericSettings) return;
@@ -621,7 +621,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	return nil;
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject: store];
@@ -637,7 +637,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     return self;
 }
 
-// = Property lists =
+#pragma mark - Property lists
 
 - (NSData*) currentPlist {
 	// Use the original plist as a template if it exists (this will preserve any plist data that

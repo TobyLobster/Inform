@@ -85,7 +85,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFFindInFilesController*) sharedFindInFilesController {
 	static IFFindInFilesController* sharedController = nil;
@@ -126,7 +126,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-// = Updating the history =
+#pragma mark - Updating the history
 
 - (void) addPhraseToFindHistory: (NSString*) phrase {
 	phrase = [phrase copy];
@@ -180,7 +180,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[replacePhrase reloadData];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (IFFindType) currentFindType {
 	NSMenuItem* selected = [searchType selectedItem];
@@ -426,14 +426,14 @@ static const int FIND_HISTORY_LENGTH = 30;
     ];
 }
 
-// = Performing 'replace all' =
+#pragma mark - Performing 'replace all'
 
 - (IBAction) replaceAll: (id) sender {
     // TODO!
 }
 
 
-// = The find all table =
+#pragma mark - The find all table
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
 	return (int) [findAllResults count];
@@ -513,7 +513,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 
-// = Find/replace history =
+#pragma mark - Find/replace history
 
 - (id)				 comboBox: (NSComboBox*)	aComboBox
 	objectValueForItemAtIndex: (int)			index {
@@ -550,7 +550,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 }
 
-// = The auxiliary view =
+#pragma mark - The auxiliary view
 
 - (void) showAuxiliaryView: (NSView*) newAuxView {
 	// Do nothing if the aux view hasn't changed
@@ -600,7 +600,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 }
 
-// = Combo box delegate methods =
+#pragma mark - Combo box delegate methods
 
 - (void) comboBoxEnterKeyPress: (id) sender {
 	if (sender == findPhrase) {
@@ -614,7 +614,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     }
 }
 
-// = Window delegate methods =
+#pragma mark - Window delegate methods
 - (void) windowWillClose: (NSNotification*) notification {
     NSWindow *win = [notification object];
     

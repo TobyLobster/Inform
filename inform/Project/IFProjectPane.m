@@ -452,7 +452,7 @@ static NSDictionary* IFSyntaxAttributes[256];
     return [errorsPage compilerController];
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	// Can't add breakpoints if we're not showing the source view
@@ -465,7 +465,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	return YES;
 }
 
-// = The source view =
+#pragma mark - The source view
 
 - (void) prepareToSave {
 	[sourcePage prepareToSave];
@@ -475,7 +475,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[[self sourcePage] showSourceFile: file];
 }
 
-// = The pages =
+#pragma mark - The pages
 
 @synthesize sourcePage;
 @synthesize errorsPage;
@@ -486,7 +486,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 @synthesize extensionsPage;
 @synthesize settingsPage;
 
-// = The game page =
+#pragma mark - The game page
 
 - (void) stopRunningGame {
 	[gamePage stopRunningGame];
@@ -550,16 +550,16 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[pageBar setRightCells: [[self pageForTabViewItem: tabViewItem] toolbarCells]];
 }
 
-// = The tab view =
+#pragma mark - The tab view
 
 @synthesize tabView;
 
-// = Find =
+#pragma mark - Find
 
 - (void) performFindPanelAction: (id) sender {
 }
 
-// = Dealing with pages =
+#pragma mark - Dealing with pages
 
 - (void) refreshToolbarCells: (NSNotification*) not {
 	// Work out which page we're updating
@@ -621,7 +621,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[[newItem view] addSubview: [newPage view]];
 }
 
-// = The history =
+#pragma mark - The history
 
 - (void) updateHistoryControls {
 	if (historyPos <= 0) {

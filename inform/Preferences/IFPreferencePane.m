@@ -10,10 +10,12 @@
 #import "NSBundle+IFBundleExtensions.h"
 
 @implementation IFPreferencePane {
-    NSView* preferenceView;				// The view for these preferences
+    /// The view for these preferences
+    NSView* preferenceView;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (instancetype) init { self = [super init]; return self; }
 
 - (instancetype) initWithNibName: (NSString*) nibName {
@@ -28,7 +30,7 @@
 }
 
 
-// = Information about the preference window =
+#pragma mark - Information about the preference window
 
 - (NSImage*) toolbarImage {
 	return nil;

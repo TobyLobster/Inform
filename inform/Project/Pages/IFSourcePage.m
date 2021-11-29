@@ -52,7 +52,7 @@
     IFHeaderPage*               headerPage;						// The header page
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 -(void) setBackgroundColour {
     IFProject* doc = [self.parent document];
@@ -193,7 +193,7 @@
 	[headerPage setDelegate: nil];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Source Page Title"
@@ -209,7 +209,7 @@
 	return [[self.parent document] undoManager];
 }
 
-// = Misc =
+#pragma mark - Misc
 
 - (void) pasteSourceCode: (NSString*) sourceCode {
 	// Get the code that existed previously
@@ -253,19 +253,19 @@
 	}
 }
 
-// = Compiling =
+#pragma mark - Compiling
 
 - (void) prepareToSave {
 	[textView breakUndoCoalescing];
 }
 
-// = Intelligence =
+#pragma mark - Intelligence
 
 - (IFIntelFile*) currentIntelligence {
 	return [IFSyntaxManager intelligenceDataForStorage: textStorage];
 }
 
-// = Indicating =
+#pragma mark - Indicating
 
 - (void) indicateRange: (NSRange) range {
 	// Look at restricted range if necessary
@@ -450,11 +450,9 @@
 	}
 }
 
-// = The selection =
+#pragma mark - The selection
 
-- (NSString*) openSourceFilepath {
-	return openSourceFilepath;
-}
+@synthesize openSourceFilepath;
 
 - (NSString*) currentFile {
 	return [[self.parent document] pathForSourceFile: openSourceFilepath];
@@ -706,7 +704,8 @@
 	return NSMakeRange(linepos, x - linepos + 1);
 }
 
-// = Breakpoints =
+#pragma mark - Breakpoints
+
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	SEL itemSelector = [menuItem action];
 
@@ -748,19 +747,19 @@
 	}	
 }
 
-// = Spell checking =
+#pragma mark - Spell checking
 
 - (void) setSpellChecking: (BOOL) checkSpelling {
 	[textView setContinuousSpellCheckingEnabled: checkSpelling];
 }
 
-// = The headings browser =
+#pragma mark - The headings browser
 
 - (NSArray*) toolbarCells {
 	return @[sourcePageControl, headerPageControl];
 }
 
-// = Managing the source text view =
+#pragma mark - Managing the source text view
 
 - (BOOL) hasFirstResponder {
 	// Returns true if this page has the first responder
@@ -790,7 +789,7 @@
 	return textView;
 }
 
-// = The header page =
+#pragma mark - The header page
 
 - (void) highlightHeaderSection {
 	// Get the text storage
@@ -906,7 +905,7 @@
 	if (headerPageShown) [self toggleHeaderPage: self];
 }
 
-// = Helping out with the cursor =
+#pragma mark - Helping out with the cursor
 
 - (CGFloat) cursorOffset {
 	// Returns the offset of the cursor (beginning of the current selection) relative to the top

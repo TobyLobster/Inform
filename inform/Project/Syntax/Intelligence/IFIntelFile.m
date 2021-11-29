@@ -87,7 +87,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	return symbol;
 }
 
-// = Adding and removing symbols =
+#pragma mark - Adding and removing symbols
 
 - (void) insertLineBeforeLine: (int) line {
 	// Renumber lines as appropriate
@@ -214,7 +214,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	[self intelFileHasChanged];
 }
 
-// = Debug =
+#pragma mark - Debug
 
 - (NSString*) description {
 	NSMutableString* res = [NSMutableString string];
@@ -231,7 +231,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	return res;
 }
 
-// = Finding symbols =
+#pragma mark - Finding symbols
 
 - (IFIntelSymbol*) nearestSymbolToLine: (int) line {
 	int nSymbols = (int) [symbols count];

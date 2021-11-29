@@ -58,7 +58,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = The view =
+#pragma mark - The view
 
 - (void) setTitle: (NSString*) title {
 	[titleView setTitle: title];
@@ -177,7 +177,7 @@
 	return YES;
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect:(NSRect)rect {
 #if ViewPadding > 0

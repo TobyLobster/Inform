@@ -26,7 +26,8 @@
 @property (atomic, copy)              NSString *              filename;
 @property (atomic, readonly)          BOOL                    write;
 
-// = New project creation =
+#pragma mark - New project creation
+
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithEmptyProject NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper NS_DESIGNATED_INITIALIZER;

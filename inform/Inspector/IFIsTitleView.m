@@ -13,11 +13,14 @@
 
 
 @implementation IFIsTitleView {
-    NSAttributedString* title;						// The title to display
+    /// The title to display
+    NSAttributedString* title;
 
     // Key display
-    NSString* keyEquiv;								// (UNUSED) key to open this inspector
-    NSString* modifiers;							// (UNUSED) modifiers that apply to the key
+    /// (UNUSED) key to open this inspector
+    NSString* keyEquiv;
+    /// (UNUSED) modifiers that apply to the key
+    NSString* modifiers;
 }
 
 static NSImage* bgImage = nil;
@@ -65,7 +68,7 @@ static NSDictionary* fontAttributes;
 }
 
 
-// = What to display =
+#pragma mark - What to display
 
 - (void) setTitle: (NSString*) newTitle {
 	
@@ -114,7 +117,7 @@ static NSDictionary* fontAttributes;
 	
 }
 
-// = Drawing, etc =
+#pragma mark - Drawing, etc
 
 - (void)drawRect:(NSRect)rect {
 	NSRect bounds = [self bounds];

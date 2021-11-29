@@ -186,7 +186,7 @@ static NSImage* arrowPressed	= nil;
     }
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void) drawRect: (NSRect) rect {
 	// Perform normal drawing
@@ -267,7 +267,7 @@ static NSImage* arrowPressed	= nil;
 	}
 }
 
-// = Drawing 'tears' at the top and bottom =
+#pragma mark - Drawing 'tears' at the top and bottom
 
 - (void) updateTearing {
 	// Load the images if they aren't already available

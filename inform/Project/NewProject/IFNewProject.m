@@ -40,7 +40,7 @@
     NSURL*                              projectLocation;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
 }
@@ -55,7 +55,7 @@
 }
 
 
-// = Interface =
+#pragma mark - Interface
 
 -(BOOL) isExtension {
     return [projectType isKindOfClass:[IFNewInform7ExtensionFile class]];

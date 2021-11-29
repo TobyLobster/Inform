@@ -34,7 +34,7 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
-// = Initialisation =
+#pragma mark -  Initialisation
 + (void) initialize {
     uniqueIdLock = [[NSLock alloc] init];
 }

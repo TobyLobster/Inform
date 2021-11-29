@@ -16,10 +16,10 @@
 #import "IFPreferences.h"
 #import "IFUtility.h"
 
-// Constants
+/// Constants
 static const CGFloat kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command
 
-// Drawing info
+/// Drawing info
 static NSDictionary* itemTextAttributes;
 
 @implementation IFSkeinView {
@@ -87,11 +87,9 @@ static NSDictionary* itemTextAttributes;
 	return YES;    // YES puts the origin at the top left corner of the view (NO is bottom left)
 }
 
-// = Setting/getting the source =
+#pragma mark - Setting/getting the source
 
-- (IFSkein*) skein {
-	return skein;
-}
+@synthesize skein;
 
 - (void) setSkein: (IFSkein*) sk {
 	if (skein == sk) return;
@@ -138,7 +136,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Laying things out =
+#pragma mark - Laying things out
 
 - (void) skeinDidChange: (NSNotification*) not {
     if( selectedItem != nil ) {
@@ -245,7 +243,7 @@ static NSDictionary* itemTextAttributes;
     [NSAnimationContext endGrouping];
 }
 
-// Cursor handling
+#pragma mark Cursor handling
 
 - (void) cursorUpdate: (NSEvent*) event {
     [[NSCursor openHandCursor] set];
@@ -268,7 +266,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Mouse handling =
+#pragma mark - Mouse handling
 
 - (void) mouseDown: (NSEvent*) event {
 	[self finishEditing: self];
@@ -301,7 +299,7 @@ static NSDictionary* itemTextAttributes;
     dragScrolling = NO;
 }
 
-// = Editing items =
+#pragma mark - Editing items
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	// Check if the user left the field before committing changes and end the edit.
@@ -465,7 +463,7 @@ static NSDictionary* itemTextAttributes;
 	[NSObject cancelPreviousPerformRequestsWithTarget: self];
 }
 
-// = Playing the game =
+#pragma mark - Playing the game
 
 - (void) playToPoint: (IFSkeinItem*) item {
     if( ![self canPlayToHere: item] ) {
@@ -493,7 +491,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Moving around =
+#pragma mark - Moving around
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow {
 	[self finishEditing: self];
@@ -503,7 +501,8 @@ static NSDictionary* itemTextAttributes;
 	[self finishEditing: self];
 }
 
-// = Menu support =
+#pragma mark - Menu support
+
 - (BOOL) canDelete: (IFSkeinItem*) skeinItem {
     IFSkeinItem* itemParent = skeinItem.parent;
 
@@ -516,7 +515,6 @@ static NSDictionary* itemTextAttributes;
 
     return YES;
 }
-
 
 -(BOOL) canPlayToHere:(IFSkeinItem*) item {
     return !item.isTestSubItem;
@@ -573,7 +571,8 @@ static NSDictionary* itemTextAttributes;
     return NO;
 }
 
-// = Context menu =
+#pragma mark - Context menu
+
 - (NSMenu *)menuForItem:(IFSkeinItem*) item {
     contextItem = item;
 
@@ -651,7 +650,7 @@ static NSDictionary* itemTextAttributes;
     return [self menuForItem: itemAtPoint];
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (IBAction) playToHere: (id) sender {
     [self playToPoint: contextItem];

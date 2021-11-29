@@ -30,7 +30,7 @@
     SEL finishedMessage;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -45,7 +45,7 @@
 	[self finishAnimation];
 }
 
-// = Caching views =
+#pragma mark - Caching views
 
 + (void) detrackView: (NSView*) view {
 	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
@@ -76,7 +76,7 @@
 	startImage = [[self class] cacheView: view];
 }
 
-// = Animating =
+#pragma mark - Animating
 
 - (void) setTime: (NSTimeInterval) newAnimationTime {
 	animationTime = newAnimationTime;
@@ -199,7 +199,7 @@
 		[self setNeedsDisplay: YES];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 static BOOL ViewNeedsDisplay(NSView* view) {
 	BOOL result = NO;

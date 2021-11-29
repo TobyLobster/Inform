@@ -646,7 +646,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 	return [styles copy];
 }
 
-// = Author's name =
+#pragma mark - Author's name
 
 - (NSString*) longUserName {
 	NSString* longuserName = NSFullUserName();

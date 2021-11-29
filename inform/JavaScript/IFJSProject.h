@@ -19,10 +19,12 @@
 
 // Initialisation
 - (instancetype) init NS_UNAVAILABLE;
-/// Initialise this object: we'll control the given pane. Note that this is \b NOT retained to avoid a retain loop (the pane retains the web view, which retains us...)
+/// Initialise this object: we'll control the given pane. Note that this is \b NOT retained to
+/// avoid a retain loop (the pane retains the web view, which retains us...)
 - (instancetype) initWithPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
-// JavaScript operations on the pane
+#pragma mark - JavaScript operations on the pane
+
 /// Selects a specific view (valid names are source, documentation, skein, etc)
 - (void) selectView: (NSString*) view;
 /// Pastes some code into the source view at the current insertion point

@@ -22,7 +22,7 @@
     IFSettingsController*  settingsController;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Settings"
@@ -44,14 +44,14 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Settings Page Title"
                               default: @"Settings"];
 }
 
-// = Settings =
+#pragma mark - Settings
 
 @synthesize settingsController;
 

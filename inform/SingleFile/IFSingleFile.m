@@ -26,7 +26,7 @@
     NSRange initialSelectionRange;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -45,7 +45,7 @@
     fileStorage = nil;
 }
 
-// = Data =
+#pragma mark - Data
 
 - (void)makeWindowControllers {
     IFSingleController *aController = [[IFSingleController alloc] initWithInitialSelectionRange: initialSelectionRange];
@@ -122,11 +122,9 @@
     return YES;
 }
 
-// = Retrieving document data =
+#pragma mark - Retrieving document data
 
-- (NSTextStorage*) storage {
-	return fileStorage;
-}
+@synthesize storage = fileStorage;
 
 #pragma mark - Whether or not this should be treated as read-only
 

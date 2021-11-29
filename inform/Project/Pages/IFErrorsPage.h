@@ -20,7 +20,7 @@
 
 // Getting information about this page
 /// The compiler controller for this page
-@property (atomic, readonly, strong) IFCompilerController *compilerController;
+@property (atomic, readonly, strong) IBOutlet IFCompilerController *compilerController;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;
 

@@ -26,7 +26,7 @@
 
 @interface IFSkeinView : NSView<NSTextViewDelegate, CAAnimationDelegate>
 
-@property (atomic, strong)            IFSkein *           skein;
+@property (nonatomic, strong)         IFSkein *           skein;
 @property (atomic, strong, readonly)  IFSkeinLayout*      layoutTree;
 @property (atomic, strong)            IFSkeinItem *       selectedItem;
 
@@ -49,7 +49,7 @@
 
 - (void) saveTranscript: (id) sender;
 
-// Font size handling
+/// Font size handling
 + (CGFloat) fontSize;
 @property (class, atomic, readonly) CGFloat fontSize;
 

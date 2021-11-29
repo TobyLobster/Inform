@@ -28,7 +28,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
     IFIntelFile* ourFile;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -41,7 +41,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 }
 
 
-// = Symbol data =
+#pragma mark - Symbol data
 
 @synthesize name;
 @synthesize type;
@@ -67,7 +67,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 @synthesize relation;
 @synthesize levelDelta;
 
-// = Debug =
+#pragma mark - Debug
 
 - (NSString*) description {
 	NSMutableString* res = [NSMutableString string];
@@ -77,7 +77,7 @@ NSString* const IFSectionSymbolType = @"IFSectionSymbolType";
 	return res;
 }
 
-// = Our relation to other symbols in the file =
+#pragma mark - Our relation to other symbols in the file
 
 - (IFIntelSymbol*) parent {
 	IFIntelSymbol* parent = lastSymbol;

@@ -31,7 +31,7 @@
 @synthesize onSelectedLine;
 @synthesize recentlyPlayed;
 
-// = Initialisation =
+#pragma mark -  Initialisation
 
 - (instancetype) init {
 	return [self initWithItem: nil
@@ -55,12 +55,14 @@
 	return self;
 }
 
-// = Getting properties =
+#pragma mark -  Getting properties
+
 - (CGFloat) visibleWidth {
 	return 20.0 + self.commandWidth;
 }
 
-// = Setting properties =
+#pragma mark -  Setting properties
+
 - (void) setChildren: (NSArray*) newChildren {
 	children = [newChildren copy];
 	
@@ -147,8 +149,8 @@
     return nil;
 }
 
-// Calculate a hash based on the current state. We only redraw when the stateHash changes.
--(unsigned long) drawStateHash {
+/// Calculate a hash based on the current state. We only redraw when the stateHash changes.
+-(NSUInteger) drawStateHash {
     NSUInteger hash = item.command.hash;
     hash ^= recentlyPlayed      ? 1 : 0;
     hash ^= onSelectedLine      ? 2 : 0;

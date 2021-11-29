@@ -959,7 +959,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [[self document] saveIFictionWithWindow: [self window]];
 }
 
-// = Displaying a specific index tab =
+#pragma mark - Displaying a specific index tab
 
 - (IBAction) showIndexTab: (id) sender {
 	int tag = (int) [sender tag];
@@ -971,7 +971,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[[self indexPane] selectViewOfType: IFIndexPane];
 }
 
-// = Things to do after the compiler has finished =
+#pragma mark - Things to do after the compiler has finished
 
 - (void) refreshIndexTabs {
 	// Display the index pane
@@ -1184,7 +1184,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 }
 
-// = Communication from the containing panes =
+#pragma mark - Communication from the containing panes
+
 - (IFProjectPane*) sourcePane {
 	// Returns the current pane containing the source code (or an appropriate pane that source code can be displayed in)
     int paneToUse = 0;
@@ -1511,7 +1512,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	return lineHighlighting[file];
 }
 
-// = Debugging controls =
+#pragma mark - Debugging controls
 
 - (IFProjectPane*) runningGamePane {
 	// Return the pane that we're displaying/going to display the game in
@@ -1615,7 +1616,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	return [[self sourcePage] currentIntelligence];
 }
 
-// = Documentation controls =
+#pragma mark - Documentation controls
+
 - (void) docIndex: (id) sender {
 	[[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/index.html"]];
 }
@@ -1628,7 +1630,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: @"inform://Extensions/Extensions.html"]];
 }
 
-// = Adding files =
+#pragma mark - Adding files
+
 - (void) addNewFile: (id) sender {
 	IFNewProjectFile* npf = [[IFNewProjectFile alloc] initWithProjectController: self];
 
@@ -1650,7 +1653,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[[IFIsFiles sharedIFIsFiles] updateFiles];
 }
 
-// = Skein delegate =
+#pragma mark - Skein delegate
 
 - (void) stopGame {
     IFGamePage* gamePage = self.gamePage;
@@ -1685,7 +1688,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 }
 
-// = Policy delegates =
+#pragma mark - Policy delegates
 
 - (IFProjectPolicy*) generalPolicy {
 	return policyManager.generalPolicy;
@@ -1699,7 +1702,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	return policyManager.extensionsPolicy;
 }
 
-// = Displaying progress =
+#pragma mark - Displaying progress
 
 - (void) showMessage: (NSString*) message {
     [toolbarManager showMessage: message];
@@ -1733,7 +1736,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     return [toolbarManager validateToolbarItem: item];
 }
 
-// = Debugging =
+#pragma mark - Debugging
 
 - (IBAction) showWatchpoints: (id) sender {
 	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
@@ -1745,7 +1748,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[[IFInspectorWindow sharedInspectorWindow] showInspectorWithKey: IFIsBreakpointsInspector];
 }
 
-// = Breakpoints =
+#pragma mark - Breakpoints
 
 // (Grr, need to be able to make IFProjectPane the first responder or something, but it isn't
 // listening to messages from the main menu. Or at least, it's not being called that way)
@@ -1785,7 +1788,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 }
 
-// = Dealing with search panels =
+#pragma mark - Dealing with search panels
 
 - (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
@@ -1832,7 +1835,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 }
 
-// = Menu options =
+#pragma mark - Menu options
 
 - (IBAction) shiftLeft: (id) sender {
     NSResponder* responder = [[self window] firstResponder];
@@ -1879,7 +1882,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 }
 
-// = Searching =
+#pragma mark - Searching
 
 - (IBAction) searchDocs: (id) sender {
 	if ( ([sender stringValue] == nil) ||
@@ -1929,7 +1932,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
                                                                           notify: YES];
 }
 
-// = UIDelegate methods =
+#pragma mark - UIDelegate methods
 
 // We only implement a fairly limited subset of the UI methods, mainly to help show status
 - (void)						webView:(WebView *)sender 
@@ -1941,7 +1944,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [alert runModal];
 }
 
-// = IFRuntimeErrorParser delegate methods =
+#pragma mark - IFRuntimeErrorParser delegate methods
 
 - (void) runtimeError: (NSString*) error {
 	// The file that might contain the error
@@ -1967,7 +1970,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[projectPanes[0] selectViewOfType: IFErrorPane];
 }
 
-// = Tabbing around =
+#pragma mark - Tabbing around
 
 - (void) activateNearestTextView {
 	// Start from the current tab view
@@ -2080,7 +2083,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 }
 
-// = Spell checking =
+#pragma mark - Spell checking
 
 - (void) setSourceSpellChecking: (BOOL) spellChecking {
 	// Update the panes
@@ -2089,7 +2092,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	}
 }
 
-// = CocoaGlk -> skein gateway (GlkAutomation) =
+#pragma mark - CocoaGlk -> skein gateway (GlkAutomation)
 
 - (IBAction) glkTaskHasStarted: (id) sender {
 	IFSkein* currentSkein = [[self document] currentSkein];
@@ -2163,13 +2166,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [[IFFindInFilesController sharedFindInFilesController] showFindInFilesWindow: self];
 }
 
-// = The find action =
+#pragma mark - The find action
 
 - (void) performFindPanelAction: (id) sender {
 	// TODO: [[self currentTabView] performFindPanelAction: sender];
 }
 
-// = Running the entire skein =
+#pragma mark - Running the entire skein
+
 - (void) fillNode: (IFSkeinItem*) item {
     if( item.children.count > 0 ) {
         for( IFSkeinItem* child in [[item children] reverseObjectEnumerator] ) {
@@ -2314,7 +2318,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
                                     repeats: NO];
 }
 
-// = Importing skein information =
+#pragma mark - Importing skein information
+
 - (IBAction) importIntoSkein: (id) sender {
     [[self document] importIntoSkeinWithWindow: [self window]];
 }
@@ -2323,7 +2328,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [[self document] exportExtension: [self window]];
 }
 
-// = Documentation =
+#pragma mark - Documentation
+
 - (void) openDocUrl: (NSURL*) url {
 	IFProjectPane* auxPane = [self auxPane];
 	
@@ -2331,7 +2337,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[[auxPane documentationPage] openURL: url];
 }
 
-// = Headers =
+#pragma mark - Headers
+
 - (void) intelFileChanged: (NSNotification*) not {
 	// Must be the current intelligence object
 	if ([not object] != [self currentIntelligence]) return;
@@ -2340,11 +2347,9 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	[headerController updateFromIntelligence: (IFIntelFile*)[not object]];
 }
 
-- (IFHeaderController*) headerController {
-	return headerController;
-}
+@synthesize headerController;
 
-// = Moving around source headings =
+#pragma mark - Moving around source headings
 - (void) showHeadings: (id) sender {
 	// Select the source page in the current tab
 	[[self currentTabView] selectTabViewItemWithIdentifier: [[IFSourcePage class] description]];

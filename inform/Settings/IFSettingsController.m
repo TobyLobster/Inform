@@ -200,7 +200,7 @@ static NSMutableArray* standardSettingsClasses = nil;
 	}
 }
 
-// = The settings to display =
+#pragma mark - The settings to display
 
 - (void) addSettingsObject: (IFSetting*) setting {
 	[settings addObject: setting];

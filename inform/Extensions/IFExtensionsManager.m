@@ -163,7 +163,8 @@ static int maxErrorMessagesToDisplay = 3;
     return self.version;
 }
 
-// = Download and Install =
+#pragma mark - Download and Install
+
 - (BOOL) startDownloadAndInstall {
     // Create the request
     NSURLRequest *theRequest = [NSURLRequest requestWithURL: self.url
@@ -354,7 +355,7 @@ didReceiveResponse: (NSURLResponse *)response
     IFProgress* dlProgress;
 }
 
-// = Shared extension manager =
+#pragma mark - Shared extension manager
 
 + (IFExtensionsManager*) sharedNaturalInformExtensionsManager {
 	static IFExtensionsManager* mgr = nil;
@@ -366,7 +367,7 @@ didReceiveResponse: (NSURLResponse *)response
 	return mgr;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -411,7 +412,7 @@ didReceiveResponse: (NSURLResponse *)response
     
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) addExtensionCollectionDirectory: (NSString*) directory {
 	[extensionCollectionDirectories addObject: directory];
@@ -1026,7 +1027,7 @@ didReceiveResponse: (NSURLResponse *)response
 	return YES;
 }
 
-// = Data source support functions =
+#pragma mark - Data source support functions
 
 - (void) updateExtensions: (NSNumber*) notify {
     // Calculate fresh available extensions
@@ -1078,7 +1079,7 @@ didReceiveResponse: (NSURLResponse *)response
     }
 }
 
-// = NSSavePanel delegate methods =
+#pragma mark - NSSavePanel delegate methods
 
 - (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
     BOOL isDir;
@@ -1098,7 +1099,8 @@ didReceiveResponse: (NSURLResponse *)response
     return YES;
 }
 
-// = Download and Install =
+#pragma mark - Download and Install
+
 -(void) addError: (NSString*) message {
     // Log error
     NSLog(@"%@", message);

@@ -207,7 +207,8 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (instancetype) initWithFrame:(NSRect) frameRect {
     self = [super initWithFrame: frameRect];
 
@@ -769,7 +770,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
 }
 
-// = NSDraggingSource protocol =
+#pragma mark - NSDraggingSource protocol
 
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
     if (context == NSDraggingContextWithinApplication) {
@@ -806,7 +807,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     self.skein.draggingItem = nil;
 }
 
-// = NSDraggingDestination protocol =
+#pragma mark - NSDraggingDestination protocol
 
 - (BOOL) isDragToSameSkein:(id <NSDraggingInfo>)sender {
     bool draggingIntoSameSkein = NO;

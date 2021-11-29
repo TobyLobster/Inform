@@ -23,7 +23,7 @@
     NSMutableArray<NSView<IFHeaderView>*>* headerViews;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -35,7 +35,7 @@
 	return self;
 }
 
-// = Sending messages to the views =
+#pragma mark - Sending messages to the views
 
 - (void) refreshHeaders {
 	// Send the refreshHeaders message to all of the views that support it
@@ -59,7 +59,7 @@
 	}
 }
 
-// = Managing the collection of headings being maintained by this object =
+#pragma mark - Managing the collection of headings being maintained by this object
 
 - (void) setChildrenForHeader: (IFHeader*) root
 					   symbol: (IFIntelSymbol*) symbol 
@@ -157,7 +157,7 @@
 @synthesize selectedHeader;
 @synthesize intelFile;
 
-// = Managing the views being controlled =
+#pragma mark - Managing the views being controlled
 
 - (void) addHeaderView: (NSView<IFHeaderView>*) newHeaderView {
 	if (!newHeaderView) {

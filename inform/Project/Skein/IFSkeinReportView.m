@@ -252,7 +252,7 @@ static NSDictionary* deleteAttr = nil;
     }
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect: (NSRect) dirtyRect {
     [[NSColor colorWithCalibratedRed: 243.0f / 255.0f

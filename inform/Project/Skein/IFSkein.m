@@ -230,7 +230,8 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
                     keepActiveVisible: NO];
 }
 
-// = Creating an input receiver =
+#pragma mark - Creating an input receiver
+
 + (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
                                               toItem: (IFSkeinItem*) item2 {
 	// item1 must be a parent of item2, and neither can be nil
@@ -257,6 +258,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 }
 
 #pragma mark - Create Transcript
+
 - (NSString*) transcriptToPoint: (IFSkeinItem*) item {
 	if (item == nil) item = _activeItem;
 	

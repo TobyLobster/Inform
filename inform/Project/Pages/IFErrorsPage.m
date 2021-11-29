@@ -18,12 +18,14 @@
 #import "IFPageBarView.h"
 
 @implementation IFErrorsPage {
-    IBOutlet IFCompilerController* compilerController;		// The compiler controller object
+    /// The compiler controller object
+    IFCompilerController* compilerController;
 
-    NSMutableArray* pageCells;								// Cells used to select the pages in the compiler controller
+    /// Cells used to select the pages in the compiler controller
+    NSMutableArray* pageCells;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Errors"
@@ -36,8 +38,7 @@
 	return self;
 }
 
-
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Errors Page Title"
@@ -147,19 +148,11 @@
 	[compilerController switchToViewWithTabId: tabId];
 }
 
-// = Setting some interface building values =
+#pragma mark -  Setting some interface building values
 
-// (These need to be released, so implement getters/setters)
+@synthesize compilerController;
 
-- (IFCompilerController*) compilerController {
-	return compilerController;
-}
-
-- (void) setCompilerController: (IFCompilerController*) controller {
-	compilerController = controller;
-}
-
-// = History =
+#pragma mark - History
 
 - (void) didSwitchToPage {
     LogHistory(@"HISTORY: Errors Page: (didSwitchToPage) tab %d", (int) [compilerController selectedTabId]);
@@ -167,7 +160,7 @@
 	[super didSwitchToPage];
 }
 
-// = The page bar =
+#pragma mark - The page bar
 
 - (NSArray*) toolbarCells {
 	if (pageCells == nil) return @[];

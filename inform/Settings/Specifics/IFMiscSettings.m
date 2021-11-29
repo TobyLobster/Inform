@@ -24,7 +24,7 @@
 	return [IFUtility localizedString: @"Misc Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
     [strictMode setState: [self strict]?NSControlStateValueOn:NSControlStateValueOff];
@@ -46,7 +46,7 @@
 	[self setDebug: [debugMode state]==NSControlStateValueOn];
 }
 
-// = The settings =
+#pragma mark - The settings
 
 - (void) setStrict: (BOOL) setting {
     [self dictionary][IFSettingStrict] = @(setting);

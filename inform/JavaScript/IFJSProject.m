@@ -19,7 +19,7 @@
     __weak IFProjectPane* pane;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithPane: (IFProjectPane*) newPane {
 	self = [super init];
@@ -35,7 +35,7 @@
 	pane = nil;	
 }
 
-// = JavaScript names for our selectors =
+#pragma mark - JavaScript names for our selectors
 
 + (NSString *) webScriptNameForSelector: (SEL)sel {
 	if (sel == @selector(selectView:)) {
@@ -77,7 +77,7 @@
 	return YES;
 }
 
-// = JavaScript operations on the pane =
+#pragma mark - JavaScript operations on the pane
 
 - (void) selectView: (NSString*) view {
 	view = [view lowercaseString];

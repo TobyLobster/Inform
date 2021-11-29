@@ -15,13 +15,16 @@
 #import "IFUtility.h"
 #import "IFPageBarCell.h"
 #import "IFProjectController.h"
+#import "IFProjectPolicy.h"
 
 static const CGFloat webViewHeight = 250.0f;
 
 @implementation IFSkeinPage {
     // The skein view
     IBOutlet NSSplitView*   splitView;
-    IBOutlet IFSkeinView*   skeinView;			// The skein view
+    /// The skein view
+    IBOutlet IFSkeinView*   skeinView;
+    
     IBOutlet WebView*       webView;
 
     NSUInteger cachedHash;
@@ -31,12 +34,15 @@ static const CGFloat webViewHeight = 250.0f;
 
 
     // The page bar buttons
-    IFPageBarCell*          playAllCell;		// The 'Play All Blessed' button
-    IFPageBarCell*          saveTranscript;		// The 'Save Transcript' button
-    IFPageBarCell*          toggleHelp;         // The 'Show Help/Hide Help' button
+    /// The 'Play All Blessed' button
+    IFPageBarCell*          playAllCell;
+    /// The 'Save Transcript' button
+    IFPageBarCell*          saveTranscript;
+    /// The 'Show Help/Hide Help' button
+    IFPageBarCell*          toggleHelp;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Skein"
@@ -55,9 +61,9 @@ static const CGFloat webViewHeight = 250.0f;
 		[skeinView setDelegate: self.parent];
 
         // Web view
-        [webView setPolicyDelegate: (id<WebPolicyDelegate>) [self.parent generalPolicy]];
+        [webView setPolicyDelegate: [self.parent generalPolicy]];
         [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [webView setUIDelegate: (id<WebUIDelegate>) self.parent];
+        [webView setUIDelegate: self.parent];
         [webView setFrameLoadDelegate: self];
 
         // Load template and html fragments
@@ -168,7 +174,8 @@ static const CGFloat webViewHeight = 250.0f;
     [self updateHelpHTML];
 }
 
-// WebViewLoadDelegate
+#pragma mark WebViewLoadDelegate
+
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
     if (frame == [sender mainFrame]) {
         // After a short pause while the DOM lays itself out properly, make sure the Javascript shows and hides the correct items
@@ -178,20 +185,20 @@ static const CGFloat webViewHeight = 250.0f;
     }
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
     [self.skeinView fontSizePreferenceChanged: not];
 }
 
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Skein Page Title"];
 }
 
-// = The skein view =
+#pragma mark - The skein view
 
 - (IFSkeinView*) skeinView {
 	return skeinView;
@@ -227,7 +234,7 @@ static const CGFloat webViewHeight = 250.0f;
     [skeinView saveTranscript: sender];
 }
 
-// = The page bar =
+#pragma mark - The page bar
 
 - (NSArray*) toolbarCells {
 	return @[playAllCell, saveTranscript, toggleHelp];

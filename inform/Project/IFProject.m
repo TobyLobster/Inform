@@ -1104,11 +1104,9 @@
 	return notes;
 }
 
-// = The index file =
+#pragma mark - The index file
 
-- (IFIndexFile*) indexFile {
-	return indexFile;
-}
+@synthesize indexFile;
 
 - (void) reloadIndexFile {
 	if (singleFile) return; // Nothing to do
@@ -1194,7 +1192,7 @@
     return initialSelectionRange;
 }
 
-// = Watch expressions =
+#pragma mark - Watch expressions
 
 - (void) addWatchExpression: (NSString*) expression {
 	[watchExpressions addObject: [expression copy]];
@@ -1270,7 +1268,7 @@
 	[self removeBreakpointAtIndex: index];
 }
 
-// = Cleaning =
+#pragma mark - Cleaning
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex {
     [projectFile cleanOutUnnecessaryFiles: alsoCleanIndex];
@@ -1555,7 +1553,7 @@
 }
 
 
-// = Importing skein information =
+#pragma mark - Importing skein information
 
 - (IFSkein*) skeinFromRecording: (NSString*) path {
     // Read the file
