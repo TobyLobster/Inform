@@ -106,7 +106,10 @@
 
 	if (fileString == nil) {
         if (outError) {
-            *outError = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownStringEncodingError userInfo:@{NSLocalizedDescriptionKey: @"Error: failed to load file: could not find an acceptable character encoding"}];
+            *outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadUnknownStringEncodingError userInfo:
+                         @{NSLocalizedDescriptionKey: @"Error: failed to load file: could not find an acceptable character encoding",
+                           NSStringEncodingErrorKey : @(fileEncoding)}
+            ];
         }
 		NSLog(@"Error: failed to load file: could not find an acceptable character encoding");
 		return NO;
