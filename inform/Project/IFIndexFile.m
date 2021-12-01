@@ -10,7 +10,7 @@
 
 
 @implementation IFIndexFile {
-    NSDictionary* index;
+    NSDictionary<NSString*,id>* index;
 
     NSMutableDictionary* filenamesToIndexes;
 }
@@ -24,15 +24,6 @@
     }
     
 	return self;
-}
-
-static NSComparisonResult intValueComparer(id a, id b, void* context) {
-	int aV = [a intValue];
-	int bV = [b intValue];
-	
-	if (aV < bV) return NSOrderedAscending;
-	if (aV > bV) return NSOrderedDescending;
-	return NSOrderedSame;
 }
 
 - (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError*__autoreleasing*) outError {
@@ -99,9 +90,15 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 		index = [plist copy];
 		
 		// Need the keys sorted by numeric value to make any sense of them
-		NSArray* orderedKeys = [index allKeys];
-		orderedKeys = [orderedKeys sortedArrayUsingFunction: intValueComparer
-													context: nil];
+		NSMutableArray* orderedKeys = [[index allKeys] mutableCopy];
+        [orderedKeys sortUsingComparator:^NSComparisonResult(id  _Nonnull a, id  _Nonnull b) {
+            int aV = [a intValue];
+            int bV = [b intValue];
+            
+            if (aV < bV) return NSOrderedAscending;
+            if (aV > bV) return NSOrderedDescending;
+            return NSOrderedSame;
+        }];
 		
 		// Turn the index into a hierarchical dictionary
 		// Top level indexed by filenames
@@ -122,7 +119,7 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 				NSString* title = item[@"Title"];
 				
 				// HACK: only include the source files
-				if (![[filename stringByDeletingLastPathComponent] isEqualToString: @"Source"]) continue;
+				if (![[filename stringByDeletingLastPathComponent].lastPathComponent isEqualToString: @"Source"]) continue;
 				
 				// Get the initial index for this file
 				NSMutableArray* indexForFilename = filenamesToIndexes[filename];
