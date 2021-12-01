@@ -1110,8 +1110,12 @@
 
 - (void) reloadIndexFile {
 	if (singleFile) return; // Nothing to do
+    NSError *err;
 
-	indexFile = [[IFIndexFile alloc] initWithContentsOfFile: self.indexHeadingsFileURL.path];
+	indexFile = [[IFIndexFile alloc] initWithContentsOfURL: self.indexHeadingsFileURL error: &err];
+    if (!indexFile) {
+        NSLog(@"IFIndexFile: found no data: %@", err);
+    }
 }
 
 - (void) reloadIndexDirectory {

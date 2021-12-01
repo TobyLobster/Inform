@@ -62,6 +62,11 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 	
 	if (self) {
 		if (data == nil) {
+            if (outError) {
+                *outError = [NSError errorWithDomain: NSOSStatusErrorDomain
+                                                code: paramErr
+                                            userInfo: nil];
+            }
 			return nil;
 		}
 		
