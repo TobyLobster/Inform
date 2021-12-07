@@ -17,7 +17,7 @@
 
 // Initialisation
 
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+- (instancetype) init NS_UNAVAILABLE;
 /// Initialise with the specified invocation
 - (instancetype) initWithInvocation: (NSInvocation*) invocation NS_DESIGNATED_INITIALIZER;
 /// Initialise with the specified object as an invocation target

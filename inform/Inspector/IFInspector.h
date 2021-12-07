@@ -30,7 +30,7 @@ typedef NSString *IFIsInspectorKey NS_STRING_ENUM;
 /// The title for this inspector.
 @property (atomic, copy, null_resettable) NSString *title;
 /// \c YES if the inspector is expanded (visible)
-@property (atomic) BOOL expanded;
+@property (atomic, getter=isExpanded) BOOL expanded;
 /// Should be overridden by subclasses. Returns \c YES if the inspector is available in the current context. Normally this is dependant on the type of window being inspected.
 @property (atomic, readonly) BOOL available;
 /// The unique key string for this inspector. Must be overridden by subclasses, must be unique.

@@ -19,10 +19,17 @@ extern NSNotificationName const IFMaintenanceTasksFinished;
 
 /// Retrieves the common maintenance task object
 + (IFMaintenanceTask*) sharedMaintenanceTask;
+@property (class, atomic, readonly, strong) IFMaintenanceTask *sharedMaintenanceTask;
 
-// Queues a task to run the given command (with arguments)
+/// Queues a task to run the given command (with arguments)
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
-        notifyType: (NSString*) notifyType;
+        notifyType: (NSNotificationName) notifyType;
+
+/// Queues a task to run the given command (with arguments)
+- (void) queueTaskAtURL: (NSURL*) command
+          withArguments: (NSArray<NSString*>*) arguments
+             notifyType: (NSNotificationName) notifyType;
+
 
 @end

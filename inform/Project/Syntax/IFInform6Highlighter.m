@@ -14,7 +14,7 @@
     IFSyntaxData* activeData;
 }
 
-// = The statemachine itself =
+#pragma mark - The statemachine itself
 
 static inline BOOL IsIdentifier(int chr) {
     if (isalpha(chr) || isdigit(chr) || chr == '$' || chr == '#' || chr == '_') {
@@ -423,7 +423,7 @@ static inline BOOL FindKeyword(char** keywordList, int nKeywords, char* keyword)
     }
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 static int compare(const void* a, const void* b) {
     return strcmp(*((const char*const*)a),*((const char*const*)b));
@@ -477,13 +477,13 @@ static int compare(const void* a, const void* b) {
     qsort(otherKeywords, numOtherKeywords, sizeof(char*), compare);
 }
 
-// = Notifying of the highlighter currently in use =
+#pragma mark - Notifying of the highlighter currently in use
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
 	activeData = aData;
 }
 
-// = The highlighter itself =
+#pragma mark - The highlighter itself
 
 - (IFSyntaxState) stateForCharacter: (unichar) chr
 						 afterState: (IFSyntaxState) lastState {
@@ -676,7 +676,7 @@ static int compare(const void* a, const void* b) {
     }	
 }
 
-// = Styles =
+#pragma mark - Styles
 
 - (NSDictionary*) attributesForStyle: (IFSyntaxStyle) style {
 	return [IFProjectPane attributeForStyle: style];

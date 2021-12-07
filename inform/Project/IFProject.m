@@ -1104,16 +1104,18 @@
 	return notes;
 }
 
-// = The index file =
+#pragma mark - The index file
 
-- (IFIndexFile*) indexFile {
-	return indexFile;
-}
+@synthesize indexFile;
 
 - (void) reloadIndexFile {
 	if (singleFile) return; // Nothing to do
+    NSError *err;
 
-	indexFile = [[IFIndexFile alloc] initWithContentsOfFile: self.indexHeadingsFileURL.path];
+	indexFile = [[IFIndexFile alloc] initWithContentsOfURL: self.indexHeadingsFileURL error: &err];
+    if (!indexFile) {
+        NSLog(@"IFIndexFile: found no data: %@", err);
+    }
 }
 
 - (void) reloadIndexDirectory {
@@ -1194,7 +1196,7 @@
     return initialSelectionRange;
 }
 
-// = Watch expressions =
+#pragma mark - Watch expressions
 
 - (void) addWatchExpression: (NSString*) expression {
 	[watchExpressions addObject: [expression copy]];
@@ -1270,7 +1272,7 @@
 	[self removeBreakpointAtIndex: index];
 }
 
-// = Cleaning =
+#pragma mark - Cleaning
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex {
     [projectFile cleanOutUnnecessaryFiles: alsoCleanIndex];
@@ -1555,7 +1557,7 @@
 }
 
 
-// = Importing skein information =
+#pragma mark - Importing skein information
 
 - (IFSkein*) skeinFromRecording: (NSString*) path {
     // Read the file
@@ -1566,9 +1568,9 @@
     if (fileString == nil) return nil;
 
     // Pull out the lines from the file
-    int lineStart = 0;
-    int pos = 0;
-    int len = (int) [fileString length];
+    NSInteger lineStart = 0;
+    NSInteger pos = 0;
+    NSInteger len = [fileString length];
 
     // Maximum length of 500k characters
     if (len > 500000) return nil;

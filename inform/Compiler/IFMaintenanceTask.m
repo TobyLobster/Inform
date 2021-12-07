@@ -15,15 +15,15 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
     /// The task that's currently running
     NSTask* activeTask;
     /// The tasks that are going to be run
-    NSMutableArray* pendingTasks;
+    NSMutableArray<NSArray*>* pendingTasks;
     /// Current notification type for activeTask
-    NSString* activeTaskNotificationType;
+    NSNotificationName activeTaskNotificationType;
 
     /// \c YES if we've notified of a finish event
     BOOL haveFinished;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFMaintenanceTask*) sharedMaintenanceTask {
 	static IFMaintenanceTask* maintenanceTask = nil;
@@ -50,7 +50,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 }
 
 
-// = Starting tasks =
+#pragma mark - Starting tasks
 
 - (BOOL) startNextTask {
 	if (activeTask != nil) return YES;
@@ -63,7 +63,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	// Set up a new task
 	activeTask = [[NSTask alloc] init];
 	
-	[activeTask setLaunchPath: newTask[0]];
+	[activeTask setExecutableURL: newTask[0]];
 	[activeTask setArguments: newTask[1]];
     activeTaskNotificationType = newTask[2];
 	
@@ -108,16 +108,24 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
 	}
 }
 
-// = Queuing tasks =
+#pragma mark - Queuing tasks
 
 - (void) queueTask: (NSString*) command
 	 withArguments: (NSArray<NSString*>*) arguments
-        notifyType: (NSString*) notifyType {
+        notifyType: (NSNotificationName) notifyType {
+    [self queueTaskAtURL: [NSURL fileURLWithPath: command]
+           withArguments: arguments
+              notifyType: notifyType];
+}
+
+- (void) queueTaskAtURL: (NSURL*) command
+          withArguments: (NSArray<NSString*>*) arguments
+             notifyType: (NSNotificationName) notifyType {
 
     // Check if the previous item on the queue is exactly the same command, skip if so.
     if( [pendingTasks count] > 0 ) {
         NSArray* lastObject   = [pendingTasks lastObject];
-        NSString* lastCommand = lastObject[0];
+        NSURL* lastCommand = lastObject[0];
         NSArray*  lastArgs    = lastObject[1];
         NSString* lastNotifyType = lastObject[2];
         
@@ -131,7 +139,7 @@ NSString* const IFMaintenanceTasksFinished = @"IFMaintenanceTasksFinished";
                 }
                 i++;
             }
-            if( [lastCommand isEqualToString: command] &&
+            if( [lastCommand isEqual: command] &&
                 argsEqual &&
                 [lastNotifyType isEqualToString: notifyType] ) {
                 //NSLog(@"Skipping, already added to queue");

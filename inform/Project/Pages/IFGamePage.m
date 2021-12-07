@@ -60,7 +60,7 @@
     NSArray<NSString*>* testCommands;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Game"
@@ -112,20 +112,20 @@
 
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Game Page Title"
                               default: @"Game"];
 }
 
-// = Page validation =
+#pragma mark - Page validation
 
 - (BOOL) shouldShowPage {
 	return zView != nil || gView != nil;
 }
 
-// = The game view =
+#pragma mark - The game view
 
 - (void) preferencesChanged: (NSNotification*) not {
 	[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
@@ -201,7 +201,7 @@
 		
         [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
-        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable:clientName];
+        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable: clientName];
         //NSLog(@"Launching interpreter %@", interpreterPath);
 
 		[gView launchClientApplication: interpreterPath
@@ -250,7 +250,7 @@
         [commands insertObject: item.command atIndex:0];
         item = item.parent;
     }
-    [self setTestCommands: [NSArray arrayWithArray: commands]];
+    [self setTestCommands: [commands copy]];
 }
 
 - (void) setTestMe: (BOOL) testMe {
@@ -263,7 +263,7 @@
 }
 
 - (void) setTestCommands: (NSArray*) myTestCommands {
-    testCommands = myTestCommands;
+    testCommands = [myTestCommands copy];
 }
 
 - (BOOL) hasTestCommands {
@@ -406,7 +406,7 @@
 	}
 }
 
-// = Breakpoints =
+#pragma mark - Breakpoints
 
 - (void) updatedBreakpoints: (NSNotification*) not {
 	// Give up if there's no Z-Machine running
@@ -431,7 +431,7 @@
 	}
 }
 
-// = Debugging =
+#pragma mark - Debugging
 
 - (void) hitBreakpoint: (int) pc {
 	[[IFIsWatch sharedIFIsWatch] refreshExpressions];

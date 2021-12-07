@@ -30,7 +30,7 @@
 }
 
 
-// = Titles =
+#pragma mark - Titles
 
 @synthesize title;
 - (void) setTitle: (NSString*) newTitle {
@@ -40,7 +40,7 @@
 }
 
 - (NSString*) title {
-	return (title!=nil)?title:@"No title";
+	return (title!=nil)?[title copy]:@"No title";
 }
 
 - (void) setExpanded: (BOOL) exp {
@@ -48,11 +48,16 @@
 							 forKey: [self key]];
 }
 
-- (BOOL) expanded {
+- (BOOL) isExpanded {
 	return [inspectorWin inspectorStateForKey: [self key]];
 }
 
-// = Inspector view =
+- (BOOL) expanded {
+    return [self isExpanded];
+}
+
+#pragma mark - Inspector view
+
 @synthesize inspectorView;
 
 - (BOOL) available {
@@ -60,20 +65,20 @@
 	return NO;
 }
 
-// = The controller =
+#pragma mark - The controller
 
 - (void) setInspectorWindow: (IFInspectorWindow*) window {
 	inspectorWin = window;
 }
 
-// = Inspecting things =
+#pragma mark - Inspecting things
 
 - (void) inspectWindow: (NSWindow*) window {
 	// Should be overridden in subclasses
 	NSLog(@"BUG: Inspector doesn't know what to do");
 }
 
-// = The key =
+#pragma mark - The key
 
 - (NSString*) key {
 	[NSException raise: @"IFInspectorHasNoKey" 

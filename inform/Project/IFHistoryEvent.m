@@ -25,8 +25,7 @@
 }
 
 
-// = Initialisation =
-- (instancetype) init { self = [super init]; return self; }
+#pragma mark - Initialisation
 
 - (instancetype) initWithInvocation: (NSInvocation*) newInvocation {
 	self = [super init];
@@ -51,7 +50,7 @@
 }
 
 	
-// = Building the invocation =
+#pragma mark - Building the invocation
 
 @synthesize target;
 
@@ -66,7 +65,7 @@
     target = nil;
 }
 
-// = Replaying =
+#pragma mark - Replaying
 
 - (void) replay {
 	[invocations makeObjectsPerformSelector: @selector(invoke)];
@@ -74,7 +73,7 @@
 
 @end
 
-// = IFHistoryEventProxy =
+#pragma mark - IFHistoryEventProxy
 
 @implementation IFHistoryEventProxy {
     IFHistoryEvent* event;

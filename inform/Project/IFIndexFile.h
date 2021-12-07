@@ -13,7 +13,9 @@
 
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithContentsOfFile: (NSString*) filename;
-- (instancetype) initWithData: (NSData*) data NS_DESIGNATED_INITIALIZER; // Designated initialiser
+- (instancetype) initWithData: (NSData*) data NS_SWIFT_UNAVAILABLE("");
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError**) outError;
+- (instancetype) initWithData: (NSData*) data error: (NSError**) outError NS_DESIGNATED_INITIALIZER; // Designated initialiser
 
 // Getting info about a particular item
 - (NSString*) filenameForItem: (id) item;

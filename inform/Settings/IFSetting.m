@@ -22,7 +22,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
     BOOL                settingsChanging;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	return [self initWithNibName: nil];
@@ -44,7 +44,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 }
 
 
-// = Setting up the view =
+#pragma mark - Setting up the view
 
 @synthesize settingView;
 
@@ -52,11 +52,11 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 	return @"Setting";
 }
 
-// = Setting/retrieving the model =
+#pragma mark - Setting/retrieving the model
 
 @synthesize compilerSettings;
 
-// = Communicating with the IFCompilerSettings object =
+#pragma mark - Communicating with the IFCompilerSettings object
 
 - (void) setSettings {
 	// Do nothing
@@ -78,7 +78,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 	return nil;
 }
 
-// = Notifying the controller about things =
+#pragma mark - Notifying the controller about things
 
 - (IBAction) settingsHaveChanged: (id) sender {
 	if (settingsChanging) return;
@@ -89,7 +89,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 	settingsChanging = NO;
 }
 
-// = Default way of dealing with the plist: copy entries from the dictionary =
+#pragma mark - Default way of dealing with the plist: copy entries from the dictionary
 
 - (NSDictionary*) plistEntries {
 	return [self dictionary];

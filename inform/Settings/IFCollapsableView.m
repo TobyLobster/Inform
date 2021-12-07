@@ -30,7 +30,7 @@
 #define BORDER 8.0
 #define FONTSIZE 13.0
 
-// = Init/housekeeping =
+#pragma mark - Init/housekeeping
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -45,12 +45,11 @@
 }
 
 - (void) dealloc {
-
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
 }
 
-// = Drawing =
+#pragma mark - Drawing
+
 - (BOOL) isOpaque {
 	return NO;
 }
@@ -106,7 +105,7 @@
 	[super drawRect: rect];
 }
 
-// = Management =
+#pragma mark - Management
 
 - (void) removeAllSubviews {
 	for( NSView* subview in views ) {

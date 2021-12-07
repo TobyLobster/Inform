@@ -10,57 +10,79 @@
 
 
 @implementation IFIndexFile {
-    NSDictionary* index;
+    NSDictionary<NSString*,id>* index;
 
     NSMutableDictionary* filenamesToIndexes;
 }
 
 - (instancetype) initWithContentsOfFile: (NSString*) filename {
-	self = [self initWithData: [NSData dataWithContentsOfFile: filename]];
-	
+    NSError *err;
+	self = [self initWithContentsOfURL: [NSURL fileURLWithPath: filename]
+                                 error: &err];
+    if (!self) {
+        NSLog(@"IFIndexFile: found no data: %@", err);
+    }
+    
 	return self;
 }
 
-static NSComparisonResult intValueComparer(id a, id b, void* context) {
-	int aV = [a intValue];
-	int bV = [b intValue];
-	
-	if (aV < bV) return NSOrderedAscending;
-	if (aV > bV) return NSOrderedDescending;
-	return NSOrderedSame;
+- (instancetype) initWithContentsOfURL: (NSURL*) filename error: (NSError*__autoreleasing*) outError {
+    NSData *dat = [NSData dataWithContentsOfURL: filename
+                                        options: NSDataReadingMappedIfSafe
+                                          error: outError];
+    
+    if (!dat) {
+        return nil;
+    }
+    
+    return [self initWithData: dat error: outError];
 }
 
 - (instancetype) initWithData: (NSData*) data {
+    NSError *err;
+    self = [self initWithData: data error: &err];
+    
+    if (!self) {
+        NSLog(@"IFIndexFile: found no data: %@", err);
+    }
+    return self;
+}
+
+- (instancetype) initWithData: (NSData*) data error: (NSError* __autoreleasing*) outError {
 	self = [super init];
 	
 	if (self) {
 		if (data == nil) {
+            if (outError) {
+                *outError = [NSError errorWithDomain: NSOSStatusErrorDomain
+                                                code: paramErr
+                                            userInfo: nil];
+            }
 			return nil;
 		}
 		
 		// Data is provided as a property list file, which makes things easy for us to parse
 		// Req 10.2 (surely no-one is still seriously using 10.1?)
 		NSPropertyListFormat format;
-		NSError* error = nil;
 		
 		id plist =  [NSPropertyListSerialization propertyListWithData: data
                                                               options: NSPropertyListImmutable
                                                                format: &format
-                                                                error: &error];
+                                                                error: outError];
 		
 		// Sanity check
 		if (plist == nil) {
-			NSLog(@"IFIndexFile: found no data: %@", error);
-			return nil;
-		}
-		
-		if (error != nil) {
-			NSLog(@"IFIndexFile: error in file: %@", error);
 			return nil;
 		}
 		
 		if (![plist isKindOfClass: [NSDictionary class]]) {
-			NSLog(@"IFIndexFile: property list does not contain a dictionary");
+            if (outError) {
+                *outError = [NSError errorWithDomain: NSCocoaErrorDomain
+                                                code: NSFileReadCorruptFileError
+                                            userInfo: @{
+                    NSLocalizedDescriptionKey: @"property list does not contain a dictionary"
+                }];
+            }
 			return nil;
 		}
 		
@@ -68,9 +90,15 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 		index = [plist copy];
 		
 		// Need the keys sorted by numeric value to make any sense of them
-		NSArray* orderedKeys = [index allKeys];
-		orderedKeys = [orderedKeys sortedArrayUsingFunction: intValueComparer
-													context: nil];
+		NSMutableArray* orderedKeys = [[index allKeys] mutableCopy];
+        [orderedKeys sortUsingComparator:^NSComparisonResult(id  _Nonnull a, id  _Nonnull b) {
+            int aV = [a intValue];
+            int bV = [b intValue];
+            
+            if (aV < bV) return NSOrderedAscending;
+            if (aV > bV) return NSOrderedDescending;
+            return NSOrderedSame;
+        }];
 		
 		// Turn the index into a hierarchical dictionary
 		// Top level indexed by filenames
@@ -91,7 +119,7 @@ static NSComparisonResult intValueComparer(id a, id b, void* context) {
 				NSString* title = item[@"Title"];
 				
 				// HACK: only include the source files
-				if (![[filename stringByDeletingLastPathComponent] isEqualToString: @"Source"]) continue;
+				if (![[filename stringByDeletingLastPathComponent].lastPathComponent isEqualToString: @"Source"]) continue;
 				
 				// Get the initial index for this file
 				NSMutableArray* indexForFilename = filenamesToIndexes[filename];

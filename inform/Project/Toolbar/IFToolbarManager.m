@@ -19,7 +19,7 @@
 
 @end
 
- // = Preferences =
+ #pragma mark - Preferences
 
 @implementation IFToolbarManager {
     // The toolbar

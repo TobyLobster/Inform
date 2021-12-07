@@ -194,7 +194,7 @@
 	}
 }
 
-// = Utility methods =
+#pragma mark - Utility methods
 
 //
 // Helper method.
@@ -878,7 +878,7 @@
 #endif
 }
 
-// = Communication from the highlighter =
+#pragma mark - Communication from the highlighter
 
 - (void) pushState {
     // When the highlighter opens a comment bracket (etc), it pushes the current state onto a stack.
@@ -948,13 +948,13 @@ static inline BOOL IsWhitespace(unichar c) {
 }
 
 
-//
-// = Actually performing highlighting =
-//
-// Phase One: Calculate charStyles, hint keywords, gather intelligence, indent paragraphs.
-// Phase Two: Apply the character styles as attributes
-// Phase Three: Add elastic tabs
-//
+///
+/// Actually performing highlighting
+///
+/// * Phase One: Calculate charStyles, hint keywords, gather intelligence, indent paragraphs.
+/// * Phase Two: Apply the character styles as attributes.
+/// * Phase Three: Add elastic tabs.
+///
 - (NSRange) syntaxHighlightRange: (NSRange) range
                  forceUpdateTabs: (bool) forceUpdateTabs {
     NSRange changedRange = range;
@@ -1213,7 +1213,7 @@ static inline BOOL IsWhitespace(unichar c) {
     return changedRange;
 }
 
-// = Notifications from the preferences object =
+#pragma mark - Notifications from the preferences object
 
 - (void) preferencesChanged: (NSNotification*) not {
     //
@@ -1248,7 +1248,7 @@ static inline BOOL IsWhitespace(unichar c) {
 }
 
 
-// = Tabbing =
+#pragma mark - Tabbing
 
 - (NSArray*) standardTabStops {
 	int x;
@@ -1318,7 +1318,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	return paragraphStyles[numberOfTabStops];
 }
 
-// = Elastic tabs =
+#pragma mark - Elastic tabs
 
 // See http://nickgravgaard.com/elastictabstops/ for more information on these
 
@@ -1541,7 +1541,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	return elasticTabStops;
 }
 
-// = Gathering/retrieving intelligence data =
+#pragma mark - Gathering/retrieving intelligence data
 
 @synthesize intelligence = intelSource;
 
@@ -1558,7 +1558,7 @@ static inline BOOL IsLineEnd(unichar c) {
 
 @synthesize intelligenceData = intelData;
 
-// = Intelligence callbacks =
+#pragma mark - Intelligence callbacks
 
 - (int) editingLineNumber {
 	return [self lineForIndex: editingRange.location];

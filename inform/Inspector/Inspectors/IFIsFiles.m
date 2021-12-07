@@ -144,7 +144,8 @@ static NSInteger stringComparer(id a, id b, void * context) {
 }
 
 
-// = Actions =
+#pragma mark - Actions
+
 - (IBAction) addNewFile: (id) sender {
 	// Pass this to the active window
 	if (activeWin != nil) {
@@ -204,7 +205,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
     }];
 }
 
-// = Our life as a data source =
+#pragma mark - Our life as a data source
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
 	if (activeProject == nil) return 0;
@@ -238,11 +239,11 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	if (fullPath == nil) return nil;
 	
 	if (![[NSFileManager defaultManager] fileExistsAtPath: fullPath]) {
-		fileColour = [NSColor redColor];
+		fileColour = [NSColor systemRedColor];
 	}
 	
 	if ([[aTableColumn identifier] isEqualToString: @"filename"]) {
-		if (fileColour == nil) fileColour = [NSColor blackColor];
+		if (fileColour == nil) fileColour = [NSColor textColor];
 		
 		NSString* filenameToUse = [path stringByDeletingPathExtension];
 		
@@ -321,7 +322,7 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	}
 }
 
-// = Delegation is the key to success, apparently =
+#pragma mark - Delegation is the key to success, apparently
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
 	NSString* filename = nil;

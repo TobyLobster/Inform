@@ -11,20 +11,29 @@
 #import "IFUtility.h"
 
 @implementation IFAdvancedPreferences {
-    IBOutlet NSButton* showDebugLogs;					// If checked, show the Inform 6 source and Inform 7 debugging logs
-    IBOutlet NSButton* runBuildSh;						// Causes the Inform 7 build process to be run
-    IBOutlet NSButton* alwaysCompile;                   // If checked, always compile the story (no make-style dependency checking)
-    IBOutlet NSButton* showConsole;                     // If checked, show the Console during building
-    IBOutlet NSButton* publicLibraryDebug;              // If checked, the public library is accessed from a different location (for debugging)
+    /// If checked, show the Inform 6 source and Inform 7 debugging logs
+    IBOutlet NSButton* showDebugLogs;
+    /// Causes the Inform 7 build process to be run
+    IBOutlet NSButton* runBuildSh;
+    /// If checked, always compile the story (no make-style dependency checking)
+    IBOutlet NSButton* alwaysCompile;
+    /// If checked, show the Console during building
+    IBOutlet NSButton* showConsole;
+    /// If checked, the public library is accessed from a different location (for debugging)
+    IBOutlet NSButton* publicLibraryDebug;
 
-    IBOutlet NSButton* cleanBuildFiles;					// If checked, build files are cleaned out
-    IBOutlet NSButton* alsoCleanIndexFiles;				// If checked, index files are cleaned out in addition to build files
-    IBOutlet NSPopUpButton*	glulxInterpreter;			// The glulx interpreter to use
+    /// If checked, build files are cleaned out
+    IBOutlet NSButton* cleanBuildFiles;
+    /// If checked, index files are cleaned out in addition to build files
+    IBOutlet NSButton* alsoCleanIndexFiles;
+    /// The glulx interpreter to use
+    IBOutlet NSPopUpButton*	glulxInterpreter;
 
-    NSMutableArray* interpreters;						// Array of interpreter names, indexed by tags in the glulxInterpreter menu
+    /// Array of interpreter names, indexed by tags in the glulxInterpreter menu
+    NSMutableArray<NSString*>* interpreters;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super initWithNibName: @"AdvancedPreferences"];
@@ -42,7 +51,7 @@
 }
 
 
-// = Preference overrides =
+#pragma mark - Preference overrides
 
 - (NSString*) preferenceName {
 	return @"Advanced";
@@ -58,7 +67,7 @@
 	return [IFUtility localizedString: @"Advanced preferences tooltip"];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (IBAction) setPreference: (id) sender {
 	// Read the current state of the buttons

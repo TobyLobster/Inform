@@ -43,7 +43,8 @@ NS_ENUM(NSInteger) {
 }
 
 
-// = Actions =
+#pragma mark - Actions
+
 @synthesize newFilename;
 - (NSString*) getNewFilename {
 	if ([[[projectController document] settings] usingNaturalInform]) {

@@ -43,7 +43,7 @@ typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
 /// The selection style of this node
 @property (atomic)                    IFHeaderNodeSelectionStyle  selectionStyle;
 /// The children associated with this node
-@property (atomic, readonly, copy)    NSArray *                   children;
+@property (atomic, readonly, copy)    NSArray<IFHeaderNode*> *    children;
 
 /// The node appearing at the specified point
 - (IFHeaderNode*) nodeAtPoint: (NSPoint) point
@@ -53,7 +53,7 @@ typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
 					  intelFile: (IFIntelFile*) intel;
 
 /// The attributes for the title being displayed in this node
-@property (atomic, readonly, copy) NSDictionary *       attributes;
+@property (atomic, readonly, copy) NSDictionary<NSAttributedStringKey,id> *attributes;
 /// The background colour for the text in this node
 @property (atomic, readonly, copy) NSColor *            textBackgroundColour;
 /// The bounding rectangle for the editable part of the name
@@ -63,6 +63,8 @@ typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
 
 /// Sets whether or not this node is being edited
 - (void) setEditing: (BOOL) editing;
+/// Is this node being edited?
+@property (atomic, getter=isEditing) BOOL editing;
 /// Given an edited title, returns the exact value that should be substituted in the source code
 - (NSString*) freshValueForEditedTitle: (NSString*) edited;
 

@@ -49,7 +49,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     __weak IFToolbarManager*    delegate;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithFrame: (NSRect)frameRect {
 	self = [super initWithFrame: frameRect];

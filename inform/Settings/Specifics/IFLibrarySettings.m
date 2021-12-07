@@ -23,7 +23,7 @@
                               default: @"Library Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
     IFCompilerSettings* settings = [self compilerSettings];

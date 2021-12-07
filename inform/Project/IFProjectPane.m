@@ -106,6 +106,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 }
 
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
     NSFont* systemFont       = [NSFont systemFontOfSize: 11];
     NSFont* smallFont        = [NSFont boldSystemFontOfSize: 9];
     NSFont* boldSystemFont   = [NSFont boldSystemFontOfSize: 11];
@@ -117,7 +119,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 
     // Default style
     NSDictionary* defaultStyle = @{NSFontAttributeName: systemFont,
-        NSForegroundColorAttributeName: [NSColor blackColor]};
+        NSForegroundColorAttributeName: [NSColor textColor]};
 
     for (int x = 0; x < 256; x++) {
         IFSyntaxAttributes[x] = defaultStyle;
@@ -170,22 +172,23 @@ static NSDictionary* IFSyntaxAttributes[256];
 
     // Natural inform syntax types
 	IFSyntaxAttributes[IFSyntaxNaturalInform] = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSForegroundColorAttributeName: [NSColor textColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
     IFSyntaxAttributes[IFSyntaxHeading]       = @{ NSFontAttributeName:            headerSystemFont,
-                                                   NSForegroundColorAttributeName: [NSColor blackColor],
+                                                   NSForegroundColorAttributeName: [NSColor textColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 	IFSyntaxAttributes[IFSyntaxGameText]      = @{ NSFontAttributeName:            boldSystemFont,
                                                    NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 	IFSyntaxAttributes[IFSyntaxSubstitution]  = @{ NSFontAttributeName:            systemFont,
-                                                   NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0],
+                                                   NSForegroundColorAttributeName: [NSColor systemPurpleColor],
                                                    NSParagraphStyleAttributeName:  tabStyle};
 
 	// The 'plain' style is a bit of a special case. It's used for files that we want to run the syntax
 	// highlighter on, but where we want the user to be able to set styles. The user will be able to set
 	// certain styles even for things that are affected by the highlighter.
-	IFSyntaxAttributes[IFSyntaxPlain] = @{};
+	IFSyntaxAttributes[IFSyntaxPlain] = @{NSForegroundColorAttributeName: [NSColor textColor]};
+    });
 }
 
 - (instancetype) init {
@@ -449,7 +452,7 @@ static NSDictionary* IFSyntaxAttributes[256];
     return [errorsPage compilerController];
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	// Can't add breakpoints if we're not showing the source view
@@ -462,7 +465,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	return YES;
 }
 
-// = The source view =
+#pragma mark - The source view
 
 - (void) prepareToSave {
 	[sourcePage prepareToSave];
@@ -472,7 +475,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[[self sourcePage] showSourceFile: file];
 }
 
-// = The pages =
+#pragma mark - The pages
 
 @synthesize sourcePage;
 @synthesize errorsPage;
@@ -483,7 +486,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 @synthesize extensionsPage;
 @synthesize settingsPage;
 
-// = The game page =
+#pragma mark - The game page
 
 - (void) stopRunningGame {
 	[gamePage stopRunningGame];
@@ -547,16 +550,16 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[pageBar setRightCells: [[self pageForTabViewItem: tabViewItem] toolbarCells]];
 }
 
-// = The tab view =
+#pragma mark - The tab view
 
 @synthesize tabView;
 
-// = Find =
+#pragma mark - Find
 
 - (void) performFindPanelAction: (id) sender {
 }
 
-// = Dealing with pages =
+#pragma mark - Dealing with pages
 
 - (void) refreshToolbarCells: (NSNotification*) not {
 	// Work out which page we're updating
@@ -618,7 +621,7 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[[newItem view] addSubview: [newPage view]];
 }
 
-// = The history =
+#pragma mark - The history
 
 - (void) updateHistoryControls {
 	if (historyPos <= 0) {

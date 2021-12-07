@@ -12,7 +12,8 @@
 @implementation IFSkeinLinkView {
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (instancetype) initWithFrame:(NSRect) frameRect {
     self = [super initWithFrame: frameRect];
 

@@ -25,7 +25,7 @@ static BOOL indent = YES;
     IFSyntaxData* highlighter;				// The highlighter that wants us to gather intelligence
 }
 
-// = Hacky way to enable/disable indentation while undoing =
+#pragma mark - Hacky way to enable/disable indentation while undoing
 + (void) disableIndentation {
 	indent = NO;
 }
@@ -34,7 +34,7 @@ static BOOL indent = YES;
 	indent = YES;
 }
 
-// = Useful parsing functions = 
+#pragma mark - Useful parsing functions 
 
 + (int) parseNumber: (NSString*) number {
 	// IMPLEMENT ME: parse english numbers (one, two, three, etc)
@@ -50,7 +50,7 @@ static BOOL indent = YES;
 	return [IFNaturalIntel parseNumber: words[1]];
 }
 
-// = Startup =
+#pragma mark - Startup
 
 + (void) initialize {
 	if (!headingList) {
@@ -66,13 +66,13 @@ static BOOL indent = YES;
 	}
 }
 
-// = Notifying of the highlighter currently in use =
+#pragma mark - Notifying of the highlighter currently in use
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
 	highlighter = aData;
 }
 
-// = Gathering information (works like rehint) =
+#pragma mark - Gathering information (works like rehint)
 
 -(BOOL) isHeading:(NSString*) line {
     line = [line lowercaseString];
@@ -169,7 +169,7 @@ static BOOL indent = YES;
 	}
 }
 
-// = Rewriting =
+#pragma mark - Rewriting
 
 - (NSString*) rewriteInput: (NSString*) input {
 	// No rewriting if indentation is disabled

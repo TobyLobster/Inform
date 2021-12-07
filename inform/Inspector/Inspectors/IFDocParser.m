@@ -74,12 +74,12 @@ NSString* const IFDocAttributeTitle = @"IFDocTitle";
 NSString* const IFDocAttributeSection = @"IFDocSection";
 NSString* const IFDocAttributeSort = @"IFDocSort";
 
-// = Static dictionaries =
+#pragma mark - Static dictionaries
 
 static NSSet<NSString*>* ignoreTags = nil;
 static NSDictionary<NSString*,NSString*>* entities = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
 	if (ignoreTags == nil) {
@@ -473,7 +473,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 	return self;
 }
 
-// = The results =
+#pragma mark - The results
 
 @synthesize plainText;
 @synthesize attributes;

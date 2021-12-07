@@ -9,8 +9,8 @@
 #import "IFSkeinItem.h"
 
 
+/// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
 static NSString* idForNode(IFSkeinItem* item) {
-    // Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
     return [NSString stringWithFormat: @"node-%lu", item.uniqueId];
 }
 
@@ -139,7 +139,7 @@ static NSString* idForNode(IFSkeinItem* item) {
     return YES;
 }
 
-#pragma mark Create XML
+#pragma mark - Create XML
 
 // Helper methods
 +(NSXMLNode*) addAttribute: (NSXMLElement*) element

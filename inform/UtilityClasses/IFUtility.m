@@ -34,7 +34,7 @@ CGFloat easeOutCubic(CGFloat t) {
 #pragma mark - "IFUtility"
 @implementation IFUtility
 
-// = Initialisation =
+#pragma mark -  Initialisation
 + (void) initialize {
     uniqueIdLock = [[NSLock alloc] init];
 }
@@ -121,7 +121,7 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
     NSInteger query  = [path indexOf:@"?"];
     NSInteger hash   = [path indexOf:@"#"];
-    NSInteger result = (int) [path length];
+    NSInteger result = [path length];
     if( query != NSNotFound ) result = MIN(result, query);
     if( hash  != NSNotFound ) result = MIN(result, hash);
 
@@ -244,13 +244,13 @@ CGFloat easeOutCubic(CGFloat t) {
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString
                         args: (va_list) args {
-    NSString* contents = [[NSString alloc] initWithFormat: [self localizedString:formatString]
+    NSString* contents = [[NSString alloc] initWithFormat: formatString
                                                  arguments: args];
 
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert addButtonWithTitle:  [self localizedString: yes]];
-    [alert addButtonWithTitle:  [self localizedString: no]];
-    [alert setMessageText:      [self localizedString: title]];
+    [alert addButtonWithTitle:  yes];
+    [alert addButtonWithTitle:  no];
+    [alert setMessageText:      title];
     [alert setInformativeText:  contents];
     [alert setAlertStyle: NSAlertStyleInformational];
     if (@available(macOS 11.0, *)) {
@@ -428,7 +428,7 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* currentVersion = [IFUtility coreBuildVersion];
     if ([version isEqualToStringCaseInsensitive:currentVersion])
     {
-        return [executablePath stringByAppendingPathComponent: @"ni"];
+        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
     }
     return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
 }
@@ -495,11 +495,11 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) temporaryDirectoryURL {
     if( temporaryFolder == nil ) {
         NSError* error;
-        temporaryFolder = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]] isDirectory:YES];
-        [[NSFileManager defaultManager] createDirectoryAtPath: temporaryFolder.path
-                                  withIntermediateDirectories: YES
-                                                   attributes: nil
-                                                        error: &error];
+        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [[NSProcessInfo processInfo] globallyUniqueString] isDirectory: YES];
+        [[NSFileManager defaultManager] createDirectoryAtURL: temporaryFolder
+                                 withIntermediateDirectories: YES
+                                                  attributes: nil
+                                                       error: &error];
     }
     return temporaryFolder;
 }

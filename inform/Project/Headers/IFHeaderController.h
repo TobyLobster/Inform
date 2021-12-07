@@ -10,6 +10,8 @@
 
 #import "IFHeader.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFHeaderController;
 @class IFSyntaxTypes;
 @class IFIntelFile;
@@ -42,7 +44,7 @@ NS_SWIFT_NAME(IFHeaderViewProtocol)
 /// The root header for this controller (ie, the header that the view should display at the top level)
 @property (atomic, readonly, strong) IFHeader *rootHeader;
 /// The currently selected header for this controller (or nil)
-@property (atomic, readonly, strong) IFHeader *selectedHeader;
+@property (atomic, readonly, strong, nullable) IFHeader *selectedHeader;
 /// The intel file that is in use by this controller
 @property (atomic, readonly, strong) IFIntelFile *intelFile;
 
@@ -54,3 +56,5 @@ NS_SWIFT_NAME(IFHeaderViewProtocol)
 - (void) removeHeaderView: (NSView<IFHeaderView>*) oldHeaderView;
 
 @end
+
+NS_ASSUME_NONNULL_END

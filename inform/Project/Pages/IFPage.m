@@ -31,7 +31,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 
 @synthesize view;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithNibName: (NSString*) nib
 	 projectController: (IFProjectController*) controller {
@@ -53,16 +53,12 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	thisPane = newThisPane;
 }
 
-- (void) setOtherPane: (IFProjectPane*) newOtherPane {
-	_otherPane = newOtherPane;
-}
-
 - (void) finished {
 	_parent = nil;
 	_otherPane = nil;
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return @"Untitled";
@@ -81,13 +77,13 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	return [[self class] description];
 }
 
-// = Page validation =
+#pragma mark - Page validation
 
 - (BOOL) shouldShowPage {
 	return YES;
 }
 
-// = Page actions =
+#pragma mark - Page actions
 
 - (void) switchToPage {
 	[self switchToPageWithIdentifier: [self identifier]
@@ -112,7 +108,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 													  userInfo: userInfo];
 }
 
-// = Dealing with the page bar =
+#pragma mark - Dealing with the page bar
 
 - (NSArray*) toolbarCells {
 	return @[];
@@ -123,7 +119,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 														object: self];
 }
 
-// = History =
+#pragma mark - History
 
 @synthesize recorder;
 

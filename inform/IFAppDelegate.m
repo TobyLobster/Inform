@@ -316,7 +316,7 @@ static NSRunLoop* mainRunLoop = nil;
 	return YES;
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (void) visitWebsite: (id) sender {
 	// Get the URL
@@ -391,7 +391,7 @@ static NSRunLoop* mainRunLoop = nil;
     return attributedTitle;
 }
 
-// = The extensions menu =
+#pragma mark - The extensions menu
 
 - (void) updateExtensionsMenu {
 	IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
@@ -524,7 +524,7 @@ static NSRunLoop* mainRunLoop = nil;
     }
 }
 
-// = Some misc actions =
+#pragma mark - Some misc actions
 
 - (IBAction) showPreferences: (id) sender {
 #if defined(DEBUG_EXPORT_HELP_IMAGES)
@@ -534,7 +534,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[PreferenceController sharedPreferenceController] showWindow: self];
 }
 
-// = The help menu =
+#pragma mark - The help menu
 
 - (IBAction) docIndex: (id) sender {
     // If we can switch to an open project document, do so
@@ -565,7 +565,7 @@ static NSRunLoop* mainRunLoop = nil;
     [[NSWorkspace sharedWorkspace] openFile: externalExtensions];
 }
 
-// = Installing extensions =
+#pragma mark - Installing extensions
 
 - (IBAction) installExtension: (id) sender {
 	// Present a panel for adding new extensions
@@ -616,7 +616,7 @@ static NSRunLoop* mainRunLoop = nil;
      }];
 }
 
-// = Searching =
+#pragma mark - Searching
 
 - (IBAction) showFind2: (id) sender {
 	[[IFFindController sharedFindController] showWindow: self];
@@ -634,7 +634,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFFindController sharedFindController] useSelectionForFind: self];
 }
 
-// = Termination =
+#pragma mark - Termination
 
 - (void) applicationWillTerminate: (NSNotification*) not {
     newProj = nil;

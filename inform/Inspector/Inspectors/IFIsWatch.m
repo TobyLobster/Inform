@@ -36,7 +36,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
     IFProjectController* activeController;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFIsWatch*) sharedIFIsWatch {
 	static IFIsWatch* sharedWatch = nil;
@@ -61,7 +61,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	return self;
 }
 
-// = Inspector methods =
+#pragma mark - Inspector methods
 
 - (NSString*) key {
 	return IFIsWatchInspector;
@@ -94,7 +94,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	return YES;
 }
 
-// = Evaluating things =
+#pragma mark - Evaluating things
 
 - (unsigned) evaluateExpression: (NSString*) expr {
 	// Find the ZoomView, if there is one
@@ -156,7 +156,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	[watchTable reloadData];
 }
 
-// = The standard evaluator =
+#pragma mark - The standard evaluator
 
 - (IBAction) expressionChanged: (id) sender {
 	[self refreshExpressions];
@@ -208,7 +208,7 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 	
 	if ([[value substringToIndex: 2] isEqualToString: @"##"]) {
 		return [[NSAttributedString alloc] initWithString: value
-												attributes: @{NSForegroundColorAttributeName: [NSColor redColor]}];
+												attributes: @{NSForegroundColorAttributeName: [NSColor systemRedColor]}];
 	} else {
 		return value;
 	}
@@ -246,6 +246,5 @@ NSString* const IFIsWatchInspector = @"IFIsWatchInspector";
 									  withExpression: anObject];
 	}
 }
-
 
 @end

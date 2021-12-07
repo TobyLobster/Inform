@@ -29,7 +29,7 @@
 @synthesize activeLayoutItem    = _activeLayoutItem;
 @synthesize selectedLayoutItem  = _selectedLayoutItem;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	return [self initWithRootItem: nil];
@@ -47,15 +47,7 @@
 	return self;
 }
 
-// = Setting skein data =
-
-- (void) setRootItem: (IFSkeinItem*) item {
-	_rootItem = item;
-}
-
-- (IFSkeinItem*) rootItem {
-	return _rootItem;
-}
+#pragma mark - Setting skein data
 
 -(void) setRecentlyPlayedItems {
     // Mark everything upwards of the active item as played
@@ -102,13 +94,14 @@
 	}
 }
 
-// = Getting layout data =
+#pragma mark - Getting layout data
 
 - (int) levels {
 	return (int) [levels count];
 }
 
-// = Item positioning data =
+#pragma mark - Item positioning data
+
 - (int) levelAtViewPosY: (CGFloat) viewPosY {
     viewPosY -= kSkeinTopBorder;
 
@@ -174,9 +167,7 @@
 	}
 }
 
-
-
-// = Packing =
+#pragma mark - Packing
 
 - (void) layoutSkein {
     // 'Best Fit' packing style

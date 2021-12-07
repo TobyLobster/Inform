@@ -47,11 +47,11 @@ extern NSString* const IFCompilerNaturalInform;
 @interface IFCompilerSettings : NSObject<NSCoding>
 
 /// The paths to Inform 6 libraries
-+ (NSArray*) inform6LibraryPaths;
+@property (class, atomic, readonly, copy) NSArray<NSString*> *inform6LibraryPaths;
 /// Path to an Inform 6 library with a specific name
 + (NSString*) pathForLibrary: (NSString*) library;
 /// Set of available Inform 6 library
-+ (NSArray*) availableLibraries;
+@property (class, atomic, readonly, copy) NSArray<NSString*> *availableLibraries;
 
 // Getting information on what is going on
 /// The primary compiler type represented by these settings
@@ -72,8 +72,7 @@ extern NSString* const IFCompilerNaturalInform;
 
 @property (atomic, copy) NSString *libraryToUse;
 
-- (void)      setZCodeVersion: (int) version;
-@property (atomic, readonly) int zcodeVersion;
+@property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
 
 @property (atomic) BOOL loudly;
@@ -93,19 +92,19 @@ extern NSString* const IFCompilerNaturalInform;
 
 // Getting command line arguments, etc
 /// Retrieves the command line arguments to pass to the Inform 6 compiler
-@property (atomic, readonly, copy) NSArray *commandLineArguments;
+@property (atomic, readonly, copy) NSArray<NSString*> *commandLineArguments;
 /// Retrieves the command line arguments to pass to the Inform 6 compiler. If \c release is YES, debugging options are turned off
-- (NSArray*) commandLineArgumentsForRelease: (BOOL) release
-                                 forTesting: (BOOL) testing;
+- (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
+                                            forTesting: (BOOL) testing;
 /// Retrieves the path to the Inform 6 compiler that should be used
 @property (atomic, readonly, copy) NSString *compilerToUse;
 /// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
-@property (atomic, readonly, copy) NSArray *supportedZMachines;
+@property (atomic, readonly, copy) NSArray<NSNumber*> *supportedZMachines;
 
 /// Retrieves the path to the Natural Inform compiler to use (nil if ni shouldn't be used)
 @property (atomic, readonly, copy) NSString *naturalInformCompilerToUse;
 /// Retrieves the command line arguments to use with the NI compiler
-@property (atomic, readonly, copy) NSArray *naturalInformCommandLineArguments;
+@property (atomic, readonly, copy) NSArray<NSString*> *naturalInformCommandLineArguments;
 
 // Getting the data as a plist
 /// Reloads the settings from the original Plist values

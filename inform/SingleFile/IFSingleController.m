@@ -112,7 +112,7 @@
     [self setBackgroundColour];
 }
 
-// = Menu items =
+#pragma mark - Menu items
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	SEL itemSelector = [menuItem action];
@@ -211,7 +211,7 @@
     }
 }
 
-// = Showing/hiding the installation prompt =
+#pragma mark - Showing/hiding the installation prompt
 
 - (void) showInstallPrompt: (id) sender {
 	// Get the view that the warning should be displayed in
@@ -260,7 +260,7 @@
 	[mainView setFrame: mainViewFrame];
 }
 
-// = Installer actions =
+#pragma mark - Installer actions
 
 - (IBAction) installFile: (id) sender {
 	// Install this extension
@@ -289,7 +289,7 @@
 	[self hideInstallPrompt: self];
 }
 
-// = Highlighting lines =
+#pragma mark - Highlighting lines
 
 - (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file

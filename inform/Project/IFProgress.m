@@ -28,7 +28,7 @@
     __weak id<IFProgressDelegate> delegate;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithPriority: (int) aPriority
        showsProgressBar: (BOOL) aShowsProgressBar
@@ -50,7 +50,7 @@
 	return self;
 }
 
-// = Setting the current progress =
+#pragma mark - Setting the current progress
 
 @synthesize percentage;
 - (void) setPercentage: (CGFloat) newPercentage {
@@ -104,7 +104,7 @@
 
 @synthesize storyActive;
 
-// = Setting the delegate =
+#pragma mark - Setting the delegate
 
 @synthesize delegate;
 

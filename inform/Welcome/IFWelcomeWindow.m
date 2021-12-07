@@ -56,7 +56,7 @@ static const int maxItemsInRecentMenu = 8;
 /// Shared welcome window
 static IFWelcomeWindow* sharedWindow = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFWelcomeWindow*) sharedWelcomeWindow {
 	if (sharedWindow == nil) {
@@ -225,7 +225,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     [[imageButton cell] setHighlightsBy: NSContentsCellMask];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (void) startedMaintaining: (NSNotification*) not {
 	[backgroundProgress startAnimation: self];
@@ -270,7 +270,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     }
 }
 
-// == NSTableViewDataSource methods ==
+#pragma mark - NSTableViewDataSource methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if( tableView == recentDocumentsTableView ) {

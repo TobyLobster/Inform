@@ -12,6 +12,8 @@
 #import "IFHeaderNode.h"
 #import "IFHeaderController.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFHeaderController;
 @protocol IFHeaderViewDelegate;
 
@@ -31,7 +33,7 @@
 /// Sets the delegate for this view
 @property (atomic, readwrite, weak) id<IFHeaderViewDelegate> delegate;
 /// The message to display centered in the view
-@property (nonatomic, readwrite, copy) NSString *message;
+@property (nonatomic, readwrite, copy, nullable) NSString *message;
 
 @end
 
@@ -47,3 +49,5 @@
  	   withNewTitle: (NSString*) newTitle;
 
 @end
+
+NS_ASSUME_NONNULL_END

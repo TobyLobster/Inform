@@ -27,7 +27,7 @@
     NSTextStorage* editStorage;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -38,11 +38,11 @@
     return self;
 }
 
-// = Information about this view =
+#pragma mark - Information about this view
 
 @synthesize rootHeaderNode;
 
-// = Updating the view =
+#pragma mark - Updating the view
 
 - (void) sizeView {
 	// Resize the view
@@ -98,7 +98,7 @@
 	[self setNeedsDisplay: YES];
 }
 
-// = Settings for this view =
+#pragma mark - Settings for this view
 
 - (BOOL) isFlipped {
 	return YES;
@@ -122,7 +122,7 @@
 @synthesize delegate;
 @synthesize backgroundColour;
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect:(NSRect)rect {
 	// Draw the background
@@ -136,6 +136,7 @@
 		[style setAlignment: NSTextAlignmentCenter];
 		
 		NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                                            NSForegroundColorAttributeName: [NSColor textColor],
 										   NSParagraphStyleAttributeName: style};
 		
 		// Draw roughly centered
@@ -153,7 +154,7 @@
 	}
 }
 
-// = Messages from the header controller =
+#pragma mark - Messages from the header controller
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
 	// Get the root header from the controller
@@ -173,7 +174,7 @@
 	}
 }
 
-// = Editing events =
+#pragma mark - Editing events
 
 - (void) editHeaderNode: (IFHeaderNode*) node 
 			 mouseEvent: (NSEvent*) mouseDown {
@@ -246,7 +247,7 @@
 	if (mouseDown) [editor mouseDown: mouseDown];
 }
 
-// = Mouse events =
+#pragma mark - Mouse events
 
 - (void) mouseDown: (NSEvent*) theEvent {
 	// Get the position where the mouse was clicked
@@ -300,7 +301,7 @@
     }
 }
 
-// = Field editor delegate events =
+#pragma mark - Field editor delegate events
 
 - (void) textDidEndEditing: (NSNotification*) aNotification {
 	// Get the new text for this node

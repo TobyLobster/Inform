@@ -12,14 +12,18 @@
 #import "IFIntelSymbol.h"
 
 @implementation IFHeaderController {
-    IFHeader* rootHeader;												// The root of the headers being managed by this object
-    IFHeader* selectedHeader;											// The header that the user has most recently selected
-    IFIntelFile* intelFile;												// The most recent intel file object
+    /// The root of the headers being managed by this object
+    IFHeader* rootHeader;
+    /// The header that the user has most recently selected
+    IFHeader* selectedHeader;
+    /// The most recent intel file object
+    IFIntelFile* intelFile;
 
-    NSMutableArray<NSView<IFHeaderView>*>* headerViews;										// The header views being managed by this controller
+    /// The header views being managed by this controller
+    NSMutableArray<NSView<IFHeaderView>*>* headerViews;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -31,7 +35,7 @@
 	return self;
 }
 
-// = Sending messages to the views =
+#pragma mark - Sending messages to the views
 
 - (void) refreshHeaders {
 	// Send the refreshHeaders message to all of the views that support it
@@ -55,7 +59,7 @@
 	}
 }
 
-// = Managing the collection of headings being maintained by this object =
+#pragma mark - Managing the collection of headings being maintained by this object
 
 - (void) setChildrenForHeader: (IFHeader*) root
 					   symbol: (IFIntelSymbol*) symbol 
@@ -153,7 +157,7 @@
 @synthesize selectedHeader;
 @synthesize intelFile;
 
-// = Managing the views being controlled =
+#pragma mark - Managing the views being controlled
 
 - (void) addHeaderView: (NSView<IFHeaderView>*) newHeaderView {
 	if (!newHeaderView) {

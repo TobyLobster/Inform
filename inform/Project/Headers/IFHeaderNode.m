@@ -11,13 +11,13 @@
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
 
-// = Fonts =
+#pragma mark - Fonts
 
 static NSFont* headerNodeFont = nil;
 static NSFont* boldHeaderNodeFont = nil;
 static NSString* const bulletPoint = @" • ";
 
-// = Preferences =
+#pragma mark - Preferences
 
 static NSString* const IFHeaderPointSize	= @"IFHeaderPointSize";
 static NSString* const IFHeaderMargin		= @"IFHeaderMargin";
@@ -58,7 +58,7 @@ static CGFloat pointSize = 11.0;
 }
 
 
-// = Class initialization =
+#pragma mark - Class initialization
 
 + (void) initialize {
 	// Register the preferences for this class
@@ -72,7 +72,7 @@ static CGFloat pointSize = 11.0;
 	pointSize = [[[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderPointSize] floatValue];
 }
 
-// = Utilities used to help lay out this node =
+#pragma mark - Utilities used to help lay out this node
 
 - (NSFont*) font {
 	if (depth == 0) return boldHeaderNodeFont;
@@ -125,7 +125,7 @@ static CGFloat pointSize = 11.0;
 	}
 }
 
-// = Constructing this node =
+#pragma mark - Constructing this node
 
 - (instancetype) initWithHeader: (IFHeader*) newHeader
 			 position: (NSPoint) newPosition
@@ -192,7 +192,7 @@ static CGFloat pointSize = 11.0;
 	[self updateNodeFrame];
 }
 
-// = Getting information about this node =
+#pragma mark - Getting information about this node
 
 @synthesize frame;
 @synthesize header;
@@ -289,7 +289,7 @@ static CGFloat pointSize = 11.0;
 	return self;
 }
 
-// = Drawing the node =
+#pragma mark - Drawing the node
 
 - (NSBezierPath*) highlightPathForFrame: (NSRect) drawFrame {
 	// Bezier path representing the outline of this node
@@ -348,7 +348,8 @@ static CGFloat pointSize = 11.0;
 }
 
 - (NSDictionary*) attributes { 
-	return @{NSFontAttributeName: [self font]};
+    return @{NSFontAttributeName: [self font],
+             NSForegroundColorAttributeName: [NSColor textColor]};
 }
 
 - (int) uneditablePartLength {
@@ -392,9 +393,7 @@ static CGFloat pointSize = 11.0;
 			stringByAppendingString: @"\n"];
 }
 
-- (void) setEditing: (BOOL) newEditing {
-	editing = newEditing;
-}
+@synthesize editing;
 
 - (NSColor*) textBackgroundColour {
 	// Draw the node background, if necessary

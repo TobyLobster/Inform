@@ -63,7 +63,7 @@ NSString* const IFIsNotesInspector = @"IFIsNotesInspector";
 	} else {
 		static NSTextStorage* noNotes = nil;
 		
-		if (!noNotes) noNotes = [[NSTextStorage alloc] initWithString: @"No notes available"];
+		if (!noNotes) noNotes = [[NSTextStorage alloc] initWithString: NSLocalizedString(@"No notes available", @"No notes available")];
 		
         [text.layoutManager replaceTextStorage: noNotes];
 		[text setEditable: NO];

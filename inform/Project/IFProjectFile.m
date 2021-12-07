@@ -27,7 +27,7 @@
     }
 }
 
-// = Empty project creation =
+#pragma mark - Empty project creation
 
 - (instancetype) initWithEmptyProject {
     self = [super init];

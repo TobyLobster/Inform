@@ -16,7 +16,8 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
 
 @synthesize forceRedraw;
 
-// = Initialisation =
+#pragma mark - Initialisation
+
 - (instancetype) initWithFrame:(NSRect) frameRect {
     self = [super initWithFrame: frameRect];
 

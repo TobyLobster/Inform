@@ -20,7 +20,7 @@
     IFInform6Highlighter* inform6Highlighter;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -33,7 +33,7 @@
 }
 
 
-// = Notifying of the highlighter currently in use =
+#pragma mark - Notifying of the highlighter currently in use
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
 	activeData = aData;
@@ -41,7 +41,7 @@
     [inform6Highlighter setSyntaxData: aData];
 }
 
-// = The highlighter itself =
+#pragma mark - The highlighter itself
 
 - (IFSyntaxState) stateForCharacter: (unichar) chr
 						 afterState: (IFSyntaxState) lastState {
@@ -259,7 +259,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 	}
 }
 
-// = Styles =
+#pragma mark - Styles
 
 - (NSDictionary*) attributesForStyle: (IFSyntaxStyle) style {
 	return [IFProjectPane attributeForStyle: style];

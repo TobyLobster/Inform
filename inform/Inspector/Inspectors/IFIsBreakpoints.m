@@ -27,7 +27,7 @@ NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
     IBOutlet NSTableView* breakpointTable;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFIsBreakpoints*) sharedIFIsBreakpoints {
 	static IFIsBreakpoints* sharedBreakpoints = nil;
@@ -57,7 +57,7 @@ NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 	return self;
 }
 
-// = Inspectory stuff =
+#pragma mark - Inspectory stuff
 
 - (NSString*) key {
 	return IFIsBreakpointsInspector;
@@ -88,7 +88,7 @@ NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 	return YES;
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (IBAction) cut: (id) sender {
 }
@@ -102,7 +102,7 @@ NSString* const IFIsBreakpointsInspector = @"IFIsBreakpointsInspector";
 - (IBAction) delete: (id) sender {
 }
 
-// = Table data source =
+#pragma mark - Table data source
 
 - (NSInteger)numberOfRowsInTableView: (NSTableView*) aTableView {
 	return [activeProject breakpointCount];

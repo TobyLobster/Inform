@@ -52,7 +52,8 @@
 
 @end
 
-// = Constants =
+#pragma mark - Constants
+
 /// Margin to put on the right (to account for scrollbars, tabs, etc)
 static const CGFloat rightMargin = 14.0;
 /// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
@@ -82,7 +83,7 @@ static const CGFloat leftMargin = 3.0;
     NSRect trackingCellFrame;
 }
 
-// = Images =
+#pragma mark - Images
 
 + (NSImage*) backgroundImage {
 	static NSImage* image = nil;
@@ -144,7 +145,7 @@ static const CGFloat leftMargin = 3.0;
 	return image;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -157,7 +158,7 @@ static const CGFloat leftMargin = 3.0;
 }
 
 
-// = Drawing =
+#pragma mark - Drawing
 
 + (void) drawOverlay: (NSImage*) overlay
 			  inRect: (NSRect) rect
@@ -328,7 +329,7 @@ static const CGFloat leftMargin = 3.0;
 	return;
 }
 
-// = Managing cells =
+#pragma mark - Managing cells
 
 - (void) setLeftCells: (NSArray*) newLeftCells {
 	leftCells = [[NSMutableArray alloc] initWithArray: newLeftCells];
@@ -476,7 +477,7 @@ static const CGFloat leftMargin = 3.0;
 	}
 }
 
-// = Cell housekeeping =
+#pragma mark - Cell housekeeping
 
 - (int) indexOfCellAtPoint: (NSPoint) point {
 	// Returns 0 if no cell, a negative number for a right-hand cell or a positive number for a
@@ -615,7 +616,7 @@ static const CGFloat leftMargin = 3.0;
 	[self updateCell: aCell];
 }
 
-// = Mouse events =
+#pragma mark - Mouse events
 
 @synthesize lastTrackedCell=trackingCell;
 
@@ -682,7 +683,7 @@ static const CGFloat leftMargin = 3.0;
 	}
 }
 
-// = Keyboard events =
+#pragma mark - Keyboard events
 
 - (void) setIsActive: (BOOL) newIsActive {
 	if (isActive == newIsActive) return;

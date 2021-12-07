@@ -133,7 +133,8 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 -(void) startCensus:(NSNumber*) notify;
 - (void) updateExtensions;
 
-// = Download and Install =
+#pragma mark - Download and Install
+
 -(void) addError: (NSString*) message;
 - (BOOL) downloadAndInstallExtension: (NSURL*) url
                               window: (NSWindow*) aWindow

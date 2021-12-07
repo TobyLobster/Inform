@@ -13,7 +13,7 @@
 
 static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 +(void) initialize {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

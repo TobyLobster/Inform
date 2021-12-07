@@ -44,6 +44,6 @@
 -(IFSkeinLayoutItem*) selectedLineChild;
 - (IFSkeinLayoutItem*) leafSelectedLineItem;
 
--(unsigned long) drawStateHash;
+-(NSUInteger) drawStateHash;
 
 @end

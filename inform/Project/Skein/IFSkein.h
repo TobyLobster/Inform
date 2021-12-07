@@ -89,8 +89,9 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 @end
 
-// = Dealing with/creating XML data =
+#pragma mark - Dealing with/creating XML data
 
+/// Dealing with/creating XML data
 @interface IFSkein(IFSkeinXML)
 
 /// Create XML string for output

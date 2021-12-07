@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFCompilerSettings;
 @class IFProgress;
+@protocol IFCompilerDelegate;
 
 extern NSNotificationName const IFCompilerClearConsoleNotification;
 extern NSNotificationName const IFCompilerStartingNotification;
@@ -17,14 +20,12 @@ extern NSNotificationName const IFCompilerStdoutNotification;
 extern NSNotificationName const IFCompilerStderrNotification;
 extern NSNotificationName const IFCompilerFinishedNotification;
 
-@protocol IFCompilerDelegate;
-
 typedef NS_ENUM(int, ECompilerProblemType) {
-    EProblemTypeNone,
-    EProblemTypeInform7,
-    EProblemTypeInform6,
-    EProblemTypeCBlorb,
-    EProblemTypeUnknown
+    EProblemTypeNone NS_SWIFT_NAME(none),
+    EProblemTypeInform7 NS_SWIFT_NAME(inform7),
+    EProblemTypeInform6 NS_SWIFT_NAME(inform6),
+    EProblemTypeCBlorb NS_SWIFT_NAME(cBlorb),
+    EProblemTypeUnknown NS_SWIFT_NAME(unknown)
 };
 
 ///
@@ -33,11 +34,11 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 @protocol IFCompilerProblemHandler <NSObject>
 
 /// Returns the problem URL to use when the compiler finishes with a specific error code
-- (NSURL*) urlForProblemWithErrorCode: (int) errorCode;
+- (nullable NSURL*) urlForProblemWithErrorCode: (int) errorCode NS_SWIFT_NAME(urlForProblem(errorCode:));
 
 @optional
 /// Called only for the final stage, and can provide an optional page to show to indicate success
-@property (atomic, readonly, copy) NSURL *urlForSuccess;
+@property (atomic, readonly, copy, nullable) NSURL *urlForSuccess;
 
 @end
 
@@ -48,27 +49,26 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 
 //+ (NSString*) compilerExecutable;
 /// If set, debug options will be turned off while building
-- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing;
-/// Sets the initial input file
-/// Retrieves the input file name
+- (void) setBuildForRelease: (BOOL) willRelease forTesting: (BOOL) testing NS_SWIFT_NAME(setBuild(forRelease:forTesting:));
+/// The input file name.
 @property (atomic, copy) NSString *inputFile;
 /// Retrieves the settings
 /// Sets the settings to use while compiling
 @property (atomic, strong) IFCompilerSettings *settings;
-/// Sets the build products directory
-/// Retrieves the working directory path
+/// Sets the build products directory.
+/// Retrieves the working directory path.
 @property (atomic, copy) NSString *directory;
 
 /// Prepares the first task for launch
-- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase;
-/// YES if a compiler is running
+- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(nullable NSString*) testCase;
+/// \c YES if a compiler is running
 @property (atomic, getter=isRunning, readonly) BOOL running;
 
 /// Adds a new build stage to the compiler
 - (void) addCustomBuildStage: (NSString*) command
-               withArguments: (NSArray*) arguments
+               withArguments: (NSArray<NSString*>*) arguments
               nextStageInput: (NSString*) file
-				errorHandler: (id<IFCompilerProblemHandler>) handler
+				errorHandler: (nullable id<IFCompilerProblemHandler>) handler
 					   named: (NSString*) stageName;
 /// Adds a new Natural Inform build stage to the compiler
 - (void) addNaturalInformStageUsingTestCase:(NSString*) testCase;
@@ -82,18 +82,18 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 /// Path of the compiler output file
 @property (atomic, copy) NSString *outputFile;
 /// URL of the file that should be shown in the 'Problems' tab; nil if we should use the standard problems.html file
-@property (atomic, readonly, copy) NSURL *problemsURL;
+@property (atomic, readonly, copy, nullable) NSURL *problemsURL;
 // Sets the file that the compiler should target
 /// If YES, the output is deleted when the compiler is deallocated
 @property (atomic) BOOL deletesOutput;
 - (void)      setDeletesOutput: (BOOL) deletes;
 
 /// Sets the delegate object for the compiler. The delegate is NOT RETAINED.
-- (void) setDelegate: (id<IFCompilerDelegate>) delegate;
+- (void) setDelegate: (nullable id<IFCompilerDelegate>) delegate;
 /// Retrieves the delegate object.
-- (id<IFCompilerDelegate>)   delegate;
+- (nullable id<IFCompilerDelegate>)   delegate;
 /// The delegate object.
-@property (atomic, weak) id<IFCompilerDelegate> delegate;
+@property (atomic, weak, nullable) id<IFCompilerDelegate> delegate;
 
 /// Clears the console
 - (void) clearConsole;
@@ -106,7 +106,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 /// Retrieves the progress indicator for this compiler
 @property (atomic, readonly, strong) IFProgress *progress;
 
-@property (atomic, readwrite, copy) NSString *endTextString;
+@property (atomic, readwrite, copy, nullable) NSString *endTextString;
 
 @end
 
@@ -124,3 +124,5 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 - (void) receivedFromStdErr: (NSString*) data;
 
 @end
+
+NS_ASSUME_NONNULL_END

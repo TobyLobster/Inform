@@ -10,12 +10,10 @@
 
 #import "IFPreferences.h"
 
-#import "IFNaturalProblem.h"
-#import "IFInform6Problem.h"
-#import "IFCblorbProblem.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
 #import "IFCompilerSettings.h"
+#import "Inform-Swift.h"
 
 static int mod = 0;
 
@@ -61,10 +59,13 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     /// stdOut pipe
     NSPipe* stdOut;
 
-    NSFileHandle* stdErrH;					// File handle for std err
-    NSFileHandle* stdOutH;					// ... and for std out
+    /// File handle for stderr
+    NSFileHandle* stdErrH;
+    /// File handle for stdout
+    NSFileHandle* stdOutH;
 
-    int finishCount;						// When =3, notify the delegate that the task is dead
+    /// When =3, notify the delegate that the task is dead
+    int finishCount;
 
     // Progress
     /// Progress indicator for compilation
@@ -174,7 +175,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
     [args addObject: [NSString stringWithFormat: @"-%@",
                      [IFUtility compilerProjectParameterName: [settings compilerVersion]]]];
-    [args addObject: [NSString stringWithString: [self currentStageInput]]];
+    [args addObject: [[self currentStageInput] copy]];
     [args addObject: [NSString stringWithFormat: @"-%@=%@",
                       [IFUtility compilerFormatParameterName: [settings compilerVersion]],
                       [settings fileExtension]]];
@@ -196,7 +197,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [self addCustomBuildStage: [settings naturalInformCompilerToUse]
                 withArguments: args
                nextStageInput: [NSString stringWithFormat: @"%@/Build/auto.inf", [self currentStageInput]]
-				 errorHandler: [[IFNaturalProblem alloc] init]
+				 errorHandler: [[NaturalProblem alloc] init]
 						named: [IFUtility localizedString: @"Compiling Natural Inform source"]];
 }
 
@@ -204,18 +205,18 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     if (!outputFile) [self outputFile];
     
     // Prepare the arguments
-    NSMutableArray* args = [NSMutableArray arrayWithArray: [settings commandLineArgumentsForRelease: release
-                                                                                         forTesting: releaseForTesting]];
+    NSMutableArray* args = [[settings commandLineArgumentsForRelease: release
+                                                          forTesting: releaseForTesting] mutableCopy];
 
     // [args addObject: @"-x"];
    
-    [args addObject: [NSString stringWithString: [self currentStageInput]]];
-    [args addObject: [NSString stringWithString: outputFile]];
+    [args addObject: [[self currentStageInput] copy]];
+    [args addObject: [outputFile copy]];
 
     [self addCustomBuildStage: [settings compilerToUse]
                 withArguments: args
                nextStageInput: outputFile
-				 errorHandler: usingNaturalInform ? [[IFInform6Problem alloc] init] : nil
+				 errorHandler: usingNaturalInform ? [[Inform6Problem alloc] init] : nil
 						named: [IFUtility localizedString: @"Compiling Inform 6 source"]];
 }
 
@@ -231,7 +232,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 }
 
 - (void) sendTaskDetails: (NSTask*) task {
-	NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", [[task launchPath] lastPathComponent]];
+	NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", [[task executableURL] lastPathComponent]];
 	
 	for( NSString* arg in [task arguments] ) {
 		[taskMessage appendFormat: @" \"%@\"", arg];
@@ -273,7 +274,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
         [theTask setEnvironment: newEnvironment];
     }
 
-    NSMutableString* executeString = [@"" mutableCopy];
+    NSMutableString* executeString = [NSMutableString string];
 
     [executeString appendString: command];
     [executeString appendString: @" \\\n\t"];
@@ -374,20 +375,20 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 			// Work out the new output file
 			NSString* oldOutput  = [self outputFile];
-			NSString* newOutput  = [NSString stringWithFormat: @"%@.%@", [oldOutput stringByDeletingPathExtension], extension];
+			NSString* newOutput  = [[oldOutput stringByDeletingPathExtension] stringByAppendingPathExtension: extension];
 
 			// Work out where the blorb is coming from
             NSString* buildDir   = [[self currentStageInput] stringByDeletingLastPathComponent];
             NSString* projectdir = [buildDir stringByDeletingLastPathComponent];
-			NSString* blorbFile  = [NSString stringWithFormat: @"%@/Release.blurb", projectdir];
+			NSString* blorbFile  = [projectdir stringByAppendingPathComponent: @"Release.blurb"];
 
 			// Add a cBlorb stage
-            NSString *cBlorbLocation = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"cBlorb"];
+            NSString *cBlorbLocation = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"cBlorb"];
 
 			[self addCustomBuildStage: cBlorbLocation
 						withArguments: @[blorbFile, newOutput]
 					   nextStageInput: newOutput
-						 errorHandler: [[IFCblorbProblem alloc] initWithBuildDir: buildDir]
+						 errorHandler: [[CBlorbProblem alloc] initWithBuildDir: buildDir]
 								named: @"cBlorb build stage"];
 
 			// Change the output file
@@ -440,11 +441,11 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     ECompilerProblemType problemType = EProblemTypeNone;
 
     if( exitCode != 0 ) {
-        if ([problemHandler isKindOfClass: [IFNaturalProblem class]]) {
+        if ([problemHandler isKindOfClass: [NaturalProblem class]]) {
             problemType = EProblemTypeInform7;
-        } else if ([problemHandler isKindOfClass: [IFInform6Problem class]]) {
+        } else if ([problemHandler isKindOfClass: [Inform6Problem class]]) {
             problemType = EProblemTypeInform6;
-        } else if ([problemHandler isKindOfClass: [IFCblorbProblem class]]) {
+        } else if ([problemHandler isKindOfClass: [CBlorbProblem class]]) {
             problemType = EProblemTypeCBlorb;
         } else if (problemHandler != nil) {
             problemType = EProblemTypeUnknown;

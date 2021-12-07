@@ -13,11 +13,14 @@
 
 
 @implementation IFIsTitleView {
-    NSAttributedString* title;						// The title to display
+    /// The title to display
+    NSAttributedString* title;
 
     // Key display
-    NSString* keyEquiv;								// (UNUSED) key to open this inspector
-    NSString* modifiers;							// (UNUSED) modifiers that apply to the key
+    /// (UNUSED) key to open this inspector
+    NSString* keyEquiv;
+    /// (UNUSED) modifiers that apply to the key
+    NSString* modifiers;
 }
 
 static NSImage* bgImage = nil;
@@ -27,6 +30,8 @@ static CGFloat titleHeight = 0;
 static NSDictionary* fontAttributes;
 
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 	// Background image
 	bgImage = [NSImage imageNamed: @"App/Inspector/Inspector-TitleBar"];
 	
@@ -47,7 +52,7 @@ static NSDictionary* fontAttributes;
 	fontAttributes = @{NSFontAttributeName: titleFont,
 		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6],
                        NSShadowAttributeName: shadow};
-
+    });
 }
 
 + (CGFloat) titleHeight {
@@ -63,7 +68,7 @@ static NSDictionary* fontAttributes;
 }
 
 
-// = What to display =
+#pragma mark - What to display
 
 - (void) setTitle: (NSString*) newTitle {
 	
@@ -77,32 +82,23 @@ static NSDictionary* fontAttributes;
 	keyEquiv = nil;
 	if (equiv == nil || [equiv length] <= 0) return;
 	
-	static const unichar returnChars[] = { 0x21a9 };
-	static const unichar escapeChars[] = { 0x238b };
-	static const unichar backspaceChars[] = { 0x232b };
-	static const unichar tabChars[] = { 0x21e5 };
-	
 	switch ([keyEquiv characterAtIndex: 0]) {
 		case '\r':
 		case '\n':
-			keyEquiv = [NSString stringWithCharacters: returnChars
-												length: 1];
+			keyEquiv = @"\u21a9";
 			break;
 			
 		case '\b':
 		case 127:
-			keyEquiv = [NSString stringWithCharacters: backspaceChars
-												length: 1];
+			keyEquiv = @"\u232b";
 			break;
 			
 		case 9:
-			keyEquiv = [NSString stringWithCharacters: tabChars
-												length: 1];
+			keyEquiv = @"\u21e5";
 			break;
 		
 		case '\e':
-			keyEquiv = [NSString stringWithCharacters: escapeChars
-												length: 1];
+			keyEquiv = @"\u238b";
 			break;
 			
 		default:
@@ -121,7 +117,7 @@ static NSDictionary* fontAttributes;
 	
 }
 
-// = Drawing, etc =
+#pragma mark - Drawing, etc
 
 - (void)drawRect:(NSRect)rect {
 	NSRect bounds = [self bounds];

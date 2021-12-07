@@ -81,7 +81,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
     return result;
 }
 
-// = Basic interface =
+#pragma mark - Basic interface
 
 - (BOOL) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type {
@@ -151,7 +151,7 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 	return [[self string] substringWithRange: [self selectedRange]];
 }
 
-// = 'Find all' =
+#pragma mark - 'Find all'
 
 - (void) highlightFindResult: (IFFindResult*) result {
 	NSRange matchRange = [result fileRange];
@@ -235,7 +235,8 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 	return results;
 }
 
-// = Replace =
+#pragma mark - Replace
+
 - (NSArray*) lastFoundGroups {
     return lastFoundGroups;
 }

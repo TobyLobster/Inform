@@ -8,6 +8,7 @@
 
 #import <AppKit/AppKit.h>
 #import <GlkView/GlkAutomation.h>
+#import <WebKit/WebKit.h>
 #import "IFSkeinView.h"
 #import "IFProjectTypes.h"
 #import "IFFindResult.h"
@@ -27,7 +28,8 @@
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
                                                     IFSkeinViewDelegate,
-                                                    IFRuntimeErrorParserDelegate>
+                                                    IFRuntimeErrorParserDelegate,
+                                                    WebUIDelegate>
 
 - (void) layoutPanes;
 
