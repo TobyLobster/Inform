@@ -98,7 +98,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 	return theTask!=nil?[theTask isRunning]:NO;
 }
 
--(void) executeInTestWithArgs:(NSArray*) args {
+-(void) executeInTestForExtension: extensionPathName withArgs:(NSArray*) args {
     if (theTask) {
         if ([theTask isRunning]) {
             [theTask terminate];
@@ -106,11 +106,15 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         theTask = nil;
     }
 
+    NSMutableArray *mutableArgs = [[NSMutableArray alloc] initWithArray:args];
+    [mutableArgs insertObject: [[extensionPathName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]
+                      atIndex: 0];
+    
     NSString *command = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"intest"];
 
     // InTest Start notification
     NSDictionary* uiDict = @{@"command": command,
-                             @"args": args};
+                             @"args": mutableArgs};
     [[NSNotificationCenter defaultCenter] postNotificationName: IFInTestStartingNotification
                                                         object: self
                                                       userInfo: uiDict];
@@ -121,7 +125,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
     theTask = [[NSTask alloc] init];
 
-    [theTask setArguments:  args];
+    [theTask setArguments:  mutableArgs];
     [theTask setLaunchPath: command];
     [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
 
@@ -129,7 +133,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
     [message appendFormat:@"Command: %@\n", command];
     [message appendString:@"Args: "];
-    for(NSString* arg in args) {
+    for(NSString* arg in mutableArgs) {
         bool hasSpaces = ( [arg indexOf:@" "] >= 0 );
         if( hasSpaces ) [message appendString: @"'"];
         [message appendString: arg];
@@ -195,7 +199,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                            @"-source",      testCase,
                            @"-to",          sourcePathName,
                            @"-concordance", testCase ];
-    [self executeInTestWithArgs: args];
+    [self executeInTestForExtension:extensionPathName withArgs:args];
 
     // Parse concordance
     IFTestCaseData* data = [[IFTestCaseData alloc] init];
@@ -232,7 +236,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           @"-extension", extensionPathName,
                           @"-do",
                           @"-catalogue" ];
-    [self executeInTestWithArgs: args];
+    [self executeInTestForExtension:extensionPathName withArgs:args];
 
     // Interpret results
     NSMutableArray* testCases = [[NSMutableArray alloc] init];
@@ -272,7 +276,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           @"-extension", extensionPathName,
                           @"-do",
                           @"-script", testCase ];
-    [self executeInTestWithArgs: args];
+    [self executeInTestForExtension:extensionPathName withArgs:args];
 
     // Interpret results
     NSString* results = nil;
@@ -307,7 +311,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           [NSString stringWithFormat:@"t%d", skeinNodes],
                           @"-to",
                           outputURL.path];
-    [self executeInTestWithArgs: args];
+    [self executeInTestForExtension:extensionPathName withArgs:args];
 
     [self tidyUp];
     return exitCode;
@@ -329,7 +333,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                           [NSString stringWithFormat:@"-%d", numTests],
                           @"-to",
                           outputURL.path];
-    [self executeInTestWithArgs: args];
+    [self executeInTestForExtension:extensionPathName withArgs:args];
 
     [self tidyUp];
     return exitCode;
