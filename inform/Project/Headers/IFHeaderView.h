@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol IFHeaderViewDelegate <NSObject>
+@protocol IFHeaderViewDelegate <NSObject, IFHeaderView>
 @optional
 
 /// Indicates that a header node has been clicked on

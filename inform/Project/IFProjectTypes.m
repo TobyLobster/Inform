@@ -101,7 +101,8 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
     //
     // Inform 6 ICL file
     //
-	if ([typeName isEqualTo: @"inform control language file"]) {
+	if ([typeName isEqualTo: @"inform control language file"] ||
+        [typeName isEqualToString: @"public.c-header"]) {
         return IFFileTypeInform6ICLFile;
 	}
 

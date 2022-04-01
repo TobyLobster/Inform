@@ -20,6 +20,7 @@
 #import "IFProjectTypes.h"
 #import "IFProject.h"
 #import <ZoomView/ZoomView.h>
+#import <GlkSound/GlkSound.h>
 #import "Inform-Swift.h"
 
 @interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver, ZoomViewDelegate>
@@ -49,6 +50,8 @@
     NSString*        gameToRun;
     /// \c YES to switch view to show the game page
     BOOL             switchToPage;
+    
+    GlkSoundHandler *soundHandler;
 
     /// The progress indicator (how much we've compiled, how the game is running, etc)
     IFProgress*      gameRunningProgress;
@@ -186,7 +189,9 @@
 		//NSLog(@"Using glulx interpreter '%@'", clientName);
 		
 		// Start running as a glulxe task
+        soundHandler = [[GlkSoundHandler alloc] init];
 		gView = [[GlkView alloc] init];
+        gView.soundHandler = soundHandler;
 		[gView setDelegate: self];
 		[gView addOutputReceiver: self.parent];
 		[gView addOutputReceiver: runtimeErrors];

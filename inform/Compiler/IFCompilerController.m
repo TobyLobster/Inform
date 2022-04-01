@@ -919,7 +919,7 @@ static IFCompilerController* activeController = nil;
 
 	[tabs addObject: newTab];
 	
-	if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+	if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
 		[delegate viewSetHasUpdated: self];
 	}
 	
@@ -1103,7 +1103,7 @@ static IFCompilerController* activeController = nil;
 	
 	// Notify the delegate that the set of views has updated
     if( updated ) {
-        if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+        if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
             [delegate viewSetHasUpdated: self];
         }
     }
@@ -1209,7 +1209,7 @@ static IFCompilerController* activeController = nil;
 
 		// We only redirect if the page is different to the current one
 		if (!samePage) {
-			if (delegate && [delegate respondsToSelector: @selector(handleURLRequest:)]) {
+			if ([delegate respondsToSelector: @selector(handleURLRequest:)]) {
 				if ([delegate handleURLRequest: request]) {
 					[listener ignore];
 					return;
@@ -1250,7 +1250,7 @@ static IFCompilerController* activeController = nil;
         [self replaceViewWithTabId: IFTabConsole
                           withView: splitView];
 	}
-	if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+	if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
 		[delegate viewSetHasUpdated: self];
     }
 }
@@ -1294,7 +1294,7 @@ static IFCompilerController* activeController = nil;
     //NSAssert(selectedTabId != IFTabInvalid, @"Invalid tab selected");
 	
 	// Inform the delegate of the change
-	if (delegate && [delegate respondsToSelector: @selector(compiler:switchedToView:)]) {
+	if ([delegate respondsToSelector: @selector(compiler:switchedToView:)]) {
 		[delegate compiler: self
 			switchedToView: (int) index];
 	}

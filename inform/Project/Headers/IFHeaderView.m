@@ -169,8 +169,8 @@
 	// Update this control
 	[self updateFromRoot];
 	
-	if (delegate && [delegate respondsToSelector:@selector(refreshHeaders:)]) {
-		[(id<IFHeaderView>)delegate refreshHeaders: controller];
+	if ([delegate respondsToSelector:@selector(refreshHeaders:)]) {
+		[delegate refreshHeaders: controller];
 	}
 }
 
@@ -267,7 +267,7 @@
                       mouseEvent: theEvent];
         } else {
             // Inform the delegate that the header has been clicked
-            if (clicked && delegate && [delegate respondsToSelector: @selector(headerView:clickedOnNode:)]) {
+            if (clicked && [delegate respondsToSelector: @selector(headerView:clickedOnNode:)]) {
                 [delegate headerView: self
                        clickedOnNode: clicked];
             }
@@ -308,7 +308,7 @@
 	NSString* newText = [editNode freshValueForEditedTitle: [editStorage string]];
 	
 	// Tell the delegate to update the source text
-	if (delegate && [delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
+	if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
 		[delegate headerView: self
 				  updateNode: editNode
 				withNewTitle: newText];

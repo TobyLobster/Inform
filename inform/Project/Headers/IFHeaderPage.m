@@ -116,8 +116,8 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 		[self highlightNodeWithLines: highlightLines];
 	}
 	
-	if (delegate && [delegate respondsToSelector: @selector(refreshHeaders:)]) {
-		[(id<IFHeaderView>)delegate refreshHeaders: control];
+	if ([delegate respondsToSelector: @selector(refreshHeaders:)]) {
+		[delegate refreshHeaders: control];
 	}
 }
 
@@ -158,7 +158,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 - (void) headerView: (IFHeaderView*) view
 	  clickedOnNode: (IFHeaderNode*) node {
-	if (delegate && [delegate respondsToSelector: @selector(headerPage:limitToHeader:)]) {
+	if ([delegate respondsToSelector: @selector(headerPage:limitToHeader:)]) {
 		[delegate headerPage: self
 			   limitToHeader: [node header]];
 	}
@@ -167,7 +167,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 - (void) headerView: (IFHeaderView*) view
  		 updateNode: (IFHeaderNode*) node
  	   withNewTitle: (NSString*) newTitle {
-	if (delegate && [delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
+	if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
 		[delegate headerView: view
 				  updateNode: node
 				withNewTitle: newTitle];

@@ -56,7 +56,7 @@
 - (void) setPercentage: (CGFloat) newPercentage {
 	percentage = newPercentage;
 	
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicator:percentage:)]) {
 		[delegate progressIndicator: self
 						 percentage: newPercentage];
 	}
@@ -66,7 +66,7 @@
 - (void) setMessage: (NSString*) newMessage {
 	message = [newMessage copy];
 
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:message:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicator:message:)]) {
 		[delegate progressIndicator: self
 							message: message];
 	}
@@ -74,14 +74,14 @@
 
 - (void) startStory {
     storyActive = YES;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStartStory:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStartStory:)]) {
 		[delegate progressIndicatorStartStory: self];
 	}
 }
 
 - (void) stopStory {
     storyActive = NO;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStopStory:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStopStory:)]) {
 		[delegate progressIndicatorStopStory: self];
 	}
 }
@@ -89,7 +89,7 @@
 - (void) startProgress {
     inProgress = YES;
     percentage = 0.0f;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStartProgress:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStartProgress:)]) {
 		[delegate progressIndicatorStartProgress: self];
 	}
 }
@@ -97,7 +97,7 @@
 - (void) stopProgress {
     inProgress = NO;
     percentage = 0.0f;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStopProgress:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStopProgress:)]) {
 		[delegate progressIndicatorStopProgress: self];
 	}
 }

@@ -211,7 +211,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
         return;
     }
 
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(findNextMatch:ofType:)]) {
+	if ([activeDelegate respondsToSelector: @selector(findNextMatch:ofType:)]) {
 		// Close the 'all' dialog if necessary
 		[self setLastSearch: [findPhrase stringValue]];
 		
@@ -229,7 +229,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
         return;
     }
 
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(findPreviousMatch:ofType:)]) {
+	if ([activeDelegate respondsToSelector: @selector(findPreviousMatch:ofType:)]) {
 		// Close the 'all' dialog if necessary
 		[self setLastSearch: [findPhrase stringValue]];
 		
@@ -266,7 +266,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (IBAction) replace: (id) sender {
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(replaceFoundWith:)]) {
+	if ([activeDelegate respondsToSelector: @selector(replaceFoundWith:)]) {
 		[self addPhraseToReplaceHistory: [replacePhrase stringValue]];
 		[activeDelegate replaceFoundWith: [replacePhrase stringValue]];
 	}
@@ -276,7 +276,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	// Hack: ensure the window is loaded
 	[self window];
 	
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
+	if ([activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
 		NSString* searchFor = [activeDelegate currentSelectionForFind];
 		if (searchFor && ![@"" isEqualToString: searchFor]) {
 			[findPhrase setStringValue: searchFor];
@@ -312,7 +312,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (BOOL) canUseSelectionForFind: (id) sender {
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
+	if ([activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
 		if (![@"" isEqualToString: [activeDelegate currentSelectionForFind]]) {
 			return YES;
 		}
@@ -628,7 +628,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	if ([findAllTable numberOfSelectedRows] != 1) return;
 	
 	NSUInteger selectedRow = [findAllTable selectedRow];
-	if (activeDelegate && [activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
+	if ([activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
 		[activeDelegate highlightFindResult: findAllResults[selectedRow]];
 	}
 }
