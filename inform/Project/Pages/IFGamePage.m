@@ -252,7 +252,7 @@
     NSMutableArray* commands = [[NSMutableArray alloc] init];
 
     while( (item != nil) && (item.parent != nil) ) {
-        [commands insertObject: item.command atIndex:0];
+        [commands addObject: item.command];
         item = item.parent;
     }
     [self setTestCommands: [commands copy]];

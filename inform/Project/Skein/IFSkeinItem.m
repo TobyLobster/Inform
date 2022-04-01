@@ -13,7 +13,7 @@
 #import "IFSkein.h"
 
 // Paseboard type for drag and drop
-NSString* const IFSkeinItemPboardType = @"IFSkeinItemPboardType";
+NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 
 #pragma mark - "Skein Item"
 @implementation IFSkeinItem {

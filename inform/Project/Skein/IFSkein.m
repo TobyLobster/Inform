@@ -235,21 +235,21 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 + (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
                                               toItem: (IFSkeinItem*) item2 {
 	// item1 must be a parent of item2, and neither can be nil
-	// item1 is not executed
+
+    // item1 is not executed
 	if (item1 == nil || item2 == nil) return nil;
 
-	NSMutableArray* commandsToExecute = [NSMutableArray array];
+	NSMutableArray<NSString*>* commandsToExecute = [NSMutableArray array];
+    IFSkeinItem* parent = item2;
 
-	while (item2 != item1) {
-        if( !item2.isTestSubItem ) {
-            NSString* cmd = item2.command;
-            if (cmd == nil) cmd = @"";
-            [commandsToExecute insertObject: cmd atIndex:0];
-        }
+    while (parent != item1) {
+        NSString* cmd = [parent command];
+        if (cmd == nil) cmd = @"";
+        [commandsToExecute addObject: cmd];
 
-		item2 = item2.parent;
-		if (item2 == nil) return nil;
-	}
+        parent = [parent parent];
+        if (parent == nil) return nil;
+    }
 
 	// commandsToExecute contains the list of commands we need to execute
     TestCommands* source = [[TestCommands alloc] initWithCommands: commandsToExecute];
