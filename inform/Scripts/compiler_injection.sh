@@ -1,10 +1,11 @@
 #
 # Copies resources to target build.
 #
-# Some executables and resources for the app originate from the core of Graham Nelson's unpublished Inform.
-# If "Inform Core" exists, these resources are built and copied into the StagingArea.
-# The StagingArea files are then copied to the target build.
 
+# Some executables and resources for the app originate from the core of Graham Nelson's unpublished Inform.
+# If "Inform Core" exists, these resources are built and copied into the TempStagingArea.
+# Resources from TempStagingArea are copied into the StagingArea proper as needed.
+# The StagingArea files are then copied to the target build.
 export INFORM_CORE="${SRCROOT}/../../Inform Core/inform"
 export INFORM_APP_DIR="${TARGET_BUILD_DIR}"
 export STAGING_AREA="${SRCROOT}/StagingArea/Contents"
@@ -47,22 +48,22 @@ if [ -d "${INFORM_CORE}" ]; then
         fi
     fi
 
+    # Make directories in TempStagingArea
     mkdir -p "${TEMP_STAGING_AREA}/MacOS"
-    mkdir -p "${TEMP_STAGING_AREA}/MacOS/6L02"
-    mkdir -p "${TEMP_STAGING_AREA}/MacOS/6L38"
-    mkdir -p "${TEMP_STAGING_AREA}/MacOS/6M62"
     mkdir -p "${TEMP_STAGING_AREA}/Resources"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/retrospective/6L02"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/retrospective/6L38"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/retrospective/6L38/Languages/English"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/retrospective/6M62"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/English"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/App/Icons"
-    mkdir -p "${TEMP_STAGING_AREA}/Resources/en.lproj"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/French"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/German"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/Italian"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/Spanish"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/Swedish"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Miscellany"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/English.lproj"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/map_icons"
 
+    # Build Inform Core
     if [ -f $TESTFILE ];
     then
         # Incremental build
@@ -73,6 +74,9 @@ if [ -d "${INFORM_CORE}" ]; then
         make force
     fi
 
+    cd "${INFORM_CORE}"
+
+    # Make Inform Core build the retrospective executable (and other resource) files
     rm -f retrospective/6L02/*.o
     rm -f retrospective/6L02/cBlorb
     rm -f retrospective/6L02/ni
@@ -85,11 +89,10 @@ if [ -d "${INFORM_CORE}" ]; then
     rm -f retrospective/6M62/cBlorb
     rm -f retrospective/6M62/ni
 
-    cd "${INFORM_CORE}"
     make -f retrospective/makefile
 
     #
-    # Copy further resources from inform-source
+    # Copy resources from Inform Core into the StagingArea
     #
     set -x
 
@@ -107,11 +110,9 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/skeinfile.icns"          "${STAGING_AREA}/Resources/App/Icons/skeinfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner.png"      "${STAGING_AREA}/Resources/Welcome Banner.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner@2x.png"   "${STAGING_AREA}/Resources/Welcome Banner@2x.png"
-    cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
-    cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
 
     # Copy retrospective files
-    #cp -f "${INFORM_CORE}/retrospective/retrospective.txt"                      "${STAGING_AREA}/Resources/App/Compilers/retrospective.txt"
+    cp -f "${INFORM_CORE}/retrospective/retrospective.txt"                      "${STAGING_AREA}/Resources/App/Compilers/retrospective.txt"
 
     # Copy retrospective executable files
     cp -f "${INFORM_CORE}/retrospective/6L02/cBlorb"                            "${STAGING_AREA}/MacOS/6L02/cBlorb"
@@ -120,13 +121,41 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/retrospective/6L38/ni"                                "${STAGING_AREA}/MacOS/6L38/ni"
     cp -f "${INFORM_CORE}/retrospective/6M62/cBlorb"                            "${STAGING_AREA}/MacOS/6M62/cBlorb"
     cp -f "${INFORM_CORE}/retrospective/6M62/ni"                                "${STAGING_AREA}/MacOS/6M62/ni"
-    
-    # Copy the 64 bit versions of certain key executables from TEMP_STAGING_AREA to STAGING_AREA
+
+    # Copy the 64 bit versions of certain key executables from TempStagingArea to StagingArea
     cp -f "${TEMP_STAGING_AREA}/MacOS/inform6"                                  "${STAGING_AREA}/MacOS/inform6"
     cp -f "${TEMP_STAGING_AREA}/MacOS/intest"                                   "${STAGING_AREA}/MacOS/intest"
 
-    cp -f "${STAGING_AREA}/MacOS/6M62/cBlorb"                                   "${STAGING_AREA}/MacOS/cBlorb"
-    cp -f "${STAGING_AREA}/MacOS/6M62/ni"                                       "${STAGING_AREA}/MacOS/ni"
+    # Replace the documentation in StagingArea with the latest from TempStagingArea
+    rm -f "${STAGING_AREA}/Resources/en.lproj/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/English.lproj/"*                      "${STAGING_AREA}/Resources/en.lproj/"
+
+    # Copy epubs here too...
+    cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
+    cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
+
+    rm -f "${STAGING_AREA}/Resources/map_icons/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/map_icons/"*                          "${STAGING_AREA}/Resources/map_icons/"
+    rm -f "${STAGING_AREA}/Resources/outcome_images/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/outcome_images/"*                     "${STAGING_AREA}/Resources/outcome_images/"
+    rm -f "${STAGING_AREA}/Resources/scene_icons/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/scene_icons/"*                        "${STAGING_AREA}/Resources/scene_icons/"
+    rm -f "${STAGING_AREA}/Resources/doc_images/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/doc_images/"*                         "${STAGING_AREA}/Resources/doc_images/"
+    rm -f "${STAGING_AREA}/Resources/bg_images/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/bg_images/"*                          "${STAGING_AREA}/Resources/bg_images/"
+
+    mv -f "${TEMP_STAGING_AREA}/Resources/Welcome Background.png"               "${STAGING_AREA}/Resources/Welcome Background.png"
+
+    rm -rf "${STAGING_AREA}/Resources/Internal/"
+    mv -f "${TEMP_STAGING_AREA}/Resources/Internal/"                            "${STAGING_AREA}/Resources/Internal/"
+
+    # Copy the inform 6 stuff to the staging area
+    mkdir -p "${STAGING_AREA}/Resources/Internal/I6T/"
+    cp -rf "${INFORM_CORE}/inform7/Internal/I6T/"                               "${STAGING_AREA}/Resources/Internal/I6T"
+
+    # Move the LATEST version exes to the standard place in the StagingArea
+    mv -f "${TEMP_STAGING_AREA}/MacOS/"*                                        "${STAGING_AREA}/MacOS/"
 
     # Copy retrospective resource files
     cp -rf "${INFORM_CORE}/retrospective/6L02/Extensions"                       "${STAGING_AREA}/Resources/retrospective/6L02"
@@ -135,13 +164,6 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -rf "${INFORM_CORE}/retrospective/6L38/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6L38"
 
     cp -rf "${INFORM_CORE}/retrospective/6M62/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6M62"
-
-
-    #########################################################################################
-    # HACK: Replace a couple of files (with very slightly changed versions) that otherwise cause the Archive Validation process to crash [Radar 18722024]
-    #########################################################################################
-    # cp -f ${PROJECT_DIR}/Distribution/n_arrow_door_meet.png ${STAGING_AREA}/Resources/map_icons/n_arrow_door_meet.png
-    # cp -f ${PROJECT_DIR}/Distribution/nw_arrow_door_meet.png ${STAGING_AREA}/Resources/map_icons/nw_arrow_door_meet.png
 
     echo Copy resources to StagingArea - done
 fi
@@ -155,7 +177,7 @@ find "${SRCROOT}/StagingArea/Contents" -type f -print0 | xargs -0 xattr -c
 echo Remove resource fork and other metadata - done
 
 #
-# Copy resources from the StagingArea to the target build Inform.app
+# Copy all resources from the StagingArea to the target build Inform.app
 #
 echo Copy resources from StagingArea - start
 cp -rf ${STAGING_AREA} ${INFORM_APP_DIR}/Inform.app

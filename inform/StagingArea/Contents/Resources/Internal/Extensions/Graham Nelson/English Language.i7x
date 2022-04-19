@@ -28,6 +28,10 @@ To couldn't is a verb.
 To shouldn't is a verb.
 To won't is a verb.
 
+Section 2 - Fallback definitions (not for interactive fiction language element)
+
+A natural language is a kind of value.
+
 Section 1 - Grammatical definitions
 
 The language of play is a natural language that varies. The language of play
@@ -73,7 +77,7 @@ To say regarding (D - a description of objects): (-
 To decide if the prior naming context is plural:
 	(- ((prior_named_list >= 2) || (prior_named_noun && prior_named_noun has pluralname)) -).
 
-Section 2 - Saying pronouns
+Section 2 - Saying pronouns (for interactive fiction language element only)
 
 To say we:
 	now the prior named object is the player;
@@ -255,7 +259,7 @@ To say Our:
 	if the story viewpoint is third person plural:
 		say "Their".
 
-Section 3 - Further pronouns
+Section 3 - Further pronouns (for interactive fiction language element only)
 
 To say those:
 	say those in the accusative.

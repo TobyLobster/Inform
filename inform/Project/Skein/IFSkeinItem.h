@@ -34,6 +34,8 @@ extern NSString* const IFSkeinItemPboardType;
 @property (nonatomic, copy)           NSString *      actual;         // Latest actual output from the game
 @property (nonatomic, copy)           NSString *      ideal;          // The ideal version of the output
 @property (nonatomic)                 BOOL            isTestSubItem;  // Is node a result of a "test me" style command?
+@property (atomic)                    IFDiffer*       diffCachedResult;       // Differences
+
 @property (atomic, readonly)          unsigned long   reportStateHash;
 
 #pragma mark - Methods

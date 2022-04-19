@@ -7,6 +7,7 @@
 
 #import "IFUtility.h"
 #import "IFPreferences.h"
+#import "NSString+IFStringExtensions.h"
 #import <Foundation/NSCache.h>
 #import <objc/objc-runtime.h>
 
@@ -30,6 +31,19 @@ CGFloat easeOutCubic(CGFloat t) {
     t--;
     return (t*t*t + 1);
 };
+
+@implementation NSString (VersionNumbers)
+- (NSString *)shortenedVersionNumberString {
+    static NSString *const unnecessaryVersionSuffix = @".0";
+    NSString *shortenedVersionNumber = self;
+
+    while ([shortenedVersionNumber hasSuffix:unnecessaryVersionSuffix]) {
+        shortenedVersionNumber = [shortenedVersionNumber substringToIndex:shortenedVersionNumber.length - unnecessaryVersionSuffix.length];
+    }
+
+    return shortenedVersionNumber;
+}
+@end
 
 #pragma mark - "IFUtility"
 @implementation IFUtility
@@ -268,27 +282,48 @@ CGFloat easeOutCubic(CGFloat t) {
         }
     }
 
-    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse returnCode) {
-        if (!modalDelegate || !alertDidEndSelector) {
-            return;
-        }
-#if 0
-        NSMethodSignature * methodSignature = [[modalDelegate class]
-                                        instanceMethodSignatureForSelector: alertDidEndSelector];
-        NSInvocation * delegateInvocation = [NSInvocation
-                                       invocationWithMethodSignature:methodSignature];
+    if (window == nil) {
+        NSModalResponse response = [alert runModal];
+        [self modalYesNoResponse: response
+                          window: window
+                   modalDelegate: modalDelegate
+                  didEndSelector: alertDidEndSelector
+                     contextInfo: contextInfo];
+    }
 
-        [delegateInvocation setArgument:(void*)&window atIndex:2];
-        [delegateInvocation setArgument:&returnCode atIndex:3];
-        [delegateInvocation setArgument:(void*)&contextInfo atIndex:4];
-        [delegateInvocation invoke];
-#else
-        // Hack!
-        IMP imp = [modalDelegate methodForSelector: alertDidEndSelector];
-        void (*func)(id, SEL, NSWindow*, NSInteger, void *) = (void *) imp;
-        func(modalDelegate, alertDidEndSelector, alert.window, returnCode, contextInfo);
-#endif
+    [alert beginSheetModalForWindow: window completionHandler: ^(NSModalResponse response) {
+        [self modalYesNoResponse: response
+                          window: window
+                   modalDelegate: modalDelegate
+                  didEndSelector: alertDidEndSelector
+                     contextInfo: contextInfo];
     }];
+}
+
++ (void) modalYesNoResponse: (NSModalResponse) returnCode
+                     window: (NSWindow*) window
+              modalDelegate: (id) modalDelegate
+             didEndSelector: (SEL) alertDidEndSelector
+                contextInfo: (void *) contextInfo {
+    if (!modalDelegate || !alertDidEndSelector) {
+        return;
+    }
+#if 0
+    NSMethodSignature * methodSignature = [[modalDelegate class]
+                                    instanceMethodSignatureForSelector: alertDidEndSelector];
+    NSInvocation * delegateInvocation = [NSInvocation
+                                   invocationWithMethodSignature:methodSignature];
+
+    [delegateInvocation setArgument:(void*)&window atIndex:2];
+    [delegateInvocation setArgument:&returnCode atIndex:3];
+    [delegateInvocation setArgument:(void*)&contextInfo atIndex:4];
+    [delegateInvocation invoke];
+#else
+    // Hack!
+    IMP imp = [modalDelegate methodForSelector: alertDidEndSelector];
+    void (*func)(id, SEL, NSWindow*, NSInteger, void *) = (void *) imp;
+    func(modalDelegate, alertDidEndSelector, window, returnCode, contextInfo);
+#endif
 }
 
 + (void) runAlertYesNoWindow: (NSWindow*) window
@@ -438,6 +473,23 @@ CGFloat easeOutCubic(CGFloat t) {
     version1 = [[self class] fullCompilerVersion: version1];
     version2 = [[self class] fullCompilerVersion: version2];
 
+    BOOL isV1Dotted = [version1 containsSubstring: @"."];
+    BOOL isV2Dotted = [version2 containsSubstring: @"."];
+
+    // One version is dotted, the other not
+    if (isV1Dotted != isV2Dotted) {
+        if (isV1Dotted) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedAscending;
+    }
+
+    if (isV1Dotted) {
+        // Both versions are dotted, we use numerical search compare after removing any trailing ".0"s so that "1" = "1.0" = "1.0.0"
+        return [[version1 shortenedVersionNumberString] compare:[version2 shortenedVersionNumberString] options:NSNumericSearch];
+    }
+
+    // Neither version is dotted, use regular string compare
     return [version1 compare:version2 options: NSCaseInsensitiveSearch];
 }
 

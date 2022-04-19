@@ -1,0 +1,47 @@
+new base DESCRIPTION_OF_ACTION_TY {
+	conforms-to: STORED_VALUE_TY
+	singular: described action
+	plural: described actions
+
+	constant-compilation-method: special
+
+	index-priority: 0
+	! To represent an action test implicitly cast as a conditional rvalue
+}
+
+new base STORED_ACTION_TY {
+	conforms-to: POINTER_VALUE_TY
+	singular: action
+	plural: actions
+
+	comparison-schema: DESCRIPTION_OF_ACTION_TY>>>*=-((STORED_ACTION_TY_Adopt(*1), (SAT_Tmp-->0=(*2)), STORED_ACTION_TY_Unadopt()))
+	multiple-block: no
+	heap-size-estimate: 16
+	can-exchange: yes
+	constant-compilation-method: special
+
+	distinguishing-routine: STORED_ACTION_TY_Distinguish
+	printing-routine: STORED_ACTION_TY_Say
+	comparison-routine: BlkValueCompare
+
+	documentation-reference: kind_storedaction
+	index-default-value: waiting
+	specification-text: A stored action, which can later be tried.
+}
+
+new base ACTION_NAME_TY {
+	conforms-to: SAYABLE_VALUE_TY
+	singular: action name
+	plural: action names
+
+	default-value: ##Wait
+	loop-domain-schema: for (*2=0,*1=ActionNumberIndexed(*2): *2<AD_RECORDS: *2++,*1=ActionNumberIndexed(*2))
+	constant-compilation-method: special
+
+	printing-routine: SayActionName
+
+	documentation-reference: kind_actionname
+	index-priority: 6
+	index-default-value: waiting action
+	specification-text: An action is what happens when one of the people in the simulated world decides to do something. A full action would be something like 'dropping the box', but an action name is just the choice of which sort of thing is being done: here, it's 'the dropping action'. (Action names are always written with the word 'action' at the end, to make sure they aren't mistaken for full actions.)
+}

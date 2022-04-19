@@ -15,6 +15,7 @@
 #import "IFSkeinConstants.h"
 #import "IFUtility.h"
 #import "IFPreferences.h"
+#import "IFDiffer.h"
 
 #define SELECTION_OPTION_1    1
 

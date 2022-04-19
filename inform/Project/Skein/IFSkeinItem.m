@@ -19,7 +19,6 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 @implementation IFSkeinItem {
     NSMutableArray* _children;
     unsigned long   differencesHash;        // Hash to work out if differences need recalculating
-    IFDiffer*       diffCachedResult;       // Differences
 }
 
 @synthesize command         = _command;
@@ -27,10 +26,20 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 @synthesize actual          = _actual;
 @synthesize parent          = _parent;
 @synthesize isTestSubItem   = _isTestSubItem;
-
+@synthesize diffCachedResult = _diffCachedResult;
 
 #pragma mark - Initialization
-- (instancetype) init { self = [super init]; return self; }
+- (instancetype) init {
+    self = [super init];
+    if(self) {
+        _diffCachedResult = NULL;
+        differencesHash = 0;
+        _children = NULL;
+        // I don't think we use this init...
+        assert(false);
+    }
+    return self;
+}
 
 - (instancetype) initWithSkein: (IFSkein*) skein
                        command: (NSString*) com {
@@ -52,7 +61,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 
         // Differences
         differencesHash  = 0;
-        diffCachedResult = [[IFDiffer alloc] init];
+        _diffCachedResult = [[IFDiffer alloc] init];
 	}
 
 	return self;
@@ -70,11 +79,14 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
     self = [super init];
 
     if (self) {
-        _uniqueId       = [IFUtility generateID];
-        _children       = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableArray class], [IFSkeinItem class], nil] forKey: @"children"];
-        _command        = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
-        _actual         = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
-        _isTestSubItem  = [decoder decodeBoolForKey:   @"isTestSubItem"];
+        _uniqueId           = [IFUtility generateID];
+        _children           = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableArray class], [IFSkeinItem class], nil] forKey: @"children"];
+        _command            = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
+        _actual             = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
+        _isTestSubItem      = [decoder decodeBoolForKey:   @"isTestSubItem"];
+        _diffCachedResult   = [[IFDiffer alloc] init];
+        differencesHash     = 0;
+        _commandSizeDidChange = YES;
 
         for( IFSkeinItem* child in _children ) {
             child->_parent = self;
@@ -419,12 +431,11 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
             localActual = [localActual stringByRemovingLeadingWhitespace];
         }
 
-        [diffCachedResult diffIdeal: localIdeal
+        [_diffCachedResult diffIdeal: localIdeal
                              actual: localActual ];
         differencesHash = newHash;
     }
-    NSAssert(diffCachedResult != nil, @"how did that happen?");
-    return diffCachedResult;
+    return _diffCachedResult;
 }
 
 -(BOOL) hasDifferences {

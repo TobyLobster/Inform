@@ -218,11 +218,16 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (void) layoutSkeinWithAnimation: (BOOL) animate {
-	// Re-layout this skein
+    [self finishEditing: self];
+
+    // Re-layout this skein
     [layoutTree setRootItem:     skein.rootItem];
     [layoutTree setActiveItem:   skein.activeItem];
     [layoutTree setSelectedItem: selectedItem];
 	[layoutTree layoutSkein];
+
+    // Resize the view to the size of the new layout
+    [self resizeView];
 
     // Tell the report to update itself based on the new skein
     [skeinViewChildren updateReportDetails];

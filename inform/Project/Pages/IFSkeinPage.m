@@ -171,6 +171,13 @@ static const CGFloat webViewHeight = 250.0f;
     [[doc settings] setTestingTabShownCount: count];
     [[doc settings] settingsHaveChanged];
 
+    // Make sure the skein is shown properly
+    if(skeinView &&
+       skeinView.skein) {
+        [skeinView.skein postSkeinChangedWithAnimate: NO
+                                   keepActiveVisible: NO];
+    }
+
     [self updateHelpHTML];
 }
 

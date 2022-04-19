@@ -7,9 +7,9 @@ use File::Basename;
 
 my $dirname = dirname(__FILE__);
 
-my $app_version_number = "1.68";
+my $app_version_number = "1.80";
 my $app_version_build_number = "$app_version_number.1";
-my $inform_source_version = "6M62";
+my $inform_source_version = "10.1.0";
 my $full_version_prefix = "$app_version_number/6.33/";
 my $full_version = "";
 #my $inform_core="$dirname/../../../Inform Core";
@@ -110,7 +110,7 @@ print "Replace versions: Updating app version in plists\n";
 replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleVersion", $app_version_build_number);
 replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleShortVersionString", $app_version_number);
 
-print "Replace versions: Updating to four character version ('$inform_source_version') in strings\n";
+print "Replace versions: Updating to version ('$inform_source_version') in strings\n";
 
 # if the directory Inform-Source exists
 #if ( -d "$inform_core" ) {

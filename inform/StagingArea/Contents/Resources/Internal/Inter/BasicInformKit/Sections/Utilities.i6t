@@ -1,0 +1,401 @@
+Utilities Template.
+
+Miscellaneous utility routines for some fundamental I6 needs.
+
+@h Miscellany.
+
+=
+#ifdef TARGET_ZCODE;
+Constant BLOCKV_STACK_SIZE = 224;
+#ifnot;
+Constant BLOCKV_STACK_SIZE = DynamicMemoryAllocation/4;
+#endif;
+
+Array blockv_stack --> BLOCKV_STACK_SIZE;
+Global I7SFRAME;
+
+Global TEXT_TY_RE_Err = 0;
+Global prior_named_noun; ! for adaptive text generation
+Global prior_named_list; ! ditto: length of list of items
+Global prior_named_list_gender; ! ditto: common gender of list of items, or -1
+Global story_tense = 1; ! ditto: present tense
+Global story_viewpoint = 2; ! ditto: second person singular
+Global say__p = 1; Global say__pc = 0; Global say__pc_save = 0;
+Global say__n; Global say__comp;
+Global los_rv = false;
+Global parameter_object; ! = I7 "parameter-object" = I7 "container in question"
+Global parameter_value; ! not typesafe in I7
+Global property_to_be_totalled; ! used to implement "total P of..."
+Global property_loop_sign; ! $+1$ for increasing order, $-1$ for decreasing
+Global suppress_scope_loops;
+Global temporary_value; ! can be used anywhere side-effects can't occur
+Global clr_fg = 1; ! foreground colour
+Global clr_bg = 1; ! background colour
+Global clr_fgstatus = 1; ! foreground colour of statusline
+Global clr_bgstatus = 1; ! background colour of statusline
+Global clr_on; ! has colour been enabled by the player?
+Global statuswin_current; ! if writing to top window
+Global suppress_text_substitution = false;
+Global deadflag = 0;
+
+Global statuswin_cursize = 0;
+Global statuswin_size = 1;
+
+Global debug_rules = 0;
+Global debug_rule_nesting;
+Global reason_the_action_failed; ! = I7 "reason the action failed"
+Global indef_mode;                  ! "Indefinite" mode - ie, "take a brick"
+                                    ! is in this mode
+
+Global standard_interpreter = 0;
+
+Default LanguageCases 1;
+
+@h Final Code Dependencies.
+This function definition is a little misleading. The idea is that the
+final code-generator can inject code of its own into the body here: for example,
+the final code-generation for Glulx injects code into |FINAL_CODE_STARTUP_R|
+to use accelerated VM support for certain veneer functions.
+
+The other three are also misleading, in that final code-generation can add more
+helpful code here: the fallbacks here are basic.
+
+=
+[ FINAL_CODE_STARTUP_R addr res;
+];
+
+[ DebugAction a anames str;
+    if (a >= 4096) print "<fake action ", a-4096, ">"; else print "<action ", a, ">";
+];
+
+[ DebugAttribute a anames str;
+	print "<attribute ", a, ">";
+];
+
+[ DebugProperty p pnames str;
+	print "<property ", p, ">";
+];
+
+@h Firebreak.
+
+=
+Array Protect_I7_Arrays --> 16339 12345;
+
+@h Print Decimal Number.
+|DecimalNumber| is a trivial function which just prints a number, in decimal
+digits. It is left over from the I6 library's support routines for Glulx,
+where it was intended as a stub to pass to the Glulx |Glulx_PrintAnything| routine
+(which I7 does not use). In I7, however, it's also used as the default
+printing routine for new kinds of value.
+
+=
+[ DecimalNumber num; print num; ];
+
+@h Print Text.
+The routine for printing an I7 "text" value, which might be text with or
+without substitutions.
+
+=
+[ PrintI6Text x;
+	if (x ofclass String) print (string) x;
+	if (x ofclass Routine) return (x)();
+	if (x == EMPTY_TEXT_PACKED) rfalse;
+	rtrue;
+];
+[ I7_String x; TEXT_TY_Say(x); ]; ! An alternative name now used only by extensions
+
+@h Print Or Run.
+This utility remains from the old I6 library: it essentially treats a
+property as textual and prints it where possible. Where the |no_break|
+flag is set, we expect the text to form only a small part of a paragraph,
+and it's inappropriate to break here: for instance, for printing the
+"printed name" of an object. Where the flag is clear, however, the text
+is expected to form its own paragraph.
+
+Where |PrintOrRun| is used in breaking mode, which is only for a very few
+properties in I7 (indeed at present only |initial| and |description|),
+the routine called is given the chance to decide whether to print or not.
+It should return |true| or |false| according to whether it did so; this
+allows us to divide the paragraph or not accordingly.
+
+=
+[ PrintOrRun obj prop no_break  pv st routine_return_value;
+	@push self; self = obj;
+	if (prop == 0) {
+		print (name) prop; routine_return_value = true;
+	} else {
+		routine_return_value = TEXT_TY_Say(obj.prop);
+	}
+	@pull self;
+	if (routine_return_value) {
+		say__p = 1;
+		if (no_break == false) {
+			new_line;
+			DivideParagraphPoint();
+		}
+	}
+
+	return routine_return_value;
+];
+
+[ DA_Number n; print n; ];
+[ DA_TruthState n; if (n==0) print "false"; else print "true"; ];
+
+@h Saying Phrases.
+
+=
+[ SayPhraseName closure;
+	if (closure == 0) print "nothing";
+	else print (string) closure-->2;
+];
+
+@h Kinds.
+
+=
+[ KindAtomic kind;
+	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return kind;
+	return kind-->0;
+];
+
+[ KindBaseArity kind;
+	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return 0;
+	return kind-->1;
+];
+
+[ KindBaseTerm kind n;
+	if ((kind >= 0) && (kind < BASE_KIND_HWM)) return UNKNOWN_TY;
+	return kind-->(2+n);
+];
+
+@h GenerateRandomNumber.
+The following uses the virtual machine's RNG (via the I6 built-in function
+|random|) to produce a uniformly random integer in the range $n$ to $m$
+inclusive, where $n$ and $m$ are allowed to be either way around; so that
+a random number between 17 and 4 is the same thing as a random number
+between 4 and 17, and there is therefore no pair of $n$ and $m$ corresponding
+to an empty range of values.
+
+=
+[ GenerateRandomNumber n m s;
+	if (n==m) return n;
+	if (n>m) { s = n; n = m; m = s; }
+	n--;
+	return random(m-n) + n;
+];
+Constant R_DecimalNumber = GenerateRandomNumber;
+Constant R_PrintTimeOfDay = GenerateRandomNumber;
+
+@h PrintSpaces.
+Which prints a row of $n$ spaces, for $n\geq 0$.
+
+=
+[ PrintSpaces n;
+    while (n > 0) {
+        print " ";
+        n = n - 1;
+    }
+];
+
+@h SwapWorkflags.
+Recall that we have two general-purpose temporary attributes for each object:
+|workflag| and |workflag2|. The following swaps their values over for every
+object at once.
+
+=
+[ SwapWorkflags obj lst;
+	objectloop (obj ofclass Object) {
+		lst = false;
+		if (obj has workflag2) lst = true;
+		give obj ~workflag2;
+		if (obj has workflag) give obj workflag2;
+		give obj ~workflag;
+		if (lst) give obj workflag;
+	}
+];
+
+@h TestUseOption.
+This routine, compiled by Inform, returns |true| if the supplied argument is the
+number of a use option in force for the current run of Inform, and |false|
+otherwise.
+
+@h ZRegion.
+I7 contains many relics from I6, but here's a relic from I5: a routine which
+used to determine the metaclass of a value, before that concept was given a
+name. In I6 code, it can be implemented simply using |metaclass|, as the
+following shows. (The name is from "region of the Z-machine".)
+
+=
+[ ZRegion addr;
+    switch (metaclass(addr)) {
+		nothing: return 0;
+		Object, Class: return 1;
+		Routine: return 2;
+		String: return 3;
+    }
+];
+
+@h Memcpy.
+This is equivalent to C's memcpy function, in good ways and bad.
+
+=
+[ Memcpy to_addr from_addr size  n;
+#Ifdef TARGET_ZCODE;
+	for (n = size/WORDSIZE: (n--) > 0: ) to_addr-->n = from_addr-->n;
+	for (n = size: ((n--) % WORDSIZE ~= 0): ) to_addr->n = from_addr->n;
+#Ifnot; ! TARGET_GLULX
+    @mcopy size from_addr to_addr;
+#Endif; ! TARGET_
+];
+
+@h Arrcpy.
+This is not quite so efficient, but not terrible.
+
+=
+[ Arrcpy to_array to_entry_size from_array from_entry_size no_entries  n val;
+	if (to_entry_size == from_entry_size)
+		Memcpy(to_array, from_array, to_entry_size*no_entries);
+	else if ((to_entry_size == 2) && (from_entry_size == 4)) {
+		for (n = 0: n<no_entries: n++) {
+			val = from_array-->n;
+			to_array->0 = (val/256)%256; to_array->1 = val%256;
+			to_array = to_array + 2;
+		}
+	} else "*** Arrcpy doesn't support this ***";
+];
+
+@h Verbs as Values.
+
+=
+[ PrintVerbAsValue vb;
+	if (vb == 0) print "(no verb)";
+	else { print "verb "; vb(1); }
+];
+
+[ VerbIsMeaningful vb;
+	if ((vb) && (BlkValueCompare(vb(CV_MEANING), MEANINGLESS_RR) ~= 0)) rtrue;
+	rfalse;
+];
+
+[ VerbIsModal vb;
+	if ((vb) && (vb(CV_MODAL))) rtrue;
+	rfalse;
+];
+
+@h Seed Random Number Generator Rule.
+Unless a seed is provided by Inform, and it won't be for released story files,
+the VM's interpreter is supposed to start up with a good seed in its random
+number generator: something usually derived from, say, the milliseconds part
+of the current time of day, which is unlikely to repeat or show any pattern
+in real-world use. However, early Z-machine interpreters often did this quite
+badly, starting with poor seed values which meant that the first few random
+numbers always had something in common (being fairly small in their range,
+for instance). To obviate this we extract and throw away 100 random numbers
+to get the generator going, shaking out more obvious early patterns, but
+that cannot really help much if the VM interpreter's RNG is badly written.
+"Anyone who considers arithmetical methods of producing random digits is,
+of course, in a state of sin" (von Neumann).
+
+=
+[ SEED_RANDOM_NUMBER_GENERATOR_R i;
+	if (RNG_SEED_AT_START_OF_PLAY) VM_Seed_RNG(RNG_SEED_AT_START_OF_PLAY);
+	for (i=1: i<=100: i++) random(i);
+	rfalse;
+];
+
+@h Extracting Verb Numbers.
+A long tale of woe lies behind the following. Infocom games stored verb numbers
+in a single byte in dictionary entries, but they did so counting downwards, so
+that verb number 0 was stored as 255, 1 as 254, and so on. Inform followed
+suit so that debugging of Inform 1 could be aided by using the then-available
+tools for dumping dictionaries from Infocom story files; by using the Infocom
+format for dictionary tables, Inform's life was easier.
+
+But there was an implicit restriction there of 255 distinct verbs (not 256
+since not all words were verbs). When Glulx raised almost all of the Z-machine
+limits, it made space for 65535 verbs instead of 255, but it appears that
+nobody remembered to implement this in I6-for-Glulx and the Glulx form of
+the I6 library. This was only put right in March 2009, and the following
+routine was added to concentrate lookups of this field in one place.
+
+=
+[ DictionaryWordToVerbNum dword verbnum i;
+#Ifdef TARGET_ZCODE;
+	verbnum = $ff-(dword->#dict_par2);
+#Ifnot; ! GLULX
+	dword = dword + #dict_par2 - 1;
+    @aloads dword 0 verbnum;
+    verbnum = $ffff-verbnum;
+#Endif;
+	return verbnum;
+];
+
+[ RegardingSingleObject obj;
+	prior_named_list = 1;
+	prior_named_list_gender = -1;
+	prior_named_noun = obj;
+];
+
+[ RegardingNumber n;
+	prior_named_list = n;
+	prior_named_list_gender = -1;
+	prior_named_noun = nothing;
+];
+
+@h Say One Of.
+These routines are described in the Extensions chapter of the Inform
+documentation.
+
+=
+[ I7_SOO_PAR oldval count; if (count <= 1) return count; return random(count); ];
+[ I7_SOO_RAN oldval count v; if (count <= 1) return count;
+	v = oldval; while (v == oldval) v = random(count); return v; ];
+[ I7_SOO_STI oldval count v; if (oldval) return oldval; return I7_SOO_PAR(oldval, count); ];
+[ I7_SOO_CYC oldval count; oldval++; if (oldval > count) oldval = 1; return oldval; ];
+[ I7_SOO_STOP oldval count; oldval++; if (oldval > count) oldval = count; return oldval; ];
+[ I7_SOO_TAP oldval count tn rn c; if (count <= 1) return count; tn = count*(count+1)/2;
+	rn = random(tn); for (c=1:c<=count:c++) { rn = rn - c; if (rn<=0) return (count-c+1); } ];
+[ I7_SOO_TRAN oldval count; if (oldval<count) return oldval+1;
+	return count + 1 + I7_SOO_RAN(oldval%(count+1), count); ];
+[ I7_SOO_TPAR oldval count; if (oldval<count) return oldval+1;
+	return count + 1 + I7_SOO_PAR(oldval%(count+1), count); ];
+
+Array I7_SOO_SHUF->32;
+
+[ I7_SOO_SHU oldval count sd ct v i j s ssd scope cc base;
+	base = count+1;
+	v = oldval%base; oldval = oldval/base; ct = oldval%base; sd = oldval/base;
+	if (count > 32) return I7_SOO_PAR(oldval, count);
+	if (count <= 1) v = count;
+	else {
+		!print "^In v=", v, " ct=", ct, " sd=", sd, "^";
+		cc = base*base;
+		scope = (MAX_POSITIVE_NUMBER-1)/cc;
+		!print "Scope = ", scope, "^";
+		if (sd == 0) { sd = random(scope); ct=0; }
+		for (i=0:i<count:i++) I7_SOO_SHUF->i = i;
+		ssd = sd;
+		for (i=0:i<count-1:i++) {
+			j = (sd)%(count-i)+i; sd = (sd*31973)+17; if (sd<0) sd=-sd;
+			s = I7_SOO_SHUF->j; I7_SOO_SHUF->j = I7_SOO_SHUF->i; I7_SOO_SHUF->i = s;
+		}
+		!for (i=0:i<count:i++) print I7_SOO_SHUF->i, " "; print "^";
+		v = (I7_SOO_SHUF->ct)+1;
+		ct++; if (ct >= count) { ct = 0; ssd = 0; }
+	}
+	!print "Out v=", v, " ct=", ct, " ssd=", sd, "^";
+	!print "Return ", v + ct*base + ssd*base*base, "^";
+	return v + ct*base + ssd*base*base;
+];
+
+@h Rounding.
+The following rounds a numerical value |t1| to the nearest unit of |t2|;
+for instance, if |t2| is 5 then it rounds to the nearest 5. The name is an
+anachronism, as it's used for all kinds of value.
+
+=
+[ RoundOffValue t1 t2;
+	if (t1 >= 0) return ((t1+t2/2)/t2)*t2;
+	return -((-t1+t2/2)/t2)*t2;
+];
+
+

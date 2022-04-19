@@ -8,13 +8,13 @@ To remove stray punctuation:
 	(- PunctuationStripping(); players_command = 100 + WordCount();  -)
 
 To remove quotes:
-	(- Quotestripping(); players_command = 100 + WordCount();  -)
+	(- QuoteStripping(); players_command = 100 + WordCount();  -)
 
 To remove apostrophes:
-	(- SingleQuotestripping(); players_command = 100 + WordCount();  -)
+	(- SingleQuoteStripping(); players_command = 100 + WordCount();  -)
 
 To remove question marks:
-	(- Questionstripping(); players_command = 100 + WordCount(); -)
+	(- QuestionStripping(); players_command = 100 + WordCount(); -)
 	
 To remove exclamation points:
 	(- ExclamationStripping(); players_command = 100 + WordCount(); -)
@@ -27,7 +27,7 @@ To resolve punctuated titles:
 	
 Include (- 
 
-[ Detitler i j buffer_length flag; 
+[ DeTitler i j buffer_length flag; 
 
 #ifdef TARGET_ZCODE;
 	buffer_length = buffer->1+(WORDSIZE-1);
@@ -105,7 +105,7 @@ Include (-
 	
 Include (-
 
-[ Questionstripping i;
+[ QuestionStripping i;
 	for (i = 2 : i <= (buffer->1) + 1 : i++)
 	{ 
 		if ((buffer->i) == '?') 
@@ -193,7 +193,7 @@ Include (-
 	
 Include (-
 
-[ Questionstripping i;
+[ QuestionStripping i;
 	for (i = WORDSIZE : i <= (buffer-->0)+(WORDSIZE-1) : i++)
 	{ 
 		if ((buffer->i) == '?') 
