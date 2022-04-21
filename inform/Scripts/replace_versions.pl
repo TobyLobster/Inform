@@ -10,26 +10,8 @@ my $dirname = dirname(__FILE__);
 my $app_version_number = "1.80";
 my $app_version_build_number = "$app_version_number.1";
 my $inform_source_version = "10.1.0";
-my $full_version_prefix = "$app_version_number/6.33/";
-my $full_version = "";
-#my $inform_core="$dirname/../../../Inform Core";
-
-sub read_version {
-    my ($file) = shift;
-
-    if (-e $file) {
-        local $/ = undef;
-        open FILE, $file or die "Couldn't open file: $!";
-        binmode FILE;
-        $inform_source_version = <FILE>;
-        close FILE;
-
-        $full_version = "$full_version_prefix$inform_source_version";
-    } else {
-        print "WARNING: Could not read new version number from $file\n";
-        exit 0
-    }
-}
+my $full_version_prefix = "$app_version_number/6.36/";
+my $full_version = "$full_version_prefix$inform_source_version";
 
 sub replace_in_plist_file {
     my $infile = shift;
@@ -112,13 +94,7 @@ replace_in_plist_file("$dirname/../Inform-Info.plist", "CFBundleShortVersionStri
 
 print "Replace versions: Updating to version ('$inform_source_version') in strings\n";
 
-# if the directory Inform-Source exists
-#if ( -d "$inform_core" ) {
-    # Read Inform-Source version string
-    # print "Replace versions: Found '$inform_core'\n";
-    # read_version("$inform_core/build_number.txt");
-    replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
-    replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
-    print "Version number updated to $full_version successfully\n";
-#}
+replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version $full_version");
+replace_in_UTF8_strings_file("$dirname/../Resources/en.lproj/Localizable.strings", "\"Build Version\"", "$inform_source_version");
+print "Version number updated to $full_version successfully\n";
 print "Replace versions: Finished\n";
