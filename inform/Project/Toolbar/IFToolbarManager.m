@@ -825,6 +825,10 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     [[self toolbarStatusViewParent] setNeedsDisplay: YES];
 }
 
+-(void) redrawToolbar {
+    [self adjustToolbarStatusView];
+}
+
 -(void) setIsExtensionProject:(BOOL) isExtensionProject {
     toolbarStatusView.isExtensionProject = isExtensionProject;
 }

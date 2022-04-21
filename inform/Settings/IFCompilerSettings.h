@@ -116,4 +116,6 @@ extern NSString* const IFCompilerNaturalInform;
 /// Restores the settings from a Plist file
 - (BOOL)    restoreSettingsFromPlist: (NSData*) plist;
 
+- (BOOL) isNaturalInformCompilerPathValid;
+
 @end

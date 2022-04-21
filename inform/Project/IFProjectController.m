@@ -202,6 +202,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Once a project has loaded, remove the launcher window
 	[IFWelcomeWindow hideWelcomeWindow];
 
+    [toolbarManager redrawToolbar];
+
     // We have loaded the window, but we are not yet main
     betweenWindowLoadedAndBecomingMain = YES;
 }
@@ -678,18 +680,30 @@ static CGFloat const      minDividerWidth     = 75.0f;
                                                   forTesting: releaseForTesting
                                                  refreshOnly: onlyRefresh
                                                     testCase: testCase];
+    if (theCompiler != nil)
+    {
+        // Start progress indicator
+        [self addProgressIndicator: [theCompiler progress]];
+        [[theCompiler progress] startProgress];
 
-    // Start progress indicator
-    [self addProgressIndicator: [theCompiler progress]];
-    [[theCompiler progress] startProgress];
+        // Clear the console only on the first compilation of this run
+        if (currentTestCaseIndex < 1) {
+            [theCompiler clearConsole];
+        }
 
-    // Clear the console only on the first compilation of this run
-    if (currentTestCaseIndex < 1) {
-        [theCompiler clearConsole];
+        [theCompiler launch];
+        isCompiling = YES;
     }
-
-    [theCompiler launch];
-    isCompiling = YES;
+    else
+    {
+        NSString* version = [[doc settings] compilerVersion];
+        NSString* message = [NSString stringWithFormat: [IFUtility localizedString: @"One possibility is that the project's language version '%@' is not available. Try setting the language version in Settings."], version];
+        [IFUtility runAlertWindow: [self window]
+                        localized: YES
+                          warning: YES
+                            title: [IFUtility localizedString: @"Could not launch compiler."]
+                          message: message];
+    }
 
     // Show the Console pane if required
     if( ![self isTestAllCasesSelected] ) {
@@ -706,6 +720,19 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	for( IFProjectPane* pane in projectPanes ) {
 		[pane prepareToSave];
 	}
+
+    // Save the project, without user interaction.
+    [[self document] saveDocumentWithoutUserInteraction];
+
+    // Refresh the available test cases
+    [self refreshTestCases];
+}
+
+- (IBAction)saveDocumentAs:(id)sender {
+    // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
+    for( IFProjectPane* pane in projectPanes ) {
+        [pane prepareToSave];
+    }
 
     // Save the project, without user interaction.
     [[self document] saveDocumentWithoutUserInteraction];

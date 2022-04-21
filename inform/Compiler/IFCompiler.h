@@ -60,7 +60,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 @property (atomic, copy) NSString *directory;
 
 /// Prepares the first task for launch
-- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(nullable NSString*) testCase;
+- (BOOL) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(nullable NSString*) testCase;
 /// \c YES if a compiler is running
 @property (atomic, getter=isRunning, readonly) BOOL running;
 

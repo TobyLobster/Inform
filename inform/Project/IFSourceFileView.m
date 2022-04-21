@@ -124,23 +124,28 @@ static NSImage* arrowPressed	= nil;
 		NSRect usedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
 		NSPoint mousePoint = [self convertPoint: [event locationInWindow]
 									   fromView: nil];
-		
-		
-		if ((tornAtTop && mousePoint.y < NSMinY(bounds)+[topTear size].height)) {
-			if ([self delegate] && [[self delegate] conformsToProtocol:@protocol(IFSourceNavigation)]) {
-				[(id<IFSourceNavigation>)[self delegate] sourceFileShowPreviousSection: self];
-			} else {
-				[self removeRestriction];
-			}
 
-			return;
-		} else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+[self textContainerOrigin].y+NSMaxY(usedRect)) {
-			if ([self delegate] && [[self delegate] conformsToProtocol:@protocol(IFSourceNavigation)]) {
-				[(id<IFSourceNavigation>)[self delegate] sourceFileShowNextSection: self];
-			} else {
-				[self removeRestriction];
-			}
-			
+        id<NSTextViewDelegate> tempDeleg = [self delegate];
+        id<IFSourceNavigation> deleg = nil;
+        if ([tempDeleg conformsToProtocol:@protocol(IFSourceNavigation)])
+        {
+            deleg = (id<IFSourceNavigation>) [self delegate];
+        }
+        if ((tornAtTop && mousePoint.y < NSMinY(bounds)+[topTear size].height)) {
+            if (deleg) {
+                [deleg sourceFileShowPreviousSection: self];
+            } else {
+                [self removeRestriction];
+            }
+
+            return;
+        } else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+[self textContainerOrigin].y+NSMaxY(usedRect)) {
+            if (deleg) {
+                [deleg sourceFileShowNextSection: self];
+            } else {
+                [self removeRestriction];
+            }
+
 			// Finished handling this event
 			return;
 		}

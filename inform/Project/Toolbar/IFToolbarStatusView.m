@@ -417,7 +417,8 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(BOOL) isLatestCompilerVersion: (NSString*) version {
-    if ([version isEqualToString: @"****"])
+    if (([version isEqualToString: @""]) ||
+        ([version isEqualToString: @"****"]))
     {
         return YES;
     }

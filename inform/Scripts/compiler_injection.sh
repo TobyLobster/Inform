@@ -104,10 +104,10 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/inform.icns"             "${STAGING_AREA}/Resources/App/Icons/inform.icns"
 
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/informfile.icns"         "${STAGING_AREA}/Resources/App/Icons/informfile.icns"
-    cp -f "${INFORM_CORE}/resources/Imagery/app_images/Materials Diagram.png"   "${STAGING_AREA}/Resources/en.lproj/MaterialsDiagram.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/materialsfile.icns"      "${STAGING_AREA}/Resources/App/Icons/materialsfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/nifile.icns"             "${STAGING_AREA}/Resources/App/Icons/nifile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/skeinfile.icns"          "${STAGING_AREA}/Resources/App/Icons/skeinfile.icns"
+    cp -f "${INFORM_CORE}/resources/Imagery/app_images/MaterialsDiagram.png"    "${STAGING_AREA}/Resources/en.lproj/MaterialsDiagram.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner.png"      "${STAGING_AREA}/Resources/Welcome Banner.png"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/Welcome Banner@2x.png"   "${STAGING_AREA}/Resources/Welcome Banner@2x.png"
 
@@ -122,17 +122,19 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/retrospective/6M62/cBlorb"                            "${STAGING_AREA}/MacOS/6M62/cBlorb"
     cp -f "${INFORM_CORE}/retrospective/6M62/ni"                                "${STAGING_AREA}/MacOS/6M62/ni"
 
-    # Copy the 64 bit versions of certain key executables from TempStagingArea to StagingArea
-    cp -f "${TEMP_STAGING_AREA}/MacOS/inform6"                                  "${STAGING_AREA}/MacOS/inform6"
-    cp -f "${TEMP_STAGING_AREA}/MacOS/intest"                                   "${STAGING_AREA}/MacOS/intest"
-
-    # Replace the documentation in StagingArea with the latest from TempStagingArea
-    rm -f "${STAGING_AREA}/Resources/en.lproj/"*
-    mv -f "${TEMP_STAGING_AREA}/Resources/English.lproj/"*                      "${STAGING_AREA}/Resources/en.lproj/"
+    # Copy retrospective resource files
+    cp -rf "${INFORM_CORE}/retrospective/6L02/Extensions"                       "${STAGING_AREA}/Resources/retrospective/6L02"
+    cp -rf "${INFORM_CORE}/retrospective/6L02/I6T/"                             "${STAGING_AREA}/Resources/retrospective/6L02/Extensions/Reserved/"
+    cp -rf "${INFORM_CORE}/retrospective/6L38/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6L38"
+    cp -rf "${INFORM_CORE}/retrospective/6M62/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6M62"
 
     # Copy epubs here too...
     cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
     cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
+
+    # Replace the documentation in StagingArea with the latest from TempStagingArea
+    rm -f "${STAGING_AREA}/Resources/en.lproj/"*
+    mv -f "${TEMP_STAGING_AREA}/Resources/English.lproj/"*                      "${STAGING_AREA}/Resources/en.lproj/"
 
     rm -f "${STAGING_AREA}/Resources/map_icons/"*
     mv -f "${TEMP_STAGING_AREA}/Resources/map_icons/"*                          "${STAGING_AREA}/Resources/map_icons/"
@@ -150,20 +152,8 @@ if [ -d "${INFORM_CORE}" ]; then
     rm -rf "${STAGING_AREA}/Resources/Internal/"
     mv -f "${TEMP_STAGING_AREA}/Resources/Internal/"                            "${STAGING_AREA}/Resources/Internal/"
 
-    # Copy the inform 6 stuff to the staging area
-    mkdir -p "${STAGING_AREA}/Resources/Internal/I6T/"
-    cp -rf "${INFORM_CORE}/inform7/Internal/I6T/"                               "${STAGING_AREA}/Resources/Internal/I6T"
-
     # Move the LATEST version exes to the standard place in the StagingArea
     mv -f "${TEMP_STAGING_AREA}/MacOS/"*                                        "${STAGING_AREA}/MacOS/"
-
-    # Copy retrospective resource files
-    cp -rf "${INFORM_CORE}/retrospective/6L02/Extensions"                       "${STAGING_AREA}/Resources/retrospective/6L02"
-    cp -rf "${INFORM_CORE}/retrospective/6L02/I6T/"                             "${STAGING_AREA}/Resources/retrospective/6L02/Extensions/Reserved/"
-
-    cp -rf "${INFORM_CORE}/retrospective/6L38/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6L38"
-
-    cp -rf "${INFORM_CORE}/retrospective/6M62/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6M62"
 
     echo Copy resources to StagingArea - done
 fi

@@ -1548,9 +1548,13 @@
 
     if (onlyRefresh) {
         [theCompiler addNaturalInformStageUsingTestCase: testCase];
-        [theCompiler prepareForLaunchWithBlorbStage: NO testCase: testCase];
+        if (![theCompiler prepareForLaunchWithBlorbStage: NO testCase: testCase]) {
+            return nil;
+        }
     } else {
-        [theCompiler prepareForLaunchWithBlorbStage: buildBlorb testCase: testCase];
+        if (![theCompiler prepareForLaunchWithBlorbStage: buildBlorb testCase: testCase]) {
+            return nil;
+        }
     }
 
     return theCompiler;

@@ -296,6 +296,10 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	return @[ @5, @3, @4, @6, @7, @8, @256 ];
 }
 
+- (BOOL) isNaturalInformCompilerPathValid {
+    NSString* path = [self naturalInformCompilerToUse];
+    return [[NSFileManager defaultManager] fileExistsAtPath: path];
+}
 
 - (NSString*) naturalInformCompilerToUse {
     if (![self usingNaturalInform]) {

@@ -232,8 +232,8 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 }
 
 - (void) sendTaskDetails: (NSTask*) task {
-	NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", [[task executableURL] lastPathComponent]];
-	
+    NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", [task launchPath]];
+
 	for( NSString* arg in [task arguments] ) {
 		[taskMessage appendFormat: @" \"%@\"", arg];
 	}
@@ -326,7 +326,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [stdErrH waitForDataInBackgroundAndNotify];
 }
 
-- (void) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase {
+- (BOOL) prepareForLaunchWithBlorbStage: (BOOL) makeBlorb testCase:(NSString*) testCase {
     // Kill off any old tasks...
     if (theTask) {
         if ([theTask isRunning]) {
@@ -355,6 +355,10 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
         }
 
         if ([settings usingNaturalInform]) {
+            if (![settings isNaturalInformCompilerPathValid])
+            {
+                return NO;
+            }
             [self addNaturalInformStageUsingTestCase: testCase];
         }
 
@@ -400,6 +404,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [progress startProgress];
 
     [self prepareNext];
+    return YES;
 }
 
 - (void) clearConsole {

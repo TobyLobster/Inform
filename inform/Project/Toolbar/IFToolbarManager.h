@@ -52,6 +52,8 @@
 
 -(BOOL) selectTestCase:(NSString*) testCase;
 
+-(void) redrawToolbar;
+
 @property (atomic, readonly, copy) NSString *currentTestCase;
 
 @end
