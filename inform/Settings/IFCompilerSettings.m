@@ -391,18 +391,12 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setUsingNaturalInform: (BOOL) setting {
-    [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
+    //[self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) usingNaturalInform {
-    NSNumber* usingNaturalInform = [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform];
-
-    if (usingNaturalInform) {
-        return [usingNaturalInform boolValue];
-    } else {
-        return NO;
-    }
+    return YES;
 }
 
 - (void) setStrict: (BOOL) setting {

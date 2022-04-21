@@ -8,16 +8,12 @@
 // List of projects
 // Inform 7 Project:        IFEmptyNaturalProject
 // Inform 7 Extension:      IFNaturalExtensionProject
-// Inform 6 Project(empty): IFEmptyProject
-// Inform 6 Project:        IFStandardProject
 
 #import <Foundation/Foundation.h>
 #import "IFNewProject.h"
 #import "IFProjectFile.h"
 #import "IFProject.h"
 
-#import "IFNewEmptyInform6Project.h"
-#import "IFNewInform6Project.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
 #import "IFNewInform7ExtensionFile.h"
@@ -314,22 +310,6 @@
     projectPrompt    = [IFUtility localizedString: @"Create Extension"];
     projectView      = [projectType configView];
     projectFlow      = IFNewProjectOptions;
-    projectStory     = nil;
-    projectExtensionURL    = nil;
-    projectDefaultFilename = nil;
-
-    [self startFlow];
-}
-
-- (void) createInform6Project {
-    [self close];
-
-    projectType      = [[IFNewInform6Project alloc] init];
-    projectFileTypes = @[@"inform"];
-    projectTitle     = [IFUtility localizedString: @"Create Project"];
-    projectPrompt    = [IFUtility localizedString: @"Create Project"];
-    projectView      = [projectType configView];
-    projectFlow      = (IFNewProjectFlow) (IFNewProjectOptions | IFNewProjectLocation);
     projectStory     = nil;
     projectExtensionURL    = nil;
     projectDefaultFilename = nil;

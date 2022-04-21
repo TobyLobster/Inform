@@ -69,10 +69,6 @@
 /// Sets check-as-you-type on or off
 - (void) setSpellChecking: (BOOL) checkSpelling;
 
-#pragma mark - Breakpoints
-- (IBAction) setBreakpoint: (id) sender;
-- (IBAction) deleteBreakpoint: (id) sender;
-
 #pragma mark - The header page
 - (IBAction) showHeaderPage: (id) sender;
 - (IBAction) hideHeaderPage: (id) sender;

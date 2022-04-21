@@ -31,6 +31,5 @@ typedef NS_ENUM(int, IFNewProjectFlow) {
                      fileType: (IFFileType) fileType
                         story: (NSString*) story;
 - (void) createInform7Extension;
-- (void) createInform6Project;
 
 @end

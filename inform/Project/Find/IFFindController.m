@@ -62,6 +62,8 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     NSMutableArray*			replaceHistory;								// The 'replace' history
     NSMutableArray*			findHistory;								// The 'find' history
     NSString*				lastSearch;									// The last phrase that was searched for
+    NSMenuItem*             lastSearchType;                             // The last search type that was searched with
+    BOOL                    lastSearchIgnoreCase;                       // The last searches 'ignore case' flag
 
     BOOL					searching;									// YES if we're searching for results
     NSMutableArray*			findAllResults;								// The 'find all' results view
@@ -204,6 +206,9 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 		// Close the 'find all' results
 		[self showAuxiliaryView: nil];
 	}
+
+    lastSearchType = [searchType selectedItem];
+    lastSearchIgnoreCase = ([ignoreCase state] == NSOnState);
 }
 
 - (IBAction) findNext: (id) sender {
@@ -336,8 +341,9 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 - (id<IFFindDelegate>) chooseDelegateFromWindow: (NSWindow*) window {
 	// Default delegate behaviour is to look at the window controller first, then the window, then the views
 	// up the chain from the active view
-	if ([self isSuitableDelegate: [window windowController]]) {
-		return [window windowController];
+    NSWindowController* controller = [window windowController];
+    if ([self isSuitableDelegate: controller]) {
+        return controller;
 	} else if ([self isSuitableDelegate: window]) {
 		return (id<IFFindDelegate>)window;
 	}
@@ -385,7 +391,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	return YES;
 }
 
-- (void) updateControls {
+- (void) updateControls: (BOOL) copyLastState {
 	[findPhrase setEnabled: [self canSearch] || [self canFindAll]];
 	[replacePhrase setEnabled: [self canReplace]];
 	
@@ -405,11 +411,18 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	[replace setEnabled: [self canReplace] && hasSearchTerm];
 	[replaceAll setEnabled: [self canReplaceAll] && hasSearchTerm];
 	[findAll setEnabled: [self canFindAll] && hasSearchTerm];
-	
-	// 'Contains' is the basic type of search
-	if (![[searchType selectedItem] isEnabled]) {
-		[searchType selectItem: containsItem];
-	}
+
+    if (copyLastState) {
+        // 'Contains' is the basic type of search
+        if ((lastSearchType == nil) || (![lastSearchType isEnabled])) {
+            [searchType selectItem: containsItem];
+        }
+        else {
+            [searchType selectItem: lastSearchType];
+        }
+
+        ignoreCase.state = (lastSearchIgnoreCase) ? NSOnState : NSOffState;
+    }
 }
 
 - (void) setActiveDelegate: (id<IFFindDelegate>) newDelegate {
@@ -427,7 +440,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 		[self showAuxiliaryView: nil];
 	}
 
-	[self updateControls];
+    [self updateControls: NO];
 }
 
 - (void) updateFromFirstResponder {
@@ -442,11 +455,14 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 						   
 - (void) windowDidLoad {
 	[self updateFromFirstResponder];
-	[self updateControls];
+    [self updateControls: YES];
 
 	winFrame		= [[self window] frame];
 	contentFrame	= [[[self window] contentView] frame];
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
+
+    // When clicked, call the routine
+    findAllTable.action = @selector(onItemClicked);
 
     // Restore frame position
     [[self window] setFrameUsingName:@"FindFrame"];
@@ -624,13 +640,24 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	return [row attributedContext];
 }
 
+- (void) onItemClicked {
+    NSInteger clickedRow = [findAllTable clickedRow];
+
+    if (clickedRow >= 0)
+    {
+        if (activeDelegate && [activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
+            [activeDelegate highlightFindResult: findAllResults[clickedRow]];
+        }
+    }
+}
+
 - (void)tableViewSelectionDidChange: (NSNotification *)aNotification {
-	if ([findAllTable numberOfSelectedRows] != 1) return;
-	
-	NSUInteger selectedRow = [findAllTable selectedRow];
-	if ([activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
-		[activeDelegate highlightFindResult: findAllResults[selectedRow]];
-	}
+    if ([findAllTable numberOfSelectedRows] != 1) return;
+
+    NSUInteger selectedRow = [findAllTable selectedRow];
+    if (activeDelegate && [activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
+        [activeDelegate highlightFindResult: findAllResults[selectedRow]];
+    }
 }
 
 - (BOOL)                        tableView:(NSTableView *)tableView
@@ -742,7 +769,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 - (void)controlTextDidChange:(NSNotification *)aNotification {
     if( aNotification.object == findPhrase ) {
-        [self updateControls];
+        [self updateControls: NO];
     }
 }
 

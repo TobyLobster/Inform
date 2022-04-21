@@ -74,10 +74,6 @@
 // Documentation
 - (void) openDocUrl: (NSURL*) url;
 
-// Debugging
-- (void) updatedBreakpoints: (NSNotification*) not;
-- (void) hitBreakpoint: (int) pc;
-
 // Policy delegates
 @property (atomic, readonly, strong) IFProjectPolicy *generalPolicy;
 @property (atomic, readonly, strong) IFProjectPolicy *docPolicy;
@@ -115,11 +111,6 @@
 - (IBAction) showNextSection:     (id) sender;
 - (IBAction) commentOutSelection: (id) sender;
 - (IBAction) uncommentSelection:  (id) sender;
-- (IBAction) pauseProcess:      (id) sender;
-- (IBAction) continueProcess:   (id) sender;
-- (IBAction) stepIntoProcess:   (id) sender;
-- (IBAction) stepOutProcess:    (id) sender;
-- (IBAction) stepOverProcess:   (id) sender;
 - (IBAction) release:           (id) sender;
 - (IBAction) releaseForTesting: (id) sender;
 - (IBAction) compile:           (id) sender;
@@ -128,8 +119,6 @@
 - (IBAction) compileAndRefresh: (id) sender;
 - (IBAction) replayUsingSkein:  (id) sender;
 - (IBAction) stopProcess:       (id) sender;
-- (IBAction) showWatchpoints:   (id) sender;
-- (IBAction) showBreakpoints:   (id) sender;
 - (IBAction) searchDocs:        (id) sender;
 - (IBAction) searchProject:     (id) sender;
 - (IBAction) testSelector:      (id) sender;
@@ -159,11 +148,8 @@
 
 - (void) extensionUpdated: (NSString*) javascriptId;
 
-// Can we debug this project?
-@property (atomic, readonly) BOOL canDebug;
 @property (atomic, getter=isRunningGame, readonly) BOOL runningGame;
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
-@property (atomic, getter=isWaitingAtBreakpoint, readonly) BOOL waitingAtBreakpoint;
 
 - (void) inputSourceHasFinished: (id) source;
 @end

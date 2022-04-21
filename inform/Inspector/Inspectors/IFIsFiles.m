@@ -119,10 +119,9 @@ static NSInteger stringComparer(id a, id b, void * context) {
 	// Not available if there's no project selected
 	if (activeProject == nil) return NO;
 	
-	// Not available for Natural Inform projects with only one files
-	if ([[activeProject settings] usingNaturalInform] &&
-		[[activeProject sourceFiles] count] == 1) return NO;
-	
+    // Not available for Natural Inform projects with only one file
+    if ([[activeProject sourceFiles] count] == 1) return NO;
+
 	return YES;
 }
 

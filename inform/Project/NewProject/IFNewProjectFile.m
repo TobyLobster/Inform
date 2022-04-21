@@ -47,15 +47,9 @@ NS_ENUM(NSInteger) {
 
 @synthesize newFilename;
 - (NSString*) getNewFilename {
-	if ([[[projectController document] settings] usingNaturalInform]) {
-		// Default is to create a 'ni' file
-		[fileType selectItem: [[fileType menu] itemWithTag: niFileTag]];
-	} else {
-		// Default is to create a '.h' file
-		// '.h' files are '.i6' files when natural inform is being used
-		[fileType selectItem: [[fileType menu] itemWithTag: inform6FileTag]];
-	}
-	
+    // Default is to create a 'ni' file
+    [fileType selectItem: [[fileType menu] itemWithTag: niFileTag]];
+
 	// Set the new filename to nothing
 	newFilename = nil;
 	
@@ -84,13 +78,7 @@ NS_ENUM(NSInteger) {
 	
 	switch ([[fileType selectedItem] tag]) {
 		case inform6FileTag:
-			if ([[[projectController document] settings] usingNaturalInform]) {
-				// With Natural Inform, the extension is '.i6'
-				extension = @"i6";
-			} else {
-				// With standard Inform 6, the extension is '.h'
-				extension = @"h";
-			}
+            extension = @"i6";
 			break;
 		case niFileTag:
 			if ([[projectController document] editingExtension])

@@ -169,10 +169,7 @@
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex
 {
-    if( [[[self.parent document] settings] usingNaturalInform] ) {
-        return YES;
-    }
-    return NO;
+    return YES;
 }
 
 @end

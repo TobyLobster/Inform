@@ -73,7 +73,7 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 /// Adds a new Natural Inform build stage to the compiler
 - (void) addNaturalInformStageUsingTestCase:(NSString*) testCase;
 /// Adds a new Inform 6 build stage to the compiler
-- (void) addStandardInformStage: (BOOL) usingNaturalInform;
+- (void) addStandardInformStage;
 /// Pathname of the input file for the current build stage
 @property (atomic, readonly, copy) NSString *currentStageInput;
 

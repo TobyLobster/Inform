@@ -39,15 +39,12 @@
 #import "IFNaturalIntel.h"
 
 #import "IFIsFiles.h"
-#import "IFIsWatch.h"
-#import "IFIsBreakpoints.h"
 
 #import "IFHeaderController.h"
 
 #import "IFExtensionsManager.h"
 
 #import "IFI7OutputSettings.h"
-#import "IFOutputSettings.h"
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 
@@ -102,9 +99,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
     // The last file selected
     NSString*               lastFilename;
-
-    // Debugging
-    BOOL                    waitingAtBreakpoint;
 
     // Stack of skein items
     /// Used when running the entire skein (array of IFSkeinItem objects)
@@ -209,9 +203,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 - (void)windowDidBecomeMain:(NSNotification *)notification {
     betweenWindowLoadedAndBecomingMain = NO;
 
-    // Hide the debug menu if we're not making a project where debugging is available
-	[[(IFAppDelegate*)[NSApp delegate] debugMenu] setHidden: ![self canDebug]];
-
     [toolbarManager redrawToolbar];
 
     // The window accepts mouse move events
@@ -250,13 +241,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) awakeFromNib {
-	// Register for breakpoints updates
-	[[NSNotificationCenter defaultCenter] addObserver: self
-											 selector: @selector(updatedBreakpoints:)
-												 name: IFProjectBreakpointsChangedNotification
-											   object: [self document]];
-	[self updatedBreakpoints: nil];
-	
     // Setup the default panes
     [projectPanes removeAllObjects];
     [projectPanes addObject: [IFProjectPane standardPane]];
@@ -447,10 +431,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 // == Toolbar item validation ==
 
-- (BOOL) canDebug {
-	return [[self document] canDebug];
-}
-
 - (void) changeFirstResponder: (NSResponder*) first {
 	if ([first isKindOfClass: [NSView class]]) {
 		NSView* firstView = (NSView*)first;
@@ -493,32 +473,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	SEL itemSelector = [menuItem action];
 	BOOL isRunning = [[self runningGamePage] isRunningGame];
 
-	if (itemSelector == @selector(continueProcess:) ||
-		itemSelector == @selector(stepOverProcess:) ||
-		itemSelector == @selector(stepIntoProcess:) ||
-		itemSelector == @selector(stepOutProcess:)) {
-		return isRunning ? waitingAtBreakpoint : NO;
-	}
-
-	if (itemSelector == @selector(pauseProcess:) &&
-		![self canDebug]) {
-		return NO;
-	}
-
-	if (itemSelector == @selector(stopProcess:) ||
-		itemSelector == @selector(pauseProcess:)) {
+	if (itemSelector == @selector(stopProcess:)) {
 		return isRunning;
-	}
-
-	if (itemSelector == @selector(compileAndDebug:) ||
-		  itemSelector == @selector(setBreakpoint:) ||
-		  itemSelector == @selector(deleteBreakpoint:)) {
-		if (![self canDebug]) {
-            [menuItem setHidden: YES];
-			return NO;
-		} else {
-			[menuItem setHidden: NO];
-		}
 	}
 
     BOOL selectedNoTestCase = [self isExtensionProject] && ((toolbarManager.testCases.count == 0) ||
@@ -702,7 +658,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
                         localized: YES
                           warning: YES
                             title: [IFUtility localizedString: @"Could not launch compiler."]
-                          message: message];
+                          message: @"%@", message];
     }
 
     // Show the Console pane if required
@@ -853,8 +809,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
                   refreshOnly: NO
                  forceCompile: NO
                     onSuccess: @selector(runCompilerOutput)];
-
-        waitingAtBreakpoint = NO;
     }
 }
 
@@ -923,8 +877,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: YES
                 onSuccess: @selector(runCompilerOutputAndTest)];
-
-    waitingAtBreakpoint = NO;
 }
 
 - (IBAction) replayUsingSkein: (id) sender {
@@ -933,8 +885,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: NO
                 onSuccess: @selector(runCompilerOutputAndReplay)];
-	
-	waitingAtBreakpoint = NO;
 }
 
 - (IBAction) replayEntireSkein: (id) sender {
@@ -945,8 +895,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
                   refreshOnly: NO
                  forceCompile: NO
                     onSuccess: @selector(runCompilerOutputAndEntireSkein)];
-        
-        waitingAtBreakpoint = NO;
     }
 }
 
@@ -959,8 +907,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: NO
                 onSuccess: @selector(debugCompilerOutput)];
-
-	waitingAtBreakpoint = NO;
 }
 
 - (IBAction) stopProcess: (id) sender {
@@ -1042,8 +988,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 
 - (void) runCompilerOutput {
-	waitingAtBreakpoint = NO;
-
     [self.gamePage startRunningGame: [[self document] buildOutputFileURL].path];
 
     [toolbarManager validateVisibleItems];
@@ -1058,7 +1002,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) debugCompilerOutput {
-	waitingAtBreakpoint = NO;
 	[self.gamePage activateDebug];
     [self.gamePage startRunningGame: [[self.document compiler] outputFile]];
 
@@ -1527,7 +1470,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 			[[pane sourcePage] updateHighlightedLines];
 
 			if (temporaryHighlights) {
-				[[pane sourcePage] indicateLine: line];
+				[[pane sourcePage] indicateLine: (int) line];
 			}
 		}
 	}
@@ -1568,75 +1511,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) pauseProcess: (id) sender {
 	[[self runningGamePage] pauseRunningGame];
-}
-
-- (void) continueProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] continueFromBreakpoint];
-	}
-}
-
-- (void) stepOverProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] stepFromBreakpoint];
-	}
-}
-
-- (void) stepOutProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] finishFromBreakpoint];
-	}
-}
-
-- (void) stepIntoProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] stepIntoFromBreakpoint];
-	}
-}
-
-- (void) hitBreakpoint: (int) pc {
-	// Retrieve the game view
-	IFGamePage* gamePage = [self runningGamePage];
-	ZoomView* zView = [gamePage zoomView];
-	
-	NSString* filename = [[zView zMachine] sourceFileForAddress: pc];
-	int line_no = [[zView zMachine] lineForAddress: pc];
-	int char_no = [[zView zMachine] characterForAddress: pc];
-		
-	if (line_no > -1 && filename != nil) {
-		[[self sourcePage] showSourceFile: filename];
-		
-		if (char_no > -1)
-			[[self sourcePage] moveToLine: line_no
-								character: char_no];
-		else
-			[[self sourcePage] moveToLine: line_no];
-		[self removeHighlightsOfStyle: IFLineStyleExecutionPoint];
-		[self highlightSourceFileLine: line_no
-							   inFile: filename
-								style: IFLineStyleExecutionPoint];
-		[[self window] makeFirstResponder: [[self sourcePane] activeView]];
-	}
-	
-	waitingAtBreakpoint = YES;
-	
-	[toolbarManager validateVisibleItems];
 }
 
 - (IFIntelFile*) currentIntelligence {
@@ -1763,20 +1637,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
     return [toolbarManager validateToolbarItem: item];
 }
 
-#pragma mark - Debugging
-
-- (IBAction) showWatchpoints: (id) sender {
-	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
-	[[IFInspectorWindow sharedInspectorWindow] showInspectorWithKey: IFIsWatchInspector];
-}
-
-- (IBAction) showBreakpoints: (id) sender {
-	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
-	[[IFInspectorWindow sharedInspectorWindow] showInspectorWithKey: IFIsBreakpointsInspector];
-}
-
-#pragma mark - Breakpoints
-
 // (Grr, need to be able to make IFProjectPane the first responder or something, but it isn't
 // listening to messages from the main menu. Or at least, it's not being called that way)
 // This may not work the way the user expects if she has two source panes open. Blerh.
@@ -1788,30 +1648,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	} else {
 		// The cursor is currently elsewhere: ie, there is no active source page
 		return nil;
-	}
-}
-
-- (IBAction) setBreakpoint: (id) sender {
-	[[self activeSourcePage] setBreakpoint: sender];
-}
-
-- (IBAction) deleteBreakpoint: (id) sender {
-	[[self activeSourcePage] deleteBreakpoint: sender];
-}
-
-- (void) updatedBreakpoints: (NSNotification*) not {
-	// Update the breakpoint highlights
-	[self removeHighlightsOfStyle: IFLineStyleBreakpoint];
-	
-	int x;
-	
-	for (x=0; x<[[self document] breakpointCount]; x++) {
-		int line = [[self document] lineForBreakpointAtIndex: x];
-		NSString* file = [[self document] fileForBreakpointAtIndex: x];
-		
-		[self highlightSourceFileLine: line+1
-							   inFile: file
-								style: IFLineStyleBreakpoint];
 	}
 }
 
@@ -2465,10 +2301,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 -(BOOL) isRunningGame {
     return [[self runningGamePage] isRunningGame];
-}
-
--(BOOL) isWaitingAtBreakpoint {
-    return waitingAtBreakpoint;
 }
 
 -(BOOL) isCompiling {

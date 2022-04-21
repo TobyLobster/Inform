@@ -201,7 +201,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 						named: [IFUtility localizedString: @"Compiling Natural Inform source"]];
 }
 
-- (void) addStandardInformStage: (BOOL) usingNaturalInform {
+- (void) addStandardInformStage {
     if (!outputFile) [self outputFile];
     
     // Prepare the arguments
@@ -216,7 +216,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [self addCustomBuildStage: [settings compilerToUse]
                 withArguments: args
                nextStageInput: outputFile
-				 errorHandler: usingNaturalInform ? [[Inform6Problem alloc] init] : nil
+				 errorHandler: [[Inform6Problem alloc] init]
 						named: [IFUtility localizedString: @"Compiling Inform 6 source"]];
 }
 
@@ -354,19 +354,17 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 								named: @"Debug build stage"];
         }
 
-        if ([settings usingNaturalInform]) {
-            if (![settings isNaturalInformCompilerPathValid])
-            {
-                return NO;
-            }
-            [self addNaturalInformStageUsingTestCase: testCase];
+        if (![settings isNaturalInformCompilerPathValid])
+        {
+            return NO;
+        }
+        [self addNaturalInformStageUsingTestCase: testCase];
+
+        if ([settings compileNaturalInformOutput]) {
+            [self addStandardInformStage];
         }
 
-        if (![settings usingNaturalInform] || [settings compileNaturalInformOutput]) {
-            [self addStandardInformStage: [settings usingNaturalInform]];
-        }
-
-		if (makeBlorb && [settings usingNaturalInform]) {
+        if (makeBlorb) {
 			// Blorb files kind of create an exception: we change our output file, for instance,
             // and the input file is determined by the blurb file output by NI
 			NSString* extension;

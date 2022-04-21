@@ -22,8 +22,6 @@
 #import "IFIsNotes.h"
 #import "IFIsIndex.h"
 #import "IFIsFiles.h"
-#import "IFIsWatch.h"
-#import "IFIsBreakpoints.h"
 
 #import "Preferences/IFEditingPreferences.h"
 #import "Preferences/IFTextSizePreferences.h"
@@ -59,8 +57,6 @@
     IBOutlet NSMenuItem* newExtensionProjectMenu;
     /// The 'Open Extension' menu
     IBOutlet NSMenuItem* openExtensionMenu;
-    /// The Debug menu
-    IBOutlet NSMenuItem* debugMenu;
 
     /// Maps extension menu tags to source file names
     NSMutableArray* extensionSources;
@@ -116,6 +112,12 @@ static NSRunLoop* mainRunLoop = nil;
 	// Glk hub
 	[[GlkHub sharedGlkHub] setRandomHubCookie];
 	[[GlkHub sharedGlkHub] setHubName: @"GlkInform"];
+
+    // Remove the 'tab' related menu entries on the Window menu
+    if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)])
+    {
+        [NSWindow setAllowsAutomaticWindowTabbing:NO];
+    }
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification*) not {
@@ -123,9 +125,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsFiles sharedIFIsFiles]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsNotes sharedIFIsNotes]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsIndex sharedIFIsIndex]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsWatch sharedIFIsWatch]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsBreakpoints sharedIFIsBreakpoints]];
-	
+
 	// The standard preferences
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[AuthorPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
@@ -286,13 +286,6 @@ static NSRunLoop* mainRunLoop = nil;
         newProj = [[IFNewProject alloc] init];
     }
     [newProj createInform7Extension];
-}
-
-- (IBAction) newInform6Project: (id) sender {
-    if( newProj == nil ) {
-        newProj = [[IFNewProject alloc] init];
-    }
-    [newProj createInform6Project];
 }
 
 - (IBAction) showInspectors: (id) sender {
@@ -643,10 +636,6 @@ static NSRunLoop* mainRunLoop = nil;
     // Clean up preference panes
     //
     [[PreferenceController sharedPreferenceController] removeAllPreferencePanes];
-}
-
-- (NSMenuItem*) debugMenu {
-	return debugMenu;
 }
 
 - (BOOL) sourceSpellChecking {

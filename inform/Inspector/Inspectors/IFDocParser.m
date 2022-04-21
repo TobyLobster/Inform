@@ -98,7 +98,9 @@ typedef NS_ENUM(unsigned int, ParseState) {
 	HtmlTagOrComment,
 	HtmlTag,
 	HtmlCloseTag,
-	HtmlComment,
+    HtmlCommentStart1,
+    HtmlCommentStart2,
+    HtmlComment,
 	HtmlCommentEnd1,
 	HtmlCommentEnd2,
 	HtmlEntity
@@ -245,7 +247,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							break;
 							
 						case '!':
-							state = HtmlComment;
+							state = HtmlCommentStart1;
 							break;
 							
 						case '>':
@@ -310,6 +312,30 @@ typedef NS_ENUM(unsigned int, ParseState) {
 					}
 					break;
 					
+                case HtmlCommentStart1:
+                    switch (chrs[x]) {
+                        case '-':
+                            state = HtmlCommentStart2;
+                            break;
+
+                        default:
+                            state = HtmlTag;
+                            break;
+                    }
+                    break;
+
+                case HtmlCommentStart2:
+                    switch (chrs[x]) {
+                        case '-':
+                            state = HtmlComment;
+                            break;
+
+                        default:
+                            state = HtmlTag;
+                            break;
+                    }
+                    break;
+
 				case HtmlComment:
 					switch (chrs[x]) {
 						case '-':
@@ -347,8 +373,8 @@ typedef NS_ENUM(unsigned int, ParseState) {
 																		length: x - tagStart];
 							
 							// Strip down this comment
-							comment = [comment substringFromIndex: 5];					// Removes <!-- 
-							comment = [comment substringToIndex: [comment length]-3];	// Removes --
+							comment = [comment substringFromIndex: 4];					// Removes <!--
+							comment = [comment substringToIndex: [comment length]-2];	// Removes --
 							
 							// Look for interesting comments
 							if ([comment hasPrefix: @"START EXAMPLE \""]) {

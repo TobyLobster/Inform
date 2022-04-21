@@ -43,7 +43,6 @@
 static NSToolbarItem* compileItem			= nil;
 static NSToolbarItem* compileAndRunItem		= nil;
 static NSToolbarItem* replayItem			= nil;
-static NSToolbarItem* compileAndDebugItem	= nil;
 static NSToolbarItem* releaseItem			= nil;
 static NSToolbarItem* refreshIndexItem		= nil;
 
@@ -52,15 +51,6 @@ static NSToolbarItem* installExtensionItem	= nil;
 static NSToolbarItem* testItem              = nil;
 
 static NSToolbarItem* stopItem				= nil;
-static NSToolbarItem* pauseItem				= nil;
-
-static NSToolbarItem* continueItem			= nil;
-static NSToolbarItem* stepItem				= nil;
-static NSToolbarItem* stepOverItem			= nil;
-static NSToolbarItem* stepOutItem			= nil;
-
-static NSToolbarItem* watchItem				= nil;
-static NSToolbarItem* breakpointItem		= nil;
 
 static NSToolbarItem* searchDocsItem		= nil;
 static NSToolbarItem* searchProjectItem		= nil;
@@ -75,7 +65,6 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 	// Create the toolbar items
     compileItem         = [[NSToolbarItem alloc] initWithItemIdentifier: @"compileItem"];
     compileAndRunItem   = [[NSToolbarItem alloc] initWithItemIdentifier: @"compileAndRunItem"];
-    compileAndDebugItem = [[NSToolbarItem alloc] initWithItemIdentifier: @"compileAndDebugItem"];
     releaseItem         = [[NSToolbarItem alloc] initWithItemIdentifier: @"releaseItem"];
 	replayItem          = [[NSToolbarItem alloc] initWithItemIdentifier: @"replayItem"];
 	refreshIndexItem    = [[NSToolbarItem alloc] initWithItemIdentifier: @"refreshIndexItem"];
@@ -85,16 +74,7 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     testItem            = [[NSToolbarItem alloc] initWithItemIdentifier: @"testItem"];
 
     stopItem            = [[NSToolbarItem alloc] initWithItemIdentifier: @"stopItem"];
-    continueItem        = [[NSToolbarItem alloc] initWithItemIdentifier: @"continueItem"];
-    pauseItem           = [[NSToolbarItem alloc] initWithItemIdentifier: @"pauseItem"];
 
-	stepItem            = [[NSToolbarItem alloc] initWithItemIdentifier: @"stepItem"];
-    stepOverItem        = [[NSToolbarItem alloc] initWithItemIdentifier: @"stepOverItem"];
-    stepOutItem         = [[NSToolbarItem alloc] initWithItemIdentifier: @"stepOutItem"];
-	
-	watchItem           = [[NSToolbarItem alloc] initWithItemIdentifier: @"watchItem"];
-    breakpointItem      = [[NSToolbarItem alloc] initWithItemIdentifier: @"breakpointItem"];
-	
 	searchDocsItem      = [[NSToolbarItem alloc] initWithItemIdentifier: @"searchDocsItem"];
 	searchProjectItem   = [[NSToolbarItem alloc] initWithItemIdentifier: @"searchProjectItem"];
 
@@ -107,19 +87,11 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
                         @"compileAndRunItem":               compileAndRunItem,
                         @"replayItem":                      replayItem,
                         @"refreshIndexItem":                refreshIndexItem,
-                        @"compileAndDebugItem":             compileAndDebugItem,
                         @"releaseItem":                     releaseItem,
                         @"testSelectorItem":                testSelectorItem,
                         @"installExtensionItem":            installExtensionItem,
                         @"testItem":                        testItem,
                         @"stopItem":                        stopItem,
-                        @"pauseItem":                       pauseItem,
-                        @"continueItem":                    continueItem,
-                        @"stepItem":                        stepItem,
-                        @"stepOverItem":                    stepOverItem,
-                        @"stepOutItem":                     stepOutItem,
-                        @"watchItem":                       watchItem,
-                        @"breakpointItem":                  breakpointItem,
                         @"searchDocsItem":                  searchDocsItem,
                         @"searchProjectItem":               searchProjectItem,
                         @"toolbarStatusSpacingItem":        toolbarStatusSpacingItem,
@@ -128,7 +100,6 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 	// Images
 	[compileItem            setImage: [NSImage imageNamed: @"App/Toolbar/compile"]];
 	[compileAndRunItem      setImage: [NSImage imageNamed: @"App/Toolbar/run"]];
-	[compileAndDebugItem    setImage: [NSImage imageNamed: @"App/Toolbar/debug"]];
 	[releaseItem            setImage: [NSImage imageNamed: @"App/Toolbar/release"]];
     [installExtensionItem   setImage: [NSImage imageNamed: @"App/Toolbar/install"]];
     [testItem               setImage: [NSImage imageNamed: @"App/Toolbar/test"]];
@@ -136,37 +107,18 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 	[refreshIndexItem       setImage: [NSImage imageNamed: @"App/Toolbar/refresh_index"]];
 	
 	[stopItem               setImage: [NSImage imageNamed: @"App/Toolbar/stop"]];
-	[pauseItem              setImage: [NSImage imageNamed: @"App/Toolbar/pause"]];
-	[continueItem           setImage: [NSImage imageNamed: @"App/Toolbar/continue"]];
-	
-	[stepItem               setImage: [NSImage imageNamed: @"App/Toolbar/step"]];
-	[stepOverItem           setImage: [NSImage imageNamed: @"App/Toolbar/stepover"]];
-	[stepOutItem            setImage: [NSImage imageNamed: @"App/Toolbar/stepout"]];
-	
-	[watchItem              setImage: [NSImage imageNamed: @"App/Toolbar/watch"]];
-	[breakpointItem         setImage: [NSImage imageNamed: @"App/Toolbar/breakpoint"]];
 
     [toolbarStatusSpacingPaletteItem setImage: [NSImage imageNamed: @"App/Toolbar/status"]];
 
 	// Labels
     [compileItem         setLabel: [IFUtility localizedString: @"Compile"]];
     [compileAndRunItem   setLabel: [IFUtility localizedString: @"Go!"]];
-	[compileAndDebugItem setLabel: [IFUtility localizedString: @"Debug"]];
     [releaseItem         setLabel: [IFUtility localizedString: @"Release"]];
     [replayItem          setLabel: [IFUtility localizedString: @"Replay"]];
     [refreshIndexItem    setLabel: [IFUtility localizedString: @"Refresh Index"]];
 	
-	[stepItem            setLabel: [IFUtility localizedString: @"Step"]];
-	[stepOverItem        setLabel: [IFUtility localizedString: @"Step over"]];
-	[stepOutItem         setLabel: [IFUtility localizedString: @"Step out"]];
-	
 	[stopItem            setLabel: [IFUtility localizedString: @"Stop"]];
-	[pauseItem           setLabel: [IFUtility localizedString: @"Pause"]];
-	[continueItem        setLabel: [IFUtility localizedString: @"Continue"]];
 
-	[watchItem           setLabel: [IFUtility localizedString: @"Watch"]];
-	[breakpointItem      setLabel: [IFUtility localizedString: @"Breakpoints"]];
-	
     [testSelectorItem     setLabel: [IFUtility localizedString: @"Test Case"]];
     [installExtensionItem setLabel: [IFUtility localizedString: @"Install Extension"]];
     [testItem             setLabel: [IFUtility localizedString: @"Test"]];
@@ -191,20 +143,10 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 	// The tooltips
     [compileItem            setToolTip: [IFUtility localizedString: @"CompileTip"   default: nil]];
     [compileAndRunItem      setToolTip: [IFUtility localizedString: @"GoTip"        default: nil]];
-	[compileAndDebugItem    setToolTip: [IFUtility localizedString: @"DebugTip"     default: nil]];
     [releaseItem            setToolTip: [IFUtility localizedString: @"ReleaseTip"   default: nil]];
 	[replayItem             setToolTip: [IFUtility localizedString: @"ReplayTip"    default: nil]];
 	
-	[stepItem               setToolTip: [IFUtility localizedString: @"StepTip"      default: nil]];
-	[stepOverItem           setToolTip: [IFUtility localizedString: @"StepOverTip"  default: nil]];
-	[stepOutItem            setToolTip: [IFUtility localizedString: @"StepOutTip"   default: nil]];
-	
 	[stopItem               setToolTip: [IFUtility localizedString: @"StopTip"      default: nil]];
-	[pauseItem              setToolTip: [IFUtility localizedString: @"PauseTip"     default: nil]];
-	[continueItem           setToolTip: [IFUtility localizedString: @"ContinueTip"  default: nil]];
-	
-	[watchItem              setToolTip: [IFUtility localizedString: @"WatchTip"         default: nil]];
-	[breakpointItem         setToolTip: [IFUtility localizedString: @"BreakpointsTip"   default: nil]];
 
 	[searchDocsItem         setToolTip: [IFUtility localizedString: @"SearchDocsTip"    default: nil]];
 	[searchProjectItem      setToolTip: [IFUtility localizedString: @"SearchProjectTip" default: nil]];
@@ -217,21 +159,11 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     // The action heroes
     [compileItem            setAction: @selector(compile:)];
     [compileAndRunItem      setAction: @selector(compileAndRun:)];
-    [compileAndDebugItem    setAction: @selector(compileAndDebug:)];
     [releaseItem            setAction: @selector(release:)];
     [replayItem             setAction: @selector(replayUsingSkein:)];
     [refreshIndexItem       setAction: @selector(compileAndRefresh:)];
 	
     [stopItem               setAction: @selector(stopProcess:)];
-	[pauseItem              setAction: @selector(pauseProcess:)];
-	
-	[continueItem           setAction: @selector(continueProcess:)];
-	[stepItem               setAction: @selector(stepIntoProcess:)];
-	[stepOverItem           setAction: @selector(stepOverProcess:)];
-	[stepOutItem            setAction: @selector(stepOutProcess:)];
-	
-	[watchItem              setAction: @selector(showWatchpoints:)];
-	[breakpointItem         setAction: @selector(showBreakpoints:)];
     [testSelectorItem       setAction: @selector(testSelector:)];
     [installExtensionItem   setAction: @selector(installExtension:)];
     [testItem               setAction: @selector(testMe:)];
@@ -396,8 +328,9 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
         NSRect newFrame = toolbarRect;
         newFrame.origin.x = (toolbarRect.size.width / 2) - (toolbarStatusView.frame.size.width / 2);
         newFrame.origin.y = newFrame.origin.y;
-        newFrame.origin.y += 6.0f;
-        newFrame.size.height -= 7.0f;
+        float deltaHeight = -2.0f;
+        newFrame.origin.y += 15.0f - deltaHeight/2;
+        newFrame.size.height += -1.0f + deltaHeight;
         newFrame.size.width = toolbarStatusView.frame.size.width;
 
         //newFrame.origin.y -= toolbarViewTitlebarHeight;
@@ -466,15 +399,10 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 
 -(NSString*) toolbarIdentifier {
     // Create the view switch toolbar
-	if ([[projectController.document settings] usingNaturalInform]) {
-        if( [projectController.document projectFileType] == IFFileTypeInform7ExtensionProject ) {
-            return @"IFInform7ExtensionProjectToolbar";
-        }
-		return @"IFInform7Toolbar";
-	} else {
-        return @"IFInform6Toolbar";
-	}
-    
+    if( [projectController.document projectFileType] == IFFileTypeInform7ExtensionProject ) {
+        return @"IFInform7ExtensionProjectToolbar";
+    }
+    return @"IFInform7Toolbar";
 }
 
 - (void) setToolbar {
@@ -571,16 +499,8 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     return @[@"compileItem",
              @"compileAndRunItem",
              @"replayItem",
-             @"compileAndDebugItem",
              @"refreshIndexItem",
-             @"pauseItem",
-             @"continueItem",
-             @"stepItem",
-             @"stepOverItem",
-             @"stepOutItem",
              @"stopItem",
-             @"watchItem",
-             @"breakpointItem",
              @"searchDocsItem",
              @"searchProjectItem",
              @"toolbarStatusSpacingItem",
@@ -613,16 +533,8 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
         // Inform 6 toolbar items
 		return @[@"compileAndRunItem",
                  @"replayItem",
-                 @"compileAndDebugItem",
-                 @"pauseItem",
-                 @"continueItem",
-                 @"stepOutItem",
-                 @"stepOverItem",
-                 @"stepItem",
                  @"releaseItem",
-                 @"toolbarStatusSpacingItem",
-                 @"breakpointItem",
-                 @"watchItem"];
+                 @"toolbarStatusSpacingItem"];
 	}
 }
 
@@ -643,28 +555,10 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     SEL itemSelector = [item action];
     NSString* itemIdentifier = [item itemIdentifier];
 
-    if ([itemIdentifier isEqualToString: [pauseItem itemIdentifier]] &&
-		!projectController.canDebug) {
-		return NO;
-	}
-	
-	if ([itemIdentifier isEqualToString: [stopItem itemIdentifier]] ||
-		[itemIdentifier isEqualToString: [pauseItem itemIdentifier]]) {
+	if ([itemIdentifier isEqualToString: [stopItem itemIdentifier]]) {
 		return projectController.isRunningGame;
 	}
 	
-	if ([itemIdentifier isEqualToString: [continueItem itemIdentifier]] ||
-		[itemIdentifier isEqualToString: [stepOutItem itemIdentifier]]  ||
-		[itemIdentifier isEqualToString: [stepOverItem itemIdentifier]] ||
-		[itemIdentifier isEqualToString: [stepItem itemIdentifier]]) {
-		return projectController.isRunningGame ? projectController.isWaitingAtBreakpoint : NO;
-	}
-
-	if (itemSelector == @selector(compileAndDebug:) &&
-		!projectController.canDebug) {
-		return NO;
-	}
-
     if( itemSelector == @selector(testMe:) ) {
         if( [testCases count] == 0 ) {
             return NO;
@@ -678,7 +572,6 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 		itemSelector == @selector(release:) ||
         itemSelector == @selector(releaseForTesting:) ||
 		itemSelector == @selector(compileAndRun:) ||
-		itemSelector == @selector(compileAndDebug:) ||
 		itemSelector == @selector(replayUsingSkein:) ||
 		itemSelector == @selector(compileAndRefresh:)) {
 

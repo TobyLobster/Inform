@@ -36,7 +36,6 @@
 
 - (IBAction) newProject: (id) sender;
 - (IBAction) newExtension: (id) sender;
-- (IBAction) newInform6Project: (id) sender;
 
 - (IBAction) visitWebsite: (id) sender;
 - (IBAction) showWelcome: (id) sender;
@@ -46,9 +45,6 @@
 - (void) updateExtensionsMenu;
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
-
-/// The Debug menu
-@property (atomic, readonly, copy) NSMenuItem *debugMenu;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

@@ -283,9 +283,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
     // Are we on an Inform 7 project?
 	NSWindowController* control = [activeMainWindow windowController];
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
-        IFProjectController* controller = (IFProjectController*) control;
-        IFProject* project = [controller document];
-        return ([[project settings] usingNaturalInform]);
+        return true;
     }
     return false;
 }

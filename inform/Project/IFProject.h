@@ -87,33 +87,6 @@
 
 - (void) unregisterProjectTextStorage;
 
-
-#pragma mark - Debugging
-- (BOOL) canDebug;
-@property (atomic, readonly) BOOL canDebug;
-
-// Watchpoints
-- (void) addWatchExpression: (NSString*) expression;
-- (void) replaceWatchExpressionAtIndex: (NSInteger) index
-						withExpression: (NSString*) expression;
-- (NSString*) watchExpressionAtIndex: (NSInteger) index;
-@property (atomic, readonly) NSInteger watchExpressionCount;
-- (void) removeWatchExpressionAtIndex: (NSInteger) index;
-
-// Breakpoints
-- (void) addBreakpointAtLine: (int) line
-					  inFile: (NSString*) filename;
-- (void) replaceBreakpointAtIndex: (NSInteger) index
-			 withBreakpointAtLine: (int) line
-						   inFile: (NSString*) filename;
-- (int) lineForBreakpointAtIndex: (NSInteger) index;
-- (NSString*) fileForBreakpointAtIndex: (NSInteger) index;
-- (NSInteger) breakpointCount;
-@property (atomic, readonly) NSInteger breakpointCount;
-- (void) removeBreakpointAtIndex: (NSInteger) index;
-- (void) removeBreakpointAtLine: (NSInteger) line
-						 inFile: (NSString*) file;
-
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
 -(BOOL) copyProjectExtensionSourceToMaterialsExtensions;

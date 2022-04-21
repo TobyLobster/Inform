@@ -273,6 +273,8 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 	winFrame		= [[self window] frame];
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
+
+    [findProgress setHidden: YES];
 }
 
 - (void) showWindow:(id)sender {
@@ -306,7 +308,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[findAllTable reloadData];
 
     // Disable displaying stuff on screen while we adjust window/view size and positions
-    NSDisableScreenUpdates();
+    //NSDisableScreenUpdates();
 
     // Compose the results count message
     NSString* message;
@@ -325,7 +327,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [self resizeToFitResults];
     
     // Enable displaying stuff on screen now that we have adjusted window/view size and positions
-    NSEnableScreenUpdates();
+    //NSEnableScreenUpdates();
 }
 
 - (void) setProject: (IFProject*) aProject {

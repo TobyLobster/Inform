@@ -22,7 +22,6 @@
 #import "IFSettingsPage.h"
 
 #import "IFIsFiles.h"
-#import "IFIsWatch.h"
 
 #import "IFPreferences.h"
 
@@ -455,13 +454,6 @@ static NSDictionary* IFSyntaxAttributes[256];
 #pragma mark - Menu actions
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	// Can't add breakpoints if we're not showing the source view
-	// (Moot: this never gets called at any point where it is useful at the moment)
-	if ([menuItem action] == @selector(setBreakpoint:) ||
-		[menuItem action] == @selector(deleteBreakpoint:)) {
-		return [self currentView]==IFSourcePane;
-	}
-	
 	return YES;
 }
 

@@ -13,7 +13,6 @@
 #import "IFPreferences.h"
 #import "IFGlkResources.h"
 #import "IFRuntimeErrorParser.h"
-#import "IFIsWatch.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
 #import "IFProjectController.h"
@@ -78,10 +77,6 @@
         switchToPage    = NO;
 
 		// Register for breakpoints updates
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(updatedBreakpoints:)
-													 name: IFProjectBreakpointsChangedNotification
-												   object: [self.parent document]];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesChanged:)
 													 name: IFPreferencesAppFontSizeDidChangeNotification
@@ -354,19 +349,6 @@
 		}
 	}
 	
-	// Set the other breakpoints anyway
-	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
-		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
-		
-		if (line >= 0) {
-			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
-				NSLog(@"Failed to set breakpoint at %@:%i", file, line+1);
-			}
-		}
-	}
-	
 	setBreakpoint = NO;
 	
 	// Run to the appropriate point in the current skein
@@ -411,42 +393,10 @@
 	}
 }
 
-#pragma mark - Breakpoints
-
-- (void) updatedBreakpoints: (NSNotification*) not {
-	// Give up if there's no Z-Machine running
-	if (!zView) return;
-	if (![zView zMachine]) return;
-	
-	// Clear out the old breakpoints
-	[[zView zMachine] removeAllBreakpoints];
-	
-	// Set the breakpoints
-    IFProject *parentDocument = self.parent.document;
-	int breakpoint;
-	for (breakpoint = 0; breakpoint < [parentDocument breakpointCount]; breakpoint++) {
-		int line = [parentDocument lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [parentDocument fileForBreakpointAtIndex: breakpoint];
-		
-		if (line >= 0) {
-			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
-				NSLog(@"Failed to set breakpoint at %@:%i", file, line+1);
-			}
-		}
-	}
-}
-
 #pragma mark - Debugging
-
-- (void) hitBreakpoint: (int) pc {
-	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
-	[self.parent hitBreakpoint: pc];
-}
 
 - (void) zoomWaitingForInput {
     [self.parent zoomViewIsWaitingForInput];
-
-	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
 }
 
 -(void) didSwitchToPage {
