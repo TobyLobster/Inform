@@ -166,7 +166,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         [createInfoArray addObject: info];
         
         icon = [NSImage imageNamed: NSImageNameFolder];
-        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation for iBooks"]
+        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation as eBooks"]
                                                       image: icon
                                                         url: nil
                                                        type: IFRecentSaveEPubs];
