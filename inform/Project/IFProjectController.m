@@ -202,8 +202,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Once a project has loaded, remove the launcher window
 	[IFWelcomeWindow hideWelcomeWindow];
 
-    [toolbarManager redrawToolbar];
-
     // We have loaded the window, but we are not yet main
     betweenWindowLoadedAndBecomingMain = YES;
 }
@@ -213,6 +211,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
     // Hide the debug menu if we're not making a project where debugging is available
 	[[(IFAppDelegate*)[NSApp delegate] debugMenu] setHidden: ![self canDebug]];
+
+    [toolbarManager redrawToolbar];
 
     // The window accepts mouse move events
     [[self window] setAcceptsMouseMovedEvents:YES];
