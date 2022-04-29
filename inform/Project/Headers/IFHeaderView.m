@@ -62,7 +62,7 @@
 
 - (void) updateFromRoot {
 	// Replace the root header node
-	rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
+    rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
 												 position: NSMakePoint(0,0)
 													depth: 0];
     int populateToDepth = displayDepth;

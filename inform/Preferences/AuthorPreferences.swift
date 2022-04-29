@@ -44,7 +44,7 @@ final class AuthorPreferences : IFPreferencePane {
 	}
 	
 	override var toolbarImage: NSImage! {
-		return NSImage(named: NSImage.userName)
+		return Bundle(for: type(of: self)).image(forResource: NSImage.Name("App/person"))!;
 	}
 	
 	override var tooltip: String! {

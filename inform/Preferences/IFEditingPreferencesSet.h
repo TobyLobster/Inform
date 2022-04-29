@@ -42,5 +42,7 @@
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToEditingPreferenceSet:(IFEditingPreferencesSet*) set;
 -(BOOL) isEqual:(id)object;
+-(void) resetEditingSettings;
+-(void) resetColourSettings;
 
 @end

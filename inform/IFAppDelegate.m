@@ -24,7 +24,7 @@
 #import "IFIsFiles.h"
 
 #import "Preferences/IFEditingPreferences.h"
-#import "Preferences/IFTextSizePreferences.h"
+#import "Preferences/IFColourPreferences.h"
 #import "Preferences/IFAdvancedPreferences.h"
 
 #import "IFNoDocProtocol.h"
@@ -129,7 +129,7 @@ static NSRunLoop* mainRunLoop = nil;
 	// The standard preferences
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[AuthorPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
-	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFColourPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up

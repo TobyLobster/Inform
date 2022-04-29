@@ -8,7 +8,6 @@
 
 #import "IFHeader.h"
 
-
 NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 
 @implementation IFHeader {
@@ -36,6 +35,7 @@ NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 	self = [super init];
 	
 	if (self) {
+        NSAssert(name != NULL, @"Null name passed to initWithName:parent:children:");
 		headingName = [name copy];
 		parent = newParent;
 		

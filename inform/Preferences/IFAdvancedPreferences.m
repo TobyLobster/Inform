@@ -58,9 +58,7 @@
 }
 
 - (NSImage*) toolbarImage {
-	// Use the OS X standard 'advanced' image
-	NSImage* image = [NSImage imageNamed: NSImageNameAdvanced];
-	return image;
+    return [[NSBundle bundleForClass: [self class]] imageForResource: @"App/gearshape.2"];
 }
 
 - (NSString*) tooltip {

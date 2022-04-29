@@ -32,72 +32,77 @@
 -(instancetype) init {
     self = [super init];
     if( self ) {
-        self.fontFamily = @"Lucida Grande";
-        self.fontSize = 12.0f;
-        self.sourcePaperColor    = [NSColor whiteColor];
-        self.extensionPaperColor = [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0];
-
         self.options = [[NSMutableArray alloc] init];
 
-        // Syntax highlighting section
-        self.enableSyntaxHighlighting = true;
-        IFSyntaxHighlightingOption* option = [[IFSyntaxHighlightingOption alloc] init];
+        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionHeadings];
+        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionMainText];
+        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionComments];
+        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionQuotedText];
+        [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
 
-        // Headings
-        [option setColour:              [NSColor blackColor]];
-        [option setFontStyle:           IFFontStyleBold];
-        [option setRelativeFontSize:    IFFontSizePlus10];
-        [option setUnderline:           false];
-        [self.options insertObject: option atIndex: IFSHOptionHeadings];
-
-        option = [[IFSyntaxHighlightingOption alloc] init];
-        
-        // Main text
-        [option setColour:              [NSColor blackColor]];
-        [option setFontStyle:           IFFontStyleRegular];
-        [option setRelativeFontSize:    IFFontSizeNormal];
-        [option setUnderline:           false];
-        [self.options insertObject: option atIndex: IFSHOptionMainText];
-
-        option = [[IFSyntaxHighlightingOption alloc] init];
-
-        // Comments
-        [option setColour:              [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
-        [option setFontStyle:           IFFontStyleBold];
-        [option setRelativeFontSize:    IFFontSizeMinus20];
-        [option setUnderline:           false];
-        [self.options insertObject: option atIndex: IFSHOptionComments];
-
-        option = [[IFSyntaxHighlightingOption alloc] init];
-
-        // Quoted text
-        [option setColour:              [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
-        [option setFontStyle:           IFFontStyleBold];
-        [option setRelativeFontSize:    IFFontSizeNormal];
-        [option setUnderline:           false];
-        [self.options insertObject: option atIndex: IFSHOptionQuotedText];
-
-        option = [[IFSyntaxHighlightingOption alloc] init];
-
-        // Text substitutions
-        [option setColour:              [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
-        [option setFontStyle:           IFFontStyleRegular];
-        [option setRelativeFontSize:    IFFontSizeNormal];
-        [option setUnderline:           false];
-        [self.options insertObject: option atIndex: IFSHOptionTextSubstitutions];
-
-
-        self.tabWidth = 24.0;
-
-        // Indenting
-        self.indentWrappedLines      = true;
-        self.autoIndentAfterNewline  = true;
-        self.autoSpaceTableColumns   = true;
-
-        // Numbering
-        self.autoNumberSections      = true;
+        [self resetEditingSettings];
+        [self resetColourSettings];
     }
     return self;
+}
+
+-(void) resetEditingSettings {
+    self.fontFamily = @"Lucida Grande";
+    self.fontSize = 12.0f;
+
+    // Syntax highlighting section
+    self.enableSyntaxHighlighting = true;
+
+    self.tabWidth = 24.0;
+
+    // Indenting
+    self.indentWrappedLines      = true;
+    self.autoIndentAfterNewline  = true;
+    self.autoSpaceTableColumns   = true;
+
+    // Numbering
+    self.autoNumberSections      = true;
+
+    // Headings
+    IFSyntaxHighlightingOption* option = self.options[IFSHOptionHeadings];
+    [option setFontStyle:           IFFontStyleBold];
+    [option setRelativeFontSize:    IFFontSizePlus10];
+    [option setUnderline:           false];
+
+    // Main text
+    option = self.options[IFSHOptionMainText];
+    [option setFontStyle:           IFFontStyleRegular];
+    [option setRelativeFontSize:    IFFontSizeNormal];
+    [option setUnderline:           false];
+
+    // Comments
+    option = self.options[IFSHOptionComments];
+    [option setFontStyle:           IFFontStyleBold];
+    [option setRelativeFontSize:    IFFontSizeMinus20];
+    [option setUnderline:           false];
+
+    // Quoted text
+    option = self.options[IFSHOptionQuotedText];
+    [option setFontStyle:           IFFontStyleBold];
+    [option setRelativeFontSize:    IFFontSizeNormal];
+    [option setUnderline:           false];
+
+    // Text substitutions
+    option = self.options[IFSHOptionTextSubstitutions];
+    [option setFontStyle:           IFFontStyleRegular];
+    [option setRelativeFontSize:    IFFontSizeNormal];
+    [option setUnderline:           false];
+}
+
+-(void) resetColourSettings {
+    self.sourcePaperColor    = [NSColor whiteColor];
+    self.extensionPaperColor = [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0];
+
+    [self.options[IFSHOptionHeadings]           setColour: [NSColor blackColor]];
+    [self.options[IFSHOptionMainText]           setColour: [NSColor blackColor]];
+    [self.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
+    [self.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
+    [self.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
 }
 
 

@@ -208,7 +208,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 
     lastSearchType = [searchType selectedItem];
-    lastSearchIgnoreCase = ([ignoreCase state] == NSOnState);
+    lastSearchIgnoreCase = ([ignoreCase state] == NSControlStateValueOn);
 }
 
 - (IBAction) findNext: (id) sender {
@@ -421,7 +421,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
             [searchType selectItem: lastSearchType];
         }
 
-        ignoreCase.state = (lastSearchIgnoreCase) ? NSOnState : NSOffState;
+        ignoreCase.state = (lastSearchIgnoreCase) ? NSControlStateValueOn : NSControlStateValueOff;
     }
 }
 
