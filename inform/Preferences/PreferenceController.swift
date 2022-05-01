@@ -62,6 +62,10 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		if NSColorPanel.sharedColorPanelExists {
 			NSColorPanel.shared.close()
 		}
+
+		if NSFontPanel.sharedFontPanelExists {
+			NSFontPanel.shared.close()
+		}
 	}
 	
 	public override func showWindow(_ sender: Any?) {

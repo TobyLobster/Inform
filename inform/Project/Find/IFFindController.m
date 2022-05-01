@@ -517,17 +517,11 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     }
     [findCountText setStringValue:message];
 
-    // Disable displaying stuff on screen while we adjust window/view size and positions
-    NSDisableScreenUpdates();
-
     // Show the find all view
 	[self showAuxiliaryView: findAllView];
 
     // Resize window to fit the number of results
     [self resizeToFitResults];
-
-    // Enable displaying stuff on screen now that we have adjusted window/view size and positions
-    NSEnableScreenUpdates();
 }
 
 - (NSView*) findAllView {

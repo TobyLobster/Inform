@@ -152,13 +152,16 @@ static NSRunLoop* mainRunLoop = nil;
 -(void)openWelcomeDialogIfNeeded
 {
     //
-    // HACK: Remove any open color panel. Lion's auto-restore of windows that were open when
-    // the app last closed down can cause the color panel to display. We close the window.
+    // HACK: Remove any open color and font panel. Lion's auto-restore of windows that were open when
+    // the app last closed down can cause the panels to display. We close the window.
     //
     if([NSColorPanel sharedColorPanelExists]) {
         [[NSColorPanel sharedColorPanel] close];
     }
-    
+    if([NSFontPanel sharedFontPanelExists]) {
+        [[NSFontPanel sharedFontPanel] close];
+    }
+
     NSUInteger documentCount = [[[NSDocumentController sharedDocumentController] documents]count];
     
     // If no documents have opened, open the welcome dialog instead...

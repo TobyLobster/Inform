@@ -146,9 +146,11 @@ static BOOL indent = YES;
 		// The title string
 		int x = 0;
 		int start = 0;
-		while (x < [line length] && styles[x] != IFSyntaxGameText) x++;
+		while (x < [line length] && styles[x] != IFSyntaxGameText)
+            x++;
 		start = x;
-		while (x < [line length] && styles[x] == IFSyntaxGameText) x++;
+		while (x < [line length] && styles[x] == IFSyntaxGameText)
+            x++;
 
 		// Add this as a level 0 item
         IFIntelSymbol* newSymbol = [[IFIntelSymbol alloc] init];

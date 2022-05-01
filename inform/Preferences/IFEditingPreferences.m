@@ -15,8 +15,8 @@
 
 @implementation IFEditingPreferences {
     // Text section
-    IBOutlet NSPopUpButton* fontFamily;
-    IBOutlet NSTextField* fontSize;
+    IBOutlet NSTextField* fontFamily;
+    IBOutlet NSPopUpButton* selectFont;
     IBOutlet NSSlider* appTextSize;
 
     // Syntax highlighting section
@@ -118,11 +118,6 @@
 												   object: self.preferenceView];
 		[tabStopSlider setMaxValue: [tabStopSlider bounds].size.width-12];
 
-        // Populate font family drop down with fonts
-        [fontFamily removeAllItems];
-        for( NSString* name in [[NSFontManager sharedFontManager] availableFontFamilies] ) {
-            [fontFamily addItemWithTitle: name];
-        }
 
 		[self reflectCurrentPreferences];
      }
@@ -211,9 +206,22 @@
     {
         IFPreferences* prefs = [IFPreferences sharedPreferences];
 
+        if (sender == fontFamily) {
+            NSError* error;
+            NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"(.*) - (\\d+)$" options:0 error:&error];
+            NSString*string = [fontFamily stringValue];
+            NSTextCheckingResult *match = [regex firstMatchInString: string
+                                                            options: 0
+                                                              range: NSMakeRange(0, [string length])];
+            if (match) {
+                NSRange firstHalfRange = [match rangeAtIndex:1];
+                NSRange secondHalfRange = [match rangeAtIndex:2];
+                currentSet.fontFamily = [string substringWithRange: firstHalfRange];
+                currentSet.fontSize = [[string substringWithRange: secondHalfRange] intValue];
+             }
+        }
+
         // Text section
-        if (sender == fontFamily)                   currentSet.fontFamily               = [fontFamily titleOfSelectedItem];
-        if (sender == fontSize)                     currentSet.fontSize                 = [fontSize intValue];
         if (sender == appTextSize)                  [prefs setAppFontSizeMultiplierEnum: [appTextSize intValue]];
 
         // Syntax highlighting section
@@ -258,17 +266,8 @@
     [currentSet updateAppPreferencesFromSet];
 }
 
--(BOOL) setFontFamilyUI:(NSString*) fontFamilyName {
-    int index = 0;
-    for( NSString* item in [fontFamily itemTitles] ) {
-        if( [item compare: fontFamilyName
-                  options:(NSStringCompareOptions) 0] == NSOrderedSame ) {
-            [fontFamily selectItemAtIndex: index];
-            return YES;
-        }
-        index++;
-    }
-    return NO;
+-(void) setFontFamilyUI:(NSString*) fontFamilyName fontSize:(int) points {
+    [fontFamily setStringValue: [NSString stringWithFormat: @"%@ - %d", fontFamilyName, points]];
 }
 
 -(void) setControlsFromFontStyle: (int) fontStyle
@@ -287,12 +286,7 @@
     // Update preference pane UI elements from currentSet
     
     // Text section
-    if( ![self setFontFamilyUI: currentSet.fontFamily] ) {
-        if( ![self setFontFamilyUI: @"Lucida Grande"] ) {
-            [fontFamily selectItemAtIndex: 0];
-        }
-    }
-    [fontSize setIntValue:    currentSet.fontSize];
+    [self setFontFamilyUI: currentSet.fontFamily fontSize: currentSet.fontSize];
     [appTextSize setIntValue: [prefs appFontSizeMultiplierEnum]];
 
     // Syntax highlighting section
@@ -352,6 +346,25 @@
 	[tabStopSlider setMaxValue: [tabStopSlider bounds].size.width-12];
 }
 
+- (IBAction) showFontPicker:(id) sender {
+    NSFontPanel* fontPanel = [NSFontPanel sharedFontPanel];
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    [fontManager setAction: @selector(selectFont:)];
+    [fontManager setTarget: self];
+    [fontManager orderFrontFontPanel: fontPanel];
+
+    NSFont* font = [NSFont fontWithName:currentSet.fontFamily size:currentSet.fontSize];
+    [fontManager setSelectedFont:font isMultiple:NO];
+}
+
+-(void) selectFont:(id) sender {
+    NSFontManager *fontManager = [NSFontManager sharedFontManager];
+    NSFont* originalFont = [NSFont boldSystemFontOfSize:12];
+    NSFont* selectedFont = [fontManager convertFont:originalFont];
+    [self setFontFamilyUI: selectedFont.familyName fontSize: selectedFont.pointSize];
+    [self styleSetHasChanged: fontFamily];
+}
+
 - (IBAction) restoreDefaultSettings:(id) sender {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle: [IFUtility localizedString: @"Restore"]];
@@ -361,7 +374,6 @@
     [alert setAlertStyle:NSAlertStyleWarning];
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        //currentSet = [[IFEditingPreferencesSet alloc] init];
         [currentSet resetEditingSettings];
         
         [[IFPreferences sharedPreferences] startBatchEditing];
