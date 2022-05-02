@@ -14,6 +14,8 @@
 #import "IFUtility.h"
 
 @implementation IFColourPreferences {
+    IBOutlet NSButton* enableSyntaxHighlighting;
+
     // Text section
     IBOutlet NSColorWell* sourceColour;
     IBOutlet NSColorWell* extensionColor;
@@ -86,7 +88,7 @@
 #pragma mark - Receiving data from/updating the interface
 
 -(void) updateDependentUIElements {
-    BOOL enabled = currentSet.enableSyntaxHighlighting;
+    bool enabled = ([enableSyntaxHighlighting state] == NSControlStateValueOn);
 
     [headingsColor              setEnabled: enabled];
     [mainTextColor              setEnabled: enabled];
@@ -95,12 +97,15 @@
     [textSubstitutionsColor     setEnabled: enabled];
 
     // Enable button
-    [restoreSettingsButton setEnabled: ![currentSet isEqualToEditingPreferenceSet:defaultSet]];
+    [restoreSettingsButton setEnabled: ![currentSet isEqualToColorPreferenceSet:defaultSet]];
 }
 
 - (IBAction) styleSetHasChanged: (id) sender {
     // Update currentSet from preference pane
     {
+        // Syntax highlighting section
+        if (sender == enableSyntaxHighlighting)     currentSet.enableSyntaxHighlighting = ([enableSyntaxHighlighting state]==NSControlStateValueOn);
+
         // Text section
         if (sender == sourceColour)                 currentSet.sourcePaperColor         = [sourceColour color];
         if (sender == extensionColor)               currentSet.extensionPaperColor      = [extensionColor color];
@@ -112,6 +117,11 @@
         if (sender == textSubstitutionsColor)       [[currentSet optionOfType: IFSHOptionTextSubstitutions] setColour:     [textSubstitutionsColor color]];
     }
 
+    // Update dependent UI elements
+    if( sender == enableSyntaxHighlighting ) {
+        [self updateDependentUIElements];
+    }
+
     // Update application's preferences from currentSet
     [currentSet updateAppPreferencesFromSet];
 }
@@ -121,7 +131,10 @@
     [currentSet updateSetFromAppPreferences];
 
     // Update preference pane UI elements from currentSet
-    
+
+    // Syntax highlighting section
+    [enableSyntaxHighlighting setState: currentSet.enableSyntaxHighlighting ? NSControlStateValueOn : NSControlStateValueOff];
+
     // Text section
     [sourceColour setColor:   currentSet.sourcePaperColor];
     [extensionColor setColor: currentSet.extensionPaperColor];

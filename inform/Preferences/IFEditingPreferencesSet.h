@@ -41,6 +41,7 @@
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToEditingPreferenceSet:(IFEditingPreferencesSet*) set;
+-(BOOL) isEqualToColorPreferenceSet:(IFEditingPreferencesSet*) set;
 -(BOOL) isEqual:(id)object;
 -(void) resetEditingSettings;
 -(void) resetColourSettings;

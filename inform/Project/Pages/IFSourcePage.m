@@ -123,7 +123,6 @@
         [textView setAllowsUndo:YES];
         [textView setRichText:NO];
         [textView setEnabledTextCheckingTypes:0];
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
 
         [[textView textContainer] setContainerSize: NSMakeSize(contentSize.width, FLT_MAX)];
         [[textView textContainer] setWidthTracksTextView: YES];

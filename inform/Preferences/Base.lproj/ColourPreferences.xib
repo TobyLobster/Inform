@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="IFColourPreferences">
             <connections>
                 <outlet property="commentsColor" destination="zdJ-4z-7X1" id="cId-5H-QEW"/>
+                <outlet property="enableSyntaxHighlighting" destination="C2l-Af-oHK" id="2bk-PC-zFo"/>
                 <outlet property="extensionColor" destination="2gx-Lu-hTE" id="w8B-gB-Qhm"/>
                 <outlet property="headingsColor" destination="uLO-8L-jEj" id="KLu-3l-3XC"/>
                 <outlet property="mainTextColor" destination="f3O-Xe-Xww" id="a2x-wh-6bP"/>
@@ -37,7 +38,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                <size key="minSize" width="428" height="146"/>
+                                <size key="minSize" width="428" height="217"/>
                                 <size key="maxSize" width="488" height="10000000"/>
                                 <attributedString key="textStorage">
                                     <fragment>
@@ -223,7 +224,7 @@ a white jersey	1975	"best cyclist aged 25 or less"
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <box title="Colours" translatesAutoresizingMaskIntoConstraints="NO" id="95">
+                <box title="Syntax highlighting" translatesAutoresizingMaskIntoConstraints="NO" id="95">
                     <rect key="frame" x="17" y="291" width="466" height="241"/>
                     <view key="contentView" id="STC-OG-WsS">
                         <rect key="frame" x="3" y="3" width="460" height="223"/>
@@ -366,6 +367,16 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <action selector="styleSetHasChanged:" target="-2" id="KWm-2P-Hhb"/>
                                 </connections>
                             </colorWell>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C2l-Af-oHK">
+                                <rect key="frame" x="4" y="199" width="122" height="18"/>
+                                <buttonCell key="cell" type="check" title="Enable" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5Nt-3S-V1A">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="Wpr-6C-UaQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="J97-Nn-z2H" firstAttribute="trailing" secondItem="Wnk-nK-IFv" secondAttribute="trailing" id="0YW-W5-0hI"/>
@@ -387,8 +398,10 @@ a white jersey	1975	"best cyclist aged 25 or less"
                             <constraint firstItem="5Ub-Su-iFo" firstAttribute="trailing" secondItem="2gx-Lu-hTE" secondAttribute="trailing" id="MUR-hz-GuQ"/>
                             <constraint firstItem="J97-Nn-z2H" firstAttribute="leading" secondItem="Wnk-nK-IFv" secondAttribute="leading" id="NpL-wt-jKK"/>
                             <constraint firstItem="ITQ-yg-h9g" firstAttribute="trailing" secondItem="5Kp-Ym-FNE" secondAttribute="trailing" id="Q95-oY-uop"/>
+                            <constraint firstItem="C2l-Af-oHK" firstAttribute="leading" secondItem="9fK-Y3-VVm" secondAttribute="leading" id="Qzv-wd-vha"/>
                             <constraint firstItem="uLO-8L-jEj" firstAttribute="top" secondItem="2gx-Lu-hTE" secondAttribute="bottom" constant="5" id="S3g-id-Ce0"/>
                             <constraint firstItem="zdJ-4z-7X1" firstAttribute="leading" secondItem="SYO-mB-INP" secondAttribute="leading" id="TTN-6p-hQX"/>
+                            <constraint firstItem="C2l-Af-oHK" firstAttribute="baseline" secondItem="tRb-Do-KiN" secondAttribute="baseline" id="TUb-2p-Pvs"/>
                             <constraint firstItem="SYO-mB-INP" firstAttribute="top" secondItem="zdJ-4z-7X1" secondAttribute="bottom" constant="5" id="U2E-EM-YWE"/>
                             <constraint firstItem="9fK-Y3-VVm" firstAttribute="leading" secondItem="geG-4f-fGk" secondAttribute="leading" id="Ud1-09-sP5"/>
                             <constraint firstItem="geG-4f-fGk" firstAttribute="top" secondItem="9fK-Y3-VVm" secondAttribute="bottom" constant="9" id="UfK-Kp-DDU"/>
@@ -408,6 +421,7 @@ a white jersey	1975	"best cyclist aged 25 or less"
                             <constraint firstItem="SYO-mB-INP" firstAttribute="trailing" secondItem="4cJ-Hf-dx0" secondAttribute="trailing" id="hNa-vN-zA8"/>
                             <constraint firstItem="ox9-zr-Sph" firstAttribute="trailing" secondItem="ITQ-yg-h9g" secondAttribute="trailing" id="i59-Va-YKt"/>
                             <constraint firstItem="5Ub-Su-iFo" firstAttribute="top" secondItem="tRb-Do-KiN" secondAttribute="bottom" constant="10" id="izT-8s-tWW"/>
+                            <constraint firstItem="C2l-Af-oHK" firstAttribute="trailing" secondItem="9fK-Y3-VVm" secondAttribute="trailing" id="mJa-91-hHf"/>
                             <constraint firstItem="5Kp-Ym-FNE" firstAttribute="bottom" secondItem="4cJ-Hf-dx0" secondAttribute="bottom" id="mwf-OG-8yj"/>
                             <constraint firstItem="Wnk-nK-IFv" firstAttribute="leading" secondItem="ox9-zr-Sph" secondAttribute="leading" id="naD-jt-x4V"/>
                             <constraint firstItem="geG-4f-fGk" firstAttribute="trailing" secondItem="J97-Nn-z2H" secondAttribute="trailing" id="p8a-ls-VDQ"/>

@@ -189,14 +189,6 @@
     if( self.fontSize != set.fontSize ) {
         return NO;
     }
-    if( ![self isEqualToColor: self.sourcePaperColor
-                         with: set.sourcePaperColor] ) {
-        return NO;
-    }
-    if( ![self isEqualToColor: self.extensionPaperColor
-                         with: set.extensionPaperColor] ) {
-        return NO;
-    }
     if( self.enableSyntaxHighlighting != set.enableSyntaxHighlighting ) {
         return NO;
     }
@@ -204,10 +196,6 @@
         IFSyntaxHighlightingOption * option1 = (self.options)[optionIndex];
         IFSyntaxHighlightingOption * option2 = (set.options)[optionIndex];
         
-        if( ![self isEqualToColor: option1.colour
-                             with: option2.colour] ) {
-            return NO;
-        }
         if( option1.fontStyle != option2.fontStyle ) {
             return NO;
         }
@@ -237,6 +225,28 @@
     return YES;
 }
 
+-(BOOL) isEqualToColorPreferenceSet:(IFEditingPreferencesSet*) set {
+    if( ![self isEqualToColor: self.sourcePaperColor
+                         with: set.sourcePaperColor] ) {
+        return NO;
+    }
+    if( ![self isEqualToColor: self.extensionPaperColor
+                         with: set.extensionPaperColor] ) {
+        return NO;
+    }
+    for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
+        IFSyntaxHighlightingOption * option1 = (self.options)[optionIndex];
+        IFSyntaxHighlightingOption * option2 = (set.options)[optionIndex];
+
+        if( ![self isEqualToColor: option1.colour
+                             with: option2.colour] ) {
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 -(BOOL) isEqual:(id)object {
     if (self == object) {
         return YES;
@@ -244,7 +254,13 @@
     if (![object isKindOfClass:[IFEditingPreferencesSet class]]) {
         return NO;
     }
-    return [self isEqualToEditingPreferenceSet:(IFEditingPreferencesSet *)object];
+    if (![self isEqualToEditingPreferenceSet:(IFEditingPreferencesSet *)object]) {
+        return NO;
+    }
+    if (![self isEqualToColorPreferenceSet:(IFEditingPreferencesSet *)object]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end

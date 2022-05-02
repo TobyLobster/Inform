@@ -343,7 +343,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	// up the chain from the active view
     NSWindowController* controller = [window windowController];
     if ([self isSuitableDelegate: controller]) {
-        return controller;
+        return (id<IFFindDelegate>)controller;
 	} else if ([self isSuitableDelegate: window]) {
 		return (id<IFFindDelegate>)window;
 	}
