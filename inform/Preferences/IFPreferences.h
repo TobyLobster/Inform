@@ -56,6 +56,17 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
     IFFontStyleBoldItalic,
 };
 
+@interface IFSyntaxColouringOption : NSObject<NSSecureCoding, NSCopying>
+
+@property (atomic, copy) NSColor*       colour;
+@property (atomic, copy) NSColor*       defaultColour;
+
+-(instancetype) initWithColour:(NSColor*) defaultColour NS_DESIGNATED_INITIALIZER;
+- (id)copyWithZone:(NSZone *)zone;
+
+@end
+
+
 @class IFEditingPreferencesSet;
 
 ///
@@ -84,6 +95,8 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic) IFAppFontSize appFontSizeMultiplierEnum;
 @property (atomic) CGFloat tabWidth;
 
+-(NSString*) getCurrentThemeName;
+-(void) setCurrentThemeName: (NSString*) value;
 
 -(IFFontStyle) sourceFontStyleForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceFontStyle: (IFFontStyle) style
@@ -93,13 +106,21 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 -(void) setSourceRelativeFontSize: (IFRelativeFontSize) size
                     forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
--(NSColor*) sourceColourForOptionType:(IFSyntaxHighlightingOptionType) optionType;
--(void) setSourceColour: (NSColor*) colour
-          forOptionType: (IFSyntaxHighlightingOptionType) optionType;
-
 -(BOOL) sourceUnderlineForOptionType:(IFSyntaxHighlightingOptionType) optionType;
 -(void) setSourceUnderline: (BOOL) underline
              forOptionType: (IFSyntaxHighlightingOptionType) optionType;
+
+-(bool) setCurrentTheme: (NSString*) name;
+-(NSArray*) getThemeNames;
+
+-(void) setSourcePaper: (IFSyntaxColouringOption*) option;
+-(void) setExtensionPaper: (IFSyntaxColouringOption*) option;
+-(IFSyntaxColouringOption*) getSourcePaper;
+-(IFSyntaxColouringOption*) getExtensionPaper;
+
+-(IFSyntaxColouringOption*) sourcePaperForOptionType:(IFSyntaxHighlightingOptionType) optionType;
+-(void) setSourceColour: (NSColor*) colour
+          forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;
@@ -108,15 +129,12 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 // Intelligence preferences
 @property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
+@property (atomic) BOOL enableSyntaxColouring;          // YES if source code should be displayed with syntax colouring
 @property (atomic) BOOL indentWrappedLines;				// ... and indentation
 @property (atomic) BOOL elasticTabs;					// ... and elastic tabs
 @property (atomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
 @property (atomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers
 @property (atomic, copy) NSString *freshGameAuthorName;	// The default author to use for new Inform 7 games
-
-
-@property (atomic, copy) NSColor *sourcePaperColour;
-@property (atomic, copy) NSColor *extensionPaperColour;
 
 // Advanced preferences
 /// \c YES if we should run the build.sh shell script to rebuild Inform 7

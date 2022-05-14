@@ -180,7 +180,7 @@
     [textSubstitutionsFontSize  setEnabled: enabled];
 
     // Enable button
-    [restoreSettingsButton setEnabled: ![currentSet isEqualToEditingPreferenceSet:defaultSet]];
+    [restoreSettingsButton setEnabled: ![currentSet isEqualToPreferenceSet:defaultSet]];
 }
 
 -(void) updateFontStyleFromControlWithSender: (id) sender
@@ -361,7 +361,7 @@
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont* originalFont = [NSFont boldSystemFontOfSize:12];
     NSFont* selectedFont = [fontManager convertFont:originalFont];
-    [self setFontFamilyUI: selectedFont.familyName fontSize: selectedFont.pointSize];
+    [self setFontFamilyUI: selectedFont.fontName fontSize: selectedFont.pointSize];
     [self styleSetHasChanged: fontFamily];
 }
 
@@ -374,7 +374,7 @@
     [alert setAlertStyle:NSAlertStyleWarning];
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        [currentSet resetEditingSettings];
+        [currentSet resetSettings];
         
         [[IFPreferences sharedPreferences] startBatchEditing];
         [currentSet updateAppPreferencesFromSet];

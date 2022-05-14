@@ -14,27 +14,32 @@
 #import "IFUtility.h"
 
 @implementation IFColourPreferences {
-    IBOutlet NSButton* enableSyntaxHighlighting;
+    IBOutlet NSButton*      enableSyntaxColouringButton;
 
-    // Text section
+    // Styles
+    IBOutlet NSPopUpButton* styleButton;
+    IBOutlet NSButton*      newStyleButton;
+    IBOutlet NSButton*      deleteStyleButton;
+
+    // Colours
     IBOutlet NSColorWell* sourceColour;
     IBOutlet NSColorWell* extensionColor;
-
-    // Syntax highlighting section
-    IBOutlet NSButton* restoreSettingsButton;
     IBOutlet NSColorWell* headingsColor;
     IBOutlet NSColorWell* mainTextColor;
     IBOutlet NSColorWell* commentsColor;
     IBOutlet NSColorWell* quotedTextColor;
     IBOutlet NSColorWell* textSubstitutionsColor;
+    IBOutlet NSButton* restoreSettingsButton;
 
     IBOutlet NSTextView* previewView;
 
-    // Text storage for previews
+    // Text storage for preview
     NSTextStorage* previewStorage;
 
-    IFEditingPreferencesSet* defaultSet;
-    IFEditingPreferencesSet* currentSet;
+    // Data
+    bool                    enableSyntaxColouring;
+    NSString*               currentThemeName;
+    IFColourTheme*          currentSet;
 }
 
 
@@ -42,8 +47,8 @@
 	self = [super initWithNibName: @"ColourPreferences"];
 
 	if (self) {
-        defaultSet = [[IFEditingPreferencesSet alloc] init];
-        currentSet = [[IFEditingPreferencesSet alloc] init];
+        currentSet = [[IFColourTheme alloc] init];
+        [currentSet updateSetFromAppPreferences];
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(reflectCurrentPreferences)
@@ -88,8 +93,10 @@
 #pragma mark - Receiving data from/updating the interface
 
 -(void) updateDependentUIElements {
-    bool enabled = ([enableSyntaxHighlighting state] == NSControlStateValueOn);
+    bool enabled = ([enableSyntaxColouringButton state] == NSControlStateValueOn);
 
+    [sourceColour               setEnabled: enabled];
+    [extensionColor             setEnabled: enabled];
     [headingsColor              setEnabled: enabled];
     [mainTextColor              setEnabled: enabled];
     [commentsColor              setEnabled: enabled];
@@ -97,28 +104,50 @@
     [textSubstitutionsColor     setEnabled: enabled];
 
     // Enable button
-    [restoreSettingsButton setEnabled: ![currentSet isEqualToColorPreferenceSet:defaultSet]];
+    [restoreSettingsButton setEnabled: ![currentSet isEqualToDefault]];
+}
+
+- (IBAction) newStyle: (id) sender {
+    // TODO
+}
+
+- (IBAction) deleteStyle: (id) sender {
+    // TODO
+}
+
+- (IBAction) differentThemeChosen: (id) sender {
+    NSMenuItem* selectedItem = [styleButton selectedItem];
+
+    if (selectedItem != nil) {
+        // Set the new name
+        currentThemeName = [selectedItem title];
+
+        // Get the theme from the preferences
+        IFPreferences* prefs = [IFPreferences sharedPreferences];
+        [prefs setCurrentTheme: currentThemeName];
+
+        // Update from the preferences based on the new theme
+        [self reflectCurrentPreferences];
+    }
 }
 
 - (IBAction) styleSetHasChanged: (id) sender {
     // Update currentSet from preference pane
     {
-        // Syntax highlighting section
-        if (sender == enableSyntaxHighlighting)     currentSet.enableSyntaxHighlighting = ([enableSyntaxHighlighting state]==NSControlStateValueOn);
+        if (sender == enableSyntaxColouringButton)        enableSyntaxColouring = ([enableSyntaxColouringButton state]==NSControlStateValueOn);
 
-        // Text section
-        if (sender == sourceColour)                 currentSet.sourcePaperColor         = [sourceColour color];
-        if (sender == extensionColor)               currentSet.extensionPaperColor      = [extensionColor color];
+        if (sender == sourceColour)                 currentSet.sourcePaper.colour       = [sourceColour color];
+        if (sender == extensionColor)               currentSet.extensionPaper.colour    = [extensionColor color];
 
-        if (sender == headingsColor)                [[currentSet optionOfType: IFSHOptionHeadings]          setColour:     [headingsColor color]];
-        if (sender == mainTextColor)                [[currentSet optionOfType: IFSHOptionMainText]          setColour:     [mainTextColor color]];
-        if (sender == commentsColor)                [[currentSet optionOfType: IFSHOptionComments]          setColour:     [commentsColor color]];
-        if (sender == quotedTextColor)              [[currentSet optionOfType: IFSHOptionQuotedText]        setColour:     [quotedTextColor color]];
-        if (sender == textSubstitutionsColor)       [[currentSet optionOfType: IFSHOptionTextSubstitutions] setColour:     [textSubstitutionsColor color]];
+        if (sender == headingsColor)                [currentSet optionOfType: IFSHOptionHeadings].colour = [headingsColor color];
+        if (sender == mainTextColor)                [currentSet optionOfType: IFSHOptionMainText].colour = [mainTextColor color];
+        if (sender == commentsColor)                [currentSet optionOfType: IFSHOptionComments].colour = [commentsColor color];
+        if (sender == quotedTextColor)              [currentSet optionOfType: IFSHOptionQuotedText].colour = [quotedTextColor color];
+        if (sender == textSubstitutionsColor)       [currentSet optionOfType: IFSHOptionTextSubstitutions].colour = [textSubstitutionsColor color];
     }
 
     // Update dependent UI elements
-    if( sender == enableSyntaxHighlighting ) {
+    if( sender == enableSyntaxColouringButton ) {
         [self updateDependentUIElements];
     }
 
@@ -127,19 +156,26 @@
 }
 
 - (void) reflectCurrentPreferences {
+    // Get current theme settings from preferences
+    IFPreferences* prefs = [IFPreferences sharedPreferences];
+    currentThemeName = [prefs getCurrentThemeName];
+    NSArray* names = [prefs getThemeNames];
+    [styleButton removeAllItems];
+    [styleButton addItemsWithTitles: names];
+    [styleButton selectItemWithTitle: [prefs getCurrentThemeName]];
+
+    enableSyntaxColouring = [prefs enableSyntaxColouring];
+
     // Update currentSet based on application's current preferences
     [currentSet updateSetFromAppPreferences];
 
     // Update preference pane UI elements from currentSet
 
-    // Syntax highlighting section
-    [enableSyntaxHighlighting setState: currentSet.enableSyntaxHighlighting ? NSControlStateValueOn : NSControlStateValueOff];
+    [enableSyntaxColouringButton setState: enableSyntaxColouring ? NSControlStateValueOn : NSControlStateValueOff];
+    [sourceColour           setColor: currentSet.sourcePaper.colour];
+    [extensionColor         setColor: currentSet.extensionPaper.colour];
 
-    // Text section
-    [sourceColour setColor:   currentSet.sourcePaperColor];
-    [extensionColor setColor: currentSet.extensionPaperColor];
-
-    IFSyntaxHighlightingOption* option = (currentSet.options)[IFSHOptionHeadings];
+    IFSyntaxColouringOption* option = (currentSet.options)[IFSHOptionHeadings];
     [headingsColor          setColor: option.colour];
 
     option = (currentSet.options)[IFSHOptionMainText];
@@ -156,7 +192,10 @@
 
     // Update dependent elements
     [self updateDependentUIElements];
-    
+
+    // Update paper colour on preview
+    [previewView setBackgroundColor: currentSet.sourcePaper.colour];
+
     // Rehighlight the preview views
 	[IFSyntaxManager preferencesChanged: previewStorage];
 	[IFSyntaxManager highlightAll: previewStorage
@@ -167,13 +206,14 @@
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle: [IFUtility localizedString: @"Restore"]];
     [alert addButtonWithTitle: [IFUtility localizedString: @"Cancel"]];
-    [alert setMessageText:     [IFUtility localizedString: @"Reset the colour preferences?"]];
+    [alert setMessageText:     [IFUtility localizedString: @"Reset the current colours back to their original values?"]];
     [alert setInformativeText: [IFUtility localizedString: @"This action cannot be undone."]];
     [alert setAlertStyle:NSAlertStyleWarning];
 
     if ([alert runModal] == NSAlertFirstButtonReturn ) {
-        //currentSet = [[IFEditingPreferencesSet alloc] init];
-        [currentSet resetColourSettings];
+        [currentSet resetSettings];
+
+        enableSyntaxColouring = true;
 
         [[IFPreferences sharedPreferences] startBatchEditing];
         [currentSet updateAppPreferencesFromSet];

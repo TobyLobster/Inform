@@ -58,10 +58,10 @@
     IFProject* doc = [self.parent document];
 
     if( [doc projectFileType] == IFFileTypeInform7ExtensionProject ) {
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] extensionPaperColour]];
+        [textView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
     }
     else {
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
+        [textView setBackgroundColor: [[IFPreferences sharedPreferences] getSourcePaper].colour];
     }
 }
 

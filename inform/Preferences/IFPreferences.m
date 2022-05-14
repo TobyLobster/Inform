@@ -8,6 +8,7 @@
 
 #import "IFPreferences.h"
 #import "IFEditingPreferencesSet.h"
+#import "IFColourTheme.h"
 #import "IFProjectPane.h"
 
 NSString* const IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
@@ -23,6 +24,65 @@ static NSString* const IFPreferencesMainText          = @"MainText";
 static NSString* const IFPreferencesComments          = @"Comments";
 static NSString* const IFPreferencesQuotedText        = @"QuotedText";
 static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
+
+
+
+
+
+@implementation IFSyntaxColouringOption
+
+-(instancetype)init
+{
+    self = [self initWithColour:[NSColor blackColor]];
+    return self;
+}
+
+-(instancetype) initWithColour:(NSColor*) defaultColour {
+    self = [super init];
+    if( self ) {
+        assert(defaultColour != nil);
+        self.colour           = [defaultColour copy];
+        self.defaultColour    = [defaultColour copy];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    assert(self.colour != nil);
+    assert(self.defaultColour != nil);
+
+    [encoder encodeObject: (NSColor*) self.colour forKey: @"colour"];
+    [encoder encodeObject: (NSColor*) self.defaultColour forKey: @"defaultColour"];
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [self init]; // Call the designated initialiser first
+
+    self.colour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"colour"] copy];
+    assert(self.colour != nil);
+    self.defaultColour = [[decoder decodeObjectOfClass:[NSColor class] forKey: @"defaultColour"] copy];
+    assert(self.defaultColour != nil);
+
+    return self;
+}
+
++(BOOL) supportsSecureCoding {
+    return YES;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    IFSyntaxColouringOption* result = [[[self class] alloc] init];
+    if (result) {
+        [result setColour: [self.colour copy]];
+        [result setDefaultColour: [self.defaultColour copy]];
+    }
+    return result;
+}
+
+@end
+
+
+
 
 @implementation IFPreferences {
     /// The preferences dictionary
@@ -49,6 +109,10 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     /// The array of actual styles (array of attribute dictionaries)
     NSMutableArray* styles;
 
+    // Themes
+    NSMutableArray* themes;
+
+    // Defaults
     IFEditingPreferencesSet* defaultEditingPreferences;
 }
 
@@ -80,7 +144,15 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 		
         batchEditingPreferences = NO;
         batchNotificationTypes = [[NSMutableArray alloc] init];
+
         defaultEditingPreferences = [[IFEditingPreferencesSet alloc] init];
+
+        NSArray * result = [self getPreferenceThemes];
+        if (result != nil) {
+            themes = [[NSMutableArray alloc] initWithArray: result];
+        } else {
+            themes = [[NSMutableArray alloc] init];
+        }
 
 		[self recalculateStyles];
 	}
@@ -180,7 +252,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(void) setPreferenceInt: (NSString*) key
                    value: (int) value
-            notification: notification {
+            notification: (NSString*) notification {
     [self setPreference:key
                   value:@(value)
            notification: notification];
@@ -196,7 +268,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(void) setPreferenceFloat: (NSString*) key
                      value: (float) value
-              notification: notification {
+              notification: (NSString*) notification {
     [self setPreference: key
                   value: @(value)
            notification: notification];
@@ -204,10 +276,10 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(void) setPreferenceDouble: (NSString*) key
                       value: (double) value
-               notification: notification {
+               notification: (NSString*) notification {
     [self setPreference: key
                   value: @(value)
-           notification: notification];
+           notification: (NSString*) notification];
 }
 
 -(int) getPreferenceFloat: (NSString*) key
@@ -227,7 +299,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(void) setPreferenceColour: (NSString*) key
                       value: (NSColor*) value
-               notification: notification {
+               notification: (NSString*) notification {
     NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: value
                                             requiringSecureCoding: YES
                                                             error: NULL];
@@ -250,9 +322,154 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     return defaultValue;
 }
 
+
+-(void) setPreferenceThemesWithNotification:(NSString*) notification {
+    NSArray *non_mutable_array = [themes copy];
+    NSData *theData = [NSKeyedArchiver archivedDataWithRootObject: non_mutable_array
+                                            requiringSecureCoding: YES
+                                                            error: NULL];
+    [self setPreference: @"themes"
+                  value: theData
+           notification: notification];
+}
+
+-(NSArray*) removeIllegalEntries: (NSArray*) array {
+    NSMutableArray *result = [[NSMutableArray alloc] init];
+    for(int i = 0; i < array.count; i++) {
+        IFColourTheme* theme = array[i];
+        if (theme == nil) {
+            continue;
+        }
+        if ((theme.themeName == nil) ||
+            (theme.sourcePaper == nil) ||
+            (theme.extensionPaper == nil) ||
+            (theme.flags == nil) ||
+            (theme.options == nil)) {
+                continue;
+        }
+
+        if (theme.options.count < IFSHOptionCount) {
+            continue;
+        }
+
+        [result addObject: theme];
+    }
+    return result;
+}
+
+-(NSArray*) getPreferenceThemes {
+    NSData *theData = (NSData *) [self getPreference: @"themes"
+                                             default: nil];
+    if (theData != nil) {
+        @try {
+            NSError * error;
+
+            //NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:theData error:&error];
+            //[unarchiver setRequiresSecureCoding:NO];
+            //NSArray* array = [unarchiver decodeObjectForKey: @"themes"];
+
+            NSSet *classesSet = [NSSet setWithObjects:
+                                 [NSString class],
+                                 [NSColor class],
+                                 [IFColourTheme class],
+                                 [IFSyntaxColouringOption class],
+                                 [NSArray class],
+                                 [NSMutableArray class],
+                                 [NSNumber class],
+                                 [NSMutableData class],
+                                 [NSDictionary class],
+                                 [NSDate class],
+                                 [NSValue class],
+                                 [NSNull class],
+                                 nil];
+            NSArray*array = [NSKeyedUnarchiver unarchivedObjectOfClasses: classesSet
+                                                                fromData: theData
+                                                                   error: &error];
+            array = [self removeIllegalEntries: array];
+            return array;
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Exception %@", [exception reason]);
+        }
+    }
+    return nil;
+}
+
+-(int) getThemeIndex: (NSString*) name {
+    for(int i = 0; i < themes.count; i++) {
+        IFColourTheme* theme = themes[i];
+        if (name == theme.themeName) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+-(IFColourTheme*) getCurrentTheme {
+    if (themes.count == 0) {
+        [self resetDefaultThemes];
+    }
+    assert(themes.count > 0);
+
+    int i = [self getThemeIndex: [self getCurrentThemeName]];
+    if (i < 0) {
+        i = 0;
+    }
+    return themes[i];
+}
+
+-(bool) setCurrentTheme: (NSString*) name {
+    // if name doesn't exist, fail
+    int result = [self getThemeIndex: name];
+    if (result < 0) {
+        return false;
+    }
+
+    [self setCurrentThemeName: name];
+
+    notificationString = IFPreferencesEditingDidChangeNotification;
+    [self preferencesHaveChanged];
+    return true;
+}
+
+-(NSArray*) getThemeNames {
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+
+    for(int i = 0; i < themes.count; i++) {
+        [array addObject: [themes[i] themeName]];
+    }
+    return array;
+}
+
+
+-(bool) addTheme: (IFColourTheme*) theme {
+    // If theme name already exists, fail
+    if ([self getThemeIndex: theme.themeName] >= 0) {
+        return false;
+    }
+
+    [themes addObject:theme];
+
+    notificationString = IFPreferencesEditingDidChangeNotification;
+    [self preferencesHaveChanged];
+    return true;
+}
+
+-(bool) removeTheme: (NSString*) themeName {
+    int index = [self getThemeIndex: themeName];
+    if (index < 0) {
+        return false;
+    }
+
+    [themes removeObjectAtIndex:index];
+    notificationString = IFPreferencesEditingDidChangeNotification;
+    [self preferencesHaveChanged];
+    return true;
+}
+
 -(void) setPreferenceBool: (NSString*) key
                     value: (BOOL) value
-             notification: notification {
+             notification: (NSString*) notification {
     [self setPreference: key
                   value: @(value)
            notification: notification];
@@ -266,6 +483,68 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 #pragma mark - Editing preferences
+
+- (void) resetDefaultThemes {
+    themes = [[NSMutableArray alloc] init];
+
+    // Create light theme
+    IFColourTheme* light = [[IFColourTheme alloc] init];
+    light.themeName           = @"Light";
+    light.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor whiteColor]];
+    light.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0]];
+    light.flags               = [[NSNumber alloc] initWithInt:0];
+    [light.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
+    [light.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
+    [light.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
+    [light.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
+    [light.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
+
+    for(int i = 0; i < light.options.count; i++) {
+        light.options[i].defaultColour = [light.options[i].colour copy];
+    }
+
+    //for(int i = 0; i < light.options.count; i++) {
+    //    NSLog(@"resetDefaultThemes light new option %d is %@", i, light.options[i].defaultColour);
+    //}
+
+    [themes addObject: light];
+
+    // Create dark theme
+    IFColourTheme* dark = [[IFColourTheme alloc] init];
+    dark.themeName           = @"Dark";
+    dark.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor blackColor]];
+    dark.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor colorWithDeviceRed: 0.2 green: 0.2 blue: 0.2 alpha: 1.0]];
+    dark.flags               = [[NSNumber alloc] initWithInt:0];
+    [dark.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
+    [dark.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
+    [dark.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
+    [dark.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
+    [dark.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
+    for(int i = 0; i < dark.options.count; i++) {
+        dark.options[i].defaultColour = [dark.options[i].colour copy];
+    }
+    [themes addObject: dark];
+
+    //for(int i = 0; i < dark.options.count; i++) {
+    //    NSLog(@"resetDefaultThemes dark new option %d is %@", i, dark.options[i].defaultColour);
+    //}
+
+    [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
+}
+
+
+-(NSString*) getCurrentThemeName {
+    return [self getPreferenceString: @"currentThemeName"
+                             default: @"Light"];
+}
+
+-(void) setCurrentThemeName: (NSString*) value {
+    [self setPreferenceString: @"currentThemeName"
+                        value: value
+                 notification: IFPreferencesEditingDidChangeNotification];
+}
+
+
 
 -(NSString*) sourceFontFamily {
     return [self getPreferenceString: @"sourceFontFamily"
@@ -354,41 +633,44 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
               notification: IFPreferencesEditingDidChangeNotification];
 }
 
--(NSColor*) sourceColourForOptionType:(IFSyntaxHighlightingOptionType) optionType {
-    NSString * key = [NSString stringWithFormat:@"sourceColour%d", (int) optionType];
-    IFSyntaxHighlightingOption * option = (defaultEditingPreferences.options)[(int) optionType];
-    return [self getPreferenceColour: key
-                             default: [option colour]];
+
+-(void) setSourcePaper: (IFSyntaxColouringOption*) option {
+    IFColourTheme * theme = [self getCurrentTheme];
+    theme.sourcePaper = [option copy];
+    [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
+}
+
+-(void) setExtensionPaper: (IFSyntaxColouringOption*) option {
+    IFColourTheme * theme = [self getCurrentTheme];
+    theme.extensionPaper = [option copy];
+    [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
+}
+
+-(IFSyntaxColouringOption*) getSourcePaper {
+    IFColourTheme * theme = [self getCurrentTheme];
+    return theme.sourcePaper;
+}
+
+-(IFSyntaxColouringOption*) getExtensionPaper {
+    IFColourTheme * theme = [self getCurrentTheme];
+    return theme.extensionPaper;
+}
+
+
+-(IFSyntaxColouringOption*) sourcePaperForOptionType:(IFSyntaxHighlightingOptionType) optionType {
+    IFColourTheme * theme = [self getCurrentTheme];
+
+    IFSyntaxColouringOption * option = (theme.options)[(int) optionType];
+    return option;
 }
 
 -(void) setSourceColour: (NSColor*) colour
           forOptionType: (IFSyntaxHighlightingOptionType) optionType {
-    NSString * key = [NSString stringWithFormat:@"sourceColour%d", (int) optionType];
-    [self setPreferenceColour: key
-                        value: colour
-                 notification: IFPreferencesEditingDidChangeNotification];
-}
+    IFColourTheme * theme = [self getCurrentTheme];
+    IFSyntaxColouringOption * option = (theme.options)[(int) optionType];
+    option.colour = colour;
 
--(NSColor*) sourcePaperColour {
-    return [self getPreferenceColour: @"sourcePaperColour"
-                             default: [defaultEditingPreferences sourcePaperColor]];
-}
-
--(void) setSourcePaperColour: (NSColor*) colour {
-    [self setPreferenceColour: @"sourcePaperColour"
-                        value: colour
-                 notification: IFPreferencesEditingDidChangeNotification];
-}
-
--(NSColor*) extensionPaperColour {
-    return [self getPreferenceColour: @"extensionPaperColour"
-                             default: [defaultEditingPreferences sourcePaperColor]];
-}
-
--(void) setExtensionPaperColour: (NSColor*) colour {
-    [self setPreferenceColour: @"extensionPaperColour"
-                        value: colour
-                 notification: IFPreferencesEditingDidChangeNotification];
+    [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
 }
 
 -(BOOL) sourceUnderlineForOptionType:(IFSyntaxHighlightingOptionType) optionType {
@@ -413,6 +695,17 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 - (void) setEnableSyntaxHighlighting: (BOOL) value {
     [self setPreferenceBool: @"enableSyntaxHighlighting"
+                      value: value
+               notification: IFPreferencesEditingDidChangeNotification];
+}
+
+- (BOOL) enableSyntaxColouring {
+    return [self getPreferenceBool: @"enableSyntaxColouring"
+                           default: true];
+}
+
+- (void) setEnableSyntaxColouring: (BOOL) value {
+    [self setPreferenceBool: @"enableSyntaxColouring"
                       value: value
                notification: IFPreferencesEditingDidChangeNotification];
 }
@@ -604,12 +897,12 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     cacheColours[IFSyntaxEscapeCharacter] = [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0];
 
     // Inform 7
-    cacheColours[IFSyntaxTitle] = [self sourceColourForOptionType: IFSHOptionHeadings];
-    cacheColours[IFSyntaxHeading] = [self sourceColourForOptionType: IFSHOptionHeadings];
-    cacheColours[IFSyntaxNaturalInform] = [self sourceColourForOptionType: IFSHOptionMainText];
-    cacheColours[IFSyntaxComment] = [self sourceColourForOptionType: IFSHOptionComments];
-    cacheColours[IFSyntaxGameText] = [self sourceColourForOptionType: IFSHOptionQuotedText];
-    cacheColours[IFSyntaxSubstitution] = [self sourceColourForOptionType: IFSHOptionTextSubstitutions];
+    cacheColours[IFSyntaxTitle] = [[self sourcePaperForOptionType: IFSHOptionHeadings] colour];
+    cacheColours[IFSyntaxHeading] = [[self sourcePaperForOptionType: IFSHOptionHeadings] colour];
+    cacheColours[IFSyntaxNaturalInform] = [[self sourcePaperForOptionType: IFSHOptionMainText] colour];
+    cacheColours[IFSyntaxComment] = [[self sourcePaperForOptionType: IFSHOptionComments] colour];
+    cacheColours[IFSyntaxGameText] = [[self sourcePaperForOptionType: IFSHOptionQuotedText] colour];
+    cacheColours[IFSyntaxSubstitution] = [[self sourcePaperForOptionType: IFSHOptionTextSubstitutions] colour];
 
     //
     // Set underscore for each style

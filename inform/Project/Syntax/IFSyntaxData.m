@@ -835,8 +835,9 @@
         return;
     }
 
-    // No syntax highlighting
-    if( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) {
+    // No syntax highlighting/colouring
+    if(( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) &&
+       ( ![[IFPreferences sharedPreferences] enableSyntaxColouring] )) {
         // Just use standard attributes
         [_textStorage addAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
                               range: range];

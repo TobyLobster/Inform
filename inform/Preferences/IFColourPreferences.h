@@ -7,17 +7,19 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import "IFEditingPreferencesSet.h"
+#import "IFColourTheme.h"
 #import "IFPreferencePane.h"
 
 ///
-/// Preference pane that allows the user to select the styles she wants to see
+/// Preference pane that allows the user to select colours
 ///
 @interface IFColourPreferences : IFPreferencePane
 
 // Receiving data from/updating the interface
 - (IBAction) styleSetHasChanged: (id) sender;
-- (void) reflectCurrentPreferences;
 - (IBAction) restoreDefaultSettings: (id) sender;
+- (IBAction) newStyle: (id) sender;
+- (IBAction) deleteStyle: (id) sender;
+- (IBAction) differentThemeChosen: (id) sender;
 
 @end

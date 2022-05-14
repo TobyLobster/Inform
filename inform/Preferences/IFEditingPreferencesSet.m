@@ -17,7 +17,6 @@
 -(instancetype) init {
     self = [super init];
     if( self ) {
-        self.colour           = [NSColor whiteColor];
         self.fontStyle        = 0;
         self.underline        = false;
         self.relativeFontSize = IFFontSizeNormal;
@@ -40,13 +39,12 @@
         [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionQuotedText];
         [self.options insertObject: [[IFSyntaxHighlightingOption alloc] init] atIndex: IFSHOptionTextSubstitutions];
 
-        [self resetEditingSettings];
-        [self resetColourSettings];
+        [self resetSettings];
     }
     return self;
 }
 
--(void) resetEditingSettings {
+-(void) resetSettings {
     self.fontFamily = @"Lucida Grande";
     self.fontSize = 12.0f;
 
@@ -94,17 +92,6 @@
     [option setUnderline:           false];
 }
 
--(void) resetColourSettings {
-    self.sourcePaperColor    = [NSColor whiteColor];
-    self.extensionPaperColor = [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0];
-
-    [self.options[IFSHOptionHeadings]           setColour: [NSColor blackColor]];
-    [self.options[IFSHOptionMainText]           setColour: [NSColor blackColor]];
-    [self.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
-    [self.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
-    [self.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
-}
-
 
 -(void) updateAppPreferencesFromSet {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
@@ -112,15 +99,12 @@
     // Text section
     [prefs setSourceFontFamily:     self.fontFamily];
     [prefs setSourceFontSize:       self.fontSize];
-    [prefs setSourcePaperColour:    self.sourcePaperColor];
-    [prefs setExtensionPaperColour: self.extensionPaperColor];
 
     // Syntax highlighting section
     [prefs setEnableSyntaxHighlighting: self.enableSyntaxHighlighting];
     
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxHighlightingOption* option = (self.options)[optionIndex];
-        [prefs setSourceColour:           option.colour           forOptionType: optionIndex];
         [prefs setSourceFontStyle:        option.fontStyle        forOptionType: optionIndex];
         [prefs setSourceUnderline:        option.underline        forOptionType: optionIndex];
         [prefs setSourceRelativeFontSize: option.relativeFontSize forOptionType: optionIndex];
@@ -144,14 +128,11 @@
     // Text section
     self.fontFamily          = [prefs sourceFontFamily];
     self.fontSize            = [prefs sourceFontSize];
-    self.sourcePaperColor    = [prefs sourcePaperColour];
-    self.extensionPaperColor = [prefs extensionPaperColour];
 
     // Syntax highlighting section
     self.enableSyntaxHighlighting = [prefs enableSyntaxHighlighting];
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxHighlightingOption * option = (self.options)[optionIndex];
-        option.colour           = [prefs sourceColourForOptionType:           optionIndex];
         option.fontStyle        = [prefs sourceFontStyleForOptionType:        optionIndex];
         option.underline        = [prefs sourceUnderlineForOptionType:        optionIndex];
         option.relativeFontSize = [prefs sourceRelativeFontSizeForOptionType: optionIndex];
@@ -182,7 +163,7 @@
     return rgb1 && rgb2 && [rgb1 isEqual:rgb2];
 }
 
--(BOOL) isEqualToEditingPreferenceSet:(IFEditingPreferencesSet*) set {
+-(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set {
     if( ![self.fontFamily isEqualTo: set.fontFamily] ) {
         return NO;
     }
@@ -225,28 +206,6 @@
     return YES;
 }
 
--(BOOL) isEqualToColorPreferenceSet:(IFEditingPreferencesSet*) set {
-    if( ![self isEqualToColor: self.sourcePaperColor
-                         with: set.sourcePaperColor] ) {
-        return NO;
-    }
-    if( ![self isEqualToColor: self.extensionPaperColor
-                         with: set.extensionPaperColor] ) {
-        return NO;
-    }
-    for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
-        IFSyntaxHighlightingOption * option1 = (self.options)[optionIndex];
-        IFSyntaxHighlightingOption * option2 = (set.options)[optionIndex];
-
-        if( ![self isEqualToColor: option1.colour
-                             with: option2.colour] ) {
-            return NO;
-        }
-    }
-
-    return YES;
-}
-
 -(BOOL) isEqual:(id)object {
     if (self == object) {
         return YES;
@@ -254,10 +213,7 @@
     if (![object isKindOfClass:[IFEditingPreferencesSet class]]) {
         return NO;
     }
-    if (![self isEqualToEditingPreferenceSet:(IFEditingPreferencesSet *)object]) {
-        return NO;
-    }
-    if (![self isEqualToColorPreferenceSet:(IFEditingPreferencesSet *)object]) {
+    if (![self isEqualToPreferenceSet:(IFEditingPreferencesSet *)object]) {
         return NO;
     }
     return YES;
