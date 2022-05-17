@@ -87,6 +87,22 @@
     }
 }
 
+-(IFColourTheme*) createDuplicateSet {
+    IFColourTheme* result = [[IFColourTheme alloc] init];
+
+    result.themeName = [self.themeName copy];
+    result.extensionPaper = [self.extensionPaper copy];
+    result.sourcePaper = [self.sourcePaper copy];
+    result.flags = [self.flags copy];
+
+    [result.options removeAllObjects];
+    for (int i = 0; i < [self.options count]; i++) {
+        [result.options addObject: [((IFSyntaxColouringOption *) self.options[i]) copy]];
+    }
+    return result;
+}
+
+
 -(void) updateAppPreferencesFromSet {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 
@@ -104,6 +120,7 @@
     
     self.sourcePaper    = [[prefs getSourcePaper] copy];
     self.extensionPaper = [[prefs getExtensionPaper] copy];
+    self.flags          = [[prefs getCurrentTheme].flags copy];
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxColouringOption * destOption = (self.options)[optionIndex];

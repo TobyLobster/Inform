@@ -9,9 +9,12 @@
 
 #import "IFSyntaxManager.h"
 #import "IFNaturalHighlighter.h"
+#import "IFNewThemeWindow.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
+#import "NSBundle+IFBundleExtensions.h"
+#import "Inform-Swift.h"
 
 @implementation IFColourPreferences {
     IBOutlet NSButton*      enableSyntaxColouringButton;
@@ -35,6 +38,9 @@
 
     // Text storage for preview
     NSTextStorage* previewStorage;
+
+    // New theme sheet
+    IBOutlet IFNewThemeWindow* sheet;
 
     // Data
     bool                    enableSyntaxColouring;
@@ -105,15 +111,68 @@
 
     // Enable button
     [restoreSettingsButton setEnabled: ![currentSet isEqualToDefault]];
+
+    [deleteStyleButton setEnabled: (currentSet.flags.intValue & 1) == 1];
 }
 
 - (IBAction) newStyle: (id) sender {
-    // TODO
+    if (!self->sheet) {
+        [NSBundle oldLoadNibNamed: @"NewThemeWindow" owner:(id) self];
+    }
+
+    [self->sheet setThemeName:@"Custom"];
+    NSWindow * window = [[PreferenceController sharedPreferenceController] window];
+    [window beginSheet:self->sheet completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSModalResponseOK) {
+            NSString * name = [self->sheet themeName];
+            IFPreferences* prefs = [IFPreferences sharedPreferences];
+
+            // Try to add the theme
+            IFColourTheme* newTheme = [self->currentSet createDuplicateSet];
+            newTheme.themeName = name;
+
+            // HACK: Set as deletable
+            newTheme.flags = [[NSNumber alloc] initWithInt: newTheme.flags.intValue | 1];
+
+            if (![prefs addTheme: newTheme]) {
+                [IFUtility runAlertWarningWindow: window
+                                           title: [IFUtility localizedString:@"Name already used"]
+                                         message: @"%@", [IFUtility localizedString:@"The name you have chosen is already used. Try another name."]];
+            } else {
+                // Select theme
+                [prefs setCurrentTheme: newTheme.themeName];
+
+                // Update from the preferences based on the new theme
+                [self reflectCurrentPreferences];
+            }
+
+        }
+    }];
+    //[NSApp runModalForWindow: [self.sheet]];
 }
 
 - (IBAction) deleteStyle: (id) sender {
-    // TODO
+    // Ask for confirmation
+    [IFUtility runAlertYesNoWindow: nil
+                             title: [IFUtility localizedString: @"Are you sure?"]
+                               yes: [IFUtility localizedString: @"Delete"]
+                                no: [IFUtility localizedString: @"Cancel"]
+                     modalDelegate: self
+                    didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
+                       contextInfo: nil
+                  destructiveIndex: 0
+                           message: @"%@", [IFUtility localizedString: @"Do you want to delete the current theme?"]];
 }
+
+- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertFirstButtonReturn) {
+        IFPreferences* prefs = [IFPreferences sharedPreferences];
+        if ([prefs removeTheme: [prefs getCurrentThemeName]]) {
+            [prefs setCurrentTheme: @"Light"];
+        }
+    }
+}
+
 
 - (IBAction) differentThemeChosen: (id) sender {
     NSMenuItem* selectedItem = [styleButton selectedItem];

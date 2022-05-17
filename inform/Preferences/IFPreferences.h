@@ -68,6 +68,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 
 @class IFEditingPreferencesSet;
+@class IFColourTheme;
 
 ///
 /// General preferences class
@@ -95,6 +96,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 @property (atomic) IFAppFontSize appFontSizeMultiplierEnum;
 @property (atomic) CGFloat tabWidth;
 
+-(IFColourTheme*) getCurrentTheme;
 -(NSString*) getCurrentThemeName;
 -(void) setCurrentThemeName: (NSString*) value;
 
@@ -112,6 +114,9 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 
 -(bool) setCurrentTheme: (NSString*) name;
 -(NSArray*) getThemeNames;
+-(bool) addTheme: (IFColourTheme*) theme;
+-(bool) removeTheme: (NSString*) themeName;
+
 
 -(void) setSourcePaper: (IFSyntaxColouringOption*) option;
 -(void) setExtensionPaper: (IFSyntaxColouringOption*) option;

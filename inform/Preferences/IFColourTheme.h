@@ -26,5 +26,6 @@
 -(BOOL) isEqualToDefault;
 -(BOOL) isEqual:(id)object;
 -(void) resetSettings;
+-(IFColourTheme*) createDuplicateSet;
 
 @end

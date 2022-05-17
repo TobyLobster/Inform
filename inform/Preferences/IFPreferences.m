@@ -10,6 +10,7 @@
 #import "IFEditingPreferencesSet.h"
 #import "IFColourTheme.h"
 #import "IFProjectPane.h"
+#import "NSString+IFStringExtensions.h"
 
 NSString* const IFPreferencesAuthorDidChangeNotification      = @"IFPreferencesAuthorDidChangeNotification";
 NSString* const IFPreferencesEditingDidChangeNotification     = @"IFPreferencesEditingDidChangeNotification";
@@ -398,7 +399,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 -(int) getThemeIndex: (NSString*) name {
     for(int i = 0; i < themes.count; i++) {
         IFColourTheme* theme = themes[i];
-        if (name == theme.themeName) {
+        if ([name isEqualToStringCaseInsensitive: theme.themeName]) {
             return i;
         }
     }
@@ -414,6 +415,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     int i = [self getThemeIndex: [self getCurrentThemeName]];
     if (i < 0) {
         i = 0;
+        [self setCurrentThemeName: ((IFColourTheme*) themes[i]).themeName];
     }
     return themes[i];
 }
@@ -449,8 +451,8 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     }
 
     [themes addObject:theme];
-
     notificationString = IFPreferencesEditingDidChangeNotification;
+    [self setPreferenceThemesWithNotification: notificationString];
     [self preferencesHaveChanged];
     return true;
 }
@@ -460,9 +462,16 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     if (index < 0) {
         return false;
     }
+    IFColourTheme* theme = themes[index];
+    if ((theme.flags.intValue & 1) == 0) {
+        // Not deletable
+        return false;
+    }
+    theme = nil;
 
     [themes removeObjectAtIndex:index];
     notificationString = IFPreferencesEditingDidChangeNotification;
+    [self setPreferenceThemesWithNotification: notificationString];
     [self preferencesHaveChanged];
     return true;
 }
@@ -517,9 +526,9 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     dark.flags               = [[NSNumber alloc] initWithInt:0];
     [dark.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
     [dark.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
-    [dark.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
-    [dark.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
-    [dark.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
+    [dark.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 61.0/255.0 green: 193.0/255.0 blue: 62.0/255.0 alpha: 1.0]];
+    [dark.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 160.0/255.0 blue: 1.0 alpha: 1.0]];
+    [dark.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 248.0/255.0 green: 87.0/255.0 blue: 1.0 alpha: 1.0]];
     for(int i = 0; i < dark.options.count; i++) {
         dark.options[i].defaultColour = [dark.options[i].colour copy];
     }
