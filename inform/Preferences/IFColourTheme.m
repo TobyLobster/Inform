@@ -103,11 +103,12 @@
 }
 
 
--(void) updateAppPreferencesFromSet {
+-(void) updateAppPreferencesFromSetWithEnable:(BOOL) enable {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 
     [prefs setSourcePaper:    self.sourcePaper];
     [prefs setExtensionPaper: self.extensionPaper];
+    [prefs setEnableSyntaxColouring: enable];
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
         IFSyntaxColouringOption* option = (self.options)[optionIndex];

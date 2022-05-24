@@ -20,7 +20,7 @@
 @property (atomic, strong) NSMutableArray<IFSyntaxColouringOption*>* options;
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
-- (void) updateAppPreferencesFromSet;
+- (void) updateAppPreferencesFromSetWithEnable: (BOOL) enable;
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxColouringOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
 -(BOOL) isEqualToDefault;

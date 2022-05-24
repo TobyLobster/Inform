@@ -839,7 +839,7 @@
     if(( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) &&
        ( ![[IFPreferences sharedPreferences] enableSyntaxColouring] )) {
         // Just use standard attributes
-        [_textStorage addAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
+        [_textStorage setAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
                               range: range];
         [_textStorage fixFontAttributeInRange: range];
         return;
@@ -852,8 +852,7 @@
 
         // Get the style attributes
         NSDictionary* styleAttributes = [highlighter attributesForStyle: style];
-        [_textStorage addAttributes: styleAttributes
-                              range: styleRange];
+        [_textStorage setAttributes: styleAttributes range:styleRange];
         [_textStorage fixFontAttributeInRange: styleRange];
 
         NSAssert((styleRange.location + styleRange.length) <= [_textStorage length], @"Help!");

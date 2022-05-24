@@ -119,10 +119,6 @@ NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFil
 }
 
 +(IFHighlightType) highlighterTypeForFilename: (NSString*) filename {
-	if (![[IFPreferences sharedPreferences] enableSyntaxHighlighting]) {
-        return IFHighlightTypeNone;
-    }
-
     IFInformVersion version = [IFProjectTypes informVersionForFilename: filename];
     switch( version ) {
         case IFInformVersion6:       return IFHighlightTypeInform6;   // Inform 6 file

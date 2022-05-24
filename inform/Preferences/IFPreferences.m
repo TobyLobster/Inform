@@ -491,6 +491,10 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     return [number boolValue];
 }
 
+-(NSColor*) byteColourR: (int) red G: (int) green B: (int) blue {
+    return [NSColor colorWithDeviceRed: ((CGFloat) red)/255.0 green: ((CGFloat) green)/255.0 blue: ((CGFloat) blue)/255.0 alpha: 1.0];
+}
+
 #pragma mark - Editing preferences
 
 - (void) resetDefaultThemes {
@@ -498,15 +502,15 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
     // Create light theme
     IFColourTheme* light = [[IFColourTheme alloc] init];
-    light.themeName           = @"Light";
-    light.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor whiteColor]];
-    light.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0]];
+    light.themeName           = @"Light Mode";
+    light.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR:255 G:255 B:255]];
+    light.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR:255 G:255 B:228]];
     light.flags               = [[NSNumber alloc] initWithInt:0];
-    [light.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
-    [light.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
-    [light.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
-    [light.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
-    [light.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
+    [light.options[IFSHOptionHeadings]           setColour: [self byteColourR:230 G: 61 B: 66]];
+    [light.options[IFSHOptionMainText]           setColour: [self byteColourR:  0 G:  0 B:  0]];
+    [light.options[IFSHOptionComments]           setColour: [self byteColourR: 70 G:170 B: 37]];
+    [light.options[IFSHOptionQuotedText]         setColour: [self byteColourR: 65 G:131 B:250]];
+    [light.options[IFSHOptionTextSubstitutions]  setColour: [self byteColourR:232 G: 60 B:249]];
 
     for(int i = 0; i < light.options.count; i++) {
         light.options[i].defaultColour = [light.options[i].colour copy];
@@ -520,23 +524,54 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
     // Create dark theme
     IFColourTheme* dark = [[IFColourTheme alloc] init];
-    dark.themeName           = @"Dark";
-    dark.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor blackColor]];
-    dark.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor colorWithDeviceRed: 0.2 green: 0.2 blue: 0.2 alpha: 1.0]];
+    dark.themeName           = @"Dark Mode";
+    dark.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR:  0 G:  0 B:  0]];
+    dark.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR: 66 G: 13 B:  0]];
     dark.flags               = [[NSNumber alloc] initWithInt:0];
-    [dark.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
-    [dark.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 1.0]];
-    [dark.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 61.0/255.0 green: 193.0/255.0 blue: 62.0/255.0 alpha: 1.0]];
-    [dark.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 160.0/255.0 blue: 1.0 alpha: 1.0]];
-    [dark.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 248.0/255.0 green: 87.0/255.0 blue: 1.0 alpha: 1.0]];
+    [dark.options[IFSHOptionHeadings]           setColour: [self byteColourR:234 G:108 B:105]];
+    [dark.options[IFSHOptionMainText]           setColour: [self byteColourR:255 G:255 B:255]];
+    [dark.options[IFSHOptionComments]           setColour: [self byteColourR:149 G:249 B:156]];
+    [dark.options[IFSHOptionQuotedText]         setColour: [self byteColourR: 93 G:213 B:253]];
+    [dark.options[IFSHOptionTextSubstitutions]  setColour: [self byteColourR:238 G:139 B:231]];
+
     for(int i = 0; i < dark.options.count; i++) {
         dark.options[i].defaultColour = [dark.options[i].colour copy];
     }
     [themes addObject: dark];
 
-    //for(int i = 0; i < dark.options.count; i++) {
-    //    NSLog(@"resetDefaultThemes dark new option %d is %@", i, dark.options[i].defaultColour);
-    //}
+    // Create Seven Seas theme
+    IFColourTheme* sevenSeas = [[IFColourTheme alloc] init];
+    sevenSeas.themeName           = @"Seven Seas";
+    sevenSeas.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR:233 G:233 B:255]];
+    sevenSeas.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour: [self byteColourR:233 G:255 B:233]];
+    sevenSeas.flags               = [[NSNumber alloc] initWithInt:0];
+    [sevenSeas.options[IFSHOptionHeadings]           setColour: [self byteColourR: 52 G:  0 B:255]];
+    [sevenSeas.options[IFSHOptionMainText]           setColour: [self byteColourR:  0 G:  0 B:100]];
+    [sevenSeas.options[IFSHOptionComments]           setColour: [self byteColourR:109 G:167 B:233]];
+    [sevenSeas.options[IFSHOptionQuotedText]         setColour: [self byteColourR:  0 G:106 B:255]];
+    [sevenSeas.options[IFSHOptionTextSubstitutions]  setColour: [self byteColourR: 45 G:108 B:208]];
+
+    for(int i = 0; i < sevenSeas.options.count; i++) {
+        sevenSeas.options[i].defaultColour = [sevenSeas.options[i].colour copy];
+    }
+    [themes addObject: sevenSeas];
+
+    // Create traditional theme (the original colours)
+    IFColourTheme* traditional = [[IFColourTheme alloc] init];
+    traditional.themeName           = @"Traditional";
+    traditional.sourcePaper         = [[IFSyntaxColouringOption alloc] initWithColour:[self byteColourR:255 G:255 B:255]];
+    traditional.extensionPaper      = [[IFSyntaxColouringOption alloc] initWithColour:[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.9 alpha: 1.0]];
+    traditional.flags               = [[NSNumber alloc] initWithInt:0];
+    [traditional.options[IFSHOptionHeadings]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
+    [traditional.options[IFSHOptionMainText]           setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
+    [traditional.options[IFSHOptionComments]           setColour: [NSColor colorWithDeviceRed: 0.14 green: 0.43 blue: 0.14 alpha: 1.0]];
+    [traditional.options[IFSHOptionQuotedText]         setColour: [NSColor colorWithDeviceRed: 0.0 green: 0.3 blue: 0.6 alpha: 1.0]];
+    [traditional.options[IFSHOptionTextSubstitutions]  setColour: [NSColor colorWithDeviceRed: 0.3 green: 0.3 blue: 1.0 alpha: 1.0]];
+
+    for(int i = 0; i < traditional.options.count; i++) {
+        traditional.options[i].defaultColour = [traditional.options[i].colour copy];
+    }
+    [themes addObject: traditional];
 
     [self setPreferenceThemesWithNotification:IFPreferencesEditingDidChangeNotification];
 }
@@ -544,7 +579,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 -(NSString*) getCurrentThemeName {
     return [self getPreferenceString: @"currentThemeName"
-                             default: @"Light"];
+                             default: @"Light Mode"];
 }
 
 -(void) setCurrentThemeName: (NSString*) value {
@@ -938,9 +973,18 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
         else {
             currentUnderline = noUnderline;
         }
-        [styles addObject: @{NSFontAttributeName: cacheFontStyles[x],
-            NSForegroundColorAttributeName: cacheColours[x],
-            NSUnderlineStyleAttributeName: currentUnderline}];
+
+        NSMutableDictionary* dict = [[NSMutableDictionary alloc] init];
+
+        if (self.enableSyntaxColouring) {
+            [dict addEntriesFromDictionary: @{NSForegroundColorAttributeName: cacheColours[x]}];
+        }
+        if (self.enableSyntaxHighlighting) {
+            [dict addEntriesFromDictionary: @{NSFontAttributeName: cacheFontStyles[x],
+                                              NSUnderlineStyleAttributeName: currentUnderline}];
+        }
+
+        [styles addObject: dict];
 	}
 }
 

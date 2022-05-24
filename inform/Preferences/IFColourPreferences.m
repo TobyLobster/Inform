@@ -168,7 +168,7 @@
     if (returnCode == NSAlertFirstButtonReturn) {
         IFPreferences* prefs = [IFPreferences sharedPreferences];
         if ([prefs removeTheme: [prefs getCurrentThemeName]]) {
-            [prefs setCurrentTheme: @"Light"];
+            [prefs setCurrentTheme: @"Light Mode"];
         }
     }
 }
@@ -211,7 +211,7 @@
     }
 
     // Update application's preferences from currentSet
-    [currentSet updateAppPreferencesFromSet];
+    [currentSet updateAppPreferencesFromSetWithEnable: enableSyntaxColouring];
 }
 
 - (void) reflectCurrentPreferences {
@@ -275,7 +275,7 @@
         enableSyntaxColouring = true;
 
         [[IFPreferences sharedPreferences] startBatchEditing];
-        [currentSet updateAppPreferencesFromSet];
+        [currentSet updateAppPreferencesFromSetWithEnable: true];
         [[IFPreferences sharedPreferences] endBatchEditing];
 
         [self reflectCurrentPreferences];

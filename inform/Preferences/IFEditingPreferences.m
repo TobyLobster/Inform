@@ -137,7 +137,7 @@
 }
 
 - (NSImage*) toolbarImage {
-    return [[NSBundle bundleForClass: [self class]] imageForResource: @"App/pencil"];
+    return [[NSBundle bundleForClass: [self class]] imageForResource: @"App/highlighter2"];
 }
 
 - (NSString*) tooltip {
@@ -332,6 +332,9 @@
     // Update dependent elements
     [self updateDependentUIElements];
     
+    // Update paper colour on preview
+    [previewView setBackgroundColor: [prefs getSourcePaper].colour];
+
     // Rehighlight the preview views
 	[IFSyntaxManager preferencesChanged: tabStopStorage];
 	[IFSyntaxManager highlightAll: tabStopStorage

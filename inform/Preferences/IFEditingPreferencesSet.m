@@ -63,9 +63,9 @@
 
     // Headings
     IFSyntaxHighlightingOption* option = self.options[IFSHOptionHeadings];
-    [option setFontStyle:           IFFontStyleBold];
+    [option setFontStyle:           IFFontStyleRegular];
     [option setRelativeFontSize:    IFFontSizePlus10];
-    [option setUnderline:           false];
+    [option setUnderline:           true];
 
     // Main text
     option = self.options[IFSHOptionMainText];
@@ -75,13 +75,13 @@
 
     // Comments
     option = self.options[IFSHOptionComments];
-    [option setFontStyle:           IFFontStyleBold];
-    [option setRelativeFontSize:    IFFontSizeMinus20];
+    [option setFontStyle:           IFFontStyleRegular];
+    [option setRelativeFontSize:    IFFontSizeNormal];
     [option setUnderline:           false];
 
     // Quoted text
     option = self.options[IFSHOptionQuotedText];
-    [option setFontStyle:           IFFontStyleBold];
+    [option setFontStyle:           IFFontStyleRegular];
     [option setRelativeFontSize:    IFFontSizeNormal];
     [option setUnderline:           false];
 

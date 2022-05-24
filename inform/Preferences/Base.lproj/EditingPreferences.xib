@@ -319,32 +319,35 @@ a white jersey	1975	"best cyclist aged 25 or less"
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <box title="Syntax highlighting" translatesAutoresizingMaskIntoConstraints="NO" id="95">
-                    <rect key="frame" x="17" y="433" width="466" height="188"/>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="166">
+                    <rect key="frame" x="18" y="740" width="286" height="20"/>
+                    <string key="toolTip">Syntax highlighting will automatically colour and style your source code to indicate what different parts do. If you have a slow computer, you may see a performance benefit by turning this off.</string>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="284" id="aN6-sS-ntT"/>
+                    </constraints>
+                    <buttonCell key="cell" type="check" title="Enable Styles" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="167">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="styleSetHasChanged:" target="-2" id="168"/>
+                    </connections>
+                </button>
+                <box title="Style" translatesAutoresizingMaskIntoConstraints="NO" id="95">
+                    <rect key="frame" x="17" y="438" width="466" height="188"/>
                     <view key="contentView" id="STC-OG-WsS">
                         <rect key="frame" x="3" y="3" width="460" height="170"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="166">
-                                <rect key="frame" x="15" y="142" width="67" height="20"/>
-                                <string key="toolTip">Syntax highlighting will automatically colour and style your source code to indicate what different parts do. If you have a slow computer, you may see a performance benefit by turning this off.</string>
-                                <buttonCell key="cell" type="check" title="Enable" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="167">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="styleSetHasChanged:" target="-2" id="168"/>
-                                </connections>
-                            </button>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="J97-Nn-z2H">
-                                <rect key="frame" x="15" y="117" width="88" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J97-Nn-z2H">
+                                <rect key="frame" x="15" y="116" width="88" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Headings:" id="UyJ-92-hrJ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PWZ-5L-7dY">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PWZ-5L-7dY">
                                 <rect key="frame" x="123" y="143" width="36" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Bold" id="d2E-nO-03Y">
                                     <font key="font" metaFont="system"/>
@@ -352,7 +355,7 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BMR-WP-Lzi">
+                            <textField verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMR-WP-Lzi">
                                 <rect key="frame" x="165" y="143" width="62" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Italic" id="wUe-LP-jiI">
                                     <font key="font" metaFont="system"/>
@@ -360,8 +363,8 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-k8-Aj9">
-                                <rect key="frame" x="217" y="143" width="68" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-k8-Aj9">
+                                <rect key="frame" x="217" y="143" width="67" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="63" id="sx6-WH-dpX"/>
                                 </constraints>
@@ -371,7 +374,7 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="slT-7a-uRs">
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slT-7a-uRs">
                                 <rect key="frame" x="293" y="143" width="149" height="16"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Size" id="m3s-pS-s02">
                                     <font key="font" metaFont="system"/>
@@ -379,32 +382,32 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wnk-nK-IFv">
-                                <rect key="frame" x="15" y="92" width="88" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wnk-nK-IFv">
+                                <rect key="frame" x="15" y="91" width="88" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Main text:" id="nQC-hS-Txq">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ox9-zr-Sph">
-                                <rect key="frame" x="15" y="66" width="88" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ox9-zr-Sph">
+                                <rect key="frame" x="15" y="65" width="88" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Comments:" id="CPA-jD-aoG">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ITQ-yg-h9g">
-                                <rect key="frame" x="15" y="40" width="88" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITQ-yg-h9g">
+                                <rect key="frame" x="15" y="39" width="88" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Quoted text:" id="jm0-Db-7w5">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Kp-Ym-FNE">
-                                <rect key="frame" x="15" y="14" width="88" height="16"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Kp-Ym-FNE">
+                                <rect key="frame" x="15" y="13" width="88" height="18"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Substitutions:" id="OyI-t6-9Bf">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -561,7 +564,7 @@ a white jersey	1975	"best cyclist aged 25 or less"
                                     <action selector="styleSetHasChanged:" target="-2" id="HbG-DB-eom"/>
                                 </connections>
                             </button>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gby-cb-2gr">
+                            <slider verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gby-cb-2gr">
                                 <rect key="frame" x="293" y="114" width="149" height="22"/>
                                 <sliderCell key="cell" controlSize="small" state="on" alignment="left" maxValue="6" doubleValue="3" tickMarkPosition="above" numberOfTickMarks="7" allowsTickMarkValuesOnly="YES" sliderType="linear" id="aGZ-B5-rww"/>
                                 <connections>
@@ -606,14 +609,12 @@ a white jersey	1975	"best cyclist aged 25 or less"
                         </subviews>
                         <constraints>
                             <constraint firstItem="Wnk-nK-IFv" firstAttribute="trailing" secondItem="ox9-zr-Sph" secondAttribute="trailing" id="05W-vm-53T"/>
-                            <constraint firstItem="166" firstAttribute="baseline" secondItem="PWZ-5L-7dY" secondAttribute="baseline" id="1An-mi-l1h"/>
                             <constraint firstItem="VED-40-Puy" firstAttribute="top" secondItem="rAj-FZ-ZhQ" secondAttribute="bottom" constant="12" id="1hk-Zm-Cqg"/>
                             <constraint firstItem="185-WZ-kl3" firstAttribute="leading" secondItem="9Yo-tI-VUX" secondAttribute="leading" id="37q-ZP-Sxa"/>
                             <constraint firstItem="VED-40-Puy" firstAttribute="leading" secondItem="Itg-XG-VnG" secondAttribute="leading" id="4nK-Nk-CLf"/>
                             <constraint firstItem="D4S-2b-0vb" firstAttribute="top" secondItem="STC-OG-WsS" secondAttribute="top" constant="60" id="6PW-dZ-mW7"/>
                             <constraint firstItem="D4S-2b-0vb" firstAttribute="leading" secondItem="tFp-RV-LPQ" secondAttribute="leading" id="6ql-60-5C8"/>
                             <constraint firstItem="5wI-m7-SuH" firstAttribute="leading" secondItem="185-WZ-kl3" secondAttribute="leading" id="7II-tR-Ywf"/>
-                            <constraint firstItem="166" firstAttribute="leading" secondItem="STC-OG-WsS" secondAttribute="leading" constant="17" id="7lV-7j-4Dn"/>
                             <constraint firstItem="dNV-XK-scM" firstAttribute="leading" secondItem="BQZ-8t-UzN" secondAttribute="leading" id="7rH-VA-xtt"/>
                             <constraint firstItem="dNV-XK-scM" firstAttribute="top" secondItem="XlF-3c-xjk" secondAttribute="top" id="8dz-qo-iDw"/>
                             <constraint firstItem="VED-40-Puy" firstAttribute="centerY" secondItem="ITQ-yg-h9g" secondAttribute="centerY" id="8vT-5A-Q8K"/>
@@ -630,7 +631,6 @@ a white jersey	1975	"best cyclist aged 25 or less"
                             <constraint firstAttribute="trailing" secondItem="D4S-2b-0vb" secondAttribute="trailing" constant="20" symbolic="YES" id="JX5-rN-QIa"/>
                             <constraint firstItem="rAj-FZ-ZhQ" firstAttribute="leading" secondItem="VED-40-Puy" secondAttribute="leading" id="KUA-qk-Pyp"/>
                             <constraint firstItem="nIl-iS-pDF" firstAttribute="baseline" secondItem="ITQ-yg-h9g" secondAttribute="baseline" id="LIo-Zd-Q29"/>
-                            <constraint firstItem="PWZ-5L-7dY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="166" secondAttribute="trailing" constant="8" symbolic="YES" id="O9y-a5-03v"/>
                             <constraint firstItem="Ump-Fg-Qqu" firstAttribute="leading" secondItem="XlF-3c-xjk" secondAttribute="leading" id="OJl-Fp-W8c"/>
                             <constraint firstItem="rAj-FZ-ZhQ" firstAttribute="centerY" secondItem="ox9-zr-Sph" secondAttribute="centerY" id="Pvx-nS-ioe"/>
                             <constraint firstItem="185-WZ-kl3" firstAttribute="top" secondItem="r41-I9-yqO" secondAttribute="top" id="Q4T-6g-3Mf"/>
@@ -660,13 +660,11 @@ a white jersey	1975	"best cyclist aged 25 or less"
                             <constraint firstItem="D4S-2b-0vb" firstAttribute="top" secondItem="gby-cb-2gr" secondAttribute="bottom" constant="6" id="hn4-1b-cdq"/>
                             <constraint firstItem="5wI-m7-SuH" firstAttribute="leading" secondItem="vrS-yx-Upz" secondAttribute="trailing" constant="41" id="ijJ-NG-3SF"/>
                             <constraint firstItem="gby-cb-2gr" firstAttribute="top" secondItem="slT-7a-uRs" secondAttribute="bottom" constant="9" id="k4k-Ut-M2W"/>
-                            <constraint firstItem="166" firstAttribute="top" secondItem="STC-OG-WsS" secondAttribute="top" constant="9" id="kJo-LB-v43"/>
                             <constraint firstItem="slT-7a-uRs" firstAttribute="trailing" secondItem="etC-1a-rez" secondAttribute="trailing" id="lHE-qo-xjc"/>
                             <constraint firstItem="Itg-XG-VnG" firstAttribute="centerY" secondItem="5Kp-Ym-FNE" secondAttribute="centerY" id="mFK-KR-18m"/>
                             <constraint firstItem="ox9-zr-Sph" firstAttribute="trailing" secondItem="ITQ-yg-h9g" secondAttribute="trailing" id="mZo-3j-cTY"/>
                             <constraint firstItem="slT-7a-uRs" firstAttribute="trailing" secondItem="nIl-iS-pDF" secondAttribute="trailing" id="nBC-Lv-09j"/>
                             <constraint firstItem="08w-Od-W1m" firstAttribute="leading" secondItem="5wI-m7-SuH" secondAttribute="trailing" constant="41" id="nLC-uF-3Xk"/>
-                            <constraint firstItem="J97-Nn-z2H" firstAttribute="leading" secondItem="166" secondAttribute="leading" id="nay-JO-2t0"/>
                             <constraint firstItem="slT-7a-uRs" firstAttribute="leading" secondItem="gby-cb-2gr" secondAttribute="leading" id="nkI-MZ-7Wd"/>
                             <constraint firstItem="BMR-WP-Lzi" firstAttribute="centerX" secondItem="5wI-m7-SuH" secondAttribute="centerX" id="oEE-Ve-ceF"/>
                             <constraint firstItem="Itg-XG-VnG" firstAttribute="top" secondItem="VED-40-Puy" secondAttribute="bottom" constant="12" id="orM-MN-2C5"/>
@@ -759,15 +757,15 @@ a white jersey	1975	"best cyclist aged 25 or less"
                         </constraints>
                     </view>
                 </box>
-                <box autoresizesSubviews="NO" borderType="line" title="Text" translatesAutoresizingMaskIntoConstraints="NO" id="sFK-Ii-9ea">
-                    <rect key="frame" x="17" y="652" width="466" height="85"/>
+                <box autoresizesSubviews="NO" borderType="line" title="Font" translatesAutoresizingMaskIntoConstraints="NO" id="sFK-Ii-9ea">
+                    <rect key="frame" x="17" y="637" width="466" height="88"/>
                     <view key="contentView" id="jmv-bN-PYl">
-                        <rect key="frame" x="3" y="3" width="460" height="67"/>
+                        <rect key="frame" x="3" y="3" width="460" height="70"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5Fw-2b-02w">
                                 <rect key="frame" x="7" y="40" width="156" height="16"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Font:" id="pAZ-Hy-MHu">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title=" Source Font:" id="pAZ-Hy-MHu">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -849,22 +847,26 @@ a white jersey	1975	"best cyclist aged 25 or less"
                 <constraint firstItem="bHQ-Ej-C4y" firstAttribute="top" secondItem="NKo-g5-gG2" secondAttribute="top" id="1vJ-eS-tvP"/>
                 <constraint firstItem="135" firstAttribute="leading" secondItem="bHQ-Ej-C4y" secondAttribute="leading" id="8bl-Fn-lFa"/>
                 <constraint firstItem="bHQ-Ej-C4y" firstAttribute="top" secondItem="135" secondAttribute="bottom" constant="6" id="8cF-zy-Xdp"/>
+                <constraint firstItem="sFK-Ii-9ea" firstAttribute="top" secondItem="166" secondAttribute="bottom" constant="16" id="8uo-ht-gIi"/>
                 <constraint firstItem="135" firstAttribute="top" secondItem="5" secondAttribute="top" constant="350" id="HCO-Fe-BM1"/>
                 <constraint firstItem="NKo-g5-gG2" firstAttribute="width" secondItem="bHQ-Ej-C4y" secondAttribute="width" id="IUC-gk-wWW"/>
+                <constraint firstItem="IXf-Fa-1JU" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="166" secondAttribute="trailing" constant="8" symbolic="YES" id="LPK-Zh-BQj"/>
                 <constraint firstItem="bHQ-Ej-C4y" firstAttribute="baseline" secondItem="NKo-g5-gG2" secondAttribute="baseline" id="QkC-ym-kqG"/>
                 <constraint firstItem="sFK-Ii-9ea" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" id="Uti-af-XSw"/>
-                <constraint firstItem="135" firstAttribute="top" secondItem="95" secondAttribute="bottom" constant="7" id="Vsf-Ei-EUN"/>
-                <constraint firstItem="95" firstAttribute="top" secondItem="sFK-Ii-9ea" secondAttribute="bottom" constant="35" id="Vxf-pM-sfe"/>
+                <constraint firstItem="135" firstAttribute="top" secondItem="95" secondAttribute="bottom" constant="12" id="Vsf-Ei-EUN"/>
+                <constraint firstItem="95" firstAttribute="top" secondItem="sFK-Ii-9ea" secondAttribute="bottom" constant="15" id="Vxf-pM-sfe"/>
                 <constraint firstItem="135" firstAttribute="trailing" secondItem="NKo-g5-gG2" secondAttribute="trailing" id="WGd-ge-iLD"/>
                 <constraint firstItem="135" firstAttribute="centerY" secondItem="5" secondAttribute="centerY" id="XcD-Of-HS4"/>
                 <constraint firstItem="IXf-Fa-1JU" firstAttribute="top" secondItem="5" secondAttribute="top" constant="21" id="YTI-fh-nAD"/>
                 <constraint firstItem="97" firstAttribute="top" secondItem="5" secondAttribute="top" constant="541" id="Z9y-Be-lDo"/>
+                <constraint firstItem="166" firstAttribute="leading" secondItem="sFK-Ii-9ea" secondAttribute="leading" id="aHL-ON-pOX"/>
                 <constraint firstAttribute="bottom" secondItem="97" secondAttribute="bottom" constant="20" symbolic="YES" id="bG3-JE-rZK"/>
                 <constraint firstAttribute="trailing" secondItem="IXf-Fa-1JU" secondAttribute="trailing" constant="22" id="cYh-NQ-cLC"/>
                 <constraint firstItem="NKo-g5-gG2" firstAttribute="leading" secondItem="bHQ-Ej-C4y" secondAttribute="trailing" constant="8" symbolic="YES" id="dsA-84-fnS"/>
                 <constraint firstAttribute="trailing" secondItem="sFK-Ii-9ea" secondAttribute="trailing" constant="20" symbolic="YES" id="eTF-Wm-Leh"/>
                 <constraint firstItem="sFK-Ii-9ea" firstAttribute="trailing" secondItem="95" secondAttribute="trailing" id="en0-kW-VBE"/>
-                <constraint firstItem="sFK-Ii-9ea" firstAttribute="top" secondItem="IXf-Fa-1JU" secondAttribute="bottom" constant="2" id="g1x-Cq-g9c"/>
+                <constraint firstItem="sFK-Ii-9ea" firstAttribute="top" secondItem="IXf-Fa-1JU" secondAttribute="bottom" constant="14" id="g1x-Cq-g9c"/>
+                <constraint firstItem="166" firstAttribute="top" secondItem="IXf-Fa-1JU" secondAttribute="top" id="g4c-NQ-8qw"/>
                 <constraint firstItem="135" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="19" id="jzs-Nt-0Ai"/>
                 <constraint firstItem="sFK-Ii-9ea" firstAttribute="leading" secondItem="95" secondAttribute="leading" id="oic-DO-dKi"/>
                 <constraint firstItem="NKo-g5-gG2" firstAttribute="trailing" secondItem="97" secondAttribute="trailing" id="qGd-kX-KQx"/>
