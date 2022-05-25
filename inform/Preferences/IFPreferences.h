@@ -117,6 +117,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 -(bool) addTheme: (IFColourTheme*) theme;
 -(bool) removeTheme: (NSString*) themeName;
 
+-(void) setDarkMode: (bool) isDarkMode;
 
 -(void) setSourcePaper: (IFSyntaxColouringOption*) option;
 -(void) setExtensionPaper: (IFSyntaxColouringOption*) option;

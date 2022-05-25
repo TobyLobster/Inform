@@ -135,6 +135,11 @@ static NSRunLoop* mainRunLoop = nil;
 	// Finish setting up
 	[self updateExtensionsMenu];
 
+    [NSApp addObserver: self
+            forKeyPath: @"effectiveAppearance"
+               options: NSKeyValueObservingOptionNew
+               context: nil];
+
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(updateExtensionsMenu)
 												 name: IFExtensionsUpdatedNotification
@@ -147,6 +152,26 @@ static NSRunLoop* mainRunLoop = nil;
                                                                      selector: @selector(openWelcomeDialogIfNeeded)
                                                                        object: nil];
     [[NSOperationQueue mainQueue] addOperation: op];
+}
+
+- (void)observeValueForKeyPath: (NSString *) keyPath
+                      ofObject: (id) object
+                        change: (NSDictionary *) change
+                       context: (void *) context {
+    [self performSelectorOnMainThread:@selector(darkModeChanged) withObject:nil waitUntilDone:NO];
+}
+
+- (bool) isDark {
+    if (@available(macOS 10.14, *)) {
+        NSAppearanceName basicAppearance = [[NSApp effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
+    }
+    return false;
+}
+
+- (void) darkModeChanged {
+    IFPreferences* prefs = [IFPreferences sharedPreferences];
+    [prefs setDarkMode: [self isDark]];
 }
 
 -(void)openWelcomeDialogIfNeeded

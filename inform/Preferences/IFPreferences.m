@@ -476,6 +476,20 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     return true;
 }
 
+-(void) setDarkMode: (bool) isDarkMode {
+    NSString * currentThemeName = [self getCurrentThemeName];
+    if ([currentThemeName isEqualTo:@"Light Mode"]) {
+        if (isDarkMode) {
+            [self setCurrentTheme: @"Dark Mode"];
+        }
+    }
+    else if ([currentThemeName isEqualTo:@"Dark Mode"]) {
+        if (!isDarkMode) {
+            [self setCurrentTheme: @"Light Mode"];
+        }
+    }
+}
+
 -(void) setPreferenceBool: (NSString*) key
                     value: (BOOL) value
              notification: (NSString*) notification {
