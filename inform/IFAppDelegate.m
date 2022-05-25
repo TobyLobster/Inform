@@ -35,6 +35,7 @@
 #import "IFOutputSettings.h"
 #import "IFI7OutputSettings.h"
 #import "IFRandomSettings.h"
+#import "IFBasicInformSettings.h"
 #import "IFCompilerOptions.h"
 #import "IFLibrarySettings.h"
 #import "IFDebugSettings.h"
@@ -108,6 +109,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[IFSettingsController addStandardSettingsClass: [IFLibrarySettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFMiscSettings class]];
     [IFSettingsController addStandardSettingsClass: [IFCompilerVersionSettings class]];
+    [IFSettingsController addStandardSettingsClass: [IFBasicInformSettings class]];
 
 	// Glk hub
 	[[GlkHub sharedGlkHub] setRandomHubCookie];

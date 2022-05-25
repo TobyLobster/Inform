@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFBasicInformSettings">
+            <connections>
+                <outlet property="basicInform" destination="3" id="YxT-nL-dI6"/>
+                <outlet property="settingView" destination="1" id="7"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="1">
+            <rect key="frame" x="0.0" y="0.0" width="487" height="106"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="447" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="18" y="44" width="451" height="42"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" id="5">
+                        <font key="font" metaFont="smallSystem"/>
+                        <string key="title">This restricts to a minimal version of the Inform programming language which
+is uninteractive, and does not have a command parser. This is available only
+in version 10.1.0 or greater of Inform.</string>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="3">
+                    <rect key="frame" x="18" y="19" width="451" height="18"/>
+                    <buttonCell key="cell" type="check" title="Use Basic Inform only" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="6">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="settingsHaveChanged:" target="-2" id="9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" constant="20" symbolic="YES" id="5CR-qR-vkE"/>
+                <constraint firstItem="3" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="8" symbolic="YES" id="EaF-zT-AsI"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" symbolic="YES" id="c1N-fF-vLz"/>
+                <constraint firstAttribute="trailing" secondItem="3" secondAttribute="trailing" constant="18" id="gOv-v6-GKQ"/>
+                <constraint firstItem="4" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" symbolic="YES" id="ijH-ce-RXf"/>
+                <constraint firstItem="4" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="yRZ-gc-TDU"/>
+            </constraints>
+            <point key="canvasLocation" x="138.5" y="132"/>
+        </customView>
+    </objects>
+</document>

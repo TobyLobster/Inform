@@ -22,6 +22,7 @@ extern NSString* const IFSettingDEBUG;         // default YES
 extern NSString* const IFSettingTestingTabHelpShown;  // default YES
 extern NSString* const IFSettingTestingTabShownCount; // default 0
 extern NSString* const IFSettingNobbleRng;            // default NO
+extern NSString* const IFSettingBasicInform;          // default NO
 extern NSString* const IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
@@ -65,6 +66,7 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic) BOOL compileNaturalInformOutput;
 @property (atomic) BOOL runBuildScript;
 @property (atomic) BOOL nobbleRng;
+@property (atomic) BOOL basicInform;
 @property (atomic) BOOL testingTabHelpShown;
 @property (atomic) int  testingTabShownCount;
 @property (atomic) NSString * compilerVersion;

@@ -35,6 +35,7 @@ NSString* const IFSettingDEBUG                = @"IFSettingDEBUG";
 NSString* const IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
 NSString* const IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
 NSString* const IFSettingNobbleRng            = @"IFSettingNobbleRng";
+NSString* const IFSettingBasicInform          = @"IFSettingBasicInform";
 NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
@@ -467,6 +468,21 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 - (BOOL) nobbleRng {
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng];
 	
+    if (setting) {
+        return [setting boolValue];
+    } else {
+        return NO;
+    }
+}
+
+- (void) setBasicInform: (BOOL) setting {
+    [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform] = @(setting);
+    [self settingsHaveChanged];
+}
+
+- (BOOL) basicInform {
+    NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform];
+
     if (setting) {
         return [setting boolValue];
     } else {

@@ -188,6 +188,10 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 		[args addObject: @"-rng"];
 	}
 
+    if ([settings basicInform]) {
+        [args addObject: @"-basic"];
+    }
+
     if(( testCase != nil ) && ([testCase length] > 0))
     {
         [args addObject: @"-case"];
