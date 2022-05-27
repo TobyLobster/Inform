@@ -2,11 +2,11 @@
 # Copies resources to target build.
 #
 
-# Some executables and resources for the app originate from the core of Graham Nelson's unpublished Inform.
-# If "Inform Core" exists, these resources are built and copied into the TempStagingArea.
+# Some executables and resources for the app originate from the core of Graham Nelson's Inform.
+# If the "INFORM_CORE" directory exists, these resources are built and copied into the TempStagingArea.
 # Resources from TempStagingArea are copied into the StagingArea proper as needed.
 # The StagingArea files are then copied to the target build.
-export INFORM_CORE="${SRCROOT}/../../Inform Core/informXX"
+export INFORM_CORE="${SRCROOT}/../../Inform Core/inform"
 export INFORM_APP_DIR="${TARGET_BUILD_DIR}"
 export STAGING_AREA="${SRCROOT}/StagingArea/Contents"
 export TEMP_STAGING_AREA="${SRCROOT}/TempStagingArea/Contents"
@@ -124,7 +124,7 @@ if [ -d "${INFORM_CORE}" ]; then
 
     # Copy retrospective resource files
     cp -rf "${INFORM_CORE}/retrospective/6L02/Extensions"                       "${STAGING_AREA}/Resources/retrospective/6L02"
-    cp -rf "${INFORM_CORE}/retrospective/6L02/I6T/"                             "${STAGING_AREA}/Resources/retrospective/6L02/Extensions/Reserved/"
+    # cp -rf "${INFORM_CORE}/retrospective/6L02/I6T/"                             "${STAGING_AREA}/Resources/retrospective/6L02/Extensions/Reserved/"
     cp -rf "${INFORM_CORE}/retrospective/6L38/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6L38"
     cp -rf "${INFORM_CORE}/retrospective/6M62/Internal/"                        "${STAGING_AREA}/Resources/retrospective/6M62"
 

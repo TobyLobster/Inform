@@ -1779,20 +1779,29 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 }
 
+/* For an extension project, we install that extension, otherwise we call the app delegate's
+ version to show an open dialog to install any extension */
 - (IBAction) installExtension: (id) sender {
-    // This only applies in an Extension Project.
-    // Save extension.i7x (without user interaction) and install it
-    [self saveDocument: sender];
+    if ([[self document] isExtensionProject]) {
+        // This only applies in an Extension Project.
+        // Save extension.i7x (without user interaction) and install it
+        [self saveDocument: sender];
 
-    IFProject* doc = [self document];
-    NSString* finalPath = nil;
-    [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [doc mainSourcePathName]
-                                                                       finalPath: &finalPath
-                                                                           title: nil
-                                                                          author: nil
-                                                                         version: nil
-                                                              showWarningPrompts: YES
-                                                                          notify: YES];
+        IFProject* doc = [self document];
+        NSString* finalPath = nil;
+        IFExtensionResult result = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [doc mainSourcePathName]
+                                                                                                      finalPath: &finalPath
+                                                                                                          title: nil
+                                                                                                         author: nil
+                                                                                                        version: nil
+                                                                                             showWarningPrompts: YES
+                                                                                                         notify: YES];
+        if (result != IFExtensionSuccess) {
+            [IFUtility showExtensionError: result withWindow: [self window]];
+        }
+    } else {
+        [((IFAppDelegate *) [NSApp delegate]) installExtension: sender];
+    }
 }
 
 #pragma mark - UIDelegate methods

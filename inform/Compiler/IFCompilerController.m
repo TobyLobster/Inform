@@ -294,6 +294,7 @@ static IFCompilerController* activeController = nil;
     [compilerResults setVerticallyResizable: YES];
     [[compilerResults textContainer] setWidthTracksTextView: NO];
     [[compilerResults textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
+    [compilerResults setBackgroundColor: NSColor.textBackgroundColor];
 }
 
 - (void) showWindow: (id) sender {

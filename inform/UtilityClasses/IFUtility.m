@@ -355,6 +355,27 @@ CGFloat easeOutCubic(CGFloat t) {
     va_end(args);
 }
 
++ (void) showExtensionError: (IFExtensionResult) result
+                 withWindow: (NSWindow*) window {
+    // TODO: Do we want to customise the error message depending on the IFExtensionResult?
+    switch (result) {
+        case IFExtensionNotFound:
+            break;
+        case IFExtensionNotValid:
+            break;
+        case IFExtensionAlreadyExists:
+            break;
+        case IFExtensionCantWriteDestination:
+            break;
+        case IFExtensionSuccess:
+        default:
+            return;
+    }
+    [IFUtility runAlertWarningWindow: window
+                               title: @"Failed to Install Extension"
+                             message: @"Failed to Install Extension Explanation"];
+}
+
 // Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window {

@@ -614,27 +614,25 @@ static NSRunLoop* mainRunLoop = nil;
 
          // Just add the extension
          // Add the files
-         BOOL succeeded = YES;
+         IFExtensionResult installResult = IFExtensionSuccess;
          for(NSURL* file in [panel URLs]) {
-             succeeded = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [file path]
-                                                                                            finalPath: nil
-                                                                                                title: nil
-                                                                                               author: nil
-                                                                                              version: nil
-                                                                                   showWarningPrompts: YES
-                                                                                               notify: NO];
-             if (!succeeded) break;
+             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [file path]
+                                                                                         finalPath: nil
+                                                                                             title: nil
+                                                                                            author: nil
+                                                                                           version: nil
+                                                                                showWarningPrompts: YES
+                                                                                            notify: NO];
+             if (installResult != IFExtensionSuccess) break;
          }
 
          // Re-run the census. In particular, this will update the Public Library of extensions web page if visible
          [[IFExtensionsManager sharedNaturalInformExtensionsManager] startCensus: @YES];
 
          // Report an error if we couldn't install the extension for some reason
-         if (!succeeded) {
-             // Display a 'failed to add extension' alert sheet
-             [IFUtility runAlertWarningWindow: nil
-                                        title: @"Failed to Install Extension"
-                                      message: @"Failed to Install Extension Explanation"];
+         if (installResult != IFExtensionSuccess) {
+             [IFUtility showExtensionError: installResult
+                                withWindow: nil];
          }
      }];
 }

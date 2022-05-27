@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "IFExtensionsManager.h"
 #import "NSString+IFStringExtensions.h"
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
@@ -63,6 +64,10 @@ CGFloat easeOutCubic(CGFloat t);
                  contextInfo: (void *) contextInfo
             destructiveIndex: (NSInteger) desIdx
                      message: (NSString*) formatString, ... NS_FORMAT_FUNCTION(9,10);
+
+/// Show an error for an operation on an extension (e.g. error while installing an extension)
++ (void) showExtensionError: (IFExtensionResult) result
+                 withWindow: (NSWindow*) window;
 
 /// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string

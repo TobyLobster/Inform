@@ -1301,11 +1301,11 @@
 
         // Extract title and author from sourceExtensionFileURL
         IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-        BOOL gotInfo = [mgr infoForNaturalInformExtension: sourceExtensionFileURL.path
-                                                   author: &author
-                                                    title: &title
-                                                  version: &version];
-        if( gotInfo )
+        IFExtensionResult gotInfo = [mgr infoForNaturalInformExtension: sourceExtensionFileURL.path
+                                                                author: &author
+                                                                 title: &title
+                                                               version: &version];
+        if( gotInfo == IFExtensionSuccess )
         {
             NSURL* materialsURL  = [self materialsDirectoryURL];
             NSURL* extensionsURL = [materialsURL  URLByAppendingPathComponent: @"Extensions"];

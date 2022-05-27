@@ -265,22 +265,23 @@
 - (IBAction) installFile: (id) sender {
 	// Install this extension
 	NSString* finalPath = nil;
-	if ([[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [[[self document] fileURL] path]
-                                                                           finalPath: &finalPath
-                                                                               title: nil
-                                                                              author: nil
-                                                                             version: nil
-                                                                  showWarningPrompts: YES
-                                                                              notify: YES]) {
+    IFExtensionResult installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager]
+                                           installExtension: [[[self document] fileURL] path]
+                                                  finalPath: &finalPath
+                                                      title: nil
+                                                     author: nil
+                                                    version: nil
+                                         showWarningPrompts: YES
+                                                     notify: YES];
+	if (installResult == IFExtensionSuccess) {
 		// Find the new path
         [[self document] setFileURL: [NSURL fileURLWithPath: finalPath]];
         // Hide the install prompt
         [self hideInstallPrompt: self];
 	} else {
-		// Warn that the extension couldn't be installed
-        [IFUtility runAlertWarningWindow: [self window]
-                                   title: @"Failed to Install Extension"
-                                 message: @"Failed to Install Extension Explanation"];
+        // Warn that the extension couldn't be installed
+        [IFUtility showExtensionError: installResult
+                           withWindow: [self window]];
 	}
 }
 

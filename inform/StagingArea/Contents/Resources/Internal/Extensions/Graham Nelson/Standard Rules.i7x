@@ -194,10 +194,10 @@ Outside has opposite inside. Understand "out" as outside.
 The inside object translates into Inter as "in_obj".
 The outside object translates into Inter as "out_obj".
 
-The verb to be above means the reversed mapping up relation.
-The verb to be mapped above means the reversed mapping up relation.
-The verb to be below means the reversed mapping down relation.
-The verb to be mapped below means the reversed mapping down relation.
+The verb to be above means the mapping up relation.
+The verb to be mapped above means the mapping up relation.
+The verb to be below means the mapping down relation.
+The verb to be mapped below means the mapping down relation.
 
 Section 5 - Doors
 
@@ -414,7 +414,7 @@ Section 2 - Current action
 The noun -- documented at var_noun -- is an object that varies.
 The second noun is an object that varies.
 The person asked -- documented at var_person_asked -- is an object that varies.
-The reason the action failed -- documented at var_reason -- is an action name
+The reason the action failed -- documented at var_reason -- is an action
 based rule producing nothing that varies.
 The item described is an object that varies.
 
@@ -797,8 +797,8 @@ A command parser error is a kind of value. The command parser errors are
 	didn't understand the way that finished error,
 	not enough of those available error,
 	nothing to do error,
-	noun did not make sense in that context error,
 	referred to a determination of scope error,
+	noun did not make sense in that context error,
 	I beg your pardon error,
 	can't again the addressee error,
 	comma can't begin error,
@@ -1669,7 +1669,7 @@ Check an actor inserting something into (this is the convert insert to drop wher
 Check an actor inserting something into (this is the can't insert what's already inserted rule):
 	if the noun is in the second noun:
 		if the actor is the player:
-			say "[The second noun] [are] already there." (A);
+			say "[The noun] [are] already there." (A);
 		stop the action.
 
 Check an actor inserting something into (this is the can't insert something into itself rule):
@@ -1761,10 +1761,14 @@ Check an actor eating (this is the can't eat clothing without removing it first 
 		if the actor is wearing the noun, stop the action.
 
 Check an actor eating (this is the can't eat other people's food rule):
-	if the noun is enclosed by a person (called the owner) who is not the actor:
-		if the actor is the player:
-			say "[The owner] [might not appreciate] that." (A);
-		stop the action.
+	if the actor does not hold the noun and the noun is enclosed by a person:
+		let the owner be the holder of the noun;
+		while the owner is not a person:
+			now the owner is the holder of the owner;
+		if the owner is not the actor:
+			if the actor is the player and the action is not silent:
+				say "[The owner] [might not appreciate] that." (A);
+			stop the action;
 
 Check an actor eating (this is the can't eat portable food without carrying it rule):
 	if the noun is portable and the actor is not carrying the noun:

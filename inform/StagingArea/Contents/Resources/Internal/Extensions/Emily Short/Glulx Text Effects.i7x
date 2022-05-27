@@ -1,8 +1,8 @@
-Version 5/140516 of Glulx Text Effects (for Glulx only) by Emily Short begins here.
+Version 6 of Glulx Text Effects (for Glulx only) by Emily Short begins here.
 
 "Gives control over text formatting in Glulx."
 
-[ Version 5 was rewritten by Dannii Willis ]
+[ Rewritten by Dannii Willis. ]
 
 Use authorial modesty.
 
@@ -133,8 +133,8 @@ To set reversed for (style - a glulx text style) to (N - a truth state):
 	(- GTE_SetStylehint( wintype_TextBuffer, {style}, stylehint_ReverseColor, {N}, (+ all-styles +) ); -).
 
 Include (-
-[ GTE_SetStylehint wintype style hint N all_styles i;
-	if ( style == all_styles )
+[ GTE_SetStylehint wintype style_to_set hint N all_styles i;
+	if ( style_to_set == all_styles )
 	{
 		for ( i = 0: i < style_NUMSTYLES : i++ )
 		{
@@ -143,7 +143,7 @@ Include (-
 	}
 	else
 	{
-		glk_stylehint_set( wintype, style - 2, hint, N );
+		glk_stylehint_set( wintype, style_to_set - 2, hint, N );
 	}
 ];
 -).

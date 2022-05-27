@@ -13,6 +13,14 @@ extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when
 extern NSNotificationName const IFCensusFinishedNotification;
 extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
+typedef NS_ENUM(int, IFExtensionResult) {
+    IFExtensionNotFound,
+    IFExtensionNotValid,
+    IFExtensionAlreadyExists,
+    IFExtensionCantWriteDestination,
+    IFExtensionSuccess,
+};
+
 #pragma mark -
 
 @interface IFExtensionInfo : NSObject
@@ -117,19 +125,20 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 - (NSArray*) sourceFilesInExtensionWithName: (NSString*) name;
 
 /// From a file potentially containing a natural inform extension, works out the author, title, version information
-- (BOOL) infoForNaturalInformExtension: (NSString*) file
-                                author: (NSString*__strong*) authorOut
-                                 title: (NSString*__strong*) titleOut
-                               version: (NSString*__strong*) versionOut;
+- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
+                                             author: (NSString*__strong*) authorOut
+                                              title: (NSString*__strong*) titleOut
+                                            version: (NSString*__strong*) versionOut;
 
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
-- (BOOL) installExtension: (NSString*) extensionPath
-                finalPath: (NSString*__strong*) finalPathOut
-                    title: (NSString*__strong*) titleOut
-                   author: (NSString*__strong*) authorOut
-                  version: (NSString*__strong*) versionOut
-       showWarningPrompts: (BOOL) showWarningPrompts
-                   notify: (BOOL) notify;
+- (IFExtensionResult) installExtension: (NSString*) extensionPath
+                             finalPath: (NSString*__strong*) finalPathOut
+                                 title: (NSString*__strong*) titleOut
+                                author: (NSString*__strong*) authorOut
+                               version: (NSString*__strong*) versionOut
+                    showWarningPrompts: (BOOL) showWarningPrompts
+                                notify: (BOOL) notify;
+
 -(void) startCensus:(NSNumber*) notify;
 - (void) updateExtensions;
 

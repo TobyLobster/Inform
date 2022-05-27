@@ -281,7 +281,7 @@ didReceiveResponse: (NSURLResponse *)response
                                     author: &author
                                    version: &version
                         showWarningPrompts: NO
-                                    notify: NO]) {
+                                    notify: NO] == IFExtensionSuccess) {
                     self.title = title;
                     self.author = author;
                     self.version = version;
@@ -550,13 +550,12 @@ didReceiveResponse: (NSURLResponse *)response
                 if ([fileExtension isEqualToString: @"i7x"] ||
                     [fileExtension isEqualToString: @""]) {
                     // Get information about the extension
-                    BOOL gotInfo = [self infoForNaturalInformExtension: fullFilepath
+                    IFExtensionResult gotInfo = [self infoForNaturalInformExtension: fullFilepath
                                                                 author: &author
                                                                  title: &title
                                                                version: &version];
-                    BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
-
-                    if( gotInfo ) {
+                    if( gotInfo == IFExtensionSuccess ) {
+                        BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
                         IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
                                                                                     filepath: fullFilepath
                                                                                       author: author
@@ -717,12 +716,11 @@ didReceiveResponse: (NSURLResponse *)response
 	[self createDirectory: directory];
 }
 
-
 // Work out the extension's author, title and version by reading the first line from a given full filepath of a Natural Inform extension file
-- (BOOL) infoForNaturalInformExtension: (NSString*) file
-                                author: (NSString*__strong*) authorOut
-                                 title: (NSString*__strong*) titleOut
-                               version: (NSString*__strong*) versionOut {
+- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
+                                             author: (NSString*__strong*) authorOut
+                                              title: (NSString*__strong*) titleOut
+                                            version: (NSString*__strong*) versionOut {
 	NSFileManager* mgr = [NSFileManager defaultManager];
 	
 	if (authorOut != nil) {
@@ -739,7 +737,7 @@ didReceiveResponse: (NSURLResponse *)response
 	BOOL isDir;
 	BOOL exists = [mgr fileExistsAtPath: file
 							isDirectory: &isDir];
-	if (!exists || isDir) return NO;
+	if (!exists || isDir) return IFExtensionNotFound;
 
 	// Read the first 1k of the extension
 	NSFileHandle* extensionFile = [NSFileHandle fileHandleForReadingAtPath: file];
@@ -764,7 +762,7 @@ didReceiveResponse: (NSURLResponse *)response
 
 	// Check that the ending is 'begins here'
     if (![[extensionString lowercaseString] endsWith:@" begins here."]) {
-        return NO;
+        return IFExtensionNotValid;
     }
 
     // Remove the " begins here." from the end
@@ -814,7 +812,7 @@ didReceiveResponse: (NSURLResponse *)response
     // Bail out if there is no author name or title left
     if( ([authorName length] == 0) ||
         ([titleName length]  == 0) ) {
-        return NO;
+        return IFExtensionNotValid;
     }
 
     if(authorOut) {
@@ -826,17 +824,17 @@ didReceiveResponse: (NSURLResponse *)response
     if(versionOut) {
         *versionOut = versionName;
     }
-	return YES;
+	return IFExtensionSuccess;
 }
 
 // Install the given extension
-- (BOOL) installExtension: (NSString*) extensionPath
-                finalPath: (NSString*__strong*) finalPathOut
-                    title: (NSString*__strong*) titleOut
-                   author: (NSString*__strong*) authorOut
-                  version: (NSString*__strong*) versionOut
-       showWarningPrompts: (BOOL) showWarningPrompts
-                   notify: (BOOL) notify {
+- (IFExtensionResult) installExtension: (NSString*) extensionPath
+                             finalPath: (NSString*__strong*) finalPathOut
+                                 title: (NSString*__strong*) titleOut
+                                author: (NSString*__strong*) authorOut
+                               version: (NSString*__strong*) versionOut
+                    showWarningPrompts: (BOOL) showWarningPrompts
+                                notify: (BOOL) notify {
 	if (finalPathOut) {
         *finalPathOut = nil;
     }
@@ -855,7 +853,7 @@ didReceiveResponse: (NSURLResponse *)response
 	exists = [mgr fileExistsAtPath: extensionPath
 					   isDirectory: &isDir];
 	if (!exists || isDir) {
-        return NO;          // Can't add something that does not exist
+        return IFExtensionNotFound;          // Can't add something that does not exist
     }
 
 	NSString* author  = nil;
@@ -865,11 +863,11 @@ didReceiveResponse: (NSURLResponse *)response
     // Check if it is valid to add the file
     // Inform 7 extensions (i7x) have a first line defining title and author (and optional version number)
     // Try to read out the author and title name to see if this file is valid
-    BOOL result = [self infoForNaturalInformExtension: extensionPath
-                                               author: &author
-                                                title: &title
-                                              version: &version];
-    if (!result) return NO;
+    IFExtensionResult result = [self infoForNaturalInformExtension: extensionPath
+                                                            author: &author
+                                                             title: &title
+                                                           version: &version];
+    if (result != IFExtensionSuccess) return result;
 
     if( authorOut != nil ) {
         *authorOut = author;
@@ -888,7 +886,7 @@ didReceiveResponse: (NSURLResponse *)response
 	NSString* destDir;
 
 	if (directory == nil) {
-        return NO;
+        return IFExtensionCantWriteDestination;
     }
 
     if (author) {
@@ -900,7 +898,7 @@ didReceiveResponse: (NSURLResponse *)response
 	destDir = [destDir stringByStandardizingPath];
 
 	if ([[destDir lowercaseString] isEqualToString: [extensionPath lowercaseString]]) {
-        return NO;		// Trying to re-add an extension that already exists
+        return IFExtensionAlreadyExists;		// Trying to re-add an extension that already exists
     }
 
 	// If the old directory exists and we're not merging, then move the old directory to the trash
@@ -914,7 +912,7 @@ didReceiveResponse: (NSURLResponse *)response
                              attributes: nil
                                   error: &error]) {
 			// Can't create the extension directory
-			return NO;
+			return IFExtensionCantWriteDestination;
 		}
 	}
 
@@ -955,7 +953,7 @@ didReceiveResponse: (NSURLResponse *)response
                                           author: &existingAuthor
                                            title: &existingTitle
                                          version: &existingVersion];
-    if (result) {
+    if (result == IFExtensionSuccess) {
         if( showWarningPrompts ) {
             if( [[existingTitle lowercaseString] isEqualToString: [title lowercaseString]] ) {
                 if( [[existingAuthor lowercaseString] isEqualToString: [author lowercaseString]] ) {
@@ -976,7 +974,7 @@ didReceiveResponse: (NSURLResponse *)response
                         }
                         NSModalResponse overwrite = [alert runModal];
                         if (overwrite != NSAlertSecondButtonReturn) {
-                            return YES;
+                            return IFExtensionSuccess;
                         }
                     }
                     else {
@@ -991,7 +989,7 @@ didReceiveResponse: (NSURLResponse *)response
                         }
                         NSModalResponse overwrite = [alert runModal];
                         if (overwrite != NSAlertSecondButtonReturn) {
-                            return YES;
+                            return IFExtensionSuccess;
                         }
                     }
                 }
@@ -1019,12 +1017,12 @@ didReceiveResponse: (NSURLResponse *)response
                       toPath: dest
                        error: &error] ) {
         // Couldn't finish installing the extension
-        return NO;
+        return IFExtensionCantWriteDestination;
     }
 
 	// Success
     [self updateExtensions: @(notify)];
-	return YES;
+	return IFExtensionSuccess;
 }
 
 #pragma mark - Data source support functions
