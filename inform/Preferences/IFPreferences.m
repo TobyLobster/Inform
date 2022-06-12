@@ -770,7 +770,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 
 - (BOOL) indentWrappedLines {
 	return [self getPreferenceBool:@"indentWrappedLines"
-                           default:defaultEditingPreferences.indentWrappedLines];
+                           default:true];
 }
 
 - (void) setIndentWrappedLines: (BOOL) value {

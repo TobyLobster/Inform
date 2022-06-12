@@ -29,7 +29,6 @@
 @property (atomic, strong) NSMutableArray<IFSyntaxHighlightingOption*>* options;
 
 @property (atomic) CGFloat              tabWidth;
-@property (atomic) bool                 indentWrappedLines;
 @property (atomic) bool                 autoIndentAfterNewline;
 @property (atomic) bool                 autoSpaceTableColumns;
 @property (atomic) bool                 autoNumberSections;

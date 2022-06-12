@@ -136,7 +136,7 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 // Intelligence preferences
 @property (atomic) BOOL enableSyntaxHighlighting;		// YES if source code should be displayed with syntax highlighting
 @property (atomic) BOOL enableSyntaxColouring;          // YES if source code should be displayed with syntax colouring
-@property (atomic) BOOL indentWrappedLines;				// ... and indentation
+@property (atomic) BOOL indentWrappedLines;				// ... and indentation (no longer used)
 @property (atomic) BOOL elasticTabs;					// ... and elastic tabs
 @property (atomic) BOOL indentAfterNewline;				// ... which is used to generate indentation
 @property (atomic) BOOL autoNumberSections;				// ... which is used to auto-type section numbers

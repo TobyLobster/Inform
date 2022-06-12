@@ -59,7 +59,7 @@ static NSToolbarItem*              toolbarStatusSpacingItem  = nil;
 static IFToolbarStatusSpacingView* toolbarStatusSpacingView  = nil;
 
 static NSDictionary*  itemDictionary        = nil;
-static const CGFloat  toolbarStatusWidth    = 360.0f;
+static const CGFloat  toolbarStatusWidth    = 300.0f;
 
 + (void) initialize {
 	// Create the toolbar items
@@ -179,7 +179,7 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
     if (self) {
         toolbar = nil;
         projectController = pc;
-        toolbarStatusView   = [[IFToolbarStatusView alloc] initWithFrame: NSMakeRect(0, 0, toolbarStatusWidth, 50)];
+        toolbarStatusView   = [[IFToolbarStatusView alloc] initWithFrame: NSMakeRect(0, 0, toolbarStatusWidth, 32)];
         [toolbarStatusView setDelegate: self];
 
         // Progress
@@ -296,21 +296,26 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
 //      (b) the window goes fullscreen or back, or
 //      (c) when the toolbar visibility changes.
 -(void) adjustToolbarStatusView {
+    //windowFrame = NSWindow.contentRectForFrameRect(self.frame, styleMask: self.styleMask)
+    //toolbarHeight = NSHeight(windowFrame) - NSHeight(self.contentView.frame)
+
+    // Default to 20 pixels
+    toolbarViewTitlebarHeight = 20.0f;
+
     // Find the toolbar view. The toolbar view isn't easily available. We have to search the
     // subviews of the content view to find it. Once we've found it, we remember it.
     if( toolbarView == nil ) {
         for( NSView* subview in [[projectController.window.contentView superview] subviews] ) {
-            // 10.9 and earlier has an NSToolbarView
+            // 10.9 and earlier? has an NSToolbarView
             if( [subview isKindOfClass: NSClassFromString(@"NSToolbarView")]) {
                 toolbarView = subview;
-                toolbarViewTitlebarHeight = 0.0f;
+                // toolbarViewTitlebarHeight = 0.0f;
                 break;
             }
 
             // 10.10 Yosemite has an NSTitlebarContainerView instead of NSToolbarView
             if([subview isKindOfClass: NSClassFromString(@"NSTitlebarContainerView")]) {
                 toolbarView = subview;
-                toolbarViewTitlebarHeight = 20.0f;
                 break;
             }
         }
@@ -330,18 +335,9 @@ static const CGFloat  toolbarStatusWidth    = 360.0f;
         newFrame.origin.y = newFrame.origin.y;
         float deltaHeight = -2.0f;
         newFrame.origin.y += 15.0f - deltaHeight/2;
-        newFrame.size.height += -1.0f + deltaHeight;
         newFrame.size.width = toolbarStatusView.frame.size.width;
 
-        //newFrame.origin.y -= toolbarViewTitlebarHeight;
-        newFrame.size.height -= toolbarViewTitlebarHeight;
-
-        // If we are small in height, give us some more room
-        if( newFrame.size.height < 18 ) {
-            CGFloat increment = 18 - newFrame.size.height;
-            newFrame.origin.y -= increment;
-            newFrame.size.height = 18;
-        }
+        newFrame.size.height = 30.0f;
 
         newFrame.origin.x = floor(newFrame.origin.x);
         newFrame.origin.y = floor(newFrame.origin.y);

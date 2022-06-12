@@ -54,7 +54,6 @@
     self.tabWidth = 24.0;
 
     // Indenting
-    self.indentWrappedLines      = true;
     self.autoIndentAfterNewline  = true;
     self.autoSpaceTableColumns   = true;
 
@@ -114,7 +113,6 @@
     [prefs setTabWidth: self.tabWidth];
     
     // Indenting section
-    [prefs setIndentWrappedLines: self.indentWrappedLines];
     [prefs setIndentAfterNewline: self.autoIndentAfterNewline];
     [prefs setElasticTabs:        self.autoSpaceTableColumns];
 
@@ -142,7 +140,6 @@
     self.tabWidth = [prefs tabWidth];
 
     // Indenting section
-    self.indentWrappedLines = [prefs indentWrappedLines];
     self.autoIndentAfterNewline = [prefs indentAfterNewline];
     self.autoSpaceTableColumns = [prefs elasticTabs];
     
@@ -188,9 +185,6 @@
         }
     }
     if( self.tabWidth != set.tabWidth ) {
-        return NO;
-    }
-    if( self.indentWrappedLines != set.indentWrappedLines ) {
         return NO;
     }
     if( self.autoIndentAfterNewline != set.autoIndentAfterNewline ) {

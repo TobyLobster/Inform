@@ -1282,14 +1282,14 @@ static inline BOOL IsWhitespace(unichar c) {
     // Set tabs
 	[res setTabStops: tabStops];
 	
-    // Set head indent
-	if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
-        // Indent half a tabstop width beyond the normal indent
-        CGFloat headIndent = stopWidth * ((CGFloat) numberOfTabStops) + (stopWidth/2.0);
+    // Set head indent (no longer desired)
+	//if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
+    //    // Indent half a tabstop width beyond the normal indent
+    //    CGFloat headIndent = stopWidth * ((CGFloat) numberOfTabStops) + (stopWidth/2.0);
 
-		[res setHeadIndent: headIndent];
-		[res setFirstLineHeadIndent: 0];
-	}
+	//	[res setHeadIndent: headIndent];
+	//	[res setFirstLineHeadIndent: 0];
+	//}
 
 	return @{NSParagraphStyleAttributeName: res};
 }

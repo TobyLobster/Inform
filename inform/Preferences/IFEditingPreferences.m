@@ -58,7 +58,6 @@
     IBOutlet NSTextView* tabStopView;
 
     // Indenting section
-    IBOutlet NSButton* indentWrappedLines;
     IBOutlet NSButton* autoIndentAfterNewline;
     IBOutlet NSButton* autoSpaceTableColumns;
 
@@ -249,7 +248,6 @@
         if (sender == tabStopSlider)                currentSet.tabWidth                 = [tabStopSlider floatValue];
 
         // Indenting section
-        if (sender == indentWrappedLines)           currentSet.indentWrappedLines      = ([indentWrappedLines state]     == NSControlStateValueOn);
         if (sender == autoIndentAfterNewline)       currentSet.autoIndentAfterNewline  = ([autoIndentAfterNewline state] == NSControlStateValueOn);
         if (sender == autoSpaceTableColumns)        currentSet.autoSpaceTableColumns   = ([autoSpaceTableColumns state]  == NSControlStateValueOn);
 
@@ -322,7 +320,6 @@
 	[tabStopSlider  setFloatValue: [prefs tabWidth]];
 
     // Indenting section
-    [indentWrappedLines     setState: currentSet.indentWrappedLines     ? NSControlStateValueOn : NSControlStateValueOff];
     [autoIndentAfterNewline setState: currentSet.autoIndentAfterNewline ? NSControlStateValueOn : NSControlStateValueOff];
     [autoSpaceTableColumns  setState: currentSet.autoSpaceTableColumns  ? NSControlStateValueOn : NSControlStateValueOff];
 

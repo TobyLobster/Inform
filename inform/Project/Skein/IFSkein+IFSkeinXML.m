@@ -7,7 +7,7 @@
 
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
-
+#import "IFUtility.h"
 
 /// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
 static NSString* idForNode(IFSkeinItem* item) {
@@ -70,6 +70,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         NSString* command = [IFSkein firstChildOf: item withName: @"command"].stringValue;
+        NSString* comment = [IFSkein firstChildOf: item withName: @"comment"].stringValue;
         NSString* actual  = [IFSkein firstChildOf: item withName: @"result"].stringValue;
         NSString* ideal   = [IFSkein firstChildOf: item withName: @"commentary"].stringValue;
 
@@ -79,6 +80,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
+        [newItem setIsWinningCommand: [IFUtility safeString:comment insensitivelyEqualsSafeString:@"***"]];
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 
