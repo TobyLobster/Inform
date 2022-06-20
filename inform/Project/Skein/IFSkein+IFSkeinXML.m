@@ -80,7 +80,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
-        [newItem setIsWinningCommand: [IFUtility safeString:comment insensitivelyEqualsSafeString:@"***"]];
+        //[newItem setIsWinningCommand: [IFUtility safeString:comment insensitivelyEqualsSafeString:@"***"]];
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 

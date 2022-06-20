@@ -49,11 +49,15 @@
 #import "IFSkeinItemView.h"
 
 #import "IFSingleController.h"
+#import "IFNewsManager.h"
 
 #import <GlkView/GlkHub.h>
 #import "Inform-Swift.h"
 
 @implementation IFAppDelegate {
+    /// News
+    //IFNewsManager* newsManager;
+
     /// The 'New Extension Project' menu
     IBOutlet NSMenuItem* newExtensionProjectMenu;
     /// The 'Open Extension' menu
@@ -90,7 +94,9 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
 	mainRunLoop = [NSRunLoop currentRunLoop];
-	
+
+    _newsManager = [[IFNewsManager alloc] init];
+
     // Register some custom URL handlers
     // [NSURLProtocol registerClass: [IFNoDocProtocol class]];
     [NSURLProtocol registerClass: [IFInformProtocol class]];

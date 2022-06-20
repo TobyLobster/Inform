@@ -2372,7 +2372,7 @@ Carry out examining (this is the examine supporters rule):
 			now examine text printed is true.
 
 Carry out examining (this is the examine devices rule):
-	if the noun is a device:
+	if the noun provides the property switched on:
 		say "[The noun] [are] [if story tense is present tense]currently [end if]switched
 			[if the noun is switched on]on[otherwise]off[end if]." (A);
 		now examine text printed is true.
@@ -3847,7 +3847,7 @@ The switch the story transcript on rule is listed in the carry out switching the
 	transcript on rulebook.
 The switch the story transcript on rule translates into Inter as "SWITCH_TRANSCRIPT_ON_R" with
     "Transcripting is already on." (A),
-    "Start of a transcript of" (B),
+    "Start of a transcript of:" (B),
     "Attempt to begin transcript failed." (C).
 
 Switching the story transcript off is an action out of world and applying to nothing.

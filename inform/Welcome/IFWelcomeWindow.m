@@ -22,6 +22,10 @@
 @implementation IFWelcomeWindow {
     /// Progress indicator that shows when a background process is running
     IBOutlet NSProgressIndicator*   backgroundProgress;
+
+    /// News web view
+    IBOutlet WKWebView*             newsWebView;
+
     /// Recent document scroll view
     IBOutlet NSScrollView*          recentDocumentsScrollView;
     /// Recent document Table View
@@ -49,6 +53,10 @@
     NSMutableArray*                 createInfoArray;
     /// Array of sample file info
     NSMutableArray*                 sampleInfoArray;
+    /// Array of news info
+    NSMutableArray*                 newsArray;
+
+    WKNavigation *                  newsNav;
 }
 
 static const int maxItemsInRecentMenu = 8;
@@ -83,6 +91,12 @@ static IFWelcomeWindow* sharedWindow = nil;
     // Show window
     [welcome showWindow: self];
     [[welcome window] orderFront: self];
+
+    // Give the news web view a transparent background
+    [welcome->newsWebView setValue:@(NO) forKey:@"drawsBackground"];
+
+    // Refresh news if needed
+    [welcome checkIfNewsRefreshIsNeeded];
 }
 
 - (void) hideWebView {
@@ -93,6 +107,89 @@ static IFWelcomeWindow* sharedWindow = nil;
 - (void) showWebView {
     [webView setHidden: NO];
     [middleView setHidden: YES];
+}
+
+- (void) checkIfNewsRefreshIsNeeded {
+    // TODO:
+    // 1. Look to see when news was last downloaded (UTC) from preferences
+    // 2. if not today's date (in local time), then refreshNews
+    [self downloadNews];
+}
+
+- (void) downloadNews {
+    // Get the news from the news manager
+    // when done, call the completion handler
+    IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+
+    [[appDelegate newsManager] getNewsWithCompletionHandler: ^(NSString* latestNews, NSURLResponse* response, NSError* error) {
+        // When finished, refreshNews on main thread
+        [self performSelectorOnMainThread:@selector(refreshNews:) withObject:latestNews waitUntilDone:NO];
+    }];
+}
+
+- (NSString *) encodeForHTML:(NSString*) myStr {
+    return [[[[[myStr stringByReplacingOccurrencesOfString: @"&" withString: @"&amp;"]
+     stringByReplacingOccurrencesOfString: @"\"" withString: @"&quot;"]
+     stringByReplacingOccurrencesOfString: @"'" withString: @"&#39;"]
+     stringByReplacingOccurrencesOfString: @">" withString: @"&gt;"]
+     stringByReplacingOccurrencesOfString: @"<" withString: @"&lt;"];
+}
+
+- (void) refreshNews: (NSString*) latestNews {
+    if (newsWebView == nil) {
+        // Early out if no web view to change
+        return;
+    }
+
+    // Load template file
+    NSError* error;
+    NSString *news = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/NewsTemplate.html"]
+                                              encoding: NSUTF8StringEncoding
+                                                 error: &error];
+    if (news != nil) {
+        NSDateIntervalFormatter* outputFormatter = [[NSDateIntervalFormatter alloc] init];
+        outputFormatter.dateStyle = NSDateIntervalFormatterMediumStyle;
+        outputFormatter.timeStyle = NSDateIntervalFormatterNoStyle;
+
+        // parse data
+        NSISO8601DateFormatter* format = [[NSISO8601DateFormatter alloc] init];
+        [format setFormatOptions: NSISO8601DateFormatWithFullDate];
+
+        NSMutableArray *data = [[latestNews componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]] mutableCopy];
+        NSString* str = @"";
+        for (int i = 0; i < [data count]; i++)
+        {
+            // Parse line
+            NSString *line = [data objectAtIndex: i];
+            NSArray* lineParts = [line componentsSeparatedByString:@"\t"];
+            if ([lineParts count] >= 4) {
+                NSDate* startDate = [format dateFromString: lineParts[0]];
+                NSDate* endDate = [format dateFromString: lineParts[1]];
+                NSString* headline = [self encodeForHTML:lineParts[2]];
+                NSString* link = lineParts[3];
+
+                if (endDate == nil) {
+                    endDate = [startDate copy];
+                }
+
+                // Use the output formatter to generate the string.
+                NSString* dateStr = [outputFormatter stringFromDate:startDate toDate:endDate];
+
+                if ((dateStr != nil) && (headline != nil)) {
+                    //        <tr><td>17th June 2022</td><td><a href="http://www.inform7.com">News Item 1</a></td></tr>
+                    str = [str stringByAppendingFormat:@"<tr><td>%@</td><td><a href=\"%@\">%@</a></td></tr>\n", dateStr, link, headline];
+                }
+            }
+        }
+
+        // replace <!-- CONTENT HERE -->
+        news = [news stringByReplacingOccurrencesOfString:@"<!-- CONTENT HERE -->" withString:str];
+
+        newsNav = [newsWebView loadHTMLString: news
+                                      baseURL: [NSURL URLWithString: @"inform:/"]];
+    } else {
+        NSLog(@"%@", error);
+    }
 }
 
 - (void) refreshRecentItems {
@@ -398,6 +495,26 @@ static IFWelcomeWindow* sharedWindow = nil;
             }
         }
     }
+}
+
+#pragma mark - News policy delegate
+
+-                   (void)webView:(WKWebView *)webView
+  decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        NSURL* url = [navigationAction.request URL];
+
+        // Open extenal links in separate default browser app
+        if (([[url scheme] isEqualTo: @"http"]) || ([[url scheme] isEqualTo: @"https"])) {
+            decisionHandler(WKNavigationActionPolicyCancel);
+            [[NSWorkspace sharedWorkspace] openURL:url];
+            return;
+        }
+    }
+
+    // default action
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 @end
