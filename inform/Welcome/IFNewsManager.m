@@ -13,6 +13,7 @@
 -(instancetype) init {
     self = [super init];
     if( self ) {
+        self.newsSchemeHandler = [[IFNewsCustomSchemeHandler alloc] init];
     }
     return self;
 }
@@ -53,6 +54,14 @@
                                             completionHandler: ^(NSData* data, NSURLResponse* response, NSError* error) {
         if (data != nil) {
             latestNews = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            if (latestNews == nil) {
+                latestNews = @"";
+            }
+
+            // Save latest news in cache
+            [[NSUserDefaults standardUserDefaults] setObject: now forKey:@"newsTimestamp"];
+            [[NSUserDefaults standardUserDefaults] setObject: latestNews forKey:@"newsString"];
+
             [self gotNews: latestNews now:now completionHandler: completionHandler response: response error: error];
         }
         else {
@@ -70,14 +79,6 @@
   completionHandler: (void (^)(NSString * _Nullable news, NSURLResponse * _Nullable response, NSError * _Nullable error)) completionHandler
            response: (NSURLResponse*) response
               error: (NSError*) error {
-    if (latestNews == nil) {
-        latestNews = @"";
-    }
-
-    // Save latest news in cache
-    [[NSUserDefaults standardUserDefaults] setObject: now forKey:@"newsTimestamp"];
-    [[NSUserDefaults standardUserDefaults] setObject: latestNews forKey:@"newsString"];
-
     // Call the completion handler on the UI thread
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(queue,

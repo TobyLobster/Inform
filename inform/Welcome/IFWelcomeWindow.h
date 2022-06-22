@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource>
+@interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource, WKNavigationDelegate>
 
 /// Gets the shared welcome window
 + (IFWelcomeWindow*) sharedWelcomeWindow;

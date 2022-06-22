@@ -24,7 +24,9 @@
     IBOutlet NSProgressIndicator*   backgroundProgress;
 
     /// News web view
-    IBOutlet WKWebView*             newsWebView;
+    WKWebView*                      newsWebView;
+    IBOutlet NSView*                newsWebParent;
+    WKWebViewConfiguration *        newsWebConfiguration;
 
     /// Recent document scroll view
     IBOutlet NSScrollView*          recentDocumentsScrollView;
@@ -81,22 +83,43 @@ static IFWelcomeWindow* sharedWindow = nil;
 }
 
 + (void) showWelcomeWindow {
-    // Get latest list of recent items
     IFWelcomeWindow * welcome = [IFWelcomeWindow sharedWelcomeWindow];
-    [welcome refreshRecentItems];
+
+    [welcome showWelcomeWindow];
+}
+
+-(void) showWelcomeWindow {
+    [self refreshRecentItems];
 
     // Hide web view
-    [welcome hideWebView];
+    [self hideWebView];
 
     // Show window
-    [welcome showWindow: self];
-    [[welcome window] orderFront: self];
+    [self showWindow: self];
+    [[self window] orderFront: self];
+
+    // create news web view (if not already created)
+    if (self->newsWebConfiguration == nil) {
+        self->newsWebConfiguration = [[WKWebViewConfiguration alloc] init];
+        // Set the navigation delegate
+        IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+        [self->newsWebConfiguration setURLSchemeHandler: appDelegate.newsManager.newsSchemeHandler
+                              forURLScheme: @"inform"];
+        self->newsWebView = [[WKWebView alloc] initWithFrame: self->newsWebParent.bounds
+                                               configuration: self->newsWebConfiguration];
+    }
+
+    // Set the navigation delegate
+    self->newsWebView.navigationDelegate = self;
 
     // Give the news web view a transparent background
-    [welcome->newsWebView setValue:@(NO) forKey:@"drawsBackground"];
+    [self->newsWebView setValue:@(NO) forKey:@"drawsBackground"];
+
+    // Add web view to parent
+    [self->newsWebParent addSubview: self->newsWebView];
 
     // Refresh news if needed
-    [welcome checkIfNewsRefreshIsNeeded];
+    [self checkIfNewsRefreshIsNeeded];
 }
 
 - (void) hideWebView {
@@ -110,13 +133,6 @@ static IFWelcomeWindow* sharedWindow = nil;
 }
 
 - (void) checkIfNewsRefreshIsNeeded {
-    // TODO:
-    // 1. Look to see when news was last downloaded (UTC) from preferences
-    // 2. if not today's date (in local time), then refreshNews
-    [self downloadNews];
-}
-
-- (void) downloadNews {
     // Get the news from the news manager
     // when done, call the completion handler
     IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
@@ -162,11 +178,15 @@ static IFWelcomeWindow* sharedWindow = nil;
             // Parse line
             NSString *line = [data objectAtIndex: i];
             NSArray* lineParts = [line componentsSeparatedByString:@"\t"];
-            if ([lineParts count] >= 4) {
+            if ([lineParts count] >= 3) {
                 NSDate* startDate = [format dateFromString: lineParts[0]];
                 NSDate* endDate = [format dateFromString: lineParts[1]];
                 NSString* headline = [self encodeForHTML:lineParts[2]];
-                NSString* link = lineParts[3];
+                NSString* link = @"";
+
+                if ([lineParts count] >= 4) {
+                    link = lineParts[3];
+                }
 
                 if (endDate == nil) {
                     endDate = [startDate copy];
@@ -174,7 +194,6 @@ static IFWelcomeWindow* sharedWindow = nil;
 
                 // Use the output formatter to generate the string.
                 NSString* dateStr = [outputFormatter stringFromDate:startDate toDate:endDate];
-
                 if ((dateStr != nil) && (headline != nil)) {
                     //        <tr><td>17th June 2022</td><td><a href="http://www.inform7.com">News Item 1</a></td></tr>
                     str = [str stringByAppendingFormat:@"<tr><td>%@</td><td><a href=\"%@\">%@</a></td></tr>\n", dateStr, link, headline];
@@ -184,6 +203,7 @@ static IFWelcomeWindow* sharedWindow = nil;
 
         // replace <!-- CONTENT HERE -->
         news = [news stringByReplacingOccurrencesOfString:@"<!-- CONTENT HERE -->" withString:str];
+        //NSLog(@"%@", news);
 
         newsNav = [newsWebView loadHTMLString: news
                                       baseURL: [NSURL URLWithString: @"inform:/"]];
