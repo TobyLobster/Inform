@@ -6,7 +6,7 @@
 # If the "INFORM_CORE" directory exists, these resources are built and copied into the TempStagingArea.
 # Resources from TempStagingArea are copied into the StagingArea proper as needed.
 # The StagingArea files are then copied to the target build.
-export INFORM_CORE="${SRCROOT}/../../Inform Core/informxx"
+export INFORM_CORE="${SRCROOT}/../../Inform Core/inform"
 export INFORM_APP_DIR="${TARGET_BUILD_DIR}"
 export STAGING_AREA="${SRCROOT}/StagingArea/Contents"
 export TEMP_STAGING_AREA="${SRCROOT}/TempStagingArea/Contents"

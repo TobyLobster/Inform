@@ -155,6 +155,9 @@ static NSRunLoop* mainRunLoop = nil;
 
 	[NSURLProtocol registerClass: [IFInformProtocol class]];
 
+    // Set dark mode if necessary
+    [self darkModeChanged];
+
     // Schedule "Checking whether document exists." into next UI Loop, because document is not restored yet.
     NSInvocationOperation* op = [[NSInvocationOperation alloc] initWithTarget: self
                                                                      selector: @selector(openWelcomeDialogIfNeeded)
