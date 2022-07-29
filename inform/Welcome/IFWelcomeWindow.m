@@ -98,6 +98,21 @@ static IFWelcomeWindow* sharedWindow = nil;
     [self showWindow: self];
     [[self window] orderFront: self];
 
+    //NSLog(@"FRAME = %@", recentDocumentsTableView.frame);
+    //NSLog(@"bounds = %@", recentDocumentsTableView.bounds);
+
+    if (@available(macOS 11.0, *)) {
+        recentDocumentsTableView.style = NSTableViewStylePlain;
+        createDocumentsTableView.style = NSTableViewStylePlain;
+        sampleDocumentsTableView.style = NSTableViewStylePlain;
+    }
+    // By default the enclosing scrollview has a bezelled border, but we set
+    // it to no border here after the tableview style has been set to plain.
+    recentDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+    createDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+    sampleDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+
+
     // create news web view (if not already created)
     if (self->newsWebConfiguration == nil) {
         self->newsWebConfiguration = [[WKWebViewConfiguration alloc] init];

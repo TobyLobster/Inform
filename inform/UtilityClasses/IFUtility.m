@@ -421,8 +421,18 @@ CGFloat easeOutCubic(CGFloat t) {
 
 #pragma mark - Getting useful paths / URLs
 +(NSURL*) publicLibraryURL {
-    NSString* publicLibraryURLString;
+#ifdef DEBUG
+    NSString* redirectFile = [NSHomeDirectory() stringByAppendingPathComponent:@"redirect_inform.txt"];
+    NSString* redirection = [[NSString stringWithContentsOfFile: redirectFile
+                                                       encoding: NSUTF8StringEncoding
+                                                          error: NULL] stringByTrimmingWhitespace];
+    if ([redirection length] > 0) {
+        return [NSURL URLWithString: redirection];
+    }
+#endif
+
     if( [[IFPreferences sharedPreferences] publicLibraryDebug] && ![IFUtility isSandboxed]) {
+        NSString* publicLibraryURLString;
         publicLibraryURLString = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         publicLibraryURLString = [publicLibraryURLString stringByAppendingPathComponent:@"InformPublicLibrary"];
         publicLibraryURLString = [publicLibraryURLString stringByAppendingPathComponent:@"index.html"];

@@ -38,6 +38,8 @@ static NSImage* selected;
 static NSImage* unselected;
 /// Output differs from blessed transcript
 static NSImage* differsBadge;
+/// Winning item
+static NSImage* starBadge;
 /// No blessed transcript to test against
 static NSImage* untestedBadge;
 /// Active item
@@ -120,6 +122,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     selected        = [NSImage imageNamed: @"App/Skein/Skein-selected"];
     unselected      = [NSImage imageNamed: @"App/Skein/Skein-unselected"];
     differsBadge    = [NSImage imageNamed: @"App/Skein/SkeinDiffersBadge"];
+    starBadge       = [NSImage imageNamed: @"App/Skein/SkeinStarBadge"];
     activeMenu      = [NSImage imageNamed: @"App/Skein/Skein-active-menu"];
     selectedMenu    = [NSImage imageNamed: @"App/Skein/Skein-selected-menu"];
     unselectedMenu  = [NSImage imageNamed: @"App/Skein/Skein-unselected-menu"];
@@ -332,6 +335,17 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     [[self class] drawLozengeImage: background
                            atPoint: NSMakePoint(0, 0)
                          withWidth: commandSize.width];
+
+    // Draw star if we are the winning item
+    if ([[self.skeinView skein] isTheWinningItem: layoutItem.item]) {
+        float height = starBadge.size.height/2;
+        float width = starBadge.size.width/2;
+        [starBadge drawInRect: NSMakeRect(0.0, 0.0 /*floor(self.frame.size.height) - height - 9*/,
+                                          width, height)
+                     fromRect: NSZeroRect
+                    operation: NSCompositingOperationSourceOver
+                     fraction: 1.0];
+    }
 
     // Draw the menu if necessary
     if( insideLozengeArea || insideMenuArea ) {

@@ -54,8 +54,6 @@ static const int recentFilesTabWidth = 130;
 {
     NSRect imageRect = bounds;
     
-    imageRect.origin.x += borderWidth;
-    imageRect.origin.y += borderHeight;
     imageRect.size.width = imageSize;
     imageRect.size.height = imageSize;
     
@@ -66,7 +64,7 @@ static const int recentFilesTabWidth = 130;
 {
     NSRect titleRect = bounds;
     
-    titleRect.origin.x += imageSize + (borderWidth * 2);
+    titleRect.origin.x += imageSize + borderWidth;
     titleRect.origin.y += borderHeight;
     
     NSAttributedString *title = [self attributedStringValue];

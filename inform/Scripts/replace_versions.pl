@@ -7,10 +7,10 @@ use File::Basename;
 
 my $dirname = dirname(__FILE__);
 
-my $app_version_number = "1.80";
-my $app_version_build_number = "$app_version_number.7";
+my $app_version_number = "1.81";
+my $app_version_build_number = "$app_version_number.0";
 my $inform_source_version = "10.1.0";
-my $full_version_prefix = "$app_version_number/6.36/";
+my $full_version_prefix = "$app_version_number/6.41/";
 my $full_version = "$full_version_prefix$inform_source_version";
 
 sub replace_in_plist_file {

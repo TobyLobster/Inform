@@ -11,6 +11,7 @@
 @class IFSkeinItem;
 @class IFSkeinView;
 @class IFSkeinLayout;
+@class IFSkeinItemView;
 
 @interface IFSkeinViewChildren : NSObject<IFSkeinReportBlessDelegate>
 
@@ -25,6 +26,7 @@
 
 - (NSRect)   rectForItem:(IFSkeinItem*) item;
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item;
+- (IFSkeinItemView*) itemViewForItem: (IFSkeinItem*) item;
 
 // Handle font size change
 -(void) fontSizePreferenceChanged;

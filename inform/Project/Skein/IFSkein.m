@@ -47,6 +47,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
         _project                     = theProject;
         _rootItem                    = [[IFSkeinItem alloc] initWithSkein: self command: @"- start -"];
 		_activeItem                  = nil;
+        _winningItem                 = nil;
         _draggingSourceNeedsUpdating = NO;
         _draggingItem                = nil;
 		currentOutput                = [[NSMutableString alloc] init];
@@ -228,6 +229,18 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
     _activeItem = nil;
     [self postSkeinChangedWithAnimate: NO
                     keepActiveVisible: NO];
+}
+
+- (void) setWinningItem: (IFSkeinItem *) winningItem {
+    _winningItem = winningItem;
+}
+
+- (IFSkeinItem *) getWinningItem {
+    return _winningItem;
+}
+
+-(BOOL) isTheWinningItem: (IFSkeinItem *) winningItem {
+    return _winningItem == winningItem;
 }
 
 #pragma mark - Creating an input receiver

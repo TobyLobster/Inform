@@ -70,7 +70,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         NSString* command = [IFSkein firstChildOf: item withName: @"command"].stringValue;
-        NSString* comment = [IFSkein firstChildOf: item withName: @"comment"].stringValue;
+        NSString* annotation = [IFSkein firstChildOf: item withName: @"annotation"].stringValue;
         NSString* actual  = [IFSkein firstChildOf: item withName: @"result"].stringValue;
         NSString* ideal   = [IFSkein firstChildOf: item withName: @"commentary"].stringValue;
 
@@ -80,7 +80,9 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
-        //[newItem setIsWinningCommand: [IFUtility safeString:comment insensitivelyEqualsSafeString:@"***"]];
+        if ([annotation startsWith:@"***"]) {
+            _winningItem = newItem;
+        }
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 
@@ -227,6 +229,11 @@ static NSString* idForNode(IFSkeinItem* item) {
             if (composedIdeal != nil) {
                 [item addChild: [IFSkein elementWithName: @"commentary" value: composedIdeal preserveWhitespace: YES]];
             }
+
+            if (_winningItem == node) {
+                [item addChild: [IFSkein elementWithName: @"annotation" value: @"***" preserveWhitespace: YES]];
+            }
+
             [root addChild: item];
 
             if ([node.children count] > 0) {

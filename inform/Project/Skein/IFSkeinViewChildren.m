@@ -581,6 +581,10 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
     return itemView.layoutItem;
 }
 
+- (IFSkeinItemView*) itemViewForItem: (IFSkeinItem*) item {
+    return itemViews[@(item.uniqueId)];
+}
+
 -(NSRect) rectForItem:(IFSkeinItem*) item {
     IFSkeinItemView * itemView = itemViews[@(item.uniqueId)];
     NSRect result = NSZeroRect;

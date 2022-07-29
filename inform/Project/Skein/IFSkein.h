@@ -25,11 +25,13 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 @private
     IFSkeinItem*    _rootItem;
     IFSkeinItem*    _activeItem;
+    IFSkeinItem*    _winningItem;
 }
 
 // Retrieving the root / active / selected skein item
 @property (atomic, readonly, strong)  IFSkeinItem * rootItem;
 @property (atomic, strong)            IFSkeinItem * activeItem;
+@property (atomic, strong)            IFSkeinItem * winningItem;
 @property (atomic)                    BOOL          skeinChanged;
 
 
@@ -46,6 +48,10 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 - (void) waitingForInput;
 - (void) interpreterRestart;
 - (void) interpreterStop;
+
+- (void) setWinningItem: (IFSkeinItem *) winningItem;
+- (IFSkeinItem *) getWinningItem;
+- (BOOL) isTheWinningItem: (IFSkeinItem *) item;
 
 // Dirty flags
 /// Does the skein need laying out?
