@@ -27,7 +27,7 @@ Many thanks to MaddTheSane for a heroic number of modernisations, tweaks and fix
 ## About Inform
 Inform is a design system for interactive fiction based on natural language, a new medium of writing which came out of the "text adventure" games of the 1980s. It has been used by many leading writers of IF over the last twenty years, for projects ranging from historical reconstructions, through games, to art pieces, which have won numerous awards and competitions.
 
-To learn more about the core of Inform, see [https://github.com/ganelson/inform](https://github.com/ganelson/inform).
+To learn more about the core of Inform, see [https://github.com/ganelson/inform](https://github.com/ganelson/inform). For more Inform resources, see [inform7.com](http://www.inform7.com).
 
 Inform is free, with no strings attached. What you make with it is yours, to publish on your website, sell, or give to your friends. There's a vibrant community of users who welcome newcomers (and the app will help you find a high-traffic forum for discussions). Lastly, Inform is continuously maintained and developed. All bug reports are examined and acted on (and the app will show you how to post them).
 
