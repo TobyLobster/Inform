@@ -37,7 +37,7 @@
 -(NSString*) stringByReplacing: (NSString *) lpFind
                           with: (NSString *) lpReplace;
 
-- (int) indexOf: (NSString *) text;
-- (int) lastIndexOf: (NSString *) text;
+- (NSInteger) indexOf: (NSString *) text;
+- (NSInteger) lastIndexOf: (NSString *) text;
 
 @end

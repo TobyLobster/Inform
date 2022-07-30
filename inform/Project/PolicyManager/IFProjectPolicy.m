@@ -25,9 +25,7 @@
 }
 
 
-// = Initialisation =
-- (instancetype) init { self = [super init]; return self; }
-
+#pragma mark - Initialisation
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super init];
 
@@ -40,7 +38,7 @@
 	return self;
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) setProjectController: (IFProjectController*) controller {
 	projectController = controller;
@@ -94,7 +92,7 @@
         [newPath addObjectsFromArray: urlPath];
 
         // Escape encode the paths, as they were (unhelpfully) unescaped with the .path method
-        for(int index = 0; index < [newPath count]; index++) {
+        for(NSInteger index = 0; index < [newPath count]; index++) {
             NSString* escapedString = [newPath[index] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
             newPath[index] = escapedString;
         }
@@ -131,7 +129,7 @@
     return returnDictionary;
 }
 
-// = Our life as a policy delegate =
+#pragma mark - Our life as a policy delegate
 
 - (void)					webView: (WebView *)sender
 	decidePolicyForNavigationAction: (NSDictionary *)actionInformation

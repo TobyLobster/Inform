@@ -7,10 +7,10 @@
 
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
+#import "IFUtility.h"
 
-
+/// Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
 static NSString* idForNode(IFSkeinItem* item) {
-    // Unique ID for this item (we use the pointer as the value, as it's guaranteed unique for a unique node)
     return [NSString stringWithFormat: @"node-%lu", item.uniqueId];
 }
 
@@ -70,6 +70,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         NSString* command = [IFSkein firstChildOf: item withName: @"command"].stringValue;
+        NSString* annotation = [IFSkein firstChildOf: item withName: @"annotation"].stringValue;
         NSString* actual  = [IFSkein firstChildOf: item withName: @"result"].stringValue;
         NSString* ideal   = [IFSkein firstChildOf: item withName: @"commentary"].stringValue;
 
@@ -79,6 +80,9 @@ static NSString* idForNode(IFSkeinItem* item) {
         }
 
         IFSkeinItem* newItem = [[IFSkeinItem alloc] initWithSkein: self command: command];
+        if ([annotation startsWith:@"***"]) {
+            _winningItem = newItem;
+        }
         [newItem setActual: actual];
         [newItem setIdeal: ideal];
 
@@ -139,7 +143,7 @@ static NSString* idForNode(IFSkeinItem* item) {
     return YES;
 }
 
-// Create XML
+#pragma mark - Create XML
 
 // Helper methods
 +(NSXMLNode*) addAttribute: (NSXMLElement*) element
@@ -206,9 +210,7 @@ static NSString* idForNode(IFSkeinItem* item) {
         [itemStack removeLastObject];
 
         // Push any children of this node
-        for( IFSkeinItem* childNode in [node children] ) {
-            [itemStack addObject: childNode];
-        }
+        [itemStack addObjectsFromArray: node.children];
 
         // We only output non-test nodes
         if( !node.isTestSubItem ) {
@@ -227,6 +229,11 @@ static NSString* idForNode(IFSkeinItem* item) {
             if (composedIdeal != nil) {
                 [item addChild: [IFSkein elementWithName: @"commentary" value: composedIdeal preserveWhitespace: YES]];
             }
+
+            if (_winningItem == node) {
+                [item addChild: [IFSkein elementWithName: @"annotation" value: @"***" preserveWhitespace: YES]];
+            }
+
             [root addChild: item];
 
             if ([node.children count] > 0) {

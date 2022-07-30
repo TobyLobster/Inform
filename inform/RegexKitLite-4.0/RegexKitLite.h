@@ -70,7 +70,7 @@ extern "C" {
 
 #endif // REGEXKITLITE_VERSION_DEFINED
 
-#if !defined(RKL_BLOCKS) && defined(NS_BLOCKS_AVAILABLE) && (NS_BLOCKS_AVAILABLE == 1)
+#if !defined(__cplusplus) && !defined(RKL_BLOCKS) && defined(NS_BLOCKS_AVAILABLE) && (NS_BLOCKS_AVAILABLE == 1)
 #define RKL_BLOCKS 1
 #endif
   
@@ -104,6 +104,7 @@ typedef unsigned int   NSUInteger;
 #define   RKLREGEXOPTIONS_DEFINED
 
 // These must be identical to their ICU regex counterparts. See http://www.icu-project.org/userguide/regexp.html
+// This must be identical to the ICU 'flags' argument type.
 typedef NS_OPTIONS(uint32_t, RKLRegexOptions) {
   RKLNoOptions             = 0,
   RKLCaseless              = 2,
@@ -111,7 +112,7 @@ typedef NS_OPTIONS(uint32_t, RKLRegexOptions) {
   RKLDotAll                = 32,
   RKLMultiline             = 8,
   RKLUnicodeWordBoundaries = 256
-}; // This must be identical to the ICU 'flags' argument type.
+};
 
 #endif // RKLREGEXOPTIONS_DEFINED
 
@@ -162,25 +163,25 @@ typedef NS_OPTIONS(NSUInteger, RKLRegexEnumerationOptions) {
 #ifdef __OBJC__
 
 // NSException exception name.
-extern NSString * const RKLICURegexException;
+extern NSExceptionName const RKLICURegexException;
 
 // NSError error domains and user info keys.
-extern NSString * const RKLICURegexErrorDomain;
+extern NSErrorDomain const RKLICURegexErrorDomain;
 
-extern NSString * const RKLICURegexEnumerationOptionsErrorKey;
-extern NSString * const RKLICURegexErrorCodeErrorKey;
-extern NSString * const RKLICURegexErrorNameErrorKey;
-extern NSString * const RKLICURegexLineErrorKey;
-extern NSString * const RKLICURegexOffsetErrorKey;
-extern NSString * const RKLICURegexPreContextErrorKey;
-extern NSString * const RKLICURegexPostContextErrorKey;
-extern NSString * const RKLICURegexRegexErrorKey;
-extern NSString * const RKLICURegexRegexOptionsErrorKey;
-extern NSString * const RKLICURegexReplacedCountErrorKey;
-extern NSString * const RKLICURegexReplacedStringErrorKey;
-extern NSString * const RKLICURegexReplacementStringErrorKey;
-extern NSString * const RKLICURegexSubjectRangeErrorKey;
-extern NSString * const RKLICURegexSubjectStringErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexEnumerationOptionsErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexErrorCodeErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexErrorNameErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexLineErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexOffsetErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexPreContextErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexPostContextErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexRegexErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexRegexOptionsErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexReplacedCountErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexReplacedStringErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexReplacementStringErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexSubjectRangeErrorKey;
+extern NSErrorUserInfoKey const RKLICURegexSubjectStringErrorKey;
   
 @interface NSString (RegexKitLiteAdditions)
 
@@ -190,9 +191,9 @@ extern NSString * const RKLICURegexSubjectStringErrorKey;
 + (NSInteger)RKL_METHOD_PREPEND(captureCountForRegex):(NSString *)regex RKL_DEPRECATED_ATTRIBUTE;
 + (NSInteger)RKL_METHOD_PREPEND(captureCountForRegex):(NSString *)regex options:(RKLRegexOptions)options error:(NSError **)error RKL_DEPRECATED_ATTRIBUTE;
 
-- (NSArray *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex;
-- (NSArray *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex range:(NSRange)range;
-- (NSArray *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex range:(NSRange)range;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(componentsSeparatedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
 
 - (BOOL)RKL_METHOD_PREPEND(isMatchedByRegex):(NSString *)regex;
 - (BOOL)RKL_METHOD_PREPEND(isMatchedByRegex):(NSString *)regex inRange:(NSRange)range;
@@ -222,19 +223,19 @@ extern NSString * const RKLICURegexSubjectStringErrorKey;
 
 - (void)RKL_METHOD_PREPEND(flushCachedRegexData);
 
-- (NSArray *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex;
-- (NSArray *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex capture:(NSInteger)capture;
-- (NSArray *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
-- (NSArray *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range capture:(NSInteger)capture error:(NSError **)error;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex capture:(NSInteger)capture;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(componentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range capture:(NSInteger)capture error:(NSError **)error;
 
 
-- (NSArray *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex;
-- (NSArray *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
-- (NSArray *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
+- (NSArray<NSString*> *)RKL_METHOD_PREPEND(captureComponentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
 
-- (NSArray *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex;
-- (NSArray *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
-- (NSArray *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex range:(NSRange)range;
+- (NSArray<NSArray<NSString*>*> *)RKL_METHOD_PREPEND(arrayOfCaptureComponentsMatchedByRegex):(NSString *)regex options:(RKLRegexOptions)options range:(NSRange)range error:(NSError **)error;
 
   //// >= 4.0
 

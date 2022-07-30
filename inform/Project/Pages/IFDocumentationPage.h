@@ -10,14 +10,16 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
-//
-// The 'documentation' page
-//
+///
+/// The 'documentation' page
+///
 @interface IFDocumentationPage : IFPage<WebFrameLoadDelegate, WebResourceLoadDelegate>
 
 // The documentation view
-- (void) openURL: (NSURL*) url;							// Tells the documentation view to open a specific URL
-- (IBAction) showToc: (id) sender;						// Opens the table of contents
+/// Tells the documentation view to open a specific URL
+- (void) openURL: (NSURL*) url;
+/// Opens the table of contents
+- (IBAction) showToc: (id) sender;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;
 

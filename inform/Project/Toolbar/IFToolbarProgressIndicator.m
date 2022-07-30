@@ -6,7 +6,6 @@
 //
 
 #import "IFToolbarProgressIndicator.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFToolbarProgressIndicator
@@ -22,12 +21,12 @@
 
 - (void)drawRect:(NSRect)dirtyRect {
     NSRect rect = [self bounds];
-    float radius = floorf(rect.size.height / 2);
+    CGFloat radius = floor(rect.size.height / 2);
     NSBezierPath *bz = [NSBezierPath bezierPathWithRoundedRect: rect xRadius: radius yRadius: radius];
     
     // Draw progress inside
     [bz setClip];
-    rect.size.width = floorf(rect.size.width * ([self doubleValue] / [self maxValue]));
+    rect.size.width = floor(rect.size.width * ([self doubleValue] / [self maxValue]));
     [[NSColor colorWithDeviceRed:151.0f/255.0f green:151.0f/255.0f blue:151.0f/255.0f alpha:1.0f] set];
     NSRectFill(rect);
 

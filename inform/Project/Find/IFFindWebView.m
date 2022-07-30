@@ -11,7 +11,7 @@
 
 @implementation WebView(IFFindWebView)
 
-// = Basic interface =
+#pragma mark - Basic interface
 
 - (BOOL) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type {
@@ -60,7 +60,7 @@
 	return [[self selectedDOMRange] toString];
 }
 
-// = 'Find all' =
+#pragma mark - 'Find all'
 
 /*
 - (NSArray*) findAllMatches: (NSString*) match

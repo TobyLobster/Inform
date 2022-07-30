@@ -7,7 +7,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface IFToolbarStatusSpacingView : NSView {
-}
+@interface IFToolbarStatusSpacingView : NSView
 
 @end

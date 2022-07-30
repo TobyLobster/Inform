@@ -8,11 +8,10 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSyntaxData.h"
 
-//
-// Manages NSTextStorage objects registered
-//
-@interface IFSyntaxManager : NSObject {
-}
+///
+/// Manages NSTextStorage objects registered
+///
+@interface IFSyntaxManager : NSObject
 
 //
 // Registration
@@ -20,11 +19,11 @@
 +(void) registerTextStorage: (NSTextStorage*) storage
                        name: (NSString*) name
                        type: (IFHighlightType) type
-               intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+               intelligence: (id<IFSyntaxIntelligence>) intelligence
                 undoManager: (NSUndoManager*) undoManager;
 +(void) registerTextStorage: (NSTextStorage*) storage
                    filename: (NSString*) filename
-               intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+               intelligence: (id<IFSyntaxIntelligence>) intelligence
                 undoManager: (NSUndoManager*) undoManager;
 
 +(void) unregisterTextStorage: (NSTextStorage*) storage;
@@ -41,7 +40,7 @@
 // Intelligence
 //
 +(void) setIntelligenceForStorage: (NSTextStorage*) storage
-                     intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence;
+                     intelligence: (id<IFSyntaxIntelligence>) intelligence;
 +(IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage;
 
 //

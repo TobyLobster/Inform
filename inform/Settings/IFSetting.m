@@ -10,15 +10,19 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFCompilerSettings.h"
 
-NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
+NSString* const IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
+NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
 @implementation IFSetting {
-    IBOutlet NSView*    settingView;		// The view that can be used to edit the settings
-    IFCompilerSettings* compilerSettings;	// The compiler settings object that this setting should manage
-    BOOL                settingsChanging;   // YES if the settings are in the process of changing
+    /// The view that can be used to edit the settings
+    NSView*             settingView;
+    /// The compiler settings object that this setting should manage
+    __weak IFCompilerSettings* compilerSettings;
+    /// YES if the settings are in the process of changing
+    BOOL                settingsChanging;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	return [self initWithNibName: nil];
@@ -40,31 +44,19 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 }
 
 
-// = Setting up the view =
+#pragma mark - Setting up the view
 
-- (NSView*) settingView {
-	return settingView;
-}
-
-- (void) setSettingView: (NSView*) newSettingView {
-	settingView = newSettingView;
-}
+@synthesize settingView;
 
 - (NSString*) title {
 	return @"Setting";
 }
 
-// = Setting/retrieving the model =
+#pragma mark - Setting/retrieving the model
 
-- (void) setCompilerSettings: (IFCompilerSettings*) newSettings {
-	compilerSettings = newSettings;
-}
+@synthesize compilerSettings;
 
-- (IFCompilerSettings*) compilerSettings {
-	return compilerSettings;
-}
-
-// = Communicating with the IFCompilerSettings object =
+#pragma mark - Communicating with the IFCompilerSettings object
 
 - (void) setSettings {
 	// Do nothing
@@ -86,7 +78,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 	return nil;
 }
 
-// = Notifying the controller about things =
+#pragma mark - Notifying the controller about things
 
 - (IBAction) settingsHaveChanged: (id) sender {
 	if (settingsChanging) return;
@@ -97,7 +89,7 @@ NSString* IFSettingHasChangedNotification = @"IFSettingHasChangedNotification";
 	settingsChanging = NO;
 }
 
-// = Default way of dealing with the plist: copy entries from the dictionary =
+#pragma mark - Default way of dealing with the plist: copy entries from the dictionary
 
 - (NSDictionary*) plistEntries {
 	return [self dictionary];

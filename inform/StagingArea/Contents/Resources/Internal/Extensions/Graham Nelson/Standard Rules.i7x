@@ -1,362 +1,36 @@
-Version 3/120430 of the Standard Rules by Graham Nelson begins here.
+Version 6 of the Standard Rules by Graham Nelson begins here.
 
-"The Standard Rules, included in every project, define the basic framework
-of kinds, actions and phrases which make Inform what it is."
+"The Standard Rules, included in every project, define phrases, actions and
+activities for interactive fiction."
 
-[...and so on...]
-Document PM_CantAssertAdjective PM_CantAssertNegatedEverywhere PM_CantAssertNegatedRelations PM_CantAssertNonKind PM_CantAssertQuantifier PM_NegatedVerb1 PM_NoSuchVerb PM_NoSuchVerbComma PM_TwoLikelihoods at doc10 "2.1" "2.1. Creating the world".
-Document ph_continueaction ph_stopaction rules_before at doc100 "7.3" "7.3. Before rules".
-Document PM_ActionNotSpecific PM_ActionTooSpecific PM_UnknownTryAction1 PM_UnknownTryAction2 ph_try ph_trysilently at doc101 "7.4" "7.4. Try and try silently".
-Document rules_after at doc102 "7.5" "7.5. After rules".
-Document PM_APWithDisjunction PM_APWithImmiscible at doc105 "7.8" "7.8. Rules applying to more than one action".
-Document var_noun at doc107 "7.10" "7.10. The noun and the second noun".
-Document PM_APWithBadWhen PM_NonActionInPresenceOf at doc109 "7.12" "7.12. In the presence of, and when".
-Document PM_GoingWithoutObject PM_GoingWrongKind at doc111 "7.14" "7.14. Going by, going through, going with".
-Document KACTIONS PM_NamedAPWithActor at doc112 "7.15" "7.15. Kinds of action".
-Document var_prompt at doc117 "8.2" "8.2. Changing the command prompt".
-Document phs_surroundings var_sl at doc118 "8.3" "8.3. Changing the status line".
-Document PM_EnigmaticPronoun PM_EnigmaticThey PM_TooMuchQuotedText PM_UnendingComment PM_UnendingQuote PM_WordTooLong at doc12 "2.3" "2.3. Punctuation".
-Document ph_changeexit ph_changenoexit at doc120 "8.5" "8.5. Change of properties with values".
-Document ph_move at doc122 "8.7" "8.7. Moving things".
-Document ph_movebackdrop ph_updatebackdrop at doc123 "8.8" "8.8. Moving backdrops".
-Document ph_remove at doc125 "8.10" "8.10. Removing things from play".
-Document PM_BadNow1 PM_BadNow2 PM_BadNow3 PM_CantChangeKind PM_CantForceCalling PM_CantForceExistence PM_CantForceGeneralised PM_CantForceRelation PM_RedefinedNow ph_now at doc126 "8.11" "8.11. Now...".
-Document ph_decrease ph_decrement ph_increase ph_increment at doc127 "8.12" "8.12. Increasing and decreasing".
-Document PM_CalledThe PM_CalledWithDash at doc130 "8.15" "8.15. Calling names".
-Document ph_firstheld ph_holder ph_nextheld at doc132 "8.17" "8.17. Looking at containment by hand".
-Document ph_randombetween ph_randomchance ph_seed at doc133 "8.18" "8.18. Randomness".
-Document PM_RandomImpossible ph_randomdesc at doc134 "8.19" "8.19. Random choices of things".
-Document ROOMPLAYBEGINS rules_wpb at doc135 "9.1" "9.1. When play begins".
-Document var_score at doc136 "9.2" "9.2. Awarding points".
-Document ph_end ph_ended ph_endfinally ph_endfinallysaying ph_endsaying ph_finallyended ph_notended ph_notfinallyended ph_resume rules_wpe at doc138 "9.4" "9.4. When play ends".
-Document PM_NumberOfTurns rules_et at doc139 "9.5" "9.5. Every turn".
-Document HEADINGS PM_BadTitleSentence PM_HeadingOverLine PM_HeadingStopsBeforeEndOfLine at doc14 "2.5" "2.5. Headings".
-Document kind_time var_time at doc140 "9.6" "9.6. The time of day".
-Document phs_timewords at doc141 "9.7" "9.7. Telling the time".
-Document ph_durationhours ph_durationmins at doc142 "9.8" "9.8. Approximate times, lengths of time".
-Document ph_shiftafter ph_shiftbefore ph_timeafter ph_timebefore at doc143 "9.9" "9.9. Comparing and shifting times".
-Document ph_hourspart ph_minspart at doc144 "9.10" "9.10. Calculating times".
-Document PM_AtWithoutTime PM_UnusedTimedEvent TIMEDEVENTS ph_attime ph_timefromnow ph_turnsfromnow at doc145 "9.11" "9.11. Future events".
-Document PM_PTAPTooComplex at doc146 "9.12" "9.12. Actions as conditions".
-Document PM_NonPresentTense PM_PTAPMakesCallings PM_PastActionCalled PM_PastCallings PM_PastSubordinate PM_PastTableEntries PM_PastTableLookup at doc147 "9.13" "9.13. The past and perfect tenses".
-Document SCENESINTRO kind_scene at doc150 "10.1" "10.1. Introduction to scenes".
-Document PM_ScenesBadCondition PM_ScenesDisallowCalled PM_ScenesNotPlay PM_ScenesOnly PM_ScenesOversetEnd PM_ScenesUnknownEnd at doc151 "10.2" "10.2. Creating a scene".
-Document ph_scenetimesincebegan ph_scenetimesinceended ph_scenetimewhenbegan ph_scenetimewhenended at doc152 "10.3" "10.3. Using the Scene index".
-Document ph_hasended ph_hashappened ph_hasnotended ph_hasnothappened at doc153 "10.4" "10.4. During scenes".
-Document LINKINGSCENES at doc154 "10.5" "10.5. Linking scenes together".
-Document PHRASES ph_nothing at doc159 "11.1" "11.1. What are phrases?".
-Document PM_BareTo at doc160 "11.2" "11.2. The phrasebook".
-Document PM_AdjacentTokens PM_BadTypeIndication PM_PhraseTooLong PM_SaySlashed PM_TokenMisunderstood PM_TokenWithEmptyBrackets PM_TokenWithNestedBrackets PM_TokenWithoutCloseBracket PM_TokenWithoutOpenBracket at doc161 "11.3" "11.3. Pattern matching".
-Document ph_showme at doc162 "11.4" "11.4. The showme phrase".
-Document PM_TruthStateToDecide kind_truthstate ph_consents ph_indarkness ph_whether at doc163 "11.5" "11.5. Conditions and questions".
-Document PM_IfOutsidePhrase ph_if ph_unless at doc164 "11.6" "11.6. If".
-Document PM_BeginWithoutEnd PM_BlockNestingTooDeep PM_BothBlockSyntaxes PM_CantUseOutsideStructure PM_EmptyIndentedBlock PM_EndWithoutBegin PM_MisalignedIndentation PM_NotInOldSyntax PM_RunOnsInTabbedRoutine PM_WrongEnd at doc165 "11.7" "11.7. Begin and end".
-Document PM_CaseValueMismatch PM_CaseValueNonConstant PM_DoubleOtherwise PM_MisalignedCase PM_MisalignedOtherwise PM_MisarrangedOtherwise PM_NonCaseInIf PM_OtherwiseIfAfterOtherwise PM_OtherwiseInNonIf PM_OtherwiseWithoutIf ph_otherwise ph_switch at doc166 "11.8" "11.8. Otherwise".
-Document ph_while at doc167 "11.9" "11.9. While".
-Document PM_CalledInRepeat ph_repeat at doc168 "11.10" "11.10. Repeat".
-Document PM_BadRepeatDomain ph_runthrough at doc169 "11.11" "11.11. Repeat running through".
-Document PM_TestBadRequirements PM_TestCommandTooLong PM_TestContainsUndo PM_TestDoubleWith PM_TestDuplicate PM_TestMultiWord PM_UnknownInternalTest at doc17 "2.8" "2.8. The TEST command".
-Document PM_CantUseOutsideLoop ph_break ph_next at doc170 "11.12" "11.12. Next and break".
-Document ph_stop at doc171 "11.13" "11.13. Stop".
-Document PM_NotAPhraseOption PM_NotTheOnlyPhraseOption PM_PhraseOptionsExclusive PM_SayWithPhraseOptions PM_TooManyPhraseOptions ph_listcontents at doc172 "11.14" "11.14. Phrase options".
-Document ph_let ph_letdefault at doc173 "11.15" "11.15. Let and temporary variables".
-Document ph_no ph_yes at doc174 "11.16" "11.16. New conditions, new adjectives".
-Document PM_RedundantReturnKOV PM_ReturnWrongKind PM_UnknownValueToDecide ph_decideon at doc175 "11.17" "11.17. Phrases to decide other things".
-Document ph_enumafter ph_enumbefore ph_enumfirst ph_enumlast at doc176 "11.18" "11.18. The value after and the value before".
-Document ARSUMMARY at doc178 "12.2" "12.2. How actions are processed".
-Document var_person_asked at doc179 "12.3" "12.3. Giving instructions to other people".
-Document rules_per at doc180 "12.4" "12.4. Persuasion".
-Document rules_fail var_reason at doc181 "12.5" "12.5. Unsuccessful attempts".
-Document NEWACTIONS PM_ActionAlreadyExists PM_ActionBothValues PM_ActionClauseUnknown PM_ActionMisapplied PM_GrammarMismatchesAction PM_MatchedAsTooLong PM_MultiwordPastParticiple ph_requirescarried ph_requirescarried2 ph_requireslight ph_requirestouch ph_requirestouch2 at doc183 "12.7" "12.7. New actions".
-Document PM_ActionVarAnd PM_ActionVarOverspecific PM_ActionVarUnknownKOV PM_ActionVarValue PM_ActionVarsPastTense PM_BadMatchingSyntax PM_BadOptionalAPClause at doc186 "12.10" "12.10. Action variables".
-Document PM_DuplicateRuleName PM_RuleWithComma at doc188 "12.12" "12.12. Check rules for actions by other people".
-Document PM_BogusExtension at doc19 "2.10" "2.10. Installing extensions".
-Document OUTOFWORLD at doc191 "12.15" "12.15. Out of world actions".
-Document rules_ri at doc192 "12.16" "12.16. Reaching inside and reaching outside rules".
-Document var_person_reaching at doc194 "12.18" "12.18. Changing reachability".
-Document visibility at doc195 "12.19" "12.19. Changing visibility".
-Document kind_storedaction ph_actionof ph_actionpart ph_actorpart ph_currentaction ph_involves ph_nounpart ph_secondpart at doc196 "12.20" "12.20. Stored actions".
-Document PM_BadRelation PM_EveryWrongSide PM_KindRelatedToValue PM_PropForBadKOV PM_RelationWithBadProperty PM_RelationWithEitherOrProperty VERBS at doc198 "13.1" "13.1. Sentence verbs".
-Document PM_ExtInadequateVM PM_ExtMalformedVM PM_ExtMisidentified PM_ExtMisidentifiedEnds PM_ExtMiswordedBeginsHere PM_ExtVersionMalformed PM_IncludeExtQuoted at doc20 "2.11" "2.11. Including extensions".
-Document RELATIONS at doc200 "13.3" "13.3. What are relations?".
-Document PM_BadKOVForRelationProperty PM_BothOneAndMany PM_CantCallBoth PM_CantCallLeft PM_CantCallRight PM_FRFUnavailable PM_OneOrVariousWithWhen PM_OneToOneMiscalled PM_RelatedKindsUnknown PM_RelationExists at doc202 "13.5" "13.5. Making new relations".
-Document ph_showrelation at doc204 "13.7" "13.7. Relations in groups".
-Document PM_DuplicateVerbs1 PM_DuplicateVerbs2 PM_DuplicateVerbs3 PM_PrepositionConjugated PM_PrepositionLong PM_PresentPluralTwice PM_VerbMalformed PM_VerbRelationUnknown PM_VerbRelationVague PM_VerbUnknownMeaning at doc206 "13.9" "13.9. Defining new assertion verbs".
-Document PM_CanHave at doc207 "13.10" "13.10. Defining new prepositions".
-Document ph_nextstep ph_numbersteps at doc208 "13.11" "13.11. Indirect relations".
-Document PM_BadRelationCondition PM_Unassertable2 at doc209 "13.12" "13.12. Relations which express conditions".
-Document OPTIONS PM_UONotNumerical PM_UnknownUseOption at doc21 "2.12" "2.12. Use options".
-Document ph_ifleft ph_ifright ph_leftdomain ph_leftlookup ph_leftlookuplist ph_rightdomain ph_rightlookup ph_rightlookuplist at doc210 "13.13" "13.13. Relations involving values".
-Document ph_letrelation at doc212 "13.15" "13.15. Temporary relations".
-Document phs_here phs_now at doc214 "14.1" "14.1. Tense and narrative viewpoint".
-Document OPTIONSFILE at doc22 "2.13" "2.13. Administering classroom use".
-Document kind_verb phs_adapt phs_adaptt phs_adaptv phs_adaptvt phs_infinitive phs_negate phs_negatet phs_negatev phs_negatevt phs_pastpart phs_prespart at doc222 "14.9" "14.9. Verbs as values".
-Document phs_response at doc223 "14.10" "14.10. Responses".
-Document PM_CantEquateValues PM_ElementOverflow PM_EvenOverflow-G PM_InequalityFailed PM_LiteralOverflow PM_ZMachineOverflow kind_number kind_real_number at doc227 "15.2" "15.2. Numbers and real numbers".
-Document ph_nearestwholenumber at doc228 "15.3" "15.3. Real number conversions".
-Document phs_decimal phs_decimalplaces phs_realplaces phs_scientific phs_scientificplaces at doc229 "15.4" "15.4. Printing real numbers".
-Document PM_BadICLIdentifier STORYFILES at doc23 "2.14" "2.14. Limits and the Settings panel".
-Document ph_cuberoot ph_divide ph_minus ph_nearest ph_plus ph_realsquareroot ph_remainder ph_squareroot ph_times at doc230 "15.5" "15.5. Arithmetic".
-Document ph_absolutevalue ph_ceiling ph_exp ph_floor ph_logarithm ph_logarithmto ph_power ph_reciprocal at doc231 "15.6" "15.6. Powers and logarithms".
-Document ph_arccosine ph_arcsine ph_arctangent ph_cosine ph_degrees ph_hyperbolicarccosine ph_hyperbolicarcsine ph_hyperbolicarctangent ph_hyperboliccosine ph_hyperbolicsine ph_hyperbolictangent ph_sine ph_tangent at doc232 "15.7" "15.7. Trigonometry".
-Document PM_LPBuiltInKOV PM_LPEnumeration PM_LPNotKOV PM_NegationForbidden PM_NegationInternal at doc233 "15.8" "15.8. Units".
-Document PM_DuplicateUnitSpec at doc234 "15.9" "15.9. Multiple notations".
-Document PM_LPCantScaleTwice PM_LPCantScaleYet PM_LPTooLittleAccuracy at doc235 "15.10" "15.10. Scaling and equivalents".
-Document PM_LPElementTooLarge PM_LPNotAllNamed PM_LPTooComplicated PM_LPTooManyElements PM_LPWithoutElement at doc239 "15.14" "15.14. Notations including more than one number".
-Document PM_BadLPNameOption PM_BadLPPartOption PM_LPFirstOptional PM_LPMultipleOptional at doc240 "15.15" "15.15. The parts of a number specification".
-Document PM_TotalEitherOr PM_TotalTableColumn ph_total at doc242 "15.17" "15.17. Totals".
-Document EQUATIONS PM_EquationBadArithmetic PM_EquationBadTarget PM_EquationDimensionPower PM_EquationDoesntEquate PM_EquationEquatesBadly PM_EquationEquatesMultiply PM_EquationIncomparable PM_EquationInsoluble PM_EquationLeadingZero PM_EquationMisnamed PM_EquationMisnumbered PM_EquationMispunctuated PM_EquationOperatorUnrecognised PM_EquationSymbolBadSub PM_EquationSymbolEqualsKOV PM_EquationSymbolMalformed PM_EquationSymbolMisdeclared PM_EquationSymbolMissing PM_EquationSymbolNonNumeric PM_EquationSymbolNonValue PM_EquationSymbolSpurious PM_EquationSymbolVague PM_EquationSymbolWrongKOV PM_EquationTokenUnrecognised PM_EquationTooComplex ph_letequation at doc243 "15.18" "15.18. Equations".
-Document ARITHMETIC PM_BadArithmetic PM_BadLPEquivalent PM_BadLPOffset PM_DimensionNotBaseKOV PM_DimensionRedundant PM_DimensionsInconsistent PM_MultiplyingNonKOVs PM_NonDimensional PM_UnitSequenceOverflow at doc245 "15.20" "15.20. Multiplication of units".
-Document PM_TableCoincidesWithKind PM_TableColumnAlready PM_TableColumnArticle PM_TableColumnBrackets PM_TableColumnEmptyLists PM_TableDefiningObject PM_TableDescriptionEntry PM_TableEntryGeneric PM_TableIncompatibleEntry PM_TableKindlessColumn PM_TableMisnamed PM_TableNameAmbiguous PM_TableNameDuplicate PM_TableOfBuiltInKind PM_TableOfExistingKind PM_TableOfQuantifiedKind PM_TablePlayerEntry PM_TableRowFull PM_TableTooManyColumns PM_TableUndefined PM_TableUnknownEntry PM_TableVariableEntry PM_TableWithBlankNames PM_TableWithoutRows TABLES at doc246 "16.1" "16.1. Laying out tables".
-Document ph_numrows at doc247 "16.2" "16.2. Looking up entries".
-Document ph_showmetable phs_currenttablerow phs_tablecolumn phs_tablerow at doc249 "16.4" "16.4. Changing entries".
-Document PM_NoRowSelected ph_chooserandomrow ph_chooserow ph_chooserowwith at doc250 "16.5" "16.5. Choosing rows".
-Document ph_repeattable ph_repeattablecol ph_repeattablecolreverse ph_repeattablereverse at doc251 "16.6" "16.6. Repeating through tables".
-Document ph_thereis ph_thereisno at doc252 "16.7" "16.7. Blank entries".
-Document ph_blankout ph_blankoutcol ph_blankoutrow ph_blankouttable ph_chooseblankrow ph_numblank ph_numfilled at doc255 "16.10" "16.10. Adding and removing rows".
-Document ph_sortcolumn ph_sortcolumnreverse ph_sortrandom at doc256 "16.11" "16.11. Sorting".
-Document kind_tablename at doc260 "16.15" "16.15. Varying which table to look at".
-Document PM_TableDefiningNothing PM_TableDefiningTheImpossible at doc261 "16.16" "16.16. Defining things with tables".
-Document PM_TableNotContinuation at doc263 "16.18" "16.18. Table continuations".
-Document PM_TableAmendmentMisfit PM_TableAmendmentMismatch at doc264 "16.19" "16.19. Table amendments".
-Document PM_BizarreToken PM_LiteralPunctuation PM_NontextualUnderstand PM_NotNewCommand PM_NotOldCommand PM_ObsoleteHeldTokens PM_OldVerbUsage PM_OverComplexToken PM_TextTokenRestricted PM_TextlessMistake PM_UnderstandAsActivity PM_UnderstandAsBadValue PM_UnderstandAsCompoundText PM_UnderstandCommaCommand PM_UnderstandCommandWhen PM_UnderstandEmptyText PM_UnderstandMismatch PM_UnderstandVague PM_UnknownToken PM_UnparsableKind PM_UseTextNotTopic PM_UseThingNotObject UNDERSTANDING someone_token at doc265 "17.1" "17.1. Understand".
-Document PM_GrammarIllFounded PM_ThreeValuedLine PM_TooManyAliases PM_TooManyGrammarLines at doc266 "17.2" "17.2. New commands for old grammar".
-Document TOKENS things_token at doc268 "17.4" "17.4. Standard tokens of grammar".
-Document text_token at doc269 "17.5" "17.5. The text token".
-Document MAP PM_DescriptionsEquated PM_SameKindEquated kind_room at doc27 "3.2" "3.2. Rooms and the map".
-Document var_understood at doc273 "17.9" "17.9. Understanding kinds of value".
-Document PM_UnderstandAsQualified PM_UnderstandPluralValue at doc275 "17.11" "17.11. Understanding values".
-Document PM_OverAmbitiousSlash PM_SlashedCommand at doc276 "17.12" "17.12. This/that".
-Document NEWTOKENS PM_MixedOutcome PM_TwoValuedToken at doc277 "17.13" "17.13. New tokens".
-Document PM_BadReferringProperty PM_BadUnderstandProperty PM_BadUnderstandPropertyAs PM_UnknownUnderstandProperty PM_UnknownUnpermittedProperty at doc279 "17.15" "17.15. Understanding things by their properties".
-Document PM_GrammarBadRelation PM_GrammarObjectlessRelation PM_GrammarValueRelation at doc280 "17.16" "17.16. Understanding things by their relations".
-Document PM_BadWhen at doc281 "17.17" "17.17. Context: understanding when".
-Document ph_setpronouns at doc282 "17.18" "17.18. Changing the meaning of pronouns".
-Document rules_dtpm at doc283 "17.19" "17.19. Does the player mean...".
-Document ph_altermultipleobjectlist ph_multipleobjectlist at doc284 "17.20" "17.20. Multiple action processing".
-Document ACTIVITIES PM_BadActivityName kind_activity at doc287 "18.1" "18.1. What are activities?".
-Document PM_ExistingRegion PM_RegionInTwoRegions PM_RegionRelation REGIONS kind_region at doc29 "3.4" "3.4. Regions and the index map".
-Document PM_BadWhenWhile at doc290 "18.4" "18.4. While clauses".
-Document EXTACTIVITIES ph_carryout ph_carryoutwith ph_continueactivity at doc291 "18.5" "18.5. New activities".
-Document PM_ActivityVarAnd PM_ActivityVarOverspecific PM_ActivityVarUnknownKOV PM_ActivityVarValue PM_ActivityVariableNameless at doc292 "18.6" "18.6. Activity variables".
-Document ph_abandonactivity ph_abandonactivitywith ph_beginactivity ph_beginactivitywith ph_endactivity ph_endactivitywith ph_handlingactivity ph_handlingactivitywith at doc293 "18.7" "18.7. Beginning and ending activities manually".
-Document act_con var_particular at doc295 "18.9" "18.9. Deciding the concealed possessions of something".
-Document act_pn ph_omit at doc296 "18.10" "18.10. Printing the name of something".
-Document act_ppn at doc297 "18.11" "18.11. Printing the plural name of something".
-Document act_pan at doc298 "18.12" "18.12. Printing a number of something".
-Document act_lc ph_group ph_groupart ph_grouptext at doc299 "18.13" "18.13. Listing contents of something".
-Document KINDS PM_BothRoomAndSupporter PM_CantContainAndSupport PM_KindsIncompatible PM_MiseEnAbyme at doc30 "3.5" "3.5. Kinds".
-Document act_gt at doc300 "18.14" "18.14. Grouping together something".
-Document act_resp at doc301 "18.15" "18.15. Issuing the response text of something".
-Document act_details at doc302 "18.16" "18.16. Printing room description details of something".
-Document act_idetails at doc303 "18.17" "18.17. Printing inventory details of something".
-Document act_toodark at doc304 "18.18" "18.18. Printing a refusal to act in the dark".
-Document act_nowdark at doc305 "18.19" "18.19. Printing the announcement of darkness".
-Document act_nowlight at doc306 "18.20" "18.20. Printing the announcement of light".
-Document act_darkname at doc307 "18.21" "18.21. Printing the name of a dark room".
-Document act_darkdesc at doc308 "18.22" "18.22. Printing the description of a dark room".
-Document act_csl at doc309 "18.23" "18.23. Constructing the status line".
-Document act_wpa at doc310 "18.24" "18.24. Writing a paragraph about".
-Document act_lni at doc311 "18.25" "18.25. Listing nondescript items of something".
-Document act_pld at doc312 "18.26" "18.26. Printing the locale description of something".
-Document act_cnlo at doc313 "18.27" "18.27. Choosing notable locale objects for something".
-Document act_plp at doc314 "18.28" "18.28. Printing a locale paragraph about".
-Document act_ds ph_placecontentsinscope ph_placeinscope at doc315 "18.29" "18.29. Deciding the scope of something".
-Document act_clarify at doc316 "18.30" "18.30. Clarifying the parser's choice of something".
-Document act_which at doc317 "18.31" "18.31. Asking which do you mean".
-Document act_smn at doc318 "18.32" "18.32. Supplying a missing noun/second noun".
-Document act_reading kind_snippet ph_changecommand ph_cutsnippet ph_rejectcommand ph_replacesnippet ph_snippetdoesnotinclude ph_snippetdoesnotmatch ph_snippetincludes ph_snippetmatches var_command at doc319 "18.33" "18.33. Reading a command".
-Document PM_PropertyNotPermitted at doc32 "3.7" "3.7. Properties depend on kind".
-Document act_implicitly at doc320 "18.34" "18.34. Implicitly taking something".
-Document act_parsererror at doc321 "18.35" "18.35. Printing a parser error".
-Document act_all at doc322 "18.36" "18.36. Deciding whether all includes".
-Document act_banner phs_banner at doc323 "18.37" "18.37. Printing the banner text".
-Document act_obit at doc324 "18.38" "18.38. Printing the player's obituary".
-Document act_amuse at doc325 "18.39" "18.39. Amusing a victorious player".
-Document act_startvm at doc326 "18.40" "18.40. Starting the virtual machine".
-Document PM_RulebookWithAt PM_RulebookWithDefinition PM_RulebookWithTo RULEBOOKS kind_rule kind_rulebook at doc327 "19.1" "19.1. On rules".
-Document PM_BadRulePreamble PM_BadRulePreambleWhen PM_RuleWithDefiniteArticle PM_RuleWithoutColon at doc329 "19.3" "19.3. New rules".
-Document PM_BadRulePlacementNegation PM_ImproperRulePlacement PM_NoSuchRuleExists PM_PlaceWithMissingRule PM_UnspecifiedRulebookPlacement RLISTING at doc330 "19.4" "19.4. Listing rules explicitly".
-Document rules_proc at doc331 "19.5" "19.5. Changing the behaviour of rules".
-Document NEWRULEBOOKS ph_follow at doc334 "19.8" "19.8. New rulebooks".
-Document ph_followfor at doc335 "19.9" "19.9. Basis of a rulebook".
-Document PM_RulebookVariableAnd PM_RulebookVariableBadKind PM_RulebookVariableTooSpecific PM_RulebookVariableVague at doc336 "19.10" "19.10. Rulebook variables".
-Document PM_BadDefaultOutcome PM_DefaultOutcomeTwice ph_failed ph_fails ph_nodecision ph_succeeded ph_succeeds at doc337 "19.11" "19.11. Success and failure".
-Document PM_BadOutcomeClarification PM_DefaultNamedOutcomeTwice PM_DefaultOutcomeAlready PM_DuplicateOutcome PM_MisplacedRulebookOutcome PM_NonOutcomeProperty PM_WrongEndToPhrase ph_rulebookoutcome at doc338 "19.12" "19.12. Named outcomes".
-Document ph_producedby ph_producedbyfor ph_succeedswith at doc339 "19.13" "19.13. Rulebooks producing values".
-Document PM_CantChangeEverywhere PM_EverywhereMisapplied PM_EverywhereNonBackdrop kind_backdrop at doc34 "3.9" "3.9. Backdrops".
-Document ph_abide ph_abideanon ph_abidefor at doc340 "19.14" "19.14. Abide by".
-Document rules_internal at doc341 "19.15" "19.15. Two rulebooks used internally".
-Document ph_charnum ph_linenum ph_numchars ph_numlines ph_numparas ph_numpwords ph_numupwords ph_numwords ph_paranum ph_pwordnum ph_upwordnum ph_wordnum at doc345 "20.3" "20.3. Characters, words, punctuated words, unpunctuated words, lines, paragraphs".
-Document ph_inlower ph_inupper ph_lowercase ph_sentencecase ph_titlecase ph_uppercase at doc346 "20.4" "20.4. Upper and lower case letters".
-Document ph_exactlymatches ph_matches ph_nummatches at doc347 "20.5" "20.5. Matching and exactly matching".
-Document ph_exactlymatchesre ph_matchesre ph_matchtext ph_nummatchesre ph_subexpressiontext at doc348 "20.6" "20.6. Regular expression matching".
-Document ph_subform at doc349 "20.7" "20.7. Making new text with text substitutions".
-Document ph_replace ph_replacechar ph_replaceline ph_replacepara ph_replacepword ph_replacepwordin ph_replacere ph_replaceupword ph_replaceword ph_replacewordin at doc350 "20.8" "20.8. Replacements".
-Document kind_listof at doc352 "21.1" "21.1. Lists and entries".
-Document PM_BadConstantListEntry PM_CantLetEmptyList PM_IncompatibleConstantListEntry PM_NonconstantConstantListEntry at doc353 "21.2" "21.2. Constant lists".
-Document phs_listbraced phs_listdef phs_listindef at doc354 "21.3" "21.3. Saying lists of values".
-Document ph_islistedin ph_isnotlistedin ph_repeatlist at doc355 "21.4" "21.4. Testing and iterating over lists".
-Document ph_addatentry ph_addlistatentry ph_addlisttolist ph_addtolist ph_rementries ph_rementry ph_remfromlist ph_remlistfromlist at doc356 "21.5" "21.5. Building lists".
-Document ph_listofdesc at doc357 "21.6" "21.6. Lists of objects".
-Document ph_reverselist ph_rotatelist ph_rotatelistback ph_sortlist ph_sortlistproperty ph_sortlistpropertyreverse ph_sortlistrandom ph_sortlistreverse at doc359 "21.8" "21.8. Sorting, reversing and rotating lists".
-Document PM_TextWithoutSubject PM_TwoAppearances at doc36 "3.11" "3.11. Two descriptions of things".
-Document ph_numberentries at doc360 "21.9" "21.9. Accessing entries in a list".
-Document ph_changelength ph_extend ph_truncate ph_truncatefirst ph_truncatelast at doc361 "21.10" "21.10. Lengthening or shortening a list".
-Document kind_description ph_valuematch at doc364 "22.2" "22.2. Descriptions as values".
-Document ph_applied0 ph_applied1 ph_applied2 ph_applied3 ph_apply0 ph_apply1 ph_apply2 ph_apply3 at doc365 "22.3" "22.3. Phrases as values".
-Document ph_appliedlist ph_filter ph_reduction at doc367 "22.5" "22.5. Map, filter and reduce".
-Document PM_BadMapCell PM_BothWaysDoor PM_DoorInThirdRoom PM_DoorOverconnected PM_DoorToNonRoom PM_DoorUnconnected PM_RoomMissingDoor kind_door ph_backside ph_directionofdoor ph_frontside ph_othersideof at doc37 "3.12" "3.12. Doors".
-Document PM_UnknownVirtualMachine at doc375 "23.3" "23.3. Virtual machines and story file formats".
-Document FIGURES kind_figurename at doc376 "23.4" "23.4. Gathering the figures".
-Document PM_PictureDuplicate PM_PictureNotTextual at doc377 "23.5" "23.5. Declaring and previewing the figures".
-Document ph_displayfigure at doc378 "23.6" "23.6. Displaying the figures".
-Document SOUNDS kind_soundname at doc379 "23.7" "23.7. Recorded sounds".
-Document PM_SoundDuplicate PM_SoundNotTextual ph_playsf at doc380 "23.8" "23.8. Declaring and playing back sounds".
-Document ph_figureid ph_soundid at doc382 "23.10" "23.10. Some technicalities about figures and sounds".
-Document EFILES at doc383 "23.11" "23.11. Files".
-Document PM_BadFileIFID PM_BadFileOwner PM_FilenameDuplicate PM_FilenameNotTextual PM_FilenameUnsafe kind_externalfile at doc384 "23.12" "23.12. Declaring files".
-Document ph_fileexists ph_readtable ph_writetable at doc385 "23.13" "23.13. Writing and reading tables to external files".
-Document ph_appendtext ph_saytext ph_writetext at doc386 "23.14" "23.14. Writing, reading and appending text to files".
-Document ph_fileready ph_markfilenotready ph_markfileready at doc387 "23.15" "23.15. Exchanging files with other programs".
-Document kind_device at doc39 "3.14" "3.14. Devices and descriptions".
-Document PM_BadEpisode at doc397 "25.2" "25.2. Bibliographic data".
-Document LCARDS at doc399 "25.4" "25.4. The Library Card".
-Document PM_NoStartRoom PM_StartsOutsideRooms at doc4 "1.4" "1.4. The Go! button".
-Document IFIDS at doc400 "25.5" "25.5. The Treaty of Babel and the IFID".
-Document PM_NoSuchPublicRelease release_files at doc401 "25.6" "25.6. The Release button and the Materials folder".
-Document PM_ReleaseAlong at doc402 "25.7" "25.7. The Joy of Feelies".
-Document release_cover at doc403 "25.8" "25.8. Cover art".
-Document release_booklet release_postcard at doc404 "25.9" "25.9. An introductory booklet and postcard".
-Document release_website at doc405 "25.10" "25.10. A website".
-Document release_interpreter at doc406 "25.11" "25.11. A playable web page".
-Document kind_vehicle at doc41 "3.16" "3.16. Vehicles and pushable things".
-Document PM_RoomInIgnoredSource at doc410 "25.15" "25.15. Republishing existing works of IF".
-Document release_solution at doc411 "25.16" "25.16. Walkthrough solutions".
-Document release_card release_source at doc412 "25.17" "25.17. Releasing the source text".
-Document MAPHINTS PM_MapBadRubric PM_MapDirectionClue PM_MapFromNonRoom PM_MapHintUnknown PM_MapLevelMisnamed PM_MapNonLateral PM_MapPlacement PM_MapPlacementDirection PM_MapSettingOfUnknown PM_MapSettingTooLong PM_MapSettingTypeFailed PM_MapSettingUnknown PM_MapToNonRoom PM_MapUnknownColour PM_MapUnknownOffset PM_MapUnknownOffsetBase at doc413 "25.18" "25.18. Improving the index map".
-Document EPSMAP at doc414 "25.19" "25.19. Producing an EPS format map".
-Document kind_person at doc42 "3.17" "3.17. Men, women and animals".
-Document EXTENSIONS at doc430 "27.1" "27.1. The status of extensions".
-Document SRULES at doc431 "27.2" "27.2. The Standard Rules".
-Document PM_ExtBeginsAfterEndsHere PM_ExtEndsWithoutBegins PM_ExtMultipleBeginsHere PM_ExtMultipleEndsHere PM_ExtNoBeginsHere PM_ExtNoEndsHere at doc434 "27.5" "27.5. A simple example extension".
-Document PM_ExtNoVersion PM_ExtVersionTooLow phs_compextcredits phs_extcredits at doc435 "27.6" "27.6. Version numbering".
-Document PM_HeadingInPlaceOfUnincluded PM_HeadingInPlaceOfUnknown PM_UnequalHeadingInPlaceOf at doc438 "27.9" "27.9. Extensions can interact with other extensions".
-Document PM_ImplicationCertain PM_ImplicationValueProperty at doc442 "27.13" "27.13. Implications".
-Document PM_BadInlineExpansion PM_BadInlineTag PM_InlineRule PM_InlineTooLong PM_UnendingI6 at doc444 "27.15" "27.15. Defining phrases in Inform 6".
-Document PM_BadObjectTranslation at doc450 "27.21" "27.21. Inform 6 objects and classes".
-Document PM_NonPropertyTranslated PM_NonQuantityTranslated PM_QuantityTranslatedAlready PM_TranslatedToNonIdentifier PM_TranslatedTwice PM_TranslatedUnknownCategory PM_TranslatesActionAlready PM_TranslatesNonAction at doc451 "27.22" "27.22. Inform 6 variables, properties, actions, and attributes".
-Document PM_GrammarTranslatedAlready at doc452 "27.23" "27.23. Inform 6 Understand tokens".
-Document PM_UnicodeAlready PM_UnicodeNonLiteral PM_UnicodeOutOfRange at doc454 "27.25" "27.25. Naming Unicode characters".
-Document PM_BadI6Inclusion PM_BeforeTheLibrary PM_NoSuchPart PM_NoSuchTemplate PM_WhenDefiningUnknown at doc455 "27.26" "27.26. The template layer".
-Document PM_LabelNamespaceTooLong at doc458 "27.29" "27.29. Invocation labels, counters and storage".
-Document kind_player's at doc46 "3.21" "3.21. The player's holdall".
-Document PM_PartOfRoom PM_RoomOrDoorAsPart at doc48 "3.23" "3.23. Parts of things".
-Document ph_locationof at doc50 "3.25" "3.25. The location of something".
-Document PM_DirectionTooLong PM_ImproperlyMadeDirection PM_NamelessDirection PM_TooManyDirections kind_direction at doc51 "3.26" "3.26. Directions".
-Document NEWKINDS at doc52 "4.1" "4.1. New kinds".
-Document PM_PluralIsQuoted PM_PluralOfQuoted at doc55 "4.4" "4.4. Plural assertions".
-Document KINDSVALUE at doc56 "4.5" "4.5. Kinds of value".
-Document PM_ValueCantHaveProperties PM_ValueCantHaveVProperties at doc57 "4.6" "4.6. Properties again".
-Document PM_EitherOrAsValue PM_MiscellaneousEOProblem PM_NonObjectCanBe PM_QualifiedCanBe PM_ThisIsEitherOr at doc58 "4.7" "4.7. New either/or properties".
-Document PM_BadProvides PM_BadVisibilityWhen PM_PropertyCalledArticle PM_PropertyCalledPresence PM_PropertyKindClashes PM_PropertyKindUnknown PM_PropertyKindVague PM_PropertyNameForbidden PM_PropertyOfKind1 PM_PropertyTooSpecific PM_PropertyUninitialisable PM_RedundantThatVaries at doc59 "4.8" "4.8. New value properties".
-Document PM_EitherOnThree at doc61 "4.10" "4.10. Conditions of things".
-Document ph_defaultvalue at doc62 "4.11" "4.11. Default values of kinds".
-Document PM_EmptyKind VARIABLES var_location at doc63 "4.12" "4.12. Values that vary".
-Document PM_TooManyDuplicates at doc65 "4.14" "4.14. Duplicates".
-Document PM_AssemblyLoop PM_AssemblyRegress PM_ComplexEvery at doc66 "4.15" "4.15. Assemblies and body parts".
-Document PM_TSWithComma PM_TSWithPunctuation at doc69 "5.1" "5.1. Text with substitutions".
-Document phs_apostrophe phs_bracket phs_closebracket phs_quotemark at doc70 "5.2" "5.2. How Inform reads quoted text".
-Document ph_say phs_A phs_The phs_a phs_the at doc71 "5.3" "5.3. Text which names things".
-Document phs_numwords phs_s at doc72 "5.4" "5.4. Text with numbers".
-Document phs_Alistof phs_Thelistof phs_alistof phs_alistofconts phs_isalistof phs_islistof phs_isthelistof phs_listof phs_thelistof at doc73 "5.5" "5.5. Text with lists".
-Document PM_SayEndIfWithoutSayIf PM_SayIfNested PM_SayOtherwiseWithoutIf phs_elseif phs_elseunless phs_endif phs_endunless phs_if phs_otherwise phs_unless at doc74 "5.6" "5.6. Text with variations".
-Document PM_ComplicatedSayStructure PM_ComplicatedSayStructure2 PM_ComplicatedSayStructure3 PM_ComplicatedSayStructure4 PM_ComplicatedSayStructure5 phs_cycling phs_decreasing phs_firsttime phs_oneof phs_or phs_order phs_purelyrandom phs_random phs_sticky phs_stopping phs_thenpurelyrandom phs_thenrandom at doc75 "5.7" "5.7. Text with random alternatives".
-Document ph_breakpending phs_clarifbreak phs_condparabreak phs_linebreak phs_nolinebreak phs_parabreak phs_runparaon phs_runparaonsls at doc76 "5.8" "5.8. Line breaks and paragraph breaks".
-Document phs_bold phs_fixedspacing phs_italic phs_roman phs_varspacing at doc77 "5.9" "5.9. Text with type styles".
-Document PM_MidTextUnicode PM_SayUnicode at doc79 "5.11" "5.11. Unicode characters".
-Document ph_boxed at doc80 "5.12" "5.12. Displaying quotations".
-Document DESCRIPTIONS ph_numberof at doc82 "6.1" "6.1. What are descriptions?".
-Document PM_AdjDomainSlippery PM_AdjDomainSurreal PM_AdjDomainUnknown PM_ArticleAsAdjective PM_DefinitionBadCondition PM_DefinitionWithoutCondition at doc85 "6.4" "6.4. Defining new adjectives".
-Document PM_ComparativeMisapplied PM_GradingCalled PM_GradingMisphrased PM_GradingNonLiteral PM_GradingUnknownProperty PM_GradingUnless PM_GradingWrongKOV PM_MultiwordGrading at doc88 "6.7" "6.7. Comparatives".
-Document PM_OutOfPlay at doc91 "6.10" "6.10. Existence and there".
-Document ph_bestroute ph_bestroutelength ph_bestroutethrough ph_bestroutethroughlength ph_doordirof ph_roomdirof ph_roomordoor at doc95 "6.14" "6.14. Adjacent rooms and routes through the map".
-Document PM_ComplexDeterminer at doc96 "6.15" "6.15. All, each and every".
-Document ACTIONS PM_APUnknown PM_APWithNoParticiple PM_NonActionIn kind_actionname at doc98 "7.1" "7.1. Actions".
-Document rules_instead at doc99 "7.2" "7.2. Instead rules".
-[...and so on...]
+Part One - Preamble
 
-Use ineffectual translates as (- ! Use ineffectual does nothing. -).
+The verb to begin when means the built-in scene-begins-when meaning.
+The verb to end when means the built-in scene-ends-when meaning.
+The verb to end + when means the built-in scene-ends-when meaning.
 
-Use interactive fiction language elements.
+The verb to understand + as in the imperative means the built-in understand-as meaning.
+The verb to release along with in the imperative means the built-in release-along-with meaning.
+The verb to index map with in the imperative means the built-in index-map-with meaning.
 
-Use ALLOC_CHUNK_SIZE of 32000.
-Use MAX_ARRAYS of 10000.
-Use MAX_CLASSES of 200.
-Use MAX_VERBS of 255.
-Use MAX_LABELS of 10000.
-Use MAX_ZCODE_SIZE of 500000.
-Use MAX_STATIC_DATA of 180000.
-Use MAX_PROP_TABLE_SIZE of 200000.
-Use MAX_INDIV_PROP_TABLE_SIZE of 20000.
-Use MAX_STACK_SIZE of 65536.
-Use MAX_SYMBOLS of 20000.
-Use MAX_EXPRESSION_NODES of 256.
-Use MAX_LABELS of 200000.
-Use MAX_LOCAL_VARIABLES of 256.
-
-Use dynamic memory allocation of at least 8192 translates as
-	(- Constant DynamicMemoryAllocation = {N}; -).
-Use maximum text length of at least 1024 translates as
-	(- Constant TEXT_TY_BufferSize = {N}+3; -).
-Use index figure thumbnails of at least 50 translates as
-	(- Constant MAX_FIGURE_THUMBNAILS_IN_INDEX = {N}; -).
-
-Use dynamic memory allocation of at least 8192.
-
-Use maximum things understood at once of at least 100 translates as
-	(- Constant MATCH_LIST_WORDS = {N}; -).
-
-Use maximum things understood at once of at least 100.
-
-Use American dialect translates as (- Constant DIALECT_US; -).
-Use the serial comma translates as (- Constant SERIAL_COMMA; -).
+Use command line echoing translates as (- Constant ECHO_COMMANDS; -).
 Use full-length room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 2; #ENDIF; -).
 Use abbreviated room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 3; #ENDIF; -).
-Use memory economy translates as (- Constant MEMORY_ECONOMY; -).
-Use authorial modesty translates as (- Constant AUTHORIAL_MODESTY; -).
 Use scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 1; #ENDIF; -).
 Use no scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 0; #ENDIF; -).
-Use engineering notation translates as (- Constant USE_E_NOTATION = 0; -).
-Use unabbreviated object names translates as (- Constant UNABBREVIATED_OBJECT_NAMES = 0; -).
-Use command line echoing translates as (- Constant ECHO_COMMANDS; -).
 Use manual pronouns translates as (- Constant MANUAL_PRONOUNS; -).
 Use undo prevention translates as (- Constant PREVENT_UNDO; -).
-Use predictable randomisation translates as (- Constant FIX_RNG; -).
-Use fast route-finding translates as (- Constant FAST_ROUTE_FINDING; -).
-Use slow route-finding translates as (- Constant SLOW_ROUTE_FINDING; -).
-Use numbered rules translates as (- Constant NUMBERED_RULES; -).
-Use telemetry recordings translates as (- Constant TELEMETRY_ON; -).
-Use no deprecated features translates as (- Constant NO_DEPRECATED_FEATURES; -).
-Use gn testing version translates as (- Constant GN_TESTING_VERSION; -).
 Use VERBOSE room descriptions translates as (- Constant DEFAULT_VERBOSE_DESCRIPTIONS; -).
 Use BRIEF room descriptions translates as (- Constant DEFAULT_BRIEF_DESCRIPTIONS; -).
 Use SUPERBRIEF room descriptions translates as (- Constant DEFAULT_SUPERBRIEF_DESCRIPTIONS; -).
 
+Use maximum things understood at once of at least 100 translates as
+	(- Constant MATCH_LIST_WORDS = {N}; -).
+Use maximum things understood at once of at least 100.
 
-Part SR1 - The Physical World Model
+Part Two - The Physical World Model
 
-Section SR1/0 - Language
-
-The verb to be means the equality relation.
-
-The verb to have means the possession relation.
-
-The verb to relate means the universal relation.
-
-The verb to mean means the meaning relation.
-
-The verb to provide means the provision relation.
+Chapter 1 - Verbs and Relations
 
 The verb to be in means the reversed containment relation.
 The verb to be inside means the reversed containment relation.
@@ -402,37 +76,25 @@ Definition: Something is on-stage rather than off-stage if I6 routine "OnStage"
 	makes it so (it is indirectly in one of the rooms).
 Definition: Something is offstage if it is off-stage.
 
-The verb to be greater than means the numerically-greater-than relation.
-The verb to be less than means the numerically-less-than relation.
-The verb to be at least means the numerically-greater-than-or-equal-to relation.
-The verb to be at most means the numerically-less-than-or-equal-to relation.
+Definition: a scene is happening if I6 condition "scene_status-->(*1-1)==1"
+	says so (it is currently taking place).
 
-Section SR1/1 - Primitive Kinds
+Chapter 2 - Kinds for the Physical World
 
-A room is a kind. [1]
-A thing is a kind. [2]
-A direction is a kind. [3]
-A door is a kind of thing. [4]
-A container is a kind of thing. [5]
-A supporter is a kind of thing. [6]
-A backdrop is a kind of thing. [7]
+Section 1 - Kind Definitions
+
+A room is a kind.
+A thing is a kind.
+A direction is a kind.
+A door is a kind of thing.
+A container is a kind of thing.
+A supporter is a kind of thing.
+A backdrop is a kind of thing.
 The plural of person is people. The plural of person is persons.
-A person is a kind of thing. [8]
-A region is a kind. [9]
+A person is a kind of thing.
+A region is a kind.
 
-An object has a text called specification.
-An object has a text called indefinite appearance text.
-An object has a value called variable initial value.
-An object has a text called list grouping key.
-
-An object has a text called printed name.
-An object has a text called printed plural name.
-An object has a text called an indefinite article.
-An object can be plural-named or singular-named. An object is usually singular-named.
-An object can be proper-named or improper-named. An object is usually improper-named.
-An object can be ambiguously plural.
-
-Section SR1/2 - Rooms
+Section 2 - Rooms
 
 The specification of room is "Represents geographical locations, both indoor
 and outdoor, which are not necessarily areas in a building. A player in one
@@ -462,7 +124,7 @@ and are optional."
 
 A region can be privately-named or publicly-named. A region is usually publicly-named.
 
-Section SR1/3 - Things
+Section 3 - Things
 
 The specification of thing is "Represents anything interactive in the model
 world that is not a room. People, pieces of scenery, furniture, doors and
@@ -479,7 +141,7 @@ A thing can be pushable between rooms.
 A thing can be handled.
 
 A thing can be privately-named or publicly-named. A thing is usually publicly-named.
-A thing can be described or undescribed. A thing is usually described.
+A thing can be undescribed or described. A thing is usually described.
 A thing can be marked for listing or unmarked for listing. A thing is usually
 unmarked for listing.
 A thing can be mentioned or unmentioned. A thing is usually mentioned.
@@ -489,7 +151,7 @@ A thing has a text called an initial appearance.
 
 Scenery is usually fixed in place. [An implication.]
 
-Section SR1/4 - Directions
+Section 4 - Directions
 
 The specification of direction is "Represents a direction of movement, such
 as northeast or down. They always occur in opposite, matched pairs: northeast
@@ -499,12 +161,9 @@ A direction can be privately-named or publicly-named. A direction is usually
 publicly-named.
 A direction can be marked for listing or unmarked for listing. A direction is
 usually unmarked for listing.
+A direction can be scenery. A direction is always scenery.
 
 A direction has a direction called an opposite.
-
-Include (-
-	has scenery, ! class CompassDirection,
--) when defining a direction.
 
 The north is a direction.
 The northeast is a direction.
@@ -532,15 +191,15 @@ Down has opposite up. Understand "d" as down.
 Inside has opposite outside. Understand "in" as inside.
 Outside has opposite inside. Understand "out" as outside.
 
-The inside object translates into I6 as "in_obj".
-The outside object translates into I6 as "out_obj".
+The inside object translates into Inter as "in_obj".
+The outside object translates into Inter as "out_obj".
 
-The verb to be above means the reversed mapping up relation.
-The verb to be mapped above means the reversed mapping up relation.
-The verb to be below means the reversed mapping down relation.
-The verb to be mapped below means the reversed mapping down relation.
+The verb to be above means the mapping up relation.
+The verb to be mapped above means the mapping up relation.
+The verb to be below means the mapping down relation.
+The verb to be mapped below means the mapping down relation.
 
-Section SR1/5 - Doors
+Section 5 - Doors
 
 The specification of door is "Represents a conduit joining two rooms, most
 often a door or gate but sometimes a plank bridge, a slide or a hatchway.
@@ -551,14 +210,13 @@ the long slide. Through the long slide is the cellar.')."
 
 A door is always fixed in place.
 A door is never pushable between rooms.
-Include (- has door, -) when defining a door.
 
-A door has an object called other side.
-The other side property translates into I6 as "door_to".
-Leading-through relates one room (called the other side) to various doors.
-The verb to be through means the leading-through relation.
+A door has an object called leading-through destination.
+The leading-through destination property translates into Inter as "door_to".
+Leading-through relates one room (called the leading-through destination) to
+various doors. The verb to be through means the leading-through relation.
 
-Section SR1/6 - Containers
+Section 6 - Containers
 
 The specification of container is "Represents something into which portable
 things can be put, such as a teachest or a handbag. Something with a really
@@ -566,13 +224,11 @@ large immobile interior, such as the Albert Hall, had better be a room
 instead."
 
 A container can be enterable.
-A container can be opaque or transparent. A container is usually opaque.
+A container can be transparent or opaque. A container is usually opaque.
 A container has a number called carrying capacity.
 The carrying capacity of a container is usually 100.
 
-Include (- has container, -) when defining a container.
-
-Section SR1/7 - Supporters
+Section 7 - Supporters
 
 The specification of supporter is "Represents a surface on which things can be
 placed, such as a table."
@@ -582,12 +238,9 @@ A supporter has a number called carrying capacity.
 The carrying capacity of a supporter is usually 100.
 
 A supporter is usually fixed in place.
+A supporter can be transparent. A supporter is always transparent.
 
-Include (-
-	has transparent supporter
--) when defining a supporter.
-
-Section SR1/8 - Openability
+Section 8 - Openability
 
 A door can be open or closed. A door is usually closed.
 A door can be openable or unopenable. A door is usually openable.
@@ -595,7 +248,7 @@ A door can be openable or unopenable. A door is usually openable.
 A container can be open or closed. A container is usually open.
 A container can be openable or unopenable. A container is usually unopenable.
 
-Section SR1/9 - Lockability
+Section 9 - Lockability
 
 A door can be lockable. A door is usually not lockable.
 A door can be locked or unlocked. A door is usually unlocked.
@@ -614,7 +267,7 @@ A lockable container is usually openable. [An implication.]
 Lock-fitting relates one thing (called the matching key) to various things.
 The verb to unlock means the lock-fitting relation.
 
-Section SR1/10 - Backdrops
+Section 10 - Backdrops
 
 The specification of backdrop is "Represents an aspect of the landscape
 or architecture which extends across more than one room: for instance,
@@ -624,11 +277,11 @@ A backdrop is usually scenery.
 A backdrop is always fixed in place.
 A backdrop is never pushable between rooms.
 
-Section SR1/11 - People
+Section 11 - People
 
-The specification of person is "Despite the name, not necessarily
-a human being, but anything animate enough to envisage having a
-conversation with, or bartering with."
+The specification of person is "Despite the name, not necessarily a human
+being, but anything animate enough to envisage having a conversation with, or
+bartering with."
 
 A person can be female or male. A person is usually male.
 A person can be neuter. A person is usually not neuter.
@@ -636,10 +289,7 @@ A person can be neuter. A person is usually not neuter.
 A person has a number called carrying capacity.
 The carrying capacity of a person is usually 100.
 
-Include (-
-	has transparent animate
-	with before NULL,
--) when defining a person.
+A person can be transparent. A person is always transparent.
 
 The yourself is an undescribed person. The yourself is proper-named.
 
@@ -649,12 +299,9 @@ Understand "your former self" or "my former self" or "former self" or
 
 The description of yourself is usually "As good-looking as ever."
 
-The yourself object translates into I6 as "selfobj".
-Include (-
-	with saved_short_name (+ "yourself" +),
- -) when defining yourself.
+The yourself object translates into Inter as "selfobj".
 
-Section SR1/12 - Animals, men and women
+Section 12 - Animals, men and women
 
 The plural of man is men. The plural of woman is women.
 
@@ -672,17 +319,16 @@ The specification of animal is "Represents an animal, or at any rate a
 non-human living creature reasonably large and possible to interact with: a
 giant Venus fly-trap might qualify, but not a patch of lichen."
 
-Section SR1/13 - Devices
+Section 13 - Devices
 
 A device is a kind of thing.
 
 A device can be switched on or switched off. A device is usually switched off.
-Include (- has switchable, -) when defining a device.
 
 The specification of device is "Represents a machine or contrivance of some
 kind which can be switched on or off."
 
-Section SR1/14 - Vehicles
+Section 14 - Vehicles
 
 A vehicle is a kind of container.
 
@@ -695,7 +341,7 @@ A vehicle is always enterable.
 
 A vehicle is usually not portable.
 
-Section SR1/15 - Player's holdall
+Section 15 - Player's holdall
 
 A player's holdall is a kind of container.
 
@@ -706,138 +352,124 @@ automatically stowed away."
 A player's holdall is always portable.
 A player's holdall is usually openable.
 
-Include (-
-	Constant RUCKSACK_CLASS = (+ player's holdall +);
--) after "Definitions.i6t".
+Section 16 - Inter identifier equivalents
 
-Section SR1/16 - Inform 6 equivalents
+The wearable property translates into Inter as "clothing".
+The undescribed property translates into Inter as "concealed".
+The edible property translates into Inter as "edible".
+The enterable property translates into Inter as "enterable".
+The female property translates into Inter as "female".
+The mentioned property translates into Inter as "mentioned".
+The lit property translates into Inter as "light".
+The lighted property translates into Inter as "light".
+The lockable property translates into Inter as "lockable".
+The locked property translates into Inter as "locked".
+The handled property translates into Inter as "moved".
+The neuter property translates into Inter as "neuter".
+The switched on property translates into Inter as "on".
+The open property translates into Inter as "open".
+The openable property translates into Inter as "openable".
+The privately-named property translates into Inter as "privately_named".
+The pushable between rooms property translates into Inter as "pushable".
+The scenery property translates into Inter as "scenery".
+The fixed in place property translates into Inter as "static".
+The transparent property translates into Inter as "transparent".
+The visited property translates into Inter as "visited".
+The marked for listing property translates into Inter as "workflag".
+The list grouping key property translates into Inter as "list_together".
 
-The wearable property translates into I6 as "clothing".
-The undescribed property translates into I6 as "concealed".
-The edible property translates into I6 as "edible".
-The enterable property translates into I6 as "enterable".
-The female property translates into I6 as "female".
-The mentioned property translates into I6 as "mentioned".
-The lit property translates into I6 as "light".
-The lighted property translates into I6 as "light".
-The lockable property translates into I6 as "lockable".
-The locked property translates into I6 as "locked".
-The handled property translates into I6 as "moved".
-The neuter property translates into I6 as "neuter".
-The switched on property translates into I6 as "on".
-The open property translates into I6 as "open".
-The openable property translates into I6 as "openable".
-The privately-named property translates into I6 as "privately_named".
-The plural-named property translates into I6 as "pluralname".
-The ambiguously plural property translates into I6 as "ambigpluralname".
-The proper-named property translates into I6 as "proper".
-The pushable between rooms property translates into I6 as "pushable".
-The scenery property translates into I6 as "scenery".
-The fixed in place property translates into I6 as "static".
-The transparent property translates into I6 as "transparent".
-The visited property translates into I6 as "visited".
-The marked for listing property translates into I6 as "workflag".
-The list grouping key property translates into I6 as "list_together".
-
-The indefinite article property translates into I6 as "article".
-The carrying capacity property translates into I6 as "capacity".
-The description property translates into I6 as "description".
-The initial appearance property translates into I6 as "initial".
-The map region property translates into I6 as "map_region".
-The printed plural name property translates into I6 as "plural".
-The printed name property translates into I6 as "short_name".
-The matching key property translates into I6 as "with_key".
+The carrying capacity property translates into Inter as "capacity".
+The description property translates into Inter as "description".
+The initial appearance property translates into Inter as "initial".
+The map region property translates into Inter as "map_region".
+The matching key property translates into Inter as "with_key".
 
 
-Part SR2 - Variables and Rulebooks
+Part Three - Variables and Rulebooks
 
-Section SR2/1 - Situation
+Chapter 1 - Variables
 
-The player is a person that varies. [*]
-The player variable translates into I6 as "player".
+Section 1 - Situation
 
-The location -- documented at var_location -- is an object that varies. [*]
+The player is a person that varies.
+The player variable translates into Inter as "player".
+
+The location -- documented at var_location -- is an object that varies.
 The score -- documented at var_score -- is a number that varies.
 The last notified score is a number that varies.
-The maximum score is a number that varies. [*]
+The maximum score is a number that varies.
 The turn count is a number that varies.
-The time of day -- documented at var_time -- is a time that varies. [*]
+The time of day -- documented at var_time -- is a time that varies.
 The darkness witnessed is a truth state that varies.
 
-The location variable translates into I6 as "real_location".
-The score variable translates into I6 as "score".
-The last notified score variable translates into I6 as "last_score".
-The maximum score variable translates into I6 as "MAX_SCORE".
-The turn count variable translates into I6 as "turns".
-The time of day variable translates into I6 as "the_time".
+The location variable translates into Inter as "real_location".
+The score variable translates into Inter as "score".
+The last notified score variable translates into Inter as "last_score".
+The maximum score variable translates into Inter as "MAX_SCORE".
+The turn count variable translates into Inter as "turns".
+The time of day variable translates into Inter as "the_time".
 
-Section SR2/2 - Current action
+Section 2 - Current action
 
-The noun -- documented at var_noun -- is an object that varies. [*]
-The second noun is an object that varies. [*]
-The person asked -- documented at var_person_asked -- is an object that varies. [*]
-The reason the action failed -- documented at var_reason -- is an action name
+The noun -- documented at var_noun -- is an object that varies.
+The second noun is an object that varies.
+The person asked -- documented at var_person_asked -- is an object that varies.
+The reason the action failed -- documented at var_reason -- is an action
 based rule producing nothing that varies.
 The item described is an object that varies.
 
-The noun variable translates into I6 as "noun".
-The second noun variable translates into I6 as "second".
-The person asked variable translates into I6 as "actor".
-The reason the action failed variable translates into I6 as "reason_the_action_failed".
-The item described variable translates into I6 as "self".
+The noun variable translates into Inter as "noun".
+The second noun variable translates into Inter as "second".
+The person asked variable translates into Inter as "actor".
+The reason the action failed variable translates into Inter as "reason_the_action_failed".
+The item described variable translates into Inter as "self".
 
-Section SR2/3 - Used when ruling on accessibility
+Section 3 - Used when ruling on accessibility
 
 The person reaching -- documented at var_person_reaching -- is an object that varies.
 The container in question is an object that varies.
 The supporter in question is an object that varies.
 The particular possession -- documented at var_particular -- is a thing that varies.
 
-The person reaching variable translates into I6 as "actor".
-The container in question variable translates into I6 as "parameter_object".
-The supporter in question variable translates into I6 as "parameter_object".
-The particular possession variable translates into I6 as "particular_possession".
+The person reaching variable translates into Inter as "actor".
+The container in question variable translates into Inter as "parameter_object".
+The supporter in question variable translates into Inter as "parameter_object".
+The particular possession variable translates into Inter as "particular_possession".
 
-Section SR2/4 - Used when understanding typed commands
+Section 4 - Used when understanding typed commands
 
 The player's command -- documented at var_command -- is a snippet that varies.
 The matched text is a snippet that varies.
-The number understood -- documented at var_understood -- is a number that varies. [*]
-The real number understood -- documented at var_understood -- is a real number that varies. [*]
-The time understood is a time that varies. [*]
-The topic understood is a snippet that varies. [*]
-The truth state understood is a truth state that varies. [*]
+The topic understood is a snippet that varies.
 The current item from the multiple object list is an object that varies.
 
-The player's command variable translates into I6 as "players_command".
-The matched text variable translates into I6 as "matched_text".
-The topic understood variable translates into I6 as "parsed_number".
-The current item from the multiple object list variable translates into I6 as
+The player's command variable translates into Inter as "players_command".
+The matched text variable translates into Inter as "matched_text".
+The topic understood variable translates into Inter as "parsed_number".
+The current item from the multiple object list variable translates into Inter as
 	"multiple_object_item".
 
-Section SR2/5 - Presentation on screen
+Section 5 - Presentation on screen
 
-The command prompt -- documented at var_prompt -- is a text that varies. [**]
+The command prompt -- documented at var_prompt -- is a text that varies.
 The command prompt is ">".
 
 The left hand status line -- documented at var_sl -- is a text that varies.
 The right hand status line is a text that varies.
 
-The left hand status line variable translates into I6 as "left_hand_status_line".
-The right hand status line variable translates into I6 as "right_hand_status_line".
+The left hand status line variable translates into Inter as "left_hand_status_line".
+The right hand status line variable translates into Inter as "right_hand_status_line".
 
 The listing group size is a number that varies.
-The listing group size variable translates into I6 as "listing_size".
+The listing group size variable translates into Inter as "listing_size".
 
-Section SR2/6 - Language generation
-
-A natural language is a kind of value.
-The language of play is a natural language that varies.
+Section 6 - Language generation
 
 The prior named object is an object that varies.
-The prior named object variable translates into I6 as "prior_named_noun".
+The prior named object variable translates into Inter as "prior_named_noun".
+An object has a text called list grouping key.
 
-Section SR2/6a - Unindexed Standard Rules variables - Unindexed
+Section 7 - Unindexed Standard Rules variables - Unindexed
 
 The story title, the story author, the story headline, the story genre
 and the story description are text variables. [*****]
@@ -847,107 +479,83 @@ The release number is usually 1.
 The story headline is usually "An Interactive Fiction".
 The story genre is usually "Fiction".
 
-The story title variable translates into I6 as "Story".
+The story title variable translates into Inter as "Story".
 
 Section SR2/6b - Unindexed Standard Rules variables - Unindexed (for figures language element only)
 
 Figure of cover is the file of cover art ("The cover art.").
 
-Section SR2/6c - Unindexed Standard Rules variables - Unindexed
+Section 8 - Unindexed Standard Rules variables - Unindexed
 
-The I6-nothing-constant is an object that varies. [*]
-The I6-nothing-constant variable translates into I6 as "nothing".
+The I6-nothing-constant is an object that varies.
+The I6-nothing-constant variable translates into Inter as "nothing".
 
-The I6-varying-global is an object that varies. [*]
-The I6-varying-global variable translates into I6 as "nothing".
+The I6-varying-global is an object that varies.
+The I6-varying-global variable translates into Inter as "nothing".
 
 The item-pushed-between-rooms is an object that varies.
-The item-pushed-between-rooms variable translates into I6 as "move_pushing".
+The item-pushed-between-rooms variable translates into Inter as "move_pushing".
 
 The actor-location is an object that varies. [*]
-The actor-location variable translates into I6 as "actor_location".
-
-The parameter-object is an object that varies. [*]
-The parameter-object variable translates into I6 as "parameter_value".
+The actor-location variable translates into Inter as "actor_location".
 
 The scene being changed is a scene that varies. [*]
-The scene being changed variable translates into I6 as "parameter_value".
+The scene being changed variable translates into Inter as "parameter_value".
 
-Section SR2/7 - The Standard Rulebooks
+Chapter 2 - Rulebooks
 
-Startup rules is a rulebook. [0]
-Turn sequence rules is a rulebook. [1]
-Shutdown rules is a rulebook. [2]
+Section 1 - The Standard Rulebooks
 
-Scene changing rules is a rulebook. [3]
-When play begins is a rulebook. [4]
-When play ends is a rulebook. [5]
-When scene begins is a scene based rulebook. [6]
-When scene ends is a scene based rulebook. [7]
-Every turn rules is a rulebook. [8]
+Turn sequence rules is a rulebook.
 
-Action-processing rules is a rulebook. [9]
+Scene changing rules is a rulebook.
+When play begins is a rulebook.
+When play ends is a rulebook.
+When scene begins is a scene based rulebook.
+When scene ends is a scene based rulebook.
+Every turn rules is a rulebook.
+
+Action-processing rules is a rulebook.
 The action-processing rulebook has a person called the actor.
-Setting action variables is a rulebook. [10]
-The specific action-processing rules is a rulebook. [11]
+Setting action variables is a rulebook.
+The specific action-processing rules is a rulebook.
 The specific action-processing rulebook has a truth state called action in world.
 The specific action-processing rulebook has a truth state called action keeping silent.
 The specific action-processing rulebook has a rulebook called specific check rulebook.
 The specific action-processing rulebook has a rulebook called specific carry out rulebook.
 The specific action-processing rulebook has a rulebook called specific report rulebook.
 The specific action-processing rulebook has a truth state called within the player's sight.
-The player's action awareness rules is a rulebook. [12]
+The player's action awareness rules is a rulebook.
 
-Accessibility rules is a rulebook. [13]
-Reaching inside rules is an object-based rulebook. [14]
+Accessibility rules is a rulebook.
+Reaching inside rules is an object-based rulebook.
 Reaching inside rules have outcomes allow access (success) and deny access (failure).
-Reaching outside rules is an object-based rulebook. [15]
+Reaching outside rules is an object-based rulebook.
 Reaching outside rules have outcomes allow access (success) and deny access (failure).
-Visibility rules is a rulebook. [16]
+Visibility rules is a rulebook.
 Visibility rules have outcomes there is sufficient light (failure) and there is
 insufficient light (success).
 
-Persuasion rules is a rulebook. [17]
+Persuasion rules is a rulebook.
 Persuasion rules have outcomes persuasion succeeds (success) and persuasion fails (failure).
-Unsuccessful attempt by is a rulebook. [18]
+Unsuccessful attempt by is a rulebook.
 
-Before rules is a rulebook. [19]
-Instead rules is a rulebook. [20]
-Check rules is a rulebook. [21]
-Carry out rules is a rulebook. [22]
-After rules is a rulebook. [23]
-Report rules is a rulebook. [24]
+Before rules is a rulebook.
+Instead rules is a rulebook.
+Check rules is a rulebook.
+Carry out rules is a rulebook.
+After rules is a rulebook.
+Report rules is a rulebook.
 
-The does the player mean rules is a rulebook. [25]
+The does the player mean rules is a rulebook.
 The does the player mean rules have outcomes it is very likely, it is likely, it is possible,
 it is unlikely and it is very unlikely.
 
-Include (-
-	[ CheckDPMR result sinp1 sinp2 rv;
-		sinp1 = inp1; sinp2 = inp2; inp1 = noun; inp2 = second;
-		rv = FollowRulebook( (+does the player mean rules+) );
-		inp1 = sinp1; inp2 = sinp2;
-		if ((rv) && RulebookSucceeded()) {
-			result = ResultOfRule();
-			if (result == (+ it is very likely outcome +) ) return 4;
-			if (result == (+ it is likely outcome +) ) return 3;
-			if (result == (+ it is possible outcome +) ) return 2;
-			if (result == (+ it is unlikely outcome +) ) return 1;
-			if (result == (+ it is very unlikely outcome +) ) return 0;
-		}
-		return 2;
-	];
--).
+The multiple action processing rules is a rulebook.
 
-The multiple action processing rules is a rulebook. [26]
+Section 2 - The Standard Rules
 
-Section SR2/8 - The Standard Rules
-
-The little-used do nothing rule translates into I6 as "LITTLE_USED_DO_NOTHING_R".
-
-Include (-
-[ LITTLE_USED_DO_NOTHING_R; rfalse; ];
--).
+The little-used do nothing rule translates into Inter as "LITTLE_USED_DO_NOTHING_R".
 
 The start in the correct scenes rule is listed first in the startup rulebook. [7th.]
 The position player in model world rule is listed first in the startup rulebook. [6th.]
@@ -960,11 +568,11 @@ The seed random number generator rule is listed first in the startup rulebook. [
 The virtual machine startup rule is listed first in the startup rulebook. [2nd.]
 The initialise memory rule is listed first in the startup rulebook. [1st.]
 
-The virtual machine startup rule translates into I6 as "VIRTUAL_MACHINE_STARTUP_R".
-The initialise memory rule translates into I6 as "INITIALISE_MEMORY_R".
-The seed random number generator rule translates into I6 as "SEED_RANDOM_NUMBER_GENERATOR_R".
-The update chronological records rule translates into I6 as "UPDATE_CHRONOLOGICAL_RECORDS_R".
-The position player in model world rule translates into I6 as "POSITION_PLAYER_IN_MODEL_R".
+The virtual machine startup rule translates into Inter as "VIRTUAL_MACHINE_STARTUP_R".
+The initialise memory rule translates into Inter as "INITIALISE_MEMORY_R".
+The seed random number generator rule translates into Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
+The update chronological records rule translates into Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
+The position player in model world rule translates into Inter as "POSITION_PLAYER_IN_MODEL_R".
 
 This is the start in the correct scenes rule: follow the scene changing rules.
 
@@ -1001,17 +609,17 @@ This is the notify score changes rule:
 		issue score notification message;
 		now the last notified score is the score;
 
-The adjust light rule translates into I6 as "ADJUST_LIGHT_R" with
+The adjust light rule translates into Inter as "ADJUST_LIGHT_R" with
 	"[It] [are] [if story tense is present tense]now [end if]pitch dark in
 	[if story tense is present tense]here[else]there[end if]!" (A).
-The advance time rule translates into I6 as "ADVANCE_TIME_R".
-The generate action rule translates into I6 as "GENERATE_ACTION_R" with
+The advance time rule translates into Inter as "ADVANCE_TIME_R".
+The generate action rule translates into Inter as "GENERATE_ACTION_R" with
 	"(considering the first sixteen objects only)[command clarification break]" (A),
 	"Nothing to do!" (B).
 
-The note object acquisitions rule translates into I6 as "NOTE_OBJECT_ACQUISITIONS_R".
-The parse command rule translates into I6 as "PARSE_COMMAND_R".
-The timed events rule translates into I6 as "TIMED_EVENTS_R".
+The note object acquisitions rule translates into Inter as "NOTE_OBJECT_ACQUISITIONS_R".
+The parse command rule translates into Inter as "PARSE_COMMAND_R".
+The timed events rule translates into Inter as "TIMED_EVENTS_R".
 
 The when play ends stage rule is listed first in the shutdown rulebook.
 The resurrect player if asked rule is listed last in the shutdown rulebook.
@@ -1022,20 +630,20 @@ This is the when play ends stage rule: follow the when play ends rulebook.
 This is the print player's obituary rule:
 	carry out the printing the player's obituary activity.
 
-The resurrect player if asked rule translates into I6 as "RESURRECT_PLAYER_IF_ASKED_R".
-The ask the final question rule translates into I6 as "ASK_FINAL_QUESTION_R".
+The resurrect player if asked rule translates into Inter as "RESURRECT_PLAYER_IF_ASKED_R".
+The ask the final question rule translates into Inter as "ASK_FINAL_QUESTION_R".
 
 The scene change machinery rule is listed last in the scene changing rulebook.
 
-The scene change machinery rule translates into I6 as "DetectSceneChange".
+The scene change machinery rule translates into Inter as "SCENE_CHANGE_MACHINERY_R".
 
-Section SR2/9 - The Entire Game scene
+Section 3 - The Entire Game scene
 
 The Entire Game is a scene.
 The Entire Game begins when the story has not ended.
 The Entire Game ends when the story has ended.
 
-Section SR2/10 - Action processing
+Section 4 - Action processing
 
 The before stage rule is listed first in the action-processing rules. [3rd.]
 The set pronouns from items from multiple object lists rule is listed first in the
@@ -1064,18 +672,18 @@ This is the instead stage rule: abide by the instead rules.
 
 This is the end action-processing in success rule: rule succeeds.
 
-The basic accessibility rule translates into I6 as "BASIC_ACCESSIBILITY_R" with
+The basic accessibility rule translates into Inter as "BASIC_ACCESSIBILITY_R" with
 	"You must name something more substantial." (A).
-The basic visibility rule translates into I6 as "BASIC_VISIBILITY_R" with
+The basic visibility rule translates into Inter as "BASIC_VISIBILITY_R" with
 	"[It] [are] pitch dark, and [we] [can't see] a thing." (A).
-The carrying requirements rule translates into I6 as "CARRYING_REQUIREMENTS_R".
-The requested actions require persuasion rule translates into I6 as
+The carrying requirements rule translates into Inter as "CARRYING_REQUIREMENTS_R".
+The requested actions require persuasion rule translates into Inter as
 	"REQUESTED_ACTIONS_REQUIRE_R" with
 	 "[The noun] [have] better things to do." (A).
-The carry out requested actions rule translates into I6 as
+The carry out requested actions rule translates into Inter as
 	"CARRY_OUT_REQUESTED_ACTIONS_R" with
 	"[The noun] [are] unable to do that." (A).
-The descend to specific action-processing rule translates into I6 as
+The descend to specific action-processing rule translates into Inter as
 "DESCEND_TO_SPECIFIC_ACTION_R".
 
 The work out details of specific action rule is listed first in the specific
@@ -1108,7 +716,7 @@ A specific action-processing rule (this is the report stage rule):
 
 The last specific action-processing rule: rule succeeds.
 
-The work out details of specific action rule translates into I6 as
+The work out details of specific action rule translates into Inter as
 "WORK_OUT_DETAILS_OF_SPECIFIC_R".
 
 A player's action awareness rule
@@ -1124,11 +732,11 @@ A player's action awareness rule
 	(this is the player aware of actions on visible second nouns rule):
 	if the second noun is a thing and the player can see the second noun, rule succeeds.
 
-Section SR2/11 - Accessibility
+Section 5 - Accessibility
 
 The access through barriers rule is listed last in the accessibility rules.
 
-The access through barriers rule translates into I6 as
+The access through barriers rule translates into Inter as
 	"ACCESS_THROUGH_BARRIERS_R" with
 	"[regarding the noun][Those] [aren't] available." (A).
 
@@ -1136,16 +744,16 @@ The can't reach inside rooms rule is listed last in the reaching inside rules. [
 The can't reach inside closed containers rule is listed last in the reaching
 inside rules. [Last.]
 
-The can't reach inside closed containers rule translates into I6 as
+The can't reach inside closed containers rule translates into Inter as
 	"CANT_REACH_INSIDE_CLOSED_R" with
 	"[The noun] [aren't] open." (A).
-The can't reach inside rooms rule translates into I6 as
+The can't reach inside rooms rule translates into Inter as
 	"CANT_REACH_INSIDE_ROOMS_R" with
 	"[We] [can't] reach into [the noun]." (A).
 
 The can't reach outside closed containers rule is listed last in the reaching outside rules.
 
-The can't reach outside closed containers rule translates into I6 as
+The can't reach outside closed containers rule translates into Inter as
 	"CANT_REACH_OUTSIDE_CLOSED_R" with
 	"[The noun] [aren't] open." (A).
 
@@ -1157,98 +765,19 @@ Does the player mean taking something which is carried by the player
 	(this is the very unlikely to mean taking what's already carried rule):
 	it is very unlikely.
 
-Section SR2/12 - Adjectival definitions
-
-Definition: a number is even rather than odd if the remainder after dividing it by 2 is 0.
-Definition: a number is positive if it is greater than zero.
-Definition: a number is negative if it is less than zero.
-
-Definition: a text is empty rather than non-empty if I6 routine
-	"TEXT_TY_Empty" says so (it contains no characters).
-
-Definition: a text is substituted rather than unsubstituted if I6 routine
-	"TEXT_TY_IsSubstituted" says so (any square-bracketed text substitutions
-	in it have been made).
+Section 6 - Adjectival definitions
 
 A scene can be recurring or non-recurring. A scene is usually non-recurring.
 The Entire Game is recurring.
 
-Definition: a scene is happening if I6 condition "scene_status-->(*1-1)==1"
-	says so (it is currently taking place).
-
-Definition: a table name is empty rather than non-empty if the number of filled rows in it is 0.
-Definition: a table name is full rather than non-full if the number of blank rows in it is 0.
-
-Definition: a rulebook is empty rather than non-empty if I6 routine "RulebookEmpty" says so (it
-	contains no rules, so that following it does nothing and makes no decision).
-
-Definition: an activity is empty rather than non-empty if I6 routine "ActivityEmpty" says so (its
-	before, for and after rulebooks are all empty).
-Definition: an activity is going on if I6 routine "TestActivity" says so (one
-	of its three rulebooks is currently being run).
-
-Definition: a list of values is empty rather than non-empty if I6 routine
-	"LIST_OF_TY_Empty" says so (it contains no entries).
-
-Definition: a use option is active rather than inactive if I6 routine
-	"TestUseOption" says so (it has been requested in the source text).
-
-Definition: a relation is equivalence if I6 routine
-	"RELATION_TY_EquivalenceAdjective" makes it so (it is an equivalence
-	relation, that is, it relates in groups).
-
-Definition: a relation is symmetric if I6 routine
-	"RELATION_TY_SymmetricAdjective" makes it so (it is a symmetric relation,
-	that is, it's always true that X is related to Y if and only if Y is
-	related to X).
-
-Definition: a relation is one-to-one if I6 routine
-	"RELATION_TY_OToOAdjective" makes it so (it is a one-to-one relation,
-	that is, any given X can relate to only one Y, and vice versa).
-
-Definition: a relation is one-to-various if I6 routine
-	"RELATION_TY_OToVAdjective" makes it so (it is a one-to-various
-	relation, that is, any given Y has only one X such that X relates to Y).
-
-Definition: a relation is various-to-one if I6 routine
-	"RELATION_TY_VToOAdjective" makes it so (it is a various-to-one
-	relation, that is, any given X relates to only one Y).
-
-Definition: a relation is various-to-various if I6 routine
-	"RELATION_TY_VToVAdjective" makes it so (it is a
-	various-to-various relation, that is, there are no limitations on how many
-	X can relate to a given Y, or vice versa).
-
-Definition: a relation is empty rather than non-empty if I6 routine
-	"RELATION_TY_Empty" makes it so (it does not relate any values, that is,
-	R(x,y) is false for all x and y).
-
-Definition: a verb is modal rather than non-modal if I6 routine "VerbIsModal"
-	says so (it modifies the likelihood of another verb happening, rather than
-	being meaningful itself).
-
-Definition: a verb is meaningful rather than meaningless if I6 routine "VerbIsMeaningful"
-	says so (it has a meaning in Inform as a relation, rather than existing only to be
-	printed out).
-
-Section SR2/12a - Adjectival definitions (for Glulx only)
-
-Definition: a real number is positive if it is greater than zero.
-Definition: a real number is negative if it is less than zero.
-Definition: a real number is infinite rather than finite if it is plus infinity
-	or it is minus infinity.
-Definition: a real number is nonexistent rather than existent if I6 routine
-	"REAL_NUMBER_TY_Nan" says so (it results from an impossible calculation,
-	like the square root of minus one).
-
-Section SR2/13 - Scene descriptions
+Section 7 - Scene descriptions
 
 A scene has a text called description.
 When a scene (called the event) begins (this is the scene description text rule):
 	if the description of the event is not "",
 		say "[description of the event][paragraph break]".
 
-Section SR2/14 - Command parser errors
+Section 8 - Command parser errors
 
 A command parser error is a kind of value. The command parser errors are
 	didn't understand error,
@@ -1268,8 +797,8 @@ A command parser error is a kind of value. The command parser errors are
 	didn't understand the way that finished error,
 	not enough of those available error,
 	nothing to do error,
-	noun did not make sense in that context error,
 	referred to a determination of scope error,
+	noun did not make sense in that context error,
 	I beg your pardon error,
 	can't again the addressee error,
 	comma can't begin error,
@@ -1278,9 +807,11 @@ A command parser error is a kind of value. The command parser errors are
 	didn't understand addressee's last name error.
 
 The latest parser error is a command parser error that varies.
-The latest parser error variable translates into I6 as "etype".
+The latest parser error variable translates into Inter as "etype".
 
-The list writer internal rule translates into I6 as
+Section 9 - Responses for internal rules
+
+The list writer internal rule translates into Inter as
 	"LIST_WRITER_INTERNAL_R" with
 	" (" (A),
 	")" (B),
@@ -1308,7 +839,7 @@ The list writer internal rule translates into I6 as
 	"Nothing" (X),
 	"nothing" (Y).
 
-The action processing internal rule translates into I6 as
+The action processing internal rule translates into Inter as
 	"ACTION_PROCESSING_INTERNAL_R" with
 	"[bracket]That command asks to do something outside of play, so it can
     only make sense from you to me. [The noun] cannot be asked to do this.[close
@@ -1325,7 +856,7 @@ The action processing internal rule translates into I6 as
 	cut short.)" (J),
 	"I didn't understand that instruction." (K).
 
-The parser error internal rule translates into I6 as
+The parser error internal rule translates into Inter as
 	"PARSER_ERROR_INTERNAL_R" with
 	"I didn't understand that sentence." (A),
 	"I only understood you as far as wanting to " (B),
@@ -1354,7 +885,7 @@ The parser error internal rule translates into I6 as
 	"To talk to someone, try 'someone, hello' or some such." (W),
 	"I beg your pardon?" (X).
 
-The parser nothing error internal rule translates into I6 as
+The parser nothing error internal rule translates into Inter as
 	"PARSER_N_ERROR_INTERNAL_R" with
 	"Nothing to do!" (A),
 	"[There] [adapt the verb are from the third person plural] none at all available!" (B),
@@ -1363,17 +894,17 @@ The parser nothing error internal rule translates into I6 as
 	"[The noun] [aren't] open." (E),
 	"[The noun] [are] empty." (F).
 
-The darkness name internal rule translates into I6 as "DARKNESS_NAME_INTERNAL_R" with
+The darkness name internal rule translates into Inter as "DARKNESS_NAME_INTERNAL_R" with
 	"Darkness" (A).
 
-The parser command internal rule translates into I6 as
+The parser command internal rule translates into Inter as
 	"PARSER_COMMAND_INTERNAL_R" with
 	"Sorry, that can't be corrected." (A),
 	"Think nothing of it." (B),
 	"'Oops' can only correct a single word." (C),
 	"You can hardly repeat that." (D).
 
-The parser clarification internal rule translates into I6 as
+The parser clarification internal rule translates into Inter as
 	"PARSER_CLARIF_INTERNAL_R" with
 	"Who do you mean, " (A),
 	"Which do you mean, " (B),
@@ -1386,39 +917,37 @@ The parser clarification internal rule translates into I6 as
 	"that" (G),
 	" or " (H).
 
-The yes or no question internal rule translates into I6 as
+The yes or no question internal rule translates into Inter as
 	"YES_OR_NO_QUESTION_INTERNAL_R" with
 	"Please answer yes or no." (A).
 
-The print protagonist internal rule translates into I6 as
+The print protagonist internal rule translates into Inter as
 	"PRINT_PROTAGONIST_INTERNAL_R" with
 	"[We]" (A),
 	"[ourselves]" (B),
 	"[our] former self" (C).
 
-Part SR3 - Activities
+Part Four - Activities
 
-Section SR3/1 - Definitions
+Section 1 - Responses
 
-Printing the name of something (documented at act_pn) is an activity. [0]
+Issuing the response text of something -- documented at act_resp -- is an
+activity on responses.
+
+The standard issuing the response text rule is listed last in for issuing the
+response text.
+
+The standard issuing the response text rule translates into Inter as
+"STANDARD_RESPONSE_ISSUING_R".
+
+Section 2 - Naming and Listing
 
 Before printing the name of a thing (called the item being printed)
 	(this is the make named things mentioned rule):
 	if expanding text for comparison purposes, continue the activity;
 	now the item being printed is mentioned.
 
-The standard name printing rule is listed last in the for printing the name rulebook.
-The standard name printing rule translates into I6 as "STANDARD_NAME_PRINTING_R".
-
-Printing the plural name of something (documented at act_ppn) is an activity. [1]
-
-Rule for printing the plural name of something (called the item) (this is the standard
-	printing the plural name rule):
-	say the printed plural name of the item.
-The standard printing the plural name rule is listed last in the for printing
-the plural name rulebook.
-
-Printing a number of something (documented at act_pan) is an activity. [2]
+Printing a number of something (documented at act_pan) is an activity.
 
 Rule for printing a number of something (called the item) (this is the standard
 	printing a number of something rule):
@@ -1427,23 +956,23 @@ Rule for printing a number of something (called the item) (this is the standard
 The standard printing a number of something rule is listed last in the for printing
 a number rulebook.
 
-Printing room description details of something (documented at act_details) is an activity. [3]
-Printing inventory details of something (documented at act_idetails) is an activity. [4]
+Printing room description details of something (documented at act_details) is an activity.
+Printing inventory details of something (documented at act_idetails) is an activity.
 
-Listing contents of something (documented at act_lc) is an activity. [5]
+Listing contents of something (documented at act_lc) is an activity.
 The standard contents listing rule is listed last in the for listing contents rulebook.
-The standard contents listing rule translates into I6 as "STANDARD_CONTENTS_LISTING_R".
-Grouping together something (documented at act_gt) is an activity. [6]
+The standard contents listing rule translates into Inter as "STANDARD_CONTENTS_LISTING_R".
+Grouping together something (documented at act_gt) is an activity.
 
-Writing a paragraph about something (documented at act_wpa) is an activity. [7]
+Writing a paragraph about something (documented at act_wpa) is an activity.
 
-Listing nondescript items of something (documented at act_lni) is an activity. [8]
+Listing nondescript items of something (documented at act_lni) is an activity.
 
-Printing the name of a dark room (documented at act_darkname) is an activity. [9]
-Printing the description of a dark room (documented at act_darkdesc) is an activity. [10]
-Printing the announcement of darkness (documented at act_nowdark) is an activity. [11]
-Printing the announcement of light (documented at act_nowlight) is an activity. [12]
-Printing a refusal to act in the dark (documented at act_toodark) is an activity. [13]
+Printing the name of a dark room (documented at act_darkname) is an activity.
+Printing the description of a dark room (documented at act_darkdesc) is an activity.
+Printing the announcement of darkness (documented at act_nowdark) is an activity.
+Printing the announcement of light (documented at act_nowlight) is an activity.
+Printing a refusal to act in the dark (documented at act_toodark) is an activity.
 
 The look around once light available rule is listed last in for printing the
 announcement of light.
@@ -1451,23 +980,25 @@ announcement of light.
 This is the look around once light available rule:
 	try looking.
 
-Constructing the status line (documented at act_csl) is an activity. [14]
-Printing the banner text (documented at act_banner) is an activity. [15]
+Constructing the status line (documented at act_csl) is an activity.
+Printing the banner text (documented at act_banner) is an activity.
 
-Reading a command (documented at act_reading) is an activity. [16]
-Deciding the scope of something (future action) (documented at act_ds) is an activity. [17]
-Deciding the concealed possessions of something (documented at act_con) is an activity. [18]
+Section 3 - Command parsing
+
+Reading a command (documented at act_reading) is an activity.
+Deciding the scope of something (future action) (documented at act_ds) is an activity.
+Deciding the concealed possessions of something (documented at act_con) is an activity.
 Deciding whether all includes something (future action) (documented at act_all)
-	is an activity. [19]
+	is an activity.
 The for deciding whether all includes rules have outcomes it does not (failure) and
 	it does (success).
 Clarifying the parser's choice of something (future action) (documented at act_clarify)
-	is an activity. [20]
-Asking which do you mean (future action) (documented at act_which) is an activity. [21]
-Printing a parser error (documented at act_parsererror) is an activity. [22]
-Supplying a missing noun (documented at act_smn) is an activity. [23]
-Supplying a missing second noun (documented at act_smn) is an activity. [24]
-Implicitly taking something (documented at act_implicitly) is an activity. [25]
+	is an activity.
+Asking which do you mean (future action) (documented at act_which) is an activity.
+Printing a parser error (documented at act_parsererror) is an activity.
+Supplying a missing noun (documented at act_smn) is an activity.
+Supplying a missing second noun (documented at act_smn) is an activity.
+Implicitly taking something (documented at act_implicitly) is an activity.
 
 Rule for deciding whether all includes scenery while taking or taking off or
 	removing (this is the exclude scenery from take all rule): it does not.
@@ -1477,8 +1008,8 @@ Rule for deciding whether all includes fixed in place things while taking or
 	taking off or removing (this is the exclude fixed in place things from
 	take all rule): it does not.
 Rule for deciding whether all includes things enclosed by the person reaching
-	while taking or taking off or removing (this is the exclude indirect
-	possessions from take all rule): it does not.
+	while taking or taking off (this is the exclude indirect possessions from
+	take all rule): it does not.
 Rule for deciding whether all includes a person while dropping or throwing
 	or inserting or putting (this is the exclude people from drop all rule):
 	it does not.
@@ -1494,36 +1025,32 @@ Rule for supplying a missing noun while an actor going (this is the block vaguel
 
 The standard implicit taking rule is listed last in for implicitly taking.
 
-The standard implicit taking rule translates into I6 as "STANDARD_IMPLICIT_TAKING_R" with
+The standard implicit taking rule translates into Inter as "STANDARD_IMPLICIT_TAKING_R" with
 	"(first taking [the noun])[command clarification break]" (A),
 	"([the second noun] first taking [the noun])[command clarification break]" (B).
 
-Starting the virtual machine (documented at act_startvm) is an activity. [26]
+Section 4 - Posthumous activities
 
-The enable Glulx acceleration rule is listed first in for starting the virtual machine.
+Amusing a victorious player (documented at act_amuse) is an activity.
 
-The enable Glulx acceleration rule translates into I6 as "ENABLE_GLULX_ACCEL_R".
-
-Amusing a victorious player (documented at act_amuse) is an activity. [27]
-
-Printing the player's obituary (documented at act_obit) is an activity. [28]
+Printing the player's obituary (documented at act_obit) is an activity.
 The print obituary headline rule is listed last in for printing the player's obituary.
 The print final score rule is listed last in for printing the player's obituary.
 The display final status line rule is listed last in for printing the player's obituary.
 
-The print obituary headline rule translates into I6 as "PRINT_OBITUARY_HEADLINE_R"
+The print obituary headline rule translates into Inter as "PRINT_OBITUARY_HEADLINE_R"
 	with " You have died " (A),
 		" You have won " (B),
 		" The End " (C).
-The print final score rule translates into I6 as "PRINT_FINAL_SCORE_R".
-The display final status line rule translates into I6 as "DISPLAY_FINAL_STATUS_LINE_R".
+The print final score rule translates into Inter as "PRINT_FINAL_SCORE_R".
+The display final status line rule translates into Inter as "DISPLAY_FINAL_STATUS_LINE_R".
 
-Handling the final question is an activity. [29]
+Handling the final question is an activity.
 
-The immediately restart the VM rule translates into I6 as "IMMEDIATELY_RESTART_VM_R".
-The immediately restore saved game rule translates into I6 as "IMMEDIATELY_RESTORE_SAVED_R".
-The immediately quit rule translates into I6 as "IMMEDIATELY_QUIT_R".
-The immediately undo rule translates into I6 as "IMMEDIATELY_UNDO_R" with
+The immediately restart the VM rule translates into Inter as "IMMEDIATELY_RESTART_VM_R".
+The immediately restore saved game rule translates into Inter as "IMMEDIATELY_RESTORE_SAVED_R".
+The immediately quit rule translates into Inter as "IMMEDIATELY_QUIT_R".
+The immediately undo rule translates into Inter as "IMMEDIATELY_UNDO_R" with
 	"The use of 'undo' is forbidden in this story." (A),
 	"You can't 'undo' what hasn't been done!" (B),
 	"Your interpreter does not provide 'undo'. Sorry!" (C),
@@ -1538,9 +1065,9 @@ The standard respond to final question rule is listed last in for handling the f
 
 This is the print the final prompt rule: say "> [run paragraph on]" (A).
 
-The read the final answer rule translates into I6 as "READ_FINAL_ANSWER_R".
+The read the final answer rule translates into Inter as "READ_FINAL_ANSWER_R".
 
-Section SR3/2 - Final Question
+Section 5 - The Final Question
 
 This is the print the final question rule:
 	let named options count be 0;
@@ -1577,7 +1104,7 @@ This is the standard respond to final question rule:
 					rule succeeds;
 	say "Please give one of the answers above." (A).
 
-Section SR3/3 - Final question options
+Section 6 - Final question options
 
 Table of Final Question Options
 final question wording	only if victorious	topic		final response rule		final response activity
@@ -1587,7 +1114,7 @@ final question wording	only if victorious	topic		final response rule		final resp
 "QUIT"					false				"quit"		immediately quit rule	--
 "UNDO the last command"	false				"undo"		immediately undo rule	--
 
-Section SR3/4 - Locale descriptions - Unindexed
+Section 7 - Locale descriptions - Unindexed
 
 Table of Locale Priorities
 notable-object (an object)	locale description priority (a number)
@@ -1599,10 +1126,10 @@ To describe locale for (O - object):
 
 To set the/-- locale priority of (O - an object) to (N - a number):
 	if O is a thing:
-		if N <= 0, now O is mentioned;
+		if N is at most 0, now O is mentioned;
 		if there is a notable-object of O in the Table of Locale Priorities:
 			choose row with a notable-object of O in the Table of Locale Priorities;
-			if N <= 0, blank out the whole row;
+			if N is at most 0, blank out the whole row;
 			otherwise now the locale description priority entry is N;
 		otherwise:
 			if N is greater than 0:
@@ -1610,7 +1137,7 @@ To set the/-- locale priority of (O - an object) to (N - a number):
 				now the notable-object entry is O;
 				now the locale description priority entry is N;
 
-Printing the locale description of something (documented at act_pld) is an activity. [30]
+Printing the locale description of something (documented at act_pld) is an activity.
 
 The locale paragraph count is a number that varies.
 
@@ -1679,7 +1206,7 @@ For printing the locale description (this is the you-can-also-see rule):
 			end the listing nondescript items activity with the domain;
 	continue the activity.
 
-Choosing notable locale objects of something (documented at act_cnlo) is an activity. [31]
+Choosing notable locale objects of something (documented at act_cnlo) is an activity.
 
 For choosing notable locale objects (this is the standard notable locale objects rule):
 	let the domain be the parameter-object;
@@ -1689,7 +1216,7 @@ For choosing notable locale objects (this is the standard notable locale objects
 		now the held item is the next thing held after the held item;
 	continue the activity.
 
-Printing a locale paragraph about something (documented at act_plp) is an activity. [32]
+Printing a locale paragraph about something (documented at act_plp) is an activity.
 
 For printing a locale paragraph about a thing (called the item)
 	(this is the don't mention player's supporter in room descriptions rule):
@@ -1794,19 +1321,10 @@ For printing a locale paragraph about a thing (called the item)
 			say ".[paragraph break]";
 	continue the activity.
 
-Issuing the response text of something -- documented at act_resp -- is an
-activity on responses. [33]
 
-The standard issuing the response text rule is listed last in for issuing the
-response text.
+Part Five - Actions
 
-The standard issuing the response text rule translates into I6 as
-"STANDARD_RESPONSE_ISSUING_R".
-
-
-Part SR4 - Actions
-
-Section SR4/1 - Verbs needed for adaptive text
+Section 1 - Verbs needed for adaptive text
 
 To achieve is a verb. To appreciate is a verb. To arrive is a verb. To care is a verb.
 To close is a verb. To die is a verb. To discover is a verb. To drop is a verb.
@@ -1822,10 +1340,10 @@ To switch is a verb. To take is a verb. To talk is a verb. To taste is a verb.
 To touch is a verb. To turn is a verb. To wait is a verb. To wave is a verb.
 To win is a verb.
 
-Section SR4/2 - Standard actions concerning the actor's possessions
+Section 2 - Standard actions concerning the actor's possessions
 
 Taking inventory is an action applying to nothing.
-The taking inventory action translates into I6 as "Inv".
+The taking inventory action translates into Inter as "Inv".
 
 The specification of the taking inventory action is "Taking an inventory of
 one's immediate possessions: the things being carried, either directly or in
@@ -1851,7 +1369,7 @@ Report an actor taking inventory (this is the report other people taking
 		say "[The actor] [look] through [their] possessions." (A);
 
 Taking is an action applying to one thing.
-The taking action translates into I6 as "Take".
+The taking action translates into Inter as "Take".
 
 The specification of the taking action is "The taking action is the only way
 an action in the Standard Rules can cause something to be carried by an actor.
@@ -1964,7 +1482,7 @@ Report an actor taking (this is the standard report taking rule):
 			say "[The actor] [pick] up [the noun]." (B).
 
 Removing it from is an action applying to two things.
-The removing it from action translates into I6 as "Remove".
+The removing it from action translates into Inter as "Remove".
 
 The specification of the removing it from action is "Removing is not really
 an action in its own right. Whereas there are many ways to put something down
@@ -1998,7 +1516,7 @@ The can't take component parts rule is listed before the can't remove what's not
 inside rule in the check removing it from rules.
 
 Dropping is an action applying to one thing.
-The dropping action translates into I6 as "Drop".
+The dropping action translates into Inter as "Drop".
 
 The specification of the dropping action is "Dropping is one of five actions
 by which an actor can get rid of something carried: the others are inserting
@@ -2074,7 +1592,7 @@ Report an actor dropping (this is the standard report dropping rule):
 			say "[The actor] [put] down [the noun]." (B);
 
 Putting it on is an action applying to two things.
-The putting it on action translates into I6 as "PutOn".
+The putting it on action translates into Inter as "PutOn".
 
 The specification of the putting it on action is "By this action, an actor puts
 something he is holding on top of a supporter: for instance, putting an apple
@@ -2137,7 +1655,7 @@ Report an actor putting something on (this is the standard report putting rule):
 		say "[The actor] [put] [the noun] on [the second noun]." (A).
 
 Inserting it into is an action applying to two things.
-The inserting it into action translates into I6 as "Insert".
+The inserting it into action translates into Inter as "Insert".
 
 The specification of the inserting it into action is "By this action, an actor puts
 something he is holding into a container: for instance, putting a coin into a
@@ -2148,12 +1666,11 @@ Check an actor inserting something into (this is the convert insert to drop wher
 	if the second noun is down or the actor is in the second noun,
 		convert to the dropping action on the noun.
 
-Check an actor inserting something into (this is the can't insert what's not held rule):
-	if the actor is carrying the noun, continue the action;
-	if the actor is wearing the noun, continue the action;
-	carry out the implicitly taking activity with the noun;
-	if the actor is carrying the noun, continue the action;
-	stop the action.
+Check an actor inserting something into (this is the can't insert what's already inserted rule):
+	if the noun is in the second noun:
+		if the actor is the player:
+			say "[The noun] [are] already there." (A);
+		stop the action.
 
 Check an actor inserting something into (this is the can't insert something into itself rule):
 	let the noun-CPC be the component parts core of the noun;
@@ -2163,6 +1680,13 @@ Check an actor inserting something into (this is the can't insert something into
 		if the actor is the player:
 			say "[We] [can't put] something inside itself." (A);
 		stop the action.
+
+Check an actor inserting something into (this is the can't insert what's not held rule):
+	if the actor is carrying the noun, continue the action;
+	if the actor is wearing the noun, continue the action;
+	carry out the implicitly taking activity with the noun;
+	if the actor is carrying the noun, continue the action;
+	stop the action.
 
 Check an actor inserting something into (this is the can't insert into closed containers rule):
 	if the second noun is a closed container:
@@ -2209,7 +1733,7 @@ Report an actor inserting something into (this is the standard report inserting 
 		say "[The actor] [put] [the noun] into [the second noun]." (A).
 
 Eating is an action applying to one thing.
-The eating action translates into I6 as "Eat".
+The eating action translates into Inter as "Eat".
 
 The specification of the eating action is "Eating is the only one of the
 built-in actions which can, in effect, destroy something: the carry out
@@ -2237,10 +1761,14 @@ Check an actor eating (this is the can't eat clothing without removing it first 
 		if the actor is wearing the noun, stop the action.
 
 Check an actor eating (this is the can't eat other people's food rule):
-	if the noun is enclosed by a person (called the owner) who is not the actor:
-		if the actor is the player:
-			say "[The owner] [might not appreciate] that." (A);
-		stop the action.
+	if the actor does not hold the noun and the noun is enclosed by a person:
+		let the owner be the holder of the noun;
+		while the owner is not a person:
+			now the owner is the holder of the owner;
+		if the owner is not the actor:
+			if the actor is the player and the action is not silent:
+				say "[The owner] [might not appreciate] that." (A);
+			stop the action;
 
 Check an actor eating (this is the can't eat portable food without carrying it rule):
 	if the noun is portable and the actor is not carrying the noun:
@@ -2257,10 +1785,10 @@ Report an actor eating (this is the standard report eating rule):
 		otherwise:
 			say "[The actor] [eat] [the noun]." (B).
 
-Section SR4/3 - Standard actions which move the actor
+Section 3 - Standard actions which move the actor
 
 Going is an action applying to one visible thing.
-The going action translates into I6 as "Go".
+The going action translates into Inter as "Go".
 
 The specification of the going action is "This is the action which allows people
 to move from one room to another, using whatever map connections and doors are
@@ -2431,7 +1959,7 @@ Report an actor going (this is the describe room gone into rule):
 		say ".";
 
 Entering is an action applying to one thing.
-The entering action translates into I6 as "Enter".
+The entering action translates into Inter as "Enter".
 
 The specification of the entering action is "Whereas the going action allows
 people to move from one location to another in the model world, the entering
@@ -2567,7 +2095,7 @@ Report an actor entering (this is the describe contents entered into rule):
 	if the actor is the player, describe locale for the noun.
 
 Exiting is an action applying to nothing.
-The exiting action translates into I6 as "Exit".
+The exiting action translates into Inter as "Exit".
 The exiting action has an object called the container exited from (matched as "from").
 
 The specification of the exiting action is "Whereas the going action allows
@@ -2581,7 +2109,7 @@ entering works for either containers or supporters, exiting is purely for
 getting oneself out of containers: if the actor is on top of a supporter
 instead, an exiting action is converted to the getting off action."
 
-Setting action variables for exiting:
+Setting action variables for exiting (this is the standard set exiting variables rule):
 	now the container exited from is the holder of the actor.
 
 Check an actor exiting (this is the convert exit into go out rule):
@@ -2629,7 +2157,7 @@ Report an actor exiting (this is the describe room emerged into rule):
 		produce a room description with going spacing conventions.
 
 Getting off is an action applying to one thing.
-The getting off action translates into I6 as "GetOff".
+The getting off action translates into Inter as "GetOff".
 
 The specification of the getting off action is "The getting off action is for
 actors who are currently on top of a supporter: perhaps standing on a platform,
@@ -2658,10 +2186,10 @@ Report an actor getting off (this is the describe room stood up into rule):
 	if the actor is the player,
 		produce a room description with going spacing conventions.
 
-Section SR4/4 - Standard actions concerning the actor's vision
+Section 4 - Standard actions concerning the actor's vision
 
 Looking is an action applying to nothing.
-The looking action translates into I6 as "Look".
+The looking action translates into Inter as "Look".
 
 The specification of the looking action is "The looking action describes the
 player's current room and any visible items, but is made more complicated
@@ -2789,7 +2317,7 @@ Report an actor looking (this is the other people looking rule):
 		say "[The actor] [look] around." (A).
 
 Examining is an action applying to one visible thing and requiring light.
-The examining action translates into I6 as "Examine".
+The examining action translates into Inter as "Examine".
 
 The specification of the examining action is "The act of looking closely at
 something. Note that the noun could be either a direction or a thing, which
@@ -2844,7 +2372,7 @@ Carry out examining (this is the examine supporters rule):
 			now examine text printed is true.
 
 Carry out examining (this is the examine devices rule):
-	if the noun is a device:
+	if the noun provides the property switched on:
 		say "[The noun] [are] [if story tense is present tense]currently [end if]switched
 			[if the noun is switched on]on[otherwise]off[end if]." (A);
 		now examine text printed is true.
@@ -2858,7 +2386,7 @@ Report an actor examining (this is the report other people examining rule):
 		say "[The actor] [look] closely at [the noun]." (A).
 
 Looking under is an action applying to one visible thing and requiring light.
-The looking under action translates into I6 as "LookUnder".
+The looking under action translates into Inter as "LookUnder".
 
 The specification of the looking under action is "The standard Inform world
 model does not have a concept of things being under other things, so this
@@ -2883,7 +2411,7 @@ Report an actor looking under (this is the report other people looking under rul
 			say "[The actor] [look] under [the noun]." (A).
 
 Searching is an action applying to one thing and requiring light.
-The searching action translates into I6 as "Search".
+The searching action translates into Inter as "Search".
 
 The specification of the searching action is "Searching looks at the contents
 of an open or transparent container, or at the items on top of a supporter.
@@ -2936,7 +2464,7 @@ Report an actor searching (this is the report other people searching rule):
 		say "[The actor] [search] [the noun]." (A).
 
 Consulting it about is an action applying to one thing and one topic.
-The consulting it about action translates into I6 as "Consult".
+The consulting it about action translates into Inter as "Consult".
 
 The specification of the consulting it about action is "Consulting is a very
 flexible and potentially powerful action, but only because it leaves almost
@@ -2955,10 +2483,10 @@ Report an actor consulting something about (this is the block consulting rule):
 	otherwise:
 		say "[The actor] [look] at [the noun]." (B);
 
-Section SR4/5 - Standard actions which change the state of things
+Section 5 - Standard actions which change the state of things
 
 Locking it with is an action applying to one thing and one carried thing.
-The locking it with action translates into I6 as "Lock".
+The locking it with action translates into Inter as "Lock".
 
 The specification of the locking it with action is "Locking is the act of
 using an object such as a key to ensure that something such as a door or
@@ -3029,7 +2557,7 @@ Report an actor locking something with (this is the standard report locking rule
 			say "[The actor] [lock] [the noun]." (B);
 
 Unlocking it with is an action applying to one thing and one carried thing.
-The unlocking it with action translates into I6 as "Unlock".
+The unlocking it with action translates into Inter as "Unlock".
 
 The specification of the unlocking it with action is "Unlocking undoes the
 effect of locking, and renders the noun openable again provided that the
@@ -3092,7 +2620,7 @@ Report an actor unlocking something with (this is the standard report unlocking 
 			say "[The actor] [unlock] [the noun]." (B);
 
 Switching on is an action applying to one thing.
-The switching on action translates into I6 as "SwitchOn".
+The switching on action translates into Inter as "SwitchOn".
 
 The specification of the switching on action is "The switching on and switching
 off actions are for the simplest kind of machinery operation: they are for
@@ -3123,7 +2651,7 @@ Report an actor switching on (this is the standard report switching on rule):
 		say "[The actor] [switch] [the noun] on." (A).
 
 Switching off is an action applying to one thing.
-The switching off action translates into I6 as "SwitchOff".
+The switching off action translates into Inter as "SwitchOff".
 
 The specification of the switching off action is "The switching off and switching
 on actions are for the simplest kind of machinery operation: they are for
@@ -3154,7 +2682,7 @@ Report an actor switching off (this is the standard report switching off rule):
 		say "[The actor] [switch] [the noun] off." (A).
 
 Opening is an action applying to one thing.
-The opening action translates into I6 as "Open".
+The opening action translates into Inter as "Open".
 
 The specification of the opening action is "Opening makes something no longer
 a physical barrier. The action can be performed on any kind of thing which
@@ -3225,7 +2753,7 @@ Report an actor opening (this is the standard report opening rule):
 		say "[The noun] [open]." (C);
 
 Closing is an action applying to one thing.
-The closing action translates into I6 as "Close".
+The closing action translates into Inter as "Close".
 
 The specification of the closing action is "Closing makes something into
 a physical barrier. The action can be performed on any kind of thing which
@@ -3272,7 +2800,7 @@ Report an actor closing (this is the standard report closing rule):
 		say "[The noun] [close]." (C);
 
 Wearing is an action applying to one carried thing.
-The wearing action translates into I6 as "Wear".
+The wearing action translates into Inter as "Wear".
 
 The specification of the wearing action is "The Standard Rules give Inform
 only a simple model of clothing. A thing can be worn only if it has the
@@ -3315,7 +2843,7 @@ Report an actor wearing (this is the standard report wearing rule):
 		say "[The actor] [put] on [the noun]." (B).
 
 Taking off is an action applying to one thing.
-The taking off action translates into I6 as "Disrobe".
+The taking off action translates into Inter as "Disrobe".
 
 Does the player mean taking off something worn: it is very likely.
 
@@ -3353,10 +2881,10 @@ Report an actor taking off (this is the standard report taking off rule):
 	otherwise:
 		say "[The actor] [take] off [the noun]." (B).
 
-Section SR4/6 - Standard actions concerning other people
+Section 6 - Standard actions concerning other people
 
 Giving it to is an action applying to one carried thing and one thing.
-The giving it to action translates into I6 as "Give".
+The giving it to action translates into Inter as "Give".
 
 The specification of the giving it to action is "This action is indexed by
 Inform under 'Actions concerning other people', but it could just as easily
@@ -3424,7 +2952,7 @@ Report an actor giving something to (this is the standard report giving rule):
 		say "[The actor] [give] [the noun] to [the second noun]." (C).
 
 Showing it to is an action applying to one carried thing and one visible thing.
-The showing it to action translates into I6 as "Show".
+The showing it to action translates into Inter as "Show".
 
 The specification of the showing it to action is "Anyone can show anyone
 else something which they are carrying, but not some nearby piece of
@@ -3459,7 +2987,7 @@ Check an actor showing something to (this is the block showing rule):
 	stop the action.
 
 Waking is an action applying to one thing.
-The waking action translates into I6 as "WakeOther".
+The waking action translates into Inter as "WakeOther".
 
 The specification of the waking action is "This is the act of jostling
 a sleeping person to wake him or her up, and it finds its way into the
@@ -3475,7 +3003,7 @@ Check an actor waking (this is the block waking rule):
 	stop the action.
 
 Throwing it at is an action applying to one carried thing and one visible thing.
-The throwing it at action translates into I6 as "ThrowAt".
+The throwing it at action translates into Inter as "ThrowAt".
 
 The specification of the throwing it at action is "Throwing something at
 someone or something is difficult for Inform to model. So many considerations
@@ -3519,7 +3047,7 @@ Check an actor throwing something at (this is the block throwing at rule):
 	stop the action.
 
 Attacking is an action applying to one thing.
-The attacking action translates into I6 as "Attack".
+The attacking action translates into Inter as "Attack".
 
 The specification of the attacking action is "Violence is seldom the answer,
 and attempts to attack another person are normally blocked as being unrealistic
@@ -3535,7 +3063,7 @@ Check an actor attacking (this is the block attacking rule):
 	stop the action.
 
 Kissing is an action applying to one thing.
-The kissing action translates into I6 as "Kiss".
+The kissing action translates into Inter as "Kiss".
 
 The specification of the kissing action is "Possibly because Inform was
 originally written by an Englishman, attempts at kissing another person are
@@ -3555,7 +3083,7 @@ Check an actor kissing (this is the block kissing rule):
 	stop the action.
 
 Answering it that is an action applying to one thing and one topic.
-The answering it that action translates into I6 as "Answer".
+The answering it that action translates into Inter as "Answer".
 
 The specification of the answering it that action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3585,7 +3113,7 @@ Report an actor answering something that (this is the block answering rule):
 	stop the action.
 
 Telling it about is an action applying to one thing and one topic.
-The telling it about action translates into I6 as "Tell".
+The telling it about action translates into Inter as "Tell".
 
 The specification of the telling it about action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3617,7 +3145,7 @@ Report an actor telling something about (this is the block telling rule):
 	stop the action.
 
 Asking it about is an action applying to one thing and one topic.
-The asking it about action translates into I6 as "Ask".
+The asking it about action translates into Inter as "Ask".
 
 The specification of the asking it about action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3646,7 +3174,7 @@ Report an actor asking something about (this is the block asking rule):
 	stop the action.
 
 Asking it for is an action applying to two things.
-The asking it for action translates into I6 as "AskFor".
+The asking it for action translates into Inter as "AskFor".
 
 The specification of the asking it for action is "The Standard Rules do
 not include any systematic way to handle conversation, but this is
@@ -3670,10 +3198,10 @@ Check an actor asking something for (this is the asking yourself for something r
 Check an actor asking something for (this is the translate asking for to giving rule):
 	convert to request of the noun to perform giving it to action with the second noun and the actor.
 
-Section SR4/7 - Standard actions which are checked but then do nothing unless rules intervene
+Section 7 - Standard actions which are checked but then do nothing unless rules intervene
 
 Waiting is an action applying to nothing.
-The waiting action translates into I6 as "Wait".
+The waiting action translates into Inter as "Wait".
 
 The specification of the waiting action is "The inaction action: where would
 we be without waiting? Waiting does not cause time to pass by - that happens
@@ -3694,7 +3222,7 @@ Report an actor waiting (this is the standard report waiting rule):
 		say "[The actor] [wait]." (B).
 
 Touching is an action applying to one thing.
-The touching action translates into I6 as "Touch".
+The touching action translates into Inter as "Touch".
 
 The specification of the touching action is "Touching is just that, touching
 something without applying pressure: a touch-sensitive screen or a living
@@ -3736,7 +3264,7 @@ Report an actor touching (this is the report touching things rule):
 		say "[The actor] [touch] [the noun]." (B).
 
 Waving is an action applying to one thing.
-The waving action translates into I6 as "Wave".
+The waving action translates into Inter as "Wave".
 
 The specification of the waving action is "Waving in this sense is like
 waving a sceptre: the item to be waved must be directly held (or worn)
@@ -3761,7 +3289,7 @@ Report an actor waving (this is the report waving things rule):
 		say "[The actor] [wave] [the noun]." (B).
 
 Pulling is an action applying to one thing.
-The Pulling action translates into I6 as "Pull".
+The Pulling action translates into Inter as "Pull".
 
 The specification of the pulling action is "Pulling is the act of pulling
 something not grossly larger than the actor by an amount which would not
@@ -3801,7 +3329,7 @@ Report an actor pulling (this is the report pulling rule):
 		say "[The actor] [pull] [the noun]." (B).
 
 Pushing is an action applying to one thing.
-The Pushing action translates into I6 as "Push".
+The Pushing action translates into Inter as "Push".
 
 The specification of the pushing action is "Pushing is the act of pushing
 something not grossly larger than the actor by an amount which would not
@@ -3842,7 +3370,7 @@ Report an actor pushing something (this is the report pushing rule):
 		say "[The actor] [push] [the noun]." (B).
 
 Turning is an action applying to one thing.
-The Turning action translates into I6 as "Turn".
+The Turning action translates into Inter as "Turn".
 
 The specification of the turning action is "Turning is the act of rotating
 something - say, a dial.
@@ -3879,7 +3407,7 @@ Report an actor turning (this is the report turning rule):
 		say "[The actor] [turn] [the noun]." (B).
 
 Pushing it to is an action applying to one thing and one visible thing.
-The Pushing it to action translates into I6 as "PushDir".
+The Pushing it to action translates into Inter as "PushDir".
 
 The specification of the pushing it to action is "This action covers pushing
 a large object, not being carried, so that the actor pushes it from one room
@@ -3925,7 +3453,7 @@ Check an actor pushing something to (this is the block pushing in directions rul
 	stop the action.
 
 Squeezing is an action applying to one thing.
-The Squeezing action translates into I6 as "Squeeze".
+The Squeezing action translates into Inter as "Squeeze".
 
 The specification of the squeezing action is "Squeezing is an action which
 can conveniently vary from squeezing something hand-held, like a washing-up
@@ -3950,10 +3478,10 @@ Report an actor squeezing (this is the report squeezing rule):
 	otherwise:
 		say "[The actor] [squeeze] [the noun]." (B).
 
-Section SR4/8 - Standard actions which always do nothing unless rules intervene
+Section 8 - Standard actions which always do nothing unless rules intervene
 
 Saying yes is an action applying to nothing.
-The Saying yes action translates into I6 as "Yes".
+The Saying yes action translates into Inter as "Yes".
 
 The specification of the saying yes action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3969,7 +3497,7 @@ Check an actor saying yes (this is the block saying yes rule):
 	stop the action.
 
 Saying no is an action applying to nothing.
-The Saying no action translates into I6 as "No".
+The Saying no action translates into Inter as "No".
 
 The specification of the saying no action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3985,7 +3513,7 @@ Check an actor saying no (this is the block saying no rule):
 	stop the action.
 
 Burning is an action applying to one thing.
-The Burning action translates into I6 as "Burn".
+The Burning action translates into Inter as "Burn".
 
 The specification of the burning action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4001,7 +3529,7 @@ Check an actor burning (this is the block burning rule):
 	stop the action.
 
 Waking up is an action applying to nothing.
-The Waking up action translates into I6 as "Wake".
+The Waking up action translates into Inter as "Wake".
 
 The specification of the waking up action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4018,7 +3546,7 @@ Check an actor waking up (this is the block waking up rule):
 	stop the action.
 
 Thinking is an action applying to nothing.
-The Thinking action translates into I6 as "Think".
+The Thinking action translates into Inter as "Think".
 
 The specification of the thinking action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4034,7 +3562,7 @@ Check an actor thinking (this is the block thinking rule):
 	stop the action.
 
 Smelling is an action applying to nothing or one thing.
-The Smelling action translates into I6 as "Smell".
+The Smelling action translates into Inter as "Smell".
 
 The specification of the smelling action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -4048,7 +3576,7 @@ Report an actor smelling (this is the report smelling rule):
 		say "[The actor] [sniff]." (B).
 
 Listening to is an action applying to nothing or one thing and abbreviable.
-The Listening to action translates into I6 as "Listen".
+The Listening to action translates into Inter as "Listen".
 
 The specification of the listening to action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -4062,7 +3590,7 @@ Report an actor listening to (this is the report listening rule):
 		say "[The actor] [listen]." (B).
 
 Tasting is an action applying to one thing.
-The Tasting action translates into I6 as "Taste".
+The Tasting action translates into Inter as "Taste".
 
 The specification of the tasting action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -4076,7 +3604,7 @@ Report an actor tasting (this is the report tasting rule):
 		say "[The actor] [taste] [the noun]." (B).
 
 Cutting is an action applying to one thing.
-The Cutting action translates into I6 as "Cut".
+The Cutting action translates into Inter as "Cut".
 
 The specification of the cutting action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4092,7 +3620,7 @@ Check an actor cutting (this is the block cutting rule):
 	stop the action.
 
 Jumping is an action applying to nothing.
-The Jumping action translates into I6 as "Jump".
+The Jumping action translates into Inter as "Jump".
 
 The specification of the jumping action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -4106,7 +3634,7 @@ Report an actor jumping (this is the report jumping rule):
 		say "[The actor] [jump] on the spot." (B).
 
 Tying it to is an action applying to two things.
-The Tying it to action translates into I6 as "Tie".
+The Tying it to action translates into Inter as "Tie".
 
 The specification of the tying it to action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4122,7 +3650,7 @@ Check an actor tying something to (this is the block tying rule):
 	stop the action.
 
 Drinking is an action applying to one thing.
-The Drinking action translates into I6 as "Drink".
+The Drinking action translates into Inter as "Drink".
 
 The specification of the drinking action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4139,7 +3667,7 @@ Check an actor drinking (this is the block drinking rule):
 	stop the action.
 
 Saying sorry is an action applying to nothing.
-The Saying sorry action translates into I6 as "Sorry".
+The Saying sorry action translates into Inter as "Sorry".
 
 The specification of the saying sorry action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4156,7 +3684,7 @@ Check an actor saying sorry (this is the block saying sorry rule):
 	stop the action.
 
 Swinging is an action applying to one thing.
-The Swinging action translates into I6 as "Swing".
+The Swinging action translates into Inter as "Swing".
 
 The specification of the swinging action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4173,7 +3701,7 @@ Check an actor swinging (this is the block swinging rule):
 	stop the action.
 
 Rubbing is an action applying to one thing.
-The Rubbing action translates into I6 as "Rub".
+The Rubbing action translates into Inter as "Rub".
 
 The specification of the rubbing action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -4193,7 +3721,7 @@ Report an actor rubbing (this is the report rubbing rule):
 		say "[The actor] [rub] [the noun]." (B).
 
 Setting it to is an action applying to one thing and one topic.
-The Setting it to action translates into I6 as "SetTo".
+The Setting it to action translates into Inter as "SetTo".
 
 The specification of the setting it to action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4209,7 +3737,7 @@ Check an actor setting something to (this is the block setting it to rule):
 	stop the action.
 
 Waving hands is an action applying to nothing.
-The Waving hands action translates into I6 as "WaveHands".
+The Waving hands action translates into Inter as "WaveHands".
 
 The specification of the waving hands action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -4223,7 +3751,7 @@ Report an actor waving hands (this is the report waving hands rule):
 		say "[The actor] [wave]." (B).
 
 Buying is an action applying to one thing.
-The Buying action translates into I6 as "Buy".
+The Buying action translates into Inter as "Buy".
 
 The specification of the buying action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4240,7 +3768,7 @@ Check an actor buying (this is the block buying rule):
 	stop the action.
 
 Climbing is an action applying to one thing.
-The Climbing action translates into I6 as "Climb".
+The Climbing action translates into Inter as "Climb".
 
 The specification of the climbing action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4256,7 +3784,7 @@ Check an actor climbing (this is the block climbing rule):
 	stop the action.
 
 Sleeping is an action applying to nothing.
-The Sleeping action translates into I6 as "Sleep".
+The Sleeping action translates into Inter as "Sleep".
 
 The specification of the sleeping action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -4271,80 +3799,80 @@ Check an actor sleeping (this is the block sleeping rule):
 		say "[We] [aren't] feeling especially drowsy." (A);
 	stop the action.
 
-Section SR4/9 - Standard actions which happen out of world
+Section 9 - Standard actions which happen out of world
 
 Quitting the game is an action out of world and applying to nothing.
-The quitting the game action translates into I6 as "Quit".
+The quitting the game action translates into Inter as "Quit".
 
 The quit the game rule is listed in the carry out quitting the game rulebook.
-The quit the game rule translates into I6 as "QUIT_THE_GAME_R" with
+The quit the game rule translates into Inter as "QUIT_THE_GAME_R" with
 	"Are you sure you want to quit? " (A).
 
 Saving the game is an action out of world and applying to nothing.
-The saving the game action translates into I6 as "Save".
+The saving the game action translates into Inter as "Save".
 
 The save the game rule is listed in the carry out saving the game rulebook.
-The save the game rule translates into I6 as "SAVE_THE_GAME_R" with
+The save the game rule translates into Inter as "SAVE_THE_GAME_R" with
 	"Save failed." (A),
 	"Ok." (B).
 
 Restoring the game is an action out of world and applying to nothing.
-The restoring the game action translates into I6 as "Restore".
+The restoring the game action translates into Inter as "Restore".
 
 The restore the game rule is listed in the carry out restoring the game rulebook.
-The restore the game rule translates into I6 as "RESTORE_THE_GAME_R" with
+The restore the game rule translates into Inter as "RESTORE_THE_GAME_R" with
 	"Restore failed." (A),
 	"Ok." (B).
 
 Restarting the game is an action out of world and applying to nothing.
-The restarting the game action translates into I6 as "Restart".
+The restarting the game action translates into Inter as "Restart".
 
 The restart the game rule is listed in the carry out restarting the game rulebook.
-The restart the game rule translates into I6 as "RESTART_THE_GAME_R" with
+The restart the game rule translates into Inter as "RESTART_THE_GAME_R" with
 	"Are you sure you want to restart? " (A),
 	"Failed." (B).
 
 Verifying the story file is an action out of world and applying to nothing.
-The verifying the story file action translates into I6 as "Verify".
+The verifying the story file action translates into Inter as "Verify".
 
 The verify the story file rule is listed in the carry out verifying the story file rulebook.
-The verify the story file rule translates into I6 as "VERIFY_THE_STORY_FILE_R" with
+The verify the story file rule translates into Inter as "VERIFY_THE_STORY_FILE_R" with
 	"The game file has verified as intact." (A),
 	"The game file did not verify as intact, and may be corrupt." (B).
 
 Switching the story transcript on is an action out of world and applying to nothing.
-The switching the story transcript on action translates into I6 as "ScriptOn".
+The switching the story transcript on action translates into Inter as "ScriptOn".
 
 The switch the story transcript on rule is listed in the carry out switching the story
 	transcript on rulebook.
-The switch the story transcript on rule translates into I6 as "SWITCH_TRANSCRIPT_ON_R" with
+The switch the story transcript on rule translates into Inter as "SWITCH_TRANSCRIPT_ON_R" with
     "Transcripting is already on." (A),
-    "Start of a transcript of" (B),
+    "Start of a transcript of:" (B),
     "Attempt to begin transcript failed." (C).
 
 Switching the story transcript off is an action out of world and applying to nothing.
-The switching the story transcript off action translates into I6 as "ScriptOff".
+The switching the story transcript off action translates into Inter as "ScriptOff".
 
 The switch the story transcript off rule is listed in the carry out switching the story
 	transcript off rulebook.
-The switch the story transcript off rule translates into I6 as "SWITCH_TRANSCRIPT_OFF_R" with
+The switch the story transcript off rule translates into Inter as "SWITCH_TRANSCRIPT_OFF_R" with
     "Transcripting is already off." (A),
     "[line break]End of transcript." (B),
     "Attempt to end transcript failed." (C).
 
 
 Requesting the story file version is an action out of world and applying to nothing.
-The requesting the story file version action translates into I6 as "Version".
+The requesting the story file version action translates into Inter as "Version".
 
 The announce the story file version rule is listed in the carry out requesting the story
 	file version rulebook.
-The announce the story file version rule translates into I6 as "ANNOUNCE_STORY_FILE_VERSION_R".
+The announce the story file version rule translates into Inter as "ANNOUNCE_STORY_FILE_VERSION_R".
 
 Requesting the score is an action out of world and applying to nothing.
-The requesting the score action translates into I6 as "Score".
+The requesting the score action translates into Inter as "Score".
 
 The announce the score rule is listed in the carry out requesting the score rulebook.
-The announce the score rule translates into I6 as "ANNOUNCE_SCORE_R" with
+The announce the score rule translates into Inter as "ANNOUNCE_SCORE_R" with
 	"[if the story has ended]In that game you scored[otherwise]You have so far scored[end if]
 	[score] out of a possible [maximum score], in [turn count] turn[s]" (A),
     ", earning you the rank of " (B),
@@ -4355,87 +3883,85 @@ The announce the score rule translates into I6 as "ANNOUNCE_SCORE_R" with
 		point[s].[close bracket]" (E).
 
 Preferring abbreviated room descriptions is an action out of world and applying to nothing.
-The preferring abbreviated room descriptions action translates into I6 as "LMode3".
+The preferring abbreviated room descriptions action translates into Inter as "LMode3".
 
 The prefer abbreviated room descriptions rule is listed in the carry out preferring
 	abbreviated room descriptions rulebook.
-The prefer abbreviated room descriptions rule translates into I6 as "PREFER_ABBREVIATED_R".
+The prefer abbreviated room descriptions rule translates into Inter as "PREFER_ABBREVIATED_R".
 
 The standard report preferring abbreviated room descriptions rule is listed in the
 	report preferring abbreviated room descriptions rulebook.
 The standard report preferring abbreviated room descriptions rule translates into
-	I6 as "REP_PREFER_ABBREVIATED_R" with
+	Inter as "REP_PREFER_ABBREVIATED_R" with
 	" is now in its 'superbrief' mode, which always gives short descriptions
 	of locations (even if you haven't been there before)." (A).
 
 Preferring unabbreviated room descriptions is an action out of world and applying to nothing.
-The preferring unabbreviated room descriptions action translates into I6 as "LMode2".
+The preferring unabbreviated room descriptions action translates into Inter as "LMode2".
 
 The prefer unabbreviated room descriptions rule is listed in the carry out preferring
 	unabbreviated room descriptions rulebook.
-The prefer unabbreviated room descriptions rule translates into I6 as "PREFER_UNABBREVIATED_R".
+The prefer unabbreviated room descriptions rule translates into Inter as "PREFER_UNABBREVIATED_R".
 
 The standard report preferring unabbreviated room descriptions rule is listed in the
 	report preferring unabbreviated room descriptions rulebook.
 The standard report preferring unabbreviated room descriptions rule translates into
-	I6 as "REP_PREFER_UNABBREVIATED_R" with
+	Inter as "REP_PREFER_UNABBREVIATED_R" with
 	" is now in its 'verbose' mode, which always gives long descriptions of
 	locations (even if you've been there before)." (A).
 
 Preferring sometimes abbreviated room descriptions is an action out of world and
 	applying to nothing.
-The preferring sometimes abbreviated room descriptions action translates into I6 as "LMode1".
+The preferring sometimes abbreviated room descriptions action translates into Inter as "LMode1".
 
 The prefer sometimes abbreviated room descriptions rule is listed in the carry out
 	preferring sometimes abbreviated room descriptions rulebook.
-The prefer sometimes abbreviated room descriptions rule translates into I6 as
+The prefer sometimes abbreviated room descriptions rule translates into Inter as
 	"PREFER_SOMETIMES_ABBREVIATED_R".
 
 The standard report preferring sometimes abbreviated room descriptions rule is listed
 	in the report preferring sometimes abbreviated room descriptions rulebook.
 The standard report preferring sometimes abbreviated room descriptions rule translates
-	into I6 as "REP_PREFER_SOMETIMES_ABBR_R" with
+	into Inter as "REP_PREFER_SOMETIMES_ABBR_R" with
 	" is now in its 'brief' printing mode, which gives long descriptions
     of places never before visited and short descriptions otherwise." (A).
 
 Switching score notification on is an action out of world and applying to nothing.
-The switching score notification on action translates into I6 as "NotifyOn".
+The switching score notification on action translates into Inter as "NotifyOn".
 
 The switch score notification on rule is listed in the carry out switching score
 	notification on rulebook.
-The switch score notification on rule translates into I6 as "SWITCH_SCORE_NOTIFY_ON_R".
+The switch score notification on rule translates into Inter as "SWITCH_SCORE_NOTIFY_ON_R".
 
 The standard report switching score notification on rule is listed in the report
 	switching score notification on rulebook.
 The standard report switching score notification on rule translates into
-	I6 as "REP_SWITCH_NOTIFY_ON_R" with "Score notification on." (A).
+	Inter as "REP_SWITCH_NOTIFY_ON_R" with "Score notification on." (A).
 
 Switching score notification off is an action out of world and applying to nothing.
-The switching score notification off action translates into I6 as "NotifyOff".
+The switching score notification off action translates into Inter as "NotifyOff".
 
 The switch score notification off rule is listed in the carry out switching score
 	notification off rulebook.
-The switch score notification off rule translates into I6 as "SWITCH_SCORE_NOTIFY_OFF_R".
+The switch score notification off rule translates into Inter as "SWITCH_SCORE_NOTIFY_OFF_R".
 
 The standard report switching score notification off rule is listed in the report
 	switching score notification off rulebook.
 The standard report switching score notification off rule translates into
-	I6 as "REP_SWITCH_NOTIFY_OFF_R" with "Score notification off." (A).
+	Inter as "REP_SWITCH_NOTIFY_OFF_R" with "Score notification off." (A).
 
 Requesting the pronoun meanings is an action out of world and applying to nothing.
-The requesting the pronoun meanings action translates into I6 as "Pronouns".
+The requesting the pronoun meanings action translates into Inter as "Pronouns".
 
 The announce the pronoun meanings rule is listed in the carry out requesting the
 	pronoun meanings rulebook.
-The announce the pronoun meanings rule translates into I6 as "ANNOUNCE_PRONOUN_MEANINGS_R" with
+The announce the pronoun meanings rule translates into Inter as "ANNOUNCE_PRONOUN_MEANINGS_R" with
 	"At the moment, " (A),
 	"means " (B),
 	"is unset" (C),
 	"no pronouns are known to the game." (D).
 
-The understand token a time period translates into I6 as "RELATIVE_TIME_TOKEN".
-
-Section SR4/10 - Grammar
+Part Six - Grammar
 
 Understand "take [things]" as taking.
 Understand "take off [something]" as taking off.
@@ -4658,187 +4184,31 @@ Understand "nouns" or "pronouns" as requesting the pronoun meanings.
 Understand "notify" or "notify on" as switching score notification on.
 Understand "notify off" as switching score notification off.
 
+The understand token a time period translates into Inter as "RELATIVE_TIME_TOKEN".
 
-Part SR5 - Phrasebook
+Part Seven - Phrasebook
 
-Section SR5/1/1 - Saying - Values
+Chapter 1 - Saying
 
-To say (val - sayable value of kind K)
-	(documented at ph_say):
-	(- {-say:val:K} -).
+Section 1 - Time Values
 
-To say (something - number) in words
-	(documented at phs_numwords):
-	(- print (number) say__n=({something}); -).
 To say (something - time) in words
 	(documented at phs_timewords):
 	(- print (PrintTimeOfDayEnglish) {something}; -).
-To say s
-	(documented at phs_s):
-	(- STextSubstitution(); -).
+To say here
+	(documented at phs_here):
+	say "[if story tense is present tense]here[otherwise]there".
+To say now
+	(documented at phs_now):
+	say "[if story tense is present tense]now[otherwise]then".
 
-Section SR5/1/2 - Saying - Names with articles
+Section 2 - Boxed quotations
 
-To say a (something - object)
-	(documented at phs_a):
-	(- print (a) {something}; -).
-To say an (something - object)
-	(documented at phs_a):
-	(- print (a) {something}; -).
-To say A (something - object)
-	(documented at phs_A):
-	(- CIndefArt({something}); -).
-To say An (something - object)
-	(documented at phs_A):
-	(- CIndefArt({something}); -).
-To say the (something - object)
-	(documented at phs_the):
-	(- print (the) {something}; -).
-To say The (something - object)
-	(documented at phs_The):
-	(- print (The) {something}; -).
-
-Section SR5/1/3 - Saying - Say if and otherwise
-
-To say if (c - condition)
-	(documented at phs_if): (- {-erase}
-	if (~~({c})) jump {-label:Say};
-		-).
-To say unless (c - condition)
-	(documented at phs_unless): (- {-erase}
-	if ({c}) jump {-label:Say};
-		-).
-To say otherwise/else if (c - condition)
-	(documented at phs_elseif): (- {-erase}
-	jump {-label:SayX}; .{-label:Say}{-counter-up:Say}; if (~~({c})) jump {-label:Say};
-		-).
-To say otherwise/else unless (c - condition)
-	(documented at phs_elseunless): (- {-erase}
-	jump {-label:SayX}; .{-label:Say}{-counter-up:Say}; if ({c}) jump {-label:Say};
-		-).
-To say otherwise
-	(documented at phs_otherwise): (- {-erase}
-	jump {-label:SayX}; .{-label:Say}{-counter-up:Say};
-		-).
-To say else
-	(documented at phs_otherwise): (- {-erase}
-	jump {-label:SayX}; .{-label:Say}{-counter-up:Say};
-		-).
-To say end if
-	(documented at phs_endif): (- {-erase}
-	.{-label:Say}{-counter-up:Say}; .{-label:SayX}{-counter-up:SayX};
-		-).
-To say end unless
-	(documented at phs_endunless): (- {-erase}
-	.{-label:Say}{-counter-up:Say}; .{-label:SayX}{-counter-up:SayX};
-		-).
-
-Section SR5/1/4 - Saying - Say one of
-
-To say one of -- beginning say_one_of (documented at phs_oneof): (-
-	{-counter-makes-array:say_one_of}
-	{-counter-makes-array:say_one_flag}
-	if (I7_ST_say_one_flag-->{-counter:say_one_flag} == false) {
-		I7_ST_say_one_of-->{-counter:say_one_of} = {-final-segment-marker}(I7_ST_say_one_of-->{-counter:say_one_of},
-{-segment-count});
-	 	I7_ST_say_one_flag-->{-counter:say_one_flag} = true;
-	}
-	if (say__comp == false) I7_ST_say_one_flag-->{-counter:say_one_flag}{-counter-up:say_one_flag} =
-false;
-	switch ((I7_ST_say_one_of-->{-counter:say_one_of}{-counter-up:say_one_of})%({-segment-count}+1)-1)
-{-open-brace}
-		0: -).
-To say or -- continuing say_one_of (documented at phs_or):
-	(- @nop; {-segment-count}: -).
-To say at random -- ending say_one_of with marker I7_SOO_RAN (documented at phs_random):
-	(- {-close-brace} -).
-To say purely at random -- ending say_one_of with marker I7_SOO_PAR (documented at phs_purelyrandom):
-	(- {-close-brace} -).
-To say then at random -- ending say_one_of with marker I7_SOO_TRAN (documented at phs_thenrandom):
-	(- {-close-brace} -).
-To say then purely at random -- ending say_one_of with marker I7_SOO_TPAR (documented at phs_thenpurelyrandom):
-	(- {-close-brace} -).
-To say sticky random -- ending say_one_of with marker I7_SOO_STI (documented at phs_sticky):
-	(- {-close-brace} -).
-To say as decreasingly likely outcomes -- ending say_one_of with marker I7_SOO_TAP (documented at phs_decreasing):
-	(- {-close-brace} -).
-To say in random order -- ending say_one_of with marker I7_SOO_SHU (documented at phs_order):
-	(- {-close-brace} -).
-To say cycling -- ending say_one_of with marker I7_SOO_CYC (documented at phs_cycling):
-	(- {-close-brace} -).
-To say stopping -- ending say_one_of with marker I7_SOO_STOP (documented at phs_stopping):
-	(- {-close-brace} -).
-
-To say first time -- beginning say_first_time (documented at phs_firsttime):
-	(- {-counter-makes-array:say_first_time}
-	if ((say__comp == false) && ((I7_ST_say_first_time-->{-counter:say_first_time}{-counter-up:say_first_time})++ == 0)) {-open-brace}
-		-).
-To say only -- ending say_first_time (documented at phs_firsttime):
-	(- {-close-brace} -).
-
-Section SR5/1/5 - Saying - Paragraph control
-
-To say line break -- running on
-	(documented at phs_linebreak):
-	(- new_line; -).
-To say no line break -- running on
-	(documented at phs_nolinebreak): do nothing.
-To say conditional paragraph break -- running on
-	(documented at phs_condparabreak):
-	(- DivideParagraphPoint(); -).
-To say command clarification break -- running on
-	(documented at phs_clarifbreak):
-	(- CommandClarificationBreak(); -).
-To say paragraph break -- running on
-	(documented at phs_parabreak):
-	(- DivideParagraphPoint(); new_line; -).
-To say run paragraph on -- running on
-	(documented at phs_runparaon):
-	(- RunParagraphOn(); -).
-To say run paragraph on with special look spacing -- running on
-	(documented at phs_runparaonsls):
-	(- SpecialLookSpacingBreak(); -).
-To decide if a paragraph break is pending
-	(documented at ph_breakpending):
-	(- (say__p) -).
-
-Section SR5/1/6 - Saying - Special characters
-
-To say bracket -- running on
-	(documented at phs_bracket):
-	(- print "["; -).
-To say close bracket -- running on
-	(documented at phs_closebracket):
-	(- print "]"; -).
-To say apostrophe/' -- running on
-	(documented at phs_apostrophe):
-	(- print "'"; -).
-To say quotation mark -- running on
-	(documented at phs_quotemark):
-	(- print "~"; -).
-
-Section SR5/1/7 - Saying - Fonts and visual effects
-
-To say bold type -- running on
-	(documented at phs_bold):
-	(- style bold; -).
-To say italic type -- running on
-	(documented at phs_italic):
-	(- style underline; -).
-To say roman type -- running on
-	(documented at phs_roman):
-	(- style roman; -).
-To say fixed letter spacing -- running on
-	(documented at phs_fixedspacing):
-	(- font off; -).
-To say variable letter spacing -- running on
-	(documented at phs_varspacing):
-	(- font on; -).
 To display the boxed quotation (Q - text)
 	(documented at ph_boxed):
 	(- DisplayBoxedQuotation({-box-quotation-text:Q}); -).
 
-Section SR5/1/8 - Saying - Some built-in texts
+Section 3 - Some built-in texts
 
 To say the/-- banner text
 	(documented at phs_banner):
@@ -4852,8 +4222,20 @@ To say the/-- complete list of extension credits
 To say the/-- player's surroundings
 	(documented at phs_surroundings):
 	(- SL_Location(true); -).
+To say run paragraph on with special look spacing -- running on
+	(documented at phs_runparaonsls):
+	(- SpecialLookSpacingBreak(); -).
+To say command clarification break -- running on
+	(documented at phs_clarifbreak):
+	(- CommandClarificationBreak(); -).
 
-Section SR5/1/9 - Saying - Saying lists of things
+Section 4 - Responses
+
+To say text of (R - response)
+	(documented at phs_response):
+	carry out the issuing the response text activity with R.
+
+Section 5 - Saying lists of things
 
 To list the contents of (O - an object),
 	with newlines,
@@ -4960,7 +4342,7 @@ To say a list of (OS - description of objects) including contents
 			TERSE_BIT+CONCEAL_BIT);
 	-).
 
-Section SR5/1/10 - Saying - Group in and omit from lists
+Section 6 - Group in and omit from lists
 
 To group (OS - description of objects) together
 	(documented at ph_group): (-
@@ -4987,865 +4369,16 @@ To omit contents in listing
 	(documented at ph_omit):
 	(- c_style = c_style &~ (RECURSE_BIT+FULLINV_BIT+PARTINV_BIT); -).
 
-Section SR5/1/11 - Saying - Lists of values
-
-To say (L - a list of values) in brace notation
-	(documented at phs_listbraced):
-	(- LIST_OF_TY_Say({-by-reference:L}, 1); -).
-To say (L - a list of objects) with definite articles
-	(documented at phs_listdef):
-	(- LIST_OF_TY_Say({-by-reference:L}, 2); -).
-To say (L - a list of objects) with indefinite articles
-	(documented at phs_listindef):
-	(- LIST_OF_TY_Say({-by-reference:L}, 3); -).
-
-Section SR5/1/12 - Saying - Filtering contents - Unindexed
+Section 7 - Filtering contents of lists - Unindexed
 
 To filter list recursion to (D - description of objects):
 	(- list_filter_routine = {D}; -).
 To unfilter list recursion:
 	(- list_filter_routine = 0; -).
 
-Section SR5/1/13 - Saying - Responses
+Chapter 2 - Multimedia
 
-To say text of (R - response)
-	(documented at phs_response):
-	carry out the issuing the response text activity with R.
-
-Section SR5/2/1 - Values - Making conditions true
-
-To now (cn - condition)
-	(documented at ph_now):
-	(- {cn} -).
-
-Section SR5/2/2 - Values - Giving values temporary names
-
-To let (t - nonexisting variable) be (u - value)
-	(assignment operation)
-	(documented at ph_let): (-
-		{-unprotect:t}
-		{-copy:t:u}
-	-).
-To let (t - nonexisting variable) be (u - name of kind of value)
-	(assignment operation)
-	(documented at ph_letdefault): (-
-		{-unprotect:t}
-		{-initialise:t}
-	-).
-To let (t - nonexisting variable) be (u - description of relations of values
-	of kind K to values of kind L)
-	(assignment operation)
-	(documented at ph_letrelation): (-
-		{-unprotect:t}
-		{-initialise:t}
-		{-now-matches-description:t:u};
-	-).
-To let (t - nonexisting variable) be given by (Q - equation name)
-	(documented at ph_letequation): (-
-		{-unprotect:t}
-		{-primitive-definition:solve-equation};
-	-).
-
-To let (t - existing variable) be (u - value)
-	(assignment operation)
-	(documented at ph_let): (-
-	 	{-copy:t:u}
-	-).
-To let (t - existing variable) be given by (Q - equation name)
-	(documented at ph_letequation): (-
-		{-primitive-definition:solve-equation};
-	-).
-
-To increase (S - storage) by (w - value)
-	(assignment operation)
-	(documented at ph_increase): (-
-		{-copy:S:+w};
-	-).
-To decrease (S - storage) by (w - value)
-	(assignment operation)
-	(documented at ph_decrease): (-
-		{-copy:S:-w};
-	-).
-To increment (S - storage)
-	(documented at ph_increment): (-
-		{-copy:S:+};
-	-).
-To decrement (S - storage)
-	(documented at ph_decrement): (-
-		{-copy:S:-};
-	-).
-
-Section SR5/2/4 - Values - Arithmetic
-
-To decide which arithmetic value is (X - arithmetic value) + (Y - arithmetic value)
-	(arithmetic operation 0)
-	(documented at ph_plus):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) plus (Y - arithmetic value)
-	(arithmetic operation 0)
-	(documented at ph_plus):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) - (Y - arithmetic value)
-	(arithmetic operation 1)
-	(documented at ph_minus):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) minus (Y - arithmetic value)
-	(arithmetic operation 1)
-	(documented at ph_minus):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) * (Y - arithmetic value)
-	(arithmetic operation 2)
-	(documented at ph_times):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) times (Y - arithmetic value)
-	(arithmetic operation 2)
-	(documented at ph_times):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) multiplied by (Y - arithmetic value)
-	(arithmetic operation 2)
-	(documented at ph_times):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) / (Y - arithmetic value)
-	(arithmetic operation 3)
-	(documented at ph_divide):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) divided by (Y - arithmetic value)
-	(arithmetic operation 3)
-	(documented at ph_divide):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is remainder after dividing (X - arithmetic value)
-	by (Y - arithmetic value)
-	(arithmetic operation 4)
-	(documented at ph_remainder):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is (X - arithmetic value) to the nearest (Y - arithmetic value)
-	(arithmetic operation 5)
-	(documented at ph_nearest):
-	(- ({-arithmetic-operation:X:Y}) -).
-To decide which arithmetic value is the square root of (X - arithmetic value)
-	(arithmetic operation 6)
-	(documented at ph_squareroot):
-	(- ({-arithmetic-operation:X}) -).
-To decide which arithmetic value is the cube root of (X - arithmetic value)
-	(arithmetic operation 8)
-	(documented at ph_cuberoot):
-	(- ({-arithmetic-operation:X}) -).
-To decide which arithmetic value is total (p - arithmetic value valued property)
-	of (S - description of values)
-	(arithmetic operation 12)
-	(documented at ph_total):
-	(- {-primitive-definition:total-of} -).
-
-Section SR5/2/4a - Values - Real Arithmetic (for Glulx only)
-
-To say (R - a real number) to (N - number) decimal places
-	(documented at phs_realplaces):
-	(- Float({R}, {N}); -).
-To say (R - a real number) in decimal notation
-	(documented at phs_decimal):
-	(- FloatDec({R}); -).
-To say (R - a real number) to (N - number) decimal places in decimal notation
-	(documented at phs_decimalplaces):
-	(- FloatDec({R}, {N}); -).
-To say (R - a real number) in scientific notation
-	(documented at phs_scientific):
-	(- FloatExp({R}); -).
-To say (R - a real number) to (N - number) decimal places in scientific notation
-	(documented at phs_scientificplaces):
-	(- FloatExp({R}, {N}); -).
-
-To decide which real number is the reciprocal of (R - a real number)
-	(documented at ph_reciprocal):
-	(- REAL_NUMBER_TY_Reciprocal({R}) -).
-To decide which real number is the absolute value of (R - a real number)
-	(documented at ph_absolutevalue)
-	(this is the abs function):
-	(- REAL_NUMBER_TY_Abs({R}) -).
-To decide which real number is the real square root of (R - a real number)
-	(arithmetic operation 7)
-	(documented at ph_realsquareroot)
-	(this is the root function inverse to rsqr):
-	(- REAL_NUMBER_TY_Root({R}) -).
-To decide which real number is the real square of (R - a real number)
-	(this is the rsqr function inverse to root):
-	let x be given by x = R^2 where x is a real number;
-	decide on x.
-To decide which real number is the ceiling of (R - a real number)
-	(documented at ph_ceiling)
-	(this is the ceiling function):
-	(- REAL_NUMBER_TY_Ceiling({R}) -).
-To decide which real number is the floor of (R - a real number)
-	(documented at ph_floor)
-	(this is the floor function):
-	(- REAL_NUMBER_TY_Floor({R}) -).
-To decide which number is (R - a real number) to the nearest whole number
-	(documented at ph_nearestwholenumber)
-	(this is the int function):
-	(- REAL_NUMBER_TY_to_NUMBER_TY({R}) -).
-
-To decide which real number is the natural/-- logarithm of (R - a real number)
-	(documented at ph_logarithm)
-	(this is the log function inverse to exp):
-	(- REAL_NUMBER_TY_Log({R}) -).
-To decide which real number is the logarithm to base (N - a number) of (R - a real number)
-	(documented at ph_logarithmto):
-	(- REAL_NUMBER_TY_BLog({R}, {N}) -).
-To decide which real number is the exponential of (R - a real number)
-	(documented at ph_exp)
-	(this is the exp function inverse to log):
-	(- REAL_NUMBER_TY_Exp({R}) -).
-To decide which real number is (R - a real number) to the power (P - a real number)
-	(documented at ph_power):
-	(- REAL_NUMBER_TY_Pow({R}, {P}) -).
-
-Section SR5/2/4a - Values - Trigonometry (for Glulx only)
-
-To decide which real number is (R - a real number) degrees
-	(documented at ph_degrees):
-	(- REAL_NUMBER_TY_Times({R}, $+0.0174532925) -).
-
-To decide which real number is the sine of (R - a real number)
-	(documented at ph_sine)
-	(this is the sin function inverse to arcsin):
-	(- REAL_NUMBER_TY_Sin({R}) -).
-To decide which real number is the cosine of (R - a real number)
-	(documented at ph_cosine)
-	(this is the cos function inverse to arccos):
-	(- REAL_NUMBER_TY_Cos({R}) -).
-To decide which real number is the tangent of (R - a real number)
-	(documented at ph_tangent)
-	(this is the tan function inverse to arctan):
-	(- REAL_NUMBER_TY_Tan({R}) -).
-To decide which real number is the arcsine of (R - a real number)
-	(documented at ph_arcsine)
-	(this is the arcsin function inverse to sin):
-	(- REAL_NUMBER_TY_Arcsin({R}) -).
-To decide which real number is the arccosine of (R - a real number)
-	(documented at ph_arccosine)
-	(this is the arccos function inverse to cos):
-	(- REAL_NUMBER_TY_Arccos({R}) -).
-To decide which real number is the arctangent of (R - a real number)
-	(documented at ph_arctangent)
-	(this is the arctan function inverse to tan):
-	(- REAL_NUMBER_TY_Arctan({R}) -).
-
-Section SR5/2/4a - Values - Hyperbolic functions (for Glulx only)
-
-To decide which real number is the hyperbolic sine of (R - a real number)
-	(documented at ph_hyperbolicsine)
-	(this is the sinh function inverse to arcsinh):
-	(- REAL_NUMBER_TY_Sinh({R}) -).
-To decide which real number is the hyperbolic cosine of (R - a real number)
-	(documented at ph_hyperboliccosine)
-	(this is the cosh function inverse to arccosh):
-	(- REAL_NUMBER_TY_Cosh({R}) -).
-To decide which real number is the hyperbolic tangent of (R - a real number)
-	(documented at ph_hyperbolictangent)
-	(this is the tanh function inverse to arctanh):
-	(- REAL_NUMBER_TY_Tanh({R}) -).
-To decide which real number is the hyperbolic arcsine of (R - a real number)
-	(documented at ph_hyperbolicarcsine)
-	(this is the arcsinh function inverse to sinh):
-	let x be given by x = log(R + root(R^2 + 1)) where x is a real number;
-	decide on x.
-To decide which real number is the hyperbolic arccosine of (R - a real number)
-	(documented at ph_hyperbolicarccosine)
-	(this is the arccosh function inverse to cosh):
-	let x be given by x = log(R + root(R^2 - 1)) where x is a real number;
-	decide on x.
-To decide which real number is the hyperbolic arctangent of (R - a real number)
-	(documented at ph_hyperbolicarctangent)
-	(this is the arctanh function inverse to tanh):
-	let x be given by x = 0.5*(log(1+R) - log(1-R)) where x is a real number;
-	decide on x.
-
-Section SR5/2/5 - Values - Enumerations
-
-To decide which number is number of (S - description of values)
-	(documented at ph_numberof):
-	(- {-primitive-definition:number-of} -).
-To decide which K is (name of kind of enumerated value K) after (X - K)
-	(documented at ph_enumafter):
-	(- A_{-printing-routine:K}({X}) -).
-To decide which K is (name of kind of enumerated value K) before (X - K)
-	(documented at ph_enumbefore):
-	(- B_{-printing-routine:K}({X}) -).
-To decide which K is the first value of (name of kind of enumerated value K)
-	(documented at ph_enumfirst):
-	decide on the default value of K.
-To decide which K is the last value of (name of kind of enumerated value K)
-	(documented at ph_enumlast):
-	decide on K before the default value of K.
-
-Section SR5/2/6 - Values - Truth states
-
-To decide what truth state is whether or not (C - condition)
-	(documented at ph_whether):
-	(- ({C}) -).
-
-Section SR5/2/7 - Values - Randomness
-
-To decide which K is a/-- random (S - description of values of kind K)
-	(documented at ph_randomdesc):
-	(- {-primitive-definition:random-of} -).
-To decide which K is a random (name of kind of arithmetic value K) between (first value - K) and (second value - K)
-	(documented at ph_randombetween):
-	(- R_{-printing-routine:K}({first value}, {second value}) -).
-To decide which K is a random (name of kind of arithmetic value K) from (first value - K) to (second value - K)
-	(documented at ph_randombetween):
-	(- R_{-printing-routine:K}({first value}, {second value}) -).
-To decide which K is a random (name of kind of enumerated value K) between (first value - K) and (second value - K)
-	(documented at ph_randombetween):
-	(- R_{-printing-routine:K}({first value}, {second value}) -).
-To decide which K is a random (name of kind of enumerated value K) from (first value - K) to (second value - K)
-	(documented at ph_randombetween):
-	(- R_{-printing-routine:K}({first value}, {second value}) -).
-To decide whether a random chance of (N - number) in (M - number) succeeds
-	(documented at ph_randomchance):
-	(- (GenerateRandomNumber(1, {M}) <= {N}) -).
-To seed the random-number generator with (N - number)
-	(documented at ph_seed):
-	(- VM_Seed_RNG({N}); -).
-
-Section SR5/2/8 - Values - Tables
-
-To choose a/the/-- row (N - number) in/from (T - table name)
-	(documented at ph_chooserow):
-	(- {-my:ct_0} = {T}; {-my:ct_1} = {N}; -).
-To choose a/the/-- row with (TC - K valued table column) of (w - value of kind K)
-	in/from (T - table name)
-	(documented at ph_chooserowwith):
-	(- {-my:ct_0} = {T}; {-my:ct_1} = TableRowCorr(ct_0, {TC}, {w}); -).
-To choose a/the/-- blank row in/from (T - table name)
-	(documented at ph_chooseblankrow):
-	(- {-my:ct_0} = {T}; {-my:ct_1} = TableBlankRow(ct_0); -).
-To choose a/the/-- random row in/from (T - table name)
-	(documented at ph_chooserandomrow):
-	(- {-my:ct_0} = {T}; {-my:ct_1} = TableRandomRow(ct_0); -).
-To decide which number is number of rows in/from (T - table name)
-	(documented at ph_numrows):
-	(- TableRows({T}) -).
-To decide which number is number of blank rows in/from (T - table name)
-	(documented at ph_numblank):
-	(- TableBlankRows({T}) -).
-To decide which number is number of filled rows in/from (T - table name)
-	(documented at ph_numfilled):
-	(- TableFilledRows({T}) -).
-To decide if there is (TR - table-reference)
-	(documented at ph_thereis):
-	(- (Exists{-by-reference:TR}) -).
-To decide if there is no (TR - table-reference)
-	(documented at ph_thereisno):
-	(- (Exists{-by-reference:TR} == false) -).
-To blank out (tr - table-reference)
-	(documented at ph_blankout):
-	(- {-by-reference:tr}{-backspace},4); -).
-To blank out the whole row
-	(documented at ph_blankoutrow):
-	(- TableBlankOutRow({-my:ct_0}, {-my:ct_1}); -).
-To blank out the whole (TC - table column) in/from (T - table name)
-	(documented at ph_blankoutcol):
-	(- TableBlankOutColumn({T}, {TC}); -).
-To blank out the whole of (T - table name)
-	(documented at ph_blankouttable):
-	(- TableBlankOutAll({T}); -).
-To showme the contents of (T - table name)
-	(documented at ph_showmetable):
-	(- TableDebug({T}); -).
-To say the/-- current table row
-	(documented at phs_currenttablerow):
-	(- TableRowDebug({-my:ct_0}, {-my:ct_1}); -).
-To say row (N - number) in/from (T - table name)
-	(documented at phs_tablerow):
-	(- TableRowDebug({T}, {N}); -).
-To say (TC - table column) in/from (T - table name)
-	(documented at phs_tablecolumn):
-	(- TableColumnDebug({T}, {TC}); -).
-
-Section SR5/2/9 - Values - Sorting tables
-
-To sort (T - table name) in/into random order
-	(documented at ph_sortrandom):
-	(- TableShuffle({T}); -).
-To sort (T - table name) in/into (TC - table column) order
-	(documented at ph_sortcolumn):
-	(- TableSort({T}, {TC}, 1); -).
-To sort (T - table name) in/into reverse (TC - table column) order
-	(documented at ph_sortcolumnreverse):
-	(- TableSort({T}, {TC}, -1); -).
-
-Section SR5/2/10 - Values - Breaking down text
-
-To decide what number is the number of characters in (T - text)
-	(documented at ph_numchars):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, CHR_BLOB) -).
-To decide what number is the number of words in (T - text)
-	(documented at ph_numwords):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, WORD_BLOB) -).
-To decide what number is the number of punctuated words in (T - text)
-	(documented at ph_numpwords):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, PWORD_BLOB) -).
-To decide what number is the number of unpunctuated words in (T - text)
-	(documented at ph_numupwords):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, UWORD_BLOB) -).
-To decide what number is the number of lines in (T - text)
-	(documented at ph_numlines):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, LINE_BLOB) -).
-To decide what number is the number of paragraphs in (T - text)
-	(documented at ph_numparas):
-	(- TEXT_TY_BlobAccess({-by-reference:T}, PARA_BLOB) -).
-
-To decide what text is character number (N - a number) in (T - text)
-	(documented at ph_charnum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, CHR_BLOB) -).
-To decide what text is word number (N - a number) in (T - text)
-	(documented at ph_wordnum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, WORD_BLOB) -).
-To decide what text is punctuated word number (N - a number) in (T - text)
-	(documented at ph_pwordnum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, PWORD_BLOB) -).
-To decide what text is unpunctuated word number (N - a number) in (T - text)
-	(documented at ph_upwordnum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, UWORD_BLOB) -).
-To decide what text is line number (N - a number) in (T - text)
-	(documented at ph_linenum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, LINE_BLOB) -).
-To decide what text is paragraph number (N - a number) in (T - text)
-	(documented at ph_paranum):
-	(- TEXT_TY_GetBlob({-new:text}, {-by-reference:T}, {N}, PARA_BLOB) -).
-
-To decide what text is the substituted form of (T - text)
-	(documented at ph_subform):
-	(- TEXT_TY_SubstitutedForm({-new:text}, {-by-reference:T}) -).
-
-Section SR5/2/11 - Values - Matching text
-
-To decide if (T - text) exactly matches the text (find - text),
-	case insensitively
-	(documented at ph_exactlymatches):
-	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options},1) -).
-To decide if (T - text) matches the text (find - text),
-	case insensitively
-	(documented at ph_matches):
-	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options}) -).
-To decide what number is number of times (T - text) matches the text
-	(find - text), case insensitively
-	(documented at ph_nummatches):
-	(- TEXT_TY_Replace_RE(CHR_BLOB,{-by-reference:T},{-by-reference:find},1,{phrase options}) -).
-
-To decide if (T - text) exactly matches the regular expression (find - text),
-	case insensitively
-	(documented at ph_exactlymatchesre):
-	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options},1) -).
-To decide if (T - text) matches the regular expression (find - text),
-	case insensitively
-	(documented at ph_matchesre):
-	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},0,{phrase options}) -).
-To decide what text is text matching regular expression
-	(documented at ph_matchtext):
-	(- TEXT_TY_RE_GetMatchVar(0) -).
-To decide what text is text matching subexpression (N - a number)
-	(documented at ph_subexpressiontext):
-	(- TEXT_TY_RE_GetMatchVar({N}) -).
-To decide what number is number of times (T - text) matches the regular expression
-	(find - text),case insensitively
-	(documented at ph_nummatchesre):
-	(- TEXT_TY_Replace_RE(REGEXP_BLOB,{-by-reference:T},{-by-reference:find},1,{phrase options}) -).
-
-Section SR5/2/12 - Values - Replacing text
-
-To replace the text (find - text) in (T - text) with (replace - text),
-	case insensitively
-	(documented at ph_replace):
-	(- TEXT_TY_Replace_RE(CHR_BLOB, {-lvalue-by-reference:T}, {-by-reference:find},
-		{-by-reference:replace}, {phrase options}); -).
-To replace the regular expression (find - text) in (T - text) with
-	(replace - text), case insensitively
-	(documented at ph_replacere):
-	(- TEXT_TY_Replace_RE(REGEXP_BLOB, {-lvalue-by-reference:T}, {-by-reference:find},
-		{-by-reference:replace}, {phrase options}); -).
-To replace the word (find - text) in (T - text) with
-	(replace - text)
-	(documented at ph_replacewordin):
-	(- TEXT_TY_ReplaceText(WORD_BLOB, {-lvalue-by-reference:T}, {-by-reference:find}, {-by-reference:replace}); -).
-To replace the punctuated word (find - text) in (T - text)
-	with (replace - text)
-	(documented at ph_replacepwordin):
-	(- TEXT_TY_ReplaceText(PWORD_BLOB, {-lvalue-by-reference:T}, {-by-reference:find}, {-by-reference:replace}); -).
-
-To replace character number (N - a number) in (T - text)
-	with (replace - text)
-	(documented at ph_replacechar):
-	(- TEXT_TY_ReplaceBlob(CHR_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-To replace word number (N - a number) in (T - text)
-	with (replace - text)
-	(documented at ph_replaceword):
-	(- TEXT_TY_ReplaceBlob(WORD_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-To replace punctuated word number (N - a number) in (T - text)
-	with (replace - text)
-	(documented at ph_replacepword):
-	(- TEXT_TY_ReplaceBlob(PWORD_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-To replace unpunctuated word number (N - a number) in (T - text)
-	with (replace - text)
-	(documented at ph_replaceupword):
-	(- TEXT_TY_ReplaceBlob(UWORD_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-To replace line number (N - a number) in (T - text) with (replace - text)
-	(documented at ph_replaceline):
-	(- TEXT_TY_ReplaceBlob(LINE_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-To replace paragraph number (N - a number) in (T - text) with (replace - text)
-	(documented at ph_replacepara):
-	(- TEXT_TY_ReplaceBlob(PARA_BLOB, {-lvalue-by-reference:T}, {N}, {-by-reference:replace}); -).
-
-Section SR5/2/13 - Values - Casing of text
-
-To decide what text is (T - text) in lower case
-	(documented at ph_lowercase):
-	(- TEXT_TY_CharactersToCase({-new:text}, {-by-reference:T}, 0) -).
-To decide what text is (T - text) in upper case
-	(documented at ph_uppercase):
-	(- TEXT_TY_CharactersToCase({-new:text}, {-by-reference:T}, 1) -).
-To decide what text is (T - text) in title case
-	(documented at ph_titlecase):
-	(- TEXT_TY_CharactersToCase({-new:text}, {-by-reference:T}, 2) -).
-To decide what text is (T - text) in sentence case
-	(documented at ph_sentencecase):
-	(- TEXT_TY_CharactersToCase({-new:text}, {-by-reference:T}, 3) -).
-To decide if (T - text) is in lower case
-	(documented at ph_inlower):
-	(- TEXT_TY_CharactersOfCase({-by-reference:T}, 0) -).
-To decide if (T - text) is in upper case
-	(documented at ph_inupper):
-	(- TEXT_TY_CharactersOfCase({-by-reference:T}, 1) -).
-
-Section SR5/2/14 - Values - Adaptive text
-
-To say infinitive of (V - a verb)
-	(documented at phs_infinitive):
-	(- {V}(1); -).
-To say past participle of (V - a verb)
-	(documented at phs_pastpart):
-	(- {V}(2); -).
-To say present participle of (V - a verb)
-	(documented at phs_prespart):
-	(- {V}(3); -).
-
-To say adapt (V - verb)
-	(documented at phs_adapt):
-	(- {V}(CV_POS, PNToVP(), story_tense); -).
-To say adapt (V - verb) in (T - grammatical tense)
-	(documented at phs_adaptt):
-	(- {V}(CV_POS, PNToVP(), {T}); -).
-To say adapt (V - verb) from (P - narrative viewpoint)
-	(documented at phs_adaptv):
-	(- {V}(CV_POS, {P}, story_tense); -).
-To say adapt (V - verb) in (T - grammatical tense) from (P - narrative viewpoint)
-	(documented at phs_adaptvt):
-	(- {V}(CV_POS, {P}, {T}); -).
-To say negate (V - verb)
-	(documented at phs_negate):
-	(- {V}(CV_NEG, PNToVP(), story_tense); -).
-To say negate (V - verb) in (T - grammatical tense)
-	(documented at phs_negatet):
-	(- {V}(CV_NEG, PNToVP(), {T}); -).
-To say negate (V - verb) from (P - narrative viewpoint)
-	(documented at phs_negatev):
-	(- {V}(CV_NEG, {P}, story_tense); -).
-To say negate (V - verb) in (T - grammatical tense) from (P - narrative viewpoint)
-	(documented at phs_negatevt):
-	(- {V}(CV_NEG, {P}, {T}); -).
-
-To decide which relation of objects is meaning of (V - a verb): (- {V}(CV_MEANING) -).
-
-To say here
-	(documented at phs_here):
-	say "[if story tense is present tense]here[otherwise]there".
-To say now
-	(documented at phs_now):
-	say "[if story tense is present tense]now[otherwise]then".
-
-Section SR5/2/15 - Values - Lists
-
-To add (new entry - K) to (L - list of values of kind K), if absent
-	(documented at ph_addtolist):
-	(- LIST_OF_TY_InsertItem({-lvalue-by-reference:L}, {new entry}, 0, 0, {phrase options}); -).
-
-To add (new entry - K) at entry (E - number) in (L - list of values of kind K), if absent
-	(documented at ph_addatentry):
-	(- LIST_OF_TY_InsertItem({-lvalue-by-reference:L}, {new entry}, 1, {E}, {phrase options}); -).
-
-To add (LX - list of Ks) to (L - list of values of kind K), if absent
-	(documented at ph_addlisttolist):
-	(- LIST_OF_TY_AppendList({-lvalue-by-reference:L}, {-by-reference:LX}, 0, 0, {phrase options}); -).
-
-To add (LX - list of Ks) at entry (E - number) in (L - list of values of kind K)
-	(documented at ph_addlistatentry):
-	(- LIST_OF_TY_AppendList({-lvalue-by-reference:L}, {-by-reference:LX}, 1, {E}, 0); -).
-
-To remove (existing entry - K) from (L - list of values of kind K), if present
-	(documented at ph_remfromlist):
-	(- LIST_OF_TY_RemoveValue({-lvalue-by-reference:L}, {existing entry}, {phrase options}); -).
-
-To remove (N - list of Ks) from (L - list of values of kind K), if present
-	(documented at ph_remlistfromlist):
-	(- LIST_OF_TY_Remove_List({-lvalue-by-reference:L}, {-by-reference:N}, {phrase options}); -).
-
-To remove entry (N - number) from (L - list of values), if present
-	(documented at ph_rementry):
-	(- LIST_OF_TY_RemoveItemRange({-lvalue-by-reference:L}, {N}, {N}, {phrase options}); -).
-
-To remove entries (N - number) to (N2 - number) from (L - list of values), if present
-	(documented at ph_rementries):
-	(- LIST_OF_TY_RemoveItemRange({-lvalue-by-reference:L}, {N}, {N2}, {phrase options}); -).
-
-To decide if (N - K) is listed in (L - list of values of kind K)
-	(documented at ph_islistedin):
-	(- (LIST_OF_TY_FindItem({-by-reference:L}, {N})) -).
-
-To decide if (N - K) is not listed in (L - list of values of kind K)
-	(documented at ph_isnotlistedin):
-	(- (LIST_OF_TY_FindItem({-by-reference:L}, {N}) == false) -).
-
-To decide what list of Ks is the list of (D - description of values of kind K)
-	(documented at ph_listofdesc):
-	(- {-new-list-of:list of K} -).
-To decide what list of objects is the multiple object list
-	(documented at ph_multipleobjectlist):
-	(- LIST_OF_TY_Mol({-new:list of objects}) -).
-To alter the multiple object list to (L - list of objects)
-	(documented at ph_altermultipleobjectlist):
-	(- LIST_OF_TY_Set_Mol({-by-reference:L}); -).
-
-Section SR5/2/16 - Values - Length of lists
-
-To decide what number is the number of entries in/of (L - a list of values)
-	(documented at ph_numberentries):
-	(- LIST_OF_TY_GetLength({-by-reference:L}) -).
-To truncate (L - a list of values) to (N - a number) entries/entry
-	(documented at ph_truncate):
-	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, 1); -).
-To truncate (L - a list of values) to the first (N - a number) entries/entry
-	(documented at ph_truncatefirst):
-	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, 1); -).
-To truncate (L - a list of values) to the last (N - a number) entries/entry
-	(documented at ph_truncatelast):
-	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, -1, -1); -).
-To extend (L - a list of values) to (N - a number) entries/entry
-	(documented at ph_extend):
-	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, 1); -).
-To change (L - a list of values) to have (N - a number) entries/entry
-	(documented at ph_changelength):
-	(- LIST_OF_TY_SetLength({-lvalue-by-reference:L}, {N}, 0); -).
-
-Section SR5/2/17 - Values - Reversing and rotating lists
-
-To reverse (L - a list of values)
-	(documented at ph_reverselist):
-	(- LIST_OF_TY_Reverse({-lvalue-by-reference:L}); -).
-To rotate (L - a list of values)
-	(documented at ph_rotatelist):
-	(- LIST_OF_TY_Rotate({-lvalue-by-reference:L}, 0); -).
-To rotate (L - a list of values) backwards
-	(documented at ph_rotatelistback):
-	(- LIST_OF_TY_Rotate({-lvalue-by-reference:L}, 1); -).
-
-Section SR5/2/18 - Values - Sorting lists
-
-To sort (L - a list of values)
-	(documented at ph_sortlist):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1); -).
-To sort (L - a list of values) in/into reverse order
-	(documented at ph_sortlistreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1); -).
-To sort (L - a list of values) in/into random order
-	(documented at ph_sortlistrandom):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 2); -).
-To sort (L - a list of objects) in/into (P - property) order
-	(documented at ph_sortlistproperty):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1, {P}, {-property-holds-block-value:P}); -).
-To sort (L - a list of objects) in/into reverse (P - property) order
-	(documented at ph_sortlistpropertyreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1, {P}, {-property-holds-block-value:P}); -).
-
-Section SR5/2/19 - Values - Relations
-
-To show relation (R - relation)
-	(documented at ph_showrelation):
-	(- {-show-me:R}; RelationTest({-by-reference:R}, RELS_SHOW); -).
-
-To decide which object is next step via (R - relation of objects)
-	from (O1 - object) to (O2 - object)
-	(documented at ph_nextstep):
-	(- RelationRouteTo({-by-reference:R},{O1},{O2},false) -).
-To decide which number is number of steps via (R - relation of objects)
-	from (O1 - object) to (O2 - object)
-	(documented at ph_numbersteps):
-	(- RelationRouteTo({-by-reference:R},{O1},{O2},true) -).
-
-To decide which list of Ks is list of (name of kind of value K)
-	that/which/whom (R - relation of Ks to values of kind L) relates
-	(documented at ph_leftdomain):
-	(- RelationTest({-by-reference:R}, RELS_LIST, {-new:list of K}, RLIST_ALL_X) -).
-
-To decide which list of Ls is list of (name of kind of value L)
-	to which/whom (R - relation of values of kind K to Ls) relates
-	(documented at ph_rightdomain):
-	(- RelationTest({-by-reference:R}, RELS_LIST, {-new:list of L}, RLIST_ALL_Y) -). [1]
-
-To decide which list of Ls is list of (name of kind of value L)
-	that/which/whom (R - relation of values of kind K to Ls) relates to
-	(documented at ph_rightdomain):
-	(- RelationTest({-by-reference:R}, RELS_LIST, {-new:list of L}, RLIST_ALL_Y) -). [2]
-
-To decide which list of Ks is list of (name of kind of value K) that/which/who
-	relate to (Y - L) by (R - relation of Ks to values of kind L)
-	(documented at ph_leftlookuplist):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ALL_X, {Y}, {-new:list of K}) -).
-
-To decide which list of Ls is list of (name of kind of value L) to which/whom (X - K)
-	relates by (R - relation of values of kind K to Ls)
-	(documented at ph_rightlookuplist):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ALL_Y, {X}, {-new:list of L}) -). [1]
-
-To decide which list of Ls is list of (name of kind of value L)
-	that/which/whom (X - K) relates to by (R - relation of values of kind K to Ls)
-	(documented at ph_rightlookuplist):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ALL_Y, {X}, {-new:list of L}) -). [2]
-
-To decide whether (name of kind of value K) relates to (Y - L) by
-	(R - relation of Ks to values of kind L)
-	(documented at ph_ifright):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ANY, {Y}, RLANY_CAN_GET_X) -).
-
-To decide whether (X - K) relates to (name of kind of value L) by
-	(R - relation of values of kind K to Ls)
-	(documented at ph_ifleft):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ANY, {X}, RLANY_CAN_GET_Y) -).
-
-To decide which K is (name of kind of value K) that/which/who relates to
-	(Y - L) by (R - relation of Ks to values of kind L)
-	(documented at ph_leftlookup):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ANY, {Y}, RLANY_GET_X) -).
-
-To decide which L is (name of kind of value L) to which/whom (X - K)
-	relates by (R - relation of values of kind K to Ls)
-	(documented at ph_rightlookup):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ANY, {X}, RLANY_GET_Y) -). [1]
-
-To decide which L is (name of kind of value L) that/which/whom (X - K)
-	relates to by (R - relation of values of kind K to Ls)
-	(documented at ph_rightlookup):
-	(- RelationTest({-by-reference:R}, RELS_LOOKUP_ANY, {X}, RLANY_GET_Y) -). [2]
-
-Section SR5/2/20 - Values - Functional programming
-
-To decide whether (val - K) matches (desc - description of values of kind K)
-	(documented at ph_valuematch):
-	(- {-primitive-definition:description-application} -).
-
-To decide what K is (function - phrase nothing -> value of kind K) applied
-	(documented at ph_applied0):
-	(- {-primitive-definition:function-application} -).
-
-To decide what L is (function - phrase value of kind K -> value of kind L)
-	applied to (input - K)
-	(documented at ph_applied1):
-	(- {-primitive-definition:function-application} -).
-
-To decide what M is (function - phrase (value of kind K, value of kind L) -> value of kind M)
-	applied to (input - K) and (second input - L)
-	(documented at ph_applied2):
-	(- {-primitive-definition:function-application} -).
-
-To decide what N is (function - phrase (value of kind K, value of kind L, value of kind M) -> value of kind N)
-	applied to (input - K) and (second input - L) and (third input - M)
-	(documented at ph_applied3):
-	(- {-primitive-definition:function-application} -).
-
-To apply (function - phrase nothing -> nothing)
-	(documented at ph_apply0):
-	(- {-primitive-definition:function-application}; -).
-
-To apply (function - phrase value of kind K -> nothing)
-	to (input - K)
-	(documented at ph_apply1):
-	(- {-primitive-definition:function-application}; -).
-
-To apply (function - phrase (value of kind K, value of kind L) -> nothing)
-	to (input - K) and (second input - L)
-	(documented at ph_apply2):
-	(- {-primitive-definition:function-application}; -).
-
-To apply (function - phrase (value of kind K, value of kind L, value of kind M) -> nothing)
-	to (input - K) and (second input - L) and (third input - M)
-	(documented at ph_apply3):
-	(- {-primitive-definition:function-application}; -).
-
-To decide what list of L is (function - phrase K -> value of kind L) applied to (original list - list of values of kind K)
-	(documented at ph_appliedlist):
-	let the result be a list of Ls;
-	repeat with item running through the original list:
-		let the mapped item be the function applied to the item;
-		add the mapped item to the result;
-	decide on the result.
-
-To decide what K is the (function - phrase (K, K) -> K) reduction of (original list - list of values of kind K)
-	(documented at ph_reduction):
-	let the total be a K;
-	let the count be 0;
-	repeat with item running through the original list:
-		increase the count by 1;
-		if the count is 1, now the total is the item;
-		otherwise now the total is the function applied to the total and the item;
-	decide on the total.
-
-To decide what list of K is the filter to (criterion - description of Ks) of
-	(full list - list of values of kind K)
-	(documented at ph_filter):
-	let the filtered list be a list of K;
-	repeat with item running through the full list:
-		if the item matches the criterion:
-			add the item to the filtered list;
-	decide on the filtered list.
-
-To showme (V - value)
-	(documented at ph_showme):
-	(- {-show-me:V} -).
-
-To decide what K is the default value of (V - name of kind of value of kind K)
-	(documented at ph_defaultvalue):
-	(- {-new:K} -).
-
-Section SR5/2/21 - Values - Files (for Glulx external files language element only)
-
-To read (filename - external file) into (T - table name)
-	(documented at ph_readtable):
-	(- FileIO_GetTable({filename}, {T}); -).
-To write (filename - external file) from (T - table name)
-	(documented at ph_writetable):
-	(- FileIO_PutTable({filename}, {T}); -).
-To decide if (filename - external file) exists
-	(documented at ph_fileexists):
-	(- (FileIO_Exists({filename}, false)) -).
-To decide if ready to read (filename - external file)
-	(documented at ph_fileready):
-	(- (FileIO_Ready({filename}, false)) -).
-To mark (filename - external file) as ready to read
-	(documented at ph_markfileready):
-	(- FileIO_MarkReady({filename}, true); -).
-To mark (filename - external file) as not ready to read
-	(documented at ph_markfilenotready):
-	(- FileIO_MarkReady({filename}, false); -).
-To write (T - text) to (FN - external file)
-	(documented at ph_writetext):
-	(- FileIO_PutContents({FN}, {T}, false); -).
-To append (T - text) to (FN - external file)
-	(documented at ph_appendtext):
-	(- FileIO_PutContents({FN}, {T}, true); -).
-To say text of (FN - external file)
-	(documented at ph_saytext):
-	(- FileIO_PrintContents({FN}); say__p = 1; -).
-
-Section SR5/2/22 - Values - Figures (for figures language element only)
+Section 1 - Figures (for figures language element only)
 
 To display (F - figure name), one time only
 	(documented at ph_displayfigure):
@@ -5854,7 +4387,7 @@ To decide which number is the Glulx resource ID of (F - figure name)
 	(documented at ph_figureid):
 	(- ResourceIDsOfFigures-->{F} -).
 
-Section SR5/2/23 - Values - Sound effects (for sounds language element only)
+Section 2 - Sound effects (for sounds language element only)
 
 To play (SFX - sound name), one time only
 	(documented at ph_playsf):
@@ -5863,119 +4396,9 @@ To decide which number is the Glulx resource ID of (SFX - sound name)
 	(documented at ph_soundid):
 	(- ResourceIDsOfSounds-->{SFX} -).
 
-Section SR5/3/1 - Control phrases - If and unless
+Chapter 3 - Actions, activities and rules
 
-To if (c - condition) begin -- end conditional
-	(documented at ph_if):
-	(- if {c}  -).
-To unless (c - condition) begin -- end conditional
-	(documented at ph_unless):
-	(- if (~~{c})  -).
-
-To if (V - value) is begin -- end conditional
-	(documented at ph_switch):
-	(- {-primitive-definition:switch} -).
-
-Section SR5/3/2 - Control phrases - While
-
-To while (c - condition) begin -- end loop
-	(documented at ph_while):
-	(- while {c}  -).
-
-Section SR5/3/3 - Control phrases - Repeat
-
-To repeat with (loopvar - nonexisting K variable)
-	running from (v - arithmetic value of kind K) to (w - K) begin -- end loop
-	(documented at ph_repeat):
-		(- for ({loopvar}={v}: {loopvar}<={w}: {loopvar}++)  -).
-To repeat with (loopvar - nonexisting K variable)
-	running from (v - enumerated value of kind K) to (w - K) begin -- end loop
-	(documented at ph_repeat):
-		(- for ({loopvar}={v}: {loopvar}<={w}: {loopvar}++)  -).
-To repeat with (loopvar - nonexisting K variable)
-	running through (OS - description of values of kind K) begin -- end loop
-	(documented at ph_runthrough):
-		(- {-primitive-definition:repeat-through} -).
-To repeat with (loopvar - nonexisting object variable)
-	running through (L - list of values) begin -- end loop
-	(documented at ph_repeatlist):
-		(- {-primitive-definition:repeat-through-list} -).
-
-To repeat through (T - table name) begin -- end loop
-	(documented at ph_repeattable): (-
-		@push {-my:ct_0}; @push {-my:ct_1};
-		for ({-my:1}={T}, {-my:2}=1, ct_0={-my:1}, ct_1={-my:2}:
-			{-my:2}<=TableRows({-my:1}):
-			{-my:2}++, ct_0={-my:1}, ct_1={-my:2})
-			if (TableRowIsBlank(ct_0, ct_1)==false)
-				{-block}
-		@pull {-my:ct_1}; @pull {-my:ct_0};
-	-).
-To repeat through (T - table name) in reverse order begin -- end loop
-	(documented at ph_repeattablereverse): (-
-		@push {-my:ct_0}; @push {-my:ct_1};
-		for ({-my:1}={T}, {-my:2}=TableRows({-my:1}), ct_0={-my:1}, ct_1={-my:2}:
-			{-my:2}>=1:
-			{-my:2}--, ct_0={-my:1}, ct_1={-my:2})
-			if (TableRowIsBlank(ct_0, ct_1)==false)
-				{-block}
-		@pull {-my:ct_1}; @pull {-my:ct_0};
-	-).
-To repeat through (T - table name) in (TC - table column) order begin -- end loop
-	(documented at ph_repeattablecol): (-
-		@push {-my:ct_0}; @push {-my:ct_1};
-		for ({-my:1}={T}, {-my:2}=TableNextRow({-my:1}, {TC}, 0, 1), ct_0={-my:1}, ct_1={-my:2}:
-			{-my:2}~=0:
-			{-my:2}=TableNextRow({-my:1}, {TC}, {-my:2}, 1), ct_0={-my:1}, ct_1={-my:2})
-				{-block}
-		@pull {-my:ct_1}; @pull {-my:ct_0};
-	-).
-To repeat through (T - table name) in reverse (TC - table column) order begin -- end loop
-	(documented at ph_repeattablecolreverse): (-
-		@push {-my:ct_0}; @push {-my:ct_1};
-		for ({-my:1}={T}, {-my:2}=TableNextRow({-my:1}, {TC}, 0, -1), ct_0={-my:1}, ct_1={-my:2}:
-			{-my:2}~=0:
-			{-my:2}=TableNextRow({-my:1}, {TC}, {-my:2}, -1), ct_0={-my:1}, ct_1={-my:2})
-				{-block}
-		@pull {-my:ct_1}; @pull {-my:ct_0};
-	-).
-
-Section SR5/3/6 - Control phrases - Changing the flow of loops
-
-To break -- in loop
-	(documented at ph_break):
-	(- {-primitive-definition:break} -).
-To next -- in loop
-	(documented at ph_next):
-	(- continue; -).
-
-Section SR5/3/7 - Control phrases - Deciding outcomes
-
-To yes
-	(documented at ph_yes):
-	(- rtrue; -) - in to decide if only.
-To decide yes
-	(documented at ph_yes):
-	(- rtrue; -) - in to decide if only.
-To no
-	(documented at ph_no):
-	(- rfalse; -) - in to decide if only.
-To decide no
-	(documented at ph_no):
-	(- rfalse; -) - in to decide if only.
-
-To decide on (something - value)
-	(documented at ph_decideon):
-	(- return {-return-value:something}; -).
-
-Section SR5/3/8 - Control phrases - Stop or go
-
-To do nothing (documented at ph_nothing):
-	(- ; -).
-To stop (documented at ph_stop):
-	(- rtrue; -) - in to only.
-
-Section SR5/4/1 - Actions, activities and rules - Trying actions
+Section 1 - Trying actions
 
 To try (S - action)
 	(documented at ph_try):
@@ -5989,7 +4412,7 @@ To try silently (S - action)
 To decide whether the action is not silent:
 	(- (keep_silent == false) -).
 
-Section SR5/4/2 - Actions, activities and rules - Action requirements
+Section 2 - Action requirements
 
 To decide whether the action requires a touchable noun
 	(documented at ph_requirestouch):
@@ -6007,7 +4430,29 @@ To decide whether the action requires light
 	(documented at ph_requireslight):
 	(- (NeedLightForAction()) -).
 
-Section SR5/4/3 - Actions, activities and rules - Stop or continue
+To anonymously abide by (RL - a rule)
+	(documented at ph_abideanon):
+	(- if (temporary_value = FollowRulebook({RL})) {
+		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
+		else ActRulebookFails(temporary_value);
+		return 2;
+	} -) - in to only.
+To anonymously abide by (RL - value of kind K based rule producing a value) for (V - K)
+	(documented at ph_abideanon):
+	(- if (temporary_value = FollowRulebook({RL}, {V}, true)) {
+		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
+		else ActRulebookFails(temporary_value);
+		return 2;
+	} -) - in to only.
+To anonymously abide by (RL - a nothing based rule)
+	(documented at ph_abideanon):
+	(- if (temporary_value = FollowRulebook({RL})) {
+		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
+		else ActRulebookFails(temporary_value);
+		return 2;
+	} -) - in to only.
+
+Section 3 - Stop or continue
 
 To stop the action
 	(documented at ph_stopaction):
@@ -6016,7 +4461,7 @@ To continue the action
 	(documented at ph_continueaction):
 	(- rfalse; -) - in to only.
 
-Section SR5/4/4 - Actions, activities and rules - Actions as values
+Section 4 - Actions as values
 
 To decide what action is the current action
 	(documented at ph_currentaction):
@@ -6040,122 +4485,9 @@ To decide what object is the actor part of (act - a action)
 	(documented at ph_actorpart):
 	(- (STORED_ACTION_TY_Part({-by-reference:act}, STORA_ACTOR_F)) -).
 
-Section SR5/4/5 - Actions, activities and rules - Carrying out activities
+Chapter 4 - The Model World
 
-To carry out the (A - activity on nothing) activity
-	(documented at ph_carryout):
-	(- CarryOutActivity({A}); -).
-To carry out the (A - activity on value of kind K) activity with (val - K)
-	(documented at ph_carryoutwith):
-	(- CarryOutActivity({A}, {val}); -).
-
-To continue the activity
-	(documented at ph_continueactivity):
-	(- rfalse; -) - in to only.
-
-Section SR5/4/6 - Actions, activities and rules - Advanced activities
-
-To begin the (A - activity on nothing) activity
-	(documented at ph_beginactivity):
-	(- BeginActivity({A}); -).
-To begin the (A - activity on value of kind K) activity with (val - K)
-	(documented at ph_beginactivitywith):
-	(- BeginActivity({A}, {val}); -).
-To decide whether handling (A - activity) activity
-	(documented at ph_handlingactivity):
-	(- (~~(ForActivity({A}))) -).
-To decide whether handling (A - activity on value of kind K) activity with (val - K)
-	(documented at ph_handlingactivitywith):
-	(- (~~(ForActivity({A}, {val}))) -).
-To end the (A - activity on nothing) activity
-	(documented at ph_endactivity):
-	(- EndActivity({A}); -).
-To end the (A - activity on value of kind K) activity with (val - K)
-	(documented at ph_endactivitywith):
-	(- EndActivity({A}, {val}); -).
-To abandon the (A - activity on nothing) activity
-	(documented at ph_abandonactivity):
-	(- AbandonActivity({A}); -).
-To abandon the (A - activity on value of kind K) activity with (val - K)
-	(documented at ph_abandonactivitywith):
-	(- AbandonActivity({A}, {val}); -).
-
-Section SR5/4/7 - Actions, activities and rules - Following rules
-
-To follow (RL - a rule)
-	(documented at ph_follow):
-	(- FollowRulebook({RL}); -).
-To follow (RL - value of kind K based rule producing a value) for (V - K)
-	(documented at ph_followfor):
-	(- FollowRulebook({RL}, {V}, true); -).
-To follow (RL - a nothing based rule)
-	(documented at ph_follow):
-	(- FollowRulebook({RL}); -).
-To decide what K is the (name of kind K) produced by (RL - rule producing a value of kind K)
-	(documented at ph_producedby):
-	(- ResultOfRule({RL}, 0, true, {-strong-kind:K}) -).
-To decide what L is the (name of kind L) produced by (RL - value of kind K based rule
-	producing a value of kind L) for (V - K)
-	(documented at ph_producedbyfor):
-	(- ResultOfRule({RL}, {V}, true, {-strong-kind:L}) -).
-To decide what K is the (name of kind K) produced by (RL - nothing based rule producing a value of kind K)
-	(documented at ph_producedby):
-	(- ResultOfRule({RL}, 0, true, {-strong-kind:K}) -).
-To abide by (RL - a rule)
-	(documented at ph_abide):
-	(- if (FollowRulebook({RL})) rtrue; -) - in to only.
-To abide by (RL - value of kind K based rule producing a value) for (V - K)
-	(documented at ph_abidefor):
-	(- if (FollowRulebook({RL}, {V}, true)) rtrue; -) - in to only.
-To abide by (RL - a nothing based rule)
-	(documented at ph_abide):
-	(- if (FollowRulebook({RL})) rtrue; -) - in to only.
-To anonymously abide by (RL - a rule)
-	(documented at ph_abideanon):
-	(- if (temporary_value = FollowRulebook({RL})) {
-		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
-		else ActRulebookFails(temporary_value);
-		return 2;
-	} -) - in to only.
-To anonymously abide by (RL - value of kind K based rule producing a value) for (V - K)
-	(documented at ph_abideanon):
-	(- if (temporary_value = FollowRulebook({RL}, {V}, true)) {
-		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
-		else ActRulebookFails(temporary_value);
-		return 2;
-	} -) - in to only.
-To anonymously abide by (RL - a nothing based rule)
-	(documented at ph_abideanon):
-	(- if (temporary_value = FollowRulebook({RL})) {
-		if (RulebookSucceeded()) ActRulebookSucceeds(temporary_value);
-		else ActRulebookFails(temporary_value);
-		return 2;
-	} -) - in to only.
-
-Section SR5/4/8 - Actions, activities and rules - Success and failure
-
-To make no decision
-	(documented at ph_nodecision): (- rfalse; -) - in to only.
-To rule succeeds
-	(documented at ph_succeeds):
-	(- RulebookSucceeds(); rtrue; -) - in to only.
-To rule fails
-	(documented at ph_fails):
-	(- RulebookFails(); rtrue; -) - in to only.
-To rule succeeds with result (val - a value)
-	(documented at ph_succeedswith):
-	(- RulebookSucceeds({-weak-kind:rule-return-kind},{-return-value-from-rule:val}); rtrue; -) - in to only.
-To decide if rule succeeded
-	(documented at ph_succeeded):
-	(- (RulebookSucceeded()) -).
-To decide if rule failed
-	(documented at ph_failed):
-	(- (RulebookFailed()) -).
-To decide which rulebook outcome is the outcome of the rulebook
-	(documented at ph_rulebookoutcome):
-	(- (ResultOfRule()) -).
-
-Section SR5/5/1 - Model world - Ending the story
+Section 1 - Ending the story
 
 To end the story
 	(documented at ph_end):
@@ -6165,10 +4497,10 @@ To end the story finally
 	(- deadflag=3; story_complete=true; -).
 To end the story saying (finale - text)
 	(documented at ph_endsaying):
-	(- deadflag={-by-reference:finale}; story_complete=false; -).
+	(- deadflag={-by-reference:finale}; BlkValueIncRefCountPrimitive(deadflag); story_complete=false; -).
 To end the story finally saying (finale - text)
 	(documented at ph_endfinallysaying):
-	(- deadflag={-by-reference:finale}; story_complete=true; -).
+	(- deadflag={-by-reference:finale}; BlkValueIncRefCountPrimitive(deadflag); story_complete=true; -).
 To decide whether the story has ended
 	(documented at ph_ended):
 	(- (deadflag~=0) -).
@@ -6185,7 +4517,7 @@ To resume the story
 	(documented at ph_resume):
 	(- resurrect_please = true; -).
 
-Section SR5/5/2 - Model world - Times of day
+Section 2 - Times of day
 
 To decide which number is the minutes part of (t - time)
 	(documented at ph_minspart):
@@ -6207,7 +4539,7 @@ To decide which time is (t - time) after (t2 - time)
 	(documented at ph_shiftafter):
 	(- (({t2}+{t}+TWENTY_FOUR_HOURS)%(TWENTY_FOUR_HOURS)) -).
 
-Section SR5/5/3 - Model world - Durations
+Section 3 - Durations
 
 To decide which time is (n - number) minutes
 	(documented at ph_durationmins):
@@ -6216,7 +4548,7 @@ To decide which time is (n - number) hours
 	(documented at ph_durationhours):
 	(- (({n}*ONE_HOUR)%(TWENTY_FOUR_HOURS)) -).
 
-Section SR5/5/4 - Model world - Timed events
+Section 4 - Timed events
 
 To (R - rule) in (t - number) turn/turns from now
 	(documented at ph_turnsfromnow):
@@ -6228,7 +4560,7 @@ To (R - rule) in (t - time) from now
 	(documented at ph_timefromnow):
 	(- SetTimedEvent({-mark-event-used:R}, (the_time+{t})%(TWENTY_FOUR_HOURS), 1); -).
 
-Section SR5/5/5 - Model world - Scenes
+Section 5 - Scenes
 
 To decide if (sc - scene) has happened
 	(documented at ph_hashappened):
@@ -6243,7 +4575,7 @@ To decide if (sc - scene) has not ended
 	(documented at ph_hasnotended):
 	(- (scene_endings-->({sc}-1) <= 1) -).
 
-Section SR5/5/6 - Model world - Timing of scenes
+Section 6 - Timing of scenes
 
 To decide which time is the time since (sc - scene) began
 	(documented at ph_scenetimesincebegan):
@@ -6258,13 +4590,13 @@ To decide which time is the time when (sc - scene) ended
 	(documented at ph_scenetimewhenended):
 	(- (SceneUtility({sc}, 4)) -).
 
-Section SR5/5/7 - Model world - Player's identity and location
+Section 7 - Player's identity and location
 
 To decide whether in darkness
 	(documented at ph_indarkness):
 	(- (location==thedark) -).
 
-Section SR5/5/8 - Model world - Moving and removing things
+Section 8 - Moving and removing things
 
 To move (something - object) to (something else - object),
 	without printing a room description
@@ -6282,7 +4614,7 @@ To update backdrop positions
 	(documented at ph_updatebackdrop):
 	(- MoveFloatingObjects(); -).
 
-Section SR5/5/9 - Model world - The map
+Section 9 - The map
 
 To decide which room is location of (O - object)
 	(documented at ph_locationof):
@@ -6293,6 +4625,9 @@ To decide which room is room (D - direction) from/of (R1 - room)
 To decide which door is door (D - direction) from/of (R1 - room)
 	(documented at ph_doordirof):
 	(- DoorFrom({R1},{D}) -).
+To decide which object is the other side of (D - door)
+	(documented at ph_othersideof):
+	(- OtherSideOfDoor({D}, location) -).
 To decide which object is the other side of (D - door) from (R1 - room)
 	(documented at ph_othersideof):
 	(- OtherSideOfDoor({D},{R1}) -).
@@ -6315,7 +4650,7 @@ To decide which room is the back side of (D - object)
 	(documented at ph_backside):
 	(- BackSideOfDoor({D}) -).
 
-Section SR5/5/10 - Model world - Route-finding
+Section 10 - Route-finding
 
 To decide which object is best route from (R1 - object) to (R2 - object),
 	using doors or using even locked doors
@@ -6336,7 +4671,7 @@ To decide which number is number of moves from (R1 - object) to (R2 - object) th
 	(documented at ph_bestroutethroughlength):
 	(- MapRouteTo({R1},{R2},{RS},{phrase options},true) -).
 
-Section SR5/5/11 - Model world - The object tree
+Section 11 - The object tree
 
 To decide which object is holder of (something - object)
 	(documented at ph_holder):
@@ -6348,13 +4683,15 @@ To decide which object is first thing held by (something - object)
 	(documented at ph_firstheld):
 	(- (child({something})) -).
 
-Section SR5/6/1 - Understanding - Asking yes/no questions
+Chapter 5 - Understanding
+
+Section 1 - Asking yes/no questions
 
 To decide whether player consents
 	(documented at ph_consents):
 		(- YesOrNo() -).
 
-Section SR5/6/2 - Understanding - The player's command
+Section 2 - The player's command
 
 To decide if (S - a snippet) matches (T - a topic)
 	(documented at ph_snippetmatches):
@@ -6369,7 +4706,7 @@ To decide if (S - a snippet) does not include (T - a topic)
 	(documented at ph_snippetdoesnotinclude):
 	(- (SnippetIncludes({T},{S})==0) -).
 
-Section SR5/6/3 - Understanding - Changing the player's command
+Section 3 - Changing the player's command
 
 To change the text of the player's command to (T - text)
 	(documented at ph_changecommand):
@@ -6384,7 +4721,7 @@ To reject the player's command
 	(documented at ph_rejectcommand):
 	(- RulebookFails(); rtrue; -) - in to only.
 
-Section SR5/6/4 - Understanding - Scope and pronouns
+Section 4 - Scope and pronouns
 
 To place (O - an object) in scope, but not its contents
 	(documented at ph_placeinscope):
@@ -6396,6 +4733,15 @@ To set pronouns from (O - an object)
 	(documented at ph_setpronouns):
 	(- PronounNotice({O}); -).
 
+Section 5 - The multiple object list
+
+To decide what list of objects is the multiple object list
+	(documented at ph_multipleobjectlist):
+	(- LIST_OF_TY_Mol({-new:list of objects}) -).
+To alter the multiple object list to (L - list of objects)
+	(documented at ph_altermultipleobjectlist):
+	(- LIST_OF_TY_Set_Mol({-by-reference:L}); -).
+
 Section SR5/8/1 - Message support - Issuance - Unindexed
 
 To issue score notification message:
@@ -6405,7 +4751,7 @@ To say pronoun dictionary word:
 To say recap of command:
 	(- PrintCommand(); -).
 The pronoun reference object is an object that varies.
-The pronoun reference object variable translates into I6 as "pronoun_obj".
+The pronoun reference object variable translates into Inter as "pronoun_obj".
 
 To say pronoun i6 dictionary word:
 	(- print (address) pronoun_word; -).
@@ -6413,7 +4759,9 @@ To say pronoun i6 dictionary word:
 To say parser command so far:
 	(- PrintCommand(); -).
 
-Section SR5/9/1 - Miscellaneous other phrases - Unindexed
+Chapter 6 - Deprecated or private phrases - Unindexed
+
+Section 1 - Spatial modelling - Unindexed
 
 To decide which object is the component parts core of (X - an object):
 	(- CoreOf({X}) -).
@@ -6434,17 +4782,13 @@ To decide which number is the visibility ceiling count calculated:
 To decide which object is the visibility ceiling calculated:
 	(- visibility_ceiling -).
 
+Section 2 - Room descriptions - Unindexed
+
 To produce a room description with going spacing conventions:
 	(- LookAfterGoing(); -).
 
 To print the location's description:
 	(- PrintOrRun(location, description); -).
-
-To decide if expanding text for comparison purposes:
-	(- say__comp -).
-
-To decide whether the I6 parser is running multiple actions:
-	(- (multiflag==1) -).
 
 To decide if set to sometimes abbreviated room descriptions:
 	(- (lookmode == 1) -).
@@ -6452,6 +4796,8 @@ To decide if set to unabbreviated room descriptions:
 	(- (lookmode == 2) -).
 To decide if set to abbreviated room descriptions:
 	(- (lookmode == 3) -).
+
+Section 3 - Action conversion - Unindexed
 
 To convert to (AN - an action name) on (O - an object):
 	(- return GVS_Convert({AN},{O},0); -) - in to only.
@@ -6461,6 +4807,8 @@ To convert to request of (X - object) to perform (AN - action name) with
 To convert to special going-with-push action:
 	(- return ConvertToGoingWithPush(); -).
 
+Section 4 - Surreptitious violation of invariants - Unindexed
+
 To surreptitiously move (something - object) to (something else - object):
 	(- move {something} to {something else}; -).
 To surreptitiously move (something - object) to (something else - object) during going:
@@ -6468,12 +4816,35 @@ To surreptitiously move (something - object) to (something else - object) during
 To surreptitiously reckon darkness:
 	(- SilentlyConsiderLight(); -).
 
+Section 5 - Capitalised list-writing - Unindexed
+
 To say list-writer list of marked objects: (-
 	 	WriteListOfMarkedObjects(ENGLISH_BIT);
 	-).
 To say list-writer articled list of marked objects: (-
 	 	WriteListOfMarkedObjects(ENGLISH_BIT+DEFART_BIT+CFIRSTART_BIT);
 	-).
+
+Section 6 - Printing names - Unindexed
+
+To decide if expanding text for comparison purposes:
+	(- say__comp -).
+
+Section 7 - Command parsing - Unindexed
+
+To decide whether the I6 parser is running multiple actions:
+	(- (multiflag==1) -).
+
+Section 8 - Deprecated Inform - unindexed
+
+To yes
+	(documented at ph_yes):
+	(- rtrue; -) - in to decide if only.
+To no
+	(documented at ph_no):
+	(- rfalse; -) - in to decide if only.
+
+Section 9 - Debugging Inform - Unindexed
 
 To ***:
 	(- {-primitive-definition:verbose-checking} -).
@@ -6485,6 +4856,7 @@ The Standard Rules end here.
 ---- DOCUMENTATION ----
 
 Unlike other extensions, the Standard Rules are compulsorily included
-with every project. They define the phrases, kinds and relations which
-are basic to Inform, and which are described throughout the documentation.
+with every work of interactive fiction made with Inform. They are described
+throughout the documentation supplied with Inform, so no details will be
+given here.
 

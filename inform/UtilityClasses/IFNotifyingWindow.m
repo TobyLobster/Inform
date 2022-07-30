@@ -10,7 +10,7 @@
 #import "IFFindController.h"
 #import "IFProjectController.h"
 
-@protocol IFFirstResponder
+@protocol IFFirstResponder <NSObject>
 - (void) changeFirstResponder: (NSResponder*) first;
 @end
 

@@ -36,6 +36,8 @@ static NSDictionary* insertAttr = nil;
 static NSDictionary* deleteAttr = nil;
 
 +(void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
     commandAttr   = @{ NSFontAttributeName: [NSFont boldSystemFontOfSize: kSkeinDefaultReportFontSize] };
     normalAttr    = @{ NSFontAttributeName: [NSFont systemFontOfSize: kSkeinDefaultReportFontSize] };
     insertAttr    = @{ NSFontAttributeName: [NSFont systemFontOfSize: kSkeinDefaultReportFontSize],
@@ -46,10 +48,11 @@ static NSDictionary* deleteAttr = nil;
                        NSStrikethroughColorAttributeName: [NSColor colorWithCalibratedRed:0.0f green:0.0f blue:0.0f alpha:1.0f] };
 
     [IFSkeinReportView adjustAttributesToFontSize];
+    });
 }
 
 +(void) adjustAttributesToFontSize {
-    float fontSize = kSkeinDefaultReportFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    CGFloat fontSize = kSkeinDefaultReportFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
     commandAttr = [IFUtility adjustAttributesFontSize: commandAttr size: fontSize];
     normalAttr  = [IFUtility adjustAttributesFontSize: normalAttr  size: fontSize];
     insertAttr  = [IFUtility adjustAttributesFontSize: insertAttr  size: fontSize];
@@ -158,7 +161,7 @@ static NSDictionary* deleteAttr = nil;
 
         // Create and position new subviews
         IFSkeinLayoutItem* layoutItem = leafItem;
-        float totalHeight = 0.0f;
+        CGFloat totalHeight = 0.0f;
         int itemViewsIndex = 0;
         int maxLevel = layoutItem.level;
 
@@ -199,10 +202,10 @@ static NSDictionary* deleteAttr = nil;
                                     forceChange: forceResizeDueToFontSizeChange];
 
             // Resize based on size of text. Includes borders and ensures a minimum height for each item.
-            float viewHeight = reportItemView.textHeight;
+            CGFloat viewHeight = reportItemView.textHeight;
 
             // Work out height between items
-            float fullStrideHeight = reportItemView.topBorderHeight + viewHeight;
+            CGFloat fullStrideHeight = reportItemView.topBorderHeight + viewHeight;
             if( itemViewsIndex == 0 ) {
                 fullStrideHeight += kSkeinReportInsideBottomBorder;
             } else {
@@ -249,7 +252,7 @@ static NSDictionary* deleteAttr = nil;
     }
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect: (NSRect) dirtyRect {
     [[NSColor colorWithCalibratedRed: 243.0f / 255.0f
@@ -267,12 +270,12 @@ static NSDictionary* deleteAttr = nil;
     CGFloat dashArray[] = { 8.0f, 6.0f };
     [path setLineDash: dashArray count: 2 phase: 0.0f];
 
-    float totalHeight = 0;
+    CGFloat totalHeight = 0;
     for( int index = (int) [reportDetails count] - 1; index > 0; index-- ) {
-        float height = [reportDetails[index] floatValue];
+        CGFloat height = [reportDetails[index] doubleValue];
         totalHeight += height;
 
-        float y = floorf(totalHeight) - (kDottedSeparatorLineThickness * 0.5f);
+        CGFloat y = floor(totalHeight) - (kDottedSeparatorLineThickness * 0.5f);
         [path moveToPoint: NSMakePoint(0.0f, y)];
         [path lineToPoint: NSMakePoint(self.frame.size.width, y)];
     }
@@ -347,7 +350,7 @@ static NSDictionary* deleteAttr = nil;
         IFSkeinLayoutItem* layoutItem = [rootTree leafSelectedLineItem];
         while( layoutItem ) {
             if( layoutItem.item.uniqueId == uniqueId ) {
-                if( delegate && [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {
+                if( [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {
                     [delegate setItemBlessed: layoutItem.item bless: !button.blessState];
                 }
                 break;

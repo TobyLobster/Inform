@@ -14,13 +14,12 @@
 #import "IFSkeinViewChildren.h"
 #import "IFSkeinConstants.h"
 #import "IFPreferences.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
-// Constants
-static const float kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command
+/// Constants
+static const CGFloat kSkeinMinEditFieldWidth  = 40.0f;    // Smallest width for editing a command
 
-// Drawing info
+/// Drawing info
 static NSDictionary* itemTextAttributes;
 
 @implementation IFSkeinView {
@@ -52,8 +51,11 @@ static NSDictionary* itemTextAttributes;
 @synthesize selectedItem;
 
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 	itemTextAttributes = @{ NSFontAttributeName:            [NSFont systemFontOfSize: [IFSkeinView fontSize]],
                             NSForegroundColorAttributeName: [NSColor blackColor] };
+    });
 }
 
 - (instancetype)initWithFrame: (NSRect)frame {
@@ -85,11 +87,9 @@ static NSDictionary* itemTextAttributes;
 	return YES;    // YES puts the origin at the top left corner of the view (NO is bottom left)
 }
 
-// = Setting/getting the source =
+#pragma mark - Setting/getting the source
 
-- (IFSkein*) skein {
-	return skein;
-}
+@synthesize skein;
 
 - (void) setSkein: (IFSkein*) sk {
 	if (skein == sk) return;
@@ -136,7 +136,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Laying things out =
+#pragma mark - Laying things out
 
 - (void) skeinDidChange: (NSNotification*) not {
     if( selectedItem != nil ) {
@@ -218,11 +218,16 @@ static NSDictionary* itemTextAttributes;
 }
 
 - (void) layoutSkeinWithAnimation: (BOOL) animate {
-	// Re-layout this skein
+    [self finishEditing: self];
+
+    // Re-layout this skein
     [layoutTree setRootItem:     skein.rootItem];
     [layoutTree setActiveItem:   skein.activeItem];
     [layoutTree setSelectedItem: selectedItem];
 	[layoutTree layoutSkein];
+
+    // Resize the view to the size of the new layout
+    [self resizeView];
 
     // Tell the report to update itself based on the new skein
     [skeinViewChildren updateReportDetails];
@@ -243,7 +248,7 @@ static NSDictionary* itemTextAttributes;
     [NSAnimationContext endGrouping];
 }
 
-// Cursor handling
+#pragma mark Cursor handling
 
 - (void) cursorUpdate: (NSEvent*) event {
     [[NSCursor openHandCursor] set];
@@ -266,7 +271,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Mouse handling =
+#pragma mark - Mouse handling
 
 - (void) mouseDown: (NSEvent*) event {
 	[self finishEditing: self];
@@ -299,11 +304,11 @@ static NSDictionary* itemTextAttributes;
     dragScrolling = NO;
 }
 
-// = Editing items =
+#pragma mark - Editing items
 
 - (void)textDidEndEditing:(NSNotification *)aNotification {
 	// Check if the user left the field before committing changes and end the edit.
-	BOOL success = [[aNotification userInfo][@"NSTextMovement"] intValue] != NSIllegalTextMovement;
+	BOOL success = [[aNotification userInfo][NSTextMovementUserInfoKey] integerValue] != NSTextMovementOther;
 	
 	if (success)
 		[self finishEditing: fieldEditor];				// Store the results
@@ -405,10 +410,10 @@ static NSDictionary* itemTextAttributes;
 	}
 
 	// 'overflow' border
-	itemFrame.origin.x      = floorf(itemFrame.origin.x - 14.0f);
-	itemFrame.origin.y      = floorf(itemFrame.origin.y + 4.0f);
-	itemFrame.size.width    = floorf(itemFrame.size.width + 20.0f);
-	itemFrame.size.height   = floorf(itemFrame.size.height);
+	itemFrame.origin.x      = floor(itemFrame.origin.x - 14.0f);
+	itemFrame.origin.y      = floor(itemFrame.origin.y + 4.0f);
+	itemFrame.size.width    = floor(itemFrame.size.width + 20.0f);
+	itemFrame.size.height   = floor(itemFrame.size.height);
 
     [self scrollRectToVisible: itemFrame];
 
@@ -435,7 +440,7 @@ static NSDictionary* itemTextAttributes;
 	[fieldScroller setFrame: itemFrame];
 	[fieldEditor setFrame: itemFrame];
 
-	[fieldEditor setAlignment: NSCenterTextAlignment];
+	[fieldEditor setAlignment: NSTextAlignmentCenter];
 	[fieldEditor setFont: itemTextAttributes[NSFontAttributeName]];
 
 	[fieldEditor setRichText:NO];
@@ -463,7 +468,7 @@ static NSDictionary* itemTextAttributes;
 	[NSObject cancelPreviousPerformRequestsWithTarget: self];
 }
 
-// = Playing the game =
+#pragma mark - Playing the game
 
 - (void) playToPoint: (IFSkeinItem*) item {
     if( ![self canPlayToHere: item] ) {
@@ -491,7 +496,7 @@ static NSDictionary* itemTextAttributes;
     }
 }
 
-// = Moving around =
+#pragma mark - Moving around
 
 - (void)viewWillMoveToWindow:(NSWindow *)newWindow {
 	[self finishEditing: self];
@@ -501,7 +506,8 @@ static NSDictionary* itemTextAttributes;
 	[self finishEditing: self];
 }
 
-// = Menu support =
+#pragma mark - Menu support
+
 - (BOOL) canDelete: (IFSkeinItem*) skeinItem {
     IFSkeinItem* itemParent = skeinItem.parent;
 
@@ -514,7 +520,6 @@ static NSDictionary* itemTextAttributes;
 
     return YES;
 }
-
 
 -(BOOL) canPlayToHere:(IFSkeinItem*) item {
     return !item.isTestSubItem;
@@ -547,6 +552,12 @@ static NSDictionary* itemTextAttributes;
     return YES;
 }
 
+-(BOOL) canSetWinningItem:(IFSkeinItem*) item {
+    if( item.parent == nil ) return NO;
+    if( item.isTestSubItem ) return NO;
+    return YES;
+}
+
 -(BOOL) canSplitThread:(IFSkeinItem*) item {
     if( item.children.count > 0 ) {
         IFSkeinItem* firstChild = item.children[0];
@@ -571,7 +582,8 @@ static NSDictionary* itemTextAttributes;
     return NO;
 }
 
-// = Context menu =
+#pragma mark - Context menu
+
 - (NSMenu *)menuForItem:(IFSkeinItem*) item {
     contextItem = item;
 
@@ -608,6 +620,15 @@ static NSDictionary* itemTextAttributes;
                                keyEquivalent: @""];
     menuItem.enabled = [self canEditItem:item];
 
+    menuItem = [contextMenu addItemWithTitle: [IFUtility localizedString: @"Set Winning Command"]
+                                      action: @selector(setWinningCommandItem:)
+                               keyEquivalent: @""];
+    if ([skein isTheWinningItem: item]) {
+        menuItem.state = NSControlStateValueOn;
+    } else {
+        menuItem.state = NSControlStateValueOff;
+    }
+    menuItem.enabled = [self canSetWinningItem:item];
     // -----------------------------------------------
     [contextMenu addItem: [NSMenuItem separatorItem]];
 
@@ -649,7 +670,7 @@ static NSDictionary* itemTextAttributes;
     return [self menuForItem: itemAtPoint];
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (IBAction) playToHere: (id) sender {
     [self playToPoint: contextItem];
@@ -701,7 +722,7 @@ static NSDictionary* itemTextAttributes;
     contextItem = nil;
 }
 
--(void) insertNextItem: (id) sender {
+- (IBAction) insertNextItem: (id) sender {
     if( [self canInsertNextItem: contextItem] ) {
         if( contextItem.children.count == 1 ) {
             contextItem = contextItem.children[0];
@@ -793,6 +814,29 @@ static NSDictionary* itemTextAttributes;
     contextItem = nil;
 }
 
+- (IBAction) setWinningCommandItem: (id) sender {
+    if ([self canSetWinningItem: contextItem]) {
+        IFSkeinItem* oldWinningItem = [skein getWinningItem];
+        if (oldWinningItem == contextItem) {
+            [skein setWinningItem: nil];
+            [((NSMenuItem*) sender) setState: NSControlStateValueOff];
+        } else {
+            [skein setWinningItem: contextItem];
+        }
+
+        if (oldWinningItem != nil) {
+            // redraw the old item, to remove the winning item star icon
+            IFSkeinItemView * oldWinningView = [skeinViewChildren itemViewForItem: oldWinningItem];
+            [oldWinningView setNeedsDisplay: YES];
+        }
+
+        // Force a layout of the skein, making the new winning item appear
+        [skein postSkeinChangedWithAnimate: NO
+                         keepActiveVisible: NO];
+    }
+    contextItem = nil;
+}
+
 - (IBAction) editContextItem: (id) sender {
     if( [self canEditItem: contextItem] ) {
         [self editItem: contextItem];
@@ -861,12 +905,12 @@ static NSDictionary* itemTextAttributes;
         endingRect.origin = rect.origin;
 
         CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"frame"];
-        [anim setFromValue:[NSValue valueWithRect: startingRect]];
-        [anim setToValue:[NSValue valueWithRect: endingRect]];
-        [anim setDelegate:self];
-        [self setAnimations:@{@"frame": anim}];
+        anim.fromValue = @(startingRect);
+        anim.toValue = @(endingRect);
+        anim.delegate = self;
+        self.animations = @{@"frame": anim};
 
-        [[self animator] setFrame: endingRect];
+        self.animator.frame = endingRect;
     }
 }
 
@@ -882,7 +926,7 @@ static NSDictionary* itemTextAttributes;
                      keepActiveVisible: NO];
 }
 
-+ (float) fontSize {
++ (CGFloat) fontSize {
     return kSkeinDefaultItemFontSize * [[IFPreferences sharedPreferences] appFontSizeMultiplier];
 }
 
@@ -917,9 +961,7 @@ typedef BOOL(^checkFunc)(IFSkeinLayoutItem* item);
         if( checkFunction(layoutItem) ) {
             return YES;
         }
-        for (IFSkeinLayoutItem* child in layoutItem.children) {
-            [queue addObject: child];
-        }
+        [queue addObjectsFromArray:layoutItem.children];
     }
     return NO;
 }
@@ -990,8 +1032,8 @@ typedef BOOL(^checkFunc)(IFSkeinLayoutItem* item);
     }];
 }
 
-- (int) itemsVisible {
-    int __block count = 0;
+- (NSInteger) itemsVisible {
+    NSInteger __block count = 0;
     [self recursiveCheckItems: ^(IFSkeinLayoutItem* layoutItem) {
         count++;
         return NO;

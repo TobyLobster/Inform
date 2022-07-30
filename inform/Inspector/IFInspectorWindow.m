@@ -7,7 +7,6 @@
 //
 
 #import "IFInspectorWindow.h"
-#import "IFIsArrow.h"
 #import "IFInspectorView.h"
 #import "IFIsFlippedView.h"
 #import "IFProjectController.h"
@@ -21,23 +20,32 @@ static NSString* IFInspectorDefaults = @"IFInspectorDefaults";
 static NSString* IFInspectorShown = @"IFInspectorShown";
 
 @implementation IFInspectorWindow {
-    NSMutableDictionary* inspectorDict;							// The dictionary of inspectors (maps inspector keys to inspectors)
+    /// The dictionary of inspectors (maps inspector keys to inspectors)
+    NSMutableDictionary* inspectorDict;
 
-    NSMutableArray* inspectors;									// The list of inspectors
-    NSMutableArray* inspectorViews;								// The list of inspector views
+    /// The list of inspectors
+    NSMutableArray* inspectors;
+    /// The list of inspector views
+    NSMutableArray<IFInspectorView*>* inspectorViews;
 
-    BOOL updating;												// YES if we're in the middle of updating
+    /// \c YES if we're in the middle of updating
+    BOOL updating;
 
     // The main window
-    BOOL newMainWindow;											// Flag that indicates if we've processed a new main window event yet
-    NSWindow* activeMainWindow;									// The 'main window' that we're inspecting
+    /// Flag that indicates if we've processed a new main window event yet
+    BOOL newMainWindow;
+    /// The 'main window' that we're inspecting
+    NSWindow* activeMainWindow;
 
     // Whether or not the main window should pop up when inspectors suddenly show up
-    BOOL hidden;												// YES if the inspector window is currently offscreen (because, for example, none of the inspectors are returning yes to [available])
-    BOOL shouldBeShown;											// YES if the inspector window should be shown again (ie, the window was closed because there was nothing to show, not because the user dismissed it)
+    /// \c YES if the inspector window is currently offscreen (because, for example, none of the inspectors are returning yes to [available])
+    BOOL hidden;
+    /// \c YES if the inspector window should be shown again (ie, the window was closed because there was nothing to show, not because the user dismissed it)
+    BOOL shouldBeShown;
 
     // List of most/least recently shown inspectors
-    NSMutableArray* shownInspectors;							// Array of inspectors in the order that the user asked for them
+    /// Array of inspectors in the order that the user asked for them
+    NSMutableArray* shownInspectors;
 }
 
 + (IFInspectorWindow*) sharedInspectorWindow {
@@ -68,12 +76,12 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 - (instancetype) init {
 	// Create ourselves a window
 	NSScreen* mainScreen = [NSScreen mainScreen];
-	float width = 240;
-	float height = 10;
+    CGFloat width = 240;
+    CGFloat height = 10;
 	
 	NSPanel* ourWindow = [[NSPanel alloc] initWithContentRect: NSMakeRect(NSMaxX([mainScreen frame])-width-50, NSMaxY([mainScreen frame])-height-50, 
 																				 width, height)
-													styleMask: NSTitledWindowMask|NSClosableWindowMask|NSUtilityWindowMask
+													styleMask: NSWindowStyleMaskTitled|NSWindowStyleMaskClosable|NSWindowStyleMaskUtilityWindow
 													  backing: NSBackingStoreBuffered
 														defer: YES];
 	
@@ -129,7 +137,8 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Dealing with inspector views =
+#pragma mark - Dealing with inspector views
+
 - (void) addInspector: (IFInspector*) newInspector {
 	// Add the inspector
 	[newInspector setInspectorWindow: self];
@@ -172,9 +181,9 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Work out the maximum height of the inspector window
 	NSRect screenRect = [[[self window] screen] frame];
 	NSRect currentFrame = [[self window] frame];
-	float difference = currentFrame.size.height - [[[self window] contentView] frame].size.height;
+    CGFloat difference = currentFrame.size.height - [[[self window] contentView] frame].size.height;
 
-	float maxHeight = screenRect.size.height - (NSMaxY(screenRect) - NSMaxY(currentFrame));
+    CGFloat maxHeight = screenRect.size.height - (NSMaxY(screenRect) - NSMaxY(currentFrame));
 	maxHeight -= difference;
 		
 	// Return if there's only one open inspector
@@ -183,7 +192,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Work out the current height of the inspector window
 	NSEnumerator* realInspectorEnum = [inspectors objectEnumerator];
 	IFInspector* inspector;
-	float currentHeight = 0;
+    CGFloat currentHeight = 0;
 	
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
@@ -232,7 +241,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 		return NO;
 	}
 	
-	return [inspectorViews[[insNum intValue]] expanded];
+	return [inspectorViews[[insNum intValue]] isExpanded];
 }
 
 - (void) showInspector: (IFInspector*) inspector {
@@ -253,7 +262,8 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 					 forKey: key];
 }
 
-// = Dealing with updates =
+#pragma mark - Dealing with updates
+
 - (void) updateInspectors: (NSNotification*) not {
 	[self updateInspectors];
 }
@@ -273,9 +283,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
     // Are we on an Inform 7 project?
 	NSWindowController* control = [activeMainWindow windowController];
 	if (control != nil && [control isKindOfClass: [IFProjectController class]]) {
-        IFProjectController* controller = (IFProjectController*) control;
-        IFProject* project = [controller document];
-        return ([[project settings] usingNaturalInform]);
+        return true;
     }
     return false;
 }
@@ -294,11 +302,11 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	NSMutableDictionary* inspectorState = [[NSMutableDictionary alloc] init];
 	
 	// Position all the inspectors
-	float ypos = contentFrame.origin.y;
+    CGFloat ypos = contentFrame.origin.y;
 	for( IFInspectorView* insView in inspectorViews ) {
 		inspector = [realInspectorEnum nextObject];
 		
-		inspectorState[[inspector key]] = @([inspector expanded]);
+		inspectorState[[inspector key]] = @([inspector isExpanded]);
 		
         // Inspectors are only shown for Inform 6 projects.
 		if ([inspector available] && !inform7Project) {
@@ -341,7 +349,7 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	// Need to do things this way as Jaguar has no proper calculation routines
 	NSRect currentFrame = [[self window] frame];
 	
-	float difference = currentFrame.size.height - contentFrame.size.height;
+    CGFloat difference = currentFrame.size.height - contentFrame.size.height;
 	
 	NSRect newFrame = currentFrame;
 	newFrame.size.height = ypos + difference;
@@ -351,10 +359,9 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 					display: YES];
 }
 
-// = Dealing with window changes =
-- (NSWindow*) activeWindow {
-	return activeMainWindow;
-}
+#pragma mark - Dealing with window changes
+
+@synthesize activeWindow = activeMainWindow;
 
 - (void) newMainWindow: (NSNotification*) notification {
 	// Notify the inspectors of the change
@@ -421,8 +428,6 @@ static NSString* IFInspectorShown = @"IFInspectorShown";
 	}
 }
 
-- (BOOL) isHidden {
-	return hidden;
-}
+@synthesize hidden;
 
 @end

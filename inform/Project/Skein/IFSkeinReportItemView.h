@@ -13,8 +13,8 @@
 
 @property (atomic) NSTextView*           textView;
 @property (atomic) unsigned long         uniqueId;
-@property (atomic) float                 textHeight;
-@property (atomic) float                 topBorderHeight;
+@property (atomic) CGFloat               textHeight;
+@property (atomic) CGFloat               topBorderHeight;
 @property (atomic) IFSkeinBlessButton*   blessButton;
 
 

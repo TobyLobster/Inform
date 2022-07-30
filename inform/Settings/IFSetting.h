@@ -9,42 +9,53 @@
 #import <Cocoa/Cocoa.h>
 
 // Notification strings
-extern NSString* IFSettingHasChangedNotification;
+extern NSNotificationName const IFSettingHasChangedNotification;
+extern NSString* const IFSettingCreateBlorb;
 
 @class IFCompilerSettings;
 
-//
-// Representation of a class of settings
-// Technically a controller object
-//
-// It's usually pretty pointless to make extra model objects beyond IFCompilerSettings, so there
-// may be some overlap with the model here.
-//
+///
+/// Representation of a class of settings
+/// Technically a controller object
+///
+/// It's usually pretty pointless to make extra model objects beyond IFCompilerSettings, so there
+/// may be some overlap with the model here.
+///
 @interface IFSetting : NSObject
 
-- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;    // Initialises the setting object, and loads the given nib
+/// Initialises the setting object, and loads the given nib
+- (instancetype) initWithNibName: (NSString*) nibName NS_DESIGNATED_INITIALIZER;
 
 // Setting up the view
-@property (atomic, strong) NSView *settingView;			// The settings view
+/// The settings view
+@property (atomic, strong) IBOutlet NSView *settingView;
 
 // Information about this settings view
 @property (atomic, readonly, copy) NSString *title;		// (OVERRIDE) Retrieves the title for these settings
 
 // Setting/retrieving the model
-@property (atomic, strong) IFCompilerSettings *compilerSettings;    // The compiler settings object that this setting will use
-- (NSMutableDictionary*) dictionary;                                // Retrieves the settings dictionary for this object
+/// The compiler settings object that this setting will use
+@property (atomic, weak) IFCompilerSettings *compilerSettings;
+/// Retrieves the settings dictionary for this object
+- (NSMutableDictionary*) dictionary;
 
 // Communicating with the IFCompilerSettings object
-- (void) setSettings;												// (OVERRIDE) Sets values in the compiler settings (or the dictionary) from the current UI choices
-- (BOOL) enableForCompiler: (NSString*) compiler;					// YES if this set of settings applies to the given compiler type (IFCompilerInform6 or IFCompilerNaturalInform)
-- (void) updateFromCompilerSettings;								// (OVERRIDE) Sets values in the UI from the values set in the compiler settings (or the dictionary)
+/// (OVERRIDE) Sets values in the compiler settings (or the dictionary) from the current UI choices
+- (void) setSettings;
+/// \c YES if this set of settings applies to the given compiler type (IFCompilerInform6 or IFCompilerNaturalInform)
+- (BOOL) enableForCompiler: (NSString*) compiler;
+/// (OVERRIDE) Sets values in the UI from the values set in the compiler settings (or the dictionary)
+- (void) updateFromCompilerSettings;
 
 // Notifying the controller about things
-- (IBAction) settingsHaveChanged: (id) sender;						// Action called when the user changes a setting option
+/// Action called when the user changes a setting option
+- (IBAction) settingsHaveChanged: (id) sender;
 
 // Saving settings
-@property (atomic, readonly, copy) NSDictionary *plistEntries;		// Retrieves the Plist dictionary for this setting
-- (void) updateSettings: (IFCompilerSettings*) settings             // Updates the values for this setting from a Plist dictionary
+/// Retrieves the Plist dictionary for this setting
+@property (atomic, readonly, copy) NSDictionary *plistEntries;
+/// Updates the values for this setting from a Plist dictionary
+- (void) updateSettings: (IFCompilerSettings*) settings
 	   withPlistEntries: (NSDictionary*) entries;
 
 @end

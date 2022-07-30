@@ -12,14 +12,18 @@
 #import "IFIntelSymbol.h"
 
 @implementation IFHeaderController {
-    IFHeader* rootHeader;												// The root of the headers being managed by this object
-    IFHeader* selectedHeader;											// The header that the user has most recently selected
-    IFIntelFile* intelFile;												// The most recent intel file object
+    /// The root of the headers being managed by this object
+    IFHeader* rootHeader;
+    /// The header that the user has most recently selected
+    IFHeader* selectedHeader;
+    /// The most recent intel file object
+    IFIntelFile* intelFile;
 
-    NSMutableArray* headerViews;										// The header views being managed by this controller
+    /// The header views being managed by this controller
+    NSMutableArray<NSView<IFHeaderView>*>* headerViews;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -31,11 +35,11 @@
 	return self;
 }
 
-// = Sending messages to the views =
+#pragma mark - Sending messages to the views
 
 - (void) refreshHeaders {
 	// Send the refreshHeaders message to all of the views that support it
-	for( NSObject* headerView in headerViews ) {
+	for( NSObject<IFHeaderView>* headerView in headerViews ) {
 		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
 			[headerView refreshHeaders: self];
 		}
@@ -47,7 +51,7 @@
 	selectedHeader = newSelectedHeader;
 	
 	// Send the setSelectedHeader message to all of the views that support it
-	for( NSObject* headerView in headerViews ) {
+	for( NSObject<IFHeaderView>* headerView in headerViews ) {
 		if ([headerView respondsToSelector: @selector(refreshHeaders:)]) {
 			[headerView setSelectedHeader: newSelectedHeader
 							   controller: self];
@@ -55,7 +59,7 @@
 	}
 }
 
-// = Managing the collection of headings being maintained by this object =
+#pragma mark - Managing the collection of headings being maintained by this object
 
 - (void) setChildrenForHeader: (IFHeader*) root
 					   symbol: (IFIntelSymbol*) symbol 
@@ -149,21 +153,13 @@
 	[self refreshHeaders];
 }
 
-- (IFHeader*) rootHeader {
-	return rootHeader;
-}
+@synthesize rootHeader;
+@synthesize selectedHeader;
+@synthesize intelFile;
 
-- (IFHeader*) selectedHeader {
-	return selectedHeader;
-}
+#pragma mark - Managing the views being controlled
 
-- (IFIntelFile*) intelFile {
-	return intelFile;
-}
-
-// = Managing the views being controlled =
-
-- (void) addHeaderView: (NSView*) newHeaderView {
+- (void) addHeaderView: (NSView<IFHeaderView>*) newHeaderView {
 	if (!newHeaderView) {
 		return;
 	}
@@ -182,7 +178,7 @@
 	}
 }
 
-- (void) removeHeaderView: (NSView*) oldHeaderView {
+- (void) removeHeaderView: (NSView<IFHeaderView>*) oldHeaderView {
 	// Ensure that we don't accidentally self destruct a header view that's in use
 	//[[oldHeaderView retain] autorelease];
 	

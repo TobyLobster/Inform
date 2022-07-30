@@ -8,46 +8,38 @@
 
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
-#import "IFImageCache.h"
-
-static NSColor* foregroundColour() {
-	static NSColor* foreColour = nil;
-	
-	if (!foreColour) {
-		// Use black by default
-		foreColour = [[NSColor controlTextColor] colorWithAlphaComponent: 0.8];
-    }
-		
-    // Keep the colour around for when we need it
-	
-	return foreColour;
-}
 
 @implementation IFPageBarCell {
-    BOOL isRight;										// True if this cell is to be drawn on the right-hand side
-    BOOL isHighlighted;									// True if this cell is currently highlighted by a click
-    NSRect trackingFrame;								// The frame of this cell reported when the last mouse tracking started
+    /// True if this cell is to be drawn on the right-hand side
+    BOOL isRight;
+    /// The frame of this cell reported when the last mouse tracking started
+    NSRect trackingFrame;
 
-    id identifier;										// An identifier for this cell
+    /// An identifier for this cell
+    id identifier;
 
     // Pop-up
-    NSMenu* menu;										// The menu for this cell
+    /// The menu for this cell
+    NSMenu* menu;
 
     // Radio
-    int radioGroup;										// The radio group identifier for this cell
+    /// The radio group identifier for this cell
+    int radioGroup;
 
     // View
-    NSView* view;										// The view for this cell
+    /// The view for this cell
+    NSView* view;
 
     // Key equivalent
-    NSString* keyEquivalent;							// The key equivalent string for this cell
+    /// The key equivalent string for this cell
+    NSString* keyEquivalent;
 }
 
 + (NSImage*) dropDownImage {
-	return [IFImageCache loadResourceImage: @"App/PageBar/BarMenuArrow.png"];
+	return [NSImage imageNamed: @"App/PageBar/BarMenuArrow"];
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -69,7 +61,7 @@ static NSColor* foregroundColour() {
         
 		NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																	   attributes: 
-			@{NSForegroundColorAttributeName: foregroundColour(),
+			@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 				NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 		
 		[self setAttributedStringValue: attrText];
@@ -99,39 +91,29 @@ static NSColor* foregroundColour() {
 	
 }
 
-- (void) setIdentifier: (id) newIdentifier {
-	identifier = newIdentifier;
-}
-
-- (id) identifier {
-	return identifier;
-}
+@synthesize identifier;
 
 - (void) setStringValue: (NSString*) text {
 	NSAttributedString* attrText = [[NSAttributedString alloc] initWithString: text
 																   attributes: 
-		@{NSForegroundColorAttributeName: foregroundColour(),
+		@{NSForegroundColorAttributeName: [NSColor controlTextColor],
 			NSFontAttributeName: [NSFont systemFontOfSize: 11]}];
 	
 	[self setAttributedStringValue: attrText];
 }
 
-// = Cell properties =
+#pragma mark - Cell properties
 
 - (void) update {
 	[(NSControl*)[self controlView] updateCell: self];
 }
 
-- (BOOL) isHighlighted {
-	return isHighlighted;
-}
-
 - (void) setHighlighted: (BOOL) highlighted {
-	isHighlighted = highlighted;
+    super.highlighted = highlighted;
 	[self update];
 }
 
-// = Sizing and rendering =
+#pragma mark - Sizing and rendering
 
 - (void) setIsRight: (BOOL) newIsRight {
 	isRight = newIsRight;
@@ -171,8 +153,8 @@ static NSColor* foregroundColour() {
 	
 	// Add a border for the margins
 	size.width += 8;
-	size.width = floorf(size.width+0.5);
-	size.height = floorf(size.height);
+	size.width = floor(size.width+0.5);
+	size.height = floor(size.height);
 	
 	return size;
 }
@@ -185,13 +167,13 @@ static NSColor* foregroundColour() {
 	// Draw the background
 	NSImage* backgroundImage = nil;
 	
-	if (isHighlighted) {
+	if (self.highlighted) {
 		if ([self isPopup]) {
 			backgroundImage = [IFPageBarView graphiteSelectedImage];
 		} else {
 			backgroundImage = [IFPageBarView highlightedImage];
 		}
-	} else if ([self state] == NSOnState) {
+	} else if ([self state] == NSControlStateValueOn) {
 		backgroundImage = [IFPageBarView selectedImage];
 	}
 	
@@ -219,7 +201,6 @@ static NSColor* foregroundColour() {
 		NSImage* dropDownArrow = [IFPageBarCell dropDownImage];
 		NSSize dropDownSize = [dropDownArrow size];
 		
-		NSRect dropDownRect = NSMakeRect(0,0, dropDownSize.width, dropDownSize.height);
 		NSRect dropDownDrawRect;
 		
 		dropDownDrawRect.origin = NSMakePoint(NSMaxX(cellFrame) - dropDownSize.width - 6,
@@ -228,11 +209,22 @@ static NSColor* foregroundColour() {
 		
 		if (isRight) dropDownDrawRect.origin.x += 2;
 		
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(dropDownDrawRect), NSMaxY(dropDownDrawRect))];
+        [layer lockFocus];
 		[dropDownArrow drawInRect: dropDownDrawRect
-						 fromRect: dropDownRect
-						operation: NSCompositeSourceOver
+						 fromRect: NSZeroRect
+						operation: NSCompositingOperationSourceOver
 						 fraction: 1.0];
-		
+        if (dropDownArrow.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(dropDownDrawRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
+        
 		// Reduce the frame size
 		cellFrame.size.width -= dropDownSize.width+4;
 	}
@@ -257,12 +249,25 @@ static NSColor* foregroundColour() {
 		imageRect.origin = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-size.width)/2,
 									   cellFrame.origin.y + (cellFrame.size.height+2-imageSize.height)/2);
 		imageRect.size = imageSize;
-		
+        
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(imageRect), NSMaxY(imageRect))];
+        [layer lockFocus];
+        
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
-		
+        
+        if (image.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
+        
 		// Draw the text
 		NSPoint textPoint = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-size.width)/2 + imageSize.width + 2,
 										cellFrame.origin.y + (cellFrame.size.height+2-textSize.height)/2);
@@ -282,11 +287,22 @@ static NSColor* foregroundColour() {
 		imageRect.origin = NSMakePoint(cellFrame.origin.x + (cellFrame.size.width-imageSize.width)/2,
 									   cellFrame.origin.y + (cellFrame.size.height+2-imageSize.height)/2);
 		imageRect.size = imageSize;
-		
+        NSImage *layer = [[NSImage alloc] initWithSize:NSMakeSize(NSMaxX(imageRect), NSMaxY(imageRect))];
+        [layer lockFocus];
+        
 		[image drawInRect: imageRect
-				 fromRect: NSMakeRect(0,0, imageSize.width, imageSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
+        if (image.template) {
+            [NSColor.labelColor set];
+            NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
+        }
+        [layer unlockFocus];
+        [layer drawAtPoint: NSZeroPoint
+                  fromRect: NSZeroRect
+                 operation: NSCompositingOperationSourceOver
+                  fraction: 1];
 	} else if (text) {
 		// Draw the text
 		NSSize textSize = [text size];
@@ -303,16 +319,16 @@ static NSColor* foregroundColour() {
 	}
 }
 
-// = Cell states =
+#pragma mark - Cell states
 
 - (NSInteger) nextState {
 	// Radio cells can be turned on (but get turned off manually)
 	if (radioGroup >= 0) {
-		return NSOnState;
+		return NSControlStateValueOn;
 	}
 	
 	// TODO: allow for push-on/push-off cells
-	return NSOffState;
+	return NSControlStateValueOff;
 }
 
 - (void) setState: (NSInteger) newState {
@@ -338,27 +354,15 @@ static NSColor* foregroundColour() {
 }
 
 
-// = Acting as part of a radio group =
+#pragma mark - Acting as part of a radio group
 
-- (void) setRadioGroup: (int) group {
-	radioGroup = group;
-}
-
-- (int) radioGroup {
-	return radioGroup;
-}
+@synthesize radioGroup;
 	
-// = Acting as a tab =
+#pragma mark - Acting as a tab
 
-- (void) setView: (NSView*) newView {
-	view = newView;
-}
+@synthesize view;
 
-- (NSView*) view {
-	return view;
-}
-
-// = Acting as a pop-up =
+#pragma mark - Acting as a pop-up
 
 - (BOOL) isPopup {
 	if (menu) return YES;
@@ -368,13 +372,12 @@ static NSColor* foregroundColour() {
 
 - (void) showPopupAtPoint: (NSPoint) pointInWindow {
 	if (menu) {
-		[self setState: NSOnState];
-		isHighlighted = YES;
-		[self update];
+		[self setState: NSControlStateValueOn];
+		self.highlighted = YES;
 		
-		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSLeftMouseDown
+		NSEvent* fakeEvent = [NSEvent mouseEventWithType: NSEventTypeLeftMouseDown
 												location: pointInWindow
-										   modifierFlags: (NSUInteger) 0 // 10.10: (NSEventModifierFlags) 0
+										   modifierFlags: (NSEventModifierFlags) 0
 											   timestamp: [[NSApp currentEvent] timestamp]
 											windowNumber: [[[self controlView] window] windowNumber]
 												 context: nil
@@ -387,7 +390,7 @@ static NSColor* foregroundColour() {
 						 forView: [self controlView]
 						withFont: [NSFont systemFontOfSize: 11]];
 		
-		[self setState: NSOffState];
+		[self setState: NSControlStateValueOff];
 		[self update];
 	}
 }
@@ -397,7 +400,7 @@ static NSColor* foregroundColour() {
 	[self update];
 }
 
-// = Tracking =
+#pragma mark - Tracking
 
 - (BOOL)trackMouse:(NSEvent *)theEvent
 			inRect:(NSRect)cellFrame 
@@ -410,8 +413,7 @@ static NSColor* foregroundColour() {
 												   toView: nil];
 		[self showPopupAtPoint: NSMakePoint(NSMinX(winFrame)+1, NSMinY(winFrame)-3)];
 		
-		isHighlighted = NO;
-		[self update];
+        self.highlighted = NO;
 		
 		return YES;
 	}
@@ -433,8 +435,7 @@ static NSColor* foregroundColour() {
 
 - (BOOL)startTrackingAt: (NSPoint)startPoint 
 				 inView: (NSView*)controlView {
-	isHighlighted = YES;
-	[self update];
+    self.highlighted = YES;
 	
 	// TODO: if this is a menu or pop-up cell, only send the action when the user makes a selection
 	// [self sendActionOn: 0];
@@ -449,9 +450,8 @@ static NSColor* foregroundColour() {
 	
 	shouldBeHighlighted = NSPointInRect(currentPoint, 
 										trackingFrame);
-	if (shouldBeHighlighted != isHighlighted) {
-		isHighlighted = shouldBeHighlighted;
-		[self update];
+	if (shouldBeHighlighted != self.highlighted) {
+        self.highlighted = shouldBeHighlighted;
 	}
 	
 	return YES;
@@ -461,13 +461,12 @@ static NSColor* foregroundColour() {
 				  at:(NSPoint)stopPoint
 			  inView:(NSView *)controlView 
 		   mouseIsUp:(BOOL)flag {
-	isHighlighted = NO;
-	[self update];
+    self.highlighted = NO;
 
 	return;
 }
 
-// = Key equivalent =
+#pragma mark - Key equivalent
 
 - (NSString*) keyEquivalent {
 	if (keyEquivalent == nil) return @"";

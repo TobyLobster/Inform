@@ -15,16 +15,14 @@
 #import "IFJSProject.h"
 #import "IFProjectController.h"
 
-NSString* IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";
-NSString* IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
-NSString* IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
+NSString* const IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";
+NSString* const IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
+NSString* const IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
 
 static int maxErrorMessagesToDisplay = 3;
 
 // *******************************************************************************************
 @implementation IFExtensionInfo
-
--(instancetype) init { self = [super init]; return self; }
 
 -(instancetype) initWithDisplayName: (NSString*) displayName
                  filepath: (NSString*) filepath
@@ -69,6 +67,10 @@ static int maxErrorMessagesToDisplay = 3;
     NSString* result = displayName;
     if( [[result lowercaseString] startsWith: @"the "] ) {
         result = [result substringFromIndex:4];
+    } else if( [[result lowercaseString] startsWith: @"a "] ) {
+        result = [result substringFromIndex:2];
+    } else if( [[result lowercaseString] startsWith: @"an "] ) {
+        result = [result substringFromIndex:3];
     }
     
     // Remove proviso in brackets
@@ -123,9 +125,13 @@ static int maxErrorMessagesToDisplay = 3;
 @end
 
 // *******************************************************************************************
-@implementation IFExtensionDownload
+@interface IFExtensionDownload () <NSURLSessionDataDelegate>
 
--(instancetype) init { self = [super init]; return self; }
+@end
+
+@implementation IFExtensionDownload {
+    NSURLSession *urlSession;
+}
 
 -(instancetype) initWithURL: (NSURL*) url
            window: (NSWindow*) aWindow
@@ -141,6 +147,9 @@ static int maxErrorMessagesToDisplay = 3;
         self.notifyDelegate = notifyDelegate;
         self.javascriptId   = javascriptId;
         self.expectedLength = NSURLResponseUnknownLength;
+        urlSession = [NSURLSession sessionWithConfiguration: NSURLSessionConfiguration.ephemeralSessionConfiguration
+                                                   delegate: self
+                                              delegateQueue: nil];
     }
 
     return self;
@@ -154,7 +163,8 @@ static int maxErrorMessagesToDisplay = 3;
     return self.version;
 }
 
-// = Download and Install =
+#pragma mark - Download and Install
+
 - (BOOL) startDownloadAndInstall {
     // Create the request
     NSURLRequest *theRequest = [NSURLRequest requestWithURL: self.url
@@ -162,8 +172,7 @@ static int maxErrorMessagesToDisplay = 3;
                                             timeoutInterval: 10.0];
 
     // Create the connection with the request and start loading the data
-    self.connection = [[NSURLConnection alloc] initWithRequest: theRequest
-                                                       delegate: self];
+    self.connection = [urlSession dataTaskWithRequest: theRequest];
     if (self.connection == nil) {
         self.receivedData = [NSMutableData data];
         return NO;
@@ -174,10 +183,12 @@ static int maxErrorMessagesToDisplay = 3;
     return YES;
 }
 
-- (void)connection: (NSURLConnection *)connection
+- (void)URLSession: (NSURLSession *)session
+          dataTask: (NSURLSessionDataTask *)dataTask
 didReceiveResponse: (NSURLResponse *)response
+ completionHandler: (void (^)(NSURLSessionResponseDisposition))completionHandler
 {
-    if (connection == self.connection)
+    if (dataTask == self.connection)
     {
         if ( [response isKindOfClass: [NSHTTPURLResponse class]] )
         {
@@ -185,15 +196,16 @@ didReceiveResponse: (NSURLResponse *)response
             if (statusCode >= 400)
             {
                 NSString* localizedStringForStatusCode = [NSHTTPURLResponse localizedStringForStatusCode: statusCode];
-                [connection cancel];  // stop connecting; no more delegate messages
+                completionHandler(NSURLSessionResponseCancel);// stop connecting; no more delegate messages
                 NSDictionary *errorInfo = @{NSLocalizedDescriptionKey: [NSString stringWithFormat:
                                                       [IFUtility localizedString:@"Server returned status code %d, local string %@"],
-                                                      statusCode, localizedStringForStatusCode]};
+                                                      (int)statusCode, localizedStringForStatusCode]};
                 NSError *statusError = [NSError errorWithDomain: @"Error"
                                                            code: statusCode
                                                        userInfo: errorInfo];
-                [self   connection: connection
-                  didFailWithError: statusError];
+                [self   URLSession: session
+                              task: dataTask
+              didCompleteWithError: statusError];
                 return;
             }
         }
@@ -208,53 +220,52 @@ didReceiveResponse: (NSURLResponse *)response
         
         self.expectedLength = [response expectedContentLength];
     }
+    completionHandler(NSURLSessionResponseAllow);
 }
 
-- (void)connection: (NSURLConnection *)connection
+- (void)URLSession: (NSURLSession *)session
+          dataTask: (NSURLSessionDataTask *)dataTask
     didReceiveData: (NSData *)data
 {
-    if (connection == self.connection)
+    if (dataTask == self.connection)
     {
         // do something with the data object.
         [self.receivedData appendData:data];
     }
 }
 
-- (void)connection: (NSURLConnection *)connection
-  didFailWithError: (NSError *)error
+- (void)   URLSession: (NSURLSession *)session
+                 task: (NSURLSessionTask *)task
+ didCompleteWithError: (NSError *)error
 {
-    if (connection == self.connection)
-    {
-        //NSString* file = [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey];
-
-        // Log message
-        NSString* message = [NSString stringWithFormat:[IFUtility localizedString: @"Failed to Download Extension Explanation - %@"],
-                             [error localizedDescription]];
-        
-        [[IFExtensionsManager sharedNaturalInformExtensionsManager] addError: message];
-        
-        self.state        = IFExtensionDownloadFailed;
-        self.connection   = nil;
-        self.receivedData = nil;
-        
-        [[IFExtensionsManager sharedNaturalInformExtensionsManager] downloadAndInstallFinished: self];
-    }
-}
-
-- (void)connectionDidFinishLoading: (NSURLConnection *)connection
-{
-    if (connection == self.connection)
+    if (task == self.connection)
     {
         IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
         //NSLog(@"Download succeeded! Received %d bytes of data", [self.receivedData length]);
         
+        if (error) {
+            //NSString* file = [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey];
+
+            // Log message
+            NSString* message = [NSString stringWithFormat:[IFUtility localizedString: @"Failed to Download Extension Explanation - %@"],
+                                 [error localizedDescription]];
+            
+            [mgr addError: message];
+            
+            self.state        = IFExtensionDownloadFailed;
+            self.connection   = nil;
+            self.receivedData = nil;
+            
+            [mgr downloadAndInstallFinished: self];
+            return;
+        }
+        
         // Get temporary filename
         char tempFilename[256];
-        sprintf(tempFilename, "%stemp.XXXXXX", [NSTemporaryDirectory() cStringUsingEncoding:NSUTF8StringEncoding]);
+        sprintf(tempFilename, "%stemp.XXXXXX", [NSTemporaryDirectory() fileSystemRepresentation]);
         int result = mkstemp(tempFilename);
         if( result != -1 ) {
-            NSString* filename = [[NSString alloc] initWithCString: tempFilename
-                                                           encoding: NSUTF8StringEncoding];
+            NSString* filename = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFilename length: strlen(tempFilename)];
             
             // Save the data to a temporary file
             if( [self.receivedData writeToFile: filename
@@ -270,7 +281,7 @@ didReceiveResponse: (NSURLResponse *)response
                                     author: &author
                                    version: &version
                         showWarningPrompts: NO
-                                    notify: NO]) {
+                                    notify: NO] == IFExtensionSuccess) {
                     self.title = title;
                     self.author = author;
                     self.version = version;
@@ -284,9 +295,9 @@ didReceiveResponse: (NSURLResponse *)response
                 }
 
                 // Remove temporary file
-                NSError* error;
+                NSError* ourError;
                 [[NSFileManager defaultManager] removeItemAtPath: filename
-                                                           error: &error];
+                                                           error: &ourError];
             }
             else {
                 self.state = IFExtensionInstallFailed;
@@ -312,29 +323,39 @@ didReceiveResponse: (NSURLResponse *)response
 // *******************************************************************************************
 @implementation IFExtensionsManager {
     // Collection directories to look
-    NSMutableArray* extensionCollectionDirectories;		// Standard set of extension directories
-
+    /// Standard set of extension directories
+    NSMutableArray* extensionCollectionDirectories;
+    
     // Cache data
-    NSDictionary* cacheExtensionDictionary;				// Caches the extension dictionary until we next clear the cache
-    NSArray*      cacheAvailableExtensions;             // Caches the available extensions array until we next clear the cache
-    int           userLibraryCount;                     // Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
+    /// Caches the extension dictionary until we next clear the cache
+    NSDictionary* cacheExtensionDictionary;
+    /// Caches the available extensions array until we next clear the cache
+    NSArray*      cacheAvailableExtensions;
+    /// Number of extension dictionaries that are 'installed' to ~/Library/Inform rather than internal to the Inform app bundle resources (i.e. one)
+    int           userLibraryCount;
 
     // Update extensions
-    BOOL          updatingExtensions;					// Set to YES if an update is pending
+    /// Set to \c YES if an update is pending
+    BOOL          updatingExtensions;
 
     BOOL _rebuildAvailableExtensionsCache;
     BOOL _rebuildExtensionDictionaryCache;
     BOOL _cacheChanged;
 
     // Download and install
-    NSMutableArray* downloads;                          // Mutable array of current downloads
-    int numberOfBatchedExtensions;                      // How many things we are downloading and installing
-    int numberOfErrors;                                 // Number of failed download / installs
-    NSMutableString* errorString;                       // Multiple error messages are accumulated into this string
-    IFProgress* dlProgress;                             // Progress
+    /// Mutable array of current downloads
+    NSMutableArray* downloads;
+    /// How many things we are downloading and installing
+    int numberOfBatchedExtensions;
+    /// Number of failed download / installs
+    int numberOfErrors;
+    /// Multiple error messages are accumulated into this string
+    NSMutableString* errorString;
+    /// Progress
+    IFProgress* dlProgress;
 }
 
-// = Shared extension manager =
+#pragma mark - Shared extension manager
 
 + (IFExtensionsManager*) sharedNaturalInformExtensionsManager {
 	static IFExtensionsManager* mgr = nil;
@@ -346,7 +367,7 @@ didReceiveResponse: (NSURLResponse *)response
 	return mgr;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -391,7 +412,7 @@ didReceiveResponse: (NSURLResponse *)response
     
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) addExtensionCollectionDirectory: (NSString*) directory {
 	[extensionCollectionDirectories addObject: directory];
@@ -403,7 +424,7 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 // Returns a dictionary where key is author name, value is an array of directory paths for that author
-- (NSDictionary*) extensionDictionary {
+- (NSDictionary<NSString*,NSArray<NSString*>*>*) extensionDictionary {
 	if (!self.rebuildExtensionDictionaryCache && cacheExtensionDictionary) {
         return cacheExtensionDictionary;
     }
@@ -470,7 +491,7 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 -(BOOL) isBuiltIn:(NSString*) fullPath {
-    int count = 0;
+    NSInteger count = 0;
 	for( NSString* extnDir in extensionCollectionDirectories ) {
         if( [fullPath startsWith: extnDir] ) {
             if (count >= userLibraryCount ) {
@@ -529,13 +550,12 @@ didReceiveResponse: (NSURLResponse *)response
                 if ([fileExtension isEqualToString: @"i7x"] ||
                     [fileExtension isEqualToString: @""]) {
                     // Get information about the extension
-                    BOOL gotInfo = [self infoForNaturalInformExtension: fullFilepath
+                    IFExtensionResult gotInfo = [self infoForNaturalInformExtension: fullFilepath
                                                                 author: &author
                                                                  title: &title
                                                                version: &version];
-                    BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
-
-                    if( gotInfo ) {
+                    if( gotInfo == IFExtensionSuccess ) {
+                        BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
                         IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
                                                                                     filepath: fullFilepath
                                                                                       author: author
@@ -563,22 +583,20 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 - (NSArray*) availableAuthors {
-    NSMutableArray* authors = [NSMutableArray array];
+    NSMutableSet<NSString*>* authors = [NSMutableSet set];
 
     for( IFExtensionInfo* info in [self availableExtensions] ) {
-        if( ![authors containsObject: info.author] ) {
-            [authors addObject: info.author];
-        }
+        [authors addObject: info.author];
     }
-	[authors sortUsingSelector: @selector(caseInsensitiveCompare:)];
-    return authors;
+    return [[authors allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (NSArray*) availableExtensionsByAuthor:(NSString*) author {
+    author = [author lowercaseString];
     NSMutableArray* extensions = [NSMutableArray array];
 
     for( IFExtensionInfo* info in [self availableExtensions] ) {
-        if([[info.author lowercaseString] isEqualToString:[author lowercaseString]]) {
+        if([[info.author lowercaseString] isEqualToString:author]) {
             [extensions addObject:info];
         }
     }
@@ -620,7 +638,7 @@ didReceiveResponse: (NSURLResponse *)response
 	NSMutableArray* result = [[resultDict allValues] mutableCopy];
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
-	return result;
+	return [result copy];
 }
 
 // Returns full filepaths for files we can open in the given extension directory (author) name
@@ -666,7 +684,7 @@ didReceiveResponse: (NSURLResponse *)response
     // Sort alphabetically
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
-	return result;
+	return [result copy];
 }
 
 // Create directories
@@ -698,12 +716,11 @@ didReceiveResponse: (NSURLResponse *)response
 	[self createDirectory: directory];
 }
 
-
 // Work out the extension's author, title and version by reading the first line from a given full filepath of a Natural Inform extension file
-- (BOOL) infoForNaturalInformExtension: (NSString*) file
-                                author: (NSString*__strong*) authorOut
-                                 title: (NSString*__strong*) titleOut
-                               version: (NSString*__strong*) versionOut {
+- (IFExtensionResult) infoForNaturalInformExtension: (NSString*) file
+                                             author: (NSString*__strong*) authorOut
+                                              title: (NSString*__strong*) titleOut
+                                            version: (NSString*__strong*) versionOut {
 	NSFileManager* mgr = [NSFileManager defaultManager];
 	
 	if (authorOut != nil) {
@@ -720,7 +737,7 @@ didReceiveResponse: (NSURLResponse *)response
 	BOOL isDir;
 	BOOL exists = [mgr fileExistsAtPath: file
 							isDirectory: &isDir];
-	if (!exists || isDir) return NO;
+	if (!exists || isDir) return IFExtensionNotFound;
 
 	// Read the first 1k of the extension
 	NSFileHandle* extensionFile = [NSFileHandle fileHandleForReadingAtPath: file];
@@ -745,7 +762,7 @@ didReceiveResponse: (NSURLResponse *)response
 
 	// Check that the ending is 'begins here'
     if (![[extensionString lowercaseString] endsWith:@" begins here."]) {
-        return NO;
+        return IFExtensionNotValid;
     }
 
     // Remove the " begins here." from the end
@@ -795,7 +812,7 @@ didReceiveResponse: (NSURLResponse *)response
     // Bail out if there is no author name or title left
     if( ([authorName length] == 0) ||
         ([titleName length]  == 0) ) {
-        return NO;
+        return IFExtensionNotValid;
     }
 
     if(authorOut) {
@@ -807,17 +824,17 @@ didReceiveResponse: (NSURLResponse *)response
     if(versionOut) {
         *versionOut = versionName;
     }
-	return YES;
+	return IFExtensionSuccess;
 }
 
 // Install the given extension
-- (BOOL) installExtension: (NSString*) extensionPath
-                finalPath: (NSString*__strong*) finalPathOut
-                    title: (NSString*__strong*) titleOut
-                   author: (NSString*__strong*) authorOut
-                  version: (NSString*__strong*) versionOut
-       showWarningPrompts: (BOOL) showWarningPrompts
-                   notify: (BOOL) notify {
+- (IFExtensionResult) installExtension: (NSString*) extensionPath
+                             finalPath: (NSString*__strong*) finalPathOut
+                                 title: (NSString*__strong*) titleOut
+                                author: (NSString*__strong*) authorOut
+                               version: (NSString*__strong*) versionOut
+                    showWarningPrompts: (BOOL) showWarningPrompts
+                                notify: (BOOL) notify {
 	if (finalPathOut) {
         *finalPathOut = nil;
     }
@@ -836,7 +853,7 @@ didReceiveResponse: (NSURLResponse *)response
 	exists = [mgr fileExistsAtPath: extensionPath
 					   isDirectory: &isDir];
 	if (!exists || isDir) {
-        return NO;          // Can't add something that does not exist
+        return IFExtensionNotFound;          // Can't add something that does not exist
     }
 
 	NSString* author  = nil;
@@ -846,11 +863,11 @@ didReceiveResponse: (NSURLResponse *)response
     // Check if it is valid to add the file
     // Inform 7 extensions (i7x) have a first line defining title and author (and optional version number)
     // Try to read out the author and title name to see if this file is valid
-    BOOL result = [self infoForNaturalInformExtension: extensionPath
-                                               author: &author
-                                                title: &title
-                                              version: &version];
-    if (!result) return NO;
+    IFExtensionResult result = [self infoForNaturalInformExtension: extensionPath
+                                                            author: &author
+                                                             title: &title
+                                                           version: &version];
+    if (result != IFExtensionSuccess) return result;
 
     if( authorOut != nil ) {
         *authorOut = author;
@@ -869,7 +886,7 @@ didReceiveResponse: (NSURLResponse *)response
 	NSString* destDir;
 
 	if (directory == nil) {
-        return NO;
+        return IFExtensionCantWriteDestination;
     }
 
     if (author) {
@@ -881,7 +898,7 @@ didReceiveResponse: (NSURLResponse *)response
 	destDir = [destDir stringByStandardizingPath];
 
 	if ([[destDir lowercaseString] isEqualToString: [extensionPath lowercaseString]]) {
-        return NO;		// Trying to re-add an extension that already exists
+        return IFExtensionAlreadyExists;		// Trying to re-add an extension that already exists
     }
 
 	// If the old directory exists and we're not merging, then move the old directory to the trash
@@ -895,7 +912,7 @@ didReceiveResponse: (NSURLResponse *)response
                              attributes: nil
                                   error: &error]) {
 			// Can't create the extension directory
-			return NO;
+			return IFExtensionCantWriteDestination;
 		}
 	}
 
@@ -936,7 +953,7 @@ didReceiveResponse: (NSURLResponse *)response
                                           author: &existingAuthor
                                            title: &existingTitle
                                          version: &existingVersion];
-    if (result) {
+    if (result == IFExtensionSuccess) {
         if( showWarningPrompts ) {
             if( [[existingTitle lowercaseString] isEqualToString: [title lowercaseString]] ) {
                 if( [[existingAuthor lowercaseString] isEqualToString: [author lowercaseString]] ) {
@@ -947,26 +964,32 @@ didReceiveResponse: (NSURLResponse *)response
                     
                     // WARNING: About to overwrite a later version with an earlier one!
                     if( comparison == NSOrderedDescending ) {
-                        NSInteger overwrite = NSRunAlertPanel([NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension"], existingTitle, existingAuthor],
-                                                        [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension Explanation"], existingVersion, version],
-                                                        [IFUtility localizedString: @"Cancel"],
-                                                        [IFUtility localizedString: @"Replace"],
-                                                        nil,
-                                                        nil);
-                        if (overwrite != NSAlertAlternateReturn) {
-                            return YES;
+                        NSAlert *alert = [[NSAlert alloc] init];
+                        alert.messageText = [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension"], existingTitle, existingAuthor];
+                        alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Overwrite Extension Explanation"], existingVersion, version];
+                        [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                        NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
+                        if (@available(macOS 11, *)) {
+                            destructive.hasDestructiveAction = YES;
+                        }
+                        NSModalResponse overwrite = [alert runModal];
+                        if (overwrite != NSAlertSecondButtonReturn) {
+                            return IFExtensionSuccess;
                         }
                     }
                     else {
                         // WARNING: About to overwrite on earlier or equal version with a later version.
-                        NSInteger overwrite = NSRunAlertPanel([NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension"], existingTitle, existingAuthor],
-                                                        [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension Explanation"], existingVersion, version],
-                                                        [IFUtility localizedString: @"Cancel"],
-                                                        [IFUtility localizedString: @"Replace"],
-                                                        nil,
-                                                        nil);
-                        if (overwrite != NSAlertAlternateReturn) {
-                            return YES;
+                        NSAlert *alert = [[NSAlert alloc] init];
+                        alert.messageText = [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension"], existingTitle, existingAuthor];
+                        alert.informativeText = [NSString stringWithFormat: [IFUtility localizedString: @"Replace Extension Explanation"], existingVersion, version];
+                        [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                        NSButton *destructive = [alert addButtonWithTitle:[IFUtility localizedString: @"Replace"]];
+                        if (@available(macOS 11, *)) {
+                            destructive.hasDestructiveAction = YES;
+                        }
+                        NSModalResponse overwrite = [alert runModal];
+                        if (overwrite != NSAlertSecondButtonReturn) {
+                            return IFExtensionSuccess;
                         }
                     }
                 }
@@ -994,15 +1017,15 @@ didReceiveResponse: (NSURLResponse *)response
                       toPath: dest
                        error: &error] ) {
         // Couldn't finish installing the extension
-        return NO;
+        return IFExtensionCantWriteDestination;
     }
 
 	// Success
     [self updateExtensions: @(notify)];
-	return YES;
+	return IFExtensionSuccess;
 }
 
-// = Data source support functions =
+#pragma mark - Data source support functions
 
 - (void) updateExtensions: (NSNumber*) notify {
     // Calculate fresh available extensions
@@ -1054,28 +1077,28 @@ didReceiveResponse: (NSURLResponse *)response
     }
 }
 
-// = NSSavePanel delegate methods =
+#pragma mark - NSSavePanel delegate methods
 
-- (BOOL)           panel: (id) sender
-	  shouldShowFilename: (NSString *) filename {
-	BOOL isDir;
-	BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: filename
-													   isDirectory: &isDir];
-	
-	if (!exists) return NO;
-	if (isDir) return YES;
-	
-	NSString* extn = [[filename pathExtension] lowercaseString];
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: url.path
+                                                       isDirectory: &isDir];
+    
+    if (!exists) return NO;
+    if (isDir) return YES;
+    
+    NSString* extn = [[url pathExtension] lowercaseString];
 
     if( ![extn isEqualToString: @"i7x"] &&
         ![extn isEqualToString: @""] ) {
         return NO;
     }
 
-	return YES;
+    return YES;
 }
 
-// = Download and Install =
+#pragma mark - Download and Install
+
 -(void) addError: (NSString*) message {
     // Log error
     NSLog(@"%@", message);
@@ -1141,7 +1164,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     int done  = numberOfBatchedExtensions - (int) [downloads count];
     int total = numberOfBatchedExtensions;
-    float percentage = 100.0f * (float) done / (float) total;
+    CGFloat percentage = 100.0f * (CGFloat) done / (CGFloat) total;
     NSString* message;
     if( numberOfErrors > 0 ) {
         message = [NSString stringWithFormat: [IFUtility localizedString:@"Installed %d of %d (%d failed)"], done - numberOfErrors, total, numberOfErrors];

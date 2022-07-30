@@ -51,21 +51,21 @@
 		withNewName: (NSString*) newFile;
 
 #pragma mark - Useful URLs
-- (NSURL*) buildDirectoryURL;
-- (NSURL*) materialsDirectoryURL;
-- (NSURL*) mainSourceFileURL;
-- (NSURL*) buildOutputFileURL;
-- (NSURL*) buildIndexFileURL;
-- (NSURL*) settingsFileURL;
-- (NSURL*) indexDirectoryURL;
-- (NSURL*) currentSkeinURL;
-- (NSURL*) currentReportURL;
-- (NSURL*) normalProblemsURL;
-- (NSURL*) baseReportURL;
-- (NSURL*) combinedReportURL;
+@property (atomic, readonly, copy) NSURL *buildDirectoryURL;
+@property (atomic, readonly, copy) NSURL *materialsDirectoryURL;
+@property (atomic, readonly, copy) NSURL *mainSourceFileURL;
+@property (atomic, readonly, copy) NSURL *buildOutputFileURL;
+@property (atomic, readonly, copy) NSURL *buildIndexFileURL;
+@property (atomic, readonly, copy) NSURL *settingsFileURL;
+@property (atomic, readonly, copy) NSURL *indexDirectoryURL;
+@property (atomic, readonly, copy) NSURL *currentSkeinURL;
+@property (atomic, readonly, copy) NSURL *currentReportURL;
+@property (atomic, readonly, copy) NSURL *normalProblemsURL;
+@property (atomic, readonly, copy) NSURL *baseReportURL;
+@property (atomic, readonly, copy) NSURL *combinedReportURL;
 
 - (NSString*) pathForSourceFile: (NSString*) file;
-- (NSString*) projectOutputPathName;
+@property (atomic, readonly, copy) NSString *projectOutputPathName;
 
 #pragma mark - Materials folder
 - (void) createMaterials;
@@ -82,44 +82,25 @@
 - (void) saveDocumentWithoutUserInteraction;
 - (void) saveCompilerOutputWithWindow:(NSWindow*) window;
 
-- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;				// Removes compiler-generated files that are less useful to keep around
+/// Removes compiler-generated files that are less useful to keep around
+- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex NS_SWIFT_NAME(cleanOutUnnecessaryFiles(alsoCleanIndex:));
+
 - (void) unregisterProjectTextStorage;
 
-
-#pragma mark - Debugging
-- (BOOL) canDebug;
-
-// Watchpoints
-- (void) addWatchExpression: (NSString*) expression;
-- (void) replaceWatchExpressionAtIndex: (unsigned) index
-						withExpression: (NSString*) expression;
-- (NSString*) watchExpressionAtIndex: (unsigned) index;
-@property (atomic, readonly) unsigned int watchExpressionCount;
-- (void) removeWatchExpressionAtIndex: (unsigned) index;
-
-// Breakpoints
-- (void) addBreakpointAtLine: (int) line
-					  inFile: (NSString*) filename;
-- (void) replaceBreakpointAtIndex: (unsigned) index
-			 withBreakpointAtLine: (int) line
-						   inFile: (NSString*) filename;
-- (int) lineForBreakpointAtIndex: (unsigned) index;
-- (NSString*) fileForBreakpointAtIndex: (unsigned) index;
-- (unsigned int) breakpointCount;
-- (void) removeBreakpointAtIndex: (unsigned) index;
-- (void) removeBreakpointAtLine: (int) line
-						 inFile: (NSString*) file;
-
 #pragma mark - Extension projects
--(BOOL) isExtensionProject;
+@property (atomic, readonly) BOOL isExtensionProject;
 -(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;
--(void) refreshTestCases;                                               // update the array of test cases
--(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase;    // Get the source text for a test case
--(NSArray*) redirectLinksToExtensionSourceCode: (NSArray*) link;        // Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
+/// update the array of test cases
+-(void) refreshTestCases;
+/// Get the source text for a test case
+-(void) extractSourceTaskForExtensionTestCase: (NSString*) testCase;
+/// Extension project compilation problems need redirecting back to extension.i7x source, not story.ni
+-(NSArray*) redirectLinksToExtensionSourceCode: (NSArray*) link;
+
 -(NSArray*) testCommandsForExtensionTestCase: (NSString*) testCase;
 - (BOOL) generateReportForTestCase: (NSString*) testCase
                          errorCode: (NSString*) errorCode

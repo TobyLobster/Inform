@@ -11,19 +11,18 @@
 ///
 /// Searches through a string to find a match for a search pattern
 ///
-@interface IFScanner : NSObject {
-}
+@interface IFScanner : NSObject
 
 +(NSRange) findNextMatch: (NSString*) phrase
                  storage: (NSString*) storage
                 position: (NSUInteger) searchPosition
                  options: (IFFindType) searchType
-        regexFoundGroups: (NSArray*__strong*) foundGroupsOut;
+        regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut;
 
 +(NSRange) findPreviousMatch: (NSString*) phrase
                      storage: (NSString*) storage
                     position: (NSUInteger) searchPosition
                      options: (IFFindType) searchType
-            regexFoundGroups: (NSArray*__strong*) foundGroupsOut;
+            regexFoundGroups: (NSArray<NSString*>*__strong*) foundGroupsOut;
 
 @end

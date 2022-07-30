@@ -10,9 +10,9 @@
 
 #import "IFSetting.h"
 
-//
-// The Inform 6 library to use.
-//
+///
+/// The Inform 6 library to use.
+///
 @interface IFLibrarySettings : IFSetting
 
 @end

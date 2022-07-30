@@ -16,11 +16,13 @@
 
 @implementation IFSettingsPage {
     // Settings
-    IBOutlet IFSettingsView*        settingsView;			// The settings view
-    IBOutlet IFSettingsController*  settingsController;     // The settings controller
+    /// The settings view
+    IBOutlet IFSettingsView*        settingsView;
+    /// The settings controller
+    IFSettingsController*  settingsController;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Settings"
@@ -42,22 +44,16 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Settings Page Title"
                               default: @"Settings"];
 }
 
-// = Settings =
+#pragma mark - Settings
 
-- (void) setSettingsController: (IFSettingsController*) controller {
-	settingsController = controller;
-}
-
-- (IFSettingsController*) settingsController {
-	return settingsController;
-}
+@synthesize settingsController;
 
 - (void) updateSettings {
 	if (!self.parent) {

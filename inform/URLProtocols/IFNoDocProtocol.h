@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
 
-//
-// Simple URL protocol that returns almost no data for any URL
-//
+///
+/// Simple URL protocol that returns almost no data for any URL
+///
 @interface IFNoDocProtocol : NSURLProtocol {
 
 }

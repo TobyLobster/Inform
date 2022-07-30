@@ -8,7 +8,6 @@
 
 #import "IFPageBarView.h"
 #import "IFPageBarCell.h"
-#import "IFImageCache.h"
 
 //
 // Notes (in no particular order)
@@ -24,54 +23,73 @@
 // the most important, followed by the background animations.
 //
 
-//
-// Object used to represent the layout of an individual cell
-//
+///
+/// Object used to represent the layout of an individual cell
+///
 @interface IFPageCellLayout : NSObject
 
 @end
 
 @implementation IFPageCellLayout {
 @public
-    float position;					// Offset from the left/right for this cell
-    float minWidth;					// Minimum size that this cell can be
-    float width;					// Actual size that this cell should be drawn at
-    BOOL hidden;					// If YES then this cell shouldn't be drawn
+    /// Offset from the left/right for this cell
+    CGFloat position;
+    /// Minimum size that this cell can be
+    CGFloat minWidth;
+    /// Actual size that this cell should be drawn at
+    CGFloat width;
+    /// If \c YES then this cell shouldn't be drawn
+    BOOL hidden;
 
-    NSImage* cellFirstImage;		// The image for this cell
-    NSImage* cellImage;             // The image for this cell
-    NSImage* animateFrom;			// The image to animate from
+    /// The image for this cell
+    NSImage* cellFirstImage;
+    /// The image for this cell
+    NSImage* cellImage;
+    /// The image to animate from
+    NSImage* animateFrom;
 }
 
 
 @end
 
-// = Constants =
-static const float rightMargin = 14.0;			// Margin to put on the right (to account for scrollbars, tabs, etc)
-static const float tabMargin =  0.0;			// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
-static const float leftMargin = 3.0;			// Margin on the left and right until we actually draw the first cell
+#pragma mark - Constants
+
+/// Margin to put on the right (to account for scrollbars, tabs, etc)
+static const CGFloat rightMargin = 14.0;
+/// Extra margin to put on the right when drawing the 'bar' image as opposed to the background
+static const CGFloat tabMargin =  0.0;
+/// Margin on the left and right until we actually draw the first cell
+static const CGFloat leftMargin = 3.0;
 
 @implementation IFPageBarView {
-    BOOL cellsNeedLayout;							// YES if we need to perform layout on the cells
-    BOOL isActive;									// YES if this page accepts keyboard input
+    /// YES if we need to perform layout on the cells
+    BOOL cellsNeedLayout;
+    /// YES if this page accepts keyboard input
+    BOOL isActive;
 
-    NSMutableArray* leftCells;						// The cells that appear on the left of this view
-    NSMutableArray* rightCells;						// The cells that appear on the right of this view
+    /// The cells that appear on the left of this view
+    NSMutableArray<__kindof NSCell*>* leftCells;
+    /// The cells that appear on the right of this view
+    NSMutableArray<__kindof NSCell*>* rightCells;
 
-    NSMutableArray* leftLayout;						// Left-hand cell layout
-    NSMutableArray* rightLayout;					// Right-hand cell layout
+    /// Left-hand cell layout
+    NSMutableArray* leftLayout;
+    /// Right-hand cell layout
+    NSMutableArray* rightLayout;
 
-    NSCell* trackingCell;							// The cell that the mouse is down over
-    NSRect trackingCellFrame;						// The bounds for the cell that the mouse is down over
+    /// The cell that the mouse is down over
+    __weak NSCell* trackingCell;
+    /// The bounds for the cell that the mouse is down over
+    NSRect trackingCellFrame;
 }
 
-// = Images =
+#pragma mark - Images
 
 + (NSImage*) backgroundImage {
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarBackground.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarBackground"];
 	}
 	
 	return image;
@@ -81,7 +99,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarNormal.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarNormal"];
 	}
 	
 	return image;
@@ -91,7 +109,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* graphiteImage = nil;	
 
 	if (!graphiteImage) {
-		graphiteImage = [IFImageCache loadResourceImage: @"App/PageBar/BarSelectedGraphite.png"];
+		graphiteImage = [NSImage imageNamed: @"App/PageBar/BarSelectedGraphite"];
 	}
 	
 	return graphiteImage;
@@ -101,7 +119,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarHighlighted.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarHighlighted"];
 	}
 	
 	return image;
@@ -111,27 +129,23 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarSelected.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarSelected"];
 	}
 	
-	if ([NSColor currentControlTint] == NSGraphiteControlTint) {
-		return [IFPageBarView graphiteSelectedImage];
-	} else {
-		return image;
-	}
+    return image;
 }
 
 + (NSImage*) inactiveImage {
 	static NSImage* image = nil;
 	
 	if (!image) {
-		image = [IFImageCache loadResourceImage: @"App/PageBar/BarInactive.png"];
+		image = [NSImage imageNamed: @"App/PageBar/BarInactive"];
 	}
 	
 	return image;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -144,12 +158,12 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 }
 
 
-// = Drawing =
+#pragma mark - Drawing
 
 + (void) drawOverlay: (NSImage*) overlay
 			  inRect: (NSRect) rect
 		 totalBounds: (NSRect) bounds
-			fraction: (float) fraction {
+			fraction: (CGFloat) fraction {
 	// Draws an overlay image, given the bounds of this control and the area to draw
 	NSSize imageSize = [overlay size];
 	NSRect sourceRect;
@@ -167,9 +181,11 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		
 		[overlay drawInRect: destRect
 				   fromRect: sourceRect
-				  operation: NSCompositeSourceOver 
+				  operation: NSCompositingOperationSourceOver 
 				   fraction: fraction];		
-	}
+        [NSColor.controlAccentColor set];
+        NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
+    }
 }
 
 - (NSImage*) renderCell: (NSCell*) cell
@@ -215,8 +231,8 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 				 inView: self];
 	
 	// Draw the borders
-	float marginLeftPos  = NSMinX(cellFrame)+0.5;
-	float marginRightPos = NSMaxX(cellFrame)-0.5;
+	CGFloat marginLeftPos  = NSMinX(cellFrame)+0.5;
+    CGFloat marginRightPos = NSMaxX(cellFrame)-0.5;
 	
 	[[[NSColor controlShadowColor] colorWithAlphaComponent: 0.4] set];
     
@@ -284,7 +300,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 				
 		[cellImage drawInRect: NSIntegralRect(cellFrame)
                      fromRect: cellSource
-                    operation: NSCompositeSourceOver
+                    operation: NSCompositingOperationSourceOver
                      fraction: ([cell isEnabled]?1.0:0.5) * (isActive?1.0:0.85)];
         isFirst = NO;
 	}
@@ -313,7 +329,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	return;
 }
 
-// = Managing cells =
+#pragma mark - Managing cells
 
 - (void) setLeftCells: (NSArray*) newLeftCells {
 	leftCells = [[NSMutableArray alloc] initWithArray: newLeftCells];
@@ -335,7 +351,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 
 - (void) addCells: (NSMutableArray*) cells
 		 toLayout: (NSMutableArray*) layout {
-	float position = 0;
+	CGFloat position = 0;
 	for( NSCell* cell in cells ) {
 		IFPageCellLayout* cellLayout = [[IFPageCellLayout alloc] init];
 		
@@ -383,7 +399,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	bounds.origin.x += leftMargin;
 	bounds.size.width -= leftMargin + tabMargin + rightMargin;
 
-	float maxLeftPos = 0;
+    CGFloat maxLeftPos = 0;
 	if ([leftCells count] > 0) {
 		IFPageCellLayout* lastLeftLayout = [leftLayout lastObject];
 		maxLeftPos = lastLeftLayout->position + lastLeftLayout->width;
@@ -424,7 +440,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	}
 	
 	// If we're not turning a cell on, then we don't need to do anything more
-	if (state != NSOnState) {
+	if (state != NSControlStateValueOn) {
 		return;
 	}
 	
@@ -435,14 +451,14 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSOffState) continue;
+		if ([otherCell state] == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
 		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSOffState];
+		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
 	}
 
 	for( NSCell* otherCell in rightCells ) {
@@ -450,18 +466,18 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (otherCell == cell) continue;
 		
 		// Do nothing if this cell is already turned off
-		if ([otherCell state] == NSOffState) continue;
+		if ([otherCell state] == NSControlStateValueOff) continue;
 		
 		// Get the group for this cell
 		int otherGroup = -1;
 		if ([otherCell respondsToSelector: @selector(radioGroup)]) otherGroup = [(IFPageBarCell*)otherCell radioGroup];
 		
 		// If it's the same as the cell we're updating, then turn this cell off
-		if (otherGroup == group) [otherCell setState: NSOffState];
+		if (otherGroup == group) [otherCell setState: NSControlStateValueOff];
 	}
 }
 
-// = Cell housekeeping =
+#pragma mark - Cell housekeeping
 
 - (int) indexOfCellAtPoint: (NSPoint) point {
 	// Returns 0 if no cell, a negative number for a right-hand cell or a positive number for a
@@ -600,11 +616,9 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	[self updateCell: aCell];
 }
 
-// = Mouse events =
+#pragma mark - Mouse events
 
-- (NSCell*) lastTrackedCell {
-	return trackingCell;
-}
+@synthesize lastTrackedCell=trackingCell;
 
 - (void) mouseDown: (NSEvent*) event {
 	// Clear any tracking cell that might exist
@@ -649,14 +663,14 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 		if (!trackResult) {
 			// If the mouse is still down, continue tracking it in case it re-enters
 			// the control
-			while ((trackingEvent = [NSApp nextEventMatchingMask: NSLeftMouseDraggedMask|NSLeftMouseUpMask
+			while ((trackingEvent = [NSApp nextEventMatchingMask: NSEventMaskLeftMouseDragged|NSEventMaskLeftMouseUp
 													  untilDate: [NSDate distantFuture]
 														 inMode: NSEventTrackingRunLoopMode
 														dequeue: YES])) {
-				if ([trackingEvent type] == NSLeftMouseUp) {
+				if ([trackingEvent type] == NSEventTypeLeftMouseUp) {
 					// All finished
 					return;
-				} else if ([trackingEvent type] == NSLeftMouseDragged) {
+				} else if ([trackingEvent type] == NSEventTypeLeftMouseDragged) {
 					// Restart tracking if the mouse has re-entered the cell
 					NSPoint location = [self convertPoint: [trackingEvent locationInWindow]
 												 fromView: nil];
@@ -669,7 +683,7 @@ static const float leftMargin = 3.0;			// Margin on the left and right until we 
 	}
 }
 
-// = Keyboard events =
+#pragma mark - Keyboard events
 
 - (void) setIsActive: (BOOL) newIsActive {
 	if (isActive == newIsActive) return;

@@ -28,17 +28,10 @@
     return self;
 }
 
--(NSString *) name {
-    return name;
-}
+@synthesize name;
+@synthesize anchorTag;
+@synthesize range;
 
--(NSString *) anchorTag {
-    return anchorTag;
-}
-
--(NSRange) range {
-    return range;
-}
 @end
 
 @implementation IFCodeInfo {
@@ -58,35 +51,35 @@
     return self;
 }
 
--(NSString *) anchorTag {
-    return anchorTag;
-}
-
--(NSRange) range {
-    return range;
-}
+@synthesize anchorTag;
+@synthesize range;
 @end
 
 @implementation IFDocParser {
     // The parse results
-    NSString*       plainText;				// The plain text version of the HTML document
-    NSDictionary*   attributes;             // The attributes associated with the HTML document
-    NSDictionary*   exampleInfo;            // Dictionary of examples in the document. Keys are string version of example name, values are IFExampleInfo.
-    NSArray*        codeInfo;               // Array of IFCodeInfo specifying ranges in the document where code occurs.
-    NSArray*        definitionInfo;         // Array of IFCodeInfo specifying ranges in the document where definitions occur.
+    /// The plain text version of the HTML document
+    NSString*       plainText;
+    /// The attributes associated with the HTML document
+    NSDictionary<IFDocAttributeKey,id>*   attributes;
+    /// Dictionary of examples in the document. Keys are string version of example name, values are IFExampleInfo.
+    NSDictionary<NSString*,IFExampleInfo*>*   exampleInfo;
+    /// Array of \c IFCodeInfo specifying ranges in the document where code occurs.
+    NSArray<IFCodeInfo*>*        codeInfo;
+    /// Array of \c IFCodeInfo specifying ranges in the document where definitions occur.
+    NSArray<IFCodeInfo*>*        definitionInfo;
 }
 
-NSString* IFDocHtmlTitleAttribute = @"IFDocHtmlTitle";
-NSString* IFDocTitleAttribute = @"IFDocTitle";
-NSString* IFDocSectionAttribute = @"IFDocSection";
-NSString* IFDocSortAttribute = @"IFDocSort";
+NSString* const IFDocAttributeHtmlTitle = @"IFDocHtmlTitle";
+NSString* const IFDocAttributeTitle = @"IFDocTitle";
+NSString* const IFDocAttributeSection = @"IFDocSection";
+NSString* const IFDocAttributeSort = @"IFDocSort";
 
-// = Static dictionaries =
+#pragma mark - Static dictionaries
 
-static NSSet* ignoreTags = nil;
-static NSDictionary* entities = nil;
+static NSSet<NSString*>* ignoreTags = nil;
+static NSDictionary<NSString*,NSString*>* entities = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
 	if (ignoreTags == nil) {
@@ -105,7 +98,9 @@ typedef NS_ENUM(unsigned int, ParseState) {
 	HtmlTagOrComment,
 	HtmlTag,
 	HtmlCloseTag,
-	HtmlComment,
+    HtmlCommentStart1,
+    HtmlCommentStart2,
+    HtmlComment,
 	HtmlCommentEnd1,
 	HtmlCommentEnd2,
 	HtmlEntity
@@ -124,29 +119,29 @@ typedef NS_ENUM(unsigned int, ParseState) {
         NSMutableArray*         dfInfo   = [[NSMutableArray alloc] init];
 		
 		// Parse the HTML
-		int len = (int) [html length];
+		NSInteger len = [html length];
 		unichar* chrs = malloc(sizeof(unichar)*(len+1));
 		unichar* result = malloc(sizeof(unichar)*(len+1));
 		[html getCharacters: chrs];
-		int resultLength = 0;
+        NSInteger resultLength = 0;
 		
-		int         x;
+		NSInteger   x;
 		ParseState  state = PlainText;
 		BOOL        whitespace = YES;
 		BOOL        inTitle = NO;
         NSString*   exampleName = @"";
         NSString*   exampleAnchorTag = @"";
-        int         exampleStartLocation = 0;
-        int         codeStartLocation = 0;
+        NSInteger   exampleStartLocation = 0;
+        NSInteger   codeStartLocation = 0;
         NSString*   codeAnchorTag = @"";
-        int         definitionStartLocation = 0;
+        NSInteger   definitionStartLocation = 0;
         NSString*   definitionAnchorTag = @"";
         bool        ignoreSection = false;
         
 		unichar* title = malloc(sizeof(unichar)*(len+1));
-		int titleLength = 0;
+		NSInteger titleLength = 0;
 		
-		int tagStart = 0;
+		NSInteger tagStart = 0;
 		int ignoreCount = 0;
 		
 		for (x=0; x<len; x++) {
@@ -252,7 +247,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
 							break;
 							
 						case '!':
-							state = HtmlComment;
+							state = HtmlCommentStart1;
 							break;
 							
 						case '>':
@@ -317,6 +312,30 @@ typedef NS_ENUM(unsigned int, ParseState) {
 					}
 					break;
 					
+                case HtmlCommentStart1:
+                    switch (chrs[x]) {
+                        case '-':
+                            state = HtmlCommentStart2;
+                            break;
+
+                        default:
+                            state = HtmlTag;
+                            break;
+                    }
+                    break;
+
+                case HtmlCommentStart2:
+                    switch (chrs[x]) {
+                        case '-':
+                            state = HtmlComment;
+                            break;
+
+                        default:
+                            state = HtmlTag;
+                            break;
+                    }
+                    break;
+
 				case HtmlComment:
 					switch (chrs[x]) {
 						case '-':
@@ -354,8 +373,8 @@ typedef NS_ENUM(unsigned int, ParseState) {
 																		length: x - tagStart];
 							
 							// Strip down this comment
-							comment = [comment substringFromIndex: 5];					// Removes <!-- 
-							comment = [comment substringToIndex: [comment length]-3];	// Removes --
+							comment = [comment substringFromIndex: 4];					// Removes <!--
+							comment = [comment substringToIndex: [comment length]-2];	// Removes --
 							
 							// Look for interesting comments
 							if ([comment hasPrefix: @"START EXAMPLE \""]) {
@@ -370,7 +389,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                     exampleStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END EXAMPLE"]) {
-                                int exampleEndLocation = resultLength;
+                                NSInteger exampleEndLocation = resultLength;
                                 // Record the range for this example
                                 if( exInfo[exampleName] == nil ) {
                                     NSRange range = NSMakeRange(exampleStartLocation, exampleEndLocation - exampleStartLocation);
@@ -390,7 +409,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                     codeStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END CODE"]) {
-                                int codeEndLocation = resultLength;
+                                NSInteger codeEndLocation = resultLength;
                                 // Record the range for this code
                                 NSRange range = NSMakeRange(codeStartLocation, codeEndLocation - codeStartLocation);
                                 IFCodeInfo* info = [[IFCodeInfo alloc] initWithAnchorTag: codeAnchorTag
@@ -407,7 +426,7 @@ typedef NS_ENUM(unsigned int, ParseState) {
                                     definitionStartLocation = resultLength;
                                 }
 							} else if ([comment hasPrefix: @"END PHRASE"]) {
-                                int definitionEndLocation = resultLength;
+                                NSInteger definitionEndLocation = resultLength;
                                 // Record the range for this code
                                 NSRange range = NSMakeRange(definitionStartLocation, definitionEndLocation - definitionStartLocation);
                                 IFCodeInfo* info = [[IFCodeInfo alloc] initWithAnchorTag: definitionAnchorTag
@@ -421,17 +440,17 @@ typedef NS_ENUM(unsigned int, ParseState) {
 								int prefixLen = (int) [@"SEARCH TITLE \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								attr[IFDocTitleAttribute] = comment;
+								attr[IFDocAttributeTitle] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SECTION \""]) {
 								int prefixLen = (int) [@"SEARCH SECTION \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+1))];
 								
-								attr[IFDocSectionAttribute] = comment;
+								attr[IFDocAttributeSection] = comment;
 							} else if ([comment hasPrefix: @"SEARCH SORT \""]) {
 								int prefixLen = (int) [@"SEARCH SORT \"" length];
 								comment = [comment substringWithRange: NSMakeRange(prefixLen, [comment length]-(prefixLen+2))];
 								
-								attr[IFDocSortAttribute] = comment;
+								attr[IFDocAttributeSort] = comment;
 							}
                         }
 						break;
@@ -459,11 +478,13 @@ typedef NS_ENUM(unsigned int, ParseState) {
 		}
 
 		// Tidy up
-		attr[IFDocHtmlTitleAttribute] = [NSString stringWithCharacters: title
-												 length: titleLength];
+		attr[IFDocAttributeHtmlTitle] = [[NSString alloc] initWithCharactersNoCopy: title
+                                                                            length: titleLength
+                                                                      freeWhenDone: YES];
 
-		plainText       = [NSString stringWithCharacters: result
-                                                  length: resultLength];
+		plainText       = [[NSString alloc] initWithCharactersNoCopy: result
+                                                              length: resultLength
+                                                        freeWhenDone: YES];
         exampleInfo     = [NSDictionary dictionaryWithDictionary:exInfo];
         codeInfo        = [NSArray arrayWithArray: cdInfo];
         definitionInfo  = [NSArray arrayWithArray: dfInfo];
@@ -473,33 +494,17 @@ typedef NS_ENUM(unsigned int, ParseState) {
 		attributes  = attr;
 
 		free(chrs);
-		free(result);
-		free(title);
 	}
 
 	return self;
 }
 
-// = The results =
+#pragma mark - The results
 
-- (NSString*) plainText {
-	return plainText;
-}
-
-- (NSDictionary*) attributes {
-	return attributes;
-}
-
-- (NSDictionary*) exampleInfo {
-	return exampleInfo;
-}
-
-- (NSArray*) codeInfo {
-	return codeInfo;
-}
-
-- (NSArray*) definitionInfo {
-    return definitionInfo;
-}
+@synthesize plainText;
+@synthesize attributes;
+@synthesize exampleInfo;
+@synthesize codeInfo;
+@synthesize definitionInfo;
 
 @end

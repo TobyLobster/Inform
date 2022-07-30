@@ -10,7 +10,6 @@
 #import "IFInspectorWindow.h"
 #import "IFAppDelegate.h"
 #import "IFIsTitleView.h"
-#import "IFIsArrow.h"
 
 #define TitleHeight [IFIsTitleView titleHeight]
 #define ViewOffset  [IFIsTitleView titleHeight]
@@ -20,7 +19,7 @@
     NSView* innerView;										// The actual inspector view
 
     IFIsTitleView* titleView;								// The title bar view
-    IFIsArrow*     arrow;									// The open/closed arrow
+    NSButton*     arrow;									// The open/closed arrow
 
     BOOL willLayout;										// YES if a layout event is pending
 }
@@ -30,7 +29,10 @@
     if (self) {
 		innerView = nil;
 		
-		arrow = [[IFIsArrow alloc] initWithFrame: NSMakeRect(8, 0, 24, 28)];
+		arrow = [[NSButton alloc] initWithFrame: NSMakeRect(8, 0, 24, 28)];
+        arrow.bezelStyle = NSBezelStyleDisclosure;
+        [arrow setButtonType:NSButtonTypeOnOff];
+        arrow.bordered = YES;
 		[self addSubview: arrow];
 		[arrow sizeToFit];
 				
@@ -56,7 +58,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = The view =
+#pragma mark - The view
 
 - (void) setTitle: (NSString*) title {
 	[titleView setTitle: title];
@@ -80,12 +82,10 @@
 	[self queueLayout];
 }
 
-- (NSView*) view {
-	return innerView;
-}
+@synthesize view=innerView;
 
 - (void) innerSizeChanged: (NSNotification*) not {
-	if ([arrow intValue] == 3) {
+	if ([arrow state] == NSControlStateValueOn) {
 		[self queueLayout];
 	}
 }
@@ -105,11 +105,10 @@
 - (void) layoutViews {
 	willLayout = NO;
 	
-	switch ([arrow intValue]) {
+	switch ([arrow state]) {
 		default:
 			NSLog(@"Bug: arrow should be 1, 2 or 3, but is %d", [arrow intValue]);
-		case 1:
-		case 2:
+		case NSControlStateValueOff:
 			// Closed
 			if ([innerView superview] != nil)
 				[innerView removeFromSuperview];
@@ -120,7 +119,7 @@
 			[self setNeedsDisplay: YES];
 			break;
 			
-		case 3:
+		case NSControlStateValueOn:
 		{
 			// Open
 			NSRect bounds = [self bounds];
@@ -171,14 +170,14 @@
 	if (!NSPointInRect(region, [titleView frame])) return; // Not in the title view
 	
 	// Clicking in the title will open the view if it's not already (you need to use the arrow to close it, though)
-	[arrow performFlip];
+	[arrow setNextState];
 }
 
 - (BOOL) acceptsFirstMouse: (NSEvent*) evt {
 	return YES;
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect:(NSRect)rect {
 #if ViewPadding > 0
@@ -199,12 +198,16 @@
 }
 
 - (void) setExpanded: (BOOL) isExpanded {
-	[arrow setOpen: isExpanded];
+    arrow.state = isExpanded ? NSControlStateValueOn : NSControlStateValueOff;
 	[self layoutViews];
 }
 
-- (BOOL) expanded {
-	return [arrow intValue] == 3;
+- (BOOL) isExpanded {
+	return [arrow state] == NSControlStateValueOn;
+}
+
+- (BOOL)expanded {
+    return [self isExpanded];
 }
 
 @end

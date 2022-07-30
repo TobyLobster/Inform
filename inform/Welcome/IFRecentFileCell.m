@@ -34,7 +34,7 @@ static const int recentFilesTabWidth = 130;
 
     NSString* title = [self stringValue];
     if (title) {
-        NSColor *textColour = [self isHighlighted] ? [NSColor whiteColor] : [NSColor blackColor];
+        NSColor *textColour = [self isHighlighted] ? [NSColor selectedTextColor] : [NSColor textColor];
         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
         NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
                                                 location: recentFilesTabWidth];
@@ -54,8 +54,6 @@ static const int recentFilesTabWidth = 130;
 {
     NSRect imageRect = bounds;
     
-    imageRect.origin.x += borderWidth;
-    imageRect.origin.y += borderHeight;
     imageRect.size.width = imageSize;
     imageRect.size.height = imageSize;
     
@@ -66,7 +64,7 @@ static const int recentFilesTabWidth = 130;
 {
     NSRect titleRect = bounds;
     
-    titleRect.origin.x += imageSize + (borderWidth * 2);
+    titleRect.origin.x += imageSize + borderWidth;
     titleRect.origin.y += borderHeight;
     
     NSAttributedString *title = [self attributedStringValue];
@@ -93,7 +91,7 @@ static const int recentFilesTabWidth = 130;
     if (image) {
         [image drawInRect:imageRect
                  fromRect:NSZeroRect
-                operation:NSCompositeSourceOver
+                operation:NSCompositingOperationSourceOver
                  fraction:1.0
            respectFlipped:YES
                     hints:nil];

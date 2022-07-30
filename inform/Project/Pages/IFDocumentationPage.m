@@ -15,21 +15,27 @@
 #import "IFExtensionsManager.h"
 #import "IFProjectController.h"
 #import "IFPageBarCell.h"
+#import "IFProjectPolicy.h"
 
 @implementation IFDocumentationPage {
     // The documentation view
-    WebView* wView;										// The web view that displays the documentation
+    /// The web view that displays the documentation
+    WebView* wView;
 
     // Page cells
-    IFPageBarCell* contentsCell;						// The 'table of contents' cell
-    IFPageBarCell* examplesCell;						// The 'Examples' cell
-    IFPageBarCell* generalIndexCell;					// The 'General Index' cell
-    NSDictionary* tabDictionary;                        // Maps URL paths to cells
+    /// The 'table of contents' cell
+    IFPageBarCell* contentsCell;
+    /// The 'Examples' cell
+    IFPageBarCell* examplesCell;
+    /// The 'General Index' cell
+    IFPageBarCell* generalIndexCell;
+    /// Maps URL paths to cells
+    NSDictionary* tabDictionary;
 
     bool reloadingBecauseCensusCompleted;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation =
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Documentation"
@@ -65,8 +71,8 @@
         NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
         [[wView mainFrame] loadRequest: urlRequest];
 
-        [wView setPolicyDelegate: (id<WebPolicyDelegate>) [self.parent generalPolicy]];
-        [wView setUIDelegate: (id<WebUIDelegate>) self.parent];
+        [wView setPolicyDelegate: [self.parent generalPolicy]];
+        [wView setUIDelegate: self.parent];
         [wView setHostWindow: [self.parent window]];
 
 		contentsCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
@@ -95,14 +101,14 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Documentation Page Title"
                               default: @"Documentation"];
 }
 
-// = Updating extensions =
+#pragma mark - Updating extensions
 
 - (void) censusCompleted: (NSNotification*) not {
     reloadingBecauseCensusCompleted = true;
@@ -111,13 +117,13 @@
     reloadingBecauseCensusCompleted = false;
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
 	[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
-// = Documentation =
+#pragma mark - Documentation
 
 - (void) openURL: (NSURL*) url  {
 	[self switchToPage];
@@ -133,15 +139,15 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*) tabDictionary[key] setState:NSOnState];
+            [(IFPageBarCell*) tabDictionary[key] setState:NSControlStateValueOn];
         }
         else {
-            [(IFPageBarCell*) tabDictionary[key] setState:NSOffState];
+            [(IFPageBarCell*) tabDictionary[key] setState:NSControlStateValueOff];
         }
     }
 }
 
-// = WebResourceLoadDelegate methods =
+#pragma mark - WebResourceLoadDelegate methods
 
 - (void)			webView:(WebView *)sender 
 				   resource:(id)identifier 
@@ -156,7 +162,7 @@
 	NSLog(@"IFDocumentationPage: failed to load URL %@ with error: %@", urlString, [error localizedDescription]);
 }
 
-// = WebFrameLoadDelegate methods =
+#pragma mark - WebFrameLoadDelegate methods
 
 - (void)					webView:(WebView *)sender 
 	didStartProvisionalLoadForFrame:(WebFrame *)frame {
@@ -196,7 +202,7 @@
 	}
 }
 
-// = History =
+#pragma mark - History
 
 - (void) didSwitchToPage {
 	//[(IFDocumentationPage*)[self history] openURL: [[[[[[wView mainFrame] dataSource] request] URL] copy] autorelease]];
@@ -213,7 +219,7 @@
 	[[self history] openURLWithString: urlString];
 }
 
-// = Page bar cells =
+#pragma mark - Page bar cells
 
 - (NSArray*) toolbarCells {
 	return @[generalIndexCell, examplesCell, contentsCell];

@@ -52,16 +52,16 @@
     IFHeaderPage*               headerPage;						// The header page
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 -(void) setBackgroundColour {
     IFProject* doc = [self.parent document];
 
     if( [doc projectFileType] == IFFileTypeInform7ExtensionProject ) {
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] extensionPaperColour]];
+        [textView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
     }
     else {
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
+        [textView setBackgroundColor: [[IFPreferences sharedPreferences] getSourcePaper].colour];
     }
 }
 
@@ -123,7 +123,6 @@
         [textView setAllowsUndo:YES];
         [textView setRichText:NO];
         [textView setEnabledTextCheckingTypes:0];
-        [textView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
 
         [[textView textContainer] setContainerSize: NSMakeSize(contentSize.width, FLT_MAX)];
         [[textView textContainer] setWidthTracksTextView: YES];
@@ -173,7 +172,7 @@
 		[sourcePageControl setRadioGroup: 1];
 		[sourcePageControl setTarget: self];
 		[sourcePageControl setAction: @selector(showSourcePage:)];
-		[sourcePageControl setState: NSOnState];
+		[sourcePageControl setState: NSControlStateValueOn];
         
         [textView setSelectedRange: [doc initialSelectionRange]];
         [self setBackgroundColour];
@@ -193,25 +192,23 @@
 	[headerPage setDelegate: nil];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Source Page Title"
                               default: @"Source"];
 }
 
-- (NSView*) activeView {
-	return textView;
-}
+@synthesize activeView;
 
-// = Text view delegate methods =
+#pragma mark - Text view delegate methods
 
 - (NSUndoManager *)undoManagerForTextView:(NSTextView *)aTextView {
 	// Always use the document undo manager
 	return [[self.parent document] undoManager];
 }
 
-// = Misc =
+#pragma mark - Misc
 
 - (void) pasteSourceCode: (NSString*) sourceCode {
 	// Get the code that existed previously
@@ -255,19 +252,19 @@
 	}
 }
 
-// = Compiling =
+#pragma mark - Compiling
 
 - (void) prepareToSave {
 	[textView breakUndoCoalescing];
 }
 
-// = Intelligence =
+#pragma mark - Intelligence
 
 - (IFIntelFile*) currentIntelligence {
 	return [IFSyntaxManager intelligenceDataForStorage: textStorage];
 }
 
-// = Indicating =
+#pragma mark - Indicating
 
 - (void) indicateRange: (NSRange) range {
 	// Look at restricted range if necessary
@@ -452,11 +449,9 @@
 	}
 }
 
-// = The selection =
+#pragma mark - The selection
 
-- (NSString*) openSourceFilepath {
-	return openSourceFilepath;
-}
+@synthesize openSourceFilepath;
 
 - (NSString*) currentFile {
 	return [[self.parent document] pathForSourceFile: openSourceFilepath];
@@ -513,12 +508,12 @@
     [textView setSelectedRange: range];
 }
 
-- (void) moveToLine: (int) line {
+- (void) moveToLine: (NSInteger) line {
 	[self moveToLine: line
 		   character: 0];
 }
 
-- (void) moveToLine: (int) line
+- (void) moveToLine: (NSInteger) line
 		  character: (int) chrNo {
     // Find out where the line is in the source view
     NSString* store = [[textView textStorage] string];
@@ -527,7 +522,7 @@
     NSUInteger x;
     NSUInteger lineLength;
     NSUInteger linepos = 0;
-    int        lineno = 1;
+    NSInteger  lineno = 1;
 
 	if (line > lineno)
 	{
@@ -572,7 +567,7 @@
 	[self selectTextRange: NSMakeRange(linepos,0)];
 }
 
-- (void) moveToLocation: (int) location {
+- (void) moveToLocation: (NSInteger) location {
 	[self selectTextRange: NSMakeRange(location, 0)];
 }
 
@@ -708,61 +703,25 @@
 	return NSMakeRange(linepos, x - linepos + 1);
 }
 
-// = Breakpoints =
-- (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	SEL itemSelector = [menuItem action];
+#pragma mark - Breakpoints
 
-    // Only allow breakpoints if we can debug
-	if ((itemSelector == @selector(setBreakpoint:)) ||
-        (itemSelector == @selector(deleteBreakpoint:)) ) {
-        return [self.parent canDebug];
-    }
+- (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
     return YES;
 }
 
-- (IBAction) setBreakpoint: (id) sender {
-	// Sets a breakpoint at the current location in the current source file
-	
-	// Work out which file and line we're in
-	NSString* currentFile = [self currentFile];
-	int currentLine = [self currentLine];
-	
-	if (currentLine >= 0) {
-		NSLog(@"Added breakpoint at %@:%i", currentFile, currentLine);
-		
-		[[self.parent document] addBreakpointAtLine: currentLine
-                                             inFile: currentFile];
-	}
-}
-
-- (IBAction) deleteBreakpoint: (id) sender {
-	// Sets a breakpoint at the current location in the current source file
-	
-	// Work out which file and line we're in
-	NSString* currentFile = [self currentFile];
-	int currentLine = [self currentLine];
-	
-	if (currentLine >= 0) {
-		NSLog(@"Deleted breakpoint at %@:%i", currentFile, currentLine);
-		
-		[[self.parent document] removeBreakpointAtLine: currentLine
-                                                inFile: currentFile];
-	}	
-}
-
-// = Spell checking =
+#pragma mark - Spell checking
 
 - (void) setSpellChecking: (BOOL) checkSpelling {
 	[textView setContinuousSpellCheckingEnabled: checkSpelling];
 }
 
-// = The headings browser =
+#pragma mark - The headings browser
 
 - (NSArray*) toolbarCells {
 	return @[sourcePageControl, headerPageControl];
 }
 
-// = Managing the source text view =
+#pragma mark - Managing the source text view
 
 - (BOOL) hasFirstResponder {
 	// Returns true if this page has the first responder
@@ -792,7 +751,7 @@
 	return textView;
 }
 
-// = The header page =
+#pragma mark - The header page
 
 - (void) highlightHeaderSection {
 	// Get the text storage
@@ -869,8 +828,8 @@
                 sendMessage: @selector(animationFinished:)
                    toObject: self];
 
-		[sourcePageControl setState: NSOnState];
-		[headerPageControl setState: NSOffState];
+		[sourcePageControl setState: NSControlStateValueOn];
+		[headerPageControl setState: NSControlStateValueOff];
 		headerPageShown = NO;
 	} else {
 		// Show the header page
@@ -890,8 +849,8 @@
                 sendMessage: @selector(animationFinished:)
                    toObject: self];
 
-		[sourcePageControl setState: NSOffState];
-		[headerPageControl setState: NSOnState];
+		[sourcePageControl setState: NSControlStateValueOff];
+		[headerPageControl setState: NSControlStateValueOn];
 		headerPageShown = YES;
 	}
 }
@@ -908,9 +867,9 @@
 	if (headerPageShown) [self toggleHeaderPage: self];
 }
 
-// = Helping out with the cursor =
+#pragma mark - Helping out with the cursor
 
-- (float) cursorOffset {
+- (CGFloat) cursorOffset {
 	// Returns the offset of the cursor (beginning of the current selection) relative to the top
 	// of the view
 	
@@ -934,7 +893,7 @@
 	return NSMinY(boundingRect);
 }
 
-// = Header page delegate methods =
+#pragma mark - Header page delegate methods
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
 	// Relayed via the IFHeaderPage (where it's relayed via the view)
@@ -964,7 +923,7 @@
 - (void) limitToRange: (NSRange) range
 	preserveScrollPos: (BOOL) preserveScrollPos {
 	// Record the current cursor offset and selection if preservation is turned on
-	float originalCursorOffset	= 0;
+    CGFloat originalCursorOffset	= 0;
 	NSRange selectionRange		= NSMakeRange(0, 0);
 	
 	if (preserveScrollPos) {
@@ -1041,8 +1000,8 @@
 		[textView scrollPoint: NSMakePoint(0,0)];
 
 		// Get the cursor scroll offset
-		float newCursorOffset	= [self cursorOffset];
-		float scrollOffset		= floorf(newCursorOffset - originalCursorOffset);
+        CGFloat newCursorOffset	    = [self cursorOffset];
+        CGFloat scrollOffset		= floor(newCursorOffset - originalCursorOffset);
 		
 		// Scroll the view
 		NSPoint scrollPos = [[scrollView contentView] documentVisibleRect].origin;

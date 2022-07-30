@@ -7,28 +7,31 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import <ZoomView/ZoomView.h>
 
 @class IFSkeinItem;
 
-extern NSString* IFSkeinChangedNotification;
-extern NSString* IFSkeinReplacedNotification;
-extern NSString* IFSkeinChangedAnimateKey;
-extern NSString* IFSkeinKeepActiveVisibleKey;
+extern NSString* const IFSkeinChangedNotification;
+extern NSString* const IFSkeinReplacedNotification;
+extern NSString* const IFSkeinChangedAnimateKey;
+extern NSString* const IFSkeinKeepActiveVisibleKey;
 
-extern NSString* IFSkeinSelectionChangedNotification;
-extern NSString* IFSkeinSelectionChangedItemKey;
+extern NSString* const IFSkeinSelectionChangedNotification;
+extern NSString* const IFSkeinSelectionChangedItemKey;
 
 @class IFProject;
 
-@interface IFSkein : NSObject {
+@interface IFSkein : NSObject <ZoomViewOutputReceiver> {
 @private
     IFSkeinItem*    _rootItem;
     IFSkeinItem*    _activeItem;
+    IFSkeinItem*    _winningItem;
 }
 
 // Retrieving the root / active / selected skein item
 @property (atomic, readonly, strong)  IFSkeinItem * rootItem;
 @property (atomic, strong)            IFSkeinItem * activeItem;
+@property (atomic, strong)            IFSkeinItem * winningItem;
 @property (atomic)                    BOOL          skeinChanged;
 
 
@@ -46,12 +49,17 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 - (void) interpreterRestart;
 - (void) interpreterStop;
 
-// Dirty flags
--(void) setLayoutDirty;     // Does the skein need laying out?
+- (void) setWinningItem: (IFSkeinItem *) winningItem;
+- (IFSkeinItem *) getWinningItem;
+- (BOOL) isTheWinningItem: (IFSkeinItem *) item;
 
-// Has the skein changed since we last reset the flag?
-// Used to detect whether the skein actually changed due to executing a command in a story,
-// which then is used to mark the document as changed, ie. needing save.
+// Dirty flags
+/// Does the skein need laying out?
+-(void) setLayoutDirty;
+
+/// Has the skein changed since we last reset the flag?
+/// Used to detect whether the skein actually changed due to executing a command in a story,
+/// which then is used to mark the document as changed, ie. needing save.
 -(void) setSkeinChanged;
 
 // Notification of change
@@ -60,8 +68,8 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 
 
 // Creating an input receiver
-+ (id) inputSourceFromSkeinItem: (IFSkeinItem*) item1
-						 toItem: (IFSkeinItem*) item2;
++ (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
+                                              toItem: (IFSkeinItem*) item2;
 
 
 // Converting to strings / other file formats
@@ -71,8 +79,10 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 -(NSString*) reportStateForSkein;
 
 // Dragging
-@property (atomic) IFSkeinItem*   draggingItem;                   // Current item being dragged
-@property (atomic) BOOL           draggingSourceNeedsUpdating;    // Used to animate after dragging
+/// Current item being dragged
+@property (atomic) IFSkeinItem*   draggingItem;
+/// Used to animate after dragging
+@property (atomic) BOOL           draggingSourceNeedsUpdating;
 
 // Undo helpers
 - (void) setParentOf:                   (IFSkeinItem*) item parent:         (IFSkeinItem*) newParent;
@@ -85,11 +95,14 @@ extern NSString* IFSkeinSelectionChangedItemKey;
 
 @end
 
-// = Dealing with/creating XML data =
+#pragma mark - Dealing with/creating XML data
 
+/// Dealing with/creating XML data
 @interface IFSkein(IFSkeinXML)
 
-- (NSString *)  getXMLString;                   // Create XML string for output
-- (BOOL)        parseXmlData: (NSData*) data;   // Read XML input into skein data structure
+/// Create XML string for output
+- (NSString *)  getXMLString;
+/// Read XML input into skein data structure
+- (BOOL)        parseXmlData: (NSData*) data;
 
 @end

@@ -12,11 +12,13 @@
 #import "IFProject.h"
 #import "IFSkein.h"
 
+// Paseboard type for drag and drop
+NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
+
 #pragma mark - "Skein Item"
 @implementation IFSkeinItem {
     NSMutableArray* _children;
     unsigned long   differencesHash;        // Hash to work out if differences need recalculating
-    IFDiffer*       diffCachedResult;       // Differences
 }
 
 @synthesize command         = _command;
@@ -24,10 +26,20 @@
 @synthesize actual          = _actual;
 @synthesize parent          = _parent;
 @synthesize isTestSubItem   = _isTestSubItem;
-
+@synthesize diffCachedResult = _diffCachedResult;
 
 #pragma mark - Initialization
-- (instancetype) init { self = [super init]; return self; }
+- (instancetype) init {
+    self = [super init];
+    if(self) {
+        _diffCachedResult = NULL;
+        differencesHash = 0;
+        _children = NULL;
+        // I don't think we use this init...
+        assert(false);
+    }
+    return self;
+}
 
 - (instancetype) initWithSkein: (IFSkein*) skein
                        command: (NSString*) com {
@@ -49,7 +61,7 @@
 
         // Differences
         differencesHash  = 0;
-        diffCachedResult = [[IFDiffer alloc] init];
+        _diffCachedResult = [[IFDiffer alloc] init];
 	}
 
 	return self;
@@ -64,20 +76,27 @@
 }
 
 - (instancetype)initWithCoder: (NSCoder *)decoder {
-    self = [self initWithSkein: nil command: @""];
+    self = [super init];
 
     if (self) {
-        _uniqueId       = [IFUtility generateID];
-        _children       = [decoder decodeObjectForKey: @"children"];
-        _command        = [decoder decodeObjectForKey: @"command"];
-        _actual         = [decoder decodeObjectForKey: @"result"];
-        _isTestSubItem  = [decoder decodeBoolForKey:   @"isTestSubItem"];
+        _uniqueId           = [IFUtility generateID];
+        _children           = [decoder decodeObjectOfClasses: [NSSet setWithObjects: [NSMutableArray class], [IFSkeinItem class], nil] forKey: @"children"];
+        _command            = [decoder decodeObjectOfClass: [NSString class] forKey: @"command"];
+        _actual             = [decoder decodeObjectOfClass: [NSString class] forKey: @"result"];
+        _isTestSubItem      = [decoder decodeBoolForKey:   @"isTestSubItem"];
+        _diffCachedResult   = [[IFDiffer alloc] init];
+        differencesHash     = 0;
+        _commandSizeDidChange = YES;
 
         for( IFSkeinItem* child in _children ) {
             child->_parent = self;
         }
     }
     return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
 }
 
 #pragma mark - Class Helpers
@@ -98,8 +117,8 @@
     if( string == nil ) {
         return @"";
     }
-    int lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
-    if( lastCarriageReturnIndex < 0 ) {
+    NSInteger lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
+    if( lastCarriageReturnIndex == NSNotFound ) {
         return string;
     }
     return [string substringToIndex: lastCarriageReturnIndex];
@@ -110,8 +129,8 @@
     if( string == nil ) {
         return @"";
     }
-    int lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
-    if( lastCarriageReturnIndex < 0 ) {
+    NSInteger lastCarriageReturnIndex = [string lastIndexOf: @"\n"];
+    if( lastCarriageReturnIndex == NSNotFound ) {
         return @"";
     }
     return [string substringFromIndex: lastCarriageReturnIndex + 1];
@@ -150,12 +169,9 @@
 }
 
 #pragma mark - Properties
-- (IFSkeinItem*) parent {
-    return _parent;
-}
 
 - (NSArray*) children {
-	return _children;
+	return [_children copy];
 }
 
 - (NSArray*) nonTestChildren {
@@ -319,21 +335,6 @@
 }
 
 #pragma mark - Item Data
--(NSString*) command {
-    return _command;
-}
-
--(NSString*) ideal {
-    return _ideal;
-}
-
--(NSString*) actual {
-    return _actual;
-}
-
--(BOOL) isTestSubItem {
-    return _isTestSubItem;
-}
 
 - (void) setCommand: (NSString*) newCommand {
     newCommand = [[self class] sanitizeCommand: newCommand];
@@ -430,12 +431,11 @@
             localActual = [localActual stringByRemovingLeadingWhitespace];
         }
 
-        [diffCachedResult diffIdeal: localIdeal
+        [_diffCachedResult diffIdeal: localIdeal
                              actual: localActual ];
         differencesHash = newHash;
     }
-    NSAssert(diffCachedResult != nil, @"how did that happen?");
-    return diffCachedResult;
+    return _diffCachedResult;
 }
 
 -(BOOL) hasDifferences {
@@ -489,18 +489,18 @@
     return results;
 }
 
-+(NSString*) commandForEntry:(NSString*) entry index:(int) index {
++(NSString*) commandForEntry:(NSString*) entry index:(NSInteger) index {
     NSString* command = [entry stringByTrimmingWhitespace];
-    int returnIndex = [command indexOf:@"\n"];
-    if( returnIndex >= 0 ) {
+    NSInteger returnIndex = [command indexOf:@"\n"];
+    if( returnIndex != NSNotFound ) {
         command = [command substringToIndex: returnIndex];
     }
-    return [NSString stringWithFormat: @"%@", command];
+    return [command copy];
 }
 
 +(NSString*) outputForEntry:(NSString*) entry {
-    int returnIndex = [entry indexOf:@"\n"];
-    if( returnIndex >= 0 ) {
+    NSInteger returnIndex = [entry indexOf:@"\n"];
+    if( returnIndex != NSNotFound ) {
         return [entry substringFromIndex: returnIndex+1];
     }
     return @"";
@@ -510,7 +510,7 @@
     return [self decomposeActual: actual ideal: [self composedIdeal]];
 }
 
-// For any "test me" style commands, separate out the testing commands into separate "isTestSubItem" child nodes
+/// For any "test me" style commands, separate out the testing commands into separate "isTestSubItem" child nodes
 -(IFSkeinItem*) decomposeActual:(NSString*) actual ideal:(NSString*) ideal {
     if( ![[self class] isTestCommand:_command] ) {
         // This not a "test " command.
@@ -538,7 +538,7 @@
         IFSkeinItem* mergedItem = self;
 
         // Go through remaining entries, inserting test child items as we go
-        for( int index = 1; index < actualResults.count; index++ ) {
+        for( NSInteger index = 1; index < actualResults.count; index++ ) {
             NSString* actualEntry = actualResults[index];
             NSString* actualCommand = [IFSkeinItem commandForEntry: actualEntry index:index];
             NSString* actualOutput  = [IFSkeinItem outputForEntry: actualEntry];
@@ -679,6 +679,24 @@
         [child printDEBUG];
         childCount++;
     }
+}
+
+#pragma mark - NSPasteboardWriting implementation
+
+- (nullable id)pasteboardPropertyListForType:(nonnull NSPasteboardType)type {
+    if ([type isEqualToString:IFSkeinItemPboardType]) {
+        return [NSKeyedArchiver archivedDataWithRootObject: self
+                                     requiringSecureCoding: YES
+                                                     error: NULL];
+    }
+    return nil;
+}
+
+- (nonnull NSArray<NSPasteboardType> *)writableTypesForPasteboard:(nonnull NSPasteboard *)pasteboard {
+    if ([pasteboard.name isEqualToString: NSPasteboardNameDrag]) {
+        return @[IFSkeinItemPboardType];
+    }
+    return @[];
 }
 
 @end

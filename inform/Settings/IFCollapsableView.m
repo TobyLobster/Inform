@@ -13,18 +13,24 @@
 
 
 @implementation IFCollapsableView {
-    NSMutableArray* views;						// Views to display
-    NSMutableArray* titles;						// Titles of views to display (one-to-one mapping with views)
-    NSMutableArray* states;						// Booleans, indicating if each view is shown or not. (UNUSED)
+    /// Views to display
+    NSMutableArray* views;
+    /// Titles of views to display (one-to-one mapping with views)
+    NSMutableArray* titles;
+    /// Booleans, indicating if each view is shown or not. (UNUSED)
+    NSMutableArray* states;
 
-    BOOL rearranging;							// YES if a rearrangement is in progress
-    BOOL reiterate;								// Set to YES to stop resizing that occurs while rearranging from causing infinite recursion (delays resizes if YES). Useful if we have, for example, auto-hiding scrollbars
+    /// YES if a rearrangement is in progress
+    BOOL rearranging;
+    /// Set to \c YES to stop resizing that occurs while rearranging from causing infinite recursion
+    /// (delays resizes if \c YES ). Useful if we have, for example, auto-hiding scrollbars
+    BOOL reiterate;
 }
 
 #define BORDER 8.0
 #define FONTSIZE 13.0
 
-// = Init/housekeeping =
+#pragma mark - Init/housekeeping
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -39,12 +45,11 @@
 }
 
 - (void) dealloc {
-
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
-
 }
 
-// = Drawing =
+#pragma mark - Drawing
+
 - (BOOL) isOpaque {
 	return NO;
 }
@@ -53,7 +58,7 @@
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
 	NSDictionary* titleAttributes = 
 		@{NSFontAttributeName: titleFont,
-			NSForegroundColorAttributeName: [NSColor blackColor]};
+			NSForegroundColorAttributeName: [NSColor textColor]};
 	
 	// Draw the titles and frames
 	NSColor* frameColour = [NSColor colorWithDeviceRed: 0.5
@@ -78,13 +83,13 @@
 		NSSize titleSize = [thisTitle sizeWithAttributes: titleAttributes];
 		NSRect thisFrame = [thisView frame];
 		
-		float ypos = thisFrame.origin.y - (titleSize.height*1.2);
+        CGFloat ypos = thisFrame.origin.y - (titleSize.height*1.2);
 		
 		// Draw the border rect
-		NSRect borderRect = NSMakeRect(floorf(BORDER)+0.5,
-                                       floorf(ypos)+0.5,
-									   (float) maxWidth,
-                                       floorf(thisFrame.size.height + (titleSize.height * 1.2)));
+		NSRect borderRect = NSMakeRect(floor(BORDER)+0.5,
+                                       floor(ypos)+0.5,
+									   (CGFloat) maxWidth,
+                                       floor(thisFrame.size.height + (titleSize.height * 1.2)));
 		[frameColour set];
 		[NSBezierPath strokeRect: borderRect];
 		
@@ -100,7 +105,7 @@
 	[super drawRect: rect];
 }
 
-// = Management =
+#pragma mark - Management
 
 - (void) removeAllSubviews {
 	for( NSView* subview in views ) {
@@ -119,7 +124,7 @@
 	[states addObject: @YES];
 	
     [self addSubview: subview];
-    [subview setAutoresizingMask: (NSUInteger) (NSViewMaxYMargin | NSViewMaxXMargin)];
+    [subview setAutoresizingMask: NSViewMaxYMargin | NSViewMaxXMargin];
 	[subview setNeedsDisplay: YES];
 	
 	// Rearrange the views
@@ -135,10 +140,10 @@
 	NSRect oldBounds;
 	NSRect newBounds = [self bounds];
 	
-	float newHeight;
+    CGFloat newHeight;
 	
 	NSFont* titleFont = [NSFont boldSystemFontOfSize: FONTSIZE];
-	float titleHeight = [titleFont ascender] - [titleFont descender];
+    CGFloat titleHeight = [titleFont ascender] - [titleFont descender];
 	
 	oldBounds = newBounds;
 	
@@ -161,7 +166,7 @@
     //
 	// Stage two: Position the views appropriately
     //
-	float ypos = BORDER;
+    CGFloat ypos = BORDER;
 	
 	for( NSView* subview in views ) {
 		NSRect viewFrame = [subview frame];

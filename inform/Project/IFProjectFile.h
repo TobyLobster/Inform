@@ -26,8 +26,9 @@
 @property (atomic, copy)              NSString *              filename;
 @property (atomic, readonly)          BOOL                    write;
 
-// = New project creation =
-- (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
+#pragma mark - New project creation
+
+- (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithEmptyProject NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper NS_DESIGNATED_INITIALIZER;
 
@@ -47,12 +48,12 @@
 -(void) replaceIndexDirectoryWrapper: (NSFileWrapper*) newWrapper;
 -(void) replaceWrapper: (NSFileWrapper*) newWrapper;
 -(void) writeNotes:(NSData*) noteData;
--(void) writeSkeins: (NSArray*) skeins isExtensionProject: (BOOL) isExtensionProject;
+-(void) writeSkeins: (NSArray<IFSkein*>*) skeins isExtensionProject: (BOOL) isExtensionProject;
 -(void) writeWatchpoints:(NSArray *) watchExpressions;
 -(void) writeBreakpoints:(NSArray *) breakpoints;
 
 // Clean
-- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex;
+- (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex NS_SWIFT_NAME(cleanOutUnnecessaryFiles(alsoCleanIndex:));
 
 
 - (void) DEBUGverifyWrapper;

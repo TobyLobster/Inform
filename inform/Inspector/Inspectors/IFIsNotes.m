@@ -12,12 +12,14 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFProject.h"
 
-NSString* IFIsNotesInspector = @"IFIsNotesInspector";
+NSString* const IFIsNotesInspector = @"IFIsNotesInspector";
 
 @implementation IFIsNotes {
-    IFProject* activeProject;				// Currently selected project
+    /// Currently selected project
+    IFProject* activeProject;
 
-    IBOutlet NSTextView* text;				// The text view that will contain the notes
+    /// The text view that will contain the notes
+    IBOutlet NSTextView* text;
 }
 
 + (IFIsNotes*) sharedIFIsNotes {
@@ -61,7 +63,7 @@ NSString* IFIsNotesInspector = @"IFIsNotesInspector";
 	} else {
 		static NSTextStorage* noNotes = nil;
 		
-		if (!noNotes) noNotes = [[NSTextStorage alloc] initWithString: @"No notes available"];
+		if (!noNotes) noNotes = [[NSTextStorage alloc] initWithString: NSLocalizedString(@"No notes available", @"No notes available")];
 		
         [text.layoutManager replaceTextStorage: noNotes];
 		[text setEditable: NO];

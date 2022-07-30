@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-typedef enum IFViewAnimationStyle {
+typedef NS_ENUM(int, IFViewAnimationStyle) {
 	IFAnimateLeft,
 	IFAnimateRight,
 	IFAnimateUp,
@@ -16,7 +16,7 @@ typedef enum IFViewAnimationStyle {
 	IFAnimateCrossFade,
 	IFFloatIn,
 	IFFloatOut
-} IFViewAnimationStyle;
+};
 
 ///
 /// A class that can be used to perform various animations for a particular view
@@ -24,29 +24,36 @@ typedef enum IFViewAnimationStyle {
 @interface IFViewAnimator : NSView
 
 // Caching views
-+ (NSImage*) cacheView: (NSView*) view;								// Returns an image with the contents of the specified view
-- (void) cacheStartView: (NSView*) view;							// Caches a specific image as the start of an animation
+/// Returns an image with the contents of the specified view
++ (NSImage*) cacheView: (NSView*) view;
+/// Caches a specific image as the start of an animation
+- (void) cacheStartView: (NSView*) view;
 
 // Animating
-- (void) setTime: (float) animationTime;							// Set how long the animation should take
+/// Set how long the animation should take
+- (void) setTime: (NSTimeInterval) animationTime;
+/// Prepares to animate, using the specified view as a template
 - (void) prepareToAnimateView: (NSView*) view
-                    focusView: (NSView*) focusView;					// Prepares to animate, using the specified view as a template
+                    focusView: (NSView*) focusView;
 
-// Begins animating the specified view so that transitions from the state set in
-// prepareToAnimateView to the new state, sending the specified message to the specified
-// object when it finishes
+/// Begins animating the specified view so that transitions from the state set in
+/// \c prepareToAnimateView to the new state, sending the specified message to the specified
+/// object when it finishes
 - (void) animateTo: (NSView*) view
          focusView: (NSView*) focusView
 			 style: (IFViewAnimationStyle) style
 	   sendMessage: (SEL) finishedMessage
 		  toObject: (id) whenFinished;
-- (void) finishAnimation;											// Abandons any running animation
+/// Abandons any running animation
+- (void) finishAnimation;
 
 @end
 
 @interface NSObject(IFViewAnimation)
 
-- (void) removeTrackingRects;										// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
-- (void) setTrackingRects;											// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
+/// Optional method implemented by views that is a request from the animation view to remove any applicable tracking rectangles
+- (void) removeTrackingRects;
+/// Optional method implemented by views that is a request from the animation view to add any tracking rectangles back again
+- (void) setTrackingRects;
 
 @end

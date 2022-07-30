@@ -11,11 +11,14 @@
 
 @implementation IFSyntaxManager
 
-static NSMutableDictionary* storages = nil;
+static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 +(void) initialize {
-    storages = [[NSMutableDictionary alloc] init];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        storages = [[NSMutableDictionary alloc] init];
+    });
 }
 
 +(void) dealloc {
@@ -23,11 +26,11 @@ static NSMutableDictionary* storages = nil;
 }
 
 
-//
-// Internal
-//
+///
+/// Internal
+///
 +(IFSyntaxData*) dataForStorage: (NSTextStorage*) storage {
-    return storages[[NSValue valueWithPointer:(__bridge const void *)(storage)]];
+    return storages[[NSValue valueWithNonretainedObject:storage]];
 }
 
 //
@@ -36,7 +39,7 @@ static NSMutableDictionary* storages = nil;
 +(void) registerTextStorage: (NSTextStorage*) storage
                        name: (NSString*) name
                        type: (IFHighlightType) type
-               intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+               intelligence: (id<IFSyntaxIntelligence>) intelligence
                 undoManager: (NSUndoManager*) undoManager {
     IFSyntaxData* data = [[IFSyntaxData alloc] initWithStorage: storage
                                                            name: name
@@ -44,12 +47,12 @@ static NSMutableDictionary* storages = nil;
                                                    intelligence: intelligence
                                                     undoManager: undoManager];
     //NSLog(@"*** Register %@ with storage %d", name, (int) storage);
-    storages[[NSValue valueWithPointer: (__bridge const void *)(storage)]] = data;
+    storages[[NSValue valueWithNonretainedObject: storage]] = data;
 }
 
 +(void) registerTextStorage: (NSTextStorage*) storage
                    filename: (NSString*) filename
-               intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+               intelligence: (id<IFSyntaxIntelligence>) intelligence
                 undoManager: (NSUndoManager*) undoManager {
     [IFSyntaxManager registerTextStorage: storage
                                     name: filename
@@ -62,9 +65,8 @@ static NSMutableDictionary* storages = nil;
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
     if( data ) {
         // NSLog(@"*** Unregister %@ with storage %d", [data name], (int) storage);
-        [storages removeObjectForKey: [NSValue valueWithPointer: (__bridge const void *)(storage)]];
-    }
-    else {
+        [storages removeObjectForKey: [NSValue valueWithNonretainedObject: storage]];
+    } else {
         // NSLog(false, @"removing storage %@ that's not registered", storage);
     }
 }
@@ -145,7 +147,7 @@ static NSMutableDictionary* storages = nil;
 // Intelligence
 //
 +(void) setIntelligenceForStorage: (NSTextStorage*) storage
-                     intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence {
+                     intelligence: (id<IFSyntaxIntelligence>) intelligence {
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
     [data setIntelligence: intelligence];
 }

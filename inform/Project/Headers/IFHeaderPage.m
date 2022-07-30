@@ -10,29 +10,32 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFHeaderController.h"
 
-// = Preferences =
+#pragma mark Preferences
 
 static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 @implementation IFHeaderPage {
-    IBOutlet NSView* pageView;								// The main header page view
-    IBOutlet NSScrollView* scrollView;						// The scroll view
-    IBOutlet IFHeaderView* headerView;						// The header view that this object is managing
+    NSView* pageView;
+    /// The scroll view
+    IBOutlet NSScrollView* scrollView;
+    
+    IFHeaderView* headerView;
     IBOutlet NSPopUpButton* depthButton;
 
-    IFHeaderController* controller;							// The header controller that this page is using
-
-    NSRange highlightLines;									// The highlight range to use
-    IFHeaderNode* selectedNode;								// The currently selected header node
-
-    id delegate;											// The delegate for this page object
+    /// The highlight range to use
+    NSRange highlightLines;
+    /// The currently selected header node
+    IFHeaderNode* selectedNode;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
-	[[NSUserDefaults standardUserDefaults] registerDefaults: 
-	 @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSUserDefaults standardUserDefaults] registerDefaults:
+         @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
+    });
 }
 
 - (instancetype) init {
@@ -46,13 +49,13 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 		[headerView setDelegate: self];
 		
 		// Set the colours
-		NSArray* components = [[NSUserDefaults standardUserDefaults] objectForKey: IFHeaderBackgroundColour];
+		NSArray* components = [[NSUserDefaults standardUserDefaults] arrayForKey: IFHeaderBackgroundColour];
 	    NSColor* col = [NSColor whiteColor];
 		
 		if ([components isKindOfClass: [NSArray class]] && [components count] >= 3) {
-			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] floatValue]
-										green: [(NSNumber *)components[1] floatValue]
-										 blue: [(NSNumber *)components[2] floatValue]
+			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] doubleValue]
+										green: [(NSNumber *)components[1] doubleValue]
+										 blue: [(NSNumber *)components[2] doubleValue]
 										alpha: 1.0];
 		}
 		
@@ -76,19 +79,10 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	[headerView setDelegate: nil];
 }
 
-// = KVC stuff for the page view/header view =
+#pragma mark - KVC stuff for the page view/header view
 
-- (NSView*) pageView {
-	return pageView;
-}
-
-- (IFHeaderView*) headerView {
-	return headerView;
-}
-
-- (void) setPageView: (NSView*) newPageView {
-	pageView = newPageView;
-}
+@synthesize pageView;
+@synthesize headerView;
 
 - (void) setHeaderView: (IFHeaderView*) newHeaderView {
 	if (controller && headerView) [controller removeHeaderView: headerView];
@@ -98,8 +92,9 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	if (controller && headerView) [controller addHeaderView: headerView];
 }
 
-// = Managing the controller =
+#pragma mark - Managing the controller
 
+@synthesize controller;
 - (void) setController: (IFHeaderController*) newController {
 	if (controller) {
 		[controller removeHeaderView: headerView];
@@ -112,23 +107,21 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
-// = Controller delegate messages (relayed via the view) =
+#pragma mark - Controller delegate messages (relayed via the view)
 
 - (void) refreshHeaders: (IFHeaderController*) control {
 	if (highlightLines.location != NSNotFound) {
 		[self highlightNodeWithLines: highlightLines];
 	}
 	
-	if (delegate && [delegate respondsToSelector: @selector(refreshHeaders:)]) {
+	if ([delegate respondsToSelector: @selector(refreshHeaders:)]) {
 		[delegate refreshHeaders: control];
 	}
 }
 
-// = Choosing objects =
+#pragma mark - Choosing objects
 
 - (void) selectNode: (IFHeaderNode*) node {
 	highlightLines.location = NSNotFound;
@@ -150,7 +143,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	highlightLines = lines;
 }
 
-// = User actions =
+#pragma mark - User actions =
 
 - (IBAction) updateDepthPopup: (id) sender {
     int depth = 1 + (int) [depthButton indexOfSelectedItem];
@@ -161,11 +154,11 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 	}
 }
 
-// = Header view delegate methods =
+#pragma mark - Header view delegate methods
 
 - (void) headerView: (IFHeaderView*) view
 	  clickedOnNode: (IFHeaderNode*) node {
-	if (delegate && [delegate respondsToSelector: @selector(headerPage:limitToHeader:)]) {
+	if ([delegate respondsToSelector: @selector(headerPage:limitToHeader:)]) {
 		[delegate headerPage: self
 			   limitToHeader: [node header]];
 	}
@@ -174,7 +167,7 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 - (void) headerView: (IFHeaderView*) view
  		 updateNode: (IFHeaderNode*) node
  	   withNewTitle: (NSString*) newTitle {
-	if (delegate && [delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
+	if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
 		[delegate headerView: view
 				  updateNode: node
 				withNewTitle: newTitle];

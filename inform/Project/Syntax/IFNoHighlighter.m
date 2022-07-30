@@ -12,10 +12,11 @@
 #import "IFSyntaxData.h"
 
 @implementation IFNoHighlighter {
-    IFSyntaxData* activeData;					// Syntax data that we're using
+    /// Syntax data that we're using
+    IFSyntaxData* activeData;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -27,13 +28,13 @@
 }
 
 
-// = Notifying of the highlighter currently in use =
+#pragma mark - Notifying of the highlighter currently in use
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
 	activeData = aData;
 }
 
-// = The highlighter itself =
+#pragma mark - The highlighter itself
 
 - (IFSyntaxState) stateForCharacter: (unichar) chr
 						 afterState: (IFSyntaxState) lastState {
@@ -51,13 +52,13 @@
 	   initialState: (IFSyntaxState) initialState {
 }
 
-// = Styles =
+#pragma mark - Styles
 
 - (NSDictionary*) attributesForStyle: (IFSyntaxStyle) style {
 	return [IFProjectPane attributeForStyle: style];
 }
 
-- (float) tabStopWidth {
+- (CGFloat) tabStopWidth {
 	return [[IFPreferences sharedPreferences] tabWidth];
 }
 

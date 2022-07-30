@@ -21,17 +21,25 @@
 #import "IFSkeinConstants.h"
 
 static const int    kAnimationSteps             = 30;
-static const float  kSkeinLinkViewThickness     = kSkeinLinkThickness + 2.0f;       // Link view thickness (include one pixel transparent border)
-static const float  kSkeinLinkViewHalfThickness = kSkeinLinkViewThickness * 0.5f;
-static const float  kSkeinArrowViewHeight       = kSkeinArrowHeadHeight + 2.0f;     // Height of the arrow view
-static const float  kSkeinLinkFromOffsetY       = kSkeinLinkThickness * 0.5f;       // Move link lines below the top of the lozenge
-static const float  kAngleEpsilon               = 0.001f;
-static const float  kPositionEpsilon            = 0.01f;
+/// Link view thickness (include one pixel transparent border)
+static const CGFloat  kSkeinLinkViewThickness     = kSkeinLinkThickness + 2.0f;
+
+static const CGFloat  kSkeinLinkViewHalfThickness = kSkeinLinkViewThickness * 0.5f;
+/// Height of the arrow view
+static const CGFloat  kSkeinArrowViewHeight       = kSkeinArrowHeadHeight + 2.0f;
+/// Move link lines below the top of the lozenge
+static const CGFloat  kSkeinLinkFromOffsetY       = kSkeinLinkThickness * 0.5f;
+
+static const CGFloat  kAngleEpsilon               = 0.001f;
+static const CGFloat  kPositionEpsilon            = 0.01f;
 
 @implementation IFSkeinViewChildren {
-    NSMutableDictionary*    itemViews;      // Dictionary of 'IFSkeinItemView's keyed on item's uniqueId.
-    NSMutableDictionary*    linkViews;      // Dictionary of 'IFSkeinLinkView's keyed on item's uniqueId.
-    NSMutableDictionary*    arrowViews;     // Dictionary of 'IFSkeinArrowView's keyed on item's uniqueId.
+    /// Dictionary of 'IFSkeinItemView's keyed on item's uniqueId.
+    NSMutableDictionary*    itemViews;
+    /// Dictionary of 'IFSkeinLinkView's keyed on item's uniqueId.
+    NSMutableDictionary*    linkViews;
+    /// Dictionary of 'IFSkeinArrowView's keyed on item's uniqueId.
+    NSMutableDictionary*    arrowViews;
     IFSkeinView*            skeinView;
     IFSkeinReportView*      reportView;
     CFTimeInterval          currentTimeInterval;
@@ -137,11 +145,11 @@ static const float  kPositionEpsilon            = 0.01f;
 
     if( animate ) {
         for( int step = 0; step <= kAnimationSteps; step++) {
-            float t = (float) step / (float) kAnimationSteps;
+            CGFloat t = (CGFloat) step / (CGFloat) kAnimationSteps;
             t = easeOutCubic(t);
             NSPoint pos = NSMakePoint( lerp(t, startPosition.x, finalPosition.x),
                                        lerp(t, startPosition.y, finalPosition.y) );
-            [positionValues addObject: [NSValue valueWithPoint: pos]];
+            [positionValues addObject: @(pos)];
         }
         thePositionAnimation.values = positionValues;
         thePositionAnimation.calculationMode = kCAAnimationLinear;
@@ -151,7 +159,7 @@ static const float  kPositionEpsilon            = 0.01f;
     }
 
     if( fadeIn ) {
-        float delay = kSkeinAnimationDuration;
+        CGFloat delay = kSkeinAnimationDuration;
         [self fadeInView: itemView
                    delay: delay
                 duration: kSkeinAnimationItemFadeIn
@@ -170,8 +178,8 @@ static const float  kPositionEpsilon            = 0.01f;
     }
 }
 
--(float) layerAngle: (CALayer*) layer {
-    return atan2f(layer.transform.m12, layer.transform.m11);
+-(CGFloat) layerAngle: (CALayer*) layer {
+    return atan2(layer.transform.m12, layer.transform.m11);
 }
 
 -(void) updateLinkView: (IFSkeinLinkView*) linkView
@@ -191,8 +199,8 @@ static const float  kPositionEpsilon            = 0.01f;
     // The line animates over time from 'Start' (the current position) to 'Final' the final desired position
 
     // Get current position and end point
-    float startLength = linkView.frame.size.width;
-    float startAngle  = [self layerAngle: linkView.layer];
+    CGFloat startLength = linkView.frame.size.width;
+    CGFloat startAngle  = [self layerAngle: linkView.layer];
 
     NSPoint startFrom = linkView.frame.origin;
 
@@ -208,8 +216,8 @@ static const float  kPositionEpsilon            = 0.01f;
         startAngle = -startAngle;
     }
 
-    NSPoint startTo   = NSMakePoint( startFrom.x + startLength * cosf(startAngle),
-                                     startFrom.y + startLength * sinf(startAngle) );
+    NSPoint startTo   = NSMakePoint( startFrom.x + startLength * cos(startAngle),
+                                     startFrom.y + startLength * sin(startAngle) );
 
     // Get desired final point
     NSPoint finalFrom  = NSMakePoint( NSMidX(childRect),
@@ -217,8 +225,8 @@ static const float  kPositionEpsilon            = 0.01f;
     NSPoint finalTo    = NSMakePoint( NSMidX(parentRect),
                                       NSMidY(parentRect) );
     NSPoint finalDelta = NSMakePoint( finalTo.x - finalFrom.x, finalTo.y - finalFrom.y );
-    float   finalLength       = roundf(sqrtf((finalDelta.x * finalDelta.x) + (finalDelta.y * finalDelta.y)));
-    float   finalAngleRadians = atan2f(finalDelta.y, finalDelta.x);
+    CGFloat   finalLength       = round(sqrt((finalDelta.x * finalDelta.x) + (finalDelta.y * finalDelta.y)));
+    CGFloat   finalAngleRadians = atan2(finalDelta.y, finalDelta.x);
 
     if( !linkView.layer.geometryFlipped ) {
         finalAngleRadians = -finalAngleRadians;
@@ -234,8 +242,8 @@ static const float  kPositionEpsilon            = 0.01f;
         finalTo.y -= normal.y;
     }
 
-    finalFrom = NSMakePoint(roundf(finalFrom.x), roundf(finalFrom.y));
-    finalTo   = NSMakePoint(roundf(finalTo.x), roundf(finalTo.y));
+    finalFrom = NSMakePoint(round(finalFrom.x), round(finalFrom.y));
+    finalTo   = NSMakePoint(round(finalTo.x), round(finalTo.y));
 
     // Performance optimisation. If it's not moving, don't animate it.
     if( (fabs(startFrom.x - finalFrom.x) < kPositionEpsilon) &&
@@ -256,10 +264,10 @@ static const float  kPositionEpsilon            = 0.01f;
         NSMutableArray* sizeValues      = [[NSMutableArray alloc] initWithCapacity: kAnimationSteps+1];
         NSMutableArray* angleValues     = [[NSMutableArray alloc] initWithCapacity: kAnimationSteps+1];
 
-        float length = 0.0f;
-        float angleRadians = 0.0f;
+        CGFloat length = 0.0f;
+        CGFloat angleRadians = 0.0f;
         for( int step = 0; step <= kAnimationSteps; step++) {
-            float t = (float) step / (float) kAnimationSteps;
+            CGFloat t = (CGFloat) step / (CGFloat) kAnimationSteps;
             t = easeOutCubic(t);
             NSPoint from = NSMakePoint( lerp(t, startFrom.x, finalFrom.x),
                                         lerp(t, startFrom.y, finalFrom.y) );
@@ -273,11 +281,11 @@ static const float  kPositionEpsilon            = 0.01f;
 
             NSPoint delta = NSMakePoint( to.x - from.x, to.y - from.y );
 
-            length       = sqrtf((delta.x * delta.x) + (delta.y * delta.y));
-            angleRadians = atan2f(delta.y, delta.x);
+            length       = sqrt((delta.x * delta.x) + (delta.y * delta.y));
+            angleRadians = atan2(delta.y, delta.x);
 
-            NSRect frame = NSMakeRect( from.x, from.y, length, roundf(kSkeinLinkViewThickness) );
-            [positionValues addObject: [NSValue valueWithPoint: frame.origin]];
+            NSRect frame = NSMakeRect( from.x, from.y, length, round(kSkeinLinkViewThickness) );
+            [positionValues addObject: @(frame.origin)];
             [sizeValues     addObject: @(length)];
             [angleValues    addObject: @(angleRadians)];
         }
@@ -298,7 +306,7 @@ static const float  kPositionEpsilon            = 0.01f;
     }
 
     if( fadeIn ) {
-        float delay = kSkeinAnimationDuration;
+        CGFloat delay = kSkeinAnimationDuration;
         [self fadeInView: linkView
                    delay: delay
                 duration: kSkeinAnimationItemFadeIn
@@ -306,7 +314,7 @@ static const float  kPositionEpsilon            = 0.01f;
              fromCurrent: NO];
     }
 
-    linkView.frame = NSMakeRect( finalFrom.x, finalFrom.y, roundf(finalLength), roundf(kSkeinLinkViewThickness) );
+    linkView.frame = NSMakeRect( finalFrom.x, finalFrom.y, round(finalLength), round(kSkeinLinkViewThickness) );
 
     CGFloat rot = RADIANS_TO_DEGREES(finalAngleRadians);
 
@@ -317,12 +325,12 @@ static const float  kPositionEpsilon            = 0.01f;
 }
 
 -(void) fadeOutView: (NSView*) view
-              delay: (float) delay
-           duration: (float) duration
+              delay: (NSTimeInterval) delay
+           duration: (NSTimeInterval) duration
             animate: (BOOL) animate
         fromCurrent: (BOOL) fromCurrent {
     if( animate ) {
-        float startOpacity = 1.0f;
+        CGFloat startOpacity = 1.0f;
         if( fromCurrent ) {
             // Get current opacity, even when in mid animation
             id x = view.layer.presentationLayer;
@@ -352,12 +360,12 @@ static const float  kPositionEpsilon            = 0.01f;
 }
 
 -(void) fadeInView: (NSView*) view
-             delay: (float) delay
-          duration: (float) duration
+             delay: (NSTimeInterval) delay
+          duration: (NSTimeInterval) duration
            animate: (BOOL) animate
        fromCurrent: (BOOL) fromCurrent {
     if( animate ) {
-        float startOpacity = 0.0f;
+        CGFloat startOpacity = 0.0f;
 
         // Get current opacity
         if( fromCurrent ) {
@@ -373,8 +381,8 @@ static const float  kPositionEpsilon            = 0.01f;
 
         if( startOpacity < 1.0f ) {
             CABasicAnimation* fadeAnim = [CABasicAnimation animationWithKeyPath:@"opacity"];
-            fadeAnim.fromValue  = [NSNumber numberWithFloat: startOpacity];
-            fadeAnim.toValue    = [NSNumber numberWithFloat:1.0];
+            fadeAnim.fromValue  = @(startOpacity);
+            fadeAnim.toValue    = @(1.0);
             fadeAnim.duration   = duration;
             CFTimeInterval localLayerTime = [view.layer convertTime: currentTimeInterval fromLayer:nil];
             fadeAnim.beginTime  = localLayerTime + delay;
@@ -412,7 +420,7 @@ static const float  kPositionEpsilon            = 0.01f;
     NSPoint finalTo    = NSMakePoint( layout.reportPosition.x, finalFrom.y );
 
     NSRect newFrame = NSMakeRect( finalFrom.x,
-                                  floorf(finalFrom.y - kSkeinArrowViewHeight*0.5f),
+                                  floor(finalFrom.y - kSkeinArrowViewHeight*0.5),
                                   finalTo.x - finalFrom.x,
                                   kSkeinArrowViewHeight );
 
@@ -571,6 +579,10 @@ static NSComparisonResult compareViewOrder(id viewA, id viewB, void *context)
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item {
     IFSkeinItemView * itemView = itemViews[@(item.uniqueId)];
     return itemView.layoutItem;
+}
+
+- (IFSkeinItemView*) itemViewForItem: (IFSkeinItem*) item {
+    return itemViews[@(item.uniqueId)];
 }
 
 -(NSRect) rectForItem:(IFSkeinItem*) item {

@@ -9,7 +9,6 @@
 #import "IFProjectFile.h"
 #import "NSString+IFStringExtensions.h"
 
-#include "uuid/uuid.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFCompilerSettings.h"
@@ -23,22 +22,12 @@
 -(void) createUUID {
     if ([bundleDirectory fileWrappers][@"uuid.txt"] == nil) {
         // Generate a UUID string
-        uuid_t newUID;
-        uuid_clear(newUID);
-        uuid_generate(newUID);
-        
-        char uid[40];
-        uuid_unparse(newUID, uid);
-        
-        NSString* uidString = @(uid);
-        [bundleDirectory addRegularFileWithContents: [uidString dataUsingEncoding: NSUTF8StringEncoding]
+        [bundleDirectory addRegularFileWithContents: [NSUUID.UUID.UUIDString dataUsingEncoding: NSUTF8StringEncoding]
                                   preferredFilename: @"uuid.txt"];
     }
 }
 
-- (instancetype) init { self = [super init]; return self; }
-
-// = Empty project creation =
+#pragma mark - Empty project creation
 
 - (instancetype) initWithEmptyProject {
     self = [super init];
@@ -153,7 +142,7 @@
 		// Decode the file
 		NSString* creator = [theCoder decodeObject];
 		int version = -1;
-		[theCoder decodeValueOfObjCType: @encode(int) at: &version];
+		[theCoder decodeValueOfObjCType: @encode(int) at: &version size:sizeof(int)];
 		IFCompilerSettings* settings = [theCoder decodeObject];
 
 		// Release the decoder
@@ -269,12 +258,12 @@
     // Load the watchpoints file (if present)
     NSFileWrapper* watchWrapper = [bundleDirectory fileWrappers][@"Watchpoints.plist"];
     if (watchWrapper != nil && [watchWrapper regularFileContents] != nil) {
-        NSString* propError = nil;
+        NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListFromData: [watchWrapper regularFileContents]
-                                                          mutabilityOption: NSPropertyListImmutable
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: [watchWrapper regularFileContents]
+                                                          options: NSPropertyListImmutable
                                                                     format: &format
-                                                          errorDescription: &propError];
+                                                          error: &propError];
         return [array mutableCopy];
     }
     return nil;
@@ -284,12 +273,12 @@
     // Load the breakpoints file (if present)
     NSFileWrapper* breakWrapper = [bundleDirectory fileWrappers][@"Breakpoints.plist"];
     if (breakWrapper != nil && [breakWrapper regularFileContents] != nil) {
-        NSString* propError = nil;
+        NSError* propError = nil;
         NSPropertyListFormat format = NSPropertyListXMLFormat_v1_0;
-        NSArray* array = [NSPropertyListSerialization propertyListFromData: [breakWrapper regularFileContents]
-                                                           mutabilityOption: NSPropertyListImmutable
-                                                                     format: &format
-                                                           errorDescription: &propError];
+        NSArray* array = [NSPropertyListSerialization propertyListWithData: [breakWrapper regularFileContents]
+                                                                   options: NSPropertyListImmutable
+                                                                    format: &format
+                                                                     error: &propError];
         return [array mutableCopy];
     }
     return nil;
@@ -353,7 +342,7 @@
                               preferredFilename: toFilename];
 }
 
--(void) writeSkeins: (NSArray*) skeins isExtensionProject: (BOOL) isExtensionProject {
+-(void) writeSkeins: (NSArray<IFSkein*>*) skeins isExtensionProject: (BOOL) isExtensionProject {
     if( isExtensionProject ) {
         // Load all skeins for an extension project
         int alphabetCount = 0;
@@ -368,7 +357,7 @@
     }
     else {
         // Set the root command to the title of the project
-        ((IFSkein*)skeins[0]).rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
+        (skeins[0]).rootItem.command = [[bundleDirectory.preferredFilename lastPathComponent] stringByDeletingPathExtension];
         [self writeSkein: [skeins[0] getXMLString] toFilename: @"Skein.skein"];
     }
 }
@@ -378,11 +367,10 @@
     [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Watchpoints.plist"]];
 
     if ([watchExpressions count] > 0) {
-        NSString* plistError = nil;
-        
-        NSData* watchData = [NSPropertyListSerialization dataFromPropertyList: watchExpressions
+        NSData* watchData = [NSPropertyListSerialization dataWithPropertyList: watchExpressions
                                                                        format: NSPropertyListXMLFormat_v1_0
-                                                             errorDescription: &plistError];
+                                                                      options: 0
+                                                                        error: NULL];
         
         [bundleDirectory addRegularFileWithContents: watchData
                                   preferredFilename: @"Watchpoints.plist"];
@@ -394,11 +382,10 @@
     [bundleDirectory removeFileWrapper: [bundleDirectory fileWrappers][@"Breakpoints.plist"]];
 
     if ([breakpoints count] > 0) {
-        NSString* plistError = nil;
-        
-        NSData* breakData = [NSPropertyListSerialization dataFromPropertyList: breakpoints
+        NSData* breakData = [NSPropertyListSerialization dataWithPropertyList: breakpoints
                                                                        format: NSPropertyListXMLFormat_v1_0
-                                                             errorDescription: &plistError];
+                                                                      options: 0
+                                                                        error: NULL];
 
         [bundleDirectory addRegularFileWithContents: breakData
                                   preferredFilename: @"Breakpoints.plist"];

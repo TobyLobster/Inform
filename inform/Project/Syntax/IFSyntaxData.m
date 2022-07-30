@@ -22,7 +22,6 @@
 @synthesize restrictedTextStorage   = _restrictedTextStorage;
 @synthesize restrictedRange         = _restrictedRange;
 
-- (instancetype) init { self = [super init]; return self; }
 - (instancetype) initWithTextView: (NSTextView*) view
                             range: (NSRange) range {
     self = [super init];
@@ -37,11 +36,6 @@
 
 @end
 
-//
-// Class holds the model for a text file currently being shown in a project. Each object owns
-// the full text of a file, and up to two restricted versions (for the left/right hand panes of
-// the project).
-//
 @implementation IFSyntaxData {
 
     // Restricted storage
@@ -73,17 +67,23 @@
     //
     // Paragraph styles
     //
-    NSMutableArray*	tabStops;               // Tab stop array
-    NSMutableArray*	paragraphStyles;        // Maps number of tabs at the start of a line to the appropriate paragraph style
-    BOOL			computingElasticTabs;	// YES if we're currently computing elastic tab sizes
+    
+    /// Tab stop array
+    NSMutableArray*	tabStops;
+    /// Maps number of tabs at the start of a line to the appropriate paragraph style
+    NSMutableArray*	paragraphStyles;
+    /// \c YES if we're currently computing elastic tab sizes
+    BOOL			computingElasticTabs;
 
     //
     // 'Intelligence'
     //
-    id<IFSyntaxIntelligence,NSObject> intelSource;
-    IFIntelFile* intelData;				// 'Intelligence' data
+    id<IFSyntaxIntelligence> intelSource;
+    /// 'Intelligence' data
+    IFIntelFile* intelData;
     
-    NSRange editingRange;				// Used while rewriting
+    /// Used while rewriting
+    NSRange editingRange;
 }
 
 @synthesize textStorage     = _textStorage;
@@ -92,12 +92,10 @@
 @synthesize undoManager     = _undoManager;
 @synthesize isHighlighting  = _isHighlighting;
 
-- (instancetype) init { self = [super init]; return self; }
-
 - (instancetype) initWithStorage: (NSTextStorage*) aStorage
                             name: (NSString*) aName
                             type: (IFHighlightType) aType
-                    intelligence: (id<IFSyntaxIntelligence,NSObject>) intelligence
+                    intelligence: (id<IFSyntaxIntelligence>) intelligence
                      undoManager: (NSUndoManager*) aUndoManager {
     self = [super init];
 
@@ -147,7 +145,7 @@
         nLines = 1;
         [lineStates addObject:
             [NSMutableArray arrayWithObjects:
-                @[@((unsigned int)IFSyntaxStateDefault),
+                @[@(IFSyntaxStateDefault),
                     @0U],
              nil]]; // Initial stack starts with the default state
 
@@ -164,7 +162,7 @@
         [_textStorage beginEditing];
         self.isHighlighting = true;
 
-        int length = (int) [_textStorage length];
+        NSInteger length = [_textStorage length];
         [self updateAfterEditingRange: NSMakeRange(0, length)
                        changeInLength: length
                       forceUpdateTabs: true];
@@ -196,7 +194,7 @@
 	}
 }
 
-// = Utility methods =
+#pragma mark - Utility methods
 
 //
 // Helper method.
@@ -395,7 +393,7 @@
     return nil;
 }
 
-// = Delegate methods =
+#pragma mark - Delegate methods
 
 //
 // When the textView is *about to* accept a change (i.e. update it's text), this method can
@@ -411,7 +409,10 @@
 //      (a) first delete one range of characters, and then
 //      (b) add a new different bunch of characters starting at the same location.
 //
-- (void)textStorageWillProcessEditing:(NSNotification *)notification
+- (void)textStorage:(NSTextStorage *)textStorage
+ willProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)delta
 {
     if (self.isHighlighting) {
         return;
@@ -424,8 +425,7 @@
        }
     }
 
-    NSTextStorage *textStorage  = [notification object];
-    NSRange newRange            = [textStorage editedRange];
+    NSRange newRange = editedRange;
     NSString *newString = [[textStorage string] substringWithRange: newRange];
 
 	// Rewrite the change if needed (e.g. to auto-insert tabs when user presses return)
@@ -562,7 +562,10 @@
 //      (a) first delete one range of characters, and then
 //      (b) add a new different bunch of characters starting at the same location.
 //
--(void) textStorageDidProcessEditing: (NSNotification *)notification
+-(void) textStorage:(NSTextStorage *)textStorage
+  didProcessEditing:(NSTextStorageEditActions)editedMask
+              range:(NSRange)editedRange
+     changeInLength:(NSInteger)changeInLength
 {
     if( self.isHighlighting ) {
         return;
@@ -570,9 +573,7 @@
 
     self.isHighlighting = true;
 
-    NSTextStorage *textStorage  = [notification object];
-    NSInteger changeInLength    = [textStorage changeInLength];
-    NSRange newRange            = [textStorage editedRange];
+    NSRange newRange            = editedRange;
     NSRange oldRange            = NSMakeRange(newRange.location, newRange.length - changeInLength);
 
     // Start editing
@@ -834,10 +835,11 @@
         return;
     }
 
-    // No syntax highlighting
-    if( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) {
+    // No syntax highlighting/colouring
+    if(( ![[IFPreferences sharedPreferences] enableSyntaxHighlighting] ) &&
+       ( ![[IFPreferences sharedPreferences] enableSyntaxColouring] )) {
         // Just use standard attributes
-        [_textStorage addAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
+        [_textStorage setAttributes: [highlighter attributesForStyle: IFSyntaxNaturalInform]
                               range: range];
         [_textStorage fixFontAttributeInRange: range];
         return;
@@ -850,8 +852,7 @@
 
         // Get the style attributes
         NSDictionary* styleAttributes = [highlighter attributesForStyle: style];
-        [_textStorage addAttributes: styleAttributes
-                              range: styleRange];
+        [_textStorage setAttributes: styleAttributes range:styleRange];
         [_textStorage fixFontAttributeInRange: styleRange];
 
         NSAssert((styleRange.location + styleRange.length) <= [_textStorage length], @"Help!");
@@ -877,7 +878,7 @@
 #endif
 }
 
-// = Communication from the highlighter =
+#pragma mark - Communication from the highlighter
 
 - (void) pushState {
     // When the highlighter opens a comment bracket (etc), it pushes the current state onto a stack.
@@ -947,13 +948,13 @@ static inline BOOL IsWhitespace(unichar c) {
 }
 
 
-//
-// = Actually performing highlighting =
-//
-// Phase One: Calculate charStyles, hint keywords, gather intelligence, indent paragraphs.
-// Phase Two: Apply the character styles as attributes
-// Phase Three: Add elastic tabs
-//
+///
+/// Actually performing highlighting
+///
+/// * Phase One: Calculate charStyles, hint keywords, gather intelligence, indent paragraphs.
+/// * Phase Two: Apply the character styles as attributes.
+/// * Phase Three: Add elastic tabs.
+///
 - (NSRange) syntaxHighlightRange: (NSRange) range
                  forceUpdateTabs: (bool) forceUpdateTabs {
     NSRange changedRange = range;
@@ -1212,7 +1213,7 @@ static inline BOOL IsWhitespace(unichar c) {
     return changedRange;
 }
 
-// = Notifications from the preferences object =
+#pragma mark - Notifications from the preferences object
 
 - (void) preferencesChanged: (NSNotification*) not {
     //
@@ -1247,13 +1248,13 @@ static inline BOOL IsWhitespace(unichar c) {
 }
 
 
-// = Tabbing =
+#pragma mark - Tabbing
 
 - (NSArray*) standardTabStops {
 	int x;
 
     // Set up member variable 'tabStops' - a standard set of tabs at the current width
-	float stopWidth = [highlighter tabStopWidth];
+    CGFloat stopWidth = [highlighter tabStopWidth];
 	if (stopWidth < 1.0) stopWidth = 1.0;
 	
 	tabStops = [[NSMutableArray alloc] init];
@@ -1268,7 +1269,7 @@ static inline BOOL IsWhitespace(unichar c) {
 
 - (NSDictionary*) generateParagraphStyleForTabStops: (int) numberOfTabStops {
     // Get the width of a tabstop
-	float stopWidth = [highlighter tabStopWidth];
+    CGFloat stopWidth = [highlighter tabStopWidth];
 	if (stopWidth < 1.0) stopWidth = 1.0;
 
 	NSMutableParagraphStyle* res = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
@@ -1281,14 +1282,14 @@ static inline BOOL IsWhitespace(unichar c) {
     // Set tabs
 	[res setTabStops: tabStops];
 	
-    // Set head indent
-	if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
-        // Indent half a tabstop width beyond the normal indent
-        float headIndent = stopWidth * ((float) numberOfTabStops) + (stopWidth/2.0);
+    // Set head indent (no longer desired)
+	//if ([[IFPreferences sharedPreferences] indentWrappedLines]) {
+    //    // Indent half a tabstop width beyond the normal indent
+    //    CGFloat headIndent = stopWidth * ((CGFloat) numberOfTabStops) + (stopWidth/2.0);
 
-		[res setHeadIndent: headIndent];
-		[res setFirstLineHeadIndent: 0];
-	}
+	//	[res setHeadIndent: headIndent];
+	//	[res setFirstLineHeadIndent: 0];
+	//}
 
 	return @{NSParagraphStyleAttributeName: res};
 }
@@ -1317,7 +1318,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	return paragraphStyles[numberOfTabStops];
 }
 
-// = Elastic tabs =
+#pragma mark - Elastic tabs
 
 // See http://nickgravgaard.com/elastictabstops/ for more information on these
 
@@ -1497,7 +1498,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	}
 	
 	// Work out the widths for each column
-	float margin = 8.0;							// size of column margin
+    CGFloat margin = 8.0;							// size of column margin
 	
 	NSMutableArray* elasticTabStops = [[NSMutableArray alloc] init];
 	int colNum;
@@ -1512,21 +1513,21 @@ static inline BOOL IsLineEnd(unichar c) {
 			NSSize				thisSize	= [colString size];
 			
 			// Get the current width of this column
-			float currentWidth = [elasticTabStops[colNum] floatValue];
+            CGFloat currentWidth = [elasticTabStops[colNum] doubleValue];
 			
 			// Adjust as necessary
 			if (thisSize.width + margin > currentWidth) {
-				currentWidth = floorf(thisSize.width + margin);
+				currentWidth = floor(thisSize.width + margin);
 				elasticTabStops[colNum] = @(currentWidth);
 			}
 		}
 	}
 	
 	// Tab stops are currently widths: need to change them to NSTextTab objects locations
-	float lastPosition = 0;
+    CGFloat lastPosition = 0;
 	for (colNum=0; colNum < numColumns; colNum++) {
-		float currentValue	= [elasticTabStops[colNum] floatValue];
-		float newValue		= floorf(currentValue + lastPosition);
+        CGFloat currentValue	= [elasticTabStops[colNum] doubleValue];
+        CGFloat newValue		= floor(currentValue + lastPosition);
 		lastPosition = newValue;
 		
 		elasticTabStops[colNum] = [[NSTextTab alloc] initWithType: NSLeftTabStopType
@@ -1540,9 +1541,11 @@ static inline BOOL IsLineEnd(unichar c) {
 	return elasticTabStops;
 }
 
-// = Gathering/retrieving intelligence data =
+#pragma mark - Gathering/retrieving intelligence data
 
-- (void) setIntelligence: (id<IFSyntaxIntelligence,NSObject>) intel {
+@synthesize intelligence = intelSource;
+
+- (void) setIntelligence: (id<IFSyntaxIntelligence>) intel {
 	if (intelSource) {
 		[intelSource setSyntaxData: nil];
 	}
@@ -1553,15 +1556,9 @@ static inline BOOL IsLineEnd(unichar c) {
 	[intelSource setSyntaxData: self];
 }
 
-- (id<IFSyntaxIntelligence>) intelligence {
-	return intelSource;
-}
+@synthesize intelligenceData = intelData;
 
-- (IFIntelFile*) intelligenceData {
-	return intelData;
-}
-
-// = Intelligence callbacks =
+#pragma mark - Intelligence callbacks
 
 - (int) editingLineNumber {
 	return [self lineForIndex: editingRange.location];

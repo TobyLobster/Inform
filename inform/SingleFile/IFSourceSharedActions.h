@@ -7,8 +7,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface IFSourceSharedActions : NSObject {
-}
+@interface IFSourceSharedActions : NSObject
 
 // Menu options
 - (void) shiftLeftTextViewInDocument: (NSDocument*) document

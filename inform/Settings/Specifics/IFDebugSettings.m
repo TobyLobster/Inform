@@ -24,25 +24,25 @@
 	return [IFUtility localizedString: @"Debug Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
     IFCompilerSettings* settings = [self compilerSettings];
 	
 	[donotCompileNaturalInform setState:
-        (![settings compileNaturalInformOutput])?NSOnState:NSOffState];
-    [runBuildSh setState: [settings runBuildScript]?NSOnState:NSOffState];
-    [runLoudly setState: [settings loudly]?NSOnState:NSOffState];
-	[debugMemory setState: [settings debugMemory]?NSOnState:NSOffState];
+        (![settings compileNaturalInformOutput])?NSControlStateValueOn:NSControlStateValueOff];
+    [runBuildSh setState: [settings runBuildScript]?NSControlStateValueOn:NSControlStateValueOff];
+    [runLoudly setState: [settings loudly]?NSControlStateValueOn:NSControlStateValueOff];
+	[debugMemory setState: [settings debugMemory]?NSControlStateValueOn:NSControlStateValueOff];
 }
 
 - (void) setSettings {
     IFCompilerSettings* settings = [self compilerSettings];
 
-	[settings setRunBuildScript: [runBuildSh state]==NSOnState];
-	[settings setCompileNaturalInformOutput: [donotCompileNaturalInform state]!=NSOnState];
-	[settings setLoudly: [runLoudly state]==NSOnState];
-	[settings setDebugMemory: [debugMemory state]==NSOnState];
+	[settings setRunBuildScript: [runBuildSh state]==NSControlStateValueOn];
+	[settings setCompileNaturalInformOutput: [donotCompileNaturalInform state]!=NSControlStateValueOn];
+	[settings setLoudly: [runLoudly state]==NSControlStateValueOn];
+	[settings setDebugMemory: [debugMemory state]==NSControlStateValueOn];
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

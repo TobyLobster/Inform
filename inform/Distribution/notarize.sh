@@ -1,5 +1,3 @@
-xcrun altool --notarize-app \
-             --primary-bundle-id "com.inform168.zip"  \
-             --username "tobymnelson@gmail.com" \
-             --password "@keychain:AC_PASSWORD" \
-             --file ./inform.dmg
+xcrun notarytool submit inform1.81-beta1.dmg \
+                    --keychain-profile "AC_PASSWORD" \
+                    --wait

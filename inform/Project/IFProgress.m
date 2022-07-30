@@ -15,7 +15,7 @@
     BOOL canCancel;
 
     // Current state
-    float percentage;
+    CGFloat percentage;
     NSString* message;
     BOOL storyActive;
     BOOL inProgress;
@@ -25,10 +25,10 @@
     id   cancelActionObject;
 
     // Delegate
-    id delegate;
+    __weak id<IFProgressDelegate> delegate;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithPriority: (int) aPriority
        showsProgressBar: (BOOL) aShowsProgressBar
@@ -50,21 +50,23 @@
 	return self;
 }
 
-// = Setting the current progress =
+#pragma mark - Setting the current progress
 
-- (void) setPercentage: (float) newPercentage {
+@synthesize percentage;
+- (void) setPercentage: (CGFloat) newPercentage {
 	percentage = newPercentage;
 	
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:percentage:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicator:percentage:)]) {
 		[delegate progressIndicator: self
 						 percentage: newPercentage];
 	}
 }
 
+@synthesize message;
 - (void) setMessage: (NSString*) newMessage {
 	message = [newMessage copy];
 
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicator:message:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicator:message:)]) {
 		[delegate progressIndicator: self
 							message: message];
 	}
@@ -72,14 +74,14 @@
 
 - (void) startStory {
     storyActive = YES;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStartStory:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStartStory:)]) {
 		[delegate progressIndicatorStartStory: self];
 	}
 }
 
 - (void) stopStory {
     storyActive = NO;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStopStory:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStopStory:)]) {
 		[delegate progressIndicatorStopStory: self];
 	}
 }
@@ -87,7 +89,7 @@
 - (void) startProgress {
     inProgress = YES;
     percentage = 0.0f;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStartProgress:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStartProgress:)]) {
 		[delegate progressIndicatorStartProgress: self];
 	}
 }
@@ -95,28 +97,16 @@
 - (void) stopProgress {
     inProgress = NO;
     percentage = 0.0f;
-	if (delegate && [delegate respondsToSelector: @selector(progressIndicatorStopProgress:)]) {
+	if ([delegate respondsToSelector: @selector(progressIndicatorStopProgress:)]) {
 		[delegate progressIndicatorStopProgress: self];
 	}
 }
 
-- (float) percentage {
-	return percentage;
-}
+@synthesize storyActive;
 
-- (NSString*) message {
-	return message;
-}
+#pragma mark - Setting the delegate
 
-- (BOOL) storyActive {
-    return storyActive;
-}
-
-// = Setting the delegate =
-
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
 
 // Cancelling
@@ -137,23 +127,10 @@
     }
 }
 
-- (BOOL) isCancelled {
-    return cancelled;
-}
+@synthesize cancelled;
+@synthesize inProgress;
+@synthesize priority;
+@synthesize showsProgressBar;
+@synthesize canCancel;
 
-- (BOOL) isInProgress {
-    return inProgress;
-}
-
-- (int) priority {
-    return priority;
-}
-
-- (BOOL) showsProgressBar {
-    return showsProgressBar;
-}
-
-- (BOOL)      canCancel {
-    return canCancel;
-}
 @end

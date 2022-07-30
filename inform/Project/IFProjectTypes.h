@@ -9,9 +9,9 @@
 #import <AppKit/AppKit.h>
 #import "IFNaturalIntel.h"
 
-extern NSString* IFProjectFilesChangedNotification;
-extern NSString* IFProjectBreakpointsChangedNotification;
-extern NSString* IFProjectSourceFileRenamedNotification;
+extern NSNotificationName const IFProjectFilesChangedNotification;
+extern NSNotificationName const IFProjectBreakpointsChangedNotification;
+extern NSNotificationName const IFProjectSourceFileRenamedNotification;
 
 typedef NS_ENUM(unsigned int, IFInformVersion) {
     IFInformVersion6,
@@ -55,14 +55,13 @@ typedef NS_ENUM(unsigned int, IFLineStyle) {
 
 
 
-@interface IFProjectTypes : NSObject  {
-}
+@interface IFProjectTypes : NSObject
 
-+(NSStringEncoding) encodingForFilename: (NSString*) filename;
-+(IFInformVersion) informVersionForFilename: (NSString*) filename;
-+(IFHighlightType) highlighterTypeForFilename: (NSString*) filename;
-+ (NSObject<IFSyntaxIntelligence> *) intelligenceForFilename: (NSString*) filename;
++ (NSStringEncoding) encodingForFilename: (NSString*) filename;
++ (IFInformVersion) informVersionForFilename: (NSString*) filename;
++ (IFHighlightType) highlighterTypeForFilename: (NSString*) filename;
++ (id<IFSyntaxIntelligence>) intelligenceForFilename: (NSString*) filename;
 
-+(IFFileType) fileTypeFromString: (NSString*) typeName;
++ (IFFileType) fileTypeFromString: (NSString*) typeName;
 
 @end

@@ -23,22 +23,22 @@
 #import "IFProgress.h"
 
 // Possible styles (stored in the styles dictionary)
-NSString* IFStyleBase               = @"IFStyleBase";
+NSString* const IFStyleBase               = @"IFStyleBase";
 
 // Basic compiler messages
-NSString* IFStyleCompilerVersion    = @"IFStyleCompilerVersion";
-NSString* IFStyleCompilerMessage    = @"IFStyleCompilerMessage";
-NSString* IFStyleCompilerWarning    = @"IFStyleCompilerWarning";
-NSString* IFStyleCompilerError      = @"IFStyleCompilerError";
-NSString* IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
-NSString* IFStyleProgress			= @"IFStyleProgress";
+NSString* const IFStyleCompilerVersion    = @"IFStyleCompilerVersion";
+NSString* const IFStyleCompilerMessage    = @"IFStyleCompilerMessage";
+NSString* const IFStyleCompilerWarning    = @"IFStyleCompilerWarning";
+NSString* const IFStyleCompilerError      = @"IFStyleCompilerError";
+NSString* const IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
+NSString* const IFStyleProgress			= @"IFStyleProgress";
 
-NSString* IFStyleFilename           = @"IFStyleFilename";
+NSString* const IFStyleFilename           = @"IFStyleFilename";
 
 // Compiler statistics/dumps/etc
-NSString* IFStyleAssembly           = @"IFStyleAssembly";
-NSString* IFStyleHexDump            = @"IFStyleHexDump";
-NSString* IFStyleStatistics         = @"IFStyleStatistics";
+NSString* const IFStyleAssembly           = @"IFStyleAssembly";
+NSString* const IFStyleHexDump            = @"IFStyleHexDump";
+NSString* const IFStyleStatistics         = @"IFStyleStatistics";
 
 static IFCompilerController* activeController = nil;
 
@@ -46,42 +46,68 @@ static IFCompilerController* activeController = nil;
 
 @end
 
+@interface IFCompilerController ()
+@property (atomic, readwrite, copy) NSString *blorbLocation;
+@end
+
 @implementation IFCompilerController {
-    BOOL awake;										// YES if we're all initialised (ie, loaded up from a nib)
+    /// \c YES if we're all initialised (ie, loaded up from a nib)
+    BOOL awake;
 
-    IBOutlet NSTextView* compilerResults;			// Output from the compiler ends up here
-    IBOutlet NSScrollView* resultScroller;			// ...and is scrolled around by this thingmebob
+    /// Output from the compiler ends up here
+    IBOutlet NSTextView* compilerResults;
+    /// ...and is scrolled around by this thingmebob
+    IBOutlet NSScrollView* resultScroller;
 
-    IBOutlet NSSplitView*   splitView;				// Yin/yang?
-    IBOutlet NSView*        superView;              // Superview of split view
-    IBOutlet NSScrollView*  messageScroller;		// This scrolls around our parsed messages
-    IBOutlet NSOutlineView* compilerMessages;		// ...and this actually displays them
+    /// Yin/yang?
+    IBOutlet NSSplitView*   splitView;
+    /// Superview of split view
+    IBOutlet NSView*        superView;
+    /// This scrolls around our parsed messages
+    IBOutlet NSScrollView*  messageScroller;
+    /// ...and this actually displays them
+    IBOutlet NSOutlineView* compilerMessages;
 
-    IBOutlet NSWindow*      window;					// We're attached to this window
+    /// We're attached to this window
+    IBOutlet NSWindow*      window;
 
-    double messagesSize;							// When we've got some messages to display, this is how high the pane will be
+    /// When we've got some messages to display, this is how high the pane will be
+    CGFloat messagesSize;
 
-    IBOutlet NSObject* delegate;					// This object receives our delegate messages
+    /// This object receives our delegate messages
+    __weak id<IFCompilerControllerDelegate> delegate;
 
-    IFProjectController*    projectController;      // Project controller
+    /// Project controller
+    IFProjectController*    projectController;
 
-    NSMutableArray*  tabs;                          // Tabs - array of IFCompilerTab objects
-    IFCompilerTabId  selectedTabId;                 // Currently selected tab
-    NSDictionary*    tabDictionary;                 // Fixed dictionary of document names and their tabs
+    /// Tabs - array of IFCompilerTab objects
+    NSMutableArray*  tabs;
+    /// Currently selected tab
+    IFCompilerTabId  selectedTabId;
+    /// Fixed dictionary of document names and their tabs
+    NSDictionary*    tabDictionary;
 
     // The subtask
-    IFCompiler* compiler;							// This is the actual compiler
-    NSURL* lastProblemURL;							// The last problem URL returned by the compiler
-    NSURL* overrideURL;								// The overridden problems URL
+    /// This is the actual compiler
+    IFCompiler* compiler;
+    /// The last problem URL returned by the compiler
+    NSURL* lastProblemURL;
+    /// The overridden problems URL
+    NSURL* overrideURL;
 
     // Styles
-    NSMutableDictionary* styles;					// The attributes used to render various strings recognised by the parser
-    int highlightPos;								// The position the highlighter has reached (see IFError.[hl])
+    /// The attributes used to render various strings recognised by the parser
+    NSMutableDictionary<NSString*,NSDictionary<NSString*,id>*>* styles;
+    /// The position the highlighter has reached (see IFError.[hl])
+    NSInteger highlightPos;
 
     // Error messages
-    NSMutableArray* errorFiles;						// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
-    NSMutableArray* errorMessages;					// A list of the error messages that the compiler has reported
-    NSString* blorbLocation;						// Where cblorb has requested that the blorb file be copied
+    /// A list of the files that the compiler has reported errors on (this is how we group errors together by file)
+    NSMutableArray* errorFiles;
+    /// A list of the error messages that the compiler has reported
+    NSMutableArray* errorMessages;
+    /// Where cblorb has requested that the blorb file be copied
+    NSString* blorbLocation;
 }
 
 // == Styles ==
@@ -97,25 +123,32 @@ static IFCompilerController* activeController = nil;
                                                             toHaveTrait: NSItalicFontMask];
 
     NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [centered setAlignment: NSCenterTextAlignment];
+    [centered setAlignment: NSTextAlignmentCenter];
     
     NSDictionary* baseStyle = @{NSFontAttributeName: baseFont,
-        NSForegroundColorAttributeName: [NSColor blackColor]};
+        NSForegroundColorAttributeName: [NSColor textColor]};
 
     NSDictionary* versionStyle = @{NSFontAttributeName: bigFont,
+        NSForegroundColorAttributeName: [NSColor textColor],
         NSParagraphStyleAttributeName: centered};
     
-    NSDictionary* filenameStyle = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* filenameStyle = @{NSForegroundColorAttributeName: [NSColor textColor],
         NSFontAttributeName: boldFont};
     
-    NSDictionary* messageStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0 green: 0.5 blue: 0 alpha: 1.0]};
-    NSDictionary* warningStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0 green: 0 blue: 0.7 alpha: 1.0],
+    NSColor *indigoColor;
+    if (@available(macOS 10.15, *)) {
+        indigoColor = [NSColor systemIndigoColor];
+    } else {
+        indigoColor = [NSColor colorNamed: @"Compiler/Indigo"];
+    }
+    NSDictionary* messageStyle = @{NSForegroundColorAttributeName: [NSColor systemGreenColor]};
+    NSDictionary* warningStyle = @{NSForegroundColorAttributeName: [NSColor systemBlueColor],
         NSFontAttributeName: boldFont};
-    NSDictionary* errorStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.7 green: 0 blue: 0.0 alpha: 1.0],
+    NSDictionary* errorStyle = @{NSForegroundColorAttributeName: [NSColor colorNamed: @"Compiler/DarkRed"],
         NSFontAttributeName: boldFont};
-    NSDictionary* fatalErrorStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 1.0 green: 0 blue: 0.0 alpha: 1.0],
+    NSDictionary* fatalErrorStyle = @{NSForegroundColorAttributeName: [NSColor systemRedColor],
         NSFontAttributeName: italicFont};
-    NSDictionary* progressStyle = @{NSForegroundColorAttributeName: [NSColor colorWithDeviceRed: 0.0 green: 0 blue: 0.6 alpha: 1.0],
+    NSDictionary* progressStyle = @{NSForegroundColorAttributeName: indigoColor,
         NSFontAttributeName: smallFont};
 	
     return @{IFStyleBase: baseStyle,
@@ -248,14 +281,11 @@ static IFCompilerController* activeController = nil;
     awake = YES;
     [[compilerResults textStorage] setDelegate: self];
 
-    messagesSize = [messageScroller frame].size.height;
+    messagesSize = 0; // [messageScroller frame].size.height;
 
-    NSRect newFrame = [messageScroller frame];
-    newFrame.size.height = 0;
-    [messageScroller setFrame: newFrame];
+    [splitView setDelegate: self];
+    [self adjustSplitView];
 
-    [splitView adjustSubviews];
-	
     [messageScroller setBorderType: NSNoBorder];
 
     [resultScroller setHasHorizontalScroller: YES];
@@ -264,6 +294,7 @@ static IFCompilerController* activeController = nil;
     [compilerResults setVerticallyResizable: YES];
     [[compilerResults textContainer] setWidthTracksTextView: NO];
     [[compilerResults textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
+    [compilerResults setBackgroundColor: NSColor.textBackgroundColor];
 }
 
 - (void) showWindow: (id) sender {
@@ -286,11 +317,7 @@ static IFCompilerController* activeController = nil;
     compiler = [[IFCompiler alloc] init];
     [self _registerHandlers];
 
-    NSRect newFrame = [messageScroller frame];
-    newFrame.size.height = 0;
-    [messageScroller setFrame: newFrame];
-
-    [splitView adjustSubviews];
+    [self adjustSplitView];
 }
 
 - (void) setCompiler: (IFCompiler*) comp {
@@ -299,11 +326,7 @@ static IFCompilerController* activeController = nil;
     compiler = comp;
     [self _registerHandlers];
 
-    NSRect newFrame = [messageScroller frame];
-    newFrame.size.height = 0;
-    [messageScroller setFrame: newFrame];
-
-    [splitView adjustSubviews];
+    [self adjustSplitView];
 }
 
 - (IFCompiler*) compiler {
@@ -322,17 +345,18 @@ static IFCompilerController* activeController = nil;
 	
 	overrideURL = nil;
 
-    /*
     if (delegate &&
         [delegate respondsToSelector: @selector(errorMessagesCleared:)]) {
         [delegate errorMessagesCleared: self];
     }
-    */
 
     [[[compilerResults textStorage] mutableString] setString: @""];
     highlightPos = 0;
 
-    [compiler prepareForLaunchWithBlorbStage: NO testCase: nil];
+    if (![compiler prepareForLaunchWithBlorbStage: NO testCase: nil])
+    {
+        return NO;
+    }
 	[compiler launch];
 
     return YES;
@@ -383,6 +407,7 @@ static IFCompilerController* activeController = nil;
 	[[[compilerResults textStorage] mutableString] appendString: 
 		[NSString stringWithFormat: [IFUtility localizedString: @"Compiler finished with code %i"], exitCode]];
 	[[[compilerResults textStorage] mutableString] appendString: @"\n"];
+    [self adjustSplitView];
 
     // Log error
     if (exitCode != 0) {
@@ -399,12 +424,10 @@ static IFCompilerController* activeController = nil;
 				break;
 		}
 
-        /*
         if (delegate &&
             [delegate respondsToSelector: @selector(compileCompletedAndFailed:)]) {
             [delegate compileCompletedAndFailed: self];
         }
-        */
     }
 
     [self scrollToEnd];
@@ -426,7 +449,8 @@ static IFCompilerController* activeController = nil;
 	[[compilerResults textStorage] appendAttributedString: newString];
 }
 
-// = intest support =
+#pragma mark - intest support
+
 - (void) intestStarting: (NSNotification*) not {
     NSString* command = [not userInfo][@"command"];
     NSArray*  args    = [not userInfo][@"args"];
@@ -491,7 +515,7 @@ static IFCompilerController* activeController = nil;
 }
 
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) preferencesChanged: (NSNotification*) not {
     // Report
@@ -602,20 +626,18 @@ static IFCompilerController* activeController = nil;
     //return nil;
 }
 
-- (void)textStorageDidProcessEditing: (NSNotification *)aNotification {
-    NSTextStorage* storage = [compilerResults textStorage];
-    
+- (void)textStorage:(NSTextStorage *)storage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
     // Set the text to the base style
 	[storage beginEditing];
 
     // For each line since highlightPos...
     NSString* str = [storage string];
-    int len       = (int)[str length];
+    NSInteger len = [str length];
 
-    int newlinePos;
+    NSInteger newlinePos;
     
     do {
-        int x;
+        NSInteger x;
         
         newlinePos = -1;
 
@@ -683,23 +705,9 @@ static IFCompilerController* activeController = nil;
     // Update the outline view
     [compilerMessages reloadData];
 
-    // Pop up the error view if required
-    if ([messageScroller frame].size.height == 0) {
-        NSRect newFrame = [messageScroller frame];
-        newFrame.size.height = messagesSize;
-        [messageScroller setFrame: newFrame];
-
-        NSRect splitFrame = [splitView frame];
-        NSRect resultFrame = [resultScroller frame];
-
-        resultFrame.size.height = splitFrame.size.height - newFrame.size.height - [splitView dividerThickness];
-        [resultScroller setFrame: resultFrame];
-
-        [splitView adjustSubviews];
-    }
+    [self adjustSplitView];
 
     // Notify the delegate
-    /*
     if (delegate != nil &&
         [delegate respondsToSelector: @selector(compilerAddError:forFile:atLine:withType:message:)]) {
         [delegate compilerAddError: self
@@ -708,7 +716,6 @@ static IFCompilerController* activeController = nil;
                           withType: type
                            message: message];
     }
-    */
 }
 
 - (NSInteger)   outlineView: (NSOutlineView *) outlineView
@@ -893,7 +900,7 @@ static IFCompilerController* activeController = nil;
 
 	[tabs addObject: newTab];
 	
-	if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+	if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
 		[delegate viewSetHasUpdated: self];
 	}
 	
@@ -1077,7 +1084,7 @@ static IFCompilerController* activeController = nil;
 	
 	// Notify the delegate that the set of views has updated
     if( updated ) {
-        if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+        if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
             [delegate viewSetHasUpdated: self];
         }
     }
@@ -1090,15 +1097,9 @@ static IFCompilerController* activeController = nil;
 
 // == Delegate ==
 
-- (void) setDelegate: (NSObject*) dg {
-	delegate = dg;
-}
+@synthesize delegate;
 
-- (NSObject*) delegate {
-    return delegate;
-}
-
-// = Web policy delegate methods =
+#pragma mark - Web policy delegate methods
 
 - (void)        webView: (WebView *) sender
    didClearWindowObject: (WebScriptObject *) windowObject
@@ -1189,7 +1190,7 @@ static IFCompilerController* activeController = nil;
 
 		// We only redirect if the page is different to the current one
 		if (!samePage) {
-			if (delegate && [delegate respondsToSelector: @selector(handleURLRequest:)]) {
+			if ([delegate respondsToSelector: @selector(handleURLRequest:)]) {
 				if ([delegate handleURLRequest: request]) {
 					[listener ignore];
 					return;
@@ -1202,18 +1203,26 @@ static IFCompilerController* activeController = nil;
 	[listener use];
 }
 
-- (void) setBlorbLocation: (NSString*) location {
-	blorbLocation = [location copy];
-}
-
-- (NSString*) blorbLocation {
-	return blorbLocation;
-}
+@synthesize blorbLocation;
 
 - (void) overrideProblemsURL: (NSURL*) problemsURL {
 	overrideURL = [problemsURL copy];
 }
 
+-(void) adjustSplitView {
+    NSRect newFrame = [messageScroller frame];
+    newFrame.size.height = 0;
+    [messageScroller setFrame:newFrame];
+
+    NSRect resultFrame = [resultScroller frame];
+
+    resultFrame.size.height = splitView.frame.size.height - newFrame.size.height - [splitView dividerThickness];
+    [resultScroller setFrame: resultFrame];
+
+//    [splitView adjustSubviews];
+}
+
+@synthesize splitView;
 - (void) setSplitView: (NSSplitView*) newSplitView {
 	// Remember the new split view
 	splitView = newSplitView;
@@ -1232,23 +1241,19 @@ static IFCompilerController* activeController = nil;
         
         selectedTabId = IFTabConsole;
 	} else {
+        [self adjustSplitView];
         [self replaceViewWithTabId: IFTabConsole
                           withView: splitView];
 	}
-	if (delegate && [delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
+
+    if ([delegate respondsToSelector: @selector(viewSetHasUpdated:)]) {
 		[delegate viewSetHasUpdated: self];
     }
 }
 
-- (NSSplitView*) splitView {
-	return splitView;
-}
+#pragma mark - Managing the set of views displayed by this object
 
-// = Managing the set of views displayed by this object =
-
-- (IFCompilerTabId) selectedTabId {
-	return selectedTabId;
-}
+@synthesize selectedTabId;
 
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId {
 	NSUInteger index = [self tabIndexWithTabId:tabId];
@@ -1285,7 +1290,7 @@ static IFCompilerController* activeController = nil;
     //NSAssert(selectedTabId != IFTabInvalid, @"Invalid tab selected");
 	
 	// Inform the delegate of the change
-	if (delegate && [delegate respondsToSelector: @selector(compiler:switchedToView:)]) {
+	if ([delegate respondsToSelector: @selector(compiler:switchedToView:)]) {
 		[delegate compiler: self
 			switchedToView: (int) index];
 	}

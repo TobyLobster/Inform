@@ -10,9 +10,12 @@
 #import "IFUtility.h"
 
 @implementation IFInformProtocol {
-    NSURLRequest* theURLRequest;					// The URL request we're supposed to be processing
-    NSCachedURLResponse* theCachedResponse;			// The associated cached response
-    id<NSURLProtocolClient> theClient;				// The client we're talking to
+    /// The URL request we're supposed to be processing
+    NSURLRequest* theURLRequest;
+    /// The associated cached response
+    NSCachedURLResponse* theCachedResponse;
+    /// The client we're talking to
+    id<NSURLProtocolClient> theClient;
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
@@ -31,8 +34,8 @@
 }
 
 -(instancetype)initWithRequest:(NSURLRequest *)request 
-	  cachedResponse:(NSCachedURLResponse *)cachedResponse 
-			  client:(id <NSURLProtocolClient>)client {
+                cachedResponse:(NSCachedURLResponse *)cachedResponse
+                        client:(id <NSURLProtocolClient>)client {
 	self = [super initWithRequest: request
 				   cachedResponse: cachedResponse
 						   client: client];
@@ -114,6 +117,38 @@
 											   ofType: [urlPath pathExtension]
                                           inDirectory: [urlPath stringByDeletingLastPathComponent]];
 	}
+    
+    // Check if the file is in an asset catalog.
+    NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
+    if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
+        assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
+    }
+    NSImage *img = [NSImage imageNamed: assetCheckPath];
+    
+    if (path == nil && img != nil) {
+        //Just output TIFF: it uses the least amount of code:
+        NSData *urlData = [img TIFFRepresentation];
+        //Which means a TIFF MIME type. Regardless of extension.
+        NSString *ourType = @"image/tiff";
+        
+        // Create the response
+        NSURLResponse* response = [[NSURLResponse alloc] initWithURL: [theURLRequest URL]
+                                                            MIMEType: ourType
+                                               expectedContentLength: [urlData length]
+                                                    textEncodingName: nil];
+        
+        [theClient URLProtocol: self
+            didReceiveResponse: response
+            cacheStoragePolicy: NSURLCacheStorageAllowedInMemoryOnly];
+        
+        // We loaded the data
+        [theClient URLProtocol: self
+                   didLoadData: urlData];
+        
+        // We finished loading
+        [theClient URLProtocolDidFinishLoading: self];
+        return;
+    }
 
 	if (path == nil) {
 		// If that fails, then just append to the resourcePath of the main bundle
@@ -129,7 +164,7 @@
 												userInfo: nil]];
 		return;
 	}
-	
+    
 	// Check that the file exists and is not a directory
 	BOOL isDir = YES;
 	if (![[NSFileManager defaultManager] fileExistsAtPath: path
@@ -160,18 +195,32 @@
 	}
 		
 	// Work out the MIME type
-	// Sigh, must be a better way, but it's not obvious
-	NSString* ourType = @"text/html";
-	if ([[path pathExtension] isEqualToString: @"gif"])
-		ourType = @"image/gif";
-	else if ([[path pathExtension] isEqualToString: @"jpeg"] ||
-			 [[path pathExtension] isEqualToString: @"jpg"])
-		ourType = @"image/jpeg";
-	else if ([[path pathExtension] isEqualToString: @"png"])
-		ourType = @"image/png";
-	else if ([[path pathExtension] isEqualToString: @"tiff"] ||
-			 [[path pathExtension] isEqualToString: @"tif"])
-		ourType = @"image/tiff";
+	NSString* ourType = nil;
+    do {
+        NSString *pathExt = path.pathExtension;
+        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)pathExt, kUTTypeData);
+        if (!uti) {
+            break;
+        }
+        
+        ourType = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType));
+        CFRelease(uti);
+    } while (false);
+    
+    if (ourType == nil) {
+        ourType = @"text/html";
+        if ([[path pathExtension] isEqualToString: @"gif"]) {
+            ourType = @"image/gif";
+        } else if ([[path pathExtension] isEqualToString: @"jpeg"] ||
+                   [[path pathExtension] isEqualToString: @"jpg"]) {
+            ourType = @"image/jpeg";
+        } else if ([[path pathExtension] isEqualToString: @"png"]) {
+            ourType = @"image/png";
+        } else if ([[path pathExtension] isEqualToString: @"tiff"] ||
+                   [[path pathExtension] isEqualToString: @"tif"]) {
+            ourType = @"image/tiff";
+        }
+    }
 
 	// Create the response
 	NSURLResponse* response = [[NSURLResponse alloc] initWithURL: [theURLRequest URL]

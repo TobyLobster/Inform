@@ -8,14 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString* IFDocHtmlTitleAttribute;
-extern NSString* IFDocTitleAttribute;
-extern NSString* IFDocSectionAttribute;
-extern NSString* IFDocSortAttribute;
+typedef NSString *IFDocAttributeKey NS_STRING_ENUM;
 
-//
-// Information about an example section foun in the HTML
-//
+extern IFDocAttributeKey const IFDocAttributeHtmlTitle;
+extern IFDocAttributeKey const IFDocAttributeTitle;
+extern IFDocAttributeKey const IFDocAttributeSection;
+extern IFDocAttributeKey const IFDocAttributeSort;
+
+///
+/// Information about an example section foun in the HTML
+///
 @interface IFExampleInfo : NSObject
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
@@ -35,19 +37,25 @@ extern NSString* IFDocSortAttribute;
 
 @end
 
-//
-// Very simple HTML parser that deals with document files, extracting the text and any attributes,
-// suitable for use in a search.
-//
+///
+/// Very simple HTML parser that deals with document files, extracting the text and any attributes,
+/// suitable for use in a search.
+///
 @interface IFDocParser : NSObject
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithHtml: (NSString*) html NS_DESIGNATED_INITIALIZER;		// Parses the specified HTML, extracting attributes and the plain text version
+/// Parses the specified HTML, extracting attributes and the plain text version
+- (instancetype) initWithHtml: (NSString*) html NS_DESIGNATED_INITIALIZER;
 
-@property (atomic, readonly, copy) NSString *plainText;					// The plain text version of the file that has been parsed
-@property (atomic, readonly, copy) NSDictionary *attributes;				// The attributes from the file that has been parsed
-@property (atomic, readonly, copy) NSDictionary *exampleInfo;              // Dictionary of examples in the document. Keys are string version of example name, values are IFExampleInfo.
-@property (atomic, readonly, copy) NSArray *codeInfo;                      // Array of IFCodeInfo specifying ranges in the document where code occurs.
-@property (atomic, readonly, copy) NSArray *definitionInfo;                // Array of IFCodeInfo specifying ranges in the document where definitions occur.
+/// The plain text version of the file that has been parsed
+@property (atomic, readonly, copy) NSString *plainText;
+/// The attributes from the file that has been parsed
+@property (atomic, readonly, copy) NSDictionary<IFDocAttributeKey,id> *attributes;
+/// Dictionary of examples in the document. Keys are string version of example name, values are IFExampleInfo.
+@property (atomic, readonly, copy) NSDictionary<NSString*,IFExampleInfo*> *exampleInfo;
+/// Array of \c IFCodeInfo specifying ranges in the document where code occurs.
+@property (atomic, readonly, copy) NSArray<IFCodeInfo*> *codeInfo;
+/// Array of \c IFCodeInfo specifying ranges in the document where definitions occur.
+@property (atomic, readonly, copy) NSArray<IFCodeInfo*> *definitionInfo;
 
 @end

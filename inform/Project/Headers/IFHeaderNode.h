@@ -12,45 +12,65 @@
 
 @class IFIntelFile;
 
-typedef enum IFHeaderNodeSelectionStyle {
-	IFHeaderNodeUnselected,					// Node is unselected
-	IFHeaderNodeSelected,					// Node has been selected by the user
-	IFHeaderNodeInputCursor					// Node contains the input cursor
-} IFHeaderNodeSelectionStyle;
+typedef NS_ENUM(int, IFHeaderNodeSelectionStyle) {
+    /// Node is unselected
+	IFHeaderNodeUnselected,
+    /// Node has been selected by the user
+	IFHeaderNodeSelected,
+    /// Node contains the input cursor
+	IFHeaderNodeInputCursor
+};
 
-//
-// A single node in a header view
-//
+///
+/// A single node in a header view
+///
 @interface IFHeaderNode : NSObject
 // Constructing this node
 
-- (instancetype) initWithHeader: (IFHeader*) header			// Constructs a new header node
+/// Constructs a new header node
+- (instancetype) initWithHeader: (IFHeader*) header
                        position: (NSPoint) position
                           depth: (int) depth;
-- (void) populateToDepth: (int) maxDepth;                   // Populates this node to the specified depth
+/// Populates this node to the specified depth
+- (void) populateToDepth: (int) maxDepth;
 
 // Getting information about this node
 
-@property (atomic, readonly)          NSRect                      frame;			// The frame for this node
-@property (atomic, readonly, strong)  IFHeader *                  header;			// The header associated with this node
-@property (atomic)                    IFHeaderNodeSelectionStyle  selectionStyle;	// The selection style of this node
-@property (atomic, readonly, copy)    NSArray *                   children;         // The children associated with this node
+/// The frame for this node
+@property (atomic, readonly)          NSRect                      frame;
+/// The header associated with this node
+@property (atomic, readonly, strong)  IFHeader *                  header;
+/// The selection style of this node
+@property (atomic)                    IFHeaderNodeSelectionStyle  selectionStyle;
+/// The children associated with this node
+@property (atomic, readonly, copy)    NSArray<IFHeaderNode*> *    children;
 
+/// The node appearing at the specified point
 - (IFHeaderNode*) nodeAtPoint: (NSPoint) point
-                  editableOut: (bool*) editableOut;     // The node appearing at the specified point
-- (IFHeaderNode*) nodeWithLines: (NSRange) lines        // The best match for the node corresponding to the specified line numbers
+                  editableOut: (bool*) editableOut;
+/// The best match for the node corresponding to the specified line numbers
+- (IFHeaderNode*) nodeWithLines: (NSRange) lines
 					  intelFile: (IFIntelFile*) intel;
 
-@property (atomic, readonly, copy) NSDictionary *       attributes;                 // The attributes for the title being displayed in this node
-@property (atomic, readonly, copy) NSColor *            textBackgroundColour;		// The background colour for the text in this node
-@property (atomic, readonly)       NSRect               headerTitleRect;            // The bounding rectangle for the editable part of the name
-@property (atomic, readonly, copy) NSAttributedString * attributedTitle;			// The editable part of the title as an attributed string
+/// The attributes for the title being displayed in this node
+@property (atomic, readonly, copy) NSDictionary<NSAttributedStringKey,id> *attributes;
+/// The background colour for the text in this node
+@property (atomic, readonly, copy) NSColor *            textBackgroundColour;
+/// The bounding rectangle for the editable part of the name
+@property (atomic, readonly)       NSRect               headerTitleRect;
+/// The editable part of the title as an attributed string
+@property (atomic, readonly, copy) NSAttributedString * attributedTitle;
 
-- (void) setEditing: (BOOL) editing;                            // Sets whether or not this node is being edited
-- (NSString*) freshValueForEditedTitle: (NSString*) edited;     // Given an edited title, returns the exact value that should be substituted in the source code
+/// Sets whether or not this node is being edited
+- (void) setEditing: (BOOL) editing;
+/// Is this node being edited?
+@property (atomic, getter=isEditing) BOOL editing;
+/// Given an edited title, returns the exact value that should be substituted in the source code
+- (NSString*) freshValueForEditedTitle: (NSString*) edited;
 
 // Drawing the node
-- (void) drawNodeInRect: (NSRect) rect          // Draws this node
+/// Draws this node
+- (void) drawNodeInRect: (NSRect) rect
 			  withFrame: (NSRect) frame;
 
 @end

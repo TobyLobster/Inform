@@ -13,13 +13,14 @@
 
 @class IFCompilerController;
 
-//
-// The 'errors' page
-//
+///
+/// The 'errors' page
+///
 @interface IFErrorsPage : IFPage
 
 // Getting information about this page
-@property (atomic, readonly, strong) IFCompilerController *compilerController;				// The compiler controller for this page
+/// The compiler controller for this page
+@property (atomic, readonly, strong) IBOutlet IFCompilerController *compilerController;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;
 

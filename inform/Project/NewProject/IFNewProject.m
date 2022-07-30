@@ -8,16 +8,12 @@
 // List of projects
 // Inform 7 Project:        IFEmptyNaturalProject
 // Inform 7 Extension:      IFNaturalExtensionProject
-// Inform 6 Project(empty): IFEmptyProject
-// Inform 6 Project:        IFStandardProject
 
 #import <Foundation/Foundation.h>
 #import "IFNewProject.h"
 #import "IFProjectFile.h"
 #import "IFProject.h"
 
-#import "IFNewEmptyInform6Project.h"
-#import "IFNewInform6Project.h"
 #import "IFNewInform7Project.h"
 #import "IFNewInform7ExtensionProject.h"
 #import "IFNewInform7ExtensionFile.h"
@@ -27,8 +23,8 @@
     IBOutlet NSView*                    projectPaneView;	// The pane that contains the display for the current stage in the creation process
     IBOutlet NSTextField*               promptTextField;
 
-    NSObject<IFNewProjectProtocol>*     projectType;        // The current project type
-    NSObject<IFNewProjectSetupView>*    projectView;        // The view of (Inform 6 project) settings
+    id<IFNewProjectProtocol>            projectType;        // The current project type
+    id<IFNewProjectSetupView>           projectView;        // The view of (Inform 6 project) settings
     NSArray*                            projectFileTypes;
     NSString*                           projectTitle;
     NSString*                           projectPrompt;
@@ -40,7 +36,7 @@
     NSURL*                              projectLocation;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (void) initialize {
 }
@@ -55,7 +51,7 @@
 }
 
 
-// = Interface =
+#pragma mark - Interface
 
 -(BOOL) isExtension {
     return [projectType isKindOfClass:[IFNewInform7ExtensionFile class]];
@@ -163,7 +159,7 @@
                              modalDelegate: self
                             didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                                contextInfo: nil
-                                   message: confirm];
+                                   message: @"%@", confirm];
             return NO;
         }
     }
@@ -173,7 +169,7 @@
     return YES;
 }
 
-- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
 	if (returnCode == NSAlertFirstButtonReturn) {
 		[self createItem];
         [self close];
@@ -207,7 +203,7 @@
     [panel beginSheetModalForWindow: win
                   completionHandler: ^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              self->projectLocation = [panel URL];
 
              [self validate];
@@ -314,22 +310,6 @@
     projectPrompt    = [IFUtility localizedString: @"Create Extension"];
     projectView      = [projectType configView];
     projectFlow      = IFNewProjectOptions;
-    projectStory     = nil;
-    projectExtensionURL    = nil;
-    projectDefaultFilename = nil;
-
-    [self startFlow];
-}
-
-- (void) createInform6Project {
-    [self close];
-
-    projectType      = [[IFNewInform6Project alloc] init];
-    projectFileTypes = @[@"inform"];
-    projectTitle     = [IFUtility localizedString: @"Create Project"];
-    projectPrompt    = [IFUtility localizedString: @"Create Project"];
-    projectView      = [projectType configView];
-    projectFlow      = (IFNewProjectFlow) (IFNewProjectOptions | IFNewProjectLocation);
     projectStory     = nil;
     projectExtensionURL    = nil;
     projectDefaultFilename = nil;

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFNewProjectFile">
+            <connections>
+                <outlet property="fileName" destination="61" id="64"/>
+                <outlet property="fileType" destination="49" id="65"/>
+                <outlet property="window" destination="42" id="66"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="41" customClass="NSApplication"/>
+        <window title="New File" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="42" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES"/>
+            <rect key="contentRect" x="176" y="738" width="394" height="142"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <value key="minSize" type="size" width="213" height="107"/>
+            <view key="contentView" id="43">
+                <rect key="frame" x="0.0" y="0.0" width="394" height="137"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="44">
+                        <rect key="frame" x="256" y="13" width="125" height="32"/>
+                        <buttonCell key="cell" type="push" title="Create new file" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="45">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="addFile:" target="-2" id="70"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46">
+                        <rect key="frame" x="182" y="13" width="76" height="32"/>
+                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="47">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancel:" target="-2" id="71"/>
+                        </connections>
+                    </button>
+                    <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="48">
+                        <rect key="frame" x="0.0" y="58" width="394" height="5"/>
+                    </box>
+                    <popUpButton toolTip="Choose the type of new file you wish to add to the project here." verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="49">
+                        <rect key="frame" x="65" y="94" width="313" height="25"/>
+                        <popUpButtonCell key="cell" type="push" title="Inform 6 header file" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="55" id="50">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" title="OtherViews" id="51">
+                                <items>
+                                    <menuItem title="Inform 6 header file" state="on" id="55"/>
+                                    <menuItem title="Natural Inform file" tag="1" id="56"/>
+                                    <menuItem isSeparatorItem="YES" id="54">
+                                        <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                    </menuItem>
+                                    <menuItem title="Text file" tag="2" id="53"/>
+                                    <menuItem title="Rich text file" tag="3" id="52"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                        <connections>
+                            <outlet property="nextKeyView" destination="61" id="69"/>
+                        </connections>
+                    </popUpButton>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="36" translatesAutoresizingMaskIntoConstraints="NO" id="57">
+                        <rect key="frame" x="18" y="101" width="44" height="16"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Type:" id="58">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="41" translatesAutoresizingMaskIntoConstraints="NO" id="59">
+                        <rect key="frame" x="18" y="72" width="44" height="16"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Name:" id="60">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField toolTip="Enter the name of the new file here." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="61">
+                        <rect key="frame" x="68" y="69" width="306" height="21"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" title="Untitled" drawsBackground="YES" id="62">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="49" firstAttribute="top" secondItem="43" secondAttribute="top" constant="19" id="2Th-UE-UZx"/>
+                    <constraint firstItem="44" firstAttribute="leading" secondItem="46" secondAttribute="trailing" constant="12" symbolic="YES" id="4ct-q0-f7Z"/>
+                    <constraint firstAttribute="bottom" secondItem="46" secondAttribute="bottom" constant="20" id="8Dy-AZ-62d"/>
+                    <constraint firstItem="46" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="20" symbolic="YES" id="8Y9-qR-0tZ"/>
+                    <constraint firstAttribute="trailing" secondItem="48" secondAttribute="trailing" id="9bF-cp-Om4"/>
+                    <constraint firstItem="49" firstAttribute="leading" secondItem="57" secondAttribute="trailing" constant="8" symbolic="YES" id="BX0-nl-cG3"/>
+                    <constraint firstAttribute="trailing" secondItem="61" secondAttribute="trailing" constant="20" symbolic="YES" id="CyP-lP-PAA"/>
+                    <constraint firstItem="49" firstAttribute="firstBaseline" secondItem="57" secondAttribute="firstBaseline" id="IT8-4n-Oku"/>
+                    <constraint firstItem="61" firstAttribute="top" secondItem="49" secondAttribute="bottom" constant="8" symbolic="YES" id="MjV-xl-gYu"/>
+                    <constraint firstItem="57" firstAttribute="leading" secondItem="43" secondAttribute="leading" constant="20" id="PM6-1R-JKQ"/>
+                    <constraint firstItem="48" firstAttribute="leading" secondItem="43" secondAttribute="leading" id="S4F-Db-ol8"/>
+                    <constraint firstItem="44" firstAttribute="baseline" secondItem="46" secondAttribute="firstBaseline" id="VQv-Hl-BSf"/>
+                    <constraint firstItem="59" firstAttribute="trailing" secondItem="57" secondAttribute="trailing" id="WLo-Zl-OJX"/>
+                    <constraint firstItem="49" firstAttribute="centerX" secondItem="61" secondAttribute="centerX" id="hb7-d7-v1U"/>
+                    <constraint firstItem="48" firstAttribute="top" secondItem="61" secondAttribute="bottom" constant="8" symbolic="YES" id="iFE-7U-Yij"/>
+                    <constraint firstItem="61" firstAttribute="leading" secondItem="59" secondAttribute="trailing" constant="8" symbolic="YES" id="mI8-so-g6K"/>
+                    <constraint firstItem="49" firstAttribute="trailing" secondItem="44" secondAttribute="trailing" id="nsz-Ar-voR"/>
+                    <constraint firstItem="49" firstAttribute="leading" secondItem="61" secondAttribute="leading" id="rRt-cv-Yjr"/>
+                    <constraint firstItem="57" firstAttribute="leading" secondItem="59" secondAttribute="leading" id="s0I-wE-Ez5"/>
+                    <constraint firstItem="61" firstAttribute="firstBaseline" secondItem="59" secondAttribute="firstBaseline" id="u2Y-xj-ENu"/>
+                    <constraint firstItem="46" firstAttribute="baseline" secondItem="44" secondAttribute="baseline" id="wPQ-wb-bJV"/>
+                    <constraint firstItem="46" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="43" secondAttribute="leading" constant="20" id="xi2-S8-xbv"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="67"/>
+                <outlet property="initialFirstResponder" destination="49" id="68"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="132"/>
+        </window>
+    </objects>
+</document>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFMiscSettings">
+            <connections>
+                <outlet property="debugMode" destination="7" id="15"/>
+                <outlet property="infixMode" destination="8" id="14"/>
+                <outlet property="settingView" destination="5" id="9"/>
+                <outlet property="strictMode" destination="6" id="13"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView autoresizesSubviews="NO" id="5" userLabel="View">
+            <rect key="frame" x="0.0" y="0.0" width="383" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <rect key="frame" x="18" y="41" width="169" height="18"/>
+                    <string key="toolTip">INFIX is a debugger that can be built into your story. It allows you to issue commands at the usual '&gt;' prompt to inspect the values of variables, look at the object tree, etc. See the Inform designers manual for full information. This option increases the size of your story, and is not useful for Natural Inform stories. INFIX is automatically turned off when compiling using the 'Release' option.</string>
+                    <buttonCell key="cell" type="check" title="Include INFIX debugger" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="25">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="settingsHaveChanged:" target="-2" id="11"/>
+                    </connections>
+                </button>
+                <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7">
+                    <rect key="frame" x="18" y="19" width="141" height="18"/>
+                    <string key="toolTip">Choose this option to enable the Inform debugging verbs (purloin, trace, gonear, etc). This increases the size of the story, and provides a means for players to cheat. Debugging is automatically turned off when compiling using the 'Release' option.</string>
+                    <buttonCell key="cell" type="check" title="Turn debugging on" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="24">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="settingsHaveChanged:" target="-2" id="12"/>
+                    </connections>
+                </button>
+                <button autoresizesSubviews="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6">
+                    <rect key="frame" x="18" y="63" width="261" height="18"/>
+                    <string key="toolTip">Strict mode tells Inform to check values, such as array indices, at run-time. These slow the story down, and increase the size of the file, but help ensure that you haven't made certain programming errors that wouldn't otherwise be obvious. Turn strict mode off if your story is getting too large, or to improve the speed when it's being run on slower machines (such as Palm Pilots)</string>
+                    <buttonCell key="cell" type="check" title="Strict mode (perform run-time checks)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="23">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="settingsHaveChanged:" target="-2" id="10"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="7" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="3KS-6t-DRm"/>
+                <constraint firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" id="4ld-jN-VvM"/>
+                <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" id="FjM-Hs-fd8"/>
+                <constraint firstItem="7" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="6" symbolic="YES" id="MfG-03-tod"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="6" symbolic="YES" id="P18-BW-DLK"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8" secondAttribute="trailing" constant="20" id="bvq-KM-rdZ"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7" secondAttribute="trailing" constant="20" id="hcX-dG-fyN"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="7" secondAttribute="bottom" constant="20" id="lt5-s3-UrJ"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6" secondAttribute="trailing" constant="20" id="twD-Eh-u1Z"/>
+                <constraint firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" id="wdK-se-VYO"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="143"/>
+        </customView>
+    </objects>
+</document>

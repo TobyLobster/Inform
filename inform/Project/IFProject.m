@@ -245,10 +245,7 @@
 
 - (NSString*) projectInputPathName {
     // Inform 7 compiler takes the project directory path
-    if (self.settings.usingNaturalInform) return self.fileURL.path;
-
-    // Inform 6 compiler takes the main source source file
-    return self.mainSourceFileURL.path;
+    return self.fileURL.path;
 }
 
 - (NSString*) projectOutputPathName {
@@ -793,17 +790,6 @@
     return NO;
 }
 
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper
-							   ofType:(NSString *)docType {
-    NSLog(@"Trying to load doc type %@", docType);
-    NSError* error;
-    BOOL result = [self readFromFileWrapper: wrapper
-                                     ofType: docType
-                                      error: &error];
-    NSLog(@"Load of doc type %@ = %d", docType, (int) result);
-    return result;
-}
-
 -(NSData*) dataForSourceFileWithKey: (NSString*) key {
     // Get data
     NSString* ext = [[key pathExtension] lowercaseString];
@@ -973,9 +959,10 @@
     NSFileWrapper* newFileWrapper = [[NSFileWrapper alloc] initRegularFileWithContents: data];
     [newFileWrapper setPreferredFilename: newFile];
     [newFileWrapper setFilename: newFile];
-    [newFileWrapper writeToFile: destinationURL.path
-                     atomically: NO
-                updateFilenames: YES];
+    [newFileWrapper writeToURL: destinationURL
+                       options: NSFileWrapperWritingWithNameUpdating
+           originalContentsURL: nil
+                         error: NULL];
 
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFProjectFilesChangedNotification
 														object: self];
@@ -1114,16 +1101,18 @@
 	return notes;
 }
 
-// = The index file =
+#pragma mark - The index file
 
-- (IFIndexFile*) indexFile {
-	return indexFile;
-}
+@synthesize indexFile;
 
 - (void) reloadIndexFile {
 	if (singleFile) return; // Nothing to do
+    NSError *err;
 
-	indexFile = [[IFIndexFile alloc] initWithContentsOfFile: self.indexHeadingsFileURL.path];
+	indexFile = [[IFIndexFile alloc] initWithContentsOfURL: self.indexHeadingsFileURL error: &err];
+    if (!indexFile) {
+        NSLog(@"IFIndexFile: found no data: %@", err);
+    }
 }
 
 - (void) reloadIndexDirectory {
@@ -1135,7 +1124,9 @@
     NSString*		indexPath		= self.indexDirectoryURL.path;
     
     if ([[NSFileManager defaultManager] fileExistsAtPath: indexPath]) {
-        indexWrapper = [[NSFileWrapper alloc] initWithPath: indexPath];
+        indexWrapper = [[NSFileWrapper alloc] initWithURL: self.indexDirectoryURL
+                                                  options: (NSFileWrapperReadingOptions)0
+                                                    error: NULL];
         [indexWrapper setPreferredFilename: @"Index"];
     }
 
@@ -1169,7 +1160,9 @@
     NSString*		path    = self.sourceDirectoryURL.path;
 
     if ([[NSFileManager defaultManager] fileExistsAtPath: path]) {
-        wrapper = [[NSFileWrapper alloc] initWithPath: path];
+        wrapper = [[NSFileWrapper alloc] initWithURL: self.sourceDirectoryURL
+                                             options: (NSFileWrapperReadingOptions)0
+                                               error: NULL];
         [wrapper setPreferredFilename: @"Source"];
     }
 
@@ -1200,27 +1193,27 @@
     return initialSelectionRange;
 }
 
-// = Watch expressions =
+#pragma mark - Watch expressions
 
 - (void) addWatchExpression: (NSString*) expression {
 	[watchExpressions addObject: [expression copy]];
 }
 
-- (void) replaceWatchExpressionAtIndex: (unsigned) index
+- (void) replaceWatchExpressionAtIndex: (NSInteger) index
 						withExpression: (NSString*) expression {
 	watchExpressions[index] = [expression copy];
 }
 
-- (void) removeWatchExpressionAtIndex: (unsigned) index {
+- (void) removeWatchExpressionAtIndex: (NSInteger) index {
 	[watchExpressions removeObjectAtIndex: index];
 }
 
-- (NSString*) watchExpressionAtIndex: (unsigned) index {
+- (NSString*) watchExpressionAtIndex: (NSInteger) index {
 	return watchExpressions[index];
 }
 
-- (unsigned int) watchExpressionCount {
-	return (unsigned int)[watchExpressions count];
+- (NSInteger) watchExpressionCount {
+	return [watchExpressions count];
 }
 
 // Breakpoints
@@ -1237,7 +1230,7 @@
 	[self breakpointsHaveChanged];
 }
 
-- (void) replaceBreakpointAtIndex: (unsigned) index
+- (void) replaceBreakpointAtIndex: (NSInteger) index
 			 withBreakpointAtLine: (int) line
 						   inFile: (NSString*) filename {
 	breakpoints[index] = @[@(line), [filename copy]];
@@ -1245,38 +1238,38 @@
 	[self breakpointsHaveChanged];
 }
 
-- (int) lineForBreakpointAtIndex: (unsigned) index {
+- (int) lineForBreakpointAtIndex: (NSInteger) index {
 	return [breakpoints[index][0] intValue];
 }
 
-- (NSString*) fileForBreakpointAtIndex: (unsigned) index {
+- (NSString*) fileForBreakpointAtIndex: (NSInteger) index {
 	return breakpoints[index][1];
 }
 
-- (unsigned int) breakpointCount {
-	return (unsigned int)[breakpoints count];
+- (NSInteger) breakpointCount {
+	return [breakpoints count];
 }
 
-- (void) removeBreakpointAtIndex: (unsigned) index {
+- (void) removeBreakpointAtIndex: (NSInteger) index {
 	[breakpoints removeObjectAtIndex: index];
 	
 	[self breakpointsHaveChanged];
 }
 
-- (void) removeBreakpointAtLine: (int) line
+- (void) removeBreakpointAtLine: (NSInteger) line
 						 inFile: (NSString*) file {
 	NSArray* bp =  @[@(line), [file copy]];
 	NSUInteger index = [breakpoints indexOfObject: bp];
 	
 	if (index == NSNotFound) {
-		NSLog(@"Attempt to remove nonexistant breakpoint %@:%i", file, line);
+        NSLog(@"Attempt to remove nonexistant breakpoint %@:%li", file, (long)line);
 		return;
 	}
 	
-	[self removeBreakpointAtIndex: (int) index];
+	[self removeBreakpointAtIndex: index];
 }
 
-// = Cleaning =
+#pragma mark - Cleaning
 
 - (void) cleanOutUnnecessaryFiles: (BOOL) alsoCleanIndex {
     [projectFile cleanOutUnnecessaryFiles: alsoCleanIndex];
@@ -1308,11 +1301,11 @@
 
         // Extract title and author from sourceExtensionFileURL
         IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-        BOOL gotInfo = [mgr infoForNaturalInformExtension: sourceExtensionFileURL.path
-                                                   author: &author
-                                                    title: &title
-                                                  version: &version];
-        if( gotInfo )
+        IFExtensionResult gotInfo = [mgr infoForNaturalInformExtension: sourceExtensionFileURL.path
+                                                                author: &author
+                                                                 title: &title
+                                                               version: &version];
+        if( gotInfo == IFExtensionSuccess )
         {
             NSURL* materialsURL  = [self materialsDirectoryURL];
             NSURL* extensionsURL = [materialsURL  URLByAppendingPathComponent: @"Extensions"];
@@ -1325,14 +1318,14 @@
             if( data != nil )
             {
                 // Create intermediate directories
-                [[NSFileManager defaultManager] createDirectoryAtPath: authorURL.path
+                [[NSFileManager defaultManager] createDirectoryAtURL: authorURL
                                           withIntermediateDirectories: YES
                                                            attributes: nil
                                                                 error: NULL];
                 // Write to destination path
-                return [[NSFileManager defaultManager] createFileAtPath: fileURL.path
-                                                               contents: data
-                                                             attributes: nil];
+                return [data writeToURL: fileURL
+                                options: (NSDataWritingOptions)0
+                                  error: NULL];
             }
         }
     }
@@ -1379,7 +1372,7 @@
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
-             if (result == NSOKButton) {
+             if (result == NSModalResponseOK) {
                  NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
                  NSError* error;
                  [[NSFileManager defaultManager] copyItemAtPath: [iFictionURL path]
@@ -1425,12 +1418,6 @@
 
 #pragma clang diagnostic pop
 
-- (BOOL) canDebug {
-    // It's only possible to debug Z-Code Inform 6 games
-    return ![[self settings] usingNaturalInform] &&
-            [[self settings] zcodeVersion] < 16;
-}
-
 - (void) openMaterials {
     // Work out where the materials folder is located
     NSString* materialsPath = [self materialsDirectoryURL].path;
@@ -1471,7 +1458,7 @@
     // Show it
     [panel beginSheetModalForWindow: window
                   completionHandler: ^(NSInteger result) {
-        if (result == NSOKButton) {
+        if (result == NSModalResponseOK) {
             NSError* error;
             NSString* whereToSave = [[panel URL] path];
 
@@ -1493,13 +1480,19 @@
                 [alert addButtonWithTitle:  [IFUtility localizedString: @"Cancel"]];
                 [alert setMessageText:      [IFUtility localizedString: @"Unable to save file"]];
                 [alert setInformativeText:  contents];
-                [alert setAlertStyle:       NSWarningAlertStyle];
+                [alert setAlertStyle:       NSAlertStyleWarning];
 
-                // NOTE: We don't use [NSAlert beginSheetModalForWindow:completionHandler:] because it is only available in 10.9
                 [alert beginSheetModalForWindow: window
-                                  modalDelegate: self
-                                 didEndSelector: @selector(compilerFaultAlertDidEnd:returnCode:contextInfo:)
-                                    contextInfo: nil];
+                              completionHandler:^(NSModalResponse returnCode) {
+                    if (returnCode == NSAlertFirstButtonReturn) {
+                        [[NSRunLoop currentRunLoop] performSelector: @selector(saveCompilerOutputWithWindow:)
+                                                             target: self
+                                                           argument: self->tempInternalWindow
+                                                              order: 128
+                                                              modes: @[NSDefaultRunLoopMode]]; // Try again
+                    }
+                    self->tempInternalWindow = nil;
+                }];
                 return;
             }
         }
@@ -1507,25 +1500,8 @@
     self->tempInternalWindow = nil;
 }
 
-- (void)compilerFaultAlertDidEnd: (NSWindow *)sheet
-                      returnCode: (int)returnCode
-                     contextInfo: (void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        [[NSRunLoop currentRunLoop] performSelector: @selector(saveCompilerOutputWithWindow:)
-                                             target: self
-                                           argument: self->tempInternalWindow
-                                              order: 128
-                                              modes: @[NSDefaultRunLoopMode]]; // Try again
-    }
-    self->tempInternalWindow = nil;
-}
-
 - (BOOL) buildBlorbSetting {
-    if (self.settings.usingNaturalInform) {
-        IFI7OutputSettings* outputSettings = (IFI7OutputSettings*)[self.settings settingForClass: [IFI7OutputSettings class]];
-        return [outputSettings createBlorbForRelease];
-    }
-    IFOutputSettings* outputSettings = (IFOutputSettings*)[self.settings settingForClass: [IFOutputSettings class]];
+    IFI7OutputSettings* outputSettings = (IFI7OutputSettings*)[self.settings settingForClass: [IFI7OutputSettings class]];
     return [outputSettings createBlorbForRelease];
 }
 
@@ -1559,16 +1535,20 @@
 
     if (onlyRefresh) {
         [theCompiler addNaturalInformStageUsingTestCase: testCase];
-        [theCompiler prepareForLaunchWithBlorbStage: NO testCase: testCase];
+        if (![theCompiler prepareForLaunchWithBlorbStage: NO testCase: testCase]) {
+            return nil;
+        }
     } else {
-        [theCompiler prepareForLaunchWithBlorbStage: buildBlorb testCase: testCase];
+        if (![theCompiler prepareForLaunchWithBlorbStage: buildBlorb testCase: testCase]) {
+            return nil;
+        }
     }
 
     return theCompiler;
 }
 
 
-// = Importing skein information =
+#pragma mark - Importing skein information
 
 - (IFSkein*) skeinFromRecording: (NSString*) path {
     // Read the file
@@ -1579,9 +1559,9 @@
     if (fileString == nil) return nil;
 
     // Pull out the lines from the file
-    int lineStart = 0;
-    int pos = 0;
-    int len = (int) [fileString length];
+    NSInteger lineStart = 0;
+    NSInteger pos = 0;
+    NSInteger len = [fileString length];
 
     // Maximum length of 500k characters
     if (len > 500000) return nil;
@@ -1649,7 +1629,7 @@
     // Display the panel
     [importPanel beginSheetModalForWindow: window completionHandler:^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              NSString* path = [[importPanel URL] path];
              NSString* extn = [[path pathExtension] lowercaseString];
 
@@ -1688,17 +1668,13 @@
                      loadError = [IFUtility localizedString: @"Skein Load Failure" default: nil];
 
                  [importPanel close];
-                 NSBeginAlertSheet([IFUtility localizedString: @"Could not import skein"],
-                                   [IFUtility localizedString: @"Cancel"],
-                                   nil,
-                                   nil,
-                                   window,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   nil,
-                                   @"%@",
-                                   loadError);
+                 NSAlert *alert = [[NSAlert alloc] init];
+                 alert.messageText = [IFUtility localizedString: @"Could not import skein"];
+                 alert.informativeText = loadError;
+                 [alert addButtonWithTitle:[IFUtility localizedString: @"Cancel"]];
+                 [alert beginSheetModalForWindow: window completionHandler:^(NSModalResponse returnCode) {
+                     // do nothing.
+                 }];
              }
          }
      }];
@@ -1725,7 +1701,7 @@
         [panel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
          {
              // Copy the file to the specified path
-             if (result == NSOKButton) {
+             if (result == NSModalResponseOK) {
                  NSString* filepath = [[[panel URL] path] stringByResolvingSymlinksInPath];
                  NSError* error;
 

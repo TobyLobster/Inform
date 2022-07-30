@@ -11,7 +11,7 @@
 #import "IFCompilerSettings.h"
 #import "IFProjectController.h"
 
-enum {
+NS_ENUM(NSInteger) {
 	inform6FileTag = 0,
 	niFileTag = 1,
 	textFileTag = 2,
@@ -19,12 +19,16 @@ enum {
 };
 
 @implementation IFNewProjectFile {
-    IFProjectController* projectController;			// The project controller for the project that's getting a new file
+    /// The project controller for the project that's getting a new file
+    IFProjectController* projectController;
 
-    IBOutlet NSPopUpButton* fileType;				// Used to select the type of file
-    IBOutlet NSTextField*   fileName;				// Used to enter the new file name
+    /// Used to select the type of file
+    IBOutlet NSPopUpButton* fileType;
+    /// Used to enter the new file name
+    IBOutlet NSTextField*   fileName;
 
-    NSString* newFilename;							// Stores the filename that the new file will have
+    /// Stores the filename that the new file will have
+    NSString* newFilename;
 }
 
 - (instancetype) initWithProjectController: (IFProjectController*) control {
@@ -39,26 +43,20 @@ enum {
 }
 
 
-// = Actions =
+#pragma mark - Actions
+
+@synthesize newFilename;
 - (NSString*) getNewFilename {
-	if ([[[projectController document] settings] usingNaturalInform]) {
-		// Default is to create a 'ni' file
-		[fileType selectItem: [[fileType menu] itemWithTag: niFileTag]];
-	} else {
-		// Default is to create a '.h' file
-		// '.h' files are '.i6' files when natural inform is being used
-		[fileType selectItem: [[fileType menu] itemWithTag: inform6FileTag]];
-	}
-	
+    // Default is to create a 'ni' file
+    [fileType selectItem: [[fileType menu] itemWithTag: niFileTag]];
+
 	// Set the new filename to nothing
 	newFilename = nil;
 	
 	// Run the sheet
-	[NSApp beginSheet: [self window]
-	   modalForWindow: [projectController window]
-		modalDelegate: nil
-	   didEndSelector: nil
-		  contextInfo: nil];
+    [[projectController window] beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+        // do nothing?
+    }];
 	[NSApp runModalForWindow: [self window]];
 	[NSApp endSheet: [self window]];
 	[[self window] orderOut: self];
@@ -80,13 +78,7 @@ enum {
 	
 	switch ([[fileType selectedItem] tag]) {
 		case inform6FileTag:
-			if ([[[projectController document] settings] usingNaturalInform]) {
-				// With Natural Inform, the extension is '.i6'
-				extension = @"i6";
-			} else {
-				// With standard Inform 6, the extension is '.h'
-				extension = @"h";
-			}
+            extension = @"i6";
 			break;
 		case niFileTag:
 			if ([[projectController document] editingExtension])

@@ -21,12 +21,12 @@
 
 -(void) canCancel: (BOOL) canCancel;
 -(void) startProgress;
--(void) setProgressMaxValue: (float) maxValue;
--(void) updateProgress: (float) progress;
+-(void) setProgressMaxValue: (CGFloat) maxValue;
+-(void) updateProgress: (CGFloat) progress;
 -(void) setProgressIndeterminate: (BOOL) indeterminate;
 -(void) stopProgress;
 
--(void) setDelegate: (IFToolbarManager*) delegate;
+@property (weak, atomic) IFToolbarManager *delegate;
 -(void) updateToolbar;
 
 @end

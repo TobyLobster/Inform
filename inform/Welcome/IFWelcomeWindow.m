@@ -15,35 +15,58 @@
 #import "IFRecentFileCell.h"
 
 #import "IFMaintenanceTask.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"
 
 @implementation IFWelcomeWindow {
-    IBOutlet NSProgressIndicator*   backgroundProgress;         // Progress indicator that shows when a background process is running
-    IBOutlet NSScrollView*          recentDocumentsScrollView;  // Recent document scroll view
-    IBOutlet NSTableView*           recentDocumentsTableView;   // Recent document Table View
-    IBOutlet NSScrollView*          createDocumentsScrollView;  // Create document scroll view
-    IBOutlet NSTableView*           createDocumentsTableView;   // Create document Table View
-    IBOutlet NSScrollView*          sampleDocumentsScrollView;  // Sample document scroll view
-    IBOutlet NSTableView*           sampleDocumentsTableView;   // Sample document Table View
-    IBOutlet NSView*                parentView;                 // Parent
-    IBOutlet WebView*               webView;                    // Show a web page (for advice)
-    IBOutlet NSView*                middleView;                 // Show the middle section
-    IBOutlet NSButton*              imageButton;                // Top banner image, as a button
+    /// Progress indicator that shows when a background process is running
+    IBOutlet NSProgressIndicator*   backgroundProgress;
 
-    NSMutableArray*                 recentInfoArray;            // Array of recent file info
-    NSMutableArray*                 createInfoArray;            // Array of create file info
-    NSMutableArray*                 sampleInfoArray;            // Array of sample file info
+    /// News web view
+    WKWebView*                      newsWebView;
+    IBOutlet NSView*                newsWebParent;
+    WKWebViewConfiguration *        newsWebConfiguration;
+
+    /// Recent document scroll view
+    IBOutlet NSScrollView*          recentDocumentsScrollView;
+    /// Recent document Table View
+    IBOutlet NSTableView*           recentDocumentsTableView;
+    /// Create document scroll view
+    IBOutlet NSScrollView*          createDocumentsScrollView;
+    /// Create document Table View
+    IBOutlet NSTableView*           createDocumentsTableView;
+    /// Sample document scroll view
+    IBOutlet NSScrollView*          sampleDocumentsScrollView;
+    /// Sample document Table View
+    IBOutlet NSTableView*           sampleDocumentsTableView;
+    /// Parent
+    IBOutlet NSView*                parentView;
+    /// Show a web page (for advice)
+    IBOutlet WebView*               webView;
+    /// Show the middle section
+    IBOutlet NSView*                middleView;
+    /// Top banner image, as a button
+    IBOutlet NSButton*              imageButton;
+
+    /// Array of recent file info
+    NSMutableArray*                 recentInfoArray;
+    /// Array of create file info
+    NSMutableArray*                 createInfoArray;
+    /// Array of sample file info
+    NSMutableArray*                 sampleInfoArray;
+    /// Array of news info
+    NSMutableArray*                 newsArray;
+
+    WKNavigation *                  newsNav;
 }
 
 static const int maxItemsInRecentMenu = 8;
 
-// Shared welcome window
+/// Shared welcome window
 static IFWelcomeWindow* sharedWindow = nil;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFWelcomeWindow*) sharedWelcomeWindow {
 	if (sharedWindow == nil) {
@@ -60,16 +83,58 @@ static IFWelcomeWindow* sharedWindow = nil;
 }
 
 + (void) showWelcomeWindow {
-    // Get latest list of recent items
     IFWelcomeWindow * welcome = [IFWelcomeWindow sharedWelcomeWindow];
-    [welcome refreshRecentItems];
+
+    [welcome showWelcomeWindow];
+}
+
+-(void) showWelcomeWindow {
+    [self refreshRecentItems];
 
     // Hide web view
-    [welcome hideWebView];
+    [self hideWebView];
 
     // Show window
-    [welcome showWindow: self];
-    [[welcome window] orderFront: self];
+    [self showWindow: self];
+    [[self window] orderFront: self];
+
+    //NSLog(@"FRAME = %@", recentDocumentsTableView.frame);
+    //NSLog(@"bounds = %@", recentDocumentsTableView.bounds);
+
+    if (@available(macOS 11.0, *)) {
+        recentDocumentsTableView.style = NSTableViewStylePlain;
+        createDocumentsTableView.style = NSTableViewStylePlain;
+        sampleDocumentsTableView.style = NSTableViewStylePlain;
+    }
+    // By default the enclosing scrollview has a bezelled border, but we set
+    // it to no border here after the tableview style has been set to plain.
+    recentDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+    createDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+    sampleDocumentsTableView.enclosingScrollView.borderType = NSNoBorder;
+
+
+    // create news web view (if not already created)
+    if (self->newsWebConfiguration == nil) {
+        self->newsWebConfiguration = [[WKWebViewConfiguration alloc] init];
+        // Set the navigation delegate
+        IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+        [self->newsWebConfiguration setURLSchemeHandler: appDelegate.newsManager.newsSchemeHandler
+                              forURLScheme: @"inform"];
+        self->newsWebView = [[WKWebView alloc] initWithFrame: self->newsWebParent.bounds
+                                               configuration: self->newsWebConfiguration];
+    }
+
+    // Set the navigation delegate
+    self->newsWebView.navigationDelegate = self;
+
+    // Give the news web view a transparent background
+    [self->newsWebView setValue:@(NO) forKey:@"drawsBackground"];
+
+    // Add web view to parent
+    [self->newsWebParent addSubview: self->newsWebView];
+
+    // Refresh news if needed
+    [self checkIfNewsRefreshIsNeeded];
 }
 
 - (void) hideWebView {
@@ -82,13 +147,95 @@ static IFWelcomeWindow* sharedWindow = nil;
     [middleView setHidden: YES];
 }
 
+- (void) checkIfNewsRefreshIsNeeded {
+    // Get the news from the news manager
+    // when done, call the completion handler
+    IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+
+    [[appDelegate newsManager] getNewsWithCompletionHandler: ^(NSString* latestNews, NSURLResponse* response, NSError* error) {
+        // When finished, refreshNews on main thread
+        [self performSelectorOnMainThread:@selector(refreshNews:) withObject:latestNews waitUntilDone:NO];
+    }];
+}
+
+- (NSString *) encodeForHTML:(NSString*) myStr {
+    return [[[[[myStr stringByReplacingOccurrencesOfString: @"&" withString: @"&amp;"]
+     stringByReplacingOccurrencesOfString: @"\"" withString: @"&quot;"]
+     stringByReplacingOccurrencesOfString: @"'" withString: @"&#39;"]
+     stringByReplacingOccurrencesOfString: @">" withString: @"&gt;"]
+     stringByReplacingOccurrencesOfString: @"<" withString: @"&lt;"];
+}
+
+- (void) refreshNews: (NSString*) latestNews {
+    if (newsWebView == nil) {
+        // Early out if no web view to change
+        return;
+    }
+
+    // Load template file
+    NSError* error;
+    NSString *news = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/NewsTemplate.html"]
+                                              encoding: NSUTF8StringEncoding
+                                                 error: &error];
+    if (news != nil) {
+        NSDateIntervalFormatter* outputFormatter = [[NSDateIntervalFormatter alloc] init];
+        outputFormatter.dateStyle = NSDateIntervalFormatterMediumStyle;
+        outputFormatter.timeStyle = NSDateIntervalFormatterNoStyle;
+
+        // parse data
+        NSISO8601DateFormatter* format = [[NSISO8601DateFormatter alloc] init];
+        [format setFormatOptions: NSISO8601DateFormatWithFullDate];
+
+        NSMutableArray *data = [[latestNews componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]] mutableCopy];
+        NSString* str = @"";
+        for (int i = 0; i < [data count]; i++)
+        {
+            // Parse line
+            NSString *line = [data objectAtIndex: i];
+            NSArray* lineParts = [line componentsSeparatedByString:@"\t"];
+            if ([lineParts count] >= 3) {
+                NSDate* startDate = [format dateFromString: lineParts[0]];
+                NSDate* endDate = [format dateFromString: lineParts[1]];
+                NSString* headline = [self encodeForHTML:lineParts[2]];
+                NSString* link = @"";
+
+                if ([lineParts count] >= 4) {
+                    link = lineParts[3];
+                }
+
+                if (endDate == nil) {
+                    endDate = [startDate copy];
+                }
+
+                // Use the output formatter to generate the string.
+                NSString* dateStr = [outputFormatter stringFromDate:startDate toDate:endDate];
+                if ((dateStr != nil) && (headline != nil)) {
+                    //        <tr><td>17th June 2022</td><td><a href="http://www.inform7.com">News Item 1</a></td></tr>
+                    str = [str stringByAppendingFormat:@"<tr><td>%@</td><td><a href=\"%@\">%@</a></td></tr>\n", dateStr, link, headline];
+                }
+            }
+        }
+
+        // replace <!-- CONTENT HERE -->
+        news = [news stringByReplacingOccurrencesOfString:@"<!-- CONTENT HERE -->" withString:str];
+        //NSLog(@"%@", news);
+
+        newsNav = [newsWebView loadHTMLString: news
+                                      baseURL: [NSURL URLWithString: @"inform:/"]];
+    } else {
+        NSLog(@"%@", error);
+    }
+}
+
 - (void) refreshRecentItems {
     NSImage* icon;
     recentInfoArray = [[NSMutableArray alloc] init];
     
-    int index = 0;
+    NSInteger index = 0;
     for( NSURL* url in [[NSDocumentController sharedDocumentController] recentDocumentURLs] ) {
-        icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
+        if (![url getResourceValue:&icon forKey:NSURLEffectiveIconKey error: NULL]) {
+            icon = [[NSWorkspace sharedWorkspace] iconForFile: [url path]];
+        }
         
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [url lastPathComponent]
                                                                             image: icon
@@ -136,14 +283,14 @@ static IFWelcomeWindow* sharedWindow = nil;
         // --- Items that create documents ---
         createInfoArray = [[NSMutableArray alloc] init];
         
-        NSImage* icon = [IFImageCache loadResourceImage: @"informfile.icns"];
+        NSImage* icon = [NSImage imageNamed: @"informfile"];
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
                                                                             image: icon
                                                                               url: nil
                                                                              type: IFRecentCreateProject];
         [createInfoArray addObject: info];
 
-        icon = [IFImageCache loadResourceImage: @"i7xfile.icns"];
+        icon = [NSImage imageNamed: @"i7xfile"];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
                                                       image: icon
                                                         url: nil
@@ -151,7 +298,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         [createInfoArray addObject: info];
         
         icon = [NSImage imageNamed: NSImageNameFolder];
-        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation for iBooks"]
+        info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation as eBooks"]
                                                       image: icon
                                                         url: nil
                                                        type: IFRecentSaveEPubs];
@@ -162,7 +309,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                  @"Copy Disenchantment Bay",    @"Disenchantment Bay.inform"];
 
         sampleInfoArray = [[NSMutableArray alloc] init];
-        icon = [IFImageCache loadResourceImage: @"informfile.icns"];
+        icon = [NSImage imageNamed: @"informfile"];
 
         NSString* pathStart = [[NSBundle mainBundle] resourcePath];
         pathStart = [pathStart stringByAppendingPathComponent: @"App"];
@@ -210,7 +357,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     [[imageButton cell] setHighlightsBy: NSContentsCellMask];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (void) startedMaintaining: (NSNotification*) not {
 	[backgroundProgress startAnimation: self];
@@ -255,7 +402,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     }
 }
 
-// == NSTableViewDataSource methods ==
+#pragma mark - NSTableViewDataSource methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     if( tableView == recentDocumentsTableView ) {
@@ -316,10 +463,11 @@ static IFWelcomeWindow* sharedWindow = nil;
                              from: self];
             } else if ( info.type == IFRecentFile ) {
                 NSDocumentController* docControl = [NSDocumentController sharedDocumentController];
-                NSError* error = nil;
                 [docControl openDocumentWithContentsOfURL: info.url
                                                   display: YES
-                                                    error: &error];
+                                        completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
+                    //Do nothing
+                }];
             }            
         }
     } else if( [aNotification object] == createDocumentsTableView ) {
@@ -368,7 +516,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                 [chooseDirectoryPanel beginSheetModalForWindow: [sharedWindow window]
                                              completionHandler: ^(NSInteger result)
                  {
-                     if (result == NSOKButton) {
+                     if (result == NSModalResponseOK) {
                          NSURL* destination = [chooseDirectoryPanel URL];
 
                          // Append last path component of source onto destination
@@ -382,6 +530,26 @@ static IFWelcomeWindow* sharedWindow = nil;
             }
         }
     }
+}
+
+#pragma mark - News policy delegate
+
+-                   (void)webView:(WKWebView *)webView
+  decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                  decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
+        NSURL* url = [navigationAction.request URL];
+
+        // Open extenal links in separate default browser app
+        if (([[url scheme] isEqualTo: @"http"]) || ([[url scheme] isEqualTo: @"https"])) {
+            decisionHandler(WKNavigationActionPolicyCancel);
+            [[NSWorkspace sharedWorkspace] openURL:url];
+            return;
+        }
+    }
+
+    // default action
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 @end

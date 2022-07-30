@@ -13,8 +13,8 @@
 #import "IFComboBox.h"
 #import "IFUtility.h"
 
-static NSString* IFFindHistoryPref		= @"IFFindHistory";
-static NSString* IFReplaceHistoryPref	= @"IFReplaceHistory";
+static NSString* const IFFindHistoryPref		= @"IFFindHistory";
+static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 static const int FIND_HISTORY_LENGTH = 30;
 
@@ -68,7 +68,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     NSArray*                findAllResults;								// The 'find all' results view
     int						findAllCount;								// Used to generate the identifier
     id						findIdentifier;								// The current find all identifier
-    float                   borders;
+    CGFloat                 borders;
 
     // Auxiliary views
     NSView*                 auxView;									// The auxiliary view that is being displayed
@@ -80,11 +80,12 @@ static const int FIND_HISTORY_LENGTH = 30;
     IFFindInFiles*              findInFiles;                            // Object used to perform searching
     
     // The delegate
-    id activeDelegate;													// The delegate that we've chosen to work with
+    /// The delegate that we've chosen to work with
+    __weak id<IFFindInFilesDelegate> activeDelegate;
 }
 
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 + (IFFindInFilesController*) sharedFindInFilesController {
 	static IFFindInFilesController* sharedController = nil;
@@ -125,7 +126,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-// = Updating the history =
+#pragma mark - Updating the history
 
 - (void) addPhraseToFindHistory: (NSString*) phrase {
 	phrase = [phrase copy];
@@ -179,13 +180,13 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[replacePhrase reloadData];
 }
 
-// = Actions =
+#pragma mark - Actions
 
 - (IFFindType) currentFindType {
 	NSMenuItem* selected = [searchType selectedItem];
 	
 	IFFindType flags = IFFindInvalidType;
-	if ([ignoreCase state] == NSOnState) flags |= IFFindCaseInsensitive;
+	if ([ignoreCase state] == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
 	
 	if (selected == containsItem) {
 		return IFFindContains | flags;
@@ -202,11 +203,11 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (IFFindLocation) currentFindLocation {
     IFFindLocation locations = IFFindNowhere;
-    if( [findInSource state] == NSOnState )                   locations |= IFFindSource;
-    if( [findInExtensions state] == NSOnState )               locations |= IFFindExtensions;
-    if( [findInDocumentationBasic state] == NSOnState )       locations |= IFFindDocumentationBasic;
-    if( [findInDocumentationSource state] == NSOnState )      locations |= IFFindDocumentationSource;
-    if( [findInDocumentationDefinitions state] == NSOnState ) locations |= IFFindDocumentationDefinitions;
+    if( [findInSource state] == NSControlStateValueOn )                   locations |= IFFindSource;
+    if( [findInExtensions state] == NSControlStateValueOn )               locations |= IFFindExtensions;
+    if( [findInDocumentationBasic state] == NSControlStateValueOn )       locations |= IFFindDocumentationBasic;
+    if( [findInDocumentationSource state] == NSControlStateValueOn )      locations |= IFFindDocumentationSource;
+    if( [findInDocumentationDefinitions state] == NSControlStateValueOn ) locations |= IFFindDocumentationDefinitions;
     return locations;
 }
 
@@ -272,6 +273,8 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 	winFrame		= [[self window] frame];
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
+
+    [findProgress setHidden: YES];
 }
 
 - (void) showWindow:(id)sender {
@@ -284,11 +287,11 @@ static const int FIND_HISTORY_LENGTH = 30;
 
 - (void) resizeToFitResults {
     // Calculate new height of table based on the number of results we have.
-    float newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
+    CGFloat newTableHeight = MIN(20,findAllResults.count) * (findAllTable.rowHeight+findAllTable.intercellSpacing.height);
 
     NSRect windowFrame = self.window.frame;                     // Get current height of window
-    float newHeight = borders + newTableHeight;                 // Calculate new height of window
-    float delta = newHeight - windowFrame.size.height;          // Find out the difference
+    CGFloat newHeight = borders + newTableHeight;               // Calculate new height of window
+    CGFloat delta = newHeight - windowFrame.size.height;        // Find out the difference
     windowFrame.origin.y -= delta;                              // Adjust the window origin so the top-left of the window remains in the same place
     windowFrame.size.height = newHeight;                        // Adjust to the new height
     [self.window setFrame:windowFrame display:YES animate:NO];  // Set the window frame
@@ -305,7 +308,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	[findAllTable reloadData];
 
     // Disable displaying stuff on screen while we adjust window/view size and positions
-    NSDisableScreenUpdates();
+    //NSDisableScreenUpdates();
 
     // Compose the results count message
     NSString* message;
@@ -324,7 +327,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [self resizeToFitResults];
     
     // Enable displaying stuff on screen now that we have adjusted window/view size and positions
-    NSEnableScreenUpdates();
+    //NSEnableScreenUpdates();
 }
 
 - (void) setProject: (IFProject*) aProject {
@@ -347,7 +350,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     [findPhrase setStringValue:aPhrase];
 
     // Set options
-    [ignoreCase setState: (aType & IFFindCaseInsensitive) ? NSOnState : NSOffState];
+    [ignoreCase setState: (aType & IFFindCaseInsensitive) ? NSControlStateValueOn : NSControlStateValueOff];
     switch ( aType ) {
         case IFFindContains:     [searchType selectItem: containsItem]; break;
         case IFFindBeginsWith:   [searchType selectItem: beginsWithItem]; break;
@@ -356,11 +359,11 @@ static const int FIND_HISTORY_LENGTH = 30;
         default:                 [searchType selectItem: containsItem]; break;
     }
 
-    [findInSource                   setState: (aLocationType & IFFindSource)                   ? NSOnState : NSOffState];
-    [findInExtensions               setState: (aLocationType & IFFindExtensions)               ? NSOnState : NSOffState];
-    [findInDocumentationBasic       setState: (aLocationType & IFFindDocumentationBasic)       ? NSOnState : NSOffState];
-    [findInDocumentationSource      setState: (aLocationType & IFFindDocumentationSource)      ? NSOnState : NSOffState];
-    [findInDocumentationDefinitions setState: (aLocationType & IFFindDocumentationDefinitions) ? NSOnState : NSOffState];
+    [findInSource                   setState: (aLocationType & IFFindSource)                   ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInExtensions               setState: (aLocationType & IFFindExtensions)               ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationBasic       setState: (aLocationType & IFFindDocumentationBasic)       ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationSource      setState: (aLocationType & IFFindDocumentationSource)      ? NSControlStateValueOn : NSControlStateValueOff];
+    [findInDocumentationDefinitions setState: (aLocationType & IFFindDocumentationDefinitions) ? NSControlStateValueOn : NSControlStateValueOff];
 
     [self findTypeChanged: self];
     [self updateControls];
@@ -399,7 +402,7 @@ static const int FIND_HISTORY_LENGTH = 30;
                           withProgressBlock: ^void(int num, int total, int found)
         {
             // Update progress
-            float progress = (float) num / (float) total;
+            CGFloat progress = (CGFloat) num / (CGFloat) total;
             [self->findProgress setDoubleValue: progress];
 
             @synchronized([self->findInFiles searchResultsLock])
@@ -425,14 +428,14 @@ static const int FIND_HISTORY_LENGTH = 30;
     ];
 }
 
-// = Performing 'replace all' =
+#pragma mark - Performing 'replace all'
 
 - (IBAction) replaceAll: (id) sender {
     // TODO!
 }
 
 
-// = The find all table =
+#pragma mark - The find all table
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
 	return (int) [findAllResults count];
@@ -512,7 +515,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 }
 
 
-// = Find/replace history =
+#pragma mark - Find/replace history
 
 - (id)				 comboBox: (NSComboBox*)	aComboBox
 	objectValueForItemAtIndex: (int)			index {
@@ -549,7 +552,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 }
 
-// = The auxiliary view =
+#pragma mark - The auxiliary view
 
 - (void) showAuxiliaryView: (NSView*) newAuxView {
 	// Do nothing if the aux view hasn't changed
@@ -580,7 +583,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	// Resize the window
 	NSRect newWinFrame = [[self window] frame];
 
-	float heightDiff		= (winFrame.size.height + auxFrame.size.height) - newWinFrame.size.height;
+    CGFloat heightDiff		= (winFrame.size.height + auxFrame.size.height) - newWinFrame.size.height;
 	newWinFrame.size.height += heightDiff;
 	newWinFrame.origin.y	-= heightDiff;
 
@@ -599,7 +602,7 @@ static const int FIND_HISTORY_LENGTH = 30;
 	}
 }
 
-// = Combo box delegate methods =
+#pragma mark - Combo box delegate methods
 
 - (void) comboBoxEnterKeyPress: (id) sender {
 	if (sender == findPhrase) {
@@ -613,7 +616,7 @@ static const int FIND_HISTORY_LENGTH = 30;
     }
 }
 
-// = Window delegate methods =
+#pragma mark - Window delegate methods
 - (void) windowWillClose: (NSNotification*) notification {
     NSWindow *win = [notification object];
     

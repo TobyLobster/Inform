@@ -8,14 +8,13 @@
 #import "IFInTest.h"
 #import "IFUtility.h"
 
-NSString* IFInTestStartingNotification = @"IFInTestStartingNotification";
-NSString* IFInTestStdoutNotification   = @"IFInTestStdoutNotification";
-NSString* IFInTestStderrNotification   = @"IFInTestStderrNotification";
-NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
+NSString* const IFInTestStartingNotification = @"IFInTestStartingNotification";
+NSString* const IFInTestStdoutNotification   = @"IFInTestStdoutNotification";
+NSString* const IFInTestStderrNotification   = @"IFInTestStderrNotification";
+NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
 
-@interface ConcordancePair : NSObject  {
-}
+@interface ConcordancePair : NSObject
 @end
 
 @implementation ConcordancePair {
@@ -26,14 +25,13 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
 @end
 
-@interface IFTestCaseData : NSObject  {
-}
+@interface IFTestCaseData : NSObject
 @end
 
 @implementation IFTestCaseData {
 @public
     // Concordance data
-    NSMutableArray* concordance;
+    NSMutableArray<ConcordancePair*>* concordance;
 }
 
 - (instancetype) init {
@@ -49,14 +47,19 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
 @implementation IFInTest {
     // The task
-    NSTask*         theTask;					// Task where InTest is running
+    /// Task where \c InTest is running
+    NSTask*         theTask;
 
     // Output/input streams
-    NSPipe*         stdErrPipe;					// stdErr pipe
-    NSPipe*         stdOutPipe;                 // stdOut pipe
+    /// stdErr pipe
+    NSPipe*         stdErrPipe;
+    /// stdOut pipe
+    NSPipe*         stdOutPipe;
 
-    NSFileHandle*   stdErrH;					// File handle for std err
-    NSFileHandle*   stdOutH;					// ... and for std out
+    /// File handle for stderr
+    NSFileHandle*   stdErrH;
+    /// File handle for stdout
+    NSFileHandle*   stdOutH;
 
     // Results
     NSMutableString* stdOut;
@@ -64,8 +67,8 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 
     int             exitCode;
 
-    // Data for each test case
-    NSMutableDictionary* testCaseData;
+    /// Data for each test case
+    NSMutableDictionary<NSString*,IFTestCaseData*>* testCaseData;
 }
 
 // == Initialisation, etc ==
@@ -92,7 +95,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     stdOut      = nil;
 }
 
-// == Setup ==
+#pragma mark - Setup
 
 - (BOOL) isRunning {
 	return theTask!=nil?[theTask isRunning]:NO;
@@ -106,7 +109,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         theTask = nil;
     }
 
-    NSString *command = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"intest"];
+    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"intest"];
 
     // InTest Start notification
     NSDictionary* uiDict = @{@"command": command,
@@ -130,7 +133,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     [message appendFormat:@"Command: %@\n", command];
     [message appendString:@"Args: "];
     for(NSString* arg in args) {
-        bool hasSpaces = ( [arg indexOf:@" "] >= 0 );
+        bool hasSpaces = ( [arg indexOf:@" "] != NSNotFound );
         if( hasSpaces ) [message appendString: @"'"];
         [message appendString: arg];
         if( hasSpaces ) [message appendString: @"'"];
@@ -204,8 +207,8 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     {
         NSArray* lines = [stdOut componentsSeparatedByString:@"\n"];
         for( NSString* line in lines ) {
-            int equalsIndex = [line indexOf: @" "];
-            if( equalsIndex >= 0 )
+            NSInteger equalsIndex = [line indexOf: @" "];
+            if( equalsIndex != NSNotFound )
             {
                 NSString* left  = [[line substringToIndex: equalsIndex] stringByTrimmingWhitespace];
                 NSString* right = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
@@ -242,8 +245,8 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
         NSArray* lines = [stdOut componentsSeparatedByString:@"\n"];
         for( NSString* line in lines ) {
             if( [line startsWith: @"extension "] ) {
-                int equalsIndex = [line indexOf: @"="];
-                if( equalsIndex >= 0 )
+                NSInteger equalsIndex = [line indexOf: @"="];
+                if( equalsIndex != NSNotFound )
                 {
                     unichar buffer[2];
                     buffer[0] = 'A' + [testCases count];
@@ -339,8 +342,7 @@ NSString* IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     IFTestCaseData* data = testCaseData[testCase];
 
     if( data != nil ) {
-        for( int i = (int) [data->concordance count] - 1; i >= 0; i--) {
-            ConcordancePair* pair = data->concordance[i];
+        for( ConcordancePair* pair in [data->concordance reverseObjectEnumerator] ) {
             if( lineNumber >= pair->left ) {
                 return lineNumber + pair->right;
             }

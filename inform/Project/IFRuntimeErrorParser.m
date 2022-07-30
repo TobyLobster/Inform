@@ -10,8 +10,8 @@
 
 
 @implementation IFRuntimeErrorParser {
-    id delegate;								// The delegate
-    NSMutableString* accumulator;				// The character accumulator
+    /// The character accumulator
+    NSMutableString* accumulator;
 }
 
 - (instancetype) init {
@@ -24,10 +24,7 @@
 	return self;
 }
 
-
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
 
 - (void) outputText: (NSString*) outputText {
 	// Scan for '*** Run-time problem XX' at the beginning of a line: this indicates that runtime problem XX
@@ -70,7 +67,7 @@
 	
 	if (problemType != nil) {
 		// A problem was encountered: inform the delegate
-		if (delegate && [delegate respondsToSelector: @selector(runtimeError:)]) {
+		if ([delegate respondsToSelector: @selector(runtimeError:)]) {
 			[delegate runtimeError: problemType];
 		}
 	}
@@ -78,7 +75,8 @@
 
 // Notifications about events that have occured in the view (when using this automation object for output)
 
-- (void) receivedCharacters: (NSString*) characters					// Text has arrived at the specified text buffer window (from the game)
+/// Text has arrived at the specified text buffer window (from the game)
+- (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber
 				   fromView: (GlkView*) view {
 	unichar* chrs = malloc(sizeof(unichar)*[characters length]);
@@ -106,20 +104,23 @@
     free(chrs);
 }
 
-- (void) userTyped: (NSString*) userInput							// The user has typed the specified string into the specified window (which is any window that is waiting for input)
+/// The user has typed the specified string into the specified window (which is any window that is waiting for input)
+- (void) userTyped: (NSString*) userInput
 			window: (int) windowNumber
 		 lineInput: (BOOL) isLineInput
 		  fromView: (GlkView*) view {
 }
 
-- (void) userClickedAtXPos: (int) xpos								// The user has clicked at a specified position in the given window
+/// The user has clicked at a specified position in the given window
+- (void) userClickedAtXPos: (int) xpos
 					  ypos: (int) ypos
 					window: (int) windowNumber
 				  fromView: (GlkView*) view {
 }
 
 - (void) viewWaiting: (GlkView*) view {
-	}
+    
+}
 
 // Using this automation object for input
 

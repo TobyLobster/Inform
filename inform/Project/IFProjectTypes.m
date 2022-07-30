@@ -8,9 +8,9 @@
 #import "IFProjectTypes.h"
 #import "IFPreferences.h"
 
-NSString* IFProjectFilesChangedNotification         = @"IFProjectFilesChangedNotification";
-NSString* IFProjectBreakpointsChangedNotification   = @"IFProjectBreakpointsChangedNotification";
-NSString* IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenamedNotification";
+NSString* const IFProjectFilesChangedNotification         = @"IFProjectFilesChangedNotification";
+NSString* const IFProjectBreakpointsChangedNotification   = @"IFProjectBreakpointsChangedNotification";
+NSString* const IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenamedNotification";
 
 @implementation IFProjectTypes
 
@@ -101,7 +101,8 @@ NSString* IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenam
     //
     // Inform 6 ICL file
     //
-	if ([typeName isEqualTo: @"inform control language file"]) {
+	if ([typeName isEqualTo: @"inform control language file"] ||
+        [typeName isEqualToString: @"public.c-header"]) {
         return IFFileTypeInform6ICLFile;
 	}
 
@@ -118,10 +119,6 @@ NSString* IFProjectSourceFileRenamedNotification    = @"IFProjectSourceFileRenam
 }
 
 +(IFHighlightType) highlighterTypeForFilename: (NSString*) filename {
-	if (![[IFPreferences sharedPreferences] enableSyntaxHighlighting]) {
-        return IFHighlightTypeNone;
-    }
-
     IFInformVersion version = [IFProjectTypes informVersionForFilename: filename];
     switch( version ) {
         case IFInformVersion6:       return IFHighlightTypeInform6;   // Inform 6 file

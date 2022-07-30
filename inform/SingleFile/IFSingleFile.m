@@ -18,12 +18,15 @@
 #import "IFUtility.h"
 
 @implementation IFSingleFile {
-    NSTextStorage* fileStorage;						// The contents of the file
-    NSStringEncoding fileEncoding;					// The encoding used for the file
+    /// The contents of the file
+    NSTextStorage* fileStorage;
+    /// The encoding used for the file
+    NSStringEncoding fileEncoding;
+    
     NSRange initialSelectionRange;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -42,21 +45,22 @@
     fileStorage = nil;
 }
 
-// = Data =
+#pragma mark - Data
 
 - (void)makeWindowControllers {
     IFSingleController *aController = [[IFSingleController alloc] initWithInitialSelectionRange: initialSelectionRange];
     [self addWindowController:aController];
 }
 
-- (NSData *)dataRepresentationOfType: (NSString*) type {
+- (NSData *)dataOfType: (NSString*) type error:(NSError *__autoreleasing  _Nullable * _Nullable)outError {
     return [[fileStorage string] dataUsingEncoding: fileEncoding];
 }
 
-- (BOOL)loadDataRepresentation: (NSData*) data
-						ofType: (NSString*) type {
+- (BOOL)readFromData: (NSData*) data
+              ofType: (NSString*) type
+               error: (NSError *__autoreleasing  _Nullable * _Nullable)outError {
     IFHighlightType                     highlightType   = IFHighlightTypeNone;
-    id<IFSyntaxIntelligence,NSObject>   intel           = nil;
+    id<IFSyntaxIntelligence>            intel           = nil;
 
 	fileEncoding = NSUTF8StringEncoding;
 
@@ -101,6 +105,12 @@
 	}
 
 	if (fileString == nil) {
+        if (outError) {
+            *outError = [NSError errorWithDomain: NSCocoaErrorDomain code: NSFileReadUnknownStringEncodingError userInfo:
+                         @{NSLocalizedDescriptionKey: @"Error: failed to load file: could not find an acceptable character encoding",
+                           NSStringEncodingErrorKey : @(fileEncoding)}
+            ];
+        }
 		NSLog(@"Error: failed to load file: could not find an acceptable character encoding");
 		return NO;
 	}
@@ -115,16 +125,14 @@
     return YES;
 }
 
-// = Retrieving document data =
+#pragma mark - Retrieving document data
 
-- (NSTextStorage*) storage {
-	return fileStorage;
-}
+@synthesize storage = fileStorage;
 
-// = Whether or not this should be treated as read-only =
+#pragma mark - Whether or not this should be treated as read-only
 
 - (BOOL) isReadOnly {
-	if (self.fileURL.path == nil) return NO;
+	if (self.fileURL == nil) return NO;
 
 	NSString* filename = [self.fileURL.path stringByStandardizingPath];
 
@@ -147,12 +155,6 @@
 	return YES;
 }
 
--(void) setInitialSelectionRange: (NSRange) anInitialSelectionRange {
-    initialSelectionRange = anInitialSelectionRange;
-}
-
--(NSRange) initialSelectionRange {
-    return initialSelectionRange;
-}
+@synthesize initialSelectionRange;
 
 @end

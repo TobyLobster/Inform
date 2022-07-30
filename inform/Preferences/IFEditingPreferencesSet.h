@@ -11,7 +11,6 @@
 
 @interface IFSyntaxHighlightingOption : NSObject
 
-@property (atomic, strong) NSColor*     colour;
 @property (atomic) IFFontStyle          fontStyle;
 @property (atomic) bool                 underline;
 @property (atomic) IFRelativeFontSize   relativeFontSize;
@@ -22,14 +21,14 @@
 
 @interface IFEditingPreferencesSet : NSObject
 
-@property (atomic, strong) NSString*    fontFamily;
-@property (atomic) int                  fontSize;
-@property (atomic, strong) NSColor*     sourcePaperColor;
-@property (atomic, strong) NSColor*     extensionPaperColor;
 @property (atomic) bool                 enableSyntaxHighlighting;
-@property (atomic, strong) NSMutableArray*      options;            // Array of IFSyntaxHighlightingOptions
-@property (atomic) float                tabWidth;
-@property (atomic) bool                 indentWrappedLines;
+@property (atomic, copy) NSString*      fontFamily;
+@property (atomic) int                  fontSize;
+
+/// Array of IFSyntaxHighlightingOptions
+@property (atomic, strong) NSMutableArray<IFSyntaxHighlightingOption*>* options;
+
+@property (atomic) CGFloat              tabWidth;
 @property (atomic) bool                 autoIndentAfterNewline;
 @property (atomic) bool                 autoSpaceTableColumns;
 @property (atomic) bool                 autoNumberSections;
@@ -38,7 +37,8 @@
 - (void) updateAppPreferencesFromSet;
 - (void) updateSetFromAppPreferences;
 - (IFSyntaxHighlightingOption*) optionOfType:(IFSyntaxHighlightingOptionType) type;
--(BOOL) isEqualToEditingPreferenceSet:(IFEditingPreferencesSet*) set;
+-(BOOL) isEqualToPreferenceSet:(IFEditingPreferencesSet*) set;
 -(BOOL) isEqual:(id)object;
+-(void) resetSettings;
 
 @end

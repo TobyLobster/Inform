@@ -1,5 +1,5 @@
 //
-//  IFProjectMaterialsPresenter.h
+//  IFProjectMaterialsPresenter.m
 //  Inform
 //
 //  Created by Toby Nelson in 2014
@@ -7,7 +7,6 @@
 // This class allows us to read/write to a project's materials folder in a sandboxed app.
 
 #import "IFProjectMaterialsPresenter.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 @implementation IFProjectMaterialsPresenter {
@@ -17,8 +16,6 @@
 
     NSOperationQueue* queue;
 }
-
-- (instancetype) init { self = [super init]; return self; }
 
 - (instancetype) initWithURL:(NSURL*) mainURL {
     self = [super init];
@@ -78,7 +75,7 @@
                                                                      [moveURL lastPathComponent], [secondaryURL lastPathComponent]];
                     [IFUtility runAlertInformationWindow: nil
                                                    title: @"Materials folder has been renamed"
-                                                 message: message];
+                                                 message: @"%@", message];
                 }
             }
         }
@@ -104,7 +101,7 @@
     }
 
     // Add icon to folder
-    NSImage* image = [IFImageCache loadResourceImage: @"App/Icons/materialsfile.icns"];
+    NSImage* image = [NSImage imageNamed: @"materialsfile"];
     BOOL didSetIcon = [[NSWorkspace sharedWorkspace] setIcon: image
                                                      forFile: [secondaryURL path]
                                                      options: (NSWorkspaceIconCreationOptions) 0];

@@ -8,59 +8,55 @@
 
 #import "IFIsTitleView.h"
 #import "IFInspectorView.h"
-#import "IFImageCache.h"
 
-#import "objc/objc-runtime.h"
+#import <objc/objc-runtime.h>
 
 
 @implementation IFIsTitleView {
-    NSAttributedString* title;						// The title to display
+    /// The title to display
+    NSAttributedString* title;
 
     // Key display
-    NSString* keyEquiv;								// (UNUSED) key to open this inspector
-    NSString* modifiers;							// (UNUSED) modifiers that apply to the key
+    /// (UNUSED) key to open this inspector
+    NSString* keyEquiv;
+    /// (UNUSED) modifiers that apply to the key
+    NSString* modifiers;
 }
 
 static NSImage* bgImage = nil;
 static NSFont* titleFont = nil;
-static float titleHeight = 0;
+static CGFloat titleHeight = 0;
 
 static NSDictionary* fontAttributes;
 
-// Bug in weak linking? Can't use NSShadowAttributeName... Hmph
-//static NSString* IFNSShadowAttributeName = @"NSShadow";
-
 + (void) initialize {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
 	// Background image
-	bgImage = [IFImageCache loadResourceImage: @"App/Inspector/Inspector-TitleBar.png"];
+	bgImage = [NSImage imageNamed: @"App/Inspector/Inspector-TitleBar"];
 	
 	// Font to use for titles, etc
 	titleFont = [NSFont systemFontOfSize: 11];
 	titleHeight = [titleFont ascender] + [titleFont descender];
 	titleHeight /= 2;
-	titleHeight = ceilf(titleHeight);
+	titleHeight = ceil(titleHeight);
 	
 	// Font attributes
-    /*
-	NSShadow* shadow = nil;
-	if (objc_lookUpClass("NSShadow") != nil && 0) {
-		shadow = [[NSShadow alloc] init];
+    
+	NSShadow* shadow = [[NSShadow alloc] init];
 		
 		[shadow setShadowOffset:NSMakeSize(1, -2)];
 		[shadow setShadowBlurRadius:2.5];
 		[shadow setShadowColor:[NSColor colorWithDeviceWhite:0.0 alpha:0.75]];
-		[shadow autorelease];
-	}
-    */
 
 	fontAttributes = @{NSFontAttributeName: titleFont,
-		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6]/*,
-		IFNSShadowAttributeName: shadow*/};
-
+		NSForegroundColorAttributeName: [NSColor colorWithDeviceWhite: 0.0 alpha: 0.6],
+                       NSShadowAttributeName: shadow};
+    });
 }
 
-+ (float) titleHeight {
-	return ceilf([titleFont ascender] + [titleFont descender]) + 8;
++ (CGFloat) titleHeight {
+	return ceil([titleFont ascender] + [titleFont descender]) + 8;
 }
 
 - (instancetype)initWithFrame:(NSRect)frame {
@@ -72,7 +68,7 @@ static NSDictionary* fontAttributes;
 }
 
 
-// = What to display =
+#pragma mark - What to display
 
 - (void) setTitle: (NSString*) newTitle {
 	
@@ -86,32 +82,23 @@ static NSDictionary* fontAttributes;
 	keyEquiv = nil;
 	if (equiv == nil || [equiv length] <= 0) return;
 	
-	static unichar returnChars[] = { 0x21a9 };
-	static unichar escapeChars[] = { 0x238b };
-	static unichar backspaceChars[] = { 0x232b };
-	static unichar tabChars[] = { 0x21e5 };
-	
 	switch ([keyEquiv characterAtIndex: 0]) {
 		case '\r':
 		case '\n':
-			keyEquiv = [NSString stringWithCharacters: returnChars
-												length: 1];
+			keyEquiv = @"\u21a9";
 			break;
 			
 		case '\b':
 		case 127:
-			keyEquiv = [NSString stringWithCharacters: backspaceChars
-												length: 1];
+			keyEquiv = @"\u232b";
 			break;
 			
 		case 9:
-			keyEquiv = [NSString stringWithCharacters: tabChars
-												length: 1];
+			keyEquiv = @"\u21e5";
 			break;
 		
 		case '\e':
-			keyEquiv = [NSString stringWithCharacters: escapeChars
-												length: 1];
+			keyEquiv = @"\u238b";
 			break;
 			
 		default:
@@ -130,7 +117,7 @@ static NSDictionary* fontAttributes;
 	
 }
 
-// = Drawing, etc =
+#pragma mark - Drawing, etc
 
 - (void)drawRect:(NSRect)rect {
 	NSRect bounds = [self bounds];
@@ -139,21 +126,20 @@ static NSDictionary* fontAttributes;
 	[[NSColor windowBackgroundColor] set];
 	//NSRectFill(rect);
 	
-	float x = 0;
 	NSRect imgRect;
 	imgRect.origin = NSMakePoint(0,0);
 	imgRect.size = [bgImage size];
-	float w = imgRect.size.width;
 	imgRect.size.height = [IFIsTitleView titleHeight];
+    NSRect drawRect;
+    drawRect.origin = NSZeroPoint;
+    drawRect.size.width = rect.size.width;
+    drawRect.size.height = imgRect.size.height;
 	
-	while (x < rect.origin.x) x += w;
-	while (x < NSMaxX(rect)) {
-		[bgImage drawAtPoint: NSMakePoint(x, 0)
-					fromRect: imgRect
-				   operation: NSCompositeSourceOver
-					fraction: 1.0];
-		x+=w;
-	}
+    // TODO: Test me!
+    [bgImage drawInRect: drawRect
+               fromRect: imgRect
+              operation: NSCompositingOperationSourceOver
+               fraction: 1.0];
 	
 	// Draw a line underneath
 	[[NSColor controlShadowColor] set];

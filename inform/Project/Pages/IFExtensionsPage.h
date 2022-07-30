@@ -9,14 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
-//
-// The 'extensions' page
-//
+///
+/// The 'extensions' page
+///
 @interface IFExtensionsPage : IFPage<WebResourceLoadDelegate, WebFrameLoadDelegate>
 
 // The documentation view
-- (void) openURL: (NSURL*) url;							// Tells the view to open a specific URL
-- (IBAction) showHome: (id) sender;						// Opens the home page
+/// Tells the view to open a specific URL
+- (void) openURL: (NSURL*) url;
+/// Opens the home page
+- (IBAction) showHome: (id) sender;
+
 - (void) extensionUpdated:(NSString*) javascriptId;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;

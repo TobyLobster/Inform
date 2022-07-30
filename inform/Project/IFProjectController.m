@@ -39,29 +39,25 @@
 #import "IFNaturalIntel.h"
 
 #import "IFIsFiles.h"
-#import "IFIsWatch.h"
-#import "IFIsBreakpoints.h"
 
 #import "IFHeaderController.h"
 
 #import "IFExtensionsManager.h"
 
 #import "IFI7OutputSettings.h"
-#import "IFOutputSettings.h"
 #import "IFCompilerController.h"
 #import "IFCompilerSettings.h"
 
-#import "IFImageCache.h"
 #import "IFUtility.h"
-#import "IFThinSplitView.h"
 #import <ZoomView/ZoomView.h>
+#import "Inform-Swift.h"
 
 // Preferences
-static NSString*    IFSplitViewSizes    = @"IFSplitViewSizes";
-static float        minDividerWidth     = 75.0f;
+static NSString* const    IFSplitViewSizes    = @"IFSplitViewSizes";
+static CGFloat const      minDividerWidth     = 75.0f;
 
 // *******************************************************************************************
-@interface IFProjectController(Private)
+@interface IFProjectController()
 
 - (void) refreshIndexTabs;
 - (void) runCompilerOutput;
@@ -75,8 +71,10 @@ static float        minDividerWidth     = 75.0f;
 @implementation IFProjectController {
     // Panes
     IBOutlet NSView*        panesView;
-    NSMutableArray*         projectPanes;           // Collection of panes
-    NSMutableArray*         splitViews;             // Collection of pane split views
+    /// Collection of panes
+    NSMutableArray*         projectPanes;
+    /// Collection of pane split views
+    NSMutableArray*         splitViews;
 
     // Toolbar
     IFToolbarManager*       toolbarManager;
@@ -85,38 +83,45 @@ static float        minDividerWidth     = 75.0f;
     IFHeaderController*     headerController;
 
     // The current tab view (used for the various tab selection menu items)
-    NSTabView*              currentTabView;         // The active tab view
-    IFProjectPane*          currentPane;            // The active project pane
+    /// The active tab view
+    NSTabView*              currentTabView;
+    /// The active project pane
+    IFProjectPane*          currentPane;
 
     // Source highlighting (indexed by file)
     NSMutableDictionary*    lineHighlighting;
     BOOL                    temporaryHighlights;
 
     // Compiling
-    SEL                     compileFinishedAction;  // Action after a compile has finished
+    /// Action after a compile has finished
+    SEL                     compileFinishedAction;
     BOOL                    isCompiling;
 
     // The last file selected
     NSString*               lastFilename;
 
-    // Debugging
-    BOOL                    waitingAtBreakpoint;
-
     // Stack of skein items
-    NSMutableArray*         skeinNodeStack;         // Used when running the entire skein (array of IFSkeinItem objects)
+    /// Used when running the entire skein (array of IFSkeinItem objects)
+    NSMutableArray<IFSkeinItem*>*         skeinNodeStack;
 
     // Glk automation
-    id                      glkInputSource;
+    id<ZoomViewInputSource> glkInputSource;
 
     BOOL                    betweenWindowLoadedAndBecomingMain;
     BOOL                    testCaseChangedSinceLastSuccessfulCompile;
-    int                     currentTestCaseIndex;   // Current index of test cases to test
-    int                     startTestCaseIndex;     // Range of test cases to test
-    int                     endTestCaseIndex;       // Range of test cases to test
-    int                     numberOfTestCases;      // Number of test cases tested
+    /// Current index of test cases to test
+    int                     currentTestCaseIndex;
+    /// Range of test cases to test
+    int                     startTestCaseIndex;
+    /// Range of test cases to test
+    int                     endTestCaseIndex;
+    /// Number of test cases tested
+    int                     numberOfTestCases;
 
-    IFPolicyManager*        policyManager;          // Policy delegates (for handling custom URLs like 'library://')
-    IFSourceSharedActions*  sharedActions;          // Actions that can be shared between project and single controllers
+    /// Policy delegates (for handling custom URLs like 'library://')
+    IFPolicyManager*        policyManager;
+    /// Actions that can be shared between project and single controllers
+    IFSourceSharedActions*  sharedActions;
 
     IFProgress*             testAllProgress;
 }
@@ -124,7 +129,7 @@ static float        minDividerWidth     = 75.0f;
 + (void) initialize {
 	// Register our preferences
 	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	[defaults registerDefaults: @{IFSplitViewSizes: @[@0.5f, @0.5f]}];
+	[defaults registerDefaults: @{IFSplitViewSizes: @[@0.5, @0.5]}];
 }
 
 // == Initialistion ==
@@ -198,8 +203,7 @@ static float        minDividerWidth     = 75.0f;
 - (void)windowDidBecomeMain:(NSNotification *)notification {
     betweenWindowLoadedAndBecomingMain = NO;
 
-    // Hide the debug menu if we're not making a project where debugging is available
-	[[(IFAppDelegate*)[NSApp delegate] debugMenu] setHidden: ![self canDebug]];
+    [toolbarManager redrawToolbar];
 
     // The window accepts mouse move events
     [[self window] setAcceptsMouseMovedEvents:YES];
@@ -237,13 +241,6 @@ static float        minDividerWidth     = 75.0f;
 }
 
 - (void) awakeFromNib {
-	// Register for breakpoints updates
-	[[NSNotificationCenter defaultCenter] addObserver: self
-											 selector: @selector(updatedBreakpoints:)
-												 name: IFProjectBreakpointsChangedNotification
-											   object: [self document]];
-	[self updatedBreakpoints: nil];
-	
     // Setup the default panes
     [projectPanes removeAllObjects];
     [projectPanes addObject: [IFProjectPane standardPane]];
@@ -303,16 +300,16 @@ static float        minDividerWidth     = 75.0f;
         [panesView addSubview: [firstPane paneView]];
     } else {
         // Create the splitViews
-        int view, nviews;
-        double dividerWidth = 5;
+        NSInteger view, nviews;
+        CGFloat dividerWidth = 5;
 
-        nviews = (int) [projectPanes count];
+        nviews = [projectPanes count];
         for (view=0; view<nviews-1; view++) {
-            NSSplitView* newView = [[IFThinSplitView alloc] init];
+            NSSplitView* newView = [[ThinSplitView alloc] init];
 
             [newView setVertical: YES];
             [newView setDelegate: self];
-            [newView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+            [newView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
 
             dividerWidth = [newView dividerThickness];
 
@@ -320,26 +317,26 @@ static float        minDividerWidth     = 75.0f;
         }
 
         // Remaining space for other dividers
-        double remaining        = [panesView bounds].size.width - dividerWidth*(double)(nviews-1);
-        double totalRemaining   = [panesView bounds].size.width;
-        double viewWidth        = floor(remaining / (double)nviews);
+        CGFloat remaining        = [panesView bounds].size.width - dividerWidth*(CGFloat)(nviews-1);
+        CGFloat totalRemaining   = [panesView bounds].size.width;
+        CGFloat viewWidth        = floor(remaining / (CGFloat)nviews);
 
 		// Work out the widths of the dividers using the preferences
-		NSMutableArray* realDividerWidths = [NSMutableArray array];
-		NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] objectForKey: IFSplitViewSizes];
+		NSMutableArray<NSNumber*>* realDividerWidths = [NSMutableArray array];
+		NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] arrayForKey: IFSplitViewSizes];
 
         if (![dividerProportions isKindOfClass: [NSArray class]] || [dividerProportions count] <= 0) {
 			dividerProportions = @[@1.0f];
         }
 
-		float totalWidth = 0;
+        CGFloat totalWidth = 0;
 		for (view=0; view<nviews; view++) {
-			float width;
+            CGFloat width;
 			
 			if (view >= [dividerProportions count]) {
-				width = [dividerProportions[[dividerProportions count]-1] floatValue];
+				width = [dividerProportions[[dividerProportions count]-1] doubleValue];
 			} else {
-				width = [dividerProportions[view] floatValue];
+				width = [dividerProportions[view] doubleValue];
 			}
 			
 			if (width <= 0) width = 1.0;
@@ -349,7 +346,7 @@ static float        minDividerWidth     = 75.0f;
 		}
 
 		// Work out the actual widths to use, and size and add the views appropriately
-		float proportion = remaining / totalWidth;
+        CGFloat proportion = remaining / totalWidth;
 
         // Insert the views
         NSSplitView* lastView = nil;
@@ -361,7 +358,7 @@ static float        minDividerWidth     = 75.0f;
 
             [pane setController: self viewIndex: view];
 			
-			viewWidth = floorf(proportion * [realDividerWidths[view] floatValue]);
+			viewWidth = floor(proportion * [realDividerWidths[view] doubleValue]);
 
             // Resize the splitview
             NSRect splitFrame;
@@ -418,13 +415,13 @@ static float        minDividerWidth     = 75.0f;
 	
 	NSMutableArray* viewSizes = [NSMutableArray array];
 	
-	float totalWidth = [[self window] frame].size.width;
+    CGFloat totalWidth = [[self window] frame].size.width;
 	
 	for (view=0; view<nviews; view++) {
 		IFProjectPane* pane = projectPanes[view];
 		NSRect paneFrame = [[pane paneView] frame];
 		
-		[viewSizes addObject: @((float) (paneFrame.size.width/totalWidth))];
+		[viewSizes addObject: @((CGFloat) (paneFrame.size.width/totalWidth))];
 	}
 	
 	[[NSUserDefaults standardUserDefaults] setObject: viewSizes
@@ -433,10 +430,6 @@ static float        minDividerWidth     = 75.0f;
 
 
 // == Toolbar item validation ==
-
-- (BOOL) canDebug {
-	return [[self document] canDebug];
-}
 
 - (void) changeFirstResponder: (NSResponder*) first {
 	if ([first isKindOfClass: [NSView class]]) {
@@ -480,32 +473,8 @@ static float        minDividerWidth     = 75.0f;
 	SEL itemSelector = [menuItem action];
 	BOOL isRunning = [[self runningGamePage] isRunningGame];
 
-	if (itemSelector == @selector(continueProcess:) ||
-		itemSelector == @selector(stepOverProcess:) ||
-		itemSelector == @selector(stepIntoProcess:) ||
-		itemSelector == @selector(stepOutProcess:)) {
-		return isRunning ? waitingAtBreakpoint : NO;
-	}
-
-	if (itemSelector == @selector(pauseProcess:) &&
-		![self canDebug]) {
-		return NO;
-	}
-
-	if (itemSelector == @selector(stopProcess:) ||
-		itemSelector == @selector(pauseProcess:)) {
+	if (itemSelector == @selector(stopProcess:)) {
 		return isRunning;
-	}
-
-	if (itemSelector == @selector(compileAndDebug:) ||
-		  itemSelector == @selector(setBreakpoint:) ||
-		  itemSelector == @selector(deleteBreakpoint:)) {
-		if (![self canDebug]) {
-            [menuItem setHidden: YES];
-			return NO;
-		} else {
-			[menuItem setHidden: NO];
-		}
 	}
 
     BOOL selectedNoTestCase = [self isExtensionProject] && ((toolbarManager.testCases.count == 0) ||
@@ -667,18 +636,30 @@ static float        minDividerWidth     = 75.0f;
                                                   forTesting: releaseForTesting
                                                  refreshOnly: onlyRefresh
                                                     testCase: testCase];
+    if (theCompiler != nil)
+    {
+        // Start progress indicator
+        [self addProgressIndicator: [theCompiler progress]];
+        [[theCompiler progress] startProgress];
 
-    // Start progress indicator
-    [self addProgressIndicator: [theCompiler progress]];
-    [[theCompiler progress] startProgress];
+        // Clear the console only on the first compilation of this run
+        if (currentTestCaseIndex < 1) {
+            [theCompiler clearConsole];
+        }
 
-    // Clear the console only on the first compilation of this run
-    if (currentTestCaseIndex < 1) {
-        [theCompiler clearConsole];
+        [theCompiler launch];
+        isCompiling = YES;
     }
-
-    [theCompiler launch];
-    isCompiling = YES;
+    else
+    {
+        NSString* version = [[doc settings] compilerVersion];
+        NSString* message = [NSString stringWithFormat: [IFUtility localizedString: @"One possibility is that the project's language version '%@' is not available. Try setting the language version in Settings."], version];
+        [IFUtility runAlertWindow: [self window]
+                        localized: YES
+                          warning: YES
+                            title: [IFUtility localizedString: @"Could not launch compiler."]
+                          message: @"%@", message];
+    }
 
     // Show the Console pane if required
     if( ![self isTestAllCasesSelected] ) {
@@ -695,6 +676,19 @@ static float        minDividerWidth     = 75.0f;
 	for( IFProjectPane* pane in projectPanes ) {
 		[pane prepareToSave];
 	}
+
+    // Save the project, without user interaction.
+    [[self document] saveDocumentWithoutUserInteraction];
+
+    // Refresh the available test cases
+    [self refreshTestCases];
+}
+
+- (IBAction)saveDocumentAs:(id)sender {
+    // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
+    for( IFProjectPane* pane in projectPanes ) {
+        [pane prepareToSave];
+    }
 
     // Save the project, without user interaction.
     [[self document] saveDocumentWithoutUserInteraction];
@@ -815,8 +809,6 @@ static float        minDividerWidth     = 75.0f;
                   refreshOnly: NO
                  forceCompile: NO
                     onSuccess: @selector(runCompilerOutput)];
-
-        waitingAtBreakpoint = NO;
     }
 }
 
@@ -885,8 +877,6 @@ static float        minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: YES
                 onSuccess: @selector(runCompilerOutputAndTest)];
-
-    waitingAtBreakpoint = NO;
 }
 
 - (IBAction) replayUsingSkein: (id) sender {
@@ -895,8 +885,6 @@ static float        minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: NO
                 onSuccess: @selector(runCompilerOutputAndReplay)];
-	
-	waitingAtBreakpoint = NO;
 }
 
 - (IBAction) replayEntireSkein: (id) sender {
@@ -907,8 +895,6 @@ static float        minDividerWidth     = 75.0f;
                   refreshOnly: NO
                  forceCompile: NO
                     onSuccess: @selector(runCompilerOutputAndEntireSkein)];
-        
-        waitingAtBreakpoint = NO;
     }
 }
 
@@ -921,8 +907,6 @@ static float        minDividerWidth     = 75.0f;
               refreshOnly: NO
              forceCompile: NO
                 onSuccess: @selector(debugCompilerOutput)];
-
-	waitingAtBreakpoint = NO;
 }
 
 - (IBAction) stopProcess: (id) sender {
@@ -948,7 +932,7 @@ static float        minDividerWidth     = 75.0f;
     [[self document] saveIFictionWithWindow: [self window]];
 }
 
-// = Displaying a specific index tab =
+#pragma mark - Displaying a specific index tab
 
 - (IBAction) showIndexTab: (id) sender {
 	int tag = (int) [sender tag];
@@ -960,7 +944,7 @@ static float        minDividerWidth     = 75.0f;
 	[[self indexPane] selectViewOfType: IFIndexPane];
 }
 
-// = Things to do after the compiler has finished =
+#pragma mark - Things to do after the compiler has finished
 
 - (void) refreshIndexTabs {
 	// Display the index pane
@@ -1004,8 +988,6 @@ static float        minDividerWidth     = 75.0f;
 
 
 - (void) runCompilerOutput {
-	waitingAtBreakpoint = NO;
-
     [self.gamePage startRunningGame: [[self document] buildOutputFileURL].path];
 
     [toolbarManager validateVisibleItems];
@@ -1020,7 +1002,6 @@ static float        minDividerWidth     = 75.0f;
 }
 
 - (void) debugCompilerOutput {
-	waitingAtBreakpoint = NO;
 	[self.gamePage activateDebug];
     [self.gamePage startRunningGame: [[self.document compiler] outputFile]];
 
@@ -1173,7 +1154,8 @@ static float        minDividerWidth     = 75.0f;
     }
 }
 
-// = Communication from the containing panes =
+#pragma mark - Communication from the containing panes
+
 - (IFProjectPane*) sourcePane {
 	// Returns the current pane containing the source code (or an appropriate pane that source code can be displayed in)
     int paneToUse = 0;
@@ -1366,7 +1348,7 @@ static float        minDividerWidth     = 75.0f;
 	return [[self sourcePage] currentFile];
 }
 
-- (void) moveToSourceFileLine: (int) line {
+- (void) moveToSourceFileLine: (NSInteger) line {
 	IFProjectPane* thePane = [self sourcePane];
 
     [thePane selectViewOfType: IFSourcePane];
@@ -1374,7 +1356,7 @@ static float        minDividerWidth     = 75.0f;
     [[self window] makeFirstResponder: [thePane activeView]];
 }
 
-- (void) moveToSourceFilePosition: (int) location {
+- (void) moveToSourceFilePosition: (NSInteger) location {
 	IFProjectPane* thePane = [self sourcePane];
 	
     [thePane selectViewOfType: IFSourcePane];
@@ -1439,14 +1421,14 @@ static float        minDividerWidth     = 75.0f;
 	temporaryHighlights = NO;
 }
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file {
     [self highlightSourceFileLine: line
 						   inFile: file
                             style: IFLineStyleNeutral];
 }
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style {
 	// Get the 'true' path to this file
@@ -1477,7 +1459,7 @@ static float        minDividerWidth     = 75.0f;
 	}
 	
 	[lineHighlight addObject: @[@(line), 
-		@((int) style)]];
+		@(style)]];
 	
 	// Display the highlight
 	if (style >= IFLineStyle_Temporary && style < IFLineStyle_LastTemporary)
@@ -1488,7 +1470,7 @@ static float        minDividerWidth     = 75.0f;
 			[[pane sourcePage] updateHighlightedLines];
 
 			if (temporaryHighlights) {
-				[[pane sourcePage] indicateLine: line];
+				[[pane sourcePage] indicateLine: (int) line];
 			}
 		}
 	}
@@ -1500,7 +1482,7 @@ static float        minDividerWidth     = 75.0f;
 	return lineHighlighting[file];
 }
 
-// = Debugging controls =
+#pragma mark - Debugging controls
 
 - (IFProjectPane*) runningGamePane {
 	// Return the pane that we're displaying/going to display the game in
@@ -1531,80 +1513,12 @@ static float        minDividerWidth     = 75.0f;
 	[[self runningGamePage] pauseRunningGame];
 }
 
-- (void) continueProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] continueFromBreakpoint];
-	}
-}
-
-- (void) stepOverProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] stepFromBreakpoint];
-	}
-}
-
-- (void) stepOutProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] finishFromBreakpoint];
-	}
-}
-
-- (void) stepIntoProcess: (id) sender {
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
-
-	if (isRunning && waitingAtBreakpoint) {
-		waitingAtBreakpoint = NO;
-		[self restartRunning];
-		[[[[self runningGamePage] zoomView] zMachine] stepIntoFromBreakpoint];
-	}
-}
-
-- (void) hitBreakpoint: (int) pc {
-	// Retrieve the game view
-	IFGamePage* gamePage = [self runningGamePage];
-	ZoomView* zView = [gamePage zoomView];
-	
-	NSString* filename = [[zView zMachine] sourceFileForAddress: pc];
-	int line_no = [[zView zMachine] lineForAddress: pc];
-	int char_no = [[zView zMachine] characterForAddress: pc];
-		
-	if (line_no > -1 && filename != nil) {
-		[[self sourcePage] showSourceFile: filename];
-		
-		if (char_no > -1)
-			[[self sourcePage] moveToLine: line_no
-								character: char_no];
-		else
-			[[self sourcePage] moveToLine: line_no];
-		[self removeHighlightsOfStyle: IFLineStyleExecutionPoint];
-		[self highlightSourceFileLine: line_no
-							   inFile: filename
-								style: IFLineStyleExecutionPoint];
-		[[self window] makeFirstResponder: [[self sourcePane] activeView]];
-	}
-	
-	waitingAtBreakpoint = YES;
-	
-	[toolbarManager validateVisibleItems];
-}
-
 - (IFIntelFile*) currentIntelligence {
 	return [[self sourcePage] currentIntelligence];
 }
 
-// = Documentation controls =
+#pragma mark - Documentation controls
+
 - (void) docIndex: (id) sender {
 	[[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/index.html"]];
 }
@@ -1617,27 +1531,30 @@ static float        minDividerWidth     = 75.0f;
 	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: @"inform://Extensions/Extensions.html"]];
 }
 
-// = Adding files =
+#pragma mark - Adding files
+
 - (void) addNewFile: (id) sender {
 	IFNewProjectFile* npf = [[IFNewProjectFile alloc] initWithProjectController: self];
 
 	NSString* newFile = [npf getNewFilename];
 	if (newFile) {
 		if (![(IFProject*)[self document] addFile: newFile]) {
-			NSBeginAlertSheet([IFUtility localizedString: @"Unable to create file"],
-							  [IFUtility localizedString: @"FileUnable - Cancel"
-                                                 default: @"Cancel"], nil, nil,
-							  [self window], nil, nil, nil, nil,
-                              @"%@",
-							  [IFUtility localizedString: @"FileUnable - Description"
-                                                 default: @"Inform was unable to create that file: most probably because a file already exists with that name"]);
+            NSAlert *alert = [[NSAlert alloc] init];
+            alert.informativeText = [IFUtility localizedString: @"FileUnable - Description"
+                                                       default: @"Inform was unable to create that file: most probably because a file already exists with that name"];
+            alert.messageText = [IFUtility localizedString: @"Unable to create file"];
+            [alert addButtonWithTitle:[IFUtility localizedString: @"FileUnable - Cancel"
+                                                         default: @"Cancel"]];
+            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+               // do nothing.
+            }];
 		}
 	}
 
 	[[IFIsFiles sharedIFIsFiles] updateFiles];
 }
 
-// = Skein delegate =
+#pragma mark - Skein delegate
 
 - (void) stopGame {
     IFGamePage* gamePage = self.gamePage;
@@ -1650,8 +1567,8 @@ static float        minDividerWidth     = 75.0f;
 - (void) playToPoint: (IFSkeinItem*) point
 		   fromPoint: (IFSkeinItem*) currentPoint {
     if ([self.gamePage isRunningGame]) {
-		id inputSource = [IFSkein inputSourceFromSkeinItem: currentPoint
-                                                    toItem: point];
+		id<ZoomViewInputSource> inputSource = [IFSkein inputSourceFromSkeinItem: currentPoint
+                                                                         toItem: point];
 	
 		ZoomView* zView = [[self runningGamePage] zoomView];
 		GlkView* gView = [[self runningGamePage] glkView];
@@ -1672,7 +1589,7 @@ static float        minDividerWidth     = 75.0f;
 	}
 }
 
-// = Policy delegates =
+#pragma mark - Policy delegates
 
 - (IFProjectPolicy*) generalPolicy {
 	return policyManager.generalPolicy;
@@ -1686,7 +1603,7 @@ static float        minDividerWidth     = 75.0f;
 	return policyManager.extensionsPolicy;
 }
 
-// = Displaying progress =
+#pragma mark - Displaying progress
 
 - (void) showMessage: (NSString*) message {
     [toolbarManager showMessage: message];
@@ -1701,7 +1618,7 @@ static float        minDividerWidth     = 75.0f;
 }
 
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage {
+				percentage: (CGFloat) newPercentage {
 	[toolbarManager progressIndicator: indicator
                            percentage: newPercentage];
 }
@@ -1720,20 +1637,6 @@ static float        minDividerWidth     = 75.0f;
     return [toolbarManager validateToolbarItem: item];
 }
 
-// = Debugging =
-
-- (IBAction) showWatchpoints: (id) sender {
-	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
-	[[IFInspectorWindow sharedInspectorWindow] showInspectorWithKey: IFIsWatchInspector];
-}
-
-- (IBAction) showBreakpoints: (id) sender {
-	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
-	[[IFInspectorWindow sharedInspectorWindow] showInspectorWithKey: IFIsBreakpointsInspector];
-}
-
-// = Breakpoints =
-
 // (Grr, need to be able to make IFProjectPane the first responder or something, but it isn't
 // listening to messages from the main menu. Or at least, it's not being called that way)
 // This may not work the way the user expects if she has two source panes open. Blerh.
@@ -1748,33 +1651,9 @@ static float        minDividerWidth     = 75.0f;
 	}
 }
 
-- (IBAction) setBreakpoint: (id) sender {
-	[[self activeSourcePage] setBreakpoint: sender];
-}
+#pragma mark - Dealing with search panels
 
-- (IBAction) deleteBreakpoint: (id) sender {
-	[[self activeSourcePage] deleteBreakpoint: sender];
-}
-
-- (void) updatedBreakpoints: (NSNotification*) not {
-	// Update the breakpoint highlights
-	[self removeHighlightsOfStyle: IFLineStyleBreakpoint];
-	
-	int x;
-	
-	for (x=0; x<[[self document] breakpointCount]; x++) {
-		int line = [[self document] lineForBreakpointAtIndex: x];
-		NSString* file = [[self document] fileForBreakpointAtIndex: x];
-		
-		[self highlightSourceFileLine: line+1
-							   inFile: file
-								style: IFLineStyleBreakpoint];
-	}
-}
-
-// = Dealing with search panels =
-
-- (void) searchShowSelectedItemAtLocation: (int) location
+- (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type
@@ -1819,7 +1698,7 @@ static float        minDividerWidth     = 75.0f;
 	}
 }
 
-// = Menu options =
+#pragma mark - Menu options
 
 - (IBAction) shiftLeft: (id) sender {
     NSResponder* responder = [[self window] firstResponder];
@@ -1866,7 +1745,7 @@ static float        minDividerWidth     = 75.0f;
     }
 }
 
-// = Searching =
+#pragma mark - Searching
 
 - (IBAction) searchDocs: (id) sender {
 	if ( ([sender stringValue] == nil) ||
@@ -1874,7 +1753,7 @@ static float        minDividerWidth     = 75.0f;
     
     [[IFFindInFilesController sharedFindInFilesController] showFindInFilesWindow: self];
     [[IFFindInFilesController sharedFindInFilesController] startFindInFilesSearchWithPhrase: [sender stringValue]
-                                                                           withLocationType: (IFFindLocation) (IFFindDocumentationBasic | IFFindDocumentationSource | IFFindDocumentationDefinitions)
+                                                                           withLocationType: (IFFindDocumentationBasic | IFFindDocumentationSource | IFFindDocumentationDefinitions)
                                                                                    withType: (IFFindType) (IFFindContains | IFFindCaseInsensitive)];
 }
 
@@ -1900,34 +1779,44 @@ static float        minDividerWidth     = 75.0f;
     }
 }
 
+/* For an extension project, we install that extension, otherwise we call the app delegate's
+ version to show an open dialog to install any extension */
 - (IBAction) installExtension: (id) sender {
-    // This only applies in an Extension Project.
-    // Save extension.i7x (without user interaction) and install it
-    [self saveDocument: sender];
+    if ([[self document] isExtensionProject]) {
+        // This only applies in an Extension Project.
+        // Save extension.i7x (without user interaction) and install it
+        [self saveDocument: sender];
 
-    IFProject* doc = [self document];
-    NSString* finalPath = nil;
-    [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [doc mainSourcePathName]
-                                                                       finalPath: &finalPath
-                                                                           title: nil
-                                                                          author: nil
-                                                                         version: nil
-                                                              showWarningPrompts: YES
-                                                                          notify: YES];
+        IFProject* doc = [self document];
+        NSString* finalPath = nil;
+        IFExtensionResult result = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [doc mainSourcePathName]
+                                                                                                      finalPath: &finalPath
+                                                                                                          title: nil
+                                                                                                         author: nil
+                                                                                                        version: nil
+                                                                                             showWarningPrompts: YES
+                                                                                                         notify: YES];
+        if (result != IFExtensionSuccess) {
+            [IFUtility showExtensionError: result withWindow: [self window]];
+        }
+    } else {
+        [((IFAppDelegate *) [NSApp delegate]) installExtension: sender];
+    }
 }
 
-// = UIDelegate methods =
+#pragma mark - UIDelegate methods
 
 // We only implement a fairly limited subset of the UI methods, mainly to help show status
 - (void)						webView:(WebView *)sender 
 	 runJavaScriptAlertPanelWithMessage:(NSString *)message {
-	NSRunAlertPanel([IFUtility localizedString: @"JavaScript Alert"],
-					@"%@",
-					[IFUtility localizedString: @"Continue"],
-					nil, nil, message);
+    NSAlert *alert = [[NSAlert alloc] init];
+    alert.messageText = [IFUtility localizedString: @"JavaScript Alert"];
+    alert.informativeText = message;
+    [alert addButtonWithTitle: [IFUtility localizedString: @"Continue"]];
+    [alert runModal];
 }
 
-// = IFRuntimeErrorParser delegate methods =
+#pragma mark - IFRuntimeErrorParser delegate methods
 
 - (void) runtimeError: (NSString*) error {
 	// The file that might contain the error
@@ -1953,7 +1842,7 @@ static float        minDividerWidth     = 75.0f;
 	[projectPanes[0] selectViewOfType: IFErrorPane];
 }
 
-// = Tabbing around =
+#pragma mark - Tabbing around
 
 - (void) activateNearestTextView {
 	// Start from the current tab view
@@ -2066,7 +1955,7 @@ static float        minDividerWidth     = 75.0f;
 	}
 }
 
-// = Spell checking =
+#pragma mark - Spell checking
 
 - (void) setSourceSpellChecking: (BOOL) spellChecking {
 	// Update the panes
@@ -2075,7 +1964,7 @@ static float        minDividerWidth     = 75.0f;
 	}
 }
 
-// = CocoaGlk -> skein gateway (GlkAutomation) =
+#pragma mark - CocoaGlk -> skein gateway (GlkAutomation)
 
 - (IBAction) glkTaskHasStarted: (id) sender {
 	IFSkein* currentSkein = [[self document] currentSkein];
@@ -2083,9 +1972,7 @@ static float        minDividerWidth     = 75.0f;
 	[currentSkein interpreterRestart];
 }
 
-- (void) setGlkInputSource: (id) newSource {
-	glkInputSource = newSource;
-}
+@synthesize glkInputSource;
 
 - (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber
@@ -2151,13 +2038,14 @@ static float        minDividerWidth     = 75.0f;
     [[IFFindInFilesController sharedFindInFilesController] showFindInFilesWindow: self];
 }
 
-// = The find action =
+#pragma mark - The find action
 
 - (void) performFindPanelAction: (id) sender {
 	// TODO: [[self currentTabView] performFindPanelAction: sender];
 }
 
-// = Running the entire skein =
+#pragma mark - Running the entire skein
+
 - (void) fillNode: (IFSkeinItem*) item {
     if( item.children.count > 0 ) {
         for( IFSkeinItem* child in [[item children] reverseObjectEnumerator] ) {
@@ -2227,7 +2115,7 @@ static float        minDividerWidth     = 75.0f;
 
     int done  = currentTestCaseIndex - startTestCaseIndex + 1;
     int total = 1 + (endTestCaseIndex - startTestCaseIndex);
-    float percentage = 100.0f * (float) done / (float) total;
+    CGFloat percentage = 100.0 * (CGFloat) done / (CGFloat) total;
     NSString* message;
     message = [NSString stringWithFormat: [IFUtility localizedString:@"Testing %d of %d"], done, total];
     [testAllProgress setPercentage: percentage];
@@ -2302,7 +2190,8 @@ static float        minDividerWidth     = 75.0f;
                                     repeats: NO];
 }
 
-// = Importing skein information =
+#pragma mark - Importing skein information
+
 - (IBAction) importIntoSkein: (id) sender {
     [[self document] importIntoSkeinWithWindow: [self window]];
 }
@@ -2311,7 +2200,8 @@ static float        minDividerWidth     = 75.0f;
     [[self document] exportExtension: [self window]];
 }
 
-// = Documentation =
+#pragma mark - Documentation
+
 - (void) openDocUrl: (NSURL*) url {
 	IFProjectPane* auxPane = [self auxPane];
 	
@@ -2319,7 +2209,8 @@ static float        minDividerWidth     = 75.0f;
 	[[auxPane documentationPage] openURL: url];
 }
 
-// = Headers =
+#pragma mark - Headers
+
 - (void) intelFileChanged: (NSNotification*) not {
 	// Must be the current intelligence object
 	if ([not object] != [self currentIntelligence]) return;
@@ -2328,11 +2219,9 @@ static float        minDividerWidth     = 75.0f;
 	[headerController updateFromIntelligence: (IFIntelFile*)[not object]];
 }
 
-- (IFHeaderController*) headerController {
-	return headerController;
-}
+@synthesize headerController;
 
-// = Moving around source headings =
+#pragma mark - Moving around source headings
 - (void) showHeadings: (id) sender {
 	// Select the source page in the current tab
 	[[self currentTabView] selectTabViewItemWithIdentifier: [[IFSourcePage class] description]];
@@ -2423,10 +2312,6 @@ static float        minDividerWidth     = 75.0f;
     return [[self runningGamePage] isRunningGame];
 }
 
--(BOOL) isWaitingAtBreakpoint {
-    return waitingAtBreakpoint;
-}
-
 -(BOOL) isCompiling {
     return isCompiling;
 }
@@ -2447,7 +2332,7 @@ static float        minDividerWidth     = 75.0f;
    constrainMaxCoordinate: (CGFloat) proposedMaximumPosition
               ofSubviewAt: (NSInteger) dividerIndex
 {
-    float limit = MAX(minDividerWidth, [splitView bounds].size.width - minDividerWidth);
+    CGFloat limit = MAX(minDividerWidth, [splitView bounds].size.width - minDividerWidth);
     if (proposedMaximumPosition > limit) {
         proposedMaximumPosition = limit;
     }

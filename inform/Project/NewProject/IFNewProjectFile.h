@@ -10,17 +10,21 @@
 
 @class IFProjectController;
 
-//
-// Window controller that handles the dialog that's presented when we want to add a new file to
-// a project
-//
+///
+/// Window controller that handles the dialog that's presented when we want to add a new file to
+/// a project
+///
 @interface IFNewProjectFile : NSWindowController
 
-- (instancetype) initWithProjectController: (IFProjectController*) control;	// Initialises this object
+/// Initialises this object
+- (instancetype) initWithProjectController: (IFProjectController*) control;
 
-- (IBAction) cancel: (id) sender;									// Cancels the action
-- (IBAction) addFile: (id) sender;									// Performs the action
+/// Cancels the action
+- (IBAction) cancel: (id) sender;
+/// Performs the action
+- (IBAction) addFile: (id) sender;
 
-@property (atomic, getter=getNewFilename, readonly, copy) NSString *newFilename;    // Retrieves the name of the file that should be created
+/// Retrieves the name of the file that should be created
+@property (atomic, getter=getNewFilename, readonly, copy) NSString *newFilename;
 
 @end

@@ -15,7 +15,7 @@
     IFSkeinItem*    item;
     BOOL            onSelectedLine;
     BOOL            recentlyPlayed;
-    float           subtreeWidth;
+    CGFloat         subtreeWidth;
     int             level;
     int             depth;
 }
@@ -24,8 +24,14 @@
 @synthesize children;
 @synthesize commandWidth;
 @synthesize boundingRect;
+@synthesize item;
+@synthesize subtreeWidth;
+@synthesize level;
+@synthesize depth;
+@synthesize onSelectedLine;
+@synthesize recentlyPlayed;
 
-// = Initialisation =
+#pragma mark -  Initialisation
 
 - (instancetype) init {
 	return [self initWithItem: nil
@@ -34,7 +40,7 @@
 }
 
 - (instancetype) initWithItem: (IFSkeinItem*) newItem
-                 subtreeWidth: (float) newSubtreeWidth
+                 subtreeWidth: (CGFloat) newSubtreeWidth
                         level: (int) newLevel {
 	self = [super init];
 	
@@ -49,59 +55,16 @@
 	return self;
 }
 
-// = Getting properties =
+#pragma mark -  Getting properties
 
-- (IFSkeinItem*) item {
-	return item;
+- (CGFloat) visibleWidth {
+	return 20.0 + self.commandWidth;
 }
 
-- (float) visibleWidth {
-	return 20.0f + self.commandWidth;
-}
-
-- (float) subtreeWidth {
-	return subtreeWidth;
-}
-
-- (NSArray*) children {
-	return children;
-}
-
-- (int)	level {
-	return level;
-}
-
-- (BOOL) onSelectedLine {
-	return onSelectedLine;
-}
-
-- (int) depth {
-	return depth;
-}
-
-- (BOOL) recentlyPlayed {
-	return recentlyPlayed;
-}
-
-// = Setting properties =
--(IFSkeinLayoutItem*) parent {
-    return parent;
-}
-
--(void) setParent:(IFSkeinLayoutItem *)theParent {
-    parent = theParent;
-}
-
-- (void) setItem: (IFSkeinItem*) newItem {
-	item = newItem;
-}
-
-- (void) setSubtreeWidth: (float) newFullWidth {
-	subtreeWidth = newFullWidth;
-}
+#pragma mark -  Setting properties
 
 - (void) setChildren: (NSArray*) newChildren {
-	children = newChildren;
+	children = [newChildren copy];
 	
 	int maxDepth = -1;
     for( IFSkeinLayoutItem* child in children ) {
@@ -111,23 +74,11 @@
 	depth = maxDepth+1;
 }
 
-- (void) setLevel: (int) newLevel {
-	level = newLevel;
-}
-
-- (void) setOnSelectedLine: (BOOL) online {
-	onSelectedLine = online;
-}
-
-- (void) setRecentlyPlayed: (BOOL) played {
-	recentlyPlayed = played;
-}
-
-- (void) moveRightBy: (float) deltaX
+- (void) moveRightBy: (CGFloat) deltaX
          recursively: (BOOL) recursively {
     // Update bounding rect
     NSRect newBounds = self.boundingRect;
-    newBounds.origin.x = floorf(newBounds.origin.x + deltaX);
+    newBounds.origin.x = floor(newBounds.origin.x + deltaX);
     self.boundingRect = newBounds;
 
     // Move children by the same amount
@@ -163,16 +114,16 @@
 - (NSRect) textRect {
     NSRect itemRect = [self lozengeRect];
 
-    float width = [self commandWidth];
+    CGFloat width = [self commandWidth];
 
     // Adjust the lozenge width to just include the text area
-    itemRect.origin.x += 15.0f;
+    itemRect.origin.x += 15.0;
     itemRect.size.width = width;
 
     return itemRect;
 }
 
-- (float) centreX {
+- (CGFloat) centreX {
     return NSMidX(self.lozengeRect);
 }
 
@@ -198,8 +149,8 @@
     return nil;
 }
 
-// Calculate a hash based on the current state. We only redraw when the stateHash changes.
--(unsigned long) drawStateHash {
+/// Calculate a hash based on the current state. We only redraw when the stateHash changes.
+-(NSUInteger) drawStateHash {
     NSUInteger hash = item.command.hash;
     hash ^= recentlyPlayed      ? 1 : 0;
     hash ^= onSelectedLine      ? 2 : 0;

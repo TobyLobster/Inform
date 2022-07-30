@@ -9,15 +9,20 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
+@class IFSettingsController;
 
-//
-// The 'settings' page
-//
+///
+/// The 'settings' page
+///
 @interface IFSettingsPage : IFPage
 
 // Settings
-- (void) updateSettings;										// Updates the settings views with their current values
+/// Updates the settings views with their current values
+- (void) updateSettings;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;
+
+/// The settings controller
+@property (atomic, strong) IBOutlet IFSettingsController*  settingsController;
 
 @end

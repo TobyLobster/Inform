@@ -112,7 +112,7 @@
     [self setBackgroundColour];
 }
 
-// = Menu items =
+#pragma mark - Menu items
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	SEL itemSelector = [menuItem action];
@@ -211,7 +211,7 @@
     }
 }
 
-// = Showing/hiding the installation prompt =
+#pragma mark - Showing/hiding the installation prompt
 
 - (void) showInstallPrompt: (id) sender {
 	// Get the view that the warning should be displayed in
@@ -260,27 +260,28 @@
 	[mainView setFrame: mainViewFrame];
 }
 
-// = Installer actions =
+#pragma mark - Installer actions
 
 - (IBAction) installFile: (id) sender {
 	// Install this extension
 	NSString* finalPath = nil;
-	if ([[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [[[self document] fileURL] path]
-                                                                           finalPath: &finalPath
-                                                                               title: nil
-                                                                              author: nil
-                                                                             version: nil
-                                                                  showWarningPrompts: YES
-                                                                              notify: YES]) {
+    IFExtensionResult installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager]
+                                           installExtension: [[[self document] fileURL] path]
+                                                  finalPath: &finalPath
+                                                      title: nil
+                                                     author: nil
+                                                    version: nil
+                                         showWarningPrompts: YES
+                                                     notify: YES];
+	if (installResult == IFExtensionSuccess) {
 		// Find the new path
         [[self document] setFileURL: [NSURL fileURLWithPath: finalPath]];
         // Hide the install prompt
         [self hideInstallPrompt: self];
 	} else {
-		// Warn that the extension couldn't be installed
-        [IFUtility runAlertWarningWindow: [self window]
-                                   title: @"Failed to Install Extension"
-                                 message: @"Failed to Install Extension Explanation"];
+        // Warn that the extension couldn't be installed
+        [IFUtility showExtensionError: installResult
+                           withWindow: [self window]];
 	}
 }
 
@@ -289,9 +290,9 @@
 	[self hideInstallPrompt: self];
 }
 
-// = Highlighting lines =
+#pragma mark - Highlighting lines
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style {
     // Find out where the line is in the source view
@@ -357,10 +358,10 @@
 
 -(void) setBackgroundColour {
     if( isExtension ) {
-        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] extensionPaperColour]];
+        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
     }
     else {
-        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] sourcePaperColour]];
+        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] getSourcePaper].colour];
     }
 }
 

@@ -8,9 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "IFFindController.h"
 
 ///
 /// NSTextView category that supports the new find dialog
 ///
-@interface NSTextView(IFFindTextView)
+@interface NSTextView(IFFindTextView) <IFFindDelegate>
 @end

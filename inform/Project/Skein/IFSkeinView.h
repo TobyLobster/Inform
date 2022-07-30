@@ -13,7 +13,7 @@
 @class IFSkeinLayout;
 
 
-@protocol IFSkeinViewDelegate
+@protocol IFSkeinViewDelegate <NSObject>
 
 // Playing the game
 - (void) stopGame;
@@ -26,17 +26,17 @@
 
 @interface IFSkeinView : NSView<NSTextViewDelegate, CAAnimationDelegate>
 
-@property (atomic, strong)            IFSkein *           skein;
+@property (nonatomic, strong)         IFSkein *           skein;
 @property (atomic, strong, readonly)  IFSkeinLayout*      layoutTree;
 @property (atomic, strong)            IFSkeinItem *       selectedItem;
 
-@property (atomic, assign) NSObject<IFSkeinViewDelegate>* delegate;
+@property (atomic, weak) id<IFSkeinViewDelegate> delegate;
 
 - (void) layoutSkeinWithAnimation:(BOOL) animate;
 
 - (void) selectItem: (IFSkeinItem*) item;
 - (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId;
--(void) scrollViewToItem: (IFSkeinItem*) scrollToItem;
+- (void) scrollViewToItem: (IFSkeinItem*) scrollToItem;
 
 - (void) editItem: (IFSkeinItem*) skeinItem;
 
@@ -49,17 +49,19 @@
 
 - (void) saveTranscript: (id) sender;
 
-// Font size handling
-+ (float) fontSize;
+/// Font size handling
++ (CGFloat) fontSize;
+@property (class, atomic, readonly) CGFloat fontSize;
+
 - (void) fontSizePreferenceChanged: (NSNotification*) not;
 
-- (BOOL) isAnyItemPurple;
-- (BOOL) isAnyItemGrey;
-- (BOOL) isAnyItemBlue;
-- (BOOL) isReportVisible;
-- (BOOL) isTickVisible;
-- (BOOL) isCrossVisible;
-- (BOOL) isBadgedItemVisible;
-- (int) itemsVisible;
+@property (atomic, readonly, getter=isAnyItemPurple) BOOL anyItemPurple;
+@property (atomic, readonly, getter=isAnyItemGrey) BOOL anyItemGrey;
+@property (atomic, readonly, getter=isAnyItemBlue) BOOL anyItemBlue;
+@property (atomic, readonly, getter=isReportVisible) BOOL reportVisible;
+@property (atomic, readonly, getter=isTickVisible) BOOL tickVisible;
+@property (atomic, readonly, getter=isCrossVisible) BOOL crossVisible;
+@property (atomic, readonly, getter=isBadgedItemVisible) BOOL badgedItemVisible;
+@property (nonatomic, readonly) NSInteger itemsVisible;
 
 @end

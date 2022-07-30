@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString* IFInTestStartingNotification;
-extern NSString* IFInTestStdoutNotification;
-extern NSString* IFInTestStderrNotification;
-extern NSString* IFInTestFinishedNotification;
+extern NSNotificationName const IFInTestStartingNotification;
+extern NSNotificationName const IFInTestStdoutNotification;
+extern NSNotificationName const IFInTestStderrNotification;
+extern NSNotificationName const IFInTestFinishedNotification;
 
 @class IFProgress;
 
@@ -19,7 +19,7 @@ extern NSString* IFInTestFinishedNotification;
 //
 @interface IFInTest : NSObject
 
-- (NSArray*) refreshExtensionCatalogue: (NSString*) extensionPathName;
+- (NSArray<NSDictionary<NSString*,id>*>*) refreshExtensionCatalogue: (NSString*) extensionPathName;
 
 -(void) extractSourceTaskForExtensionFile: (NSString*) extensionPathName
                               forTestCase: (NSString*) testCase

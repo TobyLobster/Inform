@@ -9,17 +9,15 @@
 
 @implementation IFRecentFileCellInfo
 
-- (instancetype)init { self = [super init]; return self; }
-
 - (instancetype)initWithTitle: (NSString *) title
                         image: (NSImage *) image
                           url: (NSURL *) url
                          type: (IFRecentFileType) type {
     self = [super init];
     if( self ) {
-        _title      = title;
-        _image      = image;
-        _url        = url;
+        _title      = [title copy];
+        _image      = [image copy];
+        _url        = [url copy];
         _type       = type;
     }
     return self;

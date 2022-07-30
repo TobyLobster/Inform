@@ -11,47 +11,52 @@
 #import <Foundation/Foundation.h>
 
 // The settings keys
-extern NSString* IFSettingLibraryToUse; // default is `Standard'
-extern NSString* IFSettingZCodeVersion; // default is 5, 256 = GLULX
+extern NSString* const IFSettingLibraryToUse; // default is `Standard'
+extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
 
 // Switches
-extern NSString* IFSettingNaturalInform; // default NO
-extern NSString* IFSettingStrict;        // default YES
-extern NSString* IFSettingInfix;         // default NO
-extern NSString* IFSettingDEBUG;         // default YES
-extern NSString* IFSettingTestingTabHelpShown;  // default YES
-extern NSString* IFSettingTestingTabShownCount; // default 0
-extern NSString* IFSettingNobbleRng;            // default NO
-extern NSString* IFSettingCompilerVersion;      // default "Latest"
+extern NSString* const IFSettingNaturalInform; // default NO
+extern NSString* const IFSettingStrict;        // default YES
+extern NSString* const IFSettingInfix;         // default NO
+extern NSString* const IFSettingDEBUG;         // default YES
+extern NSString* const IFSettingTestingTabHelpShown;  // default YES
+extern NSString* const IFSettingTestingTabShownCount; // default 0
+extern NSString* const IFSettingNobbleRng;            // default NO
+extern NSString* const IFSettingBasicInform;          // default NO
+extern NSString* const IFSettingCompilerVersion;      // default "Latest"
 
 // Debug
-extern NSString* IFSettingCompileNatOutput;
-extern NSString* IFSettingRunBuildScript;
-extern NSString* IFSettingMemoryDebug;
+extern NSString* const IFSettingCompileNatOutput;
+extern NSString* const IFSettingRunBuildScript;
+extern NSString* const IFSettingMemoryDebug;
 
 // Notifications
-extern NSString* IFSettingNotification;
+extern NSNotificationName const IFSettingNotification;
 
 // Natural Inform
-extern NSString* IFSettingLoudly;
+extern NSString* const IFSettingLoudly;
 
 // Compiler types
-extern NSString* IFCompilerInform6;
-extern NSString* IFCompilerNaturalInform;
+extern NSString* const IFCompilerInform6;
+extern NSString* const IFCompilerNaturalInform;
 
 @class IFSetting;
 
-//
-// Object used to describe the settings for the compilers
-//
+///
+/// Object used to describe the settings for the compilers
+///
 @interface IFCompilerSettings : NSObject<NSCoding>
 
-+ (NSArray*) inform6LibraryPaths;							// The paths to Inform 6 libraries
-+ (NSString*) pathForLibrary: (NSString*) library;			// Path to an Inform 6 library with a specific name
-+ (NSArray*) availableLibraries;							// Set of available Inform 6 library
+/// The paths to Inform 6 libraries
+@property (class, atomic, readonly, copy) NSArray<NSString*> *inform6LibraryPaths;
+/// Path to an Inform 6 library with a specific name
++ (NSString*) pathForLibrary: (NSString*) library;
+/// Set of available Inform 6 library
+@property (class, atomic, readonly, copy) NSArray<NSString*> *availableLibraries;
 
 // Getting information on what is going on
-@property (atomic, readonly, copy) NSString *primaryCompilerType;	// The primary compiler type represented by these settings
+/// The primary compiler type represented by these settings
+@property (atomic, readonly, copy) NSString *primaryCompilerType;
 
 // Setting up the settings (deprecated: use an IFSetting object if at all possible)
 @property (atomic) BOOL usingNaturalInform;
@@ -61,6 +66,7 @@ extern NSString* IFCompilerNaturalInform;
 @property (atomic) BOOL compileNaturalInformOutput;
 @property (atomic) BOOL runBuildScript;
 @property (atomic) BOOL nobbleRng;
+@property (atomic) BOOL basicInform;
 @property (atomic) BOOL testingTabHelpShown;
 @property (atomic) int  testingTabShownCount;
 @property (atomic) NSString * compilerVersion;
@@ -68,35 +74,50 @@ extern NSString* IFCompilerNaturalInform;
 
 @property (atomic, copy) NSString *libraryToUse;
 
-- (void)      setZCodeVersion: (int) version;
-@property (atomic, readonly) int zcodeVersion;
+@property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
 
 @property (atomic) BOOL loudly;
 
 @property (atomic) BOOL debugMemory;
 
-- (void) settingsHaveChanged;										// Generates a settings changed notification
+/// Generates a settings changed notification
+- (void) settingsHaveChanged;
 
 // Generic settings (IFSetting)
-- (void)      setGenericSettings: (NSArray*) genericSettings;		// Sets the set of IFSetting objects to use
-- (NSMutableDictionary*) dictionaryForClass: (Class) cls;			// Gets the dictionary for a given IFSetting class
-- (IFSetting*) settingForClass: (Class) cls;						// Gets the implementation of a given IFSetting class within this object
+/// Sets the set of IFSetting objects to use
+- (void)      setGenericSettings: (NSArray*) genericSettings;
+/// Gets the dictionary for a given IFSetting class
+- (NSMutableDictionary*) dictionaryForClass: (Class) cls;
+/// Gets the implementation of a given IFSetting class within this object
+- (IFSetting*) settingForClass: (Class) cls;
 
 // Getting command line arguments, etc
-@property (atomic, readonly, copy) NSArray *commandLineArguments;	// Retrieves the command line arguments to pass to the Inform 6 compiler
-- (NSArray*) commandLineArgumentsForRelease: (BOOL) release
-                                 forTesting: (BOOL) testing;        // Retrieves the command line arguments to pass to the Inform 6 compiler. If release is YES, debugging options are turned off
-@property (atomic, readonly, copy) NSString *compilerToUse;			// Retrieves the path to the Inform 6 compiler that should be used
-@property (atomic, readonly, copy) NSArray *supportedZMachines;		// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
+/// Retrieves the command line arguments to pass to the Inform 6 compiler
+@property (atomic, readonly, copy) NSArray<NSString*> *commandLineArguments;
+/// Retrieves the command line arguments to pass to the Inform 6 compiler. If \c release is YES, debugging options are turned off
+- (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
+                                            forTesting: (BOOL) testing;
+/// Retrieves the path to the Inform 6 compiler that should be used
+@property (atomic, readonly, copy) NSString *compilerToUse;
+/// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
+@property (atomic, readonly, copy) NSArray<NSNumber*> *supportedZMachines;
 
-@property (atomic, readonly, copy) NSString *naturalInformCompilerToUse;		// Retrieves the path to the Natural Inform compiler to use (nil if ni shouldn't be used)
-@property (atomic, readonly, copy) NSArray *naturalInformCommandLineArguments;	// Retrieves the command line arguments to use with the NI compiler
+/// Retrieves the path to the Natural Inform compiler to use (nil if ni shouldn't be used)
+@property (atomic, readonly, copy) NSString *naturalInformCompilerToUse;
+/// Retrieves the command line arguments to use with the NI compiler
+@property (atomic, readonly, copy) NSArray<NSString*> *naturalInformCommandLineArguments;
 
 // Getting the data as a plist
-- (void)	reloadAllSettings;										// Reloads the settings from the original Plist values
-- (void)	reloadSettingsForClass: (NSString*) class;				// Reloads the settings for a specific generic settings class from the original Plist values
-@property (atomic, readonly, copy) NSData *currentPlist;			// Generates a plist from the current settings
-- (BOOL)    restoreSettingsFromPlist: (NSData*) plist;				// Restores the settings from a Plist file
+/// Reloads the settings from the original Plist values
+- (void)	reloadAllSettings;
+/// Reloads the settings for a specific generic settings class from the original Plist values
+- (void)	reloadSettingsForClass: (NSString*) class;
+/// Generates a plist from the current settings
+@property (atomic, readonly, copy) NSData *currentPlist;
+/// Restores the settings from a Plist file
+- (BOOL)    restoreSettingsFromPlist: (NSData*) plist;
+
+- (BOOL) isNaturalInformCompilerPathValid;
 
 @end

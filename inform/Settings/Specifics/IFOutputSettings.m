@@ -10,8 +10,6 @@
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
 
-static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
-
 @implementation IFOutputSettings {
     IBOutlet NSMatrix* zmachineVersion;
     IBOutlet NSButton* releaseBlorb;
@@ -25,7 +23,7 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 	return [IFUtility localizedString: @"Output Settings"];
 }
 
-// = Setting up =
+#pragma mark - Setting up
 
 - (BOOL) createBlorbForRelease {
     IFCompilerSettings* settings = [self compilerSettings];
@@ -70,11 +68,11 @@ static NSString* IFSettingCreateBlorb = @"IFSettingCreateBlorb";
     }
 	
 	// Whether or not we should generate a blorb file on release
-	[releaseBlorb setState: [self createBlorbForRelease]?NSOnState:NSOffState];
+	[releaseBlorb setState: [self createBlorbForRelease]?NSControlStateValueOn:NSControlStateValueOff];
 }
 
 - (void) setSettings {
-	BOOL willCreateBlorb = [releaseBlorb state]==NSOnState;
+	BOOL willCreateBlorb = [releaseBlorb state]==NSControlStateValueOn;
     IFCompilerSettings* settings = [self compilerSettings];
 
 	[settings setZCodeVersion: (int) [[zmachineVersion selectedCell] tag]];

@@ -1,0 +1,146 @@
+OutOfWorld Template.
+
+To implement some of the out of world actions.
+
+@h Perform Undo.
+
+=
+[ Perform_Undo;
+	if (KIT_CONFIGURATION_BITMAP & PREVENT_UNDO_TCBIT) {
+		IMMEDIATELY_UNDO_RM('A'); new_line; return;
+	}
+	if (IterationsOfTurnSequence == 0) { IMMEDIATELY_UNDO_RM('B'); new_line; return; }
+	if (undo_flag == 0) { IMMEDIATELY_UNDO_RM('C'); new_line; return; }
+	if (undo_flag == 1) { IMMEDIATELY_UNDO_RM('D'); new_line; return; }
+	if (VM_Undo() == 0) { IMMEDIATELY_UNDO_RM('F'); new_line; }
+];
+
+@h Announce Score Rule.
+
+=
+[ ANNOUNCE_SCORE_R;
+	if (actor ~= player) rfalse;
+	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT == 0) {
+		ANNOUNCE_SCORE_RM('C'); new_line;
+	} else {
+		ANNOUNCE_SCORE_RM('A'); PrintRank();
+	}
+];
+
+@h Switch Score Notification On Rule.
+
+=
+[ SWITCH_SCORE_NOTIFY_ON_R;
+	if (actor ~= player) rfalse;
+	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT == 0) ANNOUNCE_SCORE_R();
+	else notify_mode=1;
+];
+
+@h Standard Report Switching Score Notification On Rule.
+
+=
+[ REP_SWITCH_NOTIFY_ON_R;
+	if (actor ~= player) rfalse;
+	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT) {
+		REP_SWITCH_NOTIFY_ON_RM('A'); new_line;
+	}
+];
+
+@h Switch Score Notification Off Rule.
+
+=
+[ SWITCH_SCORE_NOTIFY_OFF_R;
+	if (actor ~= player) rfalse;
+	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT == 0) ANNOUNCE_SCORE_R();
+	else notify_mode=0;
+];
+
+@h Standard Report Switching Score Notification Off Rule.
+
+=
+[ REP_SWITCH_NOTIFY_OFF_R;
+	if (actor ~= player) rfalse;
+	if (KIT_CONFIGURATION_BITMAP & USE_SCORING_TCBIT) {
+		REP_SWITCH_NOTIFY_OFF_RM('A'); new_line;
+	}
+];
+
+@h Prefer Sometimes Abbreviated Room Descriptions Rule.
+
+=
+[ PREFER_SOMETIMES_ABBREVIATED_R;
+	if (actor ~= player) rfalse;
+	lookmode=1;
+]; ! Brief
+
+@h Standard Report Prefer Sometimes Abbreviated Room Descriptions Rule.
+
+=
+[ REP_PREFER_SOMETIMES_ABBR_R;
+	if (actor ~= player) rfalse;
+	print (TEXT_TY_Say) Story; REP_PREFER_SOMETIMES_ABBR_RM('A'); new_line;
+]; ! Brief
+
+@h Prefer Unabbreviated Room Descriptions Rule.
+
+=
+[ PREFER_UNABBREVIATED_R;
+	if (actor ~= player) rfalse;
+	lookmode=2;
+]; ! Verbose
+
+@h Standard Report Prefer Unabbreviated Room Descriptions Rule.
+
+=
+[ REP_PREFER_UNABBREVIATED_R;
+	if (actor ~= player) rfalse;
+	print (TEXT_TY_Say) Story; REP_PREFER_UNABBREVIATED_RM('A'); new_line;
+]; ! Verbose
+
+@h Prefer Abbreviated Room Descriptions Rule.
+
+=
+[ PREFER_ABBREVIATED_R;
+	if (actor ~= player) rfalse;
+	lookmode=3;
+]; ! Superbrief
+
+@h Standard Report Prefer Abbreviated Room Descriptions Rule.
+
+=
+[ REP_PREFER_ABBREVIATED_R;
+	if (actor ~= player) rfalse;
+	print (TEXT_TY_Say) Story; REP_PREFER_ABBREVIATED_RM('A'); new_line;
+]; ! Superbrief
+
+@h Announce Pronoun Meanings Rule.
+
+=
+[ ANNOUNCE_PRONOUN_MEANINGS_R x y c d;
+	if (actor ~= player) rfalse;
+	ANNOUNCE_PRONOUN_MEANINGS_RM('A');
+
+	c = (LanguagePronouns-->0)/3;
+	if (player ~= selfobj) c++;
+
+	if (c==0) { ANNOUNCE_PRONOUN_MEANINGS_RM('D'); rtrue; }
+
+	for (x = 1, d = 0 : x <= LanguagePronouns-->0: x = x+3) {
+		print "~", (address) LanguagePronouns-->x, "~ ";
+		y = LanguagePronouns-->(x+2);
+		if (y == NULL) ANNOUNCE_PRONOUN_MEANINGS_RM('C');
+		else { ANNOUNCE_PRONOUN_MEANINGS_RM('B'); print (the) y; }
+		d++;
+		if (d < c-1) print ", ";
+		if (d == c-1) {
+			if (KIT_CONFIGURATION_BITMAP & SERIAL_COMMA_TCBIT) print ",";
+			LIST_WRITER_INTERNAL_RM('C');
+		}
+	}
+	if (player ~= selfobj) {
+		print "~", (address) ME1__WD, "~ "; ANNOUNCE_PRONOUN_MEANINGS_RM('B');
+		c = player; player = selfobj;
+		print (the) c; player = c;
+	}
+	".";
+];

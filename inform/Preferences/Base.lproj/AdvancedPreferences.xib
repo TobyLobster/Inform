@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFAdvancedPreferences">
+            <connections>
+                <outlet property="alsoCleanIndexFiles" destination="39" id="46"/>
+                <outlet property="alwaysCompile" destination="YlB-wY-f7d" id="xhf-52-p2w"/>
+                <outlet property="cleanBuildFiles" destination="38" id="47"/>
+                <outlet property="glulxInterpreter" destination="59" id="65"/>
+                <outlet property="preferenceView" destination="5" id="9"/>
+                <outlet property="publicLibraryDebug" destination="zuN-4L-kwf" id="R43-PM-ZUd"/>
+                <outlet property="runBuildSh" destination="32" id="41"/>
+                <outlet property="showConsole" destination="mZx-aB-GJn" id="Tlt-Rp-6Dg"/>
+                <outlet property="showDebugLogs" destination="31" id="40"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="5" userLabel="Advanced Preferences">
+            <rect key="frame" x="0.0" y="0.0" width="497" height="390"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <box autoresizesSubviews="NO" borderType="line" title="Interpreters" translatesAutoresizingMaskIntoConstraints="NO" id="56">
+                    <rect key="frame" x="17" y="228" width="463" height="65"/>
+                    <view key="contentView" id="vF5-5d-Vgs">
+                        <rect key="frame" x="3" y="3" width="457" height="47"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="57">
+                                <rect key="frame" x="15" y="22" width="106" height="16"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Glulx interpreter:" id="79">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59">
+                                <rect key="frame" x="124" y="15" width="322" height="25"/>
+                                <popUpButtonCell key="cell" type="push" title="Glulxe (default)" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" inset="2" selectedItem="62" id="80">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" title="OtherViews" id="61">
+                                        <items>
+                                            <menuItem title="Glulxe (default)" state="on" id="62"/>
+                                            <menuItem title="Git" id="63"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="66"/>
+                                </connections>
+                            </popUpButton>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="57" firstAttribute="leading" secondItem="vF5-5d-Vgs" secondAttribute="leading" constant="17" id="9MB-zQ-Xkt"/>
+                            <constraint firstItem="57" firstAttribute="firstBaseline" secondItem="59" secondAttribute="firstBaseline" id="IQP-sf-sd2"/>
+                            <constraint firstItem="57" firstAttribute="baseline" secondItem="59" secondAttribute="baseline" id="Ihh-wP-F9b"/>
+                            <constraint firstItem="59" firstAttribute="leading" secondItem="57" secondAttribute="trailing" constant="8" symbolic="YES" id="PMf-aA-gUg"/>
+                            <constraint firstAttribute="trailing" secondItem="59" secondAttribute="trailing" constant="15" id="drt-Oa-h9R"/>
+                            <constraint firstItem="59" firstAttribute="top" secondItem="vF5-5d-Vgs" secondAttribute="top" constant="8" id="xaA-oz-IM6"/>
+                        </constraints>
+                    </view>
+                </box>
+                <box title="Cleaning" translatesAutoresizingMaskIntoConstraints="NO" id="36">
+                    <rect key="frame" x="17" y="297" width="463" height="73"/>
+                    <view key="contentView" id="7Zc-Ck-DjT">
+                        <rect key="frame" x="3" y="3" width="457" height="55"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="38">
+                                <rect key="frame" x="14" y="29" width="297" height="18"/>
+                                <string key="toolTip">Build files are files that are generated while turning your story into a game file. Selecting this option will ensure that they are deleted when you close or save a project. These files can grow quite large (many times the size of your source code), so deleting them is a good idea if you are planning to send a project to someone else. Note that with this option ticked, build files may not be deleted if you close a project and discard your modifications.</string>
+                                <buttonCell key="cell" type="check" title="Clean build files from projects before closing" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="77">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="42"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="39">
+                                <rect key="frame" x="36" y="9" width="152" height="16"/>
+                                <string key="toolTip">Selecting this option will cause Inform to additionally clean out the project's various index files. These are generated by the Inform 7 compiler and can be safely deleted, though they may be useful the next time you open the project.</string>
+                                <buttonCell key="cell" type="check" title="Also clean out index files" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="78">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="smallSystem"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="43"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="38" secondAttribute="trailing" constant="20" id="0AZ-H8-mvK"/>
+                            <constraint firstItem="39" firstAttribute="leading" secondItem="7Zc-Ck-DjT" secondAttribute="leading" constant="37" id="0JU-Ra-yIY"/>
+                            <constraint firstAttribute="bottom" secondItem="39" secondAttribute="bottom" constant="10" id="IFD-Ir-RJM"/>
+                            <constraint firstItem="39" firstAttribute="top" secondItem="38" secondAttribute="bottom" constant="6" id="Lpm-au-WGF"/>
+                            <constraint firstItem="38" firstAttribute="top" secondItem="7Zc-Ck-DjT" secondAttribute="top" constant="9" id="MgT-pW-NuH"/>
+                            <constraint firstItem="38" firstAttribute="leading" secondItem="7Zc-Ck-DjT" secondAttribute="leading" constant="16" id="YMM-Oq-5wV"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="39" secondAttribute="trailing" constant="20" id="tps-yZ-jez"/>
+                        </constraints>
+                    </view>
+                </box>
+                <box title="Compiler debugging" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                    <rect key="frame" x="17" y="6" width="463" height="218"/>
+                    <view key="contentView" id="dms-8Y-1i4">
+                        <rect key="frame" x="3" y="3" width="457" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="31">
+                                <rect key="frame" x="14" y="173" width="344" height="18"/>
+                                <buttonCell key="cell" type="check" title="Show debugging log and Inform 6 intermediate code" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="74">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="44"/>
+                                    <outlet property="nextKeyView" destination="32" id="35"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="mZx-aB-GJn">
+                                <rect key="frame" x="14" y="151" width="230" height="18"/>
+                                <buttonCell key="cell" type="check" title="Always show console during build" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="gqo-Ce-LGC">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="5t9-rN-DYU"/>
+                                    <outlet property="nextKeyView" destination="31" id="ZuW-cx-cCv"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="zuN-4L-kwf">
+                                <rect key="frame" x="14" y="85" width="382" height="18"/>
+                                <buttonCell key="cell" type="check" title="Access Public Library at ~/Documents/InformPublicLibrary/" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="FgG-ab-7s2">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="a5B-eq-gPe"/>
+                                    <outlet property="nextKeyView" destination="31" id="awS-MI-Gas"/>
+                                </connections>
+                            </button>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="32">
+                                <rect key="frame" x="14" y="107" width="400" height="18"/>
+                                <buttonCell key="cell" type="check" title="Rebuild I7 compiler as needed (only for maintainers of Inform)" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="75">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="45"/>
+                                    <outlet property="nextKeyView" destination="mZx-aB-GJn" id="dW2-Is-d8h"/>
+                                </connections>
+                            </button>
+                            <textField verticalHuggingPriority="750" preferredMaxLayoutWidth="427" translatesAutoresizingMaskIntoConstraints="NO" id="33">
+                                <rect key="frame" x="15" y="22" width="427" height="42"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" id="76">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <string key="title">These options are intended only for advanced users of Inform 7. They are most useful to people involved with maintaining the compiler, although the Inform 6 intermediate code may be of interest to especially advanced extension authors.</string>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </textFieldCell>
+                            </textField>
+                            <button translatesAutoresizingMaskIntoConstraints="NO" id="YlB-wY-f7d">
+                                <rect key="frame" x="14" y="129" width="120" height="18"/>
+                                <buttonCell key="cell" type="check" title="Always compile" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="akZ-nH-UCi">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="setPreference:" target="-2" id="yIn-y6-4XI"/>
+                                    <outlet property="nextKeyView" destination="mZx-aB-GJn" id="dBD-2D-m8j"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="33" firstAttribute="centerX" secondItem="dms-8Y-1i4" secondAttribute="centerX" id="1Yd-4e-Q2z"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mZx-aB-GJn" secondAttribute="trailing" constant="20" symbolic="YES" id="2o1-yO-L8d"/>
+                            <constraint firstItem="33" firstAttribute="top" secondItem="zuN-4L-kwf" secondAttribute="bottom" constant="22" id="8Hd-Lz-YuE"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zuN-4L-kwf" secondAttribute="trailing" constant="20" symbolic="YES" id="8t3-Tz-Gzb"/>
+                            <constraint firstItem="YlB-wY-f7d" firstAttribute="leading" secondItem="32" secondAttribute="leading" id="ADe-bQ-AqJ"/>
+                            <constraint firstItem="31" firstAttribute="leading" secondItem="dms-8Y-1i4" secondAttribute="leading" constant="16" id="Bfs-cA-bov"/>
+                            <constraint firstItem="mZx-aB-GJn" firstAttribute="leading" secondItem="YlB-wY-f7d" secondAttribute="leading" id="E60-Ew-Ere"/>
+                            <constraint firstAttribute="bottom" secondItem="33" secondAttribute="bottom" constant="22" id="EYy-9n-Cno"/>
+                            <constraint firstItem="YlB-wY-f7d" firstAttribute="top" secondItem="mZx-aB-GJn" secondAttribute="bottom" constant="6" symbolic="YES" id="JZI-s0-2cP"/>
+                            <constraint firstItem="33" firstAttribute="leading" secondItem="dms-8Y-1i4" secondAttribute="leading" constant="17" id="JZI-v0-1tA"/>
+                            <constraint firstItem="32" firstAttribute="leading" secondItem="zuN-4L-kwf" secondAttribute="leading" id="K9w-Ni-nVO"/>
+                            <constraint firstItem="31" firstAttribute="top" secondItem="dms-8Y-1i4" secondAttribute="top" constant="10" id="Kif-ZP-gbq"/>
+                            <constraint firstItem="zuN-4L-kwf" firstAttribute="top" secondItem="32" secondAttribute="bottom" constant="6" symbolic="YES" id="Tz4-Vt-eQa"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="32" secondAttribute="trailing" constant="20" symbolic="YES" id="U7G-eT-ocO"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YlB-wY-f7d" secondAttribute="trailing" constant="20" symbolic="YES" id="a0U-cd-jmZ"/>
+                            <constraint firstItem="31" firstAttribute="leading" secondItem="mZx-aB-GJn" secondAttribute="leading" id="dXq-DI-6KW"/>
+                            <constraint firstItem="mZx-aB-GJn" firstAttribute="top" secondItem="31" secondAttribute="bottom" constant="6" symbolic="YES" id="kOc-Wp-sMY"/>
+                            <constraint firstItem="32" firstAttribute="top" secondItem="YlB-wY-f7d" secondAttribute="bottom" constant="6" symbolic="YES" id="kXs-Rk-FMb"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="31" secondAttribute="trailing" constant="20" symbolic="YES" id="q9X-ZS-zoi"/>
+                        </constraints>
+                    </view>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="24" secondAttribute="bottom" constant="10" id="9Yo-uP-lV7"/>
+                <constraint firstItem="36" firstAttribute="leading" secondItem="56" secondAttribute="leading" id="BF7-zL-Z68"/>
+                <constraint firstAttribute="trailing" secondItem="36" secondAttribute="trailing" constant="20" symbolic="YES" id="Cr5-9h-ruq"/>
+                <constraint firstItem="56" firstAttribute="trailing" secondItem="24" secondAttribute="trailing" id="Off-0e-x2D"/>
+                <constraint firstItem="56" firstAttribute="top" secondItem="36" secondAttribute="bottom" constant="8" symbolic="YES" id="TNc-Te-7Rk"/>
+                <constraint firstItem="24" firstAttribute="top" secondItem="56" secondAttribute="bottom" constant="8" symbolic="YES" id="Xhj-kU-MtP"/>
+                <constraint firstItem="56" firstAttribute="leading" secondItem="24" secondAttribute="leading" id="gMI-1j-myl"/>
+                <constraint firstItem="36" firstAttribute="trailing" secondItem="56" secondAttribute="trailing" id="iRm-cf-0Jj"/>
+                <constraint firstItem="36" firstAttribute="top" secondItem="5" secondAttribute="top" constant="20" symbolic="YES" id="oNo-1Q-dch"/>
+                <constraint firstItem="36" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20" symbolic="YES" id="xBX-vk-lup"/>
+            </constraints>
+            <point key="canvasLocation" x="277.5" y="422"/>
+        </customView>
+    </objects>
+</document>

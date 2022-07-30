@@ -10,30 +10,44 @@
 
 #import "IFHeader.h"
 #import "IFHeaderNode.h"
+#import "IFHeaderController.h"
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class IFHeaderController;
+@protocol IFHeaderViewDelegate;
 
-//
-// View used to allow the user to restrict the section of the source file that they are
-// browsing
-//
-@interface IFHeaderView : NSView<NSTextViewDelegate>
+///
+/// View used to allow the user to restrict the section of the source file that they are
+/// browsing
+///
+@interface IFHeaderView : NSView<NSTextViewDelegate, IFHeaderView>
 
-@property (atomic, readonly, strong) IFHeaderNode *rootHeaderNode;			// Retrieves the root header node
-@property (atomic) int displayDepth;										// Sets/retrieves the display depth for this view
+/// Retrieves the root header node
+@property (atomic, readonly, strong) IFHeaderNode *rootHeaderNode;
+/// Sets/retrieves the display depth for this view
+@property (nonatomic) int displayDepth;
 
-- (void) setBackgroundColour: (NSColor*) colour;							// Sets the background colour for this view
-- (void) setDelegate: (id) delegate;										// Sets the delegate for this view
-- (void) setMessage: (NSString*) message;									// Sets the message to use in this view
+/// The background colour for this view
+@property (atomic, readwrite, copy) NSColor *backgroundColour;
+/// Sets the delegate for this view
+@property (atomic, readwrite, weak) id<IFHeaderViewDelegate> delegate;
+/// The message to display centered in the view
+@property (nonatomic, readwrite, copy, nullable) NSString *message;
 
 @end
 
-@interface NSObject(IFHeaderViewDelegate)
+@protocol IFHeaderViewDelegate <NSObject, IFHeaderView>
+@optional
 
-- (void) headerView: (IFHeaderView*) view									// Indicates that a header node has been clicked on
+/// Indicates that a header node has been clicked on
+- (void) headerView: (IFHeaderView*) view
 	  clickedOnNode: (IFHeaderNode*) node;
-- (void) headerView: (IFHeaderView*) view									// Indicates that the controller should try to update the specified header node
+/// Indicates that the controller should try to update the specified header node
+- (void) headerView: (IFHeaderView*) view
  		 updateNode: (IFHeaderNode*) node
  	   withNewTitle: (NSString*) newTitle;
 
 @end
+
+NS_ASSUME_NONNULL_END

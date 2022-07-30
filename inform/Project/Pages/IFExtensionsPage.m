@@ -15,22 +15,28 @@
 #import "IFExtensionsManager.h"
 #import "IFProjectController.h"
 #import "IFPageBarCell.h"
+#import "IFProjectPolicy.h"
 
 @implementation IFExtensionsPage {
     // The documentation view
-    WebView* wView;										// The web view that displays the documentation
+    /// The web view that displays the documentation
+    WebView* wView;
 
     // Page cells
-    IFPageBarCell* homeCell;                            // The 'Home' cell
-    IFPageBarCell* definitionsCell;						// The 'Definitions' cell
-    IFPageBarCell* publicLibraryCell;					// The 'Public Library' cell
-    NSDictionary* tabDictionary;                        // Maps URL paths to cells
+    /// The 'Home' cell
+    IFPageBarCell* homeCell;
+    /// The 'Definitions' cell
+    IFPageBarCell* definitionsCell;
+    /// The 'Public Library' cell
+    IFPageBarCell* publicLibraryCell;
+    /// Maps URL paths to cells
+    NSDictionary* tabDictionary;
 
     bool reloadingBecauseCensusCompleted;
     BOOL loadingFailureWebPage;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Documentation"
@@ -81,9 +87,9 @@
         NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
         [[wView mainFrame] loadRequest: urlRequest];
 
-        [wView setPolicyDelegate: (id<WebPolicyDelegate>)[self.parent extensionsPolicy]];
+        [wView setPolicyDelegate: [self.parent extensionsPolicy]];
         
-        [wView setUIDelegate: (id<WebUIDelegate>)self.parent];
+        [wView setUIDelegate: self.parent];
         [wView setHostWindow: [self.parent window]];
 	}
 
@@ -98,14 +104,14 @@
     
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Extensions Page Title"
                               default: @"Extensions"];
 }
 
-// = Updating extensions =
+#pragma mark - Updating extensions
 
 - (void) censusCompleted: (NSNotification*) not {
     reloadingBecauseCensusCompleted = true;
@@ -114,13 +120,13 @@
     reloadingBecauseCensusCompleted = false;
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) preferencesChanged: (NSNotification*) not {
 	[wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
-// = Documentation =
+#pragma mark - Documentation
 
 - (void) openURL: (NSURL*) url  {
 	[self switchToPage];
@@ -136,10 +142,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSOnState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOn];
         }
         else {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSOffState];
+            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOff];
         }
     }
 }
@@ -155,7 +161,7 @@
     loadingFailureWebPage = true;
 }
 
-// = WebResourceLoadDelegate methods =
+#pragma mark - WebResourceLoadDelegate methods
 
 - (void)			webView:(WebView *)sender 
 				   resource:(id)identifier 
@@ -172,7 +178,7 @@
     [self loadFailurePage: [wView mainFrame]];
 }
 
-// = WebFrameLoadDelegate methods =
+#pragma mark - WebFrameLoadDelegate methods
 
 - (void)					webView: (WebView *) sender
 	didStartProvisionalLoadForFrame: (WebFrame *) frame {
@@ -244,7 +250,7 @@
 	}
 }
 
-// = History =
+#pragma mark - History
 
 - (void) didSwitchToPage {
 	WebFrame* frame = [wView mainFrame];
@@ -260,7 +266,7 @@
 	[[self history] openURLWithString: urlString];
 }
 
-// = Page bar cells =
+#pragma mark - Page bar cells
 
 - (NSArray*) toolbarCells {
 	return @[publicLibraryCell, definitionsCell, homeCell];

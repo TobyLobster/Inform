@@ -26,21 +26,20 @@
     BOOL            hasError;
 }
 
-// = Initialisation =
-- (instancetype) init { self = [super init]; return self; }
+#pragma mark - Initialisation
 
--(instancetype)   initWithFilepath: (NSString*)       aFilepath
-                       rangeInFile: (NSRange)         aFileRange
-               documentDisplayName: (NSString*)       aDocumentDisplayName
-                  documentSortName: (NSString*)       aDocumentSortName
-                      locationType: (IFFindLocation)  aLocationType
-                           context: (NSString*)       aContext
-                      contextRange: (NSRange)         aContextRange
-                       exampleName: (NSString*)       aExampleName
-                  exampleAnchorTag: (NSString*)       aExampleAnchorTag
-                     codeAnchorTag: (NSString*)       aCodeAnchorTag
-               definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
-                  regexFoundGroups: (NSArray*)        aRegexFoundGroups {
+- (instancetype)   initWithFilepath: (NSString*)       aFilepath
+                        rangeInFile: (NSRange)         aFileRange
+                documentDisplayName: (NSString*)       aDocumentDisplayName
+                   documentSortName: (NSString*)       aDocumentSortName
+                       locationType: (IFFindLocation)  aLocationType
+                            context: (NSString*)       aContext
+                       contextRange: (NSRange)         aContextRange
+                        exampleName: (NSString*)       aExampleName
+                   exampleAnchorTag: (NSString*)       aExampleAnchorTag
+                      codeAnchorTag: (NSString*)       aCodeAnchorTag
+                definitionAnchorTag: (NSString*)       aDefinitionAnchorTag
+                   regexFoundGroups: (NSArray*)        aRegexFoundGroups {
 
 	self = [super init];
 	
@@ -63,59 +62,25 @@
 }
 
 
-// = Data =
+#pragma mark - Data
 
-- (NSString*) filepath {
-	return filepath;
-}
-
-- (NSRange) fileRange {
-    return fileRange;
-}
+@synthesize filepath;
+@synthesize fileRange;
 
 - (NSString*) phrase {
     return [[self context] substringWithRange:[self contextRange]];
 }
 
-- (NSString*) documentDisplayName {
-    return documentDisplayName;
-}
-
-- (NSString*) documentSortName {
-    return documentSortName;
-}
-
-- (IFFindLocation) locationType {
-	return locationType;
-}
-
-- (NSString*) context {
-	return context;
-}
-
-- (NSRange) contextRange {
-	return contextRange;
-}
-
-- (NSString*) exampleName {
-	return exampleName;
-}
-
-- (NSString*) exampleAnchorTag {
-    return exampleAnchorTag;
-}
-
-- (NSString*) codeAnchorTag {
-    return codeAnchorTag;
-}
-
-- (NSString*) definitionAnchorTag {
-    return definitionAnchorTag;
-}
-
-- (NSArray*) regexFoundGroups {
-    return regexFoundGroups;
-}
+@synthesize documentDisplayName;
+@synthesize documentSortName;
+@synthesize locationType;
+@synthesize context;
+@synthesize contextRange;
+@synthesize exampleName;
+@synthesize exampleAnchorTag;
+@synthesize codeAnchorTag;
+@synthesize definitionAnchorTag;
+@synthesize regexFoundGroups;
 
 - (NSString*) foundMatchString {
     return [context substringWithRange:contextRange];
@@ -216,22 +181,25 @@
     if( hasError )
     {
         italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
-                               NSForegroundColorAttributeName: [NSColor redColor],
+                               NSForegroundColorAttributeName: [NSColor systemRedColor],
                                NSParagraphStyleAttributeName: style };
         normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
-                              NSForegroundColorAttributeName: [NSColor redColor],
+                              NSForegroundColorAttributeName: [NSColor systemRedColor],
                               NSParagraphStyleAttributeName: style };
         boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
-                            NSForegroundColorAttributeName: [NSColor redColor],
+                            NSForegroundColorAttributeName: [NSColor systemRedColor],
                             NSParagraphStyleAttributeName: style };
     }
     else
     {
         italicsAttributes = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size: 11], // system font doesn't do italics, so we use Helvetica instead.
+                               NSForegroundColorAttributeName: [NSColor textColor],
                                NSParagraphStyleAttributeName: style};
         normalAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 11],
+                              NSForegroundColorAttributeName: [NSColor textColor],
                               NSParagraphStyleAttributeName: style};
         boldAttributes = @{ NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                            NSForegroundColorAttributeName: [NSColor textColor],
                             NSParagraphStyleAttributeName: style};
     }
 
@@ -258,7 +226,7 @@
 	return result;
 }
 
-// = Copying =
+#pragma mark - Copying
 
 - (id) copyWithZone: (NSZone*) zone {
 	return self;

@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFColourPreferences">
+            <connections>
+                <outlet property="commentsColor" destination="zdJ-4z-7X1" id="cId-5H-QEW"/>
+                <outlet property="deleteStyleButton" destination="HO0-Ov-040" id="U9M-5G-vqC"/>
+                <outlet property="enableSyntaxColouringButton" destination="C2l-Af-oHK" id="hi2-IB-65R"/>
+                <outlet property="extensionColor" destination="2gx-Lu-hTE" id="w8B-gB-Qhm"/>
+                <outlet property="headingsColor" destination="uLO-8L-jEj" id="KLu-3l-3XC"/>
+                <outlet property="mainTextColor" destination="f3O-Xe-Xww" id="a2x-wh-6bP"/>
+                <outlet property="newStyleButton" destination="Lgt-Cb-goK" id="zQG-P5-KBV"/>
+                <outlet property="preferenceView" destination="5" id="110"/>
+                <outlet property="previewView" destination="107" id="119"/>
+                <outlet property="quotedTextColor" destination="SYO-mB-INP" id="c4g-iO-Be6"/>
+                <outlet property="restoreSettingsButton" destination="IXf-Fa-1JU" id="Pzx-7c-1vM"/>
+                <outlet property="sourceColour" destination="5Ub-Su-iFo" id="NGl-nP-w35"/>
+                <outlet property="styleButton" destination="vVa-zL-zxU" id="oW1-3j-R4p"/>
+                <outlet property="textSubstitutionsColor" destination="4cJ-Hf-dx0" id="YhT-My-ise"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="5" userLabel="ColourPreferences">
+            <rect key="frame" x="0.0" y="0.0" width="501" height="521"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vVa-zL-zxU" userLabel="Theme">
+                    <rect key="frame" x="122" y="447" width="274" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <popUpButtonCell key="cell" type="push" title="Light" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="a3e-qt-yuh" id="gbv-Hm-1kc" userLabel="Theme">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="bhm-lc-Ggw">
+                            <items>
+                                <menuItem title="Light" state="on" id="a3e-qt-yuh" userLabel="Light Theme"/>
+                                <menuItem title="Dark" id="XRW-Z3-TGh" userLabel="Dark Theme"/>
+                                <menuItem title="Custom Scheme" id="2Tk-wf-Klg" userLabel="Custom"/>
+                            </items>
+                        </menu>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="differentThemeChosen:" target="-2" id="F2O-BS-s7X"/>
+                    </connections>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rk5-Xb-Hv9">
+                    <rect key="frame" x="17" y="453" width="117" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Colour Scheme:" id="yWy-jJ-Z8I">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lgt-Cb-goK">
+                    <rect key="frame" x="393" y="444" width="94" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="New..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="62g-1w-C5T">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="newStyle:" target="-2" id="nov-NS-022"/>
+                    </connections>
+                </button>
+                <button horizontalHuggingPriority="249" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HO0-Ov-040">
+                    <rect key="frame" x="393" y="419" width="94" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Delete..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="5s8-mj-roI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="deleteStyle:" target="-2" id="euS-1c-NH8"/>
+                    </connections>
+                </button>
+                <box fixedFrame="YES" title="Edit Colour Scheme" translatesAutoresizingMaskIntoConstraints="NO" id="95">
+                    <rect key="frame" x="17" y="254" width="467" height="167"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <view key="contentView" id="STC-OG-WsS">
+                        <rect key="frame" x="3" y="3" width="461" height="149"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IXf-Fa-1JU">
+                                <rect key="frame" x="272" y="13" width="175" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Restore default colours" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vcX-vv-gWL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="restoreDefaultSettings:" target="-2" id="GfI-hN-zkv"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J97-Nn-z2H">
+                                <rect key="frame" x="16" y="120" width="154" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Headings:" id="UyJ-92-hrJ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wnk-nK-IFv">
+                                <rect key="frame" x="16" y="95" width="154" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Main text:" id="nQC-hS-Txq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ox9-zr-Sph">
+                                <rect key="frame" x="16" y="70" width="154" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Comments:" id="CPA-jD-aoG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ITQ-yg-h9g">
+                                <rect key="frame" x="16" y="45" width="154" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Quoted text:" id="jm0-Db-7w5">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Kp-Ym-FNE">
+                                <rect key="frame" x="16" y="20" width="154" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Substitutions:" id="OyI-t6-9Bf">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLO-8L-jEj" userLabel="Headings Color Well">
+                                <rect key="frame" x="181" y="120" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="9Y2-uf-Ovy"/>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f3O-Xe-Xww" userLabel="Main Text Color Well">
+                                <rect key="frame" x="181" y="95" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="ceW-a6-dCQ"/>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdJ-4z-7X1" userLabel="Comments Color Well">
+                                <rect key="frame" x="181" y="70" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="nSx-yG-kiW"/>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SYO-mB-INP" userLabel="Quoted Text Color Well">
+                                <rect key="frame" x="181" y="45" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="tSn-rw-WJE"/>
+                                </connections>
+                            </colorWell>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cJ-Hf-dx0" userLabel="Substitutions Color Well">
+                                <rect key="frame" x="181" y="20" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="Vgu-mC-G1v"/>
+                                </connections>
+                            </colorWell>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9fK-Y3-VVm">
+                                <rect key="frame" x="264" y="120" width="124" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Regular Paper:" id="OEq-tt-xvB">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Ub-Su-iFo" userLabel="Regular Paper Color Well">
+                                <rect key="frame" x="400" y="120" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="a0M-Qt-VNi"/>
+                                </connections>
+                            </colorWell>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="geG-4f-fGk">
+                                <rect key="frame" x="264" y="95" width="124" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Extensions Paper:" id="vNI-Ia-Hyq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2gx-Lu-hTE" userLabel="Extensions Color Well">
+                                <rect key="frame" x="400" y="95" width="44" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="styleSetHasChanged:" target="-2" id="KWm-2P-Hhb"/>
+                                </connections>
+                            </colorWell>
+                        </subviews>
+                    </view>
+                </box>
+                <scrollView toolTip="This displays a sample of source code in your selected styles." fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97">
+                    <rect key="frame" x="19" y="20" width="461" height="219"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <clipView key="contentView" drawsBackground="NO" id="2NA-D1-I7E">
+                        <rect key="frame" x="1" y="1" width="444" height="217"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="107">
+                                <rect key="frame" x="0.0" y="-5" width="429" height="222"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <size key="minSize" width="429" height="217"/>
+                                <size key="maxSize" width="823" height="10000000"/>
+                                <attributedString key="textStorage">
+                                    <fragment>
+                                        <mutableString key="content">
+Section 5 - Tight Passage and Inscription
+
+[This sample is a jumble, just to demonstrate syntax highlighting.]
+
+Tight Passage is northeast of Father's Regret. "The passage through rock ends here, and begins to tunnel through soil instead." The inscription is a fixed in place thing in Tight Passage. "You have the words by heart now: [italic type][printing of the inscription][roman type]."
+
+Table of Tour de France Jerseys
+jersey	year established	citation
+a yellow jersey	1919	"race leader"
+a polkadot jersey	1933	"King of the Mountains"
+a green jersey	1953	"highest point scorer on sprints"
+a white jersey	1975	"best cyclist aged 25 or less"
+</mutableString>
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="11" name="LucidaGrande"/>
+                                            <integer key="NSLigature" value="0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" headIndent="13">
+                                                <tabStops>
+                                                    <textTab alignment="left" location="26">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="52">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="78">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="104">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="130">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="156">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="182">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="208">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="234">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="260">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="286">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="312">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="338">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="364">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="390">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="416">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="442">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="468">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="494">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="520">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="546">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="572">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="598">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="624">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="650">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="676">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="702">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="728">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="754">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="780">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="806">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="832">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="858">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="884">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="910">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="936">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="962">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="988">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1014">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1040">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1066">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1092">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1118">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1144">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1170">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1196">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1222">
+                                                        <options/>
+                                                    </textTab>
+                                                    <textTab alignment="left" location="1248">
+                                                        <options/>
+                                                    </textTab>
+                                                </tabStops>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            </textView>
+                        </subviews>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="163">
+                        <rect key="frame" x="-100" y="-100" width="364" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="162">
+                        <rect key="frame" x="445" y="1" width="15" height="217"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C2l-Af-oHK">
+                    <rect key="frame" x="17" y="484" width="129" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Enable Colouring" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="5Nt-3S-V1A">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="styleSetHasChanged:" target="-2" id="Wpr-6C-UaQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="139" y="12.5"/>
+        </customView>
+    </objects>
+</document>

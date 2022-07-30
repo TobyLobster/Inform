@@ -20,17 +20,21 @@
 
 
 @implementation IFIndexPage {
-    BOOL indexAvailable;								// YES if the index tab should be active
+    /// \c YES if the index tab should be active
+    BOOL indexAvailable;
 
-    int indexMachineSelection;							// A reference count - number of 'machine' operations that might be affecting the index tab selection
+    /// A reference count - number of 'machine' operations that might be affecting the index tab selection
+    int indexMachineSelection;
 
-    NSMutableArray* indexCells;							// IFPageBarCells used to select index pages
-    NSDictionary* tabDictionary;                        // Dictionary of tab ids and their string names
+    /// IFPageBarCells used to select index pages
+    NSMutableArray<IFPageBarCell*>* indexCells;
+    /// Dictionary of tab ids and their string names
+    NSDictionary<NSString*,NSNumber*>* tabDictionary;
 
     WebView* webView;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Index"
@@ -73,25 +77,26 @@
     [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
+
 - (NSString*) title {
 	return [IFUtility localizedString: @"Index Page Title"
                               default: @"Index"];
 }
 
-// = Page validation =
-- (BOOL) indexAvailable {
-	return indexAvailable;
-}
+#pragma mark - Page validation
+
+@synthesize indexAvailable;
 
 - (BOOL) shouldShowPage {
 	return indexAvailable;
 }
 
-// = Helper functions =
+#pragma mark - Helper functions
+
 -(NSUInteger) indexOfItemWithTabId: (int) tabIdentifier {
     id identifier = @(tabIdentifier);
-	int index = 0;
+	NSInteger index = 0;
 	for( IFPageBarCell* cell in indexCells ) {
 		if ([[cell identifier] isEqual: identifier]) return index;
 		index++;
@@ -252,13 +257,13 @@
     [webView reload: self];
 }
 
-// = Preferences =
+#pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
     [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 }
 
-// = Utility functions =
+#pragma mark - Utility functions
 
 - (NSURLRequest*) request {
     WebFrame*	mainFrame = [webView mainFrame];
@@ -268,7 +273,8 @@
     return [[mainFrame dataSource] request];
 }
 
-// = Switching cells =
+#pragma mark - Switching cells
+
 - (IBAction) switchToCell: (id) sender {
 	if ([sender isKindOfClass: [IFPageBarCell class]]) {
         IFPageBarCell* cell = sender;
@@ -286,7 +292,8 @@
 	[super didSwitchToPage];
 }
 
-// = WebFrameLoadDelegate methods =
+#pragma mark - WebFrameLoadDelegate methods
+
 - (NSString*) titleForFrame: (WebFrame*) frame {
     return @"Index";
 }
@@ -296,7 +303,7 @@
 
     // Highlight the pane tab to something appropriate for the new URL
     for (IFPageBarCell*cell in indexCells) {
-        [cell setState: NSOffState];
+        [cell setState: NSControlStateValueOff];
     }
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
@@ -307,7 +314,7 @@
             int tabIdentifier = [tabDictionary[tabName] intValue];
             NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
 
-            [(NSCell*)indexCells[tabIndex] setState: NSOnState];
+            [(NSCell*)indexCells[tabIndex] setState: NSControlStateValueOn];
         }
     }
 }
@@ -340,7 +347,7 @@
 	}
 }
 
-// = The page bar =
+#pragma mark - The page bar
 
 - (NSArray*) toolbarCells {
 	if (indexCells == nil) return [NSArray array];

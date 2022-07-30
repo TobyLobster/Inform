@@ -1,4 +1,4 @@
-Version 7/140425 of Basic Screen Effects by Emily Short begins here.
+Version 8 of Basic Screen Effects by Emily Short begins here.
 
 "Waiting for a keypress; clearing the screen. Also provides facilities for 
 changing the foreground and background colors of text, when using the z-machine.
@@ -22,6 +22,8 @@ To clear only the/-- status line:
 Section - Waiting for key-presses, quitting suddenly
 
 Include (-
+
+Global right_alignment_depth = 14;
 
 ! Wait for a safe non navigating key. The user might press Down/PgDn or use the mouse scroll wheel to scroll a page of text, so we will stop those key codes from continuing.
 [ KeyPause key; 
@@ -177,7 +179,7 @@ Include (-
 
 [ RightAlign depth screen_width o n;
 	screen_width = VM_ScreenWidth(); 
-	n = (+ right alignment depth +);
+	n = right_alignment_depth;
 	o = screen_width - n;
 	VM_MoveCursorInStatusLine(depth, o);
 ];
@@ -205,7 +207,8 @@ To fill the/-- status bar/line with (selected table - a table-name):
 			say "[right entry]";
 		increase __index by 1;
 
-Right alignment depth is a number that varies. Right alignment depth is 14.
+Right alignment depth is a number that varies.
+The right alignment depth variable translates into Inter as "right_alignment_depth".
 
 
 

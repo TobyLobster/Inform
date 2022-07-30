@@ -8,14 +8,11 @@
 
 #import "IFGlkResources.h"
 #import "IFProject.h"
-#import "IFImageCache.h"
 
 @implementation IFGlkResources {
     IFProject* project;
     NSDictionary* manifest;
 }
-
-- (instancetype) init { self = [super init]; return self; }
 
 - (instancetype) initWithProject: (IFProject*) newProject {
 	self = [super init];
@@ -44,7 +41,7 @@
 		}
 
 		// Load the manifest file if it appears to exist
-		manifest = [NSDictionary dictionaryWithContentsOfFile: manifestFileURL.path];
+		manifest = [NSDictionary dictionaryWithContentsOfURL: manifestFileURL];
 
 		// If there's no manifest file, then use a blank one
 		if (manifest == nil) {
@@ -71,11 +68,11 @@
 	// Try to load the image
 	NSURL* imageURL = [materialsURL URLByAppendingPathComponent: imageFile];
 	if (imageURL != nil && [[NSFileManager defaultManager] fileExistsAtPath: imageURL.path]) {
-		return [NSData dataWithContentsOfFile: imageURL.path];
+		return [NSData dataWithContentsOfURL: imageURL];
 	}
 
     // Load the default image
-    NSImage * defaultImage = [IFImageCache loadResourceImage:@"Error.tiff"];
+    NSImage * defaultImage = [NSImage imageNamed:@"App/Interpreter/Error"];
 
     // Return NSData version
     return [defaultImage TIFFRepresentation];

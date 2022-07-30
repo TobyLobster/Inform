@@ -22,13 +22,9 @@
 #import "IFIsNotes.h"
 #import "IFIsIndex.h"
 #import "IFIsFiles.h"
-#import "IFIsWatch.h"
-#import "IFIsBreakpoints.h"
 
-#import "Preferences/IFPreferenceController.h"
-#import "Preferences/IFAuthorPreferences.h"
 #import "Preferences/IFEditingPreferences.h"
-#import "Preferences/IFTextSizePreferences.h"
+#import "Preferences/IFColourPreferences.h"
 #import "Preferences/IFAdvancedPreferences.h"
 
 #import "IFNoDocProtocol.h"
@@ -39,6 +35,7 @@
 #import "IFOutputSettings.h"
 #import "IFI7OutputSettings.h"
 #import "IFRandomSettings.h"
+#import "IFBasicInformSettings.h"
 #import "IFCompilerOptions.h"
 #import "IFLibrarySettings.h"
 #import "IFDebugSettings.h"
@@ -47,24 +44,30 @@
 #import "IFSingleFile.h"
 #import "IFPreferences.h"
 #import "IFProject.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 
 #import "IFSkeinItemView.h"
 
 #import "IFSingleController.h"
-#import "IFCompilerList.h"
+#import "IFNewsManager.h"
 
 #import <GlkView/GlkHub.h>
+#import "Inform-Swift.h"
 
 @implementation IFAppDelegate {
-    IBOutlet NSMenuItem* newExtensionProjectMenu;   // The 'New Extension Project' menu
-    IBOutlet NSMenuItem* openExtensionMenu;         // The 'Open Extension' menu
-    IBOutlet NSMenuItem* debugMenu;					// The Debug menu
+    /// News
+    //IFNewsManager* newsManager;
 
-    NSMutableArray* extensionSources;				// Maps extension menu tags to source file names
+    /// The 'New Extension Project' menu
+    IBOutlet NSMenuItem* newExtensionProjectMenu;
+    /// The 'Open Extension' menu
+    IBOutlet NSMenuItem* openExtensionMenu;
 
-    NSOpenPanel* openExtensionPanel;				// The 'open extension' panel
+    /// Maps extension menu tags to source file names
+    NSMutableArray* extensionSources;
+
+    /// The 'open extension' panel
+    NSOpenPanel* openExtensionPanel;
 
     // Used for copying sample projects
     NSURL*   copySource;
@@ -76,8 +79,8 @@
     int exportToEPubIndex;
 }
 
-static NSString* IFSourceSpellChecking = @"IFSourceSpellChecking";
-static float     pixelWidthBetweenExtensionNameAndVersion = 10.0f;
+static NSString* const IFSourceSpellChecking = @"IFSourceSpellChecking";
+static CGFloat   const pixelWidthBetweenExtensionNameAndVersion = 10.0;
 static IFNewProject* newProj = nil;
 
 static NSRunLoop* mainRunLoop = nil;
@@ -86,25 +89,14 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 + (BOOL)isWebKitAvailable {
-    static BOOL _webkitAvailable=NO;
-    static BOOL _initialized=NO;
-    
-    if (_initialized)
-        return _webkitAvailable;
-	
-    NSBundle* webKitBundle;
-    webKitBundle = [NSBundle bundleWithPath:@"/System/Library/Frameworks/WebKit.framework"];
-    if (webKitBundle) {
-        _webkitAvailable = [webKitBundle load];
-    }
-    _initialized=YES;
-    
-    return _webkitAvailable;
+    return YES;
 }
 
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
 	mainRunLoop = [NSRunLoop currentRunLoop];
-	
+
+    _newsManager = [[IFNewsManager alloc] init];
+
     // Register some custom URL handlers
     // [NSURLProtocol registerClass: [IFNoDocProtocol class]];
     [NSURLProtocol registerClass: [IFInformProtocol class]];
@@ -123,10 +115,17 @@ static NSRunLoop* mainRunLoop = nil;
 	[IFSettingsController addStandardSettingsClass: [IFLibrarySettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFMiscSettings class]];
     [IFSettingsController addStandardSettingsClass: [IFCompilerVersionSettings class]];
+    [IFSettingsController addStandardSettingsClass: [IFBasicInformSettings class]];
 
 	// Glk hub
 	[[GlkHub sharedGlkHub] setRandomHubCookie];
 	[[GlkHub sharedGlkHub] setHubName: @"GlkInform"];
+
+    // Remove the 'tab' related menu entries on the Window menu
+    if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)])
+    {
+        [NSWindow setAllowsAutomaticWindowTabbing:NO];
+    }
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification*) not {
@@ -134,17 +133,20 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsFiles sharedIFIsFiles]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsNotes sharedIFIsNotes]];
 	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsIndex sharedIFIsIndex]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsWatch sharedIFIsWatch]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsBreakpoints sharedIFIsBreakpoints]];
-	
+
 	// The standard preferences
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAuthorPreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFTextSizePreferences alloc] init]];
-	[[IFPreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[AuthorPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFColourPreferences alloc] init]];
+	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
 	[self updateExtensionsMenu];
+
+    [NSApp addObserver: self
+            forKeyPath: @"effectiveAppearance"
+               options: NSKeyValueObservingOptionNew
+               context: nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver: self
 											 selector: @selector(updateExtensionsMenu)
@@ -153,6 +155,9 @@ static NSRunLoop* mainRunLoop = nil;
 
 	[NSURLProtocol registerClass: [IFInformProtocol class]];
 
+    // Set dark mode if necessary
+    [self darkModeChanged];
+
     // Schedule "Checking whether document exists." into next UI Loop, because document is not restored yet.
     NSInvocationOperation* op = [[NSInvocationOperation alloc] initWithTarget: self
                                                                      selector: @selector(openWelcomeDialogIfNeeded)
@@ -160,16 +165,39 @@ static NSRunLoop* mainRunLoop = nil;
     [[NSOperationQueue mainQueue] addOperation: op];
 }
 
+- (void)observeValueForKeyPath: (NSString *) keyPath
+                      ofObject: (id) object
+                        change: (NSDictionary *) change
+                       context: (void *) context {
+    [self performSelectorOnMainThread:@selector(darkModeChanged) withObject:nil waitUntilDone:NO];
+}
+
+- (bool) isDark {
+    if (@available(macOS 10.14, *)) {
+        NSAppearanceName basicAppearance = [[NSApp effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
+    }
+    return false;
+}
+
+- (void) darkModeChanged {
+    IFPreferences* prefs = [IFPreferences sharedPreferences];
+    [prefs setDarkMode: [self isDark]];
+}
+
 -(void)openWelcomeDialogIfNeeded
 {
     //
-    // HACK: Remove any open color panel. Lion's auto-restore of windows that were open when
-    // the app last closed down can cause the color panel to display. We close the window.
+    // HACK: Remove any open color and font panel. Lion's auto-restore of windows that were open when
+    // the app last closed down can cause the panels to display. We close the window.
     //
     if([NSColorPanel sharedColorPanelExists]) {
         [[NSColorPanel sharedColorPanel] close];
     }
-    
+    if([NSFontPanel sharedFontPanelExists]) {
+        [[NSFontPanel sharedFontPanel] close];
+    }
+
     NSUInteger documentCount = [[[NSDocumentController sharedDocumentController] documents]count];
     
     // If no documents have opened, open the welcome dialog instead...
@@ -196,7 +224,6 @@ static NSRunLoop* mainRunLoop = nil;
         copyDestination = destination;
         
         // Ask for confirmation
-        NSString* confirm = [NSString stringWithFormat: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
         [IFUtility runAlertYesNoWindow: nil
                                  title: [IFUtility localizedString: @"Are you sure?"]
                                    yes: [IFUtility localizedString: @"Overwrite"]
@@ -204,7 +231,8 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
-                               message: confirm];
+                      destructiveIndex: 0
+                               message: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
         return;
     }
 
@@ -212,7 +240,7 @@ static NSRunLoop* mainRunLoop = nil;
                                               to: destination];
 }
 
-- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+- (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
 	if (returnCode == NSAlertFirstButtonReturn) {
         [[self class] copyProjectWithoutConfirmation: copySource
                                                   to: copyDestination];
@@ -266,7 +294,9 @@ static NSRunLoop* mainRunLoop = nil;
     
     [docControl openDocumentWithContentsOfURL: destination
                                       display: YES
-                                        error: &error];
+                            completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable ourerror) {
+        // do nothing
+    }];
 
     return YES;
 }
@@ -297,13 +327,6 @@ static NSRunLoop* mainRunLoop = nil;
     [newProj createInform7Extension];
 }
 
-- (IBAction) newInform6Project: (id) sender {
-    if( newProj == nil ) {
-        newProj = [[IFNewProject alloc] init];
-    }
-    [newProj createInform6Project];
-}
-
 - (IBAction) showInspectors: (id) sender {
 	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
 }
@@ -318,18 +341,18 @@ static NSRunLoop* mainRunLoop = nil;
 
 	// Spell checking
 	if (itemSelector == @selector(toggleSourceSpellChecking:)) {
-		[menuItem setState: [self sourceSpellChecking] ? NSOnState : NSOffState];
+		[menuItem setState: [self sourceSpellChecking] ? NSControlStateValueOn : NSControlStateValueOff];
 		return YES;
 	}
 
 	return YES;
 }
 
-// = Menu actions =
+#pragma mark - Menu actions
 
 - (void) visitWebsite: (id) sender {
 	// Get the URL
-	NSURL* websiteUrl = [NSURL URLWithString: @"http://www.inform7.com"];
+	NSURL* websiteUrl = [NSURL URLWithString: @"https://www.inform7.com"];
 	
 	// Visit it
 	[[NSWorkspace sharedWorkspace] openURL: websiteUrl];
@@ -346,8 +369,8 @@ static NSRunLoop* mainRunLoop = nil;
 
 // Construct an attributed string containing the extension name and version in the menu
 -(NSAttributedString*) attributedStringForExtensionInfo: (IFExtensionInfo*) info
-                                           withTabWidth: (float) tabWidth
-                                               widthOut: (float*) widthOut {
+                                           withTabWidth: (CGFloat) tabWidth
+                                               widthOut: (CGFloat*) widthOut {
     NSFont* systemFont       = [NSFont menuFontOfSize: 14];
     NSFont* smallFont        = [NSFont menuFontOfSize: [systemFont pointSize] - 4];
 
@@ -358,16 +381,16 @@ static NSRunLoop* mainRunLoop = nil;
     paragraph.tabStops = @[tab];
     paragraph.lineBreakMode = NSLineBreakByClipping;
 
-    NSDictionary* greyDictionary  = @{NSForegroundColorAttributeName: [NSColor grayColor],
+    NSDictionary* greyDictionary  = @{NSForegroundColorAttributeName: [NSColor systemGrayColor],
                                                  NSFontAttributeName: systemFont,
                                        NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* smallBlackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* smallBlackDictionary = @{NSForegroundColorAttributeName: [NSColor textColor],
                                                       NSFontAttributeName: smallFont,
                                             NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* smallGreyDictionary = @{NSForegroundColorAttributeName: [NSColor grayColor],
+    NSDictionary* smallGreyDictionary = @{NSForegroundColorAttributeName: [NSColor systemGrayColor],
                                                      NSFontAttributeName: smallFont,
                                            NSParagraphStyleAttributeName: paragraph};
-    NSDictionary* blackDictionary = @{NSForegroundColorAttributeName: [NSColor blackColor],
+    NSDictionary* blackDictionary = @{NSForegroundColorAttributeName: [NSColor textColor],
                                                  NSFontAttributeName: systemFont,
                                        NSParagraphStyleAttributeName: paragraph};
     NSDictionary* dict;
@@ -400,7 +423,7 @@ static NSRunLoop* mainRunLoop = nil;
     return attributedTitle;
 }
 
-// = The extensions menu =
+#pragma mark - The extensions menu
 
 - (void) updateExtensionsMenu {
 	IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
@@ -430,15 +453,15 @@ static NSRunLoop* mainRunLoop = nil;
 	// Generate the extensions menu
     for( NSString* author in [mgr availableAuthors] ) {
         // Find the maximum width of all extensions by this author
-        float maxWidth = 0.0f;
+        CGFloat maxWidth = 0.0f;
         for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
-            float width;
+            CGFloat width;
             [self attributedStringForExtensionInfo: info
                                       withTabWidth: 0.0f
                                           widthOut: &width ];
             maxWidth = MAX(maxWidth, width);
         }
-        float tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
+        CGFloat tabWidth = pixelWidthBetweenExtensionNameAndVersion + maxWidth;
 
         // Create menu and menu item for the 'Open Installed Extension' menu
         NSMenu* openAuthorMenu = [[NSMenu alloc] init];
@@ -533,17 +556,17 @@ static NSRunLoop* mainRunLoop = nil;
     }
 }
 
-// = Some misc actions =
+#pragma mark - Some misc actions
 
 - (IBAction) showPreferences: (id) sender {
 #if defined(DEBUG_EXPORT_HELP_IMAGES)
     [IFSkeinItemView exportHelpImages];
 #endif // defined(DEBUG_EXPORT_HELP_IMAGES)
 
-	[[IFPreferenceController sharedPreferenceController] showWindow: self];
+	[[PreferenceController sharedPreferenceController] showWindow: self];
 }
 
-// = The help menu =
+#pragma mark - The help menu
 
 - (IBAction) docIndex: (id) sender {
     // If we can switch to an open project document, do so
@@ -574,7 +597,7 @@ static NSRunLoop* mainRunLoop = nil;
     [[NSWorkspace sharedWorkspace] openFile: externalExtensions];
 }
 
-// = Installing extensions =
+#pragma mark - Installing extensions
 
 - (IBAction) installExtension: (id) sender {
 	// Present a panel for adding new extensions
@@ -596,36 +619,34 @@ static NSRunLoop* mainRunLoop = nil;
      {
          [panel setDelegate: nil];
 
-         if (result != NSOKButton) return;
+         if (result != NSModalResponseOK) return;
 
          // Just add the extension
          // Add the files
-         BOOL succeeded = YES;
+         IFExtensionResult installResult = IFExtensionSuccess;
          for(NSURL* file in [panel URLs]) {
-             succeeded = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [file path]
-                                                                                            finalPath: nil
-                                                                                                title: nil
-                                                                                               author: nil
-                                                                                              version: nil
-                                                                                   showWarningPrompts: YES
-                                                                                               notify: NO];
-             if (!succeeded) break;
+             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [file path]
+                                                                                         finalPath: nil
+                                                                                             title: nil
+                                                                                            author: nil
+                                                                                           version: nil
+                                                                                showWarningPrompts: YES
+                                                                                            notify: NO];
+             if (installResult != IFExtensionSuccess) break;
          }
 
          // Re-run the census. In particular, this will update the Public Library of extensions web page if visible
          [[IFExtensionsManager sharedNaturalInformExtensionsManager] startCensus: @YES];
 
          // Report an error if we couldn't install the extension for some reason
-         if (!succeeded) {
-             // Display a 'failed to add extension' alert sheet
-             [IFUtility runAlertWarningWindow: nil
-                                        title: @"Failed to Install Extension"
-                                      message: @"Failed to Install Extension Explanation"];
+         if (installResult != IFExtensionSuccess) {
+             [IFUtility showExtensionError: installResult
+                                withWindow: nil];
          }
      }];
 }
 
-// = Searching =
+#pragma mark - Searching
 
 - (IBAction) showFind2: (id) sender {
 	[[IFFindController sharedFindController] showWindow: self];
@@ -643,7 +664,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[IFFindController sharedFindController] useSelectionForFind: self];
 }
 
-// = Termination =
+#pragma mark - Termination
 
 - (void) applicationWillTerminate: (NSNotification*) not {
     newProj = nil;
@@ -651,13 +672,7 @@ static NSRunLoop* mainRunLoop = nil;
     //
     // Clean up preference panes
     //
-    [[IFPreferenceController sharedPreferenceController] removeAllPreferencePanes];
-    
-    [IFImageCache dealloc];
-}
-
-- (NSMenuItem*) debugMenu {
-	return debugMenu;
+    [[PreferenceController sharedPreferenceController] removeAllPreferencePanes];
 }
 
 - (BOOL) sourceSpellChecking {
@@ -714,7 +729,8 @@ static NSRunLoop* mainRunLoop = nil;
                          modalDelegate: self
                         didEndSelector: @selector(confirmFileCopyDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
-                               message: confirm];
+                      destructiveIndex: 0
+                               message: @"%@", confirm];
         return NO;
     }
 
@@ -743,14 +759,14 @@ static NSRunLoop* mainRunLoop = nil;
                                                    error: error]) {
         [IFUtility runAlertWarningWindow: nil
                                    title: @"Export failed"
-                                 message: [IFUtility localizedString:@"Export to %@ failed - error code %x"], destination, [*error localizedDescription]];
+                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, [*error localizedDescription]];
         return NO;
     }
     return YES;
 }
 
 - (void) confirmFileCopyDidEnd: (NSWindow *) sheet
-                    returnCode: (int) returnCode
+                    returnCode: (NSModalResponse) returnCode
                    contextInfo: (void *) contextInfo {
     NSString* sourceCopy = [fileCopySource copy];
     NSString* destCopy   = [fileCopyDestination copy];
@@ -804,7 +820,7 @@ static NSRunLoop* mainRunLoop = nil;
     
     [exportPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
      {
-         if (result == NSOKButton) {
+         if (result == NSModalResponseOK) {
              self->exportToEPubIndex = 0;
              [self exportNext: [[exportPanel URL] path]];
          }

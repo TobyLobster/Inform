@@ -30,7 +30,7 @@
     SEL finishedMessage;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -45,7 +45,7 @@
 	[self finishAnimation];
 }
 
-// = Caching views =
+#pragma mark - Caching views
 
 + (void) detrackView: (NSView*) view {
 	if ([view respondsToSelector: @selector(removeTrackingRects)]) {
@@ -76,9 +76,9 @@
 	startImage = [[self class] cacheView: view];
 }
 
-// = Animating =
+#pragma mark - Animating
 
-- (void) setTime: (float) newAnimationTime {
+- (void) setTime: (NSTimeInterval) newAnimationTime {
 	animationTime = newAnimationTime;
 }
 
@@ -111,7 +111,7 @@
             // Send finished message
             [finishedObject performSelector: finishedMessage
                                  withObject: self
-                                 afterDelay: 0.0f];
+                                 afterDelay: 0.0];
 			finishedObject = nil;
 		}
 	}
@@ -180,9 +180,9 @@
 								 forMode: NSEventTrackingRunLoopMode];
 }
 
-- (float) percentDone {
+- (CGFloat) percentDone {
 	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
-	float done = ((float)timePassed)/((float)animationTime);
+    CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
 	
 	if (done < 0) done = 0;
 	if (done > 1) done = 1.0;
@@ -199,7 +199,7 @@
 		[self setNeedsDisplay: YES];
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 static BOOL ViewNeedsDisplay(NSView* view) {
 	BOOL result = NO;
@@ -224,8 +224,8 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 	}
 	
 	// Draw the appropriate animation frame
-	float percentDone = [self percentDone];
-	float percentNotDone = 1.0-percentDone;
+    CGFloat percentDone = [self percentDone];
+    CGFloat percentNotDone = 1.0-percentDone;
 	
 	NSRect bounds = [self bounds];
 	NSSize startSize = [startImage size];
@@ -249,11 +249,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -272,11 +272,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -295,11 +295,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 
@@ -318,11 +318,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			break;
 			
@@ -339,11 +339,11 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw them
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: percentDone];
 			break;
 			
@@ -358,7 +358,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw the old view
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: 1.0];
 			
 			// Draw the new view
@@ -367,7 +367,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			endTo = endFrom;
 			endTo.origin = bounds.origin;
 			
-			float scaleFactor = 0.95 + 0.05*percentDone;
+            CGFloat scaleFactor = 0.95 + 0.05*percentDone;
 			endTo.size.height *= scaleFactor;
 			endTo.size.width *= scaleFactor;
 			endTo.origin.x += (endFrom.size.width - endTo.size.width) / 2;
@@ -375,7 +375,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: percentDone];
 			break;
 		}
@@ -391,7 +391,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			// Draw the old view
 			[endImage drawInRect: endTo
 						fromRect: endFrom
-					   operation: NSCompositeSourceOver
+					   operation: NSCompositingOperationSourceOver
 						fraction: 1.0];
 			
 			// Draw the new view
@@ -400,7 +400,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			startTo = startFrom;
 			startTo.origin = bounds.origin;
 			
-			float scaleFactor = 0.95 + 0.05*percentNotDone;
+            CGFloat scaleFactor = 0.95 + 0.05*percentNotDone;
 			startTo.size.height *= scaleFactor;
 			startTo.size.width *= scaleFactor;
 			startTo.origin.x += (startFrom.size.width - startTo.size.width) / 2;
@@ -408,7 +408,7 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 			
 			[startImage drawInRect: startTo
 						  fromRect: startFrom
-						 operation: NSCompositeSourceOver
+						 operation: NSCompositingOperationSourceOver
 						  fraction: percentNotDone];
 			break;
 		}

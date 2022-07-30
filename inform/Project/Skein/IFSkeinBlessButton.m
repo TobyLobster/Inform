@@ -8,7 +8,6 @@
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import "IFSkeinBlessButton.h"
-#import "IFImageCache.h"
 
 static NSImage* blessImage;
 static NSImage* blessOverImage;
@@ -24,10 +23,10 @@ static NSImage* curseOverImage;
 
 // Class initialisation
 + (void) initialize {
-    blessImage      = [IFImageCache loadResourceImage: @"App/Skein/Trans-tick-off.png"];
-    curseImage      = [IFImageCache loadResourceImage: @"App/Skein/Trans-cross-off.png"];
-    blessOverImage  = [IFImageCache loadResourceImage: @"App/Skein/Trans-tick.png"];
-    curseOverImage  = [IFImageCache loadResourceImage: @"App/Skein/Trans-cross.png"];
+    blessImage      = [NSImage imageNamed: @"App/Skein/Trans-tick-off"];
+    curseImage      = [NSImage imageNamed: @"App/Skein/Trans-cross-off"];
+    blessOverImage  = [NSImage imageNamed: @"App/Skein/Trans-tick"];
+    curseOverImage  = [NSImage imageNamed: @"App/Skein/Trans-cross"];
 }
 
 - (id)initWithFrame:(NSRect)frameRect {
@@ -52,7 +51,7 @@ static NSImage* curseOverImage;
 
 -(void) updateImage {
     self.image = [self imageForState];
-    [self setNeedsDisplay];
+    [self setNeedsDisplay: YES];
 }
 
 -(void) setBlessState:(BOOL)theBlessState {

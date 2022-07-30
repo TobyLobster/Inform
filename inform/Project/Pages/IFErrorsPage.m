@@ -18,12 +18,14 @@
 #import "IFPageBarView.h"
 
 @implementation IFErrorsPage {
-    IBOutlet IFCompilerController* compilerController;		// The compiler controller object
+    /// The compiler controller object
+    IFCompilerController* compilerController;
 
-    NSMutableArray* pageCells;								// Cells used to select the pages in the compiler controller
+    /// Cells used to select the pages in the compiler controller
+    NSMutableArray* pageCells;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Errors"
@@ -36,15 +38,14 @@
 	return self;
 }
 
-
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Errors Page Title"
                               default: @"Errors"];
 }
 
-// = IFCompilerController delegate methods =
+#pragma mark - IFCompilerController delegate methods
 
 - (void) errorMessageHighlighted: (IFCompilerController*) sender
                           atLine: (int) line
@@ -95,7 +96,7 @@
 		[newCell setRadioGroup: 128];
 		
         if( [compilerController selectedTabId] == tab.tabId ) {
-			[newCell setState: NSOnState];
+			[newCell setState: NSControlStateValueOn];
 		}
 		
 		[pageCells addObject: newCell];
@@ -128,9 +129,9 @@
 	
 	for( IFPageBarCell* cell in pageCells ) {
 		if ([compilerController selectedTabId] == [[cell identifier] intValue]) {
-			[cell setState: NSOnState];
+			[cell setState: NSControlStateValueOn];
 		} else {
-			[cell setState: NSOffState];
+			[cell setState: NSControlStateValueOff];
 		}
 	}
 }
@@ -147,19 +148,11 @@
 	[compilerController switchToViewWithTabId: tabId];
 }
 
-// = Setting some interface building values =
+#pragma mark -  Setting some interface building values
 
-// (These need to be released, so implement getters/setters)
+@synthesize compilerController;
 
-- (IFCompilerController*) compilerController {
-	return compilerController;
-}
-
-- (void) setCompilerController: (IFCompilerController*) controller {
-	compilerController = controller;
-}
-
-// = History =
+#pragma mark - History
 
 - (void) didSwitchToPage {
     LogHistory(@"HISTORY: Errors Page: (didSwitchToPage) tab %d", (int) [compilerController selectedTabId]);
@@ -167,7 +160,7 @@
 	[super didSwitchToPage];
 }
 
-// = The page bar =
+#pragma mark - The page bar
 
 - (NSArray*) toolbarCells {
 	if (pageCells == nil) return @[];
@@ -176,10 +169,7 @@
 
 - (BOOL)splitView:(NSSplitView *)splitView shouldHideDividerAtIndex:(NSInteger)dividerIndex
 {
-    if( [[[self.parent document] settings] usingNaturalInform] ) {
-        return YES;
-    }
-    return NO;
+    return YES;
 }
 
 @end

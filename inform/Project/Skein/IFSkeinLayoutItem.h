@@ -17,33 +17,33 @@
 // Initialisation
 
 - (instancetype) initWithItem: (IFSkeinItem*) item
-                 subtreeWidth: (float) subtreeWidth
+                 subtreeWidth: (CGFloat) subtreeWidth
                         level: (int) level NS_DESIGNATED_INITIALIZER;
 
 // Setting/getting properties
 
 @property (atomic, strong)    IFSkeinItem *       item;
-@property (atomic)            float               commandWidth;   // Width of the command
-@property (atomic)            float               subtreeWidth;   // Combined visible width of all the subtree from this item down
-@property (atomic, readonly)  float               visibleWidth;   // Visible lozenge width
+@property (atomic)            CGFloat             commandWidth;   // Width of the command
+@property (atomic)            CGFloat             subtreeWidth;   // Combined visible width of all the subtree from this item down
+@property (atomic, readonly)  CGFloat             visibleWidth;   // Visible lozenge width
 @property (atomic)            NSRect              boundingRect;
-@property (atomic, strong)    IFSkeinLayoutItem * parent;
-@property (atomic, copy)      NSArray *           children;
+@property (atomic, weak)      IFSkeinLayoutItem * parent;
+@property (nonatomic, copy)   NSArray<IFSkeinLayoutItem*> * children;
 @property (atomic)            int                 level;
 @property (atomic)            BOOL                onSelectedLine;
 @property (atomic)            BOOL                recentlyPlayed;
 @property (atomic, readonly)  int                 depth;
-@property (atomic, readonly)  float               centreX;
+@property (atomic, readonly)  CGFloat             centreX;
 @property (atomic, readonly)  NSRect              lozengeRect;
 @property (atomic, readonly)  NSRect              localSpaceLozengeRect;
 @property (atomic, readonly)  NSRect              textRect;
 
-- (void) moveRightBy: (float) deltaX
+- (void) moveRightBy: (CGFloat) deltaX
          recursively: (BOOL) recursively;
 
 -(IFSkeinLayoutItem*) selectedLineChild;
 - (IFSkeinLayoutItem*) leafSelectedLineItem;
 
--(unsigned long) drawStateHash;
+-(NSUInteger) drawStateHash;
 
 @end

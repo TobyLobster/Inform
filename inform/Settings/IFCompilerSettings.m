@@ -25,32 +25,33 @@
 
 #import "IFSettingsController.h"
 
-NSString* IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
-NSString* IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
+NSString* const IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
+NSString* const IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
 
-NSString* IFSettingNaturalInform        = @"IFSettingNaturalInform";
-NSString* IFSettingStrict               = @"IFSettingStrict";
-NSString* IFSettingInfix                = @"IFSettingInfix";
-NSString* IFSettingDEBUG                = @"IFSettingDEBUG";
-NSString* IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
-NSString* IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
-NSString* IFSettingNobbleRng            = @"IFSettingNobbleRng";
-NSString* IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
+NSString* const IFSettingNaturalInform        = @"IFSettingNaturalInform";
+NSString* const IFSettingStrict               = @"IFSettingStrict";
+NSString* const IFSettingInfix                = @"IFSettingInfix";
+NSString* const IFSettingDEBUG                = @"IFSettingDEBUG";
+NSString* const IFSettingTestingTabHelpShown  = @"IFSettingTestingTabHelpShown";
+NSString* const IFSettingTestingTabShownCount = @"IFSettingTestingTabShownCount";
+NSString* const IFSettingNobbleRng            = @"IFSettingNobbleRng";
+NSString* const IFSettingBasicInform          = @"IFSettingBasicInform";
+NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
-NSString* IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
-NSString* IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
-NSString* IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
+NSString* const IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
+NSString* const IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
+NSString* const IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
 
 // Natural Inform
-NSString* IFSettingLoudly = @"IFSettingLoudly";
+NSString* const IFSettingLoudly = @"IFSettingLoudly";
 
 // Compiler types
-NSString* IFCompilerInform6		  = @"IFCompilerInform6";
-NSString* IFCompilerNaturalInform = @"IFCompilerNaturalInform";
+NSString* const IFCompilerInform6		  = @"IFCompilerInform6";
+NSString* const IFCompilerNaturalInform = @"IFCompilerNaturalInform";
 
 // Notifications
-NSString* IFSettingNotification = @"IFSettingNotification";
+NSString* const IFSettingNotification = @"IFSettingNotification";
 
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
@@ -63,10 +64,13 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 
 @implementation IFCompilerSettings
 {
-    NSMutableDictionary* store;						// (DEPRECATED) Maps keys to settings
-    NSArray* genericSettings;						// IFSetting object that deals with specific settings areas
+    /// (DEPRECATED) Maps keys to settings
+    NSMutableDictionary* store;
+    /// \c IFSetting object that deals with specific settings areas
+    NSArray<IFSetting*>* genericSettings;
 
-    NSDictionary* originalPlist;					// The PList we loaded to construct this object (used if there's some settings in the plist that aren't handled)
+    /// The PList we loaded to construct this object (used if there's some settings in the plist that aren't handled)
+    NSDictionary* originalPlist;
 }
 
 // == Possible locations for the library ==
@@ -171,7 +175,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	}
 }
 
-// = Getting information on what is going on =
+#pragma mark - Getting information on what is going on
 
 - (NSString*) primaryCompilerType {
 	if ([self usingNaturalInform]) {
@@ -286,13 +290,17 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (NSString*) compilerToUse {
-    return [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: @"inform6"];
+    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"inform6"];
 }
 
 - (NSArray*) supportedZMachines {
 	return @[ @5, @3, @4, @6, @7, @8, @256 ];
 }
 
+- (BOOL) isNaturalInformCompilerPathValid {
+    NSString* path = [self naturalInformCompilerToUse];
+    return [[NSFileManager defaultManager] fileExistsAtPath: path];
+}
 
 - (NSString*) naturalInformCompilerToUse {
     if (![self usingNaturalInform]) {
@@ -305,7 +313,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 
     if ([version isEqualToString:currentVersion])
     {
-        return [macOSFolder stringByAppendingPathComponent: @"ni"];
+        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
     }
     return [[macOSFolder stringByAppendingPathComponent: version] stringByAppendingPathComponent:@"ni"];
 }
@@ -372,7 +380,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
     return res;
 }
 
-// = Setting up the settings =
+#pragma mark - Setting up the settings
 
 // Originally, there was only this object for dealing with settings, which did not require the 
 // structured approach we're now using. Using these routines is deprecated: use a settings controller
@@ -384,18 +392,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setUsingNaturalInform: (BOOL) setting {
-    [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
+    //[self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) usingNaturalInform {
-    NSNumber* usingNaturalInform = [self dictionaryForClass: [IFCompilerOptions class]][IFSettingNaturalInform];
-
-    if (usingNaturalInform) {
-        return [usingNaturalInform boolValue];
-    } else {
-        return NO;
-    }
+    return YES;
 }
 
 - (void) setStrict: (BOOL) setting {
@@ -466,6 +468,21 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 - (BOOL) nobbleRng {
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng];
 	
+    if (setting) {
+        return [setting boolValue];
+    } else {
+        return NO;
+    }
+}
+
+- (void) setBasicInform: (BOOL) setting {
+    [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform] = @(setting);
+    [self settingsHaveChanged];
+}
+
+- (BOOL) basicInform {
+    NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform];
+
     if (setting) {
         return [setting boolValue];
     } else {
@@ -588,7 +605,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	return library;
 }
 
-// = Generic settings =
+#pragma mark - Generic settings
 
 - (void) setGenericSettings: (NSArray*) newGenericSettings {
 	if (newGenericSettings == genericSettings) return;
@@ -618,7 +635,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	return nil;
 }
 
-// = NSCoding =
+#pragma mark - NSCoding
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject: store];
@@ -634,7 +651,7 @@ NSString* IFSettingNotification = @"IFSettingNotification";
     return self;
 }
 
-// = Property lists =
+#pragma mark - Property lists
 
 - (NSData*) currentPlist {
 	// Use the original plist as a template if it exists (this will preserve any plist data that
@@ -658,10 +675,11 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	originalPlist = [plData copy];
 	
 	// Create the actual plist	
-	NSString* error;
-	NSData* res = [NSPropertyListSerialization dataFromPropertyList: plData
+	NSError* error;
+	NSData* res = [NSPropertyListSerialization dataWithPropertyList: plData
 															 format: NSPropertyListXMLFormat_v1_0
-												   errorDescription:&error];
+                                                            options: 0
+                                                              error: &error];
 	
 	if (!res) {
 		NSLog(@"Couldn't create settings data: %@", error);
@@ -706,12 +724,12 @@ NSString* IFSettingNotification = @"IFSettingNotification";
 	originalPlist = nil;
 	
 	// Parse the plist into a dictionary
-	NSString* error = nil;
+	NSError* error = nil;
 	NSPropertyListFormat fmt = NSPropertyListXMLFormat_v1_0;
-	NSDictionary* plist = [NSPropertyListSerialization propertyListFromData: plData
-														   mutabilityOption: NSPropertyListMutableContainersAndLeaves
+	NSDictionary* plist = [NSPropertyListSerialization propertyListWithData: plData
+                                                                    options: NSPropertyListMutableContainersAndLeaves
 																	 format: &fmt
-														   errorDescription: &error];
+                                                                      error: &error];
 	
 	if (!plist) {
 		NSLog(@"Failed to load settings: %@", error);

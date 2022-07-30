@@ -13,12 +13,14 @@
 #import "IFSyntaxData.h"
 
 @implementation IFNaturalHighlighter {
-    IFSyntaxData* activeData;					// Syntax data that we're using
+    /// Syntax data that we're using
+    IFSyntaxData* activeData;
 
-    IFInform6Highlighter* inform6Highlighter;		// Highlighter for portions of the file that are Inform 6 code
+    /// Highlighter for portions of the file that are Inform 6 code
+    IFInform6Highlighter* inform6Highlighter;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	self = [super init];
@@ -31,7 +33,7 @@
 }
 
 
-// = Notifying of the highlighter currently in use =
+#pragma mark - Notifying of the highlighter currently in use
 
 - (void) setSyntaxData: (IFSyntaxData*) aData {
 	activeData = aData;
@@ -39,7 +41,7 @@
     [inform6Highlighter setSyntaxData: aData];
 }
 
-// = The highlighter itself =
+#pragma mark - The highlighter itself
 
 - (IFSyntaxState) stateForCharacter: (unichar) chr
 						 afterState: (IFSyntaxState) lastState {
@@ -257,13 +259,13 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 	}
 }
 
-// = Styles =
+#pragma mark - Styles
 
 - (NSDictionary*) attributesForStyle: (IFSyntaxStyle) style {
 	return [IFProjectPane attributeForStyle: style];
 }
 
-- (float) tabStopWidth {
+- (CGFloat) tabStopWidth {
 	return [[IFPreferences sharedPreferences] tabWidth];
 }
 

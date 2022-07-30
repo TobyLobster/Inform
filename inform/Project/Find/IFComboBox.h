@@ -11,9 +11,7 @@
 ///
 /// NSComboBox variant that reports 'enter' keypresses to its delegate
 ///
-@interface IFComboBox : NSComboBox {
-
-}
+@interface IFComboBox : NSComboBox
 
 @end
 

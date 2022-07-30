@@ -11,20 +11,23 @@
 #import "IFHeaderController.h"
 
 @implementation IFHeaderView {
-    int displayDepth;														// The display depth for this view
-    IFHeader* rootHeader;													// The root header that this view should display
-    IFHeaderNode* rootHeaderNode;											// The root header node
-    IFHeaderNode* editNode;													// The header node that we're editing at the moment
-    NSColor* backgroundColour;												// The background colour for this view
-    NSString* message;														// The message to display centered in the view
+    /// The display depth for this view
+    int displayDepth;
+    /// The root header that this view should display
+    IFHeader* rootHeader;
+    /// The root header node
+    IFHeaderNode* rootHeaderNode;
+    /// The header node that we're editing at the moment
+    IFHeaderNode* editNode;
+    NSColor* backgroundColour;												
 
-    NSTextView* editor;														// The text view that's performing editing at the moment
-    NSTextStorage* editStorage;												// Text storage for the field editor
-
-    id delegate;															// The delegate (NOT RETAINED)
+    /// The text view that's performing editing at the moment
+    NSTextView* editor;
+    /// Text storage for the field editor
+    NSTextStorage* editStorage;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -35,13 +38,11 @@
     return self;
 }
 
-// = Information about this view =
+#pragma mark - Information about this view
 
-- (IFHeaderNode*) rootHeaderNode {
-	return rootHeaderNode;
-}
+@synthesize rootHeaderNode;
 
-// = Updating the view =
+#pragma mark - Updating the view
 
 - (void) sizeView {
 	// Resize the view
@@ -61,7 +62,7 @@
 
 - (void) updateFromRoot {
 	// Replace the root header node
-	rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
+    rootHeaderNode = [[IFHeaderNode alloc] initWithHeader: rootHeader
 												 position: NSMakePoint(0,0)
 													depth: 0];
     int populateToDepth = displayDepth;
@@ -88,6 +89,7 @@
 	[self setNeedsDisplay: YES];	
 }
 
+@synthesize message;
 - (void) setMessage: (NSString*) newMessage {
 	if ([newMessage length] == 0) newMessage = nil;
 	message = [newMessage copy];
@@ -96,15 +98,13 @@
 	[self setNeedsDisplay: YES];
 }
 
-// = Settings for this view =
+#pragma mark - Settings for this view
 
 - (BOOL) isFlipped {
 	return YES;
 }
 
-- (int) displayDepth {
-	return displayDepth;
-}
+@synthesize displayDepth;
 
 - (void) setDisplayDepth: (int) newDisplayDepth {
 	// Set the display depth for this view
@@ -119,15 +119,10 @@
     return YES;
 }
 
-- (void) setDelegate: (id) newDelegate {
-	delegate = newDelegate;
-}
+@synthesize delegate;
+@synthesize backgroundColour;
 
-- (void) setBackgroundColour: (NSColor*) colour {
-	backgroundColour = [colour copy];
-}
-
-// = Drawing =
+#pragma mark - Drawing
 
 - (void)drawRect:(NSRect)rect {
 	// Draw the background
@@ -138,9 +133,10 @@
 	if (message) {
 		// Get the style for the message
 		NSMutableParagraphStyle* style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-		[style setAlignment: NSCenterTextAlignment];
+		[style setAlignment: NSTextAlignmentCenter];
 		
 		NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
+                                            NSForegroundColorAttributeName: [NSColor textColor],
 										   NSParagraphStyleAttributeName: style};
 		
 		// Draw roughly centered
@@ -158,7 +154,7 @@
 	}
 }
 
-// = Messages from the header controller =
+#pragma mark - Messages from the header controller
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
 	// Get the root header from the controller
@@ -173,12 +169,12 @@
 	// Update this control
 	[self updateFromRoot];
 	
-	if (delegate && [delegate respondsToSelector:@selector(refreshHeaders:)]) {
+	if ([delegate respondsToSelector:@selector(refreshHeaders:)]) {
 		[delegate refreshHeaders: controller];
 	}
 }
 
-// = Editing events =
+#pragma mark - Editing events
 
 - (void) editHeaderNode: (IFHeaderNode*) node 
 			 mouseEvent: (NSEvent*) mouseDown {
@@ -251,7 +247,7 @@
 	if (mouseDown) [editor mouseDown: mouseDown];
 }
 
-// = Mouse events =
+#pragma mark - Mouse events
 
 - (void) mouseDown: (NSEvent*) theEvent {
 	// Get the position where the mouse was clicked
@@ -271,7 +267,7 @@
                       mouseEvent: theEvent];
         } else {
             // Inform the delegate that the header has been clicked
-            if (clicked && delegate && [delegate respondsToSelector: @selector(headerView:clickedOnNode:)]) {
+            if (clicked && [delegate respondsToSelector: @selector(headerView:clickedOnNode:)]) {
                 [delegate headerView: self
                        clickedOnNode: clicked];
             }
@@ -305,14 +301,14 @@
     }
 }
 
-// = Field editor delegate events =
+#pragma mark - Field editor delegate events
 
 - (void) textDidEndEditing: (NSNotification*) aNotification {
 	// Get the new text for this node
 	NSString* newText = [editNode freshValueForEditedTitle: [editStorage string]];
 	
 	// Tell the delegate to update the source text
-	if (delegate && [delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
+	if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
 		[delegate headerView: self
 				  updateNode: editNode
 				withNewTitle: newText];

@@ -20,15 +20,19 @@
 #import "IFIntelSymbol.h"
 #import "NSBundle+IFBundleExtensions.h"
 
-NSString* IFIsIndexInspector = @"IFIsIndexInspector";
+NSString* const IFIsIndexInspector = @"IFIsIndexInspector";
 
 @implementation IFIsIndex {
-    IBOutlet NSOutlineView* indexList;						// The outline view that will contain the index
+    /// The outline view that will contain the index
+    IBOutlet NSOutlineView* indexList;
 
-    BOOL canDisplay;										// YES if there's an index to display
-    NSWindow* activeWindow;									// Currently active window
+    /// \c YES if there's an index to display
+    BOOL canDisplay;
+    /// Currently active window
+    NSWindow* activeWindow;
 
-    NSMutableArray* itemCache;								// Cache of items retrieved from the index (used because the index can update before the display)
+    /// Cache of items retrieved from the index (used because the index can update before the display)
+    NSMutableArray* itemCache;
 }
 
 + (IFIsIndex*) sharedIFIsIndex {
@@ -88,7 +92,7 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	}
 }
 
-// = NSOutlineView delegate methods =
+#pragma mark - NSOutlineView delegate methods
 
 - (void) cacheSiblingsOf: (IFIntelSymbol*) symbol 
 				 inCache: (NSMutableArray*) cache {
@@ -178,7 +182,7 @@ NSString* IFIsIndexInspector = @"IFIsIndexInspector";
 	}
 }
 
-// = NSOutlineView data source =
+#pragma mark - NSOutlineView data source
 
 // This will display the real-time data instead of the indexfile data
 

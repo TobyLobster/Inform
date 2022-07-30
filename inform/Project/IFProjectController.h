@@ -8,10 +8,12 @@
 
 #import <AppKit/AppKit.h>
 #import <GlkView/GlkAutomation.h>
+#import <WebKit/WebKit.h>
 #import "IFSkeinView.h"
 #import "IFProjectTypes.h"
 #import "IFFindResult.h"
 #import "IFSourceSharedActions.h"
+#import "IFRuntimeErrorParser.h"
 
 @class ZoomView;
 @class IFSkeinItem;
@@ -25,7 +27,9 @@
                                                     NSToolbarDelegate,
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
-                                                    IFSkeinViewDelegate>
+                                                    IFSkeinViewDelegate,
+                                                    IFRuntimeErrorParserDelegate,
+                                                    WebUIDelegate>
 
 - (void) layoutPanes;
 
@@ -40,13 +44,13 @@
 // Communication from the containing panes
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId;
 - (BOOL) selectSourceFile: (NSString*) fileName;
-- (void) moveToSourceFilePosition: (int) location;
-- (void) moveToSourceFileLine: (int) line;
+- (void) moveToSourceFilePosition: (NSInteger) location;
+- (void) moveToSourceFileLine: (NSInteger) line;
 @property (atomic, readonly, copy) NSString *selectedSourceFile;
 
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file;
-- (void) highlightSourceFileLine: (int) line
+- (void) highlightSourceFileLine: (NSInteger) line
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style;
 - (NSArray*) highlightsForFile: (NSString*) file;
@@ -57,6 +61,7 @@
 - (void) removeAllTemporaryHighlights;
 
 -(BOOL) isCurrentlyTesting;
+@property (readonly, atomic, getter=isCurrentlyTesting) BOOL currentlyTesting;
 
 @property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
 
@@ -68,10 +73,6 @@
 
 // Documentation
 - (void) openDocUrl: (NSURL*) url;
-
-// Debugging
-- (void) updatedBreakpoints: (NSNotification*) not;
-- (void) hitBreakpoint: (int) pc;
 
 // Policy delegates
 @property (atomic, readonly, strong) IFProjectPolicy *generalPolicy;
@@ -110,11 +111,6 @@
 - (IBAction) showNextSection:     (id) sender;
 - (IBAction) commentOutSelection: (id) sender;
 - (IBAction) uncommentSelection:  (id) sender;
-- (IBAction) pauseProcess:      (id) sender;
-- (IBAction) continueProcess:   (id) sender;
-- (IBAction) stepIntoProcess:   (id) sender;
-- (IBAction) stepOutProcess:    (id) sender;
-- (IBAction) stepOverProcess:   (id) sender;
 - (IBAction) release:           (id) sender;
 - (IBAction) releaseForTesting: (id) sender;
 - (IBAction) compile:           (id) sender;
@@ -123,8 +119,6 @@
 - (IBAction) compileAndRefresh: (id) sender;
 - (IBAction) replayUsingSkein:  (id) sender;
 - (IBAction) stopProcess:       (id) sender;
-- (IBAction) showWatchpoints:   (id) sender;
-- (IBAction) showBreakpoints:   (id) sender;
 - (IBAction) searchDocs:        (id) sender;
 - (IBAction) searchProject:     (id) sender;
 - (IBAction) testSelector:      (id) sender;
@@ -133,7 +127,7 @@
 - (IBAction) testMe:            (id) sender;
 
 - (void) changeFirstResponder: (NSResponder*) first;
-- (void) searchShowSelectedItemAtLocation: (int) location
+- (void) searchShowSelectedItemAtLocation: (NSInteger) location
                                    phrase: (NSString*) phrase
                                    inFile: (NSString*) filename
                                      type: (IFFindLocation) type
@@ -144,7 +138,7 @@
 
 // The GLK view
 - (IBAction) glkTaskHasStarted: (id) sender;
-- (void) setGlkInputSource: (id) glkInputSource;
+@property (atomic, strong) id<ZoomViewInputSource> glkInputSource;
 
 // Headers
 @property (atomic, readonly, strong) IFHeaderController *headerController;
@@ -154,10 +148,8 @@
 
 - (void) extensionUpdated: (NSString*) javascriptId;
 
-// Can we debug this project?
-@property (atomic, readonly) BOOL canDebug;
 @property (atomic, getter=isRunningGame, readonly) BOOL runningGame;
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
-@property (atomic, getter=isWaitingAtBreakpoint, readonly) BOOL waitingAtBreakpoint;
 
+- (void) inputSourceHasFinished: (id) source;
 @end

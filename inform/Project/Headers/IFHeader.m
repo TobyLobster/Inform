@@ -8,14 +8,17 @@
 
 #import "IFHeader.h"
 
-
-NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
+NSString* const IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 
 @implementation IFHeader {
-    NSString* headingName;						// The name of this header
-    IFHeader* parent;							// The parent of this header (NOT RETAINED)
-    NSMutableArray* children;					// The child headings for this heading
-    IFIntelSymbol* symbol;						// The symbol that is associated with this heading
+    /// The name of this header
+    NSString* headingName;
+    /// The parent of this header (NOT RETAINED)
+    __weak IFHeader* parent;
+    /// The child headings for this heading
+    NSMutableArray* children;
+    /// The symbol that is associated with this heading
+    IFIntelSymbol* symbol;
 }
 
 // Initialisation
@@ -27,11 +30,12 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 }
 
 - (instancetype) initWithName: (NSString*) name
-			 parent: (IFHeader*) newParent
-		   children: (NSArray*) newChildren {
+                       parent: (IFHeader*) newParent
+                     children: (NSArray*) newChildren {
 	self = [super init];
 	
 	if (self) {
+        NSAssert(name != NULL, @"Null name passed to initWithName:parent:children:");
 		headingName = [name copy];
 		parent = newParent;
 		
@@ -63,24 +67,17 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 														object: self];
 }
 
-- (NSString*) headingName {
-	return headingName;
-}
-
-- (IFHeader*) parent {
-	return parent;
-}
+@synthesize headingName;
+@synthesize parent;
 
 - (NSArray*) children {
-	return children;
+	return [children copy];
 }
 
-- (IFIntelSymbol*) symbol {
-	return symbol;
-}
+@synthesize symbol;
 
 - (void) setHeadingName: (NSString*) newName {
-	headingName = newName;
+	headingName = [newName copy];
 	
 	[self hasChanged];
 }
@@ -109,10 +106,6 @@ NSString* IFHeaderChangedNotification = @"IFHeaderChangedNotification";
 	}
 	
 	[self hasChanged];
-}
-
-- (void) setSymbol: (IFIntelSymbol*) newSymbol {
-	symbol = newSymbol;
 }
 
 @end

@@ -9,15 +9,17 @@
 #import <Cocoa/Cocoa.h>
 #import "IFSourceSharedActions.h"
 
-//
-// WindowController for a single-file document.
-//
+///
+/// WindowController for a single-file document.
+///
 @interface IFSingleController : NSWindowController
 
 -(instancetype) initWithInitialSelectionRange: (NSRange) initialRange;
 
-- (IBAction) installFile: (id) sender;							// User wants to install an extension
-- (IBAction) cancelInstall: (id) sender;						// User cancelled the install panel
+/// User wants to install an extension
+- (IBAction) installFile: (id) sender;
+/// User cancelled the install panel
+- (IBAction) cancelInstall: (id) sender;
 
 - (void) indicateRange: (NSRange) rangeToHighlight;
 

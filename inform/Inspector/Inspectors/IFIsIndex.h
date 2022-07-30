@@ -11,15 +11,18 @@
 
 #import "IFInspector.h"
 
-extern NSString* IFIsIndexInspector;
+extern IFIsInspectorKey const IFIsIndexInspector;
 
-//
-// Dynamic or XML (depending on preferences) index inspector
-//
+///
+/// Dynamic or XML (depending on preferences) index inspector
+///
 @interface IFIsIndex : IFInspector<NSOutlineViewDataSource>
 
-+ (IFIsIndex*) sharedIFIsIndex;								// Retrieves the shared index inspector
+/// Retrieves the shared index inspector
++ (IFIsIndex*) sharedIFIsIndex;
+@property (class, atomic, readonly, strong) IFIsIndex *sharedIFIsIndex;
 
-- (void) updateIndexFrom: (NSWindowController*) window;		// Updates the index from a specific window controller (to have an index, it must be a ProjectController)
+/// Updates the index from a specific window controller (to have an index, it must be a ProjectController)
+- (void) updateIndexFrom: (NSWindowController*) window;
 
 @end

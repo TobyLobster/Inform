@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFCompilerVersionSettings">
+            <connections>
+                <outlet property="compilerVersionBox" destination="irY-BB-3It" id="Okv-gI-ID8"/>
+                <outlet property="descriptionText" destination="Iro-mS-eF3" id="Qk4-KJ-3t7"/>
+                <outlet property="settingView" destination="c22-O7-iKe" id="QWd-CD-RE8"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" userLabel="Compiler Version Setting View">
+            <rect key="frame" x="0.0" y="0.0" width="470" height="174"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="irY-BB-3It">
+                    <rect key="frame" x="74" y="130" width="380" height="25"/>
+                    <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="CO6-FR-Mhk">
+                        <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="menu"/>
+                        <menu key="menu" id="Zfy-ra-yju"/>
+                    </popUpButtonCell>
+                    <connections>
+                        <action selector="compilerVersionChanged:" target="-2" id="LOa-ev-ctb"/>
+                    </connections>
+                </popUpButton>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MvB-Wr-5gL">
+                    <rect key="frame" x="18" y="137" width="53" height="16"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="Version:" id="FD9-Ge-ENk">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Iro-mS-eF3">
+                    <rect key="frame" x="18" y="20" width="434" height="106"/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="250" constant="106" id="ai0-li-fhk"/>
+                    </constraints>
+                    <textFieldCell key="cell" selectable="YES" title="Description" id="2Ky-ya-U4W">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="MvB-Wr-5gL" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="8B1-ta-X6p"/>
+                <constraint firstAttribute="trailing" secondItem="Iro-mS-eF3" secondAttribute="trailing" constant="20" symbolic="YES" id="9vZ-4I-Jzp"/>
+                <constraint firstItem="irY-BB-3It" firstAttribute="firstBaseline" secondItem="MvB-Wr-5gL" secondAttribute="firstBaseline" id="Exs-GE-ecH"/>
+                <constraint firstAttribute="trailing" secondItem="irY-BB-3It" secondAttribute="trailing" constant="20" id="LeM-ku-f44"/>
+                <constraint firstAttribute="bottom" secondItem="Iro-mS-eF3" secondAttribute="bottom" constant="20" symbolic="YES" id="V4q-5k-0Lh"/>
+                <constraint firstItem="Iro-mS-eF3" firstAttribute="top" secondItem="irY-BB-3It" secondAttribute="bottom" constant="8" symbolic="YES" id="ciu-cw-iYR"/>
+                <constraint firstItem="irY-BB-3It" firstAttribute="leading" secondItem="MvB-Wr-5gL" secondAttribute="trailing" constant="8" symbolic="YES" id="dYg-bI-upb"/>
+                <constraint firstItem="MvB-Wr-5gL" firstAttribute="leading" secondItem="Iro-mS-eF3" secondAttribute="leading" id="dae-ZH-6vW"/>
+                <constraint firstItem="irY-BB-3It" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="20" id="u7r-Eg-c6J"/>
+            </constraints>
+            <point key="canvasLocation" x="135" y="108.5"/>
+        </customView>
+    </objects>
+</document>

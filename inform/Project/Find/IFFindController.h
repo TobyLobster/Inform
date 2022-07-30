@@ -44,33 +44,46 @@
 ///
 /// Delegate methods that can be used to enhance the find dialog (or provide it for new views or controllers)
 ///
-@interface NSObject(IFFindDelegate)
+@protocol IFFindDelegate <NSObject>
 
 // Basic interface (all searchable objects must implement this)
-- (BOOL) findNextMatch:	(NSString*) match								// Request to find the next match
+/// Request to find the next match
+- (BOOL) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type;
-- (BOOL) findPreviousMatch: (NSString*) match							// Request to find the previous match
+@optional
+
+/// Request to find the previous match
+- (BOOL) findPreviousMatch: (NSString*) match
 					ofType: (IFFindType) type;
 
-- (BOOL) canUseFindType: (IFFindType) find;								// Allows delegates to specify which type of file they can search on
+/// Allows delegates to specify which type of file they can search on
+- (BOOL) canUseFindType: (IFFindType) find;
 
-@property (atomic, readonly, copy) NSString *currentSelectionForFind;	// Returns whatever was currently selected: used to implement the 'use selection for find' menu option
+/// Returns whatever was currently selected: used to implement the 'use selection for find' menu option
+@property (atomic, readonly, copy) NSString *currentSelectionForFind;
 
 // 'Find all'
-- (NSArray*) findAllMatches: (NSString*) match							// Should return an array of IFFindResults
-					 ofType: (IFFindType) type
-                 inLocation: (IFFindLocation) location
-		   inFindController: (IFFindController*) controller
-			 withIdentifier: (id) identifier;
-- (void) highlightFindResult: (IFFindResult*) result;					// The user has selected a find result, which should now be displayed
+/// Should return an array of IFFindResults
+- (NSArray<IFFindResult*>*) findAllMatches: (NSString*) match
+                                    ofType: (IFFindType) type
+                                inLocation: (IFFindLocation) location
+                          inFindController: (IFFindController*) controller
+                            withIdentifier: (id) identifier;
+/// The user has selected a find result, which should now be displayed
+- (void) highlightFindResult: (IFFindResult*) result;
 
 // Replace
-- (void) replaceFoundWith: (NSString*) match;							// Should replace the last found item with the specified text (or the currently selected item, if the user has manually changed the selection)
-- (void) beginReplaceAll: (IFFindController*) sender;					// Indicates that a replace all operation is starting
-- (IFFindResult*) replaceFindAllResult: (IFFindResult*) result			// Request to replace a find all result as part of a replace all operation
+/// Should replace the last found item with the specified text (or the currently selected item, if the user has manually changed the selection)
+- (void) replaceFoundWith: (NSString*) match;
+/// Indicates that a replace all operation is starting
+- (void) beginReplaceAll: (IFFindController*) sender;
+/// Request to replace a find all result as part of a replace all operation
+- (IFFindResult*) replaceFindAllResult: (IFFindResult*) result
 							withString: (NSString*) replacement
 								offset: (int*) offset;
-- (void) finishedReplaceAll: (IFFindController*) sender;				// The replace all operation has finished
-@property (atomic, readonly, copy) NSArray *lastFoundGroups;            // returns an array of the groups found on the last regex search. Used in "Replace and Find" and "Replace"
+/// The replace all operation has finished
+- (void) finishedReplaceAll: (IFFindController*) sender;
+/// returns an array of the groups found on the last regex search. Used in "Replace and Find" and "Replace"
+@property (atomic, readonly, copy) NSArray *lastFoundGroups;
 
 @end

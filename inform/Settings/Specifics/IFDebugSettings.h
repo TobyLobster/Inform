@@ -10,9 +10,9 @@
 
 #import "IFSetting.h"
 
-//
-// The 'debugging' settings object: things that are mostly useful to Graham
-//
+///
+/// The 'debugging' settings object: things that are mostly useful to Graham
+///
 @interface IFDebugSettings : IFSetting
 
 @end

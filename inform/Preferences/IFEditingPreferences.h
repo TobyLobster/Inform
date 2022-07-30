@@ -10,9 +10,9 @@
 #import "IFEditingPreferencesSet.h"
 #import "IFPreferencePane.h"
 
-//
-// Preference pane that allows the user to select the styles she wants to see
-//
+///
+/// Preference pane that allows the user to select the styles she wants to see
+///
 @interface IFEditingPreferences : IFPreferencePane
 
 // Receiving data from/updating the interface

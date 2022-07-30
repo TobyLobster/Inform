@@ -11,7 +11,6 @@
 #import "IFNaturalIntel.h"
 #import "IFSourcePage.h"
 #import "IFSyntaxManager.h"
-#import "IFImageCache.h"
 
 static NSImage* topTear			= nil;
 static NSImage* bottomTear		= nil;
@@ -19,17 +18,20 @@ static NSImage* arrowNotPressed = nil;
 static NSImage* arrowPressed	= nil;
 
 @implementation IFSourceFileView {
-    BOOL tornAtTop;																// YES if we should draw a 'tear' at the top of the view
-    BOOL tornAtBottom;															// YES if we should draw a 'tear' at the bottom of the view
-    NSRect lastUsedRect;														// The last known 'used' rect (used to determine whether or not to update the bottom tear)
+    /// \c YES if we should draw a 'tear' at the top of the view
+    BOOL tornAtTop;
+    /// \c YES if we should draw a 'tear' at the bottom of the view
+    BOOL tornAtBottom;
+    /// The last known 'used' rect (used to determine whether or not to update the bottom tear)
+    NSRect lastUsedRect;
 }
 
 - (void) loadImages {
-	if (!topTear)			topTear			= [IFImageCache loadResourceImage: @"App/TornPages/torn_top.png"];
-	if (!bottomTear)		bottomTear		= [IFImageCache loadResourceImage: @"App/TornPages/torn_bottom.png"];
+	if (!topTear)			topTear			= [NSImage imageNamed: @"App/TornPages/torn_top"];
+	if (!bottomTear)		bottomTear		= [NSImage imageNamed: @"App/TornPages/torn_bottom"];
 	
-	if (!arrowNotPressed)	arrowNotPressed = [IFImageCache loadResourceImage: @"App/TornPages/TearArrow.png"];
-	if (!arrowPressed)		arrowPressed	= [IFImageCache loadResourceImage: @"App/TornPages/TearArrowPressed.png"];
+	if (!arrowNotPressed)	arrowNotPressed = [NSImage imageNamed: @"App/TornPages/TearArrow"];
+	if (!arrowPressed)		arrowPressed	= [NSImage imageNamed: @"App/TornPages/TearArrowPressed"];
 }
 
 - (instancetype)initWithFrame:(NSRect)frame {
@@ -105,7 +107,7 @@ static NSImage* arrowPressed	= nil;
 			NSPoint charPoint = [layout boundingRectForGlyphRange: glyphs
 												  inTextContainer: [self textContainer]].origin;
 			charPoint.x = 0;
-			charPoint.y += containerOrigin.y - wasTornAtTop?[topTear size].height:0;
+			charPoint.y += containerOrigin.y - (wasTornAtTop?[topTear size].height:0);
 			
 			[self scrollPoint: charPoint];
 		}
@@ -113,32 +115,37 @@ static NSImage* arrowPressed	= nil;
 }
 
 - (void) mouseDown: (NSEvent*) event {
-	unsigned long modifiers = [event modifierFlags];
+	NSEventModifierFlags modifiers = [event modifierFlags];
 	
-	if ((modifiers&(NSShiftKeyMask|NSControlKeyMask|NSAlternateKeyMask|NSCommandKeyMask)) == 0
+	if ((modifiers & (NSEventModifierFlagShift | NSEventModifierFlagControl | NSEventModifierFlagOption | NSEventModifierFlagCommand)) == 0
 		&& [event clickCount] == 1) {
 		// Single click, no modifiers
 		NSRect bounds = [self bounds];
 		NSRect usedRect = [[self layoutManager] usedRectForTextContainer: [self textContainer]];
 		NSPoint mousePoint = [self convertPoint: [event locationInWindow]
 									   fromView: nil];
-		
-		
-		if ((tornAtTop && mousePoint.y < NSMinY(bounds)+[topTear size].height)) {
-			if ([self delegate] && [[self delegate] conformsToProtocol:@protocol(IFSourceNavigation)]) {
-				[(id<IFSourceNavigation>)[self delegate] sourceFileShowPreviousSection: self];
-			} else {
-				[self removeRestriction];
-			}
 
-			return;
-		} else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+[self textContainerOrigin].y+NSMaxY(usedRect)) {
-			if ([self delegate] && [[self delegate] conformsToProtocol:@protocol(IFSourceNavigation)]) {
-				[(id<IFSourceNavigation>)[self delegate] sourceFileShowNextSection: self];
-			} else {
-				[self removeRestriction];
-			}
-			
+        id<NSTextViewDelegate> tempDeleg = [self delegate];
+        id<IFSourceNavigation> deleg = nil;
+        if ([tempDeleg conformsToProtocol:@protocol(IFSourceNavigation)])
+        {
+            deleg = (id<IFSourceNavigation>) [self delegate];
+        }
+        if ((tornAtTop && mousePoint.y < NSMinY(bounds)+[topTear size].height)) {
+            if (deleg) {
+                [deleg sourceFileShowPreviousSection: self];
+            } else {
+                [self removeRestriction];
+            }
+
+            return;
+        } else if (tornAtBottom && mousePoint.y > NSMinY(bounds)+[self textContainerOrigin].y+NSMaxY(usedRect)) {
+            if (deleg) {
+                [deleg sourceFileShowNextSection: self];
+            } else {
+                [self removeRestriction];
+            }
+
 			// Finished handling this event
 			return;
 		}
@@ -184,7 +191,7 @@ static NSImage* arrowPressed	= nil;
     }
 }
 
-// = Drawing =
+#pragma mark - Drawing
 
 - (void) drawRect: (NSRect) rect {
 	// Perform normal drawing
@@ -205,7 +212,7 @@ static NSImage* arrowPressed	= nil;
 		// Draw the tear
 		[topTear drawInRect: NSMakeRect(NSMinX(bounds), NSMinY(bounds), bounds.size.width, tornSize.height)
 				   fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
-				  operation: NSCompositeSourceOver
+				  operation: NSCompositingOperationSourceOver
 				   fraction: 1.0
              respectFlipped: YES
                       hints: nil];
@@ -215,13 +222,13 @@ static NSImage* arrowPressed	= nil;
 		NSSize upSize = [arrowNotPressed size];
 		NSRect upRect;
 		
-		upRect.origin	= NSMakePoint(floorf(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
-                                      floorf(NSMinY(bounds) + (tornSize.height - upSize.height)/2));
+		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
+                                      floor(NSMinY(bounds) + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
 		[arrow drawInRect: upRect
-				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: YES
                     hints: nil];
@@ -242,7 +249,7 @@ static NSImage* arrowPressed	= nil;
 		// Draw the tear
 		[bottomTear drawInRect: NSMakeRect(NSMinX(bounds), origin.y + containerSize.height, bounds.size.width, tornSize.height)
 					  fromRect: NSMakeRect(0,0, bounds.size.width, tornSize.height)
-					 operation: NSCompositeSourceOver
+					 operation: NSCompositingOperationSourceOver
                       fraction: 1.0
                 respectFlipped: YES
                          hints: nil];
@@ -252,20 +259,20 @@ static NSImage* arrowPressed	= nil;
 		NSSize upSize = [arrowNotPressed size];
 		NSRect upRect;
 		
-		upRect.origin	= NSMakePoint(floorf(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
+		upRect.origin	= NSMakePoint(floor(NSMinX(bounds) + (bounds.size.width - upSize.width)/2),
                                       (origin.y + containerSize.height + (tornSize.height - upSize.height)/2));
 		upRect.size		= upSize;
 		
 		[arrow drawInRect: upRect
-				 fromRect: NSMakeRect(0,0, upSize.width, upSize.height)
-				operation: NSCompositeSourceOver
+				 fromRect: NSZeroRect
+				operation: NSCompositingOperationSourceOver
                  fraction: 1.0
            respectFlipped: NO
                     hints: nil];
 	}
 }
 
-// = Drawing 'tears' at the top and bottom =
+#pragma mark - Drawing 'tears' at the top and bottom
 
 - (void) updateTearing {
 	// Load the images if they aren't already available
@@ -275,12 +282,12 @@ static NSImage* arrowPressed	= nil;
 	NSSize inset = NSMakeSize(3,6);
 	
 	if (tornAtTop) {
-		inset.height += floorf([topTear size].height);
+		inset.height += floor([topTear size].height);
 	}
 	if (tornAtBottom) {
-		inset.height += floorf([bottomTear size].height);
+		inset.height += floor([bottomTear size].height);
 	}
-	inset.height = floorf(inset.height/2);
+	inset.height = floor(inset.height/2);
 
 	// Update the display
 	[self setTextContainerInset: inset];
@@ -298,7 +305,7 @@ static NSImage* arrowPressed	= nil;
 			NSRect bounds = [self bounds];
 			lastUsedRect = newUsedRect;
 			
-			float minY = NSMinY(lastUsedRect);
+            CGFloat minY = NSMinY(lastUsedRect);
 			if (NSMinY(newUsedRect) < minY) minY = NSMinY(newUsedRect);
 			
 			NSRect needsDisplay = NSMakeRect(NSMinX(bounds), minY, bounds.size.width, NSMaxY(bounds)-minY);
@@ -362,7 +369,7 @@ static NSImage* arrowPressed	= nil;
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
         pbItem = [pbItem stringByReplacingOccurrencesOfString:@"\r" withString:@"\n"];
         
-        [self insertText: pbItem];
+        [[[self textStorage] mutableString] appendString:pbItem];
     }
     else {
         [super paste:sender];

@@ -7,28 +7,28 @@
 
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
-#import "IFTestCommands.h"
 #import "IFProject.h"
 #import "NSString+IFStringExtensions.h"
 #import <Foundation/Foundation.h>
+#import "Inform-Swift.h"
 
 // Notifications and their keys
 
 // Skein changed notification
-NSString* IFSkeinChangedNotification          = @"IFSkeinChangedNotification";
-NSString* IFSkeinChangedAnimateKey            = @"IFSkeinChangedAnimateKey";
-NSString* IFSkeinKeepActiveVisibleKey         = @"IFSkeinKeepActiveVisibleKey";
+NSString* const IFSkeinChangedNotification          = @"IFSkeinChangedNotification";
+NSString* const IFSkeinChangedAnimateKey            = @"IFSkeinChangedAnimateKey";
+NSString* const IFSkeinKeepActiveVisibleKey         = @"IFSkeinKeepActiveVisibleKey";
 
 // Skein replaced notification
-NSString* IFSkeinReplacedNotification         = @"IFSkeinReplacedNotification";
+NSString* const IFSkeinReplacedNotification         = @"IFSkeinReplacedNotification";
 
 // Skein selection changed notification
-NSString* IFSkeinSelectionChangedNotification = @"IFSkeinSelectionChangedNotification";
-NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey";
+NSString* const IFSkeinSelectionChangedNotification = @"IFSkeinSelectionChangedNotification";
+NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey";
 
 
 @interface IFSkein ()
-@property (atomic, assign) IFProject*   project;
+@property (atomic, weak) IFProject*   project;
 @end
 
 #pragma mark - "Skein"
@@ -47,6 +47,7 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
         _project                     = theProject;
         _rootItem                    = [[IFSkeinItem alloc] initWithSkein: self command: @"- start -"];
 		_activeItem                  = nil;
+        _winningItem                 = nil;
         _draggingSourceNeedsUpdating = NO;
         _draggingItem                = nil;
 		currentOutput                = [[NSMutableString alloc] init];
@@ -230,34 +231,47 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
                     keepActiveVisible: NO];
 }
 
-// = Creating an input receiver =
-+ (id) inputSourceFromSkeinItem: (IFSkeinItem*) item1
-						 toItem: (IFSkeinItem*) item2 {
+- (void) setWinningItem: (IFSkeinItem *) winningItem {
+    _winningItem = winningItem;
+}
+
+- (IFSkeinItem *) getWinningItem {
+    return _winningItem;
+}
+
+-(BOOL) isTheWinningItem: (IFSkeinItem *) winningItem {
+    return _winningItem == winningItem;
+}
+
+#pragma mark - Creating an input receiver
+
++ (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
+                                              toItem: (IFSkeinItem*) item2 {
 	// item1 must be a parent of item2, and neither can be nil
-	// item1 is not executed
+
+    // item1 is not executed
 	if (item1 == nil || item2 == nil) return nil;
 
-	NSMutableArray* commandsToExecute = [NSMutableArray array];
+	NSMutableArray<NSString*>* commandsToExecute = [NSMutableArray array];
+    IFSkeinItem* parent = item2;
 
-	while (item2 != item1) {
-        if( !item2.isTestSubItem ) {
-            NSString* cmd = item2.command;
-            if (cmd == nil) cmd = @"";
-            [commandsToExecute insertObject: cmd atIndex:0];
-        }
+    while (parent != item1) {
+        NSString* cmd = [parent command];
+        if (cmd == nil) cmd = @"";
+        [commandsToExecute addObject: cmd];
 
-		item2 = item2.parent;
-		if (item2 == nil) return nil;
-	}
+        parent = [parent parent];
+        if (parent == nil) return nil;
+    }
 
 	// commandsToExecute contains the list of commands we need to execute
-	IFTestCommands* source = [[IFTestCommands alloc] init];
+    TestCommands* source = [[TestCommands alloc] initWithCommands: commandsToExecute];
 
-	[source setCommands: commandsToExecute];
 	return source;
 }
 
 #pragma mark - Create Transcript
+
 - (NSString*) transcriptToPoint: (IFSkeinItem*) item {
 	if (item == nil) item = _activeItem;
 	
@@ -291,7 +305,7 @@ NSString* IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedItemKey
 // Return the first node with differences, or the active node
 -(IFSkeinItem*) nodeToReport {
     if( _activeItem == nil ) {
-        return NO;
+        return nil;
     }
 
     IFSkeinItem* differedItem = _activeItem;

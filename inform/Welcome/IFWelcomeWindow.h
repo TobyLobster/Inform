@@ -7,12 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
-@interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource>
+@interface IFWelcomeWindow : NSWindowController<NSTableViewDelegate, NSTableViewDataSource, WKNavigationDelegate>
 
-+ (IFWelcomeWindow*) sharedWelcomeWindow;				// Gets the shared welcome window
-+ (void) hideWelcomeWindow;								// Hide the welcome window
-+ (void) showWelcomeWindow;                             // Show the welcome window
+/// Gets the shared welcome window
++ (IFWelcomeWindow*) sharedWelcomeWindow;
+/// Hide the welcome window
++ (void) hideWelcomeWindow;
+/// Show the welcome window
++ (void) showWelcomeWindow;
+
 - (void) hideWebView;
 - (void) showWebView;
 

@@ -12,12 +12,12 @@
 
 @class IFSkeinView;
 
-//
-// The 'skein' page
-//
+///
+/// The 'skein' page
+///
 @interface IFSkeinPage : IFPage<NSSplitViewDelegate, WebFrameLoadDelegate>
 
-// The skein view
+/// The skein view
 @property (atomic, readonly, strong) IFSkeinView *skeinView;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller;

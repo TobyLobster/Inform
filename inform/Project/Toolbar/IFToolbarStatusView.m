@@ -7,7 +7,6 @@
 
 #import "IFToolbarStatusView.h"
 #import "IFToolbarManager.h"
-#import "IFImageCache.h"
 #import "IFUtility.h"
 #import "IFToolbarProgressIndicator.h"
 #import "IFProjectController.h"
@@ -15,22 +14,22 @@
 #import "IFCompiler.h"
 #import "IFProject.h"
 
-static float idealTopBorder                = 6.0f;
-static float minTopBorder                  = 2.0f;
-static float minBottomBorder               = 4.0f;
-static float leftBorder                    = 20.0f;
-static float rightCancelBorder             = 10.0f;
-static float rightProgressBorder           = 20.0f;
-static float cancelWidth                   = 16.0f;
-static float idealGapBetweenTitleAndStory  = 5.0f;
-static float cancelHeight                  = 16.0f;
-static float gapWidthBetweenStoryAndCancel = 5.0f;
-static float gapBetweenWelcomeImageAndText = 10.0f;
+static CGFloat idealTopBorder                = 6.0f;
+static CGFloat minTopBorder                  = 2.0f;
+static CGFloat minBottomBorder               = 4.0f;
+static CGFloat leftBorder                    = 20.0f;
+static CGFloat rightCancelBorder             = 10.0f;
+static CGFloat rightProgressBorder           = 20.0f;
+static CGFloat cancelWidth                   = 16.0f;
+static CGFloat idealGapBetweenTitleAndStory  = 5.0f;
+static CGFloat cancelHeight                  = 16.0f;
+static CGFloat gapWidthBetweenStoryAndCancel = 5.0f;
+static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
 @implementation IFToolbarStatusView {
     NSString*                   title;
-    float                       progress;
-    float                       total;
+    CGFloat                     progress;
+    CGFloat                     total;
     IFToolbarProgressIndicator* progressIndicator;
     BOOL                        isInProgress;
     BOOL                        isStoryActive;
@@ -47,10 +46,10 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     NSTextField*                welcomeBuild;
     NSImageView*                welcomeImageView;
 
-    IFToolbarManager*           delegate;
+    __weak IFToolbarManager*    delegate;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithFrame: (NSRect)frameRect {
 	self = [super initWithFrame: frameRect];
@@ -61,7 +60,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 
         NSString* buildString  = [NSString stringWithFormat: [IFUtility localizedString: @"Build %@"], [IFUtility localizedString: @"Build Version"]];
         NSString* informString = [IFUtility localizedString: @"Inform"];
-        informImage = [IFImageCache loadResourceImage: @"Blob-Logo.tiff"];
+        informImage = [NSImage imageNamed: @"Blob-Logo"];
 
         NSDictionary* dict = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
         NSSize informSize = [informString sizeWithAttributes: dict];
@@ -74,7 +73,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [welcomeTitle setDrawsBackground: NO];
         [welcomeTitle setEditable: NO];
         [welcomeTitle setSelectable: NO];
-        [welcomeTitle setAlignment:NSRightTextAlignment];
+        [welcomeTitle setAlignment:NSTextAlignmentRight];
         [welcomeTitle setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
         [welcomeTitle setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [welcomeTitle setStringValue: informString];
@@ -87,7 +86,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [welcomeBuild setDrawsBackground: NO];
         [welcomeBuild setEditable: NO];
         [welcomeBuild setSelectable: NO];
-        [welcomeBuild setAlignment:NSLeftTextAlignment];
+        [welcomeBuild setAlignment:NSTextAlignmentLeft];
         [welcomeBuild setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
         [welcomeBuild setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [welcomeBuild setStringValue: buildString];
@@ -107,7 +106,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [titleText setDrawsBackground: NO];
         [titleText setEditable: NO];
         [titleText setSelectable: NO];
-        [titleText setAlignment:NSCenterTextAlignment];
+        [titleText setAlignment:NSTextAlignmentCenter];
         [titleText setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
         [titleText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [self addSubview: titleText];
@@ -119,7 +118,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [storyText setDrawsBackground: NO];
         [storyText setEditable: NO];
         [storyText setSelectable: NO];
-        [storyText setAlignment:NSCenterTextAlignment];
+        [storyText setAlignment:NSTextAlignmentCenter];
         [storyText setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
         [storyText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [self addSubview: storyText];
@@ -132,9 +131,9 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 
         // Create cancel button
         cancelButton = [[NSButton alloc] init];
-        [cancelButton setButtonType: NSMomentaryChangeButton];
-        [cancelButton setImage: [IFImageCache loadResourceImage: @"App/Toolbar/cancelOut.png"]];
-        [cancelButton setAlternateImage: [IFImageCache loadResourceImage: @"App/Toolbar/cancelIn.png"]];
+        [cancelButton setButtonType: NSButtonTypeMomentaryChange];
+        [cancelButton setImage: [NSImage imageNamed: @"App/Toolbar/cancelOut"]];
+        [cancelButton setAlternateImage: [NSImage imageNamed: @"App/Toolbar/cancelIn"]];
         [cancelButton setBordered: NO];
         [cancelButton setAction: @selector(cancelAction)];
         [cancelButton setTarget: self];
@@ -212,14 +211,14 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
         [titleText setHidden: NO];
     }
     
-    titleRect.origin.x = floorf(titleRect.origin.x);
-    titleRect.origin.y = floorf(titleRect.origin.y);
-    storyRect.origin.x = floorf(storyRect.origin.x);
-    storyRect.origin.y = floorf(storyRect.origin.y);
-    progressRect.origin.x = floorf(progressRect.origin.x);
-    progressRect.origin.y = floorf(progressRect.origin.y);
-    cancelRect.origin.x = floorf(cancelRect.origin.x);
-    cancelRect.origin.y = floorf(cancelRect.origin.y);
+    titleRect.origin.x = floor(titleRect.origin.x);
+    titleRect.origin.y = floor(titleRect.origin.y);
+    storyRect.origin.x = floor(storyRect.origin.x);
+    storyRect.origin.y = floor(storyRect.origin.y);
+    progressRect.origin.x = floor(progressRect.origin.x);
+    progressRect.origin.y = floor(progressRect.origin.y);
+    cancelRect.origin.x = floor(cancelRect.origin.x);
+    cancelRect.origin.y = floor(cancelRect.origin.y);
 
     [titleText setFrame: titleRect];
     [cancelButton setFrame: cancelRect];
@@ -230,9 +229,9 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 -(void) adjustSubviews {
     NSDictionary* attrs = @{NSFontAttributeName: [[[NSTextField alloc] init] font]};
 
-    float titleHeight                   = [@"Fg" sizeWithAttributes: attrs].height;
-    float progressWidth                 = [self frame].size.width - leftBorder - rightProgressBorder;
-    float progressHeight                = 8.0f;
+    CGFloat titleHeight                 = [@"Fg" sizeWithAttributes: attrs].height;
+    CGFloat progressWidth               = [self frame].size.width - leftBorder - rightProgressBorder;
+    CGFloat progressHeight              = 8.0f;
 
     if( canCancel ) {
         progressWidth -= (2.0f * leftBorder) - cancelWidth;
@@ -283,18 +282,18 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [progressIndicator setFrame: progressRect];
 
     // Update welcome items
-    float frameLeft  = floorf(([self frame].size.width / 2)  - (informImage.size.width / 2));
-    float frameTop   = floorf(([self frame].size.height / 2) - (informImage.size.height / 2));
-    float frameRight = frameLeft + informImage.size.width;
+    CGFloat frameLeft  = floor(([self frame].size.width / 2)  - (informImage.size.width / 2));
+    CGFloat frameTop   = floor(([self frame].size.height / 2) - (informImage.size.height / 2));
+    CGFloat frameRight = frameLeft + informImage.size.width;
     [welcomeImageView setFrame: NSMakeRect(frameLeft, frameTop, informImage.size.width, informImage.size.height)];
     frameLeft  -= gapBetweenWelcomeImageAndText;
     frameRight += gapBetweenWelcomeImageAndText;
     [welcomeTitle setFrame: NSMakeRect(0.0f,
-                                       floorf(([self frame].size.height / 2) - ([welcomeTitle frame].size.height/2)),
+                                       floor(([self frame].size.height / 2) - ([welcomeTitle frame].size.height/2)),
                                        frameLeft,
                                        [welcomeTitle frame].size.height)];
     [welcomeBuild setFrame: NSMakeRect(frameRight,
-                                       floorf(([self frame].size.height / 2) - ([welcomeBuild frame].size.height/2)),
+                                       floor(([self frame].size.height / 2) - ([welcomeBuild frame].size.height/2)),
                                        [self frame].size.width - frameRight,
                                        [welcomeBuild frame].size.height)];
 
@@ -418,7 +417,8 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
 }
 
 -(BOOL) isLatestCompilerVersion: (NSString*) version {
-    if ([version isEqualToString: @"****"])
+    if (([version isEqualToString: @""]) ||
+        ([version isEqualToString: @"****"]))
     {
         return YES;
     }
@@ -472,11 +472,11 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [self updateVisibility];
 }
 
--(void) setProgressMaxValue: (float) maxValue {
+-(void) setProgressMaxValue: (CGFloat) maxValue {
     [progressIndicator setMaxValue: maxValue];
 }
 
--(void) updateProgress: (float) progressValue {
+-(void) updateProgress: (CGFloat) progressValue {
     [progressIndicator setDoubleValue: progressValue];
 }
 
@@ -495,9 +495,7 @@ static float gapBetweenWelcomeImageAndText = 10.0f;
     [self updateVisibility];
 }
 
--(void) setDelegate: (id) aDelegate {
-    delegate = aDelegate;
-}
+@synthesize delegate;
 
 -(void) cancelAction {
     [cancelButton setHidden: YES];

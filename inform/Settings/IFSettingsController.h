@@ -12,27 +12,34 @@
 @class IFCompilerSettings;
 #import "IFSetting.h"
 
-//
-// Class used to manage a set of IFSettings
-//
+///
+/// Class used to manage a set of IFSettings
+///
 @interface IFSettingsController : NSObject
 
 // Plug-in support
-+ (void) addStandardSettingsClass: (Class) settingClass;	// Adds a setting class (must be an IFSetting subclass). These form the 'standard' setting classes
+/// Adds a setting class (must be an IFSetting subclass). These form the 'standard' setting classes
++ (void) addStandardSettingsClass: (Class) settingClass;
 
-+ (NSMutableArray*) makeStandardSettings;					// Makes an array of settings objects using the classes added by addStandardSettingsClass:
+/// Makes an array of settings objects using the classes added by addStandardSettingsClass:
++ (NSMutableArray*) makeStandardSettings;
 
 // User interface
-@property (atomic, strong) IFSettingsView *settingsView;	// Change/retrieve the settings view
+/// Change/retrieve the settings view
+@property (nonatomic, strong) IBOutlet IFSettingsView *settingsView;
 
-- (IBAction) settingsHaveChanged: (id) sender;				// Called when a setting changes
+/// Called when a setting changes
+- (IBAction) settingsHaveChanged: (id) sender;
 
 // Model
-@property (atomic, strong) IFCompilerSettings *compilerSettings;
+/// The compiler settings object that contains the settings data
+@property (nonatomic, strong) IBOutlet IFCompilerSettings *compilerSettings;
 
-- (void) updateAllSettings;									// Gets every setting view to update its settings
+/// Gets every setting view to update its settings
+- (void) updateAllSettings;
 
 // The settings to display
-- (void) addSettingsObject: (IFSetting*) setting;			// Adds a new settings object to the set managed by this controller
+/// Adds a new settings object to the set managed by this controller
+- (void) addSettingsObject: (IFSetting*) setting;
 
 @end

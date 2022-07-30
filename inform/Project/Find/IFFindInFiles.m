@@ -229,8 +229,10 @@
                     if (fileContents) res = [[NSAttributedString alloc] initWithString: fileContents];
                 } else if ([extn isEqualToString: @"rtf"] ||
                            [extn isEqualToString: @"rtfd"]) {
-                    res = [[NSAttributedString alloc] initWithPath: filename
-                                                 documentAttributes: nil];
+                    res = [[NSAttributedString alloc] initWithURL: [NSURL fileURLWithPath: filename]
+                                                          options: @{}
+                                               documentAttributes: nil
+                                                            error: NULL];
                 } else if ([extn isEqualToString: @"html"] ||
                            [extn isEqualToString: @"htm"]) {
                     // Parse the file
@@ -243,15 +245,15 @@
                     storage = [fileContents plainText];
                     
                     // Work out the display name
-                    NSString* title = [fileContents attributes][IFDocTitleAttribute];
-                    NSString* section = [fileContents attributes][IFDocSectionAttribute];
+                    NSString* title = [fileContents attributes][IFDocAttributeTitle];
+                    NSString* section = [fileContents attributes][IFDocAttributeSection];
                     
-                    sortKey = [fileContents attributes][IFDocSortAttribute];
+                    sortKey = [fileContents attributes][IFDocAttributeSort];
                     
                     if (title != nil && section != nil) {
                         displayName = [NSString stringWithFormat: @"%@: %@", section, title];
                     } else {
-                        displayName = [fileContents attributes][IFDocHtmlTitleAttribute];
+                        displayName = [fileContents attributes][IFDocAttributeHtmlTitle];
                     }
                     
                     exampleInfo     = [fileContents exampleInfo];

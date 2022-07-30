@@ -6,7 +6,6 @@
 //
 
 #import "IFSkeinLayout.h"
-#import "IFImageCache.h"
 #import "IFSkeinItem.h"
 #import "IFSkeinItemView.h"
 #import "IFSkeinLayoutItem.h"
@@ -20,7 +19,7 @@
     NSMutableArray*         levelYs;
     NSMutableArray *        levelArray;
 
-    float                   shiftRightForReportOffsetX;
+    CGFloat                 shiftRightForReportOffsetX;
 }
 
 @synthesize rootItem            = _rootItem;
@@ -30,7 +29,7 @@
 @synthesize activeLayoutItem    = _activeLayoutItem;
 @synthesize selectedLayoutItem  = _selectedLayoutItem;
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) init {
 	return [self initWithRootItem: nil];
@@ -48,15 +47,7 @@
 	return self;
 }
 
-// = Setting skein data =
-
-- (void) setRootItem: (IFSkeinItem*) item {
-	_rootItem = item;
-}
-
-- (IFSkeinItem*) rootItem {
-	return _rootItem;
-}
+#pragma mark - Setting skein data
 
 -(void) setRecentlyPlayedItems {
     // Mark everything upwards of the active item as played
@@ -103,26 +94,27 @@
 	}
 }
 
-// = Getting layout data =
+#pragma mark - Getting layout data
 
 - (int) levels {
 	return (int) [levels count];
 }
 
-// = Item positioning data =
-- (int) levelAtViewPosY: (float) viewPosY {
+#pragma mark - Item positioning data
+
+- (int) levelAtViewPosY: (CGFloat) viewPosY {
     viewPosY -= kSkeinTopBorder;
 
     for( int level = 0; level < levels.count; level++ ) {
-        if( viewPosY < [levelYs[level+1] floatValue] ) {
+        if( viewPosY < [levelYs[level+1] doubleValue] ) {
             return level;
         }
     }
     return (int) levels.count;
 }
 
-- (NSRange) rangeOfLevelsBetweenMinViewY: (float) minY
-                             andMaxViewY: (float) maxY {
+- (NSRange) rangeOfLevelsBetweenMinViewY: (CGFloat) minY
+                             andMaxViewY: (CGFloat) maxY {
     // Which levels (rows) do we need to look through?
     int startLevel = [self levelAtViewPosY:minY] - 1;
     int endLevel = [self levelAtViewPosY:maxY];
@@ -163,9 +155,9 @@
 		NSSize res;
 
 		res.width = [treeRoot subtreeWidth] + shiftRightForReportOffsetX + kSkeinRightBorder;
-        float treeHeight = 0.0f;
+        CGFloat treeHeight = 0.0f;
         if( levels.count > 0 ) {
-            treeHeight = [levelYs[levels.count] floatValue];
+            treeHeight = [levelYs[levels.count] doubleValue];
         }
         res.height = treeHeight + kSkeinTopBorder + kSkeinBottomBorder;
 
@@ -175,9 +167,7 @@
 	}
 }
 
-
-
-// = Packing =
+#pragma mark - Packing
 
 - (void) layoutSkein {
     // 'Best Fit' packing style
@@ -210,7 +200,7 @@
     levelWidths = nil;
 }
 
--(float) currentLevelWidth:(int) level {
+-(CGFloat) currentLevelWidth:(int) level {
     // Make sure we have enough levels
     while( [levelWidths count] <= level ) {
         [levelWidths addObject:@0.0f];
@@ -272,12 +262,12 @@
                              withLevel: level+1];
     }
 
-    float currentLevelWidth = [self currentLevelWidth: level];
+    CGFloat currentLevelWidth = [self currentLevelWidth: level];
 
     // Set initial rectangle
     NSRect itemRect;
-    itemRect.origin.x   = floorf(kSkeinLeftBorder - kSkeinItemImageLeftBorder + currentLevelWidth);
-    itemRect.origin.y   = floorf((float)layoutItem.level * kSkeinMinLevelHeight + kSkeinTopBorder);
+    itemRect.origin.x   = floor(kSkeinLeftBorder - kSkeinItemImageLeftBorder + currentLevelWidth);
+    itemRect.origin.y   = floor((CGFloat)layoutItem.level * kSkeinMinLevelHeight + kSkeinTopBorder);
 
     itemRect.size.width  = kSkeinItemImageCommandLeftBorder + layoutItem.commandWidth + kSkeinItemImageCommandRightBorder + kSkeinItemFrameWidthExtension;
     itemRect.size.height = kSkeinItemFrameHeight;
@@ -293,7 +283,7 @@
 
 - (void) moveRemainingItemsRightAfter: (IFSkeinLayoutItem*) item
                               onLevel: (int) levelIndex
-                                   by: (float) deltaX
+                                   by: (CGFloat) deltaX
                           recursively: (BOOL) recursively {
     // Move remaining items at this level right
     BOOL found = NO;
@@ -341,17 +331,17 @@
                 // We are not on the selected line
                 // If we are a parent, centre the parent between it's children
                 if( [[layoutItem children] count] > 0 ) {
-                    float parentx = [layoutItem centreX];
+                    CGFloat parentx = [layoutItem centreX];
                     
                     // Find centre of all children
-                    float minx = MAXFLOAT;
-                    float maxx = -MAXFLOAT;
+                    CGFloat minx = CGFLOAT_MAX;
+                    CGFloat maxx = -CGFLOAT_MAX;
                     for( IFSkeinLayoutItem* item2 in [layoutItem children] ) {
                         minx = MIN(minx, NSMidX(item2.lozengeRect));
                         maxx = MAX(maxx, NSMidX(item2.lozengeRect));
                     }
-                    float centreChildrenX = (minx + maxx)/2;
-                    float deltaX;
+                    CGFloat centreChildrenX = (minx + maxx)/2;
+                    CGFloat deltaX;
                     
                     if( parentx < centreChildrenX ) {
                         // Move parent right to centre under children
@@ -376,13 +366,13 @@
             }
             else {
                 // We are on the selected line. Arrange in a straight line.
-                float parentx = [layoutItem centreX];
+                CGFloat parentx = [layoutItem centreX];
 
                 // Find child's centre point
                 IFSkeinLayoutItem* selectedLineChild = [layoutItem selectedLineChild];
                 if( selectedLineChild ) {
-                    float centreChildrenX = [selectedLineChild centreX];
-                    float deltaX;
+                    CGFloat centreChildrenX = [selectedLineChild centreX];
+                    CGFloat deltaX;
 
                     if( parentx < centreChildrenX ) {
                         // Move parent right to centre under children
@@ -414,15 +404,15 @@
     levelArray = nil;
 }
 
-- (float) layoutSkeinCalculateSubtreeWidth: (IFSkeinLayoutItem*) layoutItem {
+- (CGFloat) layoutSkeinCalculateSubtreeWidth: (IFSkeinLayoutItem*) layoutItem {
 	if (layoutItem == nil) {
         return 0.0f;
     }
     
     // DFS
-    float furthestRightX = 0.0f;
+    CGFloat furthestRightX = 0.0f;
 	for( IFSkeinLayoutItem* child in [layoutItem children] ) {
-        float childFurthestRightX = [self layoutSkeinCalculateSubtreeWidth: child];
+        CGFloat childFurthestRightX = [self layoutSkeinCalculateSubtreeWidth: child];
         furthestRightX = MAX(furthestRightX, childFurthestRightX);
     }
     
@@ -431,11 +421,11 @@
     return furthestRightX;
 }
 
--(IFSkeinLayoutItem*) itemClosestBeyondX:(float) minX root:(IFSkeinLayoutItem*) layoutItem {
+-(IFSkeinLayoutItem*) itemClosestBeyondX:(CGFloat) minX root:(IFSkeinLayoutItem*) layoutItem {
     IFSkeinLayoutItem* result = nil;
-    float bestX = MAXFLOAT;
+    CGFloat bestX = CGFLOAT_MAX;
 
-    float x = NSMinX(layoutItem.boundingRect);
+    CGFloat x = NSMinX(layoutItem.boundingRect);
     if( x > minX ) {
         bestX = x;
         result = layoutItem;
@@ -444,7 +434,7 @@
     for(IFSkeinLayoutItem* child in layoutItem.children ) {
         IFSkeinLayoutItem* childResult = [self itemClosestBeyondX: minX root: child];
         if( childResult ) {
-            float childX = NSMinX(childResult.boundingRect);
+            CGFloat childX = NSMinX(childResult.boundingRect);
             if( childX < bestX ) {
                 result = childResult;
                 bestX = childX;
@@ -474,11 +464,11 @@
     levelYs = [[NSMutableArray alloc] init];
     [levelYs addObject:@(0.0f)];
 
-    float totalHeight = 0.0f;
+    CGFloat totalHeight = 0.0f;
     for( int i = 0; i < levels.count; i++ ) {
-        float levelHeight = kSkeinMinLevelHeight;
+        CGFloat levelHeight = kSkeinMinLevelHeight;
         if( i < [array count] ) {
-            levelHeight = [array[i] floatValue];
+            levelHeight = [array[i] doubleValue];
         }
         totalHeight += levelHeight;
         [levelYs addObject:@(totalHeight)];
@@ -496,18 +486,18 @@
         // Traverse down the selected line to find the ideal x position for the report
         while(( selectedLineItem != nil ) && (selectedLineItem.onSelectedLine)) {
             _reportPosition.x = MAX(_reportPosition.x,
-                                   floorf(NSMaxX(selectedLineItem.lozengeRect) + kSkeinReportLeftBorder));
+                                   floor(NSMaxX(selectedLineItem.lozengeRect) + kSkeinReportLeftBorder));
 
             // Move on to next level down
             selectedLineItem = [selectedLineItem selectedLineChild];
         }
 
         // Traverse the tree, looking for the item furthest left on the right hand side of the selected line
-        float selectedLineX = [treeRoot centreX];
+        CGFloat selectedLineX = [treeRoot centreX];
         IFSkeinLayoutItem* bestItem = [self itemClosestBeyondX: selectedLineX root: treeRoot];
         shiftRightForReportOffsetX = 0.0f;
         if( bestItem != nil ) {
-            float closestBeyondX = NSMinX(bestItem.boundingRect);
+            CGFloat closestBeyondX = NSMinX(bestItem.boundingRect);
             shiftRightForReportOffsetX = _reportPosition.x - closestBeyondX;
         }
         shiftRightForReportOffsetX += kSkeinReportWidth + kSkeinReportRightBorder - kSkeinItemImageLeftBorder;

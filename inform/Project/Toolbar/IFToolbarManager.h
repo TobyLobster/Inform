@@ -24,7 +24,9 @@
 @property (atomic, readonly, copy)    NSString *      toolbarIdentifier;
 @property (atomic, readonly, strong)  NSPopUpButton*  testCasesPopUpButton;
 @property (atomic, readonly, strong)  NSButton*       goButton;
-@property (atomic, readonly, strong)  NSArray*        testCases;              // Array of availabale test cases
+/// Array of availabale test cases
+@property (atomic, readonly, strong)  NSArray*        testCases;
+
 @property (atomic, readonly, strong)  IFProjectController* projectController;
 
 // Progress
@@ -32,7 +34,7 @@
 - (void) addProgressIndicator: (IFProgress*) indicator;
 - (void) removeProgressIndicator: (IFProgress*) indicator;
 - (void) progressIndicator: (IFProgress*) indicator
-				percentage: (float) newPercentage;
+				percentage: (CGFloat) newPercentage;
 - (void) progressIndicator: (IFProgress*) indicator
 				   message: (NSString*) newMessage;
 - (void) progressIndicatorStartStory: (IFProgress*) indicator;
@@ -49,6 +51,8 @@
 -(int) getTestCaseIndex;
 
 -(BOOL) selectTestCase:(NSString*) testCase;
+
+-(void) redrawToolbar;
 
 @property (atomic, readonly, copy) NSString *currentTestCase;
 

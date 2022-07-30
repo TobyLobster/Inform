@@ -10,11 +10,9 @@
 
 #import "IFCollapsableView.h"
 
-//
-// View that contains all the active settings views. Presently exactly the same as IFCollapsableView
-//
-@interface IFSettingsView : IFCollapsableView {
-
-}
+///
+/// View that contains all the active settings views. Presently exactly the same as \c IFCollapsableView
+///
+@interface IFSettingsView : IFCollapsableView
 
 @end

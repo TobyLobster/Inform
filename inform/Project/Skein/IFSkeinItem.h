@@ -11,33 +11,38 @@
 @class IFDiffer;
 @class IFSkein;
 
-//
-// Represents a single 'knot' in the skein
-//
+/// Paseboard type for drag and drop
+extern NSString* const IFSkeinItemPboardType;
+
 #pragma mark - "Skein Item"
-@interface IFSkeinItem : NSObject<NSCoding>
+///
+/// Represents a single 'knot' in the skein
+///
+@interface IFSkeinItem : NSObject<NSSecureCoding, NSPasteboardWriting>
 
 #pragma mark - Initialization
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
 - (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com NS_DESIGNATED_INITIALIZER;
--(instancetype) initWithCoder: (NSCoder *) decoder;
+-(instancetype) initWithCoder: (NSCoder *) decoder NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Properties
 @property (atomic, readonly)          unsigned long   uniqueId;
 @property (atomic, strong)            IFSkein *       skein;
-@property (atomic, strong)            IFSkeinItem *   parent;
-@property (atomic, readonly, copy)    NSArray *       children;
-@property (atomic, copy)              NSString *      command;        // Command
-@property (atomic, copy)              NSString *      actual;         // Latest actual output from the game
-@property (atomic, copy)              NSString *      ideal;          // The ideal version of the output
-@property (atomic)                    BOOL            isTestSubItem;  // Is node a result of a "test me" style command?
+@property (nonatomic, weak)           IFSkeinItem *   parent;
+@property (atomic, readonly, copy)    NSArray<IFSkeinItem*> *       children;
+@property (nonatomic, copy)           NSString *      command;        // Command
+@property (nonatomic, copy)           NSString *      actual;         // Latest actual output from the game
+@property (nonatomic, copy)           NSString *      ideal;          // The ideal version of the output
+@property (nonatomic)                 BOOL            isTestSubItem;  // Is node a result of a "test me" style command?
+@property (atomic)                    IFDiffer*       diffCachedResult;       // Differences
+
 @property (atomic, readonly)          unsigned long   reportStateHash;
 
 #pragma mark - Methods
 -(IFSkeinItem *)    rootItem;
 -(BOOL)             hasDescendant: (IFSkeinItem*) child;                                    // Recursive
 - (IFSkeinItem*)    childWithCommand: (NSString*) com isTestSubItem:(BOOL) isTestSubItem;   // Not recursive
--(NSArray *)        nonTestChildren;
+-(NSArray<IFSkeinItem*> *)        nonTestChildren;
 
 -(IFSkeinItem*)     addChild: (IFSkeinItem*) childItem;
 -(void)             removeFromParent;
@@ -71,7 +76,7 @@
 @property (atomic) BOOL     commandSizeDidChange;
 @property (atomic) NSSize   cachedCommandSize;
 
-// When font size preference changes, force recalculation of command sizes
+/// When font size preference changes, force recalculation of command sizes
 -(void) forceCommandSizeChangeRecursively;
 
 @end

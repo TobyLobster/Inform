@@ -12,16 +12,13 @@
 @class IFProjectController;
 @class IFProjectPane;
 
-// Page notifications
+#pragma mark Page notifications
 
-// Notification sent by a page when it wishes to become frontmost
-extern NSString* IFSwitchToPageNotification;
+/// Notification sent by a page when it wishes to become frontmost
+extern NSNotificationName const IFSwitchToPageNotification;
 
-// Notification sent when a page wants to cause an invokation on the 'opposite' pane
-extern NSString* IFOtherPaneInvokationNotification;
-
-// Notification that the items on the toolbar for a page have changed
-extern NSString* IFUpdatePageBarCellsNotification;
+/// Notification that the items on the toolbar for a page have changed
+extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
 //#define LOG_HISTORY
 #ifdef LOG_HISTORY
@@ -30,47 +27,67 @@ extern NSString* IFUpdatePageBarCellsNotification;
 #define LogHistory(format, ... )
 #endif
 
-//
-// Controller class that represents a page in a project pane
-//
 @protocol IFProjectPane;
 @protocol IFHistoryRecorder;
+
+///
+/// Controller class that represents a page in a project pane
+///
 @interface IFPage : NSObject
 
-@property (atomic, readonly, strong) IFProjectController* parent;	// The project controller that 'owns' this page
-@property (atomic, readonly, strong) IFProjectPane* otherPane;		// The pane that is opposite to this one (or nil)
-@property (atomic, readonly, strong) IBOutlet NSView* view;			// The view to display for this page
+/// The project controller that 'owns' this page
+@property (atomic, readonly, weak) IFProjectController* parent;
+/// The pane that is opposite to this one (or nil)
+@property (atomic, readwrite, weak) IFProjectPane* otherPane;
+/// The view to display for this page
+@property (nonatomic, readonly, strong) IBOutlet NSView* view;
 
 
-// Initialising
+#pragma mark - Initialising
 - (instancetype) initWithNibName: (NSString*) nib
                projectController: (IFProjectController*) controller;
-- (void) setRecorder: (NSObject<IFHistoryRecorder>*) recorder;      // Sets the history recorder for this item [NOT RETAINED]
-- (void) setThisPane: (IFProjectPane*) thisPane;                    // Sets the pane that this page is contained within
-- (void) setOtherPane: (IFProjectPane*) otherPane;                  // Sets the pane to be considered 'opposite' to this one
-- (void) finished;                                                  // Called when the owning object has finished with this object
+/// The history recorder for this item [NOT RETAINED]
+@property (atomic, readwrite, weak) id<IFHistoryRecorder> recorder;
+/// Sets the pane that this page is contained within
+- (void) setThisPane: (IFProjectPane*) thisPane;
+/// Sets the pane to be considered 'opposite' to this one
+- (void) setOtherPane: (IFProjectPane*) otherPane;
+/// Called when the owning object has finished with this object
+- (void) finished;
 
-// Page actions	- Called by whatever is managing this page to set it to visible or not
-@property (atomic) BOOL pageIsVisible;                              // YES if this page is currently visible
-- (void) switchToPage;                                              // Request that the UI switches to displaying this page
+#pragma mark - Page actions - Called by whatever is managing this page to set it to visible or not
+/// \c YES if this page is currently visible
+@property (atomic) BOOL pageIsVisible;
+/// Request that the UI switches to displaying this page
+- (void) switchToPage;
+/// Request that the UI switches to displaying a specific page
 - (void) switchToPageWithIdentifier: (NSString*) identifier
-						   fromPage: (NSString*) oldIdentifier;     // Request that the UI switches to displaying a specific page
-- (void) didSwitchToPage;                                           // Called when this page becomes active
-- (void) didSwitchAwayFromPage;                                     // Called when this page is no longer active
+						   fromPage: (NSString*) oldIdentifier;
+/// Called when this page becomes active
+- (void) didSwitchToPage;
+/// Called when this page is no longer active
+- (void) didSwitchAwayFromPage;
 
-@property (atomic, readonly, strong) id history;                    // Returns a proxy object that can be used to record history actions
+/// Returns a proxy object that can be used to record history actions
+@property (atomic, readonly, strong) id history;
 
-// Page properties
-@property (atomic, readonly, copy) NSString *title;                 // The name of the tab this page appears under
-@property (atomic, readonly, copy) NSString *identifier;            // A unique identifier for this page
-@property (atomic, readonly, strong) NSView *activeView;            // The view that is considered to have focus for this page	// Sets the view to use
+#pragma mark - Page properties
+/// The name of the tab this page appears under
+@property (atomic, readonly, copy) NSString *title;
+/// A unique identifier for this page
+@property (atomic, readonly, copy) NSString *identifier;
+/// The view that is considered to have focus for this page
+@property (atomic, readonly, strong) NSView *activeView;
 
-// Page validation
-@property (atomic, readonly) BOOL shouldShowPage;                   // YES if this page is valid to be shown
+#pragma mark - Page validation
+/// \c YES if this page is valid to be shown
+@property (atomic, readonly) BOOL shouldShowPage;
 
-// Dealing with the page bar
-@property (atomic, readonly, copy) NSArray *toolbarCells;           // The cells to put on the page bar for this item
-- (void) toolbarCellsHaveUpdated;                                   // Call to cause the set of cells being displayed in the toolbar to be updated
+#pragma mark - Dealing with the page bar
+/// The cells to put on the page bar for this item
+@property (atomic, readonly, copy) NSArray *toolbarCells;
+/// Call to cause the set of cells being displayed in the toolbar to be updated
+- (void) toolbarCellsHaveUpdated;
 
 - (void) willClose;
 

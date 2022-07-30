@@ -9,18 +9,27 @@
 #import <Cocoa/Cocoa.h>
 
 
-extern NSString* IFMaintenanceTasksStarted;
-extern NSString* IFMaintenanceTasksFinished;
+extern NSNotificationName const IFMaintenanceTasksStarted;
+extern NSNotificationName const IFMaintenanceTasksFinished;
 
 ///
 /// Class that deals with background maintenance tasks (particularly ni -census)
 ///
 @interface IFMaintenanceTask : NSObject
 
-+ (IFMaintenanceTask*) sharedMaintenanceTask;					// Retrieves the common maintenance task object
+/// Retrieves the common maintenance task object
++ (IFMaintenanceTask*) sharedMaintenanceTask;
+@property (class, atomic, readonly, strong) IFMaintenanceTask *sharedMaintenanceTask;
 
-- (void) queueTask: (NSString*) command							// Queues a task to run the given command (with arguments)
-	 withArguments: (NSArray*) arguments
-        notifyType: (NSString*) notifyType;
+/// Queues a task to run the given command (with arguments)
+- (void) queueTask: (NSString*) command
+	 withArguments: (NSArray<NSString*>*) arguments
+        notifyType: (NSNotificationName) notifyType;
+
+/// Queues a task to run the given command (with arguments)
+- (void) queueTaskAtURL: (NSURL*) command
+          withArguments: (NSArray<NSString*>*) arguments
+             notifyType: (NSNotificationName) notifyType;
+
 
 @end

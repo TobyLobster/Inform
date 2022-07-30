@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="IFProjectPane">
+            <connections>
+                <outlet property="pageBar" destination="575" id="577"/>
+                <outlet property="paneView" destination="5" id="36"/>
+                <outlet property="tabView" destination="572" id="576"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="5" userLabel="ProjectPane">
+            <rect key="frame" x="0.0" y="0.0" width="454" height="593"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="575" customClass="IFPageBarView">
+                    <rect key="frame" x="0.0" y="575" width="454" height="18"/>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="571">
+                    <rect key="frame" x="0.0" y="0.0" width="454" height="575"/>
+                    <subviews>
+                        <tabView controlSize="small" type="rightTabsBezelBorder" translatesAutoresizingMaskIntoConstraints="NO" id="572">
+                            <rect key="frame" x="-8" y="-10" width="462" height="589"/>
+                            <tabViewItems>
+                                <tabViewItem label="Settings" identifier="7" id="573">
+                                    <view key="view" id="574">
+                                        <rect key="frame" x="10" y="7" width="423" height="569"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                </tabViewItem>
+                            </tabViewItems>
+                        </tabView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="572" firstAttribute="top" secondItem="571" secondAttribute="top" id="AMB-5s-OFp"/>
+                        <constraint firstAttribute="bottom" secondItem="572" secondAttribute="bottom" id="Aek-qI-QfX"/>
+                        <constraint firstAttribute="trailing" secondItem="572" secondAttribute="trailing" constant="5" id="UY3-C4-RUp"/>
+                        <constraint firstItem="572" firstAttribute="leading" secondItem="571" secondAttribute="leading" constant="-1" id="hiY-7m-RYQ"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="575" firstAttribute="leading" secondItem="571" secondAttribute="leading" id="1MD-RL-EKd"/>
+                <constraint firstItem="571" firstAttribute="top" secondItem="575" secondAttribute="bottom" id="4Ns-Y6-LC2"/>
+                <constraint firstItem="575" firstAttribute="trailing" secondItem="571" secondAttribute="trailing" id="BeP-XZ-Hde"/>
+                <constraint firstItem="575" firstAttribute="top" secondItem="5" secondAttribute="top" id="Oae-a4-1Ic"/>
+                <constraint firstAttribute="trailing" secondItem="575" secondAttribute="trailing" id="bdC-WN-FJL"/>
+                <constraint firstItem="575" firstAttribute="leading" secondItem="5" secondAttribute="leading" id="cTH-V9-JxQ"/>
+                <constraint firstItem="571" firstAttribute="top" secondItem="5" secondAttribute="top" constant="18" id="nxv-E4-pF8"/>
+                <constraint firstAttribute="bottom" secondItem="571" secondAttribute="bottom" id="qEu-3S-4iz"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="143"/>
+        </customView>
+    </objects>
+</document>

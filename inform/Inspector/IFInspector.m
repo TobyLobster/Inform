@@ -10,9 +10,12 @@
 #import "IFInspectorWindow.h"
 
 @implementation IFInspector {
-    IBOutlet NSView* inspectorView;								// The view that contains the inspector
-    NSString* title;											// The title of this inspector
-    IFInspectorWindow* inspectorWin;							// The window controller that contains this inspector
+    /// The view that contains the inspector
+    NSView* inspectorView;
+    /// The title of this inspector
+    NSString* title;
+    /// The window controller that contains this inspector
+    IFInspectorWindow* inspectorWin;
 }
 
 - (instancetype) init {
@@ -27,8 +30,9 @@
 }
 
 
-// = Titles =
+#pragma mark - Titles
 
+@synthesize title;
 - (void) setTitle: (NSString*) newTitle {
 	title = [newTitle copy];
 
@@ -36,7 +40,7 @@
 }
 
 - (NSString*) title {
-	return (title!=nil)?title:@"No title";
+	return (title!=nil)?[title copy]:@"No title";
 }
 
 - (void) setExpanded: (BOOL) exp {
@@ -44,38 +48,37 @@
 							 forKey: [self key]];
 }
 
-- (BOOL) expanded {
+- (BOOL) isExpanded {
 	return [inspectorWin inspectorStateForKey: [self key]];
 }
 
-// = Inspector view =
-- (void) setInspectorView: (NSView*) view {
-	inspectorView = view;
+- (BOOL) expanded {
+    return [self isExpanded];
 }
 
-- (NSView*) inspectorView {
-	return inspectorView;
-}
+#pragma mark - Inspector view
+
+@synthesize inspectorView;
 
 - (BOOL) available {
 	// Override to make inspectors disappear when required
 	return NO;
 }
 
-// = The controller =
+#pragma mark - The controller
 
 - (void) setInspectorWindow: (IFInspectorWindow*) window {
 	inspectorWin = window;
 }
 
-// = Inspecting things =
+#pragma mark - Inspecting things
 
 - (void) inspectWindow: (NSWindow*) window {
 	// Should be overridden in subclasses
 	NSLog(@"BUG: Inspector doesn't know what to do");
 }
 
-// = The key =
+#pragma mark - The key
 
 - (NSString*) key {
 	[NSException raise: @"IFInspectorHasNoKey" 

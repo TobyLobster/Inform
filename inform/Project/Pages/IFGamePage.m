@@ -13,14 +13,18 @@
 #import "IFPreferences.h"
 #import "IFGlkResources.h"
 #import "IFRuntimeErrorParser.h"
-#import "IFIsWatch.h"
-#import "IFTestCommands.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
 #import "IFProjectController.h"
 #import "IFProjectTypes.h"
 #import "IFProject.h"
 #import <ZoomView/ZoomView.h>
+#import <GlkSound/GlkSound.h>
+#import "Inform-Swift.h"
+
+@interface IFGamePage () <GlkViewDelegate, ZoomViewOutputReceiver, ZoomViewDelegate>
+
+@end
 
 @interface IFSemiTransparentView : NSView
 
@@ -37,19 +41,28 @@
 @end
 
 @implementation IFGamePage {
-    GlkView*		 gView;					// The Glk (glulxe) view
-    ZoomView*        zView;					// The Z-Machine view
-    NSString*        gameToRun;				// The filename of the game to start
-    BOOL             switchToPage;          // YES to switch view to show the game page
+    /// The Glk (glulxe) view
+    GlkView*		 gView;
+    /// The Z-Machine view
+    ZoomView*        zView;
+    /// The filename of the game to start
+    NSString*        gameToRun;
+    /// \c YES to switch view to show the game page
+    BOOL             switchToPage;
+    
+    GlkSoundHandler *soundHandler;
 
-    IFProgress*      gameRunningProgress;	// The progress indicator (how much we've compiled, how the game is running, etc)
+    /// The progress indicator (how much we've compiled, how the game is running, etc)
+    IFProgress*      gameRunningProgress;
     NSView*          semiTransparentView;
 
-    BOOL             setBreakpoint;			// YES if we are allowed to set breakpoints
-    NSArray*         testCommands;          // List of commands to automatically run once game has started
+    /// \c YES if we are allowed to set breakpoints
+    BOOL             setBreakpoint;
+    /// List of commands to automatically run once game has started
+    NSArray<NSString*>* testCommands;
 }
 
-// = Initialisation =
+#pragma mark - Initialisation
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller {
 	self = [super initWithNibName: @"Game"
@@ -64,10 +77,6 @@
         switchToPage    = NO;
 
 		// Register for breakpoints updates
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(updatedBreakpoints:)
-													 name: IFProjectBreakpointsChangedNotification
-												   object: [self.parent document]];
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(preferencesChanged:)
 													 name: IFPreferencesAppFontSizeDidChangeNotification
@@ -101,20 +110,20 @@
 
 }
 
-// = Details about this view =
+#pragma mark - Details about this view
 
 - (NSString*) title {
 	return [IFUtility localizedString: @"Game Page Title"
                               default: @"Game"];
 }
 
-// = Page validation =
+#pragma mark - Page validation
 
 - (BOOL) shouldShowPage {
 	return zView != nil || gView != nil;
 }
 
-// = The game view =
+#pragma mark - The game view
 
 - (void) preferencesChanged: (NSNotification*) not {
 	[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
@@ -171,25 +180,28 @@
 		
 		// Work out the default client to use
 		NSString*		clientName = [[IFPreferences sharedPreferences] glulxInterpreter];
+        clientName = [clientName stringByAppendingString:@"-client"];
 		//NSLog(@"Using glulx interpreter '%@'", clientName);
 		
 		// Start running as a glulxe task
+        soundHandler = [[GlkSoundHandler alloc] init];
 		gView = [[GlkView alloc] init];
+        gView.soundHandler = soundHandler;
 		[gView setDelegate: self];
 		[gView addOutputReceiver: self.parent];
 		[gView addOutputReceiver: runtimeErrors];
 		
 		[gView setImageSource: [[IFGlkResources alloc] initWithProject: [self.parent document]]];
 		
-		[gView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+		[gView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
 		[gView setFrame: [self.view bounds]];
 		[self.view addSubview: gView];
 		
 		[gView setScaleFactor: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
-		[gView setInputFilename: fileName];
+        [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
-        NSString * interpreterPath = [[[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent] stringByAppendingPathComponent: clientName];
+        NSString * interpreterPath = [NSBundle.mainBundle pathForAuxiliaryExecutable: clientName];
         //NSLog(@"Launching interpreter %@", interpreterPath);
 
 		[gView launchClientApplication: interpreterPath
@@ -223,7 +235,7 @@
 		[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
 		
 		[zView setFrame: [self.view bounds]];
-		[zView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+		[zView setAutoresizingMask: NSViewWidthSizable|NSViewHeightSizable];
 		[self.view addSubview: zView];
 	}
     [semiTransparentView setHidden: YES];
@@ -235,10 +247,10 @@
     NSMutableArray* commands = [[NSMutableArray alloc] init];
 
     while( (item != nil) && (item.parent != nil) ) {
-        [commands insertObject: item.command atIndex:0];
+        [commands addObject: item.command];
         item = item.parent;
     }
-    [self setTestCommands: [NSArray arrayWithArray: commands]];
+    [self setTestCommands: [commands copy]];
 }
 
 - (void) setTestMe: (BOOL) testMe {
@@ -251,7 +263,7 @@
 }
 
 - (void) setTestCommands: (NSArray*) myTestCommands {
-    testCommands = myTestCommands;
+    testCommands = [myTestCommands copy];
 }
 
 - (BOOL) hasTestCommands {
@@ -291,13 +303,8 @@
 	}
 }
 
-- (ZoomView*) zoomView {
-	return zView;
-}
-
-- (GlkView*) glkView {
-	return gView;
-}
+@synthesize zoomView = zView;
+@synthesize glkView = gView;
 
 // (GlkView delegate functions)
 - (void) taskHasStarted {
@@ -311,8 +318,7 @@
 	[gameRunningProgress startStory];
 	
 	if (testCommands != nil) {
-        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
-        [inputSource setCommands: testCommands];
+        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
         testCommands = nil;
         [self.parent setGlkInputSource: inputSource];
         [gView addInputReceiver: self.parent];
@@ -325,7 +331,7 @@
     return YES;
 }
 
-- (void) inputSourceHasFinished: (id) sender {
+- (void) inputSourceHasFinished: (id<ZoomViewInputSource>) sender {
 	[self.parent inputSourceHasFinished: nil];
 }
 
@@ -333,7 +339,7 @@
     [[zView zMachine] loadStoryFile: 
         [NSData dataWithContentsOfFile: gameToRun]];
 	
-	[[zView zMachine] loadDebugSymbolsFrom: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
+	[[zView zMachine] loadDebugSymbolsFromFile: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
 							withSourcePath: [[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Source"]];
 	
 	// Set the initial breakpoint if 'Debug' was selected
@@ -343,25 +349,11 @@
 		}
 	}
 	
-	// Set the other breakpoints anyway
-	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
-		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
-		
-		if (line >= 0) {
-			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
-				NSLog(@"Failed to set breakpoint at %@:%i", file, line+1);
-			}
-		}
-	}
-	
 	setBreakpoint = NO;
 	
 	// Run to the appropriate point in the current skein
 	if( testCommands ) {
-        IFTestCommands* inputSource = [[IFTestCommands alloc] init];
-        [inputSource setCommands: testCommands];
+        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
         testCommands = nil;
         [zView setInputSource: inputSource];
     }
@@ -401,41 +393,10 @@
 	}
 }
 
-// = Breakpoints =
-
-- (void) updatedBreakpoints: (NSNotification*) not {
-	// Give up if there's no Z-Machine running
-	if (!zView) return;
-	if (![zView zMachine]) return;
-	
-	// Clear out the old breakpoints
-	[[zView zMachine] removeAllBreakpoints];
-	
-	// Set the breakpoints
-	int breakpoint;
-	for (breakpoint = 0; breakpoint < [[self.parent document] breakpointCount]; breakpoint++) {
-		int line = [[self.parent document] lineForBreakpointAtIndex: breakpoint];
-		NSString* file = [[self.parent document] fileForBreakpointAtIndex: breakpoint];
-		
-		if (line >= 0) {
-			if (![[zView zMachine] setBreakpointAtName: [NSString stringWithFormat: @"%@:%i", file, line+1]]) {
-				NSLog(@"Failed to set breakpoint at %@:%i", file, line+1);
-			}
-		}
-	}
-}
-
-// = Debugging =
-
-- (void) hitBreakpoint: (int) pc {
-	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
-	[self.parent hitBreakpoint: pc];
-}
+#pragma mark - Debugging
 
 - (void) zoomWaitingForInput {
     [self.parent zoomViewIsWaitingForInput];
-
-	[[IFIsWatch sharedIFIsWatch] refreshExpressions];
 }
 
 -(void) didSwitchToPage {
