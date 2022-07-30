@@ -35,7 +35,7 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 App Version  | Inform Version | Release Date | Description
 ------------ | -------------- | ------------ | :---------------------------------------
-1.81.0&#8209;beta1 | 10.1.0 (beta)  | 2022-07-29   | This is a Beta. Colour Schemes, Dark mode, Basic Inform, Apple Silicon native support.
+1.81.0&#8209;beta1 | 10.1.0 (beta)  | 2022-07-30   | This is a Beta. Colour Schemes, Dark mode, Basic Inform, Apple Silicon native support.
 1.68.1       | 6M62           | 2019-11-14   | Release with website bug fix.
 1.67.1       | 6M62           | 2019-10-25   | macOS Catalina support.
 1.65.1       | 6M62           | 2016-10-21   | macOS Sierra support. (Also another bug fix for 10.6.8 - Bug #1895)
