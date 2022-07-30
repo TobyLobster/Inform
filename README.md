@@ -1,7 +1,7 @@
 # The Inform App for macOS
 
 ## What's New
-A new beta version of the Inform App is now available (as soon as I have uploaded a release!). The minimum requirement is now macOS 10.14.6 (Mojave). Users on older macOS versions can of course continue using previous releases.
+A new beta version of the Inform App is now available [here](https://github.com/TobyLobster/Inform/releases). The minimum requirement is now macOS 10.14.6 (Mojave). Users on older macOS versions can of course continue using previous versions from [here](http://inform7.com/downloads/).
 
 - The launcher screen shows the latest News from the IFTF.
 - Colour schemes have been introduced (see the new preferences pane).
@@ -21,6 +21,7 @@ Many thanks to MaddTheSane for a heroic number of modernisations, tweaks and fix
 - Build instructions.
 - Updating to latest libraries.
 - Dark mode across more views.
+- Mac App Store Version.
 - Longer term: Modernisation to Swift, and away from deprecated APIs.
 
 ## About Inform
