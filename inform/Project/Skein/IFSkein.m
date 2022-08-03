@@ -98,7 +98,7 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
 #pragma mark - Interpreter Support
 - (void) inputCommand: (NSString*) command {
     // Remember the command in a list of commands already played
-    [_previousCommands addObject: command];
+    [_previousCommands insertObject: command atIndex:0];
 
     // Disable undo
     [[_project undoManager] disableUndoRegistration];
