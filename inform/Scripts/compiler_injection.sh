@@ -1,5 +1,6 @@
 #
 # Copies resources to target build.
+# Executed as part of the 'final_build_phase.sh' script.
 #
 
 # Some executables and resources for the app originate from the core of Graham Nelson's Inform.

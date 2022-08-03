@@ -352,7 +352,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (void) visitWebsite: (id) sender {
 	// Get the URL
-	NSURL* websiteUrl = [NSURL URLWithString: @"https://www.inform7.com"];
+	NSURL* websiteUrl = [NSURL URLWithString: @"http://www.inform7.com"];
 	
 	// Visit it
 	[[NSWorkspace sharedWorkspace] openURL: websiteUrl];

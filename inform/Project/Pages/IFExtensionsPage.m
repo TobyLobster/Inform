@@ -73,7 +73,7 @@
 													 name: IFCensusFinishedNotification
 												   object: nil];
 		
-        // Create the view for the documentation tab
+        // Create the view for the extensions tab
         wView = [[WebView alloc] init];
         [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
         [wView setResourceLoadDelegate: self];
