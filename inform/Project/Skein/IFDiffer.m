@@ -181,8 +181,10 @@ static const BOOL trace_diff = NO;
             break;
         }
     }
-    while ((i > 0) && (!isWordBoundary(_ideal, rangeA.location+i-1))) {
-        i--;
+    if (i < rangeA.length) {
+        while ((i > 0) && (!isWordBoundary(_ideal, rangeA.location+i-1))) {
+            i--;
+        }
     }
     if (i > 0) {
         [_differences addObject: [[IFDiffEdit alloc] initWithRange:NSMakeRange(rangeA.location, i) form: PRESERVE_EDIT]];
@@ -203,9 +205,12 @@ static const BOOL trace_diff = NO;
             break;
         }
     }
-    while ((i > 0) && (!isWordBoundary(_ideal, rangeEndA-i-1))) {
-        i--;
+    if (i < rangeEndA) {
+        while ((i > 0) && (!isWordBoundary(_ideal, rangeEndA-i-1))) {
+            i--;
+        }
     }
+
     if (i > 0) {
         [self diffInnerRangeA: NSMakeRange(rangeA.location, rangeA.length - i)
                        rangeB: NSMakeRange(rangeB.location, rangeB.length - i)];
