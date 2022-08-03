@@ -628,15 +628,15 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 - (CGFloat) appFontSizeMultiplier {
     IFAppFontSize appFontSize = [self appFontSizeMultiplierEnum];
     switch ( appFontSize ) {
-        case IFAppFontSizeMinus100: return 1.0/2.0;
-        case IFAppFontSizeMinus75:  return 1.0/1.75;
-        case IFAppFontSizeMinus50:  return 1.0/1.5;
-        case IFAppFontSizeMinus25:  return 1.0/1.25;
-        case IFAppFontSizeNormal:   return 1.0;
-        case IFAppFontSizePlus25:   return 1.25;
-        case IFAppFontSizePlus50:   return 1.5;
-        case IFAppFontSizePlus75:   return 1.75;
-        case IFAppFontSizePlus100:  return 2.0;
+        case IFAppFontSizeMinus100: return 0.625 + 0.75 * 0 / 8;
+        case IFAppFontSizeMinus75:  return 0.625 + 0.75 * 1 / 8;
+        case IFAppFontSizeMinus50:  return 0.625 + 0.75 * 2 / 8;
+        case IFAppFontSizeMinus25:  return 0.625 + 0.75 * 3 / 8;
+        case IFAppFontSizeNormal:   return 0.625 + 0.75 * 4 / 8;
+        case IFAppFontSizePlus25:   return 0.625 + 0.75 * 5 / 8;
+        case IFAppFontSizePlus50:   return 0.625 + 0.75 * 6 / 8;
+        case IFAppFontSizePlus75:   return 0.625 + 0.75 * 7 / 8;
+        case IFAppFontSizePlus100:  return 0.625 + 0.75 * 8 / 8;
     }
 }
 
