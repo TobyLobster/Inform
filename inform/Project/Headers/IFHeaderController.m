@@ -104,6 +104,9 @@
 - (void) updateFromIntelligence: (IFIntelFile*) intel {
 	// Change the intel file object
 	intelFile = intel;
+    if ([intel firstSymbol] == NULL) {
+        return;
+    }
 	
 	// Firstly, build up a header structure from the intelligence object
 
