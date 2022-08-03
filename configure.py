@@ -120,9 +120,6 @@ for proj_name in project_filenames:
     # load the project
     project = XcodeProject.load(proj_name)
 
-    # for safety, create a backup
-    project.backup()
-
     # Set code signing flags for the Project
     set_project_flags(project, 'CODE_SIGN_IDENTITY', code_sign_identity)
     set_project_flags(project, 'DEVELOPMENT_TEAM', development_team)
@@ -162,9 +159,6 @@ for proj_name in project_filenames:
 
 # load the main project
 project = XcodeProject.load('inform/Inform.xcodeproj/project.pbxproj')
-
-# for safety, create a backup
-project.backup()
 
 # Set code signing flags for the Project
 set_project_flags(project, 'CODE_SIGN_IDENTITY', code_sign_identity)
