@@ -361,7 +361,8 @@
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
     NSFont* originalFont = [NSFont boldSystemFontOfSize:12];
     NSFont* selectedFont = [fontManager convertFont:originalFont];
-    [self setFontFamilyUI: selectedFont.fontName fontSize: selectedFont.pointSize];
+
+    [self setFontFamilyUI: selectedFont.familyName fontSize: selectedFont.pointSize];
     [self styleSetHasChanged: fontFamily];
 }
 
