@@ -164,13 +164,15 @@ project = XcodeProject.load('inform/Inform.xcodeproj/project.pbxproj')
 set_project_flags(project, 'CODE_SIGN_IDENTITY', code_sign_identity)
 set_project_flags(project, 'DEVELOPMENT_TEAM', development_team)
 set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual')
-set_project_flags(project, 'CURRENT_PROJECT_VERSION', app_version_build_number)
 
 # Remove code signing flags from all Targets, so that they follow the Project settings
 project.remove_flags('CODE_SIGN_IDENTITY', None)
 project.remove_flags('DEVELOPMENT_TEAM', None)
 project.remove_flags('CODE_SIGN_STYLE', None)
 project.remove_flags('PROVISIONING_PROFILE_SPECIFIER', None)
+
+# Set version number
+set_project_flags(project, 'CURRENT_PROJECT_VERSION', app_version_build_number)
 
 # Make both Intel and Apple Silicon versions, always
 project.remove_project_flags('ONLY_ACTIVE_ARCH', None)

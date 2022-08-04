@@ -162,7 +162,7 @@ fi
 # Copy the 404 page to be displayed when the public library is not accessible
 # (e.g. because internet connection is down) from the app resources into the staging area.
 # This is an 'odd man out' being locally stored in Resources/en.lproj/pl404-macos.html
-# and copied into the StagingArea, overwriting the generic Inform Core version.
+# and copied into the StagingArea, overwriting the generic, old Inform Core version.
 cp -f "${RESOURCE_AREA}/en.lproj/pl404-macos.html"                              "${STAGING_AREA}/Resources/en.lproj/pl404.html"
 
 #
