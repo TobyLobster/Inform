@@ -684,6 +684,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self refreshTestCases];
 }
 
+/*
 - (IBAction)saveDocumentAs:(id)sender {
     // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
     for( IFProjectPane* pane in projectPanes ) {
@@ -696,6 +697,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Refresh the available test cases
     [self refreshTestCases];
 }
+ */
 
 - (BOOL) timestampsInChronologicalOrder: (NSURL*) first
                                  second: (NSURL*) second {
