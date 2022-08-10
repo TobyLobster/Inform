@@ -244,6 +244,8 @@ static int valueForHexChar(unichar c) {
     author = [author lowercaseString];
     title = [title lowercaseString];
 
+    IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
+
 	for( IFExtensionInfo* info in [mgr availableExtensions] ) {
         // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
         if( [[info.author lowercaseString] isEqualToString: author] ) {
@@ -254,15 +256,15 @@ static int valueForHexChar(unichar c) {
                     return @"!";
                 }
 
-                NSString* version = [info safeVersion];
+                IFSemVer* versionLocal = [info semver];
 
-                NSComparisonResult result = [version compare: availableVersion
-                                                     options: (NSStringCompareOptions) (NSNumericSearch | NSCaseInsensitiveSearch) ];
-                if( result == NSOrderedSame) {
+                int result = [versionLocal cmp:versionAvailable];
+
+                if( result == 0) {
                     //NSLog(@"Found %@ by %@ version %@ EQUAL", title, author, version);
                     return @"=";
                 }
-                if( result == NSOrderedAscending ) {
+                if( result < 0 ) {
                     //NSLog(@"Found %@ by %@ version %@ <", title, author, version);
                     return @"<";
                 }

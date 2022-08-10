@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFProgress.h"
+#import "IFSemVer.h"
 
 extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
 extern NSNotificationName const IFCensusFinishedNotification;
@@ -44,6 +45,7 @@ typedef NS_ENUM(int, IFExtensionResult) {
 /// Remove leading "The ", "An ", or "A ", and trailing proviso (in brackets) from a display name to get title used for extension filename
 +(NSString*) canonicalTitle:(NSString*) displayName;
 @property (atomic, readonly, copy) NSString *safeVersion;
+@property (atomic, readonly, copy) IFSemVer *semver;
 -(BOOL) isEqual: (id) other;
 
 @end
@@ -151,4 +153,8 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                         javascriptId: (NSString*) javascriptId;
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download;
 
+#pragma mark -
+-(void) unit_test;
+
 @end
+

@@ -40,6 +40,7 @@ static int maxErrorMessagesToDisplay = 3;
         self.md5Hash     = md5Hash;
         self.isBuiltIn   = isBuiltIn;
     }
+
     return self;
 }
 
@@ -85,10 +86,19 @@ static int maxErrorMessagesToDisplay = 3;
 }
 
 -(NSString*) safeVersion {
-    if( self.version == nil ) {
-        return @"Version 1";
+    if (self.version == nil) {
+        return @"Version missing";
     }
     return self.version;
+}
+
+-(IFSemVer*) semver {
+    if (self.version == nil) {
+        return [[IFSemVer alloc] init];
+    }
+
+    IFSemVer* result = [[IFSemVer alloc] initWithString: self.version];
+    return result;
 }
 
 -(BOOL) stringEqual:(NSString*) string1 to:(NSString*) string2 {
@@ -122,6 +132,7 @@ static int maxErrorMessagesToDisplay = 3;
         return NO;
     return YES;
 }
+
 @end
 
 // *******************************************************************************************
@@ -158,7 +169,7 @@ static int maxErrorMessagesToDisplay = 3;
 
 -(NSString*) safeVersion {
     if (self.version == nil) {
-        return @"Version 1";
+        return @"Version missing";
     }
     return self.version;
 }
@@ -398,6 +409,9 @@ didReceiveResponse: (NSURLResponse *)response
 												 selector: @selector(updateExtensions)
 													 name: NSApplicationWillBecomeActiveNotification
 												   object: nil];
+#if DEBUG
+        [self unit_test];
+#endif
 	}
 
 	return self;
@@ -1256,6 +1270,74 @@ didReceiveResponse: (NSURLResponse *)response
         [self performSelector: @selector(startDownloadAndInstallNextInQueue)
                  withObject: nil
                  afterDelay: 0.5];
+    }
+}
+
+-(void) unit_test {
+    NSDictionary* unit_test = @{
+       @"1+lobster"              : @"1+lobster",
+       @"1"                      : @"1",
+       @"1.2"                    : @"1.2",
+       @"1.2.3"                  : @"1.2.3",
+       @"71.0.45672"             : @"71.0.45672",
+       @"1.2.3.4"                : @"null",
+       @"9/861022"               : @"9.0.861022",
+       @"9/86102"                : @"null",
+       @"9/8610223"              : @"null",
+       @"9/861022.2"             : @"null",
+       @"9/861022/2"             : @"null",
+       @"1.2.3-alpha.0.x45.1789" : @"1.2.3-alpha.0.x45.1789",
+       @"1.2+lobster"            : @"1.2+lobster",
+       @"1.2.3+lobster"          : @"1.2.3+lobster",
+       @"1.2.3-beta.2+shellfish" : @"1.2.3-beta.2+shellfish",
+    };
+
+    for(NSString*key in unit_test) {
+        IFSemVer* ver = [[IFSemVer alloc] initWithString: key];
+        NSString* str = [ver to_text];
+        if ([str isEqualToString: unit_test[key]]) {
+            NSLog(@"%@ --> %@ success", key, str);
+        }
+        else {
+            NSLog(@"%@ --> %@ fail! (should be %@)", key, str, unit_test[key]);
+            assert(false);
+        }
+    }
+
+    NSArray* compare_test = @[
+        @[@"3", @"<", @"5"],
+        @[@"3", @"=", @"3"],
+        @[@"3", @"=", @"3.0"],
+        @[@"3", @"=", @"3.0.0"],
+        @[@"3.1.41", @">", @"3.1.5"],
+        @[@"3.1.41", @"<", @"3.2.5"],
+        @[@"3.1.41", @"=", @"3.1.41+arm64"],
+        @[@"3.1.41", @">", @"3.1.41-pre.0.1"],
+        @[@"3.1.41-alpha.72", @">", @"3.1.41-alpha.8"],
+        @[@"3.1.41-alpha.72a", @"<", @"3.1.41-alpha.8a"],
+        @[@"3.1.41-alpha.72", @"<", @"3.1.41-beta.72"],
+        @[@"3.1.41-alpha.72", @"<", @"3.1.41-alpha.72.zeta"],
+        @[@"1.2.3+lobster.54", @"=", @"1.2.3+lobster.100"],
+    ];
+
+    for(NSArray*key in compare_test) {
+        NSString* str1 = key[0];
+        NSString* op_expected = key[1];
+        NSString* str2 = key[2];
+        IFSemVer* ver1 = [[IFSemVer alloc] initWithString: str1];
+        IFSemVer* ver2 = [[IFSemVer alloc] initWithString: str2];
+        int result = [ver1 cmp:ver2];
+        NSString* op_actual = @"=";
+        if (result > 0) {
+            op_actual = @">";
+        } else if (result < 0) {
+            op_actual = @"<";
+        }
+        if ([op_expected isEqualTo: op_actual]) {
+            NSLog(@"%@ %@ %@ success", str1, op_actual, str2);
+        } else {
+            NSLog(@"%@ %@ %@ fail! (should be %@)", str1, op_actual, str2, op_expected);
+        }
     }
 }
 
