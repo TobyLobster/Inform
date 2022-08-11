@@ -492,6 +492,10 @@
                                                             object: self
                                                           userInfo: userDictionary ];
     }
+
+    // Make sure the skein updates
+    [self->_currentSkein postSkeinChangedWithAnimate: NO
+                                   keepActiveVisible: NO];
 }
 
 -(void) loadSkeinsFileType:(IFFileType) fileType {

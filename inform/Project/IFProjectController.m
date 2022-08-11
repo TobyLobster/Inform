@@ -2095,8 +2095,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Update toolbar
     [toolbarManager validateVisibleItems];
 
-    // Clear the skein
-    [[self document] selectSkein: -1];
+    // Restore the skein
+    [[self document] selectSkein: [toolbarManager getTestCaseIndex]];
 }
 
 - (BOOL) startNextTestCase {
