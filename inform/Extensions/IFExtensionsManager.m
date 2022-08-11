@@ -87,7 +87,7 @@ static int maxErrorMessagesToDisplay = 3;
 
 -(NSString*) safeVersion {
     if (self.version == nil) {
-        return @"Version missing";
+        return @"Version (none)";
     }
     return self.version;
 }
@@ -169,7 +169,7 @@ static int maxErrorMessagesToDisplay = 3;
 
 -(NSString*) safeVersion {
     if (self.version == nil) {
-        return @"Version missing";
+        return @"Version (none)";
     }
     return self.version;
 }
