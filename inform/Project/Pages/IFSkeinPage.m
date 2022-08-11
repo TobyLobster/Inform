@@ -251,7 +251,7 @@ static const CGFloat webViewHeight = 250.0f;
     if( skeinView &&
        skeinView.skein &&
        skeinView.skein.activeItem) {
-        [skeinView selectItem: skeinView.skein.activeItem];
+        [skeinView selectItem: skeinView.skein.activeItem withAnimation: YES];
     }
 }
 

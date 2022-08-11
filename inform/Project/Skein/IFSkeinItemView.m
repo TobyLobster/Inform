@@ -728,14 +728,14 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     } else if ( insideLozengeArea ) {
         if( !layoutItem.onSelectedLine ) {
             // Select an item not currently on the selected line
-            [self.skeinView selectItem: layoutItem.item];
+            [self.skeinView selectItem: layoutItem.item withAnimation:YES];
         } else
 #ifdef SELECTION_OPTION_1
-            [self.skeinView selectItem: nil];
+            [self.skeinView selectItem: nil withAnimation:YES];
 #else
         if (layoutItem.parent == nil ) {
             // Clear selection if clicking the (selected) root item
-            [self.skeinView selectItem: nil];
+            [self.skeinView selectItem: nil withAnimation:YES];
         } else if ([event clickCount] == 1) {
             // Play to point if clicking on a selected item that's not the root
             [self.skeinView playToPoint: layoutItem.item];

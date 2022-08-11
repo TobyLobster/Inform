@@ -877,10 +877,10 @@ static NSDictionary* itemTextAttributes;
     return [layoutTree itemAtPoint: point];
 }
 
--(void) selectItem: (IFSkeinItem*) item {
+-(void) selectItem: (IFSkeinItem*) item withAnimation:(BOOL) animate {
     if( selectedItem != item ) {
         [self setSelectedItem: item];
-        [self layoutSkeinWithAnimation:YES];
+        [self layoutSkeinWithAnimation:animate];
     }
     [self scrollViewToItem: item];
 }
@@ -888,7 +888,7 @@ static NSDictionary* itemTextAttributes;
 - (BOOL) selectItemWithNodeId: (unsigned long) skeinItemNodeId {
     IFSkeinItem* item = [skein.rootItem findItemWithNodeId: skeinItemNodeId];
     if( item ) {
-        [self selectItem: item];
+        [self selectItem: item withAnimation: NO];
         return YES;
     }
     return NO;
