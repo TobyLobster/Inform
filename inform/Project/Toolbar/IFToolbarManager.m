@@ -406,10 +406,21 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
     toolbar = [[IFToolbar alloc] initWithIdentifier: [self toolbarIdentifier]];
 	
     [toolbar setDelegate: self];
-    [toolbar setAllowsUserCustomization: YES];
-	[toolbar setAutosavesConfiguration: YES];
-    
+    [toolbar setAllowsUserCustomization: NO];
+	[toolbar setAutosavesConfiguration: NO];
+    [toolbar setDisplayMode: NSToolbarDisplayModeIconAndLabel];
+
     [projectController.window setToolbar: toolbar];
+
+    // Remove all items from the context menu
+    if ([projectController.window contentView] != nil) {
+        if([[projectController.window contentView] superview] != nil) {
+            NSMenu* context_menu = [[[projectController.window contentView] superview] menu];
+            if (context_menu != nil) {
+                [context_menu removeAllItems];
+            }
+        }
+    }
 
     [self adjustToolbarStatusView];
 }
