@@ -8,7 +8,7 @@ from pbxproj import XcodeProject        # Install from https://github.com/TobyLo
 
 
 # Version numbers
-app_version_number          = "1.82"
+app_version_number          = "1.83"
 app_version_build_number    = app_version_number + ".0"
 inform_source_version       = "10.1.0"
 full_version                = app_version_number + "/6.41/" + inform_source_version
