@@ -84,28 +84,28 @@
     <p class="sectionheading">§5.6. Viewpoint</p>
     <p>Inform automatically creates a character for the player - a bland, personality-free entity at the outset, as we've seen. But there is no reason why the player need stick to this same identity throughout the story. Conventional fiction often jumps from one viewpoint character to another, and so can IF.</p>
     <p>To do this at the most elementary level, we simply at some point</p>
-    <!--START CODE "c11279"-->
-    <blockquote class="code"><p class="quoted"><a id="c11279"></a>now the player is Janine;
+    <!--START CODE "c11277"-->
+    <blockquote class="code"><p class="quoted"><a id="c11277"></a>now the player is Janine;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>where Janine is a person we've already defined in the code. Now the player is in whatever location Janine inhabits, carries whatever Janine carries, and wears whatever Janine is wearing. <span class="boldface">Terror of the Sierra Madre</span> shows off this effect, and also demonstrates how to make the command prompt remind the player which character he currently controls. Some games instead give this information in the status line or after the name of the location when looking, producing output like</p>
-    <!--START CODE "c11280"-->
-    <blockquote class="code"><p class="quoted"><a id="c11280"></a>The Bottomless Acherousia (as Charon)
+    <!--START CODE "c11278"-->
+    <blockquote class="code"><p class="quoted"><a id="c11278"></a>The Bottomless Acherousia (as Charon)
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We could do the same by adding a line such as</p>
-    <!--START CODE "c11281"-->
-    <blockquote class="code"><p class="quoted"><a id="c11281"></a>After printing the name of a room while constructing the status line or looking:
+    <!--START CODE "c11279"-->
+    <blockquote class="code"><p class="quoted"><a id="c11279"></a>After printing the name of a room while constructing the status line or looking:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[roman type] (as [the player])&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Of course, we'll need a good deal of other work to make Janine a distinct person from whichever character the player was before. The distinction may come from changed capabilities of the new character, which we can express through new rules about actions; e.g.,</p>
-    <!--START CODE "c11282"-->
-    <blockquote class="code"><p class="quoted"><a id="c11282"></a>Instead of listening when the player is Janine:
+    <!--START CODE "c11280"-->
+    <blockquote class="code"><p class="quoted"><a id="c11280"></a>Instead of listening when the player is Janine:
     <br>
     &#160;&#160;&#160;&#160;say &quot;Your childhood accident left you unable to hear any but the loudest noises. Currently there is only silence.&quot;
     </p>
@@ -113,8 +113,8 @@
     <!--END CODE-->
     <p>Janine may also have new, different perspective on her surroundings, expressed through the descriptions of the things she looks at; <span class="boldface">Uncommon Ground</span> makes a &quot;by viewpoint&quot; token for text alternatives, allowing us to tag our descriptions to indicate which variations should be shown to which viewpoint characters. <span class="boldface">The Crane's Leg 1</span> and <span class="boldface">2</span> offer more elaborate and specialized ways of customizing the player character's observations to depend on how he relates (physically and in attitude) to the things around him.</p>
     <p>If we want to change the tense and person of narration from the conventional present second person, we may do this as well:</p>
-    <!--START CODE "c11283"-->
-    <blockquote class="code"><p class="quoted"><a id="c11283"></a>When play begins:
+    <!--START CODE "c11281"-->
+    <blockquote class="code"><p class="quoted"><a id="c11281"></a>When play begins:
     <br>
     &#160;&#160;&#160;&#160;now the story viewpoint is first person plural;
     <br>
@@ -142,7 +142,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc329.html#e96"><i>WI</i></a></div>
+                        <a href="doc327.html#e96"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -151,48 +151,48 @@
 
         <div class="egpanel" id="example96" style="display: none;">
             <p>Names of rules can be listed in tables. This is convenient if, for instance, we decide that we'd like to swap the rules we use for a specific purpose, as in this continuation of our earlier example of automated description:</p>
+            <!--START CODE "c11282_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11282_96"></a><a href="javascript:pasteCode('[=0x0022=]The Crane[=0x0027=]s Leg, Grown Longer[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.[=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]say [=0x0022=]You observe [the noun]:[paragraph break][=0x0022=];[=0x000A=][=0x0009=]choose row with character of the player in Table of Descriptive Reporting;[=0x000A=][=0x0009=]follow instructions entry.[=0x000A=][=0x000A=]This is the comparative observation rule:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Nothing special, really.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.[=0x000A=][=0x000A=]Understand [=0x0022=]possess [any person][=0x0022=] or [=0x0022=]be [any person][=0x0022=] as possessing.[=0x000A=][=0x000A=]Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say [=0x0022=]You swap bodies![=0x0022=][=0x000A=][=0x000A=]The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.[=0x000A=][=0x000A=]Table of Descriptive Reporting[=0x000A=]character[=0x0009=]instructions[=0x000A=]yourself[=0x0009=]comparative observation rule[=0x000A=]crane[=0x0009=]bird observation rule[=0x000A=][=0x000A=]This is the bird observation rule:[=0x000A=][=0x0009=]if the noun is shorter than the player, say [=0x0022=]Small, like a duck[if the color of the noun is not white]; and [color of the noun][end if].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Supremely tall[if the color of the noun is not white] and [color of the noun][end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Crane[=0x0027=]s Leg, Grown Longer[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.[=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]say [=0x0022=]You observe [the noun]:[paragraph break][=0x0022=];[=0x000A=][=0x0009=]choose row with character of the player in Table of Descriptive Reporting;[=0x000A=][=0x0009=]follow instructions entry.[=0x000A=][=0x000A=]This is the comparative observation rule:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Nothing special, really.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.[=0x000A=][=0x000A=]Understand [=0x0022=]possess [any person][=0x0022=] or [=0x0022=]be [any person][=0x0022=] as possessing.[=0x000A=][=0x000A=]Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say [=0x0022=]You swap bodies![=0x0022=][=0x000A=][=0x000A=]The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.[=0x000A=][=0x000A=]Table of Descriptive Reporting[=0x000A=]character[=0x0009=]instructions[=0x000A=]yourself[=0x0009=]comparative observation rule[=0x000A=]crane[=0x0009=]bird observation rule[=0x000A=][=0x000A=]This is the bird observation rule:[=0x000A=][=0x0009=]if the noun is shorter than the player, say [=0x0022=]Small, like a duck[if the color of the noun is not white]; and [color of the noun][end if].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Supremely tall[if the color of the noun is not white] and [color of the noun][end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow[=0x0022=].[=0x000A=]\n', 'Example - The Crane[=0x0027=]s Leg 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Crane's Leg, Grown Longer&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11283_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11283_96"></a>Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11284_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11284_96"></a><a href="javascript:pasteCode('[=0x0022=]The Crane[=0x0027=]s Leg, Grown Longer[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.[=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]say [=0x0022=]You observe [the noun]:[paragraph break][=0x0022=];[=0x000A=][=0x0009=]choose row with character of the player in Table of Descriptive Reporting;[=0x000A=][=0x0009=]follow instructions entry.[=0x000A=][=0x000A=]This is the comparative observation rule:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Nothing special, really.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.[=0x000A=][=0x000A=]Understand [=0x0022=]possess [any person][=0x0022=] or [=0x0022=]be [any person][=0x0022=] as possessing.[=0x000A=][=0x000A=]Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say [=0x0022=]You swap bodies![=0x0022=][=0x000A=][=0x000A=]The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.[=0x000A=][=0x000A=]Table of Descriptive Reporting[=0x000A=]character[=0x0009=]instructions[=0x000A=]yourself[=0x0009=]comparative observation rule[=0x000A=]crane[=0x0009=]bird observation rule[=0x000A=][=0x000A=]This is the bird observation rule:[=0x000A=][=0x0009=]if the noun is shorter than the player, say [=0x0022=]Small, like a duck[if the color of the noun is not white]; and [color of the noun][end if].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Supremely tall[if the color of the noun is not white] and [color of the noun][end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Crane[=0x0027=]s Leg, Grown Longer[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.[=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]say [=0x0022=]You observe [the noun]:[paragraph break][=0x0022=];[=0x000A=][=0x0009=]choose row with character of the player in Table of Descriptive Reporting;[=0x000A=][=0x0009=]follow instructions entry.[=0x000A=][=0x000A=]This is the comparative observation rule:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Nothing special, really.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.[=0x000A=][=0x000A=]Understand [=0x0022=]possess [any person][=0x0022=] or [=0x0022=]be [any person][=0x0022=] as possessing.[=0x000A=][=0x000A=]Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say [=0x0022=]You swap bodies![=0x0022=][=0x000A=][=0x000A=]The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.[=0x000A=][=0x000A=]Table of Descriptive Reporting[=0x000A=]character[=0x0009=]instructions[=0x000A=]yourself[=0x0009=]comparative observation rule[=0x000A=]crane[=0x0009=]bird observation rule[=0x000A=][=0x000A=]This is the bird observation rule:[=0x000A=][=0x0009=]if the noun is shorter than the player, say [=0x0022=]Small, like a duck[if the color of the noun is not white]; and [color of the noun][end if].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Supremely tall[if the color of the noun is not white] and [color of the noun][end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow[=0x0022=].[=0x000A=]\n', 'Example - The Crane[=0x0027=]s Leg 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Crane's Leg, Grown Longer&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11284_96"></a>Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11285_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11285_96"></a>Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.
+            <blockquote class="code"><p class="quoted"><a id="c11285_96"></a>A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11286_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11286_96"></a>Color is a kind of value. The colors are red, orange, yellow, green, blue, indigo, violet, black, brown, and white. A thing has a color. A thing is usually white.
+            <blockquote class="code"><p class="quoted"><a id="c11286_96"></a>Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11287_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11287_96"></a>A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.
+            <blockquote class="code"><p class="quoted"><a id="c11287_96"></a>A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11288_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11288_96"></a>Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.
+            <blockquote class="code"><p class="quoted"><a id="c11288_96"></a>A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11289_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11289_96"></a>A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.
+            <blockquote class="code"><p class="quoted"><a id="c11289_96"></a>The description of a thing is usually &quot;[comparison with ideal][run paragraph on]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11290_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11290_96"></a>A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. The height of a rock is usually 0 feet 3 inches. Every rock imitates the ordinary rock.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11291_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11291_96"></a>The description of a thing is usually &quot;[comparison with ideal][run paragraph on]&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11292_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11292_96"></a>To say comparison with ideal:
+            <blockquote class="code"><p class="quoted"><a id="c11290_96"></a>To say comparison with ideal:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You observe [the noun]:[paragraph break]&quot;;
             <br>
@@ -202,8 +202,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11293_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11293_96"></a>This is the comparative observation rule:
+            <!--START CODE "c11291_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11291_96"></a>This is the comparative observation rule:
             <br>
             &#160;&#160;&#160;&#160;let the sample be the ideal of the noun;
             <br>
@@ -239,33 +239,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11292_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11292_96"></a>The Pleasure Garden is a room. &quot;At the riverbank, a pleasing garden, having many curving paths and one straight.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11293_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11293_96"></a>The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11294_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11294_96"></a>The Pleasure Garden is a room. &quot;At the riverbank, a pleasing garden, having many curving paths and one straight.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11294_96"></a>Understand &quot;possess [any person]&quot; or &quot;be [any person]&quot; as possessing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11295_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11295_96"></a>The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a yellow metal rock called a gold nugget. A willow is in the Pleasure Garden. The height of the willow is 20 feet 2 inches.
+            <blockquote class="code"><p class="quoted"><a id="c11295_96"></a>Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say &quot;You swap bodies!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11296_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11296_96"></a>Understand &quot;possess [any person]&quot; or &quot;be [any person]&quot; as possessing.
+            <blockquote class="code"><p class="quoted"><a id="c11296_96"></a>The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11297_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11297_96"></a>Possessing is an action applying to one thing. Carry out possessing: now the player is the noun; say &quot;You swap bodies!&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11298_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11298_96"></a>The crane is a person in the Garden. The height of the crane is 4 feet 0 inches.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11299_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11299_96"></a>Table of Descriptive Reporting
+            <blockquote class="code"><p class="quoted"><a id="c11297_96"></a>Table of Descriptive Reporting
             <br>
             </p>
             </blockquote>
@@ -304,8 +304,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11300_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11300_96"></a>This is the bird observation rule:
+            <!--START CODE "c11298_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11298_96"></a>This is the bird observation rule:
             <br>
             &#160;&#160;&#160;&#160;if the noun is shorter than the player, say &quot;Small, like a duck[if the color of the noun is not white]; and [color of the noun][end if].&quot;;
             <br>
@@ -313,8 +313,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11301_96"-->
-            <blockquote class="code"><p class="quoted"><a id="c11301_96"></a>Test me with &quot;examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow&quot;.
+            <!--START CODE "c11299_96"-->
+            <blockquote class="code"><p class="quoted"><a id="c11299_96"></a>Test me with &quot;examine table / examine nugget / examine willow / possess crane / examine table / examine nugget / examine willow&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -337,7 +337,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc457.html#e397"><i>WI</i></a></div>
+                        <a href="doc455.html#e397"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -347,8 +347,8 @@
         <div class="egpanel" id="example397" style="display: none;">
             <p>A slightly more challenging case than the &quot;by atmosphere&quot; example is one in which we want to create text variations depending on the identity of our player character.</p>
             <p>What we want to do is build a switch statement in I6, one that looks something like</p>
-            <!--START CODE "c11302_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11302_397"></a>switch(player)
+            <!--START CODE "c11300_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11300_397"></a>switch(player)
             <br>
             {
             <br>
@@ -363,28 +363,28 @@
             </blockquote>
             <!--END CODE-->
             <p>out of I7 that looks like this:</p>
+            <!--START CODE "c11301_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11301_397"></a>say &quot;[show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show]&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11302_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11302_397"></a><a href="javascript:pasteCode('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n', 'Example - Uncommon Ground')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uncommon Ground&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11303_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11303_397"></a>say &quot;[show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show]&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11303_397"></a>The Mud Village is a room. &quot;You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11304_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11304_397"></a><a href="javascript:pasteCode('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n', 'Example - Uncommon Ground')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uncommon Ground&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11304_397"></a>Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11305_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11305_397"></a>The Mud Village is a room. &quot;You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11306_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11306_397"></a>Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11307_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11307_397"></a>Instead of waiting:
+            <blockquote class="code"><p class="quoted"><a id="c11305_397"></a>Instead of waiting:
             <br>
             &#160;&#160;&#160;&#160;if the player is Lolita, now the player is Leforge;
             <br>
@@ -394,8 +394,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11308_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11308_397"></a>To say show to (N - a person) -- beginning say_seen_by:
+            <!--START CODE "c11306_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11306_397"></a>To say show to (N - a person) -- beginning say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -409,8 +409,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11309_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11309_397"></a>To say to (N - a person) -- continuing say_seen_by:
+            <!--START CODE "c11307_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11307_397"></a>To say to (N - a person) -- continuing say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -420,8 +420,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11310_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11310_397"></a>To say to everyone else -- continuing say_seen_by:
+            <!--START CODE "c11308_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11308_397"></a>To say to everyone else -- continuing say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -431,8 +431,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11311_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11311_397"></a>To say end show -- ending say_seen_by:
+            <!--START CODE "c11309_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11309_397"></a>To say end show -- ending say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -442,8 +442,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11312_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c11312_397"></a>Test me with &quot;look / z / look / z / look&quot;.
+            <!--START CODE "c11310_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c11310_397"></a>Test me with &quot;look / z / look / z / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -466,7 +466,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc60.html#e95"><i>WI</i></a></div>
+                        <a href="doc58.html#e95"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -474,63 +474,63 @@
         </table>
 
         <div class="egpanel" id="example95" style="display: none;">
-            <!--START CODE "c11313_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11313_95"></a>When you see a long object, you don't have to think that it is too long if being long is the property given by the nature. It is proved by the fact that a duckling, having short legs, will cry if you try to draw them out by force, and that a crane, having long legs, will protest you with tears if you try to cut them with a knife. -- Zhuangzi
+            <!--START CODE "c11311_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11311_95"></a>When you see a long object, you don't have to think that it is too long if being long is the property given by the nature. It is proved by the fact that a duckling, having short legs, will cry if you try to draw them out by force, and that a crane, having long legs, will protest you with tears if you try to cut them with a knife. -- Zhuangzi
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Suppose we have an extremely detailed world model in which every object is characterized by many features -- in this example, material and height, though one could add more. Suppose further that we would like to generate descriptions of these things automatically for the most part, drawing the player's attention only to those aspects of the object that are particularly interesting.</p>
+            <!--START CODE "c11312_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11312_95"></a><a href="javascript:pasteCode('[=0x0022=]The Crane[=0x0027=]s Leg[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=][So far, we have generally dealt with cases where the property of a thing can be a number (such as 3), a value (such as brightness), or a unit (like height, here). It is also possible for a thing to have a property which names another thing, as in [=0x0022=]The mother of the baby trout is the large trout[=0x0022=] -- where [=0x0022=]mother[=0x0022=] is a property, and its value, in the case of the baby trout, is large trout. We would define such a property with a line such as [=0x0022=]A fish has a thing called the mother.[=0x0022=]][=0x000A=][=0x000A=][In practice, though, this is a bit confusing as syntax; moreover, Inform has a much more powerful construct for talking about the ways in which one object relates to another object. A full discussion of this will have to wait for the chapter on Relations. For now, it is enough to say that we can do this:][=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=][This will allow us to declare that some objects imitate other objects, like so:][=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.[=0x000A=][=0x000A=]A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.[=0x000A=][=0x000A=][Now each of these types has one ideal representative which has the fundamental attributes of its kind: the ordinary chair is the most chairlike chair imaginable, the ordinary table is the epitome of tableness, and so on. We are also allowed to refer to [=0x0022=]the ideal of the chair[=0x0022=], thanks to the way we defined imitation. (Again, the relations chapter offers a much more detailed explanation of how relations may be defined.)][=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Perfectly conforming to your expectations of its type.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.[=0x000A=][=0x000A=]Test me with [=0x0022=]x table / x nugget[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Crane[=0x0027=]s Leg[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=][So far, we have generally dealt with cases where the property of a thing can be a number (such as 3), a value (such as brightness), or a unit (like height, here). It is also possible for a thing to have a property which names another thing, as in [=0x0022=]The mother of the baby trout is the large trout[=0x0022=] -- where [=0x0022=]mother[=0x0022=] is a property, and its value, in the case of the baby trout, is large trout. We would define such a property with a line such as [=0x0022=]A fish has a thing called the mother.[=0x0022=]][=0x000A=][=0x000A=][In practice, though, this is a bit confusing as syntax; moreover, Inform has a much more powerful construct for talking about the ways in which one object relates to another object. A full discussion of this will have to wait for the chapter on Relations. For now, it is enough to say that we can do this:][=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=][This will allow us to declare that some objects imitate other objects, like so:][=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.[=0x000A=][=0x000A=]A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.[=0x000A=][=0x000A=][Now each of these types has one ideal representative which has the fundamental attributes of its kind: the ordinary chair is the most chairlike chair imaginable, the ordinary table is the epitome of tableness, and so on. We are also allowed to refer to [=0x0022=]the ideal of the chair[=0x0022=], thanks to the way we defined imitation. (Again, the relations chapter offers a much more detailed explanation of how relations may be defined.)][=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Perfectly conforming to your expectations of its type.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.[=0x000A=][=0x000A=]Test me with [=0x0022=]x table / x nugget[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Crane[=0x0027=]s Leg 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Crane's Leg&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11313_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11313_95"></a>Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11314_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11314_95"></a><a href="javascript:pasteCode('[=0x0022=]The Crane[=0x0027=]s Leg[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=][So far, we have generally dealt with cases where the property of a thing can be a number (such as 3), a value (such as brightness), or a unit (like height, here). It is also possible for a thing to have a property which names another thing, as in [=0x0022=]The mother of the baby trout is the large trout[=0x0022=] -- where [=0x0022=]mother[=0x0022=] is a property, and its value, in the case of the baby trout, is large trout. We would define such a property with a line such as [=0x0022=]A fish has a thing called the mother.[=0x0022=]][=0x000A=][=0x000A=][In practice, though, this is a bit confusing as syntax; moreover, Inform has a much more powerful construct for talking about the ways in which one object relates to another object. A full discussion of this will have to wait for the chapter on Relations. For now, it is enough to say that we can do this:][=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=][This will allow us to declare that some objects imitate other objects, like so:][=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.[=0x000A=][=0x000A=]A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.[=0x000A=][=0x000A=][Now each of these types has one ideal representative which has the fundamental attributes of its kind: the ordinary chair is the most chairlike chair imaginable, the ordinary table is the epitome of tableness, and so on. We are also allowed to refer to [=0x0022=]the ideal of the chair[=0x0022=], thanks to the way we defined imitation. (Again, the relations chapter offers a much more detailed explanation of how relations may be defined.)][=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Perfectly conforming to your expectations of its type.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.[=0x000A=][=0x000A=]Test me with [=0x0022=]x table / x nugget[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Crane[=0x0027=]s Leg[=0x0022=][=0x000A=][=0x000A=]Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.[=0x000A=][=0x000A=]A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.[=0x000A=][=0x000A=][So far, we have generally dealt with cases where the property of a thing can be a number (such as 3), a value (such as brightness), or a unit (like height, here). It is also possible for a thing to have a property which names another thing, as in [=0x0022=]The mother of the baby trout is the large trout[=0x0022=] -- where [=0x0022=]mother[=0x0022=] is a property, and its value, in the case of the baby trout, is large trout. We would define such a property with a line such as [=0x0022=]A fish has a thing called the mother.[=0x0022=]][=0x000A=][=0x000A=][In practice, though, this is a bit confusing as syntax; moreover, Inform has a much more powerful construct for talking about the ways in which one object relates to another object. A full discussion of this will have to wait for the chapter on Relations. For now, it is enough to say that we can do this:][=0x000A=][=0x000A=]Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.[=0x000A=][=0x000A=][This will allow us to declare that some objects imitate other objects, like so:][=0x000A=][=0x000A=]A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.[=0x000A=][=0x000A=]A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.[=0x000A=][=0x000A=]A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.[=0x000A=][=0x000A=]A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.[=0x000A=][=0x000A=][Now each of these types has one ideal representative which has the fundamental attributes of its kind: the ordinary chair is the most chairlike chair imaginable, the ordinary table is the epitome of tableness, and so on. We are also allowed to refer to [=0x0022=]the ideal of the chair[=0x0022=], thanks to the way we defined imitation. (Again, the relations chapter offers a much more detailed explanation of how relations may be defined.)][=0x000A=][=0x000A=]The description of a thing is usually [=0x0022=][comparison with ideal][run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say comparison with ideal:[=0x000A=][=0x0009=]let the sample be the ideal of the noun;[=0x000A=][=0x0009=]if the sample is not a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Perfectly conforming to your expectations of its type.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if the material of the noun is not the material of the sample:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun], and made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Distinct mostly in being made of [material of the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the height of the noun is not the height of the sample:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the noun is shorter than the sample, say [=0x0022=]Unusually short at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]Unusually tall at [height of the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]In every respect [a sample].[=0x0022=][=0x000A=][=0x000A=]The Pleasure Garden is a room. [=0x0022=]At the riverbank, a pleasing garden, having many curving paths and one straight.[=0x0022=][=0x000A=][=0x000A=]The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.[=0x000A=][=0x000A=]Test me with [=0x0022=]x table / x nugget[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Crane[=0x0027=]s Leg 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Crane's Leg&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11315_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11315_95"></a>Material is a kind of value. The materials are wood, glass, stone, cloth, paper, clay, and metal. A thing has a material.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11316_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11316_95"></a>A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.
+            <blockquote class="code"><p class="quoted"><a id="c11314_95"></a>A height is a kind of value. 3 feet 11 inches specifies a height. A thing has a height. Definition: a thing is tall if its height is 6 feet 0 inches or more. Definition: a thing is short if its height is 2 feet 0 inches or less.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>So far, we have generally dealt with cases where the property of a thing can be a number (such as 3), a value (such as brightness), or a unit (like height, here). It is also possible for a thing to have a property which names another thing, as in &quot;The mother of the baby trout is the large trout&quot; -- where &quot;mother&quot; is a property, and its value, in the case of the baby trout, is large trout. We would define such a property with a line such as &quot;A fish has a thing called the mother.&quot;</p>
             <p>In practice, though, this is a bit confusing as syntax; moreover, Inform has a much more powerful construct for talking about the ways in which one object relates to another object. A full discussion of this will have to wait for the chapter on Relations. For now, it is enough to say that we can do this:</p>
-            <!--START CODE "c11317_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11317_95"></a>Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.
+            <!--START CODE "c11315_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11315_95"></a>Imitation relates various things to one thing (called the ideal). The verb to imitate means the imitation relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This will allow us to declare that some objects imitate other objects, like so:</p>
+            <!--START CODE "c11316_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11316_95"></a>A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11317_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11317_95"></a>A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11318_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11318_95"></a>A chair is a kind of supporter. A chair is always enterable. A chair is usually wood. The height of a chair is usually 4 feet 0 inches. The ordinary chair is a chair. Every chair imitates the ordinary chair.
+            <blockquote class="code"><p class="quoted"><a id="c11318_95"></a>A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11319_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11319_95"></a>A table is a kind of supporter. A table is usually wood. The height of a table is usually 3 feet 8 inches. The ordinary table is a table. Every table imitates the ordinary table.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11320_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11320_95"></a>A rock is a kind of thing. A rock is usually stone. The ordinary rock is a rock. Every rock imitates the ordinary rock. The height of a rock is usually 0 feet 3 inches.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11321_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11321_95"></a>A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.
+            <blockquote class="code"><p class="quoted"><a id="c11319_95"></a>A jug is a kind of container. A jug is usually clay. The ordinary jug is a jug. Every jug imitates the ordinary jug. The height of a jug is usually 0 feet 8 inches.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now each of these types has one ideal representative which has the fundamental attributes of its kind: the ordinary chair is the most chairlike chair imaginable, the ordinary table is the epitome of tableness, and so on. We are also allowed to refer to &quot;the ideal of the chair&quot;, thanks to the way we defined imitation. (Again, the relations chapter offers a much more detailed explanation of how relations may be defined.)</p>
-            <!--START CODE "c11322_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11322_95"></a>The description of a thing is usually &quot;[comparison with ideal][run paragraph on]&quot;.
+            <!--START CODE "c11320_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11320_95"></a>The description of a thing is usually &quot;[comparison with ideal][run paragraph on]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11323_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11323_95"></a>To say comparison with ideal:
+            <!--START CODE "c11321_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11321_95"></a>To say comparison with ideal:
             <br>
             &#160;&#160;&#160;&#160;let the sample be the ideal of the noun;
             <br>
@@ -566,18 +566,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11322_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11322_95"></a>The Pleasure Garden is a room. &quot;At the riverbank, a pleasing garden, having many curving paths and one straight.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11323_95"-->
+            <blockquote class="code"><p class="quoted"><a id="c11323_95"></a>The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11324_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11324_95"></a>The Pleasure Garden is a room. &quot;At the riverbank, a pleasing garden, having many curving paths and one straight.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11325_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11325_95"></a>The low table is a table in the Pleasure Garden. The height of the low table is 2 feet 3 inches. On the low table is a metal rock called a gold nugget.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11326_95"-->
-            <blockquote class="code"><p class="quoted"><a id="c11326_95"></a>Test me with &quot;x table / x nugget&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11324_95"></a>Test me with &quot;x table / x nugget&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -601,7 +601,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc124.html#e406"><i>WI</i></a></div>
+                        <a href="doc122.html#e406"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -610,41 +610,41 @@
 
         <div class="egpanel" id="example406" style="display: none;">
             <p>Suppose we have a game where we want the player to control two different characters, swapping bodies from one turn to the next. First, the setting, and the two people who will alternately play:</p>
+            <!--START CODE "c11325_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11325_406"></a><a href="javascript:pasteCode('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n', 'Example - Terror of the Sierra Madre')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Terror of the Sierra Madre&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11326_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11326_406"></a>The Hay-Strewn Corridor is a room. &quot;[if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11327_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11327_406"></a><a href="javascript:pasteCode('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n', 'Example - Terror of the Sierra Madre')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Terror of the Sierra Madre&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11327_406"></a>The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11328_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11328_406"></a>The Hay-Strewn Corridor is a room. &quot;[if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.
+            <blockquote class="code"><p class="quoted"><a id="c11328_406"></a>Teresa is a woman in the Hay-Strewn Corridor. &quot;Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].&quot; Teresa carries a bulb of garlic and a cross.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11329_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11329_406"></a>The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11330_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11330_406"></a>Teresa is a woman in the Hay-Strewn Corridor. &quot;Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].&quot; Teresa carries a bulb of garlic and a cross.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11331_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11331_406"></a>Maleska is a man in the Hay-Strewn Corridor. &quot;Maleska watches you from eyes entirely black.&quot; Maleska carries a skull.
+            <blockquote class="code"><p class="quoted"><a id="c11329_406"></a>Maleska is a man in the Hay-Strewn Corridor. &quot;Maleska watches you from eyes entirely black.&quot; Maleska carries a skull.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If &quot;player&quot; is not set to any named person, Inform creates a bland person called &quot;yourself&quot; to represent the player. To avoid this, we set &quot;player&quot; to the person we want to begin as. The player character is normally privately-named, so we'll need to make sure &quot;Maleska&quot; still means what it should.</p>
-            <!--START CODE "c11332_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11332_406"></a>The player is Maleska. Understand &quot;Maleska&quot; as Maleska.
+            <!--START CODE "c11330_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11330_406"></a>The player is Maleska. Understand &quot;Maleska&quot; as Maleska.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.</p>
             <p>At the end of every turn we will use the 'now the player is...' phrase. (This looks as if it simply changes the value of &quot;player&quot;: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)</p>
-            <!--START CODE "c11333_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11333_406"></a>Every turn:
+            <!--START CODE "c11331_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11331_406"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if the player is Maleska, now the player is Teresa;
             <br>
@@ -653,14 +653,14 @@
             </blockquote>
             <!--END CODE-->
             <p>Our two characters already see the Corridor differently, but let's differentiate them further:</p>
-            <!--START CODE "c11334_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11334_406"></a>Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.
+            <!--START CODE "c11332_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11332_406"></a>Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In this small example, strength is not used for anything, except that we will display it on the status line:</p>
-            <!--START CODE "c11335_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11335_406"></a>When play begins:
+            <!--START CODE "c11333_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11333_406"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;[bold type][player][roman type] &gt; &quot;;
             <br>
@@ -671,18 +671,18 @@
             </blockquote>
             <!--END CODE-->
             <p>That last rule doesn't quite do what we might have expected. When we print &quot;[player]&quot;, we find that Inform usually prints &quot;yourself&quot;. This is because Inform says &quot;you&quot; to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:</p>
+            <!--START CODE "c11334_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11334_406"></a>Rule for printing the name of Teresa: say &quot;Teresa&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11335_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c11335_406"></a>Rule for printing the name of Maleska: say &quot;Maleska&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11336_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11336_406"></a>Rule for printing the name of Teresa: say &quot;Teresa&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11337_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11337_406"></a>Rule for printing the name of Maleska: say &quot;Maleska&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11338_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c11338_406"></a>Test me with &quot;look / look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11336_406"></a>Test me with &quot;look / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

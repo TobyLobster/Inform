@@ -84,34 +84,34 @@
     <p class="sectionheading">§2.2. Varying What Is Read</p>
     <p>Making the printed text adapt to circumstances only makes half of the conversation graceful: the other half is to allow the player's commands to have a similar freedom. The things the player can refer to should always respond to the names which would seem natural to the player. Inform provides a variety of techniques for understanding words always, or only under certain conditions; and, if need be, we can also get direct access to what the player has typed in order to examine it with regular expressions. (This last resort is rarely necessary.)</p>
     <p><span class="boldface">First Name Basis</span> shows how to assign names to things or to kinds of thing - if, for instance, we want the player to be able to refer to any man as &quot;man&quot; or &quot;gentleman&quot;:</p>
-    <!--START CODE "c9615"-->
-    <blockquote class="code"><p class="quoted"><a id="c9615"></a>Understand &quot;man&quot; or &quot;gentleman&quot; as a man.
+    <!--START CODE "c9613"-->
+    <blockquote class="code"><p class="quoted"><a id="c9613"></a>Understand &quot;man&quot; or &quot;gentleman&quot; as a man.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We may also sometimes want to give names that are specifically plural, as in</p>
-    <!--START CODE "c9616"-->
-    <blockquote class="code"><p class="quoted"><a id="c9616"></a>A duck is a kind of animal. Understand &quot;birds&quot; as the plural of duck.
+    <!--START CODE "c9614"-->
+    <blockquote class="code"><p class="quoted"><a id="c9614"></a>A duck is a kind of animal. Understand &quot;birds&quot; as the plural of duck.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>or</p>
-    <!--START CODE "c9617"-->
-    <blockquote class="code"><p class="quoted"><a id="c9617"></a>Understand &quot;birds&quot; as the plural of the magpie.
+    <!--START CODE "c9615"-->
+    <blockquote class="code"><p class="quoted"><a id="c9615"></a>Understand &quot;birds&quot; as the plural of the magpie.
     </p>
     </blockquote>
     <!--END CODE-->
     <p><span class="boldface">Vouvray</span> demonstrates.</p>
     <p>A common challenge arises when two objects have names that overlap or are related, and we wish Inform to choose sensibly between them: for instance, a cigarette vs. a cigarette case. If a word should apply to something only as part of a phrase (e.g., &quot;cigarette&quot; alone should never refer to the cigarette case) we can manage the situation as follows:</p>
-    <!--START CODE "c9618"-->
-    <blockquote class="code"><p class="quoted"><a id="c9618"></a>The case is a closed openable container. The printed name is &quot;cigarette case&quot;. Understand &quot;cigarette case&quot; as the case.
+    <!--START CODE "c9616"-->
+    <blockquote class="code"><p class="quoted"><a id="c9616"></a>The case is a closed openable container. The printed name is &quot;cigarette case&quot;. Understand &quot;cigarette case&quot; as the case.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Because &quot;cigarette&quot; here appears only as part of the phrase &quot;cigarette case&quot;, it will be understood only in that context; the conflict with the bare cigarette will not arise.</p>
     <p>As a variant, we may want one object only to take precedence over another in naming. If we wanted the player to be allowed to refer casually to the cigarette case as &quot;cigarette&quot; when (and only when) the cigarette itself is not in view, we could add</p>
-    <!--START CODE "c9619"-->
-    <blockquote class="code"><p class="quoted"><a id="c9619"></a>Understand &quot;cigarette&quot; as the case when the cigarette is not visible.
+    <!--START CODE "c9617"-->
+    <blockquote class="code"><p class="quoted"><a id="c9617"></a>Understand &quot;cigarette&quot; as the case when the cigarette is not visible.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -119,49 +119,49 @@
     <p>(There may still arise cases where the player uses a name which can legitimately refer to two different things in view. To deal with this situation, we may want the Does the player mean... rules, explained in the chapter on Understanding; and to change the way the story asks for clarification, see the two activities Asking which do you mean and Clarifying the parser's choice of something.)</p>
     <p>Names of things which contain prepositions can also be tricky because Inform misreads the sentences creating them: <span class="boldface">Laura</span> shows how some awkward cases can be safely overcome.</p>
     <p>A more difficult case is to ensure that if we change the description or nature of something in play, then the names we understand for it adapt, too. &quot;Understand... when...&quot; can be all that's needed:</p>
-    <!--START CODE "c9620"-->
-    <blockquote class="code"><p class="quoted"><a id="c9620"></a>Understand &quot;king&quot; as Aragorn when we have crowned Aragorn.
+    <!--START CODE "c9618"-->
+    <blockquote class="code"><p class="quoted"><a id="c9618"></a>Understand &quot;king&quot; as Aragorn when we have crowned Aragorn.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Or, similarly, if we want some combination of categories and characteristics to be recognized:</p>
-    <!--START CODE "c9621"-->
-    <blockquote class="code"><p class="quoted"><a id="c9621"></a>Understand &quot;giant&quot; as a man when the item described is tall.
+    <!--START CODE "c9619"-->
+    <blockquote class="code"><p class="quoted"><a id="c9619"></a>Understand &quot;giant&quot; as a man when the item described is tall.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>&quot;The item described&quot; here refers to the thing being named. &quot;...when&quot; can even be useful in defining new commands, and <span class="boldface">Quiz Show</span> demonstrates how to ask open-ended questions that the player can answer only on the subsequent turn.</p>
     <p>Properties can also be matched without fuss:</p>
-    <!--START CODE "c9622"-->
-    <blockquote class="code"><p class="quoted"><a id="c9622"></a>Tint is a kind of value. The tints are green, aquamarine and darkish purple. The wallpaper is fixed in place in the Hotel. The wallpaper has a tint. Understand the tint property as describing the wallpaper.
+    <!--START CODE "c9620"-->
+    <blockquote class="code"><p class="quoted"><a id="c9620"></a>Tint is a kind of value. The tints are green, aquamarine and darkish purple. The wallpaper is fixed in place in the Hotel. The wallpaper has a tint. Understand the tint property as describing the wallpaper.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This allows EXAMINE AQUAMARINE WALLPAPER if, but only if, it happens to be aquamarine at the moment. Relationships can also be matched automatically:</p>
-    <!--START CODE "c9623"-->
-    <blockquote class="code"><p class="quoted"><a id="c9623"></a>A box is a kind of container. The red box is a box in the Toyshop. Some crayons are in the red box. Understand &quot;box of [something related by containment]&quot; as a box.
+    <!--START CODE "c9621"-->
+    <blockquote class="code"><p class="quoted"><a id="c9621"></a>A box is a kind of container. The red box is a box in the Toyshop. Some crayons are in the red box. Understand &quot;box of [something related by containment]&quot; as a box.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>which recognises BOX OF CRAYONS until they are removed, when it reverts to plain BOX only.</p>
     <p>Greater difficulty arises if, using some variable or property or table to mark that a bottle contains wine, we print messages calling it &quot;bottle of wine&quot;. We are then honour-bound to understand commands like TAKE BOTTLE OF WINE in return, not to insist on TAKE BOTTLE. Almost all &quot;simulation&quot; IF runs in to issues like this, and there is no general solution because simulations are so varied.</p>
     <p>A converse challenge arises when we want to <span class="italic">avoid</span> understanding the player's references to an object under some or all circumstances. This is relatively uncommon, but does sometimes occur. For this situation, Inform provides the &quot;privately-named&quot; property, as in</p>
-    <!--START CODE "c9624"-->
-    <blockquote class="code"><p class="quoted"><a id="c9624"></a>The unrecognizable object is a privately-named thing in the Kitchen.
+    <!--START CODE "c9622"-->
+    <blockquote class="code"><p class="quoted"><a id="c9622"></a>The unrecognizable object is a privately-named thing in the Kitchen.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Here &quot;privately-named&quot; tells Inform not to understand the object's source name automatically. It is then up to us to create any understand lines we want to refer to the object, as in</p>
-    <!--START CODE "c9625"-->
-    <blockquote class="code"><p class="quoted"><a id="c9625"></a>Understand &quot;oyster fork&quot; as the unrecognizable object when the etiquette book is read.
+    <!--START CODE "c9623"-->
+    <blockquote class="code"><p class="quoted"><a id="c9623"></a>Understand &quot;oyster fork&quot; as the unrecognizable object when the etiquette book is read.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Of course, if we need an object that the player is never allowed to refer to at all, we can just make this privately-named and then not provide any understand lines at all.</p>
     <p>A final source of difficulty is that by default Inform truncates words to nine letters before attempting to identify them. This is no problem in most circumstances and is likely to go unnoticed -- until we have two very long words whose names are nearly identical, such as &quot;north-northwest exit&quot; and &quot;north-northeast exit&quot;. (To make matters worse, a punctuation mark such as a hyphen counts as two letters on its own.)</p>
     <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would write</p>
-    <!--START CODE "c9626"-->
-    <blockquote class="code"><p class="quoted"><a id="c9626"></a>Use DICT_WORD_SIZE of 15.
+    <!--START CODE "c9624"-->
+    <blockquote class="code"><p class="quoted"><a id="c9624"></a>Use DICT_WORD_SIZE of 15.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -191,7 +191,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc30.html#e145"><i>WI</i></a></div>
+                        <a href="doc28.html#e145"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -200,46 +200,46 @@
 
         <div class="egpanel" id="example145" style="display: none;">
             <p>Sometimes we create objects that we want the player to be able to call by different names: a television that should also answer to &quot;tv&quot; and &quot;telly&quot;, for instance, or a refrigerator the player might also call &quot;fridge&quot;. In this case, we can use instructions like</p>
-            <!--START CODE "c9627_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9627_145"></a>Understand &quot;tv&quot; and &quot;telly&quot; as the television.
+            <!--START CODE "c9625_145"-->
+            <blockquote class="code"><p class="quoted"><a id="c9625_145"></a>Understand &quot;tv&quot; and &quot;telly&quot; as the television.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>to add extra names to the object we've defined.</p>
+            <!--START CODE "c9626_145"-->
+            <blockquote class="code"><p class="quoted"><a id="c9626_145"></a><a href="javascript:pasteCode('[=0x0022=]First Name Basis[=0x0022=][=0x000A=][=0x000A=]The Crew Lounge is a room. [=0x0022=]Deliberately spartan: the crew feels weight restrictions here first, so there aren[=0x0027=]t any chairs, just a few thin pads on the ground.[=0x0022=][=0x000A=][=0x000A=]The holographic projector is a device in the Crew Lounge. [=0x0022=]The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.[=0x0022=] Understand [=0x0022=]holo[=0x0022=] or [=0x0022=]holograph[=0x0022=] or [=0x0022=]Misthon[=0x0022=] or [=0x0022=]9000[=0x0022=] as the projector.[=0x000A=][=0x000A=]The description of the projector is [=0x0022=][if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if][=0x0022=].[=0x000A=][=0x000A=][(This description is for local color; we will learn more about devices, and conditions like [=0x0022=]if switched on[=0x0022=], later in this chapter.)][=0x000A=][=0x000A=][By default, Inform does not understand the names of an object[=0x0027=]s kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:][=0x000A=][=0x000A=]Lewis and Harper are men in the Crew Lounge. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]guy[=0x0022=] or [=0x0022=]chap[=0x0022=] or [=0x0022=]lad[=0x0022=] or [=0x0022=]male[=0x0022=] as a man. Understand [=0x0022=]men[=0x0022=] or [=0x0022=]chaps[=0x0022=] or [=0x0022=]lads[=0x0022=] or [=0x0022=]guys[=0x0022=] or [=0x0022=]males[=0x0022=] as the plural of a man.[=0x000A=][=0x000A=]The description of Lewis is [=0x0022=]A wiry, excitable engineer who just signed aboard last week.[=0x0022=] The description of Harper is [=0x0022=]Harper[=0x0027=]s a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]First Name Basis[=0x0022=][=0x000A=][=0x000A=]The Crew Lounge is a room. [=0x0022=]Deliberately spartan: the crew feels weight restrictions here first, so there aren[=0x0027=]t any chairs, just a few thin pads on the ground.[=0x0022=][=0x000A=][=0x000A=]The holographic projector is a device in the Crew Lounge. [=0x0022=]The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.[=0x0022=] Understand [=0x0022=]holo[=0x0022=] or [=0x0022=]holograph[=0x0022=] or [=0x0022=]Misthon[=0x0022=] or [=0x0022=]9000[=0x0022=] as the projector.[=0x000A=][=0x000A=]The description of the projector is [=0x0022=][if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if][=0x0022=].[=0x000A=][=0x000A=][(This description is for local color; we will learn more about devices, and conditions like [=0x0022=]if switched on[=0x0022=], later in this chapter.)][=0x000A=][=0x000A=][By default, Inform does not understand the names of an object[=0x0027=]s kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:][=0x000A=][=0x000A=]Lewis and Harper are men in the Crew Lounge. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]guy[=0x0022=] or [=0x0022=]chap[=0x0022=] or [=0x0022=]lad[=0x0022=] or [=0x0022=]male[=0x0022=] as a man. Understand [=0x0022=]men[=0x0022=] or [=0x0022=]chaps[=0x0022=] or [=0x0022=]lads[=0x0022=] or [=0x0022=]guys[=0x0022=] or [=0x0022=]males[=0x0022=] as the plural of a man.[=0x000A=][=0x000A=]The description of Lewis is [=0x0022=]A wiry, excitable engineer who just signed aboard last week.[=0x0022=] The description of Harper is [=0x0022=]Harper[=0x0027=]s a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - First Name Basis')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;First Name Basis&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9627_145"-->
+            <blockquote class="code"><p class="quoted"><a id="c9627_145"></a>The Crew Lounge is a room. &quot;Deliberately spartan: the crew feels weight restrictions here first, so there aren't any chairs, just a few thin pads on the ground.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9628_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9628_145"></a><a href="javascript:pasteCode('[=0x0022=]First Name Basis[=0x0022=][=0x000A=][=0x000A=]The Crew Lounge is a room. [=0x0022=]Deliberately spartan: the crew feels weight restrictions here first, so there aren[=0x0027=]t any chairs, just a few thin pads on the ground.[=0x0022=][=0x000A=][=0x000A=]The holographic projector is a device in the Crew Lounge. [=0x0022=]The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.[=0x0022=] Understand [=0x0022=]holo[=0x0022=] or [=0x0022=]holograph[=0x0022=] or [=0x0022=]Misthon[=0x0022=] or [=0x0022=]9000[=0x0022=] as the projector.[=0x000A=][=0x000A=]The description of the projector is [=0x0022=][if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if][=0x0022=].[=0x000A=][=0x000A=][(This description is for local color; we will learn more about devices, and conditions like [=0x0022=]if switched on[=0x0022=], later in this chapter.)][=0x000A=][=0x000A=][By default, Inform does not understand the names of an object[=0x0027=]s kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:][=0x000A=][=0x000A=]Lewis and Harper are men in the Crew Lounge. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]guy[=0x0022=] or [=0x0022=]chap[=0x0022=] or [=0x0022=]lad[=0x0022=] or [=0x0022=]male[=0x0022=] as a man. Understand [=0x0022=]men[=0x0022=] or [=0x0022=]chaps[=0x0022=] or [=0x0022=]lads[=0x0022=] or [=0x0022=]guys[=0x0022=] or [=0x0022=]males[=0x0022=] as the plural of a man.[=0x000A=][=0x000A=]The description of Lewis is [=0x0022=]A wiry, excitable engineer who just signed aboard last week.[=0x0022=] The description of Harper is [=0x0022=]Harper[=0x0027=]s a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]First Name Basis[=0x0022=][=0x000A=][=0x000A=]The Crew Lounge is a room. [=0x0022=]Deliberately spartan: the crew feels weight restrictions here first, so there aren[=0x0027=]t any chairs, just a few thin pads on the ground.[=0x0022=][=0x000A=][=0x000A=]The holographic projector is a device in the Crew Lounge. [=0x0022=]The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.[=0x0022=] Understand [=0x0022=]holo[=0x0022=] or [=0x0022=]holograph[=0x0022=] or [=0x0022=]Misthon[=0x0022=] or [=0x0022=]9000[=0x0022=] as the projector.[=0x000A=][=0x000A=]The description of the projector is [=0x0022=][if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if][=0x0022=].[=0x000A=][=0x000A=][(This description is for local color; we will learn more about devices, and conditions like [=0x0022=]if switched on[=0x0022=], later in this chapter.)][=0x000A=][=0x000A=][By default, Inform does not understand the names of an object[=0x0027=]s kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:][=0x000A=][=0x000A=]Lewis and Harper are men in the Crew Lounge. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]guy[=0x0022=] or [=0x0022=]chap[=0x0022=] or [=0x0022=]lad[=0x0022=] or [=0x0022=]male[=0x0022=] as a man. Understand [=0x0022=]men[=0x0022=] or [=0x0022=]chaps[=0x0022=] or [=0x0022=]lads[=0x0022=] or [=0x0022=]guys[=0x0022=] or [=0x0022=]males[=0x0022=] as the plural of a man.[=0x000A=][=0x000A=]The description of Lewis is [=0x0022=]A wiry, excitable engineer who just signed aboard last week.[=0x0022=] The description of Harper is [=0x0022=]Harper[=0x0027=]s a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - First Name Basis')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;First Name Basis&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9628_145"></a>The holographic projector is a device in the Crew Lounge. &quot;The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.&quot; Understand &quot;holo&quot; or &quot;holograph&quot; or &quot;Misthon&quot; or &quot;9000&quot; as the projector.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9629_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9629_145"></a>The Crew Lounge is a room. &quot;Deliberately spartan: the crew feels weight restrictions here first, so there aren't any chairs, just a few thin pads on the ground.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9630_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9630_145"></a>The holographic projector is a device in the Crew Lounge. &quot;The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.&quot; Understand &quot;holo&quot; or &quot;holograph&quot; or &quot;Misthon&quot; or &quot;9000&quot; as the projector.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9631_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9631_145"></a>The description of the projector is &quot;[if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if]&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9629_145"></a>The description of the projector is &quot;[if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>(This description is for local color; we will learn more about devices, and conditions like &quot;if switched on&quot;, later in this chapter.)</p>
             <p>By default, Inform does not understand the names of an object's kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:</p>
+            <!--START CODE "c9630_145"-->
+            <blockquote class="code"><p class="quoted"><a id="c9630_145"></a>Lewis and Harper are men in the Crew Lounge. Understand &quot;man&quot; or &quot;guy&quot; or &quot;chap&quot; or &quot;lad&quot; or &quot;male&quot; as a man. Understand &quot;men&quot; or &quot;chaps&quot; or &quot;lads&quot; or &quot;guys&quot; or &quot;males&quot; as the plural of a man.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9631_145"-->
+            <blockquote class="code"><p class="quoted"><a id="c9631_145"></a>The description of Lewis is &quot;A wiry, excitable engineer who just signed aboard last week.&quot; The description of Harper is &quot;Harper's a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9632_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9632_145"></a>Lewis and Harper are men in the Crew Lounge. Understand &quot;man&quot; or &quot;guy&quot; or &quot;chap&quot; or &quot;lad&quot; or &quot;male&quot; as a man. Understand &quot;men&quot; or &quot;chaps&quot; or &quot;lads&quot; or &quot;guys&quot; or &quot;males&quot; as the plural of a man.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9633_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9633_145"></a>The description of Lewis is &quot;A wiry, excitable engineer who just signed aboard last week.&quot; The description of Harper is &quot;Harper's a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9634_145"-->
-            <blockquote class="code"><p class="quoted"><a id="c9634_145"></a>Test me with &quot;x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9632_145"></a>Test me with &quot;x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -263,7 +263,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc281.html#e311"><i>WI</i></a></div>
+                        <a href="doc279.html#e311"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -271,33 +271,33 @@
         </table>
 
         <div class="egpanel" id="example311" style="display: none;">
+            <!--START CODE "c9633_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9633_311"></a><a href="javascript:pasteCode('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Quiz Show')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Quiz Show&quot; by Mike Tarbert
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9634_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9634_311"></a>Use scoring.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9635_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9635_311"></a><a href="javascript:pasteCode('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Quiz Show[=0x0022=] by Mike Tarbert[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Answer mode is a truth state that varies.[=0x000A=]Current state is a text that varies.[=0x000A=][=0x000A=]Guessing is an action applying to one topic.[=0x000A=]Understand [=0x0022=][text][=0x0022=] as guessing when answer mode is true.[=0x000A=][=0x000A=][Because of the [=0x0022=]...when[=0x0022=] part of this line, random text is only treated as an answer when a question is being asked.][=0x000A=][=0x000A=]Check guessing (this is the default wrong answer rule):[=0x000A=][=0x0009=]if the topic understood is not a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Carry out guessing a topic listed in the Table of Dates of Statehood:[=0x000A=][=0x0009=]if state entry is the current state:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Correct! ([comment entry], to be exact!)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increase the score by one;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Wrong![=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=][This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.][=0x000A=][=0x000A=]Before doing anything other than guessing:[=0x000A=][=0x0009=]if answer mode is true:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](ignoring the question)[line break][=0x0022=];[=0x000A=][=0x0009=]now answer mode is false.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Lab is a room.  Sam is a man in the lab.[=0x000A=][=0x000A=]Every turn when the player is in the lab:[=0x000A=][=0x0009=]if a random chance of 3 in 5 succeeds:[=0x000A=][=0x0009=][=0x0009=]choose a random row in the Table of Dates of Statehood;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sam asks you, [=0x0027=]In what year was [state entry] admitted into the Union?[=0x0027=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now current state is state entry;[=0x000A=][=0x0009=][=0x0009=]now answer mode is true.[=0x000A=][=0x000A=]Table of Dates of Statehood[=0x000A=]State[=0x0009=]Topic[=0x0009=]Comment[=0x000A=][=0x0022=]Florida[=0x0022=][=0x0009=][=0x0022=]1845[=0x0022=][=0x0009=][=0x0022=]March 3rd[=0x0022=][=0x000A=][=0x0022=]Delaware[=0x0022=][=0x0009=][=0x0022=]1787[=0x0022=][=0x0009=][=0x0022=]December 7th[=0x0022=][=0x000A=][=0x0022=]Hawaii[=0x0022=][=0x0009=][=0x0022=]1960[=0x0022=][=0x0009=][=0x0022=]July 4th[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]1845 / z / z / 1787 / 1792 / z / 1845 / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Quiz Show')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Quiz Show&quot; by Mike Tarbert
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9636_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9636_311"></a>Use scoring.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9637_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9637_311"></a>Answer mode is a truth state that varies.
+            <blockquote class="code"><p class="quoted"><a id="c9635_311"></a>Answer mode is a truth state that varies.
             <br>
             Current state is a text that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9638_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9638_311"></a>Guessing is an action applying to one topic.
+            <!--START CODE "c9636_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9636_311"></a>Guessing is an action applying to one topic.
             <br>
             Understand &quot;[text]&quot; as guessing when answer mode is true.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Because of the &quot;...when&quot; part of this line, random text is only treated as an answer when a question is being asked.</p>
-            <!--START CODE "c9639_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9639_311"></a>Check guessing (this is the default wrong answer rule):
+            <!--START CODE "c9637_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9637_311"></a>Check guessing (this is the default wrong answer rule):
             <br>
             &#160;&#160;&#160;&#160;if the topic understood is not a topic listed in the Table of Dates of Statehood:
             <br>
@@ -307,8 +307,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9640_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9640_311"></a>Carry out guessing a topic listed in the Table of Dates of Statehood:
+            <!--START CODE "c9638_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9638_311"></a>Carry out guessing a topic listed in the Table of Dates of Statehood:
             <br>
             &#160;&#160;&#160;&#160;if state entry is the current state:
             <br>
@@ -325,8 +325,8 @@
             </blockquote>
             <!--END CODE-->
             <p>This next rule allows a player to do something other than answer the question, but then makes him wait for another question before answering.</p>
-            <!--START CODE "c9641_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9641_311"></a>Before doing anything other than guessing:
+            <!--START CODE "c9639_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9639_311"></a>Before doing anything other than guessing:
             <br>
             &#160;&#160;&#160;&#160;if answer mode is true:
             <br>
@@ -336,18 +336,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9640_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9640_311"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9641_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9641_311"></a>The Lab is a room.  Sam is a man in the lab.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9642_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9642_311"></a>Section 2 - Scenario
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9643_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9643_311"></a>The Lab is a room.  Sam is a man in the lab.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9644_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9644_311"></a>Every turn when the player is in the lab:
+            <blockquote class="code"><p class="quoted"><a id="c9642_311"></a>Every turn when the player is in the lab:
             <br>
             &#160;&#160;&#160;&#160;if a random chance of 3 in 5 succeeds:
             <br>
@@ -361,8 +361,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9645_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9645_311"></a>Table of Dates of Statehood
+            <!--START CODE "c9643_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9643_311"></a>Table of Dates of Statehood
             <br>
             </p>
             </blockquote>
@@ -427,8 +427,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9646_311"-->
-            <blockquote class="code"><p class="quoted"><a id="c9646_311"></a>Test me with &quot;1845 / z / z / 1787 / 1792 / z / 1845 / g&quot;.
+            <!--START CODE "c9644_311"-->
+            <blockquote class="code"><p class="quoted"><a id="c9644_311"></a>Test me with &quot;1845 / z / z / 1787 / 1792 / z / 1845 / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -452,7 +452,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc282.html#e297"><i>WI</i></a></div>
+                        <a href="doc280.html#e297"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -461,33 +461,33 @@
 
         <div class="egpanel" id="example297" style="display: none;">
             <p>Suppose we have an object that makes a dramatic entrance on the scene, like so:</p>
+            <!--START CODE "c9645_297"-->
+            <blockquote class="code"><p class="quoted"><a id="c9645_297"></a><a href="javascript:pasteCode('[=0x0022=]Pot of Petunias[=0x0022=][=0x000A=][=0x000A=]Wide Open Field is a room. [=0x0022=]A big field under a big sky. The clouds are puffy, the trees are handsome.[=0x0022=][=0x000A=][=0x000A=]Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is [=0x0022=]That one looks like Yoda[=0x0027=]s head.[=0x0022=] The description of the trees is [=0x0022=]You[=0x0027=]ve never been much good at botany, so it[=0x0027=]s anyone[=0x0027=]s guess what kind they are.[=0x0022=][=0x000A=][=0x000A=]A rock is in Wide Open Field. The description of the rock is [=0x0022=]It looks like it[=0x0027=]s been here from the dawn of time.[=0x0022=][=0x000A=][=0x000A=]The broken flower pot is a thing. The description of the broken flower pot is [=0x0022=]It contains the remains of some abused petunias.[=0x0022=][=0x000A=][=0x000A=]At 9:01 am:[=0x000A=][=0x0009=]move the broken flower pot to the location;[=0x000A=][=0x0009=]say [=0x0022=]Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren[=0x0027=]t standing six inches to the left.[=0x0022=];[=0x000A=][=0x0009=]set pronouns from the broken flower pot.[=0x000A=][=0x000A=]Test me with [=0x0022=]x it / x it / x it[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pot of Petunias[=0x0022=][=0x000A=][=0x000A=]Wide Open Field is a room. [=0x0022=]A big field under a big sky. The clouds are puffy, the trees are handsome.[=0x0022=][=0x000A=][=0x000A=]Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is [=0x0022=]That one looks like Yoda[=0x0027=]s head.[=0x0022=] The description of the trees is [=0x0022=]You[=0x0027=]ve never been much good at botany, so it[=0x0027=]s anyone[=0x0027=]s guess what kind they are.[=0x0022=][=0x000A=][=0x000A=]A rock is in Wide Open Field. The description of the rock is [=0x0022=]It looks like it[=0x0027=]s been here from the dawn of time.[=0x0022=][=0x000A=][=0x000A=]The broken flower pot is a thing. The description of the broken flower pot is [=0x0022=]It contains the remains of some abused petunias.[=0x0022=][=0x000A=][=0x000A=]At 9:01 am:[=0x000A=][=0x0009=]move the broken flower pot to the location;[=0x000A=][=0x0009=]say [=0x0022=]Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren[=0x0027=]t standing six inches to the left.[=0x0022=];[=0x000A=][=0x0009=]set pronouns from the broken flower pot.[=0x000A=][=0x000A=]Test me with [=0x0022=]x it / x it / x it[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Pot of Petunias')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pot of Petunias&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9646_297"-->
+            <blockquote class="code"><p class="quoted"><a id="c9646_297"></a>Wide Open Field is a room. &quot;A big field under a big sky. The clouds are puffy, the trees are handsome.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9647_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9647_297"></a><a href="javascript:pasteCode('[=0x0022=]Pot of Petunias[=0x0022=][=0x000A=][=0x000A=]Wide Open Field is a room. [=0x0022=]A big field under a big sky. The clouds are puffy, the trees are handsome.[=0x0022=][=0x000A=][=0x000A=]Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is [=0x0022=]That one looks like Yoda[=0x0027=]s head.[=0x0022=] The description of the trees is [=0x0022=]You[=0x0027=]ve never been much good at botany, so it[=0x0027=]s anyone[=0x0027=]s guess what kind they are.[=0x0022=][=0x000A=][=0x000A=]A rock is in Wide Open Field. The description of the rock is [=0x0022=]It looks like it[=0x0027=]s been here from the dawn of time.[=0x0022=][=0x000A=][=0x000A=]The broken flower pot is a thing. The description of the broken flower pot is [=0x0022=]It contains the remains of some abused petunias.[=0x0022=][=0x000A=][=0x000A=]At 9:01 am:[=0x000A=][=0x0009=]move the broken flower pot to the location;[=0x000A=][=0x0009=]say [=0x0022=]Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren[=0x0027=]t standing six inches to the left.[=0x0022=];[=0x000A=][=0x0009=]set pronouns from the broken flower pot.[=0x000A=][=0x000A=]Test me with [=0x0022=]x it / x it / x it[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Pot of Petunias[=0x0022=][=0x000A=][=0x000A=]Wide Open Field is a room. [=0x0022=]A big field under a big sky. The clouds are puffy, the trees are handsome.[=0x0022=][=0x000A=][=0x000A=]Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is [=0x0022=]That one looks like Yoda[=0x0027=]s head.[=0x0022=] The description of the trees is [=0x0022=]You[=0x0027=]ve never been much good at botany, so it[=0x0027=]s anyone[=0x0027=]s guess what kind they are.[=0x0022=][=0x000A=][=0x000A=]A rock is in Wide Open Field. The description of the rock is [=0x0022=]It looks like it[=0x0027=]s been here from the dawn of time.[=0x0022=][=0x000A=][=0x000A=]The broken flower pot is a thing. The description of the broken flower pot is [=0x0022=]It contains the remains of some abused petunias.[=0x0022=][=0x000A=][=0x000A=]At 9:01 am:[=0x000A=][=0x0009=]move the broken flower pot to the location;[=0x000A=][=0x0009=]say [=0x0022=]Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren[=0x0027=]t standing six inches to the left.[=0x0022=];[=0x000A=][=0x0009=]set pronouns from the broken flower pot.[=0x000A=][=0x000A=]Test me with [=0x0022=]x it / x it / x it[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Pot of Petunias')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Pot of Petunias&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9647_297"></a>Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is &quot;That one looks like Yoda's head.&quot; The description of the trees is &quot;You've never been much good at botany, so it's anyone's guess what kind they are.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9648_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9648_297"></a>Wide Open Field is a room. &quot;A big field under a big sky. The clouds are puffy, the trees are handsome.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9648_297"></a>A rock is in Wide Open Field. The description of the rock is &quot;It looks like it's been here from the dawn of time.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9649_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9649_297"></a>Some clouds and some trees are scenery in Wide Open Field. The description of the clouds is &quot;That one looks like Yoda's head.&quot; The description of the trees is &quot;You've never been much good at botany, so it's anyone's guess what kind they are.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9649_297"></a>The broken flower pot is a thing. The description of the broken flower pot is &quot;It contains the remains of some abused petunias.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9650_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9650_297"></a>A rock is in Wide Open Field. The description of the rock is &quot;It looks like it's been here from the dawn of time.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9651_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9651_297"></a>The broken flower pot is a thing. The description of the broken flower pot is &quot;It contains the remains of some abused petunias.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9652_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9652_297"></a>At 9:01 am:
+            <blockquote class="code"><p class="quoted"><a id="c9650_297"></a>At 9:01 am:
             <br>
             &#160;&#160;&#160;&#160;move the broken flower pot to the location;
             <br>
@@ -497,19 +497,19 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9653_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9653_297"></a>Test me with &quot;x it / x it / x it&quot;.
+            <!--START CODE "c9651_297"-->
+            <blockquote class="code"><p class="quoted"><a id="c9651_297"></a>Test me with &quot;x it / x it / x it&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>If we leave out the &quot;set pronouns...&quot; line here, we'll wind up with the following very unsatisfactory end to our test transcript:</p>
-            <!--START CODE "c9654_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9654_297"></a>Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren't standing six inches to the left.
+            <!--START CODE "c9652_297"-->
+            <blockquote class="code"><p class="quoted"><a id="c9652_297"></a>Quite unexpectedly, a flower pot falls from the sky and breaks open on the ground. Good thing you weren't standing six inches to the left.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9655_297"-->
-            <blockquote class="code"><p class="quoted"><a id="c9655_297"></a>&gt;[3] x it
+            <!--START CODE "c9653_297"-->
+            <blockquote class="code"><p class="quoted"><a id="c9653_297"></a>&gt;[3] x it
             <br>
             It looks like it's been here from the dawn of time.
             </p>
@@ -534,7 +534,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc36.html#e218"><i>WI</i></a></div>
+                        <a href="doc34.html#e218"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -544,43 +544,43 @@
         <div class="egpanel" id="example218" style="display: none;">
             <p>Occasionally it is useful to give something a printed name because we want to call it something extremely long-winded; give one thing a name that is the subset of the name of something else; or use words such as &quot;with&quot; or &quot;and&quot; that are likely to confuse Inform into thinking that the object name ends before it actually does.</p>
             <p>Often it is enough to preface these ambiguously-titled things with &quot;a thing called...&quot; or &quot;a supporter called...&quot; or the like, as here:</p>
-            <!--START CODE "c9656_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9656_218"></a>South of Spring Rolls is a room called Hot and Sour Soup.
+            <!--START CODE "c9654_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9654_218"></a>South of Spring Rolls is a room called Hot and Sour Soup.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>prevents Inform from trying to read &quot;Hot and Sour Soup&quot; as two separate rooms, while</p>
-            <!--START CODE "c9657_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9657_218"></a>The player carries an orange ticket. The player carries a thing called an orange.
+            <!--START CODE "c9655_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9655_218"></a>The player carries an orange ticket. The player carries a thing called an orange.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>creates two objects instead of the one orange ticket that would result if the second sentence were merely &quot;The player carries an orange.&quot;</p>
             <p>Really long names can be a bit cumbersome. For example:</p>
-            <!--START CODE "c9658_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9658_218"></a>The player carries a thing called an incriminating photograph of a woman with blonde hair.
+            <!--START CODE "c9656_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9656_218"></a>The player carries a thing called an incriminating photograph of a woman with blonde hair.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>So we might instead give the photograph a printed name:</p>
-            <!--START CODE "c9659_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9659_218"></a><a href="javascript:pasteCode('[=0x0022=]Laura[=0x0022=][=0x000A=][=0x000A=]The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is [=0x0022=]incriminating photograph of a woman with blonde hair[=0x0022=].[=0x000A=][=0x000A=][Now we[=0x0027=]ve gotten around any awkwardness with printing the name -- but we also need to understand when the player refers to the photograph. When we define the names of objects under normal circumstances, Inform takes care of this automatically, but if we have especially set the printed name, we must also specially define the appropriate terms for the player to use. For this we need [=0x0022=]understand[=0x0022=], which will be explained in much more depth in a later chapter:][=0x000A=][=0x000A=]Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]with[=0x0022=] or [=0x0022=]blonde[=0x0022=] or [=0x0022=]hair[=0x0022=] or [=0x0022=]of[=0x0022=] or [=0x0022=]a[=0x0022=] as the incriminating photograph.[=0x000A=][=0x000A=]Test one with [=0x0022=]x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman[=0x0022=].[=0x000A=][=0x000A=][That[=0x0027=]s probably as far as we really need to go, and if you are satisfied with this behavior, there is no need to read on.][=0x000A=][=0x000A=][One possible objection to this solution is that Inform will accept some nonsensical formulations as applying to the photograph: for instance, it will allow [=0x003E=]EXAMINE PHOTOGRAPH OF, [=0x003E=]X BLONDE PHOTOGRAPH WOMAN INCRIMINATING, or even [=0x003E=]X OF ...though in the case there were two items with [=0x0022=]of[=0x0022=] names, the game would disambiguate with a question such as [=0x0022=]Which do you mean, the incriminating photograph of a woman with blonde hair or the essence of wormwood?[=0x0022=]][=0x000A=][=0x000A=][Traditionally, Inform has tended to be fairly flexible about word order, preferring to err in the direction of leniency. On the other hand, there are times when we need more exacting rules in order to distinguish otherwise similar cases.][=0x000A=][=0x000A=][Two features allow us to specify more exactly if we so desire. The first is that, if we specify a whole phrase as the name of something, all the words in that phrase are required, in the order given. Thus [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] as the photograph[=0x0022=] would require that both [=0x0022=]blonde[=0x0022=] and [=0x0022=]hair[=0x0022=] be present, and would not recognize [=0x003E=]X BLONDE, [=0x003E=]X HAIR BLONDE, or [=0x003E=]X HAIR.][=0x000A=][=0x000A=][Second, we can create tokens, such as [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] or [=0x0022=]hair[=0x0022=] as [=0x0022=][hair][=0x0022=], and then use these tokens in match phrases. This saves a good deal of time when we want to specify a number of different but fussy alternatives. So, for instance, here is a drawing that would not respond to [=0x003E=]X OF, or [=0x003E=]X BROWN EYES, but would respond to [=0x003E=]X DRAWING OF MAN WITH BROWN EYES, [=0x003E=]X MAN WITH BROWN EYES, and so on:][=0x000A=][=0x000A=]The drawing is carried by the player. The printed name of the drawing is [=0x0022=]drawing of a man with brown eyes[=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]eyes[=0x0022=] or [=0x0022=]brown eyes[=0x0022=] as [=0x0022=][brown eyes][=0x0022=]. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]man with [brown eyes][=0x0022=] or [=0x0022=]brown-eyed man[=0x0022=] as [=0x0022=][man][=0x0022=]. Understand [=0x0022=][man][=0x0022=] or [=0x0022=]drawing of [man][=0x0022=] or [=0x0022=]drawing of a [man][=0x0022=] as the drawing.[=0x000A=][=0x000A=]Test me with [=0x0022=]test one / test two[=0x0022=].[=0x000A=][=0x000A=]Test two with [=0x0022=]x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Laura[=0x0022=][=0x000A=][=0x000A=]The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is [=0x0022=]incriminating photograph of a woman with blonde hair[=0x0022=].[=0x000A=][=0x000A=][Now we[=0x0027=]ve gotten around any awkwardness with printing the name -- but we also need to understand when the player refers to the photograph. When we define the names of objects under normal circumstances, Inform takes care of this automatically, but if we have especially set the printed name, we must also specially define the appropriate terms for the player to use. For this we need [=0x0022=]understand[=0x0022=], which will be explained in much more depth in a later chapter:][=0x000A=][=0x000A=]Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]with[=0x0022=] or [=0x0022=]blonde[=0x0022=] or [=0x0022=]hair[=0x0022=] or [=0x0022=]of[=0x0022=] or [=0x0022=]a[=0x0022=] as the incriminating photograph.[=0x000A=][=0x000A=]Test one with [=0x0022=]x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman[=0x0022=].[=0x000A=][=0x000A=][That[=0x0027=]s probably as far as we really need to go, and if you are satisfied with this behavior, there is no need to read on.][=0x000A=][=0x000A=][One possible objection to this solution is that Inform will accept some nonsensical formulations as applying to the photograph: for instance, it will allow [=0x003E=]EXAMINE PHOTOGRAPH OF, [=0x003E=]X BLONDE PHOTOGRAPH WOMAN INCRIMINATING, or even [=0x003E=]X OF ...though in the case there were two items with [=0x0022=]of[=0x0022=] names, the game would disambiguate with a question such as [=0x0022=]Which do you mean, the incriminating photograph of a woman with blonde hair or the essence of wormwood?[=0x0022=]][=0x000A=][=0x000A=][Traditionally, Inform has tended to be fairly flexible about word order, preferring to err in the direction of leniency. On the other hand, there are times when we need more exacting rules in order to distinguish otherwise similar cases.][=0x000A=][=0x000A=][Two features allow us to specify more exactly if we so desire. The first is that, if we specify a whole phrase as the name of something, all the words in that phrase are required, in the order given. Thus [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] as the photograph[=0x0022=] would require that both [=0x0022=]blonde[=0x0022=] and [=0x0022=]hair[=0x0022=] be present, and would not recognize [=0x003E=]X BLONDE, [=0x003E=]X HAIR BLONDE, or [=0x003E=]X HAIR.][=0x000A=][=0x000A=][Second, we can create tokens, such as [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] or [=0x0022=]hair[=0x0022=] as [=0x0022=][hair][=0x0022=], and then use these tokens in match phrases. This saves a good deal of time when we want to specify a number of different but fussy alternatives. So, for instance, here is a drawing that would not respond to [=0x003E=]X OF, or [=0x003E=]X BROWN EYES, but would respond to [=0x003E=]X DRAWING OF MAN WITH BROWN EYES, [=0x003E=]X MAN WITH BROWN EYES, and so on:][=0x000A=][=0x000A=]The drawing is carried by the player. The printed name of the drawing is [=0x0022=]drawing of a man with brown eyes[=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]eyes[=0x0022=] or [=0x0022=]brown eyes[=0x0022=] as [=0x0022=][brown eyes][=0x0022=]. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]man with [brown eyes][=0x0022=] or [=0x0022=]brown-eyed man[=0x0022=] as [=0x0022=][man][=0x0022=]. Understand [=0x0022=][man][=0x0022=] or [=0x0022=]drawing of [man][=0x0022=] or [=0x0022=]drawing of a [man][=0x0022=] as the drawing.[=0x000A=][=0x000A=]Test me with [=0x0022=]test one / test two[=0x0022=].[=0x000A=][=0x000A=]Test two with [=0x0022=]x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Laura')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Laura&quot;
+            <!--START CODE "c9657_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9657_218"></a><a href="javascript:pasteCode('[=0x0022=]Laura[=0x0022=][=0x000A=][=0x000A=]The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is [=0x0022=]incriminating photograph of a woman with blonde hair[=0x0022=].[=0x000A=][=0x000A=][Now we[=0x0027=]ve gotten around any awkwardness with printing the name -- but we also need to understand when the player refers to the photograph. When we define the names of objects under normal circumstances, Inform takes care of this automatically, but if we have especially set the printed name, we must also specially define the appropriate terms for the player to use. For this we need [=0x0022=]understand[=0x0022=], which will be explained in much more depth in a later chapter:][=0x000A=][=0x000A=]Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]with[=0x0022=] or [=0x0022=]blonde[=0x0022=] or [=0x0022=]hair[=0x0022=] or [=0x0022=]of[=0x0022=] or [=0x0022=]a[=0x0022=] as the incriminating photograph.[=0x000A=][=0x000A=]Test one with [=0x0022=]x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman[=0x0022=].[=0x000A=][=0x000A=][That[=0x0027=]s probably as far as we really need to go, and if you are satisfied with this behavior, there is no need to read on.][=0x000A=][=0x000A=][One possible objection to this solution is that Inform will accept some nonsensical formulations as applying to the photograph: for instance, it will allow [=0x003E=]EXAMINE PHOTOGRAPH OF, [=0x003E=]X BLONDE PHOTOGRAPH WOMAN INCRIMINATING, or even [=0x003E=]X OF ...though in the case there were two items with [=0x0022=]of[=0x0022=] names, the game would disambiguate with a question such as [=0x0022=]Which do you mean, the incriminating photograph of a woman with blonde hair or the essence of wormwood?[=0x0022=]][=0x000A=][=0x000A=][Traditionally, Inform has tended to be fairly flexible about word order, preferring to err in the direction of leniency. On the other hand, there are times when we need more exacting rules in order to distinguish otherwise similar cases.][=0x000A=][=0x000A=][Two features allow us to specify more exactly if we so desire. The first is that, if we specify a whole phrase as the name of something, all the words in that phrase are required, in the order given. Thus [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] as the photograph[=0x0022=] would require that both [=0x0022=]blonde[=0x0022=] and [=0x0022=]hair[=0x0022=] be present, and would not recognize [=0x003E=]X BLONDE, [=0x003E=]X HAIR BLONDE, or [=0x003E=]X HAIR.][=0x000A=][=0x000A=][Second, we can create tokens, such as [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] or [=0x0022=]hair[=0x0022=] as [=0x0022=][hair][=0x0022=], and then use these tokens in match phrases. This saves a good deal of time when we want to specify a number of different but fussy alternatives. So, for instance, here is a drawing that would not respond to [=0x003E=]X OF, or [=0x003E=]X BROWN EYES, but would respond to [=0x003E=]X DRAWING OF MAN WITH BROWN EYES, [=0x003E=]X MAN WITH BROWN EYES, and so on:][=0x000A=][=0x000A=]The drawing is carried by the player. The printed name of the drawing is [=0x0022=]drawing of a man with brown eyes[=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]eyes[=0x0022=] or [=0x0022=]brown eyes[=0x0022=] as [=0x0022=][brown eyes][=0x0022=]. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]man with [brown eyes][=0x0022=] or [=0x0022=]brown-eyed man[=0x0022=] as [=0x0022=][man][=0x0022=]. Understand [=0x0022=][man][=0x0022=] or [=0x0022=]drawing of [man][=0x0022=] or [=0x0022=]drawing of a [man][=0x0022=] as the drawing.[=0x000A=][=0x000A=]Test me with [=0x0022=]test one / test two[=0x0022=].[=0x000A=][=0x000A=]Test two with [=0x0022=]x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Laura[=0x0022=][=0x000A=][=0x000A=]The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is [=0x0022=]incriminating photograph of a woman with blonde hair[=0x0022=].[=0x000A=][=0x000A=][Now we[=0x0027=]ve gotten around any awkwardness with printing the name -- but we also need to understand when the player refers to the photograph. When we define the names of objects under normal circumstances, Inform takes care of this automatically, but if we have especially set the printed name, we must also specially define the appropriate terms for the player to use. For this we need [=0x0022=]understand[=0x0022=], which will be explained in much more depth in a later chapter:][=0x000A=][=0x000A=]Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]with[=0x0022=] or [=0x0022=]blonde[=0x0022=] or [=0x0022=]hair[=0x0022=] or [=0x0022=]of[=0x0022=] or [=0x0022=]a[=0x0022=] as the incriminating photograph.[=0x000A=][=0x000A=]Test one with [=0x0022=]x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman[=0x0022=].[=0x000A=][=0x000A=][That[=0x0027=]s probably as far as we really need to go, and if you are satisfied with this behavior, there is no need to read on.][=0x000A=][=0x000A=][One possible objection to this solution is that Inform will accept some nonsensical formulations as applying to the photograph: for instance, it will allow [=0x003E=]EXAMINE PHOTOGRAPH OF, [=0x003E=]X BLONDE PHOTOGRAPH WOMAN INCRIMINATING, or even [=0x003E=]X OF ...though in the case there were two items with [=0x0022=]of[=0x0022=] names, the game would disambiguate with a question such as [=0x0022=]Which do you mean, the incriminating photograph of a woman with blonde hair or the essence of wormwood?[=0x0022=]][=0x000A=][=0x000A=][Traditionally, Inform has tended to be fairly flexible about word order, preferring to err in the direction of leniency. On the other hand, there are times when we need more exacting rules in order to distinguish otherwise similar cases.][=0x000A=][=0x000A=][Two features allow us to specify more exactly if we so desire. The first is that, if we specify a whole phrase as the name of something, all the words in that phrase are required, in the order given. Thus [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] as the photograph[=0x0022=] would require that both [=0x0022=]blonde[=0x0022=] and [=0x0022=]hair[=0x0022=] be present, and would not recognize [=0x003E=]X BLONDE, [=0x003E=]X HAIR BLONDE, or [=0x003E=]X HAIR.][=0x000A=][=0x000A=][Second, we can create tokens, such as [=0x0022=]Understand [=0x0022=]blonde hair[=0x0022=] or [=0x0022=]hair[=0x0022=] as [=0x0022=][hair][=0x0022=], and then use these tokens in match phrases. This saves a good deal of time when we want to specify a number of different but fussy alternatives. So, for instance, here is a drawing that would not respond to [=0x003E=]X OF, or [=0x003E=]X BROWN EYES, but would respond to [=0x003E=]X DRAWING OF MAN WITH BROWN EYES, [=0x003E=]X MAN WITH BROWN EYES, and so on:][=0x000A=][=0x000A=]The drawing is carried by the player. The printed name of the drawing is [=0x0022=]drawing of a man with brown eyes[=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]eyes[=0x0022=] or [=0x0022=]brown eyes[=0x0022=] as [=0x0022=][brown eyes][=0x0022=]. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]man with [brown eyes][=0x0022=] or [=0x0022=]brown-eyed man[=0x0022=] as [=0x0022=][man][=0x0022=]. Understand [=0x0022=][man][=0x0022=] or [=0x0022=]drawing of [man][=0x0022=] or [=0x0022=]drawing of a [man][=0x0022=] as the drawing.[=0x000A=][=0x000A=]Test me with [=0x0022=]test one / test two[=0x0022=].[=0x000A=][=0x000A=]Test two with [=0x0022=]x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Laura')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Laura&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9660_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9660_218"></a>The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is &quot;incriminating photograph of a woman with blonde hair&quot;.
+            <!--START CODE "c9658_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9658_218"></a>The City of Angels is a room. The incriminating photograph is carried by the player. The printed name of the incriminating photograph is &quot;incriminating photograph of a woman with blonde hair&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we've gotten around any awkwardness with printing the name -- but we also need to understand when the player refers to the photograph. When we define the names of objects under normal circumstances, Inform takes care of this automatically, but if we have especially set the printed name, we must also specially define the appropriate terms for the player to use. For this we need &quot;understand&quot;, which will be explained in much more depth in a later chapter:</p>
-            <!--START CODE "c9661_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9661_218"></a>Understand &quot;woman&quot; or &quot;with&quot; or &quot;blonde&quot; or &quot;hair&quot; or &quot;of&quot; or &quot;a&quot; as the incriminating photograph.
+            <!--START CODE "c9659_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9659_218"></a>Understand &quot;woman&quot; or &quot;with&quot; or &quot;blonde&quot; or &quot;hair&quot; or &quot;of&quot; or &quot;a&quot; as the incriminating photograph.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9662_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9662_218"></a>Test one with &quot;x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman&quot;.
+            <!--START CODE "c9660_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9660_218"></a>Test one with &quot;x photograph / x incriminating photograph of a woman with blonde hair / x hair / x blonde / x woman with blonde hair / x incriminating photograph of a woman&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -589,29 +589,29 @@
             <p>Traditionally, Inform has tended to be fairly flexible about word order, preferring to err in the direction of leniency. On the other hand, there are times when we need more exacting rules in order to distinguish otherwise similar cases.</p>
             <p>Two features allow us to specify more exactly if we so desire. The first is that, if we specify a whole phrase as the name of something, all the words in that phrase are required, in the order given. Thus &quot;Understand &quot;blonde hair&quot; as the photograph&quot; would require that both &quot;blonde&quot; and &quot;hair&quot; be present, and would not recognize &gt;X BLONDE, &gt;X HAIR BLONDE, or &gt;X HAIR.</p>
             <p>Second, we can create tokens, such as &quot;Understand &quot;blonde hair&quot; or &quot;hair&quot; as &quot;[hair]&quot;, and then use these tokens in match phrases. This saves a good deal of time when we want to specify a number of different but fussy alternatives. So, for instance, here is a drawing that would not respond to &gt;X OF, or &gt;X BROWN EYES, but would respond to &gt;X DRAWING OF MAN WITH BROWN EYES, &gt;X MAN WITH BROWN EYES, and so on:</p>
+            <!--START CODE "c9661_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9661_218"></a>The drawing is carried by the player. The printed name of the drawing is &quot;drawing of a man with brown eyes&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9662_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9662_218"></a>Understand &quot;eyes&quot; or &quot;brown eyes&quot; as &quot;[brown eyes]&quot;. Understand &quot;man&quot; or &quot;man with [brown eyes]&quot; or &quot;brown-eyed man&quot; as &quot;[man]&quot;. Understand &quot;[man]&quot; or &quot;drawing of [man]&quot; or &quot;drawing of a [man]&quot; as the drawing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9663_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9663_218"></a>The drawing is carried by the player. The printed name of the drawing is &quot;drawing of a man with brown eyes&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9663_218"></a>Test me with &quot;test one / test two&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9664_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9664_218"></a>Understand &quot;eyes&quot; or &quot;brown eyes&quot; as &quot;[brown eyes]&quot;. Understand &quot;man&quot; or &quot;man with [brown eyes]&quot; or &quot;brown-eyed man&quot; as &quot;[man]&quot;. Understand &quot;[man]&quot; or &quot;drawing of [man]&quot; or &quot;drawing of a [man]&quot; as the drawing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9665_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9665_218"></a>Test me with &quot;test one / test two&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9666_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9666_218"></a>Test two with &quot;x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9664_218"></a>Test two with &quot;x drawing / x man / x of / x drawing of man / x drawing of a man / x drawing of a man with brown eyes / x drawing of a brown-eyed man / x brown eyes&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Further refinements are possible: the &quot;privately-named&quot; attribute tells Inform not to try to understand the source name of an object at all, so if we write</p>
-            <!--START CODE "c9667_218"-->
-            <blockquote class="code"><p class="quoted"><a id="c9667_218"></a>The purple rabbit is a privately-named thing.
+            <!--START CODE "c9665_218"-->
+            <blockquote class="code"><p class="quoted"><a id="c9665_218"></a>The purple rabbit is a privately-named thing.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -636,7 +636,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc52.html#e416"><i>WI</i></a></div>
+                        <a href="doc50.html#e416"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -645,28 +645,28 @@
 
         <div class="egpanel" id="example416" style="display: none;">
             <p>The Understanding chapter lays out ways to change how the player can refer to objects, but we may not want to wait that long for some of the basic features. Here, for instance, is how to add synonyms that the player can use to refer to an entire kind of object:</p>
+            <!--START CODE "c9666_416"-->
+            <blockquote class="code"><p class="quoted"><a id="c9666_416"></a><a href="javascript:pasteCode('[=0x0022=]Vouvray[=0x0022=][=0x000A=][=0x000A=]The Wine Emporium is a room. [=0x0022=]Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.[=0x0022=][=0x000A=][=0x000A=]A cask is a kind of thing. A cask is always fixed in place. Understand [=0x0022=]cask[=0x0022=] or [=0x0022=]barrel[=0x0022=] as a cask. Understand [=0x0022=]casks[=0x0022=] or [=0x0022=]barrels[=0x0022=] as the plural of cask.[=0x000A=][=0x000A=]The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.[=0x000A=][=0x000A=]Test me with [=0x0022=]get barrels / get barrel / muscadet / x casks / x muscadet cask[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Vouvray[=0x0022=][=0x000A=][=0x000A=]The Wine Emporium is a room. [=0x0022=]Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.[=0x0022=][=0x000A=][=0x000A=]A cask is a kind of thing. A cask is always fixed in place. Understand [=0x0022=]cask[=0x0022=] or [=0x0022=]barrel[=0x0022=] as a cask. Understand [=0x0022=]casks[=0x0022=] or [=0x0022=]barrels[=0x0022=] as the plural of cask.[=0x000A=][=0x000A=]The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.[=0x000A=][=0x000A=]Test me with [=0x0022=]get barrels / get barrel / muscadet / x casks / x muscadet cask[=0x0022=].[=0x000A=]\n', 'Example - Vouvray')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Vouvray&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9667_416"-->
+            <blockquote class="code"><p class="quoted"><a id="c9667_416"></a>The Wine Emporium is a room. &quot;Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9668_416"-->
-            <blockquote class="code"><p class="quoted"><a id="c9668_416"></a><a href="javascript:pasteCode('[=0x0022=]Vouvray[=0x0022=][=0x000A=][=0x000A=]The Wine Emporium is a room. [=0x0022=]Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.[=0x0022=][=0x000A=][=0x000A=]A cask is a kind of thing. A cask is always fixed in place. Understand [=0x0022=]cask[=0x0022=] or [=0x0022=]barrel[=0x0022=] as a cask. Understand [=0x0022=]casks[=0x0022=] or [=0x0022=]barrels[=0x0022=] as the plural of cask.[=0x000A=][=0x000A=]The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.[=0x000A=][=0x000A=]Test me with [=0x0022=]get barrels / get barrel / muscadet / x casks / x muscadet cask[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Vouvray[=0x0022=][=0x000A=][=0x000A=]The Wine Emporium is a room. [=0x0022=]Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.[=0x0022=][=0x000A=][=0x000A=]A cask is a kind of thing. A cask is always fixed in place. Understand [=0x0022=]cask[=0x0022=] or [=0x0022=]barrel[=0x0022=] as a cask. Understand [=0x0022=]casks[=0x0022=] or [=0x0022=]barrels[=0x0022=] as the plural of cask.[=0x000A=][=0x000A=]The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.[=0x000A=][=0x000A=]Test me with [=0x0022=]get barrels / get barrel / muscadet / x casks / x muscadet cask[=0x0022=].[=0x000A=]\n', 'Example - Vouvray')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Vouvray&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9668_416"></a>A cask is a kind of thing. A cask is always fixed in place. Understand &quot;cask&quot; or &quot;barrel&quot; as a cask. Understand &quot;casks&quot; or &quot;barrels&quot; as the plural of cask.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9669_416"-->
-            <blockquote class="code"><p class="quoted"><a id="c9669_416"></a>The Wine Emporium is a room. &quot;Set aside, you rather suspect, for tourists: this chamber is barrel-vaulted stone, lined on each side with casks of aging wine. Discarded brochures here and there advertise Wine Tours of the Loire Valley in three different languages, none of them French.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9669_416"></a>The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9670_416"-->
-            <blockquote class="code"><p class="quoted"><a id="c9670_416"></a>A cask is a kind of thing. A cask is always fixed in place. Understand &quot;cask&quot; or &quot;barrel&quot; as a cask. Understand &quot;casks&quot; or &quot;barrels&quot; as the plural of cask.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9671_416"-->
-            <blockquote class="code"><p class="quoted"><a id="c9671_416"></a>The Vouvray cask and the Muscadet cask are casks in the Wine Emporium.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9672_416"-->
-            <blockquote class="code"><p class="quoted"><a id="c9672_416"></a>Test me with &quot;get barrels / get barrel / muscadet / x casks / x muscadet cask&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9670_416"></a>Test me with &quot;get barrels / get barrel / muscadet / x casks / x muscadet cask&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -689,7 +689,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc319.html#e265"><i>WI</i></a></div>
+                        <a href="doc317.html#e265"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -699,61 +699,61 @@
         <div class="egpanel" id="example265" style="display: none;">
             <p>Suppose we wanted to add intermediate compass directions such as north-northwest to our game. Because of the limitations of the index map, we won't be able to view these connections on the world map, but we can certainly create them, and use them in route-finding, just like other directions.</p>
             <p>Here's how we'd set up such a thing:</p>
+            <!--START CODE "c9671_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9671_265"></a><a href="javascript:pasteCode('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - North by Northwest')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;North by Northwest&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9672_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9672_265"></a>Section 1 - Procedure
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9673_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9673_265"></a><a href="javascript:pasteCode('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=][A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to [=0x0022=]north-no[=0x0022=], and be indistinguishable when the player types them.][=0x000A=][=0x000A=][When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write [=0x0022=]Use DICT_WORD_SIZE of 15.[=0x0022=]][=0x000A=][=0x000A=][If we[=0x0027=]re compiling to the Z-machine, however, we[=0x0027=]ll have to resort to some manipulation of the player[=0x0027=]s command. The general solution is that when the player[=0x0027=]s name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player[=0x0027=]s direction names to single letters, thus:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][For more on the use of text, see the Advanced Text chapter.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - North by Northwest')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;North by Northwest&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9673_265"></a>The north-northwest is a direction. North-northwest has opposite south-southeast. Understand &quot;n-nw&quot; or &quot;nnw&quot; as north-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9674_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9674_265"></a>Section 1 - Procedure
+            <blockquote class="code"><p class="quoted"><a id="c9674_265"></a>The north-northeast is a direction. North-northeast has opposite south-southwest. Understand &quot;n-ne&quot; or &quot;nne&quot; as north-northeast.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9675_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9675_265"></a>The north-northwest is a direction. North-northwest has opposite south-southeast. Understand &quot;n-nw&quot; or &quot;nnw&quot; as north-northwest.
+            <blockquote class="code"><p class="quoted"><a id="c9675_265"></a>The south-southwest is a direction. South-southwest has opposite north-northeast. Understand &quot;s-sw&quot; or &quot;ssw&quot; as north-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9676_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9676_265"></a>The north-northeast is a direction. North-northeast has opposite south-southwest. Understand &quot;n-ne&quot; or &quot;nne&quot; as north-northeast.
+            <blockquote class="code"><p class="quoted"><a id="c9676_265"></a>The south-southeast is a direction. South-southeast has opposite north-northwest. Understand &quot;s-se&quot; or &quot;sse&quot; as south-southeast.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9677_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9677_265"></a>The south-southwest is a direction. South-southwest has opposite north-northeast. Understand &quot;s-sw&quot; or &quot;ssw&quot; as north-northwest.
+            <blockquote class="code"><p class="quoted"><a id="c9677_265"></a>The west-northwest is a direction. West-northwest has opposite east-southeast. Understand &quot;w-nw&quot; or &quot;wnw&quot; as west-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9678_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9678_265"></a>The south-southeast is a direction. South-southeast has opposite north-northwest. Understand &quot;s-se&quot; or &quot;sse&quot; as south-southeast.
+            <blockquote class="code"><p class="quoted"><a id="c9678_265"></a>The east-northeast is a direction. East-northeast has opposite west-southwest. Understand &quot;e-ne&quot; or &quot;ene&quot; as east-northeast.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9679_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9679_265"></a>The west-northwest is a direction. West-northwest has opposite east-southeast. Understand &quot;w-nw&quot; or &quot;wnw&quot; as west-northwest.
+            <blockquote class="code"><p class="quoted"><a id="c9679_265"></a>The west-southwest is a direction. West-southwest has opposite east-northeast. Understand &quot;w-sw&quot; or &quot;wsw&quot; as west-northwest.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9680_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9680_265"></a>The east-northeast is a direction. East-northeast has opposite west-southwest. Understand &quot;e-ne&quot; or &quot;ene&quot; as east-northeast.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9681_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9681_265"></a>The west-southwest is a direction. West-southwest has opposite east-northeast. Understand &quot;w-sw&quot; or &quot;wsw&quot; as west-northwest.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9682_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9682_265"></a>The east-southeast is a direction. East-southeast has opposite west-northwest. Understand &quot;e-se&quot; or &quot;ese&quot; as east-southeast.
+            <blockquote class="code"><p class="quoted"><a id="c9680_265"></a>The east-southeast is a direction. East-southeast has opposite west-northwest. Understand &quot;e-se&quot; or &quot;ese&quot; as east-southeast.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to &quot;north-no&quot;, and be indistinguishable when the player types them.</p>
             <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the constant called DICT_WORD_SIZE. For instance, if we wanted to raise the limit to 15, we would simply write &quot;Use DICT_WORD_SIZE of 15.&quot;</p>
             <p>If we're compiling to the Z-machine, however, we'll have to resort to some manipulation of the player's command. The general solution is that when the player's name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player's direction names to single letters, thus:</p>
-            <!--START CODE "c9683_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9683_265"></a>After reading a command:
+            <!--START CODE "c9681_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9681_265"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;let N be &quot;[the player's command]&quot;;
             <br>
@@ -770,30 +770,30 @@
             </blockquote>
             <!--END CODE-->
             <p>For more on the use of text, see the Advanced Text chapter.</p>
+            <!--START CODE "c9682_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9682_265"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9683_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9683_265"></a>The Empty Field is north-northwest of the Deserted Road.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9684_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9684_265"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c9684_265"></a>A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is &quot;[one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9685_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9685_265"></a>The Empty Field is north-northwest of the Deserted Road.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9686_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9686_265"></a>A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is &quot;[one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9687_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9687_265"></a>After looking:
+            <blockquote class="code"><p class="quoted"><a id="c9685_265"></a>After looking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;From here you can run to [the list of adjacent rooms].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9688_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9688_265"></a>Rule for printing the name of a room (called the target) which is not the location while looking:
+            <!--START CODE "c9686_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9686_265"></a>Rule for printing the name of a room (called the target) which is not the location while looking:
             <br>
             &#160;&#160;&#160;&#160;let chosen direction be the best route from the location to the target;
             <br>
@@ -801,8 +801,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9689_265"-->
-            <blockquote class="code"><p class="quoted"><a id="c9689_265"></a>Test me with &quot;sse / north-northwest&quot;.
+            <!--START CODE "c9687_265"-->
+            <blockquote class="code"><p class="quoted"><a id="c9687_265"></a>Test me with &quot;sse / north-northwest&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

@@ -107,7 +107,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc273.html#e110"><i>WI</i></a></div>
+                        <a href="doc271.html#e110"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -118,28 +118,28 @@
             <p>Now and then in IF there is a situation where we need to ask the player for a numbered choice rather than an ordinary action command. What's more, that numbered choice might change during the game, so we don't want to just hard-wire the meanings of &quot;1&quot;, &quot;2&quot;, and &quot;3&quot; whenever the player types them.</p>
             <p>A better trick is to keep a list or table (we'll use a table here because it involves slightly less overhead) recording what the player's numerical choices currently mean. Then every time the player selects a number, the table is consulted, and if the number corresponds to something, the player's choice is acted on.</p>
             <p>In our example, we'll have a transporter pad that can take the player to any room in the game that he's already visited. (Just for the sake of example, we'll start him off with a few pre-visited rooms.)</p>
+            <!--START CODE "c12087_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12087_110"></a><a href="javascript:pasteCode('[=0x0022=]Down in Oodville[=0x0022=][=0x000A=][=0x000A=]Section 1 - Method[=0x000A=][=0x000A=]Understand [=0x0022=][number][=0x0022=] as selecting.[=0x000A=][=0x000A=]Selecting is an action applying to one number.[=0x000A=][=0x000A=]Check selecting: [assuming we don[=0x0027=]t want to be able to transport from just anywhere][=0x000A=][=0x0009=]if the player is not on the transporter pad:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]empty the transport options instead.[=0x000A=][=0x000A=]Check selecting:[=0x000A=][=0x0009=]if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The number understood] is not a valid option. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the transport options instead.[=0x000A=][=0x000A=]Carry out selecting:[=0x000A=][=0x0009=]let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand][=0x000A=][=0x0009=]choose row N in the Table of Transport Options;[=0x000A=][=0x0009=]if the transport entry is a room:[=0x000A=][=0x0009=][=0x0009=]move the player to the transport entry;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]*** BUG: Improperly filled table of transport options ***[=0x0022=] [It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code][=0x000A=][=0x000A=]To list the transport options:[=0x000A=][=0x0009=]let N be 1;[=0x000A=][=0x0009=]say [=0x0022=]From here you could choose to go to: [line break][=0x0022=];[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]  [N]: [transport entry][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment N.[=0x000A=][=0x000A=]To empty the transport options:[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]blank out the whole row; [first we empty the table][=0x000A=][=0x000A=]To load the transport options:[=0x000A=][=0x0009=]repeat with interesting room running through visited rooms which are not the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]choose a blank row in the Table of Transport Options;[=0x000A=][=0x0009=][=0x0009=]now the transport entry is the interesting room.[=0x000A=][=0x000A=]Table of Transport Options[=0x000A=]transport[=0x000A=]an object[=0x000A=]with 3 blank rows. [In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]home[=0x0022=] as homing. Homing is an action applying to nothing.[=0x000A=][=0x000A=]Check homing:[=0x000A=][=0x0009=]if the player is in the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re already here![=0x0022=] instead.[=0x000A=][=0x000A=]Carry out homing:[=0x000A=][=0x0009=]move the player to the transporter room.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Transporter Room is a room.[=0x000A=][=0x000A=]Oodville is a visited room.[=0x000A=][=0x000A=]Midnight is a visited room. The Diamond City is west of Midnight.[=0x000A=][=0x000A=]The transporter pad is an enterable supporter in the Transporter Room. [=0x0022=]The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.[=0x0022=][=0x000A=][=0x000A=]After entering the transporter pad:[=0x000A=][=0x0009=]say [=0x0022=]The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]empty the transport options;[=0x000A=][=0x0009=]load the transport options;[=0x000A=][=0x0009=]list the transport options.[=0x000A=][=0x000A=]Test me with [=0x0022=]get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Down in Oodville[=0x0022=][=0x000A=][=0x000A=]Section 1 - Method[=0x000A=][=0x000A=]Understand [=0x0022=][number][=0x0022=] as selecting.[=0x000A=][=0x000A=]Selecting is an action applying to one number.[=0x000A=][=0x000A=]Check selecting: [assuming we don[=0x0027=]t want to be able to transport from just anywhere][=0x000A=][=0x0009=]if the player is not on the transporter pad:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]empty the transport options instead.[=0x000A=][=0x000A=]Check selecting:[=0x000A=][=0x0009=]if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The number understood] is not a valid option. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the transport options instead.[=0x000A=][=0x000A=]Carry out selecting:[=0x000A=][=0x0009=]let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand][=0x000A=][=0x0009=]choose row N in the Table of Transport Options;[=0x000A=][=0x0009=]if the transport entry is a room:[=0x000A=][=0x0009=][=0x0009=]move the player to the transport entry;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]*** BUG: Improperly filled table of transport options ***[=0x0022=] [It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code][=0x000A=][=0x000A=]To list the transport options:[=0x000A=][=0x0009=]let N be 1;[=0x000A=][=0x0009=]say [=0x0022=]From here you could choose to go to: [line break][=0x0022=];[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]  [N]: [transport entry][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment N.[=0x000A=][=0x000A=]To empty the transport options:[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]blank out the whole row; [first we empty the table][=0x000A=][=0x000A=]To load the transport options:[=0x000A=][=0x0009=]repeat with interesting room running through visited rooms which are not the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]choose a blank row in the Table of Transport Options;[=0x000A=][=0x0009=][=0x0009=]now the transport entry is the interesting room.[=0x000A=][=0x000A=]Table of Transport Options[=0x000A=]transport[=0x000A=]an object[=0x000A=]with 3 blank rows. [In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]home[=0x0022=] as homing. Homing is an action applying to nothing.[=0x000A=][=0x000A=]Check homing:[=0x000A=][=0x0009=]if the player is in the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re already here![=0x0022=] instead.[=0x000A=][=0x000A=]Carry out homing:[=0x000A=][=0x0009=]move the player to the transporter room.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Transporter Room is a room.[=0x000A=][=0x000A=]Oodville is a visited room.[=0x000A=][=0x000A=]Midnight is a visited room. The Diamond City is west of Midnight.[=0x000A=][=0x000A=]The transporter pad is an enterable supporter in the Transporter Room. [=0x0022=]The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.[=0x0022=][=0x000A=][=0x000A=]After entering the transporter pad:[=0x000A=][=0x0009=]say [=0x0022=]The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]empty the transport options;[=0x000A=][=0x0009=]load the transport options;[=0x000A=][=0x0009=]list the transport options.[=0x000A=][=0x000A=]Test me with [=0x0022=]get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Down in Oodville')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Down in Oodville&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12088_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12088_110"></a>Section 1 - Method
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12089_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12089_110"></a><a href="javascript:pasteCode('[=0x0022=]Down in Oodville[=0x0022=][=0x000A=][=0x000A=]Section 1 - Method[=0x000A=][=0x000A=]Understand [=0x0022=][number][=0x0022=] as selecting.[=0x000A=][=0x000A=]Selecting is an action applying to one number.[=0x000A=][=0x000A=]Check selecting: [assuming we don[=0x0027=]t want to be able to transport from just anywhere][=0x000A=][=0x0009=]if the player is not on the transporter pad:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]empty the transport options instead.[=0x000A=][=0x000A=]Check selecting:[=0x000A=][=0x0009=]if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The number understood] is not a valid option. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the transport options instead.[=0x000A=][=0x000A=]Carry out selecting:[=0x000A=][=0x0009=]let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand][=0x000A=][=0x0009=]choose row N in the Table of Transport Options;[=0x000A=][=0x0009=]if the transport entry is a room:[=0x000A=][=0x0009=][=0x0009=]move the player to the transport entry;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]*** BUG: Improperly filled table of transport options ***[=0x0022=] [It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code][=0x000A=][=0x000A=]To list the transport options:[=0x000A=][=0x0009=]let N be 1;[=0x000A=][=0x0009=]say [=0x0022=]From here you could choose to go to: [line break][=0x0022=];[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]  [N]: [transport entry][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment N.[=0x000A=][=0x000A=]To empty the transport options:[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]blank out the whole row; [first we empty the table][=0x000A=][=0x000A=]To load the transport options:[=0x000A=][=0x0009=]repeat with interesting room running through visited rooms which are not the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]choose a blank row in the Table of Transport Options;[=0x000A=][=0x0009=][=0x0009=]now the transport entry is the interesting room.[=0x000A=][=0x000A=]Table of Transport Options[=0x000A=]transport[=0x000A=]an object[=0x000A=]with 3 blank rows. [In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]home[=0x0022=] as homing. Homing is an action applying to nothing.[=0x000A=][=0x000A=]Check homing:[=0x000A=][=0x0009=]if the player is in the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re already here![=0x0022=] instead.[=0x000A=][=0x000A=]Carry out homing:[=0x000A=][=0x0009=]move the player to the transporter room.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Transporter Room is a room.[=0x000A=][=0x000A=]Oodville is a visited room.[=0x000A=][=0x000A=]Midnight is a visited room. The Diamond City is west of Midnight.[=0x000A=][=0x000A=]The transporter pad is an enterable supporter in the Transporter Room. [=0x0022=]The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.[=0x0022=][=0x000A=][=0x000A=]After entering the transporter pad:[=0x000A=][=0x0009=]say [=0x0022=]The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]empty the transport options;[=0x000A=][=0x0009=]load the transport options;[=0x000A=][=0x0009=]list the transport options.[=0x000A=][=0x000A=]Test me with [=0x0022=]get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Down in Oodville[=0x0022=][=0x000A=][=0x000A=]Section 1 - Method[=0x000A=][=0x000A=]Understand [=0x0022=][number][=0x0022=] as selecting.[=0x000A=][=0x000A=]Selecting is an action applying to one number.[=0x000A=][=0x000A=]Check selecting: [assuming we don[=0x0027=]t want to be able to transport from just anywhere][=0x000A=][=0x0009=]if the player is not on the transporter pad:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]empty the transport options instead.[=0x000A=][=0x000A=]Check selecting:[=0x000A=][=0x0009=]if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The number understood] is not a valid option. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the transport options instead.[=0x000A=][=0x000A=]Carry out selecting:[=0x000A=][=0x0009=]let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand][=0x000A=][=0x0009=]choose row N in the Table of Transport Options;[=0x000A=][=0x0009=]if the transport entry is a room:[=0x000A=][=0x0009=][=0x0009=]move the player to the transport entry;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]*** BUG: Improperly filled table of transport options ***[=0x0022=] [It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code][=0x000A=][=0x000A=]To list the transport options:[=0x000A=][=0x0009=]let N be 1;[=0x000A=][=0x0009=]say [=0x0022=]From here you could choose to go to: [line break][=0x0022=];[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]  [N]: [transport entry][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment N.[=0x000A=][=0x000A=]To empty the transport options:[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]blank out the whole row; [first we empty the table][=0x000A=][=0x000A=]To load the transport options:[=0x000A=][=0x0009=]repeat with interesting room running through visited rooms which are not the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]choose a blank row in the Table of Transport Options;[=0x000A=][=0x0009=][=0x0009=]now the transport entry is the interesting room.[=0x000A=][=0x000A=]Table of Transport Options[=0x000A=]transport[=0x000A=]an object[=0x000A=]with 3 blank rows. [In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]home[=0x0022=] as homing. Homing is an action applying to nothing.[=0x000A=][=0x000A=]Check homing:[=0x000A=][=0x0009=]if the player is in the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re already here![=0x0022=] instead.[=0x000A=][=0x000A=]Carry out homing:[=0x000A=][=0x0009=]move the player to the transporter room.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Transporter Room is a room.[=0x000A=][=0x000A=]Oodville is a visited room.[=0x000A=][=0x000A=]Midnight is a visited room. The Diamond City is west of Midnight.[=0x000A=][=0x000A=]The transporter pad is an enterable supporter in the Transporter Room. [=0x0022=]The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.[=0x0022=][=0x000A=][=0x000A=]After entering the transporter pad:[=0x000A=][=0x0009=]say [=0x0022=]The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]empty the transport options;[=0x000A=][=0x0009=]load the transport options;[=0x000A=][=0x0009=]list the transport options.[=0x000A=][=0x000A=]Test me with [=0x0022=]get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Down in Oodville')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Down in Oodville&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12089_110"></a>Understand &quot;[number]&quot; as selecting.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12090_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12090_110"></a>Section 1 - Method
+            <blockquote class="code"><p class="quoted"><a id="c12090_110"></a>Selecting is an action applying to one number.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12091_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12091_110"></a>Understand &quot;[number]&quot; as selecting.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12092_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12092_110"></a>Selecting is an action applying to one number.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12093_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12093_110"></a>Check selecting: [assuming we don't want to be able to transport from just anywhere]
+            <blockquote class="code"><p class="quoted"><a id="c12091_110"></a>Check selecting: [assuming we don't want to be able to transport from just anywhere]
             <br>
             &#160;&#160;&#160;&#160;if the player is not on the transporter pad:
             <br>
@@ -149,8 +149,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12094_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12094_110"></a>Check selecting:
+            <!--START CODE "c12092_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12092_110"></a>Check selecting:
             <br>
             &#160;&#160;&#160;&#160;if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:
             <br>
@@ -160,8 +160,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12095_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12095_110"></a>Carry out selecting:
+            <!--START CODE "c12093_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12093_110"></a>Carry out selecting:
             <br>
             &#160;&#160;&#160;&#160;let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand]
             <br>
@@ -177,8 +177,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12096_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12096_110"></a>To list the transport options:
+            <!--START CODE "c12094_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12094_110"></a>To list the transport options:
             <br>
             &#160;&#160;&#160;&#160;let N be 1;
             <br>
@@ -192,8 +192,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12097_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12097_110"></a>To empty the transport options:
+            <!--START CODE "c12095_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12095_110"></a>To empty the transport options:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Transport Options:
             <br>
@@ -201,8 +201,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12098_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12098_110"></a>To load the transport options:
+            <!--START CODE "c12096_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12096_110"></a>To load the transport options:
             <br>
             &#160;&#160;&#160;&#160;repeat with interesting room running through visited rooms which are not the Transporter Room:
             <br>
@@ -212,8 +212,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12099_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12099_110"></a>Table of Transport Options
+            <!--START CODE "c12097_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12097_110"></a>Table of Transport Options
             <br>
             transport
             <br>
@@ -223,13 +223,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12100_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12100_110"></a>Understand &quot;home&quot; as homing. Homing is an action applying to nothing.
+            <!--START CODE "c12098_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12098_110"></a>Understand &quot;home&quot; as homing. Homing is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12101_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12101_110"></a>Check homing:
+            <!--START CODE "c12099_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12099_110"></a>Check homing:
             <br>
             &#160;&#160;&#160;&#160;if the player is in the Transporter Room:
             <br>
@@ -237,40 +237,40 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12102_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12102_110"></a>Carry out homing:
+            <!--START CODE "c12100_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12100_110"></a>Carry out homing:
             <br>
             &#160;&#160;&#160;&#160;move the player to the transporter room.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12101_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12101_110"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12102_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12102_110"></a>The Transporter Room is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12103_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12103_110"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c12103_110"></a>Oodville is a visited room.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12104_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12104_110"></a>The Transporter Room is a room.
+            <blockquote class="code"><p class="quoted"><a id="c12104_110"></a>Midnight is a visited room. The Diamond City is west of Midnight.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12105_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12105_110"></a>Oodville is a visited room.
+            <blockquote class="code"><p class="quoted"><a id="c12105_110"></a>The transporter pad is an enterable supporter in the Transporter Room. &quot;The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12106_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12106_110"></a>Midnight is a visited room. The Diamond City is west of Midnight.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12107_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12107_110"></a>The transporter pad is an enterable supporter in the Transporter Room. &quot;The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12108_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12108_110"></a>After entering the transporter pad:
+            <blockquote class="code"><p class="quoted"><a id="c12106_110"></a>After entering the transporter pad:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on]&quot;;
             <br>
@@ -282,8 +282,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12109_110"-->
-            <blockquote class="code"><p class="quoted"><a id="c12109_110"></a>Test me with &quot;get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3&quot;.
+            <!--START CODE "c12107_110"-->
+            <blockquote class="code"><p class="quoted"><a id="c12107_110"></a>Test me with &quot;get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -307,7 +307,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc319.html#e85"><i>WI</i></a></div>
+                        <a href="doc317.html#e85"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -317,19 +317,19 @@
         <div class="egpanel" id="example85" style="display: none;">
             <p>It has sometimes been suggested that IF should allow for the player to use adverbs, so that doing something &quot;carefully&quot; will have a different effect from doing it &quot;quickly&quot;. There are several inherent challenges here: it's a good idea to make very sure the player knows all his adverb options, and the list of possibilities should probably not be too long.</p>
             <p>Another trick is that adverbs complicate understanding commands, because they can occur anywhere: one might type &gt;GO WEST CAREFULLY or &gt;CAREFULLY GO WEST, and ideally the game should understand both. After reading a command is the best point to do this sort of thing, because we can find adverbs, interpret them, and remove them from the command stream. So:</p>
-            <!--START CODE "c12110_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12110_85"></a><a href="javascript:pasteCode('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cloves')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cloves&quot;
+            <!--START CODE "c12108_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12108_85"></a><a href="javascript:pasteCode('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cloves[=0x0022=][=0x000A=][=0x000A=]Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.[=0x000A=][=0x000A=][Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the [=0x0022=]after reading a command[=0x0022=] stage, so:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][manner][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]But how, my dear boy, how? You simply can[=0x0027=]t do something without a pose. Thus far you have mastered doing things [list of manners].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Behaving [manner understood][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=][location][=0x0022=];[=0x000A=][=0x0009=]now the manner understood is insouciantly.[=0x000A=][=0x000A=]The Poseur Club is a room. [=0x0022=]Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He[=0x0027=]s not a bad fellow, Frackenbush[end if].[=0x000A=][=0x000A=]The usual people, in short.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something other than waiting or looking:[=0x000A=][=0x0009=]say [=0x0022=]Dear. No. That would smack of effort.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It[=0x0027=]s quite effective, you are sure, though you can[=0x0027=]t look up and see how it is going.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is insouciantly:[=0x000A=][=0x0009=]say [=0x0022=]Thrusting your hands into your pockets, you whistle a jaunty tune.[=0x000A=][=0x000A=][=0x0027=]Do shut up,[=0x0027=] says a Melancholy Poseur from over by the window.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is sheepishly:[=0x000A=][=0x0009=]say [=0x0022=]You gaze up from under your brows...[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is defiantly:[=0x000A=][=0x0009=]say [=0x0022=]You cast a withering gaze over the room.[=0x0022=][=0x000A=][=0x000A=]Before looking when the manner understood is insouciantly:[=0x000A=][=0x0009=]if turn count [=0x003E=] 1,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You turn an eye to your surroundings, looking faintly-- just faintly-- amused.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Cloves')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cloves&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12111_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12111_85"></a>Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.
+            <!--START CODE "c12109_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12109_85"></a>Manner is a kind of value. The manners are insouciantly, sheepishly, and defiantly.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we have, automatically, a value called manner understood to be used whenever parsing manners, and we can use this even during the &quot;after reading a command&quot; stage, so:</p>
-            <!--START CODE "c12112_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12112_85"></a>After reading a command:
+            <!--START CODE "c12110_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12110_85"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;if the player's command includes &quot;[manner]&quot;:
             <br>
@@ -343,8 +343,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12113_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12113_85"></a>When play begins:
+            <!--START CODE "c12111_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12111_85"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;Behaving [manner understood]&quot;;
             <br>
@@ -354,65 +354,65 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12112_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12112_85"></a>The Poseur Club is a room. &quot;Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He's not a bad fellow, Frackenbush[end if].
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12113_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12113_85"></a>The usual people, in short.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12114_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12114_85"></a>The Poseur Club is a room. &quot;Lady Mary is laid out on a sofa, her wrists bandaged importantly[if the manner understood is insouciantly] -- and she looks all the more depressed by your indifference to her state[end if]; Salvatore is at the gaming table, clutching his hair with both hands[if the manner understood is defiantly] -- though he looks up long enough to snarl in response to that expression of yours[end if]; Frackenbush is muttering lines from another of his works in progress, as though poetry has nearly made him mad[if the manner understood is sheepishly]. But he spares you a reassuring smile. He's not a bad fellow, Frackenbush[end if].
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12115_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12115_85"></a>The usual people, in short.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12116_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12116_85"></a>Instead of doing something other than waiting or looking:
+            <blockquote class="code"><p class="quoted"><a id="c12114_85"></a>Instead of doing something other than waiting or looking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Dear. No. That would smack of effort.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12117_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12117_85"></a>Instead of waiting when the manner understood is sheepishly:
+            <!--START CODE "c12115_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12115_85"></a>Instead of waiting when the manner understood is sheepishly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You scuff your foot against the ground for a moment, and allow a seemly blush to creep over your cheek. It's quite effective, you are sure, though you can't look up and see how it is going.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12118_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12118_85"></a>Instead of waiting when the manner understood is insouciantly:
+            <!--START CODE "c12116_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12116_85"></a>Instead of waiting when the manner understood is insouciantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Thrusting your hands into your pockets, you whistle a jaunty tune.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12119_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12119_85"></a>'Do shut up,' says a Melancholy Poseur from over by the window.&quot;
+            <!--START CODE "c12117_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12117_85"></a>'Do shut up,' says a Melancholy Poseur from over by the window.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12120_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12120_85"></a>Instead of waiting when the manner understood is defiantly:
+            <!--START CODE "c12118_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12118_85"></a>Instead of waiting when the manner understood is defiantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You raise your chin and give a pointed glance around the room as though to say that you are waiting for someone; you are unembarrassed about waiting for her; you have by no means been stood up; and the first person to comment will receive a poke in the eye.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12121_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12121_85"></a>Before looking when the manner understood is sheepishly:
+            <!--START CODE "c12119_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12119_85"></a>Before looking when the manner understood is sheepishly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You gaze up from under your brows...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12122_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12122_85"></a>Before looking when the manner understood is defiantly:
+            <!--START CODE "c12120_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12120_85"></a>Before looking when the manner understood is defiantly:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You cast a withering gaze over the room.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12123_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12123_85"></a>Before looking when the manner understood is insouciantly:
+            <!--START CODE "c12121_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12121_85"></a>Before looking when the manner understood is insouciantly:
             <br>
             &#160;&#160;&#160;&#160;if turn count &gt; 1,
             <br>
@@ -420,8 +420,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12124_85"-->
-            <blockquote class="code"><p class="quoted"><a id="c12124_85"></a>Test me with &quot;wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly&quot;.
+            <!--START CODE "c12122_85"-->
+            <blockquote class="code"><p class="quoted"><a id="c12122_85"></a>Test me with &quot;wait / wait insouciantly / sheepishly look / defiantly look / look insouciantly&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -446,7 +446,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc319.html#e191"><i>WI</i></a></div>
+                        <a href="doc317.html#e191"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -455,18 +455,18 @@
 
         <div class="egpanel" id="example191" style="display: none;">
             <p>Apologies to the shade of A. E. Housman.</p>
+            <!--START CODE "c12123_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12123_191"></a><a href="javascript:pasteCode('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fragment of a Greek Tragedy')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fragment of a Greek Tragedy&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12124_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12124_191"></a>Understand &quot;restart/restore/save/quit&quot; as &quot;[meta-command]&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12125_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12125_191"></a><a href="javascript:pasteCode('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Fragment of a Greek Tragedy[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]restart/restore/save/quit[=0x0022=] as [=0x0022=][meta-command][=0x0022=].[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=][meta-command][=0x0022=], make no decision;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]repeat through Table of Current Topics:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]CHORUS: [reply entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=][italic type]   Pause.[roman type][line break][=0x0022=];[=0x000A=][=0x0009=]follow the advance time rule;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Current Topics[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=]journey/trip/travel/came/arrived[=0x0022=][=0x0009=][=0x0022=]Sailing on horseback, or with feet for oars?[=0x0022=][=0x000A=][=0x0022=]horseback/legs/feet/oars[=0x0022=][=0x0009=][=0x0022=]Beneath a shining or a rainy Zeus?[=0x0022=][=0x000A=][=0x0022=]shining/rainy/weather/zeus[=0x0022=][=0x0009=][=0x0022=]Mud[=0x0027=]s sister, not herself, adorns thy boots.[=0x0022=][=0x000A=][=0x000A=][This would be a bit bare if we didn[=0x0027=]t provide the player with some sort of context at the outset, so let[=0x0027=]s put some remarks before the first command prompt:][=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]say [=0x0022=]CHORUS: O suitably-attired-in-leather-boots[=0x000A=][=0x0009=]Head of a traveller, wherefore seeking whom[=0x000A=][=0x0009=]Whence by what way how purposed art thou come[=0x000A=][=0x0009=]To this well-nightingaled vicinity?[=0x000A=][=0x0009=]My object in inquiring is to know.[=0x000A=][=0x0009=]But if you happen to be deaf and dumb[=0x000A=][=0x0009=]And do not understand a word I say,[=0x000A=][=0x0009=]Then wave your hand, to signify as much.[=0x0022=][=0x000A=][=0x000A=][This [=0x0022=]turn count[=0x0022=] condition is why it was useful to follow the advance time rule in [=0x0022=]after reading a command[=0x0022=]: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform[=0x0027=]s command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.][=0x000A=][=0x000A=][And then to give the whole exchange a play[=0x0027=]s format:][=0x000A=][=0x000A=]The Stage is a room.[=0x000A=][=0x000A=]The room description heading rule is not listed in the carry out looking rules.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]YOU: [=0x0022=];[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Fragment of a Greek Tragedy[=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]A. E. Housman[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Fragment of a Greek Tragedy')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Fragment of a Greek Tragedy&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12126_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12126_191"></a>Understand &quot;restart/restore/save/quit&quot; as &quot;[meta-command]&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12127_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12127_191"></a>After reading a command:
+            <blockquote class="code"><p class="quoted"><a id="c12125_191"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;if the player's command matches &quot;[meta-command]&quot;, make no decision;
             <br>
@@ -490,8 +490,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12128_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12128_191"></a>Table of Current Topics
+            <!--START CODE "c12126_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12126_191"></a>Table of Current Topics
             <br>
             </p>
             </blockquote>
@@ -541,8 +541,8 @@
             </blockquote>
             <!--END CODE-->
             <p>This would be a bit bare if we didn't provide the player with some sort of context at the outset, so let's put some remarks before the first command prompt:</p>
-            <!--START CODE "c12129_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12129_191"></a>Before reading a command while the turn count is 1:
+            <!--START CODE "c12127_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12127_191"></a>Before reading a command while the turn count is 1:
             <br>
             &#160;&#160;&#160;&#160;say &quot;CHORUS: O suitably-attired-in-leather-boots
             <br>
@@ -564,18 +564,18 @@
             <!--END CODE-->
             <p>This &quot;turn count&quot; condition is why it was useful to follow the advance time rule in &quot;after reading a command&quot;: the game (or drama, if you like) will continue to count moves elapsed even though the rest of Inform's command parsing and world model is being ignored. In a longer and more ambitious implementation of this idea, we might want to allow scenes to govern the behavior and responses of the Chorus.</p>
             <p>And then to give the whole exchange a play's format:</p>
+            <!--START CODE "c12128_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12128_191"></a>The Stage is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12129_191"-->
+            <blockquote class="code"><p class="quoted"><a id="c12129_191"></a>The room description heading rule is not listed in the carry out looking rules.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12130_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12130_191"></a>The Stage is a room.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12131_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12131_191"></a>The room description heading rule is not listed in the carry out looking rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12132_191"-->
-            <blockquote class="code"><p class="quoted"><a id="c12132_191"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c12130_191"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;YOU: &quot;;
             <br>

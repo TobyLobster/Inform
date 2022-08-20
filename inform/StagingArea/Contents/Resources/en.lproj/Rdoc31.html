@@ -85,15 +85,15 @@
     <p>Much of the rest of this chapter discusses the behavior of specific commands in Inform's command library, and how we might change and build on these. This section is instead an overview of the general principles: where and how can one intervene?</p>
     <p>Whenever we are dealing with actions, the Actions Index is likely to be useful: it lists all the actions currently implemented, whether in our own source or in extensions or the Standard Rules, and lists the rules pertaining to each.</p>
     <p>The lightest and easiest way to change behavior is with an Instead rule:</p>
-    <!--START CODE "c11366"-->
-    <blockquote class="code"><p class="quoted"><a id="c11366"></a>Instead of eating the apple:
+    <!--START CODE "c11364"-->
+    <blockquote class="code"><p class="quoted"><a id="c11364"></a>Instead of eating the apple:
     <br>
     &#160;&#160;&#160;&#160;say &quot;It turns out to be made of beeswax, so that's a non-starter.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11367"-->
-    <blockquote class="code"><p class="quoted"><a id="c11367"></a>Instead of tasting an edible thing:
+    <!--START CODE "c11365"-->
+    <blockquote class="code"><p class="quoted"><a id="c11365"></a>Instead of tasting an edible thing:
     <br>
     &#160;&#160;&#160;&#160;say &quot;It's delicious!&quot;
     <br>
@@ -102,8 +102,8 @@
     </blockquote>
     <!--END CODE-->
     <p>The addition of &quot;rule succeeds&quot; tells Inform that the instead action was a success rather than a failure; this is not usually very important with the player's own actions, but can be useful for actions performed by other characters, so that a successfully replaced action is not followed by the disconcerting line</p>
-    <!--START CODE "c11368"-->
-    <blockquote class="code"><p class="quoted"><a id="c11368"></a>Clark is unable to do that.
+    <!--START CODE "c11366"-->
+    <blockquote class="code"><p class="quoted"><a id="c11366"></a>Clark is unable to do that.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -111,25 +111,25 @@
     <p>Changing the way an action works in all cases is usually better addressed by changing the main rulebook, rather than with one (or many) instead rules. We may add new check, carry out, and report rules to existing action rulebooks. The Advanced Actions chapter describes these, and ends with some guidelines on when to use before, instead, and after, and when to use check, carry out, and report.</p>
     <p>Similarly, we may delete, move, or replace rules that are already present (see the chapter on Rulebooks). This is handy if we decide that an action has restrictions that we dislike and want to abolish. If the restriction we need to change is part of the accessibility rules - those which check whether the player can take, see, and touch items - we may need to look at Changing reachability or Changing visibility in the Advanced Actions chapter (to revise what is allowed), at Deciding the scope of something in the Activities chapter (to influence what can be seen when).</p>
     <p>If, for instance, the player character is a burly fellow who can lift any other character he likes:</p>
-    <!--START CODE "c11369"-->
-    <blockquote class="code"><p class="quoted"><a id="c11369"></a>The can't take other people rule is not listed in any rulebook.
+    <!--START CODE "c11367"-->
+    <blockquote class="code"><p class="quoted"><a id="c11367"></a>The can't take other people rule is not listed in any rulebook.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>...and rip knobs off doors:</p>
-    <!--START CODE "c11370"-->
-    <blockquote class="code"><p class="quoted"><a id="c11370"></a>The can't take component parts rule is not listed in the check taking rulebook.
+    <!--START CODE "c11368"-->
+    <blockquote class="code"><p class="quoted"><a id="c11368"></a>The can't take component parts rule is not listed in the check taking rulebook.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>...and commit petty theft:</p>
-    <!--START CODE "c11371"-->
-    <blockquote class="code"><p class="quoted"><a id="c11371"></a>The new can't take people's possessions rule is listed instead of the can't take people's possessions rule in the check taking rulebook.
+    <!--START CODE "c11369"-->
+    <blockquote class="code"><p class="quoted"><a id="c11369"></a>The new can't take people's possessions rule is listed instead of the can't take people's possessions rule in the check taking rulebook.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11372"-->
-    <blockquote class="code"><p class="quoted"><a id="c11372"></a>This is the new can't take people's possessions rule:
+    <!--START CODE "c11370"-->
+    <blockquote class="code"><p class="quoted"><a id="c11370"></a>This is the new can't take people's possessions rule:
     <br>
     &#160;&#160;&#160;&#160;if someone (called the owner) carries the noun:
     <br>
@@ -138,8 +138,8 @@
     </blockquote>
     <!--END CODE-->
     <p>The right approach to use also depends a bit on how systematic a change we anticipate. We may find that instead rules become cumbersome when we want to specify behavior for a very large number of objects. It's fine to have</p>
-    <!--START CODE "c11373"-->
-    <blockquote class="code"><p class="quoted"><a id="c11373"></a>Instead of tasting the arsenic:
+    <!--START CODE "c11371"-->
+    <blockquote class="code"><p class="quoted"><a id="c11371"></a>Instead of tasting the arsenic:
     <br>
     &#160;&#160;&#160;&#160;say &quot;You'll live to regret this very very shortly.&quot;;
     <br>
@@ -148,8 +148,8 @@
     </blockquote>
     <!--END CODE-->
     <p>but a bit more tedious to have to write</p>
-    <!--START CODE "c11374"-->
-    <blockquote class="code"><p class="quoted"><a id="c11374"></a>Instead of tasting the peppermint: ...
+    <!--START CODE "c11372"-->
+    <blockquote class="code"><p class="quoted"><a id="c11372"></a>Instead of tasting the peppermint: ...
     <br>
     Instead of tasting the plate: ...
     <br>
@@ -162,18 +162,18 @@
     </blockquote>
     <!--END CODE-->
     <p>in a story in which most items have unique flavor descriptions. In that situation, it may be more sensible to overhaul the design of the action: create a new text property for things, and revise &quot;tasting&quot; so that it now consults this property:</p>
+    <!--START CODE "c11373"-->
+    <blockquote class="code"><p class="quoted"><a id="c11373"></a>The block tasting rule is not listed in any rulebook.
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <!--START CODE "c11374"-->
+    <blockquote class="code"><p class="quoted"><a id="c11374"></a>A thing has some text called the flavor. The flavor of a thing is usually &quot;Nothing special.&quot;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c11375"-->
-    <blockquote class="code"><p class="quoted"><a id="c11375"></a>The block tasting rule is not listed in any rulebook.
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c11376"-->
-    <blockquote class="code"><p class="quoted"><a id="c11376"></a>A thing has some text called the flavor. The flavor of a thing is usually &quot;Nothing special.&quot;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c11377"-->
-    <blockquote class="code"><p class="quoted"><a id="c11377"></a>Report tasting something:
+    <blockquote class="code"><p class="quoted"><a id="c11375"></a>Report tasting something:
     <br>
     &#160;&#160;&#160;&#160;if the flavor of the noun is &quot;Nothing special.&quot;:
     <br>
@@ -185,8 +185,8 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11378"-->
-    <blockquote class="code"><p class="quoted"><a id="c11378"></a>Report someone tasting something:
+    <!--START CODE "c11376"-->
+    <blockquote class="code"><p class="quoted"><a id="c11376"></a>Report someone tasting something:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[The actor] licks [the noun].&quot;
     </p>
@@ -213,7 +213,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc193.html#e348"><i>WI</i></a></div>
+                        <a href="doc191.html#e348"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -223,29 +223,29 @@
         <div class="egpanel" id="example348" style="display: none;">
             <p>Under most circumstances, locking and unlocking require the player to be carrying the key he uses to unlock something. This makes sense -- unless the key is on a keychain, or on a chain around his neck, for instance. So here we explore one way to circumstantially override the carrying requirements, while still making sure that the player cannot unlock the door if the unlocking tool is nowhere in sight.</p>
             <p>In essence, we are rewriting the carrying requirements rule with a different one of our own devising, and swapping it in only at those moments when it is correct to do so.</p>
+            <!--START CODE "c11377_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c11377_348"></a><a href="javascript:pasteCode('[=0x0022=]Slogar[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.[=0x000A=][=0x000A=][We can now replace the usual behavior of the carrying requirements rule (to check whether the player is carrying something and, if not, to generate an implicit take) with a similar rule of our own; note that [=0x0022=]if the player has the second noun[=0x0022=] is a more compact way to write [=0x0022=]if the player carries the second noun or the player wears the second noun[=0x0022=]:][=0x000A=][=0x000A=]This is the amulet carrying rule:[=0x000A=][=0x0009=]if the player has the second noun:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=](first picking up the amulet)[command clarification break][=0x0022=];[=0x000A=][=0x0009=]try silently taking the second noun;[=0x000A=][=0x0009=]if the player is not carrying the second noun:[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Daunting Dungeon is a room.[=0x000A=][=0x000A=]West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.[=0x000A=][=0x000A=]The Disturbing Door is closed and locked.[=0x000A=][=0x000A=]The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.[=0x000A=][=0x000A=]Test me with [=0x0022=]unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Slogar[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.[=0x000A=][=0x000A=][We can now replace the usual behavior of the carrying requirements rule (to check whether the player is carrying something and, if not, to generate an implicit take) with a similar rule of our own; note that [=0x0022=]if the player has the second noun[=0x0022=] is a more compact way to write [=0x0022=]if the player carries the second noun or the player wears the second noun[=0x0022=]:][=0x000A=][=0x000A=]This is the amulet carrying rule:[=0x000A=][=0x0009=]if the player has the second noun:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=](first picking up the amulet)[command clarification break][=0x0022=];[=0x000A=][=0x0009=]try silently taking the second noun;[=0x000A=][=0x0009=]if the player is not carrying the second noun:[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Daunting Dungeon is a room.[=0x000A=][=0x000A=]West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.[=0x000A=][=0x000A=]The Disturbing Door is closed and locked.[=0x000A=][=0x000A=]The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.[=0x000A=][=0x000A=]Test me with [=0x0022=]unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Slogar[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Slogar's Revenge&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11378_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c11378_348"></a>Section 1 - Procedure
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11379_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11379_348"></a><a href="javascript:pasteCode('[=0x0022=]Slogar[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.[=0x000A=][=0x000A=][We can now replace the usual behavior of the carrying requirements rule (to check whether the player is carrying something and, if not, to generate an implicit take) with a similar rule of our own; note that [=0x0022=]if the player has the second noun[=0x0022=] is a more compact way to write [=0x0022=]if the player carries the second noun or the player wears the second noun[=0x0022=]:][=0x000A=][=0x000A=]This is the amulet carrying rule:[=0x000A=][=0x0009=]if the player has the second noun:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=](first picking up the amulet)[command clarification break][=0x0022=];[=0x000A=][=0x0009=]try silently taking the second noun;[=0x000A=][=0x0009=]if the player is not carrying the second noun:[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Daunting Dungeon is a room.[=0x000A=][=0x000A=]West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.[=0x000A=][=0x000A=]The Disturbing Door is closed and locked.[=0x000A=][=0x000A=]The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.[=0x000A=][=0x000A=]Test me with [=0x0022=]unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Slogar[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.[=0x000A=][=0x000A=]The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.[=0x000A=][=0x000A=][We can now replace the usual behavior of the carrying requirements rule (to check whether the player is carrying something and, if not, to generate an implicit take) with a similar rule of our own; note that [=0x0022=]if the player has the second noun[=0x0022=] is a more compact way to write [=0x0022=]if the player carries the second noun or the player wears the second noun[=0x0022=]:][=0x000A=][=0x000A=]This is the amulet carrying rule:[=0x000A=][=0x0009=]if the player has the second noun:[=0x000A=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=]say [=0x0022=](first picking up the amulet)[command clarification break][=0x0022=];[=0x000A=][=0x0009=]try silently taking the second noun;[=0x000A=][=0x0009=]if the player is not carrying the second noun:[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Daunting Dungeon is a room.[=0x000A=][=0x000A=]West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.[=0x000A=][=0x000A=]The Disturbing Door is closed and locked.[=0x000A=][=0x000A=]The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.[=0x000A=][=0x000A=]Test me with [=0x0022=]unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Slogar[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Slogar's Revenge&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11379_348"></a>The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11380_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11380_348"></a>Section 1 - Procedure
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11381_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11381_348"></a>The amulet carrying rule substitutes for the carrying requirements rule when locking something with the Amulet of Tumblers.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11382_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11382_348"></a>The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.
+            <blockquote class="code"><p class="quoted"><a id="c11380_348"></a>The amulet carrying rule substitutes for the carrying requirements rule when unlocking something with the Amulet of Tumblers.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We can now replace the usual behavior of the carrying requirements rule (to check whether the player is carrying something and, if not, to generate an implicit take) with a similar rule of our own; note that &quot;if the player has the second noun&quot; is a more compact way to write &quot;if the player carries the second noun or the player wears the second noun&quot;:</p>
-            <!--START CODE "c11383_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11383_348"></a>This is the amulet carrying rule:
+            <!--START CODE "c11381_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c11381_348"></a>This is the amulet carrying rule:
             <br>
             &#160;&#160;&#160;&#160;if the player has the second noun:
             <br>
@@ -261,33 +261,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11382_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c11382_348"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11383_348"-->
+            <blockquote class="code"><p class="quoted"><a id="c11383_348"></a>The Daunting Dungeon is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11384_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11384_348"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c11384_348"></a>West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11385_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11385_348"></a>The Daunting Dungeon is a room.
+            <blockquote class="code"><p class="quoted"><a id="c11385_348"></a>The Disturbing Door is closed and locked.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11386_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11386_348"></a>West of the Daunting Dungeon is the Disturbing Door. The Disturbing Door is a door. West of the Disturbing Door is the Fallow Field.
+            <blockquote class="code"><p class="quoted"><a id="c11386_348"></a>The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11387_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11387_348"></a>The Disturbing Door is closed and locked.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11388_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11388_348"></a>The player wears the Amulet of Tumblers. The Amulet of Tumblers unlocks the Disturbing Door.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11389_348"-->
-            <blockquote class="code"><p class="quoted"><a id="c11389_348"></a>Test me with &quot;unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11387_348"></a>Test me with &quot;unlock disturbing door with amulet / open door / west / remove amulet / close door / lock disturbing door with amulet / drop amulet / unlock disturbing door with amulet&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

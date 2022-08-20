@@ -85,50 +85,50 @@
     <p>Inform allows a handful of actions - TAKE, DROP, PUT, INSERT - to apply to more than one item at a time, so that the player can move things around easily.</p>
     <p>The general principle is that multiple objects are allowed if the actions are likely to be successful but not interesting most of the time, and if they're things that the player could plausibly do all at once. For most actions, the use of ALL would seem weirdly indiscriminate: EAT ALL, say, describes very implausible behavior, and EXAMINE ALL would likely generate a screenful of text at once.</p>
     <p>But this is all under our control. To create an action that uses multiples, or to allow the use of multiple objects with an already-existing action, we need to create an understand statement that uses the &quot;[things]&quot; token (note the plural). For instance:</p>
-    <!--START CODE "c11906"-->
-    <blockquote class="code"><p class="quoted"><a id="c11906"></a>Understand &quot;give [things] to [someone]&quot; as giving it to.
+    <!--START CODE "c11904"-->
+    <blockquote class="code"><p class="quoted"><a id="c11904"></a>Understand &quot;give [things] to [someone]&quot; as giving it to.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This would let the existing give action apply to multiple objects, in just the same way that &quot;take&quot; does. <span class="boldface">Shawn's Bad Day</span> demonstrates how we might allow EXAMINE ALL to print descriptions of every visible item.</p>
     <p>Alternatively, we could generate a new action:</p>
-    <!--START CODE "c11907"-->
-    <blockquote class="code"><p class="quoted"><a id="c11907"></a>Understand &quot;give [things] to [someone]&quot; as multiply-giving it to. Multiply-giving it to is an action applying to one carried thing and one thing.
+    <!--START CODE "c11905"-->
+    <blockquote class="code"><p class="quoted"><a id="c11905"></a>Understand &quot;give [things] to [someone]&quot; as multiply-giving it to. Multiply-giving it to is an action applying to one carried thing and one thing.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(In theory the language here should perhaps be &quot;several carried things&quot; -- but Inform is still going to process multiply-giving item by item, unless we redirect it. More about this in a moment.)</p>
     <p>When handling an action that uses the &quot;[things]&quot; token, the parser makes a list of every item to which it is going to apply the action: this is called the multiple objects list. The multiple objects list can be the result of a vague request (GET ALL) or a specific one involving identical multiples (GET PENNIES, GET THREE APPLES) or a very specific one involving unique, named nouns (GET GERBIL, APPLE, AND POMEGRANATE).</p>
     <p>We can manipulate what Inform includes in &quot;ALL&quot; in sentences like TAKE ALL with the &quot;deciding whether all includes...&quot; activity; for instance</p>
-    <!--START CODE "c11908"-->
-    <blockquote class="code"><p class="quoted"><a id="c11908"></a>Rule for deciding whether all includes scenery: it does not.
+    <!--START CODE "c11906"-->
+    <blockquote class="code"><p class="quoted"><a id="c11906"></a>Rule for deciding whether all includes scenery: it does not.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>prevents TAKE ALL from applying to things that can't be moved anyway, avoiding lots of lines like</p>
-    <!--START CODE "c11909"-->
-    <blockquote class="code"><p class="quoted"><a id="c11909"></a>tree: That's hardly portable.
+    <!--START CODE "c11907"-->
+    <blockquote class="code"><p class="quoted"><a id="c11907"></a>tree: That's hardly portable.
     <br>
     swing set: That's hardly portable.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>A slightly tedious technical note: the multiple objects list is not strictly a list in the standard Inform sense, because it is used so frequently in parsing that it would be cumbersome to handle it with the more flexible but less efficient structure used for lists. However, if we want to manipulate the multiple objects list as though it were an ordinary list -- that is, sort it, rotate it, truncate it, remove entries from it, etc -- we may do so by creating a list like this:</p>
-    <!--START CODE "c11910"-->
-    <blockquote class="code"><p class="quoted"><a id="c11910"></a>let L be the multiple object list.
+    <!--START CODE "c11908"-->
+    <blockquote class="code"><p class="quoted"><a id="c11908"></a>let L be the multiple object list.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and later after making L conform to our desires:</p>
-    <!--START CODE "c11911"-->
-    <blockquote class="code"><p class="quoted"><a id="c11911"></a>alter the multiple object list to L.
+    <!--START CODE "c11909"-->
+    <blockquote class="code"><p class="quoted"><a id="c11909"></a>alter the multiple object list to L.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Inform next repeatedly runs the action rulebook for the action generated, using each item from the multiple object list as &quot;noun&quot; in turn (or as &quot;second noun&quot;, if that's where the [things] token appeared in the understand line). Since it is possible to alter the multiple object list before the &quot;generate action rule&quot; portion of the turn sequence consults the rulebooks, we can also affect the order in which the player's matched objects are handled; see <span class="boldface">Formicidae</span>. We should not attempt to change the multiple object list after this point, because this is likely to introduce bugs.</p>
     <p>Each time Inform tries the action on a new noun, it prefixes the action-attempt with the name of the item it's currently working on. This is where we get such output as &quot;frog eyeballs:&quot; and &quot;newt toes:&quot; in long lists like</p>
-    <!--START CODE "c11912"-->
-    <blockquote class="code"><p class="quoted"><a id="c11912"></a>frog eyeballs: Taken.
+    <!--START CODE "c11910"-->
+    <blockquote class="code"><p class="quoted"><a id="c11910"></a>frog eyeballs: Taken.
     <br>
     newt toes: Taken.
     </p>
@@ -160,7 +160,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc268.html#e255"><i>WI</i></a></div>
+                        <a href="doc266.html#e255"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -169,38 +169,38 @@
 
         <div class="egpanel" id="example255" style="display: none;">
             <p>We can add the handling of multiple objects to an existing action simply by adding in a line of grammar using &quot;[things]&quot;. In response, Inform will consider every object accepted by the token, and perform the action once for each of those objects. Thus:</p>
+            <!--START CODE "c11911_255"-->
+            <blockquote class="code"><p class="quoted"><a id="c11911_255"></a><a href="javascript:pasteCode('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n', 'Example - Shawn[=0x0027=]s Bad Day')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Shawn's Bad Day&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11912_255"-->
+            <blockquote class="code"><p class="quoted"><a id="c11912_255"></a>The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. &quot;A massive vault fills up one wall.&quot; The description is &quot;The vault's system includes [a list of things which are part of the vault].&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11913_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11913_255"></a><a href="javascript:pasteCode('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n', 'Example - Shawn[=0x0027=]s Bad Day')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Shawn's Bad Day&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11913_255"></a>A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11914_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11914_255"></a>The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. &quot;A massive vault fills up one wall.&quot; The description is &quot;The vault's system includes [a list of things which are part of the vault].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11914_255"></a>The security guard is a man in the Treasury. The description is &quot;His name is Shawn, and he doesn't look happy.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11915_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11915_255"></a>A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.
+            <blockquote class="code"><p class="quoted"><a id="c11915_255"></a>The description of the green light is &quot;Off.&quot; The description of the blue light is &quot;Tranquilly on.&quot; The description of the red light is &quot;Angrily flashing.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11916_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11916_255"></a>The security guard is a man in the Treasury. The description is &quot;His name is Shawn, and he doesn't look happy.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11916_255"></a>Understand &quot;examine [things]&quot; as examining.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11917_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11917_255"></a>The description of the green light is &quot;Off.&quot; The description of the blue light is &quot;Tranquilly on.&quot; The description of the red light is &quot;Angrily flashing.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11918_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11918_255"></a>Understand &quot;examine [things]&quot; as examining.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11919_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c11919_255"></a>Test me with &quot;examine all&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11917_255"></a>Test me with &quot;examine all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -223,7 +223,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc284.html#e30"><i>WI</i></a></div>
+                        <a href="doc282.html#e30"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -232,53 +232,53 @@
 
         <div class="egpanel" id="example30" style="display: none;">
             <p>If a single command asks to do many things, some dull and some exciting, we may want to save the good ones for the end.</p>
+            <!--START CODE "c11918_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11918_30"></a><a href="javascript:pasteCode('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n', 'Example - The Best Till Last')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Best Till Last&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11919_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11919_30"></a>The Funky Ignition Lounge is a room. &quot;This is where all evenings end.&quot; The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11920_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11920_30"></a><a href="javascript:pasteCode('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Best Till Last[=0x0022=][=0x000A=][=0x000A=]The Funky Ignition Lounge is a room. [=0x0022=]This is where all evenings end.[=0x0022=] The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.[=0x000A=][=0x000A=]The burn description of the vetiver candle is [=0x0022=]It burns right down, expensively but gothically.[=0x0022=][=0x000A=][=0x000A=]The player carries an inexpensive firework. The description of the firework is [=0x0022=]It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.[=0x0022=] The burn description of the firework is [=0x0022=]It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there[=0x0027=]s a whistling noise punctuated by several loud cracks.[=0x0022=][=0x000A=][=0x000A=]The player carries a lighter. The description of the lighter is [=0x0022=]You don[=0x0027=]t smoke, but you like to have access to flame now and then anyway.[=0x0022=][=0x000A=][=0x000A=]Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [things] with [something preferably held][=0x0022=] as burning it with.[=0x000A=][=0x000A=]The block burning rule is not listed in any rulebook.[=0x000A=][=0x000A=]A thing has some text called the burn description.[=0x000A=][=0x000A=]Check burning something:[=0x000A=][=0x0009=]if the player carries the lighter:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the lighter;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]try burning the noun with the noun.[=0x000A=][=0x000A=]Check burning something with something when the second noun is not the lighter:[=0x000A=][=0x0009=]say [=0x0022=]Your trusty lighter is the best flame source available to you.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something:[=0x000A=][=0x0009=]if the burn description of the noun is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out burning something with something:[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=][burn description of the noun][line break][=0x0022=].[=0x000A=][=0x000A=]A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let dull list be a list of objects;[=0x000A=][=0x0009=]let fun list be a list of objects;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the burn description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to dull list;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]add item to fun list;[=0x000A=][=0x0009=]let F be the dull list;[=0x000A=][=0x0009=]add fun list to F;[=0x000A=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=]Test me with [=0x0022=]burn all with lighter[=0x0022=].[=0x000A=]\n', 'Example - The Best Till Last')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Best Till Last&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11920_30"></a>The burn description of the vetiver candle is &quot;It burns right down, expensively but gothically.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11921_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11921_30"></a>The Funky Ignition Lounge is a room. &quot;This is where all evenings end.&quot; The stick of gelignite, the solid magnesium footstool, the vetiver candle, and the vodka bottle are here.
+            <blockquote class="code"><p class="quoted"><a id="c11921_30"></a>The player carries an inexpensive firework. The description of the firework is &quot;It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.&quot; The burn description of the firework is &quot;It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there's a whistling noise punctuated by several loud cracks.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11922_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11922_30"></a>The burn description of the vetiver candle is &quot;It burns right down, expensively but gothically.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11922_30"></a>The player carries a lighter. The description of the lighter is &quot;You don't smoke, but you like to have access to flame now and then anyway.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11923_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11923_30"></a>The player carries an inexpensive firework. The description of the firework is &quot;It is a cardboard tube with red and green stripes along the outside, and a fuse sticking out of the end.&quot; The burn description of the firework is &quot;It ignites gloriously! You take a few hasty steps back in order to avoid burning yourself, and not a moment too soon. Red and green sparks fly out of the tube, and there's a whistling noise punctuated by several loud cracks.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11923_30"></a>Burning it with is an action applying to one thing and one carried thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11924_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11924_30"></a>The player carries a lighter. The description of the lighter is &quot;You don't smoke, but you like to have access to flame now and then anyway.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11924_30"></a>Understand &quot;burn [things] with [something preferably held]&quot; as burning it with.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11925_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11925_30"></a>Burning it with is an action applying to one thing and one carried thing.
+            <blockquote class="code"><p class="quoted"><a id="c11925_30"></a>The block burning rule is not listed in any rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11926_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11926_30"></a>Understand &quot;burn [things] with [something preferably held]&quot; as burning it with.
+            <blockquote class="code"><p class="quoted"><a id="c11926_30"></a>A thing has some text called the burn description.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11927_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11927_30"></a>The block burning rule is not listed in any rulebook.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11928_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11928_30"></a>A thing has some text called the burn description.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11929_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11929_30"></a>Check burning something:
+            <blockquote class="code"><p class="quoted"><a id="c11927_30"></a>Check burning something:
             <br>
             &#160;&#160;&#160;&#160;if the player carries the lighter:
             <br>
@@ -290,15 +290,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11930_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11930_30"></a>Check burning something with something when the second noun is not the lighter:
+            <!--START CODE "c11928_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11928_30"></a>Check burning something with something when the second noun is not the lighter:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your trusty lighter is the best flame source available to you.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11931_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11931_30"></a>Check burning something with something:
+            <!--START CODE "c11929_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11929_30"></a>Check burning something with something:
             <br>
             &#160;&#160;&#160;&#160;if the burn description of the noun is &quot;&quot;:
             <br>
@@ -306,22 +306,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11932_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11932_30"></a>Carry out burning something with something:
+            <!--START CODE "c11930_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11930_30"></a>Carry out burning something with something:
             <br>
             &#160;&#160;&#160;&#160;now the noun is nowhere.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11933_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11933_30"></a>Report burning something with something:
+            <!--START CODE "c11931_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11931_30"></a>Report burning something with something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[burn description of the noun][line break]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11934_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11934_30"></a>A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):
+            <!--START CODE "c11932_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11932_30"></a>A multiple action processing rule when the action name part of the current action is the burning it with action (this is the orderly burn rule):
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -347,8 +347,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11935_30"-->
-            <blockquote class="code"><p class="quoted"><a id="c11935_30"></a>Test me with &quot;burn all with lighter&quot;.
+            <!--START CODE "c11933_30"-->
+            <blockquote class="code"><p class="quoted"><a id="c11933_30"></a>Test me with &quot;burn all with lighter&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -371,7 +371,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc284.html#e161"><i>WI</i></a></div>
+                        <a href="doc282.html#e161"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -381,30 +381,30 @@
         <div class="egpanel" id="example161" style="display: none;">
             <p>In a gallery, there are many individual things to look at, but you can also get a general impression by just examining them as a collection.</p>
             <p>First, we'll make a kind for the paintings exhibited in the gallery, and then we'll also make a special object to represent all of them as a mass:</p>
+            <!--START CODE "c11934_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11934_161"></a><a href="javascript:pasteCode('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Western Art History 305')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Western Art History 305&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11935_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11935_161"></a>A painting is a kind of thing. A painting is usually fixed in place. Understand &quot;painting&quot; as a painting. Understand &quot;paintings&quot; as the plural of painting.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11936_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11936_161"></a><a href="javascript:pasteCode('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Western Art History 305[=0x0022=][=0x000A=][=0x000A=]A painting is a kind of thing. A painting is usually fixed in place. Understand [=0x0022=]painting[=0x0022=] as a painting. Understand [=0x0022=]paintings[=0x0022=] as the plural of painting.[=0x000A=][=0x000A=]The painting-collective is a thing. The printed name of the painting-collective is [=0x0022=]paintings[=0x0022=]. The description of the painting-collective is [=0x0022=]There[=0x0027=]s [a list of visible paintings].[=0x0022=][=0x000A=][=0x000A=][We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn[=0x0027=]t work because the Standard Rules don[=0x0027=]t tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=][Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there[=0x0027=]s only one examining action, so we get a reply like [=0x0022=]There[=0x0027=]s an abstract painting, a pointilist painting and a French academic painting.[=0x0022=] instead of a list of descriptions of each in turn.][=0x000A=][=0x000A=]A multiple action processing rule when the current action is examining (this is the examine kinds rule):[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let F be L;[=0x000A=][=0x0009=]let the painting count be 0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the item is a painting:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the painting count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]remove the item from F;[=0x000A=][=0x0009=]if the painting count is greater than one:[=0x000A=][=0x0009=][=0x0009=]add the painting-collective to F;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to F.[=0x000A=][=0x000A=][And now some art to try this out on:][=0x000A=][=0x000A=]Gallery is a room. [=0x0022=]Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.[=0x0022=][=0x000A=][=0x000A=]The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.[=0x000A=][=0x000A=]North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is [=0x0022=]The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.[=0x0022=][=0x000A=][=0x000A=]The player carries a small notebook. The description of the notebook is [=0x0022=]It contains the notes you[=0x0027=]ve taken so far towards a paper for Western Art History 305. So far you[=0x0027=]re still feeling a bit uninspired.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x paintings / x all / n / x paintings / x all[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Western Art History 305')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Western Art History 305&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11937_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11937_161"></a>A painting is a kind of thing. A painting is usually fixed in place. Understand &quot;painting&quot; as a painting. Understand &quot;paintings&quot; as the plural of painting.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11938_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11938_161"></a>The painting-collective is a thing. The printed name of the painting-collective is &quot;paintings&quot;. The description of the painting-collective is &quot;There's [a list of visible paintings].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11936_161"></a>The painting-collective is a thing. The printed name of the painting-collective is &quot;paintings&quot;. The description of the painting-collective is &quot;There's [a list of visible paintings].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We could if we wanted tweak the description to be different in style in different rooms of the gallery, but this will do for now. Next we need to make it possible to type something like EXAMINE PAINTINGS, which normally wouldn't work because the Standard Rules don't tell Inform to recognise multiple objects with the EXAMINE command (unlike, say, DROP or TAKE). This is easy:</p>
-            <!--START CODE "c11939_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11939_161"></a>Understand &quot;examine [things]&quot; as examining.
+            <!--START CODE "c11937_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11937_161"></a>Understand &quot;examine [things]&quot; as examining.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now to make use of the special object. If the player types EXAMINE PAINTINGS, the multiple object list will become a list of the visible paintings. The following rule looks at this list: if it contains more than one painting, it replaces them with the painting-collective instead. Now there's only one examining action, so we get a reply like &quot;There's an abstract painting, a pointilist painting and a French academic painting.&quot; instead of a list of descriptions of each in turn.</p>
-            <!--START CODE "c11940_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11940_161"></a>A multiple action processing rule when the current action is examining (this is the examine kinds rule):
+            <!--START CODE "c11938_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11938_161"></a>A multiple action processing rule when the current action is examining (this is the examine kinds rule):
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -429,28 +429,28 @@
             </blockquote>
             <!--END CODE-->
             <p>And now some art to try this out on:</p>
+            <!--START CODE "c11939_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11939_161"></a>Gallery is a room. &quot;Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11940_161"-->
+            <blockquote class="code"><p class="quoted"><a id="c11940_161"></a>The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11941_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11941_161"></a>Gallery is a room. &quot;Various paintings hang on the walls of this gallery, awaiting critical attention. A side chamber to the north contains smaller works.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11941_161"></a>North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is &quot;The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11942_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11942_161"></a>The abstract painting, the pointilist painting, and the French academic painting are paintings in the Gallery.
+            <blockquote class="code"><p class="quoted"><a id="c11942_161"></a>The player carries a small notebook. The description of the notebook is &quot;It contains the notes you've taken so far towards a paper for Western Art History 305. So far you're still feeling a bit uninspired.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11943_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11943_161"></a>North of the Gallery is the Side Chamber. A handsome miniature is a painting in the Side Chamber. The description of the handsome miniature is &quot;The miniature depicts a uniformed soldier of the late 18th century, with braid on his shoulders and a curl in his beard.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11944_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11944_161"></a>The player carries a small notebook. The description of the notebook is &quot;It contains the notes you've taken so far towards a paper for Western Art History 305. So far you're still feeling a bit uninspired.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11945_161"-->
-            <blockquote class="code"><p class="quoted"><a id="c11945_161"></a>Test me with &quot;x paintings / x all / n / x paintings / x all&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11943_161"></a>Test me with &quot;x paintings / x all / n / x paintings / x all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -473,7 +473,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc341.html#e126"><i>WI</i></a></div>
+                        <a href="doc339.html#e126"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -481,28 +481,28 @@
         </table>
 
         <div class="egpanel" id="example126" style="display: none;">
+            <!--START CODE "c11944_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11944_126"></a><a href="javascript:pasteCode('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n', 'Example - Escape from the Seraglio')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Escape from the Seraglio&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11945_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11945_126"></a>Section 1 - Special Announcement Rules
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11946_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11946_126"></a><a href="javascript:pasteCode('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n', 'Example - Escape from the Seraglio')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Escape from the Seraglio&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11946_126"></a>The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11947_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11947_126"></a>Section 1 - Special Announcement Rules
+            <blockquote class="code"><p class="quoted"><a id="c11947_126"></a>The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11948_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11948_126"></a>The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11949_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11949_126"></a>The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11950_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11950_126"></a>This is the friskily announce items from multiple object lists rule:
+            <blockquote class="code"><p class="quoted"><a id="c11948_126"></a>This is the friskily announce items from multiple object lists rule:
             <br>
             &#160;&#160;&#160;&#160;if taking:
             <br>
@@ -518,30 +518,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11951_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11951_126"></a>Rule for deciding whether all includes the person asked: it does not.
+            <!--START CODE "c11949_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11949_126"></a>Rule for deciding whether all includes the person asked: it does not.
             <br>
             Rule for deciding whether all includes a person when taking: it does not.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11950_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11950_126"></a>Section 2 - The Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11951_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11951_126"></a>The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11952_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11952_126"></a>Section 2 - The Scenario
+            <blockquote class="code"><p class="quoted"><a id="c11952_126"></a>The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11953_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11953_126"></a>The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11954_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11954_126"></a>The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11955_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11955_126"></a>A persuasion rule for asking Sarissa to try taking the key:
+            <blockquote class="code"><p class="quoted"><a id="c11953_126"></a>A persuasion rule for asking Sarissa to try taking the key:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Sarissa nervously demurs, knowing that it is forbidden.&quot;;
             <br>
@@ -549,13 +549,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11956_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11956_126"></a>A persuasion rule: persuasion succeeds.
+            <!--START CODE "c11954_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11954_126"></a>A persuasion rule: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11957_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c11957_126"></a>Test me with &quot;take all / drop all / sarissa, take all&quot;.
+            <!--START CODE "c11955_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c11955_126"></a>Test me with &quot;take all / drop all / sarissa, take all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -578,7 +578,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc357.html#e155"><i>WI</i></a></div>
+                        <a href="doc355.html#e155"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -587,8 +587,8 @@
 
         <div class="egpanel" id="example155" style="display: none;">
             <p>Suppose we have an item that produces an interesting result the first time the player lifts it -- a rock with dangerous ants revealed underneath. The effect of the surprise is a little weakened, though, if the player sees that response as the result of a TAKE ALL, when it might be printed like this:</p>
-            <!--START CODE "c11958_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11958_155"></a>&gt;[3] get all
+            <!--START CODE "c11956_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11956_155"></a>&gt;[3] get all
             <br>
             tent peg: Taken.
             <br>
@@ -602,40 +602,40 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11959_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11959_155"></a>[Your score has just gone down by two points.]
+            <!--START CODE "c11957_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11957_155"></a>[Your score has just gone down by two points.]
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The calm response to &quot;rusty nail&quot; looks odd now, and the score change is disconnected from the event that caused it.</p>
             <p>To manage this, we might institute a system so that interesting objects are handled last in their list, like so:</p>
+            <!--START CODE "c11958_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11958_155"></a><a href="javascript:pasteCode('[=0x0022=]Formicidae[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The magic rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]A thing has a number called dramatic potential.[=0x000A=][=0x000A=]This is the magic rule:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]if the number of entries in L is greater than 1:[=0x000A=][=0x0009=][=0x0009=]sort L in dramatic potential order;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Foothills is a room. [=0x0022=]The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.[=0x0022=][=0x000A=][=0x000A=]The water flask, the tent peg, and the trading permit are things in Foothills.[=0x000A=][=0x000A=]The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say [=0x0022=]innocent-looking [=0x0022=]. The dramatic potential of the rock is 10.[=0x000A=][=0x000A=]The rusty nail is a thing in Foothills.[=0x000A=][=0x000A=]The ant colony is a fixed in place thing. [=0x0022=]A busy group of ants are crawling to and fro in the unaccustomed sun.[=0x0022=] Rule for deciding whether all includes the ant colony while taking: it does not.[=0x000A=][=0x000A=]Instead of taking the rock when the rock is handled:[=0x000A=][=0x0009=]say [=0x0022=]It might still have a stray ant or two on it.[=0x0022=][=0x000A=][=0x000A=]After taking the rock:[=0x000A=][=0x0009=]now the rock is handled;[=0x000A=][=0x0009=]move ant colony to the location;[=0x000A=][=0x0009=]move the rock to the location;[=0x000A=][=0x0009=]say [=0x0022=]You reach for the rock and turn it over to reveal a thriving colony of flesh-eating ants. Needless to say, you drop the rock and jump back with a decidedly effeminate scream. They can probably hear you all the way back in the base camp.[=0x0022=];[=0x000A=][=0x0009=]decrease score by 2.[=0x000A=][=0x000A=]Test me with [=0x0022=]get peg / drop peg / get all / get rock[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Formicidae[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The magic rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]A thing has a number called dramatic potential.[=0x000A=][=0x000A=]This is the magic rule:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]if the number of entries in L is greater than 1:[=0x000A=][=0x0009=][=0x0009=]sort L in dramatic potential order;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Foothills is a room. [=0x0022=]The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.[=0x0022=][=0x000A=][=0x000A=]The water flask, the tent peg, and the trading permit are things in Foothills.[=0x000A=][=0x000A=]The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say [=0x0022=]innocent-looking [=0x0022=]. The dramatic potential of the rock is 10.[=0x000A=][=0x000A=]The rusty nail is a thing in Foothills.[=0x000A=][=0x000A=]The ant colony is a fixed in place thing. [=0x0022=]A busy group of ants are crawling to and fro in the unaccustomed sun.[=0x0022=] Rule for deciding whether all includes the ant colony while taking: it does not.[=0x000A=][=0x000A=]Instead of taking the rock when the rock is handled:[=0x000A=][=0x0009=]say [=0x0022=]It might still have a stray ant or two on it.[=0x0022=][=0x000A=][=0x000A=]After taking the rock:[=0x000A=][=0x0009=]now the rock is handled;[=0x000A=][=0x0009=]move ant colony to the location;[=0x000A=][=0x0009=]move the rock to the location;[=0x000A=][=0x0009=]say [=0x0022=]You reach for the rock and turn it over to reveal a thriving colony of flesh-eating ants. Needless to say, you drop the rock and jump back with a decidedly effeminate scream. They can probably hear you all the way back in the base camp.[=0x0022=];[=0x000A=][=0x0009=]decrease score by 2.[=0x000A=][=0x000A=]Test me with [=0x0022=]get peg / drop peg / get all / get rock[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Formicidae')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Formicidae&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11959_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11959_155"></a>Use scoring.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11960_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11960_155"></a><a href="javascript:pasteCode('[=0x0022=]Formicidae[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The magic rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]A thing has a number called dramatic potential.[=0x000A=][=0x000A=]This is the magic rule:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]if the number of entries in L is greater than 1:[=0x000A=][=0x0009=][=0x0009=]sort L in dramatic potential order;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Foothills is a room. [=0x0022=]The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.[=0x0022=][=0x000A=][=0x000A=]The water flask, the tent peg, and the trading permit are things in Foothills.[=0x000A=][=0x000A=]The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say [=0x0022=]innocent-looking [=0x0022=]. The dramatic potential of the rock is 10.[=0x000A=][=0x000A=]The rusty nail is a thing in Foothills.[=0x000A=][=0x000A=]The ant colony is a fixed in place thing. [=0x0022=]A busy group of ants are crawling to and fro in the unaccustomed sun.[=0x0022=] Rule for deciding whether all includes the ant colony while taking: it does not.[=0x000A=][=0x000A=]Instead of taking the rock when the rock is handled:[=0x000A=][=0x0009=]say [=0x0022=]It might still have a stray ant or two on it.[=0x0022=][=0x000A=][=0x000A=]After taking the rock:[=0x000A=][=0x0009=]now the rock is handled;[=0x000A=][=0x0009=]move ant colony to the location;[=0x000A=][=0x0009=]move the rock to the location;[=0x000A=][=0x0009=]say [=0x0022=]You reach for the rock and turn it over to reveal a thriving colony of flesh-eating ants. Needless to say, you drop the rock and jump back with a decidedly effeminate scream. They can probably hear you all the way back in the base camp.[=0x0022=];[=0x000A=][=0x0009=]decrease score by 2.[=0x000A=][=0x000A=]Test me with [=0x0022=]get peg / drop peg / get all / get rock[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Formicidae[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The magic rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]A thing has a number called dramatic potential.[=0x000A=][=0x000A=]This is the magic rule:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]if the number of entries in L is greater than 1:[=0x000A=][=0x0009=][=0x0009=]sort L in dramatic potential order;[=0x000A=][=0x0009=][=0x0009=]alter the multiple object list to L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Foothills is a room. [=0x0022=]The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.[=0x0022=][=0x000A=][=0x000A=]The water flask, the tent peg, and the trading permit are things in Foothills.[=0x000A=][=0x000A=]The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say [=0x0022=]innocent-looking [=0x0022=]. The dramatic potential of the rock is 10.[=0x000A=][=0x000A=]The rusty nail is a thing in Foothills.[=0x000A=][=0x000A=]The ant colony is a fixed in place thing. [=0x0022=]A busy group of ants are crawling to and fro in the unaccustomed sun.[=0x0022=] Rule for deciding whether all includes the ant colony while taking: it does not.[=0x000A=][=0x000A=]Instead of taking the rock when the rock is handled:[=0x000A=][=0x0009=]say [=0x0022=]It might still have a stray ant or two on it.[=0x0022=][=0x000A=][=0x000A=]After taking the rock:[=0x000A=][=0x0009=]now the rock is handled;[=0x000A=][=0x0009=]move ant colony to the location;[=0x000A=][=0x0009=]move the rock to the location;[=0x000A=][=0x0009=]say [=0x0022=]You reach for the rock and turn it over to reveal a thriving colony of flesh-eating ants. Needless to say, you drop the rock and jump back with a decidedly effeminate scream. They can probably hear you all the way back in the base camp.[=0x0022=];[=0x000A=][=0x0009=]decrease score by 2.[=0x000A=][=0x000A=]Test me with [=0x0022=]get peg / drop peg / get all / get rock[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Formicidae')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Formicidae&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11960_155"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11961_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11961_155"></a>Use scoring.
+            <blockquote class="code"><p class="quoted"><a id="c11961_155"></a>The magic rule is listed before the generate action rule in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11962_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11962_155"></a>Section 1 - Procedure
+            <blockquote class="code"><p class="quoted"><a id="c11962_155"></a>A thing has a number called dramatic potential.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11963_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11963_155"></a>The magic rule is listed before the generate action rule in the turn sequence rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11964_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11964_155"></a>A thing has a number called dramatic potential.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11965_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11965_155"></a>This is the magic rule:
+            <blockquote class="code"><p class="quoted"><a id="c11963_155"></a>This is the magic rule:
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -647,45 +647,45 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11964_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11964_155"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11965_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11965_155"></a>The Foothills is a room. &quot;The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11966_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11966_155"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c11966_155"></a>The water flask, the tent peg, and the trading permit are things in Foothills.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11967_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11967_155"></a>The Foothills is a room. &quot;The land has become hilly; though the soil is still mostly coarse yellow sand, clumps of grass are able to grow in the shadier places. Deep wagon ruts running from the southwest towards the mountains in the northeast show where generations of caravans have already passed.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11967_155"></a>The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say &quot;innocent-looking &quot;. The dramatic potential of the rock is 10.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11968_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11968_155"></a>The water flask, the tent peg, and the trading permit are things in Foothills.
+            <blockquote class="code"><p class="quoted"><a id="c11968_155"></a>The rusty nail is a thing in Foothills.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11969_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11969_155"></a>The rock is a thing in Foothills. Before printing the name of the rock when the rock is not handled: say &quot;innocent-looking &quot;. The dramatic potential of the rock is 10.
+            <blockquote class="code"><p class="quoted"><a id="c11969_155"></a>The ant colony is a fixed in place thing. &quot;A busy group of ants are crawling to and fro in the unaccustomed sun.&quot; Rule for deciding whether all includes the ant colony while taking: it does not.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11970_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11970_155"></a>The rusty nail is a thing in Foothills.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11971_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11971_155"></a>The ant colony is a fixed in place thing. &quot;A busy group of ants are crawling to and fro in the unaccustomed sun.&quot; Rule for deciding whether all includes the ant colony while taking: it does not.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11972_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11972_155"></a>Instead of taking the rock when the rock is handled:
+            <blockquote class="code"><p class="quoted"><a id="c11970_155"></a>Instead of taking the rock when the rock is handled:
             <br>
             &#160;&#160;&#160;&#160;say &quot;It might still have a stray ant or two on it.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11973_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11973_155"></a>After taking the rock:
+            <!--START CODE "c11971_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11971_155"></a>After taking the rock:
             <br>
             &#160;&#160;&#160;&#160;now the rock is handled;
             <br>
@@ -699,8 +699,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11974_155"-->
-            <blockquote class="code"><p class="quoted"><a id="c11974_155"></a>Test me with &quot;get peg / drop peg / get all / get rock&quot;.
+            <!--START CODE "c11972_155"-->
+            <blockquote class="code"><p class="quoted"><a id="c11972_155"></a>Test me with &quot;get peg / drop peg / get all / get rock&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -724,7 +724,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc361.html#e134"><i>WI</i></a></div>
+                        <a href="doc359.html#e134"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -735,38 +735,38 @@
             <p>Occasionally it happens that we want to process an action on multiple items differently than we would if the player had just typed each of the individual actions separately. In this example, the reason is that we can only successfully GIVE items when their combined value passes a certain threshold amount; otherwise the recipient will reject them.</p>
             <p>This works as an implementation of money, if we give value only to cash objects (though several other implementations of cash are available, most of which are simpler and more efficient). We could also imagine a mechanic like this being used for a bargaining or auction game as well, given a society that deals in objects rather than credits.</p>
             <p>In order to consider all the items in the gift at once, we create an action that applies to multiple objects, but will in fact test the whole object collection during the first pass and print a definitive answer to whether the action succeeded. All subsequent times the game consults the rulebook will be stopped at the very beginning. No further processing will occur or output be printed.</p>
-            <!--START CODE "c11975_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11975_134"></a><a href="javascript:pasteCode('[=0x0022=]The Facts Were These[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][We start by creating the idea that everything in the game has a monetary value:][=0x000A=][=0x000A=]A price is a kind of value. $10 specifies a price. A thing has a price.[=0x000A=][=0x000A=]Understand [=0x0022=]give [things preferably held] to [someone][=0x0022=] as multiply-giving it to. Understand [=0x0022=]give [things] to [someone][=0x0022=] as multiply-giving it to.  Multiply-giving it to is an action applying to two things.[=0x000A=][=0x000A=][A subtlety here: we say [=0x0022=]things preferably held[=0x0022=] to prefer items that the player is holding (so if the player has two dollars in hand and a third lies on the ground, he will use just the two he has).][=0x000A=][=0x000A=][The second grammar line allows Inform to match things that aren[=0x0027=]t held if it can[=0x0027=]t make up the list from things that are. If all three dollars are on the ground, the player can pick them up before spending them.][=0x000A=][=0x000A=][We do not, however, make multiply-giving apply to a [=0x0022=]carried[=0x0022=] item, because that will generate implicit takes of those items in a way that will mess up our action reporting. Instead, we[=0x0027=]re going to build the implicit takes into the system in a different way, one that permits us to collate the reports more attractively and print a short, one-sentence list of anything that the player had to pick up.][=0x000A=][=0x000A=]A thing can be given or ungiven. A thing is usually ungiven.[=0x000A=][=0x000A=][This is for record-keeping purposes so that we can print an attractive list of what was given at the end of the turn.][=0x000A=][=0x000A=]First check multiply-giving it to:[=0x000A=][=0x0009=]if already gave at the office is true:[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Already gave at the office is a truth state that varies.[=0x000A=][=0x000A=][[=0x0022=]Already gave at the office[=0x0022=] is the perhaps-excessively-named flag that keeps track of whether we[=0x0027=]ve already done this action once.][=0x000A=][=0x000A=]Check multiply-giving something to the player:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can hardly bribe yourself.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=][The following rule is longish because it processes the entire list at once, generating implicit takes if necessary (but processing those implicit takes silently according to its own special rule, so that the output can be managed attractively). We are also, at the same time, calculating the total value of the player[=0x0027=]s offer.][=0x000A=][=0x000A=]Check multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let bribe-price be $0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abide by the ungivability rules for the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]carry out the implicitly taking activity with the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t include [the item] in your bribe, since you[=0x0027=]re not holding [them]![paragraph break][=0x0022=] instead;[=0x000A=][=0x0009=][=0x0009=]increase bribe-price by the price of item;[=0x000A=][=0x0009=]if the number of entries in the recently-collected list is greater than 0:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through the recently-collected list:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You pick up [the list of marked for listing things] and make your offer. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now everything is unmarked for listing;[=0x000A=][=0x0009=]if the bribe-price is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=][The bit about making some items [=0x0022=]marked for listing[=0x0022=], above, rather than printing the list directly, is that using the [=0x0022=][the list of....][=0x0022=] syntax guarantees that Inform will respect grouping rules in writing its description. For instance, if the player has automatically taken all three dollars, the output will say [=0x0022=]the three dollars[=0x0022=] instead of [=0x0022=]the dollar, the dollar, and the dollar.[=0x0022=]][=0x000A=][=0x000A=]Carry out multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]now the second noun carries the item;[=0x000A=][=0x0009=][=0x0009=]now the item is given;[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x000A=]Report multiply-giving it to:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the list of given things] away into a pocket.[paragraph break][=0x0022=].[=0x000A=][=0x000A=][Now we create our own variation of implicitly taking in order to customize the output for the multiply-giving action. The [=0x0022=]ungivability rules[=0x0022=] should disallow any object that the player absolutely cannot take, because we want [=0x0022=]carry out the implicitly taking activity[=0x0022=] to succeed every time -- and therefore not print out any less-attractive results from implicit takes that don[=0x0027=]t succeed. Otherwise, the player[=0x0027=]s GIVE TREE AND DOG TO ATTENDANT might produce the reply [=0x0022=]That[=0x0027=]s fixed in place[=0x0022=] -- without specifying which object is fixed in place.][=0x000A=][=0x000A=][Because of the way this works, we will want to be careful: if we have any [=0x0022=]instead of taking...[=0x0022=] rules for special objects in the game, we should be sure to mirror those with an ungivability rule to print something more suitable in the case that the player tries taking that object as part of the multiple giving action.][=0x000A=][=0x000A=]The ungivability rules are an object-based rulebook.[=0x000A=][=0x000A=]An ungivability rule for a person:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]Slavery is illegal.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is enclosed by someone who is not the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [aren[=0x0027=]t] yours to give.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something which encloses the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]You don[=0x0027=]t want to end up as part of the gift.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is part of something:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] attached to [a random thing which incorporates the item][paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is scenery:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] unremovable.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is fixed in place:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] fixed in place.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for a direction (called the item):[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] not susceptible to giving.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]Rule for implicitly taking something (called target) while multiply-giving:[=0x000A=][=0x0009=]silently try taking the target;[=0x000A=][=0x0009=]if the player carries the target:[=0x000A=][=0x0009=][=0x0009=]add the target to the recently-collected list.[=0x000A=][=0x000A=]The recently-collected list is a list of objects that varies.[=0x000A=][=0x000A=][And since we don[=0x0027=]t want to list the individual objects separately:][=0x000A=][=0x000A=]The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the selectively announce items from multiple object lists rule:[=0x000A=][=0x0009=]if multiply-giving:[=0x000A=][=0x0009=][=0x0009=]do nothing;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=][And now, since this ought to work symmetrically if the player provides just one high-value item:][=0x000A=][=0x000A=]Check giving something to someone:[=0x000A=][=0x0009=]if the price of the noun is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[=0x0022=] instead.[=0x000A=][=0x000A=][As we[=0x0027=]ve seen elsewhere, the giving action by default returns a refusal, but is also written to start working if we remove the blockage. So we do that here, and revise the report rule to match the report rule we have for multiple giving.][=0x000A=][=0x000A=]The block giving rule is not listed in any rulebook.[=0x000A=][=0x000A=]The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.[=0x000A=][=0x000A=]This is the new report giving rule:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the noun] away into a pocket.[=0x0022=][=0x000A=][=0x000A=][After each instance of the multiply-giving action, we need to clear the variables we used to track its state. We could do this in [=0x0022=]Before reading a command[=0x0022=], but that[=0x0027=]s unsafe because the player might type GIVE PIE AND CAP TO ATTENDANT. GIVE DOLLARS TO ATTENDANT. all on a single line, and we would like to be able to clear the variables between one action and the next. The correct place to attach this behavior is immediately before the generate action rule, thus:][=0x000A=][=0x000A=]The before-generation rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the before-generation rule:[=0x000A=][=0x0009=]now every thing is ungiven;[=0x000A=][=0x0009=]now already gave at the office is false;[=0x000A=][=0x0009=]truncate the recently-collected list to 0 entries.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Morgue Office is a room. [=0x0022=]This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.[=0x0022=][=0x000A=][=0x000A=]The Morgue Attendant is a man in the Morgue Office. [=0x0022=]The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.[=0x0022=] The description is [=0x0022=]The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.[=0x0022=] The price of the Morgue Attendant is $3.[=0x000A=][=0x000A=]A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.[=0x000A=][=0x000A=]The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.[=0x000A=][=0x000A=]The player carries a knitted cap. The price of the knitted cap is $2.[=0x000A=][=0x000A=]Test me with [=0x0022=]test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift[=0x0022=].[=0x000A=][=0x000A=]Test multi-line with [=0x0022=]give dollar and pie to attendant. give dollars and cap to attendant[=0x0022=].[=0x000A=][=0x000A=]Test dollars with [=0x0022=]drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test specificity with [=0x0022=]give three dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test largesse with [=0x0022=]give pie to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test mixed-gift with [=0x0022=]give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Facts Were These[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][We start by creating the idea that everything in the game has a monetary value:][=0x000A=][=0x000A=]A price is a kind of value. $10 specifies a price. A thing has a price.[=0x000A=][=0x000A=]Understand [=0x0022=]give [things preferably held] to [someone][=0x0022=] as multiply-giving it to. Understand [=0x0022=]give [things] to [someone][=0x0022=] as multiply-giving it to.  Multiply-giving it to is an action applying to two things.[=0x000A=][=0x000A=][A subtlety here: we say [=0x0022=]things preferably held[=0x0022=] to prefer items that the player is holding (so if the player has two dollars in hand and a third lies on the ground, he will use just the two he has).][=0x000A=][=0x000A=][The second grammar line allows Inform to match things that aren[=0x0027=]t held if it can[=0x0027=]t make up the list from things that are. If all three dollars are on the ground, the player can pick them up before spending them.][=0x000A=][=0x000A=][We do not, however, make multiply-giving apply to a [=0x0022=]carried[=0x0022=] item, because that will generate implicit takes of those items in a way that will mess up our action reporting. Instead, we[=0x0027=]re going to build the implicit takes into the system in a different way, one that permits us to collate the reports more attractively and print a short, one-sentence list of anything that the player had to pick up.][=0x000A=][=0x000A=]A thing can be given or ungiven. A thing is usually ungiven.[=0x000A=][=0x000A=][This is for record-keeping purposes so that we can print an attractive list of what was given at the end of the turn.][=0x000A=][=0x000A=]First check multiply-giving it to:[=0x000A=][=0x0009=]if already gave at the office is true:[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Already gave at the office is a truth state that varies.[=0x000A=][=0x000A=][[=0x0022=]Already gave at the office[=0x0022=] is the perhaps-excessively-named flag that keeps track of whether we[=0x0027=]ve already done this action once.][=0x000A=][=0x000A=]Check multiply-giving something to the player:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can hardly bribe yourself.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=][The following rule is longish because it processes the entire list at once, generating implicit takes if necessary (but processing those implicit takes silently according to its own special rule, so that the output can be managed attractively). We are also, at the same time, calculating the total value of the player[=0x0027=]s offer.][=0x000A=][=0x000A=]Check multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let bribe-price be $0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abide by the ungivability rules for the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]carry out the implicitly taking activity with the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t include [the item] in your bribe, since you[=0x0027=]re not holding [them]![paragraph break][=0x0022=] instead;[=0x000A=][=0x0009=][=0x0009=]increase bribe-price by the price of item;[=0x000A=][=0x0009=]if the number of entries in the recently-collected list is greater than 0:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through the recently-collected list:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You pick up [the list of marked for listing things] and make your offer. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now everything is unmarked for listing;[=0x000A=][=0x0009=]if the bribe-price is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=][The bit about making some items [=0x0022=]marked for listing[=0x0022=], above, rather than printing the list directly, is that using the [=0x0022=][the list of....][=0x0022=] syntax guarantees that Inform will respect grouping rules in writing its description. For instance, if the player has automatically taken all three dollars, the output will say [=0x0022=]the three dollars[=0x0022=] instead of [=0x0022=]the dollar, the dollar, and the dollar.[=0x0022=]][=0x000A=][=0x000A=]Carry out multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]now the second noun carries the item;[=0x000A=][=0x0009=][=0x0009=]now the item is given;[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x000A=]Report multiply-giving it to:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the list of given things] away into a pocket.[paragraph break][=0x0022=].[=0x000A=][=0x000A=][Now we create our own variation of implicitly taking in order to customize the output for the multiply-giving action. The [=0x0022=]ungivability rules[=0x0022=] should disallow any object that the player absolutely cannot take, because we want [=0x0022=]carry out the implicitly taking activity[=0x0022=] to succeed every time -- and therefore not print out any less-attractive results from implicit takes that don[=0x0027=]t succeed. Otherwise, the player[=0x0027=]s GIVE TREE AND DOG TO ATTENDANT might produce the reply [=0x0022=]That[=0x0027=]s fixed in place[=0x0022=] -- without specifying which object is fixed in place.][=0x000A=][=0x000A=][Because of the way this works, we will want to be careful: if we have any [=0x0022=]instead of taking...[=0x0022=] rules for special objects in the game, we should be sure to mirror those with an ungivability rule to print something more suitable in the case that the player tries taking that object as part of the multiple giving action.][=0x000A=][=0x000A=]The ungivability rules are an object-based rulebook.[=0x000A=][=0x000A=]An ungivability rule for a person:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]Slavery is illegal.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is enclosed by someone who is not the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [aren[=0x0027=]t] yours to give.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something which encloses the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]You don[=0x0027=]t want to end up as part of the gift.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is part of something:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] attached to [a random thing which incorporates the item][paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is scenery:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] unremovable.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is fixed in place:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] fixed in place.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for a direction (called the item):[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] not susceptible to giving.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]Rule for implicitly taking something (called target) while multiply-giving:[=0x000A=][=0x0009=]silently try taking the target;[=0x000A=][=0x0009=]if the player carries the target:[=0x000A=][=0x0009=][=0x0009=]add the target to the recently-collected list.[=0x000A=][=0x000A=]The recently-collected list is a list of objects that varies.[=0x000A=][=0x000A=][And since we don[=0x0027=]t want to list the individual objects separately:][=0x000A=][=0x000A=]The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the selectively announce items from multiple object lists rule:[=0x000A=][=0x0009=]if multiply-giving:[=0x000A=][=0x0009=][=0x0009=]do nothing;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=][And now, since this ought to work symmetrically if the player provides just one high-value item:][=0x000A=][=0x000A=]Check giving something to someone:[=0x000A=][=0x0009=]if the price of the noun is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[=0x0022=] instead.[=0x000A=][=0x000A=][As we[=0x0027=]ve seen elsewhere, the giving action by default returns a refusal, but is also written to start working if we remove the blockage. So we do that here, and revise the report rule to match the report rule we have for multiple giving.][=0x000A=][=0x000A=]The block giving rule is not listed in any rulebook.[=0x000A=][=0x000A=]The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.[=0x000A=][=0x000A=]This is the new report giving rule:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the noun] away into a pocket.[=0x0022=][=0x000A=][=0x000A=][After each instance of the multiply-giving action, we need to clear the variables we used to track its state. We could do this in [=0x0022=]Before reading a command[=0x0022=], but that[=0x0027=]s unsafe because the player might type GIVE PIE AND CAP TO ATTENDANT. GIVE DOLLARS TO ATTENDANT. all on a single line, and we would like to be able to clear the variables between one action and the next. The correct place to attach this behavior is immediately before the generate action rule, thus:][=0x000A=][=0x000A=]The before-generation rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the before-generation rule:[=0x000A=][=0x0009=]now every thing is ungiven;[=0x000A=][=0x0009=]now already gave at the office is false;[=0x000A=][=0x0009=]truncate the recently-collected list to 0 entries.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Morgue Office is a room. [=0x0022=]This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.[=0x0022=][=0x000A=][=0x000A=]The Morgue Attendant is a man in the Morgue Office. [=0x0022=]The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.[=0x0022=] The description is [=0x0022=]The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.[=0x0022=] The price of the Morgue Attendant is $3.[=0x000A=][=0x000A=]A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.[=0x000A=][=0x000A=]The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.[=0x000A=][=0x000A=]The player carries a knitted cap. The price of the knitted cap is $2.[=0x000A=][=0x000A=]Test me with [=0x0022=]test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift[=0x0022=].[=0x000A=][=0x000A=]Test multi-line with [=0x0022=]give dollar and pie to attendant. give dollars and cap to attendant[=0x0022=].[=0x000A=][=0x000A=]Test dollars with [=0x0022=]drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test specificity with [=0x0022=]give three dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test largesse with [=0x0022=]give pie to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test mixed-gift with [=0x0022=]give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Facts Were These')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Facts Were These&quot;
+            <!--START CODE "c11973_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11973_134"></a><a href="javascript:pasteCode('[=0x0022=]The Facts Were These[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][We start by creating the idea that everything in the game has a monetary value:][=0x000A=][=0x000A=]A price is a kind of value. $10 specifies a price. A thing has a price.[=0x000A=][=0x000A=]Understand [=0x0022=]give [things preferably held] to [someone][=0x0022=] as multiply-giving it to. Understand [=0x0022=]give [things] to [someone][=0x0022=] as multiply-giving it to.  Multiply-giving it to is an action applying to two things.[=0x000A=][=0x000A=][A subtlety here: we say [=0x0022=]things preferably held[=0x0022=] to prefer items that the player is holding (so if the player has two dollars in hand and a third lies on the ground, he will use just the two he has).][=0x000A=][=0x000A=][The second grammar line allows Inform to match things that aren[=0x0027=]t held if it can[=0x0027=]t make up the list from things that are. If all three dollars are on the ground, the player can pick them up before spending them.][=0x000A=][=0x000A=][We do not, however, make multiply-giving apply to a [=0x0022=]carried[=0x0022=] item, because that will generate implicit takes of those items in a way that will mess up our action reporting. Instead, we[=0x0027=]re going to build the implicit takes into the system in a different way, one that permits us to collate the reports more attractively and print a short, one-sentence list of anything that the player had to pick up.][=0x000A=][=0x000A=]A thing can be given or ungiven. A thing is usually ungiven.[=0x000A=][=0x000A=][This is for record-keeping purposes so that we can print an attractive list of what was given at the end of the turn.][=0x000A=][=0x000A=]First check multiply-giving it to:[=0x000A=][=0x0009=]if already gave at the office is true:[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Already gave at the office is a truth state that varies.[=0x000A=][=0x000A=][[=0x0022=]Already gave at the office[=0x0022=] is the perhaps-excessively-named flag that keeps track of whether we[=0x0027=]ve already done this action once.][=0x000A=][=0x000A=]Check multiply-giving something to the player:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can hardly bribe yourself.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=][The following rule is longish because it processes the entire list at once, generating implicit takes if necessary (but processing those implicit takes silently according to its own special rule, so that the output can be managed attractively). We are also, at the same time, calculating the total value of the player[=0x0027=]s offer.][=0x000A=][=0x000A=]Check multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let bribe-price be $0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abide by the ungivability rules for the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]carry out the implicitly taking activity with the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t include [the item] in your bribe, since you[=0x0027=]re not holding [them]![paragraph break][=0x0022=] instead;[=0x000A=][=0x0009=][=0x0009=]increase bribe-price by the price of item;[=0x000A=][=0x0009=]if the number of entries in the recently-collected list is greater than 0:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through the recently-collected list:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You pick up [the list of marked for listing things] and make your offer. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now everything is unmarked for listing;[=0x000A=][=0x0009=]if the bribe-price is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=][The bit about making some items [=0x0022=]marked for listing[=0x0022=], above, rather than printing the list directly, is that using the [=0x0022=][the list of....][=0x0022=] syntax guarantees that Inform will respect grouping rules in writing its description. For instance, if the player has automatically taken all three dollars, the output will say [=0x0022=]the three dollars[=0x0022=] instead of [=0x0022=]the dollar, the dollar, and the dollar.[=0x0022=]][=0x000A=][=0x000A=]Carry out multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]now the second noun carries the item;[=0x000A=][=0x0009=][=0x0009=]now the item is given;[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x000A=]Report multiply-giving it to:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the list of given things] away into a pocket.[paragraph break][=0x0022=].[=0x000A=][=0x000A=][Now we create our own variation of implicitly taking in order to customize the output for the multiply-giving action. The [=0x0022=]ungivability rules[=0x0022=] should disallow any object that the player absolutely cannot take, because we want [=0x0022=]carry out the implicitly taking activity[=0x0022=] to succeed every time -- and therefore not print out any less-attractive results from implicit takes that don[=0x0027=]t succeed. Otherwise, the player[=0x0027=]s GIVE TREE AND DOG TO ATTENDANT might produce the reply [=0x0022=]That[=0x0027=]s fixed in place[=0x0022=] -- without specifying which object is fixed in place.][=0x000A=][=0x000A=][Because of the way this works, we will want to be careful: if we have any [=0x0022=]instead of taking...[=0x0022=] rules for special objects in the game, we should be sure to mirror those with an ungivability rule to print something more suitable in the case that the player tries taking that object as part of the multiple giving action.][=0x000A=][=0x000A=]The ungivability rules are an object-based rulebook.[=0x000A=][=0x000A=]An ungivability rule for a person:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]Slavery is illegal.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is enclosed by someone who is not the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [aren[=0x0027=]t] yours to give.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something which encloses the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]You don[=0x0027=]t want to end up as part of the gift.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is part of something:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] attached to [a random thing which incorporates the item][paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is scenery:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] unremovable.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is fixed in place:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] fixed in place.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for a direction (called the item):[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] not susceptible to giving.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]Rule for implicitly taking something (called target) while multiply-giving:[=0x000A=][=0x0009=]silently try taking the target;[=0x000A=][=0x0009=]if the player carries the target:[=0x000A=][=0x0009=][=0x0009=]add the target to the recently-collected list.[=0x000A=][=0x000A=]The recently-collected list is a list of objects that varies.[=0x000A=][=0x000A=][And since we don[=0x0027=]t want to list the individual objects separately:][=0x000A=][=0x000A=]The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the selectively announce items from multiple object lists rule:[=0x000A=][=0x0009=]if multiply-giving:[=0x000A=][=0x0009=][=0x0009=]do nothing;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=][And now, since this ought to work symmetrically if the player provides just one high-value item:][=0x000A=][=0x000A=]Check giving something to someone:[=0x000A=][=0x0009=]if the price of the noun is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[=0x0022=] instead.[=0x000A=][=0x000A=][As we[=0x0027=]ve seen elsewhere, the giving action by default returns a refusal, but is also written to start working if we remove the blockage. So we do that here, and revise the report rule to match the report rule we have for multiple giving.][=0x000A=][=0x000A=]The block giving rule is not listed in any rulebook.[=0x000A=][=0x000A=]The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.[=0x000A=][=0x000A=]This is the new report giving rule:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the noun] away into a pocket.[=0x0022=][=0x000A=][=0x000A=][After each instance of the multiply-giving action, we need to clear the variables we used to track its state. We could do this in [=0x0022=]Before reading a command[=0x0022=], but that[=0x0027=]s unsafe because the player might type GIVE PIE AND CAP TO ATTENDANT. GIVE DOLLARS TO ATTENDANT. all on a single line, and we would like to be able to clear the variables between one action and the next. The correct place to attach this behavior is immediately before the generate action rule, thus:][=0x000A=][=0x000A=]The before-generation rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the before-generation rule:[=0x000A=][=0x0009=]now every thing is ungiven;[=0x000A=][=0x0009=]now already gave at the office is false;[=0x000A=][=0x0009=]truncate the recently-collected list to 0 entries.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Morgue Office is a room. [=0x0022=]This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.[=0x0022=][=0x000A=][=0x000A=]The Morgue Attendant is a man in the Morgue Office. [=0x0022=]The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.[=0x0022=] The description is [=0x0022=]The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.[=0x0022=] The price of the Morgue Attendant is $3.[=0x000A=][=0x000A=]A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.[=0x000A=][=0x000A=]The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.[=0x000A=][=0x000A=]The player carries a knitted cap. The price of the knitted cap is $2.[=0x000A=][=0x000A=]Test me with [=0x0022=]test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift[=0x0022=].[=0x000A=][=0x000A=]Test multi-line with [=0x0022=]give dollar and pie to attendant. give dollars and cap to attendant[=0x0022=].[=0x000A=][=0x000A=]Test dollars with [=0x0022=]drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test specificity with [=0x0022=]give three dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test largesse with [=0x0022=]give pie to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test mixed-gift with [=0x0022=]give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Facts Were These[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][We start by creating the idea that everything in the game has a monetary value:][=0x000A=][=0x000A=]A price is a kind of value. $10 specifies a price. A thing has a price.[=0x000A=][=0x000A=]Understand [=0x0022=]give [things preferably held] to [someone][=0x0022=] as multiply-giving it to. Understand [=0x0022=]give [things] to [someone][=0x0022=] as multiply-giving it to.  Multiply-giving it to is an action applying to two things.[=0x000A=][=0x000A=][A subtlety here: we say [=0x0022=]things preferably held[=0x0022=] to prefer items that the player is holding (so if the player has two dollars in hand and a third lies on the ground, he will use just the two he has).][=0x000A=][=0x000A=][The second grammar line allows Inform to match things that aren[=0x0027=]t held if it can[=0x0027=]t make up the list from things that are. If all three dollars are on the ground, the player can pick them up before spending them.][=0x000A=][=0x000A=][We do not, however, make multiply-giving apply to a [=0x0022=]carried[=0x0022=] item, because that will generate implicit takes of those items in a way that will mess up our action reporting. Instead, we[=0x0027=]re going to build the implicit takes into the system in a different way, one that permits us to collate the reports more attractively and print a short, one-sentence list of anything that the player had to pick up.][=0x000A=][=0x000A=]A thing can be given or ungiven. A thing is usually ungiven.[=0x000A=][=0x000A=][This is for record-keeping purposes so that we can print an attractive list of what was given at the end of the turn.][=0x000A=][=0x000A=]First check multiply-giving it to:[=0x000A=][=0x0009=]if already gave at the office is true:[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Already gave at the office is a truth state that varies.[=0x000A=][=0x000A=][[=0x0022=]Already gave at the office[=0x0022=] is the perhaps-excessively-named flag that keeps track of whether we[=0x0027=]ve already done this action once.][=0x000A=][=0x000A=]Check multiply-giving something to the player:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can hardly bribe yourself.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=][The following rule is longish because it processes the entire list at once, generating implicit takes if necessary (but processing those implicit takes silently according to its own special rule, so that the output can be managed attractively). We are also, at the same time, calculating the total value of the player[=0x0027=]s offer.][=0x000A=][=0x000A=]Check multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]let bribe-price be $0;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abide by the ungivability rules for the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]carry out the implicitly taking activity with the item;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the player does not carry the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You can[=0x0027=]t include [the item] in your bribe, since you[=0x0027=]re not holding [them]![paragraph break][=0x0022=] instead;[=0x000A=][=0x0009=][=0x0009=]increase bribe-price by the price of item;[=0x000A=][=0x0009=]if the number of entries in the recently-collected list is greater than 0:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through the recently-collected list:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You pick up [the list of marked for listing things] and make your offer. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now everything is unmarked for listing;[=0x000A=][=0x0009=]if the bribe-price is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=][The bit about making some items [=0x0022=]marked for listing[=0x0022=], above, rather than printing the list directly, is that using the [=0x0022=][the list of....][=0x0022=] syntax guarantees that Inform will respect grouping rules in writing its description. For instance, if the player has automatically taken all three dollars, the output will say [=0x0022=]the three dollars[=0x0022=] instead of [=0x0022=]the dollar, the dollar, and the dollar.[=0x0022=]][=0x000A=][=0x000A=]Carry out multiply-giving it to:[=0x000A=][=0x0009=]let L be the multiple object list;[=0x000A=][=0x0009=]repeat with item running through L:[=0x000A=][=0x0009=][=0x0009=]now the second noun carries the item;[=0x000A=][=0x0009=][=0x0009=]now the item is given;[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x000A=]Report multiply-giving it to:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the list of given things] away into a pocket.[paragraph break][=0x0022=].[=0x000A=][=0x000A=][Now we create our own variation of implicitly taking in order to customize the output for the multiply-giving action. The [=0x0022=]ungivability rules[=0x0022=] should disallow any object that the player absolutely cannot take, because we want [=0x0022=]carry out the implicitly taking activity[=0x0022=] to succeed every time -- and therefore not print out any less-attractive results from implicit takes that don[=0x0027=]t succeed. Otherwise, the player[=0x0027=]s GIVE TREE AND DOG TO ATTENDANT might produce the reply [=0x0022=]That[=0x0027=]s fixed in place[=0x0022=] -- without specifying which object is fixed in place.][=0x000A=][=0x000A=][Because of the way this works, we will want to be careful: if we have any [=0x0022=]instead of taking...[=0x0022=] rules for special objects in the game, we should be sure to mirror those with an ungivability rule to print something more suitable in the case that the player tries taking that object as part of the multiple giving action.][=0x000A=][=0x000A=]The ungivability rules are an object-based rulebook.[=0x000A=][=0x000A=]An ungivability rule for a person:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]Slavery is illegal.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is enclosed by someone who is not the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [aren[=0x0027=]t] yours to give.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something which encloses the player:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=]You don[=0x0027=]t want to end up as part of the gift.[paragraph break][=0x0022=] instead;[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is part of something:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] attached to [a random thing which incorporates the item][paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is scenery:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] unremovable.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for something (called the item) which is fixed in place:[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] fixed in place.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]An ungivability rule for a direction (called the item):[=0x000A=][=0x0009=]now already gave at the office is true;[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] not susceptible to giving.[paragraph break][=0x0022=] instead.[=0x000A=][=0x000A=]Rule for implicitly taking something (called target) while multiply-giving:[=0x000A=][=0x0009=]silently try taking the target;[=0x000A=][=0x0009=]if the player carries the target:[=0x000A=][=0x0009=][=0x0009=]add the target to the recently-collected list.[=0x000A=][=0x000A=]The recently-collected list is a list of objects that varies.[=0x000A=][=0x000A=][And since we don[=0x0027=]t want to list the individual objects separately:][=0x000A=][=0x000A=]The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the selectively announce items from multiple object lists rule:[=0x000A=][=0x0009=]if multiply-giving:[=0x000A=][=0x0009=][=0x0009=]do nothing;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=][And now, since this ought to work symmetrically if the player provides just one high-value item:][=0x000A=][=0x000A=]Check giving something to someone:[=0x000A=][=0x0009=]if the price of the noun is less than the price of the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] angrily rejects your piffling bribe.[=0x0022=] instead.[=0x000A=][=0x000A=][As we[=0x0027=]ve seen elsewhere, the giving action by default returns a refusal, but is also written to start working if we remove the blockage. So we do that here, and revise the report rule to match the report rule we have for multiple giving.][=0x000A=][=0x000A=]The block giving rule is not listed in any rulebook.[=0x000A=][=0x000A=]The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.[=0x000A=][=0x000A=]This is the new report giving rule:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] rather shamefacedly tucks [the noun] away into a pocket.[=0x0022=][=0x000A=][=0x000A=][After each instance of the multiply-giving action, we need to clear the variables we used to track its state. We could do this in [=0x0022=]Before reading a command[=0x0022=], but that[=0x0027=]s unsafe because the player might type GIVE PIE AND CAP TO ATTENDANT. GIVE DOLLARS TO ATTENDANT. all on a single line, and we would like to be able to clear the variables between one action and the next. The correct place to attach this behavior is immediately before the generate action rule, thus:][=0x000A=][=0x000A=]The before-generation rule is listed before the generate action rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the before-generation rule:[=0x000A=][=0x0009=]now every thing is ungiven;[=0x000A=][=0x0009=]now already gave at the office is false;[=0x000A=][=0x0009=]truncate the recently-collected list to 0 entries.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Morgue Office is a room. [=0x0022=]This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.[=0x0022=][=0x000A=][=0x000A=]The Morgue Attendant is a man in the Morgue Office. [=0x0022=]The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.[=0x0022=] The description is [=0x0022=]The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.[=0x0022=] The price of the Morgue Attendant is $3.[=0x000A=][=0x000A=]A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.[=0x000A=][=0x000A=]The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.[=0x000A=][=0x000A=]The player carries a knitted cap. The price of the knitted cap is $2.[=0x000A=][=0x000A=]Test me with [=0x0022=]test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift[=0x0022=].[=0x000A=][=0x000A=]Test multi-line with [=0x0022=]give dollar and pie to attendant. give dollars and cap to attendant[=0x0022=].[=0x000A=][=0x000A=]Test dollars with [=0x0022=]drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test specificity with [=0x0022=]give three dollars to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test largesse with [=0x0022=]give pie to Morgue Attendant[=0x0022=].[=0x000A=][=0x000A=]Test mixed-gift with [=0x0022=]give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - The Facts Were These')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Facts Were These&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11976_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11976_134"></a>Section 1 - Procedure
+            <!--START CODE "c11974_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11974_134"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We start by creating the idea that everything in the game has a monetary value:</p>
-            <!--START CODE "c11977_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11977_134"></a>A price is a kind of value. $10 specifies a price. A thing has a price.
+            <!--START CODE "c11975_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11975_134"></a>A price is a kind of value. $10 specifies a price. A thing has a price.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11978_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11978_134"></a>Understand &quot;give [things preferably held] to [someone]&quot; as multiply-giving it to. Understand &quot;give [things] to [someone]&quot; as multiply-giving it to.  Multiply-giving it to is an action applying to two things.
+            <!--START CODE "c11976_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11976_134"></a>Understand &quot;give [things preferably held] to [someone]&quot; as multiply-giving it to. Understand &quot;give [things] to [someone]&quot; as multiply-giving it to.  Multiply-giving it to is an action applying to two things.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>A subtlety here: we say &quot;things preferably held&quot; to prefer items that the player is holding (so if the player has two dollars in hand and a third lies on the ground, he will use just the two he has).</p>
             <p>The second grammar line allows Inform to match things that aren't held if it can't make up the list from things that are. If all three dollars are on the ground, the player can pick them up before spending them.</p>
             <p>We do not, however, make multiply-giving apply to a &quot;carried&quot; item, because that will generate implicit takes of those items in a way that will mess up our action reporting. Instead, we're going to build the implicit takes into the system in a different way, one that permits us to collate the reports more attractively and print a short, one-sentence list of anything that the player had to pick up.</p>
-            <!--START CODE "c11979_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11979_134"></a>A thing can be given or ungiven. A thing is usually ungiven.
+            <!--START CODE "c11977_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11977_134"></a>A thing can be given or ungiven. A thing is usually ungiven.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This is for record-keeping purposes so that we can print an attractive list of what was given at the end of the turn.</p>
-            <!--START CODE "c11980_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11980_134"></a>First check multiply-giving it to:
+            <!--START CODE "c11978_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11978_134"></a>First check multiply-giving it to:
             <br>
             &#160;&#160;&#160;&#160;if already gave at the office is true:
             <br>
@@ -774,14 +774,14 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11981_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11981_134"></a>Already gave at the office is a truth state that varies.
+            <!--START CODE "c11979_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11979_134"></a>Already gave at the office is a truth state that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>&quot;Already gave at the office&quot; is the perhaps-excessively-named flag that keeps track of whether we've already done this action once.</p>
-            <!--START CODE "c11982_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11982_134"></a>Check multiply-giving something to the player:
+            <!--START CODE "c11980_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11980_134"></a>Check multiply-giving something to the player:
             <br>
             &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -790,8 +790,8 @@
             </blockquote>
             <!--END CODE-->
             <p>The following rule is longish because it processes the entire list at once, generating implicit takes if necessary (but processing those implicit takes silently according to its own special rule, so that the output can be managed attractively). We are also, at the same time, calculating the total value of the player's offer.</p>
-            <!--START CODE "c11983_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11983_134"></a>Check multiply-giving it to:
+            <!--START CODE "c11981_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11981_134"></a>Check multiply-giving it to:
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -832,8 +832,8 @@
             </blockquote>
             <!--END CODE-->
             <p>The bit about making some items &quot;marked for listing&quot;, above, rather than printing the list directly, is that using the &quot;[the list of....]&quot; syntax guarantees that Inform will respect grouping rules in writing its description. For instance, if the player has automatically taken all three dollars, the output will say &quot;the three dollars&quot; instead of &quot;the dollar, the dollar, and the dollar.&quot;</p>
-            <!--START CODE "c11984_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11984_134"></a>Carry out multiply-giving it to:
+            <!--START CODE "c11982_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11982_134"></a>Carry out multiply-giving it to:
             <br>
             &#160;&#160;&#160;&#160;let L be the multiple object list;
             <br>
@@ -847,8 +847,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11985_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11985_134"></a>Report multiply-giving it to:
+            <!--START CODE "c11983_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11983_134"></a>Report multiply-giving it to:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The second noun] rather shamefacedly tucks [the list of given things] away into a pocket.[paragraph break]&quot;.
             </p>
@@ -856,13 +856,13 @@
             <!--END CODE-->
             <p>Now we create our own variation of implicitly taking in order to customize the output for the multiply-giving action. The &quot;ungivability rules&quot; should disallow any object that the player absolutely cannot take, because we want &quot;carry out the implicitly taking activity&quot; to succeed every time -- and therefore not print out any less-attractive results from implicit takes that don't succeed. Otherwise, the player's GIVE TREE AND DOG TO ATTENDANT might produce the reply &quot;That's fixed in place&quot; -- without specifying which object is fixed in place.</p>
             <p>Because of the way this works, we will want to be careful: if we have any &quot;instead of taking...&quot; rules for special objects in the game, we should be sure to mirror those with an ungivability rule to print something more suitable in the case that the player tries taking that object as part of the multiple giving action.</p>
-            <!--START CODE "c11986_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11986_134"></a>The ungivability rules are an object-based rulebook.
+            <!--START CODE "c11984_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11984_134"></a>The ungivability rules are an object-based rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11987_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11987_134"></a>An ungivability rule for a person:
+            <!--START CODE "c11985_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11985_134"></a>An ungivability rule for a person:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -870,8 +870,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11988_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11988_134"></a>An ungivability rule for something (called the item) which is enclosed by someone who is not the player:
+            <!--START CODE "c11986_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11986_134"></a>An ungivability rule for something (called the item) which is enclosed by someone who is not the player:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -879,8 +879,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11989_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11989_134"></a>An ungivability rule for something which encloses the player:
+            <!--START CODE "c11987_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11987_134"></a>An ungivability rule for something which encloses the player:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -888,8 +888,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11990_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11990_134"></a>An ungivability rule for something (called the item) which is part of something:
+            <!--START CODE "c11988_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11988_134"></a>An ungivability rule for something (called the item) which is part of something:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -897,8 +897,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11991_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11991_134"></a>An ungivability rule for something (called the item) which is scenery:
+            <!--START CODE "c11989_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11989_134"></a>An ungivability rule for something (called the item) which is scenery:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -906,8 +906,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11992_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11992_134"></a>An ungivability rule for something (called the item) which is fixed in place:
+            <!--START CODE "c11990_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11990_134"></a>An ungivability rule for something (called the item) which is fixed in place:
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -915,8 +915,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11993_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11993_134"></a>An ungivability rule for a direction (called the item):
+            <!--START CODE "c11991_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11991_134"></a>An ungivability rule for a direction (called the item):
             <br>
             &#160;&#160;&#160;&#160;now already gave at the office is true;
             <br>
@@ -924,8 +924,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11994_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11994_134"></a>Rule for implicitly taking something (called target) while multiply-giving:
+            <!--START CODE "c11992_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11992_134"></a>Rule for implicitly taking something (called target) while multiply-giving:
             <br>
             &#160;&#160;&#160;&#160;silently try taking the target;
             <br>
@@ -935,19 +935,19 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11995_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11995_134"></a>The recently-collected list is a list of objects that varies.
+            <!--START CODE "c11993_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11993_134"></a>The recently-collected list is a list of objects that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And since we don't want to list the individual objects separately:</p>
-            <!--START CODE "c11996_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11996_134"></a>The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
+            <!--START CODE "c11994_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11994_134"></a>The selectively announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11997_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11997_134"></a>This is the selectively announce items from multiple object lists rule:
+            <!--START CODE "c11995_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11995_134"></a>This is the selectively announce items from multiple object lists rule:
             <br>
             &#160;&#160;&#160;&#160;if multiply-giving:
             <br>
@@ -962,8 +962,8 @@
             </blockquote>
             <!--END CODE-->
             <p>And now, since this ought to work symmetrically if the player provides just one high-value item:</p>
-            <!--START CODE "c11998_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11998_134"></a>Check giving something to someone:
+            <!--START CODE "c11996_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11996_134"></a>Check giving something to someone:
             <br>
             &#160;&#160;&#160;&#160;if the price of the noun is less than the price of the second noun:
             <br>
@@ -972,31 +972,31 @@
             </blockquote>
             <!--END CODE-->
             <p>As we've seen elsewhere, the giving action by default returns a refusal, but is also written to start working if we remove the blockage. So we do that here, and revise the report rule to match the report rule we have for multiple giving.</p>
+            <!--START CODE "c11997_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11997_134"></a>The block giving rule is not listed in any rulebook.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11998_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c11998_134"></a>The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11999_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c11999_134"></a>The block giving rule is not listed in any rulebook.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12000_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12000_134"></a>The new report giving rule is listed instead of the standard report giving rule in the report giving it to rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12001_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12001_134"></a>This is the new report giving rule:
+            <blockquote class="code"><p class="quoted"><a id="c11999_134"></a>This is the new report giving rule:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The second noun] rather shamefacedly tucks [the noun] away into a pocket.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>After each instance of the multiply-giving action, we need to clear the variables we used to track its state. We could do this in &quot;Before reading a command&quot;, but that's unsafe because the player might type GIVE PIE AND CAP TO ATTENDANT. GIVE DOLLARS TO ATTENDANT. all on a single line, and we would like to be able to clear the variables between one action and the next. The correct place to attach this behavior is immediately before the generate action rule, thus:</p>
-            <!--START CODE "c12002_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12002_134"></a>The before-generation rule is listed before the generate action rule in the turn sequence rules.
+            <!--START CODE "c12000_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c12000_134"></a>The before-generation rule is listed before the generate action rule in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12003_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12003_134"></a>This is the before-generation rule:
+            <!--START CODE "c12001_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c12001_134"></a>This is the before-generation rule:
             <br>
             &#160;&#160;&#160;&#160;now every thing is ungiven;
             <br>
@@ -1006,63 +1006,63 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12002_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c12002_134"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12003_134"-->
+            <blockquote class="code"><p class="quoted"><a id="c12003_134"></a>The Morgue Office is a room. &quot;This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12004_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12004_134"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c12004_134"></a>The Morgue Attendant is a man in the Morgue Office. &quot;The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.&quot; The description is &quot;The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.&quot; The price of the Morgue Attendant is $3.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12005_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12005_134"></a>The Morgue Office is a room. &quot;This is not the Morgue itself; this is only its outer office. The familiar room full of silver drawers and cold air lies beyond.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12005_134"></a>A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12006_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12006_134"></a>The Morgue Attendant is a man in the Morgue Office. &quot;The Attendant has seen you come through a number of times, and is becoming suspicious of your abiding interest in dead people.&quot; The description is &quot;The Morgue Attendant is fifty-four years, six months, five days, and three minutes old.&quot; The price of the Morgue Attendant is $3.
+            <blockquote class="code"><p class="quoted"><a id="c12006_134"></a>The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12007_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12007_134"></a>A dollar is a kind of thing. The player carries three dollars.  The price of a dollar is always $1.
+            <blockquote class="code"><p class="quoted"><a id="c12007_134"></a>The player carries a knitted cap. The price of the knitted cap is $2.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12008_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12008_134"></a>The player carries a miniature rhubarb pie. The price of the miniature rhubarb pie is $5.
+            <blockquote class="code"><p class="quoted"><a id="c12008_134"></a>Test me with &quot;test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12009_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12009_134"></a>The player carries a knitted cap. The price of the knitted cap is $2.
+            <blockquote class="code"><p class="quoted"><a id="c12009_134"></a>Test multi-line with &quot;give dollar and pie to attendant. give dollars and cap to attendant&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12010_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12010_134"></a>Test me with &quot;test dollars / purloin three dollars / test multi-line / purloin three dollars / purloin pie / purloin cap / test specificity / purloin three dollars / test largesse / test mixed-gift&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c12010_134"></a>Test dollars with &quot;drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12011_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12011_134"></a>Test multi-line with &quot;give dollar and pie to attendant. give dollars and cap to attendant&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c12011_134"></a>Test specificity with &quot;give three dollars to Morgue Attendant&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12012_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12012_134"></a>Test dollars with &quot;drop all / give dollar to Morgue Attendant / give dollars to Morgue Attendant / get dollars / give dollars to morgue attendant / purloin three dollars / drop dollars / give dollars to Morgue Attendant&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c12012_134"></a>Test largesse with &quot;give pie to Morgue Attendant&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12013_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12013_134"></a>Test specificity with &quot;give three dollars to Morgue Attendant&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12014_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12014_134"></a>Test largesse with &quot;give pie to Morgue Attendant&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12015_134"-->
-            <blockquote class="code"><p class="quoted"><a id="c12015_134"></a>Test mixed-gift with &quot;give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c12013_134"></a>Test mixed-gift with &quot;give dollar and cap to Morgue Attendant / get cap / give dollar and cap to morgue attendant / give me and dollar to attendant&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

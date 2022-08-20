@@ -229,6 +229,10 @@ static int valueForHexChar(unichar c) {
 
 - (void) openFile: (NSString*) filename {
 	[[NSWorkspace sharedWorkspace] openFile: filename];
+
+//    NSString* dir = [filename stringByDeletingLastPathComponent];
+//    [[NSWorkspace sharedWorkspace] selectFile: filename
+//                     inFileViewerRootedAtPath: dir];
 }
 
 - (void) openUrl: (NSString*) url {

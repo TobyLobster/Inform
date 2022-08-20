@@ -376,7 +376,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     NSArray* linkArray = @[@"http://www.inform7.com",
                            @"http://ifdb.tads.org/search?sortby=ratu&newSortBy.x=0&newSortBy.y=0&searchfor=system%3AInform+7",
                            @"http://www.intfiction.org/forum",
-                           @"http://www.intfiction.org/forum/viewforum.php?f=7",
+                           @"https://github.com/ganelson/inform",
                            @"http://ifwiki.org/index.php/Main_Page",
                            @"http://planet-if.com/",
                            @"http://ifcomp.org"];

@@ -58,7 +58,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 /// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
 /// compilers can go anywhere, so it's not any more)
 ///
-@interface IFCompilerController : NSObject<NSTextStorageDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
+@interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
 
 /// The default styles for the error messages
 + (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;

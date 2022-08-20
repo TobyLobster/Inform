@@ -84,8 +84,8 @@
     <p class="sectionheading">§11.2. Saving and Undoing</p>
     <p>A very few titles in the IF literature - very few being still too many, some would say - restrict the player's ability to save the story.</p>
     <p>Removing the player's ability to UNDO is also a risky choice. Inform does provide the facility with the use option</p>
-    <!--START CODE "c15917"-->
-    <blockquote class="code"><p class="quoted"><a id="c15917"></a>Use undo prevention.
+    <!--START CODE "c15915"-->
+    <blockquote class="code"><p class="quoted"><a id="c15915"></a>Use undo prevention.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -110,7 +110,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc191.html#e403"><i>WI</i></a></div>
+                        <a href="doc189.html#e403"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -119,8 +119,8 @@
 
         <div class="egpanel" id="example403" style="display: none;">
             <p>The answer is easy, but there is a trap:</p>
-            <!--START CODE "c15918_403"-->
-            <blockquote class="code"><p class="quoted"><a id="c15918_403"></a>Check saving the game when the location is the Vault: say &quot;That spell does not work here.&quot; instead.
+            <!--START CODE "c15916_403"-->
+            <blockquote class="code"><p class="quoted"><a id="c15916_403"></a>Check saving the game when the location is the Vault: say &quot;That spell does not work here.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -145,7 +145,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc191.html#e216"><i>WI</i></a></div>
+                        <a href="doc189.html#e216"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -154,22 +154,22 @@
 
         <div class="egpanel" id="example216" style="display: none;">
             <p>Here is one way to score this point with Inform:</p>
-            <!--START CODE "c15919_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c15919_216"></a>Check saving the game for the first time: decrement the score.
+            <!--START CODE "c15917_216"-->
+            <blockquote class="code"><p class="quoted"><a id="c15917_216"></a>Check saving the game for the first time: decrement the score.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>That has the right effect, but it just isn't sneaky enough. Instead let us quietly keep track of how many times the player saves:</p>
-            <!--START CODE "c15920_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c15920_216"></a>Check saving the game: increment the number of saves.
+            <!--START CODE "c15918_216"-->
+            <blockquote class="code"><p class="quoted"><a id="c15918_216"></a>Check saving the game: increment the number of saves.
             <br>
             When play ends: if the number of saves is 0, increment the score.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Sneakier, certainly, but now we could get the bonus even if the game ends earlier on, so finally:</p>
-            <!--START CODE "c15921_216"-->
-            <blockquote class="code"><p class="quoted"><a id="c15921_216"></a>When play ends: if the number of saves is 0 and the score is 349, increment the score.
+            <!--START CODE "c15919_216"-->
+            <blockquote class="code"><p class="quoted"><a id="c15919_216"></a>When play ends: if the number of saves is 0 and the score is 349, increment the score.
             </p>
             </blockquote>
             <!--END CODE-->

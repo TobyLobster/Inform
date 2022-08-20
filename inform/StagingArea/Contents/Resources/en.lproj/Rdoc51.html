@@ -85,8 +85,8 @@
     <p>Not all characters are friendly, and there are times when we may want to include a fight sequence. There are a number of ways to approach this, depending on whether we want to offer the player a random outcome, a predetermined one, or a combat sequence that depends partly on strategy or on having the proper equipment.</p>
     <p><span class="boldface">Lanista 1</span> demonstrates randomized combat in the style of a role-playing game. The player has a partially random chance of doing any given amount of damage; both the player and his opponent have hit points, and whichever one runs out first dies. <span class="boldface">Lanista 2</span> continues this idea, but includes weapons that affect the amount of of damage done. <span class="boldface">Red Cross</span> by itself implements a command that we might use to find out how strong characters are at the moment.</p>
     <p>A word of warning about designing such sequences: a player who gets a roll he doesn't like always has the option of UNDOing a turn and re-rolling. This means that he can always win a random battle sooner or later; bad luck only means that it takes him longer (so he gets more bored and irritated as he plays through). It is possible to turn off UNDO implementation with</p>
-    <!--START CODE "c12487"-->
-    <blockquote class="code"><p class="quoted"><a id="c12487"></a>Use UNDO prevention.
+    <!--START CODE "c12485"-->
+    <blockquote class="code"><p class="quoted"><a id="c12485"></a>Use UNDO prevention.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -113,7 +113,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc133.html#e212"><i>WI</i></a></div>
+                        <a href="doc131.html#e212"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -121,35 +121,35 @@
         </table>
 
         <div class="egpanel" id="example212" style="display: none;">
-            <!--START CODE "c12488_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12488_212"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part One[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding a trident.[=0x0022=][=0x000A=][=0x000A=][We start by recording, for each person, a maximum number of points of damage the person can sustain when starting from health, and the current number of points remaining. In the tradition of role-playing games, these are referred to as hit points.][=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=]The current hit points of the player is 35. The current hit points of the gladiator is 25.[=0x000A=][=0x000A=][Now our rule for the actual attack. We want first to calculate how much damage the player[=0x0027=]s attack does, inflict that damage, and remove the enemy if he[=0x0027=]s dead; then, if he doesn[=0x0027=]t die, the enemy counter-attacks, also for a randomized amount of damage, and if this kills the player, the game ends in defeat.][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun], causing [damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage;[=0x000A=][=0x0009=]if the current hit points of the noun is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break][The noun] expires, and is immediately carried away by the Arena slaves![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=][=0x0009=]end the story finally;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]let the enemy damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=][line break][The noun] attacks you, causing [enemy damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the player by the enemy damage;[=0x000A=][=0x0009=]if the current hit points of the player is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]You expire![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=][This last bit is a refinement to help the player keep track of how the contest is going:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator / g / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part One[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding a trident.[=0x0022=][=0x000A=][=0x000A=][We start by recording, for each person, a maximum number of points of damage the person can sustain when starting from health, and the current number of points remaining. In the tradition of role-playing games, these are referred to as hit points.][=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=]The current hit points of the player is 35. The current hit points of the gladiator is 25.[=0x000A=][=0x000A=][Now our rule for the actual attack. We want first to calculate how much damage the player[=0x0027=]s attack does, inflict that damage, and remove the enemy if he[=0x0027=]s dead; then, if he doesn[=0x0027=]t die, the enemy counter-attacks, also for a randomized amount of damage, and if this kills the player, the game ends in defeat.][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun], causing [damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage;[=0x000A=][=0x0009=]if the current hit points of the noun is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break][The noun] expires, and is immediately carried away by the Arena slaves![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=][=0x0009=]end the story finally;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]let the enemy damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=][line break][The noun] attacks you, causing [enemy damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the player by the enemy damage;[=0x000A=][=0x0009=]if the current hit points of the player is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]You expire![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=][This last bit is a refinement to help the player keep track of how the contest is going:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator / g / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part One&quot;
+            <!--START CODE "c12486_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12486_212"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part One[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding a trident.[=0x0022=][=0x000A=][=0x000A=][We start by recording, for each person, a maximum number of points of damage the person can sustain when starting from health, and the current number of points remaining. In the tradition of role-playing games, these are referred to as hit points.][=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=]The current hit points of the player is 35. The current hit points of the gladiator is 25.[=0x000A=][=0x000A=][Now our rule for the actual attack. We want first to calculate how much damage the player[=0x0027=]s attack does, inflict that damage, and remove the enemy if he[=0x0027=]s dead; then, if he doesn[=0x0027=]t die, the enemy counter-attacks, also for a randomized amount of damage, and if this kills the player, the game ends in defeat.][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun], causing [damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage;[=0x000A=][=0x0009=]if the current hit points of the noun is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break][The noun] expires, and is immediately carried away by the Arena slaves![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=][=0x0009=]end the story finally;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]let the enemy damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=][line break][The noun] attacks you, causing [enemy damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the player by the enemy damage;[=0x000A=][=0x0009=]if the current hit points of the player is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]You expire![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=][This last bit is a refinement to help the player keep track of how the contest is going:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator / g / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part One[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding a trident.[=0x0022=][=0x000A=][=0x000A=][We start by recording, for each person, a maximum number of points of damage the person can sustain when starting from health, and the current number of points remaining. In the tradition of role-playing games, these are referred to as hit points.][=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=]The current hit points of the player is 35. The current hit points of the gladiator is 25.[=0x000A=][=0x000A=][Now our rule for the actual attack. We want first to calculate how much damage the player[=0x0027=]s attack does, inflict that damage, and remove the enemy if he[=0x0027=]s dead; then, if he doesn[=0x0027=]t die, the enemy counter-attacks, also for a randomized amount of damage, and if this kills the player, the game ends in defeat.][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun], causing [damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage;[=0x000A=][=0x0009=]if the current hit points of the noun is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break][The noun] expires, and is immediately carried away by the Arena slaves![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=][=0x0009=]end the story finally;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]let the enemy damage be a random number between 2 and 10;[=0x000A=][=0x0009=]say [=0x0022=][line break][The noun] attacks you, causing [enemy damage] points of damage![=0x0022=];[=0x000A=][=0x0009=]decrease the current hit points of the player by the enemy damage;[=0x000A=][=0x0009=]if the current hit points of the player is less than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]You expire![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=][This last bit is a refinement to help the player keep track of how the contest is going:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator / g / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part One&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12489_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12489_212"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding a trident.&quot;
+            <!--START CODE "c12487_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12487_212"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding a trident.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We start by recording, for each person, a maximum number of points of damage the person can sustain when starting from health, and the current number of points remaining. In the tradition of role-playing games, these are referred to as hit points.</p>
+            <!--START CODE "c12488_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12488_212"></a>A person has a number called maximum hit points. A person has a number called current hit points.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12489_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12489_212"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12490_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12490_212"></a>A person has a number called maximum hit points. A person has a number called current hit points.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12491_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12491_212"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12492_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12492_212"></a>The current hit points of the player is 35. The current hit points of the gladiator is 25.
+            <blockquote class="code"><p class="quoted"><a id="c12490_212"></a>The current hit points of the player is 35. The current hit points of the gladiator is 25.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now our rule for the actual attack. We want first to calculate how much damage the player's attack does, inflict that damage, and remove the enemy if he's dead; then, if he doesn't die, the enemy counter-attacks, also for a randomized amount of damage, and if this kills the player, the game ends in defeat.</p>
-            <!--START CODE "c12493_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12493_212"></a>Instead of attacking someone:
+            <!--START CODE "c12491_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12491_212"></a>Instead of attacking someone:
             <br>
             &#160;&#160;&#160;&#160;let the damage be a random number between 2 and 10;
             <br>
@@ -182,8 +182,8 @@
             </blockquote>
             <!--END CODE-->
             <p>This last bit is a refinement to help the player keep track of how the contest is going:</p>
-            <!--START CODE "c12494_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12494_212"></a>When play begins:
+            <!--START CODE "c12492_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12492_212"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;You: [current hit points of player]&quot;;
             <br>
@@ -191,8 +191,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12495_212"-->
-            <blockquote class="code"><p class="quoted"><a id="c12495_212"></a>Test me with &quot;hit gladiator / g / g / g&quot;.
+            <!--START CODE "c12493_212"-->
+            <blockquote class="code"><p class="quoted"><a id="c12493_212"></a>Test me with &quot;hit gladiator / g / g / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -215,7 +215,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc183.html#e103"><i>WI</i></a></div>
+                        <a href="doc181.html#e103"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -223,44 +223,44 @@
         </table>
 
         <div class="egpanel" id="example103" style="display: none;">
+            <!--START CODE "c12494_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12494_103"></a><a href="javascript:pasteCode('[=0x0022=]Red Cross[=0x0022=][=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re not a medical expert.[=0x0022=][=0x000A=][=0x000A=]Instead of diagnosing the player:[=0x000A=][=0x0009=]say [=0x0022=]You feel fine![=0x0022=][=0x000A=][=0x000A=]The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.[=0x000A=][=0x000A=]Test me with [=0x0022=]diagnose me / diagnose fred / diagnose tongue-depressor[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Red Cross[=0x0022=][=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re not a medical expert.[=0x0022=][=0x000A=][=0x000A=]Instead of diagnosing the player:[=0x000A=][=0x0009=]say [=0x0022=]You feel fine![=0x0022=][=0x000A=][=0x000A=]The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.[=0x000A=][=0x000A=]Test me with [=0x0022=]diagnose me / diagnose fred / diagnose tongue-depressor[=0x0022=].[=0x000A=]\n', 'Example - Red Cross')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Red Cross&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12495_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12495_103"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12496_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12496_103"></a><a href="javascript:pasteCode('[=0x0022=]Red Cross[=0x0022=][=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re not a medical expert.[=0x0022=][=0x000A=][=0x000A=]Instead of diagnosing the player:[=0x000A=][=0x0009=]say [=0x0022=]You feel fine![=0x0022=][=0x000A=][=0x000A=]The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.[=0x000A=][=0x000A=]Test me with [=0x0022=]diagnose me / diagnose fred / diagnose tongue-depressor[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Red Cross[=0x0022=][=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re not a medical expert.[=0x0022=][=0x000A=][=0x000A=]Instead of diagnosing the player:[=0x000A=][=0x0009=]say [=0x0022=]You feel fine![=0x0022=][=0x000A=][=0x000A=]The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.[=0x000A=][=0x000A=]Test me with [=0x0022=]diagnose me / diagnose fred / diagnose tongue-depressor[=0x0022=].[=0x000A=]\n', 'Example - Red Cross')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Red Cross&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12497_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12497_103"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12498_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12498_103"></a>Check diagnosing:
+            <blockquote class="code"><p class="quoted"><a id="c12496_103"></a>Check diagnosing:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a person, say &quot;Only people can have diagnoses.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12499_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12499_103"></a>Carry out diagnosing:
+            <!--START CODE "c12497_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12497_103"></a>Carry out diagnosing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You're not a medical expert.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12500_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12500_103"></a>Instead of diagnosing the player:
+            <!--START CODE "c12498_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12498_103"></a>Instead of diagnosing the player:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You feel fine!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12501_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12501_103"></a>The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.
+            <!--START CODE "c12499_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12499_103"></a>The Clinic is a room. Fred is a man in the Clinic. The player carries a tongue-depressor.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12502_103"-->
-            <blockquote class="code"><p class="quoted"><a id="c12502_103"></a>Test me with &quot;diagnose me / diagnose fred / diagnose tongue-depressor&quot;.
+            <!--START CODE "c12500_103"-->
+            <blockquote class="code"><p class="quoted"><a id="c12500_103"></a>Test me with &quot;diagnose me / diagnose fred / diagnose tongue-depressor&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -283,7 +283,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc186.html#e304"><i>WI</i></a></div>
+                        <a href="doc184.html#e304"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -292,34 +292,34 @@
 
         <div class="egpanel" id="example304" style="display: none;">
             <p>Suppose we want to let the player kill characters, leaving behind corpses.</p>
+            <!--START CODE "c12501_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12501_304"></a><a href="javascript:pasteCode('[=0x0022=]Puff of Orange Smoke[=0x0022=][=0x000A=][=0x000A=]Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. [=0x0022=]Lydia is, as usual, here.[=0x0022=] The description of Lydia is [=0x0022=]Long, long legs and a sarcastic attitude.[=0x0022=] Instead of touching Lydia: say [=0x0022=][=0x0027=]Watch it, sailor,[=0x0027=] she snaps.[=0x0022=][=0x000A=][=0x000A=]A body is a kind of thing. A body is a part of every person. Instead of touching a body: say [=0x0022=][The noun] is grotesquely inert.[=0x0022=][=0x000A=][=0x000A=]The description of Lydia[=0x0027=]s body is [=0x0022=]Long, long legs and no attitude at all.[=0x0022=] The initial appearance of Lydia[=0x0027=]s body is [=0x0022=]Lydia[=0x0027=]s corpse is sprawled at your feet.[=0x0022=][=0x000A=][=0x000A=][Using our [=0x0022=]part of every person...[=0x0022=] line, we[=0x0027=]ve conveniently assigned one body per person. Since we[=0x0027=]re going to separate people from their bodies when the bodies die, though, we also want a more permanent relation that will help us keep track of which bodies used to belong to which people:][=0x000A=][=0x000A=]Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]let the corpse be a random body which is part of the victim;[=0x000A=][=0x0009=][=0x0009=]now the victim is owner of the corpse.[=0x000A=][=0x000A=][When Lydia is alive, we want [=0x003E=]TOUCH LYDIA[=0x0027=]S BODY to mean the same thing as [=0x003E=]TOUCH LYDIA, so we use the setting action variables rules as a convenient point at which to reassign the action:][=0x000A=][=0x000A=]Setting action variables when the noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the noun is the owner.[=0x000A=][=0x000A=]Setting action variables when the second noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the second noun is the owner.[=0x000A=][=0x000A=][This doesn[=0x0027=]t change Inform[=0x0027=]s idea about what action is being performed; just about the object it[=0x0027=]s being performed on. The rest of the action will now proceed as if the player had typed [=0x003E=]TOUCH LYDIA.][=0x000A=][=0x000A=][Along similar lines, once Lydia is dead, we want [=0x003E=]MOVE LYDIA to mean [=0x003E=]MOVE LYDIA[=0x0027=]S BODY if the body is in view:][=0x000A=][=0x000A=]Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):[=0x000A=][=0x0009=]now the noun is the mortal remains.[=0x000A=][=0x000A=][The trick is, though, that [=0x003E=]MOVE LYDIA will only be understood if there is something called Lydia that the player can see and refer to, even after she[=0x0027=]s dead. There are various ways to do this, but the least painful here will be to make the deceased Lydia permanently visible, by putting her in an always-accessible backdrop. The backdrop itself will never be mentioned in the game, and we should make its name something that the player is unlikely to type casually; we don[=0x0027=]t want the player to interact with it directly. So:][=0x000A=][=0x000A=]The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.[=0x000A=][=0x000A=]Definition: a person is dead if he is in the spirit-world.[=0x000A=][=0x000A=][It[=0x0027=]s also possible that the player will type something like [=0x003E=]X LYDIA when Lydia[=0x0027=]s corpse is not in view, so we should have an appropriate answer to that as well:][=0x000A=][=0x000A=]Before doing something to a dead person:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is dead; or had you blocked that out?[=0x0022=] instead.[=0x000A=][=0x000A=][Because the before rules happen after the setting action variables rules, this will only ever happen if the corpse is not visible.][=0x000A=][=0x000A=][Now we define the attack itself, which should discard the body, move the spirit to its eternal resting place, and describe the event to the player:][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the corpse be a random body which is part of the noun;[=0x000A=][=0x0009=]move the corpse to the location;[=0x000A=][=0x0009=]move the noun to the spirit-world;[=0x000A=][=0x0009=]say [=0x0022=]With a single blow, you rid the world of [the noun].[=0x0022=][=0x000A=][=0x000A=][And finally a trick borrowed from the chapter on understanding, so that we can refer to [=0x0022=]Lydia[=0x0027=]s body[=0x0022=] while Lydia is alive, but [=0x0022=]Lydia[=0x0027=]s corpse[=0x0022=] only after Lydia has died:][=0x000A=][=0x000A=]Understand [=0x0022=]corpse[=0x0022=] as a body when the item described is not part of a person.[=0x000A=][=0x000A=]Test me with [=0x0022=]x body / x lydia[=0x0027=]s body / touch lydia[=0x0027=]s body / x corpse / kill lydia / look / x lydia[=0x0027=]s body / x lydia[=0x0027=]s corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puff of Orange Smoke[=0x0022=][=0x000A=][=0x000A=]Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. [=0x0022=]Lydia is, as usual, here.[=0x0022=] The description of Lydia is [=0x0022=]Long, long legs and a sarcastic attitude.[=0x0022=] Instead of touching Lydia: say [=0x0022=][=0x0027=]Watch it, sailor,[=0x0027=] she snaps.[=0x0022=][=0x000A=][=0x000A=]A body is a kind of thing. A body is a part of every person. Instead of touching a body: say [=0x0022=][The noun] is grotesquely inert.[=0x0022=][=0x000A=][=0x000A=]The description of Lydia[=0x0027=]s body is [=0x0022=]Long, long legs and no attitude at all.[=0x0022=] The initial appearance of Lydia[=0x0027=]s body is [=0x0022=]Lydia[=0x0027=]s corpse is sprawled at your feet.[=0x0022=][=0x000A=][=0x000A=][Using our [=0x0022=]part of every person...[=0x0022=] line, we[=0x0027=]ve conveniently assigned one body per person. Since we[=0x0027=]re going to separate people from their bodies when the bodies die, though, we also want a more permanent relation that will help us keep track of which bodies used to belong to which people:][=0x000A=][=0x000A=]Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]let the corpse be a random body which is part of the victim;[=0x000A=][=0x0009=][=0x0009=]now the victim is owner of the corpse.[=0x000A=][=0x000A=][When Lydia is alive, we want [=0x003E=]TOUCH LYDIA[=0x0027=]S BODY to mean the same thing as [=0x003E=]TOUCH LYDIA, so we use the setting action variables rules as a convenient point at which to reassign the action:][=0x000A=][=0x000A=]Setting action variables when the noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the noun is the owner.[=0x000A=][=0x000A=]Setting action variables when the second noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the second noun is the owner.[=0x000A=][=0x000A=][This doesn[=0x0027=]t change Inform[=0x0027=]s idea about what action is being performed; just about the object it[=0x0027=]s being performed on. The rest of the action will now proceed as if the player had typed [=0x003E=]TOUCH LYDIA.][=0x000A=][=0x000A=][Along similar lines, once Lydia is dead, we want [=0x003E=]MOVE LYDIA to mean [=0x003E=]MOVE LYDIA[=0x0027=]S BODY if the body is in view:][=0x000A=][=0x000A=]Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):[=0x000A=][=0x0009=]now the noun is the mortal remains.[=0x000A=][=0x000A=][The trick is, though, that [=0x003E=]MOVE LYDIA will only be understood if there is something called Lydia that the player can see and refer to, even after she[=0x0027=]s dead. There are various ways to do this, but the least painful here will be to make the deceased Lydia permanently visible, by putting her in an always-accessible backdrop. The backdrop itself will never be mentioned in the game, and we should make its name something that the player is unlikely to type casually; we don[=0x0027=]t want the player to interact with it directly. So:][=0x000A=][=0x000A=]The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.[=0x000A=][=0x000A=]Definition: a person is dead if he is in the spirit-world.[=0x000A=][=0x000A=][It[=0x0027=]s also possible that the player will type something like [=0x003E=]X LYDIA when Lydia[=0x0027=]s corpse is not in view, so we should have an appropriate answer to that as well:][=0x000A=][=0x000A=]Before doing something to a dead person:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is dead; or had you blocked that out?[=0x0022=] instead.[=0x000A=][=0x000A=][Because the before rules happen after the setting action variables rules, this will only ever happen if the corpse is not visible.][=0x000A=][=0x000A=][Now we define the attack itself, which should discard the body, move the spirit to its eternal resting place, and describe the event to the player:][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the corpse be a random body which is part of the noun;[=0x000A=][=0x0009=]move the corpse to the location;[=0x000A=][=0x0009=]move the noun to the spirit-world;[=0x000A=][=0x0009=]say [=0x0022=]With a single blow, you rid the world of [the noun].[=0x0022=][=0x000A=][=0x000A=][And finally a trick borrowed from the chapter on understanding, so that we can refer to [=0x0022=]Lydia[=0x0027=]s body[=0x0022=] while Lydia is alive, but [=0x0022=]Lydia[=0x0027=]s corpse[=0x0022=] only after Lydia has died:][=0x000A=][=0x000A=]Understand [=0x0022=]corpse[=0x0022=] as a body when the item described is not part of a person.[=0x000A=][=0x000A=]Test me with [=0x0022=]x body / x lydia[=0x0027=]s body / touch lydia[=0x0027=]s body / x corpse / kill lydia / look / x lydia[=0x0027=]s body / x lydia[=0x0027=]s corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello[=0x0022=].[=0x000A=]\n', 'Example - Puff of Orange Smoke')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puff of Orange Smoke&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12502_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12502_304"></a>Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. &quot;Lydia is, as usual, here.&quot; The description of Lydia is &quot;Long, long legs and a sarcastic attitude.&quot; Instead of touching Lydia: say &quot;'Watch it, sailor,' she snaps.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12503_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12503_304"></a><a href="javascript:pasteCode('[=0x0022=]Puff of Orange Smoke[=0x0022=][=0x000A=][=0x000A=]Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. [=0x0022=]Lydia is, as usual, here.[=0x0022=] The description of Lydia is [=0x0022=]Long, long legs and a sarcastic attitude.[=0x0022=] Instead of touching Lydia: say [=0x0022=][=0x0027=]Watch it, sailor,[=0x0027=] she snaps.[=0x0022=][=0x000A=][=0x000A=]A body is a kind of thing. A body is a part of every person. Instead of touching a body: say [=0x0022=][The noun] is grotesquely inert.[=0x0022=][=0x000A=][=0x000A=]The description of Lydia[=0x0027=]s body is [=0x0022=]Long, long legs and no attitude at all.[=0x0022=] The initial appearance of Lydia[=0x0027=]s body is [=0x0022=]Lydia[=0x0027=]s corpse is sprawled at your feet.[=0x0022=][=0x000A=][=0x000A=][Using our [=0x0022=]part of every person...[=0x0022=] line, we[=0x0027=]ve conveniently assigned one body per person. Since we[=0x0027=]re going to separate people from their bodies when the bodies die, though, we also want a more permanent relation that will help us keep track of which bodies used to belong to which people:][=0x000A=][=0x000A=]Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]let the corpse be a random body which is part of the victim;[=0x000A=][=0x0009=][=0x0009=]now the victim is owner of the corpse.[=0x000A=][=0x000A=][When Lydia is alive, we want [=0x003E=]TOUCH LYDIA[=0x0027=]S BODY to mean the same thing as [=0x003E=]TOUCH LYDIA, so we use the setting action variables rules as a convenient point at which to reassign the action:][=0x000A=][=0x000A=]Setting action variables when the noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the noun is the owner.[=0x000A=][=0x000A=]Setting action variables when the second noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the second noun is the owner.[=0x000A=][=0x000A=][This doesn[=0x0027=]t change Inform[=0x0027=]s idea about what action is being performed; just about the object it[=0x0027=]s being performed on. The rest of the action will now proceed as if the player had typed [=0x003E=]TOUCH LYDIA.][=0x000A=][=0x000A=][Along similar lines, once Lydia is dead, we want [=0x003E=]MOVE LYDIA to mean [=0x003E=]MOVE LYDIA[=0x0027=]S BODY if the body is in view:][=0x000A=][=0x000A=]Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):[=0x000A=][=0x0009=]now the noun is the mortal remains.[=0x000A=][=0x000A=][The trick is, though, that [=0x003E=]MOVE LYDIA will only be understood if there is something called Lydia that the player can see and refer to, even after she[=0x0027=]s dead. There are various ways to do this, but the least painful here will be to make the deceased Lydia permanently visible, by putting her in an always-accessible backdrop. The backdrop itself will never be mentioned in the game, and we should make its name something that the player is unlikely to type casually; we don[=0x0027=]t want the player to interact with it directly. So:][=0x000A=][=0x000A=]The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.[=0x000A=][=0x000A=]Definition: a person is dead if he is in the spirit-world.[=0x000A=][=0x000A=][It[=0x0027=]s also possible that the player will type something like [=0x003E=]X LYDIA when Lydia[=0x0027=]s corpse is not in view, so we should have an appropriate answer to that as well:][=0x000A=][=0x000A=]Before doing something to a dead person:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is dead; or had you blocked that out?[=0x0022=] instead.[=0x000A=][=0x000A=][Because the before rules happen after the setting action variables rules, this will only ever happen if the corpse is not visible.][=0x000A=][=0x000A=][Now we define the attack itself, which should discard the body, move the spirit to its eternal resting place, and describe the event to the player:][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the corpse be a random body which is part of the noun;[=0x000A=][=0x0009=]move the corpse to the location;[=0x000A=][=0x0009=]move the noun to the spirit-world;[=0x000A=][=0x0009=]say [=0x0022=]With a single blow, you rid the world of [the noun].[=0x0022=][=0x000A=][=0x000A=][And finally a trick borrowed from the chapter on understanding, so that we can refer to [=0x0022=]Lydia[=0x0027=]s body[=0x0022=] while Lydia is alive, but [=0x0022=]Lydia[=0x0027=]s corpse[=0x0022=] only after Lydia has died:][=0x000A=][=0x000A=]Understand [=0x0022=]corpse[=0x0022=] as a body when the item described is not part of a person.[=0x000A=][=0x000A=]Test me with [=0x0022=]x body / x lydia[=0x0027=]s body / touch lydia[=0x0027=]s body / x corpse / kill lydia / look / x lydia[=0x0027=]s body / x lydia[=0x0027=]s corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puff of Orange Smoke[=0x0022=][=0x000A=][=0x000A=]Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. [=0x0022=]Lydia is, as usual, here.[=0x0022=] The description of Lydia is [=0x0022=]Long, long legs and a sarcastic attitude.[=0x0022=] Instead of touching Lydia: say [=0x0022=][=0x0027=]Watch it, sailor,[=0x0027=] she snaps.[=0x0022=][=0x000A=][=0x000A=]A body is a kind of thing. A body is a part of every person. Instead of touching a body: say [=0x0022=][The noun] is grotesquely inert.[=0x0022=][=0x000A=][=0x000A=]The description of Lydia[=0x0027=]s body is [=0x0022=]Long, long legs and no attitude at all.[=0x0022=] The initial appearance of Lydia[=0x0027=]s body is [=0x0022=]Lydia[=0x0027=]s corpse is sprawled at your feet.[=0x0022=][=0x000A=][=0x000A=][Using our [=0x0022=]part of every person...[=0x0022=] line, we[=0x0027=]ve conveniently assigned one body per person. Since we[=0x0027=]re going to separate people from their bodies when the bodies die, though, we also want a more permanent relation that will help us keep track of which bodies used to belong to which people:][=0x000A=][=0x000A=]Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]let the corpse be a random body which is part of the victim;[=0x000A=][=0x0009=][=0x0009=]now the victim is owner of the corpse.[=0x000A=][=0x000A=][When Lydia is alive, we want [=0x003E=]TOUCH LYDIA[=0x0027=]S BODY to mean the same thing as [=0x003E=]TOUCH LYDIA, so we use the setting action variables rules as a convenient point at which to reassign the action:][=0x000A=][=0x000A=]Setting action variables when the noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the noun is the owner.[=0x000A=][=0x000A=]Setting action variables when the second noun is a body which is part of a person (called owner):[=0x000A=][=0x0009=]now the second noun is the owner.[=0x000A=][=0x000A=][This doesn[=0x0027=]t change Inform[=0x0027=]s idea about what action is being performed; just about the object it[=0x0027=]s being performed on. The rest of the action will now proceed as if the player had typed [=0x003E=]TOUCH LYDIA.][=0x000A=][=0x000A=][Along similar lines, once Lydia is dead, we want [=0x003E=]MOVE LYDIA to mean [=0x003E=]MOVE LYDIA[=0x0027=]S BODY if the body is in view:][=0x000A=][=0x000A=]Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):[=0x000A=][=0x0009=]now the noun is the mortal remains.[=0x000A=][=0x000A=][The trick is, though, that [=0x003E=]MOVE LYDIA will only be understood if there is something called Lydia that the player can see and refer to, even after she[=0x0027=]s dead. There are various ways to do this, but the least painful here will be to make the deceased Lydia permanently visible, by putting her in an always-accessible backdrop. The backdrop itself will never be mentioned in the game, and we should make its name something that the player is unlikely to type casually; we don[=0x0027=]t want the player to interact with it directly. So:][=0x000A=][=0x000A=]The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.[=0x000A=][=0x000A=]Definition: a person is dead if he is in the spirit-world.[=0x000A=][=0x000A=][It[=0x0027=]s also possible that the player will type something like [=0x003E=]X LYDIA when Lydia[=0x0027=]s corpse is not in view, so we should have an appropriate answer to that as well:][=0x000A=][=0x000A=]Before doing something to a dead person:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is dead; or had you blocked that out?[=0x0022=] instead.[=0x000A=][=0x000A=][Because the before rules happen after the setting action variables rules, this will only ever happen if the corpse is not visible.][=0x000A=][=0x000A=][Now we define the attack itself, which should discard the body, move the spirit to its eternal resting place, and describe the event to the player:][=0x000A=][=0x000A=]Instead of attacking someone:[=0x000A=][=0x0009=]let the corpse be a random body which is part of the noun;[=0x000A=][=0x0009=]move the corpse to the location;[=0x000A=][=0x0009=]move the noun to the spirit-world;[=0x000A=][=0x0009=]say [=0x0022=]With a single blow, you rid the world of [the noun].[=0x0022=][=0x000A=][=0x000A=][And finally a trick borrowed from the chapter on understanding, so that we can refer to [=0x0022=]Lydia[=0x0027=]s body[=0x0022=] while Lydia is alive, but [=0x0022=]Lydia[=0x0027=]s corpse[=0x0022=] only after Lydia has died:][=0x000A=][=0x000A=]Understand [=0x0022=]corpse[=0x0022=] as a body when the item described is not part of a person.[=0x000A=][=0x000A=]Test me with [=0x0022=]x body / x lydia[=0x0027=]s body / touch lydia[=0x0027=]s body / x corpse / kill lydia / look / x lydia[=0x0027=]s body / x lydia[=0x0027=]s corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello[=0x0022=].[=0x000A=]\n', 'Example - Puff of Orange Smoke')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puff of Orange Smoke&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12503_304"></a>A body is a kind of thing. A body is a part of every person. Instead of touching a body: say &quot;[The noun] is grotesquely inert.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12504_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12504_304"></a>Paraguay is a room. Bolivia is north of Paraguay. Lydia is a woman in Paraguay. &quot;Lydia is, as usual, here.&quot; The description of Lydia is &quot;Long, long legs and a sarcastic attitude.&quot; Instead of touching Lydia: say &quot;'Watch it, sailor,' she snaps.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12505_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12505_304"></a>A body is a kind of thing. A body is a part of every person. Instead of touching a body: say &quot;[The noun] is grotesquely inert.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12506_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12506_304"></a>The description of Lydia's body is &quot;Long, long legs and no attitude at all.&quot; The initial appearance of Lydia's body is &quot;Lydia's corpse is sprawled at your feet.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12504_304"></a>The description of Lydia's body is &quot;Long, long legs and no attitude at all.&quot; The initial appearance of Lydia's body is &quot;Lydia's corpse is sprawled at your feet.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Using our &quot;part of every person...&quot; line, we've conveniently assigned one body per person. Since we're going to separate people from their bodies when the bodies die, though, we also want a more permanent relation that will help us keep track of which bodies used to belong to which people:</p>
-            <!--START CODE "c12507_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12507_304"></a>Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.
+            <!--START CODE "c12505_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12505_304"></a>Spirit-possession relates one person to one body. The verb to be owner of means the spirit-possession relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12508_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12508_304"></a>When play begins:
+            <!--START CODE "c12506_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12506_304"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;repeat with victim running through people:
             <br>
@@ -330,15 +330,15 @@
             </blockquote>
             <!--END CODE-->
             <p>When Lydia is alive, we want &gt;TOUCH LYDIA'S BODY to mean the same thing as &gt;TOUCH LYDIA, so we use the setting action variables rules as a convenient point at which to reassign the action:</p>
-            <!--START CODE "c12509_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12509_304"></a>Setting action variables when the noun is a body which is part of a person (called owner):
+            <!--START CODE "c12507_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12507_304"></a>Setting action variables when the noun is a body which is part of a person (called owner):
             <br>
             &#160;&#160;&#160;&#160;now the noun is the owner.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12510_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12510_304"></a>Setting action variables when the second noun is a body which is part of a person (called owner):
+            <!--START CODE "c12508_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12508_304"></a>Setting action variables when the second noun is a body which is part of a person (called owner):
             <br>
             &#160;&#160;&#160;&#160;now the second noun is the owner.
             </p>
@@ -346,27 +346,27 @@
             <!--END CODE-->
             <p>This doesn't change Inform's idea about what action is being performed; just about the object it's being performed on. The rest of the action will now proceed as if the player had typed &gt;TOUCH LYDIA.</p>
             <p>Along similar lines, once Lydia is dead, we want &gt;MOVE LYDIA to mean &gt;MOVE LYDIA'S BODY if the body is in view:</p>
-            <!--START CODE "c12511_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12511_304"></a>Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):
+            <!--START CODE "c12509_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12509_304"></a>Setting action variables when the noun is a dead person and the noun is owner of a visible body (called the mortal remains):
             <br>
             &#160;&#160;&#160;&#160;now the noun is the mortal remains.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The trick is, though, that &gt;MOVE LYDIA will only be understood if there is something called Lydia that the player can see and refer to, even after she's dead. There are various ways to do this, but the least painful here will be to make the deceased Lydia permanently visible, by putting her in an always-accessible backdrop. The backdrop itself will never be mentioned in the game, and we should make its name something that the player is unlikely to type casually; we don't want the player to interact with it directly. So:</p>
-            <!--START CODE "c12512_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12512_304"></a>The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.
+            <!--START CODE "c12510_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12510_304"></a>The worldview is a privately-named backdrop. It is everywhere. The spirit-world is a privately-named transparent closed unopenable container. It is part of the worldview.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12513_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12513_304"></a>Definition: a person is dead if he is in the spirit-world.
+            <!--START CODE "c12511_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12511_304"></a>Definition: a person is dead if he is in the spirit-world.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>It's also possible that the player will type something like &gt;X LYDIA when Lydia's corpse is not in view, so we should have an appropriate answer to that as well:</p>
-            <!--START CODE "c12514_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12514_304"></a>Before doing something to a dead person:
+            <!--START CODE "c12512_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12512_304"></a>Before doing something to a dead person:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] is dead; or had you blocked that out?&quot; instead.
             </p>
@@ -374,8 +374,8 @@
             <!--END CODE-->
             <p>Because the before rules happen after the setting action variables rules, this will only ever happen if the corpse is not visible.</p>
             <p>Now we define the attack itself, which should discard the body, move the spirit to its eternal resting place, and describe the event to the player:</p>
-            <!--START CODE "c12515_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12515_304"></a>Instead of attacking someone:
+            <!--START CODE "c12513_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12513_304"></a>Instead of attacking someone:
             <br>
             &#160;&#160;&#160;&#160;let the corpse be a random body which is part of the noun;
             <br>
@@ -388,13 +388,13 @@
             </blockquote>
             <!--END CODE-->
             <p>And finally a trick borrowed from the chapter on understanding, so that we can refer to &quot;Lydia's body&quot; while Lydia is alive, but &quot;Lydia's corpse&quot; only after Lydia has died:</p>
-            <!--START CODE "c12516_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12516_304"></a>Understand &quot;corpse&quot; as a body when the item described is not part of a person.
+            <!--START CODE "c12514_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12514_304"></a>Understand &quot;corpse&quot; as a body when the item described is not part of a person.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12517_304"-->
-            <blockquote class="code"><p class="quoted"><a id="c12517_304"></a>Test me with &quot;x body / x lydia's body / touch lydia's body / x corpse / kill lydia / look / x lydia's body / x lydia's corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello&quot;.
+            <!--START CODE "c12515_304"-->
+            <blockquote class="code"><p class="quoted"><a id="c12515_304"></a>Test me with &quot;x body / x lydia's body / touch lydia's body / x corpse / kill lydia / look / x lydia's body / x lydia's corpse / x corpse / x lydia / touch lydia / lydia, hello / n / x lydia / touch lydia / lydia, hello&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -417,7 +417,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc267.html#e213"><i>WI</i></a></div>
+                        <a href="doc265.html#e213"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -427,34 +427,34 @@
         <div class="egpanel" id="example213" style="display: none;">
             <p>Back in the chapter on randomization, we explored a way to create a randomized combat system. That system didn't allow for multiple weapons, though. Here we explore how to create an ATTACK IT WITH action that will let the player choose between weapons with different maximum powers.</p>
             <p>We're also going to rewrite that original &quot;instead of attacking:&quot; rule into an attacking it with action that can be performed equally by the player or by any of the player's enemies.</p>
+            <!--START CODE "c12516_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12516_213"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part Two&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12517_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12517_213"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12518_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12518_213"></a><a href="javascript:pasteCode('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lanista, Part Two[=0x0022=][=0x000A=][=0x000A=]The Arena is a room. [=0x0022=]Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.[=0x0022=] The gladiator is a man in the Arena. [=0x0022=]A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].[=0x0022=][=0x000A=][=0x000A=]Section 1 - Hit Points[=0x000A=][=0x000A=]A person has a number called maximum hit points. A person has a number called current hit points.[=0x000A=][=0x000A=]The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.[=0x000A=][=0x000A=][In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we[=0x0027=]ll use a [=0x0022=]when play begins[=0x0022=] to set all current hit point values automatically to maximum:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat with victim running through people:[=0x000A=][=0x0009=][=0x0009=]now the current hit points of the victim is the maximum hit points of the victim.[=0x000A=][=0x000A=]Definition: a person is dead if his current hit points are less than 0.[=0x000A=][=0x000A=]Section 2 - Diagnosis[=0x000A=][=0x000A=]Diagnosing is an action applying to one visible thing. Understand [=0x0022=]diagnose [something][=0x0022=] as diagnosing.[=0x000A=][=0x000A=]Check diagnosing:[=0x000A=][=0x0009=]if the noun is not a person, say [=0x0022=]Only people can have diagnoses.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out diagnosing:[=0x000A=][=0x0009=]say [=0x0022=][if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Weapons[=0x000A=][=0x000A=]A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.[=0x000A=][=0x000A=]The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.[=0x000A=][=0x000A=]The player carries a weapon called a mace. The maximum damage of the mace is 3.[=0x000A=][=0x000A=]Section 4 - Attacking it with[=0x000A=][=0x000A=][In our new system, we want to specify what is being used for an attack. This means that we need to create a new [=0x0022=]attacking it with[=0x0022=] action, and also that we should disable the existing [=0x0022=]attacking...[=0x0022=] command.][=0x000A=][=0x000A=][Here[=0x0027=]s why: If we leave the default attack command in place, Inform will continue to accept commands like [=0x003E=]ATTACK GLADIATOR, but reply foolishly with the default [=0x0022=]Violence is not the answer...[=0x0022=] response.][=0x000A=][=0x000A=][A somewhat better approach would be to change the reply of [=0x003E=]ATTACK GLADIATOR to say something like [=0x0022=]You must specify a weapon to attack with.[=0x0022=] But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out [=0x0022=]ATTACK GLADIATOR[=0x0022=] entirely, the game will always prompt [=0x0022=]What do you want to attack the gladiator with?[=0x0022=] -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.][=0x000A=][=0x000A=][This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]attack[=0x0022=] and [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as something new.[=0x000A=][=0x000A=][Now we make our new command:][=0x000A=][=0x000A=]Attacking it with is an action applying to one visible thing and one carried thing. Understand [=0x0022=]attack [someone] with [something preferably held][=0x0022=] as attacking it with.[=0x000A=][=0x000A=][Note that we[=0x0027=]ve specified [=0x0022=]one carried thing[=0x0022=], because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:][=0x000A=][=0x000A=]Understand the commands [=0x0022=]punch[=0x0022=] and [=0x0022=]destroy[=0x0022=] and [=0x0022=]kill[=0x0022=] and [=0x0022=]murder[=0x0022=] and [=0x0022=]hit[=0x0022=] and [=0x0022=]thump[=0x0022=] and [=0x0022=]break[=0x0022=] and [=0x0022=]smash[=0x0022=] and [=0x0022=]torture[=0x0022=] and [=0x0022=]wreck[=0x0022=] as [=0x0022=]attack[=0x0022=].[=0x000A=][=0x000A=][This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand [=0x003E=]HIT GLADIATOR WITH TRIDENT, [=0x003E=]BREAK GLADIATOR WITH TRIDENT, and so on.][=0x000A=][=0x000A=][Our new action is also a perfect place to use an action variable: we[=0x0027=]re going to need to choose an amount of damage done and refer to that several times in our action rules. So let[=0x0027=]s set that up first:][=0x000A=][=0x000A=]The attacking it with action has a number called the damage inflicted.[=0x000A=][=0x000A=]Setting action variables for attacking something with something:[=0x000A=][=0x0009=]if the second noun is a weapon:[=0x000A=][=0x0009=][=0x0009=]let the maximum attack be the maximum damage of the second noun;[=0x000A=][=0x0009=][=0x0009=]now the damage inflicted is a random number between 1 and the maximum attack.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack with something that isn[=0x0027=]t a weapon rule):[=0x000A=][=0x0009=]if the second noun is not a weapon:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The second noun] does not qualify as a weapon.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Check an actor attacking something with something (this is the can[=0x0027=]t attack a non-person rule):[=0x000A=][=0x0009=]if the noun is not a person:[=0x000A=][=0x0009=][=0x0009=]if the actor is the player, say [=0x0022=][The noun] has no life to lose.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):[=0x000A=][=0x0009=]decrease the current hit points of the noun by the damage inflicted;[=0x000A=][=0x0009=]if the noun is dead and the noun is not the player:[=0x000A=][=0x0009=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=][Though our checks and carry-out rules are similar regardless of who is acting, we[=0x0027=]re going to want actions to be described differently for different actors, so we[=0x0027=]ll use separate [=0x0022=]report attacking[=0x0022=] and [=0x0022=]report someone attacking[=0x0022=] rules. We[=0x0027=]ll also make some special cases for when the character has died as a result of the attack:][=0x000A=][=0x000A=]Report attacking a dead person with something (this is the death-report priority rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack with [the second noun], killing [the noun]![=0x0022=] instead.[=0x000A=][=0x000A=]Report attacking someone with something (this is the normal attacking report rule):[=0x000A=][=0x0009=]say [=0x0022=]You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking the player with something when the player is dead (this is the player[=0x0027=]s-death priority rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], finishing you off![=0x0022=];[=0x000A=][=0x0009=]end the story;[=0x000A=][=0x0009=]stop the action[=0x000A=][=0x000A=]Report someone attacking the player with something (this is the standard report someone attacking the player with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]Report someone attacking something with something (this is the standard report attacking it with rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage![=0x0022=] instead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]You: [current hit points of player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Gladiator: [current hit points of gladiator][=0x0022=].[=0x000A=][=0x000A=]Every turn (this is the gladiator-attack rule):[=0x000A=][=0x0009=]if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.[=0x000A=][=0x000A=]Test me with [=0x0022=]hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lanista 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lanista, Part Two&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12518_213"></a>Section 1 - Hit Points
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12519_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12519_213"></a>The Arena is a room. &quot;Sand, blood, iron. These festivals are normally held on hot days, but the sun has gone behind a cloud and fat drops of rain now and then spatter the arena floor.&quot; The gladiator is a man in the Arena. &quot;A bare-chested Scythian gladiator faces you, wielding [a list of weapons carried by the gladiator].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12519_213"></a>A person has a number called maximum hit points. A person has a number called current hit points.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12520_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12520_213"></a>Section 1 - Hit Points
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12521_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12521_213"></a>A person has a number called maximum hit points. A person has a number called current hit points.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12522_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12522_213"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
+            <blockquote class="code"><p class="quoted"><a id="c12520_213"></a>The maximum hit points of the player is 35. The maximum hit points of the gladiator is 25.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In our simpler version of this example we set the current hit points by hand, but in a game with many characters this would get dull and repetitive, so here we'll use a &quot;when play begins&quot; to set all current hit point values automatically to maximum:</p>
-            <!--START CODE "c12523_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12523_213"></a>When play begins:
+            <!--START CODE "c12521_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12521_213"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;repeat with victim running through people:
             <br>
@@ -462,57 +462,57 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12522_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12522_213"></a>Definition: a person is dead if his current hit points are less than 0.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12523_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12523_213"></a>Section 2 - Diagnosis
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12524_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12524_213"></a>Definition: a person is dead if his current hit points are less than 0.
+            <blockquote class="code"><p class="quoted"><a id="c12524_213"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12525_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12525_213"></a>Section 2 - Diagnosis
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12526_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12526_213"></a>Diagnosing is an action applying to one visible thing. Understand &quot;diagnose [something]&quot; as diagnosing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12527_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12527_213"></a>Check diagnosing:
+            <blockquote class="code"><p class="quoted"><a id="c12525_213"></a>Check diagnosing:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a person, say &quot;Only people can have diagnoses.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12528_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12528_213"></a>Carry out diagnosing:
+            <!--START CODE "c12526_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12526_213"></a>Carry out diagnosing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[if the noun is the player]You have[otherwise][The noun] has[end if] [current hit points of the noun] out of a possible [maximum hit points of the noun] hit points remaining.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12527_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12527_213"></a>Section 3 - Weapons
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12528_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12528_213"></a>A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12529_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12529_213"></a>Section 3 - Weapons
+            <blockquote class="code"><p class="quoted"><a id="c12529_213"></a>The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12530_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12530_213"></a>A weapon is a kind of thing. A weapon has a number called the maximum damage. The maximum damage of a weapon is usually 4.
+            <blockquote class="code"><p class="quoted"><a id="c12530_213"></a>The player carries a weapon called a mace. The maximum damage of the mace is 3.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12531_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12531_213"></a>The gladiator carries a weapon called a trident. The maximum damage of the trident is 5. The gladiator carries a weapon called a net. The maximum damage of the net is 1.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12532_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12532_213"></a>The player carries a weapon called a mace. The maximum damage of the mace is 3.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12533_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12533_213"></a>Section 4 - Attacking it with
+            <blockquote class="code"><p class="quoted"><a id="c12531_213"></a>Section 4 - Attacking it with
             </p>
             </blockquote>
             <!--END CODE-->
@@ -520,32 +520,32 @@
             <p>Here's why: If we leave the default attack command in place, Inform will continue to accept commands like &gt;ATTACK GLADIATOR, but reply foolishly with the default &quot;Violence is not the answer...&quot; response.</p>
             <p>A somewhat better approach would be to change the reply of &gt;ATTACK GLADIATOR to say something like &quot;You must specify a weapon to attack with.&quot; But this is still less than ideal, because it means that the player has to then rewrite his entire command. If, on the other hand, we take out &quot;ATTACK GLADIATOR&quot; entirely, the game will always prompt &quot;What do you want to attack the gladiator with?&quot; -- which teaches the player the correct command structure for this particular game, and avoids pretending to understand any command that is not meaningful within this game.</p>
             <p>This is a little bit of work because ATTACK has a lot of synonyms in the default library, but if we look through the actions index we can find them all:</p>
-            <!--START CODE "c12534_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12534_213"></a>Understand the commands &quot;attack&quot; and &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as something new.
+            <!--START CODE "c12532_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12532_213"></a>Understand the commands &quot;attack&quot; and &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we make our new command:</p>
-            <!--START CODE "c12535_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12535_213"></a>Attacking it with is an action applying to one visible thing and one carried thing. Understand &quot;attack [someone] with [something preferably held]&quot; as attacking it with.
+            <!--START CODE "c12533_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12533_213"></a>Attacking it with is an action applying to one visible thing and one carried thing. Understand &quot;attack [someone] with [something preferably held]&quot; as attacking it with.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Note that we've specified &quot;one carried thing&quot;, because we want the player to pick up a weapon to use if necessary. And now we assign all the old attack vocabulary to apply to the new command:</p>
-            <!--START CODE "c12536_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12536_213"></a>Understand the commands &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as &quot;attack&quot;.
+            <!--START CODE "c12534_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12534_213"></a>Understand the commands &quot;punch&quot; and &quot;destroy&quot; and &quot;kill&quot; and &quot;murder&quot; and &quot;hit&quot; and &quot;thump&quot; and &quot;break&quot; and &quot;smash&quot; and &quot;torture&quot; and &quot;wreck&quot; as &quot;attack&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This may seem counter-intuitive, but order of source code matters here: we first get rid of the old, default vocabulary, then define our new action, then make the vocabulary apply to that new action. Inform will now understand &gt;HIT GLADIATOR WITH TRIDENT, &gt;BREAK GLADIATOR WITH TRIDENT, and so on.</p>
             <p>Our new action is also a perfect place to use an action variable: we're going to need to choose an amount of damage done and refer to that several times in our action rules. So let's set that up first:</p>
-            <!--START CODE "c12537_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12537_213"></a>The attacking it with action has a number called the damage inflicted.
+            <!--START CODE "c12535_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12535_213"></a>The attacking it with action has a number called the damage inflicted.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12538_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12538_213"></a>Setting action variables for attacking something with something:
+            <!--START CODE "c12536_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12536_213"></a>Setting action variables for attacking something with something:
             <br>
             &#160;&#160;&#160;&#160;if the second noun is a weapon:
             <br>
@@ -555,8 +555,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12539_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12539_213"></a>Check an actor attacking something with something (this is the can't attack with something that isn't a weapon rule):
+            <!--START CODE "c12537_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12537_213"></a>Check an actor attacking something with something (this is the can't attack with something that isn't a weapon rule):
             <br>
             &#160;&#160;&#160;&#160;if the second noun is not a weapon:
             <br>
@@ -566,8 +566,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12540_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12540_213"></a>Check an actor attacking something with something (this is the can't attack a non-person rule):
+            <!--START CODE "c12538_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12538_213"></a>Check an actor attacking something with something (this is the can't attack a non-person rule):
             <br>
             &#160;&#160;&#160;&#160;if the noun is not a person:
             <br>
@@ -577,8 +577,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12541_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12541_213"></a>Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):
+            <!--START CODE "c12539_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12539_213"></a>Carry out an actor attacking something with something (this is the standard attacking it with a weapon rule):
             <br>
             &#160;&#160;&#160;&#160;decrease the current hit points of the noun by the damage inflicted;
             <br>
@@ -589,22 +589,22 @@
             </blockquote>
             <!--END CODE-->
             <p>Though our checks and carry-out rules are similar regardless of who is acting, we're going to want actions to be described differently for different actors, so we'll use separate &quot;report attacking&quot; and &quot;report someone attacking&quot; rules. We'll also make some special cases for when the character has died as a result of the attack:</p>
-            <!--START CODE "c12542_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12542_213"></a>Report attacking a dead person with something (this is the death-report priority rule):
+            <!--START CODE "c12540_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12540_213"></a>Report attacking a dead person with something (this is the death-report priority rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You attack with [the second noun], killing [the noun]!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12543_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12543_213"></a>Report attacking someone with something (this is the normal attacking report rule):
+            <!--START CODE "c12541_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12541_213"></a>Report attacking someone with something (this is the normal attacking report rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You attack [the noun] with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12544_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12544_213"></a>Report someone attacking the player with something when the player is dead (this is the player's-death priority rule):
+            <!--START CODE "c12542_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12542_213"></a>Report someone attacking the player with something when the player is dead (this is the player's-death priority rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks you with [the second noun], finishing you off!&quot;;
             <br>
@@ -614,22 +614,22 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12545_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12545_213"></a>Report someone attacking the player with something (this is the standard report someone attacking the player with rule):
+            <!--START CODE "c12543_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12543_213"></a>Report someone attacking the player with something (this is the standard report someone attacking the player with rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks you with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12546_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12546_213"></a>Report someone attacking something with something (this is the standard report attacking it with rule):
+            <!--START CODE "c12544_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12544_213"></a>Report someone attacking something with something (this is the standard report attacking it with rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] attacks [the noun] with [the second noun], causing [damage inflicted] point[s] of damage!&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12547_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12547_213"></a>When play begins:
+            <!--START CODE "c12545_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12545_213"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;You: [current hit points of player]&quot;;
             <br>
@@ -637,15 +637,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12548_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12548_213"></a>Every turn (this is the gladiator-attack rule):
+            <!--START CODE "c12546_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12546_213"></a>Every turn (this is the gladiator-attack rule):
             <br>
             &#160;&#160;&#160;&#160;if the gladiator is not dead, try the gladiator attacking the player with a random weapon which is carried by the gladiator.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12549_213"-->
-            <blockquote class="code"><p class="quoted"><a id="c12549_213"></a>Test me with &quot;hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g&quot;.
+            <!--START CODE "c12547_213"-->
+            <blockquote class="code"><p class="quoted"><a id="c12547_213"></a>Test me with &quot;hit gladiator with mace / kill gladiator / drop mace / attack gladiator / attack gladiator with mace / g / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -669,7 +669,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc117.html#e284"><i>WI</i></a></div>
+                        <a href="doc115.html#e284"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -678,18 +678,18 @@
 
         <div class="egpanel" id="example284" style="display: none;">
             <p>Suppose our game features a detailed simulated combat between the player character and his opponent. He might have several weapons available, and several types of attack available; and at any given time he might be perched up in the rigging of his ship, standing on the open deck, or boxed in between some barrels. His options will vary depending on his position, and obviously it would detract from the pacing to make the player keep LOOKing in the middle of combat in order to remind himself where he is. Instead, we'll roll this information into the command prompt:</p>
+            <!--START CODE "c12548_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12548_284"></a><a href="javascript:pasteCode('[=0x0022=]Don Pedro[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The Deck of the Helene Marie is a room. [=0x0022=]The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.[=0x0022=][=0x000A=][=0x000A=]Table of Random Prompts[=0x000A=]position[=0x0009=]prompt[=0x000A=]boxed[=0x0009=][=0x0022=]So securely boxed-in that you can really only parry or thrust, you try to [=0x0022=][=0x000A=]boxed[=0x0009=][=0x0022=]Trapped between your barrels, you decide to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Able to slice at your attackers but not to advance or retreat, you choose to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Perched up here with the advantage of height (but little mobility), you attempt to [=0x0022=][=0x000A=]free[=0x0009=][=0x0022=]Out on the open deck with no impediments, free to advance or retreat, you decide to [=0x0022=][=0x000A=][=0x000A=]When play begins: reset the prompt.[=0x000A=][=0x000A=]Every turn: reset the prompt.[=0x000A=][=0x000A=]To reset the prompt:[=0x000A=][=0x0009=]sort the Table of Random Prompts in random order;[=0x000A=][=0x0009=]repeat through the Table of Random Prompts:[=0x000A=][=0x0009=][=0x0009=]if the position entry is the placement of the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the command prompt is prompt entry;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]stop.[=0x000A=][=0x000A=]After reading a command: say conditional paragraph break.[=0x000A=][=0x000A=]A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.[=0x000A=][=0x000A=]Understand [=0x0022=]retreat[=0x0022=] or [=0x0022=]parry[=0x0022=] as retreating. Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Check retreating:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move backward or parry very successfully from this position.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]now the player is boxed;[=0x000A=][=0x0009=]say [=0x0022=]You protect yourself, but end up wedged in between two barrels.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]thrust[=0x0022=] or [=0x0022=]advance[=0x0022=] as advancing. Advancing is an action applying to nothing.[=0x000A=][=0x000A=]Check advancing:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move forward from here, only slash.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out advancing:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You push forward aggressively, making your way to the open deck.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]now the player is perched;[=0x000A=][=0x0009=]say [=0x0022=]You leap and swing yourself boldly up into the rigging, leaving your attackers beneath you.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping when the player is perched:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You leap down from your position, into the middle of the deck.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]advance / jump / advance / retreat / jump / retreat / retreat / advance[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Don Pedro[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The Deck of the Helene Marie is a room. [=0x0022=]The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.[=0x0022=][=0x000A=][=0x000A=]Table of Random Prompts[=0x000A=]position[=0x0009=]prompt[=0x000A=]boxed[=0x0009=][=0x0022=]So securely boxed-in that you can really only parry or thrust, you try to [=0x0022=][=0x000A=]boxed[=0x0009=][=0x0022=]Trapped between your barrels, you decide to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Able to slice at your attackers but not to advance or retreat, you choose to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Perched up here with the advantage of height (but little mobility), you attempt to [=0x0022=][=0x000A=]free[=0x0009=][=0x0022=]Out on the open deck with no impediments, free to advance or retreat, you decide to [=0x0022=][=0x000A=][=0x000A=]When play begins: reset the prompt.[=0x000A=][=0x000A=]Every turn: reset the prompt.[=0x000A=][=0x000A=]To reset the prompt:[=0x000A=][=0x0009=]sort the Table of Random Prompts in random order;[=0x000A=][=0x0009=]repeat through the Table of Random Prompts:[=0x000A=][=0x0009=][=0x0009=]if the position entry is the placement of the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the command prompt is prompt entry;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]stop.[=0x000A=][=0x000A=]After reading a command: say conditional paragraph break.[=0x000A=][=0x000A=]A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.[=0x000A=][=0x000A=]Understand [=0x0022=]retreat[=0x0022=] or [=0x0022=]parry[=0x0022=] as retreating. Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Check retreating:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move backward or parry very successfully from this position.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]now the player is boxed;[=0x000A=][=0x0009=]say [=0x0022=]You protect yourself, but end up wedged in between two barrels.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]thrust[=0x0022=] or [=0x0022=]advance[=0x0022=] as advancing. Advancing is an action applying to nothing.[=0x000A=][=0x000A=]Check advancing:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move forward from here, only slash.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out advancing:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You push forward aggressively, making your way to the open deck.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]now the player is perched;[=0x000A=][=0x0009=]say [=0x0022=]You leap and swing yourself boldly up into the rigging, leaving your attackers beneath you.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping when the player is perched:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You leap down from your position, into the middle of the deck.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]advance / jump / advance / retreat / jump / retreat / retreat / advance[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Don Pedro[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Don Pedro's Revenge&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12549_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12549_284"></a>The Deck of the Helene Marie is a room. &quot;The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12550_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12550_284"></a><a href="javascript:pasteCode('[=0x0022=]Don Pedro[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The Deck of the Helene Marie is a room. [=0x0022=]The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.[=0x0022=][=0x000A=][=0x000A=]Table of Random Prompts[=0x000A=]position[=0x0009=]prompt[=0x000A=]boxed[=0x0009=][=0x0022=]So securely boxed-in that you can really only parry or thrust, you try to [=0x0022=][=0x000A=]boxed[=0x0009=][=0x0022=]Trapped between your barrels, you decide to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Able to slice at your attackers but not to advance or retreat, you choose to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Perched up here with the advantage of height (but little mobility), you attempt to [=0x0022=][=0x000A=]free[=0x0009=][=0x0022=]Out on the open deck with no impediments, free to advance or retreat, you decide to [=0x0022=][=0x000A=][=0x000A=]When play begins: reset the prompt.[=0x000A=][=0x000A=]Every turn: reset the prompt.[=0x000A=][=0x000A=]To reset the prompt:[=0x000A=][=0x0009=]sort the Table of Random Prompts in random order;[=0x000A=][=0x0009=]repeat through the Table of Random Prompts:[=0x000A=][=0x0009=][=0x0009=]if the position entry is the placement of the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the command prompt is prompt entry;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]stop.[=0x000A=][=0x000A=]After reading a command: say conditional paragraph break.[=0x000A=][=0x000A=]A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.[=0x000A=][=0x000A=]Understand [=0x0022=]retreat[=0x0022=] or [=0x0022=]parry[=0x0022=] as retreating. Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Check retreating:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move backward or parry very successfully from this position.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]now the player is boxed;[=0x000A=][=0x0009=]say [=0x0022=]You protect yourself, but end up wedged in between two barrels.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]thrust[=0x0022=] or [=0x0022=]advance[=0x0022=] as advancing. Advancing is an action applying to nothing.[=0x000A=][=0x000A=]Check advancing:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move forward from here, only slash.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out advancing:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You push forward aggressively, making your way to the open deck.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]now the player is perched;[=0x000A=][=0x0009=]say [=0x0022=]You leap and swing yourself boldly up into the rigging, leaving your attackers beneath you.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping when the player is perched:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You leap down from your position, into the middle of the deck.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]advance / jump / advance / retreat / jump / retreat / retreat / advance[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Don Pedro[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The Deck of the Helene Marie is a room. [=0x0022=]The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.[=0x0022=][=0x000A=][=0x000A=]Table of Random Prompts[=0x000A=]position[=0x0009=]prompt[=0x000A=]boxed[=0x0009=][=0x0022=]So securely boxed-in that you can really only parry or thrust, you try to [=0x0022=][=0x000A=]boxed[=0x0009=][=0x0022=]Trapped between your barrels, you decide to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Able to slice at your attackers but not to advance or retreat, you choose to [=0x0022=][=0x000A=]perched[=0x0009=][=0x0022=]Perched up here with the advantage of height (but little mobility), you attempt to [=0x0022=][=0x000A=]free[=0x0009=][=0x0022=]Out on the open deck with no impediments, free to advance or retreat, you decide to [=0x0022=][=0x000A=][=0x000A=]When play begins: reset the prompt.[=0x000A=][=0x000A=]Every turn: reset the prompt.[=0x000A=][=0x000A=]To reset the prompt:[=0x000A=][=0x0009=]sort the Table of Random Prompts in random order;[=0x000A=][=0x0009=]repeat through the Table of Random Prompts:[=0x000A=][=0x0009=][=0x0009=]if the position entry is the placement of the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the command prompt is prompt entry;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]stop.[=0x000A=][=0x000A=]After reading a command: say conditional paragraph break.[=0x000A=][=0x000A=]A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.[=0x000A=][=0x000A=]Understand [=0x0022=]retreat[=0x0022=] or [=0x0022=]parry[=0x0022=] as retreating. Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Check retreating:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move backward or parry very successfully from this position.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]now the player is boxed;[=0x000A=][=0x0009=]say [=0x0022=]You protect yourself, but end up wedged in between two barrels.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]thrust[=0x0022=] or [=0x0022=]advance[=0x0022=] as advancing. Advancing is an action applying to nothing.[=0x000A=][=0x000A=]Check advancing:[=0x000A=][=0x0009=]if the player is perched, say [=0x0022=]You can[=0x0027=]t move forward from here, only slash.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out advancing:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You push forward aggressively, making your way to the open deck.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]now the player is perched;[=0x000A=][=0x0009=]say [=0x0022=]You leap and swing yourself boldly up into the rigging, leaving your attackers beneath you.[=0x0022=][=0x000A=][=0x000A=]Instead of jumping when the player is perched:[=0x000A=][=0x0009=]now the player is free;[=0x000A=][=0x0009=]say [=0x0022=]You leap down from your position, into the middle of the deck.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]advance / jump / advance / retreat / jump / retreat / retreat / advance[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Don Pedro[=0x0027=]s Revenge')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Don Pedro's Revenge&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12551_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12551_284"></a>The Deck of the Helene Marie is a room. &quot;The two crews are embattled all around you, but your attention is reserved for your particular enemy: Don Pedro.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12552_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12552_284"></a>Table of Random Prompts
+            <blockquote class="code"><p class="quoted"><a id="c12550_284"></a>Table of Random Prompts
             <br>
             </p>
             </blockquote>
@@ -758,18 +758,18 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12551_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12551_284"></a>When play begins: reset the prompt.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12552_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12552_284"></a>Every turn: reset the prompt.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12553_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12553_284"></a>When play begins: reset the prompt.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12554_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12554_284"></a>Every turn: reset the prompt.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12555_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12555_284"></a>To reset the prompt:
+            <blockquote class="code"><p class="quoted"><a id="c12553_284"></a>To reset the prompt:
             <br>
             &#160;&#160;&#160;&#160;sort the Table of Random Prompts in random order;
             <br>
@@ -783,30 +783,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12554_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12554_284"></a>After reading a command: say conditional paragraph break.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12555_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12555_284"></a>A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12556_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12556_284"></a>After reading a command: say conditional paragraph break.
+            <blockquote class="code"><p class="quoted"><a id="c12556_284"></a>Understand &quot;retreat&quot; or &quot;parry&quot; as retreating. Retreating is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12557_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12557_284"></a>A placement is a kind of value. The placements are boxed, perched, free. The player has a placement. The player is free.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12558_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12558_284"></a>Understand &quot;retreat&quot; or &quot;parry&quot; as retreating. Retreating is an action applying to nothing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12559_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12559_284"></a>Check retreating:
+            <blockquote class="code"><p class="quoted"><a id="c12557_284"></a>Check retreating:
             <br>
             &#160;&#160;&#160;&#160;if the player is perched, say &quot;You can't move backward or parry very successfully from this position.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12560_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12560_284"></a>Carry out retreating:
+            <!--START CODE "c12558_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12558_284"></a>Carry out retreating:
             <br>
             &#160;&#160;&#160;&#160;now the player is boxed;
             <br>
@@ -814,20 +814,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12561_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12561_284"></a>Understand &quot;thrust&quot; or &quot;advance&quot; as advancing. Advancing is an action applying to nothing.
+            <!--START CODE "c12559_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12559_284"></a>Understand &quot;thrust&quot; or &quot;advance&quot; as advancing. Advancing is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12562_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12562_284"></a>Check advancing:
+            <!--START CODE "c12560_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12560_284"></a>Check advancing:
             <br>
             &#160;&#160;&#160;&#160;if the player is perched, say &quot;You can't move forward from here, only slash.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12563_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12563_284"></a>Carry out advancing:
+            <!--START CODE "c12561_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12561_284"></a>Carry out advancing:
             <br>
             &#160;&#160;&#160;&#160;now the player is free;
             <br>
@@ -835,8 +835,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12564_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12564_284"></a>Instead of jumping:
+            <!--START CODE "c12562_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12562_284"></a>Instead of jumping:
             <br>
             &#160;&#160;&#160;&#160;now the player is perched;
             <br>
@@ -844,8 +844,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12565_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12565_284"></a>Instead of jumping when the player is perched:
+            <!--START CODE "c12563_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12563_284"></a>Instead of jumping when the player is perched:
             <br>
             &#160;&#160;&#160;&#160;now the player is free;
             <br>
@@ -853,8 +853,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12566_284"-->
-            <blockquote class="code"><p class="quoted"><a id="c12566_284"></a>Test me with &quot;advance / jump / advance / retreat / jump / retreat / retreat / advance&quot;.
+            <!--START CODE "c12564_284"-->
+            <blockquote class="code"><p class="quoted"><a id="c12564_284"></a>Test me with &quot;advance / jump / advance / retreat / jump / retreat / retreat / advance&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -878,7 +878,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc126.html#e314"><i>WI</i></a></div>
+                        <a href="doc124.html#e314"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -886,24 +886,24 @@
         </table>
 
         <div class="egpanel" id="example314" style="display: none;">
-            <!--START CODE "c12567_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12567_314"></a><a href="javascript:pasteCode('[=0x0022=]Technological Terror[=0x0022=][=0x000A=][=0x000A=]The Decomposition Ray Gun is a thing carried by the player.[=0x000A=][=0x000A=][First we need to define our shooting action:][=0x000A=][=0x000A=]Shooting it with is an action applying to two things.[=0x000A=][=0x000A=]Check shooting something with something:[=0x000A=][=0x0009=]if the player is not carrying the Ray Gun, say [=0x0022=]You are pathetically unarmed![=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not the Ray Gun, say [=0x0022=][The second noun] does not fire.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the Ray Gun, say [=0x0022=]Nice trick if you can do it![=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]That would be disastrous![=0x0022=] instead.[=0x000A=][=0x000A=][Next, some grammar to allow the player to use this action:][=0x000A=][=0x000A=]Understand [=0x0022=]shoot [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed).[=0x000A=][=0x000A=]Definition: a thing is ungunlike if it is not the gun.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]shoot [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something] at [something][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire at [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]fire at [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=][Strictly speaking, we only need these last grammar lines (with [=0x0022=]understand shoot something...[=0x0022=]) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on Understanding for a further discussion.][=0x000A=][=0x000A=][Here we get to use [=0x0022=]now...[=0x0022=] to give it its destructive effect:][=0x000A=][=0x000A=]Carry out shooting something with something:[=0x000A=][=0x0009=]say [=0x0022=]ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break][=0x0022=];[=0x000A=][=0x0009=]now every thing which is part of the noun is in the location;[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]The Deathbot Assembly Line is a room. [=0x0022=]Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.[=0x0022=] The dangerous robot is a thing in the Assembly Line. [=0x0022=]One dangerous robot looks ready to take you on![=0x0022=] A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.[=0x000A=][=0x000A=]Instead of examining something when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] consists of [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Technological Terror[=0x0022=][=0x000A=][=0x000A=]The Decomposition Ray Gun is a thing carried by the player.[=0x000A=][=0x000A=][First we need to define our shooting action:][=0x000A=][=0x000A=]Shooting it with is an action applying to two things.[=0x000A=][=0x000A=]Check shooting something with something:[=0x000A=][=0x0009=]if the player is not carrying the Ray Gun, say [=0x0022=]You are pathetically unarmed![=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not the Ray Gun, say [=0x0022=][The second noun] does not fire.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the Ray Gun, say [=0x0022=]Nice trick if you can do it![=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]That would be disastrous![=0x0022=] instead.[=0x000A=][=0x000A=][Next, some grammar to allow the player to use this action:][=0x000A=][=0x000A=]Understand [=0x0022=]shoot [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed).[=0x000A=][=0x000A=]Definition: a thing is ungunlike if it is not the gun.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]shoot [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something] at [something][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire at [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]fire at [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=][Strictly speaking, we only need these last grammar lines (with [=0x0022=]understand shoot something...[=0x0022=]) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on Understanding for a further discussion.][=0x000A=][=0x000A=][Here we get to use [=0x0022=]now...[=0x0022=] to give it its destructive effect:][=0x000A=][=0x000A=]Carry out shooting something with something:[=0x000A=][=0x0009=]say [=0x0022=]ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break][=0x0022=];[=0x000A=][=0x0009=]now every thing which is part of the noun is in the location;[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]The Deathbot Assembly Line is a room. [=0x0022=]Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.[=0x0022=] The dangerous robot is a thing in the Assembly Line. [=0x0022=]One dangerous robot looks ready to take you on![=0x0022=] A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.[=0x000A=][=0x000A=]Instead of examining something when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] consists of [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look[=0x0022=].[=0x000A=]\n', 'Example - Technological Terror')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Technological Terror&quot;
+            <!--START CODE "c12565_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12565_314"></a><a href="javascript:pasteCode('[=0x0022=]Technological Terror[=0x0022=][=0x000A=][=0x000A=]The Decomposition Ray Gun is a thing carried by the player.[=0x000A=][=0x000A=][First we need to define our shooting action:][=0x000A=][=0x000A=]Shooting it with is an action applying to two things.[=0x000A=][=0x000A=]Check shooting something with something:[=0x000A=][=0x0009=]if the player is not carrying the Ray Gun, say [=0x0022=]You are pathetically unarmed![=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not the Ray Gun, say [=0x0022=][The second noun] does not fire.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the Ray Gun, say [=0x0022=]Nice trick if you can do it![=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]That would be disastrous![=0x0022=] instead.[=0x000A=][=0x000A=][Next, some grammar to allow the player to use this action:][=0x000A=][=0x000A=]Understand [=0x0022=]shoot [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed).[=0x000A=][=0x000A=]Definition: a thing is ungunlike if it is not the gun.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]shoot [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something] at [something][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire at [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]fire at [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=][Strictly speaking, we only need these last grammar lines (with [=0x0022=]understand shoot something...[=0x0022=]) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on Understanding for a further discussion.][=0x000A=][=0x000A=][Here we get to use [=0x0022=]now...[=0x0022=] to give it its destructive effect:][=0x000A=][=0x000A=]Carry out shooting something with something:[=0x000A=][=0x0009=]say [=0x0022=]ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break][=0x0022=];[=0x000A=][=0x0009=]now every thing which is part of the noun is in the location;[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]The Deathbot Assembly Line is a room. [=0x0022=]Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.[=0x0022=] The dangerous robot is a thing in the Assembly Line. [=0x0022=]One dangerous robot looks ready to take you on![=0x0022=] A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.[=0x000A=][=0x000A=]Instead of examining something when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] consists of [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Technological Terror[=0x0022=][=0x000A=][=0x000A=]The Decomposition Ray Gun is a thing carried by the player.[=0x000A=][=0x000A=][First we need to define our shooting action:][=0x000A=][=0x000A=]Shooting it with is an action applying to two things.[=0x000A=][=0x000A=]Check shooting something with something:[=0x000A=][=0x0009=]if the player is not carrying the Ray Gun, say [=0x0022=]You are pathetically unarmed![=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not the Ray Gun, say [=0x0022=][The second noun] does not fire.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the Ray Gun, say [=0x0022=]Nice trick if you can do it![=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]That would be disastrous![=0x0022=] instead.[=0x000A=][=0x000A=][Next, some grammar to allow the player to use this action:][=0x000A=][=0x000A=]Understand [=0x0022=]shoot [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed).[=0x000A=][=0x000A=]Definition: a thing is ungunlike if it is not the gun.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]shoot [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something] at [something][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire at [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]fire at [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=][Strictly speaking, we only need these last grammar lines (with [=0x0022=]understand shoot something...[=0x0022=]) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on Understanding for a further discussion.][=0x000A=][=0x000A=][Here we get to use [=0x0022=]now...[=0x0022=] to give it its destructive effect:][=0x000A=][=0x000A=]Carry out shooting something with something:[=0x000A=][=0x0009=]say [=0x0022=]ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break][=0x0022=];[=0x000A=][=0x0009=]now every thing which is part of the noun is in the location;[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]The Deathbot Assembly Line is a room. [=0x0022=]Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.[=0x0022=] The dangerous robot is a thing in the Assembly Line. [=0x0022=]One dangerous robot looks ready to take you on![=0x0022=] A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.[=0x000A=][=0x000A=]Instead of examining something when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] consists of [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look[=0x0022=].[=0x000A=]\n', 'Example - Technological Terror')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Technological Terror&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12568_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12568_314"></a>The Decomposition Ray Gun is a thing carried by the player.
+            <!--START CODE "c12566_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12566_314"></a>The Decomposition Ray Gun is a thing carried by the player.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>First we need to define our shooting action:</p>
-            <!--START CODE "c12569_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12569_314"></a>Shooting it with is an action applying to two things.
+            <!--START CODE "c12567_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12567_314"></a>Shooting it with is an action applying to two things.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12570_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12570_314"></a>Check shooting something with something:
+            <!--START CODE "c12568_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12568_314"></a>Check shooting something with something:
             <br>
             &#160;&#160;&#160;&#160;if the player is not carrying the Ray Gun, say &quot;You are pathetically unarmed!&quot; instead;
             <br>
@@ -916,30 +916,30 @@
             </blockquote>
             <!--END CODE-->
             <p>Next, some grammar to allow the player to use this action:</p>
+            <!--START CODE "c12569_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12569_314"></a>Understand &quot;shoot [gun] at [something ungunlike]&quot; as shooting it with (with nouns reversed).
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12570_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12570_314"></a>Definition: a thing is ungunlike if it is not the gun.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12571_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12571_314"></a>Understand &quot;shoot [gun] at [something ungunlike]&quot; as shooting it with (with nouns reversed).
+            <blockquote class="code"><p class="quoted"><a id="c12571_314"></a>Understand &quot;shoot [something ungunlike] with [gun]&quot; as shooting it with. Understand &quot;shoot [something] with [something]&quot; as shooting it with.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12572_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12572_314"></a>Definition: a thing is ungunlike if it is not the gun.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12573_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12573_314"></a>Understand &quot;shoot [something ungunlike] with [gun]&quot; as shooting it with. Understand &quot;shoot [something] with [something]&quot; as shooting it with.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12574_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12574_314"></a>Understand &quot;shoot [something] at [something]&quot; as shooting it with (with nouns reversed). Understand &quot;fire [gun] at [something ungunlike]&quot; as shooting it with (with nouns reversed). Understand &quot;fire at [something ungunlike] with [gun]&quot; as shooting it with. Understand &quot;fire at [something] with [something]&quot; as shooting it with.
+            <blockquote class="code"><p class="quoted"><a id="c12572_314"></a>Understand &quot;shoot [something] at [something]&quot; as shooting it with (with nouns reversed). Understand &quot;fire [gun] at [something ungunlike]&quot; as shooting it with (with nouns reversed). Understand &quot;fire at [something ungunlike] with [gun]&quot; as shooting it with. Understand &quot;fire at [something] with [something]&quot; as shooting it with.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Strictly speaking, we only need these last grammar lines (with &quot;understand shoot something...&quot;) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on Understanding for a further discussion.</p>
             <p>Here we get to use &quot;now...&quot; to give it its destructive effect:</p>
-            <!--START CODE "c12575_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12575_314"></a>Carry out shooting something with something:
+            <!--START CODE "c12573_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12573_314"></a>Carry out shooting something with something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break]&quot;;
             <br>
@@ -949,20 +949,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12576_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12576_314"></a>The Deathbot Assembly Line is a room. &quot;Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.&quot; The dangerous robot is a thing in the Assembly Line. &quot;One dangerous robot looks ready to take you on!&quot; A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.
+            <!--START CODE "c12574_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12574_314"></a>The Deathbot Assembly Line is a room. &quot;Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.&quot; The dangerous robot is a thing in the Assembly Line. &quot;One dangerous robot looks ready to take you on!&quot; A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12577_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12577_314"></a>Instead of examining something when something is part of the noun:
+            <!--START CODE "c12575_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12575_314"></a>Instead of examining something when something is part of the noun:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] consists of [a list of things which are part of the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12578_314"-->
-            <blockquote class="code"><p class="quoted"><a id="c12578_314"></a>Test me with &quot;x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look&quot;.
+            <!--START CODE "c12576_314"-->
+            <blockquote class="code"><p class="quoted"><a id="c12576_314"></a>Test me with &quot;x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

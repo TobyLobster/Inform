@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§6.7. Inventory</p>
     <p>Occasionally we would like to change the way the name of something is printed as part of our inventory, and we can do this with a printing the name rule such as</p>
-    <!--START CODE "c11515"-->
-    <blockquote class="code"><p class="quoted"><a id="c11515"></a>Rule for printing the name of the dead rat while taking inventory:
+    <!--START CODE "c11513"-->
+    <blockquote class="code"><p class="quoted"><a id="c11513"></a>Rule for printing the name of the dead rat while taking inventory:
     <br>
     &#160;&#160;&#160;&#160;say &quot;dead rat (at arm's length)&quot;
     </p>
@@ -112,7 +112,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc354.html#e278"><i>WI</i></a></div>
+                        <a href="doc352.html#e278"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -123,23 +123,23 @@
             <p>As we've seen in earlier examples such as &quot;Equipment List&quot;, it is possible to vary the way Inform creates inventory listings in general (to create lists that look more like paragraphs of prose, lists divided between what the player is wearing and what he isn't, and so on). We can also use activities to alter the printing of specific objects' names and contents, as with the &quot;omit contents in listing&quot; feature after printing the name of something.</p>
             <p>We may find, however, that we would like a great deal more control over Inform's printing of inventory details, not just as a special effect for a few items, but throughout the game.</p>
             <p>We start by turning off Inform's native property writer:</p>
+            <!--START CODE "c11514_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11514_278"></a><a href="javascript:pasteCode(' [=0x0022=]Oyster Wide Shut[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The print standard inventory rule is not listed in any rulebook.[=0x000A=][=0x000A=]Carry out taking inventory (this is the new print inventory rule):[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation.[=0x000A=][=0x000A=][This is very much like the library[=0x0027=]s standard behavior, but with the exception that [=0x0022=]giving inventory information[=0x0022=] or even [=0x0022=]giving brief inventory information[=0x0022=] are omitted. Here[=0x0027=]s how we supplant it:][=0x000A=][=0x000A=]After printing the name of something (called target) while taking inventory:[=0x000A=][=0x0009=]follow the property-aggregation rules for the target.[=0x000A=][=0x000A=][Now, our property-aggregation rulebook is going to look at a given object and decide on a list of features that should be mentioned in inventory. We[=0x0027=]ll start by producing something quite similar to Inform[=0x0027=]s default behavior:][=0x000A=][=0x000A=]The property-aggregation rules are an object-based rulebook.[=0x000A=]The property-aggregation rulebook has a list of text called the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable open thing (this is the mention open openables rule):[=0x000A=][=0x0009=]add [=0x0022=]open[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):[=0x000A=][=0x0009=]add [=0x0022=]closed[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a lit thing (this is the mention lit objects rule):[=0x000A=][=0x0009=]add [=0x0022=]providing light[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):[=0x000A=][=0x0009=]add [=0x0022=]being worn[=0x0022=] to the tagline.[=0x000A=][=0x000A=]The last property-aggregation rule (this is the print aggregated properties rule):[=0x000A=][=0x0009=]if the number of entries in the tagline is greater than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] ([tagline])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]rule fails.[=0x000A=][=0x000A=][Notice that we don[=0x0027=]t need to write any rules about how to print that list of text: because Inform is printing out a list, it will automatically insert commas, spaces, and the word [=0x0022=]and[=0x0022=] where appropriate; and it will automatically follow the [=0x0022=]use serial comma[=0x0022=] option, if we have it set.][=0x000A=][=0x000A=][Now we[=0x0027=]re free to meddle. Let[=0x0027=]s give the player a bunch of possessions that will be listed in interesting ways in inventory:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Curved Beach is a room. [=0x0022=]White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.[=0x0022=][=0x000A=][=0x000A=]The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.[=0x000A=][=0x000A=]The player wears a flashlight lanyard. The flashlight lanyard is a device.[=0x000A=][=0x000A=]Carry out switching on the lanyard: now the noun is lit.[=0x000A=]Carry out switching off the lanyard: now the noun is unlit.[=0x000A=][=0x000A=]The player carries an oyster. The oyster contains a pearl. The oyster is openable.[=0x000A=][=0x000A=][Now suppose that we don[=0x0027=]t want the oyster to say [=0x0022=]closed[=0x0022=] when it[=0x0027=]s closed. Instead, we[=0x0027=]d like it to say [=0x0022=]clamped shut[=0x0022=]. As this is the only property the oyster will ever have, we can simply override his whole property-aggregation rulebook:][=0x000A=][=0x000A=]A property-aggregation rule for the oyster:[=0x000A=][=0x0009=]if the oyster is closed:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] (clamped shut)[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][That[=0x0027=]s fine for the oyster because [=0x0022=]clamped shut[=0x0022=] is the only property he[=0x0027=]ll ever have. What if we[=0x0027=]d like instead just to revise the way the sack (and only the sack) gets described as providing light?][=0x000A=][=0x000A=]The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.[=0x000A=][=0x000A=]A property-aggregation rule for the plastic sack (this is the sacklight rule):[=0x000A=][=0x0009=]if [=0x0022=]providing light[=0x0022=] is listed in the tagline:[=0x000A=][=0x0009=][=0x0009=]remove [=0x0022=]providing light[=0x0022=] from the tagline;[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]gently glowing[=0x0022=] to the tagline.[=0x000A=][=0x000A=][Now the flashlight (and any other regular light sources we might add to the game) will be described as [=0x0022=]providing light[=0x0022=], but the sack will only be said to be gently glowing -- a bit more appropriate for its rather fainter gleam.][=0x000A=][=0x000A=][We might also wish to add a systematic feature across the board to include a new property in the inventory list? Let[=0x0027=]s say the player can enchant his possessions, and enchanted possessions should thereafter be listed accordingly:][=0x000A=][=0x000A=]A thing can be magical or non-magical. A thing is usually non-magical.[=0x000A=][=0x000A=]Understand [=0x0022=]enchant [something][=0x0022=] as enchanting. Enchanting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out enchanting something:[=0x000A=][=0x0009=]now the noun is magical.[=0x000A=][=0x000A=]Report enchanting something:[=0x000A=][=0x0009=]say [=0x0022=]Ding! You turn [the noun] magical.[=0x0022=][=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Oyster Wide Shut[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The print standard inventory rule is not listed in any rulebook.[=0x000A=][=0x000A=]Carry out taking inventory (this is the new print inventory rule):[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation.[=0x000A=][=0x000A=][This is very much like the library[=0x0027=]s standard behavior, but with the exception that [=0x0022=]giving inventory information[=0x0022=] or even [=0x0022=]giving brief inventory information[=0x0022=] are omitted. Here[=0x0027=]s how we supplant it:][=0x000A=][=0x000A=]After printing the name of something (called target) while taking inventory:[=0x000A=][=0x0009=]follow the property-aggregation rules for the target.[=0x000A=][=0x000A=][Now, our property-aggregation rulebook is going to look at a given object and decide on a list of features that should be mentioned in inventory. We[=0x0027=]ll start by producing something quite similar to Inform[=0x0027=]s default behavior:][=0x000A=][=0x000A=]The property-aggregation rules are an object-based rulebook.[=0x000A=]The property-aggregation rulebook has a list of text called the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable open thing (this is the mention open openables rule):[=0x000A=][=0x0009=]add [=0x0022=]open[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):[=0x000A=][=0x0009=]add [=0x0022=]closed[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a lit thing (this is the mention lit objects rule):[=0x000A=][=0x0009=]add [=0x0022=]providing light[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):[=0x000A=][=0x0009=]add [=0x0022=]being worn[=0x0022=] to the tagline.[=0x000A=][=0x000A=]The last property-aggregation rule (this is the print aggregated properties rule):[=0x000A=][=0x0009=]if the number of entries in the tagline is greater than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] ([tagline])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]rule fails.[=0x000A=][=0x000A=][Notice that we don[=0x0027=]t need to write any rules about how to print that list of text: because Inform is printing out a list, it will automatically insert commas, spaces, and the word [=0x0022=]and[=0x0022=] where appropriate; and it will automatically follow the [=0x0022=]use serial comma[=0x0022=] option, if we have it set.][=0x000A=][=0x000A=][Now we[=0x0027=]re free to meddle. Let[=0x0027=]s give the player a bunch of possessions that will be listed in interesting ways in inventory:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Curved Beach is a room. [=0x0022=]White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.[=0x0022=][=0x000A=][=0x000A=]The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.[=0x000A=][=0x000A=]The player wears a flashlight lanyard. The flashlight lanyard is a device.[=0x000A=][=0x000A=]Carry out switching on the lanyard: now the noun is lit.[=0x000A=]Carry out switching off the lanyard: now the noun is unlit.[=0x000A=][=0x000A=]The player carries an oyster. The oyster contains a pearl. The oyster is openable.[=0x000A=][=0x000A=][Now suppose that we don[=0x0027=]t want the oyster to say [=0x0022=]closed[=0x0022=] when it[=0x0027=]s closed. Instead, we[=0x0027=]d like it to say [=0x0022=]clamped shut[=0x0022=]. As this is the only property the oyster will ever have, we can simply override his whole property-aggregation rulebook:][=0x000A=][=0x000A=]A property-aggregation rule for the oyster:[=0x000A=][=0x0009=]if the oyster is closed:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] (clamped shut)[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][That[=0x0027=]s fine for the oyster because [=0x0022=]clamped shut[=0x0022=] is the only property he[=0x0027=]ll ever have. What if we[=0x0027=]d like instead just to revise the way the sack (and only the sack) gets described as providing light?][=0x000A=][=0x000A=]The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.[=0x000A=][=0x000A=]A property-aggregation rule for the plastic sack (this is the sacklight rule):[=0x000A=][=0x0009=]if [=0x0022=]providing light[=0x0022=] is listed in the tagline:[=0x000A=][=0x0009=][=0x0009=]remove [=0x0022=]providing light[=0x0022=] from the tagline;[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]gently glowing[=0x0022=] to the tagline.[=0x000A=][=0x000A=][Now the flashlight (and any other regular light sources we might add to the game) will be described as [=0x0022=]providing light[=0x0022=], but the sack will only be said to be gently glowing -- a bit more appropriate for its rather fainter gleam.][=0x000A=][=0x000A=][We might also wish to add a systematic feature across the board to include a new property in the inventory list? Let[=0x0027=]s say the player can enchant his possessions, and enchanted possessions should thereafter be listed accordingly:][=0x000A=][=0x000A=]A thing can be magical or non-magical. A thing is usually non-magical.[=0x000A=][=0x000A=]Understand [=0x0022=]enchant [something][=0x0022=] as enchanting. Enchanting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out enchanting something:[=0x000A=][=0x0009=]now the noun is magical.[=0x000A=][=0x000A=]Report enchanting something:[=0x000A=][=0x0009=]say [=0x0022=]Ding! You turn [the noun] magical.[=0x0022=][=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Oyster Wide Shut')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Oyster Wide Shut&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11515_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11515_278"></a>Section 1 - Procedure
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11516_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11516_278"></a><a href="javascript:pasteCode(' [=0x0022=]Oyster Wide Shut[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The print standard inventory rule is not listed in any rulebook.[=0x000A=][=0x000A=]Carry out taking inventory (this is the new print inventory rule):[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation.[=0x000A=][=0x000A=][This is very much like the library[=0x0027=]s standard behavior, but with the exception that [=0x0022=]giving inventory information[=0x0022=] or even [=0x0022=]giving brief inventory information[=0x0022=] are omitted. Here[=0x0027=]s how we supplant it:][=0x000A=][=0x000A=]After printing the name of something (called target) while taking inventory:[=0x000A=][=0x0009=]follow the property-aggregation rules for the target.[=0x000A=][=0x000A=][Now, our property-aggregation rulebook is going to look at a given object and decide on a list of features that should be mentioned in inventory. We[=0x0027=]ll start by producing something quite similar to Inform[=0x0027=]s default behavior:][=0x000A=][=0x000A=]The property-aggregation rules are an object-based rulebook.[=0x000A=]The property-aggregation rulebook has a list of text called the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable open thing (this is the mention open openables rule):[=0x000A=][=0x0009=]add [=0x0022=]open[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):[=0x000A=][=0x0009=]add [=0x0022=]closed[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a lit thing (this is the mention lit objects rule):[=0x000A=][=0x0009=]add [=0x0022=]providing light[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):[=0x000A=][=0x0009=]add [=0x0022=]being worn[=0x0022=] to the tagline.[=0x000A=][=0x000A=]The last property-aggregation rule (this is the print aggregated properties rule):[=0x000A=][=0x0009=]if the number of entries in the tagline is greater than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] ([tagline])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]rule fails.[=0x000A=][=0x000A=][Notice that we don[=0x0027=]t need to write any rules about how to print that list of text: because Inform is printing out a list, it will automatically insert commas, spaces, and the word [=0x0022=]and[=0x0022=] where appropriate; and it will automatically follow the [=0x0022=]use serial comma[=0x0022=] option, if we have it set.][=0x000A=][=0x000A=][Now we[=0x0027=]re free to meddle. Let[=0x0027=]s give the player a bunch of possessions that will be listed in interesting ways in inventory:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Curved Beach is a room. [=0x0022=]White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.[=0x0022=][=0x000A=][=0x000A=]The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.[=0x000A=][=0x000A=]The player wears a flashlight lanyard. The flashlight lanyard is a device.[=0x000A=][=0x000A=]Carry out switching on the lanyard: now the noun is lit.[=0x000A=]Carry out switching off the lanyard: now the noun is unlit.[=0x000A=][=0x000A=]The player carries an oyster. The oyster contains a pearl. The oyster is openable.[=0x000A=][=0x000A=][Now suppose that we don[=0x0027=]t want the oyster to say [=0x0022=]closed[=0x0022=] when it[=0x0027=]s closed. Instead, we[=0x0027=]d like it to say [=0x0022=]clamped shut[=0x0022=]. As this is the only property the oyster will ever have, we can simply override his whole property-aggregation rulebook:][=0x000A=][=0x000A=]A property-aggregation rule for the oyster:[=0x000A=][=0x0009=]if the oyster is closed:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] (clamped shut)[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][That[=0x0027=]s fine for the oyster because [=0x0022=]clamped shut[=0x0022=] is the only property he[=0x0027=]ll ever have. What if we[=0x0027=]d like instead just to revise the way the sack (and only the sack) gets described as providing light?][=0x000A=][=0x000A=]The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.[=0x000A=][=0x000A=]A property-aggregation rule for the plastic sack (this is the sacklight rule):[=0x000A=][=0x0009=]if [=0x0022=]providing light[=0x0022=] is listed in the tagline:[=0x000A=][=0x0009=][=0x0009=]remove [=0x0022=]providing light[=0x0022=] from the tagline;[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]gently glowing[=0x0022=] to the tagline.[=0x000A=][=0x000A=][Now the flashlight (and any other regular light sources we might add to the game) will be described as [=0x0022=]providing light[=0x0022=], but the sack will only be said to be gently glowing -- a bit more appropriate for its rather fainter gleam.][=0x000A=][=0x000A=][We might also wish to add a systematic feature across the board to include a new property in the inventory list? Let[=0x0027=]s say the player can enchant his possessions, and enchanted possessions should thereafter be listed accordingly:][=0x000A=][=0x000A=]A thing can be magical or non-magical. A thing is usually non-magical.[=0x000A=][=0x000A=]Understand [=0x0022=]enchant [something][=0x0022=] as enchanting. Enchanting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out enchanting something:[=0x000A=][=0x0009=]now the noun is magical.[=0x000A=][=0x000A=]Report enchanting something:[=0x000A=][=0x0009=]say [=0x0022=]Ding! You turn [the noun] magical.[=0x0022=][=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Oyster Wide Shut[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The print standard inventory rule is not listed in any rulebook.[=0x000A=][=0x000A=]Carry out taking inventory (this is the new print inventory rule):[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation.[=0x000A=][=0x000A=][This is very much like the library[=0x0027=]s standard behavior, but with the exception that [=0x0022=]giving inventory information[=0x0022=] or even [=0x0022=]giving brief inventory information[=0x0022=] are omitted. Here[=0x0027=]s how we supplant it:][=0x000A=][=0x000A=]After printing the name of something (called target) while taking inventory:[=0x000A=][=0x0009=]follow the property-aggregation rules for the target.[=0x000A=][=0x000A=][Now, our property-aggregation rulebook is going to look at a given object and decide on a list of features that should be mentioned in inventory. We[=0x0027=]ll start by producing something quite similar to Inform[=0x0027=]s default behavior:][=0x000A=][=0x000A=]The property-aggregation rules are an object-based rulebook.[=0x000A=]The property-aggregation rulebook has a list of text called the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable open thing (this is the mention open openables rule):[=0x000A=][=0x0009=]add [=0x0022=]open[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):[=0x000A=][=0x0009=]add [=0x0022=]closed[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):[=0x000A=][=0x0009=]add [=0x0022=]empty[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a lit thing (this is the mention lit objects rule):[=0x000A=][=0x0009=]add [=0x0022=]providing light[=0x0022=] to the tagline.[=0x000A=][=0x000A=]A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):[=0x000A=][=0x0009=]add [=0x0022=]being worn[=0x0022=] to the tagline.[=0x000A=][=0x000A=]The last property-aggregation rule (this is the print aggregated properties rule):[=0x000A=][=0x0009=]if the number of entries in the tagline is greater than 0:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] ([tagline])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]rule fails.[=0x000A=][=0x000A=][Notice that we don[=0x0027=]t need to write any rules about how to print that list of text: because Inform is printing out a list, it will automatically insert commas, spaces, and the word [=0x0022=]and[=0x0022=] where appropriate; and it will automatically follow the [=0x0022=]use serial comma[=0x0022=] option, if we have it set.][=0x000A=][=0x000A=][Now we[=0x0027=]re free to meddle. Let[=0x0027=]s give the player a bunch of possessions that will be listed in interesting ways in inventory:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Curved Beach is a room. [=0x0022=]White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.[=0x0022=][=0x000A=][=0x000A=]The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.[=0x000A=][=0x000A=]The player wears a flashlight lanyard. The flashlight lanyard is a device.[=0x000A=][=0x000A=]Carry out switching on the lanyard: now the noun is lit.[=0x000A=]Carry out switching off the lanyard: now the noun is unlit.[=0x000A=][=0x000A=]The player carries an oyster. The oyster contains a pearl. The oyster is openable.[=0x000A=][=0x000A=][Now suppose that we don[=0x0027=]t want the oyster to say [=0x0022=]closed[=0x0022=] when it[=0x0027=]s closed. Instead, we[=0x0027=]d like it to say [=0x0022=]clamped shut[=0x0022=]. As this is the only property the oyster will ever have, we can simply override his whole property-aggregation rulebook:][=0x000A=][=0x000A=]A property-aggregation rule for the oyster:[=0x000A=][=0x0009=]if the oyster is closed:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] (clamped shut)[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][That[=0x0027=]s fine for the oyster because [=0x0022=]clamped shut[=0x0022=] is the only property he[=0x0027=]ll ever have. What if we[=0x0027=]d like instead just to revise the way the sack (and only the sack) gets described as providing light?][=0x000A=][=0x000A=]The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.[=0x000A=][=0x000A=]A property-aggregation rule for the plastic sack (this is the sacklight rule):[=0x000A=][=0x0009=]if [=0x0022=]providing light[=0x0022=] is listed in the tagline:[=0x000A=][=0x0009=][=0x0009=]remove [=0x0022=]providing light[=0x0022=] from the tagline;[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]gently glowing[=0x0022=] to the tagline.[=0x000A=][=0x000A=][Now the flashlight (and any other regular light sources we might add to the game) will be described as [=0x0022=]providing light[=0x0022=], but the sack will only be said to be gently glowing -- a bit more appropriate for its rather fainter gleam.][=0x000A=][=0x000A=][We might also wish to add a systematic feature across the board to include a new property in the inventory list? Let[=0x0027=]s say the player can enchant his possessions, and enchanted possessions should thereafter be listed accordingly:][=0x000A=][=0x000A=]A thing can be magical or non-magical. A thing is usually non-magical.[=0x000A=][=0x000A=]Understand [=0x0022=]enchant [something][=0x0022=] as enchanting. Enchanting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out enchanting something:[=0x000A=][=0x0009=]now the noun is magical.[=0x000A=][=0x000A=]Report enchanting something:[=0x000A=][=0x0009=]say [=0x0022=]Ding! You turn [the noun] magical.[=0x0022=][=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Oyster Wide Shut')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Oyster Wide Shut&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11516_278"></a>The print standard inventory rule is not listed in any rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11517_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11517_278"></a>Section 1 - Procedure
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11518_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11518_278"></a>The print standard inventory rule is not listed in any rulebook.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11519_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11519_278"></a>Carry out taking inventory (this is the new print inventory rule):
+            <blockquote class="code"><p class="quoted"><a id="c11517_278"></a>Carry out taking inventory (this is the new print inventory rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are carrying: [line break]&quot;;
             <br>
@@ -148,65 +148,65 @@
             </blockquote>
             <!--END CODE-->
             <p>This is very much like the library's standard behavior, but with the exception that &quot;giving inventory information&quot; or even &quot;giving brief inventory information&quot; are omitted. Here's how we supplant it:</p>
-            <!--START CODE "c11520_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11520_278"></a>After printing the name of something (called target) while taking inventory:
+            <!--START CODE "c11518_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11518_278"></a>After printing the name of something (called target) while taking inventory:
             <br>
             &#160;&#160;&#160;&#160;follow the property-aggregation rules for the target.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now, our property-aggregation rulebook is going to look at a given object and decide on a list of features that should be mentioned in inventory. We'll start by producing something quite similar to Inform's default behavior:</p>
-            <!--START CODE "c11521_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11521_278"></a>The property-aggregation rules are an object-based rulebook.
+            <!--START CODE "c11519_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11519_278"></a>The property-aggregation rules are an object-based rulebook.
             <br>
             The property-aggregation rulebook has a list of text called the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11522_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11522_278"></a>A first property-aggregation rule for an openable open thing (this is the mention open openables rule):
+            <!--START CODE "c11520_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11520_278"></a>A first property-aggregation rule for an openable open thing (this is the mention open openables rule):
             <br>
             &#160;&#160;&#160;&#160;add &quot;open&quot; to the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11523_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11523_278"></a>A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):
+            <!--START CODE "c11521_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11521_278"></a>A first property-aggregation rule for an openable closed thing (this is the mention closed openables rule):
             <br>
             &#160;&#160;&#160;&#160;add &quot;closed&quot; to the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11522_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11522_278"></a>A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):
+            <br>
+            &#160;&#160;&#160;&#160;add &quot;empty&quot; to the tagline.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11523_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11523_278"></a>A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):
+            <br>
+            &#160;&#160;&#160;&#160;add &quot;empty&quot; to the tagline.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11524_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11524_278"></a>A property-aggregation rule for a closed transparent container which contains nothing (this is the mention empty transparent containers rule):
-            <br>
-            &#160;&#160;&#160;&#160;add &quot;empty&quot; to the tagline.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11525_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11525_278"></a>A property-aggregation rule for an open container which contains nothing (this is the mention empty open containers rule):
-            <br>
-            &#160;&#160;&#160;&#160;add &quot;empty&quot; to the tagline.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11526_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11526_278"></a>A property-aggregation rule for a lit thing (this is the mention lit objects rule):
+            <blockquote class="code"><p class="quoted"><a id="c11524_278"></a>A property-aggregation rule for a lit thing (this is the mention lit objects rule):
             <br>
             &#160;&#160;&#160;&#160;add &quot;providing light&quot; to the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11527_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11527_278"></a>A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):
+            <!--START CODE "c11525_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11525_278"></a>A property-aggregation rule for a thing worn by the player (this is the mention worn objects rule):
             <br>
             &#160;&#160;&#160;&#160;add &quot;being worn&quot; to the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11528_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11528_278"></a>The last property-aggregation rule (this is the print aggregated properties rule):
+            <!--START CODE "c11526_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11526_278"></a>The last property-aggregation rule (this is the print aggregated properties rule):
             <br>
             &#160;&#160;&#160;&#160;if the number of entries in the tagline is greater than 0:
             <br>
@@ -220,41 +220,41 @@
             <!--END CODE-->
             <p>Notice that we don't need to write any rules about how to print that list of text: because Inform is printing out a list, it will automatically insert commas, spaces, and the word &quot;and&quot; where appropriate; and it will automatically follow the &quot;use serial comma&quot; option, if we have it set.</p>
             <p>Now we're free to meddle. Let's give the player a bunch of possessions that will be listed in interesting ways in inventory:</p>
+            <!--START CODE "c11527_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11527_278"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11528_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11528_278"></a>The Curved Beach is a room. &quot;White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11529_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11529_278"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c11529_278"></a>The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11530_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11530_278"></a>The Curved Beach is a room. &quot;White sand stretches away both northeast and northwest, enclosing this attractive little bay. Gentle waves lap at the beach.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11530_278"></a>The player wears a flashlight lanyard. The flashlight lanyard is a device.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11531_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11531_278"></a>The player carries a glowing plastic sack. The glowing plastic sack is lit and transparent and openable and open. It contains a rock. It is wearable.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11532_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11532_278"></a>The player wears a flashlight lanyard. The flashlight lanyard is a device.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11533_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11533_278"></a>Carry out switching on the lanyard: now the noun is lit.
+            <blockquote class="code"><p class="quoted"><a id="c11531_278"></a>Carry out switching on the lanyard: now the noun is lit.
             <br>
             Carry out switching off the lanyard: now the noun is unlit.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11534_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11534_278"></a>The player carries an oyster. The oyster contains a pearl. The oyster is openable.
+            <!--START CODE "c11532_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11532_278"></a>The player carries an oyster. The oyster contains a pearl. The oyster is openable.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now suppose that we don't want the oyster to say &quot;closed&quot; when it's closed. Instead, we'd like it to say &quot;clamped shut&quot;. As this is the only property the oyster will ever have, we can simply override his whole property-aggregation rulebook:</p>
-            <!--START CODE "c11535_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11535_278"></a>A property-aggregation rule for the oyster:
+            <!--START CODE "c11533_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11533_278"></a>A property-aggregation rule for the oyster:
             <br>
             &#160;&#160;&#160;&#160;if the oyster is closed:
             <br>
@@ -265,13 +265,13 @@
             </blockquote>
             <!--END CODE-->
             <p>That's fine for the oyster because &quot;clamped shut&quot; is the only property he'll ever have. What if we'd like instead just to revise the way the sack (and only the sack) gets described as providing light?</p>
-            <!--START CODE "c11536_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11536_278"></a>The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.
+            <!--START CODE "c11534_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11534_278"></a>The sacklight rule is listed after the mention lit objects rule in the property-aggregation rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11537_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11537_278"></a>A property-aggregation rule for the plastic sack (this is the sacklight rule):
+            <!--START CODE "c11535_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11535_278"></a>A property-aggregation rule for the plastic sack (this is the sacklight rule):
             <br>
             &#160;&#160;&#160;&#160;if &quot;providing light&quot; is listed in the tagline:
             <br>
@@ -283,51 +283,51 @@
             <!--END CODE-->
             <p>Now the flashlight (and any other regular light sources we might add to the game) will be described as &quot;providing light&quot;, but the sack will only be said to be gently glowing -- a bit more appropriate for its rather fainter gleam.</p>
             <p>We might also wish to add a systematic feature across the board to include a new property in the inventory list? Let's say the player can enchant his possessions, and enchanted possessions should thereafter be listed accordingly:</p>
+            <!--START CODE "c11536_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11536_278"></a>A thing can be magical or non-magical. A thing is usually non-magical.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11537_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11537_278"></a>Understand &quot;enchant [something]&quot; as enchanting. Enchanting is an action applying to one thing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11538_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11538_278"></a>A thing can be magical or non-magical. A thing is usually non-magical.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11539_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11539_278"></a>Understand &quot;enchant [something]&quot; as enchanting. Enchanting is an action applying to one thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11540_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11540_278"></a>Carry out enchanting something:
+            <blockquote class="code"><p class="quoted"><a id="c11538_278"></a>Carry out enchanting something:
             <br>
             &#160;&#160;&#160;&#160;now the noun is magical.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11541_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11541_278"></a>Report enchanting something:
+            <!--START CODE "c11539_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11539_278"></a>Report enchanting something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Ding! You turn [the noun] magical.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11542_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11542_278"></a>A property-aggregation rule for a magical thing:
+            <!--START CODE "c11540_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11540_278"></a>A property-aggregation rule for a magical thing:
             <br>
             &#160;&#160;&#160;&#160;add &quot;enchanted&quot; to the tagline.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11543_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11543_278"></a>Test me with &quot;i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i&quot;.
+            <!--START CODE "c11541_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11541_278"></a>Test me with &quot;i / close oyster / i  / turn on flashlight / i / take off flashlight / i / turn off flashlight / i / close sack / i / open sack / i / take all from sack / i / close sack / i  / wear sack / i / enchant sack / i / open sack / put all in sack / i / close sack / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Further variations are possible as well: if we used a &quot;before printing the name...&quot; rather than an &quot;after printing the name...&quot; rule, we could automatically generate lines like &quot;an open and empty phosphorescent plastic sack&quot;, removing some of the artificiality of the parentheses.</p>
             <p>Or we could add more logic to the rules about which properties are mentioned, so that some features of objects were mentioned in inventory only if the player was wearing the correct detection device, like so:</p>
-            <!--START CODE "c11544_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11544_278"></a><a href="javascript:pasteCode('The player wears enchantment-detecting goggles.[=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]if the player is wearing the goggles:[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('The player wears enchantment-detecting goggles.[=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]if the player is wearing the goggles:[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]\n', 'Example - Oyster Wide Shut')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; The player wears enchantment-detecting goggles.
+            <!--START CODE "c11542_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11542_278"></a><a href="javascript:pasteCode('The player wears enchantment-detecting goggles.[=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]if the player is wearing the goggles:[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('The player wears enchantment-detecting goggles.[=0x000A=][=0x000A=]A property-aggregation rule for a magical thing:[=0x000A=][=0x0009=]if the player is wearing the goggles:[=0x000A=][=0x0009=][=0x0009=]add [=0x0022=]enchanted[=0x0022=] to the tagline.[=0x000A=][=0x000A=]\n', 'Example - Oyster Wide Shut')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; The player wears enchantment-detecting goggles.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11545_278"-->
-            <blockquote class="code"><p class="quoted"><a id="c11545_278"></a>A property-aggregation rule for a magical thing:
+            <!--START CODE "c11543_278"-->
+            <blockquote class="code"><p class="quoted"><a id="c11543_278"></a>A property-aggregation rule for a magical thing:
             <br>
             &#160;&#160;&#160;&#160;if the player is wearing the goggles:
             <br>
@@ -354,7 +354,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc172.html#e125"><i>WI</i></a></div>
+                        <a href="doc170.html#e125"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -375,43 +375,43 @@
             <p>&quot;Not listing concealed items&quot; means to omit from the list anything which is scenery.</p>
             <p>Finally, &quot;with extra indentation&quot; means that the whole list should be indented slightly, in emulation of the default inventory listing.</p>
             <p>With this information, we can try rewriting the inventory behavior to emulate the standard or to explore alternate versions:</p>
+            <!--START CODE "c11544_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11544_125"></a><a href="javascript:pasteCode('[=0x0022=]Equipment List[=0x0022=][=0x000A=][=0x000A=]The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.[=0x000A=][=0x000A=]Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.[=0x000A=][=0x000A=]Understand [=0x0022=]inventory [inventory listing style][=0x0022=] as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.[=0x000A=][=0x000A=]Carry out requesting styled inventory:[=0x000A=][=0x0009=]now current inventory listing style is the inventory listing style understood.[=0x000A=][=0x000A=]Report requesting styled inventory:[=0x000A=][=0x0009=]say [=0x0022=]Inventory listing is now set to [current inventory listing style].[=0x0022=][=0x000A=][=0x000A=][We begin by emulating the standard inventory listing style:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation.[=0x000A=][=0x000A=][Here we offer the alternative of listing everything together as a paragraph:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, giving inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][This may be unsatisfactory, however. Items that are inside other items are not set off from those merely carried by the player. One way around this is to use terse listing, giving such descriptions as [=0x0022=]a waterproof sack (in which are an undersea map, a diving guide, a cup (in which is a worm) and a 500 Argentine pesos)[=0x0022=] as opposed to the more confusing [=0x0022=] a waterproof sack (open), inside which are an undersea map, a diving guide, a cup, inside which is a worm and a 500 Argentine pesos[=0x0022=].][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is curt:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, giving brief inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If, using the above style, we close the sack, we will still get [=0x0022=](closed)[=0x0022=] after the sack[=0x0027=]s listing. The following minimalist listing style abolishes even that nicety:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is minimal:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If we want to list worn things separately from carried things, we have occasion to put [=0x0022=]listing marked items only[=0x0022=] to work:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are wearing [=0x0022=];[=0x000A=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=]if no things worn by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=]now all things worn by the player are unmarked for listing;[=0x000A=][=0x0009=]if no things carried by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, tersely, giving brief inventory information, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=].[=0x000A=][=0x000A=][And similarly for a tall divided inventory:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation, listing marked items only;[=0x000A=][=0x0009=]if the player wears something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are wearing: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation, listing marked items only.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Equipment List[=0x0022=][=0x000A=][=0x000A=]The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.[=0x000A=][=0x000A=]Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.[=0x000A=][=0x000A=]Understand [=0x0022=]inventory [inventory listing style][=0x0022=] as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.[=0x000A=][=0x000A=]Carry out requesting styled inventory:[=0x000A=][=0x0009=]now current inventory listing style is the inventory listing style understood.[=0x000A=][=0x000A=]Report requesting styled inventory:[=0x000A=][=0x0009=]say [=0x0022=]Inventory listing is now set to [current inventory listing style].[=0x0022=][=0x000A=][=0x000A=][We begin by emulating the standard inventory listing style:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation.[=0x000A=][=0x000A=][Here we offer the alternative of listing everything together as a paragraph:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, giving inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][This may be unsatisfactory, however. Items that are inside other items are not set off from those merely carried by the player. One way around this is to use terse listing, giving such descriptions as [=0x0022=]a waterproof sack (in which are an undersea map, a diving guide, a cup (in which is a worm) and a 500 Argentine pesos)[=0x0022=] as opposed to the more confusing [=0x0022=] a waterproof sack (open), inside which are an undersea map, a diving guide, a cup, inside which is a worm and a 500 Argentine pesos[=0x0022=].][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is curt:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, giving brief inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If, using the above style, we close the sack, we will still get [=0x0022=](closed)[=0x0022=] after the sack[=0x0027=]s listing. The following minimalist listing style abolishes even that nicety:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is minimal:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If we want to list worn things separately from carried things, we have occasion to put [=0x0022=]listing marked items only[=0x0022=] to work:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are wearing [=0x0022=];[=0x000A=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=]if no things worn by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=]now all things worn by the player are unmarked for listing;[=0x000A=][=0x0009=]if no things carried by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, tersely, giving brief inventory information, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=].[=0x000A=][=0x000A=][And similarly for a tall divided inventory:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation, listing marked items only;[=0x000A=][=0x0009=]if the player wears something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are wearing: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation, listing marked items only.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i[=0x0022=].[=0x000A=]\n', 'Example - Equipment List')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Equipment List&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11545_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11545_125"></a>The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11546_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11546_125"></a><a href="javascript:pasteCode('[=0x0022=]Equipment List[=0x0022=][=0x000A=][=0x000A=]The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.[=0x000A=][=0x000A=]Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.[=0x000A=][=0x000A=]Understand [=0x0022=]inventory [inventory listing style][=0x0022=] as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.[=0x000A=][=0x000A=]Carry out requesting styled inventory:[=0x000A=][=0x0009=]now current inventory listing style is the inventory listing style understood.[=0x000A=][=0x000A=]Report requesting styled inventory:[=0x000A=][=0x0009=]say [=0x0022=]Inventory listing is now set to [current inventory listing style].[=0x0022=][=0x000A=][=0x000A=][We begin by emulating the standard inventory listing style:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation.[=0x000A=][=0x000A=][Here we offer the alternative of listing everything together as a paragraph:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, giving inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][This may be unsatisfactory, however. Items that are inside other items are not set off from those merely carried by the player. One way around this is to use terse listing, giving such descriptions as [=0x0022=]a waterproof sack (in which are an undersea map, a diving guide, a cup (in which is a worm) and a 500 Argentine pesos)[=0x0022=] as opposed to the more confusing [=0x0022=] a waterproof sack (open), inside which are an undersea map, a diving guide, a cup, inside which is a worm and a 500 Argentine pesos[=0x0022=].][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is curt:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, giving brief inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If, using the above style, we close the sack, we will still get [=0x0022=](closed)[=0x0022=] after the sack[=0x0027=]s listing. The following minimalist listing style abolishes even that nicety:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is minimal:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If we want to list worn things separately from carried things, we have occasion to put [=0x0022=]listing marked items only[=0x0022=] to work:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are wearing [=0x0022=];[=0x000A=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=]if no things worn by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=]now all things worn by the player are unmarked for listing;[=0x000A=][=0x0009=]if no things carried by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, tersely, giving brief inventory information, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=].[=0x000A=][=0x000A=][And similarly for a tall divided inventory:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation, listing marked items only;[=0x000A=][=0x0009=]if the player wears something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are wearing: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation, listing marked items only.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Equipment List[=0x0022=][=0x000A=][=0x000A=]The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.[=0x000A=][=0x000A=]Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.[=0x000A=][=0x000A=]Understand [=0x0022=]inventory [inventory listing style][=0x0022=] as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.[=0x000A=][=0x000A=]Carry out requesting styled inventory:[=0x000A=][=0x0009=]now current inventory listing style is the inventory listing style understood.[=0x000A=][=0x000A=]Report requesting styled inventory:[=0x000A=][=0x0009=]say [=0x0022=]Inventory listing is now set to [current inventory listing style].[=0x0022=][=0x000A=][=0x000A=][We begin by emulating the standard inventory listing style:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation.[=0x000A=][=0x000A=][Here we offer the alternative of listing everything together as a paragraph:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, giving inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][This may be unsatisfactory, however. Items that are inside other items are not set off from those merely carried by the player. One way around this is to use terse listing, giving such descriptions as [=0x0022=]a waterproof sack (in which are an undersea map, a diving guide, a cup (in which is a worm) and a 500 Argentine pesos)[=0x0022=] as opposed to the more confusing [=0x0022=] a waterproof sack (open), inside which are an undersea map, a diving guide, a cup, inside which is a worm and a 500 Argentine pesos[=0x0022=].][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is curt:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, giving brief inventory information, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If, using the above style, we close the sack, we will still get [=0x0022=](closed)[=0x0022=] after the sack[=0x0027=]s listing. The following minimalist listing style abolishes even that nicety:][=0x000A=][=0x000A=]Instead of taking inventory when current inventory listing style is minimal:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]list the contents of the player, tersely, as a sentence, including contents;[=0x000A=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=][=0x000A=][If we want to list worn things separately from carried things, we have occasion to put [=0x0022=]listing marked items only[=0x0022=] to work:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided wide:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=]You are wearing [=0x0022=];[=0x000A=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=]if no things worn by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]You are carrying [=0x0022=];[=0x000A=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=]now all things worn by the player are unmarked for listing;[=0x000A=][=0x0009=]if no things carried by the player are marked for listing, say [=0x0022=]nothing[=0x0022=];[=0x000A=][=0x0009=]otherwise list the contents of the player, as a sentence, tersely, giving brief inventory information, listing marked items only;[=0x000A=][=0x0009=]say [=0x0022=].[paragraph break][=0x0022=].[=0x000A=][=0x000A=][And similarly for a tall divided inventory:][=0x000A=][=0x000A=]Instead of taking inventory when the current inventory listing style is divided tall:[=0x000A=][=0x0009=]if the number of things enclosed by the player is 0, say [=0x0022=]You are empty-handed.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things carried by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are carrying: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, giving inventory information, including contents, with extra indentation, listing marked items only;[=0x000A=][=0x0009=]if the player wears something:[=0x000A=][=0x0009=][=0x0009=]now all things enclosed by the player are unmarked for listing;[=0x000A=][=0x0009=][=0x0009=]now all things worn by the player are marked for listing;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are wearing: [line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the contents of the player, with newlines, indented, including contents, with extra indentation, listing marked items only.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i[=0x0022=].[=0x000A=]\n', 'Example - Equipment List')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Equipment List&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11546_125"></a>Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11547_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11547_125"></a>The Watery Room is a room. The player carries a snorkel and a waterproof sack. The waterproof sack contains an undersea map, a diving guide, a cup, and 500 Argentine pesos. The cup contains a worm. The player wears a swimsuit and a pair of flippers. The sack is openable and open.
+            <blockquote class="code"><p class="quoted"><a id="c11547_125"></a>Understand &quot;inventory [inventory listing style]&quot; as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11548_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11548_125"></a>Inventory listing style is a kind of value. The inventory listing styles are tall, wide, curt, minimal, divided tall, and divided wide. Current inventory listing style is an inventory listing style that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11549_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11549_125"></a>Understand &quot;inventory [inventory listing style]&quot; as requesting styled inventory. Requesting styled inventory is an action applying to an inventory listing style. It is an action out of world.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11550_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11550_125"></a>Carry out requesting styled inventory:
+            <blockquote class="code"><p class="quoted"><a id="c11548_125"></a>Carry out requesting styled inventory:
             <br>
             &#160;&#160;&#160;&#160;now current inventory listing style is the inventory listing style understood.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11551_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11551_125"></a>Report requesting styled inventory:
+            <!--START CODE "c11549_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11549_125"></a>Report requesting styled inventory:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Inventory listing is now set to [current inventory listing style].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We begin by emulating the standard inventory listing style:</p>
-            <!--START CODE "c11552_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11552_125"></a>Instead of taking inventory when current inventory listing style is tall:
+            <!--START CODE "c11550_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11550_125"></a>Instead of taking inventory when current inventory listing style is tall:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -422,8 +422,8 @@
             </blockquote>
             <!--END CODE-->
             <p>Here we offer the alternative of listing everything together as a paragraph:</p>
-            <!--START CODE "c11553_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11553_125"></a>Instead of taking inventory when current inventory listing style is wide:
+            <!--START CODE "c11551_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11551_125"></a>Instead of taking inventory when current inventory listing style is wide:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -436,8 +436,8 @@
             </blockquote>
             <!--END CODE-->
             <p>This may be unsatisfactory, however. Items that are inside other items are not set off from those merely carried by the player. One way around this is to use terse listing, giving such descriptions as &quot;a waterproof sack (in which are an undersea map, a diving guide, a cup (in which is a worm) and a 500 Argentine pesos)&quot; as opposed to the more confusing &quot; a waterproof sack (open), inside which are an undersea map, a diving guide, a cup, inside which is a worm and a 500 Argentine pesos&quot;.</p>
-            <!--START CODE "c11554_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11554_125"></a>Instead of taking inventory when current inventory listing style is curt:
+            <!--START CODE "c11552_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11552_125"></a>Instead of taking inventory when current inventory listing style is curt:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -450,8 +450,8 @@
             </blockquote>
             <!--END CODE-->
             <p>If, using the above style, we close the sack, we will still get &quot;(closed)&quot; after the sack's listing. The following minimalist listing style abolishes even that nicety:</p>
-            <!--START CODE "c11555_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11555_125"></a>Instead of taking inventory when current inventory listing style is minimal:
+            <!--START CODE "c11553_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11553_125"></a>Instead of taking inventory when current inventory listing style is minimal:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -464,8 +464,8 @@
             </blockquote>
             <!--END CODE-->
             <p>If we want to list worn things separately from carried things, we have occasion to put &quot;listing marked items only&quot; to work:</p>
-            <!--START CODE "c11556_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11556_125"></a>Instead of taking inventory when the current inventory listing style is divided wide:
+            <!--START CODE "c11554_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11554_125"></a>Instead of taking inventory when the current inventory listing style is divided wide:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -496,8 +496,8 @@
             </blockquote>
             <!--END CODE-->
             <p>And similarly for a tall divided inventory:</p>
-            <!--START CODE "c11557_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11557_125"></a>Instead of taking inventory when the current inventory listing style is divided tall:
+            <!--START CODE "c11555_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11555_125"></a>Instead of taking inventory when the current inventory listing style is divided tall:
             <br>
             &#160;&#160;&#160;&#160;if the number of things enclosed by the player is 0, say &quot;You are empty-handed.&quot; instead;
             <br>
@@ -523,8 +523,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11558_125"-->
-            <blockquote class="code"><p class="quoted"><a id="c11558_125"></a>Test me with &quot;i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i&quot;.
+            <!--START CODE "c11556_125"-->
+            <blockquote class="code"><p class="quoted"><a id="c11556_125"></a>Test me with &quot;i / inventory wide / i / inventory curt / i / close sack / i / open sack / inventory minimal / i / close sack / i / open sack / inventory divided wide / i / inventory divided tall / i / drop all / i / take all / take off swimsuit / take off flippers / i / i divided wide / i / wear swimsuit / drop all / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -547,7 +547,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc74.html#e109"><i>WI</i></a></div>
+                        <a href="doc72.html#e109"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -556,13 +556,13 @@
 
         <div class="egpanel" id="example109" style="display: none;">
             <p>If we wanted, we might replace the rule for taking inventory as follows:</p>
-            <!--START CODE "c11559_109"-->
-            <blockquote class="code"><p class="quoted"><a id="c11559_109"></a><a href="javascript:pasteCode('[=0x0022=]Persephone[=0x0022=][=0x000A=][=0x000A=]Instead of taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][if the player carries something][We][[=0x0027=]re] carrying [a list of things carried by the player][otherwise][We][[=0x0027=]re] empty-handed[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][if the player wears something]. [We][[=0x0027=]re] wearing [a list of things worn by the player][end if].[=0x0022=][=0x000A=][=0x000A=]The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / take off sash / i / drop all / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Persephone[=0x0022=][=0x000A=][=0x000A=]Instead of taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][if the player carries something][We][[=0x0027=]re] carrying [a list of things carried by the player][otherwise][We][[=0x0027=]re] empty-handed[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][if the player wears something]. [We][[=0x0027=]re] wearing [a list of things worn by the player][end if].[=0x0022=][=0x000A=][=0x000A=]The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / take off sash / i / drop all / i[=0x0022=].[=0x000A=]\n', 'Example - Persephone')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Persephone&quot;
+            <!--START CODE "c11557_109"-->
+            <blockquote class="code"><p class="quoted"><a id="c11557_109"></a><a href="javascript:pasteCode('[=0x0022=]Persephone[=0x0022=][=0x000A=][=0x000A=]Instead of taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][if the player carries something][We][[=0x0027=]re] carrying [a list of things carried by the player][otherwise][We][[=0x0027=]re] empty-handed[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][if the player wears something]. [We][[=0x0027=]re] wearing [a list of things worn by the player][end if].[=0x0022=][=0x000A=][=0x000A=]The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / take off sash / i / drop all / i[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Persephone[=0x0022=][=0x000A=][=0x000A=]Instead of taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][if the player carries something][We][[=0x0027=]re] carrying [a list of things carried by the player][otherwise][We][[=0x0027=]re] empty-handed[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][if the player wears something]. [We][[=0x0027=]re] wearing [a list of things worn by the player][end if].[=0x0022=][=0x000A=][=0x000A=]The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / take off sash / i / drop all / i[=0x0022=].[=0x000A=]\n', 'Example - Persephone')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Persephone&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11560_109"-->
-            <blockquote class="code"><p class="quoted"><a id="c11560_109"></a>Instead of taking inventory:
+            <!--START CODE "c11558_109"-->
+            <blockquote class="code"><p class="quoted"><a id="c11558_109"></a>Instead of taking inventory:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[if the player carries something][We]['re] carrying [a list of things carried by the player][otherwise][We]['re] empty-handed&quot;;
             <br>
@@ -570,13 +570,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11561_109"-->
-            <blockquote class="code"><p class="quoted"><a id="c11561_109"></a>The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.
+            <!--START CODE "c11559_109"-->
+            <blockquote class="code"><p class="quoted"><a id="c11559_109"></a>The Fancy Party is a room. The player carries a sword, a strawberry stem, and 20 credits worth of platinum. The player wears a sash indicating lordhood.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11562_109"-->
-            <blockquote class="code"><p class="quoted"><a id="c11562_109"></a>Test me with &quot;i / take off sash / i / drop all / i&quot;.
+            <!--START CODE "c11560_109"-->
+            <blockquote class="code"><p class="quoted"><a id="c11560_109"></a>Test me with &quot;i / take off sash / i / drop all / i&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -599,7 +599,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc187.html#e256"><i>WI</i></a></div>
+                        <a href="doc185.html#e256"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -608,30 +608,30 @@
 
         <div class="egpanel" id="example256" style="display: none;">
             <p>Inform has built-in commands for other people, and sometimes we may want to adjust the way these work without completely disabling and replacing the command. Suppose, for instance, that instead of</p>
-            <!--START CODE "c11563_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11563_256"></a>Kermit the Frog looks through his possessions.
+            <!--START CODE "c11561_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11561_256"></a>Kermit the Frog looks through his possessions.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>we'd like someone taking inventory to report what he's got, thus:</p>
-            <!--START CODE "c11564_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11564_256"></a>Kermit the Frog says, &quot;I seem to be carrying a microphone and wearing a hat and a trenchcoat.&quot;
+            <!--START CODE "c11562_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11562_256"></a>Kermit the Frog says, &quot;I seem to be carrying a microphone and wearing a hat and a trenchcoat.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>To do this, we could replace the built-in report rule with a different one.</p>
+            <!--START CODE "c11563_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11563_256"></a><a href="javascript:pasteCode('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n', 'Example - Trying Taking Manhattan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Trying Taking Manhattan&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11564_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11564_256"></a>The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11565_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11565_256"></a><a href="javascript:pasteCode('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Trying Taking Manhattan[=0x0022=][=0x000A=][=0x000A=]The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.[=0x000A=][=0x000A=]This is the loud inventory rule:[=0x000A=][=0x0009=]unless the player is the person asked:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The person asked] says, [=0x0027=]I seem to be carrying [a list of things carried by the person asked][if the person asked is wearing something] and wearing [a list of things worn by the person asked][end if].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Grand Central Station is a room. [=0x0022=]Here you are in New York, New York. Any minute now someone is going to burst into song.[=0x0022=][=0x000A=][=0x000A=]Kermit the Frog is a man in Grand Central Station. [=0x0022=]Kermit the Frog stands nearby, enjoying being green.[=0x0022=] Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.[=0x000A=][=0x000A=]Test me with [=0x0022=]inventory / kermit, inventory[=0x0022=].[=0x000A=]\n', 'Example - Trying Taking Manhattan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Trying Taking Manhattan&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11566_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11566_256"></a>The loud inventory rule is listed instead of the report other people taking inventory rule in the report taking inventory rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11567_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11567_256"></a>This is the loud inventory rule:
+            <blockquote class="code"><p class="quoted"><a id="c11565_256"></a>This is the loud inventory rule:
             <br>
             &#160;&#160;&#160;&#160;unless the player is the person asked:
             <br>
@@ -639,23 +639,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11566_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11566_256"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11567_256"-->
+            <blockquote class="code"><p class="quoted"><a id="c11567_256"></a>Grand Central Station is a room. &quot;Here you are in New York, New York. Any minute now someone is going to burst into song.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11568_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11568_256"></a>Persuasion rule for asking someone to try doing something: persuasion succeeds.
+            <blockquote class="code"><p class="quoted"><a id="c11568_256"></a>Kermit the Frog is a man in Grand Central Station. &quot;Kermit the Frog stands nearby, enjoying being green.&quot; Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11569_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11569_256"></a>Grand Central Station is a room. &quot;Here you are in New York, New York. Any minute now someone is going to burst into song.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11570_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11570_256"></a>Kermit the Frog is a man in Grand Central Station. &quot;Kermit the Frog stands nearby, enjoying being green.&quot; Kermit is wearing a hat and a trenchcoat. He is carrying a microphone.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11571_256"-->
-            <blockquote class="code"><p class="quoted"><a id="c11571_256"></a>Test me with &quot;inventory / kermit, inventory&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11569_256"></a>Test me with &quot;inventory / kermit, inventory&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

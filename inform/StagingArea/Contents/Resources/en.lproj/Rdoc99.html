@@ -102,7 +102,7 @@
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="doc270.html#e151"><i>WI</i></a></div>
+                        <a href="doc268.html#e151"><i>WI</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
@@ -111,38 +111,38 @@
 
         <div class="egpanel" id="example151" style="display: none;">
             <p>&quot;Hitchhiker's Guide to the Galaxy&quot; introduced the idea of footnoted descriptions, and various IF games since have toyed with the idea. The recommended implementation in Inform 6 involved keeping an assortment of footnote objects around, but in Inform 7 the table is a much tidier way of handling the same problem.</p>
+            <!--START CODE "c16515_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16515_151"></a><a href="javascript:pasteCode('[=0x0022=]Ibid.[=0x0022=][=0x000A=][=0x000A=]The Ship Inn is a room. [=0x0022=]Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].[=0x000A=][=0x000A=]To your left sits a party of Italians, with their guidebook.[=0x000A=][=0x000A=]To your right is a silent, but not unappealing, young man.[=0x0022=].[=0x000A=][=0x000A=]A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.[=0x000A=][=0x000A=]The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is [=0x0022=]Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].[=0x0022=] The pie is edible.[=0x000A=][=0x000A=]Table of Footnotes[=0x000A=]assignment[=0x0009=]note[=0x000A=]a number[=0x0009=][=0x0022=]Francis Drake ate here, if the sign on the door is to be believed[=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]this is unlikely, considering that owls are protected animals in England these days [3 as a footnote][=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]moreover, you can[=0x0027=]t imagine that owl would be very tasty[=0x0022=][=0x000A=][=0x000A=]Footnotes mentioned is a number that varies.[=0x000A=][=0x000A=][Whenever we mention a footnote for the first time, we need to assign it a number, which we will use consistently thereafter. And it[=0x0027=]s probably a good idea to protect ourselves against the author accidentally using a number too large for the footnote table, too. So:][=0x000A=][=0x000A=]To say (footnote - a number) as a footnote:[=0x000A=][=0x0009=]if footnote [=0x003E=] number of filled rows in the Table of Footnotes:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Programming error: footnote assignment out of range.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=]if there is an assignment entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now assignment entry is footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=].[=0x000A=][=0x000A=][Now, in order to let the player view these footnotes, we[=0x0027=]ll need to parse numbers.][=0x000A=][=0x000A=]Understand [=0x0022=]footnote [number][=0x0022=] as looking up a footnote.[=0x000A=][=0x000A=]Looking up a footnote is an action applying to one number.[=0x000A=][=0x000A=]Check looking up a footnote:[=0x000A=][=0x0009=]if the number understood [=0x003E=] footnotes mentioned, say [=0x0022=]You haven[=0x0027=]t seen any such footnote.[=0x0022=] instead;[=0x000A=][=0x0009=]if the number understood [=0x003C=] 1, say [=0x0022=]Footnotes are numbered from 1.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out looking up a footnote:[=0x000A=][=0x0009=]choose row with assignment of number understood in the Table of Footnotes;[=0x000A=][=0x0009=]say [=0x0022=]([assignment entry]): [note entry].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]footnote 1 / examine pie / footnote 2 / footnote 3[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ibid.[=0x0022=][=0x000A=][=0x000A=]The Ship Inn is a room. [=0x0022=]Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].[=0x000A=][=0x000A=]To your left sits a party of Italians, with their guidebook.[=0x000A=][=0x000A=]To your right is a silent, but not unappealing, young man.[=0x0022=].[=0x000A=][=0x000A=]A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.[=0x000A=][=0x000A=]The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is [=0x0022=]Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].[=0x0022=] The pie is edible.[=0x000A=][=0x000A=]Table of Footnotes[=0x000A=]assignment[=0x0009=]note[=0x000A=]a number[=0x0009=][=0x0022=]Francis Drake ate here, if the sign on the door is to be believed[=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]this is unlikely, considering that owls are protected animals in England these days [3 as a footnote][=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]moreover, you can[=0x0027=]t imagine that owl would be very tasty[=0x0022=][=0x000A=][=0x000A=]Footnotes mentioned is a number that varies.[=0x000A=][=0x000A=][Whenever we mention a footnote for the first time, we need to assign it a number, which we will use consistently thereafter. And it[=0x0027=]s probably a good idea to protect ourselves against the author accidentally using a number too large for the footnote table, too. So:][=0x000A=][=0x000A=]To say (footnote - a number) as a footnote:[=0x000A=][=0x0009=]if footnote [=0x003E=] number of filled rows in the Table of Footnotes:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Programming error: footnote assignment out of range.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=]if there is an assignment entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now assignment entry is footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=].[=0x000A=][=0x000A=][Now, in order to let the player view these footnotes, we[=0x0027=]ll need to parse numbers.][=0x000A=][=0x000A=]Understand [=0x0022=]footnote [number][=0x0022=] as looking up a footnote.[=0x000A=][=0x000A=]Looking up a footnote is an action applying to one number.[=0x000A=][=0x000A=]Check looking up a footnote:[=0x000A=][=0x0009=]if the number understood [=0x003E=] footnotes mentioned, say [=0x0022=]You haven[=0x0027=]t seen any such footnote.[=0x0022=] instead;[=0x000A=][=0x0009=]if the number understood [=0x003C=] 1, say [=0x0022=]Footnotes are numbered from 1.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out looking up a footnote:[=0x000A=][=0x0009=]choose row with assignment of number understood in the Table of Footnotes;[=0x000A=][=0x0009=]say [=0x0022=]([assignment entry]): [note entry].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]footnote 1 / examine pie / footnote 2 / footnote 3[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Ibid.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ibid.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c16516_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16516_151"></a>The Ship Inn is a room. &quot;Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c16517_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16517_151"></a><a href="javascript:pasteCode('[=0x0022=]Ibid.[=0x0022=][=0x000A=][=0x000A=]The Ship Inn is a room. [=0x0022=]Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].[=0x000A=][=0x000A=]To your left sits a party of Italians, with their guidebook.[=0x000A=][=0x000A=]To your right is a silent, but not unappealing, young man.[=0x0022=].[=0x000A=][=0x000A=]A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.[=0x000A=][=0x000A=]The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is [=0x0022=]Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].[=0x0022=] The pie is edible.[=0x000A=][=0x000A=]Table of Footnotes[=0x000A=]assignment[=0x0009=]note[=0x000A=]a number[=0x0009=][=0x0022=]Francis Drake ate here, if the sign on the door is to be believed[=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]this is unlikely, considering that owls are protected animals in England these days [3 as a footnote][=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]moreover, you can[=0x0027=]t imagine that owl would be very tasty[=0x0022=][=0x000A=][=0x000A=]Footnotes mentioned is a number that varies.[=0x000A=][=0x000A=][Whenever we mention a footnote for the first time, we need to assign it a number, which we will use consistently thereafter. And it[=0x0027=]s probably a good idea to protect ourselves against the author accidentally using a number too large for the footnote table, too. So:][=0x000A=][=0x000A=]To say (footnote - a number) as a footnote:[=0x000A=][=0x0009=]if footnote [=0x003E=] number of filled rows in the Table of Footnotes:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Programming error: footnote assignment out of range.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=]if there is an assignment entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now assignment entry is footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=].[=0x000A=][=0x000A=][Now, in order to let the player view these footnotes, we[=0x0027=]ll need to parse numbers.][=0x000A=][=0x000A=]Understand [=0x0022=]footnote [number][=0x0022=] as looking up a footnote.[=0x000A=][=0x000A=]Looking up a footnote is an action applying to one number.[=0x000A=][=0x000A=]Check looking up a footnote:[=0x000A=][=0x0009=]if the number understood [=0x003E=] footnotes mentioned, say [=0x0022=]You haven[=0x0027=]t seen any such footnote.[=0x0022=] instead;[=0x000A=][=0x0009=]if the number understood [=0x003C=] 1, say [=0x0022=]Footnotes are numbered from 1.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out looking up a footnote:[=0x000A=][=0x0009=]choose row with assignment of number understood in the Table of Footnotes;[=0x000A=][=0x0009=]say [=0x0022=]([assignment entry]): [note entry].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]footnote 1 / examine pie / footnote 2 / footnote 3[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ibid.[=0x0022=][=0x000A=][=0x000A=]The Ship Inn is a room. [=0x0022=]Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].[=0x000A=][=0x000A=]To your left sits a party of Italians, with their guidebook.[=0x000A=][=0x000A=]To your right is a silent, but not unappealing, young man.[=0x0022=].[=0x000A=][=0x000A=]A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.[=0x000A=][=0x000A=]The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is [=0x0022=]Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].[=0x0022=] The pie is edible.[=0x000A=][=0x000A=]Table of Footnotes[=0x000A=]assignment[=0x0009=]note[=0x000A=]a number[=0x0009=][=0x0022=]Francis Drake ate here, if the sign on the door is to be believed[=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]this is unlikely, considering that owls are protected animals in England these days [3 as a footnote][=0x0022=][=0x000A=]--[=0x0009=][=0x0022=]moreover, you can[=0x0027=]t imagine that owl would be very tasty[=0x0022=][=0x000A=][=0x000A=]Footnotes mentioned is a number that varies.[=0x000A=][=0x000A=][Whenever we mention a footnote for the first time, we need to assign it a number, which we will use consistently thereafter. And it[=0x0027=]s probably a good idea to protect ourselves against the author accidentally using a number too large for the footnote table, too. So:][=0x000A=][=0x000A=]To say (footnote - a number) as a footnote:[=0x000A=][=0x0009=]if footnote [=0x003E=] number of filled rows in the Table of Footnotes:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Programming error: footnote assignment out of range.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=]if there is an assignment entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]choose row footnote in the Table of Footnotes;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now assignment entry is footnotes mentioned;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([assignment entry])[=0x0022=].[=0x000A=][=0x000A=][Now, in order to let the player view these footnotes, we[=0x0027=]ll need to parse numbers.][=0x000A=][=0x000A=]Understand [=0x0022=]footnote [number][=0x0022=] as looking up a footnote.[=0x000A=][=0x000A=]Looking up a footnote is an action applying to one number.[=0x000A=][=0x000A=]Check looking up a footnote:[=0x000A=][=0x0009=]if the number understood [=0x003E=] footnotes mentioned, say [=0x0022=]You haven[=0x0027=]t seen any such footnote.[=0x0022=] instead;[=0x000A=][=0x0009=]if the number understood [=0x003C=] 1, say [=0x0022=]Footnotes are numbered from 1.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out looking up a footnote:[=0x000A=][=0x0009=]choose row with assignment of number understood in the Table of Footnotes;[=0x000A=][=0x0009=]say [=0x0022=]([assignment entry]): [note entry].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]footnote 1 / examine pie / footnote 2 / footnote 3[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Ibid.')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ibid.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c16517_151"></a>To your left sits a party of Italians, with their guidebook.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c16518_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16518_151"></a>The Ship Inn is a room. &quot;Here you are in a lovely pub which your guidebook assures you is extremely authentic. [1 as a footnote].
+            <blockquote class="code"><p class="quoted"><a id="c16518_151"></a>To your right is a silent, but not unappealing, young man.&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c16519_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16519_151"></a>To your left sits a party of Italians, with their guidebook.
+            <blockquote class="code"><p class="quoted"><a id="c16519_151"></a>A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c16520_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16520_151"></a>To your right is a silent, but not unappealing, young man.&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c16520_151"></a>The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is &quot;Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].&quot; The pie is edible.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c16521_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16521_151"></a>A party of Italians and a silent young man are people in the Ship Inn. The Italians and the young man are scenery.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c16522_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16522_151"></a>The table is a supporter in the Ship Inn. On the table is a mysterious pie. The description of the pie is &quot;Your waitress told you it was the specialty of the day, Steak and Owl Pie. [2 as a footnote].&quot; The pie is edible.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c16523_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16523_151"></a>Table of Footnotes
+            <blockquote class="code"><p class="quoted"><a id="c16521_151"></a>Table of Footnotes
             <br>
             </p>
             </blockquote>
@@ -191,14 +191,14 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16524_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16524_151"></a>Footnotes mentioned is a number that varies.
+            <!--START CODE "c16522_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16522_151"></a>Footnotes mentioned is a number that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Whenever we mention a footnote for the first time, we need to assign it a number, which we will use consistently thereafter. And it's probably a good idea to protect ourselves against the author accidentally using a number too large for the footnote table, too. So:</p>
-            <!--START CODE "c16525_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16525_151"></a>To say (footnote - a number) as a footnote:
+            <!--START CODE "c16523_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16523_151"></a>To say (footnote - a number) as a footnote:
             <br>
             &#160;&#160;&#160;&#160;if footnote &gt; number of filled rows in the Table of Footnotes:
             <br>
@@ -225,18 +225,18 @@
             </blockquote>
             <!--END CODE-->
             <p>Now, in order to let the player view these footnotes, we'll need to parse numbers.</p>
+            <!--START CODE "c16524_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16524_151"></a>Understand &quot;footnote [number]&quot; as looking up a footnote.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c16525_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16525_151"></a>Looking up a footnote is an action applying to one number.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c16526_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16526_151"></a>Understand &quot;footnote [number]&quot; as looking up a footnote.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c16527_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16527_151"></a>Looking up a footnote is an action applying to one number.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c16528_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16528_151"></a>Check looking up a footnote:
+            <blockquote class="code"><p class="quoted"><a id="c16526_151"></a>Check looking up a footnote:
             <br>
             &#160;&#160;&#160;&#160;if the number understood &gt; footnotes mentioned, say &quot;You haven't seen any such footnote.&quot; instead;
             <br>
@@ -244,8 +244,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16529_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16529_151"></a>Carry out looking up a footnote:
+            <!--START CODE "c16527_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16527_151"></a>Carry out looking up a footnote:
             <br>
             &#160;&#160;&#160;&#160;choose row with assignment of number understood in the Table of Footnotes;
             <br>
@@ -253,8 +253,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c16530_151"-->
-            <blockquote class="code"><p class="quoted"><a id="c16530_151"></a>Test me with &quot;footnote 1 / examine pie / footnote 2 / footnote 3&quot;.
+            <!--START CODE "c16528_151"-->
+            <blockquote class="code"><p class="quoted"><a id="c16528_151"></a>Test me with &quot;footnote 1 / examine pie / footnote 2 / footnote 3&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
