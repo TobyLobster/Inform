@@ -14,9 +14,6 @@ A new version of the Inform App is now available [here](https://github.com/TobyL
 
 Many thanks to MaddTheSane for a heroic number of modernisations, tweaks and fixes.
 
-### Known Issues
-- Release with a public solution (winning node marked with '***' in Skein) not currently working.
-
 ### Work in the Pipeline
 - Mac App Store Version.
 - Longer term: Modernisation to Swift, and away from deprecated APIs.
