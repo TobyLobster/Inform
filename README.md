@@ -14,9 +14,6 @@ A new version of the Inform App is now available [here](https://github.com/TobyL
 
 Many thanks to MaddTheSane for a heroic number of modernisations, tweaks and fixes.
 
-### Known Issues
-- Release with a public solution (winning node marked with '***' in Skein) not currently working.
-
 ### Work in the Pipeline
 - Mac App Store Version.
 - Longer term: Modernisation to Swift, and away from deprecated APIs.
@@ -32,7 +29,8 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 App Version  | Inform Version | Release Date | Description
 ------------ | -------------- | ------------ | :---------------------------------------
-1.82.0       | 10.1.0         | 2022-08-20   | Official release, supporting Inform 10.1.0
+1.82.1       | 10.1.1         | 2022&#8209;08&#8209;21   | Official release, supporting Inform 10.1.1
+1.82.0       | 10.1.0         | 2022&#8209;08&#8209;20   | Official release, supporting Inform 10.1.0
 1.81.0&#8209;beta1 | 10.1.0&nbsp;(beta)  | 2022&#8209;07&#8209;30   | This is a Beta. Colour Schemes, Dark mode, Basic Inform, Apple Silicon native support.
 1.68.1       | 6M62           | 2019-11-14   | Release with website bug fix.
 1.67.1       | 6M62           | 2019-10-25   | macOS Catalina support.
