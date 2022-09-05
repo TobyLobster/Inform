@@ -1,3 +1,3 @@
-xcrun notarytool submit inform1.81-beta1.dmg \
+xcrun notarytool submit inform.dmg \
                     --keychain-profile "AC_PASSWORD" \
                     --wait
