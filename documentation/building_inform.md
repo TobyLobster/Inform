@@ -142,14 +142,16 @@ See also Apple's documentation [Troubleshooting Application Archiving in Xcode](
 - Notarize and staple the DMG.
     If you've not done this before, you need to set up your credentials in keychain, as described in the "Upload your app to the notarization service" section of [Customising the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
 
-    First notarize:
-        `cd inform/Distribution`
-        Execute `./notarize.sh`
-    If that succeeds, use the id returned to run:
-        `xcrun notarytool log <the id> --keychain-profile "AC_PASSWORD" developer_log.json`
-        `open developer_log.json` and check for any errors
-    Finally, staple the DMG:
-        `xcrun stapler staple inform.dmg`
+    - First notarize:
+        - `cd inform/Distribution`
+        - Execute `./notarize.sh`
+
+    - If that succeeds, use the ID returned to run:
+        - `xcrun notarytool log <ID> --keychain-profile "AC_PASSWORD" developer_log.json`
+        - `open developer_log.json` and check for any errors
+
+    - Finally, staple the DMG:
+        - `xcrun stapler staple inform.dmg`
 
 - Rename the DMG with a version number in this format e.g. `Inform_10_1_2_macOS_1_82_2.dmg`
 
