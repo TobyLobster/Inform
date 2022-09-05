@@ -29,7 +29,8 @@ Inform is free, with no strings attached. What you make with it is yours, to pub
 
 App Version  | Inform Version | Release Date | Description
 ------------ | -------------- | ------------ | :---------------------------------------
-1.82.2       | 10.1.2         | 2022&#8209;09&#8209;02   | Official release, supporting Inform 10.1.2
+1.82.3       | 10.1.2         | 2022&#8209;09&#8209;05   | Official release, supporting Inform 10.1.2 (Notarized, bug fix for previous version)
+1.82.2       | 10.1.2         | 2022&#8209;09&#8209;02   | Bugged - not notarized
 1.82.1       | 10.1.1         | 2022&#8209;08&#8209;21   | Official release, supporting Inform 10.1.1
 1.82.0       | 10.1.0         | 2022&#8209;08&#8209;20   | Official release, supporting Inform 10.1.0
 1.81.0&#8209;beta1 | 10.1.0&nbsp;(beta)  | 2022&#8209;07&#8209;30   | This is a Beta. Colour Schemes, Dark mode, Basic Inform, Apple Silicon native support.
