@@ -139,12 +139,23 @@ SwiftSupport
 ```
 See also Apple's documentation [Troubleshooting Application Archiving in Xcode](https://developer.apple.com/library/archive/technotes/tn2215/_index.html).
 
-- Notarize and staple the DMG. See Apple's documentation:
+- Notarize and staple the DMG.
+    First notarize:
+        `cd inform/Distribution`
+        Execute `./notarize.sh`
+    If that succeeds, use the id returned to run:
+        `xcrun notarytool log <the id> --keychain-profile "AC_PASSWORD" developer_log.json`
+        `open developer_log.json` and check for any errors
+    Finally, staple the DMG:
+        `xcrun stapler staple inform.dmg`
+
+- Rename the DMG with a version number in this format e.g. `Inform_10_1_0_macOS_1_82_0.dmg`
+
+Troubleshooting: See Apple's documentation:
 	- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution?language=objc).
 	- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
 	- [Testing a Notarised Product](https://developer.apple.com/forums/thread/130560).
 
-- Rename the DMG with a version number in this format e.g. `Inform_10_1_0_macOS_1_82_0.dmg`
 
 - Done!
 
