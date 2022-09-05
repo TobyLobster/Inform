@@ -151,13 +151,14 @@ See also Apple's documentation [Troubleshooting Application Archiving in Xcode](
 
 - Rename the DMG with a version number in this format e.g. `Inform_10_1_0_macOS_1_82_0.dmg`
 
+- Done
+
 Troubleshooting: See Apple's documentation:
-	- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution?language=objc).
-	- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
-	- [Testing a Notarised Product](https://developer.apple.com/forums/thread/130560).
 
+- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution?language=objc).
+- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
+- [Testing a Notarised Product](https://developer.apple.com/forums/thread/130560).
 
-- Done!
 
 
 #### Mac App Store build
@@ -179,4 +180,20 @@ Troubleshooting: See Apple's documentation:
 
 ## Updating to the latest Inform Compiler
 
-- TODO
+- If you haven't already, get and build the Inform Compiler from [here](https://github.com/ganelson/inform), following the instructions there. I call this 'Inform Core' and the macOS app 'InformApp'. So I have folder structure like this:
+
+```
+Inform Core\inform
+           \intest
+           \inweb
+           \...
+
+InformApp\inform
+         \zoom
+         \...
+```
+
+- In `scripts/compiler_injection.sh`, make sure INFORM_CORE points to your installed Inform repo. If this directory exists, then building the Inform for macOS app will automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead.
+
+## Updating Submodules
+We have one submodule `zoom`, which has it's own submodules. See [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for useful information about how to deal with the crazy world of git submodules.
