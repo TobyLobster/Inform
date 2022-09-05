@@ -94,7 +94,7 @@ elif develop:
     code_sign_identity = 'Apple Development'
     sandbox = False
 elif mas:
-    code_sign_identity = 'Apple Distribution'
+    code_sign_identity = '3rd Party Mac Developer Application'
     sandbox = True
 else:
     print("ERROR: Unknown configuration option")
