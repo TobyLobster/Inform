@@ -201,6 +201,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)notification {
+
+    // When a document is first opened, its change count is
+    // immediatedly incremented, although it has no changes.
+    // We reset that here.
+    if (betweenWindowLoadedAndBecomingMain)
+        [[self document] updateChangeCount:NSChangeCleared];
+
     betweenWindowLoadedAndBecomingMain = NO;
 
     [toolbarManager redrawToolbar];
