@@ -96,6 +96,14 @@
 	return [IFUtility localizedString: @"Color preferences tooltip"];
 }
 
+- (CGFloat) maxHeight {
+    return CGFLOAT_MAX;
+}
+
+- (CGFloat) minHeight {
+    return 322.0;
+}
+
 #pragma mark - Receiving data from/updating the interface
 
 -(void) updateDependentUIElements {

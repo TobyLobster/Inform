@@ -21,7 +21,7 @@
 // Information about the preference window
 /// The image that should show up in the toolbar
 @property (atomic, readonly, copy) NSImage *toolbarImage;
-/// The name of this pane (appears until the toolbar item)
+/// The name of this pane (appears under the toolbar item)
 @property (atomic, readonly, copy) NSString *preferenceName;
 /// The unique identifier for this pane (subclasses don't need to override this)
 @property (atomic, readonly, copy) NSToolbarItemIdentifier identifier;
@@ -29,5 +29,8 @@
 @property (atomic, readonly, copy) NSString *tooltip;
 /// The view that describes the UI for this preference pane
 @property (atomic, readwrite, strong) IBOutlet NSView *preferenceView;
+
+@property (atomic, readonly) CGFloat maxHeight;
+@property (atomic, readonly) CGFloat minHeight;
 
 @end

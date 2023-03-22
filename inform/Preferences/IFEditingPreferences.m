@@ -136,11 +136,19 @@
 }
 
 - (NSImage*) toolbarImage {
-    return [[NSBundle bundleForClass: [self class]] imageForResource: @"App/highlighter2"];
+    return [[NSBundle bundleForClass: [self class]] imageForResource: @"App/highlighter"];
 }
 
 - (NSString*) tooltip {
 	return [IFUtility localizedString: @"Editing preferences tooltip"];
+}
+
+- (CGFloat) maxHeight {
+    return CGFLOAT_MAX;
+}
+
+- (CGFloat) minHeight {
+    return 574.0;
 }
 
 #pragma mark - Receiving data from/updating the interface
