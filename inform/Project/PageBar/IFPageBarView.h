@@ -19,15 +19,9 @@
 
 /// The unselected background image
 + (NSImage*) normalImage;
-/// The image to show while the mouse is down over a cell
-+ (NSImage*) highlightedImage;
-/// The image to show when a cell is selected
-+ (NSImage*) selectedImage;
-/// The image that we use when the cell is selected and the graphite theme is in effect
-+ (NSImage*) graphiteSelectedImage;
 
 /// Draws (part of) the background image for this bar
-+ (void) drawOverlay: (NSImage*) overlay
++ (void) drawOverlay: (NSColor*) overlay
 			  inRect: (NSRect) rect
 		 totalBounds: (NSRect) bounds
 			fraction: (CGFloat) fraction;
