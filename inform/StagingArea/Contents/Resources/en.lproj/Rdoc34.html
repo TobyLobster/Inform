@@ -114,33 +114,33 @@
         <div class="egpanel" id="example25" style="display: none;">
             <p>Suppose we have our player, a detective, searching for evidence; we don't want him to be able to use this evidence until he has performed the action that reveals it, but after that it should be visible in the room when he looks.</p>
             <p>A simple way to do this is to start the object -- an envelope, in this scenario -- out of play, and only move it into the location when the player looks for it:</p>
+            <!--START CODE "c11476_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c11476_25"></a><a href="javascript:pasteCode('[=0x0022=]Beachfront[=0x0022=][=0x000A=][=0x000A=]The Stuffy Office is a room. [=0x0022=]The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.[=0x000A=][=0x000A=]The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.[=0x0022=][=0x000A=][=0x000A=]The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand [=0x0022=]paperwork[=0x0022=] as the desk.[=0x000A=][=0x000A=]The creamy envelope is an openable container. The description is [=0x0022=]There is no return address on the outside of the envelope, just the address of the Doctor[=0x0027=]s office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There[=0x0027=]s no question that it comes from the same typewriter as the blackmail note.[=0x0022=] In the envelope is a letter. The envelope can be found or lost. The envelope is lost.[=0x000A=][=0x000A=]Instead of searching the desk when the envelope is lost:[=0x000A=][=0x0009=]now the envelope is found;[=0x000A=][=0x0009=]say [=0x0022=]You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients[[=0x0027=]] names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.[=0x0022=];[=0x000A=][=0x0009=]move the envelope to the desk.[=0x000A=][=0x000A=][Here we[=0x0027=]ve changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, he won[=0x0027=]t find anything more.][=0x000A=][=0x000A=]Instead of searching the desk:[=0x000A=][=0x0009=]say [=0x0022=]Further investigation of the desk reveals nothing else suspicious.[=0x0022=][=0x000A=][=0x000A=][Notice that we have two rules that apply to [=0x0022=]searching the desk[=0x0022=], but one of them has a more specific set of parameters ([=0x0022=]when the envelope is lost[=0x0022=]). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla [=0x0022=]instead of searching the desk[=0x0022=] rule when the more restricted rule is not relevant.][=0x000A=][=0x000A=]Test me with [=0x0022=]x envelope / x desk / search desk / look / get envelope / x envelope[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Beachfront[=0x0022=][=0x000A=][=0x000A=]The Stuffy Office is a room. [=0x0022=]The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.[=0x000A=][=0x000A=]The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.[=0x0022=][=0x000A=][=0x000A=]The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand [=0x0022=]paperwork[=0x0022=] as the desk.[=0x000A=][=0x000A=]The creamy envelope is an openable container. The description is [=0x0022=]There is no return address on the outside of the envelope, just the address of the Doctor[=0x0027=]s office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There[=0x0027=]s no question that it comes from the same typewriter as the blackmail note.[=0x0022=] In the envelope is a letter. The envelope can be found or lost. The envelope is lost.[=0x000A=][=0x000A=]Instead of searching the desk when the envelope is lost:[=0x000A=][=0x0009=]now the envelope is found;[=0x000A=][=0x0009=]say [=0x0022=]You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients[[=0x0027=]] names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.[=0x0022=];[=0x000A=][=0x0009=]move the envelope to the desk.[=0x000A=][=0x000A=][Here we[=0x0027=]ve changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, he won[=0x0027=]t find anything more.][=0x000A=][=0x000A=]Instead of searching the desk:[=0x000A=][=0x0009=]say [=0x0022=]Further investigation of the desk reveals nothing else suspicious.[=0x0022=][=0x000A=][=0x000A=][Notice that we have two rules that apply to [=0x0022=]searching the desk[=0x0022=], but one of them has a more specific set of parameters ([=0x0022=]when the envelope is lost[=0x0022=]). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla [=0x0022=]instead of searching the desk[=0x0022=] rule when the more restricted rule is not relevant.][=0x000A=][=0x000A=]Test me with [=0x0022=]x envelope / x desk / search desk / look / get envelope / x envelope[=0x0022=].[=0x000A=]\n', 'Example - Beachfront')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Beachfront&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11477_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c11477_25"></a>The Stuffy Office is a room. &quot;The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11478_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11478_25"></a><a href="javascript:pasteCode('[=0x0022=]Beachfront[=0x0022=][=0x000A=][=0x000A=]The Stuffy Office is a room. [=0x0022=]The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.[=0x000A=][=0x000A=]The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.[=0x0022=][=0x000A=][=0x000A=]The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand [=0x0022=]paperwork[=0x0022=] as the desk.[=0x000A=][=0x000A=]The creamy envelope is an openable container. The description is [=0x0022=]There is no return address on the outside of the envelope, just the address of the Doctor[=0x0027=]s office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There[=0x0027=]s no question that it comes from the same typewriter as the blackmail note.[=0x0022=] In the envelope is a letter. The envelope can be found or lost. The envelope is lost.[=0x000A=][=0x000A=]Instead of searching the desk when the envelope is lost:[=0x000A=][=0x0009=]now the envelope is found;[=0x000A=][=0x0009=]say [=0x0022=]You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients[[=0x0027=]] names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.[=0x0022=];[=0x000A=][=0x0009=]move the envelope to the desk.[=0x000A=][=0x000A=][Here we[=0x0027=]ve changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, he won[=0x0027=]t find anything more.][=0x000A=][=0x000A=]Instead of searching the desk:[=0x000A=][=0x0009=]say [=0x0022=]Further investigation of the desk reveals nothing else suspicious.[=0x0022=][=0x000A=][=0x000A=][Notice that we have two rules that apply to [=0x0022=]searching the desk[=0x0022=], but one of them has a more specific set of parameters ([=0x0022=]when the envelope is lost[=0x0022=]). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla [=0x0022=]instead of searching the desk[=0x0022=] rule when the more restricted rule is not relevant.][=0x000A=][=0x000A=]Test me with [=0x0022=]x envelope / x desk / search desk / look / get envelope / x envelope[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Beachfront[=0x0022=][=0x000A=][=0x000A=]The Stuffy Office is a room. [=0x0022=]The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.[=0x000A=][=0x000A=]The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.[=0x0022=][=0x000A=][=0x000A=]The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand [=0x0022=]paperwork[=0x0022=] as the desk.[=0x000A=][=0x000A=]The creamy envelope is an openable container. The description is [=0x0022=]There is no return address on the outside of the envelope, just the address of the Doctor[=0x0027=]s office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There[=0x0027=]s no question that it comes from the same typewriter as the blackmail note.[=0x0022=] In the envelope is a letter. The envelope can be found or lost. The envelope is lost.[=0x000A=][=0x000A=]Instead of searching the desk when the envelope is lost:[=0x000A=][=0x0009=]now the envelope is found;[=0x000A=][=0x0009=]say [=0x0022=]You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients[[=0x0027=]] names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.[=0x0022=];[=0x000A=][=0x0009=]move the envelope to the desk.[=0x000A=][=0x000A=][Here we[=0x0027=]ve changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, he won[=0x0027=]t find anything more.][=0x000A=][=0x000A=]Instead of searching the desk:[=0x000A=][=0x0009=]say [=0x0022=]Further investigation of the desk reveals nothing else suspicious.[=0x0022=][=0x000A=][=0x000A=][Notice that we have two rules that apply to [=0x0022=]searching the desk[=0x0022=], but one of them has a more specific set of parameters ([=0x0022=]when the envelope is lost[=0x0022=]). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla [=0x0022=]instead of searching the desk[=0x0022=] rule when the more restricted rule is not relevant.][=0x000A=][=0x000A=]Test me with [=0x0022=]x envelope / x desk / search desk / look / get envelope / x envelope[=0x0022=].[=0x000A=]\n', 'Example - Beachfront')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Beachfront&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11478_25"></a>The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11479_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11479_25"></a>The Stuffy Office is a room. &quot;The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.
+            <blockquote class="code"><p class="quoted"><a id="c11479_25"></a>The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand &quot;paperwork&quot; as the desk.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11480_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11480_25"></a>The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11480_25"></a>The creamy envelope is an openable container. The description is &quot;There is no return address on the outside of the envelope, just the address of the Doctor's office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There's no question that it comes from the same typewriter as the blackmail note.&quot; In the envelope is a letter. The envelope can be found or lost. The envelope is lost.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11481_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11481_25"></a>The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand &quot;paperwork&quot; as the desk.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11482_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11482_25"></a>The creamy envelope is an openable container. The description is &quot;There is no return address on the outside of the envelope, just the address of the Doctor's office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There's no question that it comes from the same typewriter as the blackmail note.&quot; In the envelope is a letter. The envelope can be found or lost. The envelope is lost.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11483_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11483_25"></a>Instead of searching the desk when the envelope is lost:
+            <blockquote class="code"><p class="quoted"><a id="c11481_25"></a>Instead of searching the desk when the envelope is lost:
             <br>
             &#160;&#160;&#160;&#160;now the envelope is found;
             <br>
@@ -151,16 +151,16 @@
             </blockquote>
             <!--END CODE-->
             <p>Here we've changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, he won't find anything more.</p>
-            <!--START CODE "c11484_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11484_25"></a>Instead of searching the desk:
+            <!--START CODE "c11482_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c11482_25"></a>Instead of searching the desk:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Further investigation of the desk reveals nothing else suspicious.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Notice that we have two rules that apply to &quot;searching the desk&quot;, but one of them has a more specific set of parameters (&quot;when the envelope is lost&quot;). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla &quot;instead of searching the desk&quot; rule when the more restricted rule is not relevant.</p>
-            <!--START CODE "c11485_25"-->
-            <blockquote class="code"><p class="quoted"><a id="c11485_25"></a>Test me with &quot;x envelope / x desk / search desk / look / get envelope / x envelope&quot;.
+            <!--START CODE "c11483_25"-->
+            <blockquote class="code"><p class="quoted"><a id="c11483_25"></a>Test me with &quot;x envelope / x desk / search desk / look / get envelope / x envelope&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -191,25 +191,25 @@
         </table>
 
         <div class="egpanel" id="example241" style="display: none;">
+            <!--START CODE "c11484_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11484_241"></a><a href="javascript:pasteCode('[=0x0022=]Matreshka[=0x0022=][=0x000A=][=0x000A=]Ransacking is an action applying to one thing.[=0x000A=][=0x000A=]Check ransacking:[=0x000A=][=0x0009=]if the noun is not the location, say [=0x0022=]You can hardly search [the noun] from here.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out ransacking:[=0x000A=][=0x0009=]while the player can see a closed openable unlocked container (called target):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][target]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try opening the target.[=0x000A=][=0x000A=]Report ransacking:[=0x000A=][=0x0009=]say [=0x0022=]You can see nothing further worth searching.[=0x0022=][=0x000A=][=0x000A=]The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.[=0x000A=][=0x000A=][And now we need to borrow from a later chapter for the command that will make this work:][=0x000A=][=0x000A=]Understand [=0x0022=]search [any visited room][=0x0022=] as ransacking.[=0x000A=][=0x000A=]Test me with [=0x0022=]search gift shop[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Matreshka[=0x0022=][=0x000A=][=0x000A=]Ransacking is an action applying to one thing.[=0x000A=][=0x000A=]Check ransacking:[=0x000A=][=0x0009=]if the noun is not the location, say [=0x0022=]You can hardly search [the noun] from here.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out ransacking:[=0x000A=][=0x0009=]while the player can see a closed openable unlocked container (called target):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][target]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try opening the target.[=0x000A=][=0x000A=]Report ransacking:[=0x000A=][=0x0009=]say [=0x0022=]You can see nothing further worth searching.[=0x0022=][=0x000A=][=0x000A=]The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.[=0x000A=][=0x000A=][And now we need to borrow from a later chapter for the command that will make this work:][=0x000A=][=0x000A=]Understand [=0x0022=]search [any visited room][=0x0022=] as ransacking.[=0x000A=][=0x000A=]Test me with [=0x0022=]search gift shop[=0x0022=].[=0x000A=]\n', 'Example - Matreshka')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Matreshka&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11485_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11485_241"></a>Ransacking is an action applying to one thing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11486_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11486_241"></a><a href="javascript:pasteCode('[=0x0022=]Matreshka[=0x0022=][=0x000A=][=0x000A=]Ransacking is an action applying to one thing.[=0x000A=][=0x000A=]Check ransacking:[=0x000A=][=0x0009=]if the noun is not the location, say [=0x0022=]You can hardly search [the noun] from here.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out ransacking:[=0x000A=][=0x0009=]while the player can see a closed openable unlocked container (called target):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][target]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try opening the target.[=0x000A=][=0x000A=]Report ransacking:[=0x000A=][=0x0009=]say [=0x0022=]You can see nothing further worth searching.[=0x0022=][=0x000A=][=0x000A=]The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.[=0x000A=][=0x000A=][And now we need to borrow from a later chapter for the command that will make this work:][=0x000A=][=0x000A=]Understand [=0x0022=]search [any visited room][=0x0022=] as ransacking.[=0x000A=][=0x000A=]Test me with [=0x0022=]search gift shop[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Matreshka[=0x0022=][=0x000A=][=0x000A=]Ransacking is an action applying to one thing.[=0x000A=][=0x000A=]Check ransacking:[=0x000A=][=0x0009=]if the noun is not the location, say [=0x0022=]You can hardly search [the noun] from here.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out ransacking:[=0x000A=][=0x0009=]while the player can see a closed openable unlocked container (called target):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][target]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try opening the target.[=0x000A=][=0x000A=]Report ransacking:[=0x000A=][=0x0009=]say [=0x0022=]You can see nothing further worth searching.[=0x0022=][=0x000A=][=0x000A=]The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.[=0x000A=][=0x000A=][And now we need to borrow from a later chapter for the command that will make this work:][=0x000A=][=0x000A=]Understand [=0x0022=]search [any visited room][=0x0022=] as ransacking.[=0x000A=][=0x000A=]Test me with [=0x0022=]search gift shop[=0x0022=].[=0x000A=]\n', 'Example - Matreshka')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Matreshka&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11487_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11487_241"></a>Ransacking is an action applying to one thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11488_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11488_241"></a>Check ransacking:
+            <blockquote class="code"><p class="quoted"><a id="c11486_241"></a>Check ransacking:
             <br>
             &#160;&#160;&#160;&#160;if the noun is not the location, say &quot;You can hardly search [the noun] from here.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11489_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11489_241"></a>Carry out ransacking:
+            <!--START CODE "c11487_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11487_241"></a>Carry out ransacking:
             <br>
             &#160;&#160;&#160;&#160;while the player can see a closed openable unlocked container (called target):
             <br>
@@ -219,26 +219,26 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11490_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11490_241"></a>Report ransacking:
+            <!--START CODE "c11488_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11488_241"></a>Report ransacking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You can see nothing further worth searching.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11491_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11491_241"></a>The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.
+            <!--START CODE "c11489_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11489_241"></a>The Russian Gift Shop is a room. In the Russian Gift Shop is a large wooden doll. It is closed and openable. In the large wooden doll is a medium wooden doll. It is closed and openable. In the medium wooden doll is a small wooden doll. It is closed and openable. In the small wooden doll is a tiny solid wooden doll.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now we need to borrow from a later chapter for the command that will make this work:</p>
-            <!--START CODE "c11492_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11492_241"></a>Understand &quot;search [any visited room]&quot; as ransacking.
+            <!--START CODE "c11490_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11490_241"></a>Understand &quot;search [any visited room]&quot; as ransacking.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11493_241"-->
-            <blockquote class="code"><p class="quoted"><a id="c11493_241"></a>Test me with &quot;search gift shop&quot;.
+            <!--START CODE "c11491_241"-->
+            <blockquote class="code"><p class="quoted"><a id="c11491_241"></a>Test me with &quot;search gift shop&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -269,23 +269,23 @@
         </table>
 
         <div class="egpanel" id="example237" style="display: none;">
+            <!--START CODE "c11492_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c11492_237"></a><a href="javascript:pasteCode('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Flashlight')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flashlight&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11493_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c11493_237"></a>The Schoolhouse is a room. &quot;Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11494_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11494_237"></a><a href="javascript:pasteCode('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Flashlight')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flashlight&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11494_237"></a>The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. &quot;A hurricane lantern hangs from a peg.&quot; The lantern is lit.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11495_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11495_237"></a>The Schoolhouse is a room. &quot;Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11496_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11496_237"></a>The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. &quot;A hurricane lantern hangs from a peg.&quot; The lantern is lit.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11497_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11497_237"></a>Visibility rule when looking under something:
+            <blockquote class="code"><p class="quoted"><a id="c11495_237"></a>Visibility rule when looking under something:
             <br>
             &#160;&#160;&#160;&#160;if the player is carrying a lit thing (called lamp):
             <br>
@@ -297,13 +297,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11498_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11498_237"></a>There is a marble. The marble can be found or lost. The marble is lost.
+            <!--START CODE "c11496_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c11496_237"></a>There is a marble. The marble can be found or lost. The marble is lost.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11499_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11499_237"></a>Instead of looking under the cabinet when the marble is lost:
+            <!--START CODE "c11497_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c11497_237"></a>Instead of looking under the cabinet when the marble is lost:
             <br>
             &#160;&#160;&#160;&#160;move the marble to the player;
             <br>
@@ -313,8 +313,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11500_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c11500_237"></a>Test me with &quot;look under cabinet / get lantern / look under cabinet&quot;.
+            <!--START CODE "c11498_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c11498_237"></a>Test me with &quot;look under cabinet / get lantern / look under cabinet&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -347,23 +347,23 @@
 
         <div class="egpanel" id="example399" style="display: none;">
             <p>The standard world model provides for the idea of containers and supporters, but this is not the only way that objects can relate to one another in the real world. Here we try adding the idea of concealment beneath another object:</p>
+            <!--START CODE "c11499_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11499_399"></a><a href="javascript:pasteCode('[=0x0022=]Beneath the Surface[=0x0022=][=0x000A=][=0x000A=]Section 1 - In Which our Terms are Defined[=0x000A=][=0x000A=]Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.[=0x000A=][=0x000A=]Instead of looking under a thing which is underlaid by something (called the lost object):[=0x000A=][=0x0009=]say [=0x0022=]You find [the list of things which underlie the noun]![=0x0022=];[=0x000A=][=0x0009=]now every thing which underlies the noun is carried by the player;[=0x000A=][=0x0009=]now every thing which underlies the noun does not underlie the noun.[=0x000A=][=0x000A=]Hiding it under is an action applying to one carried thing and one thing. Understand [=0x0022=]put [something preferably held] under [something][=0x0022=] as hiding it under. Understand [=0x0022=]hide [something preferably held] under [something][=0x0022=] as hiding it under. Understand the commands [=0x0022=]shove[=0x0022=] and [=0x0022=]conceal[=0x0022=] and [=0x0022=]stick[=0x0022=] as [=0x0022=]hide[=0x0022=].[=0x000A=][=0x000A=]Check hiding it under:[=0x000A=][=0x0009=]if the second noun is not fixed in place, say [=0x0022=][The second noun] wouldn[=0x0027=]t be a very effective place of concealment.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hiding it under:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]now the noun underlies the second noun.[=0x000A=][=0x000A=]Report hiding it under:[=0x000A=][=0x0009=]say [=0x0022=]You shove [the noun] out of sight beneath [the second noun].[=0x0022=][=0x000A=][=0x000A=]Section 2 - In Which They are Put To Use[=0x000A=][=0x000A=]The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.[=0x000A=][=0x000A=]A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa[=0x0027=]s Mausoleum are under the rug.[=0x000A=][=0x000A=]Test me with [=0x0022=]look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Beneath the Surface[=0x0022=][=0x000A=][=0x000A=]Section 1 - In Which our Terms are Defined[=0x000A=][=0x000A=]Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.[=0x000A=][=0x000A=]Instead of looking under a thing which is underlaid by something (called the lost object):[=0x000A=][=0x0009=]say [=0x0022=]You find [the list of things which underlie the noun]![=0x0022=];[=0x000A=][=0x0009=]now every thing which underlies the noun is carried by the player;[=0x000A=][=0x0009=]now every thing which underlies the noun does not underlie the noun.[=0x000A=][=0x000A=]Hiding it under is an action applying to one carried thing and one thing. Understand [=0x0022=]put [something preferably held] under [something][=0x0022=] as hiding it under. Understand [=0x0022=]hide [something preferably held] under [something][=0x0022=] as hiding it under. Understand the commands [=0x0022=]shove[=0x0022=] and [=0x0022=]conceal[=0x0022=] and [=0x0022=]stick[=0x0022=] as [=0x0022=]hide[=0x0022=].[=0x000A=][=0x000A=]Check hiding it under:[=0x000A=][=0x0009=]if the second noun is not fixed in place, say [=0x0022=][The second noun] wouldn[=0x0027=]t be a very effective place of concealment.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hiding it under:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]now the noun underlies the second noun.[=0x000A=][=0x000A=]Report hiding it under:[=0x000A=][=0x0009=]say [=0x0022=]You shove [the noun] out of sight beneath [the second noun].[=0x0022=][=0x000A=][=0x000A=]Section 2 - In Which They are Put To Use[=0x000A=][=0x000A=]The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.[=0x000A=][=0x000A=]A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa[=0x0027=]s Mausoleum are under the rug.[=0x000A=][=0x000A=]Test me with [=0x0022=]look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug[=0x0022=].[=0x000A=]\n', 'Example - Beneath the Surface')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Beneath the Surface&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11500_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11500_399"></a>Section 1 - In Which our Terms are Defined
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11501_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11501_399"></a><a href="javascript:pasteCode('[=0x0022=]Beneath the Surface[=0x0022=][=0x000A=][=0x000A=]Section 1 - In Which our Terms are Defined[=0x000A=][=0x000A=]Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.[=0x000A=][=0x000A=]Instead of looking under a thing which is underlaid by something (called the lost object):[=0x000A=][=0x0009=]say [=0x0022=]You find [the list of things which underlie the noun]![=0x0022=];[=0x000A=][=0x0009=]now every thing which underlies the noun is carried by the player;[=0x000A=][=0x0009=]now every thing which underlies the noun does not underlie the noun.[=0x000A=][=0x000A=]Hiding it under is an action applying to one carried thing and one thing. Understand [=0x0022=]put [something preferably held] under [something][=0x0022=] as hiding it under. Understand [=0x0022=]hide [something preferably held] under [something][=0x0022=] as hiding it under. Understand the commands [=0x0022=]shove[=0x0022=] and [=0x0022=]conceal[=0x0022=] and [=0x0022=]stick[=0x0022=] as [=0x0022=]hide[=0x0022=].[=0x000A=][=0x000A=]Check hiding it under:[=0x000A=][=0x0009=]if the second noun is not fixed in place, say [=0x0022=][The second noun] wouldn[=0x0027=]t be a very effective place of concealment.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hiding it under:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]now the noun underlies the second noun.[=0x000A=][=0x000A=]Report hiding it under:[=0x000A=][=0x0009=]say [=0x0022=]You shove [the noun] out of sight beneath [the second noun].[=0x0022=][=0x000A=][=0x000A=]Section 2 - In Which They are Put To Use[=0x000A=][=0x000A=]The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.[=0x000A=][=0x000A=]A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa[=0x0027=]s Mausoleum are under the rug.[=0x000A=][=0x000A=]Test me with [=0x0022=]look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Beneath the Surface[=0x0022=][=0x000A=][=0x000A=]Section 1 - In Which our Terms are Defined[=0x000A=][=0x000A=]Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.[=0x000A=][=0x000A=]Instead of looking under a thing which is underlaid by something (called the lost object):[=0x000A=][=0x0009=]say [=0x0022=]You find [the list of things which underlie the noun]![=0x0022=];[=0x000A=][=0x0009=]now every thing which underlies the noun is carried by the player;[=0x000A=][=0x0009=]now every thing which underlies the noun does not underlie the noun.[=0x000A=][=0x000A=]Hiding it under is an action applying to one carried thing and one thing. Understand [=0x0022=]put [something preferably held] under [something][=0x0022=] as hiding it under. Understand [=0x0022=]hide [something preferably held] under [something][=0x0022=] as hiding it under. Understand the commands [=0x0022=]shove[=0x0022=] and [=0x0022=]conceal[=0x0022=] and [=0x0022=]stick[=0x0022=] as [=0x0022=]hide[=0x0022=].[=0x000A=][=0x000A=]Check hiding it under:[=0x000A=][=0x0009=]if the second noun is not fixed in place, say [=0x0022=][The second noun] wouldn[=0x0027=]t be a very effective place of concealment.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out hiding it under:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]now the noun underlies the second noun.[=0x000A=][=0x000A=]Report hiding it under:[=0x000A=][=0x0009=]say [=0x0022=]You shove [the noun] out of sight beneath [the second noun].[=0x0022=][=0x000A=][=0x000A=]Section 2 - In Which They are Put To Use[=0x000A=][=0x000A=]The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.[=0x000A=][=0x000A=]A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa[=0x0027=]s Mausoleum are under the rug.[=0x000A=][=0x000A=]Test me with [=0x0022=]look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug[=0x0022=].[=0x000A=]\n', 'Example - Beneath the Surface')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Beneath the Surface&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11501_399"></a>Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11502_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11502_399"></a>Section 1 - In Which our Terms are Defined
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11503_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11503_399"></a>Underlying relates various things to one thing. The verb to underlie means the underlying relation. The verb to be under means the underlying relation. The verb to be beneath means the underlying relation.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11504_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11504_399"></a>Instead of looking under a thing which is underlaid by something (called the lost object):
+            <blockquote class="code"><p class="quoted"><a id="c11502_399"></a>Instead of looking under a thing which is underlaid by something (called the lost object):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You find [the list of things which underlie the noun]!&quot;;
             <br>
@@ -373,20 +373,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11505_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11505_399"></a>Hiding it under is an action applying to one carried thing and one thing. Understand &quot;put [something preferably held] under [something]&quot; as hiding it under. Understand &quot;hide [something preferably held] under [something]&quot; as hiding it under. Understand the commands &quot;shove&quot; and &quot;conceal&quot; and &quot;stick&quot; as &quot;hide&quot;.
+            <!--START CODE "c11503_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11503_399"></a>Hiding it under is an action applying to one carried thing and one thing. Understand &quot;put [something preferably held] under [something]&quot; as hiding it under. Understand &quot;hide [something preferably held] under [something]&quot; as hiding it under. Understand the commands &quot;shove&quot; and &quot;conceal&quot; and &quot;stick&quot; as &quot;hide&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11506_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11506_399"></a>Check hiding it under:
+            <!--START CODE "c11504_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11504_399"></a>Check hiding it under:
             <br>
             &#160;&#160;&#160;&#160;if the second noun is not fixed in place, say &quot;[The second noun] wouldn't be a very effective place of concealment.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11507_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11507_399"></a>Carry out hiding it under:
+            <!--START CODE "c11505_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11505_399"></a>Carry out hiding it under:
             <br>
             &#160;&#160;&#160;&#160;now the noun is nowhere;
             <br>
@@ -394,30 +394,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11508_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11508_399"></a>Report hiding it under:
+            <!--START CODE "c11506_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11506_399"></a>Report hiding it under:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You shove [the noun] out of sight beneath [the second noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11507_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11507_399"></a>Section 2 - In Which They are Put To Use
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11508_399"-->
+            <blockquote class="code"><p class="quoted"><a id="c11508_399"></a>The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11509_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11509_399"></a>Section 2 - In Which They are Put To Use
+            <blockquote class="code"><p class="quoted"><a id="c11509_399"></a>A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa's Mausoleum are under the rug.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11510_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11510_399"></a>The Room of Hidden Objects is a room. It contains a sofa, an easy chair, and a rug. The sofa supports a lime-green pillow and an innocent-looking Chinese finger toy. The rug is fixed in place. The chair is a supporter.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11511_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11511_399"></a>A treasure map underlies the easy chair. A skeleton is beneath the sofa. A blueprint of Atlantis, a lexicon of Linear A, and the key to Jimmy Hoffa's Mausoleum are under the rug.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11512_399"-->
-            <blockquote class="code"><p class="quoted"><a id="c11512_399"></a>Test me with &quot;look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11510_399"></a>Test me with &quot;look under the sofa / look under the rug / look under the easy chair / hide lexicon under rug&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

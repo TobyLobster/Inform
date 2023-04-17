@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§27.21. Inform 6 objects and classes</p>
     <p>As might be expected, I7 compiles an I6 class for each kind, and an I6 object for each of its own objects. We can meddle with its compilation process here using a further refinement of Include. For instance, suppose we want the I6 class definition for things to come out containing a property like this:</p>
-    <!--START CODE "c9220"-->
-    <blockquote class="code"><p class="quoted"><a id="c9220"></a>Class K2_thing ...
+    <!--START CODE "c9218"-->
+    <blockquote class="code"><p class="quoted"><a id="c9218"></a>Class K2_thing ...
     <br>
     &#160;&#160;&#160;&#160;with marmalade_jar_size 6,
     <br>
@@ -93,27 +93,27 @@
     </blockquote>
     <!--END CODE-->
     <p>How to arrange this? One way is to create an ordinary I7 property, like so:</p>
-    <!--START CODE "c9221"-->
-    <blockquote class="code"><p class="quoted"><a id="c9221"></a>A thing has a number called marmalade jar size. The marmalade jar size of a thing is usually 6. The marmalade jar size property translates into I6 as &quot;marmalade_jar_size&quot;.
+    <!--START CODE "c9219"-->
+    <blockquote class="code"><p class="quoted"><a id="c9219"></a>A thing has a number called marmalade jar size. The marmalade jar size of a thing is usually 6. The marmalade jar size property translates into I6 as &quot;marmalade_jar_size&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(Without that last sentence, the property won't get any familiar name.) But sometimes we need more, and want to actually write new material to go into the definition. This can be done like so:</p>
-    <!--START CODE "c9222"-->
-    <blockquote class="code"><p class="quoted"><a id="c9222"></a>Include (- with before [; Go: return 1; ], -) when defining a vehicle.
+    <!--START CODE "c9220"-->
+    <blockquote class="code"><p class="quoted"><a id="c9220"></a>Include (- with before [; Go: return 1; ], -) when defining a vehicle.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This glues in a new property to the class compiled to represent the I7 kind &quot;vehicle&quot;. (See the DM4 for why. However, since the entire actions machinery is different in the I7 world, note that &quot;after&quot;, &quot;react_before&quot; and &quot;react_after&quot; no longer have any effect, and nor does &quot;before&quot; for rooms.)</p>
     <p>And similarly:</p>
-    <!--START CODE "c9223"-->
-    <blockquote class="code"><p class="quoted"><a id="c9223"></a>Include (- has my_funny_attribute, -) when defining the hot air balloon.
+    <!--START CODE "c9221"-->
+    <blockquote class="code"><p class="quoted"><a id="c9221"></a>Include (- has my_funny_attribute, -) when defining the hot air balloon.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If we need a particular I7 object or kind to end up with a particular I6 name, we can write:</p>
-    <!--START CODE "c9224"-->
-    <blockquote class="code"><p class="quoted"><a id="c9224"></a>The whatsit object translates into I6 as &quot;whatsit&quot;.
+    <!--START CODE "c9222"-->
+    <blockquote class="code"><p class="quoted"><a id="c9222"></a>The whatsit object translates into I6 as &quot;whatsit&quot;.
     <br>
     The thingummy kind translates into I6 as &quot;thingummy_class&quot;.
     </p>

@@ -83,14 +83,14 @@
     <!--END IGNORE-->
     <p class="sectionheading">§22.7. Kind variables</p>
     <p>The examples of generic phrases in the previous section were really only toy examples. Suppose we want a phrase which will take any arithmetic value and triple it. We could do something like this:</p>
-    <!--START CODE "c8698"-->
-    <blockquote class="code"><p class="quoted"><a id="c8698"></a>To triple (V - arithmetic value): say &quot;[V times 3].&quot;
+    <!--START CODE "c8696"-->
+    <blockquote class="code"><p class="quoted"><a id="c8696"></a>To triple (V - arithmetic value): say &quot;[V times 3].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>But this only prints the answer. Suppose we want to be given the value back, instead: how can we write the phrase? The trouble is that, not knowing the kind of V, we can't say what kind will be produced. We need a way of saying &quot;the same kind comes out as went in&quot;. Inform expresses that using kind variables:</p>
-    <!--START CODE "c8699"-->
-    <blockquote class="code"><p class="quoted"><a id="c8699"></a>To decide which K is triple (original - arithmetic value of kind K):
+    <!--START CODE "c8697"-->
+    <blockquote class="code"><p class="quoted"><a id="c8697"></a>To decide which K is triple (original - arithmetic value of kind K):
     <br>
     &#160;&#160;&#160;&#160;decide on 3 times the original.
     </p>
@@ -99,8 +99,8 @@
     <p>Here, K stands for any kind which matches &quot;arithmetic value&quot;. Inform supports exactly 26 of these symbols, which are written A to Z, but it's customary to use K and L. (They can be written in the plural if we like: e.g., &quot;list of Ks&quot;. But they must always use a capital letter: &quot;list of k&quot; is not allowed.)</p>
     <p>Each symbol we use has to be declared in exactly one of the bracketed ingredients for the phrase - here, the declaration is &quot;arithmetic value of kind K&quot;. That creates K and says that it has to be arithmetic; if we'd just said &quot;value of kind K&quot;, it could have been anything. (Alternatively, we could use any of the kinds of kind in the previous section.)</p>
     <p>For a more ambitious example, here is one way to define the mapping operation described earlier in the chapter:</p>
-    <!--START CODE "c8700"-->
-    <blockquote class="code"><p class="quoted"><a id="c8700"></a>To decide what list of L is (function - phrase K -&gt; value of kind L)
+    <!--START CODE "c8698"-->
+    <blockquote class="code"><p class="quoted"><a id="c8698"></a>To decide what list of L is (function - phrase K -&gt; value of kind L)
     <br>
     &#160;&#160;&#160;&#160;applied to (original list - list of values of kind K):
     <br>
@@ -117,23 +117,23 @@
     </blockquote>
     <!--END CODE-->
     <p>Here we need two symbols to explain the complicated way that the values going in and out have to match up to each other. Note also the way that the temporary variable &quot;result&quot; is created:</p>
-    <!--START CODE "c8701"-->
-    <blockquote class="code"><p class="quoted"><a id="c8701"></a>let the result be a list of Ls;
+    <!--START CODE "c8699"-->
+    <blockquote class="code"><p class="quoted"><a id="c8699"></a>let the result be a list of Ls;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Ordinarily, of course, &quot;L&quot; is not a kind. But within the body of a phrase definition, it means whatever kind L matched against.</p>
     <p>When a symbol occurs several times in the same definition, subtle differences can arise according to which appearance is the declaration. These are not quite the same:</p>
-    <!--START CODE "c8702"-->
-    <blockquote class="code"><p class="quoted"><a id="c8702"></a>To hunt for (V - value of kind K) in (L - list of Ks): ...
+    <!--START CODE "c8700"-->
+    <blockquote class="code"><p class="quoted"><a id="c8700"></a>To hunt for (V - value of kind K) in (L - list of Ks): ...
     <br>
     To hunt for (V - K) in (L - list of values of kind K): ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The difference arises - though very rarely - if V has some different kind compared to the list entries, but which can be used as if it were of that kind. For example,</p>
-    <!--START CODE "c8703"-->
-    <blockquote class="code"><p class="quoted"><a id="c8703"></a>hunt for the player's command in {&quot;take all&quot;, &quot;wait&quot;};
+    <!--START CODE "c8701"-->
+    <blockquote class="code"><p class="quoted"><a id="c8701"></a>hunt for the player's command in {&quot;take all&quot;, &quot;wait&quot;};
     </p>
     </blockquote>
     <!--END CODE-->

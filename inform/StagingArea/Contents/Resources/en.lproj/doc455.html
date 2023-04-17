@@ -84,8 +84,8 @@
     <p class="sectionheading">§27.30. To say one of</p>
     <p>Many of the invocation syntaxes described in the previous section are used in the definition by the Standard Rules of the &quot;[one of] ... [or] ... [purely at random]&quot; construction, so it makes a good example of how they can be used.</p>
     <p>First, this is a segmented substitution with a single possible beginning (&quot;[one of]&quot;), a single possible middle (&quot;[or]&quot;) but a choice of many possible endings. Almost everything is compiled by the invocation of the beginning:</p>
-    <!--START CODE "c9253"-->
-    <blockquote class="code"><p class="quoted"><a id="c9253"></a>To say one of -- beginning say_one_of (documented at phs_oneof): (-
+    <!--START CODE "c9251"-->
+    <blockquote class="code"><p class="quoted"><a id="c9251"></a>To say one of -- beginning say_one_of (documented at phs_oneof): (-
     <br>
     &#160;&#160;&#160;&#160;{-counter-makes-array:say_one_of}
     <br>
@@ -122,8 +122,8 @@
     </blockquote>
     <!--END CODE-->
     <p>The 3rd invocation of this (say) might compile the following:</p>
-    <!--START CODE "c9254"-->
-    <blockquote class="code"><p class="quoted"><a id="c9254"></a>I7_ST_say_one_of--&gt;2 = I7_SOO_PAR(I7_ST_say_one_of--&gt;2, 4);
+    <!--START CODE "c9252"-->
+    <blockquote class="code"><p class="quoted"><a id="c9252"></a>I7_ST_say_one_of--&gt;2 = I7_SOO_PAR(I7_ST_say_one_of--&gt;2, 4);
     <br>
     switch((I7_ST_say_one_of--&gt;2)%5 - 1) {
     <br>
@@ -141,8 +141,8 @@
     <!--END CODE-->
     <p>First, we notified Inform that it needs to allocate an array (I7_ST_say_one_of) providing storage associated with the counter &quot;say_one_of&quot;. This we used to count off individual invocations of &quot;[one of]&quot;, so that each would have its own word of storage - for the 3rd invocation, I7_ST_say_one_of--&gt;2. We then call a state-changing routine, in this case I7_SOO_PAR, which is allowed to know the previous state and also the number of options available, and which returns the new state. The state is supposed to be the option chosen last time, but that means that there are not 4, but 5 possibilities: 0 for &quot;there was no last time&quot;, then 1 to 4 for the possible outcomes. We reduce the state mod 5 to obtain the decision this time, and subtract 1 because it happens to be convenient to make the switch statement run from 0 to 3 rather than 1 to 4. (The reason we reduce the state mod 5 is to allow the state-changer to squirrel away secret information in the upper bits of the state, if it wants to. Note that subtracting one means that the switch value might be -1, which results in no text being printed: thus if the state-changer chooses 0, it can decide on none of the above.)</p>
     <p>In this design, the marker attached to the choice of ending substitution is the name of the I6 state-changer: here is the I7_SOO_PAR routine.</p>
-    <!--START CODE "c9255"-->
-    <blockquote class="code"><p class="quoted"><a id="c9255"></a>[ I7_SOO_PAR oldval count; if (count &lt;= 1) return count; return random(count); ];
+    <!--START CODE "c9253"-->
+    <blockquote class="code"><p class="quoted"><a id="c9253"></a>[ I7_SOO_PAR oldval count; if (count &lt;= 1) return count; return random(count); ];
     </p>
     </blockquote>
     <!--END CODE-->
@@ -177,33 +177,33 @@
 
         <div class="egpanel" id="example40" style="display: none;">
             <p>Suppose we are writing a game in which the mood of the piece changes, and we would like to have lots of descriptions that vary according to its current state. We might in that case want to create our own &quot;by atmosphere&quot; token, to control text variations, like this:</p>
+            <!--START CODE "c9254_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9254_40"></a><a href="javascript:pasteCode('[=0x0022=]Blink[=0x0022=][=0x000A=][=0x000A=]Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.[=0x000A=][=0x000A=]The current atmosphere is an atmosphere that varies.[=0x000A=]The current atmosphere variable is defined by Inter as [=0x0022=]current_atmosphere[=0x0022=].[=0x000A=][=0x000A=]To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:[=0x000A=][=0x0009=](- {-close-brace} -).[=0x000A=][=0x000A=][Since we[=0x0027=]re operating within the untyped Inform 6, we can make use of the fact that kinds of value are (internally) just constants, enumerated in the same order in which they were originally defined. In other words, [=0x0022=]normal[=0x0022=] at the I6 level translates to 1, [=0x0022=]melancholy[=0x0022=] to 2, and [=0x0022=]creepy[=0x0022=] to 3; so we can return the value of the current atmosphere, and thereby select option 1, 2, or 3:][=0x000A=][=0x000A=]Include (-[=0x000A=]Global current_atmosphere = 1;[=0x000A=][ I7_SOO_ATM oldval count;[=0x000A=][=0x0009=]if (count [=0x003C=] current_atmosphere) return count;[=0x000A=][=0x0009=]return current_atmosphere; ];[=0x000A=]-)[=0x000A=][=0x000A=][And that concludes the hard part. Now to test that it works:][=0x000A=][=0x000A=]The Flat is a room. [=0x0022=]A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the current atmosphere is normal:[=0x000A=][=0x0009=]say [=0x0022=]Everything stretches wide and flat for just a moment, as though all the world around you were painted on a thin rubber sheet that is being [italic type]stretched[roman type]. Then it snaps back into place, leaving your ears ringing. But that little glitch was enough to warn you. Someone is tampering with space-time again. Someone very close by.[=0x0022=];[=0x000A=][=0x0009=]now the current atmosphere is creepy.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Blink[=0x0022=][=0x000A=][=0x000A=]Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.[=0x000A=][=0x000A=]The current atmosphere is an atmosphere that varies.[=0x000A=]The current atmosphere variable is defined by Inter as [=0x0022=]current_atmosphere[=0x0022=].[=0x000A=][=0x000A=]To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:[=0x000A=][=0x0009=](- {-close-brace} -).[=0x000A=][=0x000A=][Since we[=0x0027=]re operating within the untyped Inform 6, we can make use of the fact that kinds of value are (internally) just constants, enumerated in the same order in which they were originally defined. In other words, [=0x0022=]normal[=0x0022=] at the I6 level translates to 1, [=0x0022=]melancholy[=0x0022=] to 2, and [=0x0022=]creepy[=0x0022=] to 3; so we can return the value of the current atmosphere, and thereby select option 1, 2, or 3:][=0x000A=][=0x000A=]Include (-[=0x000A=]Global current_atmosphere = 1;[=0x000A=][ I7_SOO_ATM oldval count;[=0x000A=][=0x0009=]if (count [=0x003C=] current_atmosphere) return count;[=0x000A=][=0x0009=]return current_atmosphere; ];[=0x000A=]-)[=0x000A=][=0x000A=][And that concludes the hard part. Now to test that it works:][=0x000A=][=0x000A=]The Flat is a room. [=0x0022=]A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the current atmosphere is normal:[=0x000A=][=0x0009=]say [=0x0022=]Everything stretches wide and flat for just a moment, as though all the world around you were painted on a thin rubber sheet that is being [italic type]stretched[roman type]. Then it snaps back into place, leaving your ears ringing. But that little glitch was enough to warn you. Someone is tampering with space-time again. Someone very close by.[=0x0022=];[=0x000A=][=0x0009=]now the current atmosphere is creepy.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Blink')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Blink&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9255_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9255_40"></a>Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9256_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9256_40"></a><a href="javascript:pasteCode('[=0x0022=]Blink[=0x0022=][=0x000A=][=0x000A=]Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.[=0x000A=][=0x000A=]The current atmosphere is an atmosphere that varies.[=0x000A=]The current atmosphere variable translates into I6 as [=0x0022=]current_atmosphere[=0x0022=].[=0x000A=][=0x000A=]To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:[=0x000A=][=0x0009=](- {-close-brace} -).[=0x000A=][=0x000A=][Since we[=0x0027=]re operating within the untyped Inform 6, we can make use of the fact that kinds of value are (internally) just constants, enumerated in the same order in which they were originally defined. In other words, [=0x0022=]normal[=0x0022=] at the I6 level translates to 1, [=0x0022=]melancholy[=0x0022=] to 2, and [=0x0022=]creepy[=0x0022=] to 3; so we can return the value of the current atmosphere, and thereby select option 1, 2, or 3:][=0x000A=][=0x000A=]Include (-[=0x000A=]Global current_atmosphere = 1;[=0x000A=][ I7_SOO_ATM oldval count;[=0x000A=][=0x0009=]if (count [=0x003C=] current_atmosphere) return count;[=0x000A=][=0x0009=]return current_atmosphere; ];[=0x000A=]-)[=0x000A=][=0x000A=][And that concludes the hard part. Now to test that it works:][=0x000A=][=0x000A=]The Flat is a room. [=0x0022=]A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the current atmosphere is normal:[=0x000A=][=0x0009=]say [=0x0022=]Everything stretches wide and flat for just a moment, as though all the world around you were painted on a thin rubber sheet that is being [italic type]stretched[roman type]. Then it snaps back into place, leaving your ears ringing. But that little glitch was enough to warn you. Someone is tampering with space-time again. Someone very close by.[=0x0022=];[=0x000A=][=0x0009=]now the current atmosphere is creepy.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Blink[=0x0022=][=0x000A=][=0x000A=]Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.[=0x000A=][=0x000A=]The current atmosphere is an atmosphere that varies.[=0x000A=]The current atmosphere variable translates into I6 as [=0x0022=]current_atmosphere[=0x0022=].[=0x000A=][=0x000A=]To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:[=0x000A=][=0x0009=](- {-close-brace} -).[=0x000A=][=0x000A=][Since we[=0x0027=]re operating within the untyped Inform 6, we can make use of the fact that kinds of value are (internally) just constants, enumerated in the same order in which they were originally defined. In other words, [=0x0022=]normal[=0x0022=] at the I6 level translates to 1, [=0x0022=]melancholy[=0x0022=] to 2, and [=0x0022=]creepy[=0x0022=] to 3; so we can return the value of the current atmosphere, and thereby select option 1, 2, or 3:][=0x000A=][=0x000A=]Include (-[=0x000A=]Global current_atmosphere = 1;[=0x000A=][ I7_SOO_ATM oldval count;[=0x000A=][=0x0009=]if (count [=0x003C=] current_atmosphere) return count;[=0x000A=][=0x0009=]return current_atmosphere; ];[=0x000A=]-)[=0x000A=][=0x000A=][And that concludes the hard part. Now to test that it works:][=0x000A=][=0x000A=]The Flat is a room. [=0x0022=]A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the current atmosphere is normal:[=0x000A=][=0x0009=]say [=0x0022=]Everything stretches wide and flat for just a moment, as though all the world around you were painted on a thin rubber sheet that is being [italic type]stretched[roman type]. Then it snaps back into place, leaving your ears ringing. But that little glitch was enough to warn you. Someone is tampering with space-time again. Someone very close by.[=0x0022=];[=0x000A=][=0x0009=]now the current atmosphere is creepy.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Blink')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Blink&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9256_40"></a>The current atmosphere is an atmosphere that varies.
+            <br>
+            The current atmosphere variable is defined by Inter as &quot;current_atmosphere&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9257_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9257_40"></a>Atmosphere is a kind of value. The atmospheres are normal, melancholy, and creepy.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9258_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9258_40"></a>The current atmosphere is an atmosphere that varies.
-            <br>
-            The current atmosphere variable translates into I6 as &quot;current_atmosphere&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9259_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9259_40"></a>To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:
+            <blockquote class="code"><p class="quoted"><a id="c9257_40"></a>To say by atmosphere -- ending say_one_of with marker I7_SOO_ATM:
             <br>
             &#160;&#160;&#160;&#160;(- {-close-brace} -).
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Since we're operating within the untyped Inform 6, we can make use of the fact that kinds of value are (internally) just constants, enumerated in the same order in which they were originally defined. In other words, &quot;normal&quot; at the I6 level translates to 1, &quot;melancholy&quot; to 2, and &quot;creepy&quot; to 3; so we can return the value of the current atmosphere, and thereby select option 1, 2, or 3:</p>
-            <!--START CODE "c9260_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9260_40"></a>Include (-
+            <!--START CODE "c9258_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9258_40"></a>Include (-
             <br>
             Global current_atmosphere = 1;
             <br>
@@ -218,13 +218,13 @@
             </blockquote>
             <!--END CODE-->
             <p>And that concludes the hard part. Now to test that it works:</p>
-            <!--START CODE "c9261_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9261_40"></a>The Flat is a room. &quot;A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].&quot;
+            <!--START CODE "c9259_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9259_40"></a>The Flat is a room. &quot;A small [one of]but cozy[or]depressing[or]imprisoning[by atmosphere] flat. Outside the window, the sun is [one of][or][or]apparently [by atmosphere]shining and there is a brisk breeze through the leaves of the birch trees. [one of]It would be quite nice weather for a walk[or]The rest of the world apparently has no appreciation of what you suffer[or]It all looks deceptively normal[by atmosphere].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9262_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9262_40"></a>Instead of waiting when the current atmosphere is normal:
+            <!--START CODE "c9260_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9260_40"></a>Instead of waiting when the current atmosphere is normal:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Everything stretches wide and flat for just a moment, as though all the world around you were painted on a thin rubber sheet that is being [italic type]stretched[roman type]. Then it snaps back into place, leaving your ears ringing. But that little glitch was enough to warn you. Someone is tampering with space-time again. Someone very close by.&quot;;
             <br>
@@ -232,8 +232,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9263_40"-->
-            <blockquote class="code"><p class="quoted"><a id="c9263_40"></a>Test me with &quot;look / z / look&quot;.
+            <!--START CODE "c9261_40"-->
+            <blockquote class="code"><p class="quoted"><a id="c9261_40"></a>Test me with &quot;look / z / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -266,8 +266,8 @@
         <div class="egpanel" id="example397" style="display: none;">
             <p>A slightly more challenging case than the &quot;by atmosphere&quot; example is one in which we want to create text variations depending on the identity of our player character.</p>
             <p>What we want to do is build a switch statement in I6, one that looks something like</p>
-            <!--START CODE "c9264_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9264_397"></a>switch(player)
+            <!--START CODE "c9262_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9262_397"></a>switch(player)
             <br>
             {
             <br>
@@ -282,28 +282,28 @@
             </blockquote>
             <!--END CODE-->
             <p>out of I7 that looks like this:</p>
+            <!--START CODE "c9263_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9263_397"></a>say &quot;[show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show]&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9264_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9264_397"></a><a href="javascript:pasteCode('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n', 'Example - Uncommon Ground')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uncommon Ground&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9265_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9265_397"></a>say &quot;[show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show]&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9265_397"></a>The Mud Village is a room. &quot;You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9266_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9266_397"></a><a href="javascript:pasteCode('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Uncommon Ground[=0x0022=][=0x000A=][=0x000A=]The Mud Village is a room. [=0x0022=]You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.[=0x0022=][=0x000A=][=0x000A=]Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.[=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]if the player is Lolita, now the player is Leforge;[=0x000A=][=0x0009=]if the player is yourself, now the player is Lolita;[=0x000A=][=0x0009=]say [=0x0022=]You jump bodies. Whoops![=0x0022=][=0x000A=][=0x000A=]To say show to (N - a person) -- beginning say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]switch(player)[=0x000A=][=0x0009=][=0x0009=]{-open-brace}[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to (N - a person) -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{N}:[=0x000A=][=0x0009=]-).[=0x000A=][=0x000A=]To say to everyone else -- continuing say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]default:[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]To say end show -- ending say_seen_by:[=0x000A=][=0x0009=](-[=0x000A=][=0x0009=][=0x0009=]{-close-brace}[=0x000A=][=0x0009=]-)[=0x000A=][=0x000A=]Test me with [=0x0022=]look / z / look / z / look[=0x0022=].[=0x000A=]\n', 'Example - Uncommon Ground')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Uncommon Ground&quot;
+            <blockquote class="code"><p class="quoted"><a id="c9266_397"></a>Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9267_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9267_397"></a>The Mud Village is a room. &quot;You stand at the center of a [show to yourself]quaint[to Lolita]thrilling[to everyone else]squalid[end show] mud village.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9268_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9268_397"></a>Leforge is a man in the Mud Village. Lolita is a woman in the Mud Village.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9269_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9269_397"></a>Instead of waiting:
+            <blockquote class="code"><p class="quoted"><a id="c9267_397"></a>Instead of waiting:
             <br>
             &#160;&#160;&#160;&#160;if the player is Lolita, now the player is Leforge;
             <br>
@@ -313,8 +313,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9270_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9270_397"></a>To say show to (N - a person) -- beginning say_seen_by:
+            <!--START CODE "c9268_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9268_397"></a>To say show to (N - a person) -- beginning say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -328,8 +328,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9271_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9271_397"></a>To say to (N - a person) -- continuing say_seen_by:
+            <!--START CODE "c9269_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9269_397"></a>To say to (N - a person) -- continuing say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -339,8 +339,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9272_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9272_397"></a>To say to everyone else -- continuing say_seen_by:
+            <!--START CODE "c9270_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9270_397"></a>To say to everyone else -- continuing say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -350,8 +350,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9273_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9273_397"></a>To say end show -- ending say_seen_by:
+            <!--START CODE "c9271_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9271_397"></a>To say end show -- ending say_seen_by:
             <br>
             &#160;&#160;&#160;&#160;(-
             <br>
@@ -361,8 +361,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9274_397"-->
-            <blockquote class="code"><p class="quoted"><a id="c9274_397"></a>Test me with &quot;look / z / look / z / look&quot;.
+            <!--START CODE "c9272_397"-->
+            <blockquote class="code"><p class="quoted"><a id="c9272_397"></a>Test me with &quot;look / z / look / z / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

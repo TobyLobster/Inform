@@ -84,25 +84,25 @@
     <p class="sectionheading">§17.16. Understanding things by their relations</p>
     <p>Sometimes it makes sense for the name of something to involve the names of other things to which it is related. For instance, if we say TAKE THE BOTTLE OF WINE, we mean that the bottle currently contains wine - if it were the very same bottle containing water, we would call it something else.</p>
     <p>For names which must involve related names, a special form of token is provided. For instance, we could say:</p>
-    <!--START CODE "c6003"-->
-    <blockquote class="code"><p class="quoted"><a id="c6003"></a>A box is a kind of container. Understand &quot;box of [something related by containment]&quot; as a box.
+    <!--START CODE "c6001"-->
+    <blockquote class="code"><p class="quoted"><a id="c6001"></a>A box is a kind of container. Understand &quot;box of [something related by containment]&quot; as a box.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c6004"-->
-    <blockquote class="code"><p class="quoted"><a id="c6004"></a>The Toyshop is a room. The red box is a box in the Toyshop. Some crayons are in the red box.
+    <!--START CODE "c6002"-->
+    <blockquote class="code"><p class="quoted"><a id="c6002"></a>The Toyshop is a room. The red box is a box in the Toyshop. Some crayons are in the red box.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and now TAKE BOX OF CRAYONS will work, because CRAYONS matches against &quot;[something related by containment]&quot; for the red box - or it does for as long as the crayons are there. We can have similar matches against relations of all kinds, but have to name the relation explicitly. (See the examples at the end of this section for plenty of cases.)</p>
     <p>We can also reverse the sense. If we write:</p>
-    <!--START CODE "c6005"-->
-    <blockquote class="code"><p class="quoted"><a id="c6005"></a>A box is a kind of container. Understand &quot;box in [something related by reversed containment]&quot; as a box.
+    <!--START CODE "c6003"-->
+    <blockquote class="code"><p class="quoted"><a id="c6003"></a>A box is a kind of container. Understand &quot;box in [something related by reversed containment]&quot; as a box.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c6006"-->
-    <blockquote class="code"><p class="quoted"><a id="c6006"></a>The Toyshop is a room. The crate and the hammock are in the Toyshop. In the crate is a box. In the hammock is a box.
+    <!--START CODE "c6004"-->
+    <blockquote class="code"><p class="quoted"><a id="c6004"></a>The Toyshop is a room. The crate and the hammock are in the Toyshop. In the crate is a box. In the hammock is a box.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -135,28 +135,28 @@
 
         <div class="egpanel" id="example78" style="display: none;">
             <p>It's fairly common that we want to be able to refer to a container in terms of what it has in it: a bottle of wine, a salt shaker, a chicken sandwich. The player is free to remove the contents again, and the object will go back to using its usual name:</p>
+            <!--START CODE "c6005_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6005_78"></a><a href="javascript:pasteCode('[=0x0022=]Cinco[=0x0022=][=0x000A=][=0x000A=]Cinco de Mayo Fundraiser is a room.[=0x000A=][=0x000A=]The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by containment] taco[=0x0022=] as the taco.[=0x000A=][=0x000A=]Rule for printing the name of the taco shell while not inserting or removing:[=0x000A=][=0x0009=]if the taco contains something (called filling), say [=0x0022=][filling] taco[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]taco shell[=0x0022=];[=0x000A=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]The player carries shredded beef. It is edible.[=0x000A=][=0x000A=]The taking action has an object called source (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x000A=]Setting action variables for taking:[=0x000A=][=0x0009=]now source is the holder of the noun.[=0x000A=][=0x000A=]Report taking something from the taco shell:[=0x000A=][=0x0009=]say [=0x0022=]You gingerly pick [the noun] out of the taco shell.[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cinco[=0x0022=][=0x000A=][=0x000A=]Cinco de Mayo Fundraiser is a room.[=0x000A=][=0x000A=]The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by containment] taco[=0x0022=] as the taco.[=0x000A=][=0x000A=]Rule for printing the name of the taco shell while not inserting or removing:[=0x000A=][=0x0009=]if the taco contains something (called filling), say [=0x0022=][filling] taco[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]taco shell[=0x0022=];[=0x000A=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]The player carries shredded beef. It is edible.[=0x000A=][=0x000A=]The taking action has an object called source (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x000A=]Setting action variables for taking:[=0x000A=][=0x0009=]now source is the holder of the noun.[=0x000A=][=0x000A=]Report taking something from the taco shell:[=0x000A=][=0x0009=]say [=0x0022=]You gingerly pick [the noun] out of the taco shell.[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco[=0x0022=].[=0x000A=]\n', 'Example - Cinco')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cinco&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6006_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6006_78"></a>Cinco de Mayo Fundraiser is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6007_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6007_78"></a><a href="javascript:pasteCode('[=0x0022=]Cinco[=0x0022=][=0x000A=][=0x000A=]Cinco de Mayo Fundraiser is a room.[=0x000A=][=0x000A=]The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by containment] taco[=0x0022=] as the taco.[=0x000A=][=0x000A=]Rule for printing the name of the taco shell while not inserting or removing:[=0x000A=][=0x0009=]if the taco contains something (called filling), say [=0x0022=][filling] taco[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]taco shell[=0x0022=];[=0x000A=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]The player carries shredded beef. It is edible.[=0x000A=][=0x000A=]The taking action has an object called source (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x000A=]Setting action variables for taking:[=0x000A=][=0x0009=]now source is the holder of the noun.[=0x000A=][=0x000A=]Report taking something from the taco shell:[=0x000A=][=0x0009=]say [=0x0022=]You gingerly pick [the noun] out of the taco shell.[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Cinco[=0x0022=][=0x000A=][=0x000A=]Cinco de Mayo Fundraiser is a room.[=0x000A=][=0x000A=]The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by containment] taco[=0x0022=] as the taco.[=0x000A=][=0x000A=]Rule for printing the name of the taco shell while not inserting or removing:[=0x000A=][=0x0009=]if the taco contains something (called filling), say [=0x0022=][filling] taco[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]taco shell[=0x0022=];[=0x000A=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]The player carries shredded beef. It is edible.[=0x000A=][=0x000A=]The taking action has an object called source (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x000A=]Setting action variables for taking:[=0x000A=][=0x0009=]now source is the holder of the noun.[=0x000A=][=0x000A=]Report taking something from the taco shell:[=0x000A=][=0x0009=]say [=0x0022=]You gingerly pick [the noun] out of the taco shell.[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco[=0x0022=].[=0x000A=]\n', 'Example - Cinco')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Cinco&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6007_78"></a>The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6008_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6008_78"></a>Cinco de Mayo Fundraiser is a room.
+            <blockquote class="code"><p class="quoted"><a id="c6008_78"></a>Understand &quot;[something related by containment] taco&quot; as the taco.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6009_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6009_78"></a>The taco shell is an edible thing in the Fundraiser. It is a portable container. It has carrying capacity 1.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6010_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6010_78"></a>Understand &quot;[something related by containment] taco&quot; as the taco.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6011_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6011_78"></a>Rule for printing the name of the taco shell while not inserting or removing:
+            <blockquote class="code"><p class="quoted"><a id="c6009_78"></a>Rule for printing the name of the taco shell while not inserting or removing:
             <br>
             &#160;&#160;&#160;&#160;if the taco contains something (called filling), say &quot;[filling] taco&quot;;
             <br>
@@ -166,32 +166,32 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6010_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6010_78"></a>The player carries shredded beef. It is edible.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6011_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6011_78"></a>The taking action has an object called source (matched as &quot;from&quot;).
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6012_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6012_78"></a>The player carries shredded beef. It is edible.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6013_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6013_78"></a>The taking action has an object called source (matched as &quot;from&quot;).
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6014_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6014_78"></a>Setting action variables for taking:
+            <blockquote class="code"><p class="quoted"><a id="c6012_78"></a>Setting action variables for taking:
             <br>
             &#160;&#160;&#160;&#160;now source is the holder of the noun.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6015_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6015_78"></a>Report taking something from the taco shell:
+            <!--START CODE "c6013_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6013_78"></a>Report taking something from the taco shell:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You gingerly pick [the noun] out of the taco shell.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6016_78"-->
-            <blockquote class="code"><p class="quoted"><a id="c6016_78"></a>Test me with &quot;x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco&quot;.
+            <!--START CODE "c6014_78"-->
+            <blockquote class="code"><p class="quoted"><a id="c6014_78"></a>Test me with &quot;x taco / put shredded beef in taco / get taco / i / x shredded beef taco / get shredded beef / x shredded beef taco&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -224,72 +224,72 @@
         <div class="egpanel" id="example305" style="display: none;">
             <p>By default, when something is not present, Inform does not allow a player to refer to it. But there are times when we might like to acknowledge that the thing mentioned in a command does exist somewhere in the game; it just happens not to be on hand right now.</p>
             <p>One way to do this is to make an object that appears everywhere and responds to the name of its owner only when the owner itself is not in view.</p>
-            <!--START CODE "c6017_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6017_305"></a><a href="javascript:pasteCode('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Puncak Jaya')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puncak Jaya&quot;
+            <!--START CODE "c6015_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6015_305"></a><a href="javascript:pasteCode('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Puncak Jaya')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puncak Jaya&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6018_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6018_305"></a>A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.
+            <!--START CODE "c6016_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6016_305"></a>A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.</p>
-            <!--START CODE "c6019_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6019_305"></a>Representation relates one ghost to one person. The verb to represent means the representation relation.
+            <!--START CODE "c6017_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6017_305"></a>Representation relates one ghost to one person. The verb to represent means the representation relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6020_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6020_305"></a>One man-ghost represents every man. One woman-ghost represents every woman.
+            <!--START CODE "c6018_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6018_305"></a>One man-ghost represents every man. One woman-ghost represents every woman.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.</p>
             <p>Based on the &quot;representation&quot; relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:</p>
+            <!--START CODE "c6019_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6019_305"></a>Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6020_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6020_305"></a>Understand &quot;[something related by indication]&quot; as a ghost.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6021_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6021_305"></a>Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6022_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6022_305"></a>Understand &quot;[something related by indication]&quot; as a ghost.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6023_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6023_305"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c6021_305"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now every ghost is in the concept-repository.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6024_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6024_305"></a>Instead of doing something to a ghost:
+            <!--START CODE "c6022_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6022_305"></a>Instead of doing something to a ghost:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You seem to have left [a random person which is represented by the noun] behind.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6025_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6025_305"></a>Instead of doing something when the second noun is a ghost:
+            <!--START CODE "c6023_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6023_305"></a>Instead of doing something when the second noun is a ghost:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You seem to have left [a random person which is represented by the second noun] behind.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6024_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6024_305"></a>The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6025_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c6025_305"></a>Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6026_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6026_305"></a>The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6027_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6027_305"></a>Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6028_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c6028_305"></a>Test me with &quot;x kippax / up / x kippax / kiss kippax / kippax, hello&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c6026_305"></a>Test me with &quot;x kippax / up / x kippax / kiss kippax / kippax, hello&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -322,41 +322,41 @@
 
         <div class="egpanel" id="example435" style="display: none;">
             <p>Here we expand on the simple examples When? and Whence?; this time we want the player to be able to refer to doors by their directions, as in &quot;the west door&quot; when the door in question does in fact lead west.</p>
+            <!--START CODE "c6027_435"-->
+            <blockquote class="code"><p class="quoted"><a id="c6027_435"></a><a href="javascript:pasteCode('[=0x0022=]Whither?[=0x0022=][=0x000A=][=0x000A=]The temporal vortex is an open door. It is west of Yesterday and east of Today.[=0x000A=][=0x000A=]The initial appearance of a door is usually [=0x0022=]Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].[=0x0022=][=0x000A=][=0x000A=]Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by direction-relevance] door[=0x0022=] as a door.[=0x000A=][=0x000A=][As an added touch, we respond also to the case where the player postulates a door in some direction when there is no such thing at the moment:][=0x000A=][=0x000A=]Rule for printing a parser error when the player[=0x0027=]s command includes [=0x0022=][non-door direction] door[=0x0022=]:[=0x000A=][=0x0009=]say [=0x0022=]There is no door in that direction.[=0x0022=] instead.[=0x000A=][=0x000A=]Definition: a direction (called direction D) is non-door:[=0x000A=][=0x0009=]let the target be the room-or-door direction D from the location;[=0x000A=][=0x0009=]if the target is a door:[=0x000A=][=0x0009=][=0x0009=]no;[=0x000A=][=0x0009=]yes;[=0x000A=][=0x000A=]Test me with [=0x0022=]examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Whither?[=0x0022=][=0x000A=][=0x000A=]The temporal vortex is an open door. It is west of Yesterday and east of Today.[=0x000A=][=0x000A=]The initial appearance of a door is usually [=0x0022=]Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].[=0x0022=][=0x000A=][=0x000A=]Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by direction-relevance] door[=0x0022=] as a door.[=0x000A=][=0x000A=][As an added touch, we respond also to the case where the player postulates a door in some direction when there is no such thing at the moment:][=0x000A=][=0x000A=]Rule for printing a parser error when the player[=0x0027=]s command includes [=0x0022=][non-door direction] door[=0x0022=]:[=0x000A=][=0x0009=]say [=0x0022=]There is no door in that direction.[=0x0022=] instead.[=0x000A=][=0x000A=]Definition: a direction (called direction D) is non-door:[=0x000A=][=0x0009=]let the target be the room-or-door direction D from the location;[=0x000A=][=0x0009=]if the target is a door:[=0x000A=][=0x0009=][=0x0009=]no;[=0x000A=][=0x0009=]yes;[=0x000A=][=0x000A=]Test me with [=0x0022=]examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Whither?')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Whither?&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6028_435"-->
+            <blockquote class="code"><p class="quoted"><a id="c6028_435"></a>The temporal vortex is an open door. It is west of Yesterday and east of Today.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6029_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6029_435"></a><a href="javascript:pasteCode('[=0x0022=]Whither?[=0x0022=][=0x000A=][=0x000A=]The temporal vortex is an open door. It is west of Yesterday and east of Today.[=0x000A=][=0x000A=]The initial appearance of a door is usually [=0x0022=]Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].[=0x0022=][=0x000A=][=0x000A=]Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by direction-relevance] door[=0x0022=] as a door.[=0x000A=][=0x000A=][As an added touch, we respond also to the case where the player postulates a door in some direction when there is no such thing at the moment:][=0x000A=][=0x000A=]Rule for printing a parser error when the player[=0x0027=]s command includes [=0x0022=][non-door direction] door[=0x0022=]:[=0x000A=][=0x0009=]say [=0x0022=]There is no door in that direction.[=0x0022=] instead.[=0x000A=][=0x000A=]Definition: a direction (called direction D) is non-door:[=0x000A=][=0x0009=]let the target be the room-or-door direction D from the location;[=0x000A=][=0x0009=]if the target is a door:[=0x000A=][=0x0009=][=0x0009=]no;[=0x000A=][=0x0009=]yes;[=0x000A=][=0x000A=]Test me with [=0x0022=]examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Whither?[=0x0022=][=0x000A=][=0x000A=]The temporal vortex is an open door. It is west of Yesterday and east of Today.[=0x000A=][=0x000A=]The initial appearance of a door is usually [=0x0022=]Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].[=0x0022=][=0x000A=][=0x000A=]Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by direction-relevance] door[=0x0022=] as a door.[=0x000A=][=0x000A=][As an added touch, we respond also to the case where the player postulates a door in some direction when there is no such thing at the moment:][=0x000A=][=0x000A=]Rule for printing a parser error when the player[=0x0027=]s command includes [=0x0022=][non-door direction] door[=0x0022=]:[=0x000A=][=0x0009=]say [=0x0022=]There is no door in that direction.[=0x0022=] instead.[=0x000A=][=0x000A=]Definition: a direction (called direction D) is non-door:[=0x000A=][=0x0009=]let the target be the room-or-door direction D from the location;[=0x000A=][=0x0009=]if the target is a door:[=0x000A=][=0x0009=][=0x0009=]no;[=0x000A=][=0x0009=]yes;[=0x000A=][=0x000A=]Test me with [=0x0022=]examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Whither?')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Whither?&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6029_435"></a>The initial appearance of a door is usually &quot;Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6030_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6030_435"></a>The temporal vortex is an open door. It is west of Yesterday and east of Today.
+            <blockquote class="code"><p class="quoted"><a id="c6030_435"></a>Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6031_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6031_435"></a>The initial appearance of a door is usually &quot;Nearby [an item described] leads [if the other side of the item described is visited][direction of the item described from the location] to [other side of the item described][otherwise][direction of the item described from the location][end if].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6032_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6032_435"></a>Direction-relevance relates a door (called X) to a direction (called Y) when the direction of X from the location is Y. The verb to be directionally-relevant to means the direction-relevance relation.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6033_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6033_435"></a>Understand &quot;[something related by direction-relevance] door&quot; as a door.
+            <blockquote class="code"><p class="quoted"><a id="c6031_435"></a>Understand &quot;[something related by direction-relevance] door&quot; as a door.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>As an added touch, we respond also to the case where the player postulates a door in some direction when there is no such thing at the moment:</p>
-            <!--START CODE "c6034_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6034_435"></a>Rule for printing a parser error when the player's command includes &quot;[non-door direction] door&quot;:
+            <!--START CODE "c6032_435"-->
+            <blockquote class="code"><p class="quoted"><a id="c6032_435"></a>Rule for printing a parser error when the player's command includes &quot;[non-door direction] door&quot;:
             <br>
             &#160;&#160;&#160;&#160;say &quot;There is no door in that direction.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6035_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6035_435"></a>Definition: a direction (called direction D) is non-door:
+            <!--START CODE "c6033_435"-->
+            <blockquote class="code"><p class="quoted"><a id="c6033_435"></a>Definition: a direction (called direction D) is non-door:
             <br>
             &#160;&#160;&#160;&#160;let the target be the room-or-door direction D from the location;
             <br>
@@ -368,8 +368,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6036_435"-->
-            <blockquote class="code"><p class="quoted"><a id="c6036_435"></a>Test me with &quot;examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west&quot;.
+            <!--START CODE "c6034_435"-->
+            <blockquote class="code"><p class="quoted"><a id="c6034_435"></a>Test me with &quot;examine west door / x east door / w / x w door / x e door / tie me to the west door / tie the west door to me / push the west door east / push the east door west&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -402,50 +402,50 @@
         <div class="egpanel" id="example81" style="display: none;">
             <p>We start by creating a camera and a photograph object. As usual when we want to have a kind of object that can be dispensed in bulk, we start off with a bunch of identical instances of the object out of play (in this case, kept in an out-of-play container called &quot;film roll&quot;); we can then move them into play and give them characteristics when they're needed.</p>
             <p>Each photograph can depict exactly one thing -- we're assuming that the player is not a landscape photographer here -- so we create a relation to indicate what is shown by each photograph. We'll then use that relation to determine how photographs are described, named, and parsed:</p>
+            <!--START CODE "c6035_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6035_81"></a><a href="javascript:pasteCode('[=0x0022=]Claims Adjustment[=0x0022=][=0x000A=][=0x000A=]A photograph is a kind of thing. 36 photographs are in the film roll.[=0x000A=][=0x000A=]Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.[=0x000A=][=0x000A=]The description of a photograph is usually [=0x0022=]It shows [a random thing which is shown by the item described].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]of [something related by reversed appearance][=0x0022=] as a photograph.[=0x000A=][=0x000A=][This allows the player to refer to any photograph by its subject: useful if we have a large number of them.][=0x000A=][=0x000A=][Now we create an action to let the player use the camera and generate these photograph objects:][=0x000A=][=0x000A=]The player carries a cheap instant camera.[=0x000A=][=0x000A=]Understand [=0x0022=]photograph [something] with [camera][=0x0022=] as photographing. Understand [=0x0022=]photograph [something] with [something preferably held][=0x0022=] as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.[=0x000A=][=0x000A=]The photographing action has an object called the selected film.[=0x000A=][=0x000A=]Setting action variables for photographing:[=0x000A=][=0x0009=]let N be a random photograph in the film roll;[=0x000A=][=0x0009=]now the selected film is N.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the second noun is not the camera, say [=0x0022=]You need a camera for that purpose.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the noun is the camera, say [=0x0022=]Sadly impossible.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the selected film is nothing, say [=0x0022=]You[=0x0027=]re out of film.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out photographing:[=0x000A=][=0x0009=]now the noun is shown by the selected film;[=0x000A=][=0x0009=]move the selected film to the player.[=0x000A=][=0x000A=]Report photographing:[=0x000A=][=0x0009=]say [=0x0022=]Your camera instantly spits out [a selected film].[=0x0022=][=0x000A=][=0x000A=][Now we use two activities from the Activities chapter to describe the photographs to the player more elegantly:][=0x000A=][=0x000A=]After printing the name of a photograph (called target):[=0x000A=][=0x0009=]say [=0x0022=] of [a random thing which is shown by the target][=0x0022=].[=0x000A=][=0x000A=]After printing the plural name of a photograph (called target):[=0x000A=][=0x0009=]let N be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=] of [a list of things which are shown by photographs which are held by N][=0x0022=];[=0x000A=][=0x0009=]if the number of things which are shown by photographs which are held by N is greater than one, say [=0x0022=] (variously)[=0x0022=].[=0x000A=][=0x000A=][And finally we provide a brief scenario to give the player something to take pictures of:][=0x000A=][=0x000A=]The Treasure Room is a room. [=0x0022=]Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.[=0x0022=][=0x000A=][=0x000A=]The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.[=0x000A=][=0x000A=]The description of the forms is [=0x0022=]Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Claims Adjustment[=0x0022=][=0x000A=][=0x000A=]A photograph is a kind of thing. 36 photographs are in the film roll.[=0x000A=][=0x000A=]Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.[=0x000A=][=0x000A=]The description of a photograph is usually [=0x0022=]It shows [a random thing which is shown by the item described].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]of [something related by reversed appearance][=0x0022=] as a photograph.[=0x000A=][=0x000A=][This allows the player to refer to any photograph by its subject: useful if we have a large number of them.][=0x000A=][=0x000A=][Now we create an action to let the player use the camera and generate these photograph objects:][=0x000A=][=0x000A=]The player carries a cheap instant camera.[=0x000A=][=0x000A=]Understand [=0x0022=]photograph [something] with [camera][=0x0022=] as photographing. Understand [=0x0022=]photograph [something] with [something preferably held][=0x0022=] as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.[=0x000A=][=0x000A=]The photographing action has an object called the selected film.[=0x000A=][=0x000A=]Setting action variables for photographing:[=0x000A=][=0x0009=]let N be a random photograph in the film roll;[=0x000A=][=0x0009=]now the selected film is N.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the second noun is not the camera, say [=0x0022=]You need a camera for that purpose.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the noun is the camera, say [=0x0022=]Sadly impossible.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the selected film is nothing, say [=0x0022=]You[=0x0027=]re out of film.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out photographing:[=0x000A=][=0x0009=]now the noun is shown by the selected film;[=0x000A=][=0x0009=]move the selected film to the player.[=0x000A=][=0x000A=]Report photographing:[=0x000A=][=0x0009=]say [=0x0022=]Your camera instantly spits out [a selected film].[=0x0022=][=0x000A=][=0x000A=][Now we use two activities from the Activities chapter to describe the photographs to the player more elegantly:][=0x000A=][=0x000A=]After printing the name of a photograph (called target):[=0x000A=][=0x0009=]say [=0x0022=] of [a random thing which is shown by the target][=0x0022=].[=0x000A=][=0x000A=]After printing the plural name of a photograph (called target):[=0x000A=][=0x0009=]let N be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=] of [a list of things which are shown by photographs which are held by N][=0x0022=];[=0x000A=][=0x0009=]if the number of things which are shown by photographs which are held by N is greater than one, say [=0x0022=] (variously)[=0x0022=].[=0x000A=][=0x000A=][And finally we provide a brief scenario to give the player something to take pictures of:][=0x000A=][=0x000A=]The Treasure Room is a room. [=0x0022=]Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.[=0x0022=][=0x000A=][=0x000A=]The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.[=0x000A=][=0x000A=]The description of the forms is [=0x0022=]Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas[=0x0022=].[=0x000A=]\n', 'Example - Claims Adjustment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Claims Adjustment&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6036_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6036_81"></a>A photograph is a kind of thing. 36 photographs are in the film roll.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6037_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6037_81"></a><a href="javascript:pasteCode('[=0x0022=]Claims Adjustment[=0x0022=][=0x000A=][=0x000A=]A photograph is a kind of thing. 36 photographs are in the film roll.[=0x000A=][=0x000A=]Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.[=0x000A=][=0x000A=]The description of a photograph is usually [=0x0022=]It shows [a random thing which is shown by the item described].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]of [something related by reversed appearance][=0x0022=] as a photograph.[=0x000A=][=0x000A=][This allows the player to refer to any photograph by its subject: useful if we have a large number of them.][=0x000A=][=0x000A=][Now we create an action to let the player use the camera and generate these photograph objects:][=0x000A=][=0x000A=]The player carries a cheap instant camera.[=0x000A=][=0x000A=]Understand [=0x0022=]photograph [something] with [camera][=0x0022=] as photographing. Understand [=0x0022=]photograph [something] with [something preferably held][=0x0022=] as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.[=0x000A=][=0x000A=]The photographing action has an object called the selected film.[=0x000A=][=0x000A=]Setting action variables for photographing:[=0x000A=][=0x0009=]let N be a random photograph in the film roll;[=0x000A=][=0x0009=]now the selected film is N.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the second noun is not the camera, say [=0x0022=]You need a camera for that purpose.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the noun is the camera, say [=0x0022=]Sadly impossible.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the selected film is nothing, say [=0x0022=]You[=0x0027=]re out of film.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out photographing:[=0x000A=][=0x0009=]now the noun is shown by the selected film;[=0x000A=][=0x0009=]move the selected film to the player.[=0x000A=][=0x000A=]Report photographing:[=0x000A=][=0x0009=]say [=0x0022=]Your camera instantly spits out [a selected film].[=0x0022=][=0x000A=][=0x000A=][Now we use two activities from the Activities chapter to describe the photographs to the player more elegantly:][=0x000A=][=0x000A=]After printing the name of a photograph (called target):[=0x000A=][=0x0009=]say [=0x0022=] of [a random thing which is shown by the target][=0x0022=].[=0x000A=][=0x000A=]After printing the plural name of a photograph (called target):[=0x000A=][=0x0009=]let N be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=] of [a list of things which are shown by photographs which are held by N][=0x0022=];[=0x000A=][=0x0009=]if the number of things which are shown by photographs which are held by N is greater than one, say [=0x0022=] (variously)[=0x0022=].[=0x000A=][=0x000A=][And finally we provide a brief scenario to give the player something to take pictures of:][=0x000A=][=0x000A=]The Treasure Room is a room. [=0x0022=]Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.[=0x0022=][=0x000A=][=0x000A=]The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.[=0x000A=][=0x000A=]The description of the forms is [=0x0022=]Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Claims Adjustment[=0x0022=][=0x000A=][=0x000A=]A photograph is a kind of thing. 36 photographs are in the film roll.[=0x000A=][=0x000A=]Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.[=0x000A=][=0x000A=]The description of a photograph is usually [=0x0022=]It shows [a random thing which is shown by the item described].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]of [something related by reversed appearance][=0x0022=] as a photograph.[=0x000A=][=0x000A=][This allows the player to refer to any photograph by its subject: useful if we have a large number of them.][=0x000A=][=0x000A=][Now we create an action to let the player use the camera and generate these photograph objects:][=0x000A=][=0x000A=]The player carries a cheap instant camera.[=0x000A=][=0x000A=]Understand [=0x0022=]photograph [something] with [camera][=0x0022=] as photographing. Understand [=0x0022=]photograph [something] with [something preferably held][=0x0022=] as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.[=0x000A=][=0x000A=]The photographing action has an object called the selected film.[=0x000A=][=0x000A=]Setting action variables for photographing:[=0x000A=][=0x0009=]let N be a random photograph in the film roll;[=0x000A=][=0x0009=]now the selected film is N.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the second noun is not the camera, say [=0x0022=]You need a camera for that purpose.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the noun is the camera, say [=0x0022=]Sadly impossible.[=0x0022=] instead.[=0x000A=][=0x000A=]Check photographing:[=0x000A=][=0x0009=]if the selected film is nothing, say [=0x0022=]You[=0x0027=]re out of film.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out photographing:[=0x000A=][=0x0009=]now the noun is shown by the selected film;[=0x000A=][=0x0009=]move the selected film to the player.[=0x000A=][=0x000A=]Report photographing:[=0x000A=][=0x0009=]say [=0x0022=]Your camera instantly spits out [a selected film].[=0x0022=][=0x000A=][=0x000A=][Now we use two activities from the Activities chapter to describe the photographs to the player more elegantly:][=0x000A=][=0x000A=]After printing the name of a photograph (called target):[=0x000A=][=0x0009=]say [=0x0022=] of [a random thing which is shown by the target][=0x0022=].[=0x000A=][=0x000A=]After printing the plural name of a photograph (called target):[=0x000A=][=0x0009=]let N be the holder of the target;[=0x000A=][=0x0009=]say [=0x0022=] of [a list of things which are shown by photographs which are held by N][=0x0022=];[=0x000A=][=0x0009=]if the number of things which are shown by photographs which are held by N is greater than one, say [=0x0022=] (variously)[=0x0022=].[=0x000A=][=0x000A=][And finally we provide a brief scenario to give the player something to take pictures of:][=0x000A=][=0x000A=]The Treasure Room is a room. [=0x0022=]Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.[=0x0022=][=0x000A=][=0x000A=]The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.[=0x000A=][=0x000A=]The description of the forms is [=0x0022=]Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas[=0x0022=].[=0x000A=]\n', 'Example - Claims Adjustment')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Claims Adjustment&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6037_81"></a>Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6038_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6038_81"></a>A photograph is a kind of thing. 36 photographs are in the film roll.
+            <blockquote class="code"><p class="quoted"><a id="c6038_81"></a>The description of a photograph is usually &quot;It shows [a random thing which is shown by the item described].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6039_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6039_81"></a>Appearance relates one thing to various photographs. The verb to be shown by means the appearance relation.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6040_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6040_81"></a>The description of a photograph is usually &quot;It shows [a random thing which is shown by the item described].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6041_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6041_81"></a>Understand &quot;of [something related by reversed appearance]&quot; as a photograph.
+            <blockquote class="code"><p class="quoted"><a id="c6039_81"></a>Understand &quot;of [something related by reversed appearance]&quot; as a photograph.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This allows the player to refer to any photograph by its subject: useful if we have a large number of them.</p>
             <p>Now we create an action to let the player use the camera and generate these photograph objects:</p>
+            <!--START CODE "c6040_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6040_81"></a>The player carries a cheap instant camera.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6041_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6041_81"></a>Understand &quot;photograph [something] with [camera]&quot; as photographing. Understand &quot;photograph [something] with [something preferably held]&quot; as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6042_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6042_81"></a>The player carries a cheap instant camera.
+            <blockquote class="code"><p class="quoted"><a id="c6042_81"></a>The photographing action has an object called the selected film.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6043_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6043_81"></a>Understand &quot;photograph [something] with [camera]&quot; as photographing. Understand &quot;photograph [something] with [something preferably held]&quot; as photographing. Photographing is an action applying to one visible thing and one carried thing, requiring light.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6044_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6044_81"></a>The photographing action has an object called the selected film.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6045_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6045_81"></a>Setting action variables for photographing:
+            <blockquote class="code"><p class="quoted"><a id="c6043_81"></a>Setting action variables for photographing:
             <br>
             &#160;&#160;&#160;&#160;let N be a random photograph in the film roll;
             <br>
@@ -453,29 +453,29 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6046_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6046_81"></a>Check photographing:
+            <!--START CODE "c6044_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6044_81"></a>Check photographing:
             <br>
             &#160;&#160;&#160;&#160;if the second noun is not the camera, say &quot;You need a camera for that purpose.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6047_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6047_81"></a>Check photographing:
+            <!--START CODE "c6045_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6045_81"></a>Check photographing:
             <br>
             &#160;&#160;&#160;&#160;if the noun is the camera, say &quot;Sadly impossible.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6048_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6048_81"></a>Check photographing:
+            <!--START CODE "c6046_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6046_81"></a>Check photographing:
             <br>
             &#160;&#160;&#160;&#160;if the selected film is nothing, say &quot;You're out of film.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6049_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6049_81"></a>Carry out photographing:
+            <!--START CODE "c6047_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6047_81"></a>Carry out photographing:
             <br>
             &#160;&#160;&#160;&#160;now the noun is shown by the selected film;
             <br>
@@ -483,23 +483,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6050_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6050_81"></a>Report photographing:
+            <!--START CODE "c6048_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6048_81"></a>Report photographing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Your camera instantly spits out [a selected film].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we use two activities from the Activities chapter to describe the photographs to the player more elegantly:</p>
-            <!--START CODE "c6051_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6051_81"></a>After printing the name of a photograph (called target):
+            <!--START CODE "c6049_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6049_81"></a>After printing the name of a photograph (called target):
             <br>
             &#160;&#160;&#160;&#160;say &quot; of [a random thing which is shown by the target]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6052_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6052_81"></a>After printing the plural name of a photograph (called target):
+            <!--START CODE "c6050_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6050_81"></a>After printing the plural name of a photograph (called target):
             <br>
             &#160;&#160;&#160;&#160;let N be the holder of the target;
             <br>
@@ -510,28 +510,28 @@
             </blockquote>
             <!--END CODE-->
             <p>And finally we provide a brief scenario to give the player something to take pictures of:</p>
+            <!--START CODE "c6051_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6051_81"></a>The Treasure Room is a room. &quot;Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6052_81"-->
+            <blockquote class="code"><p class="quoted"><a id="c6052_81"></a>The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6053_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6053_81"></a>The Treasure Room is a room. &quot;Despite the fancy name, this is no more than a closet -- albeit a closet with its own special circuit on the house alarm.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6053_81"></a>The description of the forms is &quot;Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6054_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6054_81"></a>The Treasure Room contains a small Degas, a Ming vase, and a collection of South African krugerrands. The player is carrying insurance forms, a first-class stamp, and a security envelope.
+            <blockquote class="code"><p class="quoted"><a id="c6054_81"></a>Test me with &quot;photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6055_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6055_81"></a>The description of the forms is &quot;Completely filled out in black ink in block letters: now all you need to do is attach photographic evidence of the objects you wish to insure.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6056_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6056_81"></a>Test me with &quot;photograph degas / i / photograph degas / i / x photograph of degas / photograph me / x photograph of me / i / photograph vase / photograph camera / photograph collection / g / i / test more&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6057_81"-->
-            <blockquote class="code"><p class="quoted"><a id="c6057_81"></a>Test more with &quot;x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c6055_81"></a>Test more with &quot;x photograph of collection / x photograph of krugerrands / x photograph of collection of south african krugerrands / photograph photograph of degas / x photograph of photograph of degas&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

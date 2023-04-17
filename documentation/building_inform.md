@@ -20,11 +20,10 @@
 2a. Install a tool from a github repo that uses Python 3 to edit XCode project files.
 
 - This is required.
-- It's my fork of this repo because it needed fixing to work with the ZoomCocoa project.
 
 ```
-    git clone https://github.com/TobyLobster/mod-pbxproj-fork.git
-    cd mod-pbxproj-fork
+    git clone https://github.com/kronenthaler/mod-pbxproj.git
+    cd mod-pbxproj
     sudo python3 setup.py install
 ```
 
@@ -59,6 +58,25 @@ To see the options. Execute this script with the appropriate parameters specifie
 		- [Inside Code Signing: Hashes](https://developer.apple.com/documentation/technotes/tn3126-inside-code-signing-hashes).
 		- [Inside Code Signing: Requirements](https://developer.apple.com/documentation/technotes/tn3127-inside-code-signing-requirements/).
 
+## Updating to the latest Inform Compiler
+
+- If you haven't already, get and build the Inform Compiler from [here](https://github.com/ganelson/inform), following the instructions there. I call this 'Inform Core' and the macOS app 'InformApp'. So I have folder structure like this:
+
+```
+Inform Core\inform
+           \intest
+           \inweb
+           \...
+
+InformApp\inform
+         \zoom
+         \...
+```
+
+- In the XCode project for InformApp, check `scripts/compiler_injection.sh`: make sure INFORM_CORE points to your installed Inform repo. If this directory exists, then building the Inform for macOS app will automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead.
+
+## Updating Submodules
+We have one submodule `zoom`, which has it's own submodules. See [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for useful information about how to deal with the crazy world of git submodules.
 
 # Distributing a build
 
@@ -153,15 +171,15 @@ See also Apple's documentation [Troubleshooting Application Archiving in Xcode](
     - Finally, staple the DMG:
         - `xcrun stapler staple inform.dmg`
 
-- Rename the DMG with a version number in this format e.g. `Inform_10_1_2_macOS_1_82_2.dmg`
+- Rename the DMG with a version number in this format e.g. `Inform_10_1_0_macOS_1_82_0.dmg`
 
 - Done
 
 Troubleshooting: See Apple's documentation:
 
-- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution?language=objc).
-- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
-- [Testing a Notarised Product](https://developer.apple.com/forums/thread/130560).
+	- [Notarizing macOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution?language=objc).
+	- [Customizing the notarization workflow](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow?language=objc).
+	- [Testing a Notarised Product](https://developer.apple.com/forums/thread/130560).
 
 
 
@@ -178,7 +196,9 @@ Troubleshooting: See Apple's documentation:
 
 - Note that Notarisation and Stapling is not required for Mac App Store builds.
 
-- Validate the App in the Archiver?
+- Validate the App in the Organizer window (Window->Organizer)
+    - Tick the 'Upload your app's symbols'
+    - Untick the 'Manage Version and Build Number'  (I don't trust it)
 
 - Then there's a whole bunch more stuff around uploading the Archive to *App Store Connect*, filling in a whole bunch of forms, providing a bunch of screenshots and icons for the app in a variety of defined sizes, descriptions, declarations, etc, submitting the App to Apple for verification, and if everything is OK, finally releasing on the *Mac App Store*.
 

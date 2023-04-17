@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§27.24. Inform 6 adjectives</p>
     <p>There are three ways to specify that an adjective is defined at the I6 level. For example:</p>
-    <!--START CODE "c9231"-->
-    <blockquote class="code"><p class="quoted"><a id="c9231"></a>Definition: a number is prime rather than composite if I6 routine
+    <!--START CODE "c9229"-->
+    <blockquote class="code"><p class="quoted"><a id="c9229"></a>Definition: a number is prime rather than composite if I6 routine
     <br>
     &#160;&#160;&#160;&#160;&quot;PRIMALITY_TEST&quot; says so (it is greater than 1 and is divisible only by itself and 1).
     </p>
@@ -93,8 +93,8 @@
     <p>Inform now actually tests if a number N is prime by calling PRIMALITY_TEST(N), and it assumes that we have also included such a routine in the output. The routine is expected to return true or false accordingly.</p>
     <p>The text in brackets does nothing functional, but is the text used in the Lexicon dictionary part of the Phrasebook index for the user's benefit; it should be a brief definition. Extension authors are asked to provide these little definitions, so that their users won't be confused by blank lexicon entries.</p>
     <p>The second way makes a more capable adjective, since it can not only be tested, but also made true or false using &quot;now&quot;. For example:</p>
-    <!--START CODE "c9232"-->
-    <blockquote class="code"><p class="quoted"><a id="c9232"></a>Definition: a scene is crucial if I6 routine &quot;SceneCrucial&quot; makes it so
+    <!--START CODE "c9230"-->
+    <blockquote class="code"><p class="quoted"><a id="c9230"></a>Definition: a scene is crucial if I6 routine &quot;SceneCrucial&quot; makes it so
     <br>
     &#160;&#160;&#160;&#160;(it is essential to winning).
     </p>
@@ -102,8 +102,8 @@
     <!--END CODE-->
     <p>The difference here is &quot;makes it so&quot;, not &quot;says so&quot;, and as this implies, the routine has more power. &quot;SceneCrucial&quot; is called with two arguments: SceneCrucial(S, -1) tests whether the scene is crucial or not and returns true or false; SceneCrucial(S, true) must make it true; and SceneCrucial(S, false) must make it false. Another useful difference is that if the kind of value is one which is stored in block form (e.g. for an adjective applying to text), the routine is given a pointer to the block, not a fresh copy.</p>
     <p>A third way to define an adjective, which should be used only if speed is exceptionally important, is to provide a &quot;schema&quot; - a sort of I6 macro, like those provided by the C preprocessor. For example:</p>
-    <!--START CODE "c9233"-->
-    <blockquote class="code"><p class="quoted"><a id="c9233"></a>Definition: a rulebook is exciting if I6 condition
+    <!--START CODE "c9231"-->
+    <blockquote class="code"><p class="quoted"><a id="c9231"></a>Definition: a rulebook is exciting if I6 condition
     <br>
     &#160;&#160;&#160;&#160;&quot;excitement_array--&gt;(*1)==1&quot; says so (it is really wild).
     </p>

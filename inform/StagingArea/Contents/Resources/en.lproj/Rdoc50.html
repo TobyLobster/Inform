@@ -84,8 +84,8 @@
     <p class="sectionheading">§7.4. Barter and Exchange</p>
     <p>By default, Inform characters are a bit grudging about giving and sharing objects: they react with disinterest when they're shown things and refuse everything they're offered.</p>
     <p>If we'd like to change this, we can simply remove the default &quot;block giving&quot; rule, as in</p>
-    <!--START CODE "c12450"-->
-    <blockquote class="code"><p class="quoted"><a id="c12450"></a>The block giving rule is not listed in the check giving it to rules.
+    <!--START CODE "c12448"-->
+    <blockquote class="code"><p class="quoted"><a id="c12448"></a>The block giving rule is not listed in the check giving it to rules.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -122,37 +122,37 @@
 
         <div class="egpanel" id="example171" style="display: none;">
             <p>If we want to rewrite the functionality of a command that usually ends with a &quot;block...&quot; rule, we will have to begin by turning the blocking off.</p>
-            <!--START CODE "c12451_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12451_171"></a><a href="javascript:pasteCode('[=0x0022=]Bribery[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=][As it happens, correct behavior is built into the GIVE command once [=0x0022=]block giving[=0x0022=] is turned off, so we do not have to write a replacement report or carry-out rule; the object will be transferred to the possession of the caterpillar. But we do want to adjust the action just a little so that our gift cheers up the recipient:][=0x000A=][=0x000A=]Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.[=0x000A=][=0x000A=]Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.[=0x000A=][=0x000A=]To improve the mood of (character - an animal):[=0x000A=][=0x0009=]if the mood of character is less than friendly, now the mood of the character is the mood after the mood of the character.[=0x000A=][=0x000A=][Now whenever we give something to an animal, the animal will be pleased about the present. Of course, we might also want to add a check rule to giving, to see whether the offering is something the recipient really wants:][=0x000A=][=0x000A=]Check giving (this is the polite refusal of unwanted objects rule):[=0x000A=][=0x0009=]unless the noun interests the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] disdainfully refuses [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]To decide whether (item - a thing) interests (character - a person):[=0x000A=][=0x0009=]if the character has the item, no;[=0x000A=][=0x0009=]if the item is edible, yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=]try giving the noun to the second noun.[=0x000A=][=0x000A=][There is already a perfectly workable report rule that will describe what happens when we give something to someone, but let[=0x0027=]s say we want to report on the recipient[=0x0027=]s changed mood, too:][=0x000A=][=0x000A=]After giving something to someone:[=0x000A=][=0x0009=]say [=0x0022=]You give [the noun] to [the second noun], who appears mollified and is now merely [mood of the second noun].[=0x0022=][=0x000A=][=0x000A=][And the rest is all scenario:][=0x000A=][=0x000A=]The Leafy Branch is a room. [=0x0022=]You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.[=0x000A=][=0x000A=]The branch continues forward and backward from here, and a stem extends forward-up.[=0x0022=][=0x000A=][=0x000A=]Instead of going south in Leafy Branch, say [=0x0022=]You must not back down! The scent trail leads onward![=0x0022=][=0x000A=][=0x000A=]The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. [=0x0022=][The Caterpillar] looks [mood].[=0x0022=] Instead of examining the Caterpillar, say [=0x0022=][The caterpillar] appears [mood].[=0x0022=][=0x000A=][=0x000A=]The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say [=0x0022=]You lift [the noun], though it is nearly your own size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a hostile caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, glaring down at you with all the bristles on its skin extended to full size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a suspicious caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, though it might allow you past if you offered further tribute.[=0x0022=][=0x000A=][=0x000A=]The Leaf Face is above the branch. [=0x0022=]The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.[=0x0022=]  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.[=0x000A=][=0x000A=]The Twig is north of Leafy Branch. [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=][=0x000A=][=0x000A=]After going to the Twig:[=0x000A=][=0x0009=]say [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Understand [=0x0022=]forward-up[=0x0022=] as up. Understand [=0x0022=]forward[=0x0022=] as north. Understand [=0x0022=]backward[=0x0022=] as south.  Understand [=0x0022=]backward-down[=0x0022=] as down.[=0x000A=][=0x000A=]Test me with [=0x0022=]forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bribery[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=][As it happens, correct behavior is built into the GIVE command once [=0x0022=]block giving[=0x0022=] is turned off, so we do not have to write a replacement report or carry-out rule; the object will be transferred to the possession of the caterpillar. But we do want to adjust the action just a little so that our gift cheers up the recipient:][=0x000A=][=0x000A=]Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.[=0x000A=][=0x000A=]Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.[=0x000A=][=0x000A=]To improve the mood of (character - an animal):[=0x000A=][=0x0009=]if the mood of character is less than friendly, now the mood of the character is the mood after the mood of the character.[=0x000A=][=0x000A=][Now whenever we give something to an animal, the animal will be pleased about the present. Of course, we might also want to add a check rule to giving, to see whether the offering is something the recipient really wants:][=0x000A=][=0x000A=]Check giving (this is the polite refusal of unwanted objects rule):[=0x000A=][=0x0009=]unless the noun interests the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] disdainfully refuses [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]To decide whether (item - a thing) interests (character - a person):[=0x000A=][=0x0009=]if the character has the item, no;[=0x000A=][=0x0009=]if the item is edible, yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=]try giving the noun to the second noun.[=0x000A=][=0x000A=][There is already a perfectly workable report rule that will describe what happens when we give something to someone, but let[=0x0027=]s say we want to report on the recipient[=0x0027=]s changed mood, too:][=0x000A=][=0x000A=]After giving something to someone:[=0x000A=][=0x0009=]say [=0x0022=]You give [the noun] to [the second noun], who appears mollified and is now merely [mood of the second noun].[=0x0022=][=0x000A=][=0x000A=][And the rest is all scenario:][=0x000A=][=0x000A=]The Leafy Branch is a room. [=0x0022=]You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.[=0x000A=][=0x000A=]The branch continues forward and backward from here, and a stem extends forward-up.[=0x0022=][=0x000A=][=0x000A=]Instead of going south in Leafy Branch, say [=0x0022=]You must not back down! The scent trail leads onward![=0x0022=][=0x000A=][=0x000A=]The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. [=0x0022=][The Caterpillar] looks [mood].[=0x0022=] Instead of examining the Caterpillar, say [=0x0022=][The caterpillar] appears [mood].[=0x0022=][=0x000A=][=0x000A=]The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say [=0x0022=]You lift [the noun], though it is nearly your own size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a hostile caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, glaring down at you with all the bristles on its skin extended to full size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a suspicious caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, though it might allow you past if you offered further tribute.[=0x0022=][=0x000A=][=0x000A=]The Leaf Face is above the branch. [=0x0022=]The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.[=0x0022=]  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.[=0x000A=][=0x000A=]The Twig is north of Leafy Branch. [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=][=0x000A=][=0x000A=]After going to the Twig:[=0x000A=][=0x0009=]say [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Understand [=0x0022=]forward-up[=0x0022=] as up. Understand [=0x0022=]forward[=0x0022=] as north. Understand [=0x0022=]backward[=0x0022=] as south.  Understand [=0x0022=]backward-down[=0x0022=] as down.[=0x000A=][=0x000A=]Test me with [=0x0022=]forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward[=0x0022=].[=0x000A=]\n', 'Example - Bribery')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bribery&quot;
+            <!--START CODE "c12449_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12449_171"></a><a href="javascript:pasteCode('[=0x0022=]Bribery[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=][As it happens, correct behavior is built into the GIVE command once [=0x0022=]block giving[=0x0022=] is turned off, so we do not have to write a replacement report or carry-out rule; the object will be transferred to the possession of the caterpillar. But we do want to adjust the action just a little so that our gift cheers up the recipient:][=0x000A=][=0x000A=]Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.[=0x000A=][=0x000A=]Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.[=0x000A=][=0x000A=]To improve the mood of (character - an animal):[=0x000A=][=0x0009=]if the mood of character is less than friendly, now the mood of the character is the mood after the mood of the character.[=0x000A=][=0x000A=][Now whenever we give something to an animal, the animal will be pleased about the present. Of course, we might also want to add a check rule to giving, to see whether the offering is something the recipient really wants:][=0x000A=][=0x000A=]Check giving (this is the polite refusal of unwanted objects rule):[=0x000A=][=0x0009=]unless the noun interests the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] disdainfully refuses [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]To decide whether (item - a thing) interests (character - a person):[=0x000A=][=0x0009=]if the character has the item, no;[=0x000A=][=0x0009=]if the item is edible, yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=]try giving the noun to the second noun.[=0x000A=][=0x000A=][There is already a perfectly workable report rule that will describe what happens when we give something to someone, but let[=0x0027=]s say we want to report on the recipient[=0x0027=]s changed mood, too:][=0x000A=][=0x000A=]After giving something to someone:[=0x000A=][=0x0009=]say [=0x0022=]You give [the noun] to [the second noun], who appears mollified and is now merely [mood of the second noun].[=0x0022=][=0x000A=][=0x000A=][And the rest is all scenario:][=0x000A=][=0x000A=]The Leafy Branch is a room. [=0x0022=]You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.[=0x000A=][=0x000A=]The branch continues forward and backward from here, and a stem extends forward-up.[=0x0022=][=0x000A=][=0x000A=]Instead of going south in Leafy Branch, say [=0x0022=]You must not back down! The scent trail leads onward![=0x0022=][=0x000A=][=0x000A=]The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. [=0x0022=][The Caterpillar] looks [mood].[=0x0022=] Instead of examining the Caterpillar, say [=0x0022=][The caterpillar] appears [mood].[=0x0022=][=0x000A=][=0x000A=]The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say [=0x0022=]You lift [the noun], though it is nearly your own size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a hostile caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, glaring down at you with all the bristles on its skin extended to full size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a suspicious caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, though it might allow you past if you offered further tribute.[=0x0022=][=0x000A=][=0x000A=]The Leaf Face is above the branch. [=0x0022=]The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.[=0x0022=]  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.[=0x000A=][=0x000A=]The Twig is north of Leafy Branch. [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=][=0x000A=][=0x000A=]After going to the Twig:[=0x000A=][=0x0009=]say [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Understand [=0x0022=]forward-up[=0x0022=] as up. Understand [=0x0022=]forward[=0x0022=] as north. Understand [=0x0022=]backward[=0x0022=] as south.  Understand [=0x0022=]backward-down[=0x0022=] as down.[=0x000A=][=0x000A=]Test me with [=0x0022=]forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bribery[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=][As it happens, correct behavior is built into the GIVE command once [=0x0022=]block giving[=0x0022=] is turned off, so we do not have to write a replacement report or carry-out rule; the object will be transferred to the possession of the caterpillar. But we do want to adjust the action just a little so that our gift cheers up the recipient:][=0x000A=][=0x000A=]Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.[=0x000A=][=0x000A=]Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.[=0x000A=][=0x000A=]To improve the mood of (character - an animal):[=0x000A=][=0x0009=]if the mood of character is less than friendly, now the mood of the character is the mood after the mood of the character.[=0x000A=][=0x000A=][Now whenever we give something to an animal, the animal will be pleased about the present. Of course, we might also want to add a check rule to giving, to see whether the offering is something the recipient really wants:][=0x000A=][=0x000A=]Check giving (this is the polite refusal of unwanted objects rule):[=0x000A=][=0x0009=]unless the noun interests the second noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] disdainfully refuses [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]To decide whether (item - a thing) interests (character - a person):[=0x000A=][=0x0009=]if the character has the item, no;[=0x000A=][=0x0009=]if the item is edible, yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=]try giving the noun to the second noun.[=0x000A=][=0x000A=][There is already a perfectly workable report rule that will describe what happens when we give something to someone, but let[=0x0027=]s say we want to report on the recipient[=0x0027=]s changed mood, too:][=0x000A=][=0x000A=]After giving something to someone:[=0x000A=][=0x0009=]say [=0x0022=]You give [the noun] to [the second noun], who appears mollified and is now merely [mood of the second noun].[=0x0022=][=0x000A=][=0x000A=][And the rest is all scenario:][=0x000A=][=0x000A=]The Leafy Branch is a room. [=0x0022=]You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.[=0x000A=][=0x000A=]The branch continues forward and backward from here, and a stem extends forward-up.[=0x0022=][=0x000A=][=0x000A=]Instead of going south in Leafy Branch, say [=0x0022=]You must not back down! The scent trail leads onward![=0x0022=][=0x000A=][=0x000A=]The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. [=0x0022=][The Caterpillar] looks [mood].[=0x0022=] Instead of examining the Caterpillar, say [=0x0022=][The caterpillar] appears [mood].[=0x0022=][=0x000A=][=0x000A=]The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say [=0x0022=]You lift [the noun], though it is nearly your own size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a hostile caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, glaring down at you with all the bristles on its skin extended to full size.[=0x0022=][=0x000A=][=0x000A=]Instead of going north in the presence of a suspicious caterpillar:[=0x000A=][=0x0009=]say [=0x0022=][The Caterpillar] moves to block your exit, though it might allow you past if you offered further tribute.[=0x0022=][=0x000A=][=0x000A=]The Leaf Face is above the branch. [=0x0022=]The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.[=0x0022=]  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.[=0x000A=][=0x000A=]The Twig is north of Leafy Branch. [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=][=0x000A=][=0x000A=]After going to the Twig:[=0x000A=][=0x0009=]say [=0x0022=]The scent-trail is weak but not entirely gone, and you pursue it faithfully...[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Understand [=0x0022=]forward-up[=0x0022=] as up. Understand [=0x0022=]forward[=0x0022=] as north. Understand [=0x0022=]backward[=0x0022=] as south.  Understand [=0x0022=]backward-down[=0x0022=] as down.[=0x000A=][=0x000A=]Test me with [=0x0022=]forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward[=0x0022=].[=0x000A=]\n', 'Example - Bribery')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bribery&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12452_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12452_171"></a>The block giving rule is not listed in the check giving it to rules.
+            <!--START CODE "c12450_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12450_171"></a>The block giving rule is not listed in the check giving it to rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>As it happens, correct behavior is built into the GIVE command once &quot;block giving&quot; is turned off, so we do not have to write a replacement report or carry-out rule; the object will be transferred to the possession of the caterpillar. But we do want to adjust the action just a little so that our gift cheers up the recipient:</p>
+            <!--START CODE "c12451_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12451_171"></a>Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12452_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12452_171"></a>Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12453_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12453_171"></a>Carry out giving (this is the gratitude for gifts rule): improve the mood of the second noun.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12454_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12454_171"></a>Mood is a kind of value. The moods are hostile, suspicious, indifferent, friendly, and adoring. An animal has a mood. An animal is usually indifferent.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12455_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12455_171"></a>To improve the mood of (character - an animal):
+            <blockquote class="code"><p class="quoted"><a id="c12453_171"></a>To improve the mood of (character - an animal):
             <br>
             &#160;&#160;&#160;&#160;if the mood of character is less than friendly, now the mood of the character is the mood after the mood of the character.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now whenever we give something to an animal, the animal will be pleased about the present. Of course, we might also want to add a check rule to giving, to see whether the offering is something the recipient really wants:</p>
-            <!--START CODE "c12456_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12456_171"></a>Check giving (this is the polite refusal of unwanted objects rule):
+            <!--START CODE "c12454_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12454_171"></a>Check giving (this is the polite refusal of unwanted objects rule):
             <br>
             &#160;&#160;&#160;&#160;unless the noun interests the second noun:
             <br>
@@ -160,8 +160,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12457_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12457_171"></a>To decide whether (item - a thing) interests (character - a person):
+            <!--START CODE "c12455_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12455_171"></a>To decide whether (item - a thing) interests (character - a person):
             <br>
             &#160;&#160;&#160;&#160;if the character has the item, no;
             <br>
@@ -171,73 +171,73 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12458_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12458_171"></a>Instead of showing something to someone:
+            <!--START CODE "c12456_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12456_171"></a>Instead of showing something to someone:
             <br>
             try giving the noun to the second noun.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>There is already a perfectly workable report rule that will describe what happens when we give something to someone, but let's say we want to report on the recipient's changed mood, too:</p>
-            <!--START CODE "c12459_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12459_171"></a>After giving something to someone:
+            <!--START CODE "c12457_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12457_171"></a>After giving something to someone:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You give [the noun] to [the second noun], who appears mollified and is now merely [mood of the second noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And the rest is all scenario:</p>
+            <!--START CODE "c12458_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12458_171"></a>The Leafy Branch is a room. &quot;You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12459_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12459_171"></a>The branch continues forward and backward from here, and a stem extends forward-up.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12460_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12460_171"></a>The Leafy Branch is a room. &quot;You stand on smooth bark dappled by sunlight. The scent-trail runs forward to home.
+            <blockquote class="code"><p class="quoted"><a id="c12460_171"></a>Instead of going south in Leafy Branch, say &quot;You must not back down! The scent trail leads onward!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12461_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12461_171"></a>The branch continues forward and backward from here, and a stem extends forward-up.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12461_171"></a>The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. &quot;[The Caterpillar] looks [mood].&quot; Instead of examining the Caterpillar, say &quot;[The caterpillar] appears [mood].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12462_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12462_171"></a>Instead of going south in Leafy Branch, say &quot;You must not back down! The scent trail leads onward!&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12462_171"></a>The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say &quot;You lift [the noun], though it is nearly your own size.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12463_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12463_171"></a>The Very Hungry Caterpillar is a hostile animal in the Leafy Branch. &quot;[The Caterpillar] looks [mood].&quot; Instead of examining the Caterpillar, say &quot;[The caterpillar] appears [mood].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12464_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12464_171"></a>The player carries an edible thing called a peanut crumb. The carrying capacity of the player is 1. After taking something, say &quot;You lift [the noun], though it is nearly your own size.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12465_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12465_171"></a>Instead of going north in the presence of a hostile caterpillar:
+            <blockquote class="code"><p class="quoted"><a id="c12463_171"></a>Instead of going north in the presence of a hostile caterpillar:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The Caterpillar] moves to block your exit, glaring down at you with all the bristles on its skin extended to full size.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12466_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12466_171"></a>Instead of going north in the presence of a suspicious caterpillar:
+            <!--START CODE "c12464_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12464_171"></a>Instead of going north in the presence of a suspicious caterpillar:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The Caterpillar] moves to block your exit, though it might allow you past if you offered further tribute.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c12465_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12465_171"></a>The Leaf Face is above the branch. &quot;The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.&quot;  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12466_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12466_171"></a>The Twig is north of Leafy Branch. &quot;The scent-trail is weak but not entirely gone, and you pursue it faithfully...&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12467_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12467_171"></a>The Leaf Face is above the branch. &quot;The smooth and shiny surface of the leaf extends forward from here, but you have lost the scent-trail. This is not the way home.&quot;  The pear fragment is an edible thing in Leaf Face. The dead aphid is a thing in Leaf Face.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12468_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12468_171"></a>The Twig is north of Leafy Branch. &quot;The scent-trail is weak but not entirely gone, and you pursue it faithfully...&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12469_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12469_171"></a>After going to the Twig:
+            <blockquote class="code"><p class="quoted"><a id="c12467_171"></a>After going to the Twig:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The scent-trail is weak but not entirely gone, and you pursue it faithfully...&quot;;
             <br>
@@ -245,13 +245,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12470_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12470_171"></a>Understand &quot;forward-up&quot; as up. Understand &quot;forward&quot; as north. Understand &quot;backward&quot; as south.  Understand &quot;backward-down&quot; as down.
+            <!--START CODE "c12468_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12468_171"></a>Understand &quot;forward-up&quot; as up. Understand &quot;forward&quot; as north. Understand &quot;backward&quot; as south.  Understand &quot;backward-down&quot; as down.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12471_171"-->
-            <blockquote class="code"><p class="quoted"><a id="c12471_171"></a>Test me with &quot;forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward&quot;.
+            <!--START CODE "c12469_171"-->
+            <blockquote class="code"><p class="quoted"><a id="c12469_171"></a>Test me with &quot;forward / give crumb to caterpillar / forward / forward-up / get aphid / get fragment / down / give aphid to caterpillar / drop aphid / forward-up / get fragment / down / give fragment / forward&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -284,78 +284,78 @@
         <div class="egpanel" id="example22" style="display: none;">
             <p>By default, if we make no modifications, telling one player to give something to another will fail, even if persuasion succeeds. This is because the default behavior of the GIVE command is interrupted by the &quot;block giving rule&quot; -- since in many cases we do not want people to exchange objects freely.</p>
             <p>However, suppose that we do want characters to be able to exchange articles freely: we allow persuasion to succeed and turn off the &quot;block giving rule&quot;.</p>
+            <!--START CODE "c12470_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12470_22"></a><a href="javascript:pasteCode('[=0x0022=]Barter Barter[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]A persuasion rule for asking people to try giving: persuasion succeeds.[=0x000A=][=0x000A=]The Trading Post is a room.[=0x000A=][=0x000A=]Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.[=0x000A=][=0x000A=]William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.[=0x000A=][=0x000A=]Instead of examining someone:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is carrying [the list of things carried by the noun].[=0x0022=][=0x000A=][=0x000A=][And now we might want to implement a way to keep track of whether the recipient character wants what[=0x0027=]s being offered:][=0x000A=][=0x000A=]Check someone trying giving something to someone (this is the sneering refusal rule):[=0x000A=][=0x0009=]if the second noun dislikes the noun, stop the action.[=0x000A=][=0x000A=]Unsuccessful attempt by someone trying doing something:[=0x000A=][=0x0009=]if the reason the action failed is the sneering refusal rule, say [=0x0022=][=0x0027=]Would you care for [the noun]?[=0x0027=] [the person asked] asks solicitously of [the second noun].[=0x000A=][=0x000A=]But [the second noun] refuses [the noun] disdainfully.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The person asked] just appears bewildered by this improbable instruction.[=0x0022=][=0x000A=][=0x000A=]Distaste relates one person to various things. The verb to dislike means the distaste relation.[=0x000A=][=0x000A=]Clark dislikes the beans. Lewis dislikes the bread.[=0x000A=][=0x000A=][Since we[=0x0027=]ve defined this as a relation, we could change what the characters like and dislike during the course of the game, freely; for instance, characters might grow hungry and suddenly like all the edible articles.][=0x000A=][=0x000A=]Test me with [=0x0022=]x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Barter Barter[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]A persuasion rule for asking people to try giving: persuasion succeeds.[=0x000A=][=0x000A=]The Trading Post is a room.[=0x000A=][=0x000A=]Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.[=0x000A=][=0x000A=]William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.[=0x000A=][=0x000A=]Instead of examining someone:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is carrying [the list of things carried by the noun].[=0x0022=][=0x000A=][=0x000A=][And now we might want to implement a way to keep track of whether the recipient character wants what[=0x0027=]s being offered:][=0x000A=][=0x000A=]Check someone trying giving something to someone (this is the sneering refusal rule):[=0x000A=][=0x0009=]if the second noun dislikes the noun, stop the action.[=0x000A=][=0x000A=]Unsuccessful attempt by someone trying doing something:[=0x000A=][=0x0009=]if the reason the action failed is the sneering refusal rule, say [=0x0022=][=0x0027=]Would you care for [the noun]?[=0x0027=] [the person asked] asks solicitously of [the second noun].[=0x000A=][=0x000A=]But [the second noun] refuses [the noun] disdainfully.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The person asked] just appears bewildered by this improbable instruction.[=0x0022=][=0x000A=][=0x000A=]Distaste relates one person to various things. The verb to dislike means the distaste relation.[=0x000A=][=0x000A=]Clark dislikes the beans. Lewis dislikes the bread.[=0x000A=][=0x000A=][Since we[=0x0027=]ve defined this as a relation, we could change what the characters like and dislike during the course of the game, freely; for instance, characters might grow hungry and suddenly like all the edible articles.][=0x000A=][=0x000A=]Test me with [=0x0022=]x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis[=0x0022=].[=0x000A=]\n', 'Example - Barter Barter')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Barter Barter&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c12471_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12471_22"></a>The block giving rule is not listed in the check giving it to rules.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c12472_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12472_22"></a><a href="javascript:pasteCode('[=0x0022=]Barter Barter[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]A persuasion rule for asking people to try giving: persuasion succeeds.[=0x000A=][=0x000A=]The Trading Post is a room.[=0x000A=][=0x000A=]Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.[=0x000A=][=0x000A=]William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.[=0x000A=][=0x000A=]Instead of examining someone:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is carrying [the list of things carried by the noun].[=0x0022=][=0x000A=][=0x000A=][And now we might want to implement a way to keep track of whether the recipient character wants what[=0x0027=]s being offered:][=0x000A=][=0x000A=]Check someone trying giving something to someone (this is the sneering refusal rule):[=0x000A=][=0x0009=]if the second noun dislikes the noun, stop the action.[=0x000A=][=0x000A=]Unsuccessful attempt by someone trying doing something:[=0x000A=][=0x0009=]if the reason the action failed is the sneering refusal rule, say [=0x0022=][=0x0027=]Would you care for [the noun]?[=0x0027=] [the person asked] asks solicitously of [the second noun].[=0x000A=][=0x000A=]But [the second noun] refuses [the noun] disdainfully.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The person asked] just appears bewildered by this improbable instruction.[=0x0022=][=0x000A=][=0x000A=]Distaste relates one person to various things. The verb to dislike means the distaste relation.[=0x000A=][=0x000A=]Clark dislikes the beans. Lewis dislikes the bread.[=0x000A=][=0x000A=][Since we[=0x0027=]ve defined this as a relation, we could change what the characters like and dislike during the course of the game, freely; for instance, characters might grow hungry and suddenly like all the edible articles.][=0x000A=][=0x000A=]Test me with [=0x0022=]x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Barter Barter[=0x0022=][=0x000A=][=0x000A=]The block giving rule is not listed in the check giving it to rules.[=0x000A=][=0x000A=]A persuasion rule for asking people to try giving: persuasion succeeds.[=0x000A=][=0x000A=]The Trading Post is a room.[=0x000A=][=0x000A=]Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.[=0x000A=][=0x000A=]William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.[=0x000A=][=0x000A=]Instead of examining someone:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is carrying [the list of things carried by the noun].[=0x0022=][=0x000A=][=0x000A=][And now we might want to implement a way to keep track of whether the recipient character wants what[=0x0027=]s being offered:][=0x000A=][=0x000A=]Check someone trying giving something to someone (this is the sneering refusal rule):[=0x000A=][=0x0009=]if the second noun dislikes the noun, stop the action.[=0x000A=][=0x000A=]Unsuccessful attempt by someone trying doing something:[=0x000A=][=0x0009=]if the reason the action failed is the sneering refusal rule, say [=0x0022=][=0x0027=]Would you care for [the noun]?[=0x0027=] [the person asked] asks solicitously of [the second noun].[=0x000A=][=0x000A=]But [the second noun] refuses [the noun] disdainfully.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The person asked] just appears bewildered by this improbable instruction.[=0x0022=][=0x000A=][=0x000A=]Distaste relates one person to various things. The verb to dislike means the distaste relation.[=0x000A=][=0x000A=]Clark dislikes the beans. Lewis dislikes the bread.[=0x000A=][=0x000A=][Since we[=0x0027=]ve defined this as a relation, we could change what the characters like and dislike during the course of the game, freely; for instance, characters might grow hungry and suddenly like all the edible articles.][=0x000A=][=0x000A=]Test me with [=0x0022=]x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis[=0x0022=].[=0x000A=]\n', 'Example - Barter Barter')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Barter Barter&quot;
+            <blockquote class="code"><p class="quoted"><a id="c12472_22"></a>A persuasion rule for asking people to try giving: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12473_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12473_22"></a>The block giving rule is not listed in the check giving it to rules.
+            <blockquote class="code"><p class="quoted"><a id="c12473_22"></a>The Trading Post is a room.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12474_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12474_22"></a>A persuasion rule for asking people to try giving: persuasion succeeds.
+            <blockquote class="code"><p class="quoted"><a id="c12474_22"></a>Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12475_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12475_22"></a>The Trading Post is a room.
+            <blockquote class="code"><p class="quoted"><a id="c12475_22"></a>William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c12476_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12476_22"></a>Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12477_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12477_22"></a>William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c12478_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12478_22"></a>Instead of examining someone:
+            <blockquote class="code"><p class="quoted"><a id="c12476_22"></a>Instead of examining someone:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] is carrying [the list of things carried by the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now we might want to implement a way to keep track of whether the recipient character wants what's being offered:</p>
-            <!--START CODE "c12479_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12479_22"></a>Check someone trying giving something to someone (this is the sneering refusal rule):
+            <!--START CODE "c12477_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12477_22"></a>Check someone trying giving something to someone (this is the sneering refusal rule):
             <br>
             &#160;&#160;&#160;&#160;if the second noun dislikes the noun, stop the action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12480_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12480_22"></a>Unsuccessful attempt by someone trying doing something:
+            <!--START CODE "c12478_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12478_22"></a>Unsuccessful attempt by someone trying doing something:
             <br>
             &#160;&#160;&#160;&#160;if the reason the action failed is the sneering refusal rule, say &quot;'Would you care for [the noun]?' [the person asked] asks solicitously of [the second noun].
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12481_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12481_22"></a>But [the second noun] refuses [the noun] disdainfully.&quot;;
+            <!--START CODE "c12479_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12479_22"></a>But [the second noun] refuses [the noun] disdainfully.&quot;;
             <br>
             &#160;&#160;&#160;&#160;otherwise say &quot;[The person asked] just appears bewildered by this improbable instruction.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12482_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12482_22"></a>Distaste relates one person to various things. The verb to dislike means the distaste relation.
+            <!--START CODE "c12480_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12480_22"></a>Distaste relates one person to various things. The verb to dislike means the distaste relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c12483_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12483_22"></a>Clark dislikes the beans. Lewis dislikes the bread.
+            <!--START CODE "c12481_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12481_22"></a>Clark dislikes the beans. Lewis dislikes the bread.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Since we've defined this as a relation, we could change what the characters like and dislike during the course of the game, freely; for instance, characters might grow hungry and suddenly like all the edible articles.</p>
-            <!--START CODE "c12484_22"-->
-            <blockquote class="code"><p class="quoted"><a id="c12484_22"></a>Test me with &quot;x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis&quot;.
+            <!--START CODE "c12482_22"-->
+            <blockquote class="code"><p class="quoted"><a id="c12482_22"></a>Test me with &quot;x lewis / x clark / clark, give the slippers to lewis / clark, give the bread to lewis&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

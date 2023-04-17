@@ -112,40 +112,40 @@
         </table>
 
         <div class="egpanel" id="example165" style="display: none;">
+            <!--START CODE "c14977_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14977_165"></a><a href="javascript:pasteCode('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be the former concentration of the second space minus the former concentration of the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]let sum be sum divided by probability inverse;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=][A technical note: it would be possible to write [=0x0022=]repeat with space running through rooms... repeat with second space running through rooms adjacent to the space[=0x0022=] instead, but in practice this loops through all the rooms * all the rooms again * all the directions (to determine adjacency). Phrasing the loop this way omits the second multiplier. For a map of 25 rooms, this means that the loop runs 25 times faster than it would otherwise, and of course for a larger map the effect would be even more dramatic.][=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=][And, for testing purposes, a square grid of rooms:][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.[=0x000A=][=0x000A=]Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.[=0x000A=][=0x000A=]The former concentration of room 3C is 800.0 ppm.[=0x000A=][=0x000A=][For variety of testing, here is another room set-up, this time with some corridors and walls within; uncommenting it, and commenting out the connected grid, will let us explore what would happen in alternative cases, to prove to ourselves that the model works consistently.][=0x000A=][=0x000A=][Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.[=0x000A=][=0x000A=]Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.][=0x000A=][=0x000A=][For the sake at least of seeing what[=0x0027=]s going on in the example, let[=0x0027=]s also provide the player with the means to view the gas diffusion graphically:][=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][fixed letter spacing][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 1A]|[state of room 1B]|[state of room 1C]|[state of room 1D]|[state of room 1E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 2A]|[state of room 2B]|[state of room 2C]|[state of room 2D]|[state of room 2E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 3A]|[state of room 3B]|[state of room 3C]|[state of room 3D]|[state of room 3E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 4A]|[state of room 4B]|[state of room 4C]|[state of room 4D]|[state of room 4E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 5A]|[state of room 5B]|[state of room 5C]|[state of room 5D]|[state of room 5E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][variable letter spacing][line break][=0x0022=].[=0x000A=][=0x000A=]To say bar:[=0x000A=][=0x0009=]say [=0x0022=]----------------------------------------------[=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=][The values set for these would depend on the type of poisonous gas in question; we[=0x0027=]d want to adjust appropriately.][=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the space is the location, say bold type;[=0x000A=][=0x0009=]if current concentration of space is less than 10.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]if current concentration of space is less than 100.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]say current concentration of space;[=0x000A=][=0x0009=]say roman type.[=0x000A=][=0x000A=][Now, in theory we might also want to account for sources and sinks, items that either inject poisonous gas into the environment or remove it again. For simplicity, we will assume that these contributions can also be calculated in ppm and that the total number of inert and poisonous gas molecules in a room never changes (so if poison gas molecules are added, an equal number of inert molecules are removed). If room pressure were able to change, our model would have to be improved, so let us assume for now that that never happens. We want this sink/source business to calculate before any other portion of the diffusion rulebook, so set it as a first diffusion rule.][=0x000A=][=0x000A=]A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.[=0x000A=][=0x000A=]Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.[=0x000A=][=0x000A=]A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.[=0x000A=][=0x000A=]Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.[=0x000A=][=0x000A=]The first diffusion rule (this is the sources and sinks rule):[=0x000A=][=0x0009=]follow the sources rule;[=0x000A=][=0x0009=]follow the sinks rule.[=0x000A=][=0x000A=]This is the sinks rule:[=0x000A=][=0x0009=]repeat with item running through gas sinks:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the item;[=0x000A=][=0x0009=][=0x0009=]decrease the former concentration of the space by the contribution of the item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]This is the sources rule:[=0x000A=][=0x0009=]repeat with second item running through gas sources:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the second item;[=0x000A=][=0x0009=][=0x0009=]increase the former concentration of the space by the contribution of the second item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be the former concentration of the second space minus the former concentration of the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]let sum be sum divided by probability inverse;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=][A technical note: it would be possible to write [=0x0022=]repeat with space running through rooms... repeat with second space running through rooms adjacent to the space[=0x0022=] instead, but in practice this loops through all the rooms * all the rooms again * all the directions (to determine adjacency). Phrasing the loop this way omits the second multiplier. For a map of 25 rooms, this means that the loop runs 25 times faster than it would otherwise, and of course for a larger map the effect would be even more dramatic.][=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=][And, for testing purposes, a square grid of rooms:][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.[=0x000A=][=0x000A=]Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.[=0x000A=][=0x000A=]The former concentration of room 3C is 800.0 ppm.[=0x000A=][=0x000A=][For variety of testing, here is another room set-up, this time with some corridors and walls within; uncommenting it, and commenting out the connected grid, will let us explore what would happen in alternative cases, to prove to ourselves that the model works consistently.][=0x000A=][=0x000A=][Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.[=0x000A=][=0x000A=]Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.][=0x000A=][=0x000A=][For the sake at least of seeing what[=0x0027=]s going on in the example, let[=0x0027=]s also provide the player with the means to view the gas diffusion graphically:][=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][fixed letter spacing][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 1A]|[state of room 1B]|[state of room 1C]|[state of room 1D]|[state of room 1E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 2A]|[state of room 2B]|[state of room 2C]|[state of room 2D]|[state of room 2E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 3A]|[state of room 3B]|[state of room 3C]|[state of room 3D]|[state of room 3E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 4A]|[state of room 4B]|[state of room 4C]|[state of room 4D]|[state of room 4E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 5A]|[state of room 5B]|[state of room 5C]|[state of room 5D]|[state of room 5E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][variable letter spacing][line break][=0x0022=].[=0x000A=][=0x000A=]To say bar:[=0x000A=][=0x0009=]say [=0x0022=]----------------------------------------------[=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=][The values set for these would depend on the type of poisonous gas in question; we[=0x0027=]d want to adjust appropriately.][=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the space is the location, say bold type;[=0x000A=][=0x0009=]if current concentration of space is less than 10.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]if current concentration of space is less than 100.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]say current concentration of space;[=0x000A=][=0x0009=]say roman type.[=0x000A=][=0x000A=][Now, in theory we might also want to account for sources and sinks, items that either inject poisonous gas into the environment or remove it again. For simplicity, we will assume that these contributions can also be calculated in ppm and that the total number of inert and poisonous gas molecules in a room never changes (so if poison gas molecules are added, an equal number of inert molecules are removed). If room pressure were able to change, our model would have to be improved, so let us assume for now that that never happens. We want this sink/source business to calculate before any other portion of the diffusion rulebook, so set it as a first diffusion rule.][=0x000A=][=0x000A=]A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.[=0x000A=][=0x000A=]Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.[=0x000A=][=0x000A=]A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.[=0x000A=][=0x000A=]Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.[=0x000A=][=0x000A=]The first diffusion rule (this is the sources and sinks rule):[=0x000A=][=0x0009=]follow the sources rule;[=0x000A=][=0x0009=]follow the sinks rule.[=0x000A=][=0x000A=]This is the sinks rule:[=0x000A=][=0x0009=]repeat with item running through gas sinks:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the item;[=0x000A=][=0x0009=][=0x0009=]decrease the former concentration of the space by the contribution of the item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]This is the sources rule:[=0x000A=][=0x0009=]repeat with second item running through gas sources:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the second item;[=0x000A=][=0x0009=][=0x0009=]increase the former concentration of the space by the contribution of the second item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Lethal Concentration 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lethal Concentration&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c14978_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14978_165"></a>A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c14979_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14979_165"></a><a href="javascript:pasteCode('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be the former concentration of the second space minus the former concentration of the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]let sum be sum divided by probability inverse;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=][A technical note: it would be possible to write [=0x0022=]repeat with space running through rooms... repeat with second space running through rooms adjacent to the space[=0x0022=] instead, but in practice this loops through all the rooms * all the rooms again * all the directions (to determine adjacency). Phrasing the loop this way omits the second multiplier. For a map of 25 rooms, this means that the loop runs 25 times faster than it would otherwise, and of course for a larger map the effect would be even more dramatic.][=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=][And, for testing purposes, a square grid of rooms:][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.[=0x000A=][=0x000A=]Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.[=0x000A=][=0x000A=]The former concentration of room 3C is 800.0 ppm.[=0x000A=][=0x000A=][For variety of testing, here is another room set-up, this time with some corridors and walls within; uncommenting it, and commenting out the connected grid, will let us explore what would happen in alternative cases, to prove to ourselves that the model works consistently.][=0x000A=][=0x000A=][Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.[=0x000A=][=0x000A=]Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.][=0x000A=][=0x000A=][For the sake at least of seeing what[=0x0027=]s going on in the example, let[=0x0027=]s also provide the player with the means to view the gas diffusion graphically:][=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][fixed letter spacing][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 1A]|[state of room 1B]|[state of room 1C]|[state of room 1D]|[state of room 1E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 2A]|[state of room 2B]|[state of room 2C]|[state of room 2D]|[state of room 2E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 3A]|[state of room 3B]|[state of room 3C]|[state of room 3D]|[state of room 3E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 4A]|[state of room 4B]|[state of room 4C]|[state of room 4D]|[state of room 4E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 5A]|[state of room 5B]|[state of room 5C]|[state of room 5D]|[state of room 5E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][variable letter spacing][line break][=0x0022=].[=0x000A=][=0x000A=]To say bar:[=0x000A=][=0x0009=]say [=0x0022=]----------------------------------------------[=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=][The values set for these would depend on the type of poisonous gas in question; we[=0x0027=]d want to adjust appropriately.][=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the space is the location, say bold type;[=0x000A=][=0x0009=]if current concentration of space is less than 10.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]if current concentration of space is less than 100.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]say current concentration of space;[=0x000A=][=0x0009=]say roman type.[=0x000A=][=0x000A=][Now, in theory we might also want to account for sources and sinks, items that either inject poisonous gas into the environment or remove it again. For simplicity, we will assume that these contributions can also be calculated in ppm and that the total number of inert and poisonous gas molecules in a room never changes (so if poison gas molecules are added, an equal number of inert molecules are removed). If room pressure were able to change, our model would have to be improved, so let us assume for now that that never happens. We want this sink/source business to calculate before any other portion of the diffusion rulebook, so set it as a first diffusion rule.][=0x000A=][=0x000A=]A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.[=0x000A=][=0x000A=]Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.[=0x000A=][=0x000A=]A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.[=0x000A=][=0x000A=]Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.[=0x000A=][=0x000A=]The first diffusion rule (this is the sources and sinks rule):[=0x000A=][=0x0009=]follow the sources rule;[=0x000A=][=0x0009=]follow the sinks rule.[=0x000A=][=0x000A=]This is the sinks rule:[=0x000A=][=0x0009=]repeat with item running through gas sinks:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the item;[=0x000A=][=0x0009=][=0x0009=]decrease the former concentration of the space by the contribution of the item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]This is the sources rule:[=0x000A=][=0x0009=]repeat with second item running through gas sources:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the second item;[=0x000A=][=0x0009=][=0x0009=]increase the former concentration of the space by the contribution of the second item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be the former concentration of the second space minus the former concentration of the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]let sum be sum divided by probability inverse;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=][A technical note: it would be possible to write [=0x0022=]repeat with space running through rooms... repeat with second space running through rooms adjacent to the space[=0x0022=] instead, but in practice this loops through all the rooms * all the rooms again * all the directions (to determine adjacency). Phrasing the loop this way omits the second multiplier. For a map of 25 rooms, this means that the loop runs 25 times faster than it would otherwise, and of course for a larger map the effect would be even more dramatic.][=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=][And, for testing purposes, a square grid of rooms:][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.[=0x000A=][=0x000A=]Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.[=0x000A=][=0x000A=]The former concentration of room 3C is 800.0 ppm.[=0x000A=][=0x000A=][For variety of testing, here is another room set-up, this time with some corridors and walls within; uncommenting it, and commenting out the connected grid, will let us explore what would happen in alternative cases, to prove to ourselves that the model works consistently.][=0x000A=][=0x000A=][Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.[=0x000A=][=0x000A=]Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.[=0x000A=][=0x000A=]Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.[=0x000A=][=0x000A=]Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.][=0x000A=][=0x000A=][For the sake at least of seeing what[=0x0027=]s going on in the example, let[=0x0027=]s also provide the player with the means to view the gas diffusion graphically:][=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][fixed letter spacing][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 1A]|[state of room 1B]|[state of room 1C]|[state of room 1D]|[state of room 1E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 2A]|[state of room 2B]|[state of room 2C]|[state of room 2D]|[state of room 2E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 3A]|[state of room 3B]|[state of room 3C]|[state of room 3D]|[state of room 3E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 4A]|[state of room 4B]|[state of room 4C]|[state of room 4D]|[state of room 4E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]|[state of room 5A]|[state of room 5B]|[state of room 5C]|[state of room 5D]|[state of room 5E]|[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][bar][variable letter spacing][line break][=0x0022=].[=0x000A=][=0x000A=]To say bar:[=0x000A=][=0x0009=]say [=0x0022=]----------------------------------------------[=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=][The values set for these would depend on the type of poisonous gas in question; we[=0x0027=]d want to adjust appropriately.][=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the space is the location, say bold type;[=0x000A=][=0x0009=]if current concentration of space is less than 10.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]if current concentration of space is less than 100.0ppm, say [=0x0022=] [=0x0022=];[=0x000A=][=0x0009=]say current concentration of space;[=0x000A=][=0x0009=]say roman type.[=0x000A=][=0x000A=][Now, in theory we might also want to account for sources and sinks, items that either inject poisonous gas into the environment or remove it again. For simplicity, we will assume that these contributions can also be calculated in ppm and that the total number of inert and poisonous gas molecules in a room never changes (so if poison gas molecules are added, an equal number of inert molecules are removed). If room pressure were able to change, our model would have to be improved, so let us assume for now that that never happens. We want this sink/source business to calculate before any other portion of the diffusion rulebook, so set it as a first diffusion rule.][=0x000A=][=0x000A=]A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.[=0x000A=][=0x000A=]Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.[=0x000A=][=0x000A=]A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.[=0x000A=][=0x000A=]Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.[=0x000A=][=0x000A=]The first diffusion rule (this is the sources and sinks rule):[=0x000A=][=0x0009=]follow the sources rule;[=0x000A=][=0x0009=]follow the sinks rule.[=0x000A=][=0x000A=]This is the sinks rule:[=0x000A=][=0x0009=]repeat with item running through gas sinks:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the item;[=0x000A=][=0x0009=][=0x0009=]decrease the former concentration of the space by the contribution of the item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]This is the sources rule:[=0x000A=][=0x0009=]repeat with second item running through gas sources:[=0x000A=][=0x0009=][=0x0009=]let space be the location of the second item;[=0x000A=][=0x0009=][=0x0009=]increase the former concentration of the space by the contribution of the second item;[=0x000A=][=0x0009=][=0x0009=]if the former concentration of the space is less than 0.0ppm, now the former concentration of the space is 0.0ppm.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Lethal Concentration 1')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lethal Concentration&quot;
+            <blockquote class="code"><p class="quoted"><a id="c14979_165"></a>A room has a concentration called current concentration. A room has a concentration called former concentration.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14980_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14980_165"></a>A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.
+            <blockquote class="code"><p class="quoted"><a id="c14980_165"></a>Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.]
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14981_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14981_165"></a>A room has a concentration called current concentration. A room has a concentration called former concentration.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14982_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14982_165"></a>Probability inverse is a number that varies. [This is expressed as an inverse of the actual probability of diffusion from one room to another, to avoid error.] Probability inverse is 20. [That is, any given molecule of gas has a 5% chance of leaving by a given doorway at any given minute. Probability inverse should never drop below 10, the maximum number of exits from the room.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14983_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14983_165"></a>Every turn:
+            <blockquote class="code"><p class="quoted"><a id="c14981_165"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;follow the diffusion rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c14984_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14984_165"></a>The diffusion rules are a rulebook.
+            <!--START CODE "c14982_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14982_165"></a>The diffusion rules are a rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c14985_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14985_165"></a>A diffusion rule (this is the gas movement rule):
+            <!--START CODE "c14983_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14983_165"></a>A diffusion rule (this is the gas movement rule):
             <br>
             &#160;&#160;&#160;&#160;repeat with space running through rooms:
             <br>
@@ -168,8 +168,8 @@
             </blockquote>
             <!--END CODE-->
             <p>A technical note: it would be possible to write &quot;repeat with space running through rooms... repeat with second space running through rooms adjacent to the space&quot; instead, but in practice this loops through all the rooms * all the rooms again * all the directions (to determine adjacency). Phrasing the loop this way omits the second multiplier. For a map of 25 rooms, this means that the loop runs 25 times faster than it would otherwise, and of course for a larger map the effect would be even more dramatic.</p>
-            <!--START CODE "c14986_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14986_165"></a>A diffusion rule (this is the resetting concentration rule):
+            <!--START CODE "c14984_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14984_165"></a>A diffusion rule (this is the resetting concentration rule):
             <br>
             &#160;&#160;&#160;&#160;repeat with space running through rooms:
             <br>
@@ -177,8 +177,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c14987_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14987_165"></a>The last diffusion rule (this is the lethal dosage rule):
+            <!--START CODE "c14985_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14985_165"></a>The last diffusion rule (this is the lethal dosage rule):
             <br>
             &#160;&#160;&#160;&#160;if the current concentration of the location is greater than LC50:
             <br>
@@ -194,8 +194,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c14988_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14988_165"></a>Instead of doing something when the current concentration of the location is greater than TLV-STEL:
+            <!--START CODE "c14986_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14986_165"></a>Instead of doing something when the current concentration of the location is greater than TLV-STEL:
             <br>
             &#160;&#160;&#160;&#160;if going, continue the action;
             <br>
@@ -204,77 +204,77 @@
             </blockquote>
             <!--END CODE-->
             <p>And, for testing purposes, a square grid of rooms:</p>
+            <!--START CODE "c14987_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14987_165"></a>Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c14988_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14988_165"></a>Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c14989_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14989_165"></a>Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            <blockquote class="code"><p class="quoted"><a id="c14989_165"></a>Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14990_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14990_165"></a>Room 2A is south of room 1A and west of Room 2B. Room 2B is west of Room 2C and south of Room 1B. Room 2C is west of Room 2D and south of Room 1C. Room 2D is west of Room 2E and south of Room 1D. Room 2E is south of Room 1E.
+            <blockquote class="code"><p class="quoted"><a id="c14990_165"></a>Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14991_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14991_165"></a>Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C and south of Room 2B. Room 3C is west of Room 3D and south of Room 2C. Room 3D is west of Room 3E and south of Room 2D. Room 3E is south of Room 2E.
+            <blockquote class="code"><p class="quoted"><a id="c14991_165"></a>Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14992_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14992_165"></a>Room 4A is south of room 3A and west of Room 4B. Room 4B is west of Room 4C and south of Room 3B. Room 4C is west of Room 4D and south of Room 3C. Room 4D is west of Room 4E and south of Room 3D. Room 4E is south of Room 3E.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14993_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14993_165"></a>Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14994_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14994_165"></a>The former concentration of room 3C is 800.0 ppm.
+            <blockquote class="code"><p class="quoted"><a id="c14992_165"></a>The former concentration of room 3C is 800.0 ppm.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>For variety of testing, here is another room set-up, this time with some corridors and walls within; uncommenting it, and commenting out the connected grid, will let us explore what would happen in alternative cases, to prove to ourselves that the model works consistently.</p>
+            <!--START CODE "c14993_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14993_165"></a>[Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c14994_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14994_165"></a>Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c14995_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14995_165"></a>[Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            <blockquote class="code"><p class="quoted"><a id="c14995_165"></a>Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14996_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14996_165"></a>Room 2A is west of Room 2B. Room 2B is west of Room 2C. Room 2C is west of Room 2D. Room 2D is west of Room 2E. Room 2E is south of Room 1E.
+            <blockquote class="code"><p class="quoted"><a id="c14996_165"></a>Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c14997_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14997_165"></a>Room 3A is south of room 2A and west of Room 3B. Room 3B is west of Room 3C. Room 3C is west of Room 3D. Room 3D is west of Room 3E.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14998_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14998_165"></a>Room 4A is west of Room 4B. Room 4B is west of Room 4C. Room 4C is west of Room 4D. Room 4D is west of Room 4E. Room 4E is south of Room 3E.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c14999_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c14999_165"></a>Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.]
+            <blockquote class="code"><p class="quoted"><a id="c14997_165"></a>Room 5A is south of room 4A and west of Room 5B. Room 5B is west of Room 5C and south of Room 4B. Room 5C is west of Room 5D and south of Room 4C. Room 5D is west of Room 5E and south of Room 4D. Room 5E is south of Room 4E.]
             </p>
             </blockquote>
             <!--END CODE-->
             <p>For the sake at least of seeing what's going on in the example, let's also provide the player with the means to view the gas diffusion graphically:</p>
-            <!--START CODE "c15000_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15000_165"></a>The status grid is a device carried by the player. The status grid is switched on.
+            <!--START CODE "c14998_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14998_165"></a>The status grid is a device carried by the player. The status grid is switched on.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15001_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15001_165"></a>Every turn:
+            <!--START CODE "c14999_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c14999_165"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;try examining the grid.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15002_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15002_165"></a>Instead of examining the status grid:
+            <!--START CODE "c15000_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15000_165"></a>Instead of examining the status grid:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[fixed letter spacing][bar][line break]&quot;;
             <br>
@@ -300,36 +300,36 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15003_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15003_165"></a>To say bar:
+            <!--START CODE "c15001_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15001_165"></a>To say bar:
             <br>
             &#160;&#160;&#160;&#160;say &quot;----------------------------------------------&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c15002_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15002_165"></a>TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.]
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15003_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15003_165"></a>TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.]
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15004_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15004_165"></a>TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.]
+            <blockquote class="code"><p class="quoted"><a id="c15004_165"></a>TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.]
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15005_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15005_165"></a>TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15006_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15006_165"></a>TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15007_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15007_165"></a>LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player's weight for one minute.]
+            <blockquote class="code"><p class="quoted"><a id="c15005_165"></a>LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player's weight for one minute.]
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The values set for these would depend on the type of poisonous gas in question; we'd want to adjust appropriately.</p>
-            <!--START CODE "c15008_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15008_165"></a>To say state of (space - a room):
+            <!--START CODE "c15006_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15006_165"></a>To say state of (space - a room):
             <br>
             &#160;&#160;&#160;&#160;if the space is the location, say bold type;
             <br>
@@ -344,28 +344,28 @@
             </blockquote>
             <!--END CODE-->
             <p>Now, in theory we might also want to account for sources and sinks, items that either inject poisonous gas into the environment or remove it again. For simplicity, we will assume that these contributions can also be calculated in ppm and that the total number of inert and poisonous gas molecules in a room never changes (so if poison gas molecules are added, an equal number of inert molecules are removed). If room pressure were able to change, our model would have to be improved, so let us assume for now that that never happens. We want this sink/source business to calculate before any other portion of the diffusion rulebook, so set it as a first diffusion rule.</p>
+            <!--START CODE "c15007_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15007_165"></a>A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15008_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15008_165"></a>Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15009_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15009_165"></a>A gas source is a kind of thing. A gas source has a concentration called the contribution. The contribution of a gas source is usually 30.0ppm.
+            <blockquote class="code"><p class="quoted"><a id="c15009_165"></a>A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15010_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15010_165"></a>Room 2B contains a gas source called a spigot. The contribution of the spigot is 50.0ppm. Room 5A contains a gas source.
+            <blockquote class="code"><p class="quoted"><a id="c15010_165"></a>Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15011_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15011_165"></a>A gas sink is a kind of thing. A gas sink has a concentration called the contribution. The contribution of a gas sink is usually 30.0ppm.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15012_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15012_165"></a>Room 5E contains a gas sink called a fan. The contribution of the fan is 80.0ppm.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15013_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15013_165"></a>The first diffusion rule (this is the sources and sinks rule):
+            <blockquote class="code"><p class="quoted"><a id="c15011_165"></a>The first diffusion rule (this is the sources and sinks rule):
             <br>
             &#160;&#160;&#160;&#160;follow the sources rule;
             <br>
@@ -373,8 +373,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15014_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15014_165"></a>This is the sinks rule:
+            <!--START CODE "c15012_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15012_165"></a>This is the sinks rule:
             <br>
             &#160;&#160;&#160;&#160;repeat with item running through gas sinks:
             <br>
@@ -386,8 +386,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15015_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15015_165"></a>This is the sources rule:
+            <!--START CODE "c15013_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15013_165"></a>This is the sources rule:
             <br>
             &#160;&#160;&#160;&#160;repeat with second item running through gas sources:
             <br>
@@ -399,8 +399,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15016_165"-->
-            <blockquote class="code"><p class="quoted"><a id="c15016_165"></a>Test me with &quot;z / z / z / z / z / z / z / z&quot;.
+            <!--START CODE "c15014_165"-->
+            <blockquote class="code"><p class="quoted"><a id="c15014_165"></a>Test me with &quot;z / z / z / z / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -432,18 +432,18 @@
 
         <div class="egpanel" id="example351" style="display: none;">
             <p>Suppose we want to have smoke that spreads from room to room, gradually filling the entire map with a clogging smoke. Having it spread every single turn would make for a pretty rapid diffusion, so we temper this by having it spread only on even-numbered turns, instead. Conveniently, Inform by default already knows about even and odd numbers, so we can write:</p>
+            <!--START CODE "c15015_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c15015_351"></a><a href="javascript:pasteCode('[=0x0022=]Only You...[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Procedure[=0x000A=][=0x000A=]Every turn when the turn count is even:[=0x000A=][=0x0009=]if every room is smoky, make no decision;[=0x000A=][=0x0009=]let previously smoky be whether or not the location is smoky;[=0x000A=][=0x0009=]repeat with area running through smoky rooms:[=0x000A=][=0x0009=][=0x0009=]now every room which is adjacent to the area is smoky;[=0x000A=][=0x0009=]if previously smoky is false and the location is smoky:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The location] is filling rapidly with smoke.[=0x0022=][=0x000A=][=0x000A=]A room can be smoky or unsmoky.[=0x000A=][=0x000A=]Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say [=0x0022=]It[=0x0027=]s just air.[=0x0022=] Understand [=0x0022=]smoke[=0x0022=] as the air when the location is smoky.[=0x000A=][=0x000A=]Instead of examining the air in a smoky room: say [=0x0022=]A thick layer of smoke lies just under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the air in a smoky room: say [=0x0022=]Agh, acrid.[=0x0022=] Instead of smelling a smoky room: try smelling the air.[=0x000A=][=0x000A=]After looking in a smoky room: say [=0x0022=]A thick layer of smoke has gathered under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Guide Lodge is a room. [=0x0022=]A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.[=0x0022=] The Guide Lodge is smoky.[=0x000A=][=0x000A=]The Kitchen is north of the Guide Lodge. [=0x0022=]Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.[=0x0022=][=0x000A=][=0x000A=]The Industrial Pantry is east of the Kitchen. [=0x0022=]Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.[=0x0022=][=0x000A=][=0x000A=]The player is in the Pantry.[=0x000A=][=0x000A=]The Hallway is west of the Guide Lodge. The description of the Hallway is [=0x0022=]A perpetually-crammed hallway which has to handle the overflow line for the toilets.[=0x0022=] A singed sign is fixed in place in the Hallway. The description of the sign is [=0x0022=]Where the edge of the sign has not been burnt, the legible words are [=0x0027=]...Can Prevent Forest Fires[=0x0027=].[=0x0022=][=0x000A=][=0x000A=]The Toilets are north of the Hallway. [=0x0022=]Always in full use, at least when the 12-to-15s are here.[=0x0022=][=0x000A=][=0x000A=]The Coat Closet is south of the Hallway. [=0x0022=]Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners[=0x0027=] damp parkas and umbrellas.[=0x0022=][=0x000A=][=0x000A=]The Craft Supply Room is west of the Hallway. [=0x0022=]A holding-depot for jugs of white glue and popsicle sticks.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x smoke / z / z / z / z / x smoke / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Only You...[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Procedure[=0x000A=][=0x000A=]Every turn when the turn count is even:[=0x000A=][=0x0009=]if every room is smoky, make no decision;[=0x000A=][=0x0009=]let previously smoky be whether or not the location is smoky;[=0x000A=][=0x0009=]repeat with area running through smoky rooms:[=0x000A=][=0x0009=][=0x0009=]now every room which is adjacent to the area is smoky;[=0x000A=][=0x0009=]if previously smoky is false and the location is smoky:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The location] is filling rapidly with smoke.[=0x0022=][=0x000A=][=0x000A=]A room can be smoky or unsmoky.[=0x000A=][=0x000A=]Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say [=0x0022=]It[=0x0027=]s just air.[=0x0022=] Understand [=0x0022=]smoke[=0x0022=] as the air when the location is smoky.[=0x000A=][=0x000A=]Instead of examining the air in a smoky room: say [=0x0022=]A thick layer of smoke lies just under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the air in a smoky room: say [=0x0022=]Agh, acrid.[=0x0022=] Instead of smelling a smoky room: try smelling the air.[=0x000A=][=0x000A=]After looking in a smoky room: say [=0x0022=]A thick layer of smoke has gathered under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Guide Lodge is a room. [=0x0022=]A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.[=0x0022=] The Guide Lodge is smoky.[=0x000A=][=0x000A=]The Kitchen is north of the Guide Lodge. [=0x0022=]Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.[=0x0022=][=0x000A=][=0x000A=]The Industrial Pantry is east of the Kitchen. [=0x0022=]Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.[=0x0022=][=0x000A=][=0x000A=]The player is in the Pantry.[=0x000A=][=0x000A=]The Hallway is west of the Guide Lodge. The description of the Hallway is [=0x0022=]A perpetually-crammed hallway which has to handle the overflow line for the toilets.[=0x0022=] A singed sign is fixed in place in the Hallway. The description of the sign is [=0x0022=]Where the edge of the sign has not been burnt, the legible words are [=0x0027=]...Can Prevent Forest Fires[=0x0027=].[=0x0022=][=0x000A=][=0x000A=]The Toilets are north of the Hallway. [=0x0022=]Always in full use, at least when the 12-to-15s are here.[=0x0022=][=0x000A=][=0x000A=]The Coat Closet is south of the Hallway. [=0x0022=]Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners[=0x0027=] damp parkas and umbrellas.[=0x0022=][=0x000A=][=0x000A=]The Craft Supply Room is west of the Hallway. [=0x0022=]A holding-depot for jugs of white glue and popsicle sticks.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x smoke / z / z / z / z / x smoke / look[=0x0022=].[=0x000A=]\n', 'Example - Only You...')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Only You...&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15016_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c15016_351"></a>Section 1 - The Procedure
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15017_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15017_351"></a><a href="javascript:pasteCode('[=0x0022=]Only You...[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Procedure[=0x000A=][=0x000A=]Every turn when the turn count is even:[=0x000A=][=0x0009=]if every room is smoky, make no decision;[=0x000A=][=0x0009=]let previously smoky be whether or not the location is smoky;[=0x000A=][=0x0009=]repeat with area running through smoky rooms:[=0x000A=][=0x0009=][=0x0009=]now every room which is adjacent to the area is smoky;[=0x000A=][=0x0009=]if previously smoky is false and the location is smoky:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The location] is filling rapidly with smoke.[=0x0022=][=0x000A=][=0x000A=]A room can be smoky or unsmoky.[=0x000A=][=0x000A=]Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say [=0x0022=]It[=0x0027=]s just air.[=0x0022=] Understand [=0x0022=]smoke[=0x0022=] as the air when the location is smoky.[=0x000A=][=0x000A=]Instead of examining the air in a smoky room: say [=0x0022=]A thick layer of smoke lies just under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the air in a smoky room: say [=0x0022=]Agh, acrid.[=0x0022=] Instead of smelling a smoky room: try smelling the air.[=0x000A=][=0x000A=]After looking in a smoky room: say [=0x0022=]A thick layer of smoke has gathered under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Guide Lodge is a room. [=0x0022=]A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.[=0x0022=] The Guide Lodge is smoky.[=0x000A=][=0x000A=]The Kitchen is north of the Guide Lodge. [=0x0022=]Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.[=0x0022=][=0x000A=][=0x000A=]The Industrial Pantry is east of the Kitchen. [=0x0022=]Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.[=0x0022=][=0x000A=][=0x000A=]The player is in the Pantry.[=0x000A=][=0x000A=]The Hallway is west of the Guide Lodge. The description of the Hallway is [=0x0022=]A perpetually-crammed hallway which has to handle the overflow line for the toilets.[=0x0022=] A singed sign is fixed in place in the Hallway. The description of the sign is [=0x0022=]Where the edge of the sign has not been burnt, the legible words are [=0x0027=]...Can Prevent Forest Fires[=0x0027=].[=0x0022=][=0x000A=][=0x000A=]The Toilets are north of the Hallway. [=0x0022=]Always in full use, at least when the 12-to-15s are here.[=0x0022=][=0x000A=][=0x000A=]The Coat Closet is south of the Hallway. [=0x0022=]Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners[=0x0027=] damp parkas and umbrellas.[=0x0022=][=0x000A=][=0x000A=]The Craft Supply Room is west of the Hallway. [=0x0022=]A holding-depot for jugs of white glue and popsicle sticks.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x smoke / z / z / z / z / x smoke / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Only You...[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Procedure[=0x000A=][=0x000A=]Every turn when the turn count is even:[=0x000A=][=0x0009=]if every room is smoky, make no decision;[=0x000A=][=0x0009=]let previously smoky be whether or not the location is smoky;[=0x000A=][=0x0009=]repeat with area running through smoky rooms:[=0x000A=][=0x0009=][=0x0009=]now every room which is adjacent to the area is smoky;[=0x000A=][=0x0009=]if previously smoky is false and the location is smoky:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The location] is filling rapidly with smoke.[=0x0022=][=0x000A=][=0x000A=]A room can be smoky or unsmoky.[=0x000A=][=0x000A=]Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say [=0x0022=]It[=0x0027=]s just air.[=0x0022=] Understand [=0x0022=]smoke[=0x0022=] as the air when the location is smoky.[=0x000A=][=0x000A=]Instead of examining the air in a smoky room: say [=0x0022=]A thick layer of smoke lies just under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the air in a smoky room: say [=0x0022=]Agh, acrid.[=0x0022=] Instead of smelling a smoky room: try smelling the air.[=0x000A=][=0x000A=]After looking in a smoky room: say [=0x0022=]A thick layer of smoke has gathered under the ceiling.[=0x0022=][=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Guide Lodge is a room. [=0x0022=]A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.[=0x0022=] The Guide Lodge is smoky.[=0x000A=][=0x000A=]The Kitchen is north of the Guide Lodge. [=0x0022=]Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.[=0x0022=][=0x000A=][=0x000A=]The Industrial Pantry is east of the Kitchen. [=0x0022=]Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.[=0x0022=][=0x000A=][=0x000A=]The player is in the Pantry.[=0x000A=][=0x000A=]The Hallway is west of the Guide Lodge. The description of the Hallway is [=0x0022=]A perpetually-crammed hallway which has to handle the overflow line for the toilets.[=0x0022=] A singed sign is fixed in place in the Hallway. The description of the sign is [=0x0022=]Where the edge of the sign has not been burnt, the legible words are [=0x0027=]...Can Prevent Forest Fires[=0x0027=].[=0x0022=][=0x000A=][=0x000A=]The Toilets are north of the Hallway. [=0x0022=]Always in full use, at least when the 12-to-15s are here.[=0x0022=][=0x000A=][=0x000A=]The Coat Closet is south of the Hallway. [=0x0022=]Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners[=0x0027=] damp parkas and umbrellas.[=0x0022=][=0x000A=][=0x000A=]The Craft Supply Room is west of the Hallway. [=0x0022=]A holding-depot for jugs of white glue and popsicle sticks.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x smoke / z / z / z / z / x smoke / look[=0x0022=].[=0x000A=]\n', 'Example - Only You...')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Only You...&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15018_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15018_351"></a>Section 1 - The Procedure
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15019_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15019_351"></a>Every turn when the turn count is even:
+            <blockquote class="code"><p class="quoted"><a id="c15017_351"></a>Every turn when the turn count is even:
             <br>
             &#160;&#160;&#160;&#160;if every room is smoky, make no decision;
             <br>
@@ -459,78 +459,78 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c15018_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c15018_351"></a>A room can be smoky or unsmoky.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15019_351"-->
+            <blockquote class="code"><p class="quoted"><a id="c15019_351"></a>Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say &quot;It's just air.&quot; Understand &quot;smoke&quot; as the air when the location is smoky.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15020_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15020_351"></a>A room can be smoky or unsmoky.
+            <blockquote class="code"><p class="quoted"><a id="c15020_351"></a>Instead of examining the air in a smoky room: say &quot;A thick layer of smoke lies just under the ceiling.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15021_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15021_351"></a>Some air is a backdrop. Air is everywhere. Instead of doing something other than examining or smelling to air: say &quot;It's just air.&quot; Understand &quot;smoke&quot; as the air when the location is smoky.
+            <blockquote class="code"><p class="quoted"><a id="c15021_351"></a>Instead of smelling the air in a smoky room: say &quot;Agh, acrid.&quot; Instead of smelling a smoky room: try smelling the air.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15022_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15022_351"></a>Instead of examining the air in a smoky room: say &quot;A thick layer of smoke lies just under the ceiling.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15022_351"></a>After looking in a smoky room: say &quot;A thick layer of smoke has gathered under the ceiling.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15023_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15023_351"></a>Instead of smelling the air in a smoky room: say &quot;Agh, acrid.&quot; Instead of smelling a smoky room: try smelling the air.
+            <blockquote class="code"><p class="quoted"><a id="c15023_351"></a>Section 2 - The Scenario
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15024_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15024_351"></a>After looking in a smoky room: say &quot;A thick layer of smoke has gathered under the ceiling.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15024_351"></a>The Guide Lodge is a room. &quot;A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.&quot; The Guide Lodge is smoky.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15025_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15025_351"></a>Section 2 - The Scenario
+            <blockquote class="code"><p class="quoted"><a id="c15025_351"></a>The Kitchen is north of the Guide Lodge. &quot;Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15026_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15026_351"></a>The Guide Lodge is a room. &quot;A very spacious room capable of containing several hundred girls while they eat, talk, or do crafts. It is constructed in a not-unappealing rustic style, with floor-to-ceiling windows overlooking the lake below, and a fieldstone hearth at the center.&quot; The Guide Lodge is smoky.
+            <blockquote class="code"><p class="quoted"><a id="c15026_351"></a>The Industrial Pantry is east of the Kitchen. &quot;Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15027_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15027_351"></a>The Kitchen is north of the Guide Lodge. &quot;Multiple eight-burner ranges, ovens, and a walk-in refrigerator: you know the sort of thing.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15027_351"></a>The player is in the Pantry.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15028_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15028_351"></a>The Industrial Pantry is east of the Kitchen. &quot;Awe-inspiring quantities of food line every shelf, from the three-gallon tub of mayonnaise to the 50-pound tub of rice. Perhaps the most astonishing item is a bag of marshmallows big enough to double as a futon.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15028_351"></a>The Hallway is west of the Guide Lodge. The description of the Hallway is &quot;A perpetually-crammed hallway which has to handle the overflow line for the toilets.&quot; A singed sign is fixed in place in the Hallway. The description of the sign is &quot;Where the edge of the sign has not been burnt, the legible words are '...Can Prevent Forest Fires'.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15029_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15029_351"></a>The player is in the Pantry.
+            <blockquote class="code"><p class="quoted"><a id="c15029_351"></a>The Toilets are north of the Hallway. &quot;Always in full use, at least when the 12-to-15s are here.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15030_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15030_351"></a>The Hallway is west of the Guide Lodge. The description of the Hallway is &quot;A perpetually-crammed hallway which has to handle the overflow line for the toilets.&quot; A singed sign is fixed in place in the Hallway. The description of the sign is &quot;Where the edge of the sign has not been burnt, the legible words are '...Can Prevent Forest Fires'.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15030_351"></a>The Coat Closet is south of the Hallway. &quot;Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners' damp parkas and umbrellas.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15031_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15031_351"></a>The Toilets are north of the Hallway. &quot;Always in full use, at least when the 12-to-15s are here.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15031_351"></a>The Craft Supply Room is west of the Hallway. &quot;A holding-depot for jugs of white glue and popsicle sticks.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15032_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15032_351"></a>The Coat Closet is south of the Hallway. &quot;Muddy boots may not be worn inside the lodge; instead, about 250 pair are piled here, along with their owners' damp parkas and umbrellas.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15033_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15033_351"></a>The Craft Supply Room is west of the Hallway. &quot;A holding-depot for jugs of white glue and popsicle sticks.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15034_351"-->
-            <blockquote class="code"><p class="quoted"><a id="c15034_351"></a>Test me with &quot;x smoke / z / z / z / z / x smoke / look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c15032_351"></a>Test me with &quot;x smoke / z / z / z / z / x smoke / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -562,23 +562,23 @@
 
         <div class="egpanel" id="example164" style="display: none;">
             <p>This is a slight variation on the previous gas diffusion example: the main difference is that gas preferentially moves towards lower rooms, and will gradually settle in the bottom floor. We do this by calculating the probability of movement separately for each pair of rooms.</p>
+            <!--START CODE "c15033_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15033_164"></a><a href="javascript:pasteCode('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]To decide what number is the probability inverse between (space - a room) and (second space - a room):[=0x000A=][=0x0009=]let guess be 20;[=0x000A=][=0x0009=]let way be the best route from space to second space;[=0x000A=][=0x0009=]if way is up, let guess be 50;[=0x000A=][=0x0009=]if way is down, let guess be 10;[=0x000A=][=0x0009=]if the guess is less than 10, decide on 10;[=0x000A=][=0x0009=]decide on guess.[=0x000A=][=0x000A=][If we wanted, we could introduce other concerns into the calculation here: open and closed doors, windows between rooms, rooms that are outdoors vs. those that are indoors, and so on. The possibilities are numerous, so we will stick with the simple principle that our poison gas sinks.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let incoming be the former concentration of the second space divided by the probability inverse between second space and space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let outgoing be the former concentration of the space divided by the probability inverse between space and second space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be incoming minus outgoing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.[=0x000A=][=0x000A=]The former concentration of Room 1C is 800.0 ppm.[=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=][And just for fun, this time we[=0x0027=]ll make the grid prettier, too; but this will work only on the Z-machine setting, not Glulx.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=][=0x0009=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light down and right][top bar][unicode box drawings light down and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 1A][state of room 1B][state of room 1C][state of room 1D][state of room 1E]   upstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical and right][middle bar][unicode box drawings light vertical and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 2A][state of room 2B][state of room 2C][state of room 2D][state of room 2E]   downstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light up and right][bottom bar][unicode box drawings light up and left][variable letter spacing][line break][=0x0022=][=0x000A=][=0x000A=]To say top bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light down and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]To say middle bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light vertical and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light triple dash horizontal][=0x0022=].[=0x000A=][=0x000A=]To say bottom bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light up and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the current concentration of space is less than TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV, say green letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-STEL, say yellow letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-C, say red letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode square with diagonal crosshatch fill][=0x0022=];[=0x000A=][=0x0009=]say default letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]To decide what number is the probability inverse between (space - a room) and (second space - a room):[=0x000A=][=0x0009=]let guess be 20;[=0x000A=][=0x0009=]let way be the best route from space to second space;[=0x000A=][=0x0009=]if way is up, let guess be 50;[=0x000A=][=0x0009=]if way is down, let guess be 10;[=0x000A=][=0x0009=]if the guess is less than 10, decide on 10;[=0x000A=][=0x0009=]decide on guess.[=0x000A=][=0x000A=][If we wanted, we could introduce other concerns into the calculation here: open and closed doors, windows between rooms, rooms that are outdoors vs. those that are indoors, and so on. The possibilities are numerous, so we will stick with the simple principle that our poison gas sinks.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let incoming be the former concentration of the second space divided by the probability inverse between second space and space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let outgoing be the former concentration of the space divided by the probability inverse between space and second space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be incoming minus outgoing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.[=0x000A=][=0x000A=]The former concentration of Room 1C is 800.0 ppm.[=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=][And just for fun, this time we[=0x0027=]ll make the grid prettier, too; but this will work only on the Z-machine setting, not Glulx.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=][=0x0009=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light down and right][top bar][unicode box drawings light down and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 1A][state of room 1B][state of room 1C][state of room 1D][state of room 1E]   upstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical and right][middle bar][unicode box drawings light vertical and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 2A][state of room 2B][state of room 2C][state of room 2D][state of room 2E]   downstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light up and right][bottom bar][unicode box drawings light up and left][variable letter spacing][line break][=0x0022=][=0x000A=][=0x000A=]To say top bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light down and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]To say middle bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light vertical and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light triple dash horizontal][=0x0022=].[=0x000A=][=0x000A=]To say bottom bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light up and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the current concentration of space is less than TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV, say green letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-STEL, say yellow letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-C, say red letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode square with diagonal crosshatch fill][=0x0022=];[=0x000A=][=0x0009=]say default letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lethal Concentration 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lethal Concentration&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15034_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15034_164"></a>A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15035_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15035_164"></a><a href="javascript:pasteCode('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]To decide what number is the probability inverse between (space - a room) and (second space - a room):[=0x000A=][=0x0009=]let guess be 20;[=0x000A=][=0x0009=]let way be the best route from space to second space;[=0x000A=][=0x0009=]if way is up, let guess be 50;[=0x000A=][=0x0009=]if way is down, let guess be 10;[=0x000A=][=0x0009=]if the guess is less than 10, decide on 10;[=0x000A=][=0x0009=]decide on guess.[=0x000A=][=0x000A=][If we wanted, we could introduce other concerns into the calculation here: open and closed doors, windows between rooms, rooms that are outdoors vs. those that are indoors, and so on. The possibilities are numerous, so we will stick with the simple principle that our poison gas sinks.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let incoming be the former concentration of the second space divided by the probability inverse between second space and space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let outgoing be the former concentration of the space divided by the probability inverse between space and second space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be incoming minus outgoing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.[=0x000A=][=0x000A=]The former concentration of Room 1C is 800.0 ppm.[=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=][And just for fun, this time we[=0x0027=]ll make the grid prettier, too; but this will work only on the Z-machine setting, not Glulx.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=][=0x0009=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light down and right][top bar][unicode box drawings light down and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 1A][state of room 1B][state of room 1C][state of room 1D][state of room 1E]   upstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical and right][middle bar][unicode box drawings light vertical and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 2A][state of room 2B][state of room 2C][state of room 2D][state of room 2E]   downstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light up and right][bottom bar][unicode box drawings light up and left][variable letter spacing][line break][=0x0022=][=0x000A=][=0x000A=]Include Unicode Character Names by Graham Nelson.[=0x000A=][=0x000A=]To say top bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light down and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]To say middle bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light vertical and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light triple dash horizontal][=0x0022=].[=0x000A=][=0x000A=]To say bottom bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light up and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the current concentration of space is less than TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV, say green letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-STEL, say yellow letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-C, say red letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode square with diagonal crosshatch fill][=0x0022=];[=0x000A=][=0x0009=]say default letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lethal Concentration[=0x0022=][=0x000A=][=0x000A=]A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.[=0x000A=][=0x000A=]A room has a concentration called current concentration. A room has a concentration called former concentration.[=0x000A=][=0x000A=]To decide what number is the probability inverse between (space - a room) and (second space - a room):[=0x000A=][=0x0009=]let guess be 20;[=0x000A=][=0x0009=]let way be the best route from space to second space;[=0x000A=][=0x0009=]if way is up, let guess be 50;[=0x000A=][=0x0009=]if way is down, let guess be 10;[=0x000A=][=0x0009=]if the guess is less than 10, decide on 10;[=0x000A=][=0x0009=]decide on guess.[=0x000A=][=0x000A=][If we wanted, we could introduce other concerns into the calculation here: open and closed doors, windows between rooms, rooms that are outdoors vs. those that are indoors, and so on. The possibilities are numerous, so we will stick with the simple principle that our poison gas sinks.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]follow the diffusion rules.[=0x000A=][=0x000A=]The diffusion rules are a rulebook.[=0x000A=][=0x000A=]A diffusion rule (this is the gas movement rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]let sum be 0.0 ppm;[=0x000A=][=0x0009=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let second space be the room way from the space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if second space is a room:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let incoming be the former concentration of the second space divided by the probability inverse between second space and space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let outgoing be the former concentration of the space divided by the probability inverse between space and second space;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]let difference be incoming minus outgoing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase sum by the difference;[=0x000A=][=0x0009=][=0x0009=]now current concentration of the space is the former concentration of the space plus the sum.[=0x000A=][=0x000A=]A diffusion rule (this is the resetting concentration rule):[=0x000A=][=0x0009=]repeat with space running through rooms:[=0x000A=][=0x0009=][=0x0009=]now the former concentration of the space is the current concentration of the space.[=0x000A=][=0x000A=]The last diffusion rule (this is the lethal dosage rule):[=0x000A=][=0x0009=]if the current concentration of the location is greater than LC50:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The concentration in the air overpowers you...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]You feel extremely uncomfortable in this environment.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the current concentration of the location is greater than TLV-STEL:[=0x000A=][=0x0009=]if going, continue the action;[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t work in this environment: your eyes and nose sting and it hurts to breathe.[=0x0022=][=0x000A=][=0x000A=]Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.[=0x000A=][=0x000A=]Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.[=0x000A=][=0x000A=]The former concentration of Room 1C is 800.0 ppm.[=0x000A=][=0x000A=]The status grid is a device carried by the player. The status grid is switched on.[=0x000A=][=0x000A=][And just for fun, this time we[=0x0027=]ll make the grid prettier, too; but this will work only on the Z-machine setting, not Glulx.][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]try examining the grid.[=0x000A=][=0x000A=][=0x0009=]Instead of examining the status grid:[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light down and right][top bar][unicode box drawings light down and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 1A][state of room 1B][state of room 1C][state of room 1D][state of room 1E]   upstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical and right][middle bar][unicode box drawings light vertical and left][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][state of room 2A][state of room 2B][state of room 2C][state of room 2D][state of room 2E]   downstairs[line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light up and right][bottom bar][unicode box drawings light up and left][variable letter spacing][line break][=0x0022=][=0x000A=][=0x000A=]Include Unicode Character Names by Graham Nelson.[=0x000A=][=0x000A=]To say top bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light down and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]To say middle bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light vertical and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light triple dash horizontal][=0x0022=].[=0x000A=][=0x000A=]To say bottom bar:[=0x000A=][=0x0009=]repeat with N running from 1 to 9:[=0x000A=][=0x0009=][=0x0009=]if the remainder after dividing N by 2 is 0, say [=0x0022=][unicode box drawings light up and horizontal][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=][unicode box drawings light horizontal][=0x0022=].[=0x000A=][=0x000A=]TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.][=0x000A=][=0x000A=]TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.][=0x000A=][=0x000A=]TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.][=0x000A=][=0x000A=]LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player[=0x0027=]s weight for one minute.][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]To say state of (space - a room):[=0x000A=][=0x0009=]if the current concentration of space is less than TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is TLV, say blue letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV, say green letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-STEL, say yellow letters;[=0x000A=][=0x0009=]if the current concentration of space is greater than TLV-C, say red letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode square with diagonal crosshatch fill][=0x0022=];[=0x000A=][=0x0009=]say default letters;[=0x000A=][=0x0009=]say [=0x0022=][unicode box drawings light vertical][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Lethal Concentration 2')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lethal Concentration&quot;
+            <blockquote class="code"><p class="quoted"><a id="c15035_164"></a>A room has a concentration called current concentration. A room has a concentration called former concentration.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15036_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15036_164"></a>A concentration is a kind of value. 200.9ppm specifies concentration. 200.9 ppm specifies concentration.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15037_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15037_164"></a>A room has a concentration called current concentration. A room has a concentration called former concentration.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15038_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15038_164"></a>To decide what number is the probability inverse between (space - a room) and (second space - a room):
+            <blockquote class="code"><p class="quoted"><a id="c15036_164"></a>To decide what number is the probability inverse between (space - a room) and (second space - a room):
             <br>
             &#160;&#160;&#160;&#160;let guess be 20;
             <br>
@@ -595,20 +595,20 @@
             </blockquote>
             <!--END CODE-->
             <p>If we wanted, we could introduce other concerns into the calculation here: open and closed doors, windows between rooms, rooms that are outdoors vs. those that are indoors, and so on. The possibilities are numerous, so we will stick with the simple principle that our poison gas sinks.</p>
-            <!--START CODE "c15039_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15039_164"></a>Every turn:
+            <!--START CODE "c15037_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15037_164"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;follow the diffusion rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15040_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15040_164"></a>The diffusion rules are a rulebook.
+            <!--START CODE "c15038_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15038_164"></a>The diffusion rules are a rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15041_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15041_164"></a>A diffusion rule (this is the gas movement rule):
+            <!--START CODE "c15039_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15039_164"></a>A diffusion rule (this is the gas movement rule):
             <br>
             &#160;&#160;&#160;&#160;repeat with space running through rooms:
             <br>
@@ -632,8 +632,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15042_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15042_164"></a>A diffusion rule (this is the resetting concentration rule):
+            <!--START CODE "c15040_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15040_164"></a>A diffusion rule (this is the resetting concentration rule):
             <br>
             &#160;&#160;&#160;&#160;repeat with space running through rooms:
             <br>
@@ -641,8 +641,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15043_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15043_164"></a>The last diffusion rule (this is the lethal dosage rule):
+            <!--START CODE "c15041_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15041_164"></a>The last diffusion rule (this is the lethal dosage rule):
             <br>
             &#160;&#160;&#160;&#160;if the current concentration of the location is greater than LC50:
             <br>
@@ -658,8 +658,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15044_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15044_164"></a>Instead of doing something when the current concentration of the location is greater than TLV-STEL:
+            <!--START CODE "c15042_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15042_164"></a>Instead of doing something when the current concentration of the location is greater than TLV-STEL:
             <br>
             &#160;&#160;&#160;&#160;if going, continue the action;
             <br>
@@ -667,36 +667,36 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c15043_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15043_164"></a>Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15044_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15044_164"></a>Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15045_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15045_164"></a>Room 1A is west of Room 1B. Room 1B is west of Room 1C. Room 1C is west of Room 1D. Room 1D is west of Room 1E.
+            <blockquote class="code"><p class="quoted"><a id="c15045_164"></a>The former concentration of Room 1C is 800.0 ppm.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15046_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15046_164"></a>Room 2A is west of Room 2B and below room 1A. Room 2B is west of Room 2C and below Room 1B. Room 2C is west of Room 2D and below Room 1C. Room 2D is west of Room 2E and below Room 1D. Room 2E is south of Room 1E and below Room 1E.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15047_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15047_164"></a>The former concentration of Room 1C is 800.0 ppm.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15048_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15048_164"></a>The status grid is a device carried by the player. The status grid is switched on.
+            <blockquote class="code"><p class="quoted"><a id="c15046_164"></a>The status grid is a device carried by the player. The status grid is switched on.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And just for fun, this time we'll make the grid prettier, too; but this will work only on the Z-machine setting, not Glulx.</p>
-            <!--START CODE "c15049_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15049_164"></a>Every turn:
+            <!--START CODE "c15047_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15047_164"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;try examining the grid.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15050_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15050_164"></a>&#160;&#160;&#160;&#160;Instead of examining the status grid:
+            <!--START CODE "c15048_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15048_164"></a>&#160;&#160;&#160;&#160;Instead of examining the status grid:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[unicode box drawings light down and right][top bar][unicode box drawings light down and left][line break]&quot;;
             <br>
@@ -714,13 +714,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15051_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15051_164"></a>Include Unicode Character Names by Graham Nelson.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15052_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15052_164"></a>To say top bar:
+            <!--START CODE "c15049_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15049_164"></a>To say top bar:
             <br>
             &#160;&#160;&#160;&#160;repeat with N running from 1 to 9:
             <br>
@@ -730,8 +725,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15053_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15053_164"></a>To say middle bar:
+            <!--START CODE "c15050_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15050_164"></a>To say middle bar:
             <br>
             &#160;&#160;&#160;&#160;repeat with N running from 1 to 9:
             <br>
@@ -741,8 +736,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15054_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15054_164"></a>To say bottom bar:
+            <!--START CODE "c15051_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15051_164"></a>To say bottom bar:
             <br>
             &#160;&#160;&#160;&#160;repeat with N running from 1 to 9:
             <br>
@@ -752,33 +747,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c15052_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15052_164"></a>TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.]
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15053_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15053_164"></a>TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.]
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c15054_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15054_164"></a>TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.]
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c15055_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15055_164"></a>TLV is a concentration that varies. TLV is 30.0ppm. [Long-term exposure maximum, safe for 8 hours a day.]
+            <blockquote class="code"><p class="quoted"><a id="c15055_164"></a>LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player's weight for one minute.]
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15056_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15056_164"></a>TLV-STEL is a concentration that varies. TLV-STEL is 50.0ppm. [Short-term exposure maximum, safe for fifteen minutes max.]
+            <blockquote class="code"><p class="quoted"><a id="c15056_164"></a>Include Basic Screen Effects by Emily Short.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c15057_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15057_164"></a>TLV-C is a concentration that varies. TLV-C is 150.0ppm. [Absolute exposure ceiling.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15058_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15058_164"></a>LC50 is a concentration that varies. LC50 is 300.0ppm. [Concentration at which 50 percent of test subjects die of exposure, usually expressed in terms of time and body weight; in our LC50 these are factored in for the player's weight for one minute.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15059_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15059_164"></a>Include Basic Screen Effects by Emily Short.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c15060_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15060_164"></a>To say state of (space - a room):
+            <blockquote class="code"><p class="quoted"><a id="c15057_164"></a>To say state of (space - a room):
             <br>
             &#160;&#160;&#160;&#160;if the current concentration of space is less than TLV, say blue letters;
             <br>
@@ -798,8 +793,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c15061_164"-->
-            <blockquote class="code"><p class="quoted"><a id="c15061_164"></a>Test me with &quot;z / z / z / z / z / z / z / z&quot;.
+            <!--START CODE "c15058_164"-->
+            <blockquote class="code"><p class="quoted"><a id="c15058_164"></a>Test me with &quot;z / z / z / z / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

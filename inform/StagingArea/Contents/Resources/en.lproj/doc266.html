@@ -83,28 +83,28 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.4. Standard tokens of grammar</p>
     <p>We have already seen &quot;[something]&quot; and &quot;[someone]&quot;, which are standard examples of &quot;tokens of grammar&quot; - patterns matched by suitable named things. There are several other standard tokens, provided not so much from necessity but to allow the story parser to be more graceful and responsive. &quot;[someone]&quot; matches the same possibilities as &quot;[a person]&quot; would, but the parser handles it a little better in cases of failure. These special tokens are best explained by looking at some of the examples in the standard grammar, which can be browsed in the Index of any story.</p>
-    <!--START CODE "c5616"-->
-    <blockquote class="code"><p class="quoted"><a id="c5616"></a>Understand &quot;wear [something preferably held]&quot; as wearing.
+    <!--START CODE "c5614"-->
+    <blockquote class="code"><p class="quoted"><a id="c5614"></a>Understand &quot;wear [something preferably held]&quot; as wearing.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Here we expect that the named item will be one that is held by the player, and the parser will use this to resolve ambiguities between names of things carried and not carried. (If the action is one which positively requires that its noun be something carried, a command matching this token against something not carried will generate an automatic attempt to take it.)</p>
-    <!--START CODE "c5617"-->
-    <blockquote class="code"><p class="quoted"><a id="c5617"></a>Understand &quot;take [things]&quot; as taking.
+    <!--START CODE "c5615"-->
+    <blockquote class="code"><p class="quoted"><a id="c5615"></a>Understand &quot;take [things]&quot; as taking.
     <br>
     Understand &quot;drop [things preferably held]&quot; as dropping.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>&quot;[things]&quot; is like &quot;[something]&quot; but allows a list of items, or a vague plural like &quot;all&quot;, to be typed. The result will be a sequence of actions, one for each item thus described. &quot;[things preferably held]&quot; is the analogous token for &quot;[something preferably held]&quot;.</p>
-    <!--START CODE "c5618"-->
-    <blockquote class="code"><p class="quoted"><a id="c5618"></a>Understand &quot;take [things inside] from [something]&quot; as removing.
+    <!--START CODE "c5616"-->
+    <blockquote class="code"><p class="quoted"><a id="c5616"></a>Understand &quot;take [things inside] from [something]&quot; as removing.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>&quot;[things inside]&quot; matches only what is inside the second-named thing, and ensures that (for instance) the command &quot;take all from box&quot; does not also try to take the box.</p>
-    <!--START CODE "c5619"-->
-    <blockquote class="code"><p class="quoted"><a id="c5619"></a>Understand &quot;put [other things] in/inside/into [something]&quot; as inserting it into.
+    <!--START CODE "c5617"-->
+    <blockquote class="code"><p class="quoted"><a id="c5617"></a>Understand &quot;put [other things] in/inside/into [something]&quot; as inserting it into.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -138,38 +138,38 @@
 
         <div class="egpanel" id="example255" style="display: none;">
             <p>We can add the handling of multiple objects to an existing action simply by adding in a line of grammar using &quot;[things]&quot;. In response, Inform will consider every object accepted by the token, and perform the action once for each of those objects. Thus:</p>
+            <!--START CODE "c5618_255"-->
+            <blockquote class="code"><p class="quoted"><a id="c5618_255"></a><a href="javascript:pasteCode('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n', 'Example - Shawn[=0x0027=]s Bad Day')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Shawn's Bad Day&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5619_255"-->
+            <blockquote class="code"><p class="quoted"><a id="c5619_255"></a>The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. &quot;A massive vault fills up one wall.&quot; The description is &quot;The vault's system includes [a list of things which are part of the vault].&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5620_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5620_255"></a><a href="javascript:pasteCode('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Shawn[=0x0027=]s Bad Day[=0x0022=][=0x000A=][=0x000A=]The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. [=0x0022=]A massive vault fills up one wall.[=0x0022=] The description is [=0x0022=]The vault[=0x0027=]s system includes [a list of things which are part of the vault].[=0x0022=][=0x000A=][=0x000A=]A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.[=0x000A=][=0x000A=]The security guard is a man in the Treasury. The description is [=0x0022=]His name is Shawn, and he doesn[=0x0027=]t look happy.[=0x0022=][=0x000A=][=0x000A=]The description of the green light is [=0x0022=]Off.[=0x0022=] The description of the blue light is [=0x0022=]Tranquilly on.[=0x0022=] The description of the red light is [=0x0022=]Angrily flashing.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] as examining.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine all[=0x0022=].[=0x000A=]\n', 'Example - Shawn[=0x0027=]s Bad Day')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Shawn's Bad Day&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5620_255"></a>A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5621_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5621_255"></a>The Treasury is a room. The vault is a lockable locked closed openable container in the Treasury. It is fixed in place. &quot;A massive vault fills up one wall.&quot; The description is &quot;The vault's system includes [a list of things which are part of the vault].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5621_255"></a>The security guard is a man in the Treasury. The description is &quot;His name is Shawn, and he doesn't look happy.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5622_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5622_255"></a>A little green light, a little blue light, a little red light, a thin black pane of glass, a laser beam, a retinal scanner, a thumbprint ID plate, a dial, and a large lever are part of the vault.
+            <blockquote class="code"><p class="quoted"><a id="c5622_255"></a>The description of the green light is &quot;Off.&quot; The description of the blue light is &quot;Tranquilly on.&quot; The description of the red light is &quot;Angrily flashing.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5623_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5623_255"></a>The security guard is a man in the Treasury. The description is &quot;His name is Shawn, and he doesn't look happy.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5623_255"></a>Understand &quot;examine [things]&quot; as examining.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5624_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5624_255"></a>The description of the green light is &quot;Off.&quot; The description of the blue light is &quot;Tranquilly on.&quot; The description of the red light is &quot;Angrily flashing.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5625_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5625_255"></a>Understand &quot;examine [things]&quot; as examining.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5626_255"-->
-            <blockquote class="code"><p class="quoted"><a id="c5626_255"></a>Test me with &quot;examine all&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5624_255"></a>Test me with &quot;examine all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -203,8 +203,8 @@
             <p>Suppose that we have a game in which groups of objects can have meaning apart from their individual significance -- perhaps there are spells that can only be cast by collecting just the right items in the same place.</p>
             <p>In this case, one of the things the player might like to be able to do is look at several items together and get a special response, different from looking at the items individually.</p>
             <p>To make this happen, we need to do several things:</p>
-            <!--START CODE "c5627_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5627_221"></a>(1) we need to create a version of the EXAMINE command that can apply to multiple objects at once.
+            <!--START CODE "c5625_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5625_221"></a>(1) we need to create a version of the EXAMINE command that can apply to multiple objects at once.
             <br>
             (2) we need to correct the way Inform normally deals with multiple-object commands, because we want our group description to print only one time, and we want to avoid stubs such as &quot;pear: ... apple: ...&quot; before or after the group description.
             <br>
@@ -212,47 +212,47 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c5626_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5626_221"></a><a href="javascript:pasteCode('[=0x0022=]The Left Hand of Autumn[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] or [=0x0022=]look at [things][=0x0022=] as multiply-examining. Multiply-examining is an action applying to one thing.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things inside] in/on [something][=0x0022=] or [=0x0022=]look at [things inside] in/on [something][=0x0022=] as multiply-examining it from. Multiply-examining it from is an action applying to two things.[=0x000A=][=0x000A=]Group-description-complete is a truth state that varies.[=0x000A=][=0x000A=]Carry out multiply-examining it from:[=0x000A=][=0x0009=]try multiply-examining the noun instead.[=0x000A=][=0x000A=]Check multiply-examining when group-description-complete is true:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out multiply-examining:[=0x000A=][=0x0009=]let L be the list of matched things;[=0x000A=][=0x0009=]if the number of entries in L is 0, try examining the noun instead;[=0x000A=][=0x0009=]if the number of entries in L is 1, try examining entry 1 of L instead;[=0x000A=][=0x0009=]describe L;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]now group-description-complete is true.[=0x000A=][=0x000A=]Before reading a command:[=0x000A=][=0x0009=]now group-description-complete is false.[=0x000A=][=0x000A=][Now for step 2, overriding Inform[=0x0027=]s usual output of names of objects:][=0x000A=][=0x000A=]The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the silently announce items from multiple object lists rule:[=0x000A=][=0x0009=]unless multiply-examining or multiply-examining something from something:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Definition: a thing is matched if it is listed in the multiple object list.[=0x000A=][=0x000A=][We[=0x0027=]ll save our [=0x0022=]to describe[=0x0022=] phrase until Section 2, when we can give the game specific instructions about how to report different lists of objects.][=0x000A=][=0x000A=][Now, the player might also want to be able to refer to a group of item by some kind of group name, so let[=0x0027=]s add the option of creating a Table of Collective Names which will interpret these:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]repeat through the Table of Collective Names:[=0x000A=][=0x0009=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let Y be relevant list entry;[=0x000A=][=0x0009=][=0x0009=]while N matches the regular expression [=0x0022=][name-text entry][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the regular expression [=0x0022=](.*)[name-text entry](.*)[=0x0022=] in N with [=0x0022=][=0x005C=]1[Y][=0x005C=]2[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][=0x000A=]Report taking something:[=0x000A=][=0x0009=]say [=0x0022=]You pick up [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=][And as a bit of polish, because we[=0x0027=]d like SEARCH TABLE to have the same effect as EXAMINE ALL ON TABLE:][=0x000A=][=0x000A=]Understand [=0x0022=]look on [something][=0x0022=] as searching.[=0x000A=][=0x000A=]Instead of searching something which supports at least two things:[=0x000A=][=0x0009=]let L be the list of things supported by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=]Instead of searching something which contains at least two things:[=0x000A=][=0x0009=]let L be the list of things contained by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]The display table is a supporter in the Chamber. A twig of rowan wood is on the table.[=0x000A=][=0x000A=]The player carries an apple and a pear.[=0x000A=][=0x000A=]A glove is a kind of thing. A glove is always wearable. Understand [=0x0022=]glove[=0x0022=] as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.[=0x000A=][=0x000A=][Now we define a few actual lists of items:][=0x000A=][=0x000A=]Fruit list is a list of objects which varies. Fruit list is { apple, pear }.[=0x000A=]Glove list is a list of objects which varies. Glove list is { right glove, left glove }.[=0x000A=]Arcane list is a list of objects which varies. Arcane list is { left glove, twig, pear }.[=0x000A=][=0x000A=]To describe (L - a list of objects):[=0x000A=][=0x0009=]sort L;[=0x000A=][=0x0009=]if L is fruit list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Just a couple of fruits.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is glove list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s a matched pair of fuzzy blue gloves.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is arcane list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]To anyone else it might look like a random collection of objects, but these three things -- [L with definite articles] -- constitute a mystic key known as the Left Hand of Autumn. They practically hum with power.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see [L with indefinite articles].[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort fruit list;[=0x000A=][=0x0009=]sort glove list;[=0x000A=][=0x0009=]sort the arcane list.[=0x000A=][=0x000A=][We sort the lists so that regardless of how we change the rest of the code (and the order in which objects are coded), the resulting list will always be in sorted order and ready to compare with the list of items the player wants to look at. And thanks to the [=0x0022=]Reading a command[=0x0022=] code we wrote earlier, we can also teach the game to understand the player[=0x0027=]s references to [=0x0022=]the left hand of autumn[=0x0022=] as a specific collection of items.][=0x000A=][=0x000A=]Table of Collective Names[=0x000A=]name-text[=0x0009=]relevant list[=0x000A=][=0x0022=]left hand of autumn[=0x0022=][=0x0009=][=0x0022=][arcane list][=0x0022=][=0x000A=][=0x0022=]gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x0022=]pair of gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Left Hand of Autumn[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] or [=0x0022=]look at [things][=0x0022=] as multiply-examining. Multiply-examining is an action applying to one thing.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things inside] in/on [something][=0x0022=] or [=0x0022=]look at [things inside] in/on [something][=0x0022=] as multiply-examining it from. Multiply-examining it from is an action applying to two things.[=0x000A=][=0x000A=]Group-description-complete is a truth state that varies.[=0x000A=][=0x000A=]Carry out multiply-examining it from:[=0x000A=][=0x0009=]try multiply-examining the noun instead.[=0x000A=][=0x000A=]Check multiply-examining when group-description-complete is true:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out multiply-examining:[=0x000A=][=0x0009=]let L be the list of matched things;[=0x000A=][=0x0009=]if the number of entries in L is 0, try examining the noun instead;[=0x000A=][=0x0009=]if the number of entries in L is 1, try examining entry 1 of L instead;[=0x000A=][=0x0009=]describe L;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]now group-description-complete is true.[=0x000A=][=0x000A=]Before reading a command:[=0x000A=][=0x0009=]now group-description-complete is false.[=0x000A=][=0x000A=][Now for step 2, overriding Inform[=0x0027=]s usual output of names of objects:][=0x000A=][=0x000A=]The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the silently announce items from multiple object lists rule:[=0x000A=][=0x0009=]unless multiply-examining or multiply-examining something from something:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Definition: a thing is matched if it is listed in the multiple object list.[=0x000A=][=0x000A=][We[=0x0027=]ll save our [=0x0022=]to describe[=0x0022=] phrase until Section 2, when we can give the game specific instructions about how to report different lists of objects.][=0x000A=][=0x000A=][Now, the player might also want to be able to refer to a group of item by some kind of group name, so let[=0x0027=]s add the option of creating a Table of Collective Names which will interpret these:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]repeat through the Table of Collective Names:[=0x000A=][=0x0009=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let Y be relevant list entry;[=0x000A=][=0x0009=][=0x0009=]while N matches the regular expression [=0x0022=][name-text entry][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the regular expression [=0x0022=](.*)[name-text entry](.*)[=0x0022=] in N with [=0x0022=][=0x005C=]1[Y][=0x005C=]2[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][=0x000A=]Report taking something:[=0x000A=][=0x0009=]say [=0x0022=]You pick up [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=][And as a bit of polish, because we[=0x0027=]d like SEARCH TABLE to have the same effect as EXAMINE ALL ON TABLE:][=0x000A=][=0x000A=]Understand [=0x0022=]look on [something][=0x0022=] as searching.[=0x000A=][=0x000A=]Instead of searching something which supports at least two things:[=0x000A=][=0x0009=]let L be the list of things supported by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=]Instead of searching something which contains at least two things:[=0x000A=][=0x0009=]let L be the list of things contained by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]The display table is a supporter in the Chamber. A twig of rowan wood is on the table.[=0x000A=][=0x000A=]The player carries an apple and a pear.[=0x000A=][=0x000A=]A glove is a kind of thing. A glove is always wearable. Understand [=0x0022=]glove[=0x0022=] as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.[=0x000A=][=0x000A=][Now we define a few actual lists of items:][=0x000A=][=0x000A=]Fruit list is a list of objects which varies. Fruit list is { apple, pear }.[=0x000A=]Glove list is a list of objects which varies. Glove list is { right glove, left glove }.[=0x000A=]Arcane list is a list of objects which varies. Arcane list is { left glove, twig, pear }.[=0x000A=][=0x000A=]To describe (L - a list of objects):[=0x000A=][=0x0009=]sort L;[=0x000A=][=0x0009=]if L is fruit list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Just a couple of fruits.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is glove list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s a matched pair of fuzzy blue gloves.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is arcane list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]To anyone else it might look like a random collection of objects, but these three things -- [L with definite articles] -- constitute a mystic key known as the Left Hand of Autumn. They practically hum with power.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see [L with indefinite articles].[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort fruit list;[=0x000A=][=0x0009=]sort glove list;[=0x000A=][=0x0009=]sort the arcane list.[=0x000A=][=0x000A=][We sort the lists so that regardless of how we change the rest of the code (and the order in which objects are coded), the resulting list will always be in sorted order and ready to compare with the list of items the player wants to look at. And thanks to the [=0x0022=]Reading a command[=0x0022=] code we wrote earlier, we can also teach the game to understand the player[=0x0027=]s references to [=0x0022=]the left hand of autumn[=0x0022=] as a specific collection of items.][=0x000A=][=0x000A=]Table of Collective Names[=0x000A=]name-text[=0x0009=]relevant list[=0x000A=][=0x0022=]left hand of autumn[=0x0022=][=0x0009=][=0x0022=][arcane list][=0x0022=][=0x000A=][=0x0022=]gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x0022=]pair of gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table[=0x0022=].[=0x000A=]\n', 'Example - The Left Hand of Autumn')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Left Hand of Autumn&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5627_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5627_221"></a>Section 1 - Procedure
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5628_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5628_221"></a><a href="javascript:pasteCode('[=0x0022=]The Left Hand of Autumn[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] or [=0x0022=]look at [things][=0x0022=] as multiply-examining. Multiply-examining is an action applying to one thing.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things inside] in/on [something][=0x0022=] or [=0x0022=]look at [things inside] in/on [something][=0x0022=] as multiply-examining it from. Multiply-examining it from is an action applying to two things.[=0x000A=][=0x000A=]Group-description-complete is a truth state that varies.[=0x000A=][=0x000A=]Carry out multiply-examining it from:[=0x000A=][=0x0009=]try multiply-examining the noun instead.[=0x000A=][=0x000A=]Check multiply-examining when group-description-complete is true:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out multiply-examining:[=0x000A=][=0x0009=]let L be the list of matched things;[=0x000A=][=0x0009=]if the number of entries in L is 0, try examining the noun instead;[=0x000A=][=0x0009=]if the number of entries in L is 1, try examining entry 1 of L instead;[=0x000A=][=0x0009=]describe L;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]now group-description-complete is true.[=0x000A=][=0x000A=]Before reading a command:[=0x000A=][=0x0009=]now group-description-complete is false.[=0x000A=][=0x000A=][Now for step 2, overriding Inform[=0x0027=]s usual output of names of objects:][=0x000A=][=0x000A=]The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the silently announce items from multiple object lists rule:[=0x000A=][=0x0009=]unless multiply-examining or multiply-examining something from something:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Definition: a thing is matched if it is listed in the multiple object list.[=0x000A=][=0x000A=][We[=0x0027=]ll save our [=0x0022=]to describe[=0x0022=] phrase until Section 2, when we can give the game specific instructions about how to report different lists of objects.][=0x000A=][=0x000A=][Now, the player might also want to be able to refer to a group of item by some kind of group name, so let[=0x0027=]s add the option of creating a Table of Collective Names which will interpret these:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]repeat through the Table of Collective Names:[=0x000A=][=0x0009=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let Y be relevant list entry;[=0x000A=][=0x0009=][=0x0009=]while N matches the regular expression [=0x0022=][name-text entry][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the regular expression [=0x0022=](.*)[name-text entry](.*)[=0x0022=] in N with [=0x0022=][=0x005C=]1[Y][=0x005C=]2[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][=0x000A=]Report taking something:[=0x000A=][=0x0009=]say [=0x0022=]You pick up [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=][And as a bit of polish, because we[=0x0027=]d like SEARCH TABLE to have the same effect as EXAMINE ALL ON TABLE:][=0x000A=][=0x000A=]Understand [=0x0022=]look on [something][=0x0022=] as searching.[=0x000A=][=0x000A=]Instead of searching something which supports at least two things:[=0x000A=][=0x0009=]let L be the list of things supported by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=]Instead of searching something which contains at least two things:[=0x000A=][=0x0009=]let L be the list of things contained by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]The display table is a supporter in the Chamber. A twig of rowan wood is on the table.[=0x000A=][=0x000A=]The player carries an apple and a pear.[=0x000A=][=0x000A=]A glove is a kind of thing. A glove is always wearable. Understand [=0x0022=]glove[=0x0022=] as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.[=0x000A=][=0x000A=][Now we define a few actual lists of items:][=0x000A=][=0x000A=]Fruit list is a list of objects which varies. Fruit list is { apple, pear }.[=0x000A=]Glove list is a list of objects which varies. Glove list is { right glove, left glove }.[=0x000A=]Arcane list is a list of objects which varies. Arcane list is { left glove, twig, pear }.[=0x000A=][=0x000A=]To describe (L - a list of objects):[=0x000A=][=0x0009=]sort L;[=0x000A=][=0x0009=]if L is fruit list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Just a couple of fruits.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is glove list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s a matched pair of fuzzy blue gloves.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is arcane list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]To anyone else it might look like a random collection of objects, but these three things -- [L with definite articles] -- constitute a mystic key known as the Left Hand of Autumn. They practically hum with power.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see [L with indefinite articles].[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort fruit list;[=0x000A=][=0x0009=]sort glove list;[=0x000A=][=0x0009=]sort the arcane list.[=0x000A=][=0x000A=][We sort the lists so that regardless of how we change the rest of the code (and the order in which objects are coded), the resulting list will always be in sorted order and ready to compare with the list of items the player wants to look at. And thanks to the [=0x0022=]Reading a command[=0x0022=] code we wrote earlier, we can also teach the game to understand the player[=0x0027=]s references to [=0x0022=]the left hand of autumn[=0x0022=] as a specific collection of items.][=0x000A=][=0x000A=]Table of Collective Names[=0x000A=]name-text[=0x0009=]relevant list[=0x000A=][=0x0022=]left hand of autumn[=0x0022=][=0x0009=][=0x0022=][arcane list][=0x0022=][=0x000A=][=0x0022=]gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x0022=]pair of gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Left Hand of Autumn[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things][=0x0022=] or [=0x0022=]look at [things][=0x0022=] as multiply-examining. Multiply-examining is an action applying to one thing.[=0x000A=][=0x000A=]Understand [=0x0022=]examine [things inside] in/on [something][=0x0022=] or [=0x0022=]look at [things inside] in/on [something][=0x0022=] as multiply-examining it from. Multiply-examining it from is an action applying to two things.[=0x000A=][=0x000A=]Group-description-complete is a truth state that varies.[=0x000A=][=0x000A=]Carry out multiply-examining it from:[=0x000A=][=0x0009=]try multiply-examining the noun instead.[=0x000A=][=0x000A=]Check multiply-examining when group-description-complete is true:[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Carry out multiply-examining:[=0x000A=][=0x0009=]let L be the list of matched things;[=0x000A=][=0x0009=]if the number of entries in L is 0, try examining the noun instead;[=0x000A=][=0x0009=]if the number of entries in L is 1, try examining entry 1 of L instead;[=0x000A=][=0x0009=]describe L;[=0x000A=][=0x0009=]say line break;[=0x000A=][=0x0009=]now group-description-complete is true.[=0x000A=][=0x000A=]Before reading a command:[=0x000A=][=0x0009=]now group-description-complete is false.[=0x000A=][=0x000A=][Now for step 2, overriding Inform[=0x0027=]s usual output of names of objects:][=0x000A=][=0x000A=]The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the silently announce items from multiple object lists rule:[=0x000A=][=0x0009=]unless multiply-examining or multiply-examining something from something:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Definition: a thing is matched if it is listed in the multiple object list.[=0x000A=][=0x000A=][We[=0x0027=]ll save our [=0x0022=]to describe[=0x0022=] phrase until Section 2, when we can give the game specific instructions about how to report different lists of objects.][=0x000A=][=0x000A=][Now, the player might also want to be able to refer to a group of item by some kind of group name, so let[=0x0027=]s add the option of creating a Table of Collective Names which will interpret these:][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]repeat through the Table of Collective Names:[=0x000A=][=0x0009=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let Y be relevant list entry;[=0x000A=][=0x0009=][=0x0009=]while N matches the regular expression [=0x0022=][name-text entry][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the regular expression [=0x0022=](.*)[name-text entry](.*)[=0x0022=] in N with [=0x0022=][=0x005C=]1[Y][=0x005C=]2[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=][=0x000A=]Report taking something:[=0x000A=][=0x0009=]say [=0x0022=]You pick up [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=][And as a bit of polish, because we[=0x0027=]d like SEARCH TABLE to have the same effect as EXAMINE ALL ON TABLE:][=0x000A=][=0x000A=]Understand [=0x0022=]look on [something][=0x0022=] as searching.[=0x000A=][=0x000A=]Instead of searching something which supports at least two things:[=0x000A=][=0x0009=]let L be the list of things supported by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=]Instead of searching something which contains at least two things:[=0x000A=][=0x0009=]let L be the list of things contained by the noun;[=0x000A=][=0x0009=]describe L.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Eight-Walled Chamber is a room. [=0x0022=]A perfectly octagonal room whose walls are tinted in various hues.[=0x0022=][=0x000A=][=0x000A=]The display table is a supporter in the Chamber. A twig of rowan wood is on the table.[=0x000A=][=0x000A=]The player carries an apple and a pear.[=0x000A=][=0x000A=]A glove is a kind of thing. A glove is always wearable. Understand [=0x0022=]glove[=0x0022=] as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.[=0x000A=][=0x000A=][Now we define a few actual lists of items:][=0x000A=][=0x000A=]Fruit list is a list of objects which varies. Fruit list is { apple, pear }.[=0x000A=]Glove list is a list of objects which varies. Glove list is { right glove, left glove }.[=0x000A=]Arcane list is a list of objects which varies. Arcane list is { left glove, twig, pear }.[=0x000A=][=0x000A=]To describe (L - a list of objects):[=0x000A=][=0x0009=]sort L;[=0x000A=][=0x0009=]if L is fruit list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Just a couple of fruits.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is glove list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s a matched pair of fuzzy blue gloves.[=0x0022=];[=0x000A=][=0x0009=]otherwise if L is arcane list:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]To anyone else it might look like a random collection of objects, but these three things -- [L with definite articles] -- constitute a mystic key known as the Left Hand of Autumn. They practically hum with power.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see [L with indefinite articles].[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort fruit list;[=0x000A=][=0x0009=]sort glove list;[=0x000A=][=0x0009=]sort the arcane list.[=0x000A=][=0x000A=][We sort the lists so that regardless of how we change the rest of the code (and the order in which objects are coded), the resulting list will always be in sorted order and ready to compare with the list of items the player wants to look at. And thanks to the [=0x0022=]Reading a command[=0x0022=] code we wrote earlier, we can also teach the game to understand the player[=0x0027=]s references to [=0x0022=]the left hand of autumn[=0x0022=] as a specific collection of items.][=0x000A=][=0x000A=]Table of Collective Names[=0x000A=]name-text[=0x0009=]relevant list[=0x000A=][=0x0022=]left hand of autumn[=0x0022=][=0x0009=][=0x0022=][arcane list][=0x0022=][=0x000A=][=0x0022=]gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x0022=]pair of gloves[=0x0022=][=0x0009=][=0x0022=][glove list][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table[=0x0022=].[=0x000A=]\n', 'Example - The Left Hand of Autumn')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Left Hand of Autumn&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5628_221"></a>Understand &quot;examine [things]&quot; or &quot;look at [things]&quot; as multiply-examining. Multiply-examining is an action applying to one thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5629_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5629_221"></a>Section 1 - Procedure
+            <blockquote class="code"><p class="quoted"><a id="c5629_221"></a>Understand &quot;examine [things inside] in/on [something]&quot; or &quot;look at [things inside] in/on [something]&quot; as multiply-examining it from. Multiply-examining it from is an action applying to two things.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5630_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5630_221"></a>Understand &quot;examine [things]&quot; or &quot;look at [things]&quot; as multiply-examining. Multiply-examining is an action applying to one thing.
+            <blockquote class="code"><p class="quoted"><a id="c5630_221"></a>Group-description-complete is a truth state that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5631_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5631_221"></a>Understand &quot;examine [things inside] in/on [something]&quot; or &quot;look at [things inside] in/on [something]&quot; as multiply-examining it from. Multiply-examining it from is an action applying to two things.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5632_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5632_221"></a>Group-description-complete is a truth state that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5633_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5633_221"></a>Carry out multiply-examining it from:
+            <blockquote class="code"><p class="quoted"><a id="c5631_221"></a>Carry out multiply-examining it from:
             <br>
             &#160;&#160;&#160;&#160;try multiply-examining the noun instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5634_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5634_221"></a>Check multiply-examining when group-description-complete is true:
+            <!--START CODE "c5632_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5632_221"></a>Check multiply-examining when group-description-complete is true:
             <br>
             &#160;&#160;&#160;&#160;stop the action.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5635_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5635_221"></a>Carry out multiply-examining:
+            <!--START CODE "c5633_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5633_221"></a>Carry out multiply-examining:
             <br>
             &#160;&#160;&#160;&#160;let L be the list of matched things;
             <br>
@@ -268,21 +268,21 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5636_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5636_221"></a>Before reading a command:
+            <!--START CODE "c5634_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5634_221"></a>Before reading a command:
             <br>
             &#160;&#160;&#160;&#160;now group-description-complete is false.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now for step 2, overriding Inform's usual output of names of objects:</p>
-            <!--START CODE "c5637_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5637_221"></a>The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
+            <!--START CODE "c5635_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5635_221"></a>The silently announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5638_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5638_221"></a>This is the silently announce items from multiple object lists rule:
+            <!--START CODE "c5636_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5636_221"></a>This is the silently announce items from multiple object lists rule:
             <br>
             &#160;&#160;&#160;&#160;unless multiply-examining or multiply-examining something from something:
             <br>
@@ -290,15 +290,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5639_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5639_221"></a>Definition: a thing is matched if it is listed in the multiple object list.
+            <!--START CODE "c5637_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5637_221"></a>Definition: a thing is matched if it is listed in the multiple object list.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We'll save our &quot;to describe&quot; phrase until Section 2, when we can give the game specific instructions about how to report different lists of objects.</p>
             <p>Now, the player might also want to be able to refer to a group of item by some kind of group name, so let's add the option of creating a Table of Collective Names which will interpret these:</p>
-            <!--START CODE "c5640_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5640_221"></a>After reading a command:
+            <!--START CODE "c5638_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5638_221"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Collective Names:
             <br>
@@ -314,21 +314,21 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5641_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5641_221"></a>Report taking something:
+            <!--START CODE "c5639_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5639_221"></a>Report taking something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You pick up [the noun].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And as a bit of polish, because we'd like SEARCH TABLE to have the same effect as EXAMINE ALL ON TABLE:</p>
-            <!--START CODE "c5642_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5642_221"></a>Understand &quot;look on [something]&quot; as searching.
+            <!--START CODE "c5640_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5640_221"></a>Understand &quot;look on [something]&quot; as searching.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5643_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5643_221"></a>Instead of searching something which supports at least two things:
+            <!--START CODE "c5641_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5641_221"></a>Instead of searching something which supports at least two things:
             <br>
             &#160;&#160;&#160;&#160;let L be the list of things supported by the noun;
             <br>
@@ -342,34 +342,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c5642_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5642_221"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5643_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5643_221"></a>Eight-Walled Chamber is a room. &quot;A perfectly octagonal room whose walls are tinted in various hues.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5644_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5644_221"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c5644_221"></a>The display table is a supporter in the Chamber. A twig of rowan wood is on the table.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5645_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5645_221"></a>Eight-Walled Chamber is a room. &quot;A perfectly octagonal room whose walls are tinted in various hues.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5645_221"></a>The player carries an apple and a pear.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5646_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5646_221"></a>The display table is a supporter in the Chamber. A twig of rowan wood is on the table.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5647_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5647_221"></a>The player carries an apple and a pear.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5648_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5648_221"></a>A glove is a kind of thing. A glove is always wearable. Understand &quot;glove&quot; as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.
+            <blockquote class="code"><p class="quoted"><a id="c5646_221"></a>A glove is a kind of thing. A glove is always wearable. Understand &quot;glove&quot; as a glove. The player carries a left glove and a right glove. The left glove and the right glove are gloves.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we define a few actual lists of items:</p>
-            <!--START CODE "c5649_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5649_221"></a>Fruit list is a list of objects which varies. Fruit list is { apple, pear }.
+            <!--START CODE "c5647_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5647_221"></a>Fruit list is a list of objects which varies. Fruit list is { apple, pear }.
             <br>
             Glove list is a list of objects which varies. Glove list is { right glove, left glove }.
             <br>
@@ -377,8 +377,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5650_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5650_221"></a>To describe (L - a list of objects):
+            <!--START CODE "c5648_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5648_221"></a>To describe (L - a list of objects):
             <br>
             &#160;&#160;&#160;&#160;sort L;
             <br>
@@ -400,8 +400,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5651_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5651_221"></a>When play begins:
+            <!--START CODE "c5649_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5649_221"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;sort fruit list;
             <br>
@@ -412,8 +412,8 @@
             </blockquote>
             <!--END CODE-->
             <p>We sort the lists so that regardless of how we change the rest of the code (and the order in which objects are coded), the resulting list will always be in sorted order and ready to compare with the list of items the player wants to look at. And thanks to the &quot;Reading a command&quot; code we wrote earlier, we can also teach the game to understand the player's references to &quot;the left hand of autumn&quot; as a specific collection of items.</p>
-            <!--START CODE "c5652_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5652_221"></a>Table of Collective Names
+            <!--START CODE "c5650_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5650_221"></a>Table of Collective Names
             <br>
             </p>
             </blockquote>
@@ -462,8 +462,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5653_221"-->
-            <blockquote class="code"><p class="quoted"><a id="c5653_221"></a>Test me with &quot;x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table&quot;.
+            <!--START CODE "c5651_221"-->
+            <blockquote class="code"><p class="quoted"><a id="c5651_221"></a>Test me with &quot;x apple and pear / x left and right / put pear on table / put left glove on table / x all on table / put all on table / examine all on table / get apple, twig, pear / x all on table / search table&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

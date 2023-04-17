@@ -83,23 +83,23 @@
     <!--END IGNORE-->
     <p class="sectionheading">§14.10. Responses</p>
     <p>Most of the text which the player sees is drawn from the source, but mixed in with this are messages apparently added by Inform itself - usually in the form of short sentences saying that something has been done, or that something can't be done. Such pieces of text are called &quot;responses&quot;, because they are almost always replies to commands. For example:</p>
-    <!--START CODE "c4482"-->
-    <blockquote class="code"><p class="quoted"><a id="c4482"></a>&gt; EAST
+    <!--START CODE "c4481"-->
+    <blockquote class="code"><p class="quoted"><a id="c4481"></a>&gt; EAST
     <br>
     You can't go that way.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4483"-->
-    <blockquote class="code"><p class="quoted"><a id="c4483"></a>&gt; JUMP
+    <!--START CODE "c4482"-->
+    <blockquote class="code"><p class="quoted"><a id="c4482"></a>&gt; JUMP
     <br>
     You jump on the spot.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Responses like this, which don't appear anywhere in the source text, come from one of the extensions being used; most often from the Standard Rules, the &quot;extension&quot; which is automatically included in every project. The SR contain many small rules, and almost all of these are capable of producing one or two standard responses. These are labelled with the rule's name and then a bracketed letter - (A), (B), (C), ... as needed so that every response has its own unique name. There's nothing very mysterious about how this is done. For example, here is a rule with one response:</p>
-    <!--START CODE "c4484"-->
-    <blockquote class="code"><p class="quoted"><a id="c4484"></a>Carry out taking inventory (this is the print empty inventory rule):
+    <!--START CODE "c4483"-->
+    <blockquote class="code"><p class="quoted"><a id="c4483"></a>Carry out taking inventory (this is the print empty inventory rule):
     <br>
     &#160;&#160;&#160;&#160;if the first thing held by the player is nothing,
     <br>
@@ -108,20 +108,20 @@
     </blockquote>
     <!--END CODE-->
     <p>which makes the familiar text &quot;You are carrying nothing.&quot; a response named:</p>
-    <!--START CODE "c4485"-->
-    <blockquote class="code"><p class="quoted"><a id="c4485"></a>print empty inventory rule response (A)
+    <!--START CODE "c4484"-->
+    <blockquote class="code"><p class="quoted"><a id="c4484"></a>print empty inventory rule response (A)
     </p>
     </blockquote>
     <!--END CODE-->
     <p>These names are actually values, belonging to the kind &quot;response&quot;. Because of that, if we try this:</p>
-    <!--START CODE "c4486"-->
-    <blockquote class="code"><p class="quoted"><a id="c4486"></a>say &quot;Hmm: [print empty inventory rule response (A)]&quot;
+    <!--START CODE "c4485"-->
+    <blockquote class="code"><p class="quoted"><a id="c4485"></a>say &quot;Hmm: [print empty inventory rule response (A)]&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Inform will produce</p>
-    <!--START CODE "c4487"-->
-    <blockquote class="code"><p class="quoted"><a id="c4487"></a>Hmm: print empty inventory rule response (A)
+    <!--START CODE "c4486"-->
+    <blockquote class="code"><p class="quoted"><a id="c4486"></a>Hmm: print empty inventory rule response (A)
     </p>
     </blockquote>
     <!--END CODE-->
@@ -139,14 +139,14 @@
     </div>
 
     <p>Thus,</p>
-    <!--START CODE "c4488"-->
-    <blockquote class="code"><p class="quoted"><a id="c4488"></a>say &quot;Hmm: [text of print empty inventory rule response (A)]&quot;
+    <!--START CODE "c4487"-->
+    <blockquote class="code"><p class="quoted"><a id="c4487"></a>say &quot;Hmm: [text of print empty inventory rule response (A)]&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>produces</p>
-    <!--START CODE "c4489"-->
-    <blockquote class="code"><p class="quoted"><a id="c4489"></a>Hmm: You are carrying nothing.
+    <!--START CODE "c4488"-->
+    <blockquote class="code"><p class="quoted"><a id="c4488"></a>Hmm: You are carrying nothing.
     </p>
     </blockquote>
     <!--END CODE-->

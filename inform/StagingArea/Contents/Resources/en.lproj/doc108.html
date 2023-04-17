@@ -83,35 +83,35 @@
     <!--END IGNORE-->
     <p class="sectionheading">§7.13. Going from, going to</p>
     <p>Going is an action defined like any other: it is the one which happens when the player tries to go from one location to another. But it is unlike other actions because it happens in two locations, not just one, and has other complications such as vehicles and doors to contend with. To make it easier to write legible and flexible rules, &quot;going&quot; is allowed to be described in a number of special ways not open to other actions, as demonstrated by the following example story:</p>
+    <!--START CODE "c1478"-->
+    <blockquote class="code"><p class="quoted"><a id="c1478"></a><a href="javascript:pasteCode('[=0x0022=]Going Going[=0x0022=][=0x000A=][=0x000A=]The Catalogue Room is east of the Front Stacks. South of the Catalogue Room is the Musicology Section.[=0x000A=][=0x000A=]Instead of going nowhere from the Front Stacks, say [=0x0022=]Bookcases obstruct almost all passages out of here.[=0x0022=][=0x000A=][=0x000A=]Instead of going nowhere, say [=0x0022=]You really can[=0x0027=]t wander around at random in the Library.[=0x0022=][=0x000A=][=0x000A=]Before going to the Catalogue Room, say [=0x0022=]You emerge back into the Catalogue Room.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> &quot;Going Going&quot;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c1479"-->
-    <blockquote class="code"><p class="quoted"><a id="c1479"></a><a href="javascript:pasteCode('[=0x0022=]Going Going[=0x0022=][=0x000A=][=0x000A=]The Catalogue Room is east of the Front Stacks. South of the Catalogue Room is the Musicology Section.[=0x000A=][=0x000A=]Instead of going nowhere from the Front Stacks, say [=0x0022=]Bookcases obstruct almost all passages out of here.[=0x0022=][=0x000A=][=0x000A=]Instead of going nowhere, say [=0x0022=]You really can[=0x0027=]t wander around at random in the Library.[=0x0022=][=0x000A=][=0x000A=]Before going to the Catalogue Room, say [=0x0022=]You emerge back into the Catalogue Room.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> &quot;Going Going&quot;
+    <blockquote class="code"><p class="quoted"><a id="c1479"></a>The Catalogue Room is east of the Front Stacks. South of the Catalogue Room is the Musicology Section.
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c1480"-->
-    <blockquote class="code"><p class="quoted"><a id="c1480"></a>The Catalogue Room is east of the Front Stacks. South of the Catalogue Room is the Musicology Section.
+    <blockquote class="code"><p class="quoted"><a id="c1480"></a>Instead of going nowhere from the Front Stacks, say &quot;Bookcases obstruct almost all passages out of here.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c1481"-->
-    <blockquote class="code"><p class="quoted"><a id="c1481"></a>Instead of going nowhere from the Front Stacks, say &quot;Bookcases obstruct almost all passages out of here.&quot;
+    <blockquote class="code"><p class="quoted"><a id="c1481"></a>Instead of going nowhere, say &quot;You really can't wander around at random in the Library.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c1482"-->
-    <blockquote class="code"><p class="quoted"><a id="c1482"></a>Instead of going nowhere, say &quot;You really can't wander around at random in the Library.&quot;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c1483"-->
-    <blockquote class="code"><p class="quoted"><a id="c1483"></a>Before going to the Catalogue Room, say &quot;You emerge back into the Catalogue Room.&quot;
+    <blockquote class="code"><p class="quoted"><a id="c1482"></a>Before going to the Catalogue Room, say &quot;You emerge back into the Catalogue Room.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Note that &quot;going nowhere&quot; means trying a map connection which is blank, and if no rules intervene then &quot;You can't go that way&quot; is normally printed. Unless &quot;nowhere&quot; is specified, descriptions of going apply only when there is a map connection. So &quot;going from the Musicology Section&quot; would not match if the player were trying to go east from there, since there is no map connection to the east. Similarly, &quot;going somewhere&quot; excludes blank connections.</p>
     <p>The places gone &quot;from&quot; or &quot;to&quot; can be specific named regions instead of rooms. This is convenient when there are several different ways into or out of an area of map but a common rule needs to apply to all: so, for example,</p>
-    <!--START CODE "c1484"-->
-    <blockquote class="code"><p class="quoted"><a id="c1484"></a>Before going from the Cultivated Land to the Wilderness, ...
+    <!--START CODE "c1483"-->
+    <blockquote class="code"><p class="quoted"><a id="c1483"></a>Before going from the Cultivated Land to the Wilderness, ...
     <br>
     Before going nowhere from the Wilderness, say &quot;Tangled brush forces you back.&quot;
     </p>
@@ -119,8 +119,8 @@
     <!--END CODE-->
     <p>Note that it must be &quot;going nowhere from the Wilderness&quot;, not &quot;...in the Wilderness&quot;. (Note also the caveat that the regions must be named: &quot;going from a region&quot;, or something similarly nonspecific, will not work.)</p>
     <p>An important point about &quot;going... from&quot; is that, as mentioned in general terms above, it requires that there is actually a map connection that way: whereas &quot;going... in&quot; does not. Suppose there is no map connection north from the Wilderness. Then:</p>
-    <!--START CODE "c1485"-->
-    <blockquote class="code"><p class="quoted"><a id="c1485"></a>Instead of going north from the Wilderness, say &quot;You'll never read this.&quot;
+    <!--START CODE "c1484"-->
+    <blockquote class="code"><p class="quoted"><a id="c1484"></a>Instead of going north from the Wilderness, say &quot;You'll never read this.&quot;
     <br>
     Instead of going north in the Wilderness, say &quot;Oh, it's too cold.&quot;
     </p>
@@ -128,14 +128,14 @@
     <!--END CODE-->
     <p>The first of these never happens, because it is logically impossible to go north from the Wilderness: but the second does happen. (Technically, this is because &quot;going north&quot; is the action, and &quot;in the Wilderness&quot; a separate condition tacked onto the rule.) This distinction is often useful - it allows us to write rules which apply only to feasible movements.</p>
     <p>This may be a good place to mention a small restriction on the ways we can specify an action for a rule to apply to, and how it can be overcome. The restriction is that the action should only involve constant quantities, so that the following does not work:</p>
-    <!--START CODE "c1486"-->
-    <blockquote class="code"><p class="quoted"><a id="c1486"></a>The Dome is a room. The Hutch is north of the Dome. The rabbit is in the Hutch. Before going to the location of the rabbit, say &quot;You pick up a scent!&quot;
+    <!--START CODE "c1485"-->
+    <blockquote class="code"><p class="quoted"><a id="c1485"></a>The Dome is a room. The Hutch is north of the Dome. The rabbit is in the Hutch. Before going to the location of the rabbit, say &quot;You pick up a scent!&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because &quot;the location of the rabbit&quot; is a quantity which changes in play (the player can pick up the rabbit and take him to the Dome, for instance). However, we can get around this restriction by defining a suitable adjective, like so:</p>
-    <!--START CODE "c1487"-->
-    <blockquote class="code"><p class="quoted"><a id="c1487"></a>The Dome is a room. The Hutch is north of the Dome. The rabbit is in the Hutch. Definition: a room is rabbit-infested if it is the location of the rabbit. Before going to a rabbit-infested room, say &quot;You pick up a scent!&quot;
+    <!--START CODE "c1486"-->
+    <blockquote class="code"><p class="quoted"><a id="c1486"></a>The Dome is a room. The Hutch is north of the Dome. The rabbit is in the Hutch. Definition: a room is rabbit-infested if it is the location of the rabbit. Before going to a rabbit-infested room, say &quot;You pick up a scent!&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -168,45 +168,45 @@
         <div class="egpanel" id="example319" style="display: none;">
             <p>Suppose that we want to have something happen when the player leaves a region we've defined. &quot;Instead of going from (the region)...&quot; will not suffice for this, because this rule will be invoked every time the player successfully leaves a room within the region, whether or not he is going to a room that is also in the same region.</p>
             <p>Instead we need a rule that is a bit more specific, like this:</p>
+            <!--START CODE "c1487_319"-->
+            <blockquote class="code"><p class="quoted"><a id="c1487_319"></a><a href="javascript:pasteCode('[=0x0022=]Veronica[=0x0022=][=0x000A=][=0x000A=]Neptune is a region.[=0x000A=][=0x000A=]Tijuana is a room.[=0x000A=][=0x000A=]High School is north of Tijuana. It is in Neptune.[=0x000A=][=0x000A=]Detective Offices is west of High School. It is in Neptune.[=0x000A=][=0x000A=]The player is in High School.[=0x000A=][=0x000A=]Instead of going from Neptune to a room which is not in Neptune:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s a bad time to leave Neptune.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]s / w / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Veronica[=0x0022=][=0x000A=][=0x000A=]Neptune is a region.[=0x000A=][=0x000A=]Tijuana is a room.[=0x000A=][=0x000A=]High School is north of Tijuana. It is in Neptune.[=0x000A=][=0x000A=]Detective Offices is west of High School. It is in Neptune.[=0x000A=][=0x000A=]The player is in High School.[=0x000A=][=0x000A=]Instead of going from Neptune to a room which is not in Neptune:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s a bad time to leave Neptune.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]s / w / e[=0x0022=].[=0x000A=]\n', 'Example - Veronica')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Veronica&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1488_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1488_319"></a><a href="javascript:pasteCode('[=0x0022=]Veronica[=0x0022=][=0x000A=][=0x000A=]Neptune is a region.[=0x000A=][=0x000A=]Tijuana is a room.[=0x000A=][=0x000A=]High School is north of Tijuana. It is in Neptune.[=0x000A=][=0x000A=]Detective Offices is west of High School. It is in Neptune.[=0x000A=][=0x000A=]The player is in High School.[=0x000A=][=0x000A=]Instead of going from Neptune to a room which is not in Neptune:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s a bad time to leave Neptune.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]s / w / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Veronica[=0x0022=][=0x000A=][=0x000A=]Neptune is a region.[=0x000A=][=0x000A=]Tijuana is a room.[=0x000A=][=0x000A=]High School is north of Tijuana. It is in Neptune.[=0x000A=][=0x000A=]Detective Offices is west of High School. It is in Neptune.[=0x000A=][=0x000A=]The player is in High School.[=0x000A=][=0x000A=]Instead of going from Neptune to a room which is not in Neptune:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s a bad time to leave Neptune.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]s / w / e[=0x0022=].[=0x000A=]\n', 'Example - Veronica')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Veronica&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1488_319"></a>Neptune is a region.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1489_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1489_319"></a>Neptune is a region.
+            <blockquote class="code"><p class="quoted"><a id="c1489_319"></a>Tijuana is a room.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1490_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1490_319"></a>Tijuana is a room.
+            <blockquote class="code"><p class="quoted"><a id="c1490_319"></a>High School is north of Tijuana. It is in Neptune.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1491_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1491_319"></a>High School is north of Tijuana. It is in Neptune.
+            <blockquote class="code"><p class="quoted"><a id="c1491_319"></a>Detective Offices is west of High School. It is in Neptune.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1492_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1492_319"></a>Detective Offices is west of High School. It is in Neptune.
+            <blockquote class="code"><p class="quoted"><a id="c1492_319"></a>The player is in High School.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1493_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1493_319"></a>The player is in High School.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1494_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1494_319"></a>Instead of going from Neptune to a room which is not in Neptune:
+            <blockquote class="code"><p class="quoted"><a id="c1493_319"></a>Instead of going from Neptune to a room which is not in Neptune:
             <br>
             &#160;&#160;&#160;&#160;say &quot;It's a bad time to leave Neptune.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1495_319"-->
-            <blockquote class="code"><p class="quoted"><a id="c1495_319"></a>Test me with &quot;s / w / e&quot;.
+            <!--START CODE "c1494_319"-->
+            <blockquote class="code"><p class="quoted"><a id="c1494_319"></a>Test me with &quot;s / w / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -238,33 +238,33 @@
 
         <div class="egpanel" id="example414" style="display: none;">
             <p>Rules about going to regions make it easy to exclude the player from a large portion of the map, even if there are many connecting paths to the region. For instance, in this story it would be annoying to have to write a rule about all four exits by which the player could reach the film set area:</p>
+            <!--START CODE "c1495_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c1495_414"></a><a href="javascript:pasteCode('[=0x0022=]A[=0x0026=]E[=0x0022=][=0x000A=][=0x000A=]Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.[=0x000A=][=0x000A=]Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.[=0x000A=][=0x000A=]Instead of going to Film Set when the player does not carry the VIP Pass: say [=0x0022=]A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.[=0x0022=][=0x000A=][=0x000A=]The VIP Pass is in the garbage can. The garbage can is in Sloping Street.[=0x000A=][=0x000A=]After going to the Film Set:[=0x000A=][=0x0009=]say [=0x0022=]Success! At last you are inside the set of [=0x0027=]Prouder and More Prejudiced[=0x0027=]. Next step: locating Mr Firth.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]e / n / e / get pass / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]A[=0x0026=]E[=0x0022=][=0x000A=][=0x000A=]Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.[=0x000A=][=0x000A=]Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.[=0x000A=][=0x000A=]Instead of going to Film Set when the player does not carry the VIP Pass: say [=0x0022=]A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.[=0x0022=][=0x000A=][=0x000A=]The VIP Pass is in the garbage can. The garbage can is in Sloping Street.[=0x000A=][=0x000A=]After going to the Film Set:[=0x000A=][=0x0009=]say [=0x0022=]Success! At last you are inside the set of [=0x0027=]Prouder and More Prejudiced[=0x0027=]. Next step: locating Mr Firth.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]e / n / e / get pass / e[=0x0022=].[=0x000A=]\n', 'Example - A[=0x0026=]E')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;A&amp;E&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1496_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1496_414"></a><a href="javascript:pasteCode('[=0x0022=]A[=0x0026=]E[=0x0022=][=0x000A=][=0x000A=]Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.[=0x000A=][=0x000A=]Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.[=0x000A=][=0x000A=]Instead of going to Film Set when the player does not carry the VIP Pass: say [=0x0022=]A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.[=0x0022=][=0x000A=][=0x000A=]The VIP Pass is in the garbage can. The garbage can is in Sloping Street.[=0x000A=][=0x000A=]After going to the Film Set:[=0x000A=][=0x0009=]say [=0x0022=]Success! At last you are inside the set of [=0x0027=]Prouder and More Prejudiced[=0x0027=]. Next step: locating Mr Firth.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]e / n / e / get pass / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]A[=0x0026=]E[=0x0022=][=0x000A=][=0x000A=]Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.[=0x000A=][=0x000A=]Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.[=0x000A=][=0x000A=]Instead of going to Film Set when the player does not carry the VIP Pass: say [=0x0022=]A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.[=0x0022=][=0x000A=][=0x000A=]The VIP Pass is in the garbage can. The garbage can is in Sloping Street.[=0x000A=][=0x000A=]After going to the Film Set:[=0x000A=][=0x0009=]say [=0x0022=]Success! At last you are inside the set of [=0x0027=]Prouder and More Prejudiced[=0x0027=]. Next step: locating Mr Firth.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]e / n / e / get pass / e[=0x0022=].[=0x000A=]\n', 'Example - A[=0x0026=]E')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;A&amp;E&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1496_414"></a>Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1497_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1497_414"></a>Winding Street is a room. Winding Street is west of Duck Pond. Sloping Street is north of Winding Street, northwest of Duck Pond, west of Stately Lawn, and southwest of Stately Home. Stately Lawn is north of Duck Pond. Stately Home is north of Stately Lawn.
+            <blockquote class="code"><p class="quoted"><a id="c1497_414"></a>Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1498_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1498_414"></a>Film Set is a region. Duck Pond, Stately Lawn, and Stately Home are in Film Set.
+            <blockquote class="code"><p class="quoted"><a id="c1498_414"></a>Instead of going to Film Set when the player does not carry the VIP Pass: say &quot;A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1499_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1499_414"></a>Instead of going to Film Set when the player does not carry the VIP Pass: say &quot;A burly studio guard materializes in your path, convincing you that you would prefer to be elsewhere.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1499_414"></a>The VIP Pass is in the garbage can. The garbage can is in Sloping Street.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1500_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1500_414"></a>The VIP Pass is in the garbage can. The garbage can is in Sloping Street.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1501_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1501_414"></a>After going to the Film Set:
+            <blockquote class="code"><p class="quoted"><a id="c1500_414"></a>After going to the Film Set:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Success! At last you are inside the set of 'Prouder and More Prejudiced'. Next step: locating Mr Firth.&quot;;
             <br>
@@ -272,8 +272,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1502_414"-->
-            <blockquote class="code"><p class="quoted"><a id="c1502_414"></a>Test me with &quot;e / n / e / get pass / e&quot;.
+            <!--START CODE "c1501_414"-->
+            <blockquote class="code"><p class="quoted"><a id="c1501_414"></a>Test me with &quot;e / n / e / get pass / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -304,20 +304,20 @@
         </table>
 
         <div class="egpanel" id="example45" style="display: none;">
-            <!--START CODE "c1503_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1503_45"></a><a href="javascript:pasteCode('[=0x0022=]Bumping into Walls[=0x0022=][=0x000A=][=0x000A=][First we add an instruction to determine which ways lead to other rooms.][=0x000A=][=0x000A=]Definition: a direction (called thataway) is viable if the room thataway from the location is a room.[=0x000A=][=0x000A=][Now we build in the instruction for what Inform should say if the player tries to head in a direction that leads nowhere:][=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]let count of exits be the number of viable directions;[=0x000A=][=0x0009=]if the count of exits is 0, say [=0x0022=]You appear to be trapped in here.[=0x0022=] instead;[=0x000A=][=0x0009=]if the count of exits is 1, say [=0x0022=]From here, the only way out is [list of viable directions].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]From here, the viable exits are [list of viable directions].[=0x0022=][=0x000A=][=0x000A=][There is no theoretical reason why we have to define [=0x0022=]count of exits[=0x0022=] here: we could, if we wanted, just say [=0x0022=]if the number of viable directions is 0[=0x0022=], [=0x0022=]if the number of viable directions is 1[=0x0022=], and so on. However, each calculation of a [=0x0022=]viable direction[=0x0022=] takes a bit of computing power, so there is some slight savings in not requiring the game to count viable directions more than once in this routine.][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The Crypt is below the dome.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]u / n / n / e / n / s / u / open door / e / n[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bumping into Walls[=0x0022=][=0x000A=][=0x000A=][First we add an instruction to determine which ways lead to other rooms.][=0x000A=][=0x000A=]Definition: a direction (called thataway) is viable if the room thataway from the location is a room.[=0x000A=][=0x000A=][Now we build in the instruction for what Inform should say if the player tries to head in a direction that leads nowhere:][=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]let count of exits be the number of viable directions;[=0x000A=][=0x0009=]if the count of exits is 0, say [=0x0022=]You appear to be trapped in here.[=0x0022=] instead;[=0x000A=][=0x0009=]if the count of exits is 1, say [=0x0022=]From here, the only way out is [list of viable directions].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]From here, the viable exits are [list of viable directions].[=0x0022=][=0x000A=][=0x000A=][There is no theoretical reason why we have to define [=0x0022=]count of exits[=0x0022=] here: we could, if we wanted, just say [=0x0022=]if the number of viable directions is 0[=0x0022=], [=0x0022=]if the number of viable directions is 1[=0x0022=], and so on. However, each calculation of a [=0x0022=]viable direction[=0x0022=] takes a bit of computing power, so there is some slight savings in not requiring the game to count viable directions more than once in this routine.][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The Crypt is below the dome.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]u / n / n / e / n / s / u / open door / e / n[=0x0022=].[=0x000A=]\n', 'Example - Bumping into Walls')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bumping into Walls&quot;
+            <!--START CODE "c1502_45"-->
+            <blockquote class="code"><p class="quoted"><a id="c1502_45"></a><a href="javascript:pasteCode('[=0x0022=]Bumping into Walls[=0x0022=][=0x000A=][=0x000A=][First we add an instruction to determine which ways lead to other rooms.][=0x000A=][=0x000A=]Definition: a direction (called thataway) is viable if the room thataway from the location is a room.[=0x000A=][=0x000A=][Now we build in the instruction for what Inform should say if the player tries to head in a direction that leads nowhere:][=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]let count of exits be the number of viable directions;[=0x000A=][=0x0009=]if the count of exits is 0, say [=0x0022=]You appear to be trapped in here.[=0x0022=] instead;[=0x000A=][=0x0009=]if the count of exits is 1, say [=0x0022=]From here, the only way out is [list of viable directions].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]From here, the viable exits are [list of viable directions].[=0x0022=][=0x000A=][=0x000A=][There is no theoretical reason why we have to define [=0x0022=]count of exits[=0x0022=] here: we could, if we wanted, just say [=0x0022=]if the number of viable directions is 0[=0x0022=], [=0x0022=]if the number of viable directions is 1[=0x0022=], and so on. However, each calculation of a [=0x0022=]viable direction[=0x0022=] takes a bit of computing power, so there is some slight savings in not requiring the game to count viable directions more than once in this routine.][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The Crypt is below the dome.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]u / n / n / e / n / s / u / open door / e / n[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Bumping into Walls[=0x0022=][=0x000A=][=0x000A=][First we add an instruction to determine which ways lead to other rooms.][=0x000A=][=0x000A=]Definition: a direction (called thataway) is viable if the room thataway from the location is a room.[=0x000A=][=0x000A=][Now we build in the instruction for what Inform should say if the player tries to head in a direction that leads nowhere:][=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]let count of exits be the number of viable directions;[=0x000A=][=0x0009=]if the count of exits is 0, say [=0x0022=]You appear to be trapped in here.[=0x0022=] instead;[=0x000A=][=0x0009=]if the count of exits is 1, say [=0x0022=]From here, the only way out is [list of viable directions].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]From here, the viable exits are [list of viable directions].[=0x0022=][=0x000A=][=0x000A=][There is no theoretical reason why we have to define [=0x0022=]count of exits[=0x0022=] here: we could, if we wanted, just say [=0x0022=]if the number of viable directions is 0[=0x0022=], [=0x0022=]if the number of viable directions is 1[=0x0022=], and so on. However, each calculation of a [=0x0022=]viable direction[=0x0022=] takes a bit of computing power, so there is some slight savings in not requiring the game to count viable directions more than once in this routine.][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The Crypt is below the dome.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]u / n / n / e / n / s / u / open door / e / n[=0x0022=].[=0x000A=]\n', 'Example - Bumping into Walls')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Bumping into Walls&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>First we add an instruction to determine which ways lead to other rooms.</p>
-            <!--START CODE "c1504_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1504_45"></a>Definition: a direction (called thataway) is viable if the room thataway from the location is a room.
+            <!--START CODE "c1503_45"-->
+            <blockquote class="code"><p class="quoted"><a id="c1503_45"></a>Definition: a direction (called thataway) is viable if the room thataway from the location is a room.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we build in the instruction for what Inform should say if the player tries to head in a direction that leads nowhere:</p>
-            <!--START CODE "c1505_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1505_45"></a>Instead of going nowhere:
+            <!--START CODE "c1504_45"-->
+            <blockquote class="code"><p class="quoted"><a id="c1504_45"></a>Instead of going nowhere:
             <br>
             &#160;&#160;&#160;&#160;let count of exits be the number of viable directions;
             <br>
@@ -330,23 +330,23 @@
             </blockquote>
             <!--END CODE-->
             <p>There is no theoretical reason why we have to define &quot;count of exits&quot; here: we could, if we wanted, just say &quot;if the number of viable directions is 0&quot;, &quot;if the number of viable directions is 1&quot;, and so on. However, each calculation of a &quot;viable direction&quot; takes a bit of computing power, so there is some slight savings in not requiring the game to count viable directions more than once in this routine.</p>
+            <!--START CODE "c1505_45"-->
+            <blockquote class="code"><p class="quoted"><a id="c1505_45"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1506_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1506_45"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
+            <blockquote class="code"><p class="quoted"><a id="c1506_45"></a>The Crypt is below the dome.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1507_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1507_45"></a>The Crypt is below the dome.
+            <blockquote class="code"><p class="quoted"><a id="c1507_45"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1508_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1508_45"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1509_45"-->
-            <blockquote class="code"><p class="quoted"><a id="c1509_45"></a>Test me with &quot;u / n / n / e / n / s / u / open door / e / n&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1508_45"></a>Test me with &quot;u / n / n / e / n / s / u / open door / e / n&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -378,36 +378,36 @@
 
         <div class="egpanel" id="example154" style="display: none;">
             <p>The main trick of this is always to record where the player has gone when he has just moved.</p>
-            <!--START CODE "c1510_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1510_154"></a><a href="javascript:pasteCode('[=0x0022=]Polarity[=0x0022=][=0x000A=][=0x000A=]The former location is a room that varies.[=0x000A=][=0x000A=][Here we record where the player has been before moving him; by calling this the [=0x0022=]first carry out going rule[=0x0022=], we make sure that this rule is followed during the going action before any other pieces of the movement occur. For more detail, see the chapters on advanced actions and on rules.][=0x000A=][=0x000A=]First carry out going rule:[=0x000A=][=0x0009=]now the former location is the location.[=0x000A=][=0x000A=]Understand [=0x0022=]go back[=0x0022=] as retreating. Understand [=0x0022=]back[=0x0022=] or [=0x0022=]return[=0x0022=] or [=0x0022=]retreat[=0x0022=] as retreating.[=0x000A=][=0x000A=]Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]let way be the best route from the location to the former location, using doors;[=0x000A=][=0x0009=]if way is a direction, try going way;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You can[=0x0027=]t see an open way back.[=0x0022=][=0x000A=][=0x000A=][And to deal with the case where the player has not yet moved:][=0x000A=][=0x000A=]When play begins: now the former location is the Dome.[=0x000A=][=0x000A=]Instead of retreating when the former location is the location: say [=0x0022=]You haven[=0x0027=]t gone anywhere yet.[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]back / n / go back / e / open door / go through door / go back[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Polarity[=0x0022=][=0x000A=][=0x000A=]The former location is a room that varies.[=0x000A=][=0x000A=][Here we record where the player has been before moving him; by calling this the [=0x0022=]first carry out going rule[=0x0022=], we make sure that this rule is followed during the going action before any other pieces of the movement occur. For more detail, see the chapters on advanced actions and on rules.][=0x000A=][=0x000A=]First carry out going rule:[=0x000A=][=0x0009=]now the former location is the location.[=0x000A=][=0x000A=]Understand [=0x0022=]go back[=0x0022=] as retreating. Understand [=0x0022=]back[=0x0022=] or [=0x0022=]return[=0x0022=] or [=0x0022=]retreat[=0x0022=] as retreating.[=0x000A=][=0x000A=]Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]let way be the best route from the location to the former location, using doors;[=0x000A=][=0x0009=]if way is a direction, try going way;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You can[=0x0027=]t see an open way back.[=0x0022=][=0x000A=][=0x000A=][And to deal with the case where the player has not yet moved:][=0x000A=][=0x000A=]When play begins: now the former location is the Dome.[=0x000A=][=0x000A=]Instead of retreating when the former location is the location: say [=0x0022=]You haven[=0x0027=]t gone anywhere yet.[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]back / n / go back / e / open door / go through door / go back[=0x0022=].[=0x000A=]\n', 'Example - Polarity')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Polarity&quot;
+            <!--START CODE "c1509_154"-->
+            <blockquote class="code"><p class="quoted"><a id="c1509_154"></a><a href="javascript:pasteCode('[=0x0022=]Polarity[=0x0022=][=0x000A=][=0x000A=]The former location is a room that varies.[=0x000A=][=0x000A=][Here we record where the player has been before moving him; by calling this the [=0x0022=]first carry out going rule[=0x0022=], we make sure that this rule is followed during the going action before any other pieces of the movement occur. For more detail, see the chapters on advanced actions and on rules.][=0x000A=][=0x000A=]First carry out going rule:[=0x000A=][=0x0009=]now the former location is the location.[=0x000A=][=0x000A=]Understand [=0x0022=]go back[=0x0022=] as retreating. Understand [=0x0022=]back[=0x0022=] or [=0x0022=]return[=0x0022=] or [=0x0022=]retreat[=0x0022=] as retreating.[=0x000A=][=0x000A=]Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]let way be the best route from the location to the former location, using doors;[=0x000A=][=0x0009=]if way is a direction, try going way;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You can[=0x0027=]t see an open way back.[=0x0022=][=0x000A=][=0x000A=][And to deal with the case where the player has not yet moved:][=0x000A=][=0x000A=]When play begins: now the former location is the Dome.[=0x000A=][=0x000A=]Instead of retreating when the former location is the location: say [=0x0022=]You haven[=0x0027=]t gone anywhere yet.[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]back / n / go back / e / open door / go through door / go back[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Polarity[=0x0022=][=0x000A=][=0x000A=]The former location is a room that varies.[=0x000A=][=0x000A=][Here we record where the player has been before moving him; by calling this the [=0x0022=]first carry out going rule[=0x0022=], we make sure that this rule is followed during the going action before any other pieces of the movement occur. For more detail, see the chapters on advanced actions and on rules.][=0x000A=][=0x000A=]First carry out going rule:[=0x000A=][=0x0009=]now the former location is the location.[=0x000A=][=0x000A=]Understand [=0x0022=]go back[=0x0022=] as retreating. Understand [=0x0022=]back[=0x0022=] or [=0x0022=]return[=0x0022=] or [=0x0022=]retreat[=0x0022=] as retreating.[=0x000A=][=0x000A=]Retreating is an action applying to nothing.[=0x000A=][=0x000A=]Carry out retreating:[=0x000A=][=0x0009=]let way be the best route from the location to the former location, using doors;[=0x000A=][=0x0009=]if way is a direction, try going way;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You can[=0x0027=]t see an open way back.[=0x0022=][=0x000A=][=0x000A=][And to deal with the case where the player has not yet moved:][=0x000A=][=0x000A=]When play begins: now the former location is the Dome.[=0x000A=][=0x000A=]Instead of retreating when the former location is the location: say [=0x0022=]You haven[=0x0027=]t gone anywhere yet.[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]back / n / go back / e / open door / go through door / go back[=0x0022=].[=0x000A=]\n', 'Example - Polarity')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Polarity&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1511_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1511_154"></a>The former location is a room that varies.
+            <!--START CODE "c1510_154"-->
+            <blockquote class="code"><p class="quoted"><a id="c1510_154"></a>The former location is a room that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Here we record where the player has been before moving him; by calling this the &quot;first carry out going rule&quot;, we make sure that this rule is followed during the going action before any other pieces of the movement occur. For more detail, see the chapters on advanced actions and on rules.</p>
-            <!--START CODE "c1512_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1512_154"></a>First carry out going rule:
+            <!--START CODE "c1511_154"-->
+            <blockquote class="code"><p class="quoted"><a id="c1511_154"></a>First carry out going rule:
             <br>
             &#160;&#160;&#160;&#160;now the former location is the location.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1512_154"-->
+            <blockquote class="code"><p class="quoted"><a id="c1512_154"></a>Understand &quot;go back&quot; as retreating. Understand &quot;back&quot; or &quot;return&quot; or &quot;retreat&quot; as retreating.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1513_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1513_154"></a>Understand &quot;go back&quot; as retreating. Understand &quot;back&quot; or &quot;return&quot; or &quot;retreat&quot; as retreating.
+            <blockquote class="code"><p class="quoted"><a id="c1513_154"></a>Retreating is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1514_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1514_154"></a>Retreating is an action applying to nothing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1515_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1515_154"></a>Carry out retreating:
+            <blockquote class="code"><p class="quoted"><a id="c1514_154"></a>Carry out retreating:
             <br>
             &#160;&#160;&#160;&#160;let way be the best route from the location to the former location, using doors;
             <br>
@@ -418,28 +418,28 @@
             </blockquote>
             <!--END CODE-->
             <p>And to deal with the case where the player has not yet moved:</p>
+            <!--START CODE "c1515_154"-->
+            <blockquote class="code"><p class="quoted"><a id="c1515_154"></a>When play begins: now the former location is the Dome.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1516_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1516_154"></a>When play begins: now the former location is the Dome.
+            <blockquote class="code"><p class="quoted"><a id="c1516_154"></a>Instead of retreating when the former location is the location: say &quot;You haven't gone anywhere yet.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1517_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1517_154"></a>Instead of retreating when the former location is the location: say &quot;You haven't gone anywhere yet.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1517_154"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1518_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1518_154"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
+            <blockquote class="code"><p class="quoted"><a id="c1518_154"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1519_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1519_154"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1520_154"-->
-            <blockquote class="code"><p class="quoted"><a id="c1520_154"></a>Test me with &quot;back / n / go back / e / open door / go through door / go back&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1519_154"></a>Test me with &quot;back / n / go back / e / open door / go through door / go back&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

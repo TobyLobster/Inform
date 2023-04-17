@@ -118,8 +118,8 @@
             <!--definition of ph_lowercase-->
 
     <p>    This phrase produces a new version of the given text, but with all upper case letters reduced to lower case. Example: &quot;a ticket to Tromsø via Østfold&quot; becomes</p>
-    <!--START CODE "c8084"-->
-    <blockquote class="code"><p class="quoted"><a id="c8084"></a>&quot;a ticket to tromsø via østfold&quot;
+    <!--START CODE "c8082"-->
+    <blockquote class="code"><p class="quoted"><a id="c8082"></a>&quot;a ticket to tromsø via østfold&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -135,8 +135,8 @@
             <!--definition of ph_uppercase-->
 
     <p>    This phrase produces a new version of the given text, but with all upper case letters reduced to lower case. Example: &quot;a ticket to Tromsø via Østfold&quot; becomes</p>
-    <!--START CODE "c8085"-->
-    <blockquote class="code"><p class="quoted"><a id="c8085"></a>&quot;A TICKET TO TROMSØ VIA ØSTFOLD&quot;
+    <!--START CODE "c8083"-->
+    <blockquote class="code"><p class="quoted"><a id="c8083"></a>&quot;A TICKET TO TROMSØ VIA ØSTFOLD&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -152,8 +152,8 @@
             <!--definition of ph_titlecase-->
 
     <p>    This phrase produces a new version of the given text, but with casing of words changed to title casing: this capitalises the first letter of each word, and lowers the rest. Example: &quot;a ticket to Tromsø via Østfold&quot; becomes</p>
-    <!--START CODE "c8086"-->
-    <blockquote class="code"><p class="quoted"><a id="c8086"></a>&quot;A Ticket To Tromsø Via Østfold&quot;
+    <!--START CODE "c8084"-->
+    <blockquote class="code"><p class="quoted"><a id="c8084"></a>&quot;A Ticket To Tromsø Via Østfold&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -169,8 +169,8 @@
             <!--definition of ph_sentencecase-->
 
     <p>This phrase produces a new version of the given text, but with casing of words changed to sentence casing: this capitalises the first letter of each sentence and reduces the rest to lower case. Example: &quot;a ticket to Tromsø via Østfold&quot; bec mes</p>
-    <!--START CODE "c8087"-->
-    <blockquote class="code"><p class="quoted"><a id="c8087"></a>&quot;A ticket to tromsø via østfold&quot;
+    <!--START CODE "c8085"-->
+    <blockquote class="code"><p class="quoted"><a id="c8085"></a>&quot;A ticket to tromsø via østfold&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -179,8 +179,8 @@
     </div>
 
     <p>Accents are preserved in case changes. So (if we are using Glulx and have Unicode available) title case can turn Aristophanes' discomfortingly lower-case lines</p>
-    <!--START CODE "c8088"-->
-    <blockquote class="code"><p class="quoted"><a id="c8088"></a>ἐξ οὗ γὰρ ἡμᾶς προὔδοσαν μιλήσιοι,
+    <!--START CODE "c8086"-->
+    <blockquote class="code"><p class="quoted"><a id="c8086"></a>ἐξ οὗ γὰρ ἡμᾶς προὔδοσαν μιλήσιοι,
     <br>
     οὐκ εἶδον οὐδ᾽ ὄλισβον ὀκτωδάκτυλον,
     <br>
@@ -189,8 +189,8 @@
     </blockquote>
     <!--END CODE-->
     <p>by raising them proudly up like so:</p>
-    <!--START CODE "c8089"-->
-    <blockquote class="code"><p class="quoted"><a id="c8089"></a>Ἐξ Οὗ Γὰρ Ἡμᾶς Προὔδοσαν Μιλήσιοι,
+    <!--START CODE "c8087"-->
+    <blockquote class="code"><p class="quoted"><a id="c8087"></a>Ἐξ Οὗ Γὰρ Ἡμᾶς Προὔδοσαν Μιλήσιοι,
     <br>
     Οὐκ Εἶδον Οὐδ᾽ Ὄλισβον Ὀκτωδάκτυλον,
     <br>
@@ -200,15 +200,15 @@
     <!--END CODE-->
     <p>Title and sentence casing can only be approximate if done by computer. Inform looks at the letters, but is blind to the words and sentences they make up. (Note the way sentence casing did not realise &quot;Tromsø&quot; and &quot;Østfold&quot; were proper nouns.) If asked to put the name &quot;MCKAY&quot; into title casing, Inform will opt for &quot;Mckay&quot;, not recognising this as the Scottish patronymic surname &quot;McKay&quot;. Given &quot;baym dnieper&quot;, the title of David Bergelson's great Yiddish novel of 1932, it will opt for &quot;BAYM DNIEPER&quot;: but properly speaking Yiddish does not have upper case lettering at all, though nowadays it is sometimes printed as if it did. And conventions are very variable about which words should be capitalised in titles: English publishers mostly agree that connectives, articles and prepositions should be in lower case, but in France almost anything goes, with Académie Française rules giving way to avant-garde book design. In short, we cannot rely on Inform's title casing to produce a result which a human reader will always think perfect.</p>
     <p>This discussion has all been about how Inform prints, not about how it reads commands from the keyboard, because the latter is done case-insensitively. The virtual machines for which Inform creates programs normally flatten all command input to lower case, and in any case Understand comparison ignores casing. Thus</p>
-    <!--START CODE "c8090"-->
-    <blockquote class="code"><p class="quoted"><a id="c8090"></a>Understand &quot;mckay&quot; as the Highland Piper.
+    <!--START CODE "c8088"-->
+    <blockquote class="code"><p class="quoted"><a id="c8088"></a>Understand &quot;mckay&quot; as the Highland Piper.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>means that &quot;examine McKay&quot;, &quot;examine MCKAY&quot;, &quot;examine mckay&quot;, and so forth are all equivalent. The text of the player's command probably doesn't preserve the original casing typed in any event.</p>
     <p>One more caution, though it will affect hardly anyone. For projects using the Z-machine, only a restricted character set is available in texts: for more, we must use Glulx. A mad anomaly of ZSCII, the Z-machine character set, is that it contains the lower case letter &quot;ÿ&quot; but not its upper case form &quot;Ÿ&quot;, so that</p>
-    <!--START CODE "c8091"-->
-    <blockquote class="code"><p class="quoted"><a id="c8091"></a>&quot;ÿ&quot; in upper case
+    <!--START CODE "c8089"-->
+    <blockquote class="code"><p class="quoted"><a id="c8089"></a>&quot;ÿ&quot; in upper case
     </p>
     </blockquote>
     <!--END CODE-->
@@ -241,20 +241,20 @@
 
         <div class="egpanel" id="example62" style="display: none;">
             <p>Not much is needed for this. The only noteworthy point is that it doesn't work by changing the LHSL to &quot;[the player's surroundings in upper case]&quot;: it cannot do this because &quot;the player's surroundings&quot; is not a value. Instead, &quot;[the player's surroundings]&quot; is a text substitution sometimes printing the name of a room, sometimes printing &quot;Darkness&quot;, and so on. We must therefore load it into a text first, and then apply &quot;...in upper case&quot;.</p>
-            <!--START CODE "c8092_62"-->
-            <blockquote class="code"><p class="quoted"><a id="c8092_62"></a><a href="javascript:pasteCode('[=0x0022=]Capital City[=0x0022=][=0x000A=][=0x000A=]Capital City is a room. East is Lower Caissons. South of Lower Caissons[=0x000A=]is San Seriffe. East of San Seriffe is a dark room.[=0x000A=][=0x000A=]To say the player[=0x0027=]s capitalised surroundings:[=0x000A=][=0x0009=]let the masthead be [=0x0022=][the player[=0x0027=]s surroundings][=0x0022=] in upper case;[=0x000A=][=0x0009=]say the masthead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][the player[=0x0027=]s capitalised surroundings][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]e / s / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Capital City[=0x0022=][=0x000A=][=0x000A=]Capital City is a room. East is Lower Caissons. South of Lower Caissons[=0x000A=]is San Seriffe. East of San Seriffe is a dark room.[=0x000A=][=0x000A=]To say the player[=0x0027=]s capitalised surroundings:[=0x000A=][=0x0009=]let the masthead be [=0x0022=][the player[=0x0027=]s surroundings][=0x0022=] in upper case;[=0x000A=][=0x0009=]say the masthead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][the player[=0x0027=]s capitalised surroundings][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]e / s / e[=0x0022=].[=0x000A=]\n', 'Example - Capital City')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Capital City&quot;
+            <!--START CODE "c8090_62"-->
+            <blockquote class="code"><p class="quoted"><a id="c8090_62"></a><a href="javascript:pasteCode('[=0x0022=]Capital City[=0x0022=][=0x000A=][=0x000A=]Capital City is a room. East is Lower Caissons. South of Lower Caissons[=0x000A=]is San Seriffe. East of San Seriffe is a dark room.[=0x000A=][=0x000A=]To say the player[=0x0027=]s capitalised surroundings:[=0x000A=][=0x0009=]let the masthead be [=0x0022=][the player[=0x0027=]s surroundings][=0x0022=] in upper case;[=0x000A=][=0x0009=]say the masthead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][the player[=0x0027=]s capitalised surroundings][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]e / s / e[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Capital City[=0x0022=][=0x000A=][=0x000A=]Capital City is a room. East is Lower Caissons. South of Lower Caissons[=0x000A=]is San Seriffe. East of San Seriffe is a dark room.[=0x000A=][=0x000A=]To say the player[=0x0027=]s capitalised surroundings:[=0x000A=][=0x0009=]let the masthead be [=0x0022=][the player[=0x0027=]s surroundings][=0x0022=] in upper case;[=0x000A=][=0x0009=]say the masthead.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][the player[=0x0027=]s capitalised surroundings][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]e / s / e[=0x0022=].[=0x000A=]\n', 'Example - Capital City')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Capital City&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8093_62"-->
-            <blockquote class="code"><p class="quoted"><a id="c8093_62"></a>Capital City is a room. East is Lower Caissons. South of Lower Caissons
+            <!--START CODE "c8091_62"-->
+            <blockquote class="code"><p class="quoted"><a id="c8091_62"></a>Capital City is a room. East is Lower Caissons. South of Lower Caissons
             <br>
             is San Seriffe. East of San Seriffe is a dark room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8094_62"-->
-            <blockquote class="code"><p class="quoted"><a id="c8094_62"></a>To say the player's capitalised surroundings:
+            <!--START CODE "c8092_62"-->
+            <blockquote class="code"><p class="quoted"><a id="c8092_62"></a>To say the player's capitalised surroundings:
             <br>
             &#160;&#160;&#160;&#160;let the masthead be &quot;[the player's surroundings]&quot; in upper case;
             <br>
@@ -262,15 +262,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8095_62"-->
-            <blockquote class="code"><p class="quoted"><a id="c8095_62"></a>When play begins:
+            <!--START CODE "c8093_62"-->
+            <blockquote class="code"><p class="quoted"><a id="c8093_62"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the left hand status line is &quot;[the player's capitalised surroundings]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8096_62"-->
-            <blockquote class="code"><p class="quoted"><a id="c8096_62"></a>Test me with &quot;e / s / e&quot;.
+            <!--START CODE "c8094_62"-->
+            <blockquote class="code"><p class="quoted"><a id="c8094_62"></a>Test me with &quot;e / s / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -304,13 +304,13 @@
             <p>We can now change the case of any text produced by a &quot;to say...&quot; phrase. This is often useful when we would like to make use of a standard say phrase in some new context. Say, for instance, that we would like to &quot;[is-are the list...]&quot; in a context that needs the first letter to be capitalized.</p>
             <p>We could write a new say phrase, such as &quot;to say is-are the list of (N - a description of objects) in sentence capitalization&quot;; but there is an easier way, and that is to set a text variable to the output of the to say phrase, and then print that text in the case of our choice.</p>
             <p>For example:</p>
-            <!--START CODE "c8097_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8097_327"></a><a href="javascript:pasteCode('[=0x0022=]Rocket Man[=0x0022=][=0x000A=][=0x000A=]Instead of going somewhere from the spaceport when the player carries something:[=0x000A=][=0x0009=]let N be [=0x0022=][is-are the list of things carried by the player] really suitable gear to take to the moon?[=0x0022=] in sentence case;[=0x000A=][=0x0009=]say [=0x0022=][N][paragraph break][=0x0022=].[=0x000A=][=0x000A=]The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.[=0x000A=][=0x000A=]The description of the book is [=0x0022=]It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].[=0x0022=][=0x000A=][=0x000A=]To say sentence cased inventory:[=0x000A=][=0x0009=]let N be [=0x0022=][a list of things carried by the player][=0x0022=] in title case;[=0x000A=][=0x0009=]say [=0x0022=][N][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]n / x book[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Rocket Man[=0x0022=][=0x000A=][=0x000A=]Instead of going somewhere from the spaceport when the player carries something:[=0x000A=][=0x0009=]let N be [=0x0022=][is-are the list of things carried by the player] really suitable gear to take to the moon?[=0x0022=] in sentence case;[=0x000A=][=0x0009=]say [=0x0022=][N][paragraph break][=0x0022=].[=0x000A=][=0x000A=]The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.[=0x000A=][=0x000A=]The description of the book is [=0x0022=]It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].[=0x0022=][=0x000A=][=0x000A=]To say sentence cased inventory:[=0x000A=][=0x0009=]let N be [=0x0022=][a list of things carried by the player][=0x0022=] in title case;[=0x000A=][=0x0009=]say [=0x0022=][N][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]n / x book[=0x0022=].[=0x000A=]\n', 'Example - Rocket Man')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Rocket Man&quot;
+            <!--START CODE "c8095_327"-->
+            <blockquote class="code"><p class="quoted"><a id="c8095_327"></a><a href="javascript:pasteCode('[=0x0022=]Rocket Man[=0x0022=][=0x000A=][=0x000A=]Instead of going somewhere from the spaceport when the player carries something:[=0x000A=][=0x0009=]let N be [=0x0022=][is-are the list of things carried by the player] really suitable gear to take to the moon?[=0x0022=] in sentence case;[=0x000A=][=0x0009=]say [=0x0022=][N][paragraph break][=0x0022=].[=0x000A=][=0x000A=]The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.[=0x000A=][=0x000A=]The description of the book is [=0x0022=]It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].[=0x0022=][=0x000A=][=0x000A=]To say sentence cased inventory:[=0x000A=][=0x0009=]let N be [=0x0022=][a list of things carried by the player][=0x0022=] in title case;[=0x000A=][=0x0009=]say [=0x0022=][N][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]n / x book[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Rocket Man[=0x0022=][=0x000A=][=0x000A=]Instead of going somewhere from the spaceport when the player carries something:[=0x000A=][=0x0009=]let N be [=0x0022=][is-are the list of things carried by the player] really suitable gear to take to the moon?[=0x0022=] in sentence case;[=0x000A=][=0x0009=]say [=0x0022=][N][paragraph break][=0x0022=].[=0x000A=][=0x000A=]The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.[=0x000A=][=0x000A=]The description of the book is [=0x0022=]It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].[=0x0022=][=0x000A=][=0x000A=]To say sentence cased inventory:[=0x000A=][=0x0009=]let N be [=0x0022=][a list of things carried by the player][=0x0022=] in title case;[=0x000A=][=0x0009=]say [=0x0022=][N][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]n / x book[=0x0022=].[=0x000A=]\n', 'Example - Rocket Man')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Rocket Man&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8098_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8098_327"></a>Instead of going somewhere from the spaceport when the player carries something:
+            <!--START CODE "c8096_327"-->
+            <blockquote class="code"><p class="quoted"><a id="c8096_327"></a>Instead of going somewhere from the spaceport when the player carries something:
             <br>
             &#160;&#160;&#160;&#160;let N be &quot;[is-are the list of things carried by the player] really suitable gear to take to the moon?&quot; in sentence case;
             <br>
@@ -318,18 +318,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8097_327"-->
+            <blockquote class="code"><p class="quoted"><a id="c8097_327"></a>The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8098_327"-->
+            <blockquote class="code"><p class="quoted"><a id="c8098_327"></a>The description of the book is &quot;It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8099_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8099_327"></a>The Spaceport is a room. North of the Spaceport is the Rocket Launch Pad. The player carries a stuffed bear, a chocolate cookie, and a book.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8100_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8100_327"></a>The description of the book is &quot;It is entitled [italic type]Why Not To Take [sentence cased inventory] To The Moon[roman type].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8101_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8101_327"></a>To say sentence cased inventory:
+            <blockquote class="code"><p class="quoted"><a id="c8099_327"></a>To say sentence cased inventory:
             <br>
             &#160;&#160;&#160;&#160;let N be &quot;[a list of things carried by the player]&quot; in title case;
             <br>
@@ -337,8 +337,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8102_327"-->
-            <blockquote class="code"><p class="quoted"><a id="c8102_327"></a>Test me with &quot;n / x book&quot;.
+            <!--START CODE "c8100_327"-->
+            <blockquote class="code"><p class="quoted"><a id="c8100_327"></a>Test me with &quot;n / x book&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

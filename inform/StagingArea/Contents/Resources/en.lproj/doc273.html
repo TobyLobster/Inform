@@ -83,28 +83,28 @@
     <!--END IGNORE-->
     <p class="sectionheading">§17.11. Understanding values</p>
     <p>&quot;Understand&quot; can be used to supply new ways to talk about both things and other values. For instance, if we create:</p>
-    <!--START CODE "c5838"-->
-    <blockquote class="code"><p class="quoted"><a id="c5838"></a>A brass lantern is in the Building.
+    <!--START CODE "c5836"-->
+    <blockquote class="code"><p class="quoted"><a id="c5836"></a>A brass lantern is in the Building.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then it can be called &quot;brass&quot;, or &quot;lantern&quot;, but not &quot;lamp&quot;: Inform does not really know what these words mean, and has no grasp of synonyms. We can arrange for &quot;lamp&quot; to work as well like so:</p>
-    <!--START CODE "c5839"-->
-    <blockquote class="code"><p class="quoted"><a id="c5839"></a>Understand &quot;lamp&quot; as the lantern.
+    <!--START CODE "c5837"-->
+    <blockquote class="code"><p class="quoted"><a id="c5837"></a>Understand &quot;lamp&quot; as the lantern.
     <br>
     Understand &quot;old lamp&quot; as the lantern.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>With care, we can do the same trick for entire kinds of thing at once. It is not ordinarily the case that a thing can be called by the name of its kind: if we put a woman called April into a room, then she can usually be called &quot;April&quot;, but not &quot;woman&quot;. (The exception is when we do not specify any name for her - in that case, Inform will give up and call her just &quot;woman&quot;.) So there is not usually any form of words which can refer to anything of a given kind. If we should want this, we have to say so explicitly:</p>
-    <!--START CODE "c5840"-->
-    <blockquote class="code"><p class="quoted"><a id="c5840"></a>Understand &quot;machine&quot; as a device.
+    <!--START CODE "c5838"-->
+    <blockquote class="code"><p class="quoted"><a id="c5838"></a>Understand &quot;machine&quot; as a device.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Device is a kind, so now the word &quot;machine&quot; can be used to refer to any device: if there are two in the same place, the result might play out like so:</p>
-    <!--START CODE "c5841"-->
-    <blockquote class="code"><p class="quoted"><a id="c5841"></a>&gt;switch machine on
+    <!--START CODE "c5839"-->
+    <blockquote class="code"><p class="quoted"><a id="c5839"></a>&gt;switch machine on
     <br>
     Which do you mean, the bale twiner or the grain thresher?
     <br>
@@ -115,14 +115,14 @@
     </blockquote>
     <!--END CODE-->
     <p>Similarly, we might conceivably want to allow new ways to recognise values - in this case, a number:</p>
-    <!--START CODE "c5842"-->
-    <blockquote class="code"><p class="quoted"><a id="c5842"></a>Understand &quot;eleventy-one&quot; as 111.
+    <!--START CODE "c5840"-->
+    <blockquote class="code"><p class="quoted"><a id="c5840"></a>Understand &quot;eleventy-one&quot; as 111.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>When making complicated names, we need to watch out for the possibility of writing a definition which will cause Inform to go around in circles (something which will show up as a &quot;Too many activities at once&quot; run-time problem). For instance,</p>
-    <!--START CODE "c5843"-->
-    <blockquote class="code"><p class="quoted"><a id="c5843"></a>Understand &quot;[thing] substitute&quot; as the placebo.
+    <!--START CODE "c5841"-->
+    <blockquote class="code"><p class="quoted"><a id="c5841"></a>Understand &quot;[thing] substitute&quot; as the placebo.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -155,43 +155,43 @@
 
         <div class="egpanel" id="example281" style="display: none;">
             <p>There are hundreds of traditional pigments, from lampblack to burnt sienna, so we will confine ourselves to just two:</p>
+            <!--START CODE "c5842_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c5842_281"></a><a href="javascript:pasteCode('[=0x0022=]Palette[=0x0022=][=0x000A=][=0x000A=]The Atelier is a room. [=0x0022=]The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).[=0x0022=] The canvas, palette and paint brush are here. Understand [=0x0022=]painting[=0x0022=] as the canvas.[=0x000A=][=0x000A=]Colour is a kind of value. The colours are white, red, blue and green.[=0x000A=][=0x000A=]The canvas has a colour. The canvas is white. The printed name of the canvas is [=0x0022=]largely [colour] canvas[=0x0022=].[=0x000A=][=0x000A=]Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say [=0x0022=]Centuries of tradition suggest that canvas is the natural home of paint.[=0x0022=] instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say [=0x0022=]You splash away at the now [canvas].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]paint [something] [a colour][=0x0022=] as painting.[=0x000A=][=0x000A=]Understand [=0x0022=]calico[=0x0022=] as white. Understand [=0x0022=]cerulean[=0x0022=] or [=0x0022=]cerulean blue[=0x0022=] as blue.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Palette[=0x0022=][=0x000A=][=0x000A=]The Atelier is a room. [=0x0022=]The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).[=0x0022=] The canvas, palette and paint brush are here. Understand [=0x0022=]painting[=0x0022=] as the canvas.[=0x000A=][=0x000A=]Colour is a kind of value. The colours are white, red, blue and green.[=0x000A=][=0x000A=]The canvas has a colour. The canvas is white. The printed name of the canvas is [=0x0022=]largely [colour] canvas[=0x0022=].[=0x000A=][=0x000A=]Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say [=0x0022=]Centuries of tradition suggest that canvas is the natural home of paint.[=0x0022=] instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say [=0x0022=]You splash away at the now [canvas].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]paint [something] [a colour][=0x0022=] as painting.[=0x000A=][=0x000A=]Understand [=0x0022=]calico[=0x0022=] as white. Understand [=0x0022=]cerulean[=0x0022=] or [=0x0022=]cerulean blue[=0x0022=] as blue.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas[=0x0022=].[=0x000A=]\n', 'Example - Palette')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Palette&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5843_281"-->
+            <blockquote class="code"><p class="quoted"><a id="c5843_281"></a>The Atelier is a room. &quot;The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).&quot; The canvas, palette and paint brush are here. Understand &quot;painting&quot; as the canvas.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5844_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5844_281"></a><a href="javascript:pasteCode('[=0x0022=]Palette[=0x0022=][=0x000A=][=0x000A=]The Atelier is a room. [=0x0022=]The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).[=0x0022=] The canvas, palette and paint brush are here. Understand [=0x0022=]painting[=0x0022=] as the canvas.[=0x000A=][=0x000A=]Colour is a kind of value. The colours are white, red, blue and green.[=0x000A=][=0x000A=]The canvas has a colour. The canvas is white. The printed name of the canvas is [=0x0022=]largely [colour] canvas[=0x0022=].[=0x000A=][=0x000A=]Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say [=0x0022=]Centuries of tradition suggest that canvas is the natural home of paint.[=0x0022=] instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say [=0x0022=]You splash away at the now [canvas].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]paint [something] [a colour][=0x0022=] as painting.[=0x000A=][=0x000A=]Understand [=0x0022=]calico[=0x0022=] as white. Understand [=0x0022=]cerulean[=0x0022=] or [=0x0022=]cerulean blue[=0x0022=] as blue.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Palette[=0x0022=][=0x000A=][=0x000A=]The Atelier is a room. [=0x0022=]The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).[=0x0022=] The canvas, palette and paint brush are here. Understand [=0x0022=]painting[=0x0022=] as the canvas.[=0x000A=][=0x000A=]Colour is a kind of value. The colours are white, red, blue and green.[=0x000A=][=0x000A=]The canvas has a colour. The canvas is white. The printed name of the canvas is [=0x0022=]largely [colour] canvas[=0x0022=].[=0x000A=][=0x000A=]Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say [=0x0022=]Centuries of tradition suggest that canvas is the natural home of paint.[=0x0022=] instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say [=0x0022=]You splash away at the now [canvas].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]paint [something] [a colour][=0x0022=] as painting.[=0x000A=][=0x000A=]Understand [=0x0022=]calico[=0x0022=] as white. Understand [=0x0022=]cerulean[=0x0022=] or [=0x0022=]cerulean blue[=0x0022=] as blue.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas[=0x0022=].[=0x000A=]\n', 'Example - Palette')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Palette&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5844_281"></a>Colour is a kind of value. The colours are white, red, blue and green.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5845_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5845_281"></a>The Atelier is a room. &quot;The floridly untidy loft space used by a moderately unsuccessful artist (you, that is).&quot; The canvas, palette and paint brush are here. Understand &quot;painting&quot; as the canvas.
+            <blockquote class="code"><p class="quoted"><a id="c5845_281"></a>The canvas has a colour. The canvas is white. The printed name of the canvas is &quot;largely [colour] canvas&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5846_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5846_281"></a>Colour is a kind of value. The colours are white, red, blue and green.
+            <blockquote class="code"><p class="quoted"><a id="c5846_281"></a>Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say &quot;Centuries of tradition suggest that canvas is the natural home of paint.&quot; instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say &quot;You splash away at the now [canvas].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5847_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5847_281"></a>The canvas has a colour. The canvas is white. The printed name of the canvas is &quot;largely [colour] canvas&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5847_281"></a>Understand &quot;paint [something] [a colour]&quot; as painting.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5848_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5848_281"></a>Painting is an action applying to one thing and one colour. Check painting: if the noun is not the canvas, say &quot;Centuries of tradition suggest that canvas is the natural home of paint.&quot; instead. Carry out painting: now the colour of the canvas is the colour understood. Report painting: say &quot;You splash away at the now [canvas].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5848_281"></a>Understand &quot;calico&quot; as white. Understand &quot;cerulean&quot; or &quot;cerulean blue&quot; as blue.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5849_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5849_281"></a>Understand &quot;paint [something] [a colour]&quot; as painting.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5850_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5850_281"></a>Understand &quot;calico&quot; as white. Understand &quot;cerulean&quot; or &quot;cerulean blue&quot; as blue.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5851_281"-->
-            <blockquote class="code"><p class="quoted"><a id="c5851_281"></a>Test me with &quot;examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5849_281"></a>Test me with &quot;examine canvas / paint canvas red / examine canvas / paint canvas cerulean / examine canvas&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -224,35 +224,35 @@
         <div class="egpanel" id="example21" style="display: none;">
             <p>The &quot;reading a command&quot; activity is rather advanced; for the moment, what we need to understand is that we're intervening in commands at the start of play and insisting that the player's first instruction to the game consist of a choice of gender. After that point, the gender will be set and play will proceed as normal.</p>
             <p>In order to do the parsing, we define gender as a kind of value, and give several alternate names to each gender.</p>
+            <!--START CODE "c5850_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5850_21"></a><a href="javascript:pasteCode('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Baritone, Bass')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Baritone, Bass&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5851_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5851_21"></a>Getting Started is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5852_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5852_21"></a><a href="javascript:pasteCode('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Baritone, Bass[=0x0022=][=0x000A=][=0x000A=]Getting Started is a room.[=0x000A=][=0x000A=]Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand [=0x0022=]male[=0x0022=] or [=0x0022=]man[=0x0022=] or [=0x0022=]M[=0x0022=] as masculine. Understand [=0x0022=]female[=0x0022=] or [=0x0022=]woman[=0x0022=] or [=0x0022=]F[=0x0022=] as feminine.[=0x000A=][=0x000A=]A person has a gender. The gender of the player is unknown.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]Please choose a gender for your character. [=0x003E=][=0x0022=].[=0x000A=][=0x000A=]After reading a command when the gender of the player is unknown:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=][gender][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]now the gender of the player is the gender understood;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is unknown:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]This story requires a selection of male or female. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is masculine, now the player is male;[=0x000A=][=0x0009=][=0x0009=]if the gender of the player is feminine, now the player is female;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break]Thank you. We now begin...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move the player to Sandy Beach;[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Sorry, we[=0x0027=]re not ready to go on yet. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Sandy Beach is a room.[=0x000A=][=0x000A=]Instead of examining the player when the player is female:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a girl![=0x0022=][=0x000A=][=0x000A=]Instead of examining the player when the player is male:[=0x000A=][=0x0009=]say [=0x0022=]Congratulations, you are a boy![=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Baritone, Bass')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Baritone, Bass&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5852_21"></a>Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand &quot;male&quot; or &quot;man&quot; or &quot;M&quot; as masculine. Understand &quot;female&quot; or &quot;woman&quot; or &quot;F&quot; as feminine.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5853_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5853_21"></a>Getting Started is a room.
+            <blockquote class="code"><p class="quoted"><a id="c5853_21"></a>A person has a gender. The gender of the player is unknown.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5854_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5854_21"></a>Gender is a kind of value. The genders are masculine, feminine, and unknown. Understand &quot;male&quot; or &quot;man&quot; or &quot;M&quot; as masculine. Understand &quot;female&quot; or &quot;woman&quot; or &quot;F&quot; as feminine.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5855_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5855_21"></a>A person has a gender. The gender of the player is unknown.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5856_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5856_21"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c5854_21"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;Please choose a gender for your character. &gt;&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5857_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5857_21"></a>After reading a command when the gender of the player is unknown:
+            <!--START CODE "c5855_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5855_21"></a>After reading a command when the gender of the player is unknown:
             <br>
             &#160;&#160;&#160;&#160;if the player's command includes &quot;[gender]&quot;:
             <br>
@@ -284,34 +284,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5858_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5858_21"></a>Sandy Beach is a room.
+            <!--START CODE "c5856_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5856_21"></a>Sandy Beach is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5859_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5859_21"></a>Instead of examining the player when the player is female:
+            <!--START CODE "c5857_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5857_21"></a>Instead of examining the player when the player is female:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a girl!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5860_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5860_21"></a>Instead of examining the player when the player is male:
+            <!--START CODE "c5858_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5858_21"></a>Instead of examining the player when the player is male:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Congratulations, you are a boy!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>If we had a whole series of things to ask the player about, we might define a whole series of kinds of value</p>
-            <!--START CODE "c5861_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5861_21"></a>The vocal ranges are soprano, mezzosoprano, contralto...
+            <!--START CODE "c5859_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5859_21"></a>The vocal ranges are soprano, mezzosoprano, contralto...
             </p>
             </blockquote>
             <!--END CODE-->
             <p>and use a &quot;construction stage&quot; variable to keep track of the current stage of character-construction, as in</p>
-            <!--START CODE "c5862_21"-->
-            <blockquote class="code"><p class="quoted"><a id="c5862_21"></a>After reading a command when the current construction stage is choosing a vocal range:
+            <!--START CODE "c5860_21"-->
+            <blockquote class="code"><p class="quoted"><a id="c5860_21"></a>After reading a command when the current construction stage is choosing a vocal range:
             <br>
             &#160;&#160;&#160;&#160;...
             </p>

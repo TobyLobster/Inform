@@ -83,46 +83,46 @@
     <!--END IGNORE-->
     <p class="sectionheading">§21.2. Constant lists</p>
     <p>It is convenient to have a concise way to write down a constant list. Just as we could write &quot;231&quot;, say, or &quot;7:01 AM&quot; to refer to particular number and time constants, so we can write list constants:</p>
-    <!--START CODE "c8318"-->
-    <blockquote class="code"><p class="quoted"><a id="c8318"></a>let L be {1, 2, 3, 4};
+    <!--START CODE "c8316"-->
+    <blockquote class="code"><p class="quoted"><a id="c8316"></a>let L be {1, 2, 3, 4};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Inform recognises that &quot;{1, 2, 3, 4}&quot; is a list because of the braces, and looks at the entries inside, sees that they are numbers, and deduces that it is a constant whose kind of value is &quot;list of numbers&quot;. L is then a temporary list variable and we can add to it, remove things, and so on as we please - {1, 2, 3, 4} is merely its initial value.</p>
     <p>When constructing lists, it is worth noting that Inform requires spaces after the commas (which seems a little harsh, but is necessary because otherwise many sensible literal specifications for units would be impossible - anyway, the reason isn't important here). So</p>
-    <!--START CODE "c8319"-->
-    <blockquote class="code"><p class="quoted"><a id="c8319"></a>let L be {1,2,3,4};
+    <!--START CODE "c8317"-->
+    <blockquote class="code"><p class="quoted"><a id="c8317"></a>let L be {1,2,3,4};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>would produce problem messages. But Inform does not require spaces round its braces.</p>
     <p>We call this way of writing a list &quot;brace notation&quot;. In mathematics, braces are usually used for sets, and properly speaking these are sequences not sets - so that &quot;{1, 2, 3, 4}&quot; is different from &quot;{4, 3, 2, 1}&quot; - but it is still a familiar notation. Similarly,</p>
-    <!--START CODE "c8320"-->
-    <blockquote class="code"><p class="quoted"><a id="c8320"></a>let L be {&quot;apple&quot;, &quot;pear&quot;, &quot;loganberry&quot;};
+    <!--START CODE "c8318"-->
+    <blockquote class="code"><p class="quoted"><a id="c8318"></a>let L be {&quot;apple&quot;, &quot;pear&quot;, &quot;loganberry&quot;};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>makes L a list of texts; and</p>
-    <!--START CODE "c8321"-->
-    <blockquote class="code"><p class="quoted"><a id="c8321"></a>The marshmallow, the firework and the stink bomb are in the Scout Hut. The list of prohibited items is a list of objects that varies. The list of prohibited items is {the firework, the stink bomb}.
+    <!--START CODE "c8319"-->
+    <blockquote class="code"><p class="quoted"><a id="c8319"></a>The marshmallow, the firework and the stink bomb are in the Scout Hut. The list of prohibited items is a list of objects that varies. The list of prohibited items is {the firework, the stink bomb}.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>makes a global variable (&quot;list of prohibited items&quot;) with kind of value &quot;list of objects&quot;, and whose initial value is to contain two things: the firework and the stink bomb. More exotically, if we need to make lists of lists:</p>
-    <!--START CODE "c8322"-->
-    <blockquote class="code"><p class="quoted"><a id="c8322"></a>let L be {{1, 2}, {6, 7, 8}};
+    <!--START CODE "c8320"-->
+    <blockquote class="code"><p class="quoted"><a id="c8320"></a>let L be {{1, 2}, {6, 7, 8}};
     </p>
     </blockquote>
     <!--END CODE-->
     <p>gives L the kind of value &quot;list of lists of numbers&quot;, with (initially) two entries: the list {1, 2} (a list of numbers), then the list {6, 7, 8} (ditto).</p>
     <p>Constant lists are convenient, too, when a column in a table needs to contain lists:</p>
-    <!--START CODE "c8323"-->
-    <blockquote class="code"><p class="quoted"><a id="c8323"></a>The duck, the orange, the cider, the cinnamon and the orange are in the Kitchen.
+    <!--START CODE "c8321"-->
+    <blockquote class="code"><p class="quoted"><a id="c8321"></a>The duck, the orange, the cider, the cinnamon and the orange are in the Kitchen.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c8324"-->
-    <blockquote class="code"><p class="quoted"><a id="c8324"></a>Table of Requirements
+    <!--START CODE "c8322"-->
+    <blockquote class="code"><p class="quoted"><a id="c8322"></a>Table of Requirements
     <br>
     </p>
     </blockquote>
@@ -162,21 +162,21 @@
     </blockquote>
     <!--END CODE-->
     <p>A special word about the constant list &quot;{ }&quot;. This means the list with no entries - the empty list. If we try to create a new &quot;let&quot; variable M with</p>
-    <!--START CODE "c8325"-->
-    <blockquote class="code"><p class="quoted"><a id="c8325"></a>let M be { };
+    <!--START CODE "c8323"-->
+    <blockquote class="code"><p class="quoted"><a id="c8323"></a>let M be { };
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then Inform will produce a problem message, because it cannot tell what sort of list M will be: a list of numbers, or texts, or times, or...? On the other hand, writing</p>
-    <!--START CODE "c8326"-->
-    <blockquote class="code"><p class="quoted"><a id="c8326"></a>now M is { };
+    <!--START CODE "c8324"-->
+    <blockquote class="code"><p class="quoted"><a id="c8324"></a>now M is { };
     </p>
     </blockquote>
     <!--END CODE-->
     <p>is fine if M already exists, and then does the obvious thing - empties M. Similarly, a table column in which every entry is &quot;{ }&quot; produces a problem message unless the heading for that column spells out the kind of value stored within it: for instance, &quot;ingredients (list of texts)&quot;.</p>
     <p>All of this is a notation for constant lists only, not some sort of gluing-things-together operation. So this, for instance:</p>
-    <!--START CODE "c8327"-->
-    <blockquote class="code"><p class="quoted"><a id="c8327"></a>let L be {100, the turn count};
+    <!--START CODE "c8325"-->
+    <blockquote class="code"><p class="quoted"><a id="c8325"></a>let L be {100, the turn count};
     </p>
     </blockquote>
     <!--END CODE-->

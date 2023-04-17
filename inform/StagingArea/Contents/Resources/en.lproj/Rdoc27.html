@@ -85,21 +85,21 @@
     <p>All of us carry around in our heads an (incomplete, imperfect) model of the world around us: an idea of where we left the keys, whether the oven is on or off, how many clean pairs of socks are left in the drawer, what we look like in our best pair of jeans. The differences between that mental model and reality are to some degree a reflection of personal character: our forgetfulness, our wishful thinking, our innocence or cynicism.</p>
     <p>By default, Inform does not keep track of the player character's knowledge (or any other character's knowledge, for that matter) as a separate thing from the model world, relying on descriptive prose rather than modeling to introduce these quirks of characterization.</p>
     <p>All the same, there are often times when we would like to keep track of discrepancies between the world model and the narrator's mental model. Perhaps the most common way to do this is simply to mark everything that the player encounters as &quot;seen&quot; when the player first examines it, thus:</p>
-    <!--START CODE "c11212"-->
-    <blockquote class="code"><p class="quoted"><a id="c11212"></a>A thing can be seen or unseen.
+    <!--START CODE "c11210"-->
+    <blockquote class="code"><p class="quoted"><a id="c11210"></a>A thing can be seen or unseen.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11213"-->
-    <blockquote class="code"><p class="quoted"><a id="c11213"></a>Carry out examining a thing:
+    <!--START CODE "c11211"-->
+    <blockquote class="code"><p class="quoted"><a id="c11211"></a>Carry out examining a thing:
     <br>
     &#160;&#160;&#160;&#160;now the noun is seen.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>or -- to have things remembered from the first moment they're mentioned in a room description:</p>
-    <!--START CODE "c11214"-->
-    <blockquote class="code"><p class="quoted"><a id="c11214"></a>Rule for printing the name of something (called the target):
+    <!--START CODE "c11212"-->
+    <blockquote class="code"><p class="quoted"><a id="c11212"></a>Rule for printing the name of something (called the target):
     <br>
     &#160;&#160;&#160;&#160;now the target is seen.
     </p>
@@ -110,33 +110,33 @@
     <p>Modeling what the player does and does not know is only half the job, of course: we also need that information to affect the behavior of the story in plausible ways.</p>
     <p>One obvious occasion to use player character knowledge is in the output of descriptions. We might want to respond to actions differently depending on what the player has previously done, as in <span class="boldface">Tense Boxing</span>, or change the way we describe objects in light of new knowledge about them, as in <span class="boldface">Zero</span>. <span class="boldface">Casino Banale</span> takes that idea much further, with a whole system of facts that can be narrated to the player in a somewhat flexible but interdependent order, as the player looks at relevant objects or notices them in room descriptions.</p>
     <p>Along similar lines, we may want an object to change its name for the player depending on what the player knows. That name change should affect both what Inform displays and what it understands about the object. For instance:</p>
+    <!--START CODE "c11213"-->
+    <blockquote class="code"><p class="quoted"><a id="c11213"></a>An Amherz Amulet is a thing. It can be known or unknown. It is privately-named.
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <!--START CODE "c11214"-->
+    <blockquote class="code"><p class="quoted"><a id="c11214"></a>The printed name is &quot;[if known]Amherz Amulet[otherwise]lizard-shaped pewter charm[end if]&quot;.
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c11215"-->
-    <blockquote class="code"><p class="quoted"><a id="c11215"></a>An Amherz Amulet is a thing. It can be known or unknown. It is privately-named.
+    <blockquote class="code"><p class="quoted"><a id="c11215"></a>The description is &quot;[if known]It's a unique and magically powerful pewter charm shaped like a lizard[otherwise]It's some cheap tacky pewter charm shaped like a lizard. At least, as far as you can tell -- it's pretty grubby[end if].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c11216"-->
-    <blockquote class="code"><p class="quoted"><a id="c11216"></a>The printed name is &quot;[if known]Amherz Amulet[otherwise]lizard-shaped pewter charm[end if]&quot;.
+    <blockquote class="code"><p class="quoted"><a id="c11216"></a>Understand &quot;amherz&quot; or &quot;amulet&quot; as the Amulet when the Amulet is known.
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c11217"-->
-    <blockquote class="code"><p class="quoted"><a id="c11217"></a>The description is &quot;[if known]It's a unique and magically powerful pewter charm shaped like a lizard[otherwise]It's some cheap tacky pewter charm shaped like a lizard. At least, as far as you can tell -- it's pretty grubby[end if].&quot;
+    <blockquote class="code"><p class="quoted"><a id="c11217"></a>Understand &quot;lizard&quot; or &quot;lizard-shaped&quot; or &quot;pewter&quot; or &quot;charm&quot; as the Amulet when the Amulet is unknown.
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c11218"-->
-    <blockquote class="code"><p class="quoted"><a id="c11218"></a>Understand &quot;amherz&quot; or &quot;amulet&quot; as the Amulet when the Amulet is known.
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c11219"-->
-    <blockquote class="code"><p class="quoted"><a id="c11219"></a>Understand &quot;lizard&quot; or &quot;lizard-shaped&quot; or &quot;pewter&quot; or &quot;charm&quot; as the Amulet when the Amulet is unknown.
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c11220"-->
-    <blockquote class="code"><p class="quoted"><a id="c11220"></a>Instead of rubbing the amulet when the amulet is unknown:
+    <blockquote class="code"><p class="quoted"><a id="c11218"></a>Instead of rubbing the amulet when the amulet is unknown:
     <br>
     &#160;&#160;&#160;&#160; say &quot;You rub off a bit of the dirt, and... what do you know? It's actually the priceless and fabulously powerful Amherz Amulet!&quot;;
     <br>
@@ -151,8 +151,8 @@
     <p>Using Inform's default behavior, however, scope is an ad-hoc way of keeping a list of things that are common knowledge between the story and the player. The player knows many things that the story might not (like what a cell phone is); the story knows a few things the player may not (like the fact that there is a sword in an as-yet unvisited room). Neither of those things can fruitfully enter into commands because they have no mutually agreed-upon referent.</p>
     <p>By default, Inform assumes that &quot;scope&quot; includes only those things that are currently visible by line of sight. This works pretty well for a wide range of situations, but there are still plenty of occasions when we want to admit that the story and the player share a knowledge of things not seen. GO TO THE KITCHEN might be a useful command even when the player can't currently view the kitchen. ASK FRED ABOUT THE FOOTPRINTS should perhaps work even when the footprints are far away in the garden. SMELL STINKY CHEESE might need to work even when the cheese is invisibly locked away in a porous container but is exuding a stench. In a dark room, the player can't see his own inventory, but he should still remember that he's carrying it and be able to mention it. And sometimes we might want the story to acknowledge that the player is referring to an object that he has seen somewhere, even if that thing is now out of sight.</p>
     <p>In practice, we have two ways to tinker with scope: we can change the scope for a specific command, using a token with any, as in</p>
-    <!--START CODE "c11221"-->
-    <blockquote class="code"><p class="quoted"><a id="c11221"></a>Understand &quot;go to [any room]&quot; as approaching.
+    <!--START CODE "c11219"-->
+    <blockquote class="code"><p class="quoted"><a id="c11219"></a>Understand &quot;go to [any room]&quot; as approaching.
     <br>
     Understand &quot;find [any thing]&quot; as finding.
     <br>
@@ -161,8 +161,8 @@
     </blockquote>
     <!--END CODE-->
     <p>Or we can add areas and items to scope for all commands, as in</p>
-    <!--START CODE "c11222"-->
-    <blockquote class="code"><p class="quoted"><a id="c11222"></a>After deciding the scope of the player when the surveillance camera is switched on:
+    <!--START CODE "c11220"-->
+    <blockquote class="code"><p class="quoted"><a id="c11220"></a>After deciding the scope of the player when the surveillance camera is switched on:
     <br>
     &#160;&#160;&#160;&#160;place the jail cell in scope.
     </p>
@@ -206,23 +206,23 @@
 
         <div class="egpanel" id="example376" style="display: none;">
             <p>Here we have a box that prints out its current state and its history each time we open and close it:</p>
+            <!--START CODE "c11221_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11221_376"></a><a href="javascript:pasteCode('[=0x0022=]Tense Boxing[=0x0022=][=0x000A=][=0x000A=]The Temporal Prism is a room. [=0x0022=]A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.[=0x0022=][=0x000A=][=0x000A=]The mysterious box is in the Temporal Prism. It is an openable closed container.[=0x000A=][=0x000A=]To assess the box:[=0x000A=][=0x0009=]if the box was not open, say [=0x0022=]The box was not open.[=0x0022=];[=0x000A=][=0x0009=]if the box was open, say [=0x0022=]The box was open.[=0x0022=];[=0x000A=][=0x0009=]if the box had not been open, say [=0x0022=]The box had not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box had been open, say [=0x0022=]The box had been open.[=0x0022=];[=0x000A=][=0x0009=]if the box is not open, say [=0x0022=]The box is not open.[=0x0022=];[=0x000A=][=0x0009=]if the box is open, say [=0x0022=]The box is open.[=0x0022=];[=0x000A=][=0x0009=]if the box has not been open, say [=0x0022=]The box has not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box has been open, say [=0x0022=]The box has been open.[=0x0022=][=0x000A=][=0x000A=]Before opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]Before closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=][Note that [=0x0022=]was...[=0x0022=] and [=0x0022=]was not...[=0x0022=] and so on may describe conditions more complicated than simple properties: we could equally well ask [=0x0022=]if the box has been in the sack[=0x0022=], [=0x0022=]if the box had been carried by the player[=0x0022=], and so on.][=0x000A=][=0x000A=][The past ([=0x0022=]if the box was...[=0x0022=]) and past perfect ([=0x0022=]if the box had been...[=0x0022=]) are especially useful for cases where we want to report on an action after the state of the item has changed; so, for instance:][=0x000A=][=0x000A=]After taking the mysterious box:[=0x000A=][=0x0009=]if the box had not been carried by the player, say [=0x0022=]You lift the mysterious box for the first time.[=0x0022=];[=0x000A=][=0x0009=]if the box had been carried by the player, say [=0x0022=]You again pick up the mysterious box.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open box / close box / open box / take box / drop box / take box[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tense Boxing[=0x0022=][=0x000A=][=0x000A=]The Temporal Prism is a room. [=0x0022=]A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.[=0x0022=][=0x000A=][=0x000A=]The mysterious box is in the Temporal Prism. It is an openable closed container.[=0x000A=][=0x000A=]To assess the box:[=0x000A=][=0x0009=]if the box was not open, say [=0x0022=]The box was not open.[=0x0022=];[=0x000A=][=0x0009=]if the box was open, say [=0x0022=]The box was open.[=0x0022=];[=0x000A=][=0x0009=]if the box had not been open, say [=0x0022=]The box had not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box had been open, say [=0x0022=]The box had been open.[=0x0022=];[=0x000A=][=0x0009=]if the box is not open, say [=0x0022=]The box is not open.[=0x0022=];[=0x000A=][=0x0009=]if the box is open, say [=0x0022=]The box is open.[=0x0022=];[=0x000A=][=0x0009=]if the box has not been open, say [=0x0022=]The box has not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box has been open, say [=0x0022=]The box has been open.[=0x0022=][=0x000A=][=0x000A=]Before opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]Before closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=][Note that [=0x0022=]was...[=0x0022=] and [=0x0022=]was not...[=0x0022=] and so on may describe conditions more complicated than simple properties: we could equally well ask [=0x0022=]if the box has been in the sack[=0x0022=], [=0x0022=]if the box had been carried by the player[=0x0022=], and so on.][=0x000A=][=0x000A=][The past ([=0x0022=]if the box was...[=0x0022=]) and past perfect ([=0x0022=]if the box had been...[=0x0022=]) are especially useful for cases where we want to report on an action after the state of the item has changed; so, for instance:][=0x000A=][=0x000A=]After taking the mysterious box:[=0x000A=][=0x0009=]if the box had not been carried by the player, say [=0x0022=]You lift the mysterious box for the first time.[=0x0022=];[=0x000A=][=0x0009=]if the box had been carried by the player, say [=0x0022=]You again pick up the mysterious box.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open box / close box / open box / take box / drop box / take box[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Tense Boxing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tense Boxing&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11222_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11222_376"></a>The Temporal Prism is a room. &quot;A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11223_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11223_376"></a><a href="javascript:pasteCode('[=0x0022=]Tense Boxing[=0x0022=][=0x000A=][=0x000A=]The Temporal Prism is a room. [=0x0022=]A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.[=0x0022=][=0x000A=][=0x000A=]The mysterious box is in the Temporal Prism. It is an openable closed container.[=0x000A=][=0x000A=]To assess the box:[=0x000A=][=0x0009=]if the box was not open, say [=0x0022=]The box was not open.[=0x0022=];[=0x000A=][=0x0009=]if the box was open, say [=0x0022=]The box was open.[=0x0022=];[=0x000A=][=0x0009=]if the box had not been open, say [=0x0022=]The box had not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box had been open, say [=0x0022=]The box had been open.[=0x0022=];[=0x000A=][=0x0009=]if the box is not open, say [=0x0022=]The box is not open.[=0x0022=];[=0x000A=][=0x0009=]if the box is open, say [=0x0022=]The box is open.[=0x0022=];[=0x000A=][=0x0009=]if the box has not been open, say [=0x0022=]The box has not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box has been open, say [=0x0022=]The box has been open.[=0x0022=][=0x000A=][=0x000A=]Before opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]Before closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=][Note that [=0x0022=]was...[=0x0022=] and [=0x0022=]was not...[=0x0022=] and so on may describe conditions more complicated than simple properties: we could equally well ask [=0x0022=]if the box has been in the sack[=0x0022=], [=0x0022=]if the box had been carried by the player[=0x0022=], and so on.][=0x000A=][=0x000A=][The past ([=0x0022=]if the box was...[=0x0022=]) and past perfect ([=0x0022=]if the box had been...[=0x0022=]) are especially useful for cases where we want to report on an action after the state of the item has changed; so, for instance:][=0x000A=][=0x000A=]After taking the mysterious box:[=0x000A=][=0x0009=]if the box had not been carried by the player, say [=0x0022=]You lift the mysterious box for the first time.[=0x0022=];[=0x000A=][=0x0009=]if the box had been carried by the player, say [=0x0022=]You again pick up the mysterious box.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open box / close box / open box / take box / drop box / take box[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tense Boxing[=0x0022=][=0x000A=][=0x000A=]The Temporal Prism is a room. [=0x0022=]A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.[=0x0022=][=0x000A=][=0x000A=]The mysterious box is in the Temporal Prism. It is an openable closed container.[=0x000A=][=0x000A=]To assess the box:[=0x000A=][=0x0009=]if the box was not open, say [=0x0022=]The box was not open.[=0x0022=];[=0x000A=][=0x0009=]if the box was open, say [=0x0022=]The box was open.[=0x0022=];[=0x000A=][=0x0009=]if the box had not been open, say [=0x0022=]The box had not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box had been open, say [=0x0022=]The box had been open.[=0x0022=];[=0x000A=][=0x0009=]if the box is not open, say [=0x0022=]The box is not open.[=0x0022=];[=0x000A=][=0x0009=]if the box is open, say [=0x0022=]The box is open.[=0x0022=];[=0x000A=][=0x0009=]if the box has not been open, say [=0x0022=]The box has not been open.[=0x0022=];[=0x000A=][=0x0009=]if the box has been open, say [=0x0022=]The box has been open.[=0x0022=][=0x000A=][=0x000A=]Before opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]Before closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You are about to close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After opening the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now open the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=]After closing the mysterious box:[=0x000A=][=0x0009=]say [=0x0022=]You now close the box.[=0x0022=];[=0x000A=][=0x0009=]assess the box.[=0x000A=][=0x000A=][Note that [=0x0022=]was...[=0x0022=] and [=0x0022=]was not...[=0x0022=] and so on may describe conditions more complicated than simple properties: we could equally well ask [=0x0022=]if the box has been in the sack[=0x0022=], [=0x0022=]if the box had been carried by the player[=0x0022=], and so on.][=0x000A=][=0x000A=][The past ([=0x0022=]if the box was...[=0x0022=]) and past perfect ([=0x0022=]if the box had been...[=0x0022=]) are especially useful for cases where we want to report on an action after the state of the item has changed; so, for instance:][=0x000A=][=0x000A=]After taking the mysterious box:[=0x000A=][=0x0009=]if the box had not been carried by the player, say [=0x0022=]You lift the mysterious box for the first time.[=0x0022=];[=0x000A=][=0x0009=]if the box had been carried by the player, say [=0x0022=]You again pick up the mysterious box.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open box / close box / open box / take box / drop box / take box[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Tense Boxing')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tense Boxing&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11223_376"></a>The mysterious box is in the Temporal Prism. It is an openable closed container.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11224_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11224_376"></a>The Temporal Prism is a room. &quot;A room of angled mirrors, in whose surfaces you can see what is now; what just was; what has always been. A final mirror is broken and its frame gapes blackly.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11225_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11225_376"></a>The mysterious box is in the Temporal Prism. It is an openable closed container.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11226_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11226_376"></a>To assess the box:
+            <blockquote class="code"><p class="quoted"><a id="c11224_376"></a>To assess the box:
             <br>
             &#160;&#160;&#160;&#160;if the box was not open, say &quot;The box was not open.&quot;;
             <br>
@@ -242,8 +242,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11227_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11227_376"></a>Before opening the mysterious box:
+            <!--START CODE "c11225_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11225_376"></a>Before opening the mysterious box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are about to open the box.&quot;;
             <br>
@@ -251,8 +251,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11228_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11228_376"></a>Before closing the mysterious box:
+            <!--START CODE "c11226_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11226_376"></a>Before closing the mysterious box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are about to close the box.&quot;;
             <br>
@@ -260,8 +260,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11229_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11229_376"></a>After opening the mysterious box:
+            <!--START CODE "c11227_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11227_376"></a>After opening the mysterious box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You now open the box.&quot;;
             <br>
@@ -269,8 +269,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11230_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11230_376"></a>After closing the mysterious box:
+            <!--START CODE "c11228_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11228_376"></a>After closing the mysterious box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You now close the box.&quot;;
             <br>
@@ -280,8 +280,8 @@
             <!--END CODE-->
             <p>Note that &quot;was...&quot; and &quot;was not...&quot; and so on may describe conditions more complicated than simple properties: we could equally well ask &quot;if the box has been in the sack&quot;, &quot;if the box had been carried by the player&quot;, and so on.</p>
             <p>The past (&quot;if the box was...&quot;) and past perfect (&quot;if the box had been...&quot;) are especially useful for cases where we want to report on an action after the state of the item has changed; so, for instance:</p>
-            <!--START CODE "c11231_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11231_376"></a>After taking the mysterious box:
+            <!--START CODE "c11229_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11229_376"></a>After taking the mysterious box:
             <br>
             &#160;&#160;&#160;&#160;if the box had not been carried by the player, say &quot;You lift the mysterious box for the first time.&quot;;
             <br>
@@ -289,8 +289,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11232_376"-->
-            <blockquote class="code"><p class="quoted"><a id="c11232_376"></a>Test me with &quot;open box / close box / open box / take box / drop box / take box&quot;.
+            <!--START CODE "c11230_376"-->
+            <blockquote class="code"><p class="quoted"><a id="c11230_376"></a>Test me with &quot;open box / close box / open box / take box / drop box / take box&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -326,72 +326,72 @@
         <div class="egpanel" id="example305" style="display: none;">
             <p>By default, when something is not present, Inform does not allow a player to refer to it. But there are times when we might like to acknowledge that the thing mentioned in a command does exist somewhere in the game; it just happens not to be on hand right now.</p>
             <p>One way to do this is to make an object that appears everywhere and responds to the name of its owner only when the owner itself is not in view.</p>
-            <!--START CODE "c11233_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11233_305"></a><a href="javascript:pasteCode('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Puncak Jaya')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puncak Jaya&quot;
+            <!--START CODE "c11231_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11231_305"></a><a href="javascript:pasteCode('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Puncak Jaya[=0x0022=][=0x000A=][=0x000A=]A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.[=0x000A=][=0x000A=][We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.][=0x000A=][=0x000A=]Representation relates one ghost to one person. The verb to represent means the representation relation.[=0x000A=][=0x000A=]One man-ghost represents every man. One woman-ghost represents every woman.[=0x000A=][=0x000A=][This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.][=0x000A=][=0x000A=][Based on the [=0x0022=]representation[=0x0022=] relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:][=0x000A=][=0x000A=]Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.[=0x000A=][=0x000A=]Understand [=0x0022=][something related by indication][=0x0022=] as a ghost.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every ghost is in the concept-repository.[=0x000A=][=0x000A=]Instead of doing something to a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the noun] behind.[=0x0022=][=0x000A=][=0x000A=]Instead of doing something when the second noun is a ghost:[=0x000A=][=0x0009=]say [=0x0022=]You seem to have left [a random person which is represented by the second noun] behind.[=0x0022=][=0x000A=][=0x000A=]The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.[=0x000A=][=0x000A=]Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.[=0x000A=][=0x000A=]Test me with [=0x0022=]x kippax / up / x kippax / kiss kippax / kippax, hello[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Puncak Jaya')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Puncak Jaya&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11234_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11234_305"></a>A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.
+            <!--START CODE "c11232_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11232_305"></a>A ghost is a kind of person. A man-ghost is a kind of ghost. A man-ghost is always male. A woman-ghost is a kind of ghost. A woman-ghost is always female.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We make the ghost a person rather than some other kind of thing so that it will be able to respond to commands such as KISS BOB or (even trickier) BOB, JUMP: if Inform did not recognize the ghost as an animate creature, it would not accept such input.</p>
-            <!--START CODE "c11235_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11235_305"></a>Representation relates one ghost to one person. The verb to represent means the representation relation.
+            <!--START CODE "c11233_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11233_305"></a>Representation relates one ghost to one person. The verb to represent means the representation relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11236_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11236_305"></a>One man-ghost represents every man. One woman-ghost represents every woman.
+            <!--START CODE "c11234_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11234_305"></a>One man-ghost represents every man. One woman-ghost represents every woman.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This is, technically, an assembly -- except instead of saying that every device has a button part, or that there are three daffodils in every garden room, the assembly is based on a non-physical relation that we just designed.</p>
             <p>Based on the &quot;representation&quot; relation, we now devise a conditional relation that applies only when the represented thing is not itself in view:</p>
+            <!--START CODE "c11235_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11235_305"></a>Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11236_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11236_305"></a>Understand &quot;[something related by indication]&quot; as a ghost.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11237_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11237_305"></a>Indication relates a ghost (called X) to a person (called Y) when X represents Y and Y is not visible.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11238_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11238_305"></a>Understand &quot;[something related by indication]&quot; as a ghost.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11239_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11239_305"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c11237_305"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now every ghost is in the concept-repository.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11240_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11240_305"></a>Instead of doing something to a ghost:
+            <!--START CODE "c11238_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11238_305"></a>Instead of doing something to a ghost:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You seem to have left [a random person which is represented by the noun] behind.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11241_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11241_305"></a>Instead of doing something when the second noun is a ghost:
+            <!--START CODE "c11239_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11239_305"></a>Instead of doing something when the second noun is a ghost:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You seem to have left [a random person which is represented by the second noun] behind.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11240_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11240_305"></a>The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11241_305"-->
+            <blockquote class="code"><p class="quoted"><a id="c11241_305"></a>Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11242_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11242_305"></a>The concept-repository is an open unopenable transparent container. It is part of the air. The air is a backdrop. It is everywhere.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11243_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11243_305"></a>Base of Puncak Jaya is a room. Temple, Kippax, and Huizenga are men in Base. Peak of Puncak Jaya is above Base of Puncak Jaya.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11244_305"-->
-            <blockquote class="code"><p class="quoted"><a id="c11244_305"></a>Test me with &quot;x kippax / up / x kippax / kiss kippax / kippax, hello&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c11242_305"></a>Test me with &quot;x kippax / up / x kippax / kiss kippax / kippax, hello&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -424,48 +424,48 @@
 
         <div class="egpanel" id="example254" style="display: none;">
             <p>The names of objects might want to change also:</p>
+            <!--START CODE "c11243_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11243_254"></a><a href="javascript:pasteCode('[=0x0022=]Zero[=0x0022=][=0x000A=][=0x000A=]Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.[=0x000A=][=0x000A=]A thing is usually manageable.[=0x000A=][=0x000A=][This does require a rule for an activity (see the chapter on Activities), but it[=0x0027=]s a fairly straightforward one:][=0x000A=][=0x000A=]Before printing the name of a horribly heavy thing (called weighty object):[=0x000A=][=0x0009=]if we have taken the weighty object, say [=0x0022=][weight] [=0x0022=].[=0x000A=][=0x000A=]The Nearly Empty Living Room is a room. [=0x0022=]Nearly everything is out, all of Helen[=0x0027=]s possessions and most of yours.[=0x0022=] A man called Mr Zero is in the Nearly Empty Living Room. [=0x0022=]Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.[=0x0022=] The description of Mr Zero is [=0x0022=]Many muscles, no hair.[=0x0022=][=0x000A=][=0x000A=]The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.[=0x000A=][=0x000A=]After taking a horribly heavy thing:[=0x000A=][=0x0009=]say [=0x0022=]Taken. (Oof.)[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get clothing / look / get book box / look / i / drop book box / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Zero[=0x0022=][=0x000A=][=0x000A=]Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.[=0x000A=][=0x000A=]A thing is usually manageable.[=0x000A=][=0x000A=][This does require a rule for an activity (see the chapter on Activities), but it[=0x0027=]s a fairly straightforward one:][=0x000A=][=0x000A=]Before printing the name of a horribly heavy thing (called weighty object):[=0x000A=][=0x0009=]if we have taken the weighty object, say [=0x0022=][weight] [=0x0022=].[=0x000A=][=0x000A=]The Nearly Empty Living Room is a room. [=0x0022=]Nearly everything is out, all of Helen[=0x0027=]s possessions and most of yours.[=0x0022=] A man called Mr Zero is in the Nearly Empty Living Room. [=0x0022=]Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.[=0x0022=] The description of Mr Zero is [=0x0022=]Many muscles, no hair.[=0x0022=][=0x000A=][=0x000A=]The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.[=0x000A=][=0x000A=]After taking a horribly heavy thing:[=0x000A=][=0x0009=]say [=0x0022=]Taken. (Oof.)[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get clothing / look / get book box / look / i / drop book box / look[=0x0022=].[=0x000A=]\n', 'Example - Zero')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Zero&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11244_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11244_254"></a>Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11245_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11245_254"></a><a href="javascript:pasteCode('[=0x0022=]Zero[=0x0022=][=0x000A=][=0x000A=]Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.[=0x000A=][=0x000A=]A thing is usually manageable.[=0x000A=][=0x000A=][This does require a rule for an activity (see the chapter on Activities), but it[=0x0027=]s a fairly straightforward one:][=0x000A=][=0x000A=]Before printing the name of a horribly heavy thing (called weighty object):[=0x000A=][=0x0009=]if we have taken the weighty object, say [=0x0022=][weight] [=0x0022=].[=0x000A=][=0x000A=]The Nearly Empty Living Room is a room. [=0x0022=]Nearly everything is out, all of Helen[=0x0027=]s possessions and most of yours.[=0x0022=] A man called Mr Zero is in the Nearly Empty Living Room. [=0x0022=]Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.[=0x0022=] The description of Mr Zero is [=0x0022=]Many muscles, no hair.[=0x0022=][=0x000A=][=0x000A=]The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.[=0x000A=][=0x000A=]After taking a horribly heavy thing:[=0x000A=][=0x0009=]say [=0x0022=]Taken. (Oof.)[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get clothing / look / get book box / look / i / drop book box / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Zero[=0x0022=][=0x000A=][=0x000A=]Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.[=0x000A=][=0x000A=]A thing is usually manageable.[=0x000A=][=0x000A=][This does require a rule for an activity (see the chapter on Activities), but it[=0x0027=]s a fairly straightforward one:][=0x000A=][=0x000A=]Before printing the name of a horribly heavy thing (called weighty object):[=0x000A=][=0x0009=]if we have taken the weighty object, say [=0x0022=][weight] [=0x0022=].[=0x000A=][=0x000A=]The Nearly Empty Living Room is a room. [=0x0022=]Nearly everything is out, all of Helen[=0x0027=]s possessions and most of yours.[=0x0022=] A man called Mr Zero is in the Nearly Empty Living Room. [=0x0022=]Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.[=0x0022=] The description of Mr Zero is [=0x0022=]Many muscles, no hair.[=0x0022=][=0x000A=][=0x000A=]The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.[=0x000A=][=0x000A=]After taking a horribly heavy thing:[=0x000A=][=0x0009=]say [=0x0022=]Taken. (Oof.)[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get clothing / look / get book box / look / i / drop book box / look[=0x0022=].[=0x000A=]\n', 'Example - Zero')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Zero&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11246_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11246_254"></a>Weight is a kind of value. The weights are light, manageable, and horribly heavy. Everything has a weight.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11247_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11247_254"></a>A thing is usually manageable.
+            <blockquote class="code"><p class="quoted"><a id="c11245_254"></a>A thing is usually manageable.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This does require a rule for an activity (see the chapter on Activities), but it's a fairly straightforward one:</p>
-            <!--START CODE "c11248_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11248_254"></a>Before printing the name of a horribly heavy thing (called weighty object):
+            <!--START CODE "c11246_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11246_254"></a>Before printing the name of a horribly heavy thing (called weighty object):
             <br>
             &#160;&#160;&#160;&#160;if we have taken the weighty object, say &quot;[weight] &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c11247_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11247_254"></a>The Nearly Empty Living Room is a room. &quot;Nearly everything is out, all of Helen's possessions and most of yours.&quot; A man called Mr Zero is in the Nearly Empty Living Room. &quot;Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.&quot; The description of Mr Zero is &quot;Many muscles, no hair.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11248_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11248_254"></a>The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11249_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11249_254"></a>The Nearly Empty Living Room is a room. &quot;Nearly everything is out, all of Helen's possessions and most of yours.&quot; A man called Mr Zero is in the Nearly Empty Living Room. &quot;Mr Zero, despite being heavily paid to assist in this operation, is giving you a look that clearly conveys his lack of interest in budging even one more item.&quot; The description of Mr Zero is &quot;Many muscles, no hair.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11250_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11250_254"></a>The book box is a horribly heavy thing in the Living Room. The clothing box is a manageable thing in the Living Room. A broom, a dustpan, some packing tape, and a discarded newspaper are light things in the Living Room.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11251_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11251_254"></a>After taking a horribly heavy thing:
+            <blockquote class="code"><p class="quoted"><a id="c11249_254"></a>After taking a horribly heavy thing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Taken. (Oof.)&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11252_254"-->
-            <blockquote class="code"><p class="quoted"><a id="c11252_254"></a>Test me with &quot;get clothing / look / get book box / look / i / drop book box / look&quot;.
+            <!--START CODE "c11250_254"-->
+            <blockquote class="code"><p class="quoted"><a id="c11250_254"></a>Test me with &quot;get clothing / look / get book box / look / i / drop book box / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -498,50 +498,50 @@
         <div class="egpanel" id="example67" style="display: none;">
             <p>In a work of interactive fiction that involves many new discoveries, we might want to change the way we narrate room descriptions and describe objects as the player learns new information.</p>
             <p>One approach to this is to create a model of the facts we want the player to find out, and attach some narrative text to each. When a fact becomes relevant to the story, that narrative text is shown to the player. So:</p>
-            <!--START CODE "c11253_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11253_67"></a><a href="javascript:pasteCode('[=0x0022=]Casino Banale[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][First we create the concept of facts, and the idea that facts can make some things more important than others.][=0x000A=][=0x000A=]A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.[=0x000A=][=0x000A=]Definition: a thing is narratively significant if it conveys an interesting fact.[=0x000A=][=0x000A=]Definition: a thing is narratively dull if it is not narratively significant.[=0x000A=][=0x000A=]Conveyance relates various things to various facts. The verb to convey means the conveyance relation.[=0x000A=][=0x000A=]Definition: a fact is interesting if it is unknown and it is ready to learn.[=0x000A=][=0x000A=][Now, we also need a way to tell Inform to introduce certain new facts when the right previous ones have been introduced. We[=0x0027=]ll create a [=0x0022=]following[=0x0022=] relation, according to which a new fact can be told to the player when the player has already learned all the facts it follows. This way, we can simulate the effect of putting together several pieces of evidence to come to a conclusion:][=0x000A=][=0x000A=]Following relates various facts to various facts. The verb to follow means the following relation.[=0x000A=][=0x000A=]To say (new fact - a fact):[=0x000A=][=0x0009=]say [=0x0022=][narration of the new fact][=0x0022=];[=0x000A=][=0x0009=]now the new fact is known;[=0x000A=][=0x0009=]repeat with possible outcome running through facts which follow the new fact:[=0x000A=][=0x0009=][=0x0009=]if every fact which is followed by possible outcome is known:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the possible outcome is ready to learn.[=0x000A=][=0x000A=][Next we need a way for the game to introduce these new facts. Let[=0x0027=]s say we want them to come up when the player examines something appropriate, or sees it in the room:][=0x000A=][=0x000A=]After examining something which conveys an interesting fact (called discovery):[=0x000A=][=0x0009=]say [=0x0022=][discovery][paragraph break][=0x0022=].[=0x000A=][=0x000A=]After choosing notable locale objects:[=0x000A=][=0x0009=]repeat through the Table of Locale Priorities:[=0x000A=][=0x0009=][=0x0009=]if the notable-object entry is narratively significant:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]set the locale priority of the notable-object entry to 1.[=0x000A=][=0x000A=]For writing a paragraph about a narratively significant thing (called item):[=0x000A=][=0x0009=]now the item is mentioned;[=0x000A=][=0x0009=]let chosen fact be a random interesting fact which is conveyed by the item;[=0x000A=][=0x0009=]say [=0x0022=][chosen fact][paragraph break][=0x0022=].[=0x000A=][=0x000A=][The [=0x0022=]after choosing notable locale objects[=0x0022=] line here handles things so that any interesting conclusions we want to draw are always given first, followed by the less interesting description.][=0x000A=][=0x000A=][And finally, we need to give the player a little evidence to piece together:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Casino is a room.[=0x000A=][=0x000A=]Frince is a man in the Casino. The description is [=0x0022=]Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it[=0x0027=]s the whim that wins. Always. [paragraph break]He[=0x0027=]s also wearing a somewhat ludicrous shirt.[=0x0022=][=0x000A=][=0x000A=]Frince wears a ludicrous shirt. The description of the ludicrous shirt is [=0x0022=]Fine white fabric with satiny white pinstripes: it[=0x0027=]s that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.[=0x0022=][=0x000A=][=0x000A=]Tim is a man in the Casino. The description is [=0x0022=]You don[=0x0027=]t know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.[=0x0022=][=0x000A=][=0x000A=]Penny is a woman in the Casino. The description is [=0x0022=]Loud. Brash. Hot, probably, if you can look past the loud and brash.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about a narratively dull person:[=0x000A=][=0x0009=]let is-are-n be [=0x0022=]is[=0x0022=];[=0x000A=][=0x0009=]if the number of unmentioned narratively dull people is not 1:[=0x000A=][=0x0009=][=0x0009=]let is-are-n be [=0x0022=]are[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][A list of unmentioned narratively dull people] [is-are-n] [one of]watching the croupier[or]following the spin of the roulette[or]chattering[at random][one of] breathlessly[or] impatiently[or][at random].[=0x0022=][=0x000A=][=0x000A=]Penny-annoying is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny grimaces at you-- [end if]Penny is the same woman who stepped on your toe in the buffet line. The third time, she blurted, [=0x0027=]You have big shoes, don[=0x0027=]t you?[=0x0027=][=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-annoying.[=0x000A=][=0x000A=]lipstick-smudges is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=]There are a couple of smudges of coral-colored lipstick on the collar.[=0x0022=][=0x000A=][=0x0009=]The ludicrous shirt conveys lipstick-smudges.[=0x000A=][=0x000A=]penny-wears-coral is a fact.[=0x000A=][=0x0009=]It follows penny-annoying.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny catches your eye again. [end if]The bright coral lipstick was really not a wise choice.[=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-wears-coral.[=0x000A=][=0x000A=]Affair-with-penny is a fact.[=0x000A=][=0x0009=]It follows lipstick-smudges and penny-wears-coral.[=0x000A=][=0x0009=]The narration is [=0x0022=]You avoid [if examining Frince]his[otherwise]Frince[=0x0027=]s[end if] eye. You need some time to adjust to the image of him making out with Penny in a storage closet before you can talk to him without appalled giggling.[=0x0022=][=0x000A=][=0x0009=]Frince conveys affair-with-Penny.[=0x000A=][=0x000A=]Test me with [=0x0022=]x penny / x frince / x shirt / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Casino Banale[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][First we create the concept of facts, and the idea that facts can make some things more important than others.][=0x000A=][=0x000A=]A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.[=0x000A=][=0x000A=]Definition: a thing is narratively significant if it conveys an interesting fact.[=0x000A=][=0x000A=]Definition: a thing is narratively dull if it is not narratively significant.[=0x000A=][=0x000A=]Conveyance relates various things to various facts. The verb to convey means the conveyance relation.[=0x000A=][=0x000A=]Definition: a fact is interesting if it is unknown and it is ready to learn.[=0x000A=][=0x000A=][Now, we also need a way to tell Inform to introduce certain new facts when the right previous ones have been introduced. We[=0x0027=]ll create a [=0x0022=]following[=0x0022=] relation, according to which a new fact can be told to the player when the player has already learned all the facts it follows. This way, we can simulate the effect of putting together several pieces of evidence to come to a conclusion:][=0x000A=][=0x000A=]Following relates various facts to various facts. The verb to follow means the following relation.[=0x000A=][=0x000A=]To say (new fact - a fact):[=0x000A=][=0x0009=]say [=0x0022=][narration of the new fact][=0x0022=];[=0x000A=][=0x0009=]now the new fact is known;[=0x000A=][=0x0009=]repeat with possible outcome running through facts which follow the new fact:[=0x000A=][=0x0009=][=0x0009=]if every fact which is followed by possible outcome is known:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the possible outcome is ready to learn.[=0x000A=][=0x000A=][Next we need a way for the game to introduce these new facts. Let[=0x0027=]s say we want them to come up when the player examines something appropriate, or sees it in the room:][=0x000A=][=0x000A=]After examining something which conveys an interesting fact (called discovery):[=0x000A=][=0x0009=]say [=0x0022=][discovery][paragraph break][=0x0022=].[=0x000A=][=0x000A=]After choosing notable locale objects:[=0x000A=][=0x0009=]repeat through the Table of Locale Priorities:[=0x000A=][=0x0009=][=0x0009=]if the notable-object entry is narratively significant:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]set the locale priority of the notable-object entry to 1.[=0x000A=][=0x000A=]For writing a paragraph about a narratively significant thing (called item):[=0x000A=][=0x0009=]now the item is mentioned;[=0x000A=][=0x0009=]let chosen fact be a random interesting fact which is conveyed by the item;[=0x000A=][=0x0009=]say [=0x0022=][chosen fact][paragraph break][=0x0022=].[=0x000A=][=0x000A=][The [=0x0022=]after choosing notable locale objects[=0x0022=] line here handles things so that any interesting conclusions we want to draw are always given first, followed by the less interesting description.][=0x000A=][=0x000A=][And finally, we need to give the player a little evidence to piece together:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Casino is a room.[=0x000A=][=0x000A=]Frince is a man in the Casino. The description is [=0x0022=]Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it[=0x0027=]s the whim that wins. Always. [paragraph break]He[=0x0027=]s also wearing a somewhat ludicrous shirt.[=0x0022=][=0x000A=][=0x000A=]Frince wears a ludicrous shirt. The description of the ludicrous shirt is [=0x0022=]Fine white fabric with satiny white pinstripes: it[=0x0027=]s that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.[=0x0022=][=0x000A=][=0x000A=]Tim is a man in the Casino. The description is [=0x0022=]You don[=0x0027=]t know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.[=0x0022=][=0x000A=][=0x000A=]Penny is a woman in the Casino. The description is [=0x0022=]Loud. Brash. Hot, probably, if you can look past the loud and brash.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about a narratively dull person:[=0x000A=][=0x0009=]let is-are-n be [=0x0022=]is[=0x0022=];[=0x000A=][=0x0009=]if the number of unmentioned narratively dull people is not 1:[=0x000A=][=0x0009=][=0x0009=]let is-are-n be [=0x0022=]are[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][A list of unmentioned narratively dull people] [is-are-n] [one of]watching the croupier[or]following the spin of the roulette[or]chattering[at random][one of] breathlessly[or] impatiently[or][at random].[=0x0022=][=0x000A=][=0x000A=]Penny-annoying is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny grimaces at you-- [end if]Penny is the same woman who stepped on your toe in the buffet line. The third time, she blurted, [=0x0027=]You have big shoes, don[=0x0027=]t you?[=0x0027=][=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-annoying.[=0x000A=][=0x000A=]lipstick-smudges is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=]There are a couple of smudges of coral-colored lipstick on the collar.[=0x0022=][=0x000A=][=0x0009=]The ludicrous shirt conveys lipstick-smudges.[=0x000A=][=0x000A=]penny-wears-coral is a fact.[=0x000A=][=0x0009=]It follows penny-annoying.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny catches your eye again. [end if]The bright coral lipstick was really not a wise choice.[=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-wears-coral.[=0x000A=][=0x000A=]Affair-with-penny is a fact.[=0x000A=][=0x0009=]It follows lipstick-smudges and penny-wears-coral.[=0x000A=][=0x0009=]The narration is [=0x0022=]You avoid [if examining Frince]his[otherwise]Frince[=0x0027=]s[end if] eye. You need some time to adjust to the image of him making out with Penny in a storage closet before you can talk to him without appalled giggling.[=0x0022=][=0x000A=][=0x0009=]Frince conveys affair-with-Penny.[=0x000A=][=0x000A=]Test me with [=0x0022=]x penny / x frince / x shirt / look[=0x0022=].[=0x000A=]\n', 'Example - Casino Banale')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Casino Banale&quot;
+            <!--START CODE "c11251_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11251_67"></a><a href="javascript:pasteCode('[=0x0022=]Casino Banale[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][First we create the concept of facts, and the idea that facts can make some things more important than others.][=0x000A=][=0x000A=]A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.[=0x000A=][=0x000A=]Definition: a thing is narratively significant if it conveys an interesting fact.[=0x000A=][=0x000A=]Definition: a thing is narratively dull if it is not narratively significant.[=0x000A=][=0x000A=]Conveyance relates various things to various facts. The verb to convey means the conveyance relation.[=0x000A=][=0x000A=]Definition: a fact is interesting if it is unknown and it is ready to learn.[=0x000A=][=0x000A=][Now, we also need a way to tell Inform to introduce certain new facts when the right previous ones have been introduced. We[=0x0027=]ll create a [=0x0022=]following[=0x0022=] relation, according to which a new fact can be told to the player when the player has already learned all the facts it follows. This way, we can simulate the effect of putting together several pieces of evidence to come to a conclusion:][=0x000A=][=0x000A=]Following relates various facts to various facts. The verb to follow means the following relation.[=0x000A=][=0x000A=]To say (new fact - a fact):[=0x000A=][=0x0009=]say [=0x0022=][narration of the new fact][=0x0022=];[=0x000A=][=0x0009=]now the new fact is known;[=0x000A=][=0x0009=]repeat with possible outcome running through facts which follow the new fact:[=0x000A=][=0x0009=][=0x0009=]if every fact which is followed by possible outcome is known:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the possible outcome is ready to learn.[=0x000A=][=0x000A=][Next we need a way for the game to introduce these new facts. Let[=0x0027=]s say we want them to come up when the player examines something appropriate, or sees it in the room:][=0x000A=][=0x000A=]After examining something which conveys an interesting fact (called discovery):[=0x000A=][=0x0009=]say [=0x0022=][discovery][paragraph break][=0x0022=].[=0x000A=][=0x000A=]After choosing notable locale objects:[=0x000A=][=0x0009=]repeat through the Table of Locale Priorities:[=0x000A=][=0x0009=][=0x0009=]if the notable-object entry is narratively significant:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]set the locale priority of the notable-object entry to 1.[=0x000A=][=0x000A=]For writing a paragraph about a narratively significant thing (called item):[=0x000A=][=0x0009=]now the item is mentioned;[=0x000A=][=0x0009=]let chosen fact be a random interesting fact which is conveyed by the item;[=0x000A=][=0x0009=]say [=0x0022=][chosen fact][paragraph break][=0x0022=].[=0x000A=][=0x000A=][The [=0x0022=]after choosing notable locale objects[=0x0022=] line here handles things so that any interesting conclusions we want to draw are always given first, followed by the less interesting description.][=0x000A=][=0x000A=][And finally, we need to give the player a little evidence to piece together:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Casino is a room.[=0x000A=][=0x000A=]Frince is a man in the Casino. The description is [=0x0022=]Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it[=0x0027=]s the whim that wins. Always. [paragraph break]He[=0x0027=]s also wearing a somewhat ludicrous shirt.[=0x0022=][=0x000A=][=0x000A=]Frince wears a ludicrous shirt. The description of the ludicrous shirt is [=0x0022=]Fine white fabric with satiny white pinstripes: it[=0x0027=]s that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.[=0x0022=][=0x000A=][=0x000A=]Tim is a man in the Casino. The description is [=0x0022=]You don[=0x0027=]t know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.[=0x0022=][=0x000A=][=0x000A=]Penny is a woman in the Casino. The description is [=0x0022=]Loud. Brash. Hot, probably, if you can look past the loud and brash.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about a narratively dull person:[=0x000A=][=0x0009=]let is-are-n be [=0x0022=]is[=0x0022=];[=0x000A=][=0x0009=]if the number of unmentioned narratively dull people is not 1:[=0x000A=][=0x0009=][=0x0009=]let is-are-n be [=0x0022=]are[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][A list of unmentioned narratively dull people] [is-are-n] [one of]watching the croupier[or]following the spin of the roulette[or]chattering[at random][one of] breathlessly[or] impatiently[or][at random].[=0x0022=][=0x000A=][=0x000A=]Penny-annoying is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny grimaces at you-- [end if]Penny is the same woman who stepped on your toe in the buffet line. The third time, she blurted, [=0x0027=]You have big shoes, don[=0x0027=]t you?[=0x0027=][=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-annoying.[=0x000A=][=0x000A=]lipstick-smudges is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=]There are a couple of smudges of coral-colored lipstick on the collar.[=0x0022=][=0x000A=][=0x0009=]The ludicrous shirt conveys lipstick-smudges.[=0x000A=][=0x000A=]penny-wears-coral is a fact.[=0x000A=][=0x0009=]It follows penny-annoying.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny catches your eye again. [end if]The bright coral lipstick was really not a wise choice.[=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-wears-coral.[=0x000A=][=0x000A=]Affair-with-penny is a fact.[=0x000A=][=0x0009=]It follows lipstick-smudges and penny-wears-coral.[=0x000A=][=0x0009=]The narration is [=0x0022=]You avoid [if examining Frince]his[otherwise]Frince[=0x0027=]s[end if] eye. You need some time to adjust to the image of him making out with Penny in a storage closet before you can talk to him without appalled giggling.[=0x0022=][=0x000A=][=0x0009=]Frince conveys affair-with-Penny.[=0x000A=][=0x000A=]Test me with [=0x0022=]x penny / x frince / x shirt / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Casino Banale[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=][First we create the concept of facts, and the idea that facts can make some things more important than others.][=0x000A=][=0x000A=]A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.[=0x000A=][=0x000A=]Definition: a thing is narratively significant if it conveys an interesting fact.[=0x000A=][=0x000A=]Definition: a thing is narratively dull if it is not narratively significant.[=0x000A=][=0x000A=]Conveyance relates various things to various facts. The verb to convey means the conveyance relation.[=0x000A=][=0x000A=]Definition: a fact is interesting if it is unknown and it is ready to learn.[=0x000A=][=0x000A=][Now, we also need a way to tell Inform to introduce certain new facts when the right previous ones have been introduced. We[=0x0027=]ll create a [=0x0022=]following[=0x0022=] relation, according to which a new fact can be told to the player when the player has already learned all the facts it follows. This way, we can simulate the effect of putting together several pieces of evidence to come to a conclusion:][=0x000A=][=0x000A=]Following relates various facts to various facts. The verb to follow means the following relation.[=0x000A=][=0x000A=]To say (new fact - a fact):[=0x000A=][=0x0009=]say [=0x0022=][narration of the new fact][=0x0022=];[=0x000A=][=0x0009=]now the new fact is known;[=0x000A=][=0x0009=]repeat with possible outcome running through facts which follow the new fact:[=0x000A=][=0x0009=][=0x0009=]if every fact which is followed by possible outcome is known:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the possible outcome is ready to learn.[=0x000A=][=0x000A=][Next we need a way for the game to introduce these new facts. Let[=0x0027=]s say we want them to come up when the player examines something appropriate, or sees it in the room:][=0x000A=][=0x000A=]After examining something which conveys an interesting fact (called discovery):[=0x000A=][=0x0009=]say [=0x0022=][discovery][paragraph break][=0x0022=].[=0x000A=][=0x000A=]After choosing notable locale objects:[=0x000A=][=0x0009=]repeat through the Table of Locale Priorities:[=0x000A=][=0x0009=][=0x0009=]if the notable-object entry is narratively significant:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]set the locale priority of the notable-object entry to 1.[=0x000A=][=0x000A=]For writing a paragraph about a narratively significant thing (called item):[=0x000A=][=0x0009=]now the item is mentioned;[=0x000A=][=0x0009=]let chosen fact be a random interesting fact which is conveyed by the item;[=0x000A=][=0x0009=]say [=0x0022=][chosen fact][paragraph break][=0x0022=].[=0x000A=][=0x000A=][The [=0x0022=]after choosing notable locale objects[=0x0022=] line here handles things so that any interesting conclusions we want to draw are always given first, followed by the less interesting description.][=0x000A=][=0x000A=][And finally, we need to give the player a little evidence to piece together:][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Casino is a room.[=0x000A=][=0x000A=]Frince is a man in the Casino. The description is [=0x0022=]Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it[=0x0027=]s the whim that wins. Always. [paragraph break]He[=0x0027=]s also wearing a somewhat ludicrous shirt.[=0x0022=][=0x000A=][=0x000A=]Frince wears a ludicrous shirt. The description of the ludicrous shirt is [=0x0022=]Fine white fabric with satiny white pinstripes: it[=0x0027=]s that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.[=0x0022=][=0x000A=][=0x000A=]Tim is a man in the Casino. The description is [=0x0022=]You don[=0x0027=]t know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.[=0x0022=][=0x000A=][=0x000A=]Penny is a woman in the Casino. The description is [=0x0022=]Loud. Brash. Hot, probably, if you can look past the loud and brash.[=0x0022=][=0x000A=][=0x000A=]Rule for writing a paragraph about a narratively dull person:[=0x000A=][=0x0009=]let is-are-n be [=0x0022=]is[=0x0022=];[=0x000A=][=0x0009=]if the number of unmentioned narratively dull people is not 1:[=0x000A=][=0x0009=][=0x0009=]let is-are-n be [=0x0022=]are[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][A list of unmentioned narratively dull people] [is-are-n] [one of]watching the croupier[or]following the spin of the roulette[or]chattering[at random][one of] breathlessly[or] impatiently[or][at random].[=0x0022=][=0x000A=][=0x000A=]Penny-annoying is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny grimaces at you-- [end if]Penny is the same woman who stepped on your toe in the buffet line. The third time, she blurted, [=0x0027=]You have big shoes, don[=0x0027=]t you?[=0x0027=][=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-annoying.[=0x000A=][=0x000A=]lipstick-smudges is a fact.[=0x000A=][=0x0009=]It is ready to learn.[=0x000A=][=0x0009=]The narration is [=0x0022=]There are a couple of smudges of coral-colored lipstick on the collar.[=0x0022=][=0x000A=][=0x0009=]The ludicrous shirt conveys lipstick-smudges.[=0x000A=][=0x000A=]penny-wears-coral is a fact.[=0x000A=][=0x0009=]It follows penny-annoying.[=0x000A=][=0x0009=]The narration is [=0x0022=][if looking]Penny catches your eye again. [end if]The bright coral lipstick was really not a wise choice.[=0x0022=][=0x000A=][=0x0009=]Penny conveys penny-wears-coral.[=0x000A=][=0x000A=]Affair-with-penny is a fact.[=0x000A=][=0x0009=]It follows lipstick-smudges and penny-wears-coral.[=0x000A=][=0x0009=]The narration is [=0x0022=]You avoid [if examining Frince]his[otherwise]Frince[=0x0027=]s[end if] eye. You need some time to adjust to the image of him making out with Penny in a storage closet before you can talk to him without appalled giggling.[=0x0022=][=0x000A=][=0x0009=]Frince conveys affair-with-Penny.[=0x000A=][=0x000A=]Test me with [=0x0022=]x penny / x frince / x shirt / look[=0x0022=].[=0x000A=]\n', 'Example - Casino Banale')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Casino Banale&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11254_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11254_67"></a>Section 1 - Procedure
+            <!--START CODE "c11252_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11252_67"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
             <p>First we create the concept of facts, and the idea that facts can make some things more important than others.</p>
+            <!--START CODE "c11253_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11253_67"></a>A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11254_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11254_67"></a>Definition: a thing is narratively significant if it conveys an interesting fact.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11255_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11255_67"></a>A fact is a kind of thing. A fact can be known or unknown. A fact can be ready to learn or hidden. A fact has some text called the narration.
+            <blockquote class="code"><p class="quoted"><a id="c11255_67"></a>Definition: a thing is narratively dull if it is not narratively significant.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11256_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11256_67"></a>Definition: a thing is narratively significant if it conveys an interesting fact.
+            <blockquote class="code"><p class="quoted"><a id="c11256_67"></a>Conveyance relates various things to various facts. The verb to convey means the conveyance relation.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11257_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11257_67"></a>Definition: a thing is narratively dull if it is not narratively significant.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11258_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11258_67"></a>Conveyance relates various things to various facts. The verb to convey means the conveyance relation.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11259_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11259_67"></a>Definition: a fact is interesting if it is unknown and it is ready to learn.
+            <blockquote class="code"><p class="quoted"><a id="c11257_67"></a>Definition: a fact is interesting if it is unknown and it is ready to learn.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now, we also need a way to tell Inform to introduce certain new facts when the right previous ones have been introduced. We'll create a &quot;following&quot; relation, according to which a new fact can be told to the player when the player has already learned all the facts it follows. This way, we can simulate the effect of putting together several pieces of evidence to come to a conclusion:</p>
-            <!--START CODE "c11260_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11260_67"></a>Following relates various facts to various facts. The verb to follow means the following relation.
+            <!--START CODE "c11258_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11258_67"></a>Following relates various facts to various facts. The verb to follow means the following relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11261_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11261_67"></a>To say (new fact - a fact):
+            <!--START CODE "c11259_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11259_67"></a>To say (new fact - a fact):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[narration of the new fact]&quot;;
             <br>
@@ -556,15 +556,15 @@
             </blockquote>
             <!--END CODE-->
             <p>Next we need a way for the game to introduce these new facts. Let's say we want them to come up when the player examines something appropriate, or sees it in the room:</p>
-            <!--START CODE "c11262_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11262_67"></a>After examining something which conveys an interesting fact (called discovery):
+            <!--START CODE "c11260_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11260_67"></a>After examining something which conveys an interesting fact (called discovery):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[discovery][paragraph break]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11263_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11263_67"></a>After choosing notable locale objects:
+            <!--START CODE "c11261_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11261_67"></a>After choosing notable locale objects:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Locale Priorities:
             <br>
@@ -574,8 +574,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11264_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11264_67"></a>For writing a paragraph about a narratively significant thing (called item):
+            <!--START CODE "c11262_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11262_67"></a>For writing a paragraph about a narratively significant thing (called item):
             <br>
             &#160;&#160;&#160;&#160;now the item is mentioned;
             <br>
@@ -587,38 +587,38 @@
             <!--END CODE-->
             <p>The &quot;after choosing notable locale objects&quot; line here handles things so that any interesting conclusions we want to draw are always given first, followed by the less interesting description.</p>
             <p>And finally, we need to give the player a little evidence to piece together:</p>
+            <!--START CODE "c11263_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11263_67"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c11264_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11264_67"></a>The Casino is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c11265_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11265_67"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c11265_67"></a>Frince is a man in the Casino. The description is &quot;Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it's the whim that wins. Always. [paragraph break]He's also wearing a somewhat ludicrous shirt.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11266_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11266_67"></a>The Casino is a room.
+            <blockquote class="code"><p class="quoted"><a id="c11266_67"></a>Frince wears a ludicrous shirt. The description of the ludicrous shirt is &quot;Fine white fabric with satiny white pinstripes: it's that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11267_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11267_67"></a>Frince is a man in the Casino. The description is &quot;Frince is a friend of yours -- if you reckon friendship on the same terms that one reckons a cat as a pet. He spends time with you when he wants to, but if your wishes or convenience ever run counter to a whim of his, it's the whim that wins. Always. [paragraph break]He's also wearing a somewhat ludicrous shirt.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11267_67"></a>Tim is a man in the Casino. The description is &quot;You don't know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11268_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11268_67"></a>Frince wears a ludicrous shirt. The description of the ludicrous shirt is &quot;Fine white fabric with satiny white pinstripes: it's that expensive, effeminate look that Frince is so fond of, and which -- combined with his name -- gives people completely the wrong idea about him.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c11268_67"></a>Penny is a woman in the Casino. The description is &quot;Loud. Brash. Hot, probably, if you can look past the loud and brash.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c11269_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11269_67"></a>Tim is a man in the Casino. The description is &quot;You don't know Tim well. Kind of wall-flowerish. The only thing that seems to excite him is craps.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11270_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11270_67"></a>Penny is a woman in the Casino. The description is &quot;Loud. Brash. Hot, probably, if you can look past the loud and brash.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c11271_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11271_67"></a>Rule for writing a paragraph about a narratively dull person:
+            <blockquote class="code"><p class="quoted"><a id="c11269_67"></a>Rule for writing a paragraph about a narratively dull person:
             <br>
             &#160;&#160;&#160;&#160;let is-are-n be &quot;is&quot;;
             <br>
@@ -630,8 +630,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11272_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11272_67"></a>Penny-annoying is a fact.
+            <!--START CODE "c11270_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11270_67"></a>Penny-annoying is a fact.
             <br>
             &#160;&#160;&#160;&#160;It is ready to learn.
             <br>
@@ -641,8 +641,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11273_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11273_67"></a>lipstick-smudges is a fact.
+            <!--START CODE "c11271_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11271_67"></a>lipstick-smudges is a fact.
             <br>
             &#160;&#160;&#160;&#160;It is ready to learn.
             <br>
@@ -652,8 +652,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11274_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11274_67"></a>penny-wears-coral is a fact.
+            <!--START CODE "c11272_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11272_67"></a>penny-wears-coral is a fact.
             <br>
             &#160;&#160;&#160;&#160;It follows penny-annoying.
             <br>
@@ -663,8 +663,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11275_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11275_67"></a>Affair-with-penny is a fact.
+            <!--START CODE "c11273_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11273_67"></a>Affair-with-penny is a fact.
             <br>
             &#160;&#160;&#160;&#160;It follows lipstick-smudges and penny-wears-coral.
             <br>
@@ -674,8 +674,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c11276_67"-->
-            <blockquote class="code"><p class="quoted"><a id="c11276_67"></a>Test me with &quot;x penny / x frince / x shirt / look&quot;.
+            <!--START CODE "c11274_67"-->
+            <blockquote class="code"><p class="quoted"><a id="c11274_67"></a>Test me with &quot;x penny / x frince / x shirt / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

@@ -84,32 +84,32 @@
     <p class="sectionheading">§27.7. Extensions and story file formats</p>
     <p>Inform compiles to several different story file formats, and in each case uses only a small part of their abilities - especially when it comes to fancy tricks with the keyboard or screen. So people may well want to write extensions which provide access to some of these tricks (like &quot;Basic Screen Effects&quot;, included in the standard Inform distribution, but more so). Unfortunately, these tricks are very likely to fail to compile - or fail to work - on some of the possible story file formats, so the resulting extension would probably go wrong (and mysteriously wrong) for users who have chosen a different format.</p>
     <p>Inform therefore provides a way for extensions to declare the formats they are compatible with. All that is required is to add a proviso in brackets after the title is declared:</p>
-    <!--START CODE "c9049"-->
-    <blockquote class="code"><p class="quoted"><a id="c9049"></a>Version 2 of Basic Screen Effects (for Z-Machine version 8 only) by Emily Short begins here.
+    <!--START CODE "c9047"-->
+    <blockquote class="code"><p class="quoted"><a id="c9047"></a>Version 2 of Basic Screen Effects (for Z-Machine version 8 only) by Emily Short begins here.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Other examples might be &quot;(for Glulx only)&quot;, or &quot;(for Z-machine only)&quot;. If no such proviso is given, the extension is assumed to be compatible with every story file format.</p>
     <p>Extensions are also able to include material which is only used on some story file formats and not others - in principle, this might allow the same facilities to be provided to the author whatever story file format is used, but to achieve these effects differently depending on the current Settings. The convention here is exactly like &quot;not for release&quot;: if a heading or subheading in the source text contains a bracketed proviso, then the material under that heading (and under its dependent subheadings) will be ignored if the current story file format does not match. For example:</p>
-    <!--START CODE "c9050"-->
-    <blockquote class="code"><p class="quoted"><a id="c9050"></a>Section 2.3G (for Glulx only)
+    <!--START CODE "c9048"-->
+    <blockquote class="code"><p class="quoted"><a id="c9048"></a>Section 2.3G (for Glulx only)
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c9051"-->
-    <blockquote class="code"><p class="quoted"><a id="c9051"></a>To reveal the explosion:
+    <!--START CODE "c9049"-->
+    <blockquote class="code"><p class="quoted"><a id="c9049"></a>To reveal the explosion:
     <br>
     &#160;&#160;&#160;&#160;[...the Glulx way...]
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c9052"-->
-    <blockquote class="code"><p class="quoted"><a id="c9052"></a>Section 2.3Z (for Z-machine only)
+    <!--START CODE "c9050"-->
+    <blockquote class="code"><p class="quoted"><a id="c9050"></a>Section 2.3Z (for Z-machine only)
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c9053"-->
-    <blockquote class="code"><p class="quoted"><a id="c9053"></a>To reveal the explosion:
+    <!--START CODE "c9051"-->
+    <blockquote class="code"><p class="quoted"><a id="c9051"></a>To reveal the explosion:
     <br>
     &#160;&#160;&#160;&#160;[...the Z-machine way...]
     </p>
@@ -145,31 +145,26 @@
         <div class="egpanel" id="example384" style="display: none;">
             <p>Books and articles about card-playing traditionally abbreviate card names into a simple two-symbol notation: a number or letter representing the card rank, followed by a symbol indicating the card suit. Suppose that we want to emulate this notation when taking inventory in our poker game.</p>
             <p>The trick here is that colored output is done in different ways by the Z-Machine and by Glulx, so we'll need two different versions of the same section in order to produce this output. The relevant source is right at the beginning:</p>
-            <!--START CODE "c9054_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9054_384"></a><a href="javascript:pasteCode('[=0x0022=]Tilt[=0x0022=][=0x000A=][=0x000A=]Section 0 - Colored Output in Two Forms[=0x000A=][=0x000A=][For the suit symbols, we[=0x0027=]ll want the Unicode extension included with Inform:][=0x000A=][=0x000A=]Include Unicode Character Names by Graham Nelson.[=0x000A=][=0x000A=]Rule for printing the name of a card (called target) while grouping together:[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as abbreviated value][suit of the target as symbol][=0x0022=].[=0x000A=][=0x000A=]To say (current suit - a suit) as symbol:[=0x000A=][=0x0009=]if current suit is diamonds, say [=0x0022=][red letters][unicode black diamond suit][default letters][=0x0022=];[=0x000A=][=0x0009=]if current suit is spades, say [=0x0022=][unicode black spade suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is clubs, say [=0x0022=][unicode black club suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is hearts, say [=0x0022=][red letters][unicode black heart suit][default letters][=0x0022=].[=0x000A=][=0x000A=]Section 0Z (for Z-machine only)[=0x000A=][=0x000A=][The Basic Screen Effects extension bundled with Inform includes mechanisms to change the text color, so for the Z-machine, we need only include this:][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Section 0G (for Glulx only)[=0x000A=][=0x000A=][Under Glulx, we need slightly more set-up: Glulx requires that we define special user font styles when we plan to make display changes. A fuller discussion of this (and of how to define new colors) appears in the documentation of [=0x0022=]Glulx Text Effects[=0x0022=], but an implementation sufficient to our purposes would be][=0x000A=][=0x000A=]Include Glulx Text Effects by Emily Short.[=0x000A=][=0x000A=]Table of User Styles (continued)[=0x000A=]style name[=0x0009=]glulx color[=0x000A=]special-style-1[=0x0009=]g-pure-red[=0x000A=][=0x000A=]Table of Common Color Values (continued)[=0x000A=]glulx color value[=0x0009=]assigned number[=0x000A=]g-pure-red[=0x0009=]16711680[=0x000A=][=0x000A=]To say red letters: say first custom style.[=0x000A=][=0x000A=]To say default letters: say roman type.[=0x000A=][=0x000A=][From here, the rest of the source is mostly as we[=0x0027=]ve seen in previous examples:][=0x000A=][=0x000A=]Section 1 - Cards[=0x000A=][=0x000A=]Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand [=0x0022=]heart[=0x0022=] as hearts. Understand [=0x0022=]club[=0x0022=] as clubs. Understand [=0x0022=]diamond[=0x0022=] as diamonds. Understand [=0x0022=]spade[=0x0022=] as spades.[=0x000A=][=0x000A=]A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.[=0x000A=][=0x000A=]52 cards are in the card repository.[=0x000A=][=0x000A=]To say (count - a number) as a card value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][term entry][=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of a card (called target):[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as a card value] of [suit of the target][=0x0022=][=0x000A=][=0x000A=]To say (count - a number) as abbreviated value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][abbrev entry][=0x0022=].[=0x000A=][=0x000A=]Table of Value Names[=0x000A=]term[=0x0009=]value[=0x0009=]abbrev[=0x0009=]topic[=0x000A=][=0x0022=]ace[=0x0022=][=0x0009=][=0x0022=]1[=0x0022=][=0x0009=][=0x0022=]A[=0x0022=][=0x0009=][=0x0022=]ace/A[=0x0022=][=0x000A=][=0x0022=]deuce[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]deuce/two[=0x0022=][=0x000A=][=0x0022=]three[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]three[=0x0022=][=0x000A=][=0x0022=]four[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]four[=0x0022=][=0x000A=][=0x0022=]five[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]five[=0x0022=][=0x000A=][=0x0022=]six[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]six[=0x0022=][=0x000A=][=0x0022=]seven[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]seven[=0x0022=][=0x000A=][=0x0022=]eight[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]eight[=0x0022=][=0x000A=][=0x0022=]nine[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]nine[=0x0022=][=0x000A=][=0x0022=]ten[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]ten[=0x0022=][=0x000A=][=0x0022=]jack[=0x0022=][=0x0009=][=0x0022=]11[=0x0022=][=0x0009=][=0x0022=]J[=0x0022=][=0x0009=][=0x0022=]jack/knave/J[=0x0022=][=0x000A=][=0x0022=]queen[=0x0022=][=0x0009=][=0x0022=]12[=0x0022=][=0x0009=][=0x0022=]Q[=0x0022=][=0x0009=][=0x0022=]queen/Q[=0x0022=][=0x000A=][=0x0022=]king[=0x0022=][=0x0009=][=0x0022=]13[=0x0022=][=0x0009=][=0x0022=]K[=0x0022=][=0x0009=][=0x0022=]king/K[=0x0022=][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]of [suit][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes [=0x0022=]of[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]repeat through the Table of Value Names:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the matched text with value entry.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]reconstitute deck.[=0x000A=][=0x000A=]To reconstitute deck:[=0x000A=][=0x0009=]let current suit be hearts;[=0x000A=][=0x0009=]now every card is in the card repository;[=0x000A=][=0x0009=]while a card is in the card repository:[=0x000A=][=0x0009=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let item be a random card in card repository;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now rank of item is current rank;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now suit of item is current suit;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is in the deck of cards;[=0x000A=][=0x0009=][=0x0009=]now current suit is the suit after the current suit.[=0x000A=][=0x000A=]Section 2 - The Deck and the Discard Pile[=0x000A=][=0x000A=]The Empty Room is a room. [=0x0022=]Nothing to see here.[=0x0022=][=0x000A=][=0x000A=]The deck of cards is in the Empty Room. It is a closed unopenable container. The description is [=0x0022=]A standard poker deck.[=0x0022=][=0x000A=][=0x000A=]The discard pile is a closed unopenable container. The description is [=0x0022=]Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].[=0x0022=][=0x000A=][=0x000A=]To decide what number is the rounded number of (described set - a description of objects):[=0x000A=][=0x0009=]let N be the number of members of the described set;[=0x000A=][=0x0009=]let R be N divided by 5;[=0x000A=][=0x0009=]let total be R times 5;[=0x000A=][=0x0009=]decide on total.[=0x000A=][=0x000A=]Rule for printing room description details of something: do nothing instead.[=0x000A=][=0x000A=]Section 3 - Drawing and Discarding Actions[=0x000A=][=0x000A=]Understand the commands [=0x0022=]take[=0x0022=] and [=0x0022=]carry[=0x0022=] and [=0x0022=]hold[=0x0022=] and [=0x0022=]get[=0x0022=] and [=0x0022=]drop[=0x0022=] and [=0x0022=]throw[=0x0022=] and [=0x0022=]discard[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]take [text][=0x0022=] or [=0x0022=]get [text][=0x0022=] or [=0x0022=]drop [text][=0x0022=] as a mistake ([=0x0022=]Here, you only draw and discard. Nothing else matters at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]draw[=0x0022=] or [=0x0022=]draw card[=0x0022=] or [=0x0022=]draw a card[=0x0022=] as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.[=0x000A=][=0x000A=]Setting action variables for drawing:[=0x000A=][=0x0009=]now the card drawn is a random card which is in the deck of cards.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the card drawn is nothing, say [=0x0022=]The deck is completely depleted.[=0x0022=] instead.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the number of cards carried by the player is greater than four,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]This is a five-card game; you must discard something before drawing anything further.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out drawing:[=0x000A=][=0x0009=]move the card drawn to the player.[=0x000A=][=0x000A=]Report drawing:[=0x000A=][=0x0009=]say [=0x0022=]You draw [a card drawn].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]discard [card][=0x0022=] as discarding. Discarding is an action applying to one thing.[=0x000A=][=0x000A=]Check discarding:[=0x000A=][=0x0009=]if the player does not carry the noun, say [=0x0022=]You can only discard cards from your own hand.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out discarding:[=0x000A=][=0x0009=]now the noun is in the discard pile;[=0x000A=][=0x0009=]if the discard pile is not visible, move the discard pile to the location.[=0x000A=][=0x000A=]Report discarding:[=0x000A=][=0x0009=]say [=0x0022=]You toss [the noun] nonchalantly onto the discard pile.[=0x0022=][=0x000A=][=0x000A=]Section 4 - Assessing Hands[=0x000A=][=0x000A=]Before listing contents while taking inventory: group cards together.[=0x000A=][=0x000A=]Before grouping together cards:[=0x000A=][=0x0009=]if the number of cards carried by the player is 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]follow the hand-ranking rules;[=0x000A=][=0x0009=][=0x0009=]if the rule succeeded, say [=0x0022=][the outcome of the rulebook][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]some random cards[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if the outcome of the rulebook is pair outcome, say [=0x0022=] of [rank of the first thing held by the player as a card value]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][number of cards carried by the player in words] assorted cards[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=] ([=0x0022=].[=0x000A=][=0x000A=]Rule for grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=][list hand][=0x0022=].[=0x000A=][=0x000A=]To say list hand:[=0x000A=][=0x0009=]let chosen card be the first thing held by the player;[=0x000A=][=0x0009=]while chosen card is a card:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][chosen card][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now chosen card is the next thing held after chosen card;[=0x000A=][=0x0009=][=0x0009=]if chosen card is a card, say [=0x0022=]-[=0x0022=].[=0x000A=][=0x000A=]After grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=])[=0x0022=].[=0x000A=][=0x000A=]The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.[=0x000A=][=0x000A=]The hand-ranking rulebook has a truth state called the flushness.[=0x000A=]The hand-ranking rulebook has a truth state called the straightness.[=0x000A=][=0x000A=]The hand-ranking rulebook has a number called the pair count.[=0x000A=]The hand-ranking rulebook has a number called the triple count.[=0x000A=]The hand-ranking rulebook has a number called the quadruple count.[=0x000A=][=0x000A=]A card can be sorted or unsorted. A card is usually unsorted.[=0x000A=][=0x000A=]Definition: a card is high if its rank is 11 or more.[=0x000A=]Definition: a card is low if its rank is 4 or less.[=0x000A=][=0x000A=]A hand-ranking rule (this is the initial sort rule):[=0x000A=][=0x0009=]now every card is unsorted;[=0x000A=][=0x0009=]while the player carries an unsorted card:[=0x000A=][=0x0009=][=0x0009=]let item be the lowest unsorted card held by the player;[=0x000A=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=][=0x0009=]now the item is sorted;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after initial sort: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding flushness rule):[=0x000A=][=0x0009=]let called suit be the suit of a random card carried by the player;[=0x000A=][=0x0009=]if every card carried by the player is called suit, now flushness is true.[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding straightness rule):[=0x000A=][=0x0009=]now straightness is true;[=0x000A=][=0x0009=]let N be the rank of the highest card which is carried by the player;[=0x000A=][=0x0009=]repeat with current rank running from N - 4 to N:[=0x000A=][=0x0009=][=0x0009=]now the test rank is the current rank;[=0x000A=][=0x0009=][=0x0009=]unless the player carries a matching card:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the current rank is N - 4 and the current rank is 9 and the player carries an ace card, do nothing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise now straightness is false.[=0x000A=][=0x000A=]A card can be quadrupled, tripled, paired or uncombined.[=0x000A=][=0x000A=]Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.[=0x000A=][=0x000A=]A hand-ranking rule (this is the counting multiples rule):[=0x000A=][=0x0009=]now every card is uncombined;[=0x000A=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=]now test rank is current rank;[=0x000A=][=0x0009=][=0x0009=]let N be the number of matching cards held by the player;[=0x000A=][=0x0009=][=0x0009=]if N is 4:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the quadruple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is quadrupled;[=0x000A=][=0x0009=][=0x0009=]if N is 3:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the triple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is tripled;[=0x000A=][=0x0009=][=0x0009=]if N is 2:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the pair count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is paired.[=0x000A=][=0x000A=]A hand-ranking rule (this is the move aces up unless there[=0x0027=]s a low straight rule):[=0x000A=][=0x0009=]unless the straightness is true and the lowest card carried by the player is an ace card and the rank of the highest card carried by the player is 5,[=0x000A=][=0x0009=][=0x0009=]now every ace card which is carried by the player is carried by the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after ace movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move pairs forward rule):[=0x000A=][=0x0009=]while the player carries a paired card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest paired card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after pairs movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the raise ace pairs rule):[=0x000A=][=0x0009=]if the player carries exactly two ace cards:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through ace cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after paired-ace movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move multiples forward rule):[=0x000A=][=0x0009=]while the player carries a tripled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest tripled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]while the player carries a quadrupled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest quadrupled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after multiples movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]Definition: a card is ace if its rank is 1.[=0x000A=]Definition: a card is king if its rank is 13.[=0x000A=][=0x000A=]A hand-ranking rule (this is the royal-flush rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true and the highest card carried by the player is king and the lowest card carried by the player is ace, royal flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straight-flushes rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true, straight flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the four-of-a-kind rule):[=0x000A=][=0x0009=]if the quadruple count is 1, four of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the full-house rule):[=0x000A=][=0x0009=]if the pair count is 1 and the triple count is 1, full house.[=0x000A=][=0x000A=]A hand-ranking rule (this is the flushes rule):[=0x000A=][=0x0009=]if flushness is true, flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straights rule):[=0x000A=][=0x0009=]if straightness is true, straight.[=0x000A=][=0x000A=]A hand-ranking rule (this is the three-of-a-kind rule):[=0x000A=][=0x0009=]if triple count is 1, three of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the two-pair rule):[=0x000A=][=0x0009=]if the pair count is 2, two pairs.[=0x000A=][=0x000A=]A hand-ranking rule (this is the pair rule):[=0x000A=][=0x0009=]if the pair count is 1, pair.[=0x000A=][=0x000A=]A hand-ranking rule (this is the default rule):[=0x000A=][=0x0009=]high card.[=0x000A=][=0x000A=]Sort-debugging is a truth state that varies.[=0x000A=][=0x000A=]Section 5 - Testing hand identification - Not for release[=0x000A=][=0x000A=]Understand [=0x0022=]debug sorting[=0x0022=] as debugging hand sorting. Debugging hand sorting is an action out of world.[=0x000A=][=0x000A=]Carry out debugging hand sorting:[=0x000A=][=0x0009=]if sort-debugging is false, now sort-debugging is true;[=0x000A=][=0x0009=]otherwise now sort-debugging is false.[=0x000A=][=0x000A=]Report debugging hand sorting:[=0x000A=][=0x0009=]say [=0x0022=]Sort debugging is now [if sort-debugging is true]on[otherwise]off[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Table of Testing Hands[=0x000A=]set suit[=0x0009=]set rank[=0x000A=]spades[=0x0009=]1[=0x0009=][royal flush][=0x000A=]spades[=0x0009=]13[=0x000A=]spades[=0x0009=]12[=0x000A=]spades[=0x0009=]11[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]12[=0x0009=][straight flush][=0x000A=]clubs[=0x0009=]11[=0x000A=]clubs[=0x0009=]10[=0x000A=]clubs[=0x0009=]9[=0x000A=]clubs[=0x0009=]8[=0x000A=]diamonds[=0x0009=]8[=0x0009=][four of a kind][=0x000A=]hearts[=0x0009=]8[=0x000A=]spades[=0x0009=]8[=0x000A=]clubs[=0x0009=]8[=0x000A=]clubs[=0x0009=]3[=0x000A=]clubs[=0x0009=]1[=0x0009=][full house][=0x000A=]spades[=0x0009=]1[=0x000A=]hearts[=0x0009=]10[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][flush][=0x000A=]hearts[=0x0009=]5[=0x000A=]hearts[=0x0009=]7[=0x000A=]hearts[=0x0009=]11[=0x000A=]hearts[=0x0009=]12[=0x000A=]hearts[=0x0009=]1[=0x0009=][straight][=0x000A=]spades[=0x0009=]13[=0x000A=]diamonds[=0x0009=]12[=0x000A=]clubs[=0x0009=]11[=0x000A=]hearts[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][three of a kind][=0x000A=]spades[=0x0009=]2[=0x000A=]clubs[=0x0009=]2[=0x000A=]clubs[=0x0009=]4[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]9[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs, ace high][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]1[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]1[=0x000A=]hearts[=0x0009=]12[=0x0009=][pair][=0x000A=]spades[=0x0009=]12[=0x000A=]diamonds[=0x0009=]10[=0x000A=]spades[=0x0009=]7[=0x000A=]clubs[=0x0009=]4[=0x000A=]diamonds[=0x0009=]13[=0x0009=][high][=0x000A=]hearts[=0x0009=]11[=0x000A=]spades[=0x0009=]9[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]5[=0x000A=]hearts[=0x0009=]1[=0x0009=][tricky sorting: low straight][=0x000A=]diamonds[=0x0009=]2[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]4[=0x000A=]diamonds[=0x0009=]5[=0x000A=][=0x000A=]Understand [=0x0022=]force hand[=0x0022=] as forcing a hand. Forcing a hand is an action out of world.[=0x000A=][=0x000A=]Current marker is a number that varies.[=0x000A=][=0x000A=]Carry out forcing a hand:[=0x000A=][=0x0009=]repeat with item running through cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=]increment current marker;[=0x000A=][=0x0009=][=0x0009=]if current marker is greater than the number of filled rows in the Table of Testing Hands, now current marker is 1;[=0x000A=][=0x0009=][=0x0009=]choose row current marker in the Table of Testing Hands;[=0x000A=][=0x0009=][=0x0009=]now the suit of item is the set suit entry;[=0x000A=][=0x0009=][=0x0009=]now the rank of item is the set rank entry.[=0x000A=][=0x000A=]Report forcing a hand:[=0x000A=][=0x0009=]try taking inventory.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tilt[=0x0022=][=0x000A=][=0x000A=]Section 0 - Colored Output in Two Forms[=0x000A=][=0x000A=][For the suit symbols, we[=0x0027=]ll want the Unicode extension included with Inform:][=0x000A=][=0x000A=]Include Unicode Character Names by Graham Nelson.[=0x000A=][=0x000A=]Rule for printing the name of a card (called target) while grouping together:[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as abbreviated value][suit of the target as symbol][=0x0022=].[=0x000A=][=0x000A=]To say (current suit - a suit) as symbol:[=0x000A=][=0x0009=]if current suit is diamonds, say [=0x0022=][red letters][unicode black diamond suit][default letters][=0x0022=];[=0x000A=][=0x0009=]if current suit is spades, say [=0x0022=][unicode black spade suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is clubs, say [=0x0022=][unicode black club suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is hearts, say [=0x0022=][red letters][unicode black heart suit][default letters][=0x0022=].[=0x000A=][=0x000A=]Section 0Z (for Z-machine only)[=0x000A=][=0x000A=][The Basic Screen Effects extension bundled with Inform includes mechanisms to change the text color, so for the Z-machine, we need only include this:][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Section 0G (for Glulx only)[=0x000A=][=0x000A=][Under Glulx, we need slightly more set-up: Glulx requires that we define special user font styles when we plan to make display changes. A fuller discussion of this (and of how to define new colors) appears in the documentation of [=0x0022=]Glulx Text Effects[=0x0022=], but an implementation sufficient to our purposes would be][=0x000A=][=0x000A=]Include Glulx Text Effects by Emily Short.[=0x000A=][=0x000A=]Table of User Styles (continued)[=0x000A=]style name[=0x0009=]glulx color[=0x000A=]special-style-1[=0x0009=]g-pure-red[=0x000A=][=0x000A=]Table of Common Color Values (continued)[=0x000A=]glulx color value[=0x0009=]assigned number[=0x000A=]g-pure-red[=0x0009=]16711680[=0x000A=][=0x000A=]To say red letters: say first custom style.[=0x000A=][=0x000A=]To say default letters: say roman type.[=0x000A=][=0x000A=][From here, the rest of the source is mostly as we[=0x0027=]ve seen in previous examples:][=0x000A=][=0x000A=]Section 1 - Cards[=0x000A=][=0x000A=]Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand [=0x0022=]heart[=0x0022=] as hearts. Understand [=0x0022=]club[=0x0022=] as clubs. Understand [=0x0022=]diamond[=0x0022=] as diamonds. Understand [=0x0022=]spade[=0x0022=] as spades.[=0x000A=][=0x000A=]A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.[=0x000A=][=0x000A=]52 cards are in the card repository.[=0x000A=][=0x000A=]To say (count - a number) as a card value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][term entry][=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of a card (called target):[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as a card value] of [suit of the target][=0x0022=][=0x000A=][=0x000A=]To say (count - a number) as abbreviated value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][abbrev entry][=0x0022=].[=0x000A=][=0x000A=]Table of Value Names[=0x000A=]term[=0x0009=]value[=0x0009=]abbrev[=0x0009=]topic[=0x000A=][=0x0022=]ace[=0x0022=][=0x0009=][=0x0022=]1[=0x0022=][=0x0009=][=0x0022=]A[=0x0022=][=0x0009=][=0x0022=]ace/A[=0x0022=][=0x000A=][=0x0022=]deuce[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]deuce/two[=0x0022=][=0x000A=][=0x0022=]three[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]three[=0x0022=][=0x000A=][=0x0022=]four[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]four[=0x0022=][=0x000A=][=0x0022=]five[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]five[=0x0022=][=0x000A=][=0x0022=]six[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]six[=0x0022=][=0x000A=][=0x0022=]seven[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]seven[=0x0022=][=0x000A=][=0x0022=]eight[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]eight[=0x0022=][=0x000A=][=0x0022=]nine[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]nine[=0x0022=][=0x000A=][=0x0022=]ten[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]ten[=0x0022=][=0x000A=][=0x0022=]jack[=0x0022=][=0x0009=][=0x0022=]11[=0x0022=][=0x0009=][=0x0022=]J[=0x0022=][=0x0009=][=0x0022=]jack/knave/J[=0x0022=][=0x000A=][=0x0022=]queen[=0x0022=][=0x0009=][=0x0022=]12[=0x0022=][=0x0009=][=0x0022=]Q[=0x0022=][=0x0009=][=0x0022=]queen/Q[=0x0022=][=0x000A=][=0x0022=]king[=0x0022=][=0x0009=][=0x0022=]13[=0x0022=][=0x0009=][=0x0022=]K[=0x0022=][=0x0009=][=0x0022=]king/K[=0x0022=][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]of [suit][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes [=0x0022=]of[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]repeat through the Table of Value Names:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the matched text with value entry.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]reconstitute deck.[=0x000A=][=0x000A=]To reconstitute deck:[=0x000A=][=0x0009=]let current suit be hearts;[=0x000A=][=0x0009=]now every card is in the card repository;[=0x000A=][=0x0009=]while a card is in the card repository:[=0x000A=][=0x0009=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let item be a random card in card repository;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now rank of item is current rank;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now suit of item is current suit;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is in the deck of cards;[=0x000A=][=0x0009=][=0x0009=]now current suit is the suit after the current suit.[=0x000A=][=0x000A=]Section 2 - The Deck and the Discard Pile[=0x000A=][=0x000A=]The Empty Room is a room. [=0x0022=]Nothing to see here.[=0x0022=][=0x000A=][=0x000A=]The deck of cards is in the Empty Room. It is a closed unopenable container. The description is [=0x0022=]A standard poker deck.[=0x0022=][=0x000A=][=0x000A=]The discard pile is a closed unopenable container. The description is [=0x0022=]Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].[=0x0022=][=0x000A=][=0x000A=]To decide what number is the rounded number of (described set - a description of objects):[=0x000A=][=0x0009=]let N be the number of members of the described set;[=0x000A=][=0x0009=]let R be N divided by 5;[=0x000A=][=0x0009=]let total be R times 5;[=0x000A=][=0x0009=]decide on total.[=0x000A=][=0x000A=]Rule for printing room description details of something: do nothing instead.[=0x000A=][=0x000A=]Section 3 - Drawing and Discarding Actions[=0x000A=][=0x000A=]Understand the commands [=0x0022=]take[=0x0022=] and [=0x0022=]carry[=0x0022=] and [=0x0022=]hold[=0x0022=] and [=0x0022=]get[=0x0022=] and [=0x0022=]drop[=0x0022=] and [=0x0022=]throw[=0x0022=] and [=0x0022=]discard[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]take [text][=0x0022=] or [=0x0022=]get [text][=0x0022=] or [=0x0022=]drop [text][=0x0022=] as a mistake ([=0x0022=]Here, you only draw and discard. Nothing else matters at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]draw[=0x0022=] or [=0x0022=]draw card[=0x0022=] or [=0x0022=]draw a card[=0x0022=] as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.[=0x000A=][=0x000A=]Setting action variables for drawing:[=0x000A=][=0x0009=]now the card drawn is a random card which is in the deck of cards.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the card drawn is nothing, say [=0x0022=]The deck is completely depleted.[=0x0022=] instead.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the number of cards carried by the player is greater than four,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]This is a five-card game; you must discard something before drawing anything further.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out drawing:[=0x000A=][=0x0009=]move the card drawn to the player.[=0x000A=][=0x000A=]Report drawing:[=0x000A=][=0x0009=]say [=0x0022=]You draw [a card drawn].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]discard [card][=0x0022=] as discarding. Discarding is an action applying to one thing.[=0x000A=][=0x000A=]Check discarding:[=0x000A=][=0x0009=]if the player does not carry the noun, say [=0x0022=]You can only discard cards from your own hand.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out discarding:[=0x000A=][=0x0009=]now the noun is in the discard pile;[=0x000A=][=0x0009=]if the discard pile is not visible, move the discard pile to the location.[=0x000A=][=0x000A=]Report discarding:[=0x000A=][=0x0009=]say [=0x0022=]You toss [the noun] nonchalantly onto the discard pile.[=0x0022=][=0x000A=][=0x000A=]Section 4 - Assessing Hands[=0x000A=][=0x000A=]Before listing contents while taking inventory: group cards together.[=0x000A=][=0x000A=]Before grouping together cards:[=0x000A=][=0x0009=]if the number of cards carried by the player is 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]follow the hand-ranking rules;[=0x000A=][=0x0009=][=0x0009=]if the rule succeeded, say [=0x0022=][the outcome of the rulebook][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]some random cards[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if the outcome of the rulebook is pair outcome, say [=0x0022=] of [rank of the first thing held by the player as a card value]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][number of cards carried by the player in words] assorted cards[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=] ([=0x0022=].[=0x000A=][=0x000A=]Rule for grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=][list hand][=0x0022=].[=0x000A=][=0x000A=]To say list hand:[=0x000A=][=0x0009=]let chosen card be the first thing held by the player;[=0x000A=][=0x0009=]while chosen card is a card:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][chosen card][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now chosen card is the next thing held after chosen card;[=0x000A=][=0x0009=][=0x0009=]if chosen card is a card, say [=0x0022=]-[=0x0022=].[=0x000A=][=0x000A=]After grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=])[=0x0022=].[=0x000A=][=0x000A=]The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.[=0x000A=][=0x000A=]The hand-ranking rulebook has a truth state called the flushness.[=0x000A=]The hand-ranking rulebook has a truth state called the straightness.[=0x000A=][=0x000A=]The hand-ranking rulebook has a number called the pair count.[=0x000A=]The hand-ranking rulebook has a number called the triple count.[=0x000A=]The hand-ranking rulebook has a number called the quadruple count.[=0x000A=][=0x000A=]A card can be sorted or unsorted. A card is usually unsorted.[=0x000A=][=0x000A=]Definition: a card is high if its rank is 11 or more.[=0x000A=]Definition: a card is low if its rank is 4 or less.[=0x000A=][=0x000A=]A hand-ranking rule (this is the initial sort rule):[=0x000A=][=0x0009=]now every card is unsorted;[=0x000A=][=0x0009=]while the player carries an unsorted card:[=0x000A=][=0x0009=][=0x0009=]let item be the lowest unsorted card held by the player;[=0x000A=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=][=0x0009=]now the item is sorted;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after initial sort: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding flushness rule):[=0x000A=][=0x0009=]let called suit be the suit of a random card carried by the player;[=0x000A=][=0x0009=]if every card carried by the player is called suit, now flushness is true.[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding straightness rule):[=0x000A=][=0x0009=]now straightness is true;[=0x000A=][=0x0009=]let N be the rank of the highest card which is carried by the player;[=0x000A=][=0x0009=]repeat with current rank running from N - 4 to N:[=0x000A=][=0x0009=][=0x0009=]now the test rank is the current rank;[=0x000A=][=0x0009=][=0x0009=]unless the player carries a matching card:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the current rank is N - 4 and the current rank is 9 and the player carries an ace card, do nothing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise now straightness is false.[=0x000A=][=0x000A=]A card can be quadrupled, tripled, paired or uncombined.[=0x000A=][=0x000A=]Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.[=0x000A=][=0x000A=]A hand-ranking rule (this is the counting multiples rule):[=0x000A=][=0x0009=]now every card is uncombined;[=0x000A=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=]now test rank is current rank;[=0x000A=][=0x0009=][=0x0009=]let N be the number of matching cards held by the player;[=0x000A=][=0x0009=][=0x0009=]if N is 4:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the quadruple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is quadrupled;[=0x000A=][=0x0009=][=0x0009=]if N is 3:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the triple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is tripled;[=0x000A=][=0x0009=][=0x0009=]if N is 2:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the pair count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is paired.[=0x000A=][=0x000A=]A hand-ranking rule (this is the move aces up unless there[=0x0027=]s a low straight rule):[=0x000A=][=0x0009=]unless the straightness is true and the lowest card carried by the player is an ace card and the rank of the highest card carried by the player is 5,[=0x000A=][=0x0009=][=0x0009=]now every ace card which is carried by the player is carried by the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after ace movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move pairs forward rule):[=0x000A=][=0x0009=]while the player carries a paired card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest paired card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after pairs movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the raise ace pairs rule):[=0x000A=][=0x0009=]if the player carries exactly two ace cards:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through ace cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after paired-ace movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move multiples forward rule):[=0x000A=][=0x0009=]while the player carries a tripled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest tripled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]while the player carries a quadrupled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest quadrupled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after multiples movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]Definition: a card is ace if its rank is 1.[=0x000A=]Definition: a card is king if its rank is 13.[=0x000A=][=0x000A=]A hand-ranking rule (this is the royal-flush rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true and the highest card carried by the player is king and the lowest card carried by the player is ace, royal flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straight-flushes rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true, straight flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the four-of-a-kind rule):[=0x000A=][=0x0009=]if the quadruple count is 1, four of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the full-house rule):[=0x000A=][=0x0009=]if the pair count is 1 and the triple count is 1, full house.[=0x000A=][=0x000A=]A hand-ranking rule (this is the flushes rule):[=0x000A=][=0x0009=]if flushness is true, flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straights rule):[=0x000A=][=0x0009=]if straightness is true, straight.[=0x000A=][=0x000A=]A hand-ranking rule (this is the three-of-a-kind rule):[=0x000A=][=0x0009=]if triple count is 1, three of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the two-pair rule):[=0x000A=][=0x0009=]if the pair count is 2, two pairs.[=0x000A=][=0x000A=]A hand-ranking rule (this is the pair rule):[=0x000A=][=0x0009=]if the pair count is 1, pair.[=0x000A=][=0x000A=]A hand-ranking rule (this is the default rule):[=0x000A=][=0x0009=]high card.[=0x000A=][=0x000A=]Sort-debugging is a truth state that varies.[=0x000A=][=0x000A=]Section 5 - Testing hand identification - Not for release[=0x000A=][=0x000A=]Understand [=0x0022=]debug sorting[=0x0022=] as debugging hand sorting. Debugging hand sorting is an action out of world.[=0x000A=][=0x000A=]Carry out debugging hand sorting:[=0x000A=][=0x0009=]if sort-debugging is false, now sort-debugging is true;[=0x000A=][=0x0009=]otherwise now sort-debugging is false.[=0x000A=][=0x000A=]Report debugging hand sorting:[=0x000A=][=0x0009=]say [=0x0022=]Sort debugging is now [if sort-debugging is true]on[otherwise]off[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Table of Testing Hands[=0x000A=]set suit[=0x0009=]set rank[=0x000A=]spades[=0x0009=]1[=0x0009=][royal flush][=0x000A=]spades[=0x0009=]13[=0x000A=]spades[=0x0009=]12[=0x000A=]spades[=0x0009=]11[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]12[=0x0009=][straight flush][=0x000A=]clubs[=0x0009=]11[=0x000A=]clubs[=0x0009=]10[=0x000A=]clubs[=0x0009=]9[=0x000A=]clubs[=0x0009=]8[=0x000A=]diamonds[=0x0009=]8[=0x0009=][four of a kind][=0x000A=]hearts[=0x0009=]8[=0x000A=]spades[=0x0009=]8[=0x000A=]clubs[=0x0009=]8[=0x000A=]clubs[=0x0009=]3[=0x000A=]clubs[=0x0009=]1[=0x0009=][full house][=0x000A=]spades[=0x0009=]1[=0x000A=]hearts[=0x0009=]10[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][flush][=0x000A=]hearts[=0x0009=]5[=0x000A=]hearts[=0x0009=]7[=0x000A=]hearts[=0x0009=]11[=0x000A=]hearts[=0x0009=]12[=0x000A=]hearts[=0x0009=]1[=0x0009=][straight][=0x000A=]spades[=0x0009=]13[=0x000A=]diamonds[=0x0009=]12[=0x000A=]clubs[=0x0009=]11[=0x000A=]hearts[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][three of a kind][=0x000A=]spades[=0x0009=]2[=0x000A=]clubs[=0x0009=]2[=0x000A=]clubs[=0x0009=]4[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]9[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs, ace high][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]1[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]1[=0x000A=]hearts[=0x0009=]12[=0x0009=][pair][=0x000A=]spades[=0x0009=]12[=0x000A=]diamonds[=0x0009=]10[=0x000A=]spades[=0x0009=]7[=0x000A=]clubs[=0x0009=]4[=0x000A=]diamonds[=0x0009=]13[=0x0009=][high][=0x000A=]hearts[=0x0009=]11[=0x000A=]spades[=0x0009=]9[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]5[=0x000A=]hearts[=0x0009=]1[=0x0009=][tricky sorting: low straight][=0x000A=]diamonds[=0x0009=]2[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]4[=0x000A=]diamonds[=0x0009=]5[=0x000A=][=0x000A=]Understand [=0x0022=]force hand[=0x0022=] as forcing a hand. Forcing a hand is an action out of world.[=0x000A=][=0x000A=]Current marker is a number that varies.[=0x000A=][=0x000A=]Carry out forcing a hand:[=0x000A=][=0x0009=]repeat with item running through cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=]increment current marker;[=0x000A=][=0x0009=][=0x0009=]if current marker is greater than the number of filled rows in the Table of Testing Hands, now current marker is 1;[=0x000A=][=0x0009=][=0x0009=]choose row current marker in the Table of Testing Hands;[=0x000A=][=0x0009=][=0x0009=]now the suit of item is the set suit entry;[=0x000A=][=0x0009=][=0x0009=]now the rank of item is the set rank entry.[=0x000A=][=0x000A=]Report forcing a hand:[=0x000A=][=0x0009=]try taking inventory.[=0x000A=]\n', 'Example - Tilt 3')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tilt&quot;
+            <!--START CODE "c9052_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9052_384"></a><a href="javascript:pasteCode('[=0x0022=]Tilt[=0x0022=][=0x000A=][=0x000A=]Section 0 - Colored Output in Two Forms[=0x000A=][=0x000A=][For the suit symbols, we[=0x0027=]ll want the Unicode extension included with Inform:][=0x000A=][=0x000A=]Rule for printing the name of a card (called target) while grouping together:[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as abbreviated value][suit of the target as symbol][=0x0022=].[=0x000A=][=0x000A=]To say (current suit - a suit) as symbol:[=0x000A=][=0x0009=]if current suit is diamonds, say [=0x0022=][red letters][unicode black diamond suit][default letters][=0x0022=];[=0x000A=][=0x0009=]if current suit is spades, say [=0x0022=][unicode black spade suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is clubs, say [=0x0022=][unicode black club suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is hearts, say [=0x0022=][red letters][unicode black heart suit][default letters][=0x0022=].[=0x000A=][=0x000A=]Section 0Z (for Z-machine only)[=0x000A=][=0x000A=][The Basic Screen Effects extension bundled with Inform includes mechanisms to change the text color, so for the Z-machine, we need only include this:][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Section 0G (for Glulx only)[=0x000A=][=0x000A=][Under Glulx, we need slightly more set-up: Glulx requires that we define special user font styles when we plan to make display changes. A fuller discussion of this (and of how to define new colors) appears in the documentation of [=0x0022=]Glulx Text Effects[=0x0022=], but an implementation sufficient to our purposes would be][=0x000A=][=0x000A=]Include Glulx Text Effects by Emily Short.[=0x000A=][=0x000A=]Table of User Styles (continued)[=0x000A=]style name[=0x0009=]glulx color[=0x000A=]special-style-1[=0x0009=]g-pure-red[=0x000A=][=0x000A=]Table of Common Color Values (continued)[=0x000A=]glulx color value[=0x0009=]assigned number[=0x000A=]g-pure-red[=0x0009=]16711680[=0x000A=][=0x000A=]To say red letters: say first custom style.[=0x000A=][=0x000A=]To say default letters: say roman type.[=0x000A=][=0x000A=][From here, the rest of the source is mostly as we[=0x0027=]ve seen in previous examples:][=0x000A=][=0x000A=]Section 1 - Cards[=0x000A=][=0x000A=]Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand [=0x0022=]heart[=0x0022=] as hearts. Understand [=0x0022=]club[=0x0022=] as clubs. Understand [=0x0022=]diamond[=0x0022=] as diamonds. Understand [=0x0022=]spade[=0x0022=] as spades.[=0x000A=][=0x000A=]A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.[=0x000A=][=0x000A=]52 cards are in the card repository.[=0x000A=][=0x000A=]To say (count - a number) as a card value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][term entry][=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of a card (called target):[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as a card value] of [suit of the target][=0x0022=][=0x000A=][=0x000A=]To say (count - a number) as abbreviated value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][abbrev entry][=0x0022=].[=0x000A=][=0x000A=]Table of Value Names[=0x000A=]term[=0x0009=]value[=0x0009=]abbrev[=0x0009=]topic[=0x000A=][=0x0022=]ace[=0x0022=][=0x0009=][=0x0022=]1[=0x0022=][=0x0009=][=0x0022=]A[=0x0022=][=0x0009=][=0x0022=]ace/A[=0x0022=][=0x000A=][=0x0022=]deuce[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]deuce/two[=0x0022=][=0x000A=][=0x0022=]three[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]three[=0x0022=][=0x000A=][=0x0022=]four[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]four[=0x0022=][=0x000A=][=0x0022=]five[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]five[=0x0022=][=0x000A=][=0x0022=]six[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]six[=0x0022=][=0x000A=][=0x0022=]seven[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]seven[=0x0022=][=0x000A=][=0x0022=]eight[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]eight[=0x0022=][=0x000A=][=0x0022=]nine[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]nine[=0x0022=][=0x000A=][=0x0022=]ten[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]ten[=0x0022=][=0x000A=][=0x0022=]jack[=0x0022=][=0x0009=][=0x0022=]11[=0x0022=][=0x0009=][=0x0022=]J[=0x0022=][=0x0009=][=0x0022=]jack/knave/J[=0x0022=][=0x000A=][=0x0022=]queen[=0x0022=][=0x0009=][=0x0022=]12[=0x0022=][=0x0009=][=0x0022=]Q[=0x0022=][=0x0009=][=0x0022=]queen/Q[=0x0022=][=0x000A=][=0x0022=]king[=0x0022=][=0x0009=][=0x0022=]13[=0x0022=][=0x0009=][=0x0022=]K[=0x0022=][=0x0009=][=0x0022=]king/K[=0x0022=][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]of [suit][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes [=0x0022=]of[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]repeat through the Table of Value Names:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the matched text with value entry.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]reconstitute deck.[=0x000A=][=0x000A=]To reconstitute deck:[=0x000A=][=0x0009=]let current suit be hearts;[=0x000A=][=0x0009=]now every card is in the card repository;[=0x000A=][=0x0009=]while a card is in the card repository:[=0x000A=][=0x0009=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let item be a random card in card repository;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now rank of item is current rank;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now suit of item is current suit;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is in the deck of cards;[=0x000A=][=0x0009=][=0x0009=]now current suit is the suit after the current suit.[=0x000A=][=0x000A=]Section 2 - The Deck and the Discard Pile[=0x000A=][=0x000A=]The Empty Room is a room. [=0x0022=]Nothing to see here.[=0x0022=][=0x000A=][=0x000A=]The deck of cards is in the Empty Room. It is a closed unopenable container. The description is [=0x0022=]A standard poker deck.[=0x0022=][=0x000A=][=0x000A=]The discard pile is a closed unopenable container. The description is [=0x0022=]Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].[=0x0022=][=0x000A=][=0x000A=]To decide what number is the rounded number of (described set - a description of objects):[=0x000A=][=0x0009=]let N be the number of members of the described set;[=0x000A=][=0x0009=]let R be N divided by 5;[=0x000A=][=0x0009=]let total be R times 5;[=0x000A=][=0x0009=]decide on total.[=0x000A=][=0x000A=]Rule for printing room description details of something: do nothing instead.[=0x000A=][=0x000A=]Section 3 - Drawing and Discarding Actions[=0x000A=][=0x000A=]Understand the commands [=0x0022=]take[=0x0022=] and [=0x0022=]carry[=0x0022=] and [=0x0022=]hold[=0x0022=] and [=0x0022=]get[=0x0022=] and [=0x0022=]drop[=0x0022=] and [=0x0022=]throw[=0x0022=] and [=0x0022=]discard[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]take [text][=0x0022=] or [=0x0022=]get [text][=0x0022=] or [=0x0022=]drop [text][=0x0022=] as a mistake ([=0x0022=]Here, you only draw and discard. Nothing else matters at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]draw[=0x0022=] or [=0x0022=]draw card[=0x0022=] or [=0x0022=]draw a card[=0x0022=] as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.[=0x000A=][=0x000A=]Setting action variables for drawing:[=0x000A=][=0x0009=]now the card drawn is a random card which is in the deck of cards.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the card drawn is nothing, say [=0x0022=]The deck is completely depleted.[=0x0022=] instead.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the number of cards carried by the player is greater than four,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]This is a five-card game; you must discard something before drawing anything further.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out drawing:[=0x000A=][=0x0009=]move the card drawn to the player.[=0x000A=][=0x000A=]Report drawing:[=0x000A=][=0x0009=]say [=0x0022=]You draw [a card drawn].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]discard [card][=0x0022=] as discarding. Discarding is an action applying to one thing.[=0x000A=][=0x000A=]Check discarding:[=0x000A=][=0x0009=]if the player does not carry the noun, say [=0x0022=]You can only discard cards from your own hand.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out discarding:[=0x000A=][=0x0009=]now the noun is in the discard pile;[=0x000A=][=0x0009=]if the discard pile is not visible, move the discard pile to the location.[=0x000A=][=0x000A=]Report discarding:[=0x000A=][=0x0009=]say [=0x0022=]You toss [the noun] nonchalantly onto the discard pile.[=0x0022=][=0x000A=][=0x000A=]Section 4 - Assessing Hands[=0x000A=][=0x000A=]Before listing contents while taking inventory: group cards together.[=0x000A=][=0x000A=]Before grouping together cards:[=0x000A=][=0x0009=]if the number of cards carried by the player is 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]follow the hand-ranking rules;[=0x000A=][=0x0009=][=0x0009=]if the rule succeeded, say [=0x0022=][the outcome of the rulebook][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]some random cards[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if the outcome of the rulebook is pair outcome, say [=0x0022=] of [rank of the first thing held by the player as a card value]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][number of cards carried by the player in words] assorted cards[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=] ([=0x0022=].[=0x000A=][=0x000A=]Rule for grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=][list hand][=0x0022=].[=0x000A=][=0x000A=]To say list hand:[=0x000A=][=0x0009=]let chosen card be the first thing held by the player;[=0x000A=][=0x0009=]while chosen card is a card:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][chosen card][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now chosen card is the next thing held after chosen card;[=0x000A=][=0x0009=][=0x0009=]if chosen card is a card, say [=0x0022=]-[=0x0022=].[=0x000A=][=0x000A=]After grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=])[=0x0022=].[=0x000A=][=0x000A=]The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.[=0x000A=][=0x000A=]The hand-ranking rulebook has a truth state called the flushness.[=0x000A=]The hand-ranking rulebook has a truth state called the straightness.[=0x000A=][=0x000A=]The hand-ranking rulebook has a number called the pair count.[=0x000A=]The hand-ranking rulebook has a number called the triple count.[=0x000A=]The hand-ranking rulebook has a number called the quadruple count.[=0x000A=][=0x000A=]A card can be sorted or unsorted. A card is usually unsorted.[=0x000A=][=0x000A=]Definition: a card is high if its rank is 11 or more.[=0x000A=]Definition: a card is low if its rank is 4 or less.[=0x000A=][=0x000A=]A hand-ranking rule (this is the initial sort rule):[=0x000A=][=0x0009=]now every card is unsorted;[=0x000A=][=0x0009=]while the player carries an unsorted card:[=0x000A=][=0x0009=][=0x0009=]let item be the lowest unsorted card held by the player;[=0x000A=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=][=0x0009=]now the item is sorted;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after initial sort: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding flushness rule):[=0x000A=][=0x0009=]let called suit be the suit of a random card carried by the player;[=0x000A=][=0x0009=]if every card carried by the player is called suit, now flushness is true.[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding straightness rule):[=0x000A=][=0x0009=]now straightness is true;[=0x000A=][=0x0009=]let N be the rank of the highest card which is carried by the player;[=0x000A=][=0x0009=]repeat with current rank running from N - 4 to N:[=0x000A=][=0x0009=][=0x0009=]now the test rank is the current rank;[=0x000A=][=0x0009=][=0x0009=]unless the player carries a matching card:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the current rank is N - 4 and the current rank is 9 and the player carries an ace card, do nothing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise now straightness is false.[=0x000A=][=0x000A=]A card can be quadrupled, tripled, paired or uncombined.[=0x000A=][=0x000A=]Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.[=0x000A=][=0x000A=]A hand-ranking rule (this is the counting multiples rule):[=0x000A=][=0x0009=]now every card is uncombined;[=0x000A=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=]now test rank is current rank;[=0x000A=][=0x0009=][=0x0009=]let N be the number of matching cards held by the player;[=0x000A=][=0x0009=][=0x0009=]if N is 4:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the quadruple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is quadrupled;[=0x000A=][=0x0009=][=0x0009=]if N is 3:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the triple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is tripled;[=0x000A=][=0x0009=][=0x0009=]if N is 2:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the pair count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is paired.[=0x000A=][=0x000A=]A hand-ranking rule (this is the move aces up unless there[=0x0027=]s a low straight rule):[=0x000A=][=0x0009=]unless the straightness is true and the lowest card carried by the player is an ace card and the rank of the highest card carried by the player is 5,[=0x000A=][=0x0009=][=0x0009=]now every ace card which is carried by the player is carried by the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after ace movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move pairs forward rule):[=0x000A=][=0x0009=]while the player carries a paired card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest paired card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after pairs movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the raise ace pairs rule):[=0x000A=][=0x0009=]if the player carries exactly two ace cards:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through ace cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after paired-ace movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move multiples forward rule):[=0x000A=][=0x0009=]while the player carries a tripled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest tripled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]while the player carries a quadrupled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest quadrupled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after multiples movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]Definition: a card is ace if its rank is 1.[=0x000A=]Definition: a card is king if its rank is 13.[=0x000A=][=0x000A=]A hand-ranking rule (this is the royal-flush rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true and the highest card carried by the player is king and the lowest card carried by the player is ace, royal flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straight-flushes rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true, straight flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the four-of-a-kind rule):[=0x000A=][=0x0009=]if the quadruple count is 1, four of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the full-house rule):[=0x000A=][=0x0009=]if the pair count is 1 and the triple count is 1, full house.[=0x000A=][=0x000A=]A hand-ranking rule (this is the flushes rule):[=0x000A=][=0x0009=]if flushness is true, flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straights rule):[=0x000A=][=0x0009=]if straightness is true, straight.[=0x000A=][=0x000A=]A hand-ranking rule (this is the three-of-a-kind rule):[=0x000A=][=0x0009=]if triple count is 1, three of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the two-pair rule):[=0x000A=][=0x0009=]if the pair count is 2, two pairs.[=0x000A=][=0x000A=]A hand-ranking rule (this is the pair rule):[=0x000A=][=0x0009=]if the pair count is 1, pair.[=0x000A=][=0x000A=]A hand-ranking rule (this is the default rule):[=0x000A=][=0x0009=]high card.[=0x000A=][=0x000A=]Sort-debugging is a truth state that varies.[=0x000A=][=0x000A=]Section 5 - Testing hand identification - Not for release[=0x000A=][=0x000A=]Understand [=0x0022=]debug sorting[=0x0022=] as debugging hand sorting. Debugging hand sorting is an action out of world.[=0x000A=][=0x000A=]Carry out debugging hand sorting:[=0x000A=][=0x0009=]if sort-debugging is false, now sort-debugging is true;[=0x000A=][=0x0009=]otherwise now sort-debugging is false.[=0x000A=][=0x000A=]Report debugging hand sorting:[=0x000A=][=0x0009=]say [=0x0022=]Sort debugging is now [if sort-debugging is true]on[otherwise]off[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Table of Testing Hands[=0x000A=]set suit[=0x0009=]set rank[=0x000A=]spades[=0x0009=]1[=0x0009=][royal flush][=0x000A=]spades[=0x0009=]13[=0x000A=]spades[=0x0009=]12[=0x000A=]spades[=0x0009=]11[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]12[=0x0009=][straight flush][=0x000A=]clubs[=0x0009=]11[=0x000A=]clubs[=0x0009=]10[=0x000A=]clubs[=0x0009=]9[=0x000A=]clubs[=0x0009=]8[=0x000A=]diamonds[=0x0009=]8[=0x0009=][four of a kind][=0x000A=]hearts[=0x0009=]8[=0x000A=]spades[=0x0009=]8[=0x000A=]clubs[=0x0009=]8[=0x000A=]clubs[=0x0009=]3[=0x000A=]clubs[=0x0009=]1[=0x0009=][full house][=0x000A=]spades[=0x0009=]1[=0x000A=]hearts[=0x0009=]10[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][flush][=0x000A=]hearts[=0x0009=]5[=0x000A=]hearts[=0x0009=]7[=0x000A=]hearts[=0x0009=]11[=0x000A=]hearts[=0x0009=]12[=0x000A=]hearts[=0x0009=]1[=0x0009=][straight][=0x000A=]spades[=0x0009=]13[=0x000A=]diamonds[=0x0009=]12[=0x000A=]clubs[=0x0009=]11[=0x000A=]hearts[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][three of a kind][=0x000A=]spades[=0x0009=]2[=0x000A=]clubs[=0x0009=]2[=0x000A=]clubs[=0x0009=]4[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]9[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs, ace high][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]1[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]1[=0x000A=]hearts[=0x0009=]12[=0x0009=][pair][=0x000A=]spades[=0x0009=]12[=0x000A=]diamonds[=0x0009=]10[=0x000A=]spades[=0x0009=]7[=0x000A=]clubs[=0x0009=]4[=0x000A=]diamonds[=0x0009=]13[=0x0009=][high][=0x000A=]hearts[=0x0009=]11[=0x000A=]spades[=0x0009=]9[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]5[=0x000A=]hearts[=0x0009=]1[=0x0009=][tricky sorting: low straight][=0x000A=]diamonds[=0x0009=]2[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]4[=0x000A=]diamonds[=0x0009=]5[=0x000A=][=0x000A=]Understand [=0x0022=]force hand[=0x0022=] as forcing a hand. Forcing a hand is an action out of world.[=0x000A=][=0x000A=]Current marker is a number that varies.[=0x000A=][=0x000A=]Carry out forcing a hand:[=0x000A=][=0x0009=]repeat with item running through cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=]increment current marker;[=0x000A=][=0x0009=][=0x0009=]if current marker is greater than the number of filled rows in the Table of Testing Hands, now current marker is 1;[=0x000A=][=0x0009=][=0x0009=]choose row current marker in the Table of Testing Hands;[=0x000A=][=0x0009=][=0x0009=]now the suit of item is the set suit entry;[=0x000A=][=0x0009=][=0x0009=]now the rank of item is the set rank entry.[=0x000A=][=0x000A=]Report forcing a hand:[=0x000A=][=0x0009=]try taking inventory.[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Tilt[=0x0022=][=0x000A=][=0x000A=]Section 0 - Colored Output in Two Forms[=0x000A=][=0x000A=][For the suit symbols, we[=0x0027=]ll want the Unicode extension included with Inform:][=0x000A=][=0x000A=]Rule for printing the name of a card (called target) while grouping together:[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as abbreviated value][suit of the target as symbol][=0x0022=].[=0x000A=][=0x000A=]To say (current suit - a suit) as symbol:[=0x000A=][=0x0009=]if current suit is diamonds, say [=0x0022=][red letters][unicode black diamond suit][default letters][=0x0022=];[=0x000A=][=0x0009=]if current suit is spades, say [=0x0022=][unicode black spade suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is clubs, say [=0x0022=][unicode black club suit][=0x0022=];[=0x000A=][=0x0009=]if current suit is hearts, say [=0x0022=][red letters][unicode black heart suit][default letters][=0x0022=].[=0x000A=][=0x000A=]Section 0Z (for Z-machine only)[=0x000A=][=0x000A=][The Basic Screen Effects extension bundled with Inform includes mechanisms to change the text color, so for the Z-machine, we need only include this:][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short.[=0x000A=][=0x000A=]Section 0G (for Glulx only)[=0x000A=][=0x000A=][Under Glulx, we need slightly more set-up: Glulx requires that we define special user font styles when we plan to make display changes. A fuller discussion of this (and of how to define new colors) appears in the documentation of [=0x0022=]Glulx Text Effects[=0x0022=], but an implementation sufficient to our purposes would be][=0x000A=][=0x000A=]Include Glulx Text Effects by Emily Short.[=0x000A=][=0x000A=]Table of User Styles (continued)[=0x000A=]style name[=0x0009=]glulx color[=0x000A=]special-style-1[=0x0009=]g-pure-red[=0x000A=][=0x000A=]Table of Common Color Values (continued)[=0x000A=]glulx color value[=0x0009=]assigned number[=0x000A=]g-pure-red[=0x0009=]16711680[=0x000A=][=0x000A=]To say red letters: say first custom style.[=0x000A=][=0x000A=]To say default letters: say roman type.[=0x000A=][=0x000A=][From here, the rest of the source is mostly as we[=0x0027=]ve seen in previous examples:][=0x000A=][=0x000A=]Section 1 - Cards[=0x000A=][=0x000A=]Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand [=0x0022=]heart[=0x0022=] as hearts. Understand [=0x0022=]club[=0x0022=] as clubs. Understand [=0x0022=]diamond[=0x0022=] as diamonds. Understand [=0x0022=]spade[=0x0022=] as spades.[=0x000A=][=0x000A=]A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.[=0x000A=][=0x000A=]52 cards are in the card repository.[=0x000A=][=0x000A=]To say (count - a number) as a card value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][term entry][=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of a card (called target):[=0x000A=][=0x0009=]say [=0x0022=][rank of the target as a card value] of [suit of the target][=0x0022=][=0x000A=][=0x000A=]To say (count - a number) as abbreviated value:[=0x000A=][=0x0009=]choose row count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][abbrev entry][=0x0022=].[=0x000A=][=0x000A=]Table of Value Names[=0x000A=]term[=0x0009=]value[=0x0009=]abbrev[=0x0009=]topic[=0x000A=][=0x0022=]ace[=0x0022=][=0x0009=][=0x0022=]1[=0x0022=][=0x0009=][=0x0022=]A[=0x0022=][=0x0009=][=0x0022=]ace/A[=0x0022=][=0x000A=][=0x0022=]deuce[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]2[=0x0022=][=0x0009=][=0x0022=]deuce/two[=0x0022=][=0x000A=][=0x0022=]three[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]3[=0x0022=][=0x0009=][=0x0022=]three[=0x0022=][=0x000A=][=0x0022=]four[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]4[=0x0022=][=0x0009=][=0x0022=]four[=0x0022=][=0x000A=][=0x0022=]five[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]5[=0x0022=][=0x0009=][=0x0022=]five[=0x0022=][=0x000A=][=0x0022=]six[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]6[=0x0022=][=0x0009=][=0x0022=]six[=0x0022=][=0x000A=][=0x0022=]seven[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]7[=0x0022=][=0x0009=][=0x0022=]seven[=0x0022=][=0x000A=][=0x0022=]eight[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]8[=0x0022=][=0x0009=][=0x0022=]eight[=0x0022=][=0x000A=][=0x0022=]nine[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]9[=0x0022=][=0x0009=][=0x0022=]nine[=0x0022=][=0x000A=][=0x0022=]ten[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]10[=0x0022=][=0x0009=][=0x0022=]ten[=0x0022=][=0x000A=][=0x0022=]jack[=0x0022=][=0x0009=][=0x0022=]11[=0x0022=][=0x0009=][=0x0022=]J[=0x0022=][=0x0009=][=0x0022=]jack/knave/J[=0x0022=][=0x000A=][=0x0022=]queen[=0x0022=][=0x0009=][=0x0022=]12[=0x0022=][=0x0009=][=0x0022=]Q[=0x0022=][=0x0009=][=0x0022=]queen/Q[=0x0022=][=0x000A=][=0x0022=]king[=0x0022=][=0x0009=][=0x0022=]13[=0x0022=][=0x0009=][=0x0022=]K[=0x0022=][=0x0009=][=0x0022=]king/K[=0x0022=][=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]of [suit][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes [=0x0022=]of[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]cut the matched text;[=0x000A=][=0x0009=]repeat through the Table of Value Names:[=0x000A=][=0x0009=][=0x0009=]while the player[=0x0027=]s command includes topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]replace the matched text with value entry.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]reconstitute deck.[=0x000A=][=0x000A=]To reconstitute deck:[=0x000A=][=0x0009=]let current suit be hearts;[=0x000A=][=0x0009=]now every card is in the card repository;[=0x000A=][=0x0009=]while a card is in the card repository:[=0x000A=][=0x0009=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let item be a random card in card repository;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now rank of item is current rank;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now suit of item is current suit;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now item is in the deck of cards;[=0x000A=][=0x0009=][=0x0009=]now current suit is the suit after the current suit.[=0x000A=][=0x000A=]Section 2 - The Deck and the Discard Pile[=0x000A=][=0x000A=]The Empty Room is a room. [=0x0022=]Nothing to see here.[=0x0022=][=0x000A=][=0x000A=]The deck of cards is in the Empty Room. It is a closed unopenable container. The description is [=0x0022=]A standard poker deck.[=0x0022=][=0x000A=][=0x000A=]The discard pile is a closed unopenable container. The description is [=0x0022=]Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].[=0x0022=][=0x000A=][=0x000A=]To decide what number is the rounded number of (described set - a description of objects):[=0x000A=][=0x0009=]let N be the number of members of the described set;[=0x000A=][=0x0009=]let R be N divided by 5;[=0x000A=][=0x0009=]let total be R times 5;[=0x000A=][=0x0009=]decide on total.[=0x000A=][=0x000A=]Rule for printing room description details of something: do nothing instead.[=0x000A=][=0x000A=]Section 3 - Drawing and Discarding Actions[=0x000A=][=0x000A=]Understand the commands [=0x0022=]take[=0x0022=] and [=0x0022=]carry[=0x0022=] and [=0x0022=]hold[=0x0022=] and [=0x0022=]get[=0x0022=] and [=0x0022=]drop[=0x0022=] and [=0x0022=]throw[=0x0022=] and [=0x0022=]discard[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]take [text][=0x0022=] or [=0x0022=]get [text][=0x0022=] or [=0x0022=]drop [text][=0x0022=] as a mistake ([=0x0022=]Here, you only draw and discard. Nothing else matters at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]draw[=0x0022=] or [=0x0022=]draw card[=0x0022=] or [=0x0022=]draw a card[=0x0022=] as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.[=0x000A=][=0x000A=]Setting action variables for drawing:[=0x000A=][=0x0009=]now the card drawn is a random card which is in the deck of cards.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the card drawn is nothing, say [=0x0022=]The deck is completely depleted.[=0x0022=] instead.[=0x000A=][=0x000A=]Check drawing:[=0x000A=][=0x0009=]if the number of cards carried by the player is greater than four,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]This is a five-card game; you must discard something before drawing anything further.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out drawing:[=0x000A=][=0x0009=]move the card drawn to the player.[=0x000A=][=0x000A=]Report drawing:[=0x000A=][=0x0009=]say [=0x0022=]You draw [a card drawn].[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Understand [=0x0022=]discard [card][=0x0022=] as discarding. Discarding is an action applying to one thing.[=0x000A=][=0x000A=]Check discarding:[=0x000A=][=0x0009=]if the player does not carry the noun, say [=0x0022=]You can only discard cards from your own hand.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out discarding:[=0x000A=][=0x0009=]now the noun is in the discard pile;[=0x000A=][=0x0009=]if the discard pile is not visible, move the discard pile to the location.[=0x000A=][=0x000A=]Report discarding:[=0x000A=][=0x0009=]say [=0x0022=]You toss [the noun] nonchalantly onto the discard pile.[=0x0022=][=0x000A=][=0x000A=]Section 4 - Assessing Hands[=0x000A=][=0x000A=]Before listing contents while taking inventory: group cards together.[=0x000A=][=0x000A=]Before grouping together cards:[=0x000A=][=0x0009=]if the number of cards carried by the player is 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][run paragraph on][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]follow the hand-ranking rules;[=0x000A=][=0x0009=][=0x0009=]if the rule succeeded, say [=0x0022=][the outcome of the rulebook][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise say [=0x0022=]some random cards[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if the outcome of the rulebook is pair outcome, say [=0x0022=] of [rank of the first thing held by the player as a card value]s[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][number of cards carried by the player in words] assorted cards[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=] ([=0x0022=].[=0x000A=][=0x000A=]Rule for grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=][list hand][=0x0022=].[=0x000A=][=0x000A=]To say list hand:[=0x000A=][=0x0009=]let chosen card be the first thing held by the player;[=0x000A=][=0x0009=]while chosen card is a card:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][chosen card][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now chosen card is the next thing held after chosen card;[=0x000A=][=0x0009=][=0x0009=]if chosen card is a card, say [=0x0022=]-[=0x0022=].[=0x000A=][=0x000A=]After grouping together cards:[=0x000A=][=0x0009=]say [=0x0022=])[=0x0022=].[=0x000A=][=0x000A=]The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.[=0x000A=][=0x000A=]The hand-ranking rulebook has a truth state called the flushness.[=0x000A=]The hand-ranking rulebook has a truth state called the straightness.[=0x000A=][=0x000A=]The hand-ranking rulebook has a number called the pair count.[=0x000A=]The hand-ranking rulebook has a number called the triple count.[=0x000A=]The hand-ranking rulebook has a number called the quadruple count.[=0x000A=][=0x000A=]A card can be sorted or unsorted. A card is usually unsorted.[=0x000A=][=0x000A=]Definition: a card is high if its rank is 11 or more.[=0x000A=]Definition: a card is low if its rank is 4 or less.[=0x000A=][=0x000A=]A hand-ranking rule (this is the initial sort rule):[=0x000A=][=0x0009=]now every card is unsorted;[=0x000A=][=0x0009=]while the player carries an unsorted card:[=0x000A=][=0x0009=][=0x0009=]let item be the lowest unsorted card held by the player;[=0x000A=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=][=0x0009=]now the item is sorted;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after initial sort: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding flushness rule):[=0x000A=][=0x0009=]let called suit be the suit of a random card carried by the player;[=0x000A=][=0x0009=]if every card carried by the player is called suit, now flushness is true.[=0x000A=][=0x000A=]A hand-ranking rule (this is the finding straightness rule):[=0x000A=][=0x0009=]now straightness is true;[=0x000A=][=0x0009=]let N be the rank of the highest card which is carried by the player;[=0x000A=][=0x0009=]repeat with current rank running from N - 4 to N:[=0x000A=][=0x0009=][=0x0009=]now the test rank is the current rank;[=0x000A=][=0x0009=][=0x0009=]unless the player carries a matching card:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the current rank is N - 4 and the current rank is 9 and the player carries an ace card, do nothing;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise now straightness is false.[=0x000A=][=0x000A=]A card can be quadrupled, tripled, paired or uncombined.[=0x000A=][=0x000A=]Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.[=0x000A=][=0x000A=]A hand-ranking rule (this is the counting multiples rule):[=0x000A=][=0x0009=]now every card is uncombined;[=0x000A=][=0x0009=]repeat with current rank running from 1 to 13:[=0x000A=][=0x0009=][=0x0009=]now test rank is current rank;[=0x000A=][=0x0009=][=0x0009=]let N be the number of matching cards held by the player;[=0x000A=][=0x0009=][=0x0009=]if N is 4:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the quadruple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is quadrupled;[=0x000A=][=0x0009=][=0x0009=]if N is 3:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the triple count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is tripled;[=0x000A=][=0x0009=][=0x0009=]if N is 2:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the pair count;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now every matching card held by the player is paired.[=0x000A=][=0x000A=]A hand-ranking rule (this is the move aces up unless there[=0x0027=]s a low straight rule):[=0x000A=][=0x0009=]unless the straightness is true and the lowest card carried by the player is an ace card and the rank of the highest card carried by the player is 5,[=0x000A=][=0x0009=][=0x0009=]now every ace card which is carried by the player is carried by the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after ace movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move pairs forward rule):[=0x000A=][=0x0009=]while the player carries a paired card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest paired card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after pairs movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the raise ace pairs rule):[=0x000A=][=0x0009=]if the player carries exactly two ace cards:[=0x000A=][=0x0009=][=0x0009=]repeat with item running through ace cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]move item to the player;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after paired-ace movement: [list hand][=0x0022=].[=0x000A=][=0x000A=]A hand-ranking rule (this is the move multiples forward rule):[=0x000A=][=0x0009=]while the player carries a tripled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest tripled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]while the player carries a quadrupled card:[=0x000A=][=0x0009=][=0x0009=]let selection be the lowest quadrupled card which is carried by the player;[=0x000A=][=0x0009=][=0x0009=]move the selection to the player;[=0x000A=][=0x0009=][=0x0009=]now the selection is uncombined;[=0x000A=][=0x0009=]if sort-debugging is true, say [=0x0022=]-- after multiples movement rule: [list hand][=0x0022=].[=0x000A=][=0x000A=]Definition: a card is ace if its rank is 1.[=0x000A=]Definition: a card is king if its rank is 13.[=0x000A=][=0x000A=]A hand-ranking rule (this is the royal-flush rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true and the highest card carried by the player is king and the lowest card carried by the player is ace, royal flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straight-flushes rule):[=0x000A=][=0x0009=]if flushness is true and straightness is true, straight flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the four-of-a-kind rule):[=0x000A=][=0x0009=]if the quadruple count is 1, four of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the full-house rule):[=0x000A=][=0x0009=]if the pair count is 1 and the triple count is 1, full house.[=0x000A=][=0x000A=]A hand-ranking rule (this is the flushes rule):[=0x000A=][=0x0009=]if flushness is true, flush.[=0x000A=][=0x000A=]A hand-ranking rule (this is the straights rule):[=0x000A=][=0x0009=]if straightness is true, straight.[=0x000A=][=0x000A=]A hand-ranking rule (this is the three-of-a-kind rule):[=0x000A=][=0x0009=]if triple count is 1, three of a kind.[=0x000A=][=0x000A=]A hand-ranking rule (this is the two-pair rule):[=0x000A=][=0x0009=]if the pair count is 2, two pairs.[=0x000A=][=0x000A=]A hand-ranking rule (this is the pair rule):[=0x000A=][=0x0009=]if the pair count is 1, pair.[=0x000A=][=0x000A=]A hand-ranking rule (this is the default rule):[=0x000A=][=0x0009=]high card.[=0x000A=][=0x000A=]Sort-debugging is a truth state that varies.[=0x000A=][=0x000A=]Section 5 - Testing hand identification - Not for release[=0x000A=][=0x000A=]Understand [=0x0022=]debug sorting[=0x0022=] as debugging hand sorting. Debugging hand sorting is an action out of world.[=0x000A=][=0x000A=]Carry out debugging hand sorting:[=0x000A=][=0x0009=]if sort-debugging is false, now sort-debugging is true;[=0x000A=][=0x0009=]otherwise now sort-debugging is false.[=0x000A=][=0x000A=]Report debugging hand sorting:[=0x000A=][=0x0009=]say [=0x0022=]Sort debugging is now [if sort-debugging is true]on[otherwise]off[end if].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g[=0x0022=].[=0x000A=][=0x000A=]Table of Testing Hands[=0x000A=]set suit[=0x0009=]set rank[=0x000A=]spades[=0x0009=]1[=0x0009=][royal flush][=0x000A=]spades[=0x0009=]13[=0x000A=]spades[=0x0009=]12[=0x000A=]spades[=0x0009=]11[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]12[=0x0009=][straight flush][=0x000A=]clubs[=0x0009=]11[=0x000A=]clubs[=0x0009=]10[=0x000A=]clubs[=0x0009=]9[=0x000A=]clubs[=0x0009=]8[=0x000A=]diamonds[=0x0009=]8[=0x0009=][four of a kind][=0x000A=]hearts[=0x0009=]8[=0x000A=]spades[=0x0009=]8[=0x000A=]clubs[=0x0009=]8[=0x000A=]clubs[=0x0009=]3[=0x000A=]clubs[=0x0009=]1[=0x0009=][full house][=0x000A=]spades[=0x0009=]1[=0x000A=]hearts[=0x0009=]10[=0x000A=]spades[=0x0009=]10[=0x000A=]clubs[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][flush][=0x000A=]hearts[=0x0009=]5[=0x000A=]hearts[=0x0009=]7[=0x000A=]hearts[=0x0009=]11[=0x000A=]hearts[=0x0009=]12[=0x000A=]hearts[=0x0009=]1[=0x0009=][straight][=0x000A=]spades[=0x0009=]13[=0x000A=]diamonds[=0x0009=]12[=0x000A=]clubs[=0x0009=]11[=0x000A=]hearts[=0x0009=]10[=0x000A=]hearts[=0x0009=]2[=0x0009=][three of a kind][=0x000A=]spades[=0x0009=]2[=0x000A=]clubs[=0x0009=]2[=0x000A=]clubs[=0x0009=]4[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]9[=0x000A=]diamonds[=0x0009=]6[=0x0009=][two pairs, ace high][=0x000A=]spades[=0x0009=]6[=0x000A=]clubs[=0x0009=]1[=0x000A=]diamonds[=0x0009=]7[=0x000A=]hearts[=0x0009=]1[=0x000A=]hearts[=0x0009=]12[=0x0009=][pair][=0x000A=]spades[=0x0009=]12[=0x000A=]diamonds[=0x0009=]10[=0x000A=]spades[=0x0009=]7[=0x000A=]clubs[=0x0009=]4[=0x000A=]diamonds[=0x0009=]13[=0x0009=][high][=0x000A=]hearts[=0x0009=]11[=0x000A=]spades[=0x0009=]9[=0x000A=]clubs[=0x0009=]7[=0x000A=]diamonds[=0x0009=]5[=0x000A=]hearts[=0x0009=]1[=0x0009=][tricky sorting: low straight][=0x000A=]diamonds[=0x0009=]2[=0x000A=]spades[=0x0009=]3[=0x000A=]diamonds[=0x0009=]4[=0x000A=]diamonds[=0x0009=]5[=0x000A=][=0x000A=]Understand [=0x0022=]force hand[=0x0022=] as forcing a hand. Forcing a hand is an action out of world.[=0x000A=][=0x000A=]Current marker is a number that varies.[=0x000A=][=0x000A=]Carry out forcing a hand:[=0x000A=][=0x0009=]repeat with item running through cards which are carried by the player:[=0x000A=][=0x0009=][=0x0009=]increment current marker;[=0x000A=][=0x0009=][=0x0009=]if current marker is greater than the number of filled rows in the Table of Testing Hands, now current marker is 1;[=0x000A=][=0x0009=][=0x0009=]choose row current marker in the Table of Testing Hands;[=0x000A=][=0x0009=][=0x0009=]now the suit of item is the set suit entry;[=0x000A=][=0x0009=][=0x0009=]now the rank of item is the set rank entry.[=0x000A=][=0x000A=]Report forcing a hand:[=0x000A=][=0x0009=]try taking inventory.[=0x000A=]\n', 'Example - Tilt 3')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Tilt&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9055_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9055_384"></a>Section 0 - Colored Output in Two Forms
+            <!--START CODE "c9053_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9053_384"></a>Section 0 - Colored Output in Two Forms
             </p>
             </blockquote>
             <!--END CODE-->
             <p>For the suit symbols, we'll want the Unicode extension included with Inform:</p>
-            <!--START CODE "c9056_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9056_384"></a>Include Unicode Character Names by Graham Nelson.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9057_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9057_384"></a>Rule for printing the name of a card (called target) while grouping together:
+            <!--START CODE "c9054_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9054_384"></a>Rule for printing the name of a card (called target) while grouping together:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[rank of the target as abbreviated value][suit of the target as symbol]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9058_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9058_384"></a>To say (current suit - a suit) as symbol:
+            <!--START CODE "c9055_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9055_384"></a>To say (current suit - a suit) as symbol:
             <br>
             &#160;&#160;&#160;&#160;if current suit is diamonds, say &quot;[red letters][unicode black diamond suit][default letters]&quot;;
             <br>
@@ -181,30 +176,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9059_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9059_384"></a>Section 0Z (for Z-machine only)
+            <!--START CODE "c9056_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9056_384"></a>Section 0Z (for Z-machine only)
             </p>
             </blockquote>
             <!--END CODE-->
             <p>The Basic Screen Effects extension bundled with Inform includes mechanisms to change the text color, so for the Z-machine, we need only include this:</p>
-            <!--START CODE "c9060_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9060_384"></a>Include Basic Screen Effects by Emily Short.
+            <!--START CODE "c9057_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9057_384"></a>Include Basic Screen Effects by Emily Short.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9061_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9061_384"></a>Section 0G (for Glulx only)
+            <!--START CODE "c9058_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9058_384"></a>Section 0G (for Glulx only)
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Under Glulx, we need slightly more set-up: Glulx requires that we define special user font styles when we plan to make display changes. A fuller discussion of this (and of how to define new colors) appears in the documentation of &quot;Glulx Text Effects&quot;, but an implementation sufficient to our purposes would be</p>
-            <!--START CODE "c9062_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9062_384"></a>Include Glulx Text Effects by Emily Short.
+            <!--START CODE "c9059_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9059_384"></a>Include Glulx Text Effects by Emily Short.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9063_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9063_384"></a>Table of User Styles (continued)
+            <!--START CODE "c9060_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9060_384"></a>Table of User Styles (continued)
             <br>
             </p>
             </blockquote>
@@ -233,8 +228,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9064_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9064_384"></a>Table of Common Color Values (continued)
+            <!--START CODE "c9061_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9061_384"></a>Table of Common Color Values (continued)
             <br>
             </p>
             </blockquote>
@@ -263,39 +258,39 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9065_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9065_384"></a>To say red letters: say first custom style.
+            <!--START CODE "c9062_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9062_384"></a>To say red letters: say first custom style.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9066_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9066_384"></a>To say default letters: say roman type.
+            <!--START CODE "c9063_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9063_384"></a>To say default letters: say roman type.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>From here, the rest of the source is mostly as we've seen in previous examples:</p>
+            <!--START CODE "c9064_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9064_384"></a>Section 1 - Cards
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9065_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9065_384"></a>Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand &quot;heart&quot; as hearts. Understand &quot;club&quot; as clubs. Understand &quot;diamond&quot; as diamonds. Understand &quot;spade&quot; as spades.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9066_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9066_384"></a>A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9067_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9067_384"></a>Section 1 - Cards
+            <blockquote class="code"><p class="quoted"><a id="c9067_384"></a>52 cards are in the card repository.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9068_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9068_384"></a>Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades. Understand &quot;heart&quot; as hearts. Understand &quot;club&quot; as clubs. Understand &quot;diamond&quot; as diamonds. Understand &quot;spade&quot; as spades.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9069_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9069_384"></a>A card is a kind of thing.  A card has a suit. A card has a number called rank. Understand the suit property as describing a card. Understand the rank property as describing a card.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9070_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9070_384"></a>52 cards are in the card repository.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9071_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9071_384"></a>To say (count - a number) as a card value:
+            <blockquote class="code"><p class="quoted"><a id="c9068_384"></a>To say (count - a number) as a card value:
             <br>
             &#160;&#160;&#160;&#160;choose row count in the Table of Value Names;
             <br>
@@ -303,15 +298,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9072_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9072_384"></a>Rule for printing the name of a card (called target):
+            <!--START CODE "c9069_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9069_384"></a>Rule for printing the name of a card (called target):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[rank of the target as a card value] of [suit of the target]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9073_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9073_384"></a>To say (count - a number) as abbreviated value:
+            <!--START CODE "c9070_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9070_384"></a>To say (count - a number) as abbreviated value:
             <br>
             &#160;&#160;&#160;&#160;choose row count in the Table of Value Names;
             <br>
@@ -319,8 +314,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9074_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9074_384"></a>Table of Value Names
+            <!--START CODE "c9071_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9071_384"></a>Table of Value Names
             <br>
             </p>
             </blockquote>
@@ -581,8 +576,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9075_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9075_384"></a>After reading a command:
+            <!--START CODE "c9072_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9072_384"></a>After reading a command:
             <br>
             &#160;&#160;&#160;&#160;if the player's command includes &quot;of [suit]&quot;:
             <br>
@@ -598,15 +593,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9076_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9076_384"></a>When play begins:
+            <!--START CODE "c9073_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9073_384"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;reconstitute deck.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9077_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9077_384"></a>To reconstitute deck:
+            <!--START CODE "c9074_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9074_384"></a>To reconstitute deck:
             <br>
             &#160;&#160;&#160;&#160;let current suit be hearts;
             <br>
@@ -628,28 +623,28 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9075_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9075_384"></a>Section 2 - The Deck and the Discard Pile
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9076_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9076_384"></a>The Empty Room is a room. &quot;Nothing to see here.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9077_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9077_384"></a>The deck of cards is in the Empty Room. It is a closed unopenable container. The description is &quot;A standard poker deck.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9078_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9078_384"></a>Section 2 - The Deck and the Discard Pile
+            <blockquote class="code"><p class="quoted"><a id="c9078_384"></a>The discard pile is a closed unopenable container. The description is &quot;Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9079_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9079_384"></a>The Empty Room is a room. &quot;Nothing to see here.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9080_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9080_384"></a>The deck of cards is in the Empty Room. It is a closed unopenable container. The description is &quot;A standard poker deck.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9081_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9081_384"></a>The discard pile is a closed unopenable container. The description is &quot;Cards in this game are discarded face-down, so the discard pile is not very interesting to see. All you can observe is that it currently contains [if the number of cards which are in the discard pile is less than ten][the number of cards which are in the discard pile in words][otherwise]about [the rounded number of cards which are in the discard pile in words][end if] card[s].&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9082_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9082_384"></a>To decide what number is the rounded number of (described set - a description of objects):
+            <blockquote class="code"><p class="quoted"><a id="c9079_384"></a>To decide what number is the rounded number of (described set - a description of objects):
             <br>
             &#160;&#160;&#160;&#160;let N be the number of members of the described set;
             <br>
@@ -661,47 +656,47 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9080_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9080_384"></a>Rule for printing room description details of something: do nothing instead.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9081_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9081_384"></a>Section 3 - Drawing and Discarding Actions
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9082_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9082_384"></a>Understand the commands &quot;take&quot; and &quot;carry&quot; and &quot;hold&quot; and &quot;get&quot; and &quot;drop&quot; and &quot;throw&quot; and &quot;discard&quot; as something new.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9083_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9083_384"></a>Rule for printing room description details of something: do nothing instead.
+            <blockquote class="code"><p class="quoted"><a id="c9083_384"></a>Understand &quot;take [text]&quot; or &quot;get [text]&quot; or &quot;drop [text]&quot; as a mistake (&quot;Here, you only draw and discard. Nothing else matters at the moment.&quot;).
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9084_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9084_384"></a>Section 3 - Drawing and Discarding Actions
+            <blockquote class="code"><p class="quoted"><a id="c9084_384"></a>Understand &quot;draw&quot; or &quot;draw card&quot; or &quot;draw a card&quot; as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9085_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9085_384"></a>Understand the commands &quot;take&quot; and &quot;carry&quot; and &quot;hold&quot; and &quot;get&quot; and &quot;drop&quot; and &quot;throw&quot; and &quot;discard&quot; as something new.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9086_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9086_384"></a>Understand &quot;take [text]&quot; or &quot;get [text]&quot; or &quot;drop [text]&quot; as a mistake (&quot;Here, you only draw and discard. Nothing else matters at the moment.&quot;).
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9087_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9087_384"></a>Understand &quot;draw&quot; or &quot;draw card&quot; or &quot;draw a card&quot; as drawing. Drawing is an action applying to nothing. The drawing action has an object called the card drawn.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9088_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9088_384"></a>Setting action variables for drawing:
+            <blockquote class="code"><p class="quoted"><a id="c9085_384"></a>Setting action variables for drawing:
             <br>
             &#160;&#160;&#160;&#160;now the card drawn is a random card which is in the deck of cards.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9089_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9089_384"></a>Check drawing:
+            <!--START CODE "c9086_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9086_384"></a>Check drawing:
             <br>
             &#160;&#160;&#160;&#160;if the card drawn is nothing, say &quot;The deck is completely depleted.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9090_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9090_384"></a>Check drawing:
+            <!--START CODE "c9087_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9087_384"></a>Check drawing:
             <br>
             &#160;&#160;&#160;&#160;if the number of cards carried by the player is greater than four,
             <br>
@@ -709,34 +704,34 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9091_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9091_384"></a>Carry out drawing:
+            <!--START CODE "c9088_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9088_384"></a>Carry out drawing:
             <br>
             &#160;&#160;&#160;&#160;move the card drawn to the player.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9092_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9092_384"></a>Report drawing:
+            <!--START CODE "c9089_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9089_384"></a>Report drawing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You draw [a card drawn].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9093_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9093_384"></a>Understand &quot;discard [card]&quot; as discarding. Discarding is an action applying to one thing.
+            <!--START CODE "c9090_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9090_384"></a>Understand &quot;discard [card]&quot; as discarding. Discarding is an action applying to one thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9094_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9094_384"></a>Check discarding:
+            <!--START CODE "c9091_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9091_384"></a>Check discarding:
             <br>
             &#160;&#160;&#160;&#160;if the player does not carry the noun, say &quot;You can only discard cards from your own hand.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9095_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9095_384"></a>Carry out discarding:
+            <!--START CODE "c9092_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9092_384"></a>Carry out discarding:
             <br>
             &#160;&#160;&#160;&#160;now the noun is in the discard pile;
             <br>
@@ -744,25 +739,25 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9096_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9096_384"></a>Report discarding:
+            <!--START CODE "c9093_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9093_384"></a>Report discarding:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You toss [the noun] nonchalantly onto the discard pile.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9097_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9097_384"></a>Section 4 - Assessing Hands
+            <!--START CODE "c9094_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9094_384"></a>Section 4 - Assessing Hands
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9098_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9098_384"></a>Before listing contents while taking inventory: group cards together.
+            <!--START CODE "c9095_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9095_384"></a>Before listing contents while taking inventory: group cards together.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9099_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9099_384"></a>Before grouping together cards:
+            <!--START CODE "c9096_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9096_384"></a>Before grouping together cards:
             <br>
             &#160;&#160;&#160;&#160;if the number of cards carried by the player is 5:
             <br>
@@ -784,15 +779,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9100_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9100_384"></a>Rule for grouping together cards:
+            <!--START CODE "c9097_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9097_384"></a>Rule for grouping together cards:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[list hand]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9101_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9101_384"></a>To say list hand:
+            <!--START CODE "c9098_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9098_384"></a>To say list hand:
             <br>
             &#160;&#160;&#160;&#160;let chosen card be the first thing held by the player;
             <br>
@@ -806,27 +801,27 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9102_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9102_384"></a>After grouping together cards:
+            <!--START CODE "c9099_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9099_384"></a>After grouping together cards:
             <br>
             &#160;&#160;&#160;&#160;say &quot;)&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9103_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9103_384"></a>The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.
+            <!--START CODE "c9100_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9100_384"></a>The hand-ranking rules is a rulebook. The hand-ranking rules have outcomes royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pairs, pair, high card.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9104_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9104_384"></a>The hand-ranking rulebook has a truth state called the flushness.
+            <!--START CODE "c9101_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9101_384"></a>The hand-ranking rulebook has a truth state called the flushness.
             <br>
             The hand-ranking rulebook has a truth state called the straightness.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9105_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9105_384"></a>The hand-ranking rulebook has a number called the pair count.
+            <!--START CODE "c9102_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9102_384"></a>The hand-ranking rulebook has a number called the pair count.
             <br>
             The hand-ranking rulebook has a number called the triple count.
             <br>
@@ -834,20 +829,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9106_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9106_384"></a>A card can be sorted or unsorted. A card is usually unsorted.
+            <!--START CODE "c9103_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9103_384"></a>A card can be sorted or unsorted. A card is usually unsorted.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9107_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9107_384"></a>Definition: a card is high if its rank is 11 or more.
+            <!--START CODE "c9104_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9104_384"></a>Definition: a card is high if its rank is 11 or more.
             <br>
             Definition: a card is low if its rank is 4 or less.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9108_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9108_384"></a>A hand-ranking rule (this is the initial sort rule):
+            <!--START CODE "c9105_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9105_384"></a>A hand-ranking rule (this is the initial sort rule):
             <br>
             &#160;&#160;&#160;&#160;now every card is unsorted;
             <br>
@@ -863,8 +858,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9109_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9109_384"></a>A hand-ranking rule (this is the finding flushness rule):
+            <!--START CODE "c9106_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9106_384"></a>A hand-ranking rule (this is the finding flushness rule):
             <br>
             &#160;&#160;&#160;&#160;let called suit be the suit of a random card carried by the player;
             <br>
@@ -872,8 +867,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9110_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9110_384"></a>A hand-ranking rule (this is the finding straightness rule):
+            <!--START CODE "c9107_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9107_384"></a>A hand-ranking rule (this is the finding straightness rule):
             <br>
             &#160;&#160;&#160;&#160;now straightness is true;
             <br>
@@ -891,18 +886,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9111_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9111_384"></a>A card can be quadrupled, tripled, paired or uncombined.
+            <!--START CODE "c9108_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9108_384"></a>A card can be quadrupled, tripled, paired or uncombined.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9112_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9112_384"></a>Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.
+            <!--START CODE "c9109_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9109_384"></a>Test rank is a number that varies. Definition: a card is matching if its rank is the test rank.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9113_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9113_384"></a>A hand-ranking rule (this is the counting multiples rule):
+            <!--START CODE "c9110_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9110_384"></a>A hand-ranking rule (this is the counting multiples rule):
             <br>
             &#160;&#160;&#160;&#160;now every card is uncombined;
             <br>
@@ -932,8 +927,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9114_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9114_384"></a>A hand-ranking rule (this is the move aces up unless there's a low straight rule):
+            <!--START CODE "c9111_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9111_384"></a>A hand-ranking rule (this is the move aces up unless there's a low straight rule):
             <br>
             &#160;&#160;&#160;&#160;unless the straightness is true and the lowest card carried by the player is an ace card and the rank of the highest card carried by the player is 5,
             <br>
@@ -943,8 +938,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9115_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9115_384"></a>A hand-ranking rule (this is the move pairs forward rule):
+            <!--START CODE "c9112_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9112_384"></a>A hand-ranking rule (this is the move pairs forward rule):
             <br>
             &#160;&#160;&#160;&#160;while the player carries a paired card:
             <br>
@@ -958,8 +953,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9116_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9116_384"></a>A hand-ranking rule (this is the raise ace pairs rule):
+            <!--START CODE "c9113_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9113_384"></a>A hand-ranking rule (this is the raise ace pairs rule):
             <br>
             &#160;&#160;&#160;&#160;if the player carries exactly two ace cards:
             <br>
@@ -971,8 +966,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9117_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9117_384"></a>A hand-ranking rule (this is the move multiples forward rule):
+            <!--START CODE "c9114_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9114_384"></a>A hand-ranking rule (this is the move multiples forward rule):
             <br>
             &#160;&#160;&#160;&#160;while the player carries a tripled card:
             <br>
@@ -994,100 +989,100 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9118_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9118_384"></a>Definition: a card is ace if its rank is 1.
+            <!--START CODE "c9115_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9115_384"></a>Definition: a card is ace if its rank is 1.
             <br>
             Definition: a card is king if its rank is 13.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9119_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9119_384"></a>A hand-ranking rule (this is the royal-flush rule):
+            <!--START CODE "c9116_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9116_384"></a>A hand-ranking rule (this is the royal-flush rule):
             <br>
             &#160;&#160;&#160;&#160;if flushness is true and straightness is true and the highest card carried by the player is king and the lowest card carried by the player is ace, royal flush.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9120_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9120_384"></a>A hand-ranking rule (this is the straight-flushes rule):
+            <!--START CODE "c9117_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9117_384"></a>A hand-ranking rule (this is the straight-flushes rule):
             <br>
             &#160;&#160;&#160;&#160;if flushness is true and straightness is true, straight flush.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9121_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9121_384"></a>A hand-ranking rule (this is the four-of-a-kind rule):
+            <!--START CODE "c9118_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9118_384"></a>A hand-ranking rule (this is the four-of-a-kind rule):
             <br>
             &#160;&#160;&#160;&#160;if the quadruple count is 1, four of a kind.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9122_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9122_384"></a>A hand-ranking rule (this is the full-house rule):
+            <!--START CODE "c9119_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9119_384"></a>A hand-ranking rule (this is the full-house rule):
             <br>
             &#160;&#160;&#160;&#160;if the pair count is 1 and the triple count is 1, full house.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9123_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9123_384"></a>A hand-ranking rule (this is the flushes rule):
+            <!--START CODE "c9120_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9120_384"></a>A hand-ranking rule (this is the flushes rule):
             <br>
             &#160;&#160;&#160;&#160;if flushness is true, flush.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9124_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9124_384"></a>A hand-ranking rule (this is the straights rule):
+            <!--START CODE "c9121_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9121_384"></a>A hand-ranking rule (this is the straights rule):
             <br>
             &#160;&#160;&#160;&#160;if straightness is true, straight.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9125_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9125_384"></a>A hand-ranking rule (this is the three-of-a-kind rule):
+            <!--START CODE "c9122_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9122_384"></a>A hand-ranking rule (this is the three-of-a-kind rule):
             <br>
             &#160;&#160;&#160;&#160;if triple count is 1, three of a kind.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9126_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9126_384"></a>A hand-ranking rule (this is the two-pair rule):
+            <!--START CODE "c9123_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9123_384"></a>A hand-ranking rule (this is the two-pair rule):
             <br>
             &#160;&#160;&#160;&#160;if the pair count is 2, two pairs.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9127_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9127_384"></a>A hand-ranking rule (this is the pair rule):
+            <!--START CODE "c9124_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9124_384"></a>A hand-ranking rule (this is the pair rule):
             <br>
             &#160;&#160;&#160;&#160;if the pair count is 1, pair.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9128_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9128_384"></a>A hand-ranking rule (this is the default rule):
+            <!--START CODE "c9125_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9125_384"></a>A hand-ranking rule (this is the default rule):
             <br>
             &#160;&#160;&#160;&#160;high card.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9126_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9126_384"></a>Sort-debugging is a truth state that varies.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9127_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9127_384"></a>Section 5 - Testing hand identification - Not for release
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9128_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9128_384"></a>Understand &quot;debug sorting&quot; as debugging hand sorting. Debugging hand sorting is an action out of world.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9129_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9129_384"></a>Sort-debugging is a truth state that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9130_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9130_384"></a>Section 5 - Testing hand identification - Not for release
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9131_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9131_384"></a>Understand &quot;debug sorting&quot; as debugging hand sorting. Debugging hand sorting is an action out of world.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9132_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9132_384"></a>Carry out debugging hand sorting:
+            <blockquote class="code"><p class="quoted"><a id="c9129_384"></a>Carry out debugging hand sorting:
             <br>
             &#160;&#160;&#160;&#160;if sort-debugging is false, now sort-debugging is true;
             <br>
@@ -1095,20 +1090,20 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9133_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9133_384"></a>Report debugging hand sorting:
+            <!--START CODE "c9130_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9130_384"></a>Report debugging hand sorting:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Sort debugging is now [if sort-debugging is true]on[otherwise]off[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9134_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9134_384"></a>Test me with &quot;draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g&quot;.
+            <!--START CODE "c9131_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9131_384"></a>Test me with &quot;draw / g / g / g / g / force hand / g / g / g / g / g / g / g / g / g / g / g / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9135_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9135_384"></a>Table of Testing Hands
+            <!--START CODE "c9132_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9132_384"></a>Table of Testing Hands
             <br>
             </p>
             </blockquote>
@@ -1775,18 +1770,18 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9136_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9136_384"></a>Understand &quot;force hand&quot; as forcing a hand. Forcing a hand is an action out of world.
+            <!--START CODE "c9133_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9133_384"></a>Understand &quot;force hand&quot; as forcing a hand. Forcing a hand is an action out of world.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9137_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9137_384"></a>Current marker is a number that varies.
+            <!--START CODE "c9134_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9134_384"></a>Current marker is a number that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9138_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9138_384"></a>Carry out forcing a hand:
+            <!--START CODE "c9135_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9135_384"></a>Carry out forcing a hand:
             <br>
             &#160;&#160;&#160;&#160;repeat with item running through cards which are carried by the player:
             <br>
@@ -1802,8 +1797,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9139_384"-->
-            <blockquote class="code"><p class="quoted"><a id="c9139_384"></a>Report forcing a hand:
+            <!--START CODE "c9136_384"-->
+            <blockquote class="code"><p class="quoted"><a id="c9136_384"></a>Report forcing a hand:
             <br>
             &#160;&#160;&#160;&#160;try taking inventory.
             </p>

@@ -83,21 +83,21 @@
     <!--END IGNORE-->
     <p class="sectionheading">§22.4. Default values for phrase kinds</p>
     <p>The default value for &quot;phrase K -&gt; nothing&quot; is a phrase which does nothing. For example, if we write:</p>
-    <!--START CODE "c8674"-->
-    <blockquote class="code"><p class="quoted"><a id="c8674"></a>let S be a phrase numbers -&gt; nothing;
+    <!--START CODE "c8672"-->
+    <blockquote class="code"><p class="quoted"><a id="c8672"></a>let S be a phrase numbers -&gt; nothing;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then S is created holding the default phrase numbers -&gt; nothing, and if we then try it out with:</p>
-    <!--START CODE "c8675"-->
-    <blockquote class="code"><p class="quoted"><a id="c8675"></a>apply S to 17;
+    <!--START CODE "c8673"-->
+    <blockquote class="code"><p class="quoted"><a id="c8673"></a>apply S to 17;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>we will indeed find that nothing happens.</p>
     <p>The default value for &quot;phrase K -&gt; L&quot; is a phrase which, no matter what value of K it applies to, always produces the default value of L. (It's a sort of equivalent of the zero function in mathematics - indeed that's exactly what it is, if L is &quot;number&quot;.) So:</p>
-    <!--START CODE "c8676"-->
-    <blockquote class="code"><p class="quoted"><a id="c8676"></a>let Q be a phrase numbers -&gt; times;
+    <!--START CODE "c8674"-->
+    <blockquote class="code"><p class="quoted"><a id="c8674"></a>let Q be a phrase numbers -&gt; times;
     <br>
     showme Q;
     <br>
@@ -108,8 +108,8 @@
     </blockquote>
     <!--END CODE-->
     <p>produces:</p>
-    <!--START CODE "c8677"-->
-    <blockquote class="code"><p class="quoted"><a id="c8677"></a>&quot;q&quot; = phrase number -&gt; time: default value of phrase number -&gt; time
+    <!--START CODE "c8675"-->
+    <blockquote class="code"><p class="quoted"><a id="c8675"></a>&quot;q&quot; = phrase number -&gt; time: default value of phrase number -&gt; time
     <br>
     &quot;q applied to 4&quot; = time: 9:00 am
     <br>
@@ -119,8 +119,8 @@
     <!--END CODE-->
     <p>Here Q is set to the default phrase because we didn't give it any other value; it has the name we might expect (&quot;default value of phrase number -&gt; time&quot;) and it works as advertised, producing 9:00 am no matter what number is fed in.</p>
     <p>More ambitiously, and supposing that we have a kind called &quot;colour&quot; whose first possible value is &quot;red&quot;:</p>
-    <!--START CODE "c8678"-->
-    <blockquote class="code"><p class="quoted"><a id="c8678"></a>let R be a phrase numbers -&gt; (phrase numbers -&gt; colours);
+    <!--START CODE "c8676"-->
+    <blockquote class="code"><p class="quoted"><a id="c8676"></a>let R be a phrase numbers -&gt; (phrase numbers -&gt; colours);
     <br>
     showme R;
     <br>
@@ -131,8 +131,8 @@
     </blockquote>
     <!--END CODE-->
     <p>produces:</p>
-    <!--START CODE "c8679"-->
-    <blockquote class="code"><p class="quoted"><a id="c8679"></a>&quot;r&quot; = phrase number -&gt; (phrase number -&gt; colour): default value of phrase
+    <!--START CODE "c8677"-->
+    <blockquote class="code"><p class="quoted"><a id="c8677"></a>&quot;r&quot; = phrase number -&gt; (phrase number -&gt; colour): default value of phrase
     <br>
     number -&gt; (phrase number -&gt; colour)
     <br>

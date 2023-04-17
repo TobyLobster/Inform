@@ -83,21 +83,21 @@
     <!--END IGNORE-->
     <p class="sectionheading">§7.3. Before rules</p>
     <p>Despite what was said in the previous section, instead rules do not quite bypass all of the usual rules. Inform knows that certain actions require light: for instance,</p>
-    <!--START CODE "c1306"-->
-    <blockquote class="code"><p class="quoted"><a id="c1306"></a>examining the napkin; looking; looking under the dining table
+    <!--START CODE "c1305"-->
+    <blockquote class="code"><p class="quoted"><a id="c1305"></a>examining the napkin; looking; looking under the dining table
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and if it is dark then none of these actions will be allowed, and any instead rules about them will not even be reached. Similarly, Inform knows that most actions require physical access to their objects: so &quot;taking the napkin&quot; would be blocked if the napkin were, say, inside a closed glass bottle, whereas &quot;examining the napkin&quot; would not. So an instead rule can only take effect if the action has already passed these basic reasonability tests.</p>
     <p>&quot;Before&quot; rules genuinely precede checking of any kind. They also differ from instead rules in that they do not automatically stop the action in its tracks. Rather, they are provided as an opportunity to ensure that something else is done first. For example:</p>
-    <!--START CODE "c1307"-->
-    <blockquote class="code"><p class="quoted"><a id="c1307"></a>Before taking the napkin, say &quot;(first unfolding its delicate origami swan)&quot;.
+    <!--START CODE "c1306"-->
+    <blockquote class="code"><p class="quoted"><a id="c1306"></a>Before taking the napkin, say &quot;(first unfolding its delicate origami swan)&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>whence</p>
-    <!--START CODE "c1308"-->
-    <blockquote class="code"><p class="quoted"><a id="c1308"></a>&gt;GET NAPKIN
+    <!--START CODE "c1307"-->
+    <blockquote class="code"><p class="quoted"><a id="c1307"></a>&gt;GET NAPKIN
     <br>
     (first unfolding its delicate origami swan)
     <br>
@@ -106,13 +106,13 @@
     </blockquote>
     <!--END CODE-->
     <p>We have seen that instead rules automatically stop actions, whereas before rules automatically allow them to continue. We sometimes want to change this. The magic word &quot;instead&quot; can therefore be tacked on to any instruction in a before rule, and will have the effect of immediately stopping the action at that instruction. Thus the following two rules are (almost) equivalent:</p>
-    <!--START CODE "c1309"-->
-    <blockquote class="code"><p class="quoted"><a id="c1309"></a>Before taking the key, instead say &quot;It seems to be soldered to the keyhole.&quot;
+    <!--START CODE "c1308"-->
+    <blockquote class="code"><p class="quoted"><a id="c1308"></a>Before taking the key, instead say &quot;It seems to be soldered to the keyhole.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c1310"-->
-    <blockquote class="code"><p class="quoted"><a id="c1310"></a>Instead of taking the key, say &quot;It seems to be soldered to the keyhole.&quot;
+    <!--START CODE "c1309"-->
+    <blockquote class="code"><p class="quoted"><a id="c1309"></a>Instead of taking the key, say &quot;It seems to be soldered to the keyhole.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -125,8 +125,8 @@
             <!--definition of ph_stopaction-->
 
     <p>    This phrase stops the current rule, stops the rulebook being worked through, and finally stops the action being processed. Example:</p>
-    <!--START CODE "c1311"-->
-    <blockquote class="code"><p class="quoted"><a id="c1311"></a>Before taking the key:
+    <!--START CODE "c1310"-->
+    <blockquote class="code"><p class="quoted"><a id="c1310"></a>Before taking the key:
     <br>
     &#160;&#160;&#160;&#160;say &quot;It seems to be soldered to the keyhole.&quot;;
     <br>
@@ -147,8 +147,8 @@
             <!--definition of ph_continueaction-->
 
     <p>    This phrase ends the current rule, but in a way which keeps its rulebook going, so that the action being processed will carry on rather than being stopped. Example:</p>
-    <!--START CODE "c1312"-->
-    <blockquote class="code"><p class="quoted"><a id="c1312"></a>Instead of taking the napkin:
+    <!--START CODE "c1311"-->
+    <blockquote class="code"><p class="quoted"><a id="c1311"></a>Instead of taking the napkin:
     <br>
     &#160;&#160;&#160;&#160;say &quot;(first unfolding its delicate origami swan)[command clarification break]&quot;;
     <br>
@@ -190,13 +190,13 @@
 
         <div class="egpanel" id="example306" style="display: none;">
             <p>&quot;Stop&quot; and &quot;Continue&quot; are most useful when we need to write rules that will have to stop the action some of the time but at other times let it pass; so for instance:</p>
-            <!--START CODE "c1313_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1313_306"></a><a href="javascript:pasteCode('[=0x0022=]Democratic Process[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]The Assembly Room is a room. [=0x0022=]On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.[=0x0022=] The ballot is on the desk. The desk is in the Assembly Room.[=0x000A=][=0x000A=]The machine is a container in the Assembly Room. [=0x0022=]On the ballot machine is a sign which reads [=0x0027=]PUT BALLOTS IN ME :)[=0x0027=].[=0x0022=] Understand [=0x0022=]ballot machine[=0x0022=] as the machine.[=0x000A=][=0x000A=]Test me with [=0x0022=]put ballot in machine[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Democratic Process[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]The Assembly Room is a room. [=0x0022=]On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.[=0x0022=] The ballot is on the desk. The desk is in the Assembly Room.[=0x000A=][=0x000A=]The machine is a container in the Assembly Room. [=0x0022=]On the ballot machine is a sign which reads [=0x0027=]PUT BALLOTS IN ME :)[=0x0027=].[=0x0022=] Understand [=0x0022=]ballot machine[=0x0022=] as the machine.[=0x000A=][=0x000A=]Test me with [=0x0022=]put ballot in machine[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Democratic Process')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Democratic Process&quot;
+            <!--START CODE "c1312_306"-->
+            <blockquote class="code"><p class="quoted"><a id="c1312_306"></a><a href="javascript:pasteCode('[=0x0022=]Democratic Process[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]The Assembly Room is a room. [=0x0022=]On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.[=0x0022=] The ballot is on the desk. The desk is in the Assembly Room.[=0x000A=][=0x000A=]The machine is a container in the Assembly Room. [=0x0022=]On the ballot machine is a sign which reads [=0x0027=]PUT BALLOTS IN ME :)[=0x0027=].[=0x0022=] Understand [=0x0022=]ballot machine[=0x0022=] as the machine.[=0x000A=][=0x000A=]Test me with [=0x0022=]put ballot in machine[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Democratic Process[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]The Assembly Room is a room. [=0x0022=]On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.[=0x0022=] The ballot is on the desk. The desk is in the Assembly Room.[=0x000A=][=0x000A=]The machine is a container in the Assembly Room. [=0x0022=]On the ballot machine is a sign which reads [=0x0027=]PUT BALLOTS IN ME :)[=0x0027=].[=0x0022=] Understand [=0x0022=]ballot machine[=0x0022=] as the machine.[=0x000A=][=0x000A=]Test me with [=0x0022=]put ballot in machine[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Democratic Process')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Democratic Process&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1314_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1314_306"></a>Before inserting something which is not carried by the player into something:
+            <!--START CODE "c1313_306"-->
+            <blockquote class="code"><p class="quoted"><a id="c1313_306"></a>Before inserting something which is not carried by the player into something:
             <br>
             &#160;&#160;&#160;&#160;if the noun is in the second noun, say &quot;Already done.&quot; instead;
             <br>
@@ -208,8 +208,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1315_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1315_306"></a>Before putting something which is not carried by the player on something:
+            <!--START CODE "c1314_306"-->
+            <blockquote class="code"><p class="quoted"><a id="c1314_306"></a>Before putting something which is not carried by the player on something:
             <br>
             &#160;&#160;&#160;&#160;if the noun is on the second noun, say &quot;Already done.&quot; instead;
             <br>
@@ -221,18 +221,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1315_306"-->
+            <blockquote class="code"><p class="quoted"><a id="c1315_306"></a>The Assembly Room is a room. &quot;On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.&quot; The ballot is on the desk. The desk is in the Assembly Room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1316_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1316_306"></a>The Assembly Room is a room. &quot;On most days, this room is used for elementary school assemblies; at the moment, it serves as a voting place.&quot; The ballot is on the desk. The desk is in the Assembly Room.
+            <blockquote class="code"><p class="quoted"><a id="c1316_306"></a>The machine is a container in the Assembly Room. &quot;On the ballot machine is a sign which reads 'PUT BALLOTS IN ME :)'.&quot; Understand &quot;ballot machine&quot; as the machine.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1317_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1317_306"></a>The machine is a container in the Assembly Room. &quot;On the ballot machine is a sign which reads 'PUT BALLOTS IN ME :)'.&quot; Understand &quot;ballot machine&quot; as the machine.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1318_306"-->
-            <blockquote class="code"><p class="quoted"><a id="c1318_306"></a>Test me with &quot;put ballot in machine&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1317_306"></a>Test me with &quot;put ballot in machine&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -264,13 +264,13 @@
 
         <div class="egpanel" id="example307" style="display: none;">
             <p>The above example does not quite work when we want the player to be allowed to take multiple objects at once before putting them somewhere: we also need to add a couple of &quot;understand&quot; rules borrowed from many chapters later. While the reasons may not be immediately clear, we include the demonstration here for the sake of thoroughness:</p>
-            <!--START CODE "c1319_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1319_307"></a><a href="javascript:pasteCode('[=0x0022=]Sand[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun]) [=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Understand [=0x0022=]put [things] in [something][=0x0022=] as inserting it into. Understand [=0x0022=]put [things] on [something][=0x0022=] as putting it on.[=0x000A=][=0x000A=]The Closet is a room.[=0x000A=][=0x000A=]A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.[=0x000A=][=0x000A=]Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.[=0x000A=][=0x000A=]When play begins: say [=0x0022=]Thanks to your cruel stepmother, you[=0x0027=]re not going anywhere until the lentils and peas are sorted.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]put peas in square tin / put lentils in round tin[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Sand[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun]) [=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Understand [=0x0022=]put [things] in [something][=0x0022=] as inserting it into. Understand [=0x0022=]put [things] on [something][=0x0022=] as putting it on.[=0x000A=][=0x000A=]The Closet is a room.[=0x000A=][=0x000A=]A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.[=0x000A=][=0x000A=]Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.[=0x000A=][=0x000A=]When play begins: say [=0x0022=]Thanks to your cruel stepmother, you[=0x0027=]re not going anywhere until the lentils and peas are sorted.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]put peas in square tin / put lentils in round tin[=0x0022=].[=0x000A=]\n', 'Example - Sand')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Sand&quot;
+            <!--START CODE "c1318_307"-->
+            <blockquote class="code"><p class="quoted"><a id="c1318_307"></a><a href="javascript:pasteCode('[=0x0022=]Sand[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun]) [=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Understand [=0x0022=]put [things] in [something][=0x0022=] as inserting it into. Understand [=0x0022=]put [things] on [something][=0x0022=] as putting it on.[=0x000A=][=0x000A=]The Closet is a room.[=0x000A=][=0x000A=]A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.[=0x000A=][=0x000A=]Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.[=0x000A=][=0x000A=]When play begins: say [=0x0022=]Thanks to your cruel stepmother, you[=0x0027=]re not going anywhere until the lentils and peas are sorted.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]put peas in square tin / put lentils in round tin[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Sand[=0x0022=][=0x000A=][=0x000A=]Before inserting something which is not carried by the player into something:[=0x000A=][=0x0009=]if the noun is in the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun]) [=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Before putting something which is not carried by the player on something:[=0x000A=][=0x0009=]if the noun is on the second noun, say [=0x0022=]Already done.[=0x0022=] instead;[=0x000A=][=0x0009=]say [=0x0022=](first taking [the noun])[line break][=0x0022=];[=0x000A=][=0x0009=]silently try taking the noun;[=0x000A=][=0x0009=]if the player is not holding the noun, stop the action.[=0x000A=][=0x000A=]Understand [=0x0022=]put [things] in [something][=0x0022=] as inserting it into. Understand [=0x0022=]put [things] on [something][=0x0022=] as putting it on.[=0x000A=][=0x000A=]The Closet is a room.[=0x000A=][=0x000A=]A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.[=0x000A=][=0x000A=]Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.[=0x000A=][=0x000A=]When play begins: say [=0x0022=]Thanks to your cruel stepmother, you[=0x0027=]re not going anywhere until the lentils and peas are sorted.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]put peas in square tin / put lentils in round tin[=0x0022=].[=0x000A=]\n', 'Example - Sand')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Sand&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1320_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1320_307"></a>Before inserting something which is not carried by the player into something:
+            <!--START CODE "c1319_307"-->
+            <blockquote class="code"><p class="quoted"><a id="c1319_307"></a>Before inserting something which is not carried by the player into something:
             <br>
             &#160;&#160;&#160;&#160;if the noun is in the second noun, say &quot;Already done.&quot; instead;
             <br>
@@ -282,8 +282,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1321_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1321_307"></a>Before putting something which is not carried by the player on something:
+            <!--START CODE "c1320_307"-->
+            <blockquote class="code"><p class="quoted"><a id="c1320_307"></a>Before putting something which is not carried by the player on something:
             <br>
             &#160;&#160;&#160;&#160;if the noun is on the second noun, say &quot;Already done.&quot; instead;
             <br>
@@ -295,33 +295,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1321_307"-->
+            <blockquote class="code"><p class="quoted"><a id="c1321_307"></a>Understand &quot;put [things] in [something]&quot; as inserting it into. Understand &quot;put [things] on [something]&quot; as putting it on.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1322_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1322_307"></a>Understand &quot;put [things] in [something]&quot; as inserting it into. Understand &quot;put [things] on [something]&quot; as putting it on.
+            <blockquote class="code"><p class="quoted"><a id="c1322_307"></a>The Closet is a room.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1323_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1323_307"></a>The Closet is a room.
+            <blockquote class="code"><p class="quoted"><a id="c1323_307"></a>A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1324_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1324_307"></a>A lentil is a kind of thing. A black-eyed pea is a kind of thing. The closet contains 3 lentils. The Closet contains 14 black-eyed peas. The round tin is a container in the closet. The round tin contains 17 lentils. The square tin is a container in the Closet. The square tin contains 20 black-eyed peas.
+            <blockquote class="code"><p class="quoted"><a id="c1324_307"></a>Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1325_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1325_307"></a>Sorting is a scene. Sorting begins when play begins. Sorting ends when all the lentils are in the round tin and all the black-eyed peas are in the square tin. When Sorting ends, end the story finally.
+            <blockquote class="code"><p class="quoted"><a id="c1325_307"></a>When play begins: say &quot;Thanks to your cruel stepmother, you're not going anywhere until the lentils and peas are sorted.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1326_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1326_307"></a>When play begins: say &quot;Thanks to your cruel stepmother, you're not going anywhere until the lentils and peas are sorted.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1327_307"-->
-            <blockquote class="code"><p class="quoted"><a id="c1327_307"></a>Test me with &quot;put peas in square tin / put lentils in round tin&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1326_307"></a>Test me with &quot;put peas in square tin / put lentils in round tin&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

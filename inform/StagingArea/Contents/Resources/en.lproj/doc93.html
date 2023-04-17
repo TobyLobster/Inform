@@ -83,21 +83,21 @@
     <!--END IGNORE-->
     <p class="sectionheading">§6.14. Adjacent rooms and routes through the map</p>
     <p>Another useful adjective built into Inform is &quot;adjacent&quot;. Two rooms are said to be adjacent if there is a map connection between them which does not pass through some barrier such as a door. This is easily tested:</p>
-    <!--START CODE "c1145"-->
-    <blockquote class="code"><p class="quoted"><a id="c1145"></a>if the Hallway is adjacent to the Study ...
+    <!--START CODE "c1144"-->
+    <blockquote class="code"><p class="quoted"><a id="c1144"></a>if the Hallway is adjacent to the Study ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We usually want to know about the places adjacent to the current scene of the action, so that is what the adjective &quot;adjacent&quot; means when applied to rooms. For instance:</p>
-    <!--START CODE "c1146"-->
-    <blockquote class="code"><p class="quoted"><a id="c1146"></a>if somebody is in an adjacent room, ...
+    <!--START CODE "c1145"-->
+    <blockquote class="code"><p class="quoted"><a id="c1145"></a>if somebody is in an adjacent room, ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>As with the case of &quot;visible&quot;, the adjective is a cut-down version of the more general relationship. This often happens: &quot;worn&quot; and &quot;carried&quot;, for instance, imply &quot;by the player&quot; unless something else is specified.</p>
     <p>If we want to ask a more direct question, we can obtain specific map connections as follows. (Recall that every map connection leads either to a door, to a room, or to nothing.) If we know which direction we want to look in, then the easiest thing is to use its relation - every direction in the map, say &quot;north&quot;, has its own relation, say &quot;mapped north of&quot;. So:</p>
-    <!--START CODE "c1147"-->
-    <blockquote class="code"><p class="quoted"><a id="c1147"></a>if the Ballroom is mapped north of the Hallway, ...
+    <!--START CODE "c1146"-->
+    <blockquote class="code"><p class="quoted"><a id="c1146"></a>if the Ballroom is mapped north of the Hallway, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -110,8 +110,8 @@
             <!--definition of ph_roomdirof-->
 
     <p>    This phrase produces the room which the given map direction leads to, or the special value &quot;nothing&quot; if it leads nowhere. If it leads to a door, the result is the room through that door. Examples:</p>
-    <!--START CODE "c1148"-->
-    <blockquote class="code"><p class="quoted"><a id="c1148"></a>say &quot;You look north into [the room north from the Garden].&quot;
+    <!--START CODE "c1147"-->
+    <blockquote class="code"><p class="quoted"><a id="c1147"></a>say &quot;You look north into [the room north from the Garden].&quot;
     <br>
     if the room north from the Garden is nothing, say &quot;The grass leads nowhere.&quot;
     </p>
@@ -129,8 +129,8 @@
             <!--definition of ph_doordirof-->
 
     <p>    This phrase produces the door which the given map direction leads to, or the special value &quot;nothing&quot; if it leads nowhere or to a room. Examples:</p>
-    <!--START CODE "c1149"-->
-    <blockquote class="code"><p class="quoted"><a id="c1149"></a>let the barrier be the door north from the Garden;
+    <!--START CODE "c1148"-->
+    <blockquote class="code"><p class="quoted"><a id="c1148"></a>let the barrier be the door north from the Garden;
     <br>
     if the barrier is a door, say &quot;Well, [the barrier] is in the way.&quot;;
     </p>
@@ -161,14 +161,14 @@
             <!--definition of ph_bestroute-->
 
     <p>    This phrase produces a direction to take in order to get from A to B by the shortest number of movements between rooms, or produces &quot;nothing&quot; if there is no way through at all. Example:</p>
-    <!--START CODE "c1150"-->
-    <blockquote class="code"><p class="quoted"><a id="c1150"></a>The description of the brass compass is &quot;The dial points quiveringly to [best route from the location to the Lodestone Room].&quot;
+    <!--START CODE "c1149"-->
+    <blockquote class="code"><p class="quoted"><a id="c1149"></a>The description of the brass compass is &quot;The dial points quiveringly to [best route from the location to the Lodestone Room].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Best routes are ordinarily forbidden to go through doors, but if the suffix &quot;using doors&quot; is added as an option then any open or openable and unlocked door may be used on the way; and if &quot;using even locked doors&quot; is given, then any door at all will do. Since magnetism is no respecter of property, that seems right here:</p>
-    <!--START CODE "c1151"-->
-    <blockquote class="code"><p class="quoted"><a id="c1151"></a>The description of the brass compass is &quot;The dial points quiveringly to [best route from the location to the Lodestone Room, using even locked doors].&quot;
+    <!--START CODE "c1150"-->
+    <blockquote class="code"><p class="quoted"><a id="c1150"></a>The description of the brass compass is &quot;The dial points quiveringly to [best route from the location to the Lodestone Room, using even locked doors].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -185,8 +185,8 @@
             <!--definition of ph_bestroutethrough-->
 
     <p>    This phrase produces a direction to take in order to get from A to B by the shortest number of movements between rooms which match the given description, or produces &quot;nothing&quot; if there is no way through at all. Example:</p>
-    <!--START CODE "c1152"-->
-    <blockquote class="code"><p class="quoted"><a id="c1152"></a>best route from the Drawbridge to the Keep through visited rooms
+    <!--START CODE "c1151"-->
+    <blockquote class="code"><p class="quoted"><a id="c1151"></a>best route from the Drawbridge to the Keep through visited rooms
     </p>
     </blockquote>
     <!--END CODE-->
@@ -204,8 +204,8 @@
             <!--definition of ph_bestroutelength-->
 
     <p>    This phrase produces the number of map connections which must be followed in order to get from A to B by the shortest number of movements between rooms. If A and B are the same, the answer is 0; if there is no route at all, the answer is -1. Example:</p>
-    <!--START CODE "c1153"-->
-    <blockquote class="code"><p class="quoted"><a id="c1153"></a>The description of the proximity gadget is &quot;You are now [number of moves from the location to the Sundial] moves from the Sundial.&quot;;
+    <!--START CODE "c1152"-->
+    <blockquote class="code"><p class="quoted"><a id="c1152"></a>The description of the proximity gadget is &quot;You are now [number of moves from the location to the Sundial] moves from the Sundial.&quot;;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -226,8 +226,8 @@
     </div>
 
     <p>Route-finding makes it possible to write quite sophisticated conditions concisely. But these sometimes run slowly, because they call for large amounts of computation. How rapidly Inform can find routes depends on which of two methods it uses. Both have advantages - one is fast but needs large amounts of memory, the other is slow but economical. We can choose between them with one of these two use options:</p>
-    <!--START CODE "c1154"-->
-    <blockquote class="code"><p class="quoted"><a id="c1154"></a>Use fast route-finding.
+    <!--START CODE "c1153"-->
+    <blockquote class="code"><p class="quoted"><a id="c1153"></a>Use fast route-finding.
     <br>
     Use slow route-finding.
     </p>
@@ -263,23 +263,23 @@
 
         <div class="egpanel" id="example15" style="display: none;">
             <p>Suppose we want a restless sort of character always pacing from room to room. It is quite easy to use adjacency to achieve this effect:</p>
+            <!--START CODE "c1154_15"-->
+            <blockquote class="code"><p class="quoted"><a id="c1154_15"></a><a href="javascript:pasteCode('[=0x0022=]Mistress of Animals[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Artemis is a woman in Thebes.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Artemis is in a room (called the current space):[=0x000A=][=0x0009=][=0x0009=]let next space be a random room which is adjacent to the current space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis heads to [the next space].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move Artemis to next space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis arrives from [the current space].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Mistress of Animals[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Artemis is a woman in Thebes.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Artemis is in a room (called the current space):[=0x000A=][=0x0009=][=0x0009=]let next space be a random room which is adjacent to the current space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis heads to [the next space].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move Artemis to next space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis arrives from [the current space].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Mistress of Animals')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Mistress of Animals&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1155_15"-->
-            <blockquote class="code"><p class="quoted"><a id="c1155_15"></a><a href="javascript:pasteCode('[=0x0022=]Mistress of Animals[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Artemis is a woman in Thebes.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Artemis is in a room (called the current space):[=0x000A=][=0x0009=][=0x0009=]let next space be a random room which is adjacent to the current space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis heads to [the next space].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move Artemis to next space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis arrives from [the current space].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Mistress of Animals[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Artemis is a woman in Thebes.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if Artemis is in a room (called the current space):[=0x000A=][=0x0009=][=0x0009=]let next space be a random room which is adjacent to the current space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis heads to [the next space].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]move Artemis to next space;[=0x000A=][=0x0009=][=0x0009=]if Artemis is visible, say [=0x0022=]Artemis arrives from [the current space].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z / z / z[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Mistress of Animals')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Mistress of Animals&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1155_15"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1156_15"-->
-            <blockquote class="code"><p class="quoted"><a id="c1156_15"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
+            <blockquote class="code"><p class="quoted"><a id="c1156_15"></a>Artemis is a woman in Thebes.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1157_15"-->
-            <blockquote class="code"><p class="quoted"><a id="c1157_15"></a>Artemis is a woman in Thebes.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1158_15"-->
-            <blockquote class="code"><p class="quoted"><a id="c1158_15"></a>Every turn:
+            <blockquote class="code"><p class="quoted"><a id="c1157_15"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if Artemis is in a room (called the current space):
             <br>
@@ -293,8 +293,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1159_15"-->
-            <blockquote class="code"><p class="quoted"><a id="c1159_15"></a>Test me with &quot;z / z / z / z / z / z&quot;.
+            <!--START CODE "c1158_15"-->
+            <blockquote class="code"><p class="quoted"><a id="c1158_15"></a>Test me with &quot;z / z / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -327,13 +327,13 @@
 
         <div class="egpanel" id="example287" style="display: none;">
             <p>Suppose we want to allow the player to wander freely in any direction, but ourselves maintain control over the order in which he encounters the rooms. This sort of effect emphasizes the order of the story-telling over any kind of rigorous simulation of space; on multiple play-throughs, the player might not find all the same rooms in the same locations.</p>
-            <!--START CODE "c1160_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1160_287"></a><a href="javascript:pasteCode('[=0x0022=]All Roads Lead to Mars[=0x0022=][=0x000A=][=0x000A=]Before going a direction (called way) when a room (called next location) is not visited:[=0x000A=][=0x0009=]let further place be the room the way from the location;[=0x000A=][=0x0009=]if further place is a room, continue the action;[=0x000A=][=0x0009=]change the way exit of the location to the next location;[=0x000A=][=0x0009=]let reverse be the opposite of the way;[=0x000A=][=0x0009=]change the reverse exit of the next location to the location.[=0x000A=][=0x000A=]The Open Plain is a room. [=0x0022=]A wide-open grassy expanse, from which you could really go any way at all.[=0x0022=][=0x000A=][=0x000A=]The Hilly Place is a room. [=0x0022=]The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.[=0x0022=][=0x000A=][=0x000A=]The Stream is a room. [=0x0022=]This is the third place you[=0x0027=]ve been today, and so the stream is welcome. How refreshing![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]n / s / e / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]All Roads Lead to Mars[=0x0022=][=0x000A=][=0x000A=]Before going a direction (called way) when a room (called next location) is not visited:[=0x000A=][=0x0009=]let further place be the room the way from the location;[=0x000A=][=0x0009=]if further place is a room, continue the action;[=0x000A=][=0x0009=]change the way exit of the location to the next location;[=0x000A=][=0x0009=]let reverse be the opposite of the way;[=0x000A=][=0x0009=]change the reverse exit of the next location to the location.[=0x000A=][=0x000A=]The Open Plain is a room. [=0x0022=]A wide-open grassy expanse, from which you could really go any way at all.[=0x0022=][=0x000A=][=0x000A=]The Hilly Place is a room. [=0x0022=]The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.[=0x0022=][=0x000A=][=0x000A=]The Stream is a room. [=0x0022=]This is the third place you[=0x0027=]ve been today, and so the stream is welcome. How refreshing![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]n / s / e / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - All Roads Lead to Mars')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;All Roads Lead to Mars&quot;
+            <!--START CODE "c1159_287"-->
+            <blockquote class="code"><p class="quoted"><a id="c1159_287"></a><a href="javascript:pasteCode('[=0x0022=]All Roads Lead to Mars[=0x0022=][=0x000A=][=0x000A=]Before going a direction (called way) when a room (called next location) is not visited:[=0x000A=][=0x0009=]let further place be the room the way from the location;[=0x000A=][=0x0009=]if further place is a room, continue the action;[=0x000A=][=0x0009=]change the way exit of the location to the next location;[=0x000A=][=0x0009=]let reverse be the opposite of the way;[=0x000A=][=0x0009=]change the reverse exit of the next location to the location.[=0x000A=][=0x000A=]The Open Plain is a room. [=0x0022=]A wide-open grassy expanse, from which you could really go any way at all.[=0x0022=][=0x000A=][=0x000A=]The Hilly Place is a room. [=0x0022=]The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.[=0x0022=][=0x000A=][=0x000A=]The Stream is a room. [=0x0022=]This is the third place you[=0x0027=]ve been today, and so the stream is welcome. How refreshing![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]n / s / e / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]All Roads Lead to Mars[=0x0022=][=0x000A=][=0x000A=]Before going a direction (called way) when a room (called next location) is not visited:[=0x000A=][=0x0009=]let further place be the room the way from the location;[=0x000A=][=0x0009=]if further place is a room, continue the action;[=0x000A=][=0x0009=]change the way exit of the location to the next location;[=0x000A=][=0x0009=]let reverse be the opposite of the way;[=0x000A=][=0x0009=]change the reverse exit of the next location to the location.[=0x000A=][=0x000A=]The Open Plain is a room. [=0x0022=]A wide-open grassy expanse, from which you could really go any way at all.[=0x0022=][=0x000A=][=0x000A=]The Hilly Place is a room. [=0x0022=]The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.[=0x0022=][=0x000A=][=0x000A=]The Stream is a room. [=0x0022=]This is the third place you[=0x0027=]ve been today, and so the stream is welcome. How refreshing![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]n / s / e / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - All Roads Lead to Mars')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;All Roads Lead to Mars&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1161_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1161_287"></a>Before going a direction (called way) when a room (called next location) is not visited:
+            <!--START CODE "c1160_287"-->
+            <blockquote class="code"><p class="quoted"><a id="c1160_287"></a>Before going a direction (called way) when a room (called next location) is not visited:
             <br>
             &#160;&#160;&#160;&#160;let further place be the room the way from the location;
             <br>
@@ -347,23 +347,23 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1161_287"-->
+            <blockquote class="code"><p class="quoted"><a id="c1161_287"></a>The Open Plain is a room. &quot;A wide-open grassy expanse, from which you could really go any way at all.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1162_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1162_287"></a>The Open Plain is a room. &quot;A wide-open grassy expanse, from which you could really go any way at all.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1162_287"></a>The Hilly Place is a room. &quot;The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1163_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1163_287"></a>The Hilly Place is a room. &quot;The grassland gives way to a somewhat more hilly area, though there is still very little to guide you any particular way.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1163_287"></a>The Stream is a room. &quot;This is the third place you've been today, and so the stream is welcome. How refreshing!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1164_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1164_287"></a>The Stream is a room. &quot;This is the third place you've been today, and so the stream is welcome. How refreshing!&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1165_287"-->
-            <blockquote class="code"><p class="quoted"><a id="c1165_287"></a>Test me with &quot;n / s / e / e&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1164_287"></a>Test me with &quot;n / s / e / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -396,13 +396,13 @@
 
         <div class="egpanel" id="example346" style="display: none;">
             <p>The following rule appends a paragraph to every room description. We need not worry about doors (despite the pass in the Bernese Oberland known figuratively as the &quot;Little Door&quot;).</p>
-            <!--START CODE "c1166_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1166_346"></a><a href="javascript:pasteCode('[=0x0022=]Hotel Stechelberg[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]Yellow arms on the signpost point:-[line break][=0x0022=];[=0x000A=][=0x0009=]repeat with destination running through interesting rooms:[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]if the way is a direction, say [=0x0022=]  [way] for [the destination]: [number of moves from the location to the destination] Std.[=0x0022=][=0x000A=][=0x000A=]Hotel Stechelberg is a room. [=0x0022=]The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.[=0x0022=][=0x000A=][=0x000A=]A room can be dull or interesting. A room is usually dull.[=0x000A=][=0x000A=]North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.[=0x000A=][=0x000A=]Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.[=0x000A=][=0x000A=]Test me with [=0x0022=]look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Hotel Stechelberg[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]Yellow arms on the signpost point:-[line break][=0x0022=];[=0x000A=][=0x0009=]repeat with destination running through interesting rooms:[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]if the way is a direction, say [=0x0022=]  [way] for [the destination]: [number of moves from the location to the destination] Std.[=0x0022=][=0x000A=][=0x000A=]Hotel Stechelberg is a room. [=0x0022=]The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.[=0x0022=][=0x000A=][=0x000A=]A room can be dull or interesting. A room is usually dull.[=0x000A=][=0x000A=]North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.[=0x000A=][=0x000A=]Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.[=0x000A=][=0x000A=]Test me with [=0x0022=]look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Hotel Stechelberg')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Hotel Stechelberg&quot;
+            <!--START CODE "c1165_346"-->
+            <blockquote class="code"><p class="quoted"><a id="c1165_346"></a><a href="javascript:pasteCode('[=0x0022=]Hotel Stechelberg[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]Yellow arms on the signpost point:-[line break][=0x0022=];[=0x000A=][=0x0009=]repeat with destination running through interesting rooms:[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]if the way is a direction, say [=0x0022=]  [way] for [the destination]: [number of moves from the location to the destination] Std.[=0x0022=][=0x000A=][=0x000A=]Hotel Stechelberg is a room. [=0x0022=]The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.[=0x0022=][=0x000A=][=0x000A=]A room can be dull or interesting. A room is usually dull.[=0x000A=][=0x000A=]North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.[=0x000A=][=0x000A=]Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.[=0x000A=][=0x000A=]Test me with [=0x0022=]look[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Hotel Stechelberg[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]Yellow arms on the signpost point:-[line break][=0x0022=];[=0x000A=][=0x0009=]repeat with destination running through interesting rooms:[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]if the way is a direction, say [=0x0022=]  [way] for [the destination]: [number of moves from the location to the destination] Std.[=0x0022=][=0x000A=][=0x000A=]Hotel Stechelberg is a room. [=0x0022=]The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.[=0x0022=][=0x000A=][=0x000A=]A room can be dull or interesting. A room is usually dull.[=0x000A=][=0x000A=]North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.[=0x000A=][=0x000A=]Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.[=0x000A=][=0x000A=]Test me with [=0x0022=]look[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Hotel Stechelberg')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Hotel Stechelberg&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1167_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1167_346"></a>After looking:
+            <!--START CODE "c1166_346"-->
+            <blockquote class="code"><p class="quoted"><a id="c1166_346"></a>After looking:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Yellow arms on the signpost point:-[line break]&quot;;
             <br>
@@ -414,41 +414,41 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1167_346"-->
+            <blockquote class="code"><p class="quoted"><a id="c1167_346"></a>Hotel Stechelberg is a room. &quot;The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1168_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1168_346"></a>Hotel Stechelberg is a room. &quot;The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1168_346"></a>A room can be dull or interesting. A room is usually dull.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1169_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1169_346"></a>A room can be dull or interesting. A room is usually dull.
+            <blockquote class="code"><p class="quoted"><a id="c1169_346"></a>North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1170_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1170_346"></a>North of Hotel Stechelberg is Trummelbachfalle. North of Trummelbachfalle is Lauterbrunnen. Lauterbrunnen is interesting.
+            <blockquote class="code"><p class="quoted"><a id="c1170_346"></a>Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1171_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1171_346"></a>Southeast of Hotel Stechelberg is Trachsellauenen. Trachsellauenen is interesting.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1172_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1172_346"></a>Test me with &quot;look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1171_346"></a>Test me with &quot;look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>With a bit more work, the result might be:</p>
-            <!--START CODE "c1173_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1173_346"></a>Hotel Stechelberg
+            <!--START CODE "c1172_346"-->
+            <blockquote class="code"><p class="quoted"><a id="c1172_346"></a>Hotel Stechelberg
             <br>
             The wooden hiking inn at the end of the road, with flowerboxes, canton flags, outdoor tables and a triangular paddock for the cows contesting the annual Miss Stechelberg competition. Otto and Marianne do cheerful innkeeper things, while the sun blazes from a gentian-blue sky.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1174_346"-->
-            <blockquote class="code"><p class="quoted"><a id="c1174_346"></a>Yellow arms on the signpost point:-
+            <!--START CODE "c1173_346"-->
+            <blockquote class="code"><p class="quoted"><a id="c1173_346"></a>Yellow arms on the signpost point:-
             <br>
             &#160;&#160;&#160;&#160;north for Lauterbrunnen: 2 Std.
             <br>
@@ -490,28 +490,28 @@
 
         <div class="egpanel" id="example17" style="display: none;">
             <p>Suppose a game in which the player is wandering an open landscape with long vistas, allowing him to LOOK in some direction, or even look at an adjacent location.</p>
+            <!--START CODE "c1174_17"-->
+            <blockquote class="code"><p class="quoted"><a id="c1174_17"></a><a href="javascript:pasteCode('[=0x0022=]A View of Green Hills[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Understand [=0x0022=]look [direction][=0x0022=] as facing.[=0x000A=][=0x000A=]Facing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out facing:[=0x000A=][=0x0009=]let the viewed item be the room noun from the location;[=0x000A=][=0x0009=]if the viewed item is not a room, say [=0x0022=]You can[=0x0027=]t see anything promising that way.[=0x0022=] instead;[=0x000A=][=0x0009=]try looking toward the viewed item.[=0x000A=][=0x000A=][In rules about action handling, [=0x0022=]noun[=0x0022=] refers to the first object that the player has mentioned in his command, so if the player typed [=0x003E=]LOOK WEST, [=0x0022=]let the viewed item be the room noun from the location[=0x0022=] would be processed as [=0x0022=]let the viewed item be the room west from the location[=0x0022=], and so on.][=0x000A=][=0x000A=][We can at need override the default behavior, if it is not going to be appropriate for the player to see the next room over. There is only sky above at any time, so...][=0x000A=][=0x000A=]Instead of facing up:[=0x000A=][=0x0009=]say [=0x0022=]Above you is bright sky.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]look toward [any adjacent room][=0x0022=] as looking toward. Understand [=0x0022=]examine [any adjacent room][=0x0022=] as looking toward.[=0x000A=][=0x000A=]Looking toward is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out looking toward:[=0x000A=][=0x0009=]say [=0x0022=]You make out [the noun] that way.[=0x0022=][=0x000A=][=0x000A=][This design allows us to create descriptions for rooms (as seen from the outside) which will work regardless of where we[=0x0027=]re looking from. For instance:][=0x000A=][=0x000A=]Instead of looking toward Athens:[=0x000A=][=0x0009=]say [=0x0022=]Even from here you can make out the silhouette of the Acropolis.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look north / look south / look up / look east / east / look west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]A View of Green Hills[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Understand [=0x0022=]look [direction][=0x0022=] as facing.[=0x000A=][=0x000A=]Facing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out facing:[=0x000A=][=0x0009=]let the viewed item be the room noun from the location;[=0x000A=][=0x0009=]if the viewed item is not a room, say [=0x0022=]You can[=0x0027=]t see anything promising that way.[=0x0022=] instead;[=0x000A=][=0x0009=]try looking toward the viewed item.[=0x000A=][=0x000A=][In rules about action handling, [=0x0022=]noun[=0x0022=] refers to the first object that the player has mentioned in his command, so if the player typed [=0x003E=]LOOK WEST, [=0x0022=]let the viewed item be the room noun from the location[=0x0022=] would be processed as [=0x0022=]let the viewed item be the room west from the location[=0x0022=], and so on.][=0x000A=][=0x000A=][We can at need override the default behavior, if it is not going to be appropriate for the player to see the next room over. There is only sky above at any time, so...][=0x000A=][=0x000A=]Instead of facing up:[=0x000A=][=0x0009=]say [=0x0022=]Above you is bright sky.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]look toward [any adjacent room][=0x0022=] as looking toward. Understand [=0x0022=]examine [any adjacent room][=0x0022=] as looking toward.[=0x000A=][=0x000A=]Looking toward is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out looking toward:[=0x000A=][=0x0009=]say [=0x0022=]You make out [the noun] that way.[=0x0022=][=0x000A=][=0x000A=][This design allows us to create descriptions for rooms (as seen from the outside) which will work regardless of where we[=0x0027=]re looking from. For instance:][=0x000A=][=0x000A=]Instead of looking toward Athens:[=0x000A=][=0x0009=]say [=0x0022=]Even from here you can make out the silhouette of the Acropolis.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look north / look south / look up / look east / east / look west[=0x0022=].[=0x000A=]\n', 'Example - A View of Green Hills')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;A View of Green Hills&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1175_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1175_17"></a><a href="javascript:pasteCode('[=0x0022=]A View of Green Hills[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Understand [=0x0022=]look [direction][=0x0022=] as facing.[=0x000A=][=0x000A=]Facing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out facing:[=0x000A=][=0x0009=]let the viewed item be the room noun from the location;[=0x000A=][=0x0009=]if the viewed item is not a room, say [=0x0022=]You can[=0x0027=]t see anything promising that way.[=0x0022=] instead;[=0x000A=][=0x0009=]try looking toward the viewed item.[=0x000A=][=0x000A=][In rules about action handling, [=0x0022=]noun[=0x0022=] refers to the first object that the player has mentioned in his command, so if the player typed [=0x003E=]LOOK WEST, [=0x0022=]let the viewed item be the room noun from the location[=0x0022=] would be processed as [=0x0022=]let the viewed item be the room west from the location[=0x0022=], and so on.][=0x000A=][=0x000A=][We can at need override the default behavior, if it is not going to be appropriate for the player to see the next room over. There is only sky above at any time, so...][=0x000A=][=0x000A=]Instead of facing up:[=0x000A=][=0x0009=]say [=0x0022=]Above you is bright sky.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]look toward [any adjacent room][=0x0022=] as looking toward. Understand [=0x0022=]examine [any adjacent room][=0x0022=] as looking toward.[=0x000A=][=0x000A=]Looking toward is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out looking toward:[=0x000A=][=0x0009=]say [=0x0022=]You make out [the noun] that way.[=0x0022=][=0x000A=][=0x000A=][This design allows us to create descriptions for rooms (as seen from the outside) which will work regardless of where we[=0x0027=]re looking from. For instance:][=0x000A=][=0x000A=]Instead of looking toward Athens:[=0x000A=][=0x0009=]say [=0x0022=]Even from here you can make out the silhouette of the Acropolis.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look north / look south / look up / look east / east / look west[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]A View of Green Hills[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Understand [=0x0022=]look [direction][=0x0022=] as facing.[=0x000A=][=0x000A=]Facing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out facing:[=0x000A=][=0x0009=]let the viewed item be the room noun from the location;[=0x000A=][=0x0009=]if the viewed item is not a room, say [=0x0022=]You can[=0x0027=]t see anything promising that way.[=0x0022=] instead;[=0x000A=][=0x0009=]try looking toward the viewed item.[=0x000A=][=0x000A=][In rules about action handling, [=0x0022=]noun[=0x0022=] refers to the first object that the player has mentioned in his command, so if the player typed [=0x003E=]LOOK WEST, [=0x0022=]let the viewed item be the room noun from the location[=0x0022=] would be processed as [=0x0022=]let the viewed item be the room west from the location[=0x0022=], and so on.][=0x000A=][=0x000A=][We can at need override the default behavior, if it is not going to be appropriate for the player to see the next room over. There is only sky above at any time, so...][=0x000A=][=0x000A=]Instead of facing up:[=0x000A=][=0x0009=]say [=0x0022=]Above you is bright sky.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]look toward [any adjacent room][=0x0022=] as looking toward. Understand [=0x0022=]examine [any adjacent room][=0x0022=] as looking toward.[=0x000A=][=0x000A=]Looking toward is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out looking toward:[=0x000A=][=0x0009=]say [=0x0022=]You make out [the noun] that way.[=0x0022=][=0x000A=][=0x000A=][This design allows us to create descriptions for rooms (as seen from the outside) which will work regardless of where we[=0x0027=]re looking from. For instance:][=0x000A=][=0x000A=]Instead of looking toward Athens:[=0x000A=][=0x0009=]say [=0x0022=]Even from here you can make out the silhouette of the Acropolis.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look north / look south / look up / look east / east / look west[=0x0022=].[=0x000A=]\n', 'Example - A View of Green Hills')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;A View of Green Hills&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1175_17"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1176_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1176_17"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
+            <blockquote class="code"><p class="quoted"><a id="c1176_17"></a>Understand &quot;look [direction]&quot; as facing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1177_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1177_17"></a>Understand &quot;look [direction]&quot; as facing.
+            <blockquote class="code"><p class="quoted"><a id="c1177_17"></a>Facing is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1178_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1178_17"></a>Facing is an action applying to one visible thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1179_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1179_17"></a>Carry out facing:
+            <blockquote class="code"><p class="quoted"><a id="c1178_17"></a>Carry out facing:
             <br>
             &#160;&#160;&#160;&#160;let the viewed item be the room noun from the location;
             <br>
@@ -523,40 +523,40 @@
             <!--END CODE-->
             <p>In rules about action handling, &quot;noun&quot; refers to the first object that the player has mentioned in his command, so if the player typed &gt;LOOK WEST, &quot;let the viewed item be the room noun from the location&quot; would be processed as &quot;let the viewed item be the room west from the location&quot;, and so on.</p>
             <p>We can at need override the default behavior, if it is not going to be appropriate for the player to see the next room over. There is only sky above at any time, so...</p>
-            <!--START CODE "c1180_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1180_17"></a>Instead of facing up:
+            <!--START CODE "c1179_17"-->
+            <blockquote class="code"><p class="quoted"><a id="c1179_17"></a>Instead of facing up:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Above you is bright sky.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1180_17"-->
+            <blockquote class="code"><p class="quoted"><a id="c1180_17"></a>Understand &quot;look toward [any adjacent room]&quot; as looking toward. Understand &quot;examine [any adjacent room]&quot; as looking toward.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1181_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1181_17"></a>Understand &quot;look toward [any adjacent room]&quot; as looking toward. Understand &quot;examine [any adjacent room]&quot; as looking toward.
+            <blockquote class="code"><p class="quoted"><a id="c1181_17"></a>Looking toward is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1182_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1182_17"></a>Looking toward is an action applying to one visible thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1183_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1183_17"></a>Carry out looking toward:
+            <blockquote class="code"><p class="quoted"><a id="c1182_17"></a>Carry out looking toward:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You make out [the noun] that way.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This design allows us to create descriptions for rooms (as seen from the outside) which will work regardless of where we're looking from. For instance:</p>
-            <!--START CODE "c1184_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1184_17"></a>Instead of looking toward Athens:
+            <!--START CODE "c1183_17"-->
+            <blockquote class="code"><p class="quoted"><a id="c1183_17"></a>Instead of looking toward Athens:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Even from here you can make out the silhouette of the Acropolis.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1185_17"-->
-            <blockquote class="code"><p class="quoted"><a id="c1185_17"></a>Test me with &quot;look north / look south / look up / look east / east / look west&quot;.
+            <!--START CODE "c1184_17"-->
+            <blockquote class="code"><p class="quoted"><a id="c1184_17"></a>Test me with &quot;look north / look south / look up / look east / east / look west&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -590,23 +590,23 @@
             <p>Suppose we're simulating a situation where the player needs to travel through lit areas only, but we want to give him some hints about which way might be safe. Here we'll find our best route through light-filled rooms.</p>
             <p>The slightly tricky part is that it's not necessarily easy to tell whether a room has a lamp in it. We may say &quot;if the Crypt is lighted&quot;, but that only tells us whether it has been declared to be inherently lighted or dark, not whether it happens to contain a light source that the player would be able to see if he went in.</p>
             <p>The easiest way to get around this is to create an object -- the light-meter; place it in the target location; and check whether it &quot;can see&quot; a lit object. This preserves all the usual rules about open and closed containers, transparency, etc.</p>
+            <!--START CODE "c1185_395"-->
+            <blockquote class="code"><p class="quoted"><a id="c1185_395"></a><a href="javascript:pasteCode('[=0x0022=]Unblinking[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The light-meter is a privately-named scenery thing.[=0x000A=][=0x000A=]Definition: a room (called the target room) is light-filled:[=0x000A=][=0x0009=]if the target room is lighted:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]move the light-meter to the target room;[=0x000A=][=0x0009=]let the answer be false;[=0x000A=][=0x0009=]if the light-meter can see a lit thing:[=0x000A=][=0x0009=][=0x0009=]now the answer is true;[=0x000A=][=0x0009=]now the light-meter is nowhere;[=0x000A=][=0x0009=]decide on the answer.[=0x000A=][=0x000A=][That done, we[=0x0027=]re free to use our best-route phrases to choose a particular route.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Tomb of Angels is a room. [=0x0022=]This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.[=0x0022=][=0x000A=][=0x000A=]The Upward Path is above the Tomb of Angels. It is dark. [=0x0022=]The staircase switches back on itself many times as it ascends towards the Crash Site.[=0x0022=][=0x000A=][=0x000A=]A container called the sarcophagus is in the Upward Path. It is closed and openable. [=0x0022=]A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].[=0x0022=][=0x000A=][=0x000A=]The Crash Site is above the Upward Path. [=0x0022=]The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.[=0x0022=][=0x000A=][=0x000A=]A candle is a kind of thing. A candle is usually lit. The player carries four candles.[=0x000A=][=0x000A=]After looking when the location is not the Crash Site:[=0x000A=][=0x0009=]if the best route from the location to the Crash Site through light-filled rooms is a direction (called next way):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there[=0x0027=]s a safe, lit path [if the number of moves from the location to the Crash Site through light-filled rooms is 1]straight[otherwise]if you go[end if] [next way].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there is no fully lit path from here to the Crash Site.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Unblinking[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The light-meter is a privately-named scenery thing.[=0x000A=][=0x000A=]Definition: a room (called the target room) is light-filled:[=0x000A=][=0x0009=]if the target room is lighted:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]move the light-meter to the target room;[=0x000A=][=0x0009=]let the answer be false;[=0x000A=][=0x0009=]if the light-meter can see a lit thing:[=0x000A=][=0x0009=][=0x0009=]now the answer is true;[=0x000A=][=0x0009=]now the light-meter is nowhere;[=0x000A=][=0x0009=]decide on the answer.[=0x000A=][=0x000A=][That done, we[=0x0027=]re free to use our best-route phrases to choose a particular route.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Tomb of Angels is a room. [=0x0022=]This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.[=0x0022=][=0x000A=][=0x000A=]The Upward Path is above the Tomb of Angels. It is dark. [=0x0022=]The staircase switches back on itself many times as it ascends towards the Crash Site.[=0x0022=][=0x000A=][=0x000A=]A container called the sarcophagus is in the Upward Path. It is closed and openable. [=0x0022=]A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].[=0x0022=][=0x000A=][=0x000A=]The Crash Site is above the Upward Path. [=0x0022=]The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.[=0x0022=][=0x000A=][=0x000A=]A candle is a kind of thing. A candle is usually lit. The player carries four candles.[=0x000A=][=0x000A=]After looking when the location is not the Crash Site:[=0x000A=][=0x0009=]if the best route from the location to the Crash Site through light-filled rooms is a direction (called next way):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there[=0x0027=]s a safe, lit path [if the number of moves from the location to the Crash Site through light-filled rooms is 1]straight[otherwise]if you go[end if] [next way].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there is no fully lit path from here to the Crash Site.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Unblinking')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Unblinking&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1186_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1186_395"></a><a href="javascript:pasteCode('[=0x0022=]Unblinking[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The light-meter is a privately-named scenery thing.[=0x000A=][=0x000A=]Definition: a room (called the target room) is light-filled:[=0x000A=][=0x0009=]if the target room is lighted:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]move the light-meter to the target room;[=0x000A=][=0x0009=]let the answer be false;[=0x000A=][=0x0009=]if the light-meter can see a lit thing:[=0x000A=][=0x0009=][=0x0009=]now the answer is true;[=0x000A=][=0x0009=]now the light-meter is nowhere;[=0x000A=][=0x0009=]decide on the answer.[=0x000A=][=0x000A=][That done, we[=0x0027=]re free to use our best-route phrases to choose a particular route.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Tomb of Angels is a room. [=0x0022=]This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.[=0x0022=][=0x000A=][=0x000A=]The Upward Path is above the Tomb of Angels. It is dark. [=0x0022=]The staircase switches back on itself many times as it ascends towards the Crash Site.[=0x0022=][=0x000A=][=0x000A=]A container called the sarcophagus is in the Upward Path. It is closed and openable. [=0x0022=]A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].[=0x0022=][=0x000A=][=0x000A=]The Crash Site is above the Upward Path. [=0x0022=]The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.[=0x0022=][=0x000A=][=0x000A=]A candle is a kind of thing. A candle is usually lit. The player carries four candles.[=0x000A=][=0x000A=]After looking when the location is not the Crash Site:[=0x000A=][=0x0009=]if the best route from the location to the Crash Site through light-filled rooms is a direction (called next way):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there[=0x0027=]s a safe, lit path [if the number of moves from the location to the Crash Site through light-filled rooms is 1]straight[otherwise]if you go[end if] [next way].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there is no fully lit path from here to the Crash Site.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Unblinking[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The light-meter is a privately-named scenery thing.[=0x000A=][=0x000A=]Definition: a room (called the target room) is light-filled:[=0x000A=][=0x0009=]if the target room is lighted:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]move the light-meter to the target room;[=0x000A=][=0x0009=]let the answer be false;[=0x000A=][=0x0009=]if the light-meter can see a lit thing:[=0x000A=][=0x0009=][=0x0009=]now the answer is true;[=0x000A=][=0x0009=]now the light-meter is nowhere;[=0x000A=][=0x0009=]decide on the answer.[=0x000A=][=0x000A=][That done, we[=0x0027=]re free to use our best-route phrases to choose a particular route.][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Tomb of Angels is a room. [=0x0022=]This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.[=0x0022=][=0x000A=][=0x000A=]The Upward Path is above the Tomb of Angels. It is dark. [=0x0022=]The staircase switches back on itself many times as it ascends towards the Crash Site.[=0x0022=][=0x000A=][=0x000A=]A container called the sarcophagus is in the Upward Path. It is closed and openable. [=0x0022=]A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].[=0x0022=][=0x000A=][=0x000A=]The Crash Site is above the Upward Path. [=0x0022=]The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.[=0x0022=][=0x000A=][=0x000A=]A candle is a kind of thing. A candle is usually lit. The player carries four candles.[=0x000A=][=0x000A=]After looking when the location is not the Crash Site:[=0x000A=][=0x0009=]if the best route from the location to the Crash Site through light-filled rooms is a direction (called next way):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there[=0x0027=]s a safe, lit path [if the number of moves from the location to the Crash Site through light-filled rooms is 1]straight[otherwise]if you go[end if] [next way].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It looks like there is no fully lit path from here to the Crash Site.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Unblinking')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Unblinking&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1186_395"></a>Section 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1187_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1187_395"></a>Section 1 - Procedure
+            <blockquote class="code"><p class="quoted"><a id="c1187_395"></a>The light-meter is a privately-named scenery thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1188_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1188_395"></a>The light-meter is a privately-named scenery thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1189_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1189_395"></a>Definition: a room (called the target room) is light-filled:
+            <blockquote class="code"><p class="quoted"><a id="c1188_395"></a>Definition: a room (called the target room) is light-filled:
             <br>
             &#160;&#160;&#160;&#160;if the target room is lighted:
             <br>
@@ -627,38 +627,38 @@
             </blockquote>
             <!--END CODE-->
             <p>That done, we're free to use our best-route phrases to choose a particular route.</p>
+            <!--START CODE "c1189_395"-->
+            <blockquote class="code"><p class="quoted"><a id="c1189_395"></a>Section 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1190_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1190_395"></a>Section 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c1190_395"></a>The Tomb of Angels is a room. &quot;This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1191_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1191_395"></a>The Tomb of Angels is a room. &quot;This ancient underground tomb is lightless but for a few shafts from the surface. Everywhere in the shadows are carved angels, their faces worn away by water and pollution, their wings little more than nubs.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1191_395"></a>The Upward Path is above the Tomb of Angels. It is dark. &quot;The staircase switches back on itself many times as it ascends towards the Crash Site.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1192_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1192_395"></a>The Upward Path is above the Tomb of Angels. It is dark. &quot;The staircase switches back on itself many times as it ascends towards the Crash Site.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1192_395"></a>A container called the sarcophagus is in the Upward Path. It is closed and openable. &quot;A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1193_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1193_395"></a>A container called the sarcophagus is in the Upward Path. It is closed and openable. &quot;A sarcophagus rests in the niche here, [if open]the lid pushed aside[otherwise]the lid firmly in place[end if].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1193_395"></a>The Crash Site is above the Upward Path. &quot;The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1194_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1194_395"></a>The Crash Site is above the Upward Path. &quot;The ceiling has wholly caved in here, and the belly of the spaceship above you is visible -- including the escape hatch.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1194_395"></a>A candle is a kind of thing. A candle is usually lit. The player carries four candles.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1195_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1195_395"></a>A candle is a kind of thing. A candle is usually lit. The player carries four candles.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1196_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1196_395"></a>After looking when the location is not the Crash Site:
+            <blockquote class="code"><p class="quoted"><a id="c1195_395"></a>After looking when the location is not the Crash Site:
             <br>
             &#160;&#160;&#160;&#160;if the best route from the location to the Crash Site through light-filled rooms is a direction (called next way):
             <br>
@@ -670,8 +670,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1197_395"-->
-            <blockquote class="code"><p class="quoted"><a id="c1197_395"></a>Test me with &quot;up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d&quot;.
+            <!--START CODE "c1196_395"-->
+            <blockquote class="code"><p class="quoted"><a id="c1196_395"></a>Test me with &quot;up / drop candle / down / up / take the candle / open sarcophagus / put candle in sarcophagus / down / up / close sarcophagus / d&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

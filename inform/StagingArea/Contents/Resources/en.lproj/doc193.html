@@ -85,8 +85,8 @@
     <p>Ordinarily, Inform has a simple model for visibility: it is either fully light or it is fully dark, and certain actions are impossible in the dark, such as examining something.</p>
     <p>We first need to remember that darkness affects what actions are even tried, as far as the player's typed commands go. If the player is in a dark room, and there is a screwdriver on the floor, the command EXAMINE SCREWDRIVER will not try any action: the screwdriver is not &quot;in scope&quot;, which means that the parser thinks the player does not have any means of knowing it exists. (The rules for scope can be modified - see the chapter on Activities.) But let's suppose that the player types EXAMINE BOOK, and is holding the book in question. The book is now &quot;in scope&quot;, so the action &quot;examining the book&quot; is tried.</p>
     <p>Some actions require light to be present, and &quot;examining&quot; is one of those. So Inform consults the visibility rules to see if it can go ahead. By default, there is only one visibility rule, which says &quot;yes&quot; in the light and &quot;no&quot; in darkness. Here, though, we create another one:</p>
-    <!--START CODE "c3639"-->
-    <blockquote class="code"><p class="quoted"><a id="c3639"></a>Visibility rule when in darkness:
+    <!--START CODE "c3638"-->
+    <blockquote class="code"><p class="quoted"><a id="c3638"></a>Visibility rule when in darkness:
     <br>
     &#160;&#160;&#160;&#160;if examining the book:
     <br>
@@ -100,8 +100,8 @@
     <!--END CODE-->
     <p>A visibility rule must always conclude &quot;there is sufficient light&quot;, or &quot;there is insufficient light&quot;, or else do nothing and leave it to other rules to decide.</p>
     <p>It is a possibly unexpected fact that &quot;looking&quot; does not require light, but instead behaves differently in darkness - it prints a pseudo-room-description such as</p>
-    <!--START CODE "c3640"-->
-    <blockquote class="code"><p class="quoted"><a id="c3640"></a><span class="boldface">Darkness</span>
+    <!--START CODE "c3639"-->
+    <blockquote class="code"><p class="quoted"><a id="c3639"></a><span class="boldface">Darkness</span>
     <br>
     It is pitch dark, and you can't see a thing.
     </p>
@@ -135,23 +135,23 @@
         </table>
 
         <div class="egpanel" id="example237" style="display: none;">
+            <!--START CODE "c3640_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c3640_237"></a><a href="javascript:pasteCode('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Flashlight')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flashlight&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3641_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3641_237"></a><a href="javascript:pasteCode('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Flashlight[=0x0022=][=0x000A=][=0x000A=]The Schoolhouse is a room. [=0x0022=]Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.[=0x0022=][=0x000A=][=0x000A=]The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. [=0x0022=]A hurricane lantern hangs from a peg.[=0x0022=] The lantern is lit.[=0x000A=][=0x000A=]Visibility rule when looking under something:[=0x000A=][=0x0009=]if the player is carrying a lit thing (called lamp):[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You shine [the lamp] under [the noun]...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]there is sufficient light;[=0x000A=][=0x0009=]there is insufficient light.[=0x000A=][=0x000A=]There is a marble. The marble can be found or lost. The marble is lost.[=0x000A=][=0x000A=]Instead of looking under the cabinet when the marble is lost:[=0x000A=][=0x0009=]move the marble to the player;[=0x000A=][=0x0009=]now the marble is found;[=0x000A=][=0x0009=]say [=0x0022=]Billy[=0x0027=]s lost marble! So that[=0x0027=]s where it got to![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look under cabinet / get lantern / look under cabinet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Flashlight')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Flashlight&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3641_237"></a>The Schoolhouse is a room. &quot;Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3642_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3642_237"></a>The Schoolhouse is a room. &quot;Though normally comfortable, the room is dark and menacing during the storm; rain sheets on the windows, and you can barely see the flash of the lighthouse only a few miles away.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3642_237"></a>The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. &quot;A hurricane lantern hangs from a peg.&quot; The lantern is lit.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3643_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3643_237"></a>The cabinet is a fixed in place openable container in the Schoolhouse. The hurricane lantern is a thing in the Schoolhouse. &quot;A hurricane lantern hangs from a peg.&quot; The lantern is lit.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3644_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3644_237"></a>Visibility rule when looking under something:
+            <blockquote class="code"><p class="quoted"><a id="c3643_237"></a>Visibility rule when looking under something:
             <br>
             &#160;&#160;&#160;&#160;if the player is carrying a lit thing (called lamp):
             <br>
@@ -163,13 +163,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3645_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3645_237"></a>There is a marble. The marble can be found or lost. The marble is lost.
+            <!--START CODE "c3644_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c3644_237"></a>There is a marble. The marble can be found or lost. The marble is lost.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3646_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3646_237"></a>Instead of looking under the cabinet when the marble is lost:
+            <!--START CODE "c3645_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c3645_237"></a>Instead of looking under the cabinet when the marble is lost:
             <br>
             &#160;&#160;&#160;&#160;move the marble to the player;
             <br>
@@ -179,8 +179,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3647_237"-->
-            <blockquote class="code"><p class="quoted"><a id="c3647_237"></a>Test me with &quot;look under cabinet / get lantern / look under cabinet&quot;.
+            <!--START CODE "c3646_237"-->
+            <blockquote class="code"><p class="quoted"><a id="c3646_237"></a>Test me with &quot;look under cabinet / get lantern / look under cabinet&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

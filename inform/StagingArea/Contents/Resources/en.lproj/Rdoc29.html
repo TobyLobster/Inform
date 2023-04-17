@@ -82,8 +82,8 @@
     <p class="sectionheading">§6.1. Designing New Commands</p>
     <p>Quite a bit of interactive fiction design involves the creation of custom commands to expand on the library's existing set. There is more to know than we can review in this section; instead, this is to serve as an overview of the process, with hints about where in <span class="italic">Writing with Inform</span> we might find more technical details.</p>
     <p>Before we even start to write our source text, we should think about the following things:</p>
-    <!--START CODE "c11337"-->
-    <blockquote class="code"><p class="quoted"><a id="c11337"></a>(1) What words will the player use to make this new action happen?
+    <!--START CODE "c11335"-->
+    <blockquote class="code"><p class="quoted"><a id="c11335"></a>(1) What words will the player use to make this new action happen?
     <br>
     (2) What will the action change about the world model?
     <br>
@@ -93,14 +93,14 @@
     <!--END CODE-->
     <p>To take these one one by one:</p>
     <p>(1) We may have a general idea of the phrasing we want the player to use -- say we want to add an SHOOT command which allows the player to fire a gun at something. (This is an intentionally tricky choice of verb, because it shows off so many possibilities.) So we might decide the base form of the action will be</p>
-    <!--START CODE "c11338"-->
-    <blockquote class="code"><p class="quoted"><a id="c11338"></a>SHOOT THE PISTOL AT HENRY
+    <!--START CODE "c11336"-->
+    <blockquote class="code"><p class="quoted"><a id="c11336"></a>SHOOT THE PISTOL AT HENRY
     </p>
     </blockquote>
     <!--END CODE-->
     <p>So now we're going to need an action that applies to two objects -- the pistol as the noun, and Henry as the second noun. The problem is, though, that there are lots of other ways that the player could reasonably formulate the command, some of which leave out information:</p>
-    <!--START CODE "c11339"-->
-    <blockquote class="code"><p class="quoted"><a id="c11339"></a>SHOOT HENRY
+    <!--START CODE "c11337"-->
+    <blockquote class="code"><p class="quoted"><a id="c11337"></a>SHOOT HENRY
     <br>
     SHOOT PISTOL
     <br>
@@ -114,19 +114,19 @@
     <!--END CODE-->
     <p>To avoid frustrating the player, we should make a guess about what the player means whenever we're sure that guess will be reliable (we might, for instance, have only one gun in the story, so we know that SHOOT HENRY will always mean SHOOT HENRY WITH PISTOL), but ask the player for clarification whenever there might be ambiguity (SHOOT PISTOL gives no clue about the target, nor can we safely guess, so we want Inform to ask &quot;What do you want to shoot the pistol at?&quot;). The next section goes into more detail about how to handle these variations.</p>
     <p>Conversely, there are cases where the player is offering too <span class="italic">much</span> information for the command we've defined - say we have a BURN command which doesn't look for a specified fire source, but the player is trying to BURN BOX WITH MATCH. We probably don't want to throw away the extraneous information as though it had never been typed, because the player might have typed something quite specific. BURN BOX WITH ACID, say, should not be cavalierly reinterpreted as BURN BOX (with a fire source). Instead, we want to give the player a bit of gentle guidance, perhaps using &quot;Understand as a mistake&quot;, as in</p>
-    <!--START CODE "c11340"-->
-    <blockquote class="code"><p class="quoted"><a id="c11340"></a>Understand &quot;burn [something] with [text]&quot; as a mistake (&quot;Your choice of lighter isn't important in this story: BURN SOMETHING will suffice.&quot;)
+    <!--START CODE "c11338"-->
+    <blockquote class="code"><p class="quoted"><a id="c11338"></a>Understand &quot;burn [something] with [text]&quot; as a mistake (&quot;Your choice of lighter isn't important in this story: BURN SOMETHING will suffice.&quot;)
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Finally, there are some cases where we want to understand a phrase to mean a specific form of a more general action. For instance, we might want TURN DOWN THE MUSIC to mean the same thing as SET VOLUME KNOB TO 1. In this case, we may want to make a sort of dummy action which converts into the main action, as in</p>
-    <!--START CODE "c11341"-->
-    <blockquote class="code"><p class="quoted"><a id="c11341"></a>Understand &quot;turn down volume&quot; or &quot;turn down music&quot; or &quot;turn down the volume&quot; or &quot;turn down the music&quot; as lowering the volume. Lowering the volume is an action applying to nothing.
+    <!--START CODE "c11339"-->
+    <blockquote class="code"><p class="quoted"><a id="c11339"></a>Understand &quot;turn down volume&quot; or &quot;turn down music&quot; or &quot;turn down the volume&quot; or &quot;turn down the music&quot; as lowering the volume. Lowering the volume is an action applying to nothing.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11342"-->
-    <blockquote class="code"><p class="quoted"><a id="c11342"></a>Instead of lowering the volume, try setting the volume knob to 1.
+    <!--START CODE "c11340"-->
+    <blockquote class="code"><p class="quoted"><a id="c11340"></a>Instead of lowering the volume, try setting the volume knob to 1.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -134,21 +134,21 @@
     <p>Sometimes these kinds of details can be caught in play-testing, but it's a good idea to think about them specifically and in advance rather than leaving them to our beta-testers to sort out.</p>
     <p>(2) To generalize very broadly, there are two possible kinds of command in IF: those that only exist to give the player new information (like EXAMINE, INVENTORY, LOOK, TASTE), and those that change the world model (like TAKE FISH, OPEN DOOR, UNLOCK GATE WITH BLUE KEY). The Inform library has some commands that really do none of these things by default - commands like JUMP that do nothing interesting at all most of the time - but those exist as hooks, in case there is ever something important for them to do.</p>
     <p>Commands that ask for information are usually easier to implement. Very often we're looking to offer the player a new kind of information about specific objects, and these can be handled by adding new text properties, as in</p>
-    <!--START CODE "c11343"-->
-    <blockquote class="code"><p class="quoted"><a id="c11343"></a>A thing has some text called the sacred emanation.
+    <!--START CODE "c11341"-->
+    <blockquote class="code"><p class="quoted"><a id="c11341"></a>A thing has some text called the sacred emanation.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c11344"-->
-    <blockquote class="code"><p class="quoted"><a id="c11344"></a>Carry out perceiving something:
+    <!--START CODE "c11342"-->
+    <blockquote class="code"><p class="quoted"><a id="c11342"></a>Carry out perceiving something:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[sacred emanation of the noun][paragraph break]&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Commands that affect the world model, on the other hand, can range from simple to very complex indeed. Sometimes we need to do nothing more than add an attribute to an object, like</p>
-    <!--START CODE "c11345"-->
-    <blockquote class="code"><p class="quoted"><a id="c11345"></a>A thing can be folded or flat. A thing is usually flat.
+    <!--START CODE "c11343"-->
+    <blockquote class="code"><p class="quoted"><a id="c11343"></a>A thing can be folded or flat. A thing is usually flat.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -156,8 +156,8 @@
     <p>(Strictly, we might count a third kind of command: the kind that controls the story itself. The Advanced Actions chapter discusses how to add actions out of world, as these are called, but the difficult ones are already built into Inform - saving, restoring, restarting, undoing a turn, and so on. Mostly when we need to add new actions out of world, they will be help or hint systems of some kind. More about these can be found in the Helping and Hinting section of the Recipe Book, under Out of World Actions and Effects.)</p>
     <p>(3) Most commands that change the world require certain preconditions: the player needs to be holding the gun before he can fire it; the gun must be loaded with ammunition; if we're being especially detailed in our simulation, the safety must be off.</p>
     <p>Often, there are also subtler details about how the command should interact with special items. For any new command we create, it's worth asking: should anything special happen if the player performs this action...</p>
-    <!--START CODE "c11346"-->
-    <blockquote class="code"><p class="quoted"><a id="c11346"></a>On himself?
+    <!--START CODE "c11344"-->
+    <blockquote class="code"><p class="quoted"><a id="c11344"></a>On himself?
     <br>
     On another living character?
     <br>
@@ -182,8 +182,8 @@
     </blockquote>
     <!--END CODE-->
     <p>For instance, we might have written code so that if the gun is fired at anything but a person or a fragile object, the default response is &quot;The bullet bounces harmlessly off [the second noun].&quot; Our checklist would remind us to write special cases to prevent</p>
-    <!--START CODE "c11347"-->
-    <blockquote class="code"><p class="quoted"><a id="c11347"></a>SHOOT GUN AT MY SHOE (while he's wearing it)
+    <!--START CODE "c11345"-->
+    <blockquote class="code"><p class="quoted"><a id="c11345"></a>SHOOT GUN AT MY SHOE (while he's wearing it)
     <br>
     SHOOT GUN AT ME
     <br>

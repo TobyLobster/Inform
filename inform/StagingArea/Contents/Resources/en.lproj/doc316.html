@@ -89,21 +89,21 @@
     <p>(ii) Make no choice, in which case no action takes place and the player's command is rejected. If the activity printed nothing, Inform will produce a generic reply to the player that &quot;You must supply a noun.&quot;.</p>
     <p><span class="boldface">2. The default behaviour.</span> In the default grammar for Inform, only three such half-finished actions are ever Understood. One is &quot;going&quot; with no direction, for which this activity simply prints a refusal. The other two are the two undirected senses, &quot;smelling&quot; and &quot;listening&quot;. In each case, the &quot;supplying a missing noun&quot; activity sets the noun to the current location: so, for instance, typing the bare command &quot;listen&quot; might generate the action &quot;listening to the Shoreline&quot;.</p>
     <p><span class="boldface">3. Examples.</span> (a) This is the definition Inform uses to make &quot;listen&quot; work as outlined above:</p>
-    <!--START CODE "c7161"-->
-    <blockquote class="code"><p class="quoted"><a id="c7161"></a>Rule for supplying a missing noun while listening (this is the ambient sound rule):
+    <!--START CODE "c7159"-->
+    <blockquote class="code"><p class="quoted"><a id="c7159"></a>Rule for supplying a missing noun while listening (this is the ambient sound rule):
     <br>
     &#160;&#160;&#160;&#160;now the noun is the location.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) It can be elegant to allow second nouns to be dropped with habitual actions, or where the choice is obvious:</p>
-    <!--START CODE "c7162"-->
-    <blockquote class="code"><p class="quoted"><a id="c7162"></a><a href="javascript:pasteCode('Understand [=0x0022=]unlock [something][=0x0022=] as unlocking it with.[=0x000A=][=0x000A=]Rule for supplying a missing second noun while unlocking:[=0x000A=][=0x0009=]if the skeleton key is carried, now the second noun is the skeleton key;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You will have to specify what to unlock [the noun] with.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Understand &quot;unlock [something]&quot; as unlocking it with.
+    <!--START CODE "c7160"-->
+    <blockquote class="code"><p class="quoted"><a id="c7160"></a><a href="javascript:pasteCode('Understand [=0x0022=]unlock [something][=0x0022=] as unlocking it with.[=0x000A=][=0x000A=]Rule for supplying a missing second noun while unlocking:[=0x000A=][=0x0009=]if the skeleton key is carried, now the second noun is the skeleton key;[=0x000A=][=0x0009=]otherwise say [=0x0022=]You will have to specify what to unlock [the noun] with.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Understand &quot;unlock [something]&quot; as unlocking it with.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c7163"-->
-    <blockquote class="code"><p class="quoted"><a id="c7163"></a>Rule for supplying a missing second noun while unlocking:
+    <!--START CODE "c7161"-->
+    <blockquote class="code"><p class="quoted"><a id="c7161"></a>Rule for supplying a missing second noun while unlocking:
     <br>
     &#160;&#160;&#160;&#160;if the skeleton key is carried, now the second noun is the skeleton key;
     <br>
@@ -140,54 +140,54 @@
 
         <div class="egpanel" id="example217" style="display: none;">
             <p>If we're defining actions for other characters to follow, we may want to include them in our &quot;rule for supplying a missing noun&quot;. We can do this if we write our &quot;while...&quot; clause to apply to any actor, as follows:</p>
+            <!--START CODE "c7162_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7162_217"></a><a href="javascript:pasteCode('[=0x0022=]Latin Lessons[=0x0022=][=0x000A=][=0x000A=]The Latin Studio is a room. Rick is a man in the Studio.[=0x000A=][=0x000A=]A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.[=0x000A=][=0x000A=]Dancing is an action applying to one visible thing. Understand [=0x0022=]dance [any dance-name][=0x0022=] as dancing. Understand [=0x0022=]dance[=0x0022=] as dancing.[=0x000A=][=0x000A=]Rule for supplying a missing noun while an actor dancing:[=0x000A=][=0x0009=]now the noun is street salsa.[=0x000A=][=0x000A=]Report someone dancing:[=0x000A=][=0x0009=]say [=0x0022=][The actor] dances a few steps of [the noun] for you.[=0x0022=][=0x000A=][=0x000A=]Report dancing:[=0x000A=][=0x0009=]say [=0x0022=]You dance a few steps of [the noun].[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try dancing: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]dance / dance samba / rick, dance / rick, dance merengue[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Latin Lessons[=0x0022=][=0x000A=][=0x000A=]The Latin Studio is a room. Rick is a man in the Studio.[=0x000A=][=0x000A=]A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.[=0x000A=][=0x000A=]Dancing is an action applying to one visible thing. Understand [=0x0022=]dance [any dance-name][=0x0022=] as dancing. Understand [=0x0022=]dance[=0x0022=] as dancing.[=0x000A=][=0x000A=]Rule for supplying a missing noun while an actor dancing:[=0x000A=][=0x0009=]now the noun is street salsa.[=0x000A=][=0x000A=]Report someone dancing:[=0x000A=][=0x0009=]say [=0x0022=][The actor] dances a few steps of [the noun] for you.[=0x0022=][=0x000A=][=0x000A=]Report dancing:[=0x000A=][=0x0009=]say [=0x0022=]You dance a few steps of [the noun].[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try dancing: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]dance / dance samba / rick, dance / rick, dance merengue[=0x0022=].[=0x000A=]\n', 'Example - Latin Lessons')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Latin Lessons&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c7163_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7163_217"></a>The Latin Studio is a room. Rick is a man in the Studio.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c7164_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7164_217"></a><a href="javascript:pasteCode('[=0x0022=]Latin Lessons[=0x0022=][=0x000A=][=0x000A=]The Latin Studio is a room. Rick is a man in the Studio.[=0x000A=][=0x000A=]A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.[=0x000A=][=0x000A=]Dancing is an action applying to one visible thing. Understand [=0x0022=]dance [any dance-name][=0x0022=] as dancing. Understand [=0x0022=]dance[=0x0022=] as dancing.[=0x000A=][=0x000A=]Rule for supplying a missing noun while an actor dancing:[=0x000A=][=0x0009=]now the noun is street salsa.[=0x000A=][=0x000A=]Report someone dancing:[=0x000A=][=0x0009=]say [=0x0022=][The actor] dances a few steps of [the noun] for you.[=0x0022=][=0x000A=][=0x000A=]Report dancing:[=0x000A=][=0x0009=]say [=0x0022=]You dance a few steps of [the noun].[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try dancing: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]dance / dance samba / rick, dance / rick, dance merengue[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Latin Lessons[=0x0022=][=0x000A=][=0x000A=]The Latin Studio is a room. Rick is a man in the Studio.[=0x000A=][=0x000A=]A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.[=0x000A=][=0x000A=]Dancing is an action applying to one visible thing. Understand [=0x0022=]dance [any dance-name][=0x0022=] as dancing. Understand [=0x0022=]dance[=0x0022=] as dancing.[=0x000A=][=0x000A=]Rule for supplying a missing noun while an actor dancing:[=0x000A=][=0x0009=]now the noun is street salsa.[=0x000A=][=0x000A=]Report someone dancing:[=0x000A=][=0x0009=]say [=0x0022=][The actor] dances a few steps of [the noun] for you.[=0x0022=][=0x000A=][=0x000A=]Report dancing:[=0x000A=][=0x0009=]say [=0x0022=]You dance a few steps of [the noun].[=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking someone to try dancing: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]dance / dance samba / rick, dance / rick, dance merengue[=0x0022=].[=0x000A=]\n', 'Example - Latin Lessons')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Latin Lessons&quot;
+            <blockquote class="code"><p class="quoted"><a id="c7164_217"></a>A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c7165_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7165_217"></a>The Latin Studio is a room. Rick is a man in the Studio.
+            <blockquote class="code"><p class="quoted"><a id="c7165_217"></a>Dancing is an action applying to one visible thing. Understand &quot;dance [any dance-name]&quot; as dancing. Understand &quot;dance&quot; as dancing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c7166_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7166_217"></a>A dance-name is a kind of thing. Argentine tango, samba, merengue, cha-cha, street salsa are dance-names.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7167_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7167_217"></a>Dancing is an action applying to one visible thing. Understand &quot;dance [any dance-name]&quot; as dancing. Understand &quot;dance&quot; as dancing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7168_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7168_217"></a>Rule for supplying a missing noun while an actor dancing:
+            <blockquote class="code"><p class="quoted"><a id="c7166_217"></a>Rule for supplying a missing noun while an actor dancing:
             <br>
             &#160;&#160;&#160;&#160;now the noun is street salsa.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7169_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7169_217"></a>Report someone dancing:
+            <!--START CODE "c7167_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7167_217"></a>Report someone dancing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The actor] dances a few steps of [the noun] for you.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7170_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7170_217"></a>Report dancing:
+            <!--START CODE "c7168_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7168_217"></a>Report dancing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You dance a few steps of [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7171_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7171_217"></a>Persuasion rule for asking someone to try dancing: persuasion succeeds.
+            <!--START CODE "c7169_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7169_217"></a>Persuasion rule for asking someone to try dancing: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7172_217"-->
-            <blockquote class="code"><p class="quoted"><a id="c7172_217"></a>Test me with &quot;dance / dance samba / rick, dance / rick, dance merengue&quot;.
+            <!--START CODE "c7170_217"-->
+            <blockquote class="code"><p class="quoted"><a id="c7170_217"></a>Test me with &quot;dance / dance samba / rick, dance / rick, dance merengue&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -219,31 +219,31 @@
 
         <div class="egpanel" id="example405" style="display: none;">
             <p>Sometimes it would be nice to respond a little more sensitively to a vague command such as &quot;leave&quot; -- converting it, perhaps, to a &quot;go out&quot; command.</p>
+            <!--START CODE "c7171_405"-->
+            <blockquote class="code"><p class="quoted"><a id="c7171_405"></a><a href="javascript:pasteCode('[=0x0022=]Minimal Movement[=0x0022=][=0x000A=][=0x000A=]The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.[=0x000A=][=0x000A=]Rule for supplying a missing noun while going:[=0x000A=][=0x0009=]now noun is outside.[=0x000A=][=0x000A=][This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.][=0x000A=][=0x000A=]The block vaguely going rule is not listed in the for supplying a missing noun rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]go[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Minimal Movement[=0x0022=][=0x000A=][=0x000A=]The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.[=0x000A=][=0x000A=]Rule for supplying a missing noun while going:[=0x000A=][=0x0009=]now noun is outside.[=0x000A=][=0x000A=][This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.][=0x000A=][=0x000A=]The block vaguely going rule is not listed in the for supplying a missing noun rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]go[=0x0022=].[=0x000A=]\n', 'Example - Minimal Movement')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Minimal Movement&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c7172_405"-->
+            <blockquote class="code"><p class="quoted"><a id="c7172_405"></a>The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c7173_405"-->
-            <blockquote class="code"><p class="quoted"><a id="c7173_405"></a><a href="javascript:pasteCode('[=0x0022=]Minimal Movement[=0x0022=][=0x000A=][=0x000A=]The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.[=0x000A=][=0x000A=]Rule for supplying a missing noun while going:[=0x000A=][=0x0009=]now noun is outside.[=0x000A=][=0x000A=][This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.][=0x000A=][=0x000A=]The block vaguely going rule is not listed in the for supplying a missing noun rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]go[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Minimal Movement[=0x0022=][=0x000A=][=0x000A=]The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.[=0x000A=][=0x000A=]Rule for supplying a missing noun while going:[=0x000A=][=0x0009=]now noun is outside.[=0x000A=][=0x000A=][This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.][=0x000A=][=0x000A=]The block vaguely going rule is not listed in the for supplying a missing noun rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]go[=0x0022=].[=0x000A=]\n', 'Example - Minimal Movement')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Minimal Movement&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7174_405"-->
-            <blockquote class="code"><p class="quoted"><a id="c7174_405"></a>The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7175_405"-->
-            <blockquote class="code"><p class="quoted"><a id="c7175_405"></a>Rule for supplying a missing noun while going:
+            <blockquote class="code"><p class="quoted"><a id="c7173_405"></a>Rule for supplying a missing noun while going:
             <br>
             &#160;&#160;&#160;&#160;now noun is outside.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.</p>
-            <!--START CODE "c7176_405"-->
-            <blockquote class="code"><p class="quoted"><a id="c7176_405"></a>The block vaguely going rule is not listed in the for supplying a missing noun rules.
+            <!--START CODE "c7174_405"-->
+            <blockquote class="code"><p class="quoted"><a id="c7174_405"></a>The block vaguely going rule is not listed in the for supplying a missing noun rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7177_405"-->
-            <blockquote class="code"><p class="quoted"><a id="c7177_405"></a>Test me with &quot;go&quot;.
+            <!--START CODE "c7175_405"-->
+            <blockquote class="code"><p class="quoted"><a id="c7175_405"></a>Test me with &quot;go&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

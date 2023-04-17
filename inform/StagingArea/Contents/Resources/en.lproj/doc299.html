@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§18.15. Issuing the response text of something</p>
     <p><span class="boldface">1. When it happens.</span> When Inform prints a text marked with a response letter (A), (B), (C), ..., in a rule making use of them. For example, in this rule:</p>
-    <!--START CODE "c6535"-->
-    <blockquote class="code"><p class="quoted"><a id="c6535"></a>Carry out taking inventory (this is the print empty inventory rule):
+    <!--START CODE "c6533"-->
+    <blockquote class="code"><p class="quoted"><a id="c6533"></a>Carry out taking inventory (this is the print empty inventory rule):
     <br>
     &#160;&#160;&#160;&#160;if the first thing held by the player is nothing,
     <br>
@@ -93,8 +93,8 @@
     </blockquote>
     <!--END CODE-->
     <p>Or, less directly,</p>
-    <!--START CODE "c6536"-->
-    <blockquote class="code"><p class="quoted"><a id="c6536"></a>let R be the print empty inventory rule response (A);
+    <!--START CODE "c6534"-->
+    <blockquote class="code"><p class="quoted"><a id="c6534"></a>let R be the print empty inventory rule response (A);
     <br>
     say &quot;To be frank: [text of R].&quot;;
     </p>
@@ -103,27 +103,27 @@
     <p><span class="boldface">2. The default behaviour.</span> To print the current textual value of the response, making any substitutions in the ordinary way.</p>
     <p><span class="boldface">3. Examples.</span> This activity is not the best way to amend responses or make them dynamic; the whole idea of responses is that they can be changed just as if they were text variables. This activity should be used only if it's important to amend blocks of responses in some systematic way.</p>
     <p>(a) With that said, some interesting effects can be achieved. This is a way to see which responses are being printed, for example:</p>
-    <!--START CODE "c6537"-->
-    <blockquote class="code"><p class="quoted"><a id="c6537"></a>Before issuing the response text of a response (called R): say &quot;[R]: &quot;.
+    <!--START CODE "c6535"-->
+    <blockquote class="code"><p class="quoted"><a id="c6535"></a>Before issuing the response text of a response (called R): say &quot;[R]: &quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>whence:</p>
-    <!--START CODE "c6538"-->
-    <blockquote class="code"><p class="quoted"><a id="c6538"></a>&gt;WAIT
+    <!--START CODE "c6536"-->
+    <blockquote class="code"><p class="quoted"><a id="c6536"></a>&gt;WAIT
     <br>
     standard report waiting rule response (A): Time passes.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) And this intercepts the activity in order to re-run it in each of the six viewpoints. (Note the way a variable is used to prevent the rule from applying to all of those re-runs as well.)</p>
-    <!--START CODE "c6539"-->
-    <blockquote class="code"><p class="quoted"><a id="c6539"></a>The response inhibition is initially false.
+    <!--START CODE "c6537"-->
+    <blockquote class="code"><p class="quoted"><a id="c6537"></a>The response inhibition is initially false.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c6540"-->
-    <blockquote class="code"><p class="quoted"><a id="c6540"></a>Rule for issuing the response text of a response (called R) when the response inhibition is false:
+    <!--START CODE "c6538"-->
+    <blockquote class="code"><p class="quoted"><a id="c6538"></a>Rule for issuing the response text of a response (called R) when the response inhibition is false:
     <br>
     &#160;&#160;&#160;&#160;now the response inhibition is true;
     <br>
@@ -142,8 +142,8 @@
     </blockquote>
     <!--END CODE-->
     <p>With that in place,</p>
-    <!--START CODE "c6541"-->
-    <blockquote class="code"><p class="quoted"><a id="c6541"></a>&gt;EAST
+    <!--START CODE "c6539"-->
+    <blockquote class="code"><p class="quoted"><a id="c6539"></a>&gt;EAST
     <br>
     first person singular: I can't go that way.
     <br>
@@ -188,23 +188,23 @@
         <div class="egpanel" id="example431" style="display: none;">
             <p>If we want to change individual responses to player action, then the best thing to do is to use the response facility to modify those selections, as shown in the chapter on Responses.</p>
             <p>However, suppose what we want is to give the parser a speech impediment that slightly alters all of the responses it issues. For this purpose, we might need to do a bit of text replacement...</p>
+            <!--START CODE "c6540_431"-->
+            <blockquote class="code"><p class="quoted"><a id="c6540_431"></a><a href="javascript:pasteCode('[=0x0022=]Wesponses[=0x0022=][=0x000A=][=0x000A=]The Office is a room. Barry Kripke is a man in the Office.[=0x000A=][=0x000A=]The response inhibition is initially false.[=0x000A=][=0x000A=]Rule for issuing the response text of a response (called R) when response inhibition is false:[=0x000A=][=0x0009=]now response inhibition is true;[=0x000A=][=0x0009=]let output be [=0x0022=][text of R][=0x0022=];[=0x000A=][=0x0009=]now response inhibition is false;[=0x000A=][=0x0009=]replace the text [=0x0022=]r[=0x0022=] in output with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]R[=0x0022=] in output with [=0x0022=]W[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][output][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / x barry / listen / waffle / jump[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Wesponses[=0x0022=][=0x000A=][=0x000A=]The Office is a room. Barry Kripke is a man in the Office.[=0x000A=][=0x000A=]The response inhibition is initially false.[=0x000A=][=0x000A=]Rule for issuing the response text of a response (called R) when response inhibition is false:[=0x000A=][=0x0009=]now response inhibition is true;[=0x000A=][=0x0009=]let output be [=0x0022=][text of R][=0x0022=];[=0x000A=][=0x0009=]now response inhibition is false;[=0x000A=][=0x0009=]replace the text [=0x0022=]r[=0x0022=] in output with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]R[=0x0022=] in output with [=0x0022=]W[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][output][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / x barry / listen / waffle / jump[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Wesponses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Wesponses&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6541_431"-->
+            <blockquote class="code"><p class="quoted"><a id="c6541_431"></a>The Office is a room. Barry Kripke is a man in the Office.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6542_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6542_431"></a><a href="javascript:pasteCode('[=0x0022=]Wesponses[=0x0022=][=0x000A=][=0x000A=]The Office is a room. Barry Kripke is a man in the Office.[=0x000A=][=0x000A=]The response inhibition is initially false.[=0x000A=][=0x000A=]Rule for issuing the response text of a response (called R) when response inhibition is false:[=0x000A=][=0x0009=]now response inhibition is true;[=0x000A=][=0x0009=]let output be [=0x0022=][text of R][=0x0022=];[=0x000A=][=0x0009=]now response inhibition is false;[=0x000A=][=0x0009=]replace the text [=0x0022=]r[=0x0022=] in output with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]R[=0x0022=] in output with [=0x0022=]W[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][output][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / x barry / listen / waffle / jump[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Wesponses[=0x0022=][=0x000A=][=0x000A=]The Office is a room. Barry Kripke is a man in the Office.[=0x000A=][=0x000A=]The response inhibition is initially false.[=0x000A=][=0x000A=]Rule for issuing the response text of a response (called R) when response inhibition is false:[=0x000A=][=0x0009=]now response inhibition is true;[=0x000A=][=0x0009=]let output be [=0x0022=][text of R][=0x0022=];[=0x000A=][=0x0009=]now response inhibition is false;[=0x000A=][=0x0009=]replace the text [=0x0022=]r[=0x0022=] in output with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]R[=0x0022=] in output with [=0x0022=]W[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][output][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i / x barry / listen / waffle / jump[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Wesponses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Wesponses&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6542_431"></a>The response inhibition is initially false.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6543_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6543_431"></a>The Office is a room. Barry Kripke is a man in the Office.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6544_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6544_431"></a>The response inhibition is initially false.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6545_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6545_431"></a>Rule for issuing the response text of a response (called R) when response inhibition is false:
+            <blockquote class="code"><p class="quoted"><a id="c6543_431"></a>Rule for issuing the response text of a response (called R) when response inhibition is false:
             <br>
             &#160;&#160;&#160;&#160;now response inhibition is true;
             <br>
@@ -220,15 +220,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6546_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6546_431"></a>Test me with &quot;i / x barry / listen / waffle / jump&quot;
+            <!--START CODE "c6544_431"-->
+            <blockquote class="code"><p class="quoted"><a id="c6544_431"></a>Test me with &quot;i / x barry / listen / waffle / jump&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Notice that this doesn't affect the printed names of objects in the room description or other kinds of output text -- only those that are issued by the response mechanism.</p>
             <p>It would also not work to try to give our parser a nervous personality by simply adding &quot;Um, &quot; to the beginning of each response, because responses are not guaranteed to be full standalone sentences. For example, we could imagine writing</p>
-            <!--START CODE "c6547_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6547_431"></a>Rule for issuing the response text of a response (called R) when response inhibition is false:
+            <!--START CODE "c6545_431"-->
+            <blockquote class="code"><p class="quoted"><a id="c6545_431"></a>Rule for issuing the response text of a response (called R) when response inhibition is false:
             <br>
             &#160;&#160;&#160;&#160;now response inhibition is true;
             <br>
@@ -241,8 +241,8 @@
             </blockquote>
             <!--END CODE-->
             <p>but here is what the room description would say as a result:</p>
-            <!--START CODE "c6548_431"-->
-            <blockquote class="code"><p class="quoted"><a id="c6548_431"></a>Office
+            <!--START CODE "c6546_431"-->
+            <blockquote class="code"><p class="quoted"><a id="c6546_431"></a>Office
             <br>
             Um, You Um, can see Barry KripkeUm,  here
             </p>

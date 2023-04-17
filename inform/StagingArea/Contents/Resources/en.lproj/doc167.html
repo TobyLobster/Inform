@@ -91,24 +91,24 @@
             <!--definition of ph_runthrough-->
 
     <p>    This phrase causes the block of phrases following it to be repeated once for each value matching the description, storing that value in the named variable. (The variable exists only temporarily, within the repetition.) Example:</p>
-    <!--START CODE "c2956"-->
-    <blockquote class="code"><p class="quoted"><a id="c2956"></a>repeat with item running through open containers:
+    <!--START CODE "c2955"-->
+    <blockquote class="code"><p class="quoted"><a id="c2955"></a>repeat with item running through open containers:
     <br>
     &#160;&#160;&#160;&#160;...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If there are no containers, or they are all closed, the phrases will not be followed at all. Inform will issue a Problem message if the range of the loop may be infinite: for example, it won't allow:</p>
-    <!--START CODE "c2957"-->
-    <blockquote class="code"><p class="quoted"><a id="c2957"></a>repeat with X running through odd numbers:
+    <!--START CODE "c2956"-->
+    <blockquote class="code"><p class="quoted"><a id="c2956"></a>repeat with X running through odd numbers:
     <br>
     &#160;&#160;&#160;&#160;...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>On the other hand it will allow:</p>
-    <!--START CODE "c2958"-->
-    <blockquote class="code"><p class="quoted"><a id="c2958"></a>repeat with T running through times:
+    <!--START CODE "c2957"-->
+    <blockquote class="code"><p class="quoted"><a id="c2957"></a>repeat with T running through times:
     <br>
     &#160;&#160;&#160;&#160;...
     </p>
@@ -120,30 +120,30 @@
     </div>
 
     <p>As with counting the &quot;number of ...&quot; objects satisfying some property, we can run through a wide variety of possibilities - any description whose range is possible for Inform to search. For example:</p>
+    <!--START CODE "c2958"-->
+    <blockquote class="code"><p class="quoted"><a id="c2958"></a>repeat with dinner guest running through the people in the Dining Room:
+    <br>
+    &#160;&#160;&#160;&#160;...
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c2959"-->
-    <blockquote class="code"><p class="quoted"><a id="c2959"></a>repeat with dinner guest running through the people in the Dining Room:
+    <blockquote class="code"><p class="quoted"><a id="c2959"></a>repeat with possession running through things carried:
     <br>
     &#160;&#160;&#160;&#160;...
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c2960"-->
-    <blockquote class="code"><p class="quoted"><a id="c2960"></a>repeat with possession running through things carried:
-    <br>
-    &#160;&#160;&#160;&#160;...
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c2961"-->
-    <blockquote class="code"><p class="quoted"><a id="c2961"></a>repeat with event running through non-recurring scenes which are happening:
+    <blockquote class="code"><p class="quoted"><a id="c2960"></a>repeat with event running through non-recurring scenes which are happening:
     <br>
     &#160;&#160;&#160;&#160;...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The following lists the whereabouts of all men in lighted rooms:</p>
-    <!--START CODE "c2962"-->
-    <blockquote class="code"><p class="quoted"><a id="c2962"></a><a href="javascript:pasteCode('repeat with suspect running through the men who are in a lighted room:[=0x000A=][=0x0009=]say [=0x0022=][The suspect] is in [the location of the suspect].[=0x0022=];[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> repeat with suspect running through the men who are in a lighted room:
+    <!--START CODE "c2961"-->
+    <blockquote class="code"><p class="quoted"><a id="c2961"></a><a href="javascript:pasteCode('repeat with suspect running through the men who are in a lighted room:[=0x000A=][=0x0009=]say [=0x0022=][The suspect] is in [the location of the suspect].[=0x0022=];[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> repeat with suspect running through the men who are in a lighted room:
     <br>
     &#160;&#160;&#160;&#160;say &quot;[The suspect] is in [the location of the suspect].&quot;;
     </p>
@@ -178,59 +178,59 @@
 
         <div class="egpanel" id="example19" style="display: none;">
             <p>Many simple repetitions can effectively be done with a &quot;now...&quot; instruction: it is quicker to say</p>
-            <!--START CODE "c2963_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2963_19"></a>now every person is angry
+            <!--START CODE "c2962_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c2962_19"></a>now every person is angry
             </p>
             </blockquote>
             <!--END CODE-->
             <p>than</p>
-            <!--START CODE "c2964_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2964_19"></a>repeat with offended party running through people:
+            <!--START CODE "c2963_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c2963_19"></a>repeat with offended party running through people:
             <br>
             &#160;&#160;&#160;&#160;now the offended party is angry.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Repeat comes in handy when we have something a bit more complicated to do with each item:</p>
+            <!--START CODE "c2964_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c2964_19"></a><a href="javascript:pasteCode('[=0x0022=]Strictly Ballroom[=0x0022=][=0x000A=][=0x000A=]A person can be alert or occupied. A person is usually alert.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the player is occupied.[=0x000A=][=0x000A=]Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.[=0x000A=][=0x000A=]The current round is a dance that varies.[=0x000A=][=0x000A=]Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.[=0x000A=][=0x000A=]Every turn: now the current round is a random dance.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with dancer running through people who are not the player:[=0x000A=][=0x0009=][=0x0009=]if dancer is alert:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now dancer is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let partner be a random alert person who is not the dancer;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if partner is a person:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now partner is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The dancer] [the current round][if a random chance of 1 in 5 succeeds] [a random manner][end if] with [partner]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break][The dancer] is forced to be a wallflower. Poor [dancer]. [=0x0022=];[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Notice we did not say [=0x0022=]repeat with dancer running through alert people who are not the player...[=0x0022=]. This is because Inform would draw up a list of alert people at the beginning of the repeat, and not take into account which people became occupied partway through the repetition. If we want to make sure that each person dances only with one other person, we have to continue checking alertness each time we run through the repetition.][=0x000A=][=0x000A=][After all the partners are assigned, we can set up for the next turn by making everyone alert again, and for this we do not need [=0x0022=]repeat[=0x0022=]:][=0x000A=][=0x000A=]Every turn: now every person is alert; now the player is occupied.[=0x000A=][=0x000A=]Before doing something to someone: now the noun is occupied.[=0x000A=][=0x000A=]Before doing something when the second noun is a person: now the second noun is occupied.[=0x000A=][=0x000A=]Instead of doing something to someone: say [=0x0022=]You successfully distract [the noun].[=0x0022=][=0x000A=][=0x000A=]The Pacific Ballroom is a room. [=0x0022=]A rather utilitarian space at the moment, since this is a class and not a party.[=0x0022=] Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / ask linus about blanket / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Strictly Ballroom[=0x0022=][=0x000A=][=0x000A=]A person can be alert or occupied. A person is usually alert.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the player is occupied.[=0x000A=][=0x000A=]Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.[=0x000A=][=0x000A=]The current round is a dance that varies.[=0x000A=][=0x000A=]Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.[=0x000A=][=0x000A=]Every turn: now the current round is a random dance.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with dancer running through people who are not the player:[=0x000A=][=0x0009=][=0x0009=]if dancer is alert:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now dancer is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let partner be a random alert person who is not the dancer;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if partner is a person:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now partner is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The dancer] [the current round][if a random chance of 1 in 5 succeeds] [a random manner][end if] with [partner]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break][The dancer] is forced to be a wallflower. Poor [dancer]. [=0x0022=];[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Notice we did not say [=0x0022=]repeat with dancer running through alert people who are not the player...[=0x0022=]. This is because Inform would draw up a list of alert people at the beginning of the repeat, and not take into account which people became occupied partway through the repetition. If we want to make sure that each person dances only with one other person, we have to continue checking alertness each time we run through the repetition.][=0x000A=][=0x000A=][After all the partners are assigned, we can set up for the next turn by making everyone alert again, and for this we do not need [=0x0022=]repeat[=0x0022=]:][=0x000A=][=0x000A=]Every turn: now every person is alert; now the player is occupied.[=0x000A=][=0x000A=]Before doing something to someone: now the noun is occupied.[=0x000A=][=0x000A=]Before doing something when the second noun is a person: now the second noun is occupied.[=0x000A=][=0x000A=]Instead of doing something to someone: say [=0x0022=]You successfully distract [the noun].[=0x0022=][=0x000A=][=0x000A=]The Pacific Ballroom is a room. [=0x0022=]A rather utilitarian space at the moment, since this is a class and not a party.[=0x0022=] Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / ask linus about blanket / z / z[=0x0022=].[=0x000A=]\n', 'Example - Strictly Ballroom')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Strictly Ballroom&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c2965_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2965_19"></a><a href="javascript:pasteCode('[=0x0022=]Strictly Ballroom[=0x0022=][=0x000A=][=0x000A=]A person can be alert or occupied. A person is usually alert.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the player is occupied.[=0x000A=][=0x000A=]Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.[=0x000A=][=0x000A=]The current round is a dance that varies.[=0x000A=][=0x000A=]Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.[=0x000A=][=0x000A=]Every turn: now the current round is a random dance.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with dancer running through people who are not the player:[=0x000A=][=0x0009=][=0x0009=]if dancer is alert:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now dancer is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let partner be a random alert person who is not the dancer;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if partner is a person:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now partner is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The dancer] [the current round][if a random chance of 1 in 5 succeeds] [a random manner][end if] with [partner]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break][The dancer] is forced to be a wallflower. Poor [dancer]. [=0x0022=];[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Notice we did not say [=0x0022=]repeat with dancer running through alert people who are not the player...[=0x0022=]. This is because Inform would draw up a list of alert people at the beginning of the repeat, and not take into account which people became occupied partway through the repetition. If we want to make sure that each person dances only with one other person, we have to continue checking alertness each time we run through the repetition.][=0x000A=][=0x000A=][After all the partners are assigned, we can set up for the next turn by making everyone alert again, and for this we do not need [=0x0022=]repeat[=0x0022=]:][=0x000A=][=0x000A=]Every turn: now every person is alert; now the player is occupied.[=0x000A=][=0x000A=]Before doing something to someone: now the noun is occupied.[=0x000A=][=0x000A=]Before doing something when the second noun is a person: now the second noun is occupied.[=0x000A=][=0x000A=]Instead of doing something to someone: say [=0x0022=]You successfully distract [the noun].[=0x0022=][=0x000A=][=0x000A=]The Pacific Ballroom is a room. [=0x0022=]A rather utilitarian space at the moment, since this is a class and not a party.[=0x0022=] Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / ask linus about blanket / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Strictly Ballroom[=0x0022=][=0x000A=][=0x000A=]A person can be alert or occupied. A person is usually alert.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the player is occupied.[=0x000A=][=0x000A=]Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.[=0x000A=][=0x000A=]The current round is a dance that varies.[=0x000A=][=0x000A=]Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.[=0x000A=][=0x000A=]Every turn: now the current round is a random dance.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]repeat with dancer running through people who are not the player:[=0x000A=][=0x0009=][=0x0009=]if dancer is alert:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now dancer is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let partner be a random alert person who is not the dancer;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if partner is a person:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]now partner is occupied;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The dancer] [the current round][if a random chance of 1 in 5 succeeds] [a random manner][end if] with [partner]. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break][The dancer] is forced to be a wallflower. Poor [dancer]. [=0x0022=];[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=][Notice we did not say [=0x0022=]repeat with dancer running through alert people who are not the player...[=0x0022=]. This is because Inform would draw up a list of alert people at the beginning of the repeat, and not take into account which people became occupied partway through the repetition. If we want to make sure that each person dances only with one other person, we have to continue checking alertness each time we run through the repetition.][=0x000A=][=0x000A=][After all the partners are assigned, we can set up for the next turn by making everyone alert again, and for this we do not need [=0x0022=]repeat[=0x0022=]:][=0x000A=][=0x000A=]Every turn: now every person is alert; now the player is occupied.[=0x000A=][=0x000A=]Before doing something to someone: now the noun is occupied.[=0x000A=][=0x000A=]Before doing something when the second noun is a person: now the second noun is occupied.[=0x000A=][=0x000A=]Instead of doing something to someone: say [=0x0022=]You successfully distract [the noun].[=0x0022=][=0x000A=][=0x000A=]The Pacific Ballroom is a room. [=0x0022=]A rather utilitarian space at the moment, since this is a class and not a party.[=0x0022=] Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / ask linus about blanket / z / z[=0x0022=].[=0x000A=]\n', 'Example - Strictly Ballroom')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Strictly Ballroom&quot;
+            <blockquote class="code"><p class="quoted"><a id="c2965_19"></a>A person can be alert or occupied. A person is usually alert.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2966_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2966_19"></a>A person can be alert or occupied. A person is usually alert.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c2967_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2967_19"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c2966_19"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the player is occupied.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c2967_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c2967_19"></a>Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c2968_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2968_19"></a>Dance is a kind of value. The dances are waltzes, polkas, cha-chas, charlestons, fox-trots, tangos, lambadas, and two-steps.
+            <blockquote class="code"><p class="quoted"><a id="c2968_19"></a>The current round is a dance that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2969_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2969_19"></a>The current round is a dance that varies.
+            <blockquote class="code"><p class="quoted"><a id="c2969_19"></a>Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2970_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2970_19"></a>Manner is a kind of value. The manners are swiftly, primly, energetically, suavely, seductively, elegantly, and badly.
+            <blockquote class="code"><p class="quoted"><a id="c2970_19"></a>Every turn: now the current round is a random dance.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2971_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2971_19"></a>Every turn: now the current round is a random dance.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c2972_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2972_19"></a>Every turn:
+            <blockquote class="code"><p class="quoted"><a id="c2971_19"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;repeat with dancer running through people who are not the player:
             <br>
@@ -256,33 +256,33 @@
             <!--END CODE-->
             <p>Notice we did not say &quot;repeat with dancer running through alert people who are not the player...&quot;. This is because Inform would draw up a list of alert people at the beginning of the repeat, and not take into account which people became occupied partway through the repetition. If we want to make sure that each person dances only with one other person, we have to continue checking alertness each time we run through the repetition.</p>
             <p>After all the partners are assigned, we can set up for the next turn by making everyone alert again, and for this we do not need &quot;repeat&quot;:</p>
+            <!--START CODE "c2972_19"-->
+            <blockquote class="code"><p class="quoted"><a id="c2972_19"></a>Every turn: now every person is alert; now the player is occupied.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c2973_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2973_19"></a>Every turn: now every person is alert; now the player is occupied.
+            <blockquote class="code"><p class="quoted"><a id="c2973_19"></a>Before doing something to someone: now the noun is occupied.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2974_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2974_19"></a>Before doing something to someone: now the noun is occupied.
+            <blockquote class="code"><p class="quoted"><a id="c2974_19"></a>Before doing something when the second noun is a person: now the second noun is occupied.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2975_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2975_19"></a>Before doing something when the second noun is a person: now the second noun is occupied.
+            <blockquote class="code"><p class="quoted"><a id="c2975_19"></a>Instead of doing something to someone: say &quot;You successfully distract [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2976_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2976_19"></a>Instead of doing something to someone: say &quot;You successfully distract [the noun].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c2976_19"></a>The Pacific Ballroom is a room. &quot;A rather utilitarian space at the moment, since this is a class and not a party.&quot; Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2977_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2977_19"></a>The Pacific Ballroom is a room. &quot;A rather utilitarian space at the moment, since this is a class and not a party.&quot; Timmy, Tommy, Joey, George, Mary, Martha, Yvette, McQueen, Linus, and Patricia are people in the Pacific Ballroom.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c2978_19"-->
-            <blockquote class="code"><p class="quoted"><a id="c2978_19"></a>Test me with &quot;z / ask linus about blanket / z / z&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c2977_19"></a>Test me with &quot;z / ask linus about blanket / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

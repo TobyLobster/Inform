@@ -82,26 +82,26 @@
     <p class="sectionheading">§17.1. Understand</p>
     <p>During play, the computer and the player alternate in writing messages to each other: in the player's case, these are short instructions, usually saying what to do next. A wide range of such &quot;commands&quot; are automatically understood, but these only apply to the standard built-in actions. (This wide range is conveniently tabulated in the Commands part of the Actions index.) If we want the player to be able to command new actions, then we need to specify what is to be understood as what. For this, we supply special sentences starting with the word &quot;Understand&quot;.</p>
     <p>Suppose we return to the earlier example of a newly created action:</p>
-    <!--START CODE "c5484"-->
-    <blockquote class="code"><p class="quoted"><a id="c5484"></a>Photographing is an action applying to one visible thing and requiring light.
+    <!--START CODE "c5482"-->
+    <blockquote class="code"><p class="quoted"><a id="c5482"></a>Photographing is an action applying to one visible thing and requiring light.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We then supply lines of grammar (as they are called) for Inform to recognise, like so:</p>
-    <!--START CODE "c5485"-->
-    <blockquote class="code"><p class="quoted"><a id="c5485"></a>Understand &quot;photograph [someone]&quot; as photographing.
+    <!--START CODE "c5483"-->
+    <blockquote class="code"><p class="quoted"><a id="c5483"></a>Understand &quot;photograph [someone]&quot; as photographing.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c5486"-->
-    <blockquote class="code"><p class="quoted"><a id="c5486"></a>Understand &quot;photograph [an open door]&quot; as photographing.
+    <!--START CODE "c5484"-->
+    <blockquote class="code"><p class="quoted"><a id="c5484"></a>Understand &quot;photograph [an open door]&quot; as photographing.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>As usual, the square brackets indicate something which stands for text, rather than text to be taken verbatim. &quot;[someone]&quot; needs to be the name of anything of the kind &quot;person&quot;, for instance (though as usual that person will need to be in sight of the player for the name to be accepted). The first word - in these examples &quot;photograph&quot; - must be something definite, not a substitution like this.</p>
     <p>For obvious reasons, this pattern of words needs to match the expectations of the action. Photographing applies to &quot;one visible thing&quot; - the &quot;visible&quot; just means it does not need to be touched, only seen - so neither of these would be allowable:</p>
-    <!--START CODE "c5487"-->
-    <blockquote class="code"><p class="quoted"><a id="c5487"></a>Understand &quot;photograph&quot; as photographing.
+    <!--START CODE "c5485"-->
+    <blockquote class="code"><p class="quoted"><a id="c5485"></a>Understand &quot;photograph&quot; as photographing.
     <br>
     Understand &quot;photograph [someone] standing next to [something]&quot; as photographing.
     </p>
@@ -136,35 +136,35 @@
 
         <div class="egpanel" id="example87" style="display: none;">
             <p>In Mayan culture, colours seem to have been used as names for the primary directions: for instance, &quot;red&quot; implies east as the colour of sunrise. So the following might be a stylish touch for a game in which the player has to get inside the Mayan world-view:</p>
-            <!--START CODE "c5488_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5488_87"></a><a href="javascript:pasteCode('[=0x0022=]Indirection[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]white[=0x0022=] and [=0x0022=]sac[=0x0022=] as north. Understand [=0x0022=]red[=0x0022=] and [=0x0022=]chac[=0x0022=] as east. Understand [=0x0022=]yellow[=0x0022=] and [=0x0022=]kan[=0x0022=] as south. Understand [=0x0022=]black[=0x0022=] and [=0x0022=]chikin[=0x0022=] as west.[=0x000A=][=0x000A=][We could also use a colour as a verb:][=0x000A=][=0x000A=]Understand [=0x0022=]turquoise[=0x0022=] and [=0x0022=]yax[=0x0022=] as looking.[=0x000A=][=0x000A=][And now a few extra rooms to try it out in:][=0x000A=][=0x000A=]The Square Chamber is a room. [=0x0022=]A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.[=0x0022=][=0x000A=][=0x000A=]The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.[=0x000A=][=0x000A=]Test me with [=0x0022=]kan / white / chac / black[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Indirection[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]white[=0x0022=] and [=0x0022=]sac[=0x0022=] as north. Understand [=0x0022=]red[=0x0022=] and [=0x0022=]chac[=0x0022=] as east. Understand [=0x0022=]yellow[=0x0022=] and [=0x0022=]kan[=0x0022=] as south. Understand [=0x0022=]black[=0x0022=] and [=0x0022=]chikin[=0x0022=] as west.[=0x000A=][=0x000A=][We could also use a colour as a verb:][=0x000A=][=0x000A=]Understand [=0x0022=]turquoise[=0x0022=] and [=0x0022=]yax[=0x0022=] as looking.[=0x000A=][=0x000A=][And now a few extra rooms to try it out in:][=0x000A=][=0x000A=]The Square Chamber is a room. [=0x0022=]A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.[=0x0022=][=0x000A=][=0x000A=]The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.[=0x000A=][=0x000A=]Test me with [=0x0022=]kan / white / chac / black[=0x0022=].[=0x000A=]\n', 'Example - Indirection')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Indirection&quot;
+            <!--START CODE "c5486_87"-->
+            <blockquote class="code"><p class="quoted"><a id="c5486_87"></a><a href="javascript:pasteCode('[=0x0022=]Indirection[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]white[=0x0022=] and [=0x0022=]sac[=0x0022=] as north. Understand [=0x0022=]red[=0x0022=] and [=0x0022=]chac[=0x0022=] as east. Understand [=0x0022=]yellow[=0x0022=] and [=0x0022=]kan[=0x0022=] as south. Understand [=0x0022=]black[=0x0022=] and [=0x0022=]chikin[=0x0022=] as west.[=0x000A=][=0x000A=][We could also use a colour as a verb:][=0x000A=][=0x000A=]Understand [=0x0022=]turquoise[=0x0022=] and [=0x0022=]yax[=0x0022=] as looking.[=0x000A=][=0x000A=][And now a few extra rooms to try it out in:][=0x000A=][=0x000A=]The Square Chamber is a room. [=0x0022=]A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.[=0x0022=][=0x000A=][=0x000A=]The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.[=0x000A=][=0x000A=]Test me with [=0x0022=]kan / white / chac / black[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Indirection[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]white[=0x0022=] and [=0x0022=]sac[=0x0022=] as north. Understand [=0x0022=]red[=0x0022=] and [=0x0022=]chac[=0x0022=] as east. Understand [=0x0022=]yellow[=0x0022=] and [=0x0022=]kan[=0x0022=] as south. Understand [=0x0022=]black[=0x0022=] and [=0x0022=]chikin[=0x0022=] as west.[=0x000A=][=0x000A=][We could also use a colour as a verb:][=0x000A=][=0x000A=]Understand [=0x0022=]turquoise[=0x0022=] and [=0x0022=]yax[=0x0022=] as looking.[=0x000A=][=0x000A=][And now a few extra rooms to try it out in:][=0x000A=][=0x000A=]The Square Chamber is a room. [=0x0022=]A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.[=0x0022=][=0x000A=][=0x000A=]The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.[=0x000A=][=0x000A=]Test me with [=0x0022=]kan / white / chac / black[=0x0022=].[=0x000A=]\n', 'Example - Indirection')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Indirection&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5489_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5489_87"></a>Understand &quot;white&quot; and &quot;sac&quot; as north. Understand &quot;red&quot; and &quot;chac&quot; as east. Understand &quot;yellow&quot; and &quot;kan&quot; as south. Understand &quot;black&quot; and &quot;chikin&quot; as west.
+            <!--START CODE "c5487_87"-->
+            <blockquote class="code"><p class="quoted"><a id="c5487_87"></a>Understand &quot;white&quot; and &quot;sac&quot; as north. Understand &quot;red&quot; and &quot;chac&quot; as east. Understand &quot;yellow&quot; and &quot;kan&quot; as south. Understand &quot;black&quot; and &quot;chikin&quot; as west.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>We could also use a colour as a verb:</p>
-            <!--START CODE "c5490_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5490_87"></a>Understand &quot;turquoise&quot; and &quot;yax&quot; as looking.
+            <!--START CODE "c5488_87"-->
+            <blockquote class="code"><p class="quoted"><a id="c5488_87"></a>Understand &quot;turquoise&quot; and &quot;yax&quot; as looking.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And now a few extra rooms to try it out in:</p>
+            <!--START CODE "c5489_87"-->
+            <blockquote class="code"><p class="quoted"><a id="c5489_87"></a>The Square Chamber is a room. &quot;A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5490_87"-->
+            <blockquote class="code"><p class="quoted"><a id="c5490_87"></a>The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5491_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5491_87"></a>The Square Chamber is a room. &quot;A sunken, gloomy stone chamber, ten yards across. A shaft of sunlight cuts in from the steps above, giving the chamber a diffuse light, but in the shadows low lintelled doorways to east and south lead into the deeper darkness of the Temple.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5492_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5492_87"></a>The Wormcast is east of the Square Chamber. The Corridor is south of the Square Chamber.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5493_87"-->
-            <blockquote class="code"><p class="quoted"><a id="c5493_87"></a>Test me with &quot;kan / white / chac / black&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5491_87"></a>Test me with &quot;kan / white / chac / black&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -196,23 +196,23 @@
 
         <div class="egpanel" id="example446" style="display: none;">
             <p>We have seen before how to define a new action from scratch, but we may want to review here, using a simple command that requires no objects.</p>
+            <!--START CODE "c5492_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5492_446"></a><a href="javascript:pasteCode('[=0x0022=]XYZZY[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]xyzzy[=0x0022=] or [=0x0022=]say xyzzy[=0x0022=] or [=0x0022=]cast xyzzy[=0x0022=] as casting xyzzy.[=0x000A=][=0x000A=]Casting xyzzy is an action applying to nothing.[=0x000A=][=0x000A=]Check casting xyzzy:[=0x000A=][=0x0009=]if the player does not wear the amulet of elocution, say [=0x0022=]You are unable to articulate the second [=0x0027=]z[=0x0027=] separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player has the plate, say [=0x0022=]The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out casting xyzzy:[=0x000A=][=0x0009=]move the plate to the player.[=0x000A=][=0x000A=]Report casting xyzzy:[=0x000A=][=0x0009=]say [=0x0022=]Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears![=0x0022=][=0x000A=][=0x000A=]The amulet of elocution is a wearable thing. It is carried by the player. The description is [=0x0022=]A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, [=0x0027=]Moses Supposes His Toeses Are Roses.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say [=0x0022=]It smells like socks. This is going to be wonderful.[=0x0022=] The ooze is edible. The printed name of the plate is [=0x0022=]plate[if the plate supports the ooze] of cheese[end if][=0x0022=]. The description of the ooze is [=0x0022=]Definitely genuinely cheese.[=0x0022=] Understand [=0x0022=]cheese[=0x0022=] as the ooze.[=0x000A=][=0x000A=]Instead of eating the ooze: now the ooze is nowhere; say [=0x0022=]You are transported...[=0x0022=]; move the player to Paradise.[=0x000A=][=0x000A=]The Cheez Factory is a room. [=0x0022=]All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.[=0x0022=] The squares of pressed orange polymer are scenery in the Factory. The description is [=0x0022=]You see nothing special about the squares of pressed orange polymer. Nothing special at all.[=0x0022=] Understand [=0x0022=]square[=0x0022=] or [=0x0022=]cheez[=0x0022=] as the squares.[=0x000A=][=0x000A=]Paradise is a room. The description is [=0x0022=]Well, it might just be one of the posh upper rings of purgatory, if you[=0x0027=]re entirely honest with yourself.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]XYZZY[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]xyzzy[=0x0022=] or [=0x0022=]say xyzzy[=0x0022=] or [=0x0022=]cast xyzzy[=0x0022=] as casting xyzzy.[=0x000A=][=0x000A=]Casting xyzzy is an action applying to nothing.[=0x000A=][=0x000A=]Check casting xyzzy:[=0x000A=][=0x0009=]if the player does not wear the amulet of elocution, say [=0x0022=]You are unable to articulate the second [=0x0027=]z[=0x0027=] separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player has the plate, say [=0x0022=]The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out casting xyzzy:[=0x000A=][=0x0009=]move the plate to the player.[=0x000A=][=0x000A=]Report casting xyzzy:[=0x000A=][=0x0009=]say [=0x0022=]Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears![=0x0022=][=0x000A=][=0x000A=]The amulet of elocution is a wearable thing. It is carried by the player. The description is [=0x0022=]A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, [=0x0027=]Moses Supposes His Toeses Are Roses.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say [=0x0022=]It smells like socks. This is going to be wonderful.[=0x0022=] The ooze is edible. The printed name of the plate is [=0x0022=]plate[if the plate supports the ooze] of cheese[end if][=0x0022=]. The description of the ooze is [=0x0022=]Definitely genuinely cheese.[=0x0022=] Understand [=0x0022=]cheese[=0x0022=] as the ooze.[=0x000A=][=0x000A=]Instead of eating the ooze: now the ooze is nowhere; say [=0x0022=]You are transported...[=0x0022=]; move the player to Paradise.[=0x000A=][=0x000A=]The Cheez Factory is a room. [=0x0022=]All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.[=0x0022=] The squares of pressed orange polymer are scenery in the Factory. The description is [=0x0022=]You see nothing special about the squares of pressed orange polymer. Nothing special at all.[=0x0022=] Understand [=0x0022=]square[=0x0022=] or [=0x0022=]cheez[=0x0022=] as the squares.[=0x000A=][=0x000A=]Paradise is a room. The description is [=0x0022=]Well, it might just be one of the posh upper rings of purgatory, if you[=0x0027=]re entirely honest with yourself.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - XYZZY')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;XYZZY&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5493_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5493_446"></a>Understand &quot;xyzzy&quot; or &quot;say xyzzy&quot; or &quot;cast xyzzy&quot; as casting xyzzy.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5494_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5494_446"></a><a href="javascript:pasteCode('[=0x0022=]XYZZY[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]xyzzy[=0x0022=] or [=0x0022=]say xyzzy[=0x0022=] or [=0x0022=]cast xyzzy[=0x0022=] as casting xyzzy.[=0x000A=][=0x000A=]Casting xyzzy is an action applying to nothing.[=0x000A=][=0x000A=]Check casting xyzzy:[=0x000A=][=0x0009=]if the player does not wear the amulet of elocution, say [=0x0022=]You are unable to articulate the second [=0x0027=]z[=0x0027=] separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player has the plate, say [=0x0022=]The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out casting xyzzy:[=0x000A=][=0x0009=]move the plate to the player.[=0x000A=][=0x000A=]Report casting xyzzy:[=0x000A=][=0x0009=]say [=0x0022=]Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears![=0x0022=][=0x000A=][=0x000A=]The amulet of elocution is a wearable thing. It is carried by the player. The description is [=0x0022=]A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, [=0x0027=]Moses Supposes His Toeses Are Roses.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say [=0x0022=]It smells like socks. This is going to be wonderful.[=0x0022=] The ooze is edible. The printed name of the plate is [=0x0022=]plate[if the plate supports the ooze] of cheese[end if][=0x0022=]. The description of the ooze is [=0x0022=]Definitely genuinely cheese.[=0x0022=] Understand [=0x0022=]cheese[=0x0022=] as the ooze.[=0x000A=][=0x000A=]Instead of eating the ooze: now the ooze is nowhere; say [=0x0022=]You are transported...[=0x0022=]; move the player to Paradise.[=0x000A=][=0x000A=]The Cheez Factory is a room. [=0x0022=]All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.[=0x0022=] The squares of pressed orange polymer are scenery in the Factory. The description is [=0x0022=]You see nothing special about the squares of pressed orange polymer. Nothing special at all.[=0x0022=] Understand [=0x0022=]square[=0x0022=] or [=0x0022=]cheez[=0x0022=] as the squares.[=0x000A=][=0x000A=]Paradise is a room. The description is [=0x0022=]Well, it might just be one of the posh upper rings of purgatory, if you[=0x0027=]re entirely honest with yourself.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]XYZZY[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]xyzzy[=0x0022=] or [=0x0022=]say xyzzy[=0x0022=] or [=0x0022=]cast xyzzy[=0x0022=] as casting xyzzy.[=0x000A=][=0x000A=]Casting xyzzy is an action applying to nothing.[=0x000A=][=0x000A=]Check casting xyzzy:[=0x000A=][=0x0009=]if the player does not wear the amulet of elocution, say [=0x0022=]You are unable to articulate the second [=0x0027=]z[=0x0027=] separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player has the plate, say [=0x0022=]The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out casting xyzzy:[=0x000A=][=0x0009=]move the plate to the player.[=0x000A=][=0x000A=]Report casting xyzzy:[=0x000A=][=0x0009=]say [=0x0022=]Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears![=0x0022=][=0x000A=][=0x000A=]The amulet of elocution is a wearable thing. It is carried by the player. The description is [=0x0022=]A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, [=0x0027=]Moses Supposes His Toeses Are Roses.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say [=0x0022=]It smells like socks. This is going to be wonderful.[=0x0022=] The ooze is edible. The printed name of the plate is [=0x0022=]plate[if the plate supports the ooze] of cheese[end if][=0x0022=]. The description of the ooze is [=0x0022=]Definitely genuinely cheese.[=0x0022=] Understand [=0x0022=]cheese[=0x0022=] as the ooze.[=0x000A=][=0x000A=]Instead of eating the ooze: now the ooze is nowhere; say [=0x0022=]You are transported...[=0x0022=]; move the player to Paradise.[=0x000A=][=0x000A=]The Cheez Factory is a room. [=0x0022=]All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.[=0x0022=] The squares of pressed orange polymer are scenery in the Factory. The description is [=0x0022=]You see nothing special about the squares of pressed orange polymer. Nothing special at all.[=0x0022=] Understand [=0x0022=]square[=0x0022=] or [=0x0022=]cheez[=0x0022=] as the squares.[=0x000A=][=0x000A=]Paradise is a room. The description is [=0x0022=]Well, it might just be one of the posh upper rings of purgatory, if you[=0x0027=]re entirely honest with yourself.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - XYZZY')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;XYZZY&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5494_446"></a>Casting xyzzy is an action applying to nothing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5495_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5495_446"></a>Understand &quot;xyzzy&quot; or &quot;say xyzzy&quot; or &quot;cast xyzzy&quot; as casting xyzzy.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5496_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5496_446"></a>Casting xyzzy is an action applying to nothing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5497_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5497_446"></a>Check casting xyzzy:
+            <blockquote class="code"><p class="quoted"><a id="c5495_446"></a>Check casting xyzzy:
             <br>
             &#160;&#160;&#160;&#160;if the player does not wear the amulet of elocution, say &quot;You are unable to articulate the second 'z' separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.&quot; instead;
             <br>
@@ -220,47 +220,47 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5498_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5498_446"></a>Carry out casting xyzzy:
+            <!--START CODE "c5496_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5496_446"></a>Carry out casting xyzzy:
             <br>
             &#160;&#160;&#160;&#160;move the plate to the player.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5499_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5499_446"></a>Report casting xyzzy:
+            <!--START CODE "c5497_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5497_446"></a>Report casting xyzzy:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c5498_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5498_446"></a>The amulet of elocution is a wearable thing. It is carried by the player. The description is &quot;A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, 'Moses Supposes His Toeses Are Roses.'&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5499_446"-->
+            <blockquote class="code"><p class="quoted"><a id="c5499_446"></a>The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say &quot;It smells like socks. This is going to be wonderful.&quot; The ooze is edible. The printed name of the plate is &quot;plate[if the plate supports the ooze] of cheese[end if]&quot;. The description of the ooze is &quot;Definitely genuinely cheese.&quot; Understand &quot;cheese&quot; as the ooze.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5500_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5500_446"></a>The amulet of elocution is a wearable thing. It is carried by the player. The description is &quot;A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, 'Moses Supposes His Toeses Are Roses.'&quot;
+            <blockquote class="code"><p class="quoted"><a id="c5500_446"></a>Instead of eating the ooze: now the ooze is nowhere; say &quot;You are transported...&quot;; move the player to Paradise.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5501_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5501_446"></a>The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say &quot;It smells like socks. This is going to be wonderful.&quot; The ooze is edible. The printed name of the plate is &quot;plate[if the plate supports the ooze] of cheese[end if]&quot;. The description of the ooze is &quot;Definitely genuinely cheese.&quot; Understand &quot;cheese&quot; as the ooze.
+            <blockquote class="code"><p class="quoted"><a id="c5501_446"></a>The Cheez Factory is a room. &quot;All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.&quot; The squares of pressed orange polymer are scenery in the Factory. The description is &quot;You see nothing special about the squares of pressed orange polymer. Nothing special at all.&quot; Understand &quot;square&quot; or &quot;cheez&quot; as the squares.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5502_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5502_446"></a>Instead of eating the ooze: now the ooze is nowhere; say &quot;You are transported...&quot;; move the player to Paradise.
+            <blockquote class="code"><p class="quoted"><a id="c5502_446"></a>Paradise is a room. The description is &quot;Well, it might just be one of the posh upper rings of purgatory, if you're entirely honest with yourself.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c5503_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5503_446"></a>The Cheez Factory is a room. &quot;All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.&quot; The squares of pressed orange polymer are scenery in the Factory. The description is &quot;You see nothing special about the squares of pressed orange polymer. Nothing special at all.&quot; Understand &quot;square&quot; or &quot;cheez&quot; as the squares.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5504_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5504_446"></a>Paradise is a room. The description is &quot;Well, it might just be one of the posh upper rings of purgatory, if you're entirely honest with yourself.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5505_446"-->
-            <blockquote class="code"><p class="quoted"><a id="c5505_446"></a>Test me with &quot;x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5503_446"></a>Test me with &quot;x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -293,25 +293,25 @@
 
         <div class="egpanel" id="example445" style="display: none;">
             <p>If we wanted to define a brand new verb that did affect a specific object, we might begin like this:</p>
+            <!--START CODE "c5504_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5504_445"></a><a href="javascript:pasteCode('[=0x0022=]Xylan[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyze [something][=0x0022=] as hydrolyzing. Hydrolyzing is an action applying to one thing.[=0x000A=][=0x000A=]Carry out hydrolyzing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] cannot be hydrolyzed.[=0x0022=][=0x000A=][=0x000A=]Instead of hydrolyzing the xylan:[=0x000A=][=0x0009=]move the xylose to the holder of the xylan;[=0x000A=][=0x0009=]now the xylan is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]At once the xylan becomes xylose.[=0x0022=][=0x000A=][=0x000A=]Plant Cell Wall is a room.[=0x000A=][=0x000A=]There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is [=0x0022=]A polysaccharide. Totally useless. If only you had some xylose, instead![=0x0022=] The description of the xylose is [=0x0022=]Awesome![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x xylan / hydrolyze xylan / x xylose[=0x0022=].[=0x000A=][=0x000A=][Of course, how our players will ever solve this problem is another question (especially if their biology and chemistry are both rusty). When adding entirely new commands to a game, it is often a good idea to provide as many ways of phrasing the command as possible; to drop hints about the correct phrasing within the game[=0x0027=]s text; or even to tell the player about the expanded command list in some documentation or help at the beginning of the game. So for instance we might also add][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something] with water[=0x0022=] or [=0x0022=]break [something] down with water[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And these lines will also provide syntax for our new command, without interfering with the previous syntax. It[=0x0027=]s also good to anticipate alternative (British or American) spellings. People[=0x0027=]s typing habits are hard to overcome, even if they know you are spelling the word the other way. It is probably best not to annoy them unduly. So:][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyse [something][=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][Then some text in-game might offer a clue, subtle or (since this is an example) blunt:][=0x000A=][=0x000A=]Instead of examining the player, say [=0x0022=]You[=0x0027=]re a drop of water, which means that you can break down certain chemicals![=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something][=0x0022=] or [=0x0022=]break [something] down[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And finally, we could try adding instructions explicitly:][=0x000A=][=0x000A=]Understand [=0x0022=]help[=0x0022=] or [=0x0022=]hint[=0x0022=] or [=0x0022=]hints[=0x0022=] or [=0x0022=]instructions[=0x0022=] or [=0x0022=]info[=0x0022=] or [=0x0022=]about[=0x0022=] as asking for help. Asking for help is an action out of world. Carry out asking for help: say [=0x0022=]The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...[=0x0022=][=0x000A=][=0x000A=]Test more with [=0x0022=]help / x me / break down xylan[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Xylan[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyze [something][=0x0022=] as hydrolyzing. Hydrolyzing is an action applying to one thing.[=0x000A=][=0x000A=]Carry out hydrolyzing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] cannot be hydrolyzed.[=0x0022=][=0x000A=][=0x000A=]Instead of hydrolyzing the xylan:[=0x000A=][=0x0009=]move the xylose to the holder of the xylan;[=0x000A=][=0x0009=]now the xylan is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]At once the xylan becomes xylose.[=0x0022=][=0x000A=][=0x000A=]Plant Cell Wall is a room.[=0x000A=][=0x000A=]There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is [=0x0022=]A polysaccharide. Totally useless. If only you had some xylose, instead![=0x0022=] The description of the xylose is [=0x0022=]Awesome![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x xylan / hydrolyze xylan / x xylose[=0x0022=].[=0x000A=][=0x000A=][Of course, how our players will ever solve this problem is another question (especially if their biology and chemistry are both rusty). When adding entirely new commands to a game, it is often a good idea to provide as many ways of phrasing the command as possible; to drop hints about the correct phrasing within the game[=0x0027=]s text; or even to tell the player about the expanded command list in some documentation or help at the beginning of the game. So for instance we might also add][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something] with water[=0x0022=] or [=0x0022=]break [something] down with water[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And these lines will also provide syntax for our new command, without interfering with the previous syntax. It[=0x0027=]s also good to anticipate alternative (British or American) spellings. People[=0x0027=]s typing habits are hard to overcome, even if they know you are spelling the word the other way. It is probably best not to annoy them unduly. So:][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyse [something][=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][Then some text in-game might offer a clue, subtle or (since this is an example) blunt:][=0x000A=][=0x000A=]Instead of examining the player, say [=0x0022=]You[=0x0027=]re a drop of water, which means that you can break down certain chemicals![=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something][=0x0022=] or [=0x0022=]break [something] down[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And finally, we could try adding instructions explicitly:][=0x000A=][=0x000A=]Understand [=0x0022=]help[=0x0022=] or [=0x0022=]hint[=0x0022=] or [=0x0022=]hints[=0x0022=] or [=0x0022=]instructions[=0x0022=] or [=0x0022=]info[=0x0022=] or [=0x0022=]about[=0x0022=] as asking for help. Asking for help is an action out of world. Carry out asking for help: say [=0x0022=]The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...[=0x0022=][=0x000A=][=0x000A=]Test more with [=0x0022=]help / x me / break down xylan[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Xylan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Xylan&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5505_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5505_445"></a>Understand &quot;hydrolyze [something]&quot; as hydrolyzing. Hydrolyzing is an action applying to one thing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5506_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5506_445"></a><a href="javascript:pasteCode('[=0x0022=]Xylan[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyze [something][=0x0022=] as hydrolyzing. Hydrolyzing is an action applying to one thing.[=0x000A=][=0x000A=]Carry out hydrolyzing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] cannot be hydrolyzed.[=0x0022=][=0x000A=][=0x000A=]Instead of hydrolyzing the xylan:[=0x000A=][=0x0009=]move the xylose to the holder of the xylan;[=0x000A=][=0x0009=]now the xylan is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]At once the xylan becomes xylose.[=0x0022=][=0x000A=][=0x000A=]Plant Cell Wall is a room.[=0x000A=][=0x000A=]There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is [=0x0022=]A polysaccharide. Totally useless. If only you had some xylose, instead![=0x0022=] The description of the xylose is [=0x0022=]Awesome![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x xylan / hydrolyze xylan / x xylose[=0x0022=].[=0x000A=][=0x000A=][Of course, how our players will ever solve this problem is another question (especially if their biology and chemistry are both rusty). When adding entirely new commands to a game, it is often a good idea to provide as many ways of phrasing the command as possible; to drop hints about the correct phrasing within the game[=0x0027=]s text; or even to tell the player about the expanded command list in some documentation or help at the beginning of the game. So for instance we might also add][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something] with water[=0x0022=] or [=0x0022=]break [something] down with water[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And these lines will also provide syntax for our new command, without interfering with the previous syntax. It[=0x0027=]s also good to anticipate alternative (British or American) spellings. People[=0x0027=]s typing habits are hard to overcome, even if they know you are spelling the word the other way. It is probably best not to annoy them unduly. So:][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyse [something][=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][Then some text in-game might offer a clue, subtle or (since this is an example) blunt:][=0x000A=][=0x000A=]Instead of examining the player, say [=0x0022=]You[=0x0027=]re a drop of water, which means that you can break down certain chemicals![=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something][=0x0022=] or [=0x0022=]break [something] down[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And finally, we could try adding instructions explicitly:][=0x000A=][=0x000A=]Understand [=0x0022=]help[=0x0022=] or [=0x0022=]hint[=0x0022=] or [=0x0022=]hints[=0x0022=] or [=0x0022=]instructions[=0x0022=] or [=0x0022=]info[=0x0022=] or [=0x0022=]about[=0x0022=] as asking for help. Asking for help is an action out of world. Carry out asking for help: say [=0x0022=]The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...[=0x0022=][=0x000A=][=0x000A=]Test more with [=0x0022=]help / x me / break down xylan[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Xylan[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyze [something][=0x0022=] as hydrolyzing. Hydrolyzing is an action applying to one thing.[=0x000A=][=0x000A=]Carry out hydrolyzing:[=0x000A=][=0x0009=]say [=0x0022=][The noun] cannot be hydrolyzed.[=0x0022=][=0x000A=][=0x000A=]Instead of hydrolyzing the xylan:[=0x000A=][=0x0009=]move the xylose to the holder of the xylan;[=0x000A=][=0x0009=]now the xylan is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]At once the xylan becomes xylose.[=0x0022=][=0x000A=][=0x000A=]Plant Cell Wall is a room.[=0x000A=][=0x000A=]There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is [=0x0022=]A polysaccharide. Totally useless. If only you had some xylose, instead![=0x0022=] The description of the xylose is [=0x0022=]Awesome![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x xylan / hydrolyze xylan / x xylose[=0x0022=].[=0x000A=][=0x000A=][Of course, how our players will ever solve this problem is another question (especially if their biology and chemistry are both rusty). When adding entirely new commands to a game, it is often a good idea to provide as many ways of phrasing the command as possible; to drop hints about the correct phrasing within the game[=0x0027=]s text; or even to tell the player about the expanded command list in some documentation or help at the beginning of the game. So for instance we might also add][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something] with water[=0x0022=] or [=0x0022=]break [something] down with water[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And these lines will also provide syntax for our new command, without interfering with the previous syntax. It[=0x0027=]s also good to anticipate alternative (British or American) spellings. People[=0x0027=]s typing habits are hard to overcome, even if they know you are spelling the word the other way. It is probably best not to annoy them unduly. So:][=0x000A=][=0x000A=]Understand [=0x0022=]hydrolyse [something][=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][Then some text in-game might offer a clue, subtle or (since this is an example) blunt:][=0x000A=][=0x000A=]Instead of examining the player, say [=0x0022=]You[=0x0027=]re a drop of water, which means that you can break down certain chemicals![=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]break down [something][=0x0022=] or [=0x0022=]break [something] down[=0x0022=] as hydrolyzing.[=0x000A=][=0x000A=][And finally, we could try adding instructions explicitly:][=0x000A=][=0x000A=]Understand [=0x0022=]help[=0x0022=] or [=0x0022=]hint[=0x0022=] or [=0x0022=]hints[=0x0022=] or [=0x0022=]instructions[=0x0022=] or [=0x0022=]info[=0x0022=] or [=0x0022=]about[=0x0022=] as asking for help. Asking for help is an action out of world. Carry out asking for help: say [=0x0022=]The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...[=0x0022=][=0x000A=][=0x000A=]Test more with [=0x0022=]help / x me / break down xylan[=0x0022=][=0x000A=][=0x000A=]\n', 'Example - Xylan')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Xylan&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5507_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5507_445"></a>Understand &quot;hydrolyze [something]&quot; as hydrolyzing. Hydrolyzing is an action applying to one thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5508_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5508_445"></a>Carry out hydrolyzing:
+            <blockquote class="code"><p class="quoted"><a id="c5506_445"></a>Carry out hydrolyzing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] cannot be hydrolyzed.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5509_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5509_445"></a>Instead of hydrolyzing the xylan:
+            <!--START CODE "c5507_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5507_445"></a>Instead of hydrolyzing the xylan:
             <br>
             &#160;&#160;&#160;&#160;move the xylose to the holder of the xylan;
             <br>
@@ -321,52 +321,52 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c5508_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5508_445"></a>Plant Cell Wall is a room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c5509_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5509_445"></a>There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is &quot;A polysaccharide. Totally useless. If only you had some xylose, instead!&quot; The description of the xylose is &quot;Awesome!&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c5510_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5510_445"></a>Plant Cell Wall is a room.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5511_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5511_445"></a>There is a xylose sample. The xylan sample is a thing in Plant Cell Wall. The description of the xylan is &quot;A polysaccharide. Totally useless. If only you had some xylose, instead!&quot; The description of the xylose is &quot;Awesome!&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c5512_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5512_445"></a>Test me with &quot;x xylan / hydrolyze xylan / x xylose&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c5510_445"></a>Test me with &quot;x xylan / hydrolyze xylan / x xylose&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Of course, how our players will ever solve this problem is another question (especially if their biology and chemistry are both rusty). When adding entirely new commands to a game, it is often a good idea to provide as many ways of phrasing the command as possible; to drop hints about the correct phrasing within the game's text; or even to tell the player about the expanded command list in some documentation or help at the beginning of the game. So for instance we might also add</p>
-            <!--START CODE "c5513_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5513_445"></a>Understand &quot;break down [something] with water&quot; or &quot;break [something] down with water&quot; as hydrolyzing.
+            <!--START CODE "c5511_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5511_445"></a>Understand &quot;break down [something] with water&quot; or &quot;break [something] down with water&quot; as hydrolyzing.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And these lines will also provide syntax for our new command, without interfering with the previous syntax. It's also good to anticipate alternative (British or American) spellings. People's typing habits are hard to overcome, even if they know you are spelling the word the other way. It is probably best not to annoy them unduly. So:</p>
-            <!--START CODE "c5514_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5514_445"></a>Understand &quot;hydrolyse [something]&quot; as hydrolyzing.
+            <!--START CODE "c5512_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5512_445"></a>Understand &quot;hydrolyse [something]&quot; as hydrolyzing.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Then some text in-game might offer a clue, subtle or (since this is an example) blunt:</p>
-            <!--START CODE "c5515_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5515_445"></a>Instead of examining the player, say &quot;You're a drop of water, which means that you can break down certain chemicals!&quot;
+            <!--START CODE "c5513_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5513_445"></a>Instead of examining the player, say &quot;You're a drop of water, which means that you can break down certain chemicals!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5516_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5516_445"></a>Understand &quot;break down [something]&quot; or &quot;break [something] down&quot; as hydrolyzing.
+            <!--START CODE "c5514_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5514_445"></a>Understand &quot;break down [something]&quot; or &quot;break [something] down&quot; as hydrolyzing.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And finally, we could try adding instructions explicitly:</p>
-            <!--START CODE "c5517_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5517_445"></a>Understand &quot;help&quot; or &quot;hint&quot; or &quot;hints&quot; or &quot;instructions&quot; or &quot;info&quot; or &quot;about&quot; as asking for help. Asking for help is an action out of world. Carry out asking for help: say &quot;The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...&quot;
+            <!--START CODE "c5515_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5515_445"></a>Understand &quot;help&quot; or &quot;hint&quot; or &quot;hints&quot; or &quot;instructions&quot; or &quot;info&quot; or &quot;about&quot; as asking for help. Asking for help is an action out of world. Carry out asking for help: say &quot;The following commands are understood, in addition to the standard ones: EVAPORATE, FREEZE, HYDROLYZE, SUBLIME...&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c5518_445"-->
-            <blockquote class="code"><p class="quoted"><a id="c5518_445"></a>Test more with &quot;help / x me / break down xylan&quot;
+            <!--START CODE "c5516_445"-->
+            <blockquote class="code"><p class="quoted"><a id="c5516_445"></a>Test more with &quot;help / x me / break down xylan&quot;
             </p>
             </blockquote>
             <!--END CODE-->

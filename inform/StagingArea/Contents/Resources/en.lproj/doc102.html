@@ -84,13 +84,13 @@
     <p class="sectionheading">§7.7. The other four senses</p>
     <p>The five senses are all simulated with actions. Sight is so informative that it is handled by a whole range of actions: &quot;looking&quot;, which describes the general scene; &quot;examining something&quot;, which takes a closer look at a specific thing; &quot;looking under something&quot;, and so on.</p>
     <p>The other senses have one action each: &quot;listening to something&quot;, &quot;touching something&quot;, &quot;tasting something&quot; and &quot;smelling something&quot;. It makes no sense to touch or taste the general scene, but listening and smelling are a different matter: we often just listen, without listening to anything specific. If the player types the command &quot;listen&quot;, Inform understands that as listening to the current location: similarly for the bare command &quot;smell&quot;. Thus:</p>
-    <!--START CODE "c1402"-->
-    <blockquote class="code"><p class="quoted"><a id="c1402"></a>Instead of listening to the Seashore, say &quot;The song of gulls.&quot;
+    <!--START CODE "c1401"-->
+    <blockquote class="code"><p class="quoted"><a id="c1401"></a>Instead of listening to the Seashore, say &quot;The song of gulls.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c1403"-->
-    <blockquote class="code"><p class="quoted"><a id="c1403"></a>Instead of smelling the Cave, say &quot;Salt and old seaweed.&quot;
+    <!--START CODE "c1402"-->
+    <blockquote class="code"><p class="quoted"><a id="c1402"></a>Instead of smelling the Cave, say &quot;Salt and old seaweed.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -122,30 +122,30 @@
 
         <div class="egpanel" id="example263" style="display: none;">
             <p>This example involves redesigning the LISTEN command, removing its built-in function and replacing that with something more ambitious. We will learn more about how to do this later on.</p>
+            <!--START CODE "c1403_263"-->
+            <blockquote class="code"><p class="quoted"><a id="c1403_263"></a><a href="javascript:pasteCode('[=0x0022=]The Art of Noise[=0x0022=][=0x000A=][=0x000A=]A thing has some text called sound. The sound of a thing is usually [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]say [=0x0022=]From [the noun] you hear [the sound of the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of listening to a room:[=0x000A=][=0x0009=]if an audible thing can be touched by the player, say [=0x0022=]You hear [the list of audible things which can be touched by the player].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing of note.[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is audible if the sound of it is not [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]Before printing the name of something audible while listening to a room:[=0x000A=][=0x0009=]say [=0x0022=][sound] from the [=0x0022=][=0x000A=][=0x000A=]The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is [=0x0022=]whirring and zooming[=0x0022=]. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is [=0x0022=]bleeps and bloops[=0x0022=]. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is [=0x0022=]buzzbuzzbuzz[=0x0022=].[=0x000A=][=0x000A=]The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.[=0x000A=][=0x000A=]Test me with [=0x0022=]listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Art of Noise[=0x0022=][=0x000A=][=0x000A=]A thing has some text called sound. The sound of a thing is usually [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]say [=0x0022=]From [the noun] you hear [the sound of the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of listening to a room:[=0x000A=][=0x0009=]if an audible thing can be touched by the player, say [=0x0022=]You hear [the list of audible things which can be touched by the player].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing of note.[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is audible if the sound of it is not [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]Before printing the name of something audible while listening to a room:[=0x000A=][=0x0009=]say [=0x0022=][sound] from the [=0x0022=][=0x000A=][=0x000A=]The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is [=0x0022=]whirring and zooming[=0x0022=]. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is [=0x0022=]bleeps and bloops[=0x0022=]. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is [=0x0022=]buzzbuzzbuzz[=0x0022=].[=0x000A=][=0x000A=]The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.[=0x000A=][=0x000A=]Test me with [=0x0022=]listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car[=0x0022=].[=0x000A=]\n', 'Example - The Art of Noise')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Art of Noise&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1404_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1404_263"></a><a href="javascript:pasteCode('[=0x0022=]The Art of Noise[=0x0022=][=0x000A=][=0x000A=]A thing has some text called sound. The sound of a thing is usually [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]say [=0x0022=]From [the noun] you hear [the sound of the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of listening to a room:[=0x000A=][=0x0009=]if an audible thing can be touched by the player, say [=0x0022=]You hear [the list of audible things which can be touched by the player].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing of note.[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is audible if the sound of it is not [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]Before printing the name of something audible while listening to a room:[=0x000A=][=0x0009=]say [=0x0022=][sound] from the [=0x0022=][=0x000A=][=0x000A=]The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is [=0x0022=]whirring and zooming[=0x0022=]. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is [=0x0022=]bleeps and bloops[=0x0022=]. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is [=0x0022=]buzzbuzzbuzz[=0x0022=].[=0x000A=][=0x000A=]The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.[=0x000A=][=0x000A=]Test me with [=0x0022=]listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]The Art of Noise[=0x0022=][=0x000A=][=0x000A=]A thing has some text called sound. The sound of a thing is usually [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]say [=0x0022=]From [the noun] you hear [the sound of the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of listening to a room:[=0x000A=][=0x0009=]if an audible thing can be touched by the player, say [=0x0022=]You hear [the list of audible things which can be touched by the player].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing of note.[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is audible if the sound of it is not [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]Before printing the name of something audible while listening to a room:[=0x000A=][=0x0009=]say [=0x0022=][sound] from the [=0x0022=][=0x000A=][=0x000A=]The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is [=0x0022=]whirring and zooming[=0x0022=]. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is [=0x0022=]bleeps and bloops[=0x0022=]. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is [=0x0022=]buzzbuzzbuzz[=0x0022=].[=0x000A=][=0x000A=]The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.[=0x000A=][=0x000A=]Test me with [=0x0022=]listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car[=0x0022=].[=0x000A=]\n', 'Example - The Art of Noise')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;The Art of Noise&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1404_263"></a>A thing has some text called sound. The sound of a thing is usually &quot;silence&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1405_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1405_263"></a>A thing has some text called sound. The sound of a thing is usually &quot;silence&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1405_263"></a>The report listening rule is not listed in the report listening to rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1406_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1406_263"></a>The report listening rule is not listed in the report listening to rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1407_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1407_263"></a>Carry out listening to something:
+            <blockquote class="code"><p class="quoted"><a id="c1406_263"></a>Carry out listening to something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;From [the noun] you hear [the sound of the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1408_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1408_263"></a>Instead of listening to a room:
+            <!--START CODE "c1407_263"-->
+            <blockquote class="code"><p class="quoted"><a id="c1407_263"></a>Instead of listening to a room:
             <br>
             &#160;&#160;&#160;&#160;if an audible thing can be touched by the player, say &quot;You hear [the list of audible things which can be touched by the player].&quot;;
             <br>
@@ -153,30 +153,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1409_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1409_263"></a>Definition: a thing is audible if the sound of it is not &quot;silence&quot;.
+            <!--START CODE "c1408_263"-->
+            <blockquote class="code"><p class="quoted"><a id="c1408_263"></a>Definition: a thing is audible if the sound of it is not &quot;silence&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1410_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1410_263"></a>Before printing the name of something audible while listening to a room:
+            <!--START CODE "c1409_263"-->
+            <blockquote class="code"><p class="quoted"><a id="c1409_263"></a>Before printing the name of something audible while listening to a room:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[sound] from the &quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c1410_263"-->
+            <blockquote class="code"><p class="quoted"><a id="c1410_263"></a>The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is &quot;whirring and zooming&quot;. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is &quot;bleeps and bloops&quot;. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is &quot;buzzbuzzbuzz&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1411_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1411_263"></a>The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is &quot;whirring and zooming&quot;. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is &quot;bleeps and bloops&quot;. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is &quot;buzzbuzzbuzz&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1411_263"></a>The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1412_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1412_263"></a>The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1413_263"-->
-            <blockquote class="code"><p class="quoted"><a id="c1413_263"></a>Test me with &quot;listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1412_263"></a>Test me with &quot;listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
