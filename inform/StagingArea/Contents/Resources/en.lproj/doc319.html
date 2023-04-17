@@ -83,16 +83,16 @@
     <!--END IGNORE-->
     <p class="sectionheading">§18.35. Printing a parser error</p>
     <p><span class="boldface">1. When it happens.</span> The parser is the part of the run-time software, included in all works produced by Inform, which tries to match the player's command against the grammar provided by the work. When it is unable to make a valid match, the parser prints an error to the player: for instance,</p>
-    <!--START CODE "c7276"-->
-    <blockquote class="code"><p class="quoted"><a id="c7276"></a>&gt; BIFURCATE TREE
+    <!--START CODE "c7274"-->
+    <blockquote class="code"><p class="quoted"><a id="c7274"></a>&gt; BIFURCATE TREE
     <br>
     That's not a verb I recognise.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>There are more than twenty possible messages. The one which the parser wants to say is stored in the variable &quot;latest parser error&quot;, which has the convenient kind &quot;command parser error&quot;. This has the following possible values:</p>
-    <!--START CODE "c7277"-->
-    <blockquote class="code"><p class="quoted"><a id="c7277"></a>didn't understand error
+    <!--START CODE "c7275"-->
+    <blockquote class="code"><p class="quoted"><a id="c7275"></a>didn't understand error
     <br>
     only understood as far as error
     <br>
@@ -146,31 +146,31 @@
     <!--END CODE-->
     <p><span class="boldface">2. The default behaviour.</span> Prints the message in question.</p>
     <p><span class="boldface">3. Examples.</span> (a) Perhaps for newcomers:</p>
-    <!--START CODE "c7278"-->
-    <blockquote class="code"><p class="quoted"><a id="c7278"></a><a href="javascript:pasteCode('After printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]If you are new to interactive fiction, you may like to try typing HELP.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After printing a parser error:
+    <!--START CODE "c7276"-->
+    <blockquote class="code"><p class="quoted"><a id="c7276"></a><a href="javascript:pasteCode('After printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]If you are new to interactive fiction, you may like to try typing HELP.[=0x0022=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> After printing a parser error:
     <br>
     &#160;&#160;&#160;&#160;say &quot;If you are new to interactive fiction, you may like to try typing HELP.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) Or to give the parser a certain amount of character:</p>
-    <!--START CODE "c7279"-->
-    <blockquote class="code"><p class="quoted"><a id="c7279"></a><a href="javascript:pasteCode('Rule for printing a parser error when the latest parser error is the I beg your pardon error:[=0x000A=][=0x0009=]say [=0x0022=]What[=0x0027=]s that? Speak up, speak up.[=0x0022=] instead.[=0x000A=][=0x000A=]{*}Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error when the latest parser error is the I beg your pardon error:
+    <!--START CODE "c7277"-->
+    <blockquote class="code"><p class="quoted"><a id="c7277"></a><a href="javascript:pasteCode('Rule for printing a parser error when the latest parser error is the I beg your pardon error:[=0x000A=][=0x0009=]say [=0x0022=]What[=0x0027=]s that? Speak up, speak up.[=0x0022=] instead.[=0x000A=][=0x000A=]{*}Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error when the latest parser error is the I beg your pardon error:
     <br>
     &#160;&#160;&#160;&#160;say &quot;What's that? Speak up, speak up.&quot; instead.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c7280"-->
-    <blockquote class="code"><p class="quoted"><a id="c7280"></a><a href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error:
+    <!--START CODE "c7278"-->
+    <blockquote class="code"><p class="quoted"><a id="c7278"></a><a href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error:
     <br>
     &#160;&#160;&#160;&#160;say &quot;That's a rum thing to say, and no mistake.&quot; instead.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(c) This can be helpful for seeing what's going on:</p>
-    <!--START CODE "c7281"-->
-    <blockquote class="code"><p class="quoted"><a id="c7281"></a><a href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]The [latest parser error] happened.[=0x0022=];[=0x000A=][=0x0009=]continue the activity.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error:
+    <!--START CODE "c7279"-->
+    <blockquote class="code"><p class="quoted"><a id="c7279"></a><a href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]The [latest parser error] happened.[=0x0022=];[=0x000A=][=0x0009=]continue the activity.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Rule for printing a parser error:
     <br>
     &#160;&#160;&#160;&#160;say &quot;The [latest parser error] happened.&quot;;
     <br>
@@ -206,8 +206,8 @@
 
         <div class="egpanel" id="example443" style="display: none;">
             <p>The parser error &quot;That noun did not make sense in this context&quot; arises instead of &quot;You can't see any such thing&quot; when the player uses a command that could apply to any item in the game -- that is, a command such as</p>
-            <!--START CODE "c7282_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7282_443"></a>Understand &quot;go to [any room]&quot; as going directly to.
+            <!--START CODE "c7280_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7280_443"></a>Understand &quot;go to [any room]&quot; as going directly to.
             <br>
             Understand &quot;talk about [any subject]&quot; as discussing.
             </p>
@@ -215,48 +215,48 @@
             <!--END CODE-->
             <p>...and so on. The idea here is that &quot;You can't see any such thing&quot; isn't a sensible rejoinder when the player doesn't really need to be able to see the object.</p>
             <p>Nonetheless, &quot;That noun did not make sense...&quot; is itself a fairly dry and uninformative response, and we may want to override it to something more appropriate for the specific kind of context in which it might appear. For instance:</p>
+            <!--START CODE "c7281_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7281_443"></a><a href="javascript:pasteCode(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - WXPQ')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;WXPQ&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c7282_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7282_443"></a>WXPQ Studio is a room. &quot;After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c7283_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7283_443"></a><a href="javascript:pasteCode(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]WXPQ[=0x0022=][=0x000A=][=0x000A=]WXPQ Studio is a room. [=0x0022=]After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.[=0x0022=][=0x000A=][=0x000A=]John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any thing][=0x0022=] or [=0x0022=]discuss [any thing][=0x0022=] as discussing. Discussing is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out discussing:[=0x000A=][=0x0009=]say [=0x0022=]You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother[=0x0027=]s secret love affair with[as decreasingly likely outcomes] [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:[=0x000A=][=0x0009=]say [=0x0022=]For once, you[=0x0027=]re at a loss for anything to say.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - WXPQ')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;WXPQ&quot;
+            <blockquote class="code"><p class="quoted"><a id="c7283_443"></a>John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c7284_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7284_443"></a>WXPQ Studio is a room. &quot;After about 2 AM, no one is listening anyway, so you can more or less make up whatever you like to fill the airwaves.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c7284_443"></a>Understand &quot;talk about [any thing]&quot; or &quot;discuss [any thing]&quot; as discussing. Discussing is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c7285_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7285_443"></a>John F Kennedy, Elvis, Ralph Nader, Tony Blair, and single-origin chocolate are things.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7286_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7286_443"></a>Understand &quot;talk about [any thing]&quot; or &quot;discuss [any thing]&quot; as discussing. Discussing is an action applying to one visible thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7287_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7287_443"></a>Carry out discussing:
+            <blockquote class="code"><p class="quoted"><a id="c7285_443"></a>Carry out discussing:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You babble for a while about your [one of]interest in[or]hatred of[or]passionate devotion to[or]conspiracy theory concerning[or]mother's secret love affair with[as decreasingly likely outcomes] [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7288_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7288_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
+            <!--START CODE "c7286_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7286_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
             <br>
             &#160;&#160;&#160;&#160;say &quot;For once, you're at a loss for anything to say.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7289_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7289_443"></a>Test me with &quot;discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate&quot;.
+            <!--START CODE "c7287_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7287_443"></a>Test me with &quot;discuss Elvis / discuss Kennedy / discuss chocolate / discuss narratology vs ludology debate&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Note that this solution works as simply as it does because we only have one command in the game that can apply to an &quot;[any]&quot; token. If we had several, we'd need to distinguish between the parser error attached to &quot;discuss&quot; and the parser error attached to &quot;go to&quot; (for instance). In that case, we might instead write something like</p>
-            <!--START CODE "c7290_443"-->
-            <blockquote class="code"><p class="quoted"><a id="c7290_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
+            <!--START CODE "c7288_443"-->
+            <blockquote class="code"><p class="quoted"><a id="c7288_443"></a>Rule for printing a parser error when the latest parser error is the noun did not make sense in that context error:
             <br>
             if the player's command includes &quot;go&quot;:
             <br>
@@ -296,37 +296,37 @@
 
         <div class="egpanel" id="example444" style="display: none;">
             <p>In Hitchhiker's Guide to the Galaxy, any erroneous command the player types can return to haunt him later in the game. We could do the same, if we liked, by storing the player's command whenever we print a parser error.</p>
+            <!--START CODE "c7289_444"-->
+            <blockquote class="code"><p class="quoted"><a id="c7289_444"></a><a href="javascript:pasteCode(' [=0x0022=]Xot[=0x0022=][=0x000A=][=0x000A=]Humiliation Chamber is a room. [=0x0022=]A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can[=0x0027=]t disable it, is a loudspeaker.[=0x0022=][=0x000A=][=0x000A=]The last error is a text that varies. The last error is [=0x0022=]xot[=0x0022=].[=0x000A=][=0x000A=]Before printing a parser error:[=0x000A=][=0x0009=]now the last error is the player[=0x0027=]s command.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying [=0x0027=][last error], [last error], [last error]![=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wiggle / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Xot[=0x0022=][=0x000A=][=0x000A=]Humiliation Chamber is a room. [=0x0022=]A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can[=0x0027=]t disable it, is a loudspeaker.[=0x0022=][=0x000A=][=0x000A=]The last error is a text that varies. The last error is [=0x0022=]xot[=0x0022=].[=0x000A=][=0x000A=]Before printing a parser error:[=0x000A=][=0x0009=]now the last error is the player[=0x0027=]s command.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying [=0x0027=][last error], [last error], [last error]![=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wiggle / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Xot')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Xot&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c7290_444"-->
+            <blockquote class="code"><p class="quoted"><a id="c7290_444"></a>Humiliation Chamber is a room. &quot;A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can't disable it, is a loudspeaker.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c7291_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7291_444"></a><a href="javascript:pasteCode(' [=0x0022=]Xot[=0x0022=][=0x000A=][=0x000A=]Humiliation Chamber is a room. [=0x0022=]A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can[=0x0027=]t disable it, is a loudspeaker.[=0x0022=][=0x000A=][=0x000A=]The last error is a text that varies. The last error is [=0x0022=]xot[=0x0022=].[=0x000A=][=0x000A=]Before printing a parser error:[=0x000A=][=0x0009=]now the last error is the player[=0x0027=]s command.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying [=0x0027=][last error], [last error], [last error]![=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wiggle / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Xot[=0x0022=][=0x000A=][=0x000A=]Humiliation Chamber is a room. [=0x0022=]A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can[=0x0027=]t disable it, is a loudspeaker.[=0x0022=][=0x000A=][=0x000A=]The last error is a text that varies. The last error is [=0x0022=]xot[=0x0022=].[=0x000A=][=0x000A=]Before printing a parser error:[=0x000A=][=0x0009=]now the last error is the player[=0x0027=]s command.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying [=0x0027=][last error], [last error], [last error]![=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wiggle / z / z / z / z / z / z[=0x0022=].[=0x000A=]\n', 'Example - Xot')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Xot&quot;
+            <blockquote class="code"><p class="quoted"><a id="c7291_444"></a>The last error is a text that varies. The last error is &quot;xot&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c7292_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7292_444"></a>Humiliation Chamber is a room. &quot;A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can't disable it, is a loudspeaker.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7293_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7293_444"></a>The last error is a text that varies. The last error is &quot;xot&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c7294_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7294_444"></a>Before printing a parser error:
+            <blockquote class="code"><p class="quoted"><a id="c7292_444"></a>Before printing a parser error:
             <br>
             &#160;&#160;&#160;&#160;now the last error is the player's command.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7295_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7295_444"></a>Every turn when a random chance of 1 in 2 succeeds:
+            <!--START CODE "c7293_444"-->
+            <blockquote class="code"><p class="quoted"><a id="c7293_444"></a>Every turn when a random chance of 1 in 2 succeeds:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying '[last error], [last error], [last error]!'&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c7296_444"-->
-            <blockquote class="code"><p class="quoted"><a id="c7296_444"></a>Test me with &quot;wiggle / z / z / z / z / z / z&quot;.
+            <!--START CODE "c7294_444"-->
+            <blockquote class="code"><p class="quoted"><a id="c7294_444"></a>Test me with &quot;wiggle / z / z / z / z / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

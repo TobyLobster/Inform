@@ -95,8 +95,8 @@
             <!--definition of ph_let-->
 
     <p>    This phrase creates a new temporary variable, starting it with the value supplied. The variable lasts only for the present block of phrases, which certainly means that it lasts only for the current rule. Examples:</p>
-    <!--START CODE "c3001"-->
-    <blockquote class="code"><p class="quoted"><a id="c3001"></a>let outer bull be 25;
+    <!--START CODE "c3000"-->
+    <blockquote class="code"><p class="quoted"><a id="c3000"></a>let outer bull be 25;
     <br>
     let the current appearance be &quot;reddish brown&quot;;
     <br>
@@ -105,20 +105,20 @@
     </blockquote>
     <!--END CODE-->
     <p>The kinds of these are deduced from the values given, so that, for instance,</p>
-    <!--START CODE "c3002"-->
-    <blockquote class="code"><p class="quoted"><a id="c3002"></a>say &quot;The outer bull scores [the outer bull in words] when you practice archery in [special room].&quot;
+    <!--START CODE "c3001"-->
+    <blockquote class="code"><p class="quoted"><a id="c3001"></a>say &quot;The outer bull scores [the outer bull in words] when you practice archery in [special room].&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>produces</p>
-    <!--START CODE "c3003"-->
-    <blockquote class="code"><p class="quoted"><a id="c3003"></a>The outer bull scores twenty-five when you practice archery in Marley Wood.
+    <!--START CODE "c3002"-->
+    <blockquote class="code"><p class="quoted"><a id="c3002"></a>The outer bull scores twenty-five when you practice archery in Marley Wood.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The variable name should be a new one; if it's the name of an existing one, then the kinds must agree. So:</p>
-    <!--START CODE "c3004"-->
-    <blockquote class="code"><p class="quoted"><a id="c3004"></a>let outer bull be 25;
+    <!--START CODE "c3003"-->
+    <blockquote class="code"><p class="quoted"><a id="c3003"></a>let outer bull be 25;
     <br>
     let outer bull be 50;
     </p>
@@ -137,20 +137,20 @@
             <!--definition of ph_letdefault-->
 
     <p>    This phrase creates a new temporary variable of the given kind. The variable lasts only for the present block of phrases, which certainly means that it lasts only for the current rule. Example:</p>
-    <!--START CODE "c3005"-->
-    <blockquote class="code"><p class="quoted"><a id="c3005"></a>let inner bull be a number;
+    <!--START CODE "c3004"-->
+    <blockquote class="code"><p class="quoted"><a id="c3004"></a>let inner bull be a number;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The variable created holding the default value for that kind - in this case, the number 0. A handful of very obscure kinds have no default values, and then a problem message is produced. Inform also disallows:</p>
-    <!--START CODE "c3006"-->
-    <blockquote class="code"><p class="quoted"><a id="c3006"></a>let the conveyance be a vehicle;
+    <!--START CODE "c3005"-->
+    <blockquote class="code"><p class="quoted"><a id="c3005"></a>let the conveyance be a vehicle;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because temporary variables aren't allowed to have kinds more specific than &quot;object&quot;. (This is a good thing: suppose there are no vehicles in the world?) It's quite safe in such cases to use</p>
-    <!--START CODE "c3007"-->
-    <blockquote class="code"><p class="quoted"><a id="c3007"></a>let the conveyance be an object;
+    <!--START CODE "c3006"-->
+    <blockquote class="code"><p class="quoted"><a id="c3006"></a>let the conveyance be an object;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -160,16 +160,16 @@
     </div>
 
     <p>Temporary variables made by &quot;let&quot; are only temporarily in existence while a phrase is being carried out. Their values often change: we could say</p>
-    <!--START CODE "c3008"-->
-    <blockquote class="code"><p class="quoted"><a id="c3008"></a>let x be 10;
+    <!--START CODE "c3007"-->
+    <blockquote class="code"><p class="quoted"><a id="c3007"></a>let x be 10;
     <br>
     now x is 11;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>for instance, or indeed we could &quot;let x be 10&quot; and then &quot;let x be 11&quot;. But although we are allowed to change the value, we are not allowed to change the kind of value. The name &quot;x&quot; must always have the same kind of value throughout the phrase to which it belongs, so the following will not be allowed:</p>
-    <!--START CODE "c3009"-->
-    <blockquote class="code"><p class="quoted"><a id="c3009"></a>let x be 45;
+    <!--START CODE "c3008"-->
+    <blockquote class="code"><p class="quoted"><a id="c3008"></a>let x be 45;
     <br>
     now x is &quot;Norway&quot;;
     </p>
@@ -203,43 +203,43 @@
         </table>
 
         <div class="egpanel" id="example421" style="display: none;">
+            <!--START CODE "c3009_421"-->
+            <blockquote class="code"><p class="quoted"><a id="c3009_421"></a><a href="javascript:pasteCode('[=0x0022=]M. Melmoth[=0x0027=]s Duel[=0x0022=][=0x000A=][=0x000A=]Saint-Germain-des-Prés is a room. [=0x0022=]Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth[=0x0027=]s hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.[=0x0022=][=0x000A=][=0x000A=]The Hôtel d[=0x0027=]Alsace is inside from Saint-Germain-des-Prés. [=0x0022=]Typical. Oscar writes you a letter announcing his own imminent demise - [=0x0027=]My wallpaper and I are fighting a duel to the death. One or other of us has got to go.[=0x0027=] - and then you get there and he[=0x0027=]s out, no doubt procuring paint the colour of absinthe, if he isn[=0x0027=]t procuring the painter.[=0x0022=][=0x000A=][=0x000A=]Tint is a kind of value. The tints are green, aquamarine and darkish purple.[=0x000A=][=0x000A=]The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. [=0x0022=]In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if][=0x0022=][=0x000A=][=0x000A=]Before going to the Hôtel: now the wallpaper is a random tint.[=0x000A=][=0x000A=]After going from the Hôtel, say [=0x0022=]You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / look / in / out / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]M. Melmoth[=0x0027=]s Duel[=0x0022=][=0x000A=][=0x000A=]Saint-Germain-des-Prés is a room. [=0x0022=]Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth[=0x0027=]s hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.[=0x0022=][=0x000A=][=0x000A=]The Hôtel d[=0x0027=]Alsace is inside from Saint-Germain-des-Prés. [=0x0022=]Typical. Oscar writes you a letter announcing his own imminent demise - [=0x0027=]My wallpaper and I are fighting a duel to the death. One or other of us has got to go.[=0x0027=] - and then you get there and he[=0x0027=]s out, no doubt procuring paint the colour of absinthe, if he isn[=0x0027=]t procuring the painter.[=0x0022=][=0x000A=][=0x000A=]Tint is a kind of value. The tints are green, aquamarine and darkish purple.[=0x000A=][=0x000A=]The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. [=0x0022=]In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if][=0x0022=][=0x000A=][=0x000A=]Before going to the Hôtel: now the wallpaper is a random tint.[=0x000A=][=0x000A=]After going from the Hôtel, say [=0x0022=]You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / look / in / out / look[=0x0022=].[=0x000A=]\n', 'Example - M. Melmoth[=0x0027=]s Duel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;M. Melmoth's Duel&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3010_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3010_421"></a><a href="javascript:pasteCode('[=0x0022=]M. Melmoth[=0x0027=]s Duel[=0x0022=][=0x000A=][=0x000A=]Saint-Germain-des-Prés is a room. [=0x0022=]Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth[=0x0027=]s hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.[=0x0022=][=0x000A=][=0x000A=]The Hôtel d[=0x0027=]Alsace is inside from Saint-Germain-des-Prés. [=0x0022=]Typical. Oscar writes you a letter announcing his own imminent demise - [=0x0027=]My wallpaper and I are fighting a duel to the death. One or other of us has got to go.[=0x0027=] - and then you get there and he[=0x0027=]s out, no doubt procuring paint the colour of absinthe, if he isn[=0x0027=]t procuring the painter.[=0x0022=][=0x000A=][=0x000A=]Tint is a kind of value. The tints are green, aquamarine and darkish purple.[=0x000A=][=0x000A=]The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. [=0x0022=]In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if][=0x0022=][=0x000A=][=0x000A=]Before going to the Hôtel: now the wallpaper is a random tint.[=0x000A=][=0x000A=]After going from the Hôtel, say [=0x0022=]You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / look / in / out / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]M. Melmoth[=0x0027=]s Duel[=0x0022=][=0x000A=][=0x000A=]Saint-Germain-des-Prés is a room. [=0x0022=]Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth[=0x0027=]s hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.[=0x0022=][=0x000A=][=0x000A=]The Hôtel d[=0x0027=]Alsace is inside from Saint-Germain-des-Prés. [=0x0022=]Typical. Oscar writes you a letter announcing his own imminent demise - [=0x0027=]My wallpaper and I are fighting a duel to the death. One or other of us has got to go.[=0x0027=] - and then you get there and he[=0x0027=]s out, no doubt procuring paint the colour of absinthe, if he isn[=0x0027=]t procuring the painter.[=0x0022=][=0x000A=][=0x000A=]Tint is a kind of value. The tints are green, aquamarine and darkish purple.[=0x000A=][=0x000A=]The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. [=0x0022=]In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if][=0x0022=][=0x000A=][=0x000A=]Before going to the Hôtel: now the wallpaper is a random tint.[=0x000A=][=0x000A=]After going from the Hôtel, say [=0x0022=]You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / look / in / out / look[=0x0022=].[=0x000A=]\n', 'Example - M. Melmoth[=0x0027=]s Duel')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;M. Melmoth's Duel&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3010_421"></a>Saint-Germain-des-Prés is a room. &quot;Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth's hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3011_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3011_421"></a>Saint-Germain-des-Prés is a room. &quot;Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth's hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3011_421"></a>The Hôtel d'Alsace is inside from Saint-Germain-des-Prés. &quot;Typical. Oscar writes you a letter announcing his own imminent demise - 'My wallpaper and I are fighting a duel to the death. One or other of us has got to go.' - and then you get there and he's out, no doubt procuring paint the colour of absinthe, if he isn't procuring the painter.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3012_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3012_421"></a>The Hôtel d'Alsace is inside from Saint-Germain-des-Prés. &quot;Typical. Oscar writes you a letter announcing his own imminent demise - 'My wallpaper and I are fighting a duel to the death. One or other of us has got to go.' - and then you get there and he's out, no doubt procuring paint the colour of absinthe, if he isn't procuring the painter.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3012_421"></a>Tint is a kind of value. The tints are green, aquamarine and darkish purple.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3013_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3013_421"></a>Tint is a kind of value. The tints are green, aquamarine and darkish purple.
+            <blockquote class="code"><p class="quoted"><a id="c3013_421"></a>The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. &quot;In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3014_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3014_421"></a>The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. &quot;In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if]&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3014_421"></a>Before going to the Hôtel: now the wallpaper is a random tint.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3015_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3015_421"></a>Before going to the Hôtel: now the wallpaper is a random tint.
+            <blockquote class="code"><p class="quoted"><a id="c3015_421"></a>After going from the Hôtel, say &quot;You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3016_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3016_421"></a>After going from the Hôtel, say &quot;You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3017_421"-->
-            <blockquote class="code"><p class="quoted"><a id="c3017_421"></a>Test me with &quot;in / out / look / in / out / look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c3016_421"></a>Test me with &quot;in / out / look / in / out / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

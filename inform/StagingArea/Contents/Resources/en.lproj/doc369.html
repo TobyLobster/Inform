@@ -83,39 +83,39 @@
     <!--END IGNORE-->
     <p class="sectionheading">§22.9. In what order?</p>
     <p>Recall the definition:</p>
-    <!--START CODE "c8707"-->
-    <blockquote class="code"><p class="quoted"><a id="c8707"></a>To slam shut (box - an open container): say &quot;With great panache, you slam shut [the box].&quot;.
+    <!--START CODE "c8705"-->
+    <blockquote class="code"><p class="quoted"><a id="c8705"></a>To slam shut (box - an open container): say &quot;With great panache, you slam shut [the box].&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Suppose we then try to &quot;slam shut the wall safe&quot; at a time during play when the wall safe is already closed. An error message will then be printed during play, since there must be a mistake in the design. The combination of checking both when Inform builds the story file and then continuously when the story file is played guarantees that, in all cases, a varying item such as &quot;box&quot; in the definition of &quot;To slam shut (box - open container)&quot; always satisfies the condition laid down.</p>
     <p>Instead suppose we also have the following definition:</p>
-    <!--START CODE "c8708"-->
-    <blockquote class="code"><p class="quoted"><a id="c8708"></a>To slam shut (box - a container): say &quot;You are unable to slam shut [the box], which is already closed.&quot;.
+    <!--START CODE "c8706"-->
+    <blockquote class="code"><p class="quoted"><a id="c8706"></a>To slam shut (box - a container): say &quot;You are unable to slam shut [the box], which is already closed.&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>We now have two definitions of &quot;slam shut&quot;. Sometimes the box it's applied to will be closed, in which case only the second definition fits, and will be the one used. But if the box is open, both definitions fit. Which will happen? The rule is:</p>
+    <!--START CODE "c8707"-->
+    <blockquote class="code"><p class="quoted"><a id="c8707"></a>1. A narrower condition takes precedence over a broader one;
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <!--START CODE "c8708"-->
+    <blockquote class="code"><p class="quoted"><a id="c8708"></a>2. If neither condition is narrower than the other, then whichever phrase was defined later in the source code is the one taking precedence;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c8709"-->
-    <blockquote class="code"><p class="quoted"><a id="c8709"></a>1. A narrower condition takes precedence over a broader one;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8710"-->
-    <blockquote class="code"><p class="quoted"><a id="c8710"></a>2. If neither condition is narrower than the other, then whichever phrase was defined later in the source code is the one taking precedence;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8711"-->
-    <blockquote class="code"><p class="quoted"><a id="c8711"></a>3. Except that if the phrase is being used in the definition of phrase P, then P is always last in precedence order, so that recursion is always the very last possibility considered. This allows more specific or later definitions to make use of less specific or earlier ones in a natural way.
+    <blockquote class="code"><p class="quoted"><a id="c8709"></a>3. Except that if the phrase is being used in the definition of phrase P, then P is always last in precedence order, so that recursion is always the very last possibility considered. This allows more specific or later definitions to make use of less specific or earlier ones in a natural way.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Rule 1 ensures that a definition involving &quot;open container&quot; takes priority over one which merely involves &quot;container&quot;, for instance.</p>
     <p>And therefore when the box is open, it's the more specific phrase to do with open containers which is invoked: so, with great panache, the box is slammed shut.</p>
     <p>On the other hand, neither of these patterns is narrower than the other:</p>
-    <!--START CODE "c8712"-->
-    <blockquote class="code"><p class="quoted"><a id="c8712"></a>To describe (something - transparent): ...
+    <!--START CODE "c8710"-->
+    <blockquote class="code"><p class="quoted"><a id="c8710"></a>To describe (something - transparent): ...
     <br>
     To describe (something - container): ...
     </p>

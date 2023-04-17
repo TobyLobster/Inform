@@ -81,19 +81,19 @@
     </div>
     <p class="sectionheading">§18.1. What are activities?</p>
     <p>It is poor form to define with negatives, but the first thing to say about activities is that they are <span class="italic">not</span> actions. This needs saying because Inform often seems to treat them as if they are, by allowing us to write rules like so:</p>
-    <!--START CODE "c6252"-->
-    <blockquote class="code"><p class="quoted"><a id="c6252"></a>Before printing the name of a woman, say &quot;Ms &quot;.
+    <!--START CODE "c6250"-->
+    <blockquote class="code"><p class="quoted"><a id="c6250"></a>Before printing the name of a woman, say &quot;Ms &quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>With this rule in place, someone called &quot;Daphne&quot; will always be described as &quot;Ms Daphne&quot;, and so on. The language looks as if we were imposing a rule on an action called &quot;printing the name of&quot;, but there is no such action: instead, it is an &quot;activity&quot;. To spell out the difference:</p>
-    <!--START CODE "c6253"-->
-    <blockquote class="code"><p class="quoted"><a id="c6253"></a>An action is a simulated task for the fictional protagonist.
+    <!--START CODE "c6251"-->
+    <blockquote class="code"><p class="quoted"><a id="c6251"></a>An action is a simulated task for the fictional protagonist.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c6254"-->
-    <blockquote class="code"><p class="quoted"><a id="c6254"></a>An activity is a real task for the computer program doing the simulation.
+    <!--START CODE "c6252"-->
+    <blockquote class="code"><p class="quoted"><a id="c6252"></a>An activity is a real task for the computer program doing the simulation.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -127,20 +127,20 @@
         <div class="egpanel" id="example12" style="display: none;">
             <p>Suppose we want to create an object -- or maybe even a series of objects -- that warp the player's perception of every room description and object around him.</p>
             <p>We've already seen some ways to create variations in text. For instance, we could make a room description with if substitutions in it, like so:</p>
-            <!--START CODE "c6255_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6255_12"></a>The Kitchen is a room. &quot;[if the player is wearing the sunglasses]Are ants coming out of the sink? No, probably no.[otherwise]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[end if]&quot;
+            <!--START CODE "c6253_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6253_12"></a>The Kitchen is a room. &quot;[if the player is wearing the sunglasses]Are ants coming out of the sink? No, probably no.[otherwise]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[end if]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>That works fine if we have one or two variations we want to add; it's not so good if we're going to have several items that work like the sunglasses, or if we want the sunglasses to override the description of every room in the house.</p>
             <p>A slightly more flexible method is to use a substitution that calls out to a say phrase, like this:</p>
-            <!--START CODE "c6256_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6256_12"></a>The Kitchen is a room. &quot;[kitchen-description]&quot;
+            <!--START CODE "c6254_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6254_12"></a>The Kitchen is a room. &quot;[kitchen-description]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6257_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6257_12"></a>To say kitchen-description:
+            <!--START CODE "c6255_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6255_12"></a>To say kitchen-description:
             <br>
             &#160;&#160;&#160;&#160;if the player is wearing the sunglasses:
             <br>
@@ -155,22 +155,22 @@
             <p>But again this doesn't handle the case of overriding multiple rooms at once very well.</p>
             <p>When we reach a point where we need a given piece of text to be very flexible depending on the world model, it's time to use an activity.</p>
             <p>Activities offer several advantages. One, we can create an activity like this:</p>
-            <!--START CODE "c6258_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6258_12"></a>Printing the room-description of something is an activity.
+            <!--START CODE "c6256_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6256_12"></a>Printing the room-description of something is an activity.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>and then write a rule that applies to multiple rooms at once, like:</p>
-            <!--START CODE "c6259_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6259_12"></a>Rule for printing the room-description of a room when the player wears the sunglasses:
+            <!--START CODE "c6257_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6257_12"></a>Rule for printing the room-description of a room when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The walls look like they're covered with ants. Just a coincidence, I'm sure.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Inform's usual rule-ranking also means that more-specific rules will override less-specific ones, so we could add</p>
-            <!--START CODE "c6260_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6260_12"></a>&#160;&#160;&#160;&#160;Rule for printing the room-description of the Kitchen when the player wears the sunglasses:
+            <!--START CODE "c6258_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6258_12"></a>&#160;&#160;&#160;&#160;Rule for printing the room-description of the Kitchen when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Are ants coming out of the sink? No, probably not.&quot;
             </p>
@@ -179,13 +179,13 @@
             <p>and have that rule override the behavior of the activity just in the kitchen. Meanwhile, our base room descriptions remain straightforward and uncluttered by if-statements.</p>
             <p>Several other examples will show how to hook activities into existing actions: Crusoe goes into detail about how how to make the descriptions of things more variable, and Aftershock demonstrates activities for describing the behavior of switchable devices.</p>
             <p>Here, we preview all of those methods, just to get a sense of how they work and why they might be useful in controlling a game. Subsequent chapters go into more detail about the syntax of creating activities and the list of activities that are already defined by Inform.</p>
-            <!--START CODE "c6261_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6261_12"></a><a href="javascript:pasteCode(' [=0x0022=]Ant-Sensitive Sunglasses[=0x0022=][=0x000A=][=0x000A=]Part 1 - Procedure[=0x000A=][=0x000A=][To add a new activity to an existing Inform rule, we need to do three things:][=0x000A=][=0x000A=][1) Define our new activity.][=0x000A=][2) Give a basic rule that says what is supposed to happen when that activity occurs, as in [=0x0022=]Rule for...[=0x0022=]][=0x000A=][3) Replace the existing rule in Inform[=0x0027=]s rulebooks with a new one that calls on our activity.][=0x000A=][=0x000A=][Here we do this with examining:][=0x000A=][=0x000A=]Section 1 - Item Description[=0x000A=][=0x000A=]Printing the description of something is an activity.[=0x000A=][=0x000A=][Now, by default, we want to print the description property; we just want the option to write some extra rules overriding that property. So we tell Inform that our most basic rule for printing the description of something is just to give that description text:][=0x000A=][=0x000A=]Rule for printing the description of something (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see nothing special about [the item].[=0x0022=].[=0x000A=][=0x000A=][Next, we need the standard examining rule to look at our printing-the-description activity:][=0x000A=][=0x000A=]The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based examining rule:[=0x000A=][=0x0009=]carry out the printing the description activity with the noun;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][Now we do the same thing to room descriptions.][=0x000A=][=0x000A=]Section 2 - Room Description[=0x000A=][=0x000A=]Printing the room-description of something is an activity.[=0x000A=][=0x000A=]Rule for printing the room-description of a room (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing instead.[=0x000A=][=0x000A=]The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.[=0x000A=][=0x000A=][Our replacement rule this time around is a little bit trickier just because the rule that we[=0x0027=]re replacing is a complicated one: describing a room already checks to see whether there[=0x0027=]s light to see by, whether the player has turned off room descriptions when he enters a room for the second time, and whether the player character is (say) inside a closed box he can[=0x0027=]t see out of.][=0x000A=][=0x000A=][But all of those details are re-copied from the standard rules, and the important thing is that, at the end, we again carry out our activity.][=0x000A=][=0x000A=]This is the activity-based room description body text rule:[=0x000A=][=0x0009=]if the visibility level count is 0:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abbreviated form allowed is true and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]darkness witnessed is true,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]begin the printing the description of a dark room activity;[=0x000A=][=0x0009=][=0x0009=]if handling the printing the description of a dark room activity,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]It is pitch dark, and you can[=0x0027=]t see a thing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the printing the description of a dark room activity;[=0x000A=][=0x0009=]otherwise if the visibility ceiling is the location:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and abbreviated form[=0x000A=][=0x0009=][=0x0009=][=0x0009=]allowed is true and the location is visited, continue the action;[=0x000A=][=0x0009=][=0x0009=]carry out the printing the room-description activity with the location.[=0x000A=][=0x000A=]Section 3 - Device Description[=0x000A=][=0x000A=]Showing action of something is an activity.[=0x000A=][=0x000A=]Rule for showing action of something (called item):[=0x000A=][=0x0009=]if the item is switched on, say [=0x0022=][The item] is switched on.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The item] is switched off.[=0x0022=][=0x000A=][=0x000A=]The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based described devices rule:[=0x000A=][=0x0009=]if the noun is a device:[=0x000A=][=0x0009=][=0x0009=]carry out the showing action activity with the noun;[=0x000A=][=0x0009=][=0x0009=]now examine text printed is true.[=0x000A=][=0x000A=]Report switching on something:[=0x000A=][=0x0009=]say [=0x0022=]You flip a switch. [=0x0022=];[=0x000A=][=0x0009=]carry out the showing action activity with the noun instead.[=0x000A=][=0x000A=]Part 2 - Scenario[=0x000A=][=0x000A=]The Kitchen is a room. [=0x0022=]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[=0x0022=][=0x000A=][=0x000A=]The microwave is a device in the Kitchen.[=0x000A=][=0x000A=]South of the Kitchen is the Living Area. The description of the Living area is [=0x0022=]A whitewashed living/dining/reclining area in what used to be a shepherd[=0x0027=]s stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of a room when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The walls look like they[=0x0027=]re covered with ants. Just a coincidence, I[=0x0027=]m sure[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of the Kitchen when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]Are ants coming out of the sink? No, probably not[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the description of something (called the item) when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] [one of]ant-colored[or]ant-legged[or]covered in ants[at random][antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums meaningfully to itself.[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums as though inhabited by a billion ants[antsy].[=0x0022=][=0x000A=][=0x000A=]The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.[=0x000A=][=0x000A=]ant-paranoia is a number that varies.[=0x000A=][=0x000A=]To say antsy:[=0x000A=][=0x0009=]increase ant-paranoia by 1;[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the ant-paranoia is greater than 3:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Augh! AUUUGH! GET THEM OFF--[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story saying [=0x0022=]You have lost your mind.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Ant-Sensitive Sunglasses[=0x0022=][=0x000A=][=0x000A=]Part 1 - Procedure[=0x000A=][=0x000A=][To add a new activity to an existing Inform rule, we need to do three things:][=0x000A=][=0x000A=][1) Define our new activity.][=0x000A=][2) Give a basic rule that says what is supposed to happen when that activity occurs, as in [=0x0022=]Rule for...[=0x0022=]][=0x000A=][3) Replace the existing rule in Inform[=0x0027=]s rulebooks with a new one that calls on our activity.][=0x000A=][=0x000A=][Here we do this with examining:][=0x000A=][=0x000A=]Section 1 - Item Description[=0x000A=][=0x000A=]Printing the description of something is an activity.[=0x000A=][=0x000A=][Now, by default, we want to print the description property; we just want the option to write some extra rules overriding that property. So we tell Inform that our most basic rule for printing the description of something is just to give that description text:][=0x000A=][=0x000A=]Rule for printing the description of something (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see nothing special about [the item].[=0x0022=].[=0x000A=][=0x000A=][Next, we need the standard examining rule to look at our printing-the-description activity:][=0x000A=][=0x000A=]The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based examining rule:[=0x000A=][=0x0009=]carry out the printing the description activity with the noun;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][Now we do the same thing to room descriptions.][=0x000A=][=0x000A=]Section 2 - Room Description[=0x000A=][=0x000A=]Printing the room-description of something is an activity.[=0x000A=][=0x000A=]Rule for printing the room-description of a room (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing instead.[=0x000A=][=0x000A=]The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.[=0x000A=][=0x000A=][Our replacement rule this time around is a little bit trickier just because the rule that we[=0x0027=]re replacing is a complicated one: describing a room already checks to see whether there[=0x0027=]s light to see by, whether the player has turned off room descriptions when he enters a room for the second time, and whether the player character is (say) inside a closed box he can[=0x0027=]t see out of.][=0x000A=][=0x000A=][But all of those details are re-copied from the standard rules, and the important thing is that, at the end, we again carry out our activity.][=0x000A=][=0x000A=]This is the activity-based room description body text rule:[=0x000A=][=0x0009=]if the visibility level count is 0:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abbreviated form allowed is true and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]darkness witnessed is true,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]begin the printing the description of a dark room activity;[=0x000A=][=0x0009=][=0x0009=]if handling the printing the description of a dark room activity,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]It is pitch dark, and you can[=0x0027=]t see a thing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the printing the description of a dark room activity;[=0x000A=][=0x0009=]otherwise if the visibility ceiling is the location:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and abbreviated form[=0x000A=][=0x0009=][=0x0009=][=0x0009=]allowed is true and the location is visited, continue the action;[=0x000A=][=0x0009=][=0x0009=]carry out the printing the room-description activity with the location.[=0x000A=][=0x000A=]Section 3 - Device Description[=0x000A=][=0x000A=]Showing action of something is an activity.[=0x000A=][=0x000A=]Rule for showing action of something (called item):[=0x000A=][=0x0009=]if the item is switched on, say [=0x0022=][The item] is switched on.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The item] is switched off.[=0x0022=][=0x000A=][=0x000A=]The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based described devices rule:[=0x000A=][=0x0009=]if the noun is a device:[=0x000A=][=0x0009=][=0x0009=]carry out the showing action activity with the noun;[=0x000A=][=0x0009=][=0x0009=]now examine text printed is true.[=0x000A=][=0x000A=]Report switching on something:[=0x000A=][=0x0009=]say [=0x0022=]You flip a switch. [=0x0022=];[=0x000A=][=0x0009=]carry out the showing action activity with the noun instead.[=0x000A=][=0x000A=]Part 2 - Scenario[=0x000A=][=0x000A=]The Kitchen is a room. [=0x0022=]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[=0x0022=][=0x000A=][=0x000A=]The microwave is a device in the Kitchen.[=0x000A=][=0x000A=]South of the Kitchen is the Living Area. The description of the Living area is [=0x0022=]A whitewashed living/dining/reclining area in what used to be a shepherd[=0x0027=]s stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of a room when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The walls look like they[=0x0027=]re covered with ants. Just a coincidence, I[=0x0027=]m sure[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of the Kitchen when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]Are ants coming out of the sink? No, probably not[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the description of something (called the item) when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] [one of]ant-colored[or]ant-legged[or]covered in ants[at random][antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums meaningfully to itself.[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums as though inhabited by a billion ants[antsy].[=0x0022=][=0x000A=][=0x000A=]The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.[=0x000A=][=0x000A=]ant-paranoia is a number that varies.[=0x000A=][=0x000A=]To say antsy:[=0x000A=][=0x0009=]increase ant-paranoia by 1;[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the ant-paranoia is greater than 3:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Augh! AUUUGH! GET THEM OFF--[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story saying [=0x0022=]You have lost your mind.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave[=0x0022=].[=0x000A=]\n', 'Example - Ant-Sensitive Sunglasses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Ant-Sensitive Sunglasses&quot;
+            <!--START CODE "c6259_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6259_12"></a><a href="javascript:pasteCode(' [=0x0022=]Ant-Sensitive Sunglasses[=0x0022=][=0x000A=][=0x000A=]Part 1 - Procedure[=0x000A=][=0x000A=][To add a new activity to an existing Inform rule, we need to do three things:][=0x000A=][=0x000A=][1) Define our new activity.][=0x000A=][2) Give a basic rule that says what is supposed to happen when that activity occurs, as in [=0x0022=]Rule for...[=0x0022=]][=0x000A=][3) Replace the existing rule in Inform[=0x0027=]s rulebooks with a new one that calls on our activity.][=0x000A=][=0x000A=][Here we do this with examining:][=0x000A=][=0x000A=]Section 1 - Item Description[=0x000A=][=0x000A=]Printing the description of something is an activity.[=0x000A=][=0x000A=][Now, by default, we want to print the description property; we just want the option to write some extra rules overriding that property. So we tell Inform that our most basic rule for printing the description of something is just to give that description text:][=0x000A=][=0x000A=]Rule for printing the description of something (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see nothing special about [the item].[=0x0022=].[=0x000A=][=0x000A=][Next, we need the standard examining rule to look at our printing-the-description activity:][=0x000A=][=0x000A=]The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based examining rule:[=0x000A=][=0x0009=]carry out the printing the description activity with the noun;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][Now we do the same thing to room descriptions.][=0x000A=][=0x000A=]Section 2 - Room Description[=0x000A=][=0x000A=]Printing the room-description of something is an activity.[=0x000A=][=0x000A=]Rule for printing the room-description of a room (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing instead.[=0x000A=][=0x000A=]The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.[=0x000A=][=0x000A=][Our replacement rule this time around is a little bit trickier just because the rule that we[=0x0027=]re replacing is a complicated one: describing a room already checks to see whether there[=0x0027=]s light to see by, whether the player has turned off room descriptions when he enters a room for the second time, and whether the player character is (say) inside a closed box he can[=0x0027=]t see out of.][=0x000A=][=0x000A=][But all of those details are re-copied from the standard rules, and the important thing is that, at the end, we again carry out our activity.][=0x000A=][=0x000A=]This is the activity-based room description body text rule:[=0x000A=][=0x0009=]if the visibility level count is 0:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abbreviated form allowed is true and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]darkness witnessed is true,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]begin the printing the description of a dark room activity;[=0x000A=][=0x0009=][=0x0009=]if handling the printing the description of a dark room activity,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]It is pitch dark, and you can[=0x0027=]t see a thing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the printing the description of a dark room activity;[=0x000A=][=0x0009=]otherwise if the visibility ceiling is the location:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and abbreviated form[=0x000A=][=0x0009=][=0x0009=][=0x0009=]allowed is true and the location is visited, continue the action;[=0x000A=][=0x0009=][=0x0009=]carry out the printing the room-description activity with the location.[=0x000A=][=0x000A=]Section 3 - Device Description[=0x000A=][=0x000A=]Showing action of something is an activity.[=0x000A=][=0x000A=]Rule for showing action of something (called item):[=0x000A=][=0x0009=]if the item is switched on, say [=0x0022=][The item] is switched on.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The item] is switched off.[=0x0022=][=0x000A=][=0x000A=]The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based described devices rule:[=0x000A=][=0x0009=]if the noun is a device:[=0x000A=][=0x0009=][=0x0009=]carry out the showing action activity with the noun;[=0x000A=][=0x0009=][=0x0009=]now examine text printed is true.[=0x000A=][=0x000A=]Report switching on something:[=0x000A=][=0x0009=]say [=0x0022=]You flip a switch. [=0x0022=];[=0x000A=][=0x0009=]carry out the showing action activity with the noun instead.[=0x000A=][=0x000A=]Part 2 - Scenario[=0x000A=][=0x000A=]The Kitchen is a room. [=0x0022=]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[=0x0022=][=0x000A=][=0x000A=]The microwave is a device in the Kitchen.[=0x000A=][=0x000A=]South of the Kitchen is the Living Area. The description of the Living area is [=0x0022=]A whitewashed living/dining/reclining area in what used to be a shepherd[=0x0027=]s stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of a room when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The walls look like they[=0x0027=]re covered with ants. Just a coincidence, I[=0x0027=]m sure[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of the Kitchen when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]Are ants coming out of the sink? No, probably not[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the description of something (called the item) when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] [one of]ant-colored[or]ant-legged[or]covered in ants[at random][antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums meaningfully to itself.[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums as though inhabited by a billion ants[antsy].[=0x0022=][=0x000A=][=0x000A=]The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.[=0x000A=][=0x000A=]ant-paranoia is a number that varies.[=0x000A=][=0x000A=]To say antsy:[=0x000A=][=0x0009=]increase ant-paranoia by 1;[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the ant-paranoia is greater than 3:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Augh! AUUUGH! GET THEM OFF--[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story saying [=0x0022=]You have lost your mind.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Ant-Sensitive Sunglasses[=0x0022=][=0x000A=][=0x000A=]Part 1 - Procedure[=0x000A=][=0x000A=][To add a new activity to an existing Inform rule, we need to do three things:][=0x000A=][=0x000A=][1) Define our new activity.][=0x000A=][2) Give a basic rule that says what is supposed to happen when that activity occurs, as in [=0x0022=]Rule for...[=0x0022=]][=0x000A=][3) Replace the existing rule in Inform[=0x0027=]s rulebooks with a new one that calls on our activity.][=0x000A=][=0x000A=][Here we do this with examining:][=0x000A=][=0x000A=]Section 1 - Item Description[=0x000A=][=0x000A=]Printing the description of something is an activity.[=0x000A=][=0x000A=][Now, by default, we want to print the description property; we just want the option to write some extra rules overriding that property. So we tell Inform that our most basic rule for printing the description of something is just to give that description text:][=0x000A=][=0x000A=]Rule for printing the description of something (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You see nothing special about [the item].[=0x0022=].[=0x000A=][=0x000A=][Next, we need the standard examining rule to look at our printing-the-description activity:][=0x000A=][=0x000A=]The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based examining rule:[=0x000A=][=0x0009=]carry out the printing the description activity with the noun;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=][Now we do the same thing to room descriptions.][=0x000A=][=0x000A=]Section 2 - Room Description[=0x000A=][=0x000A=]Printing the room-description of something is an activity.[=0x000A=][=0x000A=]Rule for printing the room-description of a room (called item):[=0x000A=][=0x0009=]if the description of the item is not [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][description of item][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]do nothing instead.[=0x000A=][=0x000A=]The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.[=0x000A=][=0x000A=][Our replacement rule this time around is a little bit trickier just because the rule that we[=0x0027=]re replacing is a complicated one: describing a room already checks to see whether there[=0x0027=]s light to see by, whether the player has turned off room descriptions when he enters a room for the second time, and whether the player character is (say) inside a closed box he can[=0x0027=]t see out of.][=0x000A=][=0x000A=][But all of those details are re-copied from the standard rules, and the important thing is that, at the end, we again carry out our activity.][=0x000A=][=0x000A=]This is the activity-based room description body text rule:[=0x000A=][=0x0009=]if the visibility level count is 0:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]abbreviated form allowed is true and[=0x000A=][=0x0009=][=0x0009=][=0x0009=]darkness witnessed is true,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]begin the printing the description of a dark room activity;[=0x000A=][=0x0009=][=0x0009=]if handling the printing the description of a dark room activity,[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]It is pitch dark, and you can[=0x0027=]t see a thing.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the printing the description of a dark room activity;[=0x000A=][=0x0009=]otherwise if the visibility ceiling is the location:[=0x000A=][=0x0009=][=0x0009=]if set to abbreviated room descriptions, continue the action;[=0x000A=][=0x0009=][=0x0009=]if set to sometimes abbreviated room descriptions and abbreviated form[=0x000A=][=0x0009=][=0x0009=][=0x0009=]allowed is true and the location is visited, continue the action;[=0x000A=][=0x0009=][=0x0009=]carry out the printing the room-description activity with the location.[=0x000A=][=0x000A=]Section 3 - Device Description[=0x000A=][=0x000A=]Showing action of something is an activity.[=0x000A=][=0x000A=]Rule for showing action of something (called item):[=0x000A=][=0x0009=]if the item is switched on, say [=0x0022=][The item] is switched on.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The item] is switched off.[=0x0022=][=0x000A=][=0x000A=]The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.[=0x000A=][=0x000A=]This is the activity-based described devices rule:[=0x000A=][=0x0009=]if the noun is a device:[=0x000A=][=0x0009=][=0x0009=]carry out the showing action activity with the noun;[=0x000A=][=0x0009=][=0x0009=]now examine text printed is true.[=0x000A=][=0x000A=]Report switching on something:[=0x000A=][=0x0009=]say [=0x0022=]You flip a switch. [=0x0022=];[=0x000A=][=0x0009=]carry out the showing action activity with the noun instead.[=0x000A=][=0x000A=]Part 2 - Scenario[=0x000A=][=0x000A=]The Kitchen is a room. [=0x0022=]A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.[=0x0022=][=0x000A=][=0x000A=]The microwave is a device in the Kitchen.[=0x000A=][=0x000A=]South of the Kitchen is the Living Area. The description of the Living area is [=0x0022=]A whitewashed living/dining/reclining area in what used to be a shepherd[=0x0027=]s stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of a room when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The walls look like they[=0x0027=]re covered with ants. Just a coincidence, I[=0x0027=]m sure[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the room-description of the Kitchen when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]Are ants coming out of the sink? No, probably not[antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the description of something (called the item) when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=][The item] [are] [one of]ant-colored[or]ant-legged[or]covered in ants[at random][antsy].[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums meaningfully to itself.[=0x0022=][=0x000A=][=0x000A=]Rule for showing action of the microwave when the player wears the sunglasses:[=0x000A=][=0x0009=]say [=0x0022=]The microwave hums as though inhabited by a billion ants[antsy].[=0x0022=][=0x000A=][=0x000A=]The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.[=0x000A=][=0x000A=]ant-paranoia is a number that varies.[=0x000A=][=0x000A=]To say antsy:[=0x000A=][=0x0009=]increase ant-paranoia by 1;[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the ant-paranoia is greater than 3:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Augh! AUUUGH! GET THEM OFF--[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story saying [=0x0022=]You have lost your mind.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave[=0x0022=].[=0x000A=]\n', 'Example - Ant-Sensitive Sunglasses')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Ant-Sensitive Sunglasses&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6262_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6262_12"></a>Part 1 - Procedure
+            <!--START CODE "c6260_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6260_12"></a>Part 1 - Procedure
             </p>
             </blockquote>
             <!--END CODE-->
@@ -194,19 +194,19 @@
             <p>2) Give a basic rule that says what is supposed to happen when that activity occurs, as in &quot;Rule for...&quot;</p>
             <p>3) Replace the existing rule in Inform's rulebooks with a new one that calls on our activity.</p>
             <p>Here we do this with examining:</p>
-            <!--START CODE "c6263_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6263_12"></a>Section 1 - Item Description
+            <!--START CODE "c6261_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6261_12"></a>Section 1 - Item Description
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6264_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6264_12"></a>Printing the description of something is an activity.
+            <!--START CODE "c6262_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6262_12"></a>Printing the description of something is an activity.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now, by default, we want to print the description property; we just want the option to write some extra rules overriding that property. So we tell Inform that our most basic rule for printing the description of something is just to give that description text:</p>
-            <!--START CODE "c6265_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6265_12"></a>Rule for printing the description of something (called item):
+            <!--START CODE "c6263_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6263_12"></a>Rule for printing the description of something (called item):
             <br>
             &#160;&#160;&#160;&#160;if the description of the item is not &quot;&quot;:
             <br>
@@ -219,13 +219,13 @@
             </blockquote>
             <!--END CODE-->
             <p>Next, we need the standard examining rule to look at our printing-the-description activity:</p>
-            <!--START CODE "c6266_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6266_12"></a>The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.
+            <!--START CODE "c6264_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6264_12"></a>The activity-based examining rule is listed instead of the standard examining rule in the carry out examining rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6267_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6267_12"></a>This is the activity-based examining rule:
+            <!--START CODE "c6265_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6265_12"></a>This is the activity-based examining rule:
             <br>
             &#160;&#160;&#160;&#160;carry out the printing the description activity with the noun;
             <br>
@@ -234,18 +234,18 @@
             </blockquote>
             <!--END CODE-->
             <p>Now we do the same thing to room descriptions.</p>
+            <!--START CODE "c6266_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6266_12"></a>Section 2 - Room Description
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6267_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6267_12"></a>Printing the room-description of something is an activity.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6268_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6268_12"></a>Section 2 - Room Description
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6269_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6269_12"></a>Printing the room-description of something is an activity.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6270_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6270_12"></a>Rule for printing the room-description of a room (called item):
+            <blockquote class="code"><p class="quoted"><a id="c6268_12"></a>Rule for printing the room-description of a room (called item):
             <br>
             &#160;&#160;&#160;&#160;if the description of the item is not &quot;&quot;:
             <br>
@@ -257,15 +257,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6271_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6271_12"></a>The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.
+            <!--START CODE "c6269_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6269_12"></a>The activity-based room description body text rule is listed instead of the room description body text rule in the carry out looking rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Our replacement rule this time around is a little bit trickier just because the rule that we're replacing is a complicated one: describing a room already checks to see whether there's light to see by, whether the player has turned off room descriptions when he enters a room for the second time, and whether the player character is (say) inside a closed box he can't see out of.</p>
             <p>But all of those details are re-copied from the standard rules, and the important thing is that, at the end, we again carry out our activity.</p>
-            <!--START CODE "c6272_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6272_12"></a>This is the activity-based room description body text rule:
+            <!--START CODE "c6270_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6270_12"></a>This is the activity-based room description body text rule:
             <br>
             &#160;&#160;&#160;&#160;if the visibility level count is 0:
             <br>
@@ -299,18 +299,18 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6271_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6271_12"></a>Section 3 - Device Description
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6272_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6272_12"></a>Showing action of something is an activity.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6273_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6273_12"></a>Section 3 - Device Description
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6274_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6274_12"></a>Showing action of something is an activity.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6275_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6275_12"></a>Rule for showing action of something (called item):
+            <blockquote class="code"><p class="quoted"><a id="c6273_12"></a>Rule for showing action of something (called item):
             <br>
             &#160;&#160;&#160;&#160;if the item is switched on, say &quot;[The item] is switched on.&quot;;
             <br>
@@ -318,13 +318,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6276_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6276_12"></a>The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.
+            <!--START CODE "c6274_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6274_12"></a>The activity-based described devices rule is listed instead of the examine devices rule in the carry out examining rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6277_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6277_12"></a>This is the activity-based described devices rule:
+            <!--START CODE "c6275_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6275_12"></a>This is the activity-based described devices rule:
             <br>
             &#160;&#160;&#160;&#160;if the noun is a device:
             <br>
@@ -334,8 +334,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6278_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6278_12"></a>Report switching on something:
+            <!--START CODE "c6276_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6276_12"></a>Report switching on something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You flip a switch. &quot;;
             <br>
@@ -343,80 +343,80 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6277_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6277_12"></a>Part 2 - Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6278_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6278_12"></a>The Kitchen is a room. &quot;A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6279_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6279_12"></a>Part 2 - Scenario
+            <blockquote class="code"><p class="quoted"><a id="c6279_12"></a>The microwave is a device in the Kitchen.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6280_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6280_12"></a>The Kitchen is a room. &quot;A small kitchen tucked into a corner of the vacation house. There is storage space for five or six cups, a sink, a two-ring stove; nothing else to speak of.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c6280_12"></a>South of the Kitchen is the Living Area. The description of the Living area is &quot;A whitewashed living/dining/reclining area in what used to be a shepherd's stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c6281_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6281_12"></a>The microwave is a device in the Kitchen.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6282_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6282_12"></a>South of the Kitchen is the Living Area. The description of the Living area is &quot;A whitewashed living/dining/reclining area in what used to be a shepherd's stone hut, but now costs vacationers 600 euros a week. It offers no mod cons, only a straight view of the Mediterranean and a wobbly writing table.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6283_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6283_12"></a>Rule for printing the room-description of a room when the player wears the sunglasses:
+            <blockquote class="code"><p class="quoted"><a id="c6281_12"></a>Rule for printing the room-description of a room when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The walls look like they're covered with ants. Just a coincidence, I'm sure[antsy].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6284_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6284_12"></a>Rule for printing the room-description of the Kitchen when the player wears the sunglasses:
+            <!--START CODE "c6282_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6282_12"></a>Rule for printing the room-description of the Kitchen when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Are ants coming out of the sink? No, probably not[antsy].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6285_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6285_12"></a>Rule for printing the description of something (called the item) when the player wears the sunglasses:
+            <!--START CODE "c6283_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6283_12"></a>Rule for printing the description of something (called the item) when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The item] [are] [one of]ant-colored[or]ant-legged[or]covered in ants[at random][antsy].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6286_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6286_12"></a>Rule for showing action of the microwave:
+            <!--START CODE "c6284_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6284_12"></a>Rule for showing action of the microwave:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The microwave hums meaningfully to itself.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6287_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6287_12"></a>Rule for showing action of the microwave when the player wears the sunglasses:
+            <!--START CODE "c6285_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6285_12"></a>Rule for showing action of the microwave when the player wears the sunglasses:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The microwave hums as though inhabited by a billion ants[antsy].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6286_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6286_12"></a>The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6287_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6287_12"></a>ant-paranoia is a number that varies.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6288_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6288_12"></a>The player carries sunglasses of freakiness and an apple. The apple is edible. The sunglasses are wearable.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6289_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6289_12"></a>ant-paranoia is a number that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6290_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6290_12"></a>To say antsy:
+            <blockquote class="code"><p class="quoted"><a id="c6288_12"></a>To say antsy:
             <br>
             &#160;&#160;&#160;&#160;increase ant-paranoia by 1;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6291_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6291_12"></a>Every turn:
+            <!--START CODE "c6289_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6289_12"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if the ant-paranoia is greater than 3:
             <br>
@@ -426,8 +426,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6292_12"-->
-            <blockquote class="code"><p class="quoted"><a id="c6292_12"></a>Test me with &quot;look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave&quot;.
+            <!--START CODE "c6290_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c6290_12"></a>Test me with &quot;look / turn on microwave / turn off microwave / x apple / x sunglasses / s / wear sunglasses / look / x apple / n / turn on microwave&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

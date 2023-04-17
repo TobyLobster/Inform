@@ -84,48 +84,48 @@
     <p class="sectionheading">§27.5. A simple example extension</p>
     <p>Extensions are plain text files, and can be created with any text editor. (It is sometimes said that &quot;there is no such thing as plain text&quot;, there being so many ways to represent exotic characters: so to be precise, an extension is a text file with the Unicode UTF-8 encoding, either with or without a BOM marker, using any of the possible forms of line-ending (Unix, Windows, Macintosh, or Unicode line divider). This is a detail which will only matter if the extension contains accented letters or other exotica.)</p>
     <p>Extensions look very much like passages of Inform source, because except for a special introductory and concluding sentence, and one convention, that is all they are:</p>
+    <!--START CODE "c8987"-->
+    <blockquote class="code"><p class="quoted"><a id="c8987"></a><a href="javascript:pasteCode('The Ducking Action by Beatrix Potter begins here.[=0x000A=][=0x000A=][=0x0022=]An action for ducking one[=0x0027=]s head.[=0x0022=][=0x000A=][=0x000A=]Ducking is an action applying to nothing. Report ducking: say [=0x0022=]You duck![=0x0022=] Understand [=0x0022=]duck[=0x0022=] as ducking.[=0x000A=][=0x000A=]The Ducking Action ends here.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The Ducking Action by Beatrix Potter begins here.
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <!--START CODE "c8988"-->
+    <blockquote class="code"><p class="quoted"><a id="c8988"></a>&quot;An action for ducking one's head.&quot;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c8989"-->
-    <blockquote class="code"><p class="quoted"><a id="c8989"></a><a href="javascript:pasteCode('The Ducking Action by Beatrix Potter begins here.[=0x000A=][=0x000A=][=0x0022=]An action for ducking one[=0x0027=]s head.[=0x0022=][=0x000A=][=0x000A=]Ducking is an action applying to nothing. Report ducking: say [=0x0022=]You duck![=0x0022=] Understand [=0x0022=]duck[=0x0022=] as ducking.[=0x000A=][=0x000A=]The Ducking Action ends here.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The Ducking Action by Beatrix Potter begins here.
+    <blockquote class="code"><p class="quoted"><a id="c8989"></a>Ducking is an action applying to nothing. Report ducking: say &quot;You duck!&quot; Understand &quot;duck&quot; as ducking.
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c8990"-->
-    <blockquote class="code"><p class="quoted"><a id="c8990"></a>&quot;An action for ducking one's head.&quot;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8991"-->
-    <blockquote class="code"><p class="quoted"><a id="c8991"></a>Ducking is an action applying to nothing. Report ducking: say &quot;You duck!&quot; Understand &quot;duck&quot; as ducking.
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8992"-->
-    <blockquote class="code"><p class="quoted"><a id="c8992"></a>The Ducking Action ends here.
+    <blockquote class="code"><p class="quoted"><a id="c8990"></a>The Ducking Action ends here.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Not a useful or interesting extension, but those few words add a whole new action and everything needed to make it work. It is Inform's ability to mix up rooms, things, kinds, grammar, phrases and rules, in more or less any order, which makes it possible for extensions to work.</p>
     <p>The introductory sentence must be placed as the only content of line 1 of the file, which must not contain comments, and has to be written in exactly the correct form. Inform checks this very carefully when performing its census of installed extensions, on each translation of the text. (In case the extension's title is a plural, we are allowed to write &quot;begin&quot; and &quot;end&quot; instead of &quot;begins&quot; and &quot;ends&quot;. For instance, the last line of the standard rules is &quot;The Standard Rules end here.&quot;)</p>
     <p>The &quot;one convention&quot; mentioned above is that if a double-quoted text is placed immediately after the beginning sentence (and with no intervening comments), then it is taken to be a short description of the extension's content called the &quot;rubric&quot;. Hence the line:</p>
-    <!--START CODE "c8993"-->
-    <blockquote class="code"><p class="quoted"><a id="c8993"></a>&quot;An action for ducking one's head.&quot;
+    <!--START CODE "c8991"-->
+    <blockquote class="code"><p class="quoted"><a id="c8991"></a>&quot;An action for ducking one's head.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Providing a rubric is helpful, because it enables Inform to give a meaningful listing even for an as-yet unused and unindexed extension, and because it helps the Inform website to produce better directories. Note the word &quot;short&quot;: such text is likely to be truncated if it exceeds 500 characters.</p>
     <p>A second double-quoted text can also, optionally, be added in yet a third special starting paragraph. This is to provide additional credits to people who have contributed to this or earlier versions. For instance:</p>
+    <!--START CODE "c8992"-->
+    <blockquote class="code"><p class="quoted"><a id="c8992"></a>The Ducking Action by Beatrix Potter begins here.
+    </p>
+    </blockquote>
+    <!--END CODE-->
+    <!--START CODE "c8993"-->
+    <blockquote class="code"><p class="quoted"><a id="c8993"></a>&quot;An action for ducking one's head.&quot;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c8994"-->
-    <blockquote class="code"><p class="quoted"><a id="c8994"></a>The Ducking Action by Beatrix Potter begins here.
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8995"-->
-    <blockquote class="code"><p class="quoted"><a id="c8995"></a>&quot;An action for ducking one's head.&quot;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c8996"-->
-    <blockquote class="code"><p class="quoted"><a id="c8996"></a>&quot;based on original Inform 6 code by Marc Canard&quot;
+    <blockquote class="code"><p class="quoted"><a id="c8994"></a>&quot;based on original Inform 6 code by Marc Canard&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -159,39 +159,39 @@
         <div class="egpanel" id="example250" style="display: none;">
             <p>Suppose we want to write an extension or other portable code which defines a &quot;kitchen&quot; kind of room and a &quot;bathroom&quot; kind of room. All kitchen rooms we create in the future will automatically contain standard kitchen appliances: fridge, freezer, sink with taps, counters, cabinets, and a stovetop with built-in oven. Similarly, all bathrooms will have sinks, baths, cabinets, and toilets, and respond to some standard interactions.</p>
             <p>We would do this with a standard assembly:</p>
+            <!--START CODE "c8995_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c8995_250"></a><a href="javascript:pasteCode('[=0x0022=]Modern Conveniences[=0x0022=][=0x000A=][=0x000A=]Section 1 - Kitchens[=0x000A=][=0x000A=]A kitchen is a kind of room.[=0x000A=][=0x000A=]A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand [=0x0022=]fridge[=0x0022=] as a refrigerator.[=0x000A=][=0x000A=]A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.[=0x000A=][=0x000A=][Now: we[=0x0027=]re going to want many of the items in our kitchen to have switches, and to handle input sensibly regardless of whether the player types TURN ON STOVE or TURN ON STOVE SWITCH. (This is apparently a stove with only one burner.) For convenience, we[=0x0027=]ll define an [=0x0022=]includes[=0x0022=] relation:][=0x000A=][=0x000A=]Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.[=0x000A=][=0x000A=]A stove is a kind of supporter. It is usually scenery.[=0x000A=]An oven is a kind of container. An oven is usually openable and closed. One oven is a part of every stove.[=0x000A=]A switch is a kind of device. A switch is part of every stove. A switch is part of every oven.[=0x000A=]Understand [=0x0022=][something related by reversed incorporation] switch[=0x0022=] as a switch.[=0x000A=][=0x000A=][What follows is fairly straightforward, but notice that we are somewhat obsessively naming every rule. This is much more important in extensions (where someone else may need to manipulate our code from within their own source) than it is when we are simply composing source text for ourselves.][=0x000A=][=0x000A=]Setting action variables for opening a stove (this is the stove-opening rule):[=0x000A=][=0x0009=]let relevant oven be a random oven which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant oven.[=0x000A=][=0x000A=]Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Before printing the name of a switch (called target) (this is the switch identification rule):[=0x000A=][=0x0009=]say [=0x0022=][random thing which includes the target] [=0x0022=].[=0x000A=][=0x000A=]A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand [=0x0022=]faucet[=0x0022=] or [=0x0022=]taps[=0x0022=] as a tap. Understand [=0x0022=][something related by reversed incorporation] tap/faucet/taps[=0x0022=] as a tap.[=0x000A=][=0x000A=]Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.[=0x000A=][=0x000A=]Report switching on a tap (this is the standard report switching taps on rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn on [the noun].[=0x0022=] instead. [since [=0x0022=]switch on[=0x0022=] sounds weird in this context.][=0x000A=][=0x000A=]Report switching off a tap (this is the standard report switching taps off rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn off [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):[=0x000A=][=0x0009=]say [=0x0022=]The water is flowing from [the relevant tap].[=0x0022=][=0x000A=][=0x000A=]A drain is a kind of container. A drain is part of every sink. Understand [=0x0022=]plughole[=0x0022=] as the drain. Understand [=0x0022=][something related by reversed incorporation] drain/plughole[=0x0022=] as a drain.[=0x000A=][=0x000A=] Instead of inserting something into a drain (this is the no clogging drains rule), say [=0x0022=]Pointless.[=0x0022=][=0x000A=][=0x000A=][This is probably about as far as we want to go in a generic simulation: it is tempting to code up water, drains down which the player can lose objects, sinks that get clogged and overflow, and so on; but the more we embellish in these ways, the more likely the end result would be disruptive to individual games. For right now what we[=0x0027=]re aiming for is something simple which provides the basic interactions a player might expect in this kind of room, but which does not have any significant implications for the surrounding world model.][=0x000A=][=0x000A=][A particularly conservative author might even want to make it turn out that the water has been shut off and nothing flows from the taps: in the extension documentation, we might want to include a line or two of example showing how this might be done by changing or removing the relevant rules of our extension.][=0x000A=][=0x000A=]A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]cupboard[=0x0022=] or [=0x0022=]cupboards[=0x0022=] or [=0x0022=]cabinets[=0x0022=] as a cabinet.[=0x000A=][=0x000A=]A counter is a kind of supporter. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]countertop[=0x0022=] as a counter.[=0x000A=][=0x000A=]A cabinet is in every kitchen.[=0x000A=]A counter is in every kitchen.[=0x000A=]A refrigerator is in every kitchen.[=0x000A=]A sink is in every kitchen.[=0x000A=]A stove is in every kitchen.[=0x000A=][=0x000A=]Section 2 - Bathrooms[=0x000A=][=0x000A=]A bathroom is a kind of room.[=0x000A=][=0x000A=]A toilet is a kind of supporter. Understand [=0x0022=]john[=0x0022=] as a toilet. A toilet is usually fixed in place and enterable and scenery.[=0x000A=][=0x000A=]A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand [=0x0022=]bathtub[=0x0022=] or [=0x0022=]shower[=0x0022=] as a bath.[=0x000A=][=0x000A=]A sink is in every bathroom.[=0x000A=]A toilet is in every bathroom.[=0x000A=]A bath is in every bathroom.[=0x000A=]A cabinet is in every bathroom.[=0x000A=][=0x000A=][If we were feeling particularly ambitious and inclined toward interior decoration, we could add bath mats, mirrors, plungers, toilet brushes, overhead lighting, towel racks, scented candles, boxes of facial tissue, shampoo bottles, scrubbing loofahs, etc. ad nauseam; but we[=0x0027=]ll keep it relatively simple for now. Of course, if we have a toilet, we pretty much have to accept that the player will try to make use of it:][=0x000A=][=0x000A=]Understand [=0x0022=]flush [toilet][=0x0022=] or [=0x0022=]use [toilet][=0x0022=] as a mistake ([=0x0022=]You have no need at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]take shower[=0x0022=] or [=0x0022=]take bath[=0x0022=] or [=0x0022=]bathe[=0x0022=] or [=0x0022=]wash[=0x0022=] as bathing. Bathing is an action applying to nothing.[=0x000A=][=0x000A=]Check bathing (this is the restrict baths to bathrooms rule):[=0x000A=][=0x0009=]if the location is not a bathroom, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check bathing (this is the block bathing rule):[=0x000A=][=0x0009=]say [=0x0022=]You haven[=0x0027=]t time for a bath.[=0x0022=] instead.[=0x000A=][=0x000A=]Washing is an action applying to one thing. Understand [=0x0022=]clean [something][=0x0022=] or [=0x0022=]wet [something][=0x0022=] or [=0x0022=]wash [something][=0x0022=] as washing.[=0x000A=][=0x000A=]Instead of washing the player, try bathing.[=0x000A=][=0x000A=]Check washing (this is the restrict washing to the proximity of sinks rule):[=0x000A=][=0x0009=]unless the player can touch a sink, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check washing (this is the block washing rule):[=0x000A=][=0x0009=]say [=0x0022=]It doesn[=0x0027=]t seem worth the bother.[=0x0022=] instead.[=0x000A=][=0x000A=][Now we might put this to work in a short example.][=0x000A=][=0x000A=][One slight challenge lies in giving these assembled pieces separate descriptions. When we have an assembly that adds parts to objects, we can then talk about (for instance) [=0x0022=]the stove[=0x0027=]s switch[=0x0022=] elsewhere in the code. But items that have been assigned rooms are not named in the same way, so we cannot talk about [=0x0022=]the Industrial Kitchen[=0x0027=]s stove[=0x0022=] in our code as a way to assign it a description or special behavior. In quite a simple example, we could make the descriptions of the kind simply be the descriptions we want for the individual items:][=0x000A=][=0x000A=]Section 3 - An Example We Might Offer[=0x000A=][=0x000A=]Our Household Kitchen is a kitchen.[=0x000A=][=0x000A=]The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.[=0x000A=][=0x000A=]The description of a stove is [=0x0022=]Scrupulously polished.[=0x0022=][=0x000A=][=0x000A=]The description of a refrigerator is [=0x0022=]It is baby blue and has the contours of a 50[[=0x0027=]]s chevy. One of these days it really will break down, but it[=0x0027=]s been serving your family faithfully since your grandmother[=0x0027=]s honeymoon.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Modern Conveniences[=0x0022=][=0x000A=][=0x000A=]Section 1 - Kitchens[=0x000A=][=0x000A=]A kitchen is a kind of room.[=0x000A=][=0x000A=]A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand [=0x0022=]fridge[=0x0022=] as a refrigerator.[=0x000A=][=0x000A=]A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.[=0x000A=][=0x000A=][Now: we[=0x0027=]re going to want many of the items in our kitchen to have switches, and to handle input sensibly regardless of whether the player types TURN ON STOVE or TURN ON STOVE SWITCH. (This is apparently a stove with only one burner.) For convenience, we[=0x0027=]ll define an [=0x0022=]includes[=0x0022=] relation:][=0x000A=][=0x000A=]Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.[=0x000A=][=0x000A=]A stove is a kind of supporter. It is usually scenery.[=0x000A=]An oven is a kind of container. An oven is usually openable and closed. One oven is a part of every stove.[=0x000A=]A switch is a kind of device. A switch is part of every stove. A switch is part of every oven.[=0x000A=]Understand [=0x0022=][something related by reversed incorporation] switch[=0x0022=] as a switch.[=0x000A=][=0x000A=][What follows is fairly straightforward, but notice that we are somewhat obsessively naming every rule. This is much more important in extensions (where someone else may need to manipulate our code from within their own source) than it is when we are simply composing source text for ourselves.][=0x000A=][=0x000A=]Setting action variables for opening a stove (this is the stove-opening rule):[=0x000A=][=0x0009=]let relevant oven be a random oven which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant oven.[=0x000A=][=0x000A=]Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Before printing the name of a switch (called target) (this is the switch identification rule):[=0x000A=][=0x0009=]say [=0x0022=][random thing which includes the target] [=0x0022=].[=0x000A=][=0x000A=]A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand [=0x0022=]faucet[=0x0022=] or [=0x0022=]taps[=0x0022=] as a tap. Understand [=0x0022=][something related by reversed incorporation] tap/faucet/taps[=0x0022=] as a tap.[=0x000A=][=0x000A=]Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.[=0x000A=][=0x000A=]Report switching on a tap (this is the standard report switching taps on rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn on [the noun].[=0x0022=] instead. [since [=0x0022=]switch on[=0x0022=] sounds weird in this context.][=0x000A=][=0x000A=]Report switching off a tap (this is the standard report switching taps off rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn off [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):[=0x000A=][=0x0009=]say [=0x0022=]The water is flowing from [the relevant tap].[=0x0022=][=0x000A=][=0x000A=]A drain is a kind of container. A drain is part of every sink. Understand [=0x0022=]plughole[=0x0022=] as the drain. Understand [=0x0022=][something related by reversed incorporation] drain/plughole[=0x0022=] as a drain.[=0x000A=][=0x000A=] Instead of inserting something into a drain (this is the no clogging drains rule), say [=0x0022=]Pointless.[=0x0022=][=0x000A=][=0x000A=][This is probably about as far as we want to go in a generic simulation: it is tempting to code up water, drains down which the player can lose objects, sinks that get clogged and overflow, and so on; but the more we embellish in these ways, the more likely the end result would be disruptive to individual games. For right now what we[=0x0027=]re aiming for is something simple which provides the basic interactions a player might expect in this kind of room, but which does not have any significant implications for the surrounding world model.][=0x000A=][=0x000A=][A particularly conservative author might even want to make it turn out that the water has been shut off and nothing flows from the taps: in the extension documentation, we might want to include a line or two of example showing how this might be done by changing or removing the relevant rules of our extension.][=0x000A=][=0x000A=]A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]cupboard[=0x0022=] or [=0x0022=]cupboards[=0x0022=] or [=0x0022=]cabinets[=0x0022=] as a cabinet.[=0x000A=][=0x000A=]A counter is a kind of supporter. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]countertop[=0x0022=] as a counter.[=0x000A=][=0x000A=]A cabinet is in every kitchen.[=0x000A=]A counter is in every kitchen.[=0x000A=]A refrigerator is in every kitchen.[=0x000A=]A sink is in every kitchen.[=0x000A=]A stove is in every kitchen.[=0x000A=][=0x000A=]Section 2 - Bathrooms[=0x000A=][=0x000A=]A bathroom is a kind of room.[=0x000A=][=0x000A=]A toilet is a kind of supporter. Understand [=0x0022=]john[=0x0022=] as a toilet. A toilet is usually fixed in place and enterable and scenery.[=0x000A=][=0x000A=]A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand [=0x0022=]bathtub[=0x0022=] or [=0x0022=]shower[=0x0022=] as a bath.[=0x000A=][=0x000A=]A sink is in every bathroom.[=0x000A=]A toilet is in every bathroom.[=0x000A=]A bath is in every bathroom.[=0x000A=]A cabinet is in every bathroom.[=0x000A=][=0x000A=][If we were feeling particularly ambitious and inclined toward interior decoration, we could add bath mats, mirrors, plungers, toilet brushes, overhead lighting, towel racks, scented candles, boxes of facial tissue, shampoo bottles, scrubbing loofahs, etc. ad nauseam; but we[=0x0027=]ll keep it relatively simple for now. Of course, if we have a toilet, we pretty much have to accept that the player will try to make use of it:][=0x000A=][=0x000A=]Understand [=0x0022=]flush [toilet][=0x0022=] or [=0x0022=]use [toilet][=0x0022=] as a mistake ([=0x0022=]You have no need at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]take shower[=0x0022=] or [=0x0022=]take bath[=0x0022=] or [=0x0022=]bathe[=0x0022=] or [=0x0022=]wash[=0x0022=] as bathing. Bathing is an action applying to nothing.[=0x000A=][=0x000A=]Check bathing (this is the restrict baths to bathrooms rule):[=0x000A=][=0x0009=]if the location is not a bathroom, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check bathing (this is the block bathing rule):[=0x000A=][=0x0009=]say [=0x0022=]You haven[=0x0027=]t time for a bath.[=0x0022=] instead.[=0x000A=][=0x000A=]Washing is an action applying to one thing. Understand [=0x0022=]clean [something][=0x0022=] or [=0x0022=]wet [something][=0x0022=] or [=0x0022=]wash [something][=0x0022=] as washing.[=0x000A=][=0x000A=]Instead of washing the player, try bathing.[=0x000A=][=0x000A=]Check washing (this is the restrict washing to the proximity of sinks rule):[=0x000A=][=0x0009=]unless the player can touch a sink, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check washing (this is the block washing rule):[=0x000A=][=0x0009=]say [=0x0022=]It doesn[=0x0027=]t seem worth the bother.[=0x0022=] instead.[=0x000A=][=0x000A=][Now we might put this to work in a short example.][=0x000A=][=0x000A=][One slight challenge lies in giving these assembled pieces separate descriptions. When we have an assembly that adds parts to objects, we can then talk about (for instance) [=0x0022=]the stove[=0x0027=]s switch[=0x0022=] elsewhere in the code. But items that have been assigned rooms are not named in the same way, so we cannot talk about [=0x0022=]the Industrial Kitchen[=0x0027=]s stove[=0x0022=] in our code as a way to assign it a description or special behavior. In quite a simple example, we could make the descriptions of the kind simply be the descriptions we want for the individual items:][=0x000A=][=0x000A=]Section 3 - An Example We Might Offer[=0x000A=][=0x000A=]Our Household Kitchen is a kitchen.[=0x000A=][=0x000A=]The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.[=0x000A=][=0x000A=]The description of a stove is [=0x0022=]Scrupulously polished.[=0x0022=][=0x000A=][=0x000A=]The description of a refrigerator is [=0x0022=]It is baby blue and has the contours of a 50[[=0x0027=]]s chevy. One of these days it really will break down, but it[=0x0027=]s been serving your family faithfully since your grandmother[=0x0027=]s honeymoon.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Modern Conveniences')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Modern Conveniences&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8996_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c8996_250"></a>Section 1 - Kitchens
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8997_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c8997_250"></a><a href="javascript:pasteCode('[=0x0022=]Modern Conveniences[=0x0022=][=0x000A=][=0x000A=]Section 1 - Kitchens[=0x000A=][=0x000A=]A kitchen is a kind of room.[=0x000A=][=0x000A=]A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand [=0x0022=]fridge[=0x0022=] as a refrigerator.[=0x000A=][=0x000A=]A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.[=0x000A=][=0x000A=][Now: we[=0x0027=]re going to want many of the items in our kitchen to have switches, and to handle input sensibly regardless of whether the player types TURN ON STOVE or TURN ON STOVE SWITCH. (This is apparently a stove with only one burner.) For convenience, we[=0x0027=]ll define an [=0x0022=]includes[=0x0022=] relation:][=0x000A=][=0x000A=]Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.[=0x000A=][=0x000A=]A stove is a kind of supporter. It is usually scenery.[=0x000A=]An oven is a kind of container. An oven is usually openable and closed. One oven is a part of every stove.[=0x000A=]A switch is a kind of device. A switch is part of every stove. A switch is part of every oven.[=0x000A=]Understand [=0x0022=][something related by reversed incorporation] switch[=0x0022=] as a switch.[=0x000A=][=0x000A=][What follows is fairly straightforward, but notice that we are somewhat obsessively naming every rule. This is much more important in extensions (where someone else may need to manipulate our code from within their own source) than it is when we are simply composing source text for ourselves.][=0x000A=][=0x000A=]Setting action variables for opening a stove (this is the stove-opening rule):[=0x000A=][=0x0009=]let relevant oven be a random oven which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant oven.[=0x000A=][=0x000A=]Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Before printing the name of a switch (called target) (this is the switch identification rule):[=0x000A=][=0x0009=]say [=0x0022=][random thing which includes the target] [=0x0022=].[=0x000A=][=0x000A=]A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand [=0x0022=]faucet[=0x0022=] or [=0x0022=]taps[=0x0022=] as a tap. Understand [=0x0022=][something related by reversed incorporation] tap/faucet/taps[=0x0022=] as a tap.[=0x000A=][=0x000A=]Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.[=0x000A=][=0x000A=]Report switching on a tap (this is the standard report switching taps on rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn on [the noun].[=0x0022=] instead. [since [=0x0022=]switch on[=0x0022=] sounds weird in this context.][=0x000A=][=0x000A=]Report switching off a tap (this is the standard report switching taps off rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn off [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):[=0x000A=][=0x0009=]say [=0x0022=]The water is flowing from [the relevant tap].[=0x0022=][=0x000A=][=0x000A=]A drain is a kind of container. A drain is part of every sink. Understand [=0x0022=]plughole[=0x0022=] as the drain. Understand [=0x0022=][something related by reversed incorporation] drain/plughole[=0x0022=] as a drain.[=0x000A=][=0x000A=] Instead of inserting something into a drain (this is the no clogging drains rule), say [=0x0022=]Pointless.[=0x0022=][=0x000A=][=0x000A=][This is probably about as far as we want to go in a generic simulation: it is tempting to code up water, drains down which the player can lose objects, sinks that get clogged and overflow, and so on; but the more we embellish in these ways, the more likely the end result would be disruptive to individual games. For right now what we[=0x0027=]re aiming for is something simple which provides the basic interactions a player might expect in this kind of room, but which does not have any significant implications for the surrounding world model.][=0x000A=][=0x000A=][A particularly conservative author might even want to make it turn out that the water has been shut off and nothing flows from the taps: in the extension documentation, we might want to include a line or two of example showing how this might be done by changing or removing the relevant rules of our extension.][=0x000A=][=0x000A=]A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]cupboard[=0x0022=] or [=0x0022=]cupboards[=0x0022=] or [=0x0022=]cabinets[=0x0022=] as a cabinet.[=0x000A=][=0x000A=]A counter is a kind of supporter. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]countertop[=0x0022=] as a counter.[=0x000A=][=0x000A=]A cabinet is in every kitchen.[=0x000A=]A counter is in every kitchen.[=0x000A=]A refrigerator is in every kitchen.[=0x000A=]A sink is in every kitchen.[=0x000A=]A stove is in every kitchen.[=0x000A=][=0x000A=]Section 2 - Bathrooms[=0x000A=][=0x000A=]A bathroom is a kind of room.[=0x000A=][=0x000A=]A toilet is a kind of supporter. Understand [=0x0022=]john[=0x0022=] as a toilet. A toilet is usually fixed in place and enterable and scenery.[=0x000A=][=0x000A=]A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand [=0x0022=]bathtub[=0x0022=] or [=0x0022=]shower[=0x0022=] as a bath.[=0x000A=][=0x000A=]A sink is in every bathroom.[=0x000A=]A toilet is in every bathroom.[=0x000A=]A bath is in every bathroom.[=0x000A=]A cabinet is in every bathroom.[=0x000A=][=0x000A=][If we were feeling particularly ambitious and inclined toward interior decoration, we could add bath mats, mirrors, plungers, toilet brushes, overhead lighting, towel racks, scented candles, boxes of facial tissue, shampoo bottles, scrubbing loofahs, etc. ad nauseam; but we[=0x0027=]ll keep it relatively simple for now. Of course, if we have a toilet, we pretty much have to accept that the player will try to make use of it:][=0x000A=][=0x000A=]Understand [=0x0022=]flush [toilet][=0x0022=] or [=0x0022=]use [toilet][=0x0022=] as a mistake ([=0x0022=]You have no need at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]take shower[=0x0022=] or [=0x0022=]take bath[=0x0022=] or [=0x0022=]bathe[=0x0022=] or [=0x0022=]wash[=0x0022=] as bathing. Bathing is an action applying to nothing.[=0x000A=][=0x000A=]Check bathing (this is the restrict baths to bathrooms rule):[=0x000A=][=0x0009=]if the location is not a bathroom, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check bathing (this is the block bathing rule):[=0x000A=][=0x0009=]say [=0x0022=]You haven[=0x0027=]t time for a bath.[=0x0022=] instead.[=0x000A=][=0x000A=]Washing is an action applying to one thing. Understand [=0x0022=]clean [something][=0x0022=] or [=0x0022=]wet [something][=0x0022=] or [=0x0022=]wash [something][=0x0022=] as washing.[=0x000A=][=0x000A=]Instead of washing the player, try bathing.[=0x000A=][=0x000A=]Check washing (this is the restrict washing to the proximity of sinks rule):[=0x000A=][=0x0009=]unless the player can touch a sink, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check washing (this is the block washing rule):[=0x000A=][=0x0009=]say [=0x0022=]It doesn[=0x0027=]t seem worth the bother.[=0x0022=] instead.[=0x000A=][=0x000A=][Now we might put this to work in a short example.][=0x000A=][=0x000A=][One slight challenge lies in giving these assembled pieces separate descriptions. When we have an assembly that adds parts to objects, we can then talk about (for instance) [=0x0022=]the stove[=0x0027=]s switch[=0x0022=] elsewhere in the code. But items that have been assigned rooms are not named in the same way, so we cannot talk about [=0x0022=]the Industrial Kitchen[=0x0027=]s stove[=0x0022=] in our code as a way to assign it a description or special behavior. In quite a simple example, we could make the descriptions of the kind simply be the descriptions we want for the individual items:][=0x000A=][=0x000A=]Section 3 - An Example We Might Offer[=0x000A=][=0x000A=]Our Household Kitchen is a kitchen.[=0x000A=][=0x000A=]The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.[=0x000A=][=0x000A=]The description of a stove is [=0x0022=]Scrupulously polished.[=0x0022=][=0x000A=][=0x000A=]The description of a refrigerator is [=0x0022=]It is baby blue and has the contours of a 50[[=0x0027=]]s chevy. One of these days it really will break down, but it[=0x0027=]s been serving your family faithfully since your grandmother[=0x0027=]s honeymoon.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Modern Conveniences[=0x0022=][=0x000A=][=0x000A=]Section 1 - Kitchens[=0x000A=][=0x000A=]A kitchen is a kind of room.[=0x000A=][=0x000A=]A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand [=0x0022=]fridge[=0x0022=] as a refrigerator.[=0x000A=][=0x000A=]A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.[=0x000A=][=0x000A=][Now: we[=0x0027=]re going to want many of the items in our kitchen to have switches, and to handle input sensibly regardless of whether the player types TURN ON STOVE or TURN ON STOVE SWITCH. (This is apparently a stove with only one burner.) For convenience, we[=0x0027=]ll define an [=0x0022=]includes[=0x0022=] relation:][=0x000A=][=0x000A=]Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.[=0x000A=][=0x000A=]A stove is a kind of supporter. It is usually scenery.[=0x000A=]An oven is a kind of container. An oven is usually openable and closed. One oven is a part of every stove.[=0x000A=]A switch is a kind of device. A switch is part of every stove. A switch is part of every oven.[=0x000A=]Understand [=0x0022=][something related by reversed incorporation] switch[=0x0022=] as a switch.[=0x000A=][=0x000A=][What follows is fairly straightforward, but notice that we are somewhat obsessively naming every rule. This is much more important in extensions (where someone else may need to manipulate our code from within their own source) than it is when we are simply composing source text for ourselves.][=0x000A=][=0x000A=]Setting action variables for opening a stove (this is the stove-opening rule):[=0x000A=][=0x0009=]let relevant oven be a random oven which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant oven.[=0x000A=][=0x000A=]Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):[=0x000A=][=0x0009=]let relevant switch be a random switch which is part of the noun;[=0x000A=][=0x0009=]now the noun is the relevant switch.[=0x000A=][=0x000A=]Before printing the name of a switch (called target) (this is the switch identification rule):[=0x000A=][=0x0009=]say [=0x0022=][random thing which includes the target] [=0x0022=].[=0x000A=][=0x000A=]A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand [=0x0022=]faucet[=0x0022=] or [=0x0022=]taps[=0x0022=] as a tap. Understand [=0x0022=][something related by reversed incorporation] tap/faucet/taps[=0x0022=] as a tap.[=0x000A=][=0x000A=]Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.[=0x000A=][=0x000A=]Report switching on a tap (this is the standard report switching taps on rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn on [the noun].[=0x0022=] instead. [since [=0x0022=]switch on[=0x0022=] sounds weird in this context.][=0x000A=][=0x000A=]Report switching off a tap (this is the standard report switching taps off rule):[=0x000A=][=0x0009=]say [=0x0022=]You turn off [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):[=0x000A=][=0x0009=]say [=0x0022=]The water is flowing from [the relevant tap].[=0x0022=][=0x000A=][=0x000A=]A drain is a kind of container. A drain is part of every sink. Understand [=0x0022=]plughole[=0x0022=] as the drain. Understand [=0x0022=][something related by reversed incorporation] drain/plughole[=0x0022=] as a drain.[=0x000A=][=0x000A=] Instead of inserting something into a drain (this is the no clogging drains rule), say [=0x0022=]Pointless.[=0x0022=][=0x000A=][=0x000A=][This is probably about as far as we want to go in a generic simulation: it is tempting to code up water, drains down which the player can lose objects, sinks that get clogged and overflow, and so on; but the more we embellish in these ways, the more likely the end result would be disruptive to individual games. For right now what we[=0x0027=]re aiming for is something simple which provides the basic interactions a player might expect in this kind of room, but which does not have any significant implications for the surrounding world model.][=0x000A=][=0x000A=][A particularly conservative author might even want to make it turn out that the water has been shut off and nothing flows from the taps: in the extension documentation, we might want to include a line or two of example showing how this might be done by changing or removing the relevant rules of our extension.][=0x000A=][=0x000A=]A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]cupboard[=0x0022=] or [=0x0022=]cupboards[=0x0022=] or [=0x0022=]cabinets[=0x0022=] as a cabinet.[=0x000A=][=0x000A=]A counter is a kind of supporter. It is scenery.[=0x000A=][=0x0009=]Understand [=0x0022=]countertop[=0x0022=] as a counter.[=0x000A=][=0x000A=]A cabinet is in every kitchen.[=0x000A=]A counter is in every kitchen.[=0x000A=]A refrigerator is in every kitchen.[=0x000A=]A sink is in every kitchen.[=0x000A=]A stove is in every kitchen.[=0x000A=][=0x000A=]Section 2 - Bathrooms[=0x000A=][=0x000A=]A bathroom is a kind of room.[=0x000A=][=0x000A=]A toilet is a kind of supporter. Understand [=0x0022=]john[=0x0022=] as a toilet. A toilet is usually fixed in place and enterable and scenery.[=0x000A=][=0x000A=]A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand [=0x0022=]bathtub[=0x0022=] or [=0x0022=]shower[=0x0022=] as a bath.[=0x000A=][=0x000A=]A sink is in every bathroom.[=0x000A=]A toilet is in every bathroom.[=0x000A=]A bath is in every bathroom.[=0x000A=]A cabinet is in every bathroom.[=0x000A=][=0x000A=][If we were feeling particularly ambitious and inclined toward interior decoration, we could add bath mats, mirrors, plungers, toilet brushes, overhead lighting, towel racks, scented candles, boxes of facial tissue, shampoo bottles, scrubbing loofahs, etc. ad nauseam; but we[=0x0027=]ll keep it relatively simple for now. Of course, if we have a toilet, we pretty much have to accept that the player will try to make use of it:][=0x000A=][=0x000A=]Understand [=0x0022=]flush [toilet][=0x0022=] or [=0x0022=]use [toilet][=0x0022=] as a mistake ([=0x0022=]You have no need at the moment.[=0x0022=]).[=0x000A=][=0x000A=]Understand [=0x0022=]take shower[=0x0022=] or [=0x0022=]take bath[=0x0022=] or [=0x0022=]bathe[=0x0022=] or [=0x0022=]wash[=0x0022=] as bathing. Bathing is an action applying to nothing.[=0x000A=][=0x000A=]Check bathing (this is the restrict baths to bathrooms rule):[=0x000A=][=0x0009=]if the location is not a bathroom, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check bathing (this is the block bathing rule):[=0x000A=][=0x0009=]say [=0x0022=]You haven[=0x0027=]t time for a bath.[=0x0022=] instead.[=0x000A=][=0x000A=]Washing is an action applying to one thing. Understand [=0x0022=]clean [something][=0x0022=] or [=0x0022=]wet [something][=0x0022=] or [=0x0022=]wash [something][=0x0022=] as washing.[=0x000A=][=0x000A=]Instead of washing the player, try bathing.[=0x000A=][=0x000A=]Check washing (this is the restrict washing to the proximity of sinks rule):[=0x000A=][=0x0009=]unless the player can touch a sink, say [=0x0022=]This isn[=0x0027=]t the place.[=0x0022=] instead.[=0x000A=][=0x000A=]Check washing (this is the block washing rule):[=0x000A=][=0x0009=]say [=0x0022=]It doesn[=0x0027=]t seem worth the bother.[=0x0022=] instead.[=0x000A=][=0x000A=][Now we might put this to work in a short example.][=0x000A=][=0x000A=][One slight challenge lies in giving these assembled pieces separate descriptions. When we have an assembly that adds parts to objects, we can then talk about (for instance) [=0x0022=]the stove[=0x0027=]s switch[=0x0022=] elsewhere in the code. But items that have been assigned rooms are not named in the same way, so we cannot talk about [=0x0022=]the Industrial Kitchen[=0x0027=]s stove[=0x0022=] in our code as a way to assign it a description or special behavior. In quite a simple example, we could make the descriptions of the kind simply be the descriptions we want for the individual items:][=0x000A=][=0x000A=]Section 3 - An Example We Might Offer[=0x000A=][=0x000A=]Our Household Kitchen is a kitchen.[=0x000A=][=0x000A=]The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.[=0x000A=][=0x000A=]The description of a stove is [=0x0022=]Scrupulously polished.[=0x0022=][=0x000A=][=0x000A=]The description of a refrigerator is [=0x0022=]It is baby blue and has the contours of a 50[[=0x0027=]]s chevy. One of these days it really will break down, but it[=0x0027=]s been serving your family faithfully since your grandmother[=0x0027=]s honeymoon.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Modern Conveniences')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Modern Conveniences&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8997_250"></a>A kitchen is a kind of room.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8998_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c8998_250"></a>Section 1 - Kitchens
+            <blockquote class="code"><p class="quoted"><a id="c8998_250"></a>A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand &quot;fridge&quot; as a refrigerator.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8999_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c8999_250"></a>A kitchen is a kind of room.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9000_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9000_250"></a>A refrigerator is a kind of container. A refrigerator is usually closed and openable. A refrigerator is usually fixed in place. A refrigerator is usually scenery. Understand &quot;fridge&quot; as a refrigerator.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9001_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9001_250"></a>A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.
+            <blockquote class="code"><p class="quoted"><a id="c8999_250"></a>A freezer compartment is a kind of container. A freezer compartment is usually closed and openable. A freezer compartment is part of every refrigerator.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now: we're going to want many of the items in our kitchen to have switches, and to handle input sensibly regardless of whether the player types TURN ON STOVE or TURN ON STOVE SWITCH. (This is apparently a stove with only one burner.) For convenience, we'll define an &quot;includes&quot; relation:</p>
-            <!--START CODE "c9002_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9002_250"></a>Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.
+            <!--START CODE "c9000_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9000_250"></a>Inclusion relates a thing (called X) to a thing (called Y) when Y is part of X. The verb to include means the inclusion relation.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9003_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9003_250"></a>A stove is a kind of supporter. It is usually scenery.
+            <!--START CODE "c9001_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9001_250"></a>A stove is a kind of supporter. It is usually scenery.
             <br>
             An oven is a kind of container. An oven is usually openable and closed. One oven is a part of every stove.
             <br>
@@ -202,8 +202,8 @@
             </blockquote>
             <!--END CODE-->
             <p>What follows is fairly straightforward, but notice that we are somewhat obsessively naming every rule. This is much more important in extensions (where someone else may need to manipulate our code from within their own source) than it is when we are simply composing source text for ourselves.</p>
-            <!--START CODE "c9004_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9004_250"></a>Setting action variables for opening a stove (this is the stove-opening rule):
+            <!--START CODE "c9002_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9002_250"></a>Setting action variables for opening a stove (this is the stove-opening rule):
             <br>
             &#160;&#160;&#160;&#160;let relevant oven be a random oven which is part of the noun;
             <br>
@@ -211,90 +211,90 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9003_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9003_250"></a>Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):
+            <br>
+            &#160;&#160;&#160;&#160;let relevant switch be a random switch which is part of the noun;
+            <br>
+            &#160;&#160;&#160;&#160;now the noun is the relevant switch.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9004_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9004_250"></a>Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):
+            <br>
+            &#160;&#160;&#160;&#160;let relevant switch be a random switch which is part of the noun;
+            <br>
+            &#160;&#160;&#160;&#160;now the noun is the relevant switch.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9005_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9005_250"></a>Setting action variables for switching on something which includes a switch (this is the redirecting switches for switching on rule):
-            <br>
-            &#160;&#160;&#160;&#160;let relevant switch be a random switch which is part of the noun;
-            <br>
-            &#160;&#160;&#160;&#160;now the noun is the relevant switch.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9006_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9006_250"></a>Setting action variables for switching off something which includes a switch (this is the redirecting switches for switching off rule):
-            <br>
-            &#160;&#160;&#160;&#160;let relevant switch be a random switch which is part of the noun;
-            <br>
-            &#160;&#160;&#160;&#160;now the noun is the relevant switch.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9007_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9007_250"></a>Before printing the name of a switch (called target) (this is the switch identification rule):
+            <blockquote class="code"><p class="quoted"><a id="c9005_250"></a>Before printing the name of a switch (called target) (this is the switch identification rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;[random thing which includes the target] &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9006_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9006_250"></a>A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand &quot;faucet&quot; or &quot;taps&quot; as a tap. Understand &quot;[something related by reversed incorporation] tap/faucet/taps&quot; as a tap.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9007_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9007_250"></a>Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9008_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9008_250"></a>A sink is a kind of container. A sink is usually fixed in place and scenery. A tap is a kind of switch. A tap is part of every sink. Understand &quot;faucet&quot; or &quot;taps&quot; as a tap. Understand &quot;[something related by reversed incorporation] tap/faucet/taps&quot; as a tap.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9009_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9009_250"></a>Instead of opening a tap, try switching on the noun. Instead of closing a tap, try switching off the noun.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9010_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9010_250"></a>Report switching on a tap (this is the standard report switching taps on rule):
+            <blockquote class="code"><p class="quoted"><a id="c9008_250"></a>Report switching on a tap (this is the standard report switching taps on rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You turn on [the noun].&quot; instead. [since &quot;switch on&quot; sounds weird in this context.]
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9011_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9011_250"></a>Report switching off a tap (this is the standard report switching taps off rule):
+            <!--START CODE "c9009_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9009_250"></a>Report switching off a tap (this is the standard report switching taps off rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You turn off [the noun].&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9012_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9012_250"></a>After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):
+            <!--START CODE "c9010_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9010_250"></a>After examining something which includes a switched on tap (called relevant tap) (this is the report flowing water rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;The water is flowing from [the relevant tap].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9013_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9013_250"></a>A drain is a kind of container. A drain is part of every sink. Understand &quot;plughole&quot; as the drain. Understand &quot;[something related by reversed incorporation] drain/plughole&quot; as a drain.
+            <!--START CODE "c9011_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9011_250"></a>A drain is a kind of container. A drain is part of every sink. Understand &quot;plughole&quot; as the drain. Understand &quot;[something related by reversed incorporation] drain/plughole&quot; as a drain.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9014_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9014_250"></a> Instead of inserting something into a drain (this is the no clogging drains rule), say &quot;Pointless.&quot;
+            <!--START CODE "c9012_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9012_250"></a> Instead of inserting something into a drain (this is the no clogging drains rule), say &quot;Pointless.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This is probably about as far as we want to go in a generic simulation: it is tempting to code up water, drains down which the player can lose objects, sinks that get clogged and overflow, and so on; but the more we embellish in these ways, the more likely the end result would be disruptive to individual games. For right now what we're aiming for is something simple which provides the basic interactions a player might expect in this kind of room, but which does not have any significant implications for the surrounding world model.</p>
             <p>A particularly conservative author might even want to make it turn out that the water has been shut off and nothing flows from the taps: in the extension documentation, we might want to include a line or two of example showing how this might be done by changing or removing the relevant rules of our extension.</p>
-            <!--START CODE "c9015_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9015_250"></a>A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.
+            <!--START CODE "c9013_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9013_250"></a>A cabinet is a kind of container. A cabinet is usually openable and closed. It is scenery.
             <br>
             &#160;&#160;&#160;&#160;Understand &quot;cupboard&quot; or &quot;cupboards&quot; or &quot;cabinets&quot; as a cabinet.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9016_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9016_250"></a>A counter is a kind of supporter. It is scenery.
+            <!--START CODE "c9014_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9014_250"></a>A counter is a kind of supporter. It is scenery.
             <br>
             &#160;&#160;&#160;&#160;Understand &quot;countertop&quot; as a counter.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9017_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9017_250"></a>A cabinet is in every kitchen.
+            <!--START CODE "c9015_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9015_250"></a>A cabinet is in every kitchen.
             <br>
             A counter is in every kitchen.
             <br>
@@ -306,28 +306,28 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9016_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9016_250"></a>Section 2 - Bathrooms
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9017_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9017_250"></a>A bathroom is a kind of room.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9018_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9018_250"></a>Section 2 - Bathrooms
+            <blockquote class="code"><p class="quoted"><a id="c9018_250"></a>A toilet is a kind of supporter. Understand &quot;john&quot; as a toilet. A toilet is usually fixed in place and enterable and scenery.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9019_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9019_250"></a>A bathroom is a kind of room.
+            <blockquote class="code"><p class="quoted"><a id="c9019_250"></a>A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand &quot;bathtub&quot; or &quot;shower&quot; as a bath.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9020_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9020_250"></a>A toilet is a kind of supporter. Understand &quot;john&quot; as a toilet. A toilet is usually fixed in place and enterable and scenery.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9021_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9021_250"></a>A bath is a kind of container. A bath is usually a fixed in place and enterable and scenery. A tap is part of every bath. A drain is part of every bath. Understand &quot;bathtub&quot; or &quot;shower&quot; as a bath.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9022_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9022_250"></a>A sink is in every bathroom.
+            <blockquote class="code"><p class="quoted"><a id="c9020_250"></a>A sink is in every bathroom.
             <br>
             A toilet is in every bathroom.
             <br>
@@ -338,49 +338,49 @@
             </blockquote>
             <!--END CODE-->
             <p>If we were feeling particularly ambitious and inclined toward interior decoration, we could add bath mats, mirrors, plungers, toilet brushes, overhead lighting, towel racks, scented candles, boxes of facial tissue, shampoo bottles, scrubbing loofahs, etc. ad nauseam; but we'll keep it relatively simple for now. Of course, if we have a toilet, we pretty much have to accept that the player will try to make use of it:</p>
+            <!--START CODE "c9021_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9021_250"></a>Understand &quot;flush [toilet]&quot; or &quot;use [toilet]&quot; as a mistake (&quot;You have no need at the moment.&quot;).
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9022_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9022_250"></a>Understand &quot;take shower&quot; or &quot;take bath&quot; or &quot;bathe&quot; or &quot;wash&quot; as bathing. Bathing is an action applying to nothing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9023_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9023_250"></a>Understand &quot;flush [toilet]&quot; or &quot;use [toilet]&quot; as a mistake (&quot;You have no need at the moment.&quot;).
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9024_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9024_250"></a>Understand &quot;take shower&quot; or &quot;take bath&quot; or &quot;bathe&quot; or &quot;wash&quot; as bathing. Bathing is an action applying to nothing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9025_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9025_250"></a>Check bathing (this is the restrict baths to bathrooms rule):
+            <blockquote class="code"><p class="quoted"><a id="c9023_250"></a>Check bathing (this is the restrict baths to bathrooms rule):
             <br>
             &#160;&#160;&#160;&#160;if the location is not a bathroom, say &quot;This isn't the place.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9026_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9026_250"></a>Check bathing (this is the block bathing rule):
+            <!--START CODE "c9024_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9024_250"></a>Check bathing (this is the block bathing rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;You haven't time for a bath.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c9025_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9025_250"></a>Washing is an action applying to one thing. Understand &quot;clean [something]&quot; or &quot;wet [something]&quot; or &quot;wash [something]&quot; as washing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9026_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9026_250"></a>Instead of washing the player, try bathing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9027_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9027_250"></a>Washing is an action applying to one thing. Understand &quot;clean [something]&quot; or &quot;wet [something]&quot; or &quot;wash [something]&quot; as washing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9028_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9028_250"></a>Instead of washing the player, try bathing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9029_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9029_250"></a>Check washing (this is the restrict washing to the proximity of sinks rule):
+            <blockquote class="code"><p class="quoted"><a id="c9027_250"></a>Check washing (this is the restrict washing to the proximity of sinks rule):
             <br>
             &#160;&#160;&#160;&#160;unless the player can touch a sink, say &quot;This isn't the place.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9030_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9030_250"></a>Check washing (this is the block washing rule):
+            <!--START CODE "c9028_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9028_250"></a>Check washing (this is the block washing rule):
             <br>
             &#160;&#160;&#160;&#160;say &quot;It doesn't seem worth the bother.&quot; instead.
             </p>
@@ -388,51 +388,51 @@
             <!--END CODE-->
             <p>Now we might put this to work in a short example.</p>
             <p>One slight challenge lies in giving these assembled pieces separate descriptions. When we have an assembly that adds parts to objects, we can then talk about (for instance) &quot;the stove's switch&quot; elsewhere in the code. But items that have been assigned rooms are not named in the same way, so we cannot talk about &quot;the Industrial Kitchen's stove&quot; in our code as a way to assign it a description or special behavior. In quite a simple example, we could make the descriptions of the kind simply be the descriptions we want for the individual items:</p>
+            <!--START CODE "c9029_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9029_250"></a>Section 3 - An Example We Might Offer
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c9030_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9030_250"></a>Our Household Kitchen is a kitchen.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c9031_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9031_250"></a>Section 3 - An Example We Might Offer
+            <blockquote class="code"><p class="quoted"><a id="c9031_250"></a>The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9032_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9032_250"></a>Our Household Kitchen is a kitchen.
+            <blockquote class="code"><p class="quoted"><a id="c9032_250"></a>The description of a stove is &quot;Scrupulously polished.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9033_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9033_250"></a>The Tiny Bathroom is a bathroom. It is west of Our Household Kitchen.
+            <blockquote class="code"><p class="quoted"><a id="c9033_250"></a>The description of a refrigerator is &quot;It is baby blue and has the contours of a 50[']s chevy. One of these days it really will break down, but it's been serving your family faithfully since your grandmother's honeymoon.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c9034_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9034_250"></a>The description of a stove is &quot;Scrupulously polished.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9035_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9035_250"></a>The description of a refrigerator is &quot;It is baby blue and has the contours of a 50[']s chevy. One of these days it really will break down, but it's been serving your family faithfully since your grandmother's honeymoon.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c9036_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9036_250"></a>Test me with &quot;x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c9034_250"></a>Test me with &quot;x refrigerator / open fridge / x freezer / look in freezer / open freezer / turn on stove / turn on oven / x oven switch / turn off oven switch / turn off stove switch / turn on taps / x sink / w / x sink / turn on sink / take bath / use toilet&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In a game that featured multiple bathrooms and kitchens, this wouldn't be enough; our author might give the stove kind (say) a description that checked its location, as in</p>
-            <!--START CODE "c9037_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9037_250"></a>The description of a stove is &quot;[if in Industrial Kitchen]A massive stainless steel stove-top with six burners[otherwise]Your standard four-burner item[end if].&quot;
+            <!--START CODE "c9035_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9035_250"></a>The description of a stove is &quot;[if in Industrial Kitchen]A massive stainless steel stove-top with six burners[otherwise]Your standard four-burner item[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>or create an</p>
-            <!--START CODE "c9038_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9038_250"></a>Instead of examining the stove in the Industrial Kitchen: ...
+            <!--START CODE "c9036_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9036_250"></a>Instead of examining the stove in the Industrial Kitchen: ...
             </p>
             </blockquote>
             <!--END CODE-->
             <p>sort of rule for those objects he wanted to describe specially; or he might use a when play begins rule to initialize a few things:</p>
-            <!--START CODE "c9039_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9039_250"></a>When play begins:
+            <!--START CODE "c9037_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9037_250"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;let N be a random stove in the Industrial Kitchen;
             <br>
@@ -443,13 +443,13 @@
             </blockquote>
             <!--END CODE-->
             <p>Or we might even (if we anticipate lots of these kinds of amendments) want to rig up something more complex that finds the descriptions of appliances in a table, rather than relying on their individual description properties. This can all be done, but it is only interesting as long as it remains genuinely labor-saving: that is, as long as the convenience of having the assembly is greater than the annoyance of writing special rules to cover for the automation. In the end, the &quot;kitchen&quot; and &quot;bathroom&quot; room types are likely to be most useful for authors who want to include the standard props but not actually make them a critical part of the game; if stoves and sinks have more of a starring role in the production, authors may be better off coding them or at the very least placing them by hand, as in</p>
-            <!--START CODE "c9040_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9040_250"></a>The Industrial Kitchen is a room.
+            <!--START CODE "c9038_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9038_250"></a>The Industrial Kitchen is a room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c9041_250"-->
-            <blockquote class="code"><p class="quoted"><a id="c9041_250"></a>Thor is a stove in the Industrial Kitchen. It supports a boiling pot.
+            <!--START CODE "c9039_250"-->
+            <blockquote class="code"><p class="quoted"><a id="c9039_250"></a>Thor is a stove in the Industrial Kitchen. It supports a boiling pot.
             </p>
             </blockquote>
             <!--END CODE-->

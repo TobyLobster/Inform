@@ -85,14 +85,14 @@
     <p><span class="boldface">1. When it happens.</span> Just before input is accepted from the keyboard, Inform constructs a &quot;status line&quot; at the top of the window which is normally displayed in reverse colours (white on black instead of black on white, say).</p>
     <p><span class="boldface">2. The default behaviour.</span> Makes the status line up out of two pieces, the &quot;left hand status line&quot; and the &quot;right hand status line&quot;. Since these can freely be changed, note that the status line is already very customisable without using rules applied to this activity.</p>
     <p><span class="boldface">3. Examples.</span> (a) The most useful thing about this activity is that it allows us to vary descriptions in the status line. This is especially helpful to abbreviate unduly long room names, which might not otherwise fit:</p>
-    <!--START CODE "c6649"-->
-    <blockquote class="code"><p class="quoted"><a id="c6649"></a>The Temple Of A Thousand Mightily Peeved Deities is a room. Rule for printing the name of the Temple while constructing the status line: say &quot;Temple&quot;.
+    <!--START CODE "c6647"-->
+    <blockquote class="code"><p class="quoted"><a id="c6647"></a>The Temple Of A Thousand Mightily Peeved Deities is a room. Rule for printing the name of the Temple while constructing the status line: say &quot;Temple&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(b) Again, it's usually not necessary to apply activity rules to this, but occasionally amusing effects are possible if we do:</p>
-    <!--START CODE "c6650"-->
-    <blockquote class="code"><p class="quoted"><a id="c6650"></a><a href="javascript:pasteCode('The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.
+    <!--START CODE "c6648"-->
+    <blockquote class="code"><p class="quoted"><a id="c6648"></a><a href="javascript:pasteCode('The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -124,13 +124,13 @@
 
         <div class="egpanel" id="example130" style="display: none;">
             <p>A not-uncommon device in games with large maps is a list of available exits printed in the status bar. We might do this so:</p>
-            <!--START CODE "c6651_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6651_130"></a><a href="javascript:pasteCode('[=0x0022=]Ways Out[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Exits: [exit list][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][location][=0x0022=].[=0x000A=][=0x000A=]To say exit list:[=0x000A=][=0x0009=]let place be location;[=0x000A=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=]let place be the room way from the location;[=0x000A=][=0x0009=][=0x0009=]if place is a room, say [=0x0022=] [way][=0x0022=].[=0x000A=][=0x000A=][=0x000A=][We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the way) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the way in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]IN[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]OUT[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / n / e / e / s / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ways Out[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Exits: [exit list][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][location][=0x0022=].[=0x000A=][=0x000A=]To say exit list:[=0x000A=][=0x0009=]let place be location;[=0x000A=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=]let place be the room way from the location;[=0x000A=][=0x0009=][=0x0009=]if place is a room, say [=0x0022=] [way][=0x0022=].[=0x000A=][=0x000A=][=0x000A=][We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the way) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the way in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]IN[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]OUT[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / n / e / e / s / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Ways Out')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ways Out&quot;
+            <!--START CODE "c6649_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6649_130"></a><a href="javascript:pasteCode('[=0x0022=]Ways Out[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Exits: [exit list][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][location][=0x0022=].[=0x000A=][=0x000A=]To say exit list:[=0x000A=][=0x0009=]let place be location;[=0x000A=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=]let place be the room way from the location;[=0x000A=][=0x0009=][=0x0009=]if place is a room, say [=0x0022=] [way][=0x0022=].[=0x000A=][=0x000A=][=0x000A=][We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the way) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the way in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]IN[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]OUT[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / n / e / e / s / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ways Out[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Exits: [exit list][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][location][=0x0022=].[=0x000A=][=0x000A=]To say exit list:[=0x000A=][=0x0009=]let place be location;[=0x000A=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=]let place be the room way from the location;[=0x000A=][=0x0009=][=0x0009=]if place is a room, say [=0x0022=] [way][=0x0022=].[=0x000A=][=0x000A=][=0x000A=][We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the way) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the way in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]IN[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]OUT[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / n / e / e / s / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Ways Out')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ways Out&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6652_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6652_130"></a>When play begins:
+            <!--START CODE "c6650_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6650_130"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now left hand status line is &quot;Exits: [exit list]&quot;;
             <br>
@@ -138,8 +138,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6653_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6653_130"></a>To say exit list:
+            <!--START CODE "c6651_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6651_130"></a>To say exit list:
             <br>
             &#160;&#160;&#160;&#160;let place be location;
             <br>
@@ -152,8 +152,8 @@
             </blockquote>
             <!--END CODE-->
             <p>We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn't hard to provide a set of abbreviations to use in this context:</p>
-            <!--START CODE "c6654_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6654_130"></a>Rule for printing the name of a direction (called the way) while constructing the status line:
+            <!--START CODE "c6652_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6652_130"></a>Rule for printing the name of a direction (called the way) while constructing the status line:
             <br>
             &#160;&#160;&#160;&#160;choose row with a heading of the way in the Table of Abbreviation;
             <br>
@@ -161,8 +161,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6655_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6655_130"></a>Table of Abbreviation
+            <!--START CODE "c6653_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6653_130"></a>Table of Abbreviation
             <br>
             </p>
             </blockquote>
@@ -301,18 +301,18 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c6654_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6654_130"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6655_130"-->
+            <blockquote class="code"><p class="quoted"><a id="c6655_130"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6656_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6656_130"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6657_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6657_130"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6658_130"-->
-            <blockquote class="code"><p class="quoted"><a id="c6658_130"></a>Test me with &quot;w / n / e / e / s / e&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c6656_130"></a>Test me with &quot;w / n / e / e / s / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -345,13 +345,13 @@
 
         <div class="egpanel" id="example129" style="display: none;">
             <p>It may sometimes be helpful to prompt the player with a list of exits printed up in the status line. For instance, here is a status line that will print the names of nearby rooms, as well as all the doors the player can see:</p>
-            <!--START CODE "c6659_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6659_129"></a><a href="javascript:pasteCode('[=0x0022=]Guided Tour[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Nearby: [if a room is adjacent][the list of adjacent rooms][end if][if a room is adjacent and a door is visible] and [end if][if a door is visible][the list of visible doors][end if][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][=0x0022=].[=0x000A=][=0x000A=][Of course, we may not want to tell the player what glories are to be found in locations he hasn[=0x0027=]t yet explored.][=0x000A=][=0x000A=]Rule for printing the name of an unvisited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=]something [aim][=0x0022=].[=0x000A=][=0x000A=][Even when we have seen a room, we might still want a reminder about how to get there:][=0x000A=][=0x000A=]After printing the name of a visited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=] ([aim])[=0x0022=].[=0x000A=][=0x000A=][We may also find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the aim) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the aim in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]in[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]out[=0x0022=][=0x000A=][=0x000A=][Everywhere else, the names of directions will still be printed out in full in the usual way. And now we give it a little map to work with:][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / w / s[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Guided Tour[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Nearby: [if a room is adjacent][the list of adjacent rooms][end if][if a room is adjacent and a door is visible] and [end if][if a door is visible][the list of visible doors][end if][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][=0x0022=].[=0x000A=][=0x000A=][Of course, we may not want to tell the player what glories are to be found in locations he hasn[=0x0027=]t yet explored.][=0x000A=][=0x000A=]Rule for printing the name of an unvisited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=]something [aim][=0x0022=].[=0x000A=][=0x000A=][Even when we have seen a room, we might still want a reminder about how to get there:][=0x000A=][=0x000A=]After printing the name of a visited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=] ([aim])[=0x0022=].[=0x000A=][=0x000A=][We may also find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the aim) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the aim in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]in[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]out[=0x0022=][=0x000A=][=0x000A=][Everywhere else, the names of directions will still be printed out in full in the usual way. And now we give it a little map to work with:][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / w / s[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Guided Tour')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Guided Tour&quot;
+            <!--START CODE "c6657_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6657_129"></a><a href="javascript:pasteCode('[=0x0022=]Guided Tour[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Nearby: [if a room is adjacent][the list of adjacent rooms][end if][if a room is adjacent and a door is visible] and [end if][if a door is visible][the list of visible doors][end if][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][=0x0022=].[=0x000A=][=0x000A=][Of course, we may not want to tell the player what glories are to be found in locations he hasn[=0x0027=]t yet explored.][=0x000A=][=0x000A=]Rule for printing the name of an unvisited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=]something [aim][=0x0022=].[=0x000A=][=0x000A=][Even when we have seen a room, we might still want a reminder about how to get there:][=0x000A=][=0x000A=]After printing the name of a visited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=] ([aim])[=0x0022=].[=0x000A=][=0x000A=][We may also find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the aim) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the aim in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]in[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]out[=0x0022=][=0x000A=][=0x000A=][Everywhere else, the names of directions will still be printed out in full in the usual way. And now we give it a little map to work with:][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / w / s[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Guided Tour[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Nearby: [if a room is adjacent][the list of adjacent rooms][end if][if a room is adjacent and a door is visible] and [end if][if a door is visible][the list of visible doors][end if][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][=0x0022=].[=0x000A=][=0x000A=][Of course, we may not want to tell the player what glories are to be found in locations he hasn[=0x0027=]t yet explored.][=0x000A=][=0x000A=]Rule for printing the name of an unvisited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=]something [aim][=0x0022=].[=0x000A=][=0x000A=][Even when we have seen a room, we might still want a reminder about how to get there:][=0x000A=][=0x000A=]After printing the name of a visited room (called the target) while constructing the status line:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=] ([aim])[=0x0022=].[=0x000A=][=0x000A=][We may also find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn[=0x0027=]t hard to provide a set of abbreviations to use in this context:][=0x000A=][=0x000A=]Rule for printing the name of a direction (called the aim) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the aim in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]in[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]out[=0x0022=][=0x000A=][=0x000A=][Everywhere else, the names of directions will still be printed out in full in the usual way. And now we give it a little map to work with:][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / w / s[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Guided Tour')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Guided Tour&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6660_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6660_129"></a>When play begins:
+            <!--START CODE "c6658_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6658_129"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now left hand status line is &quot;Nearby: [if a room is adjacent][the list of adjacent rooms][end if][if a room is adjacent and a door is visible] and [end if][if a door is visible][the list of visible doors][end if]&quot;;
             <br>
@@ -360,8 +360,8 @@
             </blockquote>
             <!--END CODE-->
             <p>Of course, we may not want to tell the player what glories are to be found in locations he hasn't yet explored.</p>
-            <!--START CODE "c6661_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6661_129"></a>Rule for printing the name of an unvisited room (called the target) while constructing the status line:
+            <!--START CODE "c6659_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6659_129"></a>Rule for printing the name of an unvisited room (called the target) while constructing the status line:
             <br>
             &#160;&#160;&#160;&#160;let aim be the best route from the location to the target;
             <br>
@@ -370,8 +370,8 @@
             </blockquote>
             <!--END CODE-->
             <p>Even when we have seen a room, we might still want a reminder about how to get there:</p>
-            <!--START CODE "c6662_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6662_129"></a>After printing the name of a visited room (called the target) while constructing the status line:
+            <!--START CODE "c6660_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6660_129"></a>After printing the name of a visited room (called the target) while constructing the status line:
             <br>
             &#160;&#160;&#160;&#160;let aim be the best route from the location to the target;
             <br>
@@ -380,8 +380,8 @@
             </blockquote>
             <!--END CODE-->
             <p>We may also find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn't hard to provide a set of abbreviations to use in this context:</p>
-            <!--START CODE "c6663_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6663_129"></a>Rule for printing the name of a direction (called the aim) while constructing the status line:
+            <!--START CODE "c6661_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6661_129"></a>Rule for printing the name of a direction (called the aim) while constructing the status line:
             <br>
             &#160;&#160;&#160;&#160;choose row with a heading of the aim in the Table of Abbreviation;
             <br>
@@ -389,8 +389,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c6664_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6664_129"></a>Table of Abbreviation
+            <!--START CODE "c6662_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6662_129"></a>Table of Abbreviation
             <br>
             </p>
             </blockquote>
@@ -530,18 +530,18 @@
             </blockquote>
             <!--END CODE-->
             <p>Everywhere else, the names of directions will still be printed out in full in the usual way. And now we give it a little map to work with:</p>
+            <!--START CODE "c6663_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6663_129"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c6664_129"-->
+            <blockquote class="code"><p class="quoted"><a id="c6664_129"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c6665_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6665_129"></a>Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6666_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6666_129"></a>The church door is east of Eastern End and west of the Courtyard. The church door is a door.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c6667_129"-->
-            <blockquote class="code"><p class="quoted"><a id="c6667_129"></a>Test me with &quot;n / w / s&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c6665_129"></a>Test me with &quot;n / w / s&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

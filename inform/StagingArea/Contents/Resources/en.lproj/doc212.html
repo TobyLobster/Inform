@@ -81,29 +81,29 @@
     </div>
     <p class="sectionheading">§14.1. Tense and narrative viewpoint</p>
     <p>A conspicuous difference between interactive fiction and a traditional novel is the point of view from which it's told. Inform usually produces text like:</p>
-    <!--START CODE "c4297"-->
-    <blockquote class="code"><p class="quoted"><a id="c4297"></a>You can see a grey cat in the basket.
+    <!--START CODE "c4296"-->
+    <blockquote class="code"><p class="quoted"><a id="c4296"></a>You can see a grey cat in the basket.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>where a novel would usually write:</p>
-    <!--START CODE "c4298"-->
-    <blockquote class="code"><p class="quoted"><a id="c4298"></a>He saw a grey cat in the basket.
+    <!--START CODE "c4297"-->
+    <blockquote class="code"><p class="quoted"><a id="c4297"></a>He saw a grey cat in the basket.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Standard interactive fiction (IF) is second person singular, and present tense; most novels are told in the third person singular, and past tense.</p>
     <p>But these are just conventions - a few novels, for example, use the so-called present historic (&quot;Napoleon looks up at the sky and sighs. Must Ney always be so doubting?&quot;), and plenty are told in the first person singular (&quot;I always get the shakes before a drop.&quot;). Inform allows some of this flexibility, too. The two values:</p>
-    <!--START CODE "c4299"-->
-    <blockquote class="code"><p class="quoted"><a id="c4299"></a>story viewpoint
+    <!--START CODE "c4298"-->
+    <blockquote class="code"><p class="quoted"><a id="c4298"></a>story viewpoint
     <br>
     story tense
     </p>
     </blockquote>
     <!--END CODE-->
     <p>control the style of the text produced. The story viewpoint has to be one of the values:</p>
-    <!--START CODE "c4300"-->
-    <blockquote class="code"><p class="quoted"><a id="c4300"></a>first person singular
+    <!--START CODE "c4299"-->
+    <blockquote class="code"><p class="quoted"><a id="c4299"></a>first person singular
     <br>
     second person singular
     <br>
@@ -118,8 +118,8 @@
     </blockquote>
     <!--END CODE-->
     <p>(which are actually the six possible values of a kind called &quot;narrative viewpoint&quot;), while the story tense must be one of:</p>
-    <!--START CODE "c4301"-->
-    <blockquote class="code"><p class="quoted"><a id="c4301"></a>past tense
+    <!--START CODE "c4300"-->
+    <blockquote class="code"><p class="quoted"><a id="c4300"></a>past tense
     <br>
     present tense
     <br>
@@ -133,13 +133,13 @@
     <!--END CODE-->
     <p>(from a kind called &quot;grammatical tense&quot;). Combining these gives 30 possibilities in all, though only a few are at all commonly used.</p>
     <p>It's important to make a very large caveat here: Inform uses these settings in producing the replies (&quot;responses&quot;) by the built-in actions, but the only way for all of our own text to have a particular tense or narrative viewpoint is to write it that way. If we write:</p>
-    <!--START CODE "c4302"-->
-    <blockquote class="code"><p class="quoted"><a id="c4302"></a>The Taj Mahal is a room. &quot;You stand and admire the Taj Mahal.&quot;
+    <!--START CODE "c4301"-->
+    <blockquote class="code"><p class="quoted"><a id="c4301"></a>The Taj Mahal is a room. &quot;You stand and admire the Taj Mahal.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4303"-->
-    <blockquote class="code"><p class="quoted"><a id="c4303"></a>When play begins:
+    <!--START CODE "c4302"-->
+    <blockquote class="code"><p class="quoted"><a id="c4302"></a>When play begins:
     <br>
     &#160;&#160;&#160;&#160;now the story viewpoint is first person plural;
     <br>
@@ -148,28 +148,28 @@
     </blockquote>
     <!--END CODE-->
     <p>then we're likely to see the following peculiar transcript:</p>
-    <!--START CODE "c4304"-->
-    <blockquote class="code"><p class="quoted"><a id="c4304"></a>Taj Mahal
+    <!--START CODE "c4303"-->
+    <blockquote class="code"><p class="quoted"><a id="c4303"></a>Taj Mahal
     <br>
     You stand and admire the Taj Mahal.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4305"-->
-    <blockquote class="code"><p class="quoted"><a id="c4305"></a>&gt;e
+    <!--START CODE "c4304"-->
+    <blockquote class="code"><p class="quoted"><a id="c4304"></a>&gt;e
     <br>
     We couldn't go that way.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>That's because the response (&quot;We couldn't go that way&quot;) was constructed to follow the settings for viewpoint and tense, but the fixed text of the room description wasn't. In fact there are ways to write the room description so that it would adapt itself automatically, as we'll see, but it takes a fair amount of work. More simply:</p>
-    <!--START CODE "c4306"-->
-    <blockquote class="code"><p class="quoted"><a id="c4306"></a>The Taj Mahal is a room. &quot;I stood and admired the Taj Mahal.&quot;
+    <!--START CODE "c4305"-->
+    <blockquote class="code"><p class="quoted"><a id="c4305"></a>The Taj Mahal is a room. &quot;I stood and admired the Taj Mahal.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c4307"-->
-    <blockquote class="code"><p class="quoted"><a id="c4307"></a>When play begins:
+    <!--START CODE "c4306"-->
+    <blockquote class="code"><p class="quoted"><a id="c4306"></a>When play begins:
     <br>
     &#160;&#160;&#160;&#160;now the story viewpoint is first person plural;
     <br>

@@ -84,8 +84,8 @@
     <p class="sectionheading">§19.15. Two rulebooks used internally</p>
     <p>Rulebooks handle almost all of the important tasks which an Inform work of IF must carry out in order to keep play going. We have seen them used in clarifying the player's command, supplying missing ingredients, processing the action to see what should happen, responding, and so on: by this point in the documentation, it must look as if Inform uses rulebooks for everything.</p>
     <p>This is nearly true. There is not actually a super-rulebook controlling everything. (Such a super-rulebook would need to repeat itself and never finish, something a rulebook is not allowed to do.) Instead, what happens during play looks like so:</p>
-    <!--START CODE "c8015"-->
-    <blockquote class="code"><p class="quoted"><a id="c8015"></a>1. Following the &quot;when play begins&quot; rulebook.
+    <!--START CODE "c8013"-->
+    <blockquote class="code"><p class="quoted"><a id="c8013"></a>1. Following the &quot;when play begins&quot; rulebook.
     <br>
     2. Repeating:
     <br>
@@ -133,28 +133,28 @@
 
         <div class="egpanel" id="example115" style="display: none;">
             <p>Suppose we want to prevent the player from touching anything electrified -- not just as a response to TOUCH OBJECT, but at any time when the action would require contact with the object in question.</p>
+            <!--START CODE "c8014_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8014_115"></a><a href="javascript:pasteCode('[=0x0022=]Electrified[=0x0022=][=0x000A=][=0x000A=]A thing can be safe or electrified. A thing is usually safe.[=0x000A=][=0x000A=]The Open Field is a room. [=0x0022=]At this end of the field is a wire fence separating farm country from the government testing grounds beyond.[=0x0022=] The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is [=0x0022=]Built into the fence is [a list of things which are part of the fence].[=0x0022=] The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.[=0x000A=][=0x000A=]The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.[=0x000A=][=0x000A=]This is the electrocution-wisdom rule:[=0x000A=][=0x0009=]if the player wears the very thick rubber glove, make no decision;[=0x000A=][=0x0009=]if the action requires a touchable noun and the noun is electrified, say [=0x0022=]You fear touching [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the action requires a touchable second noun and the second noun is electrified, say [=0x0022=]You fear touching [the second noun].[=0x0022=] instead.[=0x000A=][=0x000A=]The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.[=0x000A=][=0x000A=]Before touching the scary box:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t help noticing a bright red sticker on the surface of the box.[=0x0022=] [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.][=0x000A=][=0x000A=]Instead of opening the scary box:[=0x000A=][=0x0009=]say [=0x0022=]The scary box seems to be super-glued shut.[=0x0022=] [This one won[=0x0027=]t, because Instead rules occur after basic accessibility.][=0x000A=][=0x000A=]Test me with [=0x0022=]touch fence / touch box / open box / wear glove / open box[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Electrified[=0x0022=][=0x000A=][=0x000A=]A thing can be safe or electrified. A thing is usually safe.[=0x000A=][=0x000A=]The Open Field is a room. [=0x0022=]At this end of the field is a wire fence separating farm country from the government testing grounds beyond.[=0x0022=] The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is [=0x0022=]Built into the fence is [a list of things which are part of the fence].[=0x0022=] The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.[=0x000A=][=0x000A=]The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.[=0x000A=][=0x000A=]This is the electrocution-wisdom rule:[=0x000A=][=0x0009=]if the player wears the very thick rubber glove, make no decision;[=0x000A=][=0x0009=]if the action requires a touchable noun and the noun is electrified, say [=0x0022=]You fear touching [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the action requires a touchable second noun and the second noun is electrified, say [=0x0022=]You fear touching [the second noun].[=0x0022=] instead.[=0x000A=][=0x000A=]The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.[=0x000A=][=0x000A=]Before touching the scary box:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t help noticing a bright red sticker on the surface of the box.[=0x0022=] [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.][=0x000A=][=0x000A=]Instead of opening the scary box:[=0x000A=][=0x0009=]say [=0x0022=]The scary box seems to be super-glued shut.[=0x0022=] [This one won[=0x0027=]t, because Instead rules occur after basic accessibility.][=0x000A=][=0x000A=]Test me with [=0x0022=]touch fence / touch box / open box / wear glove / open box[=0x0022=].[=0x000A=]\n', 'Example - Electrified')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Electrified&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8015_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8015_115"></a>A thing can be safe or electrified. A thing is usually safe.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8016_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8016_115"></a><a href="javascript:pasteCode('[=0x0022=]Electrified[=0x0022=][=0x000A=][=0x000A=]A thing can be safe or electrified. A thing is usually safe.[=0x000A=][=0x000A=]The Open Field is a room. [=0x0022=]At this end of the field is a wire fence separating farm country from the government testing grounds beyond.[=0x0022=] The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is [=0x0022=]Built into the fence is [a list of things which are part of the fence].[=0x0022=] The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.[=0x000A=][=0x000A=]The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.[=0x000A=][=0x000A=]This is the electrocution-wisdom rule:[=0x000A=][=0x0009=]if the player wears the very thick rubber glove, make no decision;[=0x000A=][=0x0009=]if the action requires a touchable noun and the noun is electrified, say [=0x0022=]You fear touching [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the action requires a touchable second noun and the second noun is electrified, say [=0x0022=]You fear touching [the second noun].[=0x0022=] instead.[=0x000A=][=0x000A=]The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.[=0x000A=][=0x000A=]Before touching the scary box:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t help noticing a bright red sticker on the surface of the box.[=0x0022=] [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.][=0x000A=][=0x000A=]Instead of opening the scary box:[=0x000A=][=0x0009=]say [=0x0022=]The scary box seems to be super-glued shut.[=0x0022=] [This one won[=0x0027=]t, because Instead rules occur after basic accessibility.][=0x000A=][=0x000A=]Test me with [=0x0022=]touch fence / touch box / open box / wear glove / open box[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Electrified[=0x0022=][=0x000A=][=0x000A=]A thing can be safe or electrified. A thing is usually safe.[=0x000A=][=0x000A=]The Open Field is a room. [=0x0022=]At this end of the field is a wire fence separating farm country from the government testing grounds beyond.[=0x0022=] The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is [=0x0022=]Built into the fence is [a list of things which are part of the fence].[=0x0022=] The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.[=0x000A=][=0x000A=]The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.[=0x000A=][=0x000A=]This is the electrocution-wisdom rule:[=0x000A=][=0x0009=]if the player wears the very thick rubber glove, make no decision;[=0x000A=][=0x0009=]if the action requires a touchable noun and the noun is electrified, say [=0x0022=]You fear touching [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the action requires a touchable second noun and the second noun is electrified, say [=0x0022=]You fear touching [the second noun].[=0x0022=] instead.[=0x000A=][=0x000A=]The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.[=0x000A=][=0x000A=]Before touching the scary box:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t help noticing a bright red sticker on the surface of the box.[=0x0022=] [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.][=0x000A=][=0x000A=]Instead of opening the scary box:[=0x000A=][=0x0009=]say [=0x0022=]The scary box seems to be super-glued shut.[=0x0022=] [This one won[=0x0027=]t, because Instead rules occur after basic accessibility.][=0x000A=][=0x000A=]Test me with [=0x0022=]touch fence / touch box / open box / wear glove / open box[=0x0022=].[=0x000A=]\n', 'Example - Electrified')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Electrified&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8016_115"></a>The Open Field is a room. &quot;At this end of the field is a wire fence separating farm country from the government testing grounds beyond.&quot; The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is &quot;Built into the fence is [a list of things which are part of the fence].&quot; The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8017_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8017_115"></a>A thing can be safe or electrified. A thing is usually safe.
+            <blockquote class="code"><p class="quoted"><a id="c8017_115"></a>The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8018_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8018_115"></a>The Open Field is a room. &quot;At this end of the field is a wire fence separating farm country from the government testing grounds beyond.&quot; The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is &quot;Built into the fence is [a list of things which are part of the fence].&quot; The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8019_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8019_115"></a>The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8020_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8020_115"></a>This is the electrocution-wisdom rule:
+            <blockquote class="code"><p class="quoted"><a id="c8018_115"></a>This is the electrocution-wisdom rule:
             <br>
             &#160;&#160;&#160;&#160;if the player wears the very thick rubber glove, make no decision;
             <br>
@@ -164,27 +164,27 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8021_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8021_115"></a>The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.
+            <!--START CODE "c8019_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8019_115"></a>The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8022_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8022_115"></a>Before touching the scary box:
+            <!--START CODE "c8020_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8020_115"></a>Before touching the scary box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You can't help noticing a bright red sticker on the surface of the box.&quot; [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.]
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8023_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8023_115"></a>Instead of opening the scary box:
+            <!--START CODE "c8021_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8021_115"></a>Instead of opening the scary box:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The scary box seems to be super-glued shut.&quot; [This one won't, because Instead rules occur after basic accessibility.]
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8024_115"-->
-            <blockquote class="code"><p class="quoted"><a id="c8024_115"></a>Test me with &quot;touch fence / touch box / open box / wear glove / open box&quot;.
+            <!--START CODE "c8022_115"-->
+            <blockquote class="code"><p class="quoted"><a id="c8022_115"></a>Test me with &quot;touch fence / touch box / open box / wear glove / open box&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -216,48 +216,48 @@
 
         <div class="egpanel" id="example386" style="display: none;">
             <p>In a game with tight timing, it is sometimes friendliest to the player to let him LOOK and EXAMINE as much as necessary without being penalized.</p>
-            <!--START CODE "c8025_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8025_386"></a><a href="javascript:pasteCode('[=0x0022=]Timeless[=0x0022=][=0x000A=][=0x000A=]Examining something is acting fast. Looking is acting fast.[=0x000A=][=0x000A=][Now we need a rule which, just at the right moment, stops the turn sequence rulebook in the cast of our new fast-acting actions:][=0x000A=][=0x000A=]The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the take visual actions out of world rule: if acting fast, rule succeeds.[=0x000A=][=0x000A=][Thus the rest of the turn sequence rulebook is omitted for looking or examining: in effect, they become out-of-world actions like [=0x0022=]saving the game[=0x0022=]. If we wanted to add, say, taking inventory to the list of instant activities, we would just need to define it as acting fast, too.][=0x000A=][=0x000A=][Now the scenario for testing:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You are cornered by a pack of zombie wolves, armed only with a torch and a pair of pinking shears. This may be your last moment on earth, unless you can think fast![=0x0022=][=0x000A=][=0x000A=]Cleft is a room. [=0x0022=]You[=0x0027=]re backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.[=0x0022=][=0x000A=][=0x000A=]The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.[=0x000A=][=0x000A=]Rule for writing a paragraph about zombie wolves:[=0x000A=][=0x0009=]say [=0x0022=]The good news is that there isn[=0x0027=]t much space in which for the zombie wolves to attack.[=0x0022=];[=0x000A=][=0x0009=]now every zombie wolf is mentioned.[=0x000A=][=0x000A=]A steep high face of stone is scenery in Cleft. Understand [=0x0022=]rock[=0x0022=] as the stone. The description is [=0x0022=]Now that you look more closely, there appear to be pitons driven into the rock.[=0x0022=][=0x000A=][=0x000A=]Some pitons are part of the stone. The description of the pitons is [=0x0022=]It looks as though someone else has made this ascent before.[=0x0022=][=0x000A=][=0x000A=]Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.[=0x000A=][=0x000A=]Above the Cleft is Clifftop.[=0x000A=][=0x000A=]Every turn when the location is Cleft:[=0x000A=][=0x0009=]say [=0x0022=]Alas, your time has run out. The alpha wolf springs--[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=]Every turn when the location is Clifftop:[=0x000A=][=0x0009=]say [=0x0022=]After a breathless climb, you emerge at last onto the open clifftop.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x stone / x pitons / climb pitons[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Timeless[=0x0022=][=0x000A=][=0x000A=]Examining something is acting fast. Looking is acting fast.[=0x000A=][=0x000A=][Now we need a rule which, just at the right moment, stops the turn sequence rulebook in the cast of our new fast-acting actions:][=0x000A=][=0x000A=]The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the take visual actions out of world rule: if acting fast, rule succeeds.[=0x000A=][=0x000A=][Thus the rest of the turn sequence rulebook is omitted for looking or examining: in effect, they become out-of-world actions like [=0x0022=]saving the game[=0x0022=]. If we wanted to add, say, taking inventory to the list of instant activities, we would just need to define it as acting fast, too.][=0x000A=][=0x000A=][Now the scenario for testing:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You are cornered by a pack of zombie wolves, armed only with a torch and a pair of pinking shears. This may be your last moment on earth, unless you can think fast![=0x0022=][=0x000A=][=0x000A=]Cleft is a room. [=0x0022=]You[=0x0027=]re backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.[=0x0022=][=0x000A=][=0x000A=]The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.[=0x000A=][=0x000A=]Rule for writing a paragraph about zombie wolves:[=0x000A=][=0x0009=]say [=0x0022=]The good news is that there isn[=0x0027=]t much space in which for the zombie wolves to attack.[=0x0022=];[=0x000A=][=0x0009=]now every zombie wolf is mentioned.[=0x000A=][=0x000A=]A steep high face of stone is scenery in Cleft. Understand [=0x0022=]rock[=0x0022=] as the stone. The description is [=0x0022=]Now that you look more closely, there appear to be pitons driven into the rock.[=0x0022=][=0x000A=][=0x000A=]Some pitons are part of the stone. The description of the pitons is [=0x0022=]It looks as though someone else has made this ascent before.[=0x0022=][=0x000A=][=0x000A=]Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.[=0x000A=][=0x000A=]Above the Cleft is Clifftop.[=0x000A=][=0x000A=]Every turn when the location is Cleft:[=0x000A=][=0x0009=]say [=0x0022=]Alas, your time has run out. The alpha wolf springs--[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=]Every turn when the location is Clifftop:[=0x000A=][=0x0009=]say [=0x0022=]After a breathless climb, you emerge at last onto the open clifftop.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x stone / x pitons / climb pitons[=0x0022=].[=0x000A=]\n', 'Example - Timeless')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Timeless&quot;
+            <!--START CODE "c8023_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8023_386"></a><a href="javascript:pasteCode('[=0x0022=]Timeless[=0x0022=][=0x000A=][=0x000A=]Examining something is acting fast. Looking is acting fast.[=0x000A=][=0x000A=][Now we need a rule which, just at the right moment, stops the turn sequence rulebook in the cast of our new fast-acting actions:][=0x000A=][=0x000A=]The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the take visual actions out of world rule: if acting fast, rule succeeds.[=0x000A=][=0x000A=][Thus the rest of the turn sequence rulebook is omitted for looking or examining: in effect, they become out-of-world actions like [=0x0022=]saving the game[=0x0022=]. If we wanted to add, say, taking inventory to the list of instant activities, we would just need to define it as acting fast, too.][=0x000A=][=0x000A=][Now the scenario for testing:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You are cornered by a pack of zombie wolves, armed only with a torch and a pair of pinking shears. This may be your last moment on earth, unless you can think fast![=0x0022=][=0x000A=][=0x000A=]Cleft is a room. [=0x0022=]You[=0x0027=]re backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.[=0x0022=][=0x000A=][=0x000A=]The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.[=0x000A=][=0x000A=]Rule for writing a paragraph about zombie wolves:[=0x000A=][=0x0009=]say [=0x0022=]The good news is that there isn[=0x0027=]t much space in which for the zombie wolves to attack.[=0x0022=];[=0x000A=][=0x0009=]now every zombie wolf is mentioned.[=0x000A=][=0x000A=]A steep high face of stone is scenery in Cleft. Understand [=0x0022=]rock[=0x0022=] as the stone. The description is [=0x0022=]Now that you look more closely, there appear to be pitons driven into the rock.[=0x0022=][=0x000A=][=0x000A=]Some pitons are part of the stone. The description of the pitons is [=0x0022=]It looks as though someone else has made this ascent before.[=0x0022=][=0x000A=][=0x000A=]Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.[=0x000A=][=0x000A=]Above the Cleft is Clifftop.[=0x000A=][=0x000A=]Every turn when the location is Cleft:[=0x000A=][=0x0009=]say [=0x0022=]Alas, your time has run out. The alpha wolf springs--[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=]Every turn when the location is Clifftop:[=0x000A=][=0x0009=]say [=0x0022=]After a breathless climb, you emerge at last onto the open clifftop.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x stone / x pitons / climb pitons[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Timeless[=0x0022=][=0x000A=][=0x000A=]Examining something is acting fast. Looking is acting fast.[=0x000A=][=0x000A=][Now we need a rule which, just at the right moment, stops the turn sequence rulebook in the cast of our new fast-acting actions:][=0x000A=][=0x000A=]The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.[=0x000A=][=0x000A=]This is the take visual actions out of world rule: if acting fast, rule succeeds.[=0x000A=][=0x000A=][Thus the rest of the turn sequence rulebook is omitted for looking or examining: in effect, they become out-of-world actions like [=0x0022=]saving the game[=0x0022=]. If we wanted to add, say, taking inventory to the list of instant activities, we would just need to define it as acting fast, too.][=0x000A=][=0x000A=][Now the scenario for testing:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You are cornered by a pack of zombie wolves, armed only with a torch and a pair of pinking shears. This may be your last moment on earth, unless you can think fast![=0x0022=][=0x000A=][=0x000A=]Cleft is a room. [=0x0022=]You[=0x0027=]re backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.[=0x0022=][=0x000A=][=0x000A=]The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.[=0x000A=][=0x000A=]Rule for writing a paragraph about zombie wolves:[=0x000A=][=0x0009=]say [=0x0022=]The good news is that there isn[=0x0027=]t much space in which for the zombie wolves to attack.[=0x0022=];[=0x000A=][=0x0009=]now every zombie wolf is mentioned.[=0x000A=][=0x000A=]A steep high face of stone is scenery in Cleft. Understand [=0x0022=]rock[=0x0022=] as the stone. The description is [=0x0022=]Now that you look more closely, there appear to be pitons driven into the rock.[=0x0022=][=0x000A=][=0x000A=]Some pitons are part of the stone. The description of the pitons is [=0x0022=]It looks as though someone else has made this ascent before.[=0x0022=][=0x000A=][=0x000A=]Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.[=0x000A=][=0x000A=]Above the Cleft is Clifftop.[=0x000A=][=0x000A=]Every turn when the location is Cleft:[=0x000A=][=0x0009=]say [=0x0022=]Alas, your time has run out. The alpha wolf springs--[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=]Every turn when the location is Clifftop:[=0x000A=][=0x0009=]say [=0x0022=]After a breathless climb, you emerge at last onto the open clifftop.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]x me / x stone / x pitons / climb pitons[=0x0022=].[=0x000A=]\n', 'Example - Timeless')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Timeless&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8026_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8026_386"></a>Examining something is acting fast. Looking is acting fast.
+            <!--START CODE "c8024_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8024_386"></a>Examining something is acting fast. Looking is acting fast.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we need a rule which, just at the right moment, stops the turn sequence rulebook in the cast of our new fast-acting actions:</p>
-            <!--START CODE "c8027_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8027_386"></a>The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.
+            <!--START CODE "c8025_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8025_386"></a>The take visual actions out of world rule is listed before the every turn stage rule in the turn sequence rules.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8028_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8028_386"></a>This is the take visual actions out of world rule: if acting fast, rule succeeds.
+            <!--START CODE "c8026_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8026_386"></a>This is the take visual actions out of world rule: if acting fast, rule succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Thus the rest of the turn sequence rulebook is omitted for looking or examining: in effect, they become out-of-world actions like &quot;saving the game&quot;. If we wanted to add, say, taking inventory to the list of instant activities, we would just need to define it as acting fast, too.</p>
             <p>Now the scenario for testing:</p>
-            <!--START CODE "c8029_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8029_386"></a>When play begins:
+            <!--START CODE "c8027_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8027_386"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You are cornered by a pack of zombie wolves, armed only with a torch and a pair of pinking shears. This may be your last moment on earth, unless you can think fast!&quot;
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8028_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8028_386"></a>Cleft is a room. &quot;You're backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8029_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8029_386"></a>The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8030_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8030_386"></a>Cleft is a room. &quot;You're backed into a cleft in the granite: behind you are only steep, high faces of stone, and before you a narrow passage.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8031_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8031_386"></a>The plural of zombie wolf is zombie wolves. A zombie wolf is a kind of animal. Four zombie wolves are in Cleft.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8032_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8032_386"></a>Rule for writing a paragraph about zombie wolves:
+            <blockquote class="code"><p class="quoted"><a id="c8030_386"></a>Rule for writing a paragraph about zombie wolves:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The good news is that there isn't much space in which for the zombie wolves to attack.&quot;;
             <br>
@@ -265,28 +265,28 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8031_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8031_386"></a>A steep high face of stone is scenery in Cleft. Understand &quot;rock&quot; as the stone. The description is &quot;Now that you look more closely, there appear to be pitons driven into the rock.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8032_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8032_386"></a>Some pitons are part of the stone. The description of the pitons is &quot;It looks as though someone else has made this ascent before.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8033_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8033_386"></a>A steep high face of stone is scenery in Cleft. Understand &quot;rock&quot; as the stone. The description is &quot;Now that you look more closely, there appear to be pitons driven into the rock.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8033_386"></a>Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8034_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8034_386"></a>Some pitons are part of the stone. The description of the pitons is &quot;It looks as though someone else has made this ascent before.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8034_386"></a>Above the Cleft is Clifftop.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8035_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8035_386"></a>Instead of climbing the stone, try going up. Instead of climbing the pitons, try going up.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8036_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8036_386"></a>Above the Cleft is Clifftop.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8037_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8037_386"></a>Every turn when the location is Cleft:
+            <blockquote class="code"><p class="quoted"><a id="c8035_386"></a>Every turn when the location is Cleft:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Alas, your time has run out. The alpha wolf springs--&quot;;
             <br>
@@ -294,8 +294,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8038_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8038_386"></a>Every turn when the location is Clifftop:
+            <!--START CODE "c8036_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8036_386"></a>Every turn when the location is Clifftop:
             <br>
             &#160;&#160;&#160;&#160;say &quot;After a breathless climb, you emerge at last onto the open clifftop.&quot;;
             <br>
@@ -303,8 +303,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8039_386"-->
-            <blockquote class="code"><p class="quoted"><a id="c8039_386"></a>Test me with &quot;x me / x stone / x pitons / climb pitons&quot;.
+            <!--START CODE "c8037_386"-->
+            <blockquote class="code"><p class="quoted"><a id="c8037_386"></a>Test me with &quot;x me / x stone / x pitons / climb pitons&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -337,18 +337,18 @@
         <div class="egpanel" id="example121" style="display: none;">
             <p>Here we move to a systematic way of giving different durations to different actions, including even variations on the same act -- so that for instance climbing a steep hill might take several minutes more than other going actions. We do this by setting a number, &quot;work duration&quot;, to represent the number of minutes consumed by a given action, and then consulting a rulebook to find out how long the past turn's action should take. By default, an action will take 1 minute.</p>
             <p>We'll start by emulating the behavior of &quot;Uptempo&quot;: each turn we'll set the clock forward most of the way, then check to see what has changed since the last turn, print any relevant events, and only then set the clock forward the final minute. The exception is when an action is set to take no time at all; in that case, we'll skip the rest of the turn sequence rules entirely.</p>
+            <!--START CODE "c8038_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8038_121"></a><a href="javascript:pasteCode(' [=0x0022=]Endurance[=0x0022=][=0x000A=][=0x000A=]Work duration is a number that varies.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]follow the time allotment rules;[=0x000A=][=0x0009=]if work duration is 0, rule succeeds;[=0x000A=][=0x0009=]increase the time of day by (work duration minutes - 1 minute).[=0x000A=][=0x000A=]The time allotment rules are a rulebook.[=0x000A=][=0x000A=]A time allotment rule for examining or looking:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going:[=0x000A=][=0x0009=]now work duration is 2;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going up:[=0x000A=][=0x0009=]now work duration is 5;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for waiting:[=0x000A=][=0x0009=]now work duration is 10;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]The last time allotment rule:[=0x000A=][=0x0009=]now work duration is 1.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Quai is a room. [=0x0022=]An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.[=0x0022=][=0x000A=][=0x000A=]The Cafe is north of the Quai. [=0x0022=]A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.[=0x0022=][=0x000A=][=0x000A=]The City is above the Quai.[=0x000A=][=0x000A=]After going to the City:[=0x000A=][=0x0009=]say [=0x0022=]You struggle uphill for some distance...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]At 9:15 AM:[=0x000A=][=0x0009=]say [=0x0022=]The bells ring out from Place Carnot.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / n / s / u[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Endurance[=0x0022=][=0x000A=][=0x000A=]Work duration is a number that varies.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]follow the time allotment rules;[=0x000A=][=0x0009=]if work duration is 0, rule succeeds;[=0x000A=][=0x0009=]increase the time of day by (work duration minutes - 1 minute).[=0x000A=][=0x000A=]The time allotment rules are a rulebook.[=0x000A=][=0x000A=]A time allotment rule for examining or looking:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going:[=0x000A=][=0x0009=]now work duration is 2;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going up:[=0x000A=][=0x0009=]now work duration is 5;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for waiting:[=0x000A=][=0x0009=]now work duration is 10;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]The last time allotment rule:[=0x000A=][=0x0009=]now work duration is 1.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Quai is a room. [=0x0022=]An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.[=0x0022=][=0x000A=][=0x000A=]The Cafe is north of the Quai. [=0x0022=]A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.[=0x0022=][=0x000A=][=0x000A=]The City is above the Quai.[=0x000A=][=0x000A=]After going to the City:[=0x000A=][=0x0009=]say [=0x0022=]You struggle uphill for some distance...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]At 9:15 AM:[=0x000A=][=0x0009=]say [=0x0022=]The bells ring out from Place Carnot.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / n / s / u[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Endurance')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Endurance&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8039_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8039_121"></a>Work duration is a number that varies.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8040_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8040_121"></a><a href="javascript:pasteCode(' [=0x0022=]Endurance[=0x0022=][=0x000A=][=0x000A=]Work duration is a number that varies.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]follow the time allotment rules;[=0x000A=][=0x0009=]if work duration is 0, rule succeeds;[=0x000A=][=0x0009=]increase the time of day by (work duration minutes - 1 minute).[=0x000A=][=0x000A=]The time allotment rules are a rulebook.[=0x000A=][=0x000A=]A time allotment rule for examining or looking:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going:[=0x000A=][=0x0009=]now work duration is 2;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going up:[=0x000A=][=0x0009=]now work duration is 5;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for waiting:[=0x000A=][=0x0009=]now work duration is 10;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]The last time allotment rule:[=0x000A=][=0x0009=]now work duration is 1.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Quai is a room. [=0x0022=]An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.[=0x0022=][=0x000A=][=0x000A=]The Cafe is north of the Quai. [=0x0022=]A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.[=0x0022=][=0x000A=][=0x000A=]The City is above the Quai.[=0x000A=][=0x000A=]After going to the City:[=0x000A=][=0x0009=]say [=0x0022=]You struggle uphill for some distance...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]At 9:15 AM:[=0x000A=][=0x0009=]say [=0x0022=]The bells ring out from Place Carnot.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / n / s / u[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Endurance[=0x0022=][=0x000A=][=0x000A=]Work duration is a number that varies.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]increment the turn count;[=0x000A=][=0x0009=]follow the time allotment rules;[=0x000A=][=0x0009=]if work duration is 0, rule succeeds;[=0x000A=][=0x0009=]increase the time of day by (work duration minutes - 1 minute).[=0x000A=][=0x000A=]The time allotment rules are a rulebook.[=0x000A=][=0x000A=]A time allotment rule for examining or looking:[=0x000A=][=0x0009=]now work duration is 0;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going:[=0x000A=][=0x0009=]now work duration is 2;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for going up:[=0x000A=][=0x0009=]now work duration is 5;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]A time allotment rule for waiting:[=0x000A=][=0x0009=]now work duration is 10;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]The last time allotment rule:[=0x000A=][=0x0009=]now work duration is 1.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][time of day][=0x0022=].[=0x000A=][=0x000A=]The Quai is a room. [=0x0022=]An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.[=0x0022=][=0x000A=][=0x000A=]The Cafe is north of the Quai. [=0x0022=]A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.[=0x0022=][=0x000A=][=0x000A=]The City is above the Quai.[=0x000A=][=0x000A=]After going to the City:[=0x000A=][=0x0009=]say [=0x0022=]You struggle uphill for some distance...[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]At 9:15 AM:[=0x000A=][=0x0009=]say [=0x0022=]The bells ring out from Place Carnot.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / n / s / u[=0x0022=].[=0x000A=][=0x000A=][=0x000A=]\n', 'Example - Endurance')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Endurance&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8041_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8041_121"></a>Work duration is a number that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8042_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8042_121"></a>Every turn:
+            <blockquote class="code"><p class="quoted"><a id="c8040_121"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 0;
             <br>
@@ -362,13 +362,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8043_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8043_121"></a>The time allotment rules are a rulebook.
+            <!--START CODE "c8041_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8041_121"></a>The time allotment rules are a rulebook.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8044_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8044_121"></a>A time allotment rule for examining or looking:
+            <!--START CODE "c8042_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8042_121"></a>A time allotment rule for examining or looking:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 0;
             <br>
@@ -376,8 +376,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8045_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8045_121"></a>A time allotment rule for going:
+            <!--START CODE "c8043_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8043_121"></a>A time allotment rule for going:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 2;
             <br>
@@ -385,8 +385,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8046_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8046_121"></a>A time allotment rule for going up:
+            <!--START CODE "c8044_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8044_121"></a>A time allotment rule for going up:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 5;
             <br>
@@ -394,8 +394,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8047_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8047_121"></a>A time allotment rule for waiting:
+            <!--START CODE "c8045_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8045_121"></a>A time allotment rule for waiting:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 10;
             <br>
@@ -403,35 +403,35 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8048_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8048_121"></a>The last time allotment rule:
+            <!--START CODE "c8046_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8046_121"></a>The last time allotment rule:
             <br>
             &#160;&#160;&#160;&#160;now work duration is 1.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8047_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8047_121"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8048_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8048_121"></a>The Quai is a room. &quot;An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8049_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8049_121"></a>When play begins: now the right hand status line is &quot;[time of day]&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c8049_121"></a>The Cafe is north of the Quai. &quot;A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8050_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8050_121"></a>The Quai is a room. &quot;An attractive park at the edge of the river Aude: here you can wander among palm trees, and watch cyclists go by on the bike path; in the water there are ducks. In the cafe to your north, patrons sip their pastis; and above you is the medieval walled city and its castle.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8050_121"></a>The City is above the Quai.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8051_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8051_121"></a>The Cafe is north of the Quai. &quot;A charming collection of umbrella-shaded tables, from which one can watch the river and the walls of the city beyond. The noise of traffic is only a minor distraction.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8052_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8052_121"></a>The City is above the Quai.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8053_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8053_121"></a>After going to the City:
+            <blockquote class="code"><p class="quoted"><a id="c8051_121"></a>After going to the City:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You struggle uphill for some distance...&quot;;
             <br>
@@ -439,15 +439,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8054_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8054_121"></a>At 9:15 AM:
+            <!--START CODE "c8052_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8052_121"></a>At 9:15 AM:
             <br>
             &#160;&#160;&#160;&#160;say &quot;The bells ring out from Place Carnot.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8055_121"-->
-            <blockquote class="code"><p class="quoted"><a id="c8055_121"></a>Test me with &quot;z / n / s / u&quot;.
+            <!--START CODE "c8053_121"-->
+            <blockquote class="code"><p class="quoted"><a id="c8053_121"></a>Test me with &quot;z / n / s / u&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -478,28 +478,28 @@
         </table>
 
         <div class="egpanel" id="example126" style="display: none;">
+            <!--START CODE "c8054_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8054_126"></a><a href="javascript:pasteCode('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n', 'Example - Escape from the Seraglio')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Escape from the Seraglio&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8055_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8055_126"></a>Section 1 - Special Announcement Rules
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8056_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8056_126"></a><a href="javascript:pasteCode('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]\n', 'Example - Escape from the Seraglio')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Escape from the Seraglio&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8056_126"></a>The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8057_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8057_126"></a>Section 1 - Special Announcement Rules
+            <blockquote class="code"><p class="quoted"><a id="c8057_126"></a>The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8058_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8058_126"></a>The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8059_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8059_126"></a>The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8060_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8060_126"></a>This is the friskily announce items from multiple object lists rule:
+            <blockquote class="code"><p class="quoted"><a id="c8058_126"></a>This is the friskily announce items from multiple object lists rule:
             <br>
             &#160;&#160;&#160;&#160;if taking:
             <br>
@@ -515,30 +515,30 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8061_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8061_126"></a>Rule for deciding whether all includes the person asked: it does not.
+            <!--START CODE "c8059_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8059_126"></a>Rule for deciding whether all includes the person asked: it does not.
             <br>
             Rule for deciding whether all includes a person when taking: it does not.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8060_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8060_126"></a>Section 2 - The Scenario
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8061_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8061_126"></a>The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8062_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8062_126"></a>Section 2 - The Scenario
+            <blockquote class="code"><p class="quoted"><a id="c8062_126"></a>The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8063_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8063_126"></a>The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8064_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8064_126"></a>The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8065_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8065_126"></a>A persuasion rule for asking Sarissa to try taking the key:
+            <blockquote class="code"><p class="quoted"><a id="c8063_126"></a>A persuasion rule for asking Sarissa to try taking the key:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Sarissa nervously demurs, knowing that it is forbidden.&quot;;
             <br>
@@ -546,13 +546,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8066_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8066_126"></a>A persuasion rule: persuasion succeeds.
+            <!--START CODE "c8064_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8064_126"></a>A persuasion rule: persuasion succeeds.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8067_126"-->
-            <blockquote class="code"><p class="quoted"><a id="c8067_126"></a>Test me with &quot;take all / drop all / sarissa, take all&quot;.
+            <!--START CODE "c8065_126"-->
+            <blockquote class="code"><p class="quoted"><a id="c8065_126"></a>Test me with &quot;take all / drop all / sarissa, take all&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

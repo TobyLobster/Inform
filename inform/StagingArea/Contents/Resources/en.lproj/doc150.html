@@ -85,8 +85,8 @@
     <p>But when we test the previous section's example, we find that after a brief wait, the train pulls up: but it never goes away again. We have given instructions on how the scene ends, but not when it ends, and as a result the scene goes on forever once started.</p>
     <p>Even with simple story-lines, and this one could hardly be simpler, it is surprisingly easy to overlook something so that the whole story-line is derailed.</p>
     <p>The Scenes page of the index is intended to help with this. The Plot section shows all of the scenes and how they are to begin, along with a key to the symbols used on it. One scene always included is &quot;Entire Game&quot;, a special scene which, as its name implies, is always being played out. But if we look at the Scene index for the previous example, we will also see our Train Stop scene, and find that it is marked with the red warning symbol for &quot;never ends&quot;. Let us fix this:</p>
-    <!--START CODE "c2406"-->
-    <blockquote class="code"><p class="quoted"><a id="c2406"></a>Train Stop ends when the time since Train Stop began is 3 minutes.
+    <!--START CODE "c2405"-->
+    <blockquote class="code"><p class="quoted"><a id="c2405"></a>Train Stop ends when the time since Train Stop began is 3 minutes.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -99,8 +99,8 @@
             <!--definition of ph_scenetimesincebegan-->
 
     <p>    This phrase produces the time since the named scene began, which only makes sense, of course, if it has indeed begun. Example:</p>
-    <!--START CODE "c2407"-->
-    <blockquote class="code"><p class="quoted"><a id="c2407"></a>time since Entire Game began
+    <!--START CODE "c2406"-->
+    <blockquote class="code"><p class="quoted"><a id="c2406"></a>time since Entire Game began
     </p>
     </blockquote>
     <!--END CODE-->
@@ -116,8 +116,8 @@
             <!--definition of ph_scenetimesinceended-->
 
     <p>    This phrase produces the time since the named scene ended, which only makes sense, of course, if it has indeed ended. Example:</p>
-    <!--START CODE "c2408"-->
-    <blockquote class="code"><p class="quoted"><a id="c2408"></a>time since Formal Dinner ended
+    <!--START CODE "c2407"-->
+    <blockquote class="code"><p class="quoted"><a id="c2407"></a>time since Formal Dinner ended
     </p>
     </blockquote>
     <!--END CODE-->
@@ -151,20 +151,20 @@
     </div>
 
     <p>The testing command SCENES causes Inform to monitor the beginning and ending of scenes, and report on them. For instance:</p>
-    <!--START CODE "c2409"-->
-    <blockquote class="code"><p class="quoted"><a id="c2409"></a>&gt;ask monk about lodging
+    <!--START CODE "c2408"-->
+    <blockquote class="code"><p class="quoted"><a id="c2408"></a>&gt;ask monk about lodging
     <br>
     &quot;Welcome a poor traveler for the night?&quot; you ask, rubbing your fingers together to restore a little feeling.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c2410"-->
-    <blockquote class="code"><p class="quoted"><a id="c2410"></a>The monk looks you up and down for a moment and you sense his reaction hanging in the balance; then he slaps you on the back, hard enough to drive the air from your lungs. &quot;In.&quot;
+    <!--START CODE "c2409"-->
+    <blockquote class="code"><p class="quoted"><a id="c2409"></a>The monk looks you up and down for a moment and you sense his reaction hanging in the balance; then he slaps you on the back, hard enough to drive the air from your lungs. &quot;In.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c2411"-->
-    <blockquote class="code"><p class="quoted"><a id="c2411"></a>[Scene 'Greeting' ends]
+    <!--START CODE "c2410"-->
+    <blockquote class="code"><p class="quoted"><a id="c2410"></a>[Scene 'Greeting' ends]
     <br>
     The monk takes your elbow and pushes you imperiously toward dinner.
     <br>
@@ -200,28 +200,28 @@
 
         <div class="egpanel" id="example361" style="display: none;">
             <p>The following source is very short and simple, yet it already feels surprisingly interesting in play, because something is going on which the player does not control but must observe. The single scene both starts and finishes.</p>
+            <!--START CODE "c2411_361"-->
+            <blockquote class="code"><p class="quoted"><a id="c2411_361"></a><a href="javascript:pasteCode('[=0x0022=]Age of Steam[=0x0022=][=0x000A=][=0x000A=]The Station is a room. [=0x0022=]Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.[=0x0022=][=0x000A=][=0x000A=]The Flying Scotsman is fixed in place. [=0x0022=]The Flying Scotsman, fastest train in the world, is now at a dead standstill.[=0x0022=][=0x000A=][=0x000A=]Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.[=0x000A=][=0x000A=]When Train Stop begins:[=0x000A=][=0x0009=]now the Flying Scotsman is in the Station;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman pulls up at the platform, to a billow of steam and hammering.[=0x0022=][=0x000A=][=0x000A=]When Train Stop ends:[=0x000A=][=0x0009=]now the Flying Scotsman is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman inches away, with a squeal of released brakes, gathering speed invincibly until it disappears around the hill. All is abruptly still once more.[=0x0022=][=0x000A=][=0x000A=]Instead of entering the Flying Scotsman, say [=0x0022=]Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / enter flying scotsman / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Age of Steam[=0x0022=][=0x000A=][=0x000A=]The Station is a room. [=0x0022=]Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.[=0x0022=][=0x000A=][=0x000A=]The Flying Scotsman is fixed in place. [=0x0022=]The Flying Scotsman, fastest train in the world, is now at a dead standstill.[=0x0022=][=0x000A=][=0x000A=]Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.[=0x000A=][=0x000A=]When Train Stop begins:[=0x000A=][=0x0009=]now the Flying Scotsman is in the Station;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman pulls up at the platform, to a billow of steam and hammering.[=0x0022=][=0x000A=][=0x000A=]When Train Stop ends:[=0x000A=][=0x0009=]now the Flying Scotsman is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman inches away, with a squeal of released brakes, gathering speed invincibly until it disappears around the hill. All is abruptly still once more.[=0x0022=][=0x000A=][=0x000A=]Instead of entering the Flying Scotsman, say [=0x0022=]Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / enter flying scotsman / z / z[=0x0022=].[=0x000A=]\n', 'Example - Age of Steam')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Age of Steam&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c2412_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2412_361"></a><a href="javascript:pasteCode('[=0x0022=]Age of Steam[=0x0022=][=0x000A=][=0x000A=]The Station is a room. [=0x0022=]Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.[=0x0022=][=0x000A=][=0x000A=]The Flying Scotsman is fixed in place. [=0x0022=]The Flying Scotsman, fastest train in the world, is now at a dead standstill.[=0x0022=][=0x000A=][=0x000A=]Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.[=0x000A=][=0x000A=]When Train Stop begins:[=0x000A=][=0x0009=]now the Flying Scotsman is in the Station;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman pulls up at the platform, to a billow of steam and hammering.[=0x0022=][=0x000A=][=0x000A=]When Train Stop ends:[=0x000A=][=0x0009=]now the Flying Scotsman is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman inches away, with a squeal of released brakes, gathering speed invincibly until it disappears around the hill. All is abruptly still once more.[=0x0022=][=0x000A=][=0x000A=]Instead of entering the Flying Scotsman, say [=0x0022=]Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / enter flying scotsman / z / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Age of Steam[=0x0022=][=0x000A=][=0x000A=]The Station is a room. [=0x0022=]Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.[=0x0022=][=0x000A=][=0x000A=]The Flying Scotsman is fixed in place. [=0x0022=]The Flying Scotsman, fastest train in the world, is now at a dead standstill.[=0x0022=][=0x000A=][=0x000A=]Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.[=0x000A=][=0x000A=]When Train Stop begins:[=0x000A=][=0x0009=]now the Flying Scotsman is in the Station;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman pulls up at the platform, to a billow of steam and hammering.[=0x0022=][=0x000A=][=0x000A=]When Train Stop ends:[=0x000A=][=0x0009=]now the Flying Scotsman is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]The Flying Scotsman inches away, with a squeal of released brakes, gathering speed invincibly until it disappears around the hill. All is abruptly still once more.[=0x0022=][=0x000A=][=0x000A=]Instead of entering the Flying Scotsman, say [=0x0022=]Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / enter flying scotsman / z / z[=0x0022=].[=0x000A=]\n', 'Example - Age of Steam')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Age of Steam&quot;
+            <blockquote class="code"><p class="quoted"><a id="c2412_361"></a>The Station is a room. &quot;Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2413_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2413_361"></a>The Station is a room. &quot;Eynforme Halt is a raised platform fringed with cowslip: a whistle-stop with no more than a signal and a water-tank.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c2413_361"></a>The Flying Scotsman is fixed in place. &quot;The Flying Scotsman, fastest train in the world, is now at a dead standstill.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2414_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2414_361"></a>The Flying Scotsman is fixed in place. &quot;The Flying Scotsman, fastest train in the world, is now at a dead standstill.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c2414_361"></a>Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c2415_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2415_361"></a>Train Stop is a scene. Train Stop begins when the player is in the Station for the third turn. Train Stop ends when the time since Train Stop began is 3 minutes.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c2416_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2416_361"></a>When Train Stop begins:
+            <blockquote class="code"><p class="quoted"><a id="c2415_361"></a>When Train Stop begins:
             <br>
             &#160;&#160;&#160;&#160;now the Flying Scotsman is in the Station;
             <br>
@@ -229,8 +229,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2417_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2417_361"></a>When Train Stop ends:
+            <!--START CODE "c2416_361"-->
+            <blockquote class="code"><p class="quoted"><a id="c2416_361"></a>When Train Stop ends:
             <br>
             &#160;&#160;&#160;&#160;now the Flying Scotsman is nowhere;
             <br>
@@ -238,13 +238,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2418_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2418_361"></a>Instead of entering the Flying Scotsman, say &quot;Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.&quot;
+            <!--START CODE "c2417_361"-->
+            <blockquote class="code"><p class="quoted"><a id="c2417_361"></a>Instead of entering the Flying Scotsman, say &quot;Alas, the [time when Train Stop began] arrival is only to take on water, not to set down or pick up.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2419_361"-->
-            <blockquote class="code"><p class="quoted"><a id="c2419_361"></a>Test me with &quot;z / z / z / enter flying scotsman / z / z&quot;.
+            <!--START CODE "c2418_361"-->
+            <blockquote class="code"><p class="quoted"><a id="c2418_361"></a>Test me with &quot;z / z / z / enter flying scotsman / z / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

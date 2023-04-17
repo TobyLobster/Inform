@@ -2832,6 +2832,8 @@ language English
 	book ... |
 	part ... |
 	chapter ... |
+	section ... ( dialog ) |
+	section ... ( dialogue ) |
 	section ...
 
 <extension-end-marker-sentence> ::=
@@ -2871,6 +2873,9 @@ language English
 	not for release |
 	for release only |
 	unindexed |
+	dialogue |
+	dialog |
+	see { <quoted-text> } |
 	<platform-qualifier> |
 	<extension-qualifier>
 
@@ -3019,10 +3024,12 @@ language English
 	wearing |
 	possession |
 	visibility |
+	audibility |
 	touchability |
 	concealment |
 	enclosure |
-	room-containment
+	room-containment |
+	dialogue-containment
 
 <no-primary-verb-diagnosis> ::=
 	... <no-primary-verb-diagnosis-tail> |
@@ -3110,23 +3117,23 @@ language English
 <translation-target-unicode> ::=
 	unicode
 
-<translates-into-unicode-sentence-subject> ::=
-	( ... ) |
-	...
-
-<translates-into-unicode-sentence-object> ::=
-	<cardinal-number-unlimited> |
-	...[issues PM_UnicodeNonLiteral]
-
 <translation-target-i6> ::=
 	inter |
 	i6 |
 	inform 6
 
+<defined-by-inter-sentence-object> ::=
+	defined by inter as ...
+
+<accessible-to-inter-sentence-object> ::=
+	accessible to inter as ...
+
 <translates-into-i6-sentence-subject> ::=
 	... property |
 	... object/kind |
 	{... rule} |
+	{... rules/rulebook} |
+	{... activity} |
 	... variable |
 	... action |
 	understand token ... |
@@ -3336,6 +3343,10 @@ language English
 	preamble optional |
 	without leading zeros |
 	......[issues PM_BadLPPartOption]
+
+<new-relation-sentence-subject> ::=
+	<article> <np-unparsed> |
+	<np-unparsed>
 
 <new-relation-sentence-object> ::=
 	<np-unparsed> to <np-unparsed>
@@ -3823,6 +3834,19 @@ language English
 	{when ... begins} |
 	{when ... ends} |
 	...
+
+<notable-rulebooks> ::=
+	action-processing |
+	after |
+	before |
+	carry out |
+	check |
+	instead |
+	report |
+	setting action variables |
+	unsuccessful attempt by |
+	when scene begins |
+	when scene ends
 
 <named-rulebook-outcome> internal
 
@@ -4588,6 +4612,10 @@ language English
 	of |
 	<article>
 
+<silently-modifier> ::=
+	silently ... |
+	... silently
+
 <notable-rulebook-outcomes> ::=
 	it is very likely |
 	it is likely |
@@ -5183,6 +5211,7 @@ language English
 
 <understand-ref> ::=
 	<action-name> |
+	<action-pattern> |[issues PM_UnderstandActionPattern]
 	<s-descriptive-type-expression> |
 	<s-variable> |[issues PM_UnderstandVariable]
 	...[issues PM_UnderstandVague]
@@ -5253,6 +5282,84 @@ language English
 
 <named-grammar-token> internal
 
+<notable-dialogue-properties> ::=
+	elaborated |
+	performed
+
+<notable-dialogue-activities> ::=
+	offering |
+	performing
+
+<dialogue-beat-clause> ::=
+	this is the { ... beat } |
+	this is the ... scene |
+	about ... |
+	if ... |
+	unless ... |
+	after ... |
+	immediately after ... |
+	before ... |
+	requiring nothing |
+	requiring ... |
+	later |
+	next |
+	...
+
+<dialogue-beat-starting-name> ::=
+	starting beat
+
+<dialogue-beat-name-construction> ::=
+	... beat |
+	... scene
+
+<dialogue-is-narration> ::=
+	narration
+
+<dialogue-line-clause> ::=
+	this is the { ... line } |
+	mentioning ... |
+	if ... |
+	unless ... |
+	before ... |
+	after ... |
+	to ... |
+	now ... |
+	without speaking |
+	...
+
+<speaker-description> ::=
+	<definite-article> player |
+	player |
+	<s-type-expression>
+
+<dialogue-choice-clause> ::=
+	this is the { ... choice } |
+	if ... |
+	unless ... |
+	...
+
+<dialogue-selection> ::=
+	<quoted-text> |
+	another choice |
+	stop |
+	end the story |
+	end the story finally |
+	end the story saying { <quoted-text> } |
+	end the story finally |
+	end the story finally saying { <quoted-text> } |
+	otherwise |
+	instead of ... |
+	after ... |
+	before ... |
+	perform <definite-article> ... |
+	perform ...
+
+<performance-style-name-convention> ::=
+	spoken ...
+
+<notable-performance-styles> ::=
+	spoken normally
+
 <new-figure-sentence-object> ::=
 	<definite-article> <new-figure-sentence-object-unarticled> |
 	<new-figure-sentence-object-unarticled>
@@ -5295,6 +5402,8 @@ language English
 
 <external-file-sentence-subject> ::=
 	<definite-article> <external-file-sentence-subject> |
+	internal data/binary <external-file-name> |
+	internal text <external-file-name> |
 	text <external-file-name> |
 	binary <external-file-name> |
 	<external-file-name>

@@ -83,23 +83,23 @@
     <p>So far, what we have done in response to the player's commands amounts to little more than a few ripostes. The simulated world does change during play, as the player moves from room to room or picks up things, but all of this is happening automatically, not at our direct instruction. How then can we make the world change?</p>
     <p>Recall that the world consists of rooms, in which are things, and that all of these have properties appropriate to their kinds. Some properties are either/or (&quot;open&quot; or &quot;closed&quot; but not both and not neither), while others have values (the &quot;matching key&quot; of a lockable door, for instance). Finally, we may also have created some free-standing values or &quot;variables&quot;.</p>
     <p>We take the last example first, as it is the simplest. Suppose we have:</p>
+    <!--START CODE "c1718"-->
+    <blockquote class="code"><p class="quoted"><a id="c1718"></a><a href="javascript:pasteCode('[=0x0022=]Winds of Change[=0x0022=][=0x000A=][=0x000A=]The prevailing wind is a direction that varies. The prevailing wind is northwest.[=0x000A=][=0x000A=]The Blasted Heath is a room. [=0x0022=]Merely an arena for the play of witches and kings, my dear, where the [prevailing wind] wind blows.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the prevailing wind is northwest:[=0x000A=][=0x0009=]say [=0x0022=]A fresh gust of wind bowls you over.[=0x0022=];[=0x000A=][=0x0009=]now the prevailing wind is east.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> &quot;Winds of Change&quot;
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <!--START CODE "c1719"-->
-    <blockquote class="code"><p class="quoted"><a id="c1719"></a><a href="javascript:pasteCode('[=0x0022=]Winds of Change[=0x0022=][=0x000A=][=0x000A=]The prevailing wind is a direction that varies. The prevailing wind is northwest.[=0x000A=][=0x000A=]The Blasted Heath is a room. [=0x0022=]Merely an arena for the play of witches and kings, my dear, where the [prevailing wind] wind blows.[=0x0022=][=0x000A=][=0x000A=]Instead of waiting when the prevailing wind is northwest:[=0x000A=][=0x0009=]say [=0x0022=]A fresh gust of wind bowls you over.[=0x0022=];[=0x000A=][=0x0009=]now the prevailing wind is east.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> &quot;Winds of Change&quot;
+    <blockquote class="code"><p class="quoted"><a id="c1719"></a>The prevailing wind is a direction that varies. The prevailing wind is northwest.
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c1720"-->
-    <blockquote class="code"><p class="quoted"><a id="c1720"></a>The prevailing wind is a direction that varies. The prevailing wind is northwest.
+    <blockquote class="code"><p class="quoted"><a id="c1720"></a>The Blasted Heath is a room. &quot;Merely an arena for the play of witches and kings, my dear, where the [prevailing wind] wind blows.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <!--START CODE "c1721"-->
-    <blockquote class="code"><p class="quoted"><a id="c1721"></a>The Blasted Heath is a room. &quot;Merely an arena for the play of witches and kings, my dear, where the [prevailing wind] wind blows.&quot;
-    </p>
-    </blockquote>
-    <!--END CODE-->
-    <!--START CODE "c1722"-->
-    <blockquote class="code"><p class="quoted"><a id="c1722"></a>Instead of waiting when the prevailing wind is northwest:
+    <blockquote class="code"><p class="quoted"><a id="c1721"></a>Instead of waiting when the prevailing wind is northwest:
     <br>
     &#160;&#160;&#160;&#160;say &quot;A fresh gust of wind bowls you over.&quot;;
     <br>
@@ -108,21 +108,21 @@
     </blockquote>
     <!--END CODE-->
     <p>The new phrase here is &quot;now&quot;. This automatically checks that the new value is one which makes sense in the given context, so for instance it would not allow either of these:</p>
-    <!--START CODE "c1723"-->
-    <blockquote class="code"><p class="quoted"><a id="c1723"></a>now the prevailing wind is 25;
+    <!--START CODE "c1722"-->
+    <blockquote class="code"><p class="quoted"><a id="c1722"></a>now the prevailing wind is 25;
     <br>
     now the prevailing wind is the Heath;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>the former being a number, and the latter a room, so that neither is a direction. Similarly, &quot;now&quot; will not allow constant values to be changed. So</p>
-    <!--START CODE "c1724"-->
-    <blockquote class="code"><p class="quoted"><a id="c1724"></a>Colour is a kind of value. The colours are blue, red and mauve.
+    <!--START CODE "c1723"-->
+    <blockquote class="code"><p class="quoted"><a id="c1723"></a>Colour is a kind of value. The colours are blue, red and mauve.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c1725"-->
-    <blockquote class="code"><p class="quoted"><a id="c1725"></a>After pulling the psychedelic lever:
+    <!--START CODE "c1724"-->
+    <blockquote class="code"><p class="quoted"><a id="c1724"></a>After pulling the psychedelic lever:
     <br>
     &#160;&#160;&#160;&#160;now blue is mauve.
     </p>

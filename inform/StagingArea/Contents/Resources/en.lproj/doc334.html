@@ -84,14 +84,14 @@
     <p class="sectionheading">§19.10. Rulebook variables</p>
     <p>When a rulebook is intended to perform some complicated task or calculation, it is sometimes useful for earlier rules to be able to leave information which will help later ones.</p>
     <p>For instance, suppose we want a rulebook which is intended to print out the player's current aptitude. We will suppose that this is a number from 0 upwards: the higher, the apter. The player gets bonus aptitude marks for achievements, but marks deducted for accidents, and so on. Moreover, we want to design this system so that it's easy to add further rules. The natural solution is to have a number which varies (or 'variable') acting as the running aptitude total: it should start at 0 and be altered up or down by subsequent rules. First, we should make the rulebook, and then add a variable:</p>
-    <!--START CODE "c7861"-->
-    <blockquote class="code"><p class="quoted"><a id="c7861"></a>Aptitude is a rulebook. The aptitude rulebook has a number called the aptitude mark.
+    <!--START CODE "c7859"-->
+    <blockquote class="code"><p class="quoted"><a id="c7859"></a>Aptitude is a rulebook. The aptitude rulebook has a number called the aptitude mark.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The new value 'aptitude mark' is shared by the rules of the rulebook: nobody else can see it. It is created at the start of the rulebook being followed, and destroyed at the end. (If the rulebook should be followed a second time inside of itself, a new copy is created which does not disturb the old one.) So, in this case, 'aptitude mark' is started as 0 (since it is a number) each time the aptitude rules run. We can then write whatever rules we please to modify it:</p>
-    <!--START CODE "c7862"-->
-    <blockquote class="code"><p class="quoted"><a id="c7862"></a>An aptitude rule:
+    <!--START CODE "c7860"-->
+    <blockquote class="code"><p class="quoted"><a id="c7860"></a>An aptitude rule:
     <br>
     &#160;&#160;&#160;&#160;if in darkness:
     <br>
@@ -99,8 +99,8 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c7863"-->
-    <blockquote class="code"><p class="quoted"><a id="c7863"></a>An aptitude rule:
+    <!--START CODE "c7861"-->
+    <blockquote class="code"><p class="quoted"><a id="c7861"></a>An aptitude rule:
     <br>
     &#160;&#160;&#160;&#160;if we have taken the idol:
     <br>
@@ -109,8 +109,8 @@
     </blockquote>
     <!--END CODE-->
     <p>And we had better do something with the result:</p>
-    <!--START CODE "c7864"-->
-    <blockquote class="code"><p class="quoted"><a id="c7864"></a>The last aptitude rule: say &quot;Your aptitude rating is [aptitude mark].&quot;
+    <!--START CODE "c7862"-->
+    <blockquote class="code"><p class="quoted"><a id="c7862"></a>The last aptitude rule: say &quot;Your aptitude rating is [aptitude mark].&quot;
     </p>
     </blockquote>
     <!--END CODE-->

@@ -83,8 +83,8 @@
     <!--END IGNORE-->
     <p class="sectionheading">§11.16. New conditions, new adjectives</p>
     <p>We can create new conditions by defining a phrase with &quot;to decide whether&quot; (or equivalently &quot;to decide if&quot;):</p>
-    <!--START CODE "c3018"-->
-    <blockquote class="code"><p class="quoted"><a id="c3018"></a>To decide whether danger lurks:
+    <!--START CODE "c3017"-->
+    <blockquote class="code"><p class="quoted"><a id="c3017"></a>To decide whether danger lurks:
     <br>
     &#160;&#160;&#160;&#160;if in darkness, decide yes;
     <br>
@@ -95,8 +95,8 @@
     </blockquote>
     <!--END CODE-->
     <p>If the player is indeed in darkness, the decision is &quot;yes&quot; because the &quot;decide yes&quot; stops the process right there. We can now write, for instance,</p>
-    <!--START CODE "c3019"-->
-    <blockquote class="code"><p class="quoted"><a id="c3019"></a>if danger lurks, ...
+    <!--START CODE "c3018"-->
+    <blockquote class="code"><p class="quoted"><a id="c3018"></a>if danger lurks, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -130,14 +130,14 @@
     </div>
 
     <p>We can also supply definitions of adjectives like this. So far, new adjectives have been defined like so:</p>
-    <!--START CODE "c3020"-->
-    <blockquote class="code"><p class="quoted"><a id="c3020"></a><a href="javascript:pasteCode('Definition: a supporter is occupied if it is described and something is on it.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Definition: a supporter is occupied if it is described and something is on it.
+    <!--START CODE "c3019"-->
+    <blockquote class="code"><p class="quoted"><a id="c3019"></a><a href="javascript:pasteCode('Definition: a supporter is occupied if it is described and something is on it.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Definition: a supporter is occupied if it is described and something is on it.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If we want to give a definition which involves more complex logic, we can use a special form allowing us to make arbitrary decisions. In this longer format, the same definition would look like so:</p>
-    <!--START CODE "c3021"-->
-    <blockquote class="code"><p class="quoted"><a id="c3021"></a><a href="javascript:pasteCode('Definition: a supporter is occupied:[=0x000A=][=0x0009=]if it is undescribed, decide no;[=0x000A=][=0x0009=]if something is on it, decide yes;[=0x000A=][=0x0009=]decide no.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Definition: a supporter is occupied:
+    <!--START CODE "c3020"-->
+    <blockquote class="code"><p class="quoted"><a id="c3020"></a><a href="javascript:pasteCode('Definition: a supporter is occupied:[=0x000A=][=0x0009=]if it is undescribed, decide no;[=0x000A=][=0x0009=]if something is on it, decide yes;[=0x000A=][=0x0009=]decide no.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> Definition: a supporter is occupied:
     <br>
     &#160;&#160;&#160;&#160;if it is undescribed, decide no;
     <br>
@@ -148,8 +148,8 @@
     </blockquote>
     <!--END CODE-->
     <p>Here &quot;it&quot; refers to the supporter in question. Note that there are now two colons in this sentence, one after &quot;Definition&quot;, the other after the clause being defined. But that apart, it's a phrase like any other: it must end in &quot;yes&quot; or &quot;no&quot; just as the &quot;danger lurks&quot; example must. &quot;Decide no&quot; and &quot;decide yes&quot; are needed so often that they can be abbreviated by leaving out &quot;decide&quot;:</p>
-    <!--START CODE "c3022"-->
-    <blockquote class="code"><p class="quoted"><a id="c3022"></a>Definition: a supporter is occupied:
+    <!--START CODE "c3021"-->
+    <blockquote class="code"><p class="quoted"><a id="c3021"></a>Definition: a supporter is occupied:
     <br>
     &#160;&#160;&#160;&#160;if it is undescribed, no;
     <br>
@@ -188,18 +188,18 @@
         <div class="egpanel" id="example277" style="display: none;">
             <p>Suppose we want the game to interpret &quot;GO OUT&quot; as &quot;move towards an outdoors room, or towards a room with more exits than the current room&quot;, while &quot;GO IN&quot; means &quot;move toward a room with fewer exits, or towards an indoors room&quot;. Thus going in repeatedly within a building would lead towards dead-ends, while going out repeatedly would lead towards the center of the building and then towards an exit to the outside world.</p>
             <p>We start by encoding these rules as definitions:</p>
+            <!--START CODE "c3022_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3022_277"></a><a href="javascript:pasteCode('[=0x0022=]Owen[=0x0027=]s Law[=0x0022=][=0x000A=][=0x000A=]A room can be indoors or outdoors. A room is usually indoors.[=0x000A=][=0x000A=]Definition: a room is outward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is greater than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Definition: a room is inward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is less than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Instead of going nowhere when the noun is outside: try exiting.[=0x000A=][=0x000A=]Instead of exiting when the player is in a room:[=0x000A=][=0x0009=]if at least one room is outward:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random outward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to[=0x0009=] the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s not entirely obvious which way you mean. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=]Instead of going inside when the room inside from the location is not a room and at least one room is inward:[=0x000A=][=0x0009=]if more than one room is inward:[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random inward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead.[=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=][This [=0x0022=]listing available exits[=0x0022=] is a refinement borrowed from a future chapter, which allows us to specify special listing and printing rules:][=0x000A=][=0x000A=]Listing available exits is an activity.[=0x000A=][=0x000A=]Rule for listing available exits:[=0x000A=][=0x0009=]if going inside and an adjacent room is inward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]in[=0x0027=] could reasonably mean [a list of adjacent inward rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if exiting and an adjacent room is outward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]out[=0x0027=] could reasonably mean [a list of outward adjacent rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]From here you can go [a list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Before printing the name of a room (called the target) while listing available exits:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][aim] to the [=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of an unvisited room which is not the location:[=0x000A=][=0x0009=]say [=0x0022=]unknown location[=0x0022=].[=0x000A=][=0x000A=]Dune is an outdoors room. [=0x0022=]Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.[=0x0022=][=0x000A=][=0x000A=]Ocean Shores Military Installation is east of the Dune. It is an outdoors room. [=0x0022=]The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.[=0x0022=][=0x000A=][=0x000A=]Walkway is above Ocean Shores Military Installation. [=0x0022=]From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.[=0x0022=][=0x000A=][=0x000A=]Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually [=0x0022=]It is dark in here, and feels unsafe.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / u / d / in / s / out / n / out / e / in / out / out / out[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Owen[=0x0027=]s Law[=0x0022=][=0x000A=][=0x000A=]A room can be indoors or outdoors. A room is usually indoors.[=0x000A=][=0x000A=]Definition: a room is outward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is greater than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Definition: a room is inward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is less than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Instead of going nowhere when the noun is outside: try exiting.[=0x000A=][=0x000A=]Instead of exiting when the player is in a room:[=0x000A=][=0x0009=]if at least one room is outward:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random outward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to[=0x0009=] the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s not entirely obvious which way you mean. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=]Instead of going inside when the room inside from the location is not a room and at least one room is inward:[=0x000A=][=0x0009=]if more than one room is inward:[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random inward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead.[=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=][This [=0x0022=]listing available exits[=0x0022=] is a refinement borrowed from a future chapter, which allows us to specify special listing and printing rules:][=0x000A=][=0x000A=]Listing available exits is an activity.[=0x000A=][=0x000A=]Rule for listing available exits:[=0x000A=][=0x0009=]if going inside and an adjacent room is inward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]in[=0x0027=] could reasonably mean [a list of adjacent inward rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if exiting and an adjacent room is outward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]out[=0x0027=] could reasonably mean [a list of outward adjacent rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]From here you can go [a list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Before printing the name of a room (called the target) while listing available exits:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][aim] to the [=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of an unvisited room which is not the location:[=0x000A=][=0x0009=]say [=0x0022=]unknown location[=0x0022=].[=0x000A=][=0x000A=]Dune is an outdoors room. [=0x0022=]Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.[=0x0022=][=0x000A=][=0x000A=]Ocean Shores Military Installation is east of the Dune. It is an outdoors room. [=0x0022=]The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.[=0x0022=][=0x000A=][=0x000A=]Walkway is above Ocean Shores Military Installation. [=0x0022=]From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.[=0x0022=][=0x000A=][=0x000A=]Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually [=0x0022=]It is dark in here, and feels unsafe.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / u / d / in / s / out / n / out / e / in / out / out / out[=0x0022=].[=0x000A=]\n', 'Example - Owen[=0x0027=]s Law')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Owen's Law&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3023_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3023_277"></a><a href="javascript:pasteCode('[=0x0022=]Owen[=0x0027=]s Law[=0x0022=][=0x000A=][=0x000A=]A room can be indoors or outdoors. A room is usually indoors.[=0x000A=][=0x000A=]Definition: a room is outward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is greater than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Definition: a room is inward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is less than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Instead of going nowhere when the noun is outside: try exiting.[=0x000A=][=0x000A=]Instead of exiting when the player is in a room:[=0x000A=][=0x0009=]if at least one room is outward:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random outward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to[=0x0009=] the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s not entirely obvious which way you mean. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=]Instead of going inside when the room inside from the location is not a room and at least one room is inward:[=0x000A=][=0x0009=]if more than one room is inward:[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random inward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead.[=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=][This [=0x0022=]listing available exits[=0x0022=] is a refinement borrowed from a future chapter, which allows us to specify special listing and printing rules:][=0x000A=][=0x000A=]Listing available exits is an activity.[=0x000A=][=0x000A=]Rule for listing available exits:[=0x000A=][=0x0009=]if going inside and an adjacent room is inward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]in[=0x0027=] could reasonably mean [a list of adjacent inward rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if exiting and an adjacent room is outward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]out[=0x0027=] could reasonably mean [a list of outward adjacent rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]From here you can go [a list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Before printing the name of a room (called the target) while listing available exits:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][aim] to the [=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of an unvisited room which is not the location:[=0x000A=][=0x0009=]say [=0x0022=]unknown location[=0x0022=].[=0x000A=][=0x000A=]Dune is an outdoors room. [=0x0022=]Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.[=0x0022=][=0x000A=][=0x000A=]Ocean Shores Military Installation is east of the Dune. It is an outdoors room. [=0x0022=]The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.[=0x0022=][=0x000A=][=0x000A=]Walkway is above Ocean Shores Military Installation. [=0x0022=]From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.[=0x0022=][=0x000A=][=0x000A=]Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually [=0x0022=]It is dark in here, and feels unsafe.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / u / d / in / s / out / n / out / e / in / out / out / out[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Owen[=0x0027=]s Law[=0x0022=][=0x000A=][=0x000A=]A room can be indoors or outdoors. A room is usually indoors.[=0x000A=][=0x000A=]Definition: a room is outward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is greater than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Definition: a room is inward:[=0x000A=][=0x0009=]if it is not adjacent, no;[=0x000A=][=0x0009=]if it is outdoors and the location is indoors, no;[=0x000A=][=0x0009=]if it is indoors and the location is outdoors, yes;[=0x000A=][=0x0009=]if the number of rooms adjacent to it is less than the number of rooms adjacent to the location, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Instead of going nowhere when the noun is outside: try exiting.[=0x000A=][=0x000A=]Instead of exiting when the player is in a room:[=0x000A=][=0x0009=]if at least one room is outward:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random outward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to[=0x0009=] the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It[=0x0027=]s not entirely obvious which way you mean. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=]Instead of going inside when the room inside from the location is not a room and at least one room is inward:[=0x000A=][=0x0009=]if more than one room is inward:[=0x000A=][=0x0009=][=0x0009=]carry out the listing available exits activity;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let the destination be a random inward room;[=0x000A=][=0x0009=][=0x0009=]let the way be the best route from the location to the destination;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](that is, [way])[command clarification break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try going the way instead.[=0x000A=][=0x000A=]Instead of going nowhere:[=0x000A=][=0x0009=]carry out the listing available exits activity.[=0x000A=][=0x000A=][This [=0x0022=]listing available exits[=0x0022=] is a refinement borrowed from a future chapter, which allows us to specify special listing and printing rules:][=0x000A=][=0x000A=]Listing available exits is an activity.[=0x000A=][=0x000A=]Rule for listing available exits:[=0x000A=][=0x0009=]if going inside and an adjacent room is inward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]in[=0x0027=] could reasonably mean [a list of adjacent inward rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]if exiting and an adjacent room is outward:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]From here [=0x0027=]out[=0x0027=] could reasonably mean [a list of outward adjacent rooms].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]From here you can go [a list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Before printing the name of a room (called the target) while listing available exits:[=0x000A=][=0x0009=]let aim be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][aim] to the [=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of an unvisited room which is not the location:[=0x000A=][=0x0009=]say [=0x0022=]unknown location[=0x0022=].[=0x000A=][=0x000A=]Dune is an outdoors room. [=0x0022=]Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.[=0x0022=][=0x000A=][=0x000A=]Ocean Shores Military Installation is east of the Dune. It is an outdoors room. [=0x0022=]The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.[=0x0022=][=0x000A=][=0x000A=]Walkway is above Ocean Shores Military Installation. [=0x0022=]From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.[=0x0022=][=0x000A=][=0x000A=]Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually [=0x0022=]It is dark in here, and feels unsafe.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]e / u / d / in / s / out / n / out / e / in / out / out / out[=0x0022=].[=0x000A=]\n', 'Example - Owen[=0x0027=]s Law')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Owen's Law&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3023_277"></a>A room can be indoors or outdoors. A room is usually indoors.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3024_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3024_277"></a>A room can be indoors or outdoors. A room is usually indoors.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3025_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3025_277"></a>Definition: a room is outward:
+            <blockquote class="code"><p class="quoted"><a id="c3024_277"></a>Definition: a room is outward:
             <br>
             &#160;&#160;&#160;&#160;if it is not adjacent, no;
             <br>
@@ -213,8 +213,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3026_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3026_277"></a>Definition: a room is inward:
+            <!--START CODE "c3025_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3025_277"></a>Definition: a room is inward:
             <br>
             &#160;&#160;&#160;&#160;if it is not adjacent, no;
             <br>
@@ -228,13 +228,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3027_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3027_277"></a>Instead of going nowhere when the noun is outside: try exiting.
+            <!--START CODE "c3026_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3026_277"></a>Instead of going nowhere when the noun is outside: try exiting.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3028_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3028_277"></a>Instead of exiting when the player is in a room:
+            <!--START CODE "c3027_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3027_277"></a>Instead of exiting when the player is in a room:
             <br>
             &#160;&#160;&#160;&#160;if at least one room is outward:
             <br>
@@ -254,8 +254,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3029_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3029_277"></a>Instead of going inside when the room inside from the location is not a room and at least one room is inward:
+            <!--START CODE "c3028_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3028_277"></a>Instead of going inside when the room inside from the location is not a room and at least one room is inward:
             <br>
             &#160;&#160;&#160;&#160;if more than one room is inward:
             <br>
@@ -273,21 +273,21 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3030_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3030_277"></a>Instead of going nowhere:
+            <!--START CODE "c3029_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3029_277"></a>Instead of going nowhere:
             <br>
             &#160;&#160;&#160;&#160;carry out the listing available exits activity.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>This &quot;listing available exits&quot; is a refinement borrowed from a future chapter, which allows us to specify special listing and printing rules:</p>
-            <!--START CODE "c3031_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3031_277"></a>Listing available exits is an activity.
+            <!--START CODE "c3030_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3030_277"></a>Listing available exits is an activity.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3032_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3032_277"></a>Rule for listing available exits:
+            <!--START CODE "c3031_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3031_277"></a>Rule for listing available exits:
             <br>
             &#160;&#160;&#160;&#160;if going inside and an adjacent room is inward:
             <br>
@@ -305,8 +305,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3033_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3033_277"></a>Before printing the name of a room (called the target) while listing available exits:
+            <!--START CODE "c3032_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3032_277"></a>Before printing the name of a room (called the target) while listing available exits:
             <br>
             &#160;&#160;&#160;&#160;let aim be the best route from the location to the target;
             <br>
@@ -314,35 +314,35 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3034_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3034_277"></a>Rule for printing the name of an unvisited room which is not the location:
+            <!--START CODE "c3033_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3033_277"></a>Rule for printing the name of an unvisited room which is not the location:
             <br>
             &#160;&#160;&#160;&#160;say &quot;unknown location&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c3034_277"-->
+            <blockquote class="code"><p class="quoted"><a id="c3034_277"></a>Dune is an outdoors room. &quot;Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3035_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3035_277"></a>Dune is an outdoors room. &quot;Hundreds of feet of dune stretch west to the beach, crisscrossed with dune-buggy tracks and the footprints of birds. To the east is a low-lying, boxy concrete installation.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3035_277"></a>Ocean Shores Military Installation is east of the Dune. It is an outdoors room. &quot;The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3036_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3036_277"></a>Ocean Shores Military Installation is east of the Dune. It is an outdoors room. &quot;The World War II emplacements, built in case of Japanese invasion, have never been destroyed, though with all the weapons and furnishings gone it is difficult to make much sense of the original structure. A doorway leads west into concrete-lined darkness; a rusty but reliable ladder ascends to a walkway overlooking the sea.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3036_277"></a>Walkway is above Ocean Shores Military Installation. &quot;From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3037_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3037_277"></a>Walkway is above Ocean Shores Military Installation. &quot;From here you have a long view of the dunes and the Pacific Ocean, complete with the rotting hull of a long-stranded vessel.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3037_277"></a>Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually &quot;It is dark in here, and feels unsafe.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3038_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3038_277"></a>Dark Echoing Room is inside from Ocean Shores Military Installation. Dank Dripping Room is east of Dark Echoing Room. Narrow Room is south of Dark Echoing Room. Small Sealed Chamber is north of Dark Echoing Room. Room Smelling of Animal Urine is north of Dank Dripping Room. The description of a room is usually &quot;It is dark in here, and feels unsafe.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3039_277"-->
-            <blockquote class="code"><p class="quoted"><a id="c3039_277"></a>Test me with &quot;e / u / d / in / s / out / n / out / e / in / out / out / out&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c3038_277"></a>Test me with &quot;e / u / d / in / s / out / n / out / e / in / out / out / out&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

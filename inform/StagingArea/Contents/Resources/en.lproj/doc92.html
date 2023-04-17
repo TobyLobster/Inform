@@ -83,29 +83,29 @@
     <!--END IGNORE-->
     <p class="sectionheading">§6.13. To be able to see and touch</p>
     <p>Two of the adjectives built into Inform are:</p>
-    <!--START CODE "c1129"-->
-    <blockquote class="code"><p class="quoted"><a id="c1129"></a>&quot;visible&quot; - the player can see this
+    <!--START CODE "c1128"-->
+    <blockquote class="code"><p class="quoted"><a id="c1128"></a>&quot;visible&quot; - the player can see this
     <br>
     &quot;touchable&quot; - the player can touch this
     </p>
     </blockquote>
     <!--END CODE-->
     <p>So we can write descriptions such as &quot;someone visible&quot; or &quot;a touchable container&quot;. We also have adjectives &quot;invisible&quot; and &quot;untouchable&quot;, as might be expected. The visibility adjectives are particularly useful because the following is likely to go wrong:</p>
-    <!--START CODE "c1130"-->
-    <blockquote class="code"><p class="quoted"><a id="c1130"></a>if Helen is in a dark room, ...
+    <!--START CODE "c1129"-->
+    <blockquote class="code"><p class="quoted"><a id="c1129"></a>if Helen is in a dark room, ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This tests whether the room is dark, of itself; Helen may in fact be able to see by means of a torch, but the room is still &quot;dark&quot;.</p>
     <p>We can also talk about what other people can see and touch:</p>
-    <!--START CODE "c1131"-->
-    <blockquote class="code"><p class="quoted"><a id="c1131"></a>something which can be seen by Helen
+    <!--START CODE "c1130"-->
+    <blockquote class="code"><p class="quoted"><a id="c1130"></a>something which can be seen by Helen
     </p>
     </blockquote>
     <!--END CODE-->
     <p>are synonymous. Similarly for touch; and we can write such conditions as</p>
-    <!--START CODE "c1132"-->
-    <blockquote class="code"><p class="quoted"><a id="c1132"></a>if Helen cannot see Agamemnon, ...
+    <!--START CODE "c1131"-->
+    <blockquote class="code"><p class="quoted"><a id="c1131"></a>if Helen cannot see Agamemnon, ...
     <br>
     if Cressida can see Troilus, ...
     </p>
@@ -113,8 +113,8 @@
     <!--END CODE-->
     <p>Note that it is essential to establish who does the seeing and touching: so &quot;something which can be seen&quot; will not be allowed, whereas &quot;something which can be seen by Helen&quot; will.</p>
     <p>In fact, inside Inform the adjective &quot;invisible&quot; (for instance) has the following straightforward definition:</p>
-    <!--START CODE "c1133"-->
-    <blockquote class="code"><p class="quoted"><a id="c1133"></a>Definition: Something is invisible if the player cannot see it.
+    <!--START CODE "c1132"-->
+    <blockquote class="code"><p class="quoted"><a id="c1132"></a>Definition: Something is invisible if the player cannot see it.
     </p>
     </blockquote>
     <!--END CODE-->
@@ -146,41 +146,41 @@
         </table>
 
         <div class="egpanel" id="example168" style="display: none;">
+            <!--START CODE "c1133_168"-->
+            <blockquote class="code"><p class="quoted"><a id="c1133_168"></a><a href="javascript:pasteCode('[=0x0022=]Lean and Hungry[=0x0022=][=0x000A=][=0x000A=]Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.[=0x000A=][=0x000A=]Definition: a thing is valuable if it is not lead.[=0x000A=][=0x000A=]The Limestone Cave is a room. [=0x0022=]Not very big, and it doesn[=0x0027=]t go back far, but you[=0x0027=]d hoped to find some shelter here. Outside it is raining exceptionally hard.[=0x0022=][=0x000A=][=0x000A=]The sinister gentleman is a man in the Cave. [=0x0022=]Leaning against the wall is a sinister gentleman in a threadbare waistcoat.[=0x0022=] The description is [=0x0022=]He looks as though he might once have been quite well off.[=0x0022=][=0x000A=][=0x000A=]After examining the gentleman:[=0x000A=][=0x0009=]say [=0x0022=][The noun] smiles back at you in an unnerving fashion.[=0x0022=][=0x000A=][=0x000A=][Now we make the rule that governs the gentleman[=0x0027=]s behavior. Here we[=0x0027=]re going to invoke the rules that allow characters besides the player to do actions. More about this can be found in the Advanced Actions chapter:][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the sinister gentleman can touch something valuable (called the treasure) which is not carried by a person:[=0x000A=][=0x0009=][=0x0009=]try the gentleman taking the treasure.[=0x000A=][=0x000A=]Report the gentleman taking something:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The gentleman] slyly acquires [the noun] and tucks it into his pocket.[=0x0022=] instead.[=0x000A=][=0x000A=][That [=0x0022=]not carried by a person[=0x0022=] prevents the gentleman from stealing from the player (or, less plausibly, from himself). If we did want him to pick pockets, we could just have said [=0x0022=]which is not carried by the gentleman[=0x0022=].][=0x000A=][=0x000A=]The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.[=0x000A=][=0x000A=]A locket is in the Cave. The locket is gold. [=0x0022=]A broken gold locket lies on the ground, a token of your late Mama.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lean and Hungry[=0x0022=][=0x000A=][=0x000A=]Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.[=0x000A=][=0x000A=]Definition: a thing is valuable if it is not lead.[=0x000A=][=0x000A=]The Limestone Cave is a room. [=0x0022=]Not very big, and it doesn[=0x0027=]t go back far, but you[=0x0027=]d hoped to find some shelter here. Outside it is raining exceptionally hard.[=0x0022=][=0x000A=][=0x000A=]The sinister gentleman is a man in the Cave. [=0x0022=]Leaning against the wall is a sinister gentleman in a threadbare waistcoat.[=0x0022=] The description is [=0x0022=]He looks as though he might once have been quite well off.[=0x0022=][=0x000A=][=0x000A=]After examining the gentleman:[=0x000A=][=0x0009=]say [=0x0022=][The noun] smiles back at you in an unnerving fashion.[=0x0022=][=0x000A=][=0x000A=][Now we make the rule that governs the gentleman[=0x0027=]s behavior. Here we[=0x0027=]re going to invoke the rules that allow characters besides the player to do actions. More about this can be found in the Advanced Actions chapter:][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the sinister gentleman can touch something valuable (called the treasure) which is not carried by a person:[=0x000A=][=0x0009=][=0x0009=]try the gentleman taking the treasure.[=0x000A=][=0x000A=]Report the gentleman taking something:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The gentleman] slyly acquires [the noun] and tucks it into his pocket.[=0x0022=] instead.[=0x000A=][=0x000A=][That [=0x0022=]not carried by a person[=0x0022=] prevents the gentleman from stealing from the player (or, less plausibly, from himself). If we did want him to pick pockets, we could just have said [=0x0022=]which is not carried by the gentleman[=0x0022=].][=0x000A=][=0x000A=]The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.[=0x000A=][=0x000A=]A locket is in the Cave. The locket is gold. [=0x0022=]A broken gold locket lies on the ground, a token of your late Mama.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look[=0x0022=].[=0x000A=]\n', 'Example - Lean and Hungry')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lean and Hungry&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1134_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1134_168"></a><a href="javascript:pasteCode('[=0x0022=]Lean and Hungry[=0x0022=][=0x000A=][=0x000A=]Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.[=0x000A=][=0x000A=]Definition: a thing is valuable if it is not lead.[=0x000A=][=0x000A=]The Limestone Cave is a room. [=0x0022=]Not very big, and it doesn[=0x0027=]t go back far, but you[=0x0027=]d hoped to find some shelter here. Outside it is raining exceptionally hard.[=0x0022=][=0x000A=][=0x000A=]The sinister gentleman is a man in the Cave. [=0x0022=]Leaning against the wall is a sinister gentleman in a threadbare waistcoat.[=0x0022=] The description is [=0x0022=]He looks as though he might once have been quite well off.[=0x0022=][=0x000A=][=0x000A=]After examining the gentleman:[=0x000A=][=0x0009=]say [=0x0022=][The noun] smiles back at you in an unnerving fashion.[=0x0022=][=0x000A=][=0x000A=][Now we make the rule that governs the gentleman[=0x0027=]s behavior. Here we[=0x0027=]re going to invoke the rules that allow characters besides the player to do actions. More about this can be found in the Advanced Actions chapter:][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the sinister gentleman can touch something valuable (called the treasure) which is not carried by a person:[=0x000A=][=0x0009=][=0x0009=]try the gentleman taking the treasure.[=0x000A=][=0x000A=]Report the gentleman taking something:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The gentleman] slyly acquires [the noun] and tucks it into his pocket.[=0x0022=] instead.[=0x000A=][=0x000A=][That [=0x0022=]not carried by a person[=0x0022=] prevents the gentleman from stealing from the player (or, less plausibly, from himself). If we did want him to pick pockets, we could just have said [=0x0022=]which is not carried by the gentleman[=0x0022=].][=0x000A=][=0x000A=]The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.[=0x000A=][=0x000A=]A locket is in the Cave. The locket is gold. [=0x0022=]A broken gold locket lies on the ground, a token of your late Mama.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Lean and Hungry[=0x0022=][=0x000A=][=0x000A=]Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.[=0x000A=][=0x000A=]Definition: a thing is valuable if it is not lead.[=0x000A=][=0x000A=]The Limestone Cave is a room. [=0x0022=]Not very big, and it doesn[=0x0027=]t go back far, but you[=0x0027=]d hoped to find some shelter here. Outside it is raining exceptionally hard.[=0x0022=][=0x000A=][=0x000A=]The sinister gentleman is a man in the Cave. [=0x0022=]Leaning against the wall is a sinister gentleman in a threadbare waistcoat.[=0x0022=] The description is [=0x0022=]He looks as though he might once have been quite well off.[=0x0022=][=0x000A=][=0x000A=]After examining the gentleman:[=0x000A=][=0x0009=]say [=0x0022=][The noun] smiles back at you in an unnerving fashion.[=0x0022=][=0x000A=][=0x000A=][Now we make the rule that governs the gentleman[=0x0027=]s behavior. Here we[=0x0027=]re going to invoke the rules that allow characters besides the player to do actions. More about this can be found in the Advanced Actions chapter:][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the sinister gentleman can touch something valuable (called the treasure) which is not carried by a person:[=0x000A=][=0x0009=][=0x0009=]try the gentleman taking the treasure.[=0x000A=][=0x000A=]Report the gentleman taking something:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The gentleman] slyly acquires [the noun] and tucks it into his pocket.[=0x0022=] instead.[=0x000A=][=0x000A=][That [=0x0022=]not carried by a person[=0x0022=] prevents the gentleman from stealing from the player (or, less plausibly, from himself). If we did want him to pick pockets, we could just have said [=0x0022=]which is not carried by the gentleman[=0x0022=].][=0x000A=][=0x000A=]The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.[=0x000A=][=0x000A=]A locket is in the Cave. The locket is gold. [=0x0022=]A broken gold locket lies on the ground, a token of your late Mama.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look[=0x0022=].[=0x000A=]\n', 'Example - Lean and Hungry')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Lean and Hungry&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1134_168"></a>Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1135_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1135_168"></a>Substance is a kind of value. The substances are silver, gold, and lead. Everything has a substance. A thing is usually lead.
+            <blockquote class="code"><p class="quoted"><a id="c1135_168"></a>Definition: a thing is valuable if it is not lead.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1136_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1136_168"></a>Definition: a thing is valuable if it is not lead.
+            <blockquote class="code"><p class="quoted"><a id="c1136_168"></a>The Limestone Cave is a room. &quot;Not very big, and it doesn't go back far, but you'd hoped to find some shelter here. Outside it is raining exceptionally hard.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1137_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1137_168"></a>The Limestone Cave is a room. &quot;Not very big, and it doesn't go back far, but you'd hoped to find some shelter here. Outside it is raining exceptionally hard.&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1137_168"></a>The sinister gentleman is a man in the Cave. &quot;Leaning against the wall is a sinister gentleman in a threadbare waistcoat.&quot; The description is &quot;He looks as though he might once have been quite well off.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1138_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1138_168"></a>The sinister gentleman is a man in the Cave. &quot;Leaning against the wall is a sinister gentleman in a threadbare waistcoat.&quot; The description is &quot;He looks as though he might once have been quite well off.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1139_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1139_168"></a>After examining the gentleman:
+            <blockquote class="code"><p class="quoted"><a id="c1138_168"></a>After examining the gentleman:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The noun] smiles back at you in an unnerving fashion.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now we make the rule that governs the gentleman's behavior. Here we're going to invoke the rules that allow characters besides the player to do actions. More about this can be found in the Advanced Actions chapter:</p>
-            <!--START CODE "c1140_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1140_168"></a>Every turn:
+            <!--START CODE "c1139_168"-->
+            <blockquote class="code"><p class="quoted"><a id="c1139_168"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if the sinister gentleman can touch something valuable (called the treasure) which is not carried by a person:
             <br>
@@ -188,26 +188,26 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1141_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1141_168"></a>Report the gentleman taking something:
+            <!--START CODE "c1140_168"-->
+            <blockquote class="code"><p class="quoted"><a id="c1140_168"></a>Report the gentleman taking something:
             <br>
             &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;say &quot;[The gentleman] slyly acquires [the noun] and tucks it into his pocket.&quot; instead.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>That &quot;not carried by a person&quot; prevents the gentleman from stealing from the player (or, less plausibly, from himself). If we did want him to pick pockets, we could just have said &quot;which is not carried by the gentleman&quot;.</p>
+            <!--START CODE "c1141_168"-->
+            <blockquote class="code"><p class="quoted"><a id="c1141_168"></a>The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1142_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1142_168"></a>The player is carrying a coin, a bust of Abraham Lincoln, a bottle of sherry, a small pistol, and a wad of Confederate cash. The coin is gold. The pistol is silver.
+            <blockquote class="code"><p class="quoted"><a id="c1142_168"></a>A locket is in the Cave. The locket is gold. &quot;A broken gold locket lies on the ground, a token of your late Mama.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1143_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1143_168"></a>A locket is in the Cave. The locket is gold. &quot;A broken gold locket lies on the ground, a token of your late Mama.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1144_168"-->
-            <blockquote class="code"><p class="quoted"><a id="c1144_168"></a>Test me with &quot;get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1143_168"></a>Test me with &quot;get locket / i / drop locket / z / drop cash / z / x gentleman / drop all / z / z / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

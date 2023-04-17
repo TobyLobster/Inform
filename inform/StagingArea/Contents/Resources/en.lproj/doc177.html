@@ -84,28 +84,28 @@
     <p class="sectionheading">§12.3. Giving instructions to other people</p>
     <p>So far, all actions have been carried out by the player: which is fine for exploring the passive world of an empty warehouse, but less good for a drama in which other characters have to be contended with. In fact, an action can be carried out by anybody - by any instance of the &quot;person&quot; kind, that is, which includes all the men, women and animals in the story, and not only the player.</p>
     <p>In interactive fiction, players conventionally ask other characters to do something with commands like so:</p>
-    <!--START CODE "c3097"-->
-    <blockquote class="code"><p class="quoted"><a id="c3097"></a>&gt; will, go west
+    <!--START CODE "c3096"-->
+    <blockquote class="code"><p class="quoted"><a id="c3096"></a>&gt; will, go west
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Clearly &quot;will, go west&quot; should not produce the same action as &quot;go west&quot;, because a different person will be trying it: this person is called the &quot;actor&quot;, and while the actor is ordinarily the player, here it is the character called Will. Inform distinguishes these two actions like so:</p>
-    <!--START CODE "c3098"-->
-    <blockquote class="code"><p class="quoted"><a id="c3098"></a>going west
+    <!--START CODE "c3097"-->
+    <blockquote class="code"><p class="quoted"><a id="c3097"></a>going west
     <br>
     asking Will to try going west
     </p>
     </blockquote>
     <!--END CODE-->
     <p>As a result, we can write rules like so:</p>
-    <!--START CODE "c3099"-->
-    <blockquote class="code"><p class="quoted"><a id="c3099"></a>Instead of asking Will to try going west, say &quot;Will scratches his head, baffled by this talk of westward. Is not the ocean without bound?&quot;
+    <!--START CODE "c3098"-->
+    <blockquote class="code"><p class="quoted"><a id="c3098"></a>Instead of asking Will to try going west, say &quot;Will scratches his head, baffled by this talk of westward. Is not the ocean without bound?&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>To write rules like this, we sometimes want to generalise about who is supposed to do the deed. To do this we can refer to &quot;person asked&quot;, just as the &quot;noun&quot; stands for whatever noun was typed:</p>
-    <!--START CODE "c3100"-->
-    <blockquote class="code"><p class="quoted"><a id="c3100"></a>Instead of asking somebody to try taking something, say &quot;I don't think we ought to tempt [the person asked] into theft, surely?&quot;
+    <!--START CODE "c3099"-->
+    <blockquote class="code"><p class="quoted"><a id="c3099"></a>Instead of asking somebody to try taking something, say &quot;I don't think we ought to tempt [the person asked] into theft, surely?&quot;
     </p>
     </blockquote>
     <!--END CODE-->
@@ -137,28 +137,28 @@
         </table>
 
         <div class="egpanel" id="example415" style="display: none;">
+            <!--START CODE "c3100_415"-->
+            <blockquote class="code"><p class="quoted"><a id="c3100_415"></a><a href="javascript:pasteCode('[=0x0022=]Virtue[=0x0022=][=0x000A=][=0x000A=]The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.[=0x000A=][=0x000A=]Attacking someone is misbehavior. Kissing someone is misbehavior.[=0x000A=][=0x000A=]Instead of asking someone to try misbehavior: say [=0x0022=][The person asked] stiffens, offended by your suggestion.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]kiss margaret / margaret, kiss me[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Virtue[=0x0022=][=0x000A=][=0x000A=]The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.[=0x000A=][=0x000A=]Attacking someone is misbehavior. Kissing someone is misbehavior.[=0x000A=][=0x000A=]Instead of asking someone to try misbehavior: say [=0x0022=][The person asked] stiffens, offended by your suggestion.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]kiss margaret / margaret, kiss me[=0x0022=].[=0x000A=]\n', 'Example - Virtue')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Virtue&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3101_415"-->
-            <blockquote class="code"><p class="quoted"><a id="c3101_415"></a><a href="javascript:pasteCode('[=0x0022=]Virtue[=0x0022=][=0x000A=][=0x000A=]The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.[=0x000A=][=0x000A=]Attacking someone is misbehavior. Kissing someone is misbehavior.[=0x000A=][=0x000A=]Instead of asking someone to try misbehavior: say [=0x0022=][The person asked] stiffens, offended by your suggestion.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]kiss margaret / margaret, kiss me[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Virtue[=0x0022=][=0x000A=][=0x000A=]The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.[=0x000A=][=0x000A=]Attacking someone is misbehavior. Kissing someone is misbehavior.[=0x000A=][=0x000A=]Instead of asking someone to try misbehavior: say [=0x0022=][The person asked] stiffens, offended by your suggestion.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]kiss margaret / margaret, kiss me[=0x0022=].[=0x000A=]\n', 'Example - Virtue')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Virtue&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3101_415"></a>The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3102_415"-->
-            <blockquote class="code"><p class="quoted"><a id="c3102_415"></a>The Cloister is a room. Lady Teresa is a woman in the Cloister. Mother Margaret is a woman in the Cloister.
+            <blockquote class="code"><p class="quoted"><a id="c3102_415"></a>Attacking someone is misbehavior. Kissing someone is misbehavior.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3103_415"-->
-            <blockquote class="code"><p class="quoted"><a id="c3103_415"></a>Attacking someone is misbehavior. Kissing someone is misbehavior.
+            <blockquote class="code"><p class="quoted"><a id="c3103_415"></a>Instead of asking someone to try misbehavior: say &quot;[The person asked] stiffens, offended by your suggestion.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3104_415"-->
-            <blockquote class="code"><p class="quoted"><a id="c3104_415"></a>Instead of asking someone to try misbehavior: say &quot;[The person asked] stiffens, offended by your suggestion.&quot;
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3105_415"-->
-            <blockquote class="code"><p class="quoted"><a id="c3105_415"></a>Test me with &quot;kiss margaret / margaret, kiss me&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c3104_415"></a>Test me with &quot;kiss margaret / margaret, kiss me&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -190,61 +190,61 @@
 
         <div class="egpanel" id="example186" style="display: none;">
             <p>To begin with, we create an action for going to a named place. All that this action will do is to change that person's hoped-for destination: the actual moving around comes later.</p>
+            <!--START CODE "c3105_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3105_186"></a><a href="javascript:pasteCode('[=0x0022=]Latris Theon[=0x0022=][=0x000A=][=0x000A=]A person has a room called destination.[=0x000A=][=0x000A=]Understand [=0x0022=]go to [any room][=0x0022=] as going vaguely.[=0x000A=][=0x000A=]Going vaguely is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out someone going vaguely:[=0x000A=][=0x0009=]now the destination of the person asked is the noun.[=0x000A=][=0x000A=]Report someone going vaguely:[=0x000A=][=0x0009=]say [=0x0022=][The person asked] looks amused, but accepts the commission to go to [the noun].[=0x0022=][=0x000A=][=0x000A=][It stands to reason the player plays Zeus or at the very least Apollo, but let[=0x0027=]s not let this go to the player[=0x0027=]s head. Note that the following rule applies to the player, but not to anyone else, so HERMES, GO TO ATHENS will work but GO TO ATHENS will not.][=0x000A=][=0x000A=]Carry out going vaguely:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re too thoroughly lost.[=0x0022=][=0x000A=][=0x000A=][And finally we recreate Greece and one of its heroes.][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.][=0x000A=][=0x000A=]Every turn when the destination of Hermes is not the location of Hermes:[=0x000A=][=0x0009=]let the right direction be the best route from the location of Hermes to the destination of Hermes;[=0x000A=][=0x0009=]try Hermes going the right direction.[=0x000A=][=0x000A=]Test me with [=0x0022=]hermes, go to athens / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Latris Theon[=0x0022=][=0x000A=][=0x000A=]A person has a room called destination.[=0x000A=][=0x000A=]Understand [=0x0022=]go to [any room][=0x0022=] as going vaguely.[=0x000A=][=0x000A=]Going vaguely is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out someone going vaguely:[=0x000A=][=0x0009=]now the destination of the person asked is the noun.[=0x000A=][=0x000A=]Report someone going vaguely:[=0x000A=][=0x0009=]say [=0x0022=][The person asked] looks amused, but accepts the commission to go to [the noun].[=0x0022=][=0x000A=][=0x000A=][It stands to reason the player plays Zeus or at the very least Apollo, but let[=0x0027=]s not let this go to the player[=0x0027=]s head. Note that the following rule applies to the player, but not to anyone else, so HERMES, GO TO ATHENS will work but GO TO ATHENS will not.][=0x000A=][=0x000A=]Carry out going vaguely:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re too thoroughly lost.[=0x0022=][=0x000A=][=0x000A=][And finally we recreate Greece and one of its heroes.][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.][=0x000A=][=0x000A=]Every turn when the destination of Hermes is not the location of Hermes:[=0x000A=][=0x0009=]let the right direction be the best route from the location of Hermes to the destination of Hermes;[=0x000A=][=0x0009=]try Hermes going the right direction.[=0x000A=][=0x000A=]Test me with [=0x0022=]hermes, go to athens / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Latris Theon')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Latris Theon&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3106_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3106_186"></a><a href="javascript:pasteCode('[=0x0022=]Latris Theon[=0x0022=][=0x000A=][=0x000A=]A person has a room called destination.[=0x000A=][=0x000A=]Understand [=0x0022=]go to [any room][=0x0022=] as going vaguely.[=0x000A=][=0x000A=]Going vaguely is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out someone going vaguely:[=0x000A=][=0x0009=]now the destination of the person asked is the noun.[=0x000A=][=0x000A=]Report someone going vaguely:[=0x000A=][=0x0009=]say [=0x0022=][The person asked] looks amused, but accepts the commission to go to [the noun].[=0x0022=][=0x000A=][=0x000A=][It stands to reason the player plays Zeus or at the very least Apollo, but let[=0x0027=]s not let this go to the player[=0x0027=]s head. Note that the following rule applies to the player, but not to anyone else, so HERMES, GO TO ATHENS will work but GO TO ATHENS will not.][=0x000A=][=0x000A=]Carry out going vaguely:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re too thoroughly lost.[=0x0022=][=0x000A=][=0x000A=][And finally we recreate Greece and one of its heroes.][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.][=0x000A=][=0x000A=]Every turn when the destination of Hermes is not the location of Hermes:[=0x000A=][=0x0009=]let the right direction be the best route from the location of Hermes to the destination of Hermes;[=0x000A=][=0x0009=]try Hermes going the right direction.[=0x000A=][=0x000A=]Test me with [=0x0022=]hermes, go to athens / e[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Latris Theon[=0x0022=][=0x000A=][=0x000A=]A person has a room called destination.[=0x000A=][=0x000A=]Understand [=0x0022=]go to [any room][=0x0022=] as going vaguely.[=0x000A=][=0x000A=]Going vaguely is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out someone going vaguely:[=0x000A=][=0x0009=]now the destination of the person asked is the noun.[=0x000A=][=0x000A=]Report someone going vaguely:[=0x000A=][=0x0009=]say [=0x0022=][The person asked] looks amused, but accepts the commission to go to [the noun].[=0x0022=][=0x000A=][=0x000A=][It stands to reason the player plays Zeus or at the very least Apollo, but let[=0x0027=]s not let this go to the player[=0x0027=]s head. Note that the following rule applies to the player, but not to anyone else, so HERMES, GO TO ATHENS will work but GO TO ATHENS will not.][=0x000A=][=0x000A=]Carry out going vaguely:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re too thoroughly lost.[=0x0022=][=0x000A=][=0x000A=][And finally we recreate Greece and one of its heroes.][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.][=0x000A=][=0x000A=]Every turn when the destination of Hermes is not the location of Hermes:[=0x000A=][=0x0009=]let the right direction be the best route from the location of Hermes to the destination of Hermes;[=0x000A=][=0x0009=]try Hermes going the right direction.[=0x000A=][=0x000A=]Test me with [=0x0022=]hermes, go to athens / e[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Latris Theon')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Latris Theon&quot;
+            <blockquote class="code"><p class="quoted"><a id="c3106_186"></a>A person has a room called destination.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3107_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3107_186"></a>A person has a room called destination.
+            <blockquote class="code"><p class="quoted"><a id="c3107_186"></a>Understand &quot;go to [any room]&quot; as going vaguely.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3108_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3108_186"></a>Understand &quot;go to [any room]&quot; as going vaguely.
+            <blockquote class="code"><p class="quoted"><a id="c3108_186"></a>Going vaguely is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3109_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3109_186"></a>Going vaguely is an action applying to one visible thing.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3110_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3110_186"></a>Carry out someone going vaguely:
+            <blockquote class="code"><p class="quoted"><a id="c3109_186"></a>Carry out someone going vaguely:
             <br>
             &#160;&#160;&#160;&#160;now the destination of the person asked is the noun.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3111_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3111_186"></a>Report someone going vaguely:
+            <!--START CODE "c3110_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3110_186"></a>Report someone going vaguely:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The person asked] looks amused, but accepts the commission to go to [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>It stands to reason the player plays Zeus or at the very least Apollo, but let's not let this go to the player's head. Note that the following rule applies to the player, but not to anyone else, so HERMES, GO TO ATHENS will work but GO TO ATHENS will not.</p>
-            <!--START CODE "c3112_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3112_186"></a>Carry out going vaguely:
+            <!--START CODE "c3111_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3111_186"></a>Carry out going vaguely:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You're too thoroughly lost.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>And finally we recreate Greece and one of its heroes.</p>
+            <!--START CODE "c3112_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3112_186"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c3113_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3113_186"></a>Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.
+            <blockquote class="code"><p class="quoted"><a id="c3113_186"></a>Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.]
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c3114_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3114_186"></a>Hermes is a man in Corinth. The destination of Hermes is Corinth. [So he is initially happy where he is.] Persuasion rule for asking Hermes to try going vaguely: persuasion succeeds. [But he is open to suggestions.]
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c3115_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3115_186"></a>Every turn when the destination of Hermes is not the location of Hermes:
+            <blockquote class="code"><p class="quoted"><a id="c3114_186"></a>Every turn when the destination of Hermes is not the location of Hermes:
             <br>
             &#160;&#160;&#160;&#160;let the right direction be the best route from the location of Hermes to the destination of Hermes;
             <br>
@@ -252,14 +252,14 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c3116_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3116_186"></a>Test me with &quot;hermes, go to athens / e&quot;.
+            <!--START CODE "c3115_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3115_186"></a>Test me with &quot;hermes, go to athens / e&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>It simplifies matters that our map of Greece makes it possible to reach any location from any other location, by some sequence of movements: if there were an isolated location -- say, Crete -- with no map connection to the mainland, then we would have to worry about the &quot;right direction&quot; not being a direction at all. The following version of Hermes' trekking rule is protected against the possibility:</p>
-            <!--START CODE "c3117_186"-->
-            <blockquote class="code"><p class="quoted"><a id="c3117_186"></a>Every turn when the destination of Hermes is not the location of Hermes:
+            <!--START CODE "c3116_186"-->
+            <blockquote class="code"><p class="quoted"><a id="c3116_186"></a>Every turn when the destination of Hermes is not the location of Hermes:
             <br>
             &#160;&#160;&#160;&#160;let the right direction be the best route from the location of Hermes to the destination of Hermes;
             <br>

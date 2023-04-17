@@ -4,7 +4,7 @@ import argparse
 import plistlib
 import re
 import os
-from pbxproj import XcodeProject        # Install from https://github.com/TobyLobster/mod-pbxproj-fork/
+from pbxproj import XcodeProject        # Install from https://github.com/kronenthaler/mod-pbxproj
 
 
 # Version numbers
@@ -90,12 +90,15 @@ if development_team == None:
 if standalone:
     code_sign_identity = 'Developer ID Application'
     sandbox = False
+    sign_child_projects = True
 elif develop:
     code_sign_identity = 'Apple Development'
     sandbox = False
+    sign_child_projects = True
 elif mas:
-    code_sign_identity = '3rd Party Mac Developer Application'
+    code_sign_identity = 'Apple Distribution'       # Was '3rd Party Mac Developer Application'
     sandbox = True
+    sign_child_projects = False
 else:
     print("ERROR: Unknown configuration option")
     exit(1)
@@ -115,21 +118,41 @@ project_filenames = [
     'zoom/depends/CocoaGlk/GlkSound/SFBAudioEngine/SFBAudioEngine.xcodeproj/project.pbxproj',
 ]
 
+script_dir = os.path.abspath(os.path.dirname(__file__))
+
 # Edit each project file in turn
 for proj_name in project_filenames:
     # load the project
     project = XcodeProject.load(proj_name)
 
     # Set code signing flags for the Project
+    set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual')
     set_project_flags(project, 'CODE_SIGN_IDENTITY', code_sign_identity)
     set_project_flags(project, 'DEVELOPMENT_TEAM', development_team)
-    set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual')
+#    project.remove_project_flags('CODE_SIGN_ENTITLEMENTS', None)
+    set_project_flags(project, 'CODE_SIGN_ENTITLEMENTS', '')
+    if not sign_child_projects:
+        set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual', 'git')
+        project.remove_project_flags('CODE_SIGN_IDENTITY', '', 'git')
+        project.remove_project_flags('DEVELOPMENT_TEAM', None, 'git')
+        set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual', 'glulxe')
+        project.remove_project_flags('CODE_SIGN_IDENTITY', '', 'glulxe')
+        project.remove_project_flags('DEVELOPMENT_TEAM', None, 'glulxe')
 
     # Remove code signing flags from all Targets, so that they follow the Project settings
     project.remove_flags('CODE_SIGN_IDENTITY', None)
     project.remove_flags('DEVELOPMENT_TEAM', None)
     project.remove_flags('CODE_SIGN_STYLE', None)
     project.remove_flags('PROVISIONING_PROFILE_SPECIFIER', None)
+#    project.remove_flags('PRODUCT_BUNDLE_IDENTIFIER', None)
+
+    # Set sandboxing as needed
+    set_project_flags(project, 'ENABLE_APP_SANDBOX', 'YES' if sandbox else 'NO')
+#    set_project_flags(project, 'ENABLE_USER_SELECTED_FILES', 'readwrite' if sandbox else '""')
+
+
+    set_project_flags(project, 'CODE_SIGN_ENTITLEMENTS', script_dir + '/inform/Inform-inherit.entitlements', 'git')
+    set_project_flags(project, 'CODE_SIGN_ENTITLEMENTS', script_dir + '/inform/Inform-inherit.entitlements', 'glulxe')
 
     # Make both Intel and Apple Silicon versions, always
     project.remove_project_flags('ONLY_ACTIVE_ARCH', None)
@@ -149,6 +172,14 @@ for proj_name in project_filenames:
     if proj_name.__contains__('CocoaGlk.xcodeproj'):
         project.set_flags('SKIP_INSTALL', 'YES', "GlkView")
 
+        # Set plist and entitlements only for the real executables git-client and glulxe-client
+        project.set_flags('INFOPLIST_FILE', script_dir + "/inform/Distribution/git-client.plist", 'git')
+        project.set_flags('INFOPLIST_FILE', script_dir + "/inform/Distribution/glulxe-client.plist", 'glulxe')
+        project.set_flags('CREATE_INFOPLIST_IN_BINARY', 'YES', 'git')
+        project.set_flags('CREATE_INFOPLIST_IN_BINARY', 'YES', 'glulxe')
+        project.set_flags('CODE_SIGN_ENTITLEMENTS', script_dir + '/inform/Inform-inherit.entitlements', 'git')
+        project.set_flags('CODE_SIGN_ENTITLEMENTS', script_dir + '/inform/Inform-inherit.entitlements', 'glulxe')
+
     # save the project
     project.save()
 
@@ -164,6 +195,11 @@ project = XcodeProject.load('inform/Inform.xcodeproj/project.pbxproj')
 set_project_flags(project, 'CODE_SIGN_IDENTITY', code_sign_identity)
 set_project_flags(project, 'DEVELOPMENT_TEAM', development_team)
 set_project_flags(project, 'CODE_SIGN_STYLE', 'Manual')
+
+# Set sandboxing as needed
+set_project_flags(project, 'ENABLE_APP_SANDBOX', 'YES' if sandbox else 'NO')
+set_project_flags(project, 'ENABLE_USER_SELECTED_FILES', 'readwrite' if sandbox else '""')
+set_project_flags(project, 'PRODUCT_BUNDLE_IDENTIFIER', 'com.inform7.inform-compiler')
 
 # Remove code signing flags from all Targets, so that they follow the Project settings
 project.remove_flags('CODE_SIGN_IDENTITY', None)
@@ -184,7 +220,6 @@ project.remove_flags('ENABLE_HARDENED_RUNTIME', None)       # Remove setting fro
 
 # save the project
 project.save()
-
 
 #########################################################################################
 # plist editing

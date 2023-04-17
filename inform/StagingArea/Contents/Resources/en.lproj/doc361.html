@@ -83,31 +83,31 @@
     <p>Most of the time, what's created in an Inform source text will have a name which can be used as a value - sometimes openly so, sometimes not. In this book, we haven't gone out of our way to make that point, because there was no real need to do so. It's possible to make heavy use of rulebooks and write large-scale Inform projects without ever needing to use a rulebook's name as a value in its own right, for example. But if we want to create sophisticated extensions to Inform, or to use modern techniques such as functional and generic programming, we need to be fluent in the language of kinds.</p>
     <p>Inform's language of kinds has four ingredients: base kinds, constructions, kind variables and kinds of kinds.</p>
     <p><span class="boldface">1. Base kinds.</span> Inform provides the following base kinds for values:</p>
-    <!--START CODE "c8639"-->
-    <blockquote class="code"><p class="quoted"><a id="c8639"></a>object, number, real number, time, truth state, text, snippet, Unicode character, action, scene, table name, equation name, use option, action name, figure name, sound name, external file, rulebook outcome, parser error
+    <!--START CODE "c8637"-->
+    <blockquote class="code"><p class="quoted"><a id="c8637"></a>object, number, real number, time, truth state, text, snippet, Unicode character, action, scene, table name, equation name, use option, action name, figure name, sound name, external file, rulebook outcome, parser error
     </p>
     </blockquote>
     <!--END CODE-->
     <p>together with a few others, such as &quot;response&quot; and &quot;verb&quot;, to do with linguistic features.</p>
     <p>And Inform allows us to create new base kinds either by making more specialised kinds of object:</p>
-    <!--START CODE "c8640"-->
-    <blockquote class="code"><p class="quoted"><a id="c8640"></a>A geographical layout is a kind of object.
+    <!--START CODE "c8638"-->
+    <blockquote class="code"><p class="quoted"><a id="c8638"></a>A geographical layout is a kind of object.
     <br>
     A marmoset is a kind of animal.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Or by making new enumerations or arithmetical kinds:</p>
-    <!--START CODE "c8641"-->
-    <blockquote class="code"><p class="quoted"><a id="c8641"></a>Distance is a kind of value. 10km specifies a distance.
+    <!--START CODE "c8639"-->
+    <blockquote class="code"><p class="quoted"><a id="c8639"></a>Distance is a kind of value. 10km specifies a distance.
     <br>
     Colour is a kind of value. Red, green and blue are colours.
     </p>
     </blockquote>
     <!--END CODE-->
     <p><span class="boldface">2. Constructions.</span> These are ways to make new kinds from existing ones.  The construction most often used is &quot;list of...&quot;. For any kind K, there is a kind called list of K. So the range of possible kinds in Inform is actually infinite, because:</p>
-    <!--START CODE "c8642"-->
-    <blockquote class="code"><p class="quoted"><a id="c8642"></a>number
+    <!--START CODE "c8640"-->
+    <blockquote class="code"><p class="quoted"><a id="c8640"></a>number
     <br>
     list of numbers
     <br>
@@ -120,8 +120,8 @@
     </blockquote>
     <!--END CODE-->
     <p>are all different from each other. Inform has nine constructions, as follows:</p>
-    <!--START CODE "c8643"-->
-    <blockquote class="code"><p class="quoted"><a id="c8643"></a>list of K
+    <!--START CODE "c8641"-->
+    <blockquote class="code"><p class="quoted"><a id="c8641"></a>list of K
     <br>
     description of K
     <br>
@@ -143,50 +143,50 @@
     <!--END CODE-->
     <p>Some of these have appeared in previous chapters, but in abbreviated form. For example, &quot;rulebook&quot; abbreviates &quot;action based rulebook producing nothing&quot;, and &quot;either/or property&quot; is a synonym for &quot;truth state valued property&quot;. The kinds of descriptions and phrases haven't been covered yet, but are coming up in the sections following.</p>
     <p>These constructions can of course be combined:</p>
-    <!--START CODE "c8644"-->
-    <blockquote class="code"><p class="quoted"><a id="c8644"></a>phrase (relation of numbers to colours, number) -&gt; list of colours
+    <!--START CODE "c8642"-->
+    <blockquote class="code"><p class="quoted"><a id="c8642"></a>phrase (relation of numbers to colours, number) -&gt; list of colours
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Brackets can be used to clarify matters:</p>
-    <!--START CODE "c8645"-->
-    <blockquote class="code"><p class="quoted"><a id="c8645"></a>phrase (phrase number -&gt; (phrase number -&gt; number)) -&gt; nothing
+    <!--START CODE "c8643"-->
+    <blockquote class="code"><p class="quoted"><a id="c8643"></a>phrase (phrase number -&gt; (phrase number -&gt; number)) -&gt; nothing
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Nothing will make that a simple idea, but it's unambiguous and can be puzzled out with practice.</p>
     <p><span class="boldface">3. Variables.</span> In a way, that's everything: there are just base kinds and constructions on them, and those construct every possible kind in Inform. But the language we use to describe kinds is larger than that, because it allows us to describe many kinds at once, in the same way that Inform reads the word &quot;something&quot; as applying to many objects at once, not as a single object.</p>
     <p>Kind variables will be covered later in the chapter, but the idea is that:</p>
-    <!--START CODE "c8646"-->
-    <blockquote class="code"><p class="quoted"><a id="c8646"></a>To hunt for (needle - value of kind K) in (haystack - list of Ks): ...
+    <!--START CODE "c8644"-->
+    <blockquote class="code"><p class="quoted"><a id="c8644"></a>To hunt for (needle - value of kind K) in (haystack - list of Ks): ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>allows us to describe the kinds acceptable in a phrase so that a wide range of possibilities are allowed. The above matches both:</p>
-    <!--START CODE "c8647"-->
-    <blockquote class="code"><p class="quoted"><a id="c8647"></a>hunt for 4 in { 2, 3, 4, 5 };
+    <!--START CODE "c8645"-->
+    <blockquote class="code"><p class="quoted"><a id="c8645"></a>hunt for 4 in { 2, 3, 4, 5 };
     <br>
     hunt for &quot;fish&quot; in { &quot;lemon sauce&quot;, &quot;fish&quot;, &quot;garden peas&quot; };
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The letter K in the definition stood for any kind; in the first use of &quot;hunt&quot; here, K turned out to be &quot;number&quot;, and in the second it was &quot;text&quot;. On the other hand Inform would reject:</p>
-    <!--START CODE "c8648"-->
-    <blockquote class="code"><p class="quoted"><a id="c8648"></a>hunt for 4 in { containment relation, support relation };
+    <!--START CODE "c8646"-->
+    <blockquote class="code"><p class="quoted"><a id="c8646"></a>hunt for 4 in { containment relation, support relation };
     </p>
     </blockquote>
     <!--END CODE-->
     <p>because there is no kind K which can make this match the definition.</p>
     <p>There are potentially 26 kind variables, A to Z, though it's customary to use them in the order K, L, M, ..., and it's very rare to need more than two at a time.</p>
     <p><span class="boldface">4. Kinds of kind.</span> Inform understands several names which look as if they are kinds, but actually aren't:</p>
-    <!--START CODE "c8649"-->
-    <blockquote class="code"><p class="quoted"><a id="c8649"></a>value, arithmetic value, enumerated value, sayable value
+    <!--START CODE "c8647"-->
+    <blockquote class="code"><p class="quoted"><a id="c8647"></a>value, arithmetic value, enumerated value, sayable value
     </p>
     </blockquote>
     <!--END CODE-->
     <p>(Again, these are built in to Inform.) They are not kinds because they're just too loose and vague. Instead, they can be used in phrase definitions to match against multiple possibilities:</p>
-    <!--START CODE "c8650"-->
-    <blockquote class="code"><p class="quoted"><a id="c8650"></a>To announce (X - sayable value): say &quot;I declare that [X] has arrived.&quot;
+    <!--START CODE "c8648"-->
+    <blockquote class="code"><p class="quoted"><a id="c8648"></a>To announce (X - sayable value): say &quot;I declare that [X] has arrived.&quot;
     </p>
     </blockquote>
     <!--END CODE-->

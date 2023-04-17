@@ -63,6 +63,7 @@ Definition: a thing is carried if the player is carrying it.
 Definition: a thing is held if the player is holding it.
 
 The verb to be able to see means the visibility relation.
+The verb to be able to hear means the audibility relation.
 The verb to be able to touch means the touchability relation.
 
 Definition: Something is visible rather than invisible if the player can see it.
@@ -93,6 +94,11 @@ A backdrop is a kind of thing.
 The plural of person is people. The plural of person is persons.
 A person is a kind of thing.
 A region is a kind.
+
+Section 1a - Concepts (for concepts language element only)
+
+A concept is a kind.
+A concept can be privately-named or publicly-named. A concept is usually publicly-named.
 
 Section 2 - Rooms
 
@@ -191,8 +197,8 @@ Down has opposite up. Understand "d" as down.
 Inside has opposite outside. Understand "in" as inside.
 Outside has opposite inside. Understand "out" as outside.
 
-The inside object translates into Inter as "in_obj".
-The outside object translates into Inter as "out_obj".
+The inside object is accessible to Inter as "in_obj".
+The outside object is accessible to Inter as "out_obj".
 
 The verb to be above means the mapping up relation.
 The verb to be mapped above means the mapping up relation.
@@ -212,7 +218,7 @@ A door is always fixed in place.
 A door is never pushable between rooms.
 
 A door has an object called leading-through destination.
-The leading-through destination property translates into Inter as "door_to".
+The leading-through destination property is defined by Inter as "door_to".
 Leading-through relates one room (called the leading-through destination) to
 various doors. The verb to be through means the leading-through relation.
 
@@ -299,7 +305,7 @@ Understand "your former self" or "my former self" or "former self" or
 
 The description of yourself is usually "As good-looking as ever."
 
-The yourself object translates into Inter as "selfobj".
+The yourself object is accessible to Inter as "selfobj".
 
 Section 12 - Animals, men and women
 
@@ -354,35 +360,35 @@ A player's holdall is usually openable.
 
 Section 16 - Inter identifier equivalents
 
-The wearable property translates into Inter as "clothing".
-The undescribed property translates into Inter as "concealed".
-The edible property translates into Inter as "edible".
-The enterable property translates into Inter as "enterable".
-The female property translates into Inter as "female".
-The mentioned property translates into Inter as "mentioned".
-The lit property translates into Inter as "light".
-The lighted property translates into Inter as "light".
-The lockable property translates into Inter as "lockable".
-The locked property translates into Inter as "locked".
-The handled property translates into Inter as "moved".
-The neuter property translates into Inter as "neuter".
-The switched on property translates into Inter as "on".
-The open property translates into Inter as "open".
-The openable property translates into Inter as "openable".
-The privately-named property translates into Inter as "privately_named".
-The pushable between rooms property translates into Inter as "pushable".
-The scenery property translates into Inter as "scenery".
-The fixed in place property translates into Inter as "static".
-The transparent property translates into Inter as "transparent".
-The visited property translates into Inter as "visited".
-The marked for listing property translates into Inter as "workflag".
-The list grouping key property translates into Inter as "list_together".
+The wearable property is defined by Inter as "clothing".
+The undescribed property is defined by Inter as "concealed".
+The edible property is defined by Inter as "edible".
+The enterable property is defined by Inter as "enterable".
+The female property is defined by Inter as "female".
+The mentioned property is defined by Inter as "mentioned".
+The lit property is defined by Inter as "light".
+The lighted property is defined by Inter as "light".
+The lockable property is defined by Inter as "lockable".
+The locked property is defined by Inter as "locked".
+The handled property is defined by Inter as "moved".
+The neuter property is defined by Inter as "neuter".
+The switched on property is defined by Inter as "on".
+The open property is defined by Inter as "open".
+The openable property is defined by Inter as "openable".
+The privately-named property is defined by Inter as "privately_named".
+The pushable between rooms property is defined by Inter as "pushable".
+The scenery property is defined by Inter as "scenery".
+The fixed in place property is defined by Inter as "static".
+The transparent property is defined by Inter as "transparent".
+The visited property is defined by Inter as "visited".
+The marked for listing property is defined by Inter as "workflag".
+The list grouping key property is defined by Inter as "list_together".
 
-The carrying capacity property translates into Inter as "capacity".
-The description property translates into Inter as "description".
-The initial appearance property translates into Inter as "initial".
-The map region property translates into Inter as "map_region".
-The matching key property translates into Inter as "with_key".
+The carrying capacity property is defined by Inter as "capacity".
+The description property is defined by Inter as "description".
+The initial appearance property is defined by Inter as "initial".
+The map region property is defined by Inter as "map_region".
+The matching key property is defined by Inter as "with_key".
 
 
 Part Three - Variables and Rulebooks
@@ -392,7 +398,7 @@ Chapter 1 - Variables
 Section 1 - Situation
 
 The player is a person that varies.
-The player variable translates into Inter as "player".
+The player variable is defined by Inter as "player".
 
 The location -- documented at var_location -- is an object that varies.
 The score -- documented at var_score -- is a number that varies.
@@ -402,12 +408,12 @@ The turn count is a number that varies.
 The time of day -- documented at var_time -- is a time that varies.
 The darkness witnessed is a truth state that varies.
 
-The location variable translates into Inter as "real_location".
-The score variable translates into Inter as "score".
-The last notified score variable translates into Inter as "last_score".
-The maximum score variable translates into Inter as "MAX_SCORE".
-The turn count variable translates into Inter as "turns".
-The time of day variable translates into Inter as "the_time".
+The location variable is defined by Inter as "real_location".
+The score variable is defined by Inter as "score".
+The last notified score variable is defined by Inter as "last_score".
+The maximum score variable is defined by Inter as "MAX_SCORE".
+The turn count variable is defined by Inter as "turns".
+The time of day variable is defined by Inter as "the_time".
 
 Section 2 - Current action
 
@@ -418,11 +424,11 @@ The reason the action failed -- documented at var_reason -- is an action
 based rule producing nothing that varies.
 The item described is an object that varies.
 
-The noun variable translates into Inter as "noun".
-The second noun variable translates into Inter as "second".
-The person asked variable translates into Inter as "actor".
-The reason the action failed variable translates into Inter as "reason_the_action_failed".
-The item described variable translates into Inter as "self".
+The noun variable is defined by Inter as "noun".
+The second noun variable is defined by Inter as "second".
+The person asked variable is defined by Inter as "actor".
+The reason the action failed variable is defined by Inter as "reason_the_action_failed".
+The item described variable is defined by Inter as "self".
 
 Section 3 - Used when ruling on accessibility
 
@@ -431,10 +437,10 @@ The container in question is an object that varies.
 The supporter in question is an object that varies.
 The particular possession -- documented at var_particular -- is a thing that varies.
 
-The person reaching variable translates into Inter as "actor".
-The container in question variable translates into Inter as "parameter_object".
-The supporter in question variable translates into Inter as "parameter_object".
-The particular possession variable translates into Inter as "particular_possession".
+The person reaching variable is defined by Inter as "actor".
+The container in question variable is defined by Inter as "parameter_object".
+The supporter in question variable is defined by Inter as "parameter_object".
+The particular possession variable is defined by Inter as "particular_possession".
 
 Section 4 - Used when understanding typed commands
 
@@ -443,10 +449,10 @@ The matched text is a snippet that varies.
 The topic understood is a snippet that varies.
 The current item from the multiple object list is an object that varies.
 
-The player's command variable translates into Inter as "players_command".
-The matched text variable translates into Inter as "matched_text".
-The topic understood variable translates into Inter as "parsed_number".
-The current item from the multiple object list variable translates into Inter as
+The player's command variable is defined by Inter as "players_command".
+The matched text variable is defined by Inter as "matched_text".
+The topic understood variable is defined by Inter as "parsed_number".
+The current item from the multiple object list variable is defined by Inter as
 	"multiple_object_item".
 
 Section 5 - Presentation on screen
@@ -457,16 +463,16 @@ The command prompt is ">".
 The left hand status line -- documented at var_sl -- is a text that varies.
 The right hand status line is a text that varies.
 
-The left hand status line variable translates into Inter as "left_hand_status_line".
-The right hand status line variable translates into Inter as "right_hand_status_line".
+The left hand status line variable is defined by Inter as "left_hand_status_line".
+The right hand status line variable is defined by Inter as "right_hand_status_line".
 
 The listing group size is a number that varies.
-The listing group size variable translates into Inter as "listing_size".
+The listing group size variable is defined by Inter as "listing_size".
 
 Section 6 - Language generation
 
 The prior named object is an object that varies.
-The prior named object variable translates into Inter as "prior_named_noun".
+The prior named object variable is defined by Inter as "prior_named_noun".
 An object has a text called list grouping key.
 
 Section 7 - Unindexed Standard Rules variables - Unindexed
@@ -479,7 +485,7 @@ The release number is usually 1.
 The story headline is usually "An Interactive Fiction".
 The story genre is usually "Fiction".
 
-The story title variable translates into Inter as "Story".
+The story title variable is defined by Inter as "Story".
 
 Section SR2/6b - Unindexed Standard Rules variables - Unindexed (for figures language element only)
 
@@ -488,37 +494,47 @@ Figure of cover is the file of cover art ("The cover art.").
 Section 8 - Unindexed Standard Rules variables - Unindexed
 
 The I6-nothing-constant is an object that varies.
-The I6-nothing-constant variable translates into Inter as "nothing".
+The I6-nothing-constant variable is defined by Inter as "nothing".
 
 The I6-varying-global is an object that varies.
-The I6-varying-global variable translates into Inter as "nothing".
+The I6-varying-global variable is defined by Inter as "nothing".
 
 The item-pushed-between-rooms is an object that varies.
-The item-pushed-between-rooms variable translates into Inter as "move_pushing".
+The item-pushed-between-rooms variable is defined by Inter as "move_pushing".
 
 The actor-location is an object that varies. [*]
-The actor-location variable translates into Inter as "actor_location".
+The actor-location variable is defined by Inter as "actor_location".
 
 The scene being changed is a scene that varies. [*]
-The scene being changed variable translates into Inter as "parameter_value".
+The scene being changed variable is defined by Inter as "parameter_value".
 
 Chapter 2 - Rulebooks
 
 Section 1 - The Standard Rulebooks
 
 Turn sequence rules is a rulebook.
+The turn sequence rulebook is accessible to Inter as "TURN_SEQUENCE_RB".
 
 Scene changing rules is a rulebook.
+The scene changing rulebook is accessible to Inter as "SCENE_CHANGING_RB".
 When play begins is a rulebook.
+The when play begins rulebook is accessible to Inter as "WHEN_PLAY_BEGINS_RB".
 When play ends is a rulebook.
+The when play ends rulebook is accessible to Inter as "WHEN_PLAY_ENDS_RB".
 When scene begins is a scene based rulebook.
+The when scene begins rulebook is accessible to Inter as "WHEN_SCENE_BEGINS_RB".
 When scene ends is a scene based rulebook.
+The when scene ends rulebook is accessible to Inter as "WHEN_SCENE_ENDS_RB".
 Every turn rules is a rulebook.
+The every turn rulebook is accessible to Inter as "EVERY_TURN_RB".
 
 Action-processing rules is a rulebook.
+The action-processing rulebook is accessible to Inter as "ACTION_PROCESSING_RB".
 The action-processing rulebook has a person called the actor.
 Setting action variables is a rulebook.
+The setting action variables rulebook is accessible to Inter as "SETTING_ACTION_VARIABLES_RB".
 The specific action-processing rules is a rulebook.
+The specific action-processing rulebook is accessible to Inter as "SPECIFIC_ACTION_PROCESSING_RB".
 The specific action-processing rulebook has a truth state called action in world.
 The specific action-processing rulebook has a truth state called action keeping silent.
 The specific action-processing rulebook has a rulebook called specific check rulebook.
@@ -526,36 +542,51 @@ The specific action-processing rulebook has a rulebook called specific carry out
 The specific action-processing rulebook has a rulebook called specific report rulebook.
 The specific action-processing rulebook has a truth state called within the player's sight.
 The player's action awareness rules is a rulebook.
+The player's action awareness rulebook is accessible to Inter as "PLAYERS_ACTION_AWARENESS_RB".
 
 Accessibility rules is a rulebook.
+The accessibility rulebook is accessible to Inter as "ACCESSIBILITY_RB".
 Reaching inside rules is an object-based rulebook.
+The reaching inside rulebook is accessible to Inter as "REACHING_INSIDE_RB".
 Reaching inside rules have outcomes allow access (success) and deny access (failure).
 Reaching outside rules is an object-based rulebook.
+The reaching outside rulebook is accessible to Inter as "REACHING_OUTSIDE_RB".
 Reaching outside rules have outcomes allow access (success) and deny access (failure).
 Visibility rules is a rulebook.
+The visibility rulebook is accessible to Inter as "VISIBLE_RB".
 Visibility rules have outcomes there is sufficient light (failure) and there is
 insufficient light (success).
 
 Persuasion rules is a rulebook.
+The persuasion rulebook is accessible to Inter as "PERSUADE_RB".
 Persuasion rules have outcomes persuasion succeeds (success) and persuasion fails (failure).
 Unsuccessful attempt by is a rulebook.
+The unsuccessful attempt by rulebook is accessible to Inter as "UNSUCCESSFUL_ATTEMPT_RB".
 
 Before rules is a rulebook.
+The before rulebook is accessible to Inter as "BEFORE_RB".
 Instead rules is a rulebook.
+The instead rulebook is accessible to Inter as "INSTEAD_RB".
 Check rules is a rulebook.
+The check rulebook is accessible to Inter as "CHECK_RB".
 Carry out rules is a rulebook.
+The carry out rulebook is accessible to Inter as "CARRY_OUT_RB".
 After rules is a rulebook.
+The after rulebook is accessible to Inter as "AFTER_RB".
 Report rules is a rulebook.
+The report rulebook is accessible to Inter as "REPORT_RB".
 
 The does the player mean rules is a rulebook.
+The does the player mean rulebook is accessible to Inter as "DOES_THE_PLAYER_MEAN_RB".
 The does the player mean rules have outcomes it is very likely, it is likely, it is possible,
 it is unlikely and it is very unlikely.
 
 The multiple action processing rules is a rulebook.
+The multiple action processing rulebook is accessible to Inter as "MULTIPLE_ACTION_PROCESSING_RB".
 
 Section 2 - The Standard Rules
 
-The little-used do nothing rule translates into Inter as "LITTLE_USED_DO_NOTHING_R".
+The little-used do nothing rule is defined by Inter as "LITTLE_USED_DO_NOTHING_R".
 
 The start in the correct scenes rule is listed first in the startup rulebook. [7th.]
 The position player in model world rule is listed first in the startup rulebook. [6th.]
@@ -568,11 +599,11 @@ The seed random number generator rule is listed first in the startup rulebook. [
 The virtual machine startup rule is listed first in the startup rulebook. [2nd.]
 The initialise memory rule is listed first in the startup rulebook. [1st.]
 
-The virtual machine startup rule translates into Inter as "VIRTUAL_MACHINE_STARTUP_R".
-The initialise memory rule translates into Inter as "INITIALISE_MEMORY_R".
-The seed random number generator rule translates into Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
-The update chronological records rule translates into Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
-The position player in model world rule translates into Inter as "POSITION_PLAYER_IN_MODEL_R".
+The virtual machine startup rule is defined by Inter as "VIRTUAL_MACHINE_STARTUP_R".
+The initialise memory rule is defined by Inter as "INITIALISE_MEMORY_R".
+The seed random number generator rule is defined by Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
+The update chronological records rule is defined by Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
+The position player in model world rule is defined by Inter as "POSITION_PLAYER_IN_MODEL_R".
 
 This is the start in the correct scenes rule: follow the scene changing rules.
 
@@ -589,8 +620,10 @@ This is the display banner rule: say "[banner text]".
 
 This is the initial room description rule: try looking.
 
-A first turn sequence rule (this is the every turn stage rule): follow the every turn rules. [5th.]
-A first turn sequence rule: follow the scene changing rules. [4th.]
+A first turn sequence rule (this is the every turn stage rule):
+	follow the every turn rules. [5th.]
+A first turn sequence rule (this is the early scene changing stage rule):
+	follow the scene changing rules. [4th.]
 The generate action rule is listed first in the turn sequence rulebook. [3rd.]
 The declare everything initially unmentioned rule is listed first in the turn sequence rulebook. [2nd.]
 The parse command rule is listed first in the turn sequence rulebook. [1st.]
@@ -599,7 +632,8 @@ The timed events rule is listed in the turn sequence rulebook.
 The advance time rule is listed in the turn sequence rulebook.
 The update chronological records rule is listed in the turn sequence rulebook.
 
-A last turn sequence rule: follow the scene changing rules. [3rd from last.]
+A last turn sequence rule (this is the late scene changing stage rule):
+	follow the scene changing rules. [3rd from last.]
 The adjust light rule is listed last in the turn sequence rulebook. [2nd from last.]
 The note object acquisitions rule is listed last in the turn sequence rulebook. [Penultimate.]
 The notify score changes rule is listed last in the turn sequence rulebook. [Last.]
@@ -609,17 +643,17 @@ This is the notify score changes rule:
 		issue score notification message;
 		now the last notified score is the score;
 
-The adjust light rule translates into Inter as "ADJUST_LIGHT_R" with
+The adjust light rule is defined by Inter as "ADJUST_LIGHT_R" with
 	"[It] [are] [if story tense is present tense]now [end if]pitch dark in
 	[if story tense is present tense]here[else]there[end if]!" (A).
-The advance time rule translates into Inter as "ADVANCE_TIME_R".
-The generate action rule translates into Inter as "GENERATE_ACTION_R" with
+The advance time rule is defined by Inter as "ADVANCE_TIME_R".
+The generate action rule is defined by Inter as "GENERATE_ACTION_R" with
 	"(considering the first sixteen objects only)[command clarification break]" (A),
 	"Nothing to do!" (B).
 
-The note object acquisitions rule translates into Inter as "NOTE_OBJECT_ACQUISITIONS_R".
-The parse command rule translates into Inter as "PARSE_COMMAND_R".
-The timed events rule translates into Inter as "TIMED_EVENTS_R".
+The note object acquisitions rule is defined by Inter as "NOTE_OBJECT_ACQUISITIONS_R".
+The parse command rule is defined by Inter as "PARSE_COMMAND_R".
+The timed events rule is defined by Inter as "TIMED_EVENTS_R".
 
 The when play ends stage rule is listed first in the shutdown rulebook.
 The resurrect player if asked rule is listed last in the shutdown rulebook.
@@ -630,12 +664,12 @@ This is the when play ends stage rule: follow the when play ends rulebook.
 This is the print player's obituary rule:
 	carry out the printing the player's obituary activity.
 
-The resurrect player if asked rule translates into Inter as "RESURRECT_PLAYER_IF_ASKED_R".
-The ask the final question rule translates into Inter as "ASK_FINAL_QUESTION_R".
+The resurrect player if asked rule is defined by Inter as "RESURRECT_PLAYER_IF_ASKED_R".
+The ask the final question rule is defined by Inter as "ASK_FINAL_QUESTION_R".
 
 The scene change machinery rule is listed last in the scene changing rulebook.
 
-The scene change machinery rule translates into Inter as "SCENE_CHANGE_MACHINERY_R".
+The scene change machinery rule is defined by Inter as "SCENE_CHANGE_MACHINERY_R".
 
 Section 3 - The Entire Game scene
 
@@ -667,23 +701,27 @@ This is the announce items from multiple object lists rule:
 	if the current item from the multiple object list is not nothing,
 		say "[current item from the multiple object list]: [run paragraph on]" (A).
 
-This is the before stage rule: abide by the before rules.
-This is the instead stage rule: abide by the instead rules.
+This is the before stage rule:
+	abide by dialogue before action choices;
+	abide by the before rules.
+This is the instead stage rule:
+	abide by dialogue instead action choices;
+	abide by the instead rules.
 
 This is the end action-processing in success rule: rule succeeds.
 
-The basic accessibility rule translates into Inter as "BASIC_ACCESSIBILITY_R" with
+The basic accessibility rule is defined by Inter as "BASIC_ACCESSIBILITY_R" with
 	"You must name something more substantial." (A).
-The basic visibility rule translates into Inter as "BASIC_VISIBILITY_R" with
+The basic visibility rule is defined by Inter as "BASIC_VISIBILITY_R" with
 	"[It] [are] pitch dark, and [we] [can't see] a thing." (A).
-The carrying requirements rule translates into Inter as "CARRYING_REQUIREMENTS_R".
-The requested actions require persuasion rule translates into Inter as
+The carrying requirements rule is defined by Inter as "CARRYING_REQUIREMENTS_R".
+The requested actions require persuasion rule is defined by Inter as
 	"REQUESTED_ACTIONS_REQUIRE_R" with
 	 "[The noun] [have] better things to do." (A).
-The carry out requested actions rule translates into Inter as
+The carry out requested actions rule is defined by Inter as
 	"CARRY_OUT_REQUESTED_ACTIONS_R" with
 	"[The noun] [are] unable to do that." (A).
-The descend to specific action-processing rule translates into Inter as
+The descend to specific action-processing rule is defined by Inter as
 "DESCEND_TO_SPECIFIC_ACTION_R".
 
 The work out details of specific action rule is listed first in the specific
@@ -702,7 +740,8 @@ A specific action-processing rule (this is the carry out stage rule):
 	follow the specific carry out rulebook.
 
 A specific action-processing rule (this is the after stage rule):
-	if action in world is true, abide by the after rules.
+	if action in world is true:
+		abide by the after rules.
 
 A specific action-processing rule
 	(this is the investigate player's awareness after action rule):
@@ -714,9 +753,10 @@ A specific action-processing rule (this is the report stage rule):
 	if within the player's sight is true and action keeping silent is false,
 		follow the specific report rulebook;
 
-The last specific action-processing rule: rule succeeds.
+The last specific action-processing rule (this is the default action success rule):
+	rule succeeds.
 
-The work out details of specific action rule translates into Inter as
+The work out details of specific action rule is defined by Inter as
 "WORK_OUT_DETAILS_OF_SPECIFIC_R".
 
 A player's action awareness rule
@@ -736,7 +776,7 @@ Section 5 - Accessibility
 
 The access through barriers rule is listed last in the accessibility rules.
 
-The access through barriers rule translates into Inter as
+The access through barriers rule is defined by Inter as
 	"ACCESS_THROUGH_BARRIERS_R" with
 	"[regarding the noun][Those] [aren't] available." (A).
 
@@ -744,16 +784,16 @@ The can't reach inside rooms rule is listed last in the reaching inside rules. [
 The can't reach inside closed containers rule is listed last in the reaching
 inside rules. [Last.]
 
-The can't reach inside closed containers rule translates into Inter as
+The can't reach inside closed containers rule is defined by Inter as
 	"CANT_REACH_INSIDE_CLOSED_R" with
 	"[The noun] [aren't] open." (A).
-The can't reach inside rooms rule translates into Inter as
+The can't reach inside rooms rule is defined by Inter as
 	"CANT_REACH_INSIDE_ROOMS_R" with
 	"[We] [can't] reach into [the noun]." (A).
 
 The can't reach outside closed containers rule is listed last in the reaching outside rules.
 
-The can't reach outside closed containers rule translates into Inter as
+The can't reach outside closed containers rule is defined by Inter as
 	"CANT_REACH_OUTSIDE_CLOSED_R" with
 	"[The noun] [aren't] open." (A).
 
@@ -807,11 +847,11 @@ A command parser error is a kind of value. The command parser errors are
 	didn't understand addressee's last name error.
 
 The latest parser error is a command parser error that varies.
-The latest parser error variable translates into Inter as "etype".
+The latest parser error variable is defined by Inter as "etype".
 
 Section 9 - Responses for internal rules
 
-The list writer internal rule translates into Inter as
+The list writer internal rule is defined by Inter as
 	"LIST_WRITER_INTERNAL_R" with
 	" (" (A),
 	")" (B),
@@ -839,7 +879,7 @@ The list writer internal rule translates into Inter as
 	"Nothing" (X),
 	"nothing" (Y).
 
-The action processing internal rule translates into Inter as
+The action processing internal rule is defined by Inter as
 	"ACTION_PROCESSING_INTERNAL_R" with
 	"[bracket]That command asks to do something outside of play, so it can
     only make sense from you to me. [The noun] cannot be asked to do this.[close
@@ -856,7 +896,7 @@ The action processing internal rule translates into Inter as
 	cut short.)" (J),
 	"I didn't understand that instruction." (K).
 
-The parser error internal rule translates into Inter as
+The parser error internal rule is defined by Inter as
 	"PARSER_ERROR_INTERNAL_R" with
 	"I didn't understand that sentence." (A),
 	"I only understood you as far as wanting to " (B),
@@ -885,7 +925,7 @@ The parser error internal rule translates into Inter as
 	"To talk to someone, try 'someone, hello' or some such." (W),
 	"I beg your pardon?" (X).
 
-The parser nothing error internal rule translates into Inter as
+The parser nothing error internal rule is defined by Inter as
 	"PARSER_N_ERROR_INTERNAL_R" with
 	"Nothing to do!" (A),
 	"[There] [adapt the verb are from the third person plural] none at all available!" (B),
@@ -894,17 +934,17 @@ The parser nothing error internal rule translates into Inter as
 	"[The noun] [aren't] open." (E),
 	"[The noun] [are] empty." (F).
 
-The darkness name internal rule translates into Inter as "DARKNESS_NAME_INTERNAL_R" with
+The darkness name internal rule is defined by Inter as "DARKNESS_NAME_INTERNAL_R" with
 	"Darkness" (A).
 
-The parser command internal rule translates into Inter as
+The parser command internal rule is defined by Inter as
 	"PARSER_COMMAND_INTERNAL_R" with
 	"Sorry, that can't be corrected." (A),
 	"Think nothing of it." (B),
 	"'Oops' can only correct a single word." (C),
 	"You can hardly repeat that." (D).
 
-The parser clarification internal rule translates into Inter as
+The parser clarification internal rule is defined by Inter as
 	"PARSER_CLARIF_INTERNAL_R" with
 	"Who do you mean, " (A),
 	"Which do you mean, " (B),
@@ -917,15 +957,157 @@ The parser clarification internal rule translates into Inter as
 	"that" (G),
 	" or " (H).
 
-The yes or no question internal rule translates into Inter as
+The yes or no question internal rule is defined by Inter as
 	"YES_OR_NO_QUESTION_INTERNAL_R" with
 	"Please answer yes or no." (A).
 
-The print protagonist internal rule translates into Inter as
+The print protagonist internal rule is defined by Inter as
 	"PRINT_PROTAGONIST_INTERNAL_R" with
 	"[We]" (A),
 	"[ourselves]" (B),
 	"[our] former self" (C).
+
+Section 10 - Dialogue (for dialogue language element only)
+
+There is a performance style called spoken normally.
+
+A dialogue beat can be performed or unperformed. A dialogue beat is usually
+unperformed.
+A dialogue beat can be recurring or non-recurring. A dialogue beat is usually
+non-recurring.
+A dialogue beat can be spontaneous or unspontaneous. A dialogue beat is usually
+unspontaneous.
+
+A dialogue line can be performed or unperformed. A dialogue line is usually
+unperformed.
+A dialogue line can be recurring or non-recurring. A dialogue line is usually
+non-recurring.
+A dialogue line can be elaborated or unelaborated. A dialogue line is usually
+unelaborated.
+
+A dialogue choice can be performed or unperformed. A dialogue choice is usually
+unperformed.
+A dialogue choice can be recurring or non-recurring. A dialogue choice is usually
+non-recurring.
+
+The performed property is accessible to Inter as "performed".
+The spontaneous property is accessible to Inter as "spontaneous".
+The recurring property is accessible to Inter as "recurring".
+
+To make (T - an object) a live conversational subject:
+	(- DirectorAddLiveSubjectList({T}); -).
+To make (T - an object) a dead conversational subject:
+	(- DirectorRemoveLiveSubjectList({T}); -).
+To clear conversational subjects:
+	(- DirectorEmptyLiveSubjectList(); -).
+To decide what list of objects is the live conversational subject list:
+	(- DirectorLiveSubjectList({-new:list of objects}) -).
+To alter the live conversational subject list to (L - list of objects):
+	(- DirectorAlterLiveSubjectList({-by-reference:L}); -).
+To decide what list of objects is the list of speakers required by (B - dialogue beat):
+	(- DirectorBeatRequiredList({-new:list of objects}, {B}) -).
+To decide what dialogue line is the opening line of (B - dialogue beat):
+	(- DirectorBeatOpeningLine({B}) -).
+To decide what text is the textual content of (L - dialogue line):
+	(- DirectorLineContent({L}, {-new:text}) -).
+To decide what text is the textual content of (C - dialogue choice):
+	(- DirectorChoiceTextContent({C}, {-new:text}) -).
+
+To decide what object is the current dialogue line speaker:
+	(- DirectorCurrentLineSpeaker() -).
+To decide what object is the current dialogue line interlocutor:
+	(- DirectorCurrentLineInterlocutor() -).
+To decide what performance style is the current dialogue line style:
+	(- DirectorCurrentLineStyle() -).
+
+To decide what number is the chosen dialogue number up to (N - number):
+	(- DirectorPickANumber({N}) -).
+
+To perform (B - a dialogue beat):
+	(- DirectorPerformBeat({B}); -).
+
+Topicality relates a dialogue beat (called B) to an object (called S) when about B matches S.
+
+Performability relates a dialogue beat (called B) to an object (called S) when S can have B performed.
+
+The verb to be about means the topicality relation.
+
+The verb to be performable to means the performability relation.
+
+To decide if about (B - dialogue beat) matches (S - object):
+	(- (DirectorBeatAbout({B}, {S})) -).
+
+To decide if (S - object) can have (B - dialogue beat) performed:
+	(- (DirectorBeatAccessible({B}, {S})) -).
+
+To decide which object is the first speaker of (B - dialogue beat):
+	(- (DirectorBeatFirstSpeaker({B})) -).
+
+To decide whether dialogue/dialog about (O - an object) intervenes:
+	(- DirectorIntervenes({O}, nothing) -).
+To decide whether dialogue/dialog about (O - an object) led by (P - an object) intervenes:
+	(- DirectorIntervenes({O}, {P}) -).
+
+To showme the beat structure of (B - dialogue beat): (- DirectorDisassemble({B}); -).
+
+Definition: A dialogue beat is available rather than unavailable if Inter routine
+	"DirectorBeatAvailable" says so (it meets all its after or before, if and unless conditions).
+
+Definition: A dialogue beat is relevant rather than irrelevant if Inter routine
+	"DirectorBeatRelevant" says so (one of the topics it is about is currently live).
+
+Definition: A dialogue line is available rather than unavailable if Inter routine
+	"DirectorLineAvailable" says so (it meets all its if and unless conditions).
+
+Definition: A dialogue line is narrated rather than unnarrated if Inter routine
+	"DirectorLineNarrated" says so (it is a Narration line rather than what somebody is saying).
+
+Definition: A dialogue line is non-verbal rather than verbal if Inter routine
+	"DirectorLineNonverbal" says so (it is a non-verbal communication, like a gesture).
+
+Definition: A dialogue choice is story-ending if Inter routine
+	"DirectorChoiceStoryEnding" says so (it is a flow marker to an end of the story).
+
+Definition: A dialogue beat is being performed if Inter routine
+	"DirectorBeatBeingPerformed" says so (it is currently having its lines performed).
+
+Definition: A dialogue choice is flowing rather than offered if Inter routine
+	"DirectorChoiceFlowing" says so (it is a flow-control point rather than an option).
+
+To abide by dialogue before action choices:
+	(- if (DirectorBeforeAction()) rtrue; -).
+
+To abide by dialogue instead action choices:
+	(- if (DirectorInsteadAction()) rtrue; -).
+
+To abide by dialogue after action choices:
+	(- if (DirectorAfterAction()) rtrue; -).
+
+To decide what list of dialogue choices is the current choice list:
+	(- DirectorCurrentChoiceList() -).
+
+To make the dialogue/dialog director active:
+	(- DirectorActivate(); -).
+
+To make the dialogue/dialog director passive/inactive:
+	(- DirectorDeactivate(); -).
+
+The dialogue direction rule is listed in the turn sequence rulebook.
+The dialogue direction rule is defined by Inter as "DIALOGUE_DIRECTION_R".
+
+The performing opening dialogue beat rule is listed in the startup rulebook.
+The performing opening dialogue beat rule is defined by Inter as "PERFORM_OPENING_BEAT_R".
+
+Section 10 - Dialogue Fallback (not for dialogue language element)
+
+To abide by dialogue before action choices:
+	do nothing.
+
+To abide by dialogue instead action choices:
+	do nothing.
+
+To abide by dialogue after action choices:
+	do nothing.
 
 Part Four - Activities
 
@@ -933,11 +1115,12 @@ Section 1 - Responses
 
 Issuing the response text of something -- documented at act_resp -- is an
 activity on responses.
+The issuing the response text activity is accessible to Inter as "PRINTING_RESPONSE_ACT".
 
 The standard issuing the response text rule is listed last in for issuing the
 response text.
 
-The standard issuing the response text rule translates into Inter as
+The standard issuing the response text rule is defined by Inter as
 "STANDARD_RESPONSE_ISSUING_R".
 
 Section 2 - Naming and Listing
@@ -948,6 +1131,7 @@ Before printing the name of a thing (called the item being printed)
 	now the item being printed is mentioned.
 
 Printing a number of something (documented at act_pan) is an activity.
+The printing a number activity is accessible to Inter as "PRINTING_A_NUMBER_OF_ACT".
 
 Rule for printing a number of something (called the item) (this is the standard
 	printing a number of something rule):
@@ -957,22 +1141,33 @@ The standard printing a number of something rule is listed last in the for print
 a number rulebook.
 
 Printing room description details of something (documented at act_details) is an activity.
+The printing room description details activity is accessible to Inter as "PRINTING_ROOM_DESC_DETAILS_ACT".
 Printing inventory details of something (documented at act_idetails) is an activity.
+The printing inventory details activity is accessible to Inter as "PRINTING_INVENTORY_DETAILS_ACT".
 
 Listing contents of something (documented at act_lc) is an activity.
+The listing contents activity is accessible to Inter as "LISTING_CONTENTS_ACT".
 The standard contents listing rule is listed last in the for listing contents rulebook.
-The standard contents listing rule translates into Inter as "STANDARD_CONTENTS_LISTING_R".
+The standard contents listing rule is defined by Inter as "STANDARD_CONTENTS_LISTING_R".
 Grouping together something (documented at act_gt) is an activity.
+The grouping together activity is accessible to Inter as "GROUPING_TOGETHER_ACT".
 
 Writing a paragraph about something (documented at act_wpa) is an activity.
+The writing a paragraph about activity is accessible to Inter as "WRITING_A_PARAGRAPH_ABOUT_ACT".
 
 Listing nondescript items of something (documented at act_lni) is an activity.
+The listing nondescript items activity is accessible to Inter as "LISTING_NONDESCRIPT_ITEMS_ACT".
 
 Printing the name of a dark room (documented at act_darkname) is an activity.
+The printing the name of a dark room activity is accessible to Inter as "PRINTING_NAME_OF_DARK_ROOM_ACT".
 Printing the description of a dark room (documented at act_darkdesc) is an activity.
+The printing the description of a dark room activity is accessible to Inter as "PRINTING_DESC_OF_DARK_ROOM_ACT".
 Printing the announcement of darkness (documented at act_nowdark) is an activity.
+The printing the announcement of darkness activity is accessible to Inter as "PRINTING_NEWS_OF_DARKNESS_ACT".
 Printing the announcement of light (documented at act_nowlight) is an activity.
+The printing the announcement of light activity is accessible to Inter as "PRINTING_NEWS_OF_LIGHT_ACT".
 Printing a refusal to act in the dark (documented at act_toodark) is an activity.
+The printing a refusal to act in the dark activity is accessible to Inter as "REFUSAL_TO_ACT_IN_DARK_ACT".
 
 The look around once light available rule is listed last in for printing the
 announcement of light.
@@ -981,24 +1176,36 @@ This is the look around once light available rule:
 	try looking.
 
 Constructing the status line (documented at act_csl) is an activity.
+The constructing the status line activity is accessible to Inter as "CONSTRUCTING_STATUS_LINE_ACT".
 Printing the banner text (documented at act_banner) is an activity.
+The printing the banner text activity is accessible to Inter as "PRINTING_BANNER_TEXT_ACT".
 
 Section 3 - Command parsing
 
 Reading a command (documented at act_reading) is an activity.
+The reading a command activity is accessible to Inter as "READING_A_COMMAND_ACT".
 Deciding the scope of something (future action) (documented at act_ds) is an activity.
+The deciding the scope activity is accessible to Inter as "DECIDING_SCOPE_ACT".
 Deciding the concealed possessions of something (documented at act_con) is an activity.
+The deciding the concealed possessions activity is accessible to Inter as "DECIDING_CONCEALED_POSSESS_ACT".
 Deciding whether all includes something (future action) (documented at act_all)
 	is an activity.
+The deciding whether all includes activity is accessible to Inter as "DECIDING_WHETHER_ALL_INC_ACT".
 The for deciding whether all includes rules have outcomes it does not (failure) and
 	it does (success).
 Clarifying the parser's choice of something (future action) (documented at act_clarify)
 	is an activity.
+The clarifying the parser's choice activity is accessible to Inter as "CLARIFYING_PARSERS_CHOICE_ACT".
 Asking which do you mean (future action) (documented at act_which) is an activity.
+The asking which do you mean activity is accessible to Inter as "ASKING_WHICH_DO_YOU_MEAN_ACT".
 Printing a parser error (documented at act_parsererror) is an activity.
+The printing a parser error activity is accessible to Inter as "PRINTING_A_PARSER_ERROR_ACT".
 Supplying a missing noun (documented at act_smn) is an activity.
+The supplying a missing noun activity is accessible to Inter as "SUPPLYING_A_MISSING_NOUN_ACT".
 Supplying a missing second noun (documented at act_smn) is an activity.
+The supplying a missing second noun activity is accessible to Inter as "SUPPLYING_A_MISSING_SECOND_ACT".
 Implicitly taking something (documented at act_implicitly) is an activity.
+The implicitly taking activity is accessible to Inter as "IMPLICITLY_TAKING_ACT".
 
 Rule for deciding whether all includes scenery while taking or taking off or
 	removing (this is the exclude scenery from take all rule): it does not.
@@ -1025,32 +1232,35 @@ Rule for supplying a missing noun while an actor going (this is the block vaguel
 
 The standard implicit taking rule is listed last in for implicitly taking.
 
-The standard implicit taking rule translates into Inter as "STANDARD_IMPLICIT_TAKING_R" with
+The standard implicit taking rule is defined by Inter as "STANDARD_IMPLICIT_TAKING_R" with
 	"(first taking [the noun])[command clarification break]" (A),
 	"([the second noun] first taking [the noun])[command clarification break]" (B).
 
 Section 4 - Posthumous activities
 
 Amusing a victorious player (documented at act_amuse) is an activity.
+The amusing a victorious player activity is accessible to Inter as "AMUSING_A_VICTORIOUS_PLAYER_ACT".
 
 Printing the player's obituary (documented at act_obit) is an activity.
+The printing the player's obituary activity is accessible to Inter as "PRINTING_PLAYERS_OBITUARY_ACT".
 The print obituary headline rule is listed last in for printing the player's obituary.
 The print final score rule is listed last in for printing the player's obituary.
 The display final status line rule is listed last in for printing the player's obituary.
 
-The print obituary headline rule translates into Inter as "PRINT_OBITUARY_HEADLINE_R"
+The print obituary headline rule is defined by Inter as "PRINT_OBITUARY_HEADLINE_R"
 	with " You have died " (A),
 		" You have won " (B),
 		" The End " (C).
-The print final score rule translates into Inter as "PRINT_FINAL_SCORE_R".
-The display final status line rule translates into Inter as "DISPLAY_FINAL_STATUS_LINE_R".
+The print final score rule is defined by Inter as "PRINT_FINAL_SCORE_R".
+The display final status line rule is defined by Inter as "DISPLAY_FINAL_STATUS_LINE_R".
 
 Handling the final question is an activity.
+The handling the final question activity is accessible to Inter as "DEALING_WITH_FINAL_QUESTION_ACT".
 
-The immediately restart the VM rule translates into Inter as "IMMEDIATELY_RESTART_VM_R".
-The immediately restore saved game rule translates into Inter as "IMMEDIATELY_RESTORE_SAVED_R".
-The immediately quit rule translates into Inter as "IMMEDIATELY_QUIT_R".
-The immediately undo rule translates into Inter as "IMMEDIATELY_UNDO_R" with
+The immediately restart the VM rule is defined by Inter as "IMMEDIATELY_RESTART_VM_R".
+The immediately restore saved game rule is defined by Inter as "IMMEDIATELY_RESTORE_SAVED_R".
+The immediately quit rule is defined by Inter as "IMMEDIATELY_QUIT_R".
+The immediately undo rule is defined by Inter as "IMMEDIATELY_UNDO_R" with
 	"The use of 'undo' is forbidden in this story." (A),
 	"You can't 'undo' what hasn't been done!" (B),
 	"Your interpreter does not provide 'undo'. Sorry!" (C),
@@ -1065,7 +1275,7 @@ The standard respond to final question rule is listed last in for handling the f
 
 This is the print the final prompt rule: say "> [run paragraph on]" (A).
 
-The read the final answer rule translates into Inter as "READ_FINAL_ANSWER_R".
+The read the final answer rule is defined by Inter as "READ_FINAL_ANSWER_R".
 
 Section 5 - The Final Question
 
@@ -1139,6 +1349,9 @@ To set the/-- locale priority of (O - an object) to (N - a number):
 
 Printing the locale description of something (documented at act_pld) is an activity.
 
+The printing the locale description activity is accessible to Inter as
+"PRINTING_LOCALE_DESCRIPTION_ACT".
+
 The locale paragraph count is a number that varies.
 
 Before printing the locale description (this is the initialise locale description rule):
@@ -1207,6 +1420,7 @@ For printing the locale description (this is the you-can-also-see rule):
 	continue the activity.
 
 Choosing notable locale objects of something (documented at act_cnlo) is an activity.
+The choosing notable locale objects activity is accessible to Inter as "CHOOSING_NOTABLE_LOCALE_OBJ_ACT".
 
 For choosing notable locale objects (this is the standard notable locale objects rule):
 	let the domain be the parameter-object;
@@ -1217,6 +1431,7 @@ For choosing notable locale objects (this is the standard notable locale objects
 	continue the activity.
 
 Printing a locale paragraph about something (documented at act_plp) is an activity.
+The printing a locale paragraph about activity is accessible to Inter as "PRINTING_LOCALE_PARAGRAPH_ACT".
 
 For printing a locale paragraph about a thing (called the item)
 	(this is the don't mention player's supporter in room descriptions rule):
@@ -1321,6 +1536,42 @@ For printing a locale paragraph about a thing (called the item)
 			say ".[paragraph break]";
 	continue the activity.
 
+Section 8 - Dialogue (for dialogue language element only)
+
+Offering something is an activity on lists of dialogue choices.
+The offering activity is accessible to Inter as "OFFERING_A_DIALOGUE_CHOICE".
+
+For offering a list of dialogue choices (called L)
+	(this is the default offering dialogue choices rule):
+	let N be 1;
+	repeat with C running through L:
+		say "([N]) [textual content of C][line break]";
+		increase N by 1.
+
+Performing something is an activity on dialogue lines.
+The performing activity is accessible to Inter as "PERFORMING_DIALOGUE".
+
+The performing activity has an object called the speaker.
+
+The performing activity has an object called the interlocutor.
+
+The performing activity has a performance style called the style.
+
+Before performing a dialogue line:
+	now the speaker is the current dialogue line speaker;
+	now the interlocutor is the current dialogue line interlocutor;
+	now the style is the current dialogue line style.
+
+For performing a dialogue line (called L)
+	(this is the default dialogue performance rule):
+	if L is narrated or L is elaborated or L is non-verbal:
+		say "[textual content of L][line break]";
+	otherwise:
+		say "[The speaker]";
+		if the interlocutor is something:
+			say " (to [the interlocutor])";
+		say ": '[textual content of L]'[line break]".
+
 
 Part Five - Actions
 
@@ -1343,7 +1594,7 @@ To win is a verb.
 Section 2 - Standard actions concerning the actor's possessions
 
 Taking inventory is an action applying to nothing.
-The taking inventory action translates into Inter as "Inv".
+The taking inventory action is accessible to Inter as "Inv".
 
 The specification of the taking inventory action is "Taking an inventory of
 one's immediate possessions: the things being carried, either directly or in
@@ -1369,7 +1620,7 @@ Report an actor taking inventory (this is the report other people taking
 		say "[The actor] [look] through [their] possessions." (A);
 
 Taking is an action applying to one thing.
-The taking action translates into Inter as "Take".
+The taking action is accessible to Inter as "Take".
 
 The specification of the taking action is "The taking action is the only way
 an action in the Standard Rules can cause something to be carried by an actor.
@@ -1482,7 +1733,7 @@ Report an actor taking (this is the standard report taking rule):
 			say "[The actor] [pick] up [the noun]." (B).
 
 Removing it from is an action applying to two things.
-The removing it from action translates into Inter as "Remove".
+The removing it from action is accessible to Inter as "Remove".
 
 The specification of the removing it from action is "Removing is not really
 an action in its own right. Whereas there are many ways to put something down
@@ -1516,7 +1767,7 @@ The can't take component parts rule is listed before the can't remove what's not
 inside rule in the check removing it from rules.
 
 Dropping is an action applying to one thing.
-The dropping action translates into Inter as "Drop".
+The dropping action is accessible to Inter as "Drop".
 
 The specification of the dropping action is "Dropping is one of five actions
 by which an actor can get rid of something carried: the others are inserting
@@ -1582,7 +1833,7 @@ Check an actor dropping (this is the can't drop if this exceeds carrying
 				stop the action;
 
 Carry out an actor dropping (this is the standard dropping rule):
-	now the noun is in the holder of the actor.
+	now the noun is held by the holder of the actor.
 
 Report an actor dropping (this is the standard report dropping rule):
 	if the action is not silent:
@@ -1592,7 +1843,7 @@ Report an actor dropping (this is the standard report dropping rule):
 			say "[The actor] [put] down [the noun]." (B);
 
 Putting it on is an action applying to two things.
-The putting it on action translates into Inter as "PutOn".
+The putting it on action is accessible to Inter as "PutOn".
 
 The specification of the putting it on action is "By this action, an actor puts
 something he is holding on top of a supporter: for instance, putting an apple
@@ -1655,7 +1906,7 @@ Report an actor putting something on (this is the standard report putting rule):
 		say "[The actor] [put] [the noun] on [the second noun]." (A).
 
 Inserting it into is an action applying to two things.
-The inserting it into action translates into Inter as "Insert".
+The inserting it into action is accessible to Inter as "Insert".
 
 The specification of the inserting it into action is "By this action, an actor puts
 something he is holding into a container: for instance, putting a coin into a
@@ -1733,7 +1984,7 @@ Report an actor inserting something into (this is the standard report inserting 
 		say "[The actor] [put] [the noun] into [the second noun]." (A).
 
 Eating is an action applying to one thing.
-The eating action translates into Inter as "Eat".
+The eating action is accessible to Inter as "Eat".
 
 The specification of the eating action is "Eating is the only one of the
 built-in actions which can, in effect, destroy something: the carry out
@@ -1788,7 +2039,7 @@ Report an actor eating (this is the standard report eating rule):
 Section 3 - Standard actions which move the actor
 
 Going is an action applying to one visible thing.
-The going action translates into Inter as "Go".
+The going action is accessible to Inter as "Go".
 
 The specification of the going action is "This is the action which allows people
 to move from one room to another, using whatever map connections and doors are
@@ -1959,7 +2210,7 @@ Report an actor going (this is the describe room gone into rule):
 		say ".";
 
 Entering is an action applying to one thing.
-The entering action translates into Inter as "Enter".
+The entering action is accessible to Inter as "Enter".
 
 The specification of the entering action is "Whereas the going action allows
 people to move from one location to another in the model world, the entering
@@ -2095,7 +2346,7 @@ Report an actor entering (this is the describe contents entered into rule):
 	if the actor is the player, describe locale for the noun.
 
 Exiting is an action applying to nothing.
-The exiting action translates into Inter as "Exit".
+The exiting action is accessible to Inter as "Exit".
 The exiting action has an object called the container exited from (matched as "from").
 
 The specification of the exiting action is "Whereas the going action allows
@@ -2157,7 +2408,7 @@ Report an actor exiting (this is the describe room emerged into rule):
 		produce a room description with going spacing conventions.
 
 Getting off is an action applying to one thing.
-The getting off action translates into Inter as "GetOff".
+The getting off action is accessible to Inter as "GetOff".
 
 The specification of the getting off action is "The getting off action is for
 actors who are currently on top of a supporter: perhaps standing on a platform,
@@ -2189,7 +2440,7 @@ Report an actor getting off (this is the describe room stood up into rule):
 Section 4 - Standard actions concerning the actor's vision
 
 Looking is an action applying to nothing.
-The looking action translates into Inter as "Look".
+The looking action is accessible to Inter as "Look".
 
 The specification of the looking action is "The looking action describes the
 player's current room and any visible items, but is made more complicated
@@ -2317,7 +2568,7 @@ Report an actor looking (this is the other people looking rule):
 		say "[The actor] [look] around." (A).
 
 Examining is an action applying to one visible thing and requiring light.
-The examining action translates into Inter as "Examine".
+The examining action is accessible to Inter as "Examine".
 
 The specification of the examining action is "The act of looking closely at
 something. Note that the noun could be either a direction or a thing, which
@@ -2386,7 +2637,7 @@ Report an actor examining (this is the report other people examining rule):
 		say "[The actor] [look] closely at [the noun]." (A).
 
 Looking under is an action applying to one visible thing and requiring light.
-The looking under action translates into Inter as "LookUnder".
+The looking under action is accessible to Inter as "LookUnder".
 
 The specification of the looking under action is "The standard Inform world
 model does not have a concept of things being under other things, so this
@@ -2411,7 +2662,7 @@ Report an actor looking under (this is the report other people looking under rul
 			say "[The actor] [look] under [the noun]." (A).
 
 Searching is an action applying to one thing and requiring light.
-The searching action translates into Inter as "Search".
+The searching action is accessible to Inter as "Search".
 
 The specification of the searching action is "Searching looks at the contents
 of an open or transparent container, or at the items on top of a supporter.
@@ -2464,7 +2715,7 @@ Report an actor searching (this is the report other people searching rule):
 		say "[The actor] [search] [the noun]." (A).
 
 Consulting it about is an action applying to one thing and one topic.
-The consulting it about action translates into Inter as "Consult".
+The consulting it about action is accessible to Inter as "Consult".
 
 The specification of the consulting it about action is "Consulting is a very
 flexible and potentially powerful action, but only because it leaves almost
@@ -2486,7 +2737,7 @@ Report an actor consulting something about (this is the block consulting rule):
 Section 5 - Standard actions which change the state of things
 
 Locking it with is an action applying to one thing and one carried thing.
-The locking it with action translates into Inter as "Lock".
+The locking it with action is accessible to Inter as "Lock".
 
 The specification of the locking it with action is "Locking is the act of
 using an object such as a key to ensure that something such as a door or
@@ -2557,7 +2808,7 @@ Report an actor locking something with (this is the standard report locking rule
 			say "[The actor] [lock] [the noun]." (B);
 
 Unlocking it with is an action applying to one thing and one carried thing.
-The unlocking it with action translates into Inter as "Unlock".
+The unlocking it with action is accessible to Inter as "Unlock".
 
 The specification of the unlocking it with action is "Unlocking undoes the
 effect of locking, and renders the noun openable again provided that the
@@ -2620,7 +2871,7 @@ Report an actor unlocking something with (this is the standard report unlocking 
 			say "[The actor] [unlock] [the noun]." (B);
 
 Switching on is an action applying to one thing.
-The switching on action translates into Inter as "SwitchOn".
+The switching on action is accessible to Inter as "SwitchOn".
 
 The specification of the switching on action is "The switching on and switching
 off actions are for the simplest kind of machinery operation: they are for
@@ -2651,7 +2902,7 @@ Report an actor switching on (this is the standard report switching on rule):
 		say "[The actor] [switch] [the noun] on." (A).
 
 Switching off is an action applying to one thing.
-The switching off action translates into Inter as "SwitchOff".
+The switching off action is accessible to Inter as "SwitchOff".
 
 The specification of the switching off action is "The switching off and switching
 on actions are for the simplest kind of machinery operation: they are for
@@ -2682,7 +2933,7 @@ Report an actor switching off (this is the standard report switching off rule):
 		say "[The actor] [switch] [the noun] off." (A).
 
 Opening is an action applying to one thing.
-The opening action translates into Inter as "Open".
+The opening action is accessible to Inter as "Open".
 
 The specification of the opening action is "Opening makes something no longer
 a physical barrier. The action can be performed on any kind of thing which
@@ -2753,7 +3004,7 @@ Report an actor opening (this is the standard report opening rule):
 		say "[The noun] [open]." (C);
 
 Closing is an action applying to one thing.
-The closing action translates into Inter as "Close".
+The closing action is accessible to Inter as "Close".
 
 The specification of the closing action is "Closing makes something into
 a physical barrier. The action can be performed on any kind of thing which
@@ -2800,7 +3051,7 @@ Report an actor closing (this is the standard report closing rule):
 		say "[The noun] [close]." (C);
 
 Wearing is an action applying to one carried thing.
-The wearing action translates into Inter as "Wear".
+The wearing action is accessible to Inter as "Wear".
 
 The specification of the wearing action is "The Standard Rules give Inform
 only a simple model of clothing. A thing can be worn only if it has the
@@ -2843,7 +3094,7 @@ Report an actor wearing (this is the standard report wearing rule):
 		say "[The actor] [put] on [the noun]." (B).
 
 Taking off is an action applying to one thing.
-The taking off action translates into Inter as "Disrobe".
+The taking off action is accessible to Inter as "Disrobe".
 
 Does the player mean taking off something worn: it is very likely.
 
@@ -2884,7 +3135,7 @@ Report an actor taking off (this is the standard report taking off rule):
 Section 6 - Standard actions concerning other people
 
 Giving it to is an action applying to one carried thing and one thing.
-The giving it to action translates into Inter as "Give".
+The giving it to action is accessible to Inter as "Give".
 
 The specification of the giving it to action is "This action is indexed by
 Inform under 'Actions concerning other people', but it could just as easily
@@ -2952,7 +3203,7 @@ Report an actor giving something to (this is the standard report giving rule):
 		say "[The actor] [give] [the noun] to [the second noun]." (C).
 
 Showing it to is an action applying to one carried thing and one visible thing.
-The showing it to action translates into Inter as "Show".
+The showing it to action is accessible to Inter as "Show".
 
 The specification of the showing it to action is "Anyone can show anyone
 else something which they are carrying, but not some nearby piece of
@@ -2987,7 +3238,7 @@ Check an actor showing something to (this is the block showing rule):
 	stop the action.
 
 Waking is an action applying to one thing.
-The waking action translates into Inter as "WakeOther".
+The waking action is accessible to Inter as "WakeOther".
 
 The specification of the waking action is "This is the act of jostling
 a sleeping person to wake him or her up, and it finds its way into the
@@ -3003,7 +3254,7 @@ Check an actor waking (this is the block waking rule):
 	stop the action.
 
 Throwing it at is an action applying to one carried thing and one visible thing.
-The throwing it at action translates into Inter as "ThrowAt".
+The throwing it at action is accessible to Inter as "ThrowAt".
 
 The specification of the throwing it at action is "Throwing something at
 someone or something is difficult for Inform to model. So many considerations
@@ -3047,7 +3298,7 @@ Check an actor throwing something at (this is the block throwing at rule):
 	stop the action.
 
 Attacking is an action applying to one thing.
-The attacking action translates into Inter as "Attack".
+The attacking action is accessible to Inter as "Attack".
 
 The specification of the attacking action is "Violence is seldom the answer,
 and attempts to attack another person are normally blocked as being unrealistic
@@ -3063,7 +3314,7 @@ Check an actor attacking (this is the block attacking rule):
 	stop the action.
 
 Kissing is an action applying to one thing.
-The kissing action translates into Inter as "Kiss".
+The kissing action is accessible to Inter as "Kiss".
 
 The specification of the kissing action is "Possibly because Inform was
 originally written by an Englishman, attempts at kissing another person are
@@ -3083,7 +3334,7 @@ Check an actor kissing (this is the block kissing rule):
 	stop the action.
 
 Answering it that is an action applying to one thing and one topic.
-The answering it that action translates into Inter as "Answer".
+The answering it that action is accessible to Inter as "Answer".
 
 The specification of the answering it that action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3113,7 +3364,7 @@ Report an actor answering something that (this is the block answering rule):
 	stop the action.
 
 Telling it about is an action applying to one thing and one topic.
-The telling it about action translates into Inter as "Tell".
+The telling it about action is accessible to Inter as "Tell".
 
 The specification of the telling it about action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3145,7 +3396,7 @@ Report an actor telling something about (this is the block telling rule):
 	stop the action.
 
 Asking it about is an action applying to one thing and one topic.
-The asking it about action translates into Inter as "Ask".
+The asking it about action is accessible to Inter as "Ask".
 
 The specification of the asking it about action is "The Standard Rules do
 not include any systematic way to handle conversation: instead, Inform is
@@ -3174,7 +3425,7 @@ Report an actor asking something about (this is the block asking rule):
 	stop the action.
 
 Asking it for is an action applying to two things.
-The asking it for action translates into Inter as "AskFor".
+The asking it for action is accessible to Inter as "AskFor".
 
 The specification of the asking it for action is "The Standard Rules do
 not include any systematic way to handle conversation, but this is
@@ -3201,7 +3452,7 @@ Check an actor asking something for (this is the translate asking for to giving 
 Section 7 - Standard actions which are checked but then do nothing unless rules intervene
 
 Waiting is an action applying to nothing.
-The waiting action translates into Inter as "Wait".
+The waiting action is accessible to Inter as "Wait".
 
 The specification of the waiting action is "The inaction action: where would
 we be without waiting? Waiting does not cause time to pass by - that happens
@@ -3222,7 +3473,7 @@ Report an actor waiting (this is the standard report waiting rule):
 		say "[The actor] [wait]." (B).
 
 Touching is an action applying to one thing.
-The touching action translates into Inter as "Touch".
+The touching action is accessible to Inter as "Touch".
 
 The specification of the touching action is "Touching is just that, touching
 something without applying pressure: a touch-sensitive screen or a living
@@ -3264,7 +3515,7 @@ Report an actor touching (this is the report touching things rule):
 		say "[The actor] [touch] [the noun]." (B).
 
 Waving is an action applying to one thing.
-The waving action translates into Inter as "Wave".
+The waving action is accessible to Inter as "Wave".
 
 The specification of the waving action is "Waving in this sense is like
 waving a sceptre: the item to be waved must be directly held (or worn)
@@ -3289,7 +3540,7 @@ Report an actor waving (this is the report waving things rule):
 		say "[The actor] [wave] [the noun]." (B).
 
 Pulling is an action applying to one thing.
-The Pulling action translates into Inter as "Pull".
+The Pulling action is accessible to Inter as "Pull".
 
 The specification of the pulling action is "Pulling is the act of pulling
 something not grossly larger than the actor by an amount which would not
@@ -3329,7 +3580,7 @@ Report an actor pulling (this is the report pulling rule):
 		say "[The actor] [pull] [the noun]." (B).
 
 Pushing is an action applying to one thing.
-The Pushing action translates into Inter as "Push".
+The Pushing action is accessible to Inter as "Push".
 
 The specification of the pushing action is "Pushing is the act of pushing
 something not grossly larger than the actor by an amount which would not
@@ -3370,7 +3621,7 @@ Report an actor pushing something (this is the report pushing rule):
 		say "[The actor] [push] [the noun]." (B).
 
 Turning is an action applying to one thing.
-The Turning action translates into Inter as "Turn".
+The Turning action is accessible to Inter as "Turn".
 
 The specification of the turning action is "Turning is the act of rotating
 something - say, a dial.
@@ -3407,7 +3658,7 @@ Report an actor turning (this is the report turning rule):
 		say "[The actor] [turn] [the noun]." (B).
 
 Pushing it to is an action applying to one thing and one visible thing.
-The Pushing it to action translates into Inter as "PushDir".
+The Pushing it to action is accessible to Inter as "PushDir".
 
 The specification of the pushing it to action is "This action covers pushing
 a large object, not being carried, so that the actor pushes it from one room
@@ -3453,7 +3704,7 @@ Check an actor pushing something to (this is the block pushing in directions rul
 	stop the action.
 
 Squeezing is an action applying to one thing.
-The Squeezing action translates into Inter as "Squeeze".
+The Squeezing action is accessible to Inter as "Squeeze".
 
 The specification of the squeezing action is "Squeezing is an action which
 can conveniently vary from squeezing something hand-held, like a washing-up
@@ -3481,7 +3732,7 @@ Report an actor squeezing (this is the report squeezing rule):
 Section 8 - Standard actions which always do nothing unless rules intervene
 
 Saying yes is an action applying to nothing.
-The Saying yes action translates into Inter as "Yes".
+The Saying yes action is accessible to Inter as "Yes".
 
 The specification of the saying yes action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3497,7 +3748,7 @@ Check an actor saying yes (this is the block saying yes rule):
 	stop the action.
 
 Saying no is an action applying to nothing.
-The Saying no action translates into Inter as "No".
+The Saying no action is accessible to Inter as "No".
 
 The specification of the saying no action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3513,7 +3764,7 @@ Check an actor saying no (this is the block saying no rule):
 	stop the action.
 
 Burning is an action applying to one thing.
-The Burning action translates into Inter as "Burn".
+The Burning action is accessible to Inter as "Burn".
 
 The specification of the burning action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3529,7 +3780,7 @@ Check an actor burning (this is the block burning rule):
 	stop the action.
 
 Waking up is an action applying to nothing.
-The Waking up action translates into Inter as "Wake".
+The Waking up action is accessible to Inter as "Wake".
 
 The specification of the waking up action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3546,7 +3797,7 @@ Check an actor waking up (this is the block waking up rule):
 	stop the action.
 
 Thinking is an action applying to nothing.
-The Thinking action translates into Inter as "Think".
+The Thinking action is accessible to Inter as "Think".
 
 The specification of the thinking action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3562,7 +3813,7 @@ Check an actor thinking (this is the block thinking rule):
 	stop the action.
 
 Smelling is an action applying to nothing or one thing.
-The Smelling action translates into Inter as "Smell".
+The Smelling action is accessible to Inter as "Smell".
 
 The specification of the smelling action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -3576,7 +3827,7 @@ Report an actor smelling (this is the report smelling rule):
 		say "[The actor] [sniff]." (B).
 
 Listening to is an action applying to nothing or one thing and abbreviable.
-The Listening to action translates into Inter as "Listen".
+The Listening to action is accessible to Inter as "Listen".
 
 The specification of the listening to action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -3590,7 +3841,7 @@ Report an actor listening to (this is the report listening rule):
 		say "[The actor] [listen]." (B).
 
 Tasting is an action applying to one thing.
-The Tasting action translates into Inter as "Taste".
+The Tasting action is accessible to Inter as "Taste".
 
 The specification of the tasting action is
 "The Standard Rules define this action in only a minimal way, replying only
@@ -3604,7 +3855,7 @@ Report an actor tasting (this is the report tasting rule):
 		say "[The actor] [taste] [the noun]." (B).
 
 Cutting is an action applying to one thing.
-The Cutting action translates into Inter as "Cut".
+The Cutting action is accessible to Inter as "Cut".
 
 The specification of the cutting action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3620,7 +3871,7 @@ Check an actor cutting (this is the block cutting rule):
 	stop the action.
 
 Jumping is an action applying to nothing.
-The Jumping action translates into Inter as "Jump".
+The Jumping action is accessible to Inter as "Jump".
 
 The specification of the jumping action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -3634,7 +3885,7 @@ Report an actor jumping (this is the report jumping rule):
 		say "[The actor] [jump] on the spot." (B).
 
 Tying it to is an action applying to two things.
-The Tying it to action translates into Inter as "Tie".
+The Tying it to action is accessible to Inter as "Tie".
 
 The specification of the tying it to action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3650,7 +3901,7 @@ Check an actor tying something to (this is the block tying rule):
 	stop the action.
 
 Drinking is an action applying to one thing.
-The Drinking action translates into Inter as "Drink".
+The Drinking action is accessible to Inter as "Drink".
 
 The specification of the drinking action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3667,7 +3918,7 @@ Check an actor drinking (this is the block drinking rule):
 	stop the action.
 
 Saying sorry is an action applying to nothing.
-The Saying sorry action translates into Inter as "Sorry".
+The Saying sorry action is accessible to Inter as "Sorry".
 
 The specification of the saying sorry action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3684,7 +3935,7 @@ Check an actor saying sorry (this is the block saying sorry rule):
 	stop the action.
 
 Swinging is an action applying to one thing.
-The Swinging action translates into Inter as "Swing".
+The Swinging action is accessible to Inter as "Swing".
 
 The specification of the swinging action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3701,7 +3952,7 @@ Check an actor swinging (this is the block swinging rule):
 	stop the action.
 
 Rubbing is an action applying to one thing.
-The Rubbing action translates into Inter as "Rub".
+The Rubbing action is accessible to Inter as "Rub".
 
 The specification of the rubbing action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -3721,7 +3972,7 @@ Report an actor rubbing (this is the report rubbing rule):
 		say "[The actor] [rub] [the noun]." (B).
 
 Setting it to is an action applying to one thing and one topic.
-The Setting it to action translates into Inter as "SetTo".
+The Setting it to action is accessible to Inter as "SetTo".
 
 The specification of the setting it to action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3737,7 +3988,7 @@ Check an actor setting something to (this is the block setting it to rule):
 	stop the action.
 
 Waving hands is an action applying to nothing.
-The Waving hands action translates into Inter as "WaveHands".
+The Waving hands action is accessible to Inter as "WaveHands".
 
 The specification of the waving hands action is
 "The Standard Rules define this action in only a minimal way, simply reporting
@@ -3751,7 +4002,7 @@ Report an actor waving hands (this is the report waving hands rule):
 		say "[The actor] [wave]." (B).
 
 Buying is an action applying to one thing.
-The Buying action translates into Inter as "Buy".
+The Buying action is accessible to Inter as "Buy".
 
 The specification of the buying action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3768,7 +4019,7 @@ Check an actor buying (this is the block buying rule):
 	stop the action.
 
 Climbing is an action applying to one thing.
-The Climbing action translates into Inter as "Climb".
+The Climbing action is accessible to Inter as "Climb".
 
 The specification of the climbing action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3784,7 +4035,7 @@ Check an actor climbing (this is the block climbing rule):
 	stop the action.
 
 Sleeping is an action applying to nothing.
-The Sleeping action translates into Inter as "Sleep".
+The Sleeping action is accessible to Inter as "Sleep".
 
 The specification of the sleeping action is
 "The Standard Rules define this action in only a minimal way, blocking it
@@ -3802,77 +4053,77 @@ Check an actor sleeping (this is the block sleeping rule):
 Section 9 - Standard actions which happen out of world
 
 Quitting the game is an action out of world and applying to nothing.
-The quitting the game action translates into Inter as "Quit".
+The quitting the game action is accessible to Inter as "Quit".
 
 The quit the game rule is listed in the carry out quitting the game rulebook.
-The quit the game rule translates into Inter as "QUIT_THE_GAME_R" with
+The quit the game rule is defined by Inter as "QUIT_THE_GAME_R" with
 	"Are you sure you want to quit? " (A).
 
 Saving the game is an action out of world and applying to nothing.
-The saving the game action translates into Inter as "Save".
+The saving the game action is accessible to Inter as "Save".
 
 The save the game rule is listed in the carry out saving the game rulebook.
-The save the game rule translates into Inter as "SAVE_THE_GAME_R" with
+The save the game rule is defined by Inter as "SAVE_THE_GAME_R" with
 	"Save failed." (A),
 	"Ok." (B).
 
 Restoring the game is an action out of world and applying to nothing.
-The restoring the game action translates into Inter as "Restore".
+The restoring the game action is accessible to Inter as "Restore".
 
 The restore the game rule is listed in the carry out restoring the game rulebook.
-The restore the game rule translates into Inter as "RESTORE_THE_GAME_R" with
+The restore the game rule is defined by Inter as "RESTORE_THE_GAME_R" with
 	"Restore failed." (A),
 	"Ok." (B).
 
 Restarting the game is an action out of world and applying to nothing.
-The restarting the game action translates into Inter as "Restart".
+The restarting the game action is accessible to Inter as "Restart".
 
 The restart the game rule is listed in the carry out restarting the game rulebook.
-The restart the game rule translates into Inter as "RESTART_THE_GAME_R" with
+The restart the game rule is defined by Inter as "RESTART_THE_GAME_R" with
 	"Are you sure you want to restart? " (A),
 	"Failed." (B).
 
 Verifying the story file is an action out of world and applying to nothing.
-The verifying the story file action translates into Inter as "Verify".
+The verifying the story file action is accessible to Inter as "Verify".
 
 The verify the story file rule is listed in the carry out verifying the story file rulebook.
-The verify the story file rule translates into Inter as "VERIFY_THE_STORY_FILE_R" with
+The verify the story file rule is defined by Inter as "VERIFY_THE_STORY_FILE_R" with
 	"The game file has verified as intact." (A),
 	"The game file did not verify as intact, and may be corrupt." (B).
 
 Switching the story transcript on is an action out of world and applying to nothing.
-The switching the story transcript on action translates into Inter as "ScriptOn".
+The switching the story transcript on action is accessible to Inter as "ScriptOn".
 
 The switch the story transcript on rule is listed in the carry out switching the story
 	transcript on rulebook.
-The switch the story transcript on rule translates into Inter as "SWITCH_TRANSCRIPT_ON_R" with
+The switch the story transcript on rule is defined by Inter as "SWITCH_TRANSCRIPT_ON_R" with
     "Transcripting is already on." (A),
     "Start of a transcript of:" (B),
     "Attempt to begin transcript failed." (C).
 
 Switching the story transcript off is an action out of world and applying to nothing.
-The switching the story transcript off action translates into Inter as "ScriptOff".
+The switching the story transcript off action is accessible to Inter as "ScriptOff".
 
 The switch the story transcript off rule is listed in the carry out switching the story
 	transcript off rulebook.
-The switch the story transcript off rule translates into Inter as "SWITCH_TRANSCRIPT_OFF_R" with
+The switch the story transcript off rule is defined by Inter as "SWITCH_TRANSCRIPT_OFF_R" with
     "Transcripting is already off." (A),
     "[line break]End of transcript." (B),
     "Attempt to end transcript failed." (C).
 
 
 Requesting the story file version is an action out of world and applying to nothing.
-The requesting the story file version action translates into Inter as "Version".
+The requesting the story file version action is accessible to Inter as "Version".
 
 The announce the story file version rule is listed in the carry out requesting the story
 	file version rulebook.
-The announce the story file version rule translates into Inter as "ANNOUNCE_STORY_FILE_VERSION_R".
+The announce the story file version rule is defined by Inter as "ANNOUNCE_STORY_FILE_VERSION_R".
 
 Requesting the score is an action out of world and applying to nothing.
-The requesting the score action translates into Inter as "Score".
+The requesting the score action is accessible to Inter as "Score".
 
 The announce the score rule is listed in the carry out requesting the score rulebook.
-The announce the score rule translates into Inter as "ANNOUNCE_SCORE_R" with
+The announce the score rule is defined by Inter as "ANNOUNCE_SCORE_R" with
 	"[if the story has ended]In that game you scored[otherwise]You have so far scored[end if]
 	[score] out of a possible [maximum score], in [turn count] turn[s]" (A),
     ", earning you the rank of " (B),
@@ -3883,83 +4134,114 @@ The announce the score rule translates into Inter as "ANNOUNCE_SCORE_R" with
 		point[s].[close bracket]" (E).
 
 Preferring abbreviated room descriptions is an action out of world and applying to nothing.
-The preferring abbreviated room descriptions action translates into Inter as "LMode3".
+The preferring abbreviated room descriptions action is accessible to Inter as "LMode3".
 
 The prefer abbreviated room descriptions rule is listed in the carry out preferring
 	abbreviated room descriptions rulebook.
-The prefer abbreviated room descriptions rule translates into Inter as "PREFER_ABBREVIATED_R".
+The prefer abbreviated room descriptions rule is defined by Inter as "PREFER_ABBREVIATED_R".
 
 The standard report preferring abbreviated room descriptions rule is listed in the
 	report preferring abbreviated room descriptions rulebook.
-The standard report preferring abbreviated room descriptions rule translates into
+The standard report preferring abbreviated room descriptions rule is defined by
 	Inter as "REP_PREFER_ABBREVIATED_R" with
 	" is now in its 'superbrief' mode, which always gives short descriptions
 	of locations (even if you haven't been there before)." (A).
 
 Preferring unabbreviated room descriptions is an action out of world and applying to nothing.
-The preferring unabbreviated room descriptions action translates into Inter as "LMode2".
+The preferring unabbreviated room descriptions action is accessible to Inter as "LMode2".
 
 The prefer unabbreviated room descriptions rule is listed in the carry out preferring
 	unabbreviated room descriptions rulebook.
-The prefer unabbreviated room descriptions rule translates into Inter as "PREFER_UNABBREVIATED_R".
+The prefer unabbreviated room descriptions rule is defined by Inter as "PREFER_UNABBREVIATED_R".
 
 The standard report preferring unabbreviated room descriptions rule is listed in the
 	report preferring unabbreviated room descriptions rulebook.
-The standard report preferring unabbreviated room descriptions rule translates into
+The standard report preferring unabbreviated room descriptions rule is defined by
 	Inter as "REP_PREFER_UNABBREVIATED_R" with
 	" is now in its 'verbose' mode, which always gives long descriptions of
 	locations (even if you've been there before)." (A).
 
 Preferring sometimes abbreviated room descriptions is an action out of world and
 	applying to nothing.
-The preferring sometimes abbreviated room descriptions action translates into Inter as "LMode1".
+The preferring sometimes abbreviated room descriptions action is accessible to Inter as "LMode1".
 
 The prefer sometimes abbreviated room descriptions rule is listed in the carry out
 	preferring sometimes abbreviated room descriptions rulebook.
-The prefer sometimes abbreviated room descriptions rule translates into Inter as
+The prefer sometimes abbreviated room descriptions rule is defined by Inter as
 	"PREFER_SOMETIMES_ABBREVIATED_R".
 
 The standard report preferring sometimes abbreviated room descriptions rule is listed
 	in the report preferring sometimes abbreviated room descriptions rulebook.
-The standard report preferring sometimes abbreviated room descriptions rule translates
-	into Inter as "REP_PREFER_SOMETIMES_ABBR_R" with
+The standard report preferring sometimes abbreviated room descriptions rule
+	is defined by Inter as "REP_PREFER_SOMETIMES_ABBR_R" with
 	" is now in its 'brief' printing mode, which gives long descriptions
     of places never before visited and short descriptions otherwise." (A).
 
 Switching score notification on is an action out of world and applying to nothing.
-The switching score notification on action translates into Inter as "NotifyOn".
+The switching score notification on action is accessible to Inter as "NotifyOn".
 
 The switch score notification on rule is listed in the carry out switching score
 	notification on rulebook.
-The switch score notification on rule translates into Inter as "SWITCH_SCORE_NOTIFY_ON_R".
+The switch score notification on rule is defined by Inter as "SWITCH_SCORE_NOTIFY_ON_R".
 
 The standard report switching score notification on rule is listed in the report
 	switching score notification on rulebook.
-The standard report switching score notification on rule translates into
+The standard report switching score notification on rule is defined by
 	Inter as "REP_SWITCH_NOTIFY_ON_R" with "Score notification on." (A).
 
 Switching score notification off is an action out of world and applying to nothing.
-The switching score notification off action translates into Inter as "NotifyOff".
+The switching score notification off action is accessible to Inter as "NotifyOff".
 
 The switch score notification off rule is listed in the carry out switching score
 	notification off rulebook.
-The switch score notification off rule translates into Inter as "SWITCH_SCORE_NOTIFY_OFF_R".
+The switch score notification off rule is defined by Inter as "SWITCH_SCORE_NOTIFY_OFF_R".
 
 The standard report switching score notification off rule is listed in the report
 	switching score notification off rulebook.
-The standard report switching score notification off rule translates into
+The standard report switching score notification off rule is defined by
 	Inter as "REP_SWITCH_NOTIFY_OFF_R" with "Score notification off." (A).
 
 Requesting the pronoun meanings is an action out of world and applying to nothing.
-The requesting the pronoun meanings action translates into Inter as "Pronouns".
+The requesting the pronoun meanings action is accessible to Inter as "Pronouns".
 
 The announce the pronoun meanings rule is listed in the carry out requesting the
 	pronoun meanings rulebook.
-The announce the pronoun meanings rule translates into Inter as "ANNOUNCE_PRONOUN_MEANINGS_R" with
+The announce the pronoun meanings rule is defined by Inter as "ANNOUNCE_PRONOUN_MEANINGS_R" with
 	"At the moment, " (A),
 	"means " (B),
 	"is unset" (C),
 	"no pronouns are known to the game." (D).
+
+Section 10 - Dialogue-related actions (for dialogue language element only)
+
+Talking about is an action applying to one object.
+
+The talking about action has a list of dialogue beats called the leading beats.
+
+The talking about action has a list of dialogue beats called the other beats.
+
+Before an actor talking about an object (called T):
+	repeat with B running through available dialogue beats about T:
+		if B is performable to the actor:
+			if the first speaker of B is the actor:
+				add B to the leading beats;
+			otherwise:
+				add B to the other beats;
+
+Carry out an actor talking about an object (called T)
+	(this is the first-declared beat rule):
+	if the leading beats is not empty:
+		perform entry 1 of the leading beats;
+		continue the action;
+	if the other beats is not empty:
+		perform entry 1 of the other beats;
+		continue the action;
+	if the player is the actor:
+		say "There is no reply.";
+		stop the action;
+	otherwise:
+		say "[The actor] [talk] about [T].";
+		stop the action.
 
 Part Six - Grammar
 
@@ -4184,7 +4466,14 @@ Understand "nouns" or "pronouns" as requesting the pronoun meanings.
 Understand "notify" or "notify on" as switching score notification on.
 Understand "notify off" as switching score notification off.
 
-The understand token a time period translates into Inter as "RELATIVE_TIME_TOKEN".
+The understand token a time period is defined by Inter as "RELATIVE_TIME_TOKEN".
+
+Section 2 - Dialogue-related grammar (for dialogue language element only)
+
+Understand "ask about [concept]" as talking about.
+Understand "ask about [visible thing]" as talking about.
+Understand "talk about [concept]" as talking about.
+Understand "talk about [visible thing]" as talking about.
 
 Part Seven - Phrasebook
 
@@ -4751,7 +5040,7 @@ To say pronoun dictionary word:
 To say recap of command:
 	(- PrintCommand(); -).
 The pronoun reference object is an object that varies.
-The pronoun reference object variable translates into Inter as "pronoun_obj".
+The pronoun reference object variable is defined by Inter as "pronoun_obj".
 
 To say pronoun i6 dictionary word:
 	(- print (address) pronoun_word; -).
@@ -4801,6 +5090,8 @@ Section 3 - Action conversion - Unindexed
 
 To convert to (AN - an action name) on (O - an object):
 	(- return GVS_Convert({AN},{O},0); -) - in to only.
+To convert to (AN - an action name) on (O - an object) with (T - a snippet):
+	(- return GVS_Convert({AN},{O},{T}); -) - in to only.
 To convert to request of (X - object) to perform (AN - action name) with
 	(Y - object) and (Z - object):
 	(- return ConvertToRequest({X}, {AN}, {Y}, {Z}); -).

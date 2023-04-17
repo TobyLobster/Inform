@@ -92,8 +92,8 @@
             <!--definition of ph_writetable-->
 
     <p>    This phrase causes the entire contents of the given table to be written out to the given file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
-    <!--START CODE "c8732"-->
-    <blockquote class="code"><p class="quoted"><a id="c8732"></a>write File of Glaciation Data from the Table of Antarctic Reserves
+    <!--START CODE "c8730"-->
+    <blockquote class="code"><p class="quoted"><a id="c8730"></a>write File of Glaciation Data from the Table of Antarctic Reserves
     </p>
     </blockquote>
     <!--END CODE-->
@@ -111,8 +111,8 @@
             <!--definition of ph_readtable-->
 
     <p>    This phrase causes the entire contents of the given table to be read in from the given file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
-    <!--START CODE "c8733"-->
-    <blockquote class="code"><p class="quoted"><a id="c8733"></a>read File of Glaciation Data into the Table of Antarctic Reserves
+    <!--START CODE "c8731"-->
+    <blockquote class="code"><p class="quoted"><a id="c8731"></a>read File of Glaciation Data into the Table of Antarctic Reserves
     </p>
     </blockquote>
     <!--END CODE-->
@@ -130,14 +130,14 @@
             <!--definition of ph_fileexists-->
 
     <p>    This condition is true if the file-system used by the player appears to contain a file with the right name. For example, if we declared:</p>
-    <!--START CODE "c8734"-->
-    <blockquote class="code"><p class="quoted"><a id="c8734"></a>The binary File of Glaciation Data is called &quot;icedata&quot;.
+    <!--START CODE "c8732"-->
+    <blockquote class="code"><p class="quoted"><a id="c8732"></a>The binary File of Glaciation Data is called &quot;icedata&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and then tested</p>
-    <!--START CODE "c8735"-->
-    <blockquote class="code"><p class="quoted"><a id="c8735"></a>if the File of Glaciation Data exists, ...
+    <!--START CODE "c8733"-->
+    <blockquote class="code"><p class="quoted"><a id="c8733"></a>if the File of Glaciation Data exists, ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -175,23 +175,23 @@
 
         <div class="egpanel" id="example5" style="display: none;">
             <p>Suppose that we have a series of games each of which allows the player to select a puzzle difficulty level. When the player plays a new game in the series, we want him to start out by default with the same difficulty level he faced earlier on, so we store this information in a small preferences file, as follows:</p>
+            <!--START CODE "c8734_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8734_5"></a><a href="javascript:pasteCode('[=0x0022=]Alien Invasion Part 23[=0x0022=][=0x000A=][=0x000A=]A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.[=0x000A=][=0x000A=]Understand [=0x0022=]use [difficulty] puzzles[=0x0022=] as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.[=0x000A=][=0x000A=]Carry out selecting difficulty:[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]now challenge level entry is difficulty understood;[=0x000A=][=0x0009=]say [=0x0022=]Puzzles will be [challenge level entry] from now on.[=0x0022=][=0x000A=][=0x000A=]The File of Preferences is called [=0x0022=]prefs[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if File of Preferences exists:[=0x000A=][=0x0009=][=0x0009=]read File of Preferences into the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](The current puzzle difficulty is set to [challenge level entry].)[=0x0022=][=0x000A=][=0x000A=]Check quitting the game:[=0x000A=][=0x0009=]write File of Preferences from the Table of Preference Settings.[=0x000A=][=0x000A=]Table of Preference Settings[=0x000A=]challenge level[=0x000A=]easy[=0x000A=][=0x000A=]The Sewer Junction is a room.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Alien Invasion Part 23[=0x0022=][=0x000A=][=0x000A=]A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.[=0x000A=][=0x000A=]Understand [=0x0022=]use [difficulty] puzzles[=0x0022=] as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.[=0x000A=][=0x000A=]Carry out selecting difficulty:[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]now challenge level entry is difficulty understood;[=0x000A=][=0x0009=]say [=0x0022=]Puzzles will be [challenge level entry] from now on.[=0x0022=][=0x000A=][=0x000A=]The File of Preferences is called [=0x0022=]prefs[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if File of Preferences exists:[=0x000A=][=0x0009=][=0x0009=]read File of Preferences into the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](The current puzzle difficulty is set to [challenge level entry].)[=0x0022=][=0x000A=][=0x000A=]Check quitting the game:[=0x000A=][=0x0009=]write File of Preferences from the Table of Preference Settings.[=0x000A=][=0x000A=]Table of Preference Settings[=0x000A=]challenge level[=0x000A=]easy[=0x000A=][=0x000A=]The Sewer Junction is a room.[=0x000A=][=0x000A=]\n', 'Example - Alien Invasion Part 23')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Alien Invasion Part 23&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8735_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8735_5"></a>A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8736_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8736_5"></a><a href="javascript:pasteCode('[=0x0022=]Alien Invasion Part 23[=0x0022=][=0x000A=][=0x000A=]A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.[=0x000A=][=0x000A=]Understand [=0x0022=]use [difficulty] puzzles[=0x0022=] as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.[=0x000A=][=0x000A=]Carry out selecting difficulty:[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]now challenge level entry is difficulty understood;[=0x000A=][=0x0009=]say [=0x0022=]Puzzles will be [challenge level entry] from now on.[=0x0022=][=0x000A=][=0x000A=]The File of Preferences is called [=0x0022=]prefs[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if File of Preferences exists:[=0x000A=][=0x0009=][=0x0009=]read File of Preferences into the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](The current puzzle difficulty is set to [challenge level entry].)[=0x0022=][=0x000A=][=0x000A=]Check quitting the game:[=0x000A=][=0x0009=]write File of Preferences from the Table of Preference Settings.[=0x000A=][=0x000A=]Table of Preference Settings[=0x000A=]challenge level[=0x000A=]easy[=0x000A=][=0x000A=]The Sewer Junction is a room.[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Alien Invasion Part 23[=0x0022=][=0x000A=][=0x000A=]A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.[=0x000A=][=0x000A=]Understand [=0x0022=]use [difficulty] puzzles[=0x0022=] as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.[=0x000A=][=0x000A=]Carry out selecting difficulty:[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]now challenge level entry is difficulty understood;[=0x000A=][=0x0009=]say [=0x0022=]Puzzles will be [challenge level entry] from now on.[=0x0022=][=0x000A=][=0x000A=]The File of Preferences is called [=0x0022=]prefs[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if File of Preferences exists:[=0x000A=][=0x0009=][=0x0009=]read File of Preferences into the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](The current puzzle difficulty is set to [challenge level entry].)[=0x0022=][=0x000A=][=0x000A=]Check quitting the game:[=0x000A=][=0x0009=]write File of Preferences from the Table of Preference Settings.[=0x000A=][=0x000A=]Table of Preference Settings[=0x000A=]challenge level[=0x000A=]easy[=0x000A=][=0x000A=]The Sewer Junction is a room.[=0x000A=][=0x000A=]\n', 'Example - Alien Invasion Part 23')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Alien Invasion Part 23&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8736_5"></a>Understand &quot;use [difficulty] puzzles&quot; as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8737_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8737_5"></a>A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8738_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8738_5"></a>Understand &quot;use [difficulty] puzzles&quot; as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8739_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8739_5"></a>Carry out selecting difficulty:
+            <blockquote class="code"><p class="quoted"><a id="c8737_5"></a>Carry out selecting difficulty:
             <br>
             &#160;&#160;&#160;&#160;choose row 1 in the Table of Preference Settings;
             <br>
@@ -201,13 +201,13 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8740_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8740_5"></a>The File of Preferences is called &quot;prefs&quot;.
+            <!--START CODE "c8738_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8738_5"></a>The File of Preferences is called &quot;prefs&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8741_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8741_5"></a>When play begins:
+            <!--START CODE "c8739_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8739_5"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;if File of Preferences exists:
             <br>
@@ -219,15 +219,15 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8742_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8742_5"></a>Check quitting the game:
+            <!--START CODE "c8740_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8740_5"></a>Check quitting the game:
             <br>
             &#160;&#160;&#160;&#160;write File of Preferences from the Table of Preference Settings.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8743_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8743_5"></a>Table of Preference Settings
+            <!--START CODE "c8741_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8741_5"></a>Table of Preference Settings
             <br>
             challenge level
             <br>
@@ -235,8 +235,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8744_5"-->
-            <blockquote class="code"><p class="quoted"><a id="c8744_5"></a>The Sewer Junction is a room.
+            <!--START CODE "c8742_5"-->
+            <blockquote class="code"><p class="quoted"><a id="c8742_5"></a>The Sewer Junction is a room.
             </p>
             </blockquote>
             <!--END CODE-->
@@ -271,33 +271,33 @@
         <div class="egpanel" id="example210" style="display: none;">
             <p>A tradition among Nethack-like computer games of the old school is that a player's death in a given place leaves a ghost behind to haunt subsequent players. Information about past lives is sometimes stored in a &quot;bones file&quot;, and in this example we do exactly that, for a grievously unfair little dungeon.</p>
             <p>To begin with, the labyrinth itself. We create a kind of value to remember possible means of death in these tunnels, and we assign a coordinate position in some grid to each location. (We do this because grid positions can safely be stored in tables saved out to external files, whereas room names cannot - they represent data which changes each time we amend the source.)</p>
+            <!--START CODE "c8743_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8743_210"></a><a href="javascript:pasteCode('[=0x0022=]Labyrinth of Ghosts[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.[=0x000A=][=0x000A=]A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.[=0x000A=][=0x000A=]The Gateway is a room. [=0x0022=]For the foolhardy adventurer, the perilous labyrinth lies north, east or south.[=0x0022=] The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. [=0x0022=]This partly fallen cave may perhaps extend further north.[=0x0022=] The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. [=0x0022=]No telling why this canyon is named after archery, but perhaps if you wait around you[=0x0027=]ll find out.[=0x0022=] The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 10 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]A dwarf appears out of nowhere, and throws a nasty little knife.[=0x0022=];[=0x000A=][=0x0009=]have the player slain.[=0x000A=][=0x000A=][And as compensation for these hazards:][=0x000A=][=0x000A=]Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.[=0x000A=][=0x000A=]Table of Point Values[=0x000A=]item [=0x0009=]  [=0x0009=]score[=0x000A=]silver bars[=0x0009=]3[=0x000A=]platinum pyramid[=0x0009=]10[=0x000A=]emerald[=0x0009=]4[=0x000A=][=0x000A=]Report taking an item listed in the Table of Point Values:[=0x000A=][=0x0009=]increase the score by the score entry;[=0x000A=][=0x0009=]blank out the whole row.[=0x000A=][=0x000A=][We are now ready for the actual undertaking. The Table of Ghostly Presences holds up to twenty death notices, and is initially blank. Deaths are sequentially numbered, and this number is stored in the sequence column.][=0x000A=][=0x000A=]Table of Ghostly Presences[=0x000A=]haunted position[=0x0009=]score at death[=0x0009=]turns at death[=0x0009=]manner of death[=0x0009=]sequence[=0x000A=]a grid location[=0x0009=]a number[=0x0009=]a number[=0x0009=]a demise[=0x0009=]a number[=0x000A=]with 19 blank rows.[=0x000A=][=0x000A=][As the story file starts up, we look to see if a ghosts file already exists. If one does, we load up the Table of Ghostly Presences with it: and if not, as will be the case the first time the player explores, we leave the table blank. We sort the table so that it has earlier deaths (lower sequence numbers) first.][=0x000A=][=0x000A=]The File of Ghosts is called [=0x0022=]ghosts[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Ghosts exists, read File of Ghosts into the Table of Ghostly Presences;[=0x000A=][=0x0009=]sort the Table of Ghostly Presences in sequence order.[=0x000A=][=0x000A=][How will ghosts manifest themselves? Because this is only a small example, we will simply tell the player that he senses something. If several ghosts are present in the same place, the most aggrieved (that is, the most recent) is sensed first...][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences in reverse sequence order:[=0x000A=][=0x0009=][=0x0009=]if the haunted position entry is the coordinates of the location, say [=0x0022=]You sense the ghostly presence of an adventurer, [manner of death entry] with a score of [score at death entry] in [turns at death entry] turns.[=0x0022=][=0x000A=][=0x000A=][(For instance, [=0x0022=]You sense the ghostly presence of an adventurer, buried by a rockfall with a score of 10 in 5 turns.[=0x0022=]) That just leaves the rule for bumping off the player. When the Table is full, and there are already 20 ghosts, the one who died longest ago (with the lowest sequence count) is eliminated, and his row blanked out. (This will always be row 1 since we sorted the table in sequence order on reading it in.)][=0x000A=][=0x000A=]To have the player (sticky end - a demise):[=0x000A=][=0x0009=]let the new sequence number be 0;[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences:[=0x000A=][=0x0009=][=0x0009=]let S be the sequence entry;[=0x000A=][=0x0009=][=0x0009=]if S is greater than the new sequence number, let the new sequence number be S;[=0x000A=][=0x0009=]increment the new sequence number;[=0x000A=][=0x0009=]if the number of blank rows in the Table of Ghostly Presences is 0:[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Ghostly Presences;[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=]choose a blank row in the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the sequence entry is the new sequence number;[=0x000A=][=0x0009=]now the manner of death entry is the sticky end;[=0x000A=][=0x0009=]now the turns at death entry is the turn count;[=0x000A=][=0x0009=]now the score at death entry is the score;[=0x000A=][=0x0009=]now the haunted position entry is the coordinates of the location;[=0x000A=][=0x0009=]write the File of Ghosts from the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the latest demise is the sticky end;[=0x000A=][=0x0009=]end the story saying [=0x0022=]You have been [latest demise][=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Labyrinth of Ghosts[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.[=0x000A=][=0x000A=]A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.[=0x000A=][=0x000A=]The Gateway is a room. [=0x0022=]For the foolhardy adventurer, the perilous labyrinth lies north, east or south.[=0x0022=] The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. [=0x0022=]This partly fallen cave may perhaps extend further north.[=0x0022=] The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. [=0x0022=]No telling why this canyon is named after archery, but perhaps if you wait around you[=0x0027=]ll find out.[=0x0022=] The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 10 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]A dwarf appears out of nowhere, and throws a nasty little knife.[=0x0022=];[=0x000A=][=0x0009=]have the player slain.[=0x000A=][=0x000A=][And as compensation for these hazards:][=0x000A=][=0x000A=]Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.[=0x000A=][=0x000A=]Table of Point Values[=0x000A=]item [=0x0009=]  [=0x0009=]score[=0x000A=]silver bars[=0x0009=]3[=0x000A=]platinum pyramid[=0x0009=]10[=0x000A=]emerald[=0x0009=]4[=0x000A=][=0x000A=]Report taking an item listed in the Table of Point Values:[=0x000A=][=0x0009=]increase the score by the score entry;[=0x000A=][=0x0009=]blank out the whole row.[=0x000A=][=0x000A=][We are now ready for the actual undertaking. The Table of Ghostly Presences holds up to twenty death notices, and is initially blank. Deaths are sequentially numbered, and this number is stored in the sequence column.][=0x000A=][=0x000A=]Table of Ghostly Presences[=0x000A=]haunted position[=0x0009=]score at death[=0x0009=]turns at death[=0x0009=]manner of death[=0x0009=]sequence[=0x000A=]a grid location[=0x0009=]a number[=0x0009=]a number[=0x0009=]a demise[=0x0009=]a number[=0x000A=]with 19 blank rows.[=0x000A=][=0x000A=][As the story file starts up, we look to see if a ghosts file already exists. If one does, we load up the Table of Ghostly Presences with it: and if not, as will be the case the first time the player explores, we leave the table blank. We sort the table so that it has earlier deaths (lower sequence numbers) first.][=0x000A=][=0x000A=]The File of Ghosts is called [=0x0022=]ghosts[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Ghosts exists, read File of Ghosts into the Table of Ghostly Presences;[=0x000A=][=0x0009=]sort the Table of Ghostly Presences in sequence order.[=0x000A=][=0x000A=][How will ghosts manifest themselves? Because this is only a small example, we will simply tell the player that he senses something. If several ghosts are present in the same place, the most aggrieved (that is, the most recent) is sensed first...][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences in reverse sequence order:[=0x000A=][=0x0009=][=0x0009=]if the haunted position entry is the coordinates of the location, say [=0x0022=]You sense the ghostly presence of an adventurer, [manner of death entry] with a score of [score at death entry] in [turns at death entry] turns.[=0x0022=][=0x000A=][=0x000A=][(For instance, [=0x0022=]You sense the ghostly presence of an adventurer, buried by a rockfall with a score of 10 in 5 turns.[=0x0022=]) That just leaves the rule for bumping off the player. When the Table is full, and there are already 20 ghosts, the one who died longest ago (with the lowest sequence count) is eliminated, and his row blanked out. (This will always be row 1 since we sorted the table in sequence order on reading it in.)][=0x000A=][=0x000A=]To have the player (sticky end - a demise):[=0x000A=][=0x0009=]let the new sequence number be 0;[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences:[=0x000A=][=0x0009=][=0x0009=]let S be the sequence entry;[=0x000A=][=0x0009=][=0x0009=]if S is greater than the new sequence number, let the new sequence number be S;[=0x000A=][=0x0009=]increment the new sequence number;[=0x000A=][=0x0009=]if the number of blank rows in the Table of Ghostly Presences is 0:[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Ghostly Presences;[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=]choose a blank row in the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the sequence entry is the new sequence number;[=0x000A=][=0x0009=]now the manner of death entry is the sticky end;[=0x000A=][=0x0009=]now the turns at death entry is the turn count;[=0x000A=][=0x0009=]now the score at death entry is the score;[=0x000A=][=0x0009=]now the haunted position entry is the coordinates of the location;[=0x000A=][=0x0009=]write the File of Ghosts from the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the latest demise is the sticky end;[=0x000A=][=0x0009=]end the story saying [=0x0022=]You have been [latest demise][=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Labyrinth of Ghosts')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Labyrinth of Ghosts&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8744_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8744_210"></a>Use scoring.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8745_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8745_210"></a><a href="javascript:pasteCode('[=0x0022=]Labyrinth of Ghosts[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.[=0x000A=][=0x000A=]A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.[=0x000A=][=0x000A=]The Gateway is a room. [=0x0022=]For the foolhardy adventurer, the perilous labyrinth lies north, east or south.[=0x0022=] The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. [=0x0022=]This partly fallen cave may perhaps extend further north.[=0x0022=] The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. [=0x0022=]No telling why this canyon is named after archery, but perhaps if you wait around you[=0x0027=]ll find out.[=0x0022=] The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 10 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]A dwarf appears out of nowhere, and throws a nasty little knife.[=0x0022=];[=0x000A=][=0x0009=]have the player slain.[=0x000A=][=0x000A=][And as compensation for these hazards:][=0x000A=][=0x000A=]Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.[=0x000A=][=0x000A=]Table of Point Values[=0x000A=]item [=0x0009=]  [=0x0009=]score[=0x000A=]silver bars[=0x0009=]3[=0x000A=]platinum pyramid[=0x0009=]10[=0x000A=]emerald[=0x0009=]4[=0x000A=][=0x000A=]Report taking an item listed in the Table of Point Values:[=0x000A=][=0x0009=]increase the score by the score entry;[=0x000A=][=0x0009=]blank out the whole row.[=0x000A=][=0x000A=][We are now ready for the actual undertaking. The Table of Ghostly Presences holds up to twenty death notices, and is initially blank. Deaths are sequentially numbered, and this number is stored in the sequence column.][=0x000A=][=0x000A=]Table of Ghostly Presences[=0x000A=]haunted position[=0x0009=]score at death[=0x0009=]turns at death[=0x0009=]manner of death[=0x0009=]sequence[=0x000A=]a grid location[=0x0009=]a number[=0x0009=]a number[=0x0009=]a demise[=0x0009=]a number[=0x000A=]with 19 blank rows.[=0x000A=][=0x000A=][As the story file starts up, we look to see if a ghosts file already exists. If one does, we load up the Table of Ghostly Presences with it: and if not, as will be the case the first time the player explores, we leave the table blank. We sort the table so that it has earlier deaths (lower sequence numbers) first.][=0x000A=][=0x000A=]The File of Ghosts is called [=0x0022=]ghosts[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Ghosts exists, read File of Ghosts into the Table of Ghostly Presences;[=0x000A=][=0x0009=]sort the Table of Ghostly Presences in sequence order.[=0x000A=][=0x000A=][How will ghosts manifest themselves? Because this is only a small example, we will simply tell the player that he senses something. If several ghosts are present in the same place, the most aggrieved (that is, the most recent) is sensed first...][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences in reverse sequence order:[=0x000A=][=0x0009=][=0x0009=]if the haunted position entry is the coordinates of the location, say [=0x0022=]You sense the ghostly presence of an adventurer, [manner of death entry] with a score of [score at death entry] in [turns at death entry] turns.[=0x0022=][=0x000A=][=0x000A=][(For instance, [=0x0022=]You sense the ghostly presence of an adventurer, buried by a rockfall with a score of 10 in 5 turns.[=0x0022=]) That just leaves the rule for bumping off the player. When the Table is full, and there are already 20 ghosts, the one who died longest ago (with the lowest sequence count) is eliminated, and his row blanked out. (This will always be row 1 since we sorted the table in sequence order on reading it in.)][=0x000A=][=0x000A=]To have the player (sticky end - a demise):[=0x000A=][=0x0009=]let the new sequence number be 0;[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences:[=0x000A=][=0x0009=][=0x0009=]let S be the sequence entry;[=0x000A=][=0x0009=][=0x0009=]if S is greater than the new sequence number, let the new sequence number be S;[=0x000A=][=0x0009=]increment the new sequence number;[=0x000A=][=0x0009=]if the number of blank rows in the Table of Ghostly Presences is 0:[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Ghostly Presences;[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=]choose a blank row in the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the sequence entry is the new sequence number;[=0x000A=][=0x0009=]now the manner of death entry is the sticky end;[=0x000A=][=0x0009=]now the turns at death entry is the turn count;[=0x000A=][=0x0009=]now the score at death entry is the score;[=0x000A=][=0x0009=]now the haunted position entry is the coordinates of the location;[=0x000A=][=0x0009=]write the File of Ghosts from the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the latest demise is the sticky end;[=0x000A=][=0x0009=]end the story saying [=0x0022=]You have been [latest demise][=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Labyrinth of Ghosts[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.[=0x000A=][=0x000A=]A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.[=0x000A=][=0x000A=]The Gateway is a room. [=0x0022=]For the foolhardy adventurer, the perilous labyrinth lies north, east or south.[=0x0022=] The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. [=0x0022=]This partly fallen cave may perhaps extend further north.[=0x0022=] The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. [=0x0022=]No telling why this canyon is named after archery, but perhaps if you wait around you[=0x0027=]ll find out.[=0x0022=] The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 10 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]A dwarf appears out of nowhere, and throws a nasty little knife.[=0x0022=];[=0x000A=][=0x0009=]have the player slain.[=0x000A=][=0x000A=][And as compensation for these hazards:][=0x000A=][=0x000A=]Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.[=0x000A=][=0x000A=]Table of Point Values[=0x000A=]item [=0x0009=]  [=0x0009=]score[=0x000A=]silver bars[=0x0009=]3[=0x000A=]platinum pyramid[=0x0009=]10[=0x000A=]emerald[=0x0009=]4[=0x000A=][=0x000A=]Report taking an item listed in the Table of Point Values:[=0x000A=][=0x0009=]increase the score by the score entry;[=0x000A=][=0x0009=]blank out the whole row.[=0x000A=][=0x000A=][We are now ready for the actual undertaking. The Table of Ghostly Presences holds up to twenty death notices, and is initially blank. Deaths are sequentially numbered, and this number is stored in the sequence column.][=0x000A=][=0x000A=]Table of Ghostly Presences[=0x000A=]haunted position[=0x0009=]score at death[=0x0009=]turns at death[=0x0009=]manner of death[=0x0009=]sequence[=0x000A=]a grid location[=0x0009=]a number[=0x0009=]a number[=0x0009=]a demise[=0x0009=]a number[=0x000A=]with 19 blank rows.[=0x000A=][=0x000A=][As the story file starts up, we look to see if a ghosts file already exists. If one does, we load up the Table of Ghostly Presences with it: and if not, as will be the case the first time the player explores, we leave the table blank. We sort the table so that it has earlier deaths (lower sequence numbers) first.][=0x000A=][=0x000A=]The File of Ghosts is called [=0x0022=]ghosts[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Ghosts exists, read File of Ghosts into the Table of Ghostly Presences;[=0x000A=][=0x0009=]sort the Table of Ghostly Presences in sequence order.[=0x000A=][=0x000A=][How will ghosts manifest themselves? Because this is only a small example, we will simply tell the player that he senses something. If several ghosts are present in the same place, the most aggrieved (that is, the most recent) is sensed first...][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences in reverse sequence order:[=0x000A=][=0x0009=][=0x0009=]if the haunted position entry is the coordinates of the location, say [=0x0022=]You sense the ghostly presence of an adventurer, [manner of death entry] with a score of [score at death entry] in [turns at death entry] turns.[=0x0022=][=0x000A=][=0x000A=][(For instance, [=0x0022=]You sense the ghostly presence of an adventurer, buried by a rockfall with a score of 10 in 5 turns.[=0x0022=]) That just leaves the rule for bumping off the player. When the Table is full, and there are already 20 ghosts, the one who died longest ago (with the lowest sequence count) is eliminated, and his row blanked out. (This will always be row 1 since we sorted the table in sequence order on reading it in.)][=0x000A=][=0x000A=]To have the player (sticky end - a demise):[=0x000A=][=0x0009=]let the new sequence number be 0;[=0x000A=][=0x0009=]repeat through the Table of Ghostly Presences:[=0x000A=][=0x0009=][=0x0009=]let S be the sequence entry;[=0x000A=][=0x0009=][=0x0009=]if S is greater than the new sequence number, let the new sequence number be S;[=0x000A=][=0x0009=]increment the new sequence number;[=0x000A=][=0x0009=]if the number of blank rows in the Table of Ghostly Presences is 0:[=0x000A=][=0x0009=][=0x0009=]choose row 1 in the Table of Ghostly Presences;[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=]choose a blank row in the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the sequence entry is the new sequence number;[=0x000A=][=0x0009=]now the manner of death entry is the sticky end;[=0x000A=][=0x0009=]now the turns at death entry is the turn count;[=0x000A=][=0x0009=]now the score at death entry is the score;[=0x000A=][=0x0009=]now the haunted position entry is the coordinates of the location;[=0x000A=][=0x0009=]write the File of Ghosts from the Table of Ghostly Presences;[=0x000A=][=0x0009=]now the latest demise is the sticky end;[=0x000A=][=0x0009=]end the story saying [=0x0022=]You have been [latest demise][=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Labyrinth of Ghosts')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Labyrinth of Ghosts&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8745_210"></a>A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8746_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8746_210"></a>Use scoring.
+            <blockquote class="code"><p class="quoted"><a id="c8746_210"></a>A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8747_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8747_210"></a>A demise is a kind of value. The demises are drowned, buried by a rockfall, pierced by an arrow and slain. The latest demise is a demise that varies.
+            <blockquote class="code"><p class="quoted"><a id="c8747_210"></a>The Gateway is a room. &quot;For the foolhardy adventurer, the perilous labyrinth lies north, east or south.&quot; The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. &quot;This partly fallen cave may perhaps extend further north.&quot; The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. &quot;No telling why this canyon is named after archery, but perhaps if you wait around you'll find out.&quot; The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8748_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8748_210"></a>A grid location is a kind of value. (1,19) specifies a grid location. A room has a grid location called coordinates.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8749_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8749_210"></a>The Gateway is a room. &quot;For the foolhardy adventurer, the perilous labyrinth lies north, east or south.&quot; The coordinates are (6,6). The Tomb is east of the Gateway. The coordinates are (7,6). The Rockfall Cave is north of the Gateway. &quot;This partly fallen cave may perhaps extend further north.&quot; The coordinates are (6,5). Instead of going north in the Rockfall Cave, have the player buried by a rockfall. The Archery Canyon is south of the Gateway. &quot;No telling why this canyon is named after archery, but perhaps if you wait around you'll find out.&quot; The coordinates are (6,7). Instead of waiting in the Archery Canyon, have the player pierced by an arrow. The Rock Pool is east of the Tomb. The coordinates are (8,6). The cold mountain pool is in the Rock Pool. The cold pool is fixed in place. Instead of entering the cold mountain pool, have the player drowned.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8750_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8750_210"></a>Every turn when a random chance of 1 in 10 succeeds:
+            <blockquote class="code"><p class="quoted"><a id="c8748_210"></a>Every turn when a random chance of 1 in 10 succeeds:
             <br>
             &#160;&#160;&#160;&#160;say &quot;A dwarf appears out of nowhere, and throws a nasty little knife.&quot;;
             <br>
@@ -306,13 +306,13 @@
             </blockquote>
             <!--END CODE-->
             <p>And as compensation for these hazards:</p>
-            <!--START CODE "c8751_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8751_210"></a>Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.
+            <!--START CODE "c8749_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8749_210"></a>Some silver bars are in the Tomb. The emerald is in the Rock Pool. The platinum pyramid is in the Canyon.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8752_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8752_210"></a>Table of Point Values
+            <!--START CODE "c8750_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8750_210"></a>Table of Point Values
             <br>
             item 	  	score
             <br>
@@ -353,8 +353,8 @@
             <blockquote><p></p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8753_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8753_210"></a>Report taking an item listed in the Table of Point Values:
+            <!--START CODE "c8751_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8751_210"></a>Report taking an item listed in the Table of Point Values:
             <br>
             &#160;&#160;&#160;&#160;increase the score by the score entry;
             <br>
@@ -363,8 +363,8 @@
             </blockquote>
             <!--END CODE-->
             <p>We are now ready for the actual undertaking. The Table of Ghostly Presences holds up to twenty death notices, and is initially blank. Deaths are sequentially numbered, and this number is stored in the sequence column.</p>
-            <!--START CODE "c8754_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8754_210"></a>Table of Ghostly Presences
+            <!--START CODE "c8752_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8752_210"></a>Table of Ghostly Presences
             <br>
             </p>
             </blockquote>
@@ -424,13 +424,13 @@
             </blockquote>
             <!--END CODE-->
             <p>As the story file starts up, we look to see if a ghosts file already exists. If one does, we load up the Table of Ghostly Presences with it: and if not, as will be the case the first time the player explores, we leave the table blank. We sort the table so that it has earlier deaths (lower sequence numbers) first.</p>
-            <!--START CODE "c8755_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8755_210"></a>The File of Ghosts is called &quot;ghosts&quot;.
+            <!--START CODE "c8753_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8753_210"></a>The File of Ghosts is called &quot;ghosts&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8756_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8756_210"></a>When play begins:
+            <!--START CODE "c8754_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8754_210"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;if the File of Ghosts exists, read File of Ghosts into the Table of Ghostly Presences;
             <br>
@@ -439,8 +439,8 @@
             </blockquote>
             <!--END CODE-->
             <p>How will ghosts manifest themselves? Because this is only a small example, we will simply tell the player that he senses something. If several ghosts are present in the same place, the most aggrieved (that is, the most recent) is sensed first...</p>
-            <!--START CODE "c8757_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8757_210"></a>After looking:
+            <!--START CODE "c8755_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8755_210"></a>After looking:
             <br>
             &#160;&#160;&#160;&#160;repeat through the Table of Ghostly Presences in reverse sequence order:
             <br>
@@ -449,8 +449,8 @@
             </blockquote>
             <!--END CODE-->
             <p>(For instance, &quot;You sense the ghostly presence of an adventurer, buried by a rockfall with a score of 10 in 5 turns.&quot;) That just leaves the rule for bumping off the player. When the Table is full, and there are already 20 ghosts, the one who died longest ago (with the lowest sequence count) is eliminated, and his row blanked out. (This will always be row 1 since we sorted the table in sequence order on reading it in.)</p>
-            <!--START CODE "c8758_210"-->
-            <blockquote class="code"><p class="quoted"><a id="c8758_210"></a>To have the player (sticky end - a demise):
+            <!--START CODE "c8756_210"-->
+            <blockquote class="code"><p class="quoted"><a id="c8756_210"></a>To have the player (sticky end - a demise):
             <br>
             &#160;&#160;&#160;&#160;let the new sequence number be 0;
             <br>
@@ -518,35 +518,35 @@
         <div class="egpanel" id="example334" style="display: none;">
             <p>The trick here is that we need a table with text in order to keep track of the players' names.</p>
             <p>Part 1 largely replicates the source from &quot;Identity Theft&quot;; new material starts at Part 2.</p>
+            <!--START CODE "c8757_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8757_334"></a><a href="javascript:pasteCode(' [=0x0022=]Rubies[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Part 1 - Collecting Names[=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Part 2 - Adding the Leaderboard[=0x000A=][=0x000A=]File of Leaderboard is called [=0x0022=]leaderboard[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Leaderboard exists:[=0x000A=][=0x0009=][=0x0009=]read File of Leaderboard into the Table of Leaders;[=0x000A=][=0x0009=][=0x0009=]sort the Table of Leaders in reverse scored amount order.[=0x000A=][=0x000A=]When play ends:[=0x000A=][=0x0009=]choose row 10 in the Table of Leaders; [we[=0x0027=]ve sorted the table, so the lowest score will be the one at the bottom][=0x000A=][=0x0009=]if the score is greater than scored amount entry:[=0x000A=][=0x0009=][=0x0009=]now name entry is the player[=0x0027=]s forename;[=0x000A=][=0x0009=][=0x0009=]now the scored amount entry is the score;[=0x000A=][=0x0009=]show leaderboard;[=0x000A=][=0x0009=]write the File of Leaderboard from the Table of Leaders.[=0x000A=][=0x000A=]To show leaderboard:[=0x000A=][=0x0009=]sort the Table of Leaders in reverse scored amount order;[=0x000A=][=0x0009=]say [=0x0022=]Current leading scores: [paragraph break][=0x0022=];[=0x000A=][=0x0009=]say fixed letter spacing;[=0x000A=][=0x0009=]repeat through Table of Leaders:[=0x000A=][=0x0009=][=0x0009=]if scored amount entry is greater than 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]  [name entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let N be 25 minus the number of characters in name entry; [here we want to space out the scores so they make a neat column][=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is less than 1, now N is 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say N spaces;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][scored amount entry][line break][=0x0022=];[=0x000A=][=0x0009=]say variable letter spacing.[=0x000A=][=0x000A=]To say (N - a number) spaces:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Table of Leaders[=0x000A=]scored amount[=0x0009=]name[=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=][=0x000A=][And now we introduce a scenario that allows different players to come up with different scores -- admittedly not a very interesting scenario, but it will do for now:][=0x000A=][=0x000A=]Part 3 - Scenario[=0x000A=][=0x000A=]Carry out taking something which is not handled:[=0x000A=][=0x0009=]increment score.[=0x000A=][=0x000A=]The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.[=0x000A=][=0x000A=]Instead of waiting, end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ruby / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Rubies[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Part 1 - Collecting Names[=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Part 2 - Adding the Leaderboard[=0x000A=][=0x000A=]File of Leaderboard is called [=0x0022=]leaderboard[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Leaderboard exists:[=0x000A=][=0x0009=][=0x0009=]read File of Leaderboard into the Table of Leaders;[=0x000A=][=0x0009=][=0x0009=]sort the Table of Leaders in reverse scored amount order.[=0x000A=][=0x000A=]When play ends:[=0x000A=][=0x0009=]choose row 10 in the Table of Leaders; [we[=0x0027=]ve sorted the table, so the lowest score will be the one at the bottom][=0x000A=][=0x0009=]if the score is greater than scored amount entry:[=0x000A=][=0x0009=][=0x0009=]now name entry is the player[=0x0027=]s forename;[=0x000A=][=0x0009=][=0x0009=]now the scored amount entry is the score;[=0x000A=][=0x0009=]show leaderboard;[=0x000A=][=0x0009=]write the File of Leaderboard from the Table of Leaders.[=0x000A=][=0x000A=]To show leaderboard:[=0x000A=][=0x0009=]sort the Table of Leaders in reverse scored amount order;[=0x000A=][=0x0009=]say [=0x0022=]Current leading scores: [paragraph break][=0x0022=];[=0x000A=][=0x0009=]say fixed letter spacing;[=0x000A=][=0x0009=]repeat through Table of Leaders:[=0x000A=][=0x0009=][=0x0009=]if scored amount entry is greater than 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]  [name entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let N be 25 minus the number of characters in name entry; [here we want to space out the scores so they make a neat column][=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is less than 1, now N is 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say N spaces;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][scored amount entry][line break][=0x0022=];[=0x000A=][=0x0009=]say variable letter spacing.[=0x000A=][=0x000A=]To say (N - a number) spaces:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Table of Leaders[=0x000A=]scored amount[=0x0009=]name[=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=][=0x000A=][And now we introduce a scenario that allows different players to come up with different scores -- admittedly not a very interesting scenario, but it will do for now:][=0x000A=][=0x000A=]Part 3 - Scenario[=0x000A=][=0x000A=]Carry out taking something which is not handled:[=0x000A=][=0x0009=]increment score.[=0x000A=][=0x000A=]The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.[=0x000A=][=0x000A=]Instead of waiting, end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ruby / z[=0x0022=].[=0x000A=]\n', 'Example - Rubies')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Rubies&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8758_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8758_334"></a>Use scoring.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8759_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8759_334"></a><a href="javascript:pasteCode(' [=0x0022=]Rubies[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Part 1 - Collecting Names[=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Part 2 - Adding the Leaderboard[=0x000A=][=0x000A=]File of Leaderboard is called [=0x0022=]leaderboard[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Leaderboard exists:[=0x000A=][=0x0009=][=0x0009=]read File of Leaderboard into the Table of Leaders;[=0x000A=][=0x0009=][=0x0009=]sort the Table of Leaders in reverse scored amount order.[=0x000A=][=0x000A=]When play ends:[=0x000A=][=0x0009=]choose row 10 in the Table of Leaders; [we[=0x0027=]ve sorted the table, so the lowest score will be the one at the bottom][=0x000A=][=0x0009=]if the score is greater than scored amount entry:[=0x000A=][=0x0009=][=0x0009=]now name entry is the player[=0x0027=]s forename;[=0x000A=][=0x0009=][=0x0009=]now the scored amount entry is the score;[=0x000A=][=0x0009=]show leaderboard;[=0x000A=][=0x0009=]write the File of Leaderboard from the Table of Leaders.[=0x000A=][=0x000A=]To show leaderboard:[=0x000A=][=0x0009=]sort the Table of Leaders in reverse scored amount order;[=0x000A=][=0x0009=]say [=0x0022=]Current leading scores: [paragraph break][=0x0022=];[=0x000A=][=0x0009=]say fixed letter spacing;[=0x000A=][=0x0009=]repeat through Table of Leaders:[=0x000A=][=0x0009=][=0x0009=]if scored amount entry is greater than 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]  [name entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let N be 25 minus the number of characters in name entry; [here we want to space out the scores so they make a neat column][=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is less than 1, now N is 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say N spaces;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][scored amount entry][line break][=0x0022=];[=0x000A=][=0x0009=]say variable letter spacing.[=0x000A=][=0x000A=]To say (N - a number) spaces:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Table of Leaders[=0x000A=]scored amount[=0x0009=]name[=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=][=0x000A=][And now we introduce a scenario that allows different players to come up with different scores -- admittedly not a very interesting scenario, but it will do for now:][=0x000A=][=0x000A=]Part 3 - Scenario[=0x000A=][=0x000A=]Carry out taking something which is not handled:[=0x000A=][=0x0009=]increment score.[=0x000A=][=0x000A=]The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.[=0x000A=][=0x000A=]Instead of waiting, end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ruby / z[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Rubies[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Part 1 - Collecting Names[=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Part 2 - Adding the Leaderboard[=0x000A=][=0x000A=]File of Leaderboard is called [=0x0022=]leaderboard[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Leaderboard exists:[=0x000A=][=0x0009=][=0x0009=]read File of Leaderboard into the Table of Leaders;[=0x000A=][=0x0009=][=0x0009=]sort the Table of Leaders in reverse scored amount order.[=0x000A=][=0x000A=]When play ends:[=0x000A=][=0x0009=]choose row 10 in the Table of Leaders; [we[=0x0027=]ve sorted the table, so the lowest score will be the one at the bottom][=0x000A=][=0x0009=]if the score is greater than scored amount entry:[=0x000A=][=0x0009=][=0x0009=]now name entry is the player[=0x0027=]s forename;[=0x000A=][=0x0009=][=0x0009=]now the scored amount entry is the score;[=0x000A=][=0x0009=]show leaderboard;[=0x000A=][=0x0009=]write the File of Leaderboard from the Table of Leaders.[=0x000A=][=0x000A=]To show leaderboard:[=0x000A=][=0x0009=]sort the Table of Leaders in reverse scored amount order;[=0x000A=][=0x0009=]say [=0x0022=]Current leading scores: [paragraph break][=0x0022=];[=0x000A=][=0x0009=]say fixed letter spacing;[=0x000A=][=0x0009=]repeat through Table of Leaders:[=0x000A=][=0x0009=][=0x0009=]if scored amount entry is greater than 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]  [name entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let N be 25 minus the number of characters in name entry; [here we want to space out the scores so they make a neat column][=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is less than 1, now N is 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say N spaces;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][scored amount entry][line break][=0x0022=];[=0x000A=][=0x0009=]say variable letter spacing.[=0x000A=][=0x000A=]To say (N - a number) spaces:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Table of Leaders[=0x000A=]scored amount[=0x0009=]name[=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=][=0x000A=][And now we introduce a scenario that allows different players to come up with different scores -- admittedly not a very interesting scenario, but it will do for now:][=0x000A=][=0x000A=]Part 3 - Scenario[=0x000A=][=0x000A=]Carry out taking something which is not handled:[=0x000A=][=0x0009=]increment score.[=0x000A=][=0x000A=]The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.[=0x000A=][=0x000A=]Instead of waiting, end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ruby / z[=0x0022=].[=0x000A=]\n', 'Example - Rubies')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Rubies&quot;
+            <blockquote class="code"><p class="quoted"><a id="c8759_334"></a>Part 1 - Collecting Names
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8760_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8760_334"></a>Use scoring.
+            <blockquote class="code"><p class="quoted"><a id="c8760_334"></a>The player's forename is a text that varies. The player's full name is a text that varies.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8761_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8761_334"></a>Part 1 - Collecting Names
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8762_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8762_334"></a>The player's forename is a text that varies. The player's full name is a text that varies.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8763_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8763_334"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c8761_334"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;What is your name? &gt; &quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8764_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8764_334"></a>To decide whether collecting names:
+            <!--START CODE "c8762_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8762_334"></a>To decide whether collecting names:
             <br>
             &#160;&#160;&#160;&#160;if the command prompt is &quot;What is your name? &gt; &quot;, yes;
             <br>
@@ -554,8 +554,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8765_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8765_334"></a>After reading a command when collecting names:
+            <!--START CODE "c8763_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8763_334"></a>After reading a command when collecting names:
             <br>
             &#160;&#160;&#160;&#160;if the number of words in the player's command is greater than 5:
             <br>
@@ -579,33 +579,33 @@
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8764_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8764_334"></a>Instead of looking when collecting names: do nothing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8765_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8765_334"></a>Rule for printing the banner text when collecting names: do nothing.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8766_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8766_334"></a>Instead of looking when collecting names: do nothing.
+            <blockquote class="code"><p class="quoted"><a id="c8766_334"></a>Rule for constructing the status line when collecting names: do nothing.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8767_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8767_334"></a>Rule for printing the banner text when collecting names: do nothing.
+            <blockquote class="code"><p class="quoted"><a id="c8767_334"></a>Part 2 - Adding the Leaderboard
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8768_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8768_334"></a>Rule for constructing the status line when collecting names: do nothing.
+            <blockquote class="code"><p class="quoted"><a id="c8768_334"></a>File of Leaderboard is called &quot;leaderboard&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c8769_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8769_334"></a>Part 2 - Adding the Leaderboard
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8770_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8770_334"></a>File of Leaderboard is called &quot;leaderboard&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8771_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8771_334"></a>When play begins:
+            <blockquote class="code"><p class="quoted"><a id="c8769_334"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;if the File of Leaderboard exists:
             <br>
@@ -615,8 +615,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8772_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8772_334"></a>When play ends:
+            <!--START CODE "c8770_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8770_334"></a>When play ends:
             <br>
             &#160;&#160;&#160;&#160;choose row 10 in the Table of Leaders; [we've sorted the table, so the lowest score will be the one at the bottom]
             <br>
@@ -632,8 +632,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8773_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8773_334"></a>To show leaderboard:
+            <!--START CODE "c8771_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8771_334"></a>To show leaderboard:
             <br>
             &#160;&#160;&#160;&#160;sort the Table of Leaders in reverse scored amount order;
             <br>
@@ -659,8 +659,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8774_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8774_334"></a>To say (N - a number) spaces:
+            <!--START CODE "c8772_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8772_334"></a>To say (N - a number) spaces:
             <br>
             &#160;&#160;&#160;&#160;repeat with index running from 1 to N:
             <br>
@@ -668,8 +668,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8775_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8775_334"></a>Table of Leaders
+            <!--START CODE "c8773_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8773_334"></a>Table of Leaders
             <br>
             </p>
             </blockquote>
@@ -789,30 +789,30 @@
             </blockquote>
             <!--END CODE-->
             <p>And now we introduce a scenario that allows different players to come up with different scores -- admittedly not a very interesting scenario, but it will do for now:</p>
-            <!--START CODE "c8776_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8776_334"></a>Part 3 - Scenario
+            <!--START CODE "c8774_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8774_334"></a>Part 3 - Scenario
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c8777_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8777_334"></a>Carry out taking something which is not handled:
+            <!--START CODE "c8775_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8775_334"></a>Carry out taking something which is not handled:
             <br>
             &#160;&#160;&#160;&#160;increment score.
             </p>
             </blockquote>
             <!--END CODE-->
+            <!--START CODE "c8776_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8776_334"></a>The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.
+            </p>
+            </blockquote>
+            <!--END CODE-->
+            <!--START CODE "c8777_334"-->
+            <blockquote class="code"><p class="quoted"><a id="c8777_334"></a>Instead of waiting, end the story finally.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c8778_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8778_334"></a>The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8779_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8779_334"></a>Instead of waiting, end the story finally.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c8780_334"-->
-            <blockquote class="code"><p class="quoted"><a id="c8780_334"></a>Test me with &quot;get ruby / z&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c8778_334"></a>Test me with &quot;get ruby / z&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

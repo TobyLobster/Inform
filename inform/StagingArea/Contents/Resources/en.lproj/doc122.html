@@ -83,16 +83,16 @@
     <!--END IGNORE-->
     <p class="sectionheading">§8.9. Moving the player</p>
     <p>The player is a thing, too, and can also be moved, which has the effect of instantaneous transportation, without the need for a suitable map connection to the new location. For instance, these are equivalent:</p>
-    <!--START CODE "c1870"-->
-    <blockquote class="code"><p class="quoted"><a id="c1870"></a>move the player to the Bodleian Library;
+    <!--START CODE "c1869"-->
+    <blockquote class="code"><p class="quoted"><a id="c1869"></a>move the player to the Bodleian Library;
     <br>
     now the player is in the Bodleian Library;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This will ordinarily result in a room description of the Bodleian Library being printed up, but that might not always be desirable. For instance:</p>
-    <!--START CODE "c1871"-->
-    <blockquote class="code"><p class="quoted"><a id="c1871"></a>Instead of waiting in the Schola Maleficorum:
+    <!--START CODE "c1870"-->
+    <blockquote class="code"><p class="quoted"><a id="c1870"></a>Instead of waiting in the Schola Maleficorum:
     <br>
     &#160;&#160;&#160;&#160;say &quot;A bored demon catches your eye (they really do have very inquisitive fingers) and throws you back out into the Antechamber.&quot;;
     <br>
@@ -102,8 +102,8 @@
     <!--END CODE-->
     <p>Thus tacking on the option &quot;without printing a room description&quot;, remembering to add the comma, omits the description which would otherwise be produced. A compromise is to use the option &quot;printing an abbreviated room description&quot;: this gives a full description if the player has never been here before, but only a brief one if it is a familiar scene.</p>
     <p>The player's point of view can also be moved by shifting to another character. Suppose the story features two people, Alice and Bob, and the player at the keyboard is giving commands to Alice, and seeing everything from her point of view. The phrase:</p>
-    <!--START CODE "c1872"-->
-    <blockquote class="code"><p class="quoted"><a id="c1872"></a>now the player is Bob
+    <!--START CODE "c1871"-->
+    <blockquote class="code"><p class="quoted"><a id="c1871"></a>now the player is Bob
     </p>
     </blockquote>
     <!--END CODE-->
@@ -137,41 +137,41 @@
 
         <div class="egpanel" id="example406" style="display: none;">
             <p>Suppose we have a game where we want the player to control two different characters, swapping bodies from one turn to the next. First, the setting, and the two people who will alternately play:</p>
+            <!--START CODE "c1872_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1872_406"></a><a href="javascript:pasteCode('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n', 'Example - Terror of the Sierra Madre')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Terror of the Sierra Madre&quot;
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1873_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1873_406"></a><a href="javascript:pasteCode('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Terror of the Sierra Madre[=0x0022=][=0x000A=][=0x000A=]The Hay-Strewn Corridor is a room. [=0x0022=][if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.[=0x000A=][=0x000A=]The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].[=0x0022=][=0x000A=][=0x000A=]Teresa is a woman in the Hay-Strewn Corridor. [=0x0022=]Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].[=0x0022=] Teresa carries a bulb of garlic and a cross.[=0x000A=][=0x000A=]Maleska is a man in the Hay-Strewn Corridor. [=0x0022=]Maleska watches you from eyes entirely black.[=0x0022=] Maleska carries a skull.[=0x000A=][=0x000A=][If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If [=0x0022=]player[=0x0022=] is not set to any named person, Inform creates a bland person called [=0x0022=]yourself[=0x0022=] to represent the player. To avoid this, we set [=0x0022=]player[=0x0022=] to the person we want to begin as. The player character is normally privately-named, so we[=0x0027=]ll need to make sure [=0x0022=]Maleska[=0x0022=] still means what it should.][=0x000A=][=0x000A=]The player is Maleska. Understand [=0x0022=]Maleska[=0x0022=] as Maleska.[=0x000A=][=0x000A=][Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.][=0x000A=][=0x000A=][At the end of every turn we will use the [=0x0027=]now the player is...[=0x0027=] phrase. (This looks as if it simply changes the value of [=0x0022=]player[=0x0022=]: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player is Maleska, now the player is Teresa;[=0x000A=][=0x0009=]otherwise now the player is Maleska.[=0x000A=][=0x000A=][Our two characters already see the Corridor differently, but let[=0x0027=]s differentiate them further:][=0x000A=][=0x000A=]Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.[=0x000A=][=0x000A=][In this small example, strength is not used for anything, except that we will display it on the status line:][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][bold type][player][roman type] [=0x003E=] [=0x0022=];[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=][player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]STR: [strength of the player][=0x0022=].[=0x000A=][=0x000A=][That last rule doesn[=0x0027=]t quite do what we might have expected. When we print [=0x0022=][player][=0x0022=], we find that Inform usually prints [=0x0022=]yourself[=0x0022=]. This is because Inform says [=0x0022=]you[=0x0022=] to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:][=0x000A=][=0x000A=]Rule for printing the name of Teresa: say [=0x0022=]Teresa[=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of Maleska: say [=0x0022=]Maleska[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / look[=0x0022=].[=0x000A=]\n', 'Example - Terror of the Sierra Madre')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Terror of the Sierra Madre&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1873_406"></a>The Hay-Strewn Corridor is a room. &quot;[if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1874_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1874_406"></a>The Hay-Strewn Corridor is a room. &quot;[if the player is Maleska]The horse stalls are empty: you have already drained the animals, and carried off their corpses. The house will not long sustain you now.
+            <blockquote class="code"><p class="quoted"><a id="c1874_406"></a>The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1875_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1875_406"></a>The window throws on the floor a bright square of malevolent sunlight[otherwise]The stalls for horses run down one side of the room, but the house has long stood empty. A square window without shutters looks out over the ranch, away toward the Sierras[end if].&quot;
+            <blockquote class="code"><p class="quoted"><a id="c1875_406"></a>Teresa is a woman in the Hay-Strewn Corridor. &quot;Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].&quot; Teresa carries a bulb of garlic and a cross.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1876_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1876_406"></a>Teresa is a woman in the Hay-Strewn Corridor. &quot;Teresa stands opposite you[if Teresa carries something], her fingers wrapped tightly around [a list of things carried by Teresa][end if].&quot; Teresa carries a bulb of garlic and a cross.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1877_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1877_406"></a>Maleska is a man in the Hay-Strewn Corridor. &quot;Maleska watches you from eyes entirely black.&quot; Maleska carries a skull.
+            <blockquote class="code"><p class="quoted"><a id="c1876_406"></a>Maleska is a man in the Hay-Strewn Corridor. &quot;Maleska watches you from eyes entirely black.&quot; Maleska carries a skull.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>If we tried the text above in Inform, we would find ourselves in the Hay-Strewn Corridor and confronted by both Teresa and Maleska. If &quot;player&quot; is not set to any named person, Inform creates a bland person called &quot;yourself&quot; to represent the player. To avoid this, we set &quot;player&quot; to the person we want to begin as. The player character is normally privately-named, so we'll need to make sure &quot;Maleska&quot; still means what it should.</p>
-            <!--START CODE "c1878_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1878_406"></a>The player is Maleska. Understand &quot;Maleska&quot; as Maleska.
+            <!--START CODE "c1877_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1877_406"></a>The player is Maleska. Understand &quot;Maleska&quot; as Maleska.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>Now the Corridor contains just two people, and we arrive on the scene as Maleska, with only Teresa facing us.</p>
             <p>At the end of every turn we will use the 'now the player is...' phrase. (This looks as if it simply changes the value of &quot;player&quot;: which it does, but it also carries out a complicated operation behind the scenes to effect the switch.)</p>
-            <!--START CODE "c1879_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1879_406"></a>Every turn:
+            <!--START CODE "c1878_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1878_406"></a>Every turn:
             <br>
             &#160;&#160;&#160;&#160;if the player is Maleska, now the player is Teresa;
             <br>
@@ -180,14 +180,14 @@
             </blockquote>
             <!--END CODE-->
             <p>Our two characters already see the Corridor differently, but let's differentiate them further:</p>
-            <!--START CODE "c1880_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1880_406"></a>Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.
+            <!--START CODE "c1879_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1879_406"></a>Every person has a number called strength. The strength of Teresa is 3. The strength of Maleska is 5.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In this small example, strength is not used for anything, except that we will display it on the status line:</p>
-            <!--START CODE "c1881_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1881_406"></a>When play begins:
+            <!--START CODE "c1880_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1880_406"></a>When play begins:
             <br>
             &#160;&#160;&#160;&#160;now the command prompt is &quot;[bold type][player][roman type] &gt; &quot;;
             <br>
@@ -198,18 +198,18 @@
             </blockquote>
             <!--END CODE-->
             <p>That last rule doesn't quite do what we might have expected. When we print &quot;[player]&quot;, we find that Inform usually prints &quot;yourself&quot;. This is because Inform says &quot;you&quot; to mean Teresa when talking to the player-being-Teresa, and likewise for Maleska. We want to override that in this particular story, because the rapid switches of personality are otherwise hard to follow. So:</p>
+            <!--START CODE "c1881_406"-->
+            <blockquote class="code"><p class="quoted"><a id="c1881_406"></a>Rule for printing the name of Teresa: say &quot;Teresa&quot;.
+            </p>
+            </blockquote>
+            <!--END CODE-->
             <!--START CODE "c1882_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1882_406"></a>Rule for printing the name of Teresa: say &quot;Teresa&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1882_406"></a>Rule for printing the name of Maleska: say &quot;Maleska&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <!--START CODE "c1883_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1883_406"></a>Rule for printing the name of Maleska: say &quot;Maleska&quot;.
-            </p>
-            </blockquote>
-            <!--END CODE-->
-            <!--START CODE "c1884_406"-->
-            <blockquote class="code"><p class="quoted"><a id="c1884_406"></a>Test me with &quot;look / look&quot;.
+            <blockquote class="code"><p class="quoted"><a id="c1883_406"></a>Test me with &quot;look / look&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
