@@ -276,7 +276,7 @@ static const CGFloat webViewHeight = 250.0f;
     IFProject* doc = [self.parent document];
 
     [[doc settings] setTestingTabHelpShown: helpIsShown];
-    [[doc settings] settingsHaveChanged];
+    //[[doc settings] settingsHaveChanged];
 }
 
 - (void) didResizeSplitView: (NSNotification*) not {
