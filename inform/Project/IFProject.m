@@ -1399,28 +1399,19 @@
     }
 }
 
-// This ignores the specific deprecation of saveToURL
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 -(void) saveDocumentWithoutUserInteraction {
     // Note: We don't call [self saveDocument: self]; because from 10.5 and upwards this performs
     // checks to see if the file has changed since last opened or saved, and shows a user dialog if so.
     // This is a problem for our application because the compiler output adds folders / files to the
     // saved bundle, making it look like it's changed.
-    NSError* error = nil;
 
     if( self.fileURL != nil ) {
-        // NOTE: The following 'saveToURL::::' function is supposedly deprecated in 10.6, but the
-        // suggested replacement function did not appear until 10.7.
-        [self saveToURL: self.fileURL
-                 ofType: self.fileType
-       forSaveOperation: NSSaveOperation
-                  error: &error];
+        [self saveToURL:self.fileURL ofType:self.fileType forSaveOperation:NSSaveOperation completionHandler:^(NSError * _Nullable errorOrNil) {
+            if (errorOrNil)
+                NSLog(@"Saving project %@ failed. Error: %@", self, errorOrNil);
+        }];
     }
 }
-
-#pragma clang diagnostic pop
 
 - (void) openMaterials {
     // Work out where the materials folder is located
