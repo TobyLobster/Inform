@@ -307,15 +307,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
         return nil;
     }
 
-    NSString* version = [IFUtility fullCompilerVersion: [self compilerVersion]];
-    NSString* macOSFolder = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
-    NSString* currentVersion = [IFUtility coreBuildVersion];
-
-    if ([version isEqualToString:currentVersion])
-    {
-        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
-    }
-    return [[macOSFolder stringByAppendingPathComponent: version] stringByAppendingPathComponent:@"ni"];
+    return [IFUtility pathForCompiler: [self compilerVersion]];
 }
 
 - (NSArray*) naturalInformCommandLineArguments {

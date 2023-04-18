@@ -406,22 +406,13 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
     return project.compiler.settings.compilerVersion;
 }
 
--(BOOL) isLatestCompilerVersion: (NSString*) version {
-    if (([version isEqualToString: @""]) ||
-        ([version isEqualToString: @"****"]))
-    {
-        return YES;
-    }
-    return [[IFUtility coreBuildVersion] isEqualToString: version];
-}
-
 -(void) startStory {
     isStoryActive = YES;
     canCancel = YES;
 
     NSString* version = [self getCompilerVersion];
 
-    if ([self isLatestCompilerVersion: version])
+    if ([IFUtility isLatestMajorMinorCompilerVersion: version])
     {
         [storyText setStringValue: [NSString stringWithFormat: [IFUtility localizedString: @"Story started at %@."], [[self class] currentTime]]];
     }
@@ -438,7 +429,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
     NSString* version = [self getCompilerVersion];
 
-    if ([self isLatestCompilerVersion: version])
+    if ([IFUtility isLatestMajorMinorCompilerVersion: version])
     {
         [storyText setStringValue: [IFUtility localizedString:@"Story stopped."]];
     }
