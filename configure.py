@@ -209,6 +209,7 @@ project.remove_flags('PROVISIONING_PROFILE_SPECIFIER', None)
 
 # Set version number
 set_project_flags(project, 'CURRENT_PROJECT_VERSION', app_version_build_number)
+set_project_flags(project, 'MARKETING_VERSION', app_version_build_number)
 
 # Make both Intel and Apple Silicon versions, always
 project.remove_project_flags('ONLY_ACTIVE_ARCH', None)
