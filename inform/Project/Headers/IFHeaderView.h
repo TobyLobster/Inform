@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The message to display centered in the view
 @property (nonatomic, readwrite, copy, nullable) NSString *message;
 
+- (void) setColours: (NSColor *) bgColour;
+
 @end
 
 @protocol IFHeaderViewDelegate <NSObject, IFHeaderView>

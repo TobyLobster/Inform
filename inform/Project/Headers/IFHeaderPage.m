@@ -9,10 +9,9 @@
 #import "IFHeaderPage.h"
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFHeaderController.h"
+#import "IFPreferences.h"
 
 #pragma mark Preferences
-
-static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 
 @implementation IFHeaderPage {
     NSView* pageView;
@@ -31,11 +30,6 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 #pragma mark - Initialisation
 
 + (void) initialize {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [[NSUserDefaults standardUserDefaults] registerDefaults:
-         @{IFHeaderBackgroundColour: @[@0.95f, @0.95f, @0.9f, @1.0f]}];
-    });
 }
 
 - (instancetype) init {
@@ -48,20 +42,14 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 		
 		[headerView setDelegate: self];
 		
-		// Set the colours
-		NSArray* components = [[NSUserDefaults standardUserDefaults] arrayForKey: IFHeaderBackgroundColour];
-	    NSColor* col = [NSColor whiteColor];
-		
-		if ([components isKindOfClass: [NSArray class]] && [components count] >= 3) {
-			col = [NSColor colorWithDeviceRed: [(NSNumber *)components[0] doubleValue]
-										green: [(NSNumber *)components[1] doubleValue]
-										 blue: [(NSNumber *)components[2] doubleValue]
-										alpha: 1.0];
-		}
-		
-		[scrollView setBackgroundColor: col];
-		[headerView setBackgroundColour: col];
-		
+        // Notification
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(preferencesChanged:)
+                                                     name: IFPreferencesEditingDidChangeNotification
+                                                   object: [IFPreferences sharedPreferences]];
+
+        [self setColours];
+
 		// Set the view depth
         if( [depthButton numberOfItems] > 0 ) {
             [depthButton selectItemAtIndex:[depthButton numberOfItems] - 1];
@@ -77,6 +65,17 @@ static NSString* IFHeaderBackgroundColour = @"IFHeaderBackgroundColour";
 		if (headerView) [controller removeHeaderView: headerView];
 	}
 	[headerView setDelegate: nil];
+}
+
+- (void) setColours {
+    [scrollView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+    [scrollView setNeedsDisplay:YES];
+    [headerView setColours: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+    [headerView setNeedsDisplay:YES];
+}
+
+- (void) preferencesChanged: (NSNotification*) not {
+    [self setColours];
 }
 
 #pragma mark - KVC stuff for the page view/header view
