@@ -165,32 +165,31 @@
 	NSAttributedString* text = [self attributedStringValue];
 	
 	// Draw the background
-	NSImage* backgroundImage = nil;
+	NSColor * backgroundColor = nil;
 	
 	if (self.highlighted) {
 		if ([self isPopup]) {
-			backgroundImage = [IFPageBarView graphiteSelectedImage];
+			backgroundColor = [NSColor colorNamed:@"GraphiteSelected"];
 		} else {
-			backgroundImage = [IFPageBarView highlightedImage];
+			backgroundColor = [NSColor colorNamed:@"Highlighted"];
 		}
 	} else if ([self state] == NSControlStateValueOn) {
-		backgroundImage = [IFPageBarView selectedImage];
+		backgroundColor = [NSColor colorNamed:@"Selected"];
 	}
 	
-	if (backgroundImage) {
+	if (backgroundColor) {
 		IFPageBarView* barView = (IFPageBarView*)[self controlView];
 		NSRect backgroundBounds = [barView bounds];
 		backgroundBounds.size.width -= 9.0;
 		
 		NSRect backgroundFrame = cellFrame;
+		backgroundFrame.size.width -= 1;
+
 		if (isRight) {
 			backgroundFrame.origin.x += 1;
-			backgroundFrame.size.width -= 1;
-		} else {
-			backgroundFrame.size.width -= 1;			
 		}
 
-		[IFPageBarView drawOverlay: backgroundImage
+		[IFPageBarView drawOverlay: backgroundColor
 							inRect: backgroundFrame
 					   totalBounds: backgroundBounds
 						  fraction: 1.0];
@@ -228,7 +227,16 @@
 		// Reduce the frame size
 		cellFrame.size.width -= dropDownSize.width+4;
 	}
-	
+
+	NSColor * textColor = NSColor.labelColor;
+	if ([self state] == NSControlStateValueOn) {
+		textColor = [NSColor colorNamed:@"SelectedText"];
+	}
+	// If the cell is highlighted we use the highlighted text colour whether the cell is selected or not.
+	if (self.highlighted) {
+		textColor = [NSColor colorNamed:@"HighlightedText"];
+	}
+
 	if (image && text && [text length] > 0) {
 		// Work out the sizes
 		NSSize imageSize = [image size];
@@ -295,7 +303,7 @@
 				operation: NSCompositingOperationSourceOver
 				 fraction: 1.0];
         if (image.template) {
-            [NSColor.labelColor set];
+            [textColor set];
             NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceAtop);
         }
         [layer unlockFocus];
@@ -314,7 +322,9 @@
 		NSRect textRect;
 		textRect.origin = textPoint;
 		textRect.size = textSize;
-		
+		NSMutableDictionary *mutDict = [text attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+		mutDict[NSForegroundColorAttributeName] = textColor;
+		text = [[NSAttributedString alloc] initWithString:text.string attributes:mutDict];
 		[text drawInRect: NSIntegralRect(textRect)];
 	}
 }
