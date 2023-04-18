@@ -74,7 +74,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         [welcomeTitle setEditable: NO];
         [welcomeTitle setSelectable: NO];
         [welcomeTitle setAlignment:NSTextAlignmentRight];
-        [welcomeTitle setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
+        [welcomeTitle setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
         [welcomeTitle setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [welcomeTitle setStringValue: informString];
         [self addSubview: welcomeTitle];
@@ -87,7 +87,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         [welcomeBuild setEditable: NO];
         [welcomeBuild setSelectable: NO];
         [welcomeBuild setAlignment:NSTextAlignmentLeft];
-        [welcomeBuild setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
+        [welcomeBuild setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
         [welcomeBuild setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [welcomeBuild setStringValue: buildString];
         [self addSubview: welcomeBuild];
@@ -107,7 +107,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         [titleText setEditable: NO];
         [titleText setSelectable: NO];
         [titleText setAlignment:NSTextAlignmentCenter];
-        [titleText setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
+        [titleText setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
         [titleText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [self addSubview: titleText];
 
@@ -119,7 +119,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         [storyText setEditable: NO];
         [storyText setSelectable: NO];
         [storyText setAlignment:NSTextAlignmentCenter];
-        [storyText setTextColor: [NSColor colorWithCalibratedWhite:0.25f alpha:1.0f]];
+        [storyText setTextColor: [NSColor colorNamed:@"StatusWelcomeText"]];
         [storyText setAutoresizingMask: (NSUInteger) (NSViewWidthSizable | NSViewMinYMargin)];
         [self addSubview: storyText];
         
@@ -303,28 +303,18 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
 
 
 - (void)drawRect: (NSRect) dirtyRect {
-    static NSShadow *   kDropShadow                  = nil;
-    static NSGradient * kBackgroundGradient          = nil;
-    static NSGradient * kExtensionBackgroundGradient = nil;
-    static NSColor *    kBorderColor                 = nil;
+    NSShadow *kDropShadow = [[NSShadow alloc] init];
+    kDropShadow.shadowColor = [NSColor colorNamed:@"StatusShadow"];
+    kDropShadow.shadowOffset = NSMakeSize(0, -1.0);
+    kDropShadow.shadowBlurRadius = 1.0f;
 
-    if (kDropShadow == nil) {
-        kDropShadow = [[NSShadow alloc] init];
-        kDropShadow.shadowColor = [NSColor colorWithCalibratedRed:1.0f green:1.0f blue:1.0f alpha:1.0];
-        kDropShadow.shadowOffset = NSMakeSize(0, -1.0);
-        kDropShadow.shadowBlurRadius = 1.0f;
-
-        kBorderColor = [NSColor colorWithCalibratedRed:0.4f green:0.4f blue:0.4f alpha:1.0f];
-        kBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
-                               [NSColor colorWithCalibratedRed:160.0f/255.0f green:163.0f/255.0f blue:171.0f/255.0f alpha:1.0], 0.0,
-                               [NSColor colorWithCalibratedRed:202.0f/255.0f green:207.0f/255.0f blue:211.0f/255.0f alpha:1.0], 1.0,
-                               nil];
-        kExtensionBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
-                                        [NSColor colorWithCalibratedRed:160.0f/255.0f green:163.0f/255.0f blue:171.0f/255.0f alpha:1.0], 0.0,
-                                        [NSColor colorWithCalibratedRed:202.0f/255.0f green:207.0f/255.0f blue:211.0f/255.0f alpha:1.0], 1.0,
-                                        nil];
-    }
-
+    NSColor *kBorderColor = [NSColor colorNamed:@"StatusBorder"];
+    NSGradient *kBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+                           [NSColor colorNamed:@"BackgroundGradientStart"], 0.0,
+                           [NSColor colorNamed:@"BackgroundGradientEnd"], 1.0, nil];
+    NSGradient * kExtensionBackgroundGradient = [[NSGradient alloc] initWithColorsAndLocations:
+                                    [NSColor colorNamed:@"BackgroundGradientStart"], 0.0,
+                                    [NSColor colorNamed:@"BackgroundGradientEnd"], 1.0, nil];
     NSRect bounds = [self bounds];
     bounds.size.height -= 1.0;
     bounds.origin.y += 1.0;

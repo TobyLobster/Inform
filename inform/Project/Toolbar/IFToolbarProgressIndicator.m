@@ -27,12 +27,12 @@
     // Draw progress inside
     [bz setClip];
     rect.size.width = floor(rect.size.width * ([self doubleValue] / [self maxValue]));
-    [[NSColor colorWithDeviceRed:151.0f/255.0f green:151.0f/255.0f blue:151.0f/255.0f alpha:1.0f] set];
+    [[NSColor colorNamed:@"StatusIndicator"] set];
     NSRectFill(rect);
 
     // Draw border
     [bz setLineWidth:1.0];
-    [[NSColor colorWithDeviceRed:41.0f/255.0f green:41.0f/255.0f blue:41.0f/255.0f alpha:1.0f] set];
+    [[NSColor colorNamed:@"StatusIndicatorBorder"] set];
     [bz stroke];
 }
 
