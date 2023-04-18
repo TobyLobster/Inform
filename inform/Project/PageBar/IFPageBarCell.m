@@ -171,7 +171,7 @@
 		if ([self isPopup]) {
 			backgroundColor = [NSColor colorNamed:@"GraphiteSelected"];
 		} else {
-            backgroundColor = [NSColor colorNamed:@"Highlighted"];
+			backgroundColor = [NSColor colorNamed:@"Highlighted"];
 		}
 	} else if ([self state] == NSControlStateValueOn) {
 		backgroundColor = [NSColor colorNamed:@"Selected"];

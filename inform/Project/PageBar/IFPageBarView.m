@@ -138,12 +138,12 @@ static const CGFloat leftMargin = 3.0;
 	rect = NSIntersectionRect(rect, bounds);
 
 	if (rect.size.width > 0) {
-        NSRect destRect = NSMakeRect(rect.origin.x, bounds.origin.y, rect.size.width, bounds.size.height);
-        [overlay set];
-        NSRectFillUsingOperation(destRect, NSCompositingOperationSourceOver);
-        [NSColor.controlAccentColor set];
-        NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
-    }
+		NSRect destRect = NSMakeRect(rect.origin.x, bounds.origin.y, rect.size.width, bounds.size.height);
+		[overlay set];
+		NSRectFillUsingOperation(destRect, NSCompositingOperationSourceOver);
+		[NSColor.controlAccentColor set];
+		NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
+	}
 }
 
 - (NSImage*) renderCell: (NSCell*) cell
