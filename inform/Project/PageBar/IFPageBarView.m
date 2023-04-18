@@ -105,36 +105,6 @@ static const CGFloat leftMargin = 3.0;
 	return image;
 }
 
-+ (NSImage*) graphiteSelectedImage {
-	static NSImage* graphiteImage = nil;	
-
-	if (!graphiteImage) {
-		graphiteImage = [NSImage imageNamed: @"App/PageBar/BarSelectedGraphite"];
-	}
-	
-	return graphiteImage;
-}
-
-+ (NSImage*) highlightedImage {
-	static NSImage* image = nil;
-	
-	if (!image) {
-		image = [NSImage imageNamed: @"App/PageBar/BarHighlighted"];
-	}
-	
-	return image;
-}
-
-+ (NSImage*) selectedImage {
-	static NSImage* image = nil;
-	
-	if (!image) {
-		image = [NSImage imageNamed: @"App/PageBar/BarSelected"];
-	}
-	
-    return image;
-}
-
 + (NSImage*) inactiveImage {
 	static NSImage* image = nil;
 	
@@ -160,32 +130,20 @@ static const CGFloat leftMargin = 3.0;
 
 #pragma mark - Drawing
 
-+ (void) drawOverlay: (NSImage*) overlay
++ (void) drawOverlay: (NSColor*) overlay
 			  inRect: (NSRect) rect
 		 totalBounds: (NSRect) bounds
 			fraction: (CGFloat) fraction {
-	// Draws an overlay image, given the bounds of this control and the area to draw
-	NSSize imageSize = [overlay size];
-	NSRect sourceRect;
-	NSRect destRect;
-	
-	// Adjust the drawing rectangle so that it's within the bounds
-	if (bounds.size.height > imageSize.height-2) {
-		bounds.size.height = imageSize.height-2;
-	}
+	// Draws an overlay colour, given the bounds of this control and the area to draw
 	rect = NSIntersectionRect(rect, bounds);
 
 	if (rect.size.width > 0) {
-		sourceRect = NSMakeRect(0.0f, 2, imageSize.width, bounds.size.height);
-		destRect = NSMakeRect(rect.origin.x, bounds.origin.y, rect.size.width, bounds.size.height);
-		
-		[overlay drawInRect: destRect
-				   fromRect: sourceRect
-				  operation: NSCompositingOperationSourceOver 
-				   fraction: fraction];		
-        [NSColor.controlAccentColor set];
-        NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
-    }
+		NSRect destRect = NSMakeRect(rect.origin.x, bounds.origin.y, rect.size.width, bounds.size.height);
+		[overlay set];
+		NSRectFillUsingOperation(destRect, NSCompositingOperationSourceOver);
+		[NSColor.controlAccentColor set];
+		NSRectFillUsingOperation(destRect, NSCompositingOperationOverlay);
+	}
 }
 
 - (NSImage*) renderCell: (NSCell*) cell
