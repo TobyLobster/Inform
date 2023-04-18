@@ -25,10 +25,10 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 	@objc(sharedPreferenceController) public static let shared: PreferenceController = PreferenceController()
 	
 	init() {
-		let mainScreenRect = NSScreen.main!.frame
+		let mainScreenRect = NSScreen.main!.visibleFrame
 		
-		super.init(window: NSWindow(contentRect: NSRect(x: mainScreenRect.minX + 200, y: mainScreenRect.maxY - 400, width: 512, height: 300), styleMask: [.titled, .closable, .miniaturizable], backing: .buffered, defer: true))
-		
+		super.init(window: NSWindow(contentRect: NSRect(x: mainScreenRect.minX + 200, y: mainScreenRect.maxY - 400, width: 512, height: 300), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: true))
+
 		// Set up window
 		self.windowFrameAutosaveName = "PreferenceWindow";
 		self.window?.delegate = self
@@ -36,6 +36,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 		if #available(macOS 11.0, *) {
 			self.window?.toolbarStyle = .preference
 		}
+		self.window?.standardWindowButton(.zoomButton)?.isEnabled = false
 	}
 	
 	required public init?(coder: NSCoder) {
@@ -125,7 +126,7 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 	}
 	
 	// MARK: Choosing a preference pane
-	
+
 	/// Switches to a specific preference pane
 	public func `switch`(toPreferencePane paneIdentifier: NSToolbarItem.Identifier) {
 		// Find the preference view that we're using
@@ -143,28 +144,40 @@ final class PreferenceController : NSWindowController, NSWindowDelegate, NSToolb
 			  window?.contentView !== preferencePane else {
 				  return
 			  }
+
+		window?.title = toolId.preferenceName
 		
 		preferenceToolbar!.selectedItemIdentifier = paneIdentifier
 		
-		var currentFrame = window!.contentView!.frame
-		let oldFrame = currentFrame
 		var windowFrame = window!.frame
-		
-		currentFrame.origin.y    -= preferencePane.frame.size.height - currentFrame.size.height
-		currentFrame.size.height  = preferencePane.frame.size.height
-		
-		// Grr, complicated, as OS X provides no way to work out toolbar proportions except in 10.3
-		// FIXME: use these "new" methods
-		windowFrame.origin.x    += currentFrame.origin.x - oldFrame.origin.x
-		windowFrame.origin.y    += currentFrame.origin.y - oldFrame.origin.y
-		windowFrame.size.width  += currentFrame.size.width - oldFrame.size.width
-		windowFrame.size.height += currentFrame.size.height - oldFrame.size.height
-		
-		window?.contentView = NSView()
+
+		let frameForContent = window!.frameRect(forContentRect: preferencePane.frame)
+
+		windowFrame.origin.y -= frameForContent.height - window!.frame.height
+		windowFrame.size.height = frameForContent.height
+
+		var minFrame = window!.frame
+		minFrame.size.height = toolId.minHeight
+		let minimumHeight = window!.frameRect(forContentRect:minFrame).height
+
+		// Try to make pane shorter if it doesn't fit in screen visible frame
+
+		let screenFrame = window!.screen!.visibleFrame
+		if NSMinY(windowFrame) < NSMinY(screenFrame) {
+			let diff = NSMinY(screenFrame) - NSMinY(windowFrame)
+				if windowFrame.height - diff >= minimumHeight {
+				windowFrame.size.height -= diff
+				windowFrame.origin.y += diff
+			}
+		}
+
+		window?.contentView = preferencePane
 		window?.setFrame(windowFrame,
 						 display: true,
 						 animate: true)
-		window?.contentView = preferencePane
+
+		window?.maxSize = CGSize(width: (window?.frame.width)!, height: toolId.maxHeight)
+		window?.minSize = CGSize(width: (window?.frame.width)!, height: minimumHeight)
 	}
 	
 	// MARK: - Toolbar delegate
