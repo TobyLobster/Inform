@@ -44,6 +44,16 @@
 	return [[self class] description];
 }
 
+- (CGFloat) maxHeight {
+    if (preferenceView)
+        return preferenceView.frame.size.height;
+    else return 0;
+}
+
+- (CGFloat) minHeight {
+    return [self maxHeight];
+}
+
 @synthesize preferenceView;
 
 - (NSString*) tooltip {
