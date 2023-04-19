@@ -132,6 +132,8 @@ CGFloat easeOutCubic(CGFloat t);
 // Attributes for NSAttributedString
 +(NSDictionary<NSAttributedStringKey,id>*) adjustAttributesFontSize: (NSDictionary<NSAttributedStringKey,id>*) dictionary
                                      size: (CGFloat) fontSize;
+
+// Core build version
 + (NSString*) coreBuildVersion;
 @property (class, readonly, copy, nonatomic) NSString *coreBuildVersion;
 

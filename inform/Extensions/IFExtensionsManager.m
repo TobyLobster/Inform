@@ -273,7 +273,7 @@ didReceiveResponse: (NSURLResponse *)response
         
         // Get temporary filename
         char tempFilename[256];
-        sprintf(tempFilename, "%stemp.XXXXXX", [NSTemporaryDirectory() fileSystemRepresentation]);
+        snprintf(tempFilename, 255, "%stemp.XXXXXX", [NSTemporaryDirectory() fileSystemRepresentation]);
         int result = mkstemp(tempFilename);
         if( result != -1 ) {
             NSString* filename = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFilename length: strlen(tempFilename)];

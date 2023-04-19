@@ -807,7 +807,6 @@
     {
         [self setFirstResponder];
     }
-    viewAnimator = nil;
 }
 
 - (IBAction) toggleHeaderPage: (id) sender {
