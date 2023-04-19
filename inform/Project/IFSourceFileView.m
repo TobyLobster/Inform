@@ -58,6 +58,10 @@ static NSImage* arrowPressed	= nil;
 	[super keyDown: event];
 }
 
+- (NSTouchBar *)makeTouchBar {
+  return nil;
+}
+
 - (void) removeRestriction {
     if( [IFSyntaxManager isRestricted:[self textStorage] forTextView:self] ) {
 		// Get the old restriction, and first visible character
