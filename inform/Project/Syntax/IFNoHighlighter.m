@@ -48,7 +48,7 @@
 }
 
 - (void) rehintLine: (NSString*) line
-			 styles: (IFSyntaxStyle*) styles
+			 styles: (IFSyntaxStyles*) styles
 	   initialState: (IFSyntaxState) initialState {
 }
 

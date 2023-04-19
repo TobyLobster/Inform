@@ -11,6 +11,7 @@
 #import "IFIntelFile.h"
 
 @class IFSyntaxData;
+@class IFSyntaxStyles;
 
 //
 // Predefined states
@@ -92,7 +93,7 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 /// Opportunity to highlight keywords, etc missed by the first syntax highlighting pass. \c styles has
 /// one entry per character in the line specified, and can be rewritten as required
 - (void) rehintLine: (NSString*) line
-			 styles: (IFSyntaxStyle*) styles
+			 styles: (IFSyntaxStyles*) styles
 	   initialState: (IFSyntaxState) state;
 
 #pragma mark - Styles
@@ -116,7 +117,7 @@ typedef NS_ENUM(unsigned int, IFHighlightType) {
 // Gathering information (works like rehint)
 /// Gathers intelligence data for the given line (with the given syntax highlighting styles, initial state and line number), and places the resulting data into the given IntelFile object
 - (void) gatherIntelForLine: (NSString*) line
-					 styles: (IFSyntaxStyle*) styles
+					 styles: (IFSyntaxStyles*) styles
 			   initialState: (IFSyntaxState) state
 				 lineNumber: (int) lineNumber
 				   intoData: (IFIntelFile*) data;

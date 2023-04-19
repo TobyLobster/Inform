@@ -11,6 +11,7 @@
 #import "IFProjectPane.h"
 #import "IFPreferences.h"
 #import "IFSyntaxData.h"
+#import "IFSyntaxStyles.h"
 
 @implementation IFNaturalHighlighter {
     /// Syntax data that we're using
@@ -205,15 +206,19 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 }
 
 - (void) rehintLine: (NSString*) line
-			 styles: (IFSyntaxStyle*) styles
+			 styles: (IFSyntaxStyles*) styles
 	   initialState: (IFSyntaxState) initialState {
     NSString* thisLine = [[line lowercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
 	// This line might be a header line
 	BOOL isHeader = NO;
     BOOL isInAppropriateStateForHeader = (initialState == IFNaturalStateBlankLine) || (initialState == IFSyntaxStateDefault);
-	
-	if (isInAppropriateStateForHeader && !IsInform6Style(styles[0])) {
+
+    if (styles.numCharStyles == 0) {
+        return;
+    }
+
+    if (isInAppropriateStateForHeader && !IsInform6Style([styles read:0])) {
         if ([thisLine hasPrefix: @"---- documentation ----"]) isHeader = YES;
 		if ([thisLine hasPrefix: @"volume "])   isHeader = YES;
         if ([thisLine hasPrefix: @"volume: "])  isHeader = YES;
@@ -231,14 +236,15 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 	if (isHeader) {
 		int x;
 		for (x=0; x<[line length]; x++) {
-			styles[x] = IFSyntaxHeading;
+            [styles write:x value:IFSyntaxHeading];
 		}
 	}
 	
 	// This line might have some Inform 6 highlighting to do
+    IFSyntaxStyles* i6Styles = [[IFSyntaxStyles alloc] init];
 	int x;
 	for (x=0; x<[line length]; x++) {
-		if (IsInform6Style(styles[x])) {
+        if (IsInform6Style([styles read:x])) {
 			// Found an Inform 6 region
 			NSRange thisRegion;
 			
@@ -246,14 +252,16 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 			thisRegion.length = 0;
 			
 			// Convert to standard style, work out how long the region is
-			for (;x<[line length] && IsInform6Style(styles[x]);x++) {
+            for (;x<[line length] && IsInform6Style([styles read:x]);x++) {
 				thisRegion.length++;
-				styles[x] -= 0x20;
+                [styles write:x value: [styles read:x]- 0x20];
 			}
 			
 			// Get the Inform 6 highlighter to rehint this section
+            i6Styles.styles = styles.styles + thisRegion.location;
+            i6Styles.numCharStyles = styles.numCharStyles-thisRegion.location;
 			[inform6Highlighter rehintLine: [line substringWithRange: thisRegion] 
-									styles: styles+thisRegion.location 
+									styles: i6Styles
 							  initialState: IFSyntaxStateDefault];
 		}
 	}

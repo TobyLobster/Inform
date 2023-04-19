@@ -8,6 +8,7 @@
 
 #import "IFInform6Highlighter.h"
 #import "IFSyntaxData.h"
+#import "IFSyntaxStyles.h"
 #import "IFProjectPane.h"
 
 @implementation IFInform6Highlighter {
@@ -535,7 +536,7 @@ static int compare(const void* a, const void* b) {
 }
 
 - (void) rehintLine: (NSString*) line
-			 styles: (IFSyntaxStyle*) styles
+			 styles: (IFSyntaxStyles*) styles
 	   initialState: (IFSyntaxState) state {
     int x;
     int chr;
@@ -549,23 +550,23 @@ static int compare(const void* a, const void* b) {
     // number of digits.
     
     for (x=0; x<strLen; x++) {
-        if (styles[x] == IFSyntaxString) {
+        if ([styles read:x] == IFSyntaxString) {
             chr = str[x];
             
             switch (chr) {
                 case '~': case '^': case '\\':
-                    styles[x] = IFSyntaxEscapeCharacter;
+                    [styles write:x value:IFSyntaxEscapeCharacter];
                     break;
                     
                 case '@':
-                    styles[x] = IFSyntaxEscapeCharacter;
+                    [styles write:x value:IFSyntaxEscapeCharacter];
                     
                     if ((x+1) < strLen) {
                         chr = str[x+1];
                         
                         if (chr == '@') {
                             x++;
-                            styles[x] = IFSyntaxEscapeCharacter;
+                            [styles write:x value:IFSyntaxEscapeCharacter];
                         }
                     }
 						
@@ -575,7 +576,7 @@ static int compare(const void* a, const void* b) {
 							
 							chr = str[x];
 							
-							if (isdigit(chr)) styles[x] = IFSyntaxEscapeCharacter;
+                            if (isdigit(chr)) [styles write:x value:IFSyntaxEscapeCharacter];
 						} while (isdigit(chr));
 						break;
             }
@@ -590,7 +591,7 @@ static int compare(const void* a, const void* b) {
     for (x=0; x<strLen; x++) {
         int identifierLen = 0;
         int identifierStart = x;
-        unsigned char colour = styles[identifierStart];
+        unsigned char colour = [styles read:identifierStart];
         
         chr = str[x];
         
@@ -650,27 +651,26 @@ static int compare(const void* a, const void* b) {
         } else if (colour == IFSyntaxNone) {
             // On the other hand, if an identifier is in foreground colour, then we
             // check it to see if it's one of the following interesting keywords:
-			
+            
             //       "first"  "last"  "meta"  "only"  "private"  "replace"  "reverse"
             //       "string"  "table"
-			
+            
             // If it is, we recolour it in directive colour.
-			
+            
             char* identifier = malloc(identifierLen+1);
             identifier = strncpy(identifier, str + identifierStart, identifierLen);
             identifier[identifierLen] = 0;
             
-            if (FindKeyword(otherKeywords, numOtherKeywords, identifier)) newColour = IFSyntaxDirective;
+            if (FindKeyword(otherKeywords, numOtherKeywords, identifier)) {
+                newColour = IFSyntaxDirective;
+            }
             
             free(identifier);
         }
         
         if (newColour != 0xff) {
-            register int y;
-			register unsigned char* col = styles + identifierStart;
-			
-            for (y=0; y<identifierLen; y++) {
-                *(col++) = newColour;
+            for (int y=identifierStart; y< (identifierStart + identifierLen); y++) {
+                [styles write:y value:newColour];
             }
         }
     }	

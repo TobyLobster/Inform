@@ -7,6 +7,7 @@
 //
 
 #import "IFNaturalIntel.h"
+#import "IFSyntaxStyles.h"
 #import "IFSyntaxData.h"
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -114,7 +115,7 @@ static BOOL indent = YES;
 }
 
 - (void) gatherIntelForLine: (NSString*) line
-					 styles: (IFSyntaxStyle*) styles
+					 styles: (IFSyntaxStyles*) styles
 			   initialState: (IFSyntaxState) state
 				 lineNumber: (int) lineNumber
 				   intoData: (IFIntelFile*) data {
@@ -122,7 +123,7 @@ static BOOL indent = YES;
 	[data clearSymbolsForLines: NSMakeRange(lineNumber, 1)];
 	
 	// Heading lines beginning with 'Volume', 'Part', etc  are added to the intelligence
-	if (styles[0] == IFSyntaxHeading) {
+    if ([styles read:0] == IFSyntaxHeading) {
 		// Check if this is a heading or not
         // Trim whitespace
         NSString* prefix = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -146,10 +147,10 @@ static BOOL indent = YES;
 		// The title string
 		int x = 0;
 		int start = 0;
-		while (x < [line length] && styles[x] != IFSyntaxGameText)
+		while (x < [line length] && [styles read:x] != IFSyntaxGameText)
             x++;
 		start = x;
-		while (x < [line length] && styles[x] == IFSyntaxGameText)
+		while (x < [line length] && [styles read:x] == IFSyntaxGameText)
             x++;
 
 		// Add this as a level 0 item

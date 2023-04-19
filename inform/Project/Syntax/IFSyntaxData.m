@@ -5,7 +5,9 @@
 //  Created by Toby Nelson in 2014.
 //
 
+#import <Cocoa/Cocoa.h>
 #import "IFSyntaxData.h"
+#import "IFSyntaxStyles.h"
 #import "IFPreferences.h"
 #import "IFNoHighlighter.h"
 #import "IFInform6Highlighter.h"
@@ -48,7 +50,7 @@
     NSUInteger*		lineStarts;			// Start positions of each line
     NSMutableArray* lineStates;			// Syntax stack at the start of lines
 
-    IFSyntaxStyle*  charStyles;			// Syntax state for each character
+    IFSyntaxStyles* charStyles;			// Syntax state for each character
     NSMutableArray* lineStyles;			// NSParagraphStyles for each line
 
     //
@@ -109,7 +111,7 @@
         lineStarts = malloc(sizeof(*lineStarts));
         lineStates = [[NSMutableArray alloc] init];
         
-        charStyles = NULL;
+        charStyles = [[IFSyntaxStyles alloc] init];
         lineStyles = [[NSMutableArray alloc] initWithObjects: @{}, nil];
         
         syntaxStack = [[NSMutableArray alloc] init];
@@ -183,7 +185,11 @@
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 
 	free(lineStarts);
-	free(charStyles);
+    if ((charStyles != NULL) && (charStyles.styles != NULL)) {
+        free(charStyles.styles);
+        charStyles.styles = NULL;
+        charStyles.numCharStyles = 0;
+    }
 
 	if (highlighter) {
 		[highlighter setSyntaxData: nil];
@@ -238,17 +244,16 @@
 //
 - (IFSyntaxStyle) styleAtIndex: (NSUInteger) index
 				effectiveRange: (NSRangePointer) range {
-	IFSyntaxStyle style = charStyles[index];
+    IFSyntaxStyle style = [charStyles read: index];
 	
 	if (range) {
 		NSRange localRange;								// Optimisation suggested by Shark
-		const IFSyntaxStyle* localStyles = charStyles;	// Ditto
-        
+
 		localRange.location = index;
 		localRange.length = 0;
 		
 		while (localRange.location > 0) {
-			if (localStyles[localRange.location-1] == style) {
+            if ([charStyles read:localRange.location-1] == style) {
 				localRange.location--;
 			} else {
 				break;
@@ -258,7 +263,7 @@
 		unsigned strLen = (int) [_textStorage length];
 		
 		while (localRange.location+localRange.length < strLen) {
-			if (localStyles[localRange.location+localRange.length] == style) {
+            if ([charStyles read:localRange.location+localRange.length] == style) {
 				localRange.length++;
 			} else {
 				break;
@@ -796,24 +801,27 @@
     NSInteger charactersToCopy = oldFullLength - oldRange.location - oldRange.length;
     if (changeInLength > 0) {
         // Move characters down (i.e. towards the back of the string)
-        charStyles = realloc(charStyles, newFullLength);
+        charStyles.styles = realloc(charStyles.styles, newFullLength);
+        charStyles.numCharStyles = newFullLength;
 
-        memmove(charStyles + newRange.location + newRange.length,
-                charStyles + oldRange.location + oldRange.length,
-                sizeof(*charStyles) * charactersToCopy);
+        memmove(charStyles.styles + newRange.location + newRange.length,
+                charStyles.styles + oldRange.location + oldRange.length,
+                sizeof(*charStyles.styles) * charactersToCopy);
     }
     else {
         // Move characters up (i.e. towards the front of the string)
-        memmove(charStyles + newRange.location + newRange.length,
-                charStyles + oldRange.location + oldRange.length,
-                sizeof(*charStyles) * charactersToCopy);
+        memmove(charStyles.styles + newRange.location + newRange.length,
+                charStyles.styles + oldRange.location + oldRange.length,
+                sizeof(*charStyles.styles) * charactersToCopy);
 
-        charStyles = realloc(charStyles, newFullLength);
+        charStyles.styles = realloc(charStyles.styles, newFullLength);
+        charStyles.numCharStyles = newFullLength;
     }
 
 	// Characters in the edited range no longer have valid states
+    NSAssert((newRange.length + newRange.location - 1) < charStyles.numCharStyles, @"index out of range");
 	for (x = 0; x < newRange.length; x++) {
-		charStyles[x + newRange.location] = IFSyntaxStyleNotHighlighted;
+        [charStyles write:x + newRange.location value:IFSyntaxStyleNotHighlighted];
 	}
 
 	// Syntax highlight (up to) the rest of the text
@@ -900,8 +908,11 @@
 	// Change the character style, going backwards for the specified length
 	NSInteger x;
 
+    NSAssert(syntaxPos < charStyles.numCharStyles, @"index out of range");
 	for (x=syntaxPos-backtrackLength; x<syntaxPos; x++) {
-		if (x >= 0) charStyles[x] = newStyle;
+        if (x >= 0) {
+            [charStyles write:x value:newStyle];
+        }
 	}
 }
 
@@ -980,6 +991,7 @@ static inline BOOL IsWhitespace(unichar c) {
 	int line;
 	NSArray* previousOldStack = nil; // The 'old' stack for the previous line
 	NSRange previousElasticRange = NSMakeRange(NSNotFound, 0);	// The previous range formatted with elastic tabs
+    IFSyntaxStyles* styles = [[IFSyntaxStyles alloc] init];
 
 	for (line=firstLine; line<=lastLine; line++) {
 		// The range of characters in this line
@@ -1022,7 +1034,8 @@ static inline BOOL IsWhitespace(unichar c) {
 														   lastState: syntaxState];
 
 			// Store the style
-			charStyles[syntaxPos] = nextStyle;
+            NSAssert(syntaxPos < charStyles.numCharStyles, @"index out of range");
+			charStyles.styles[syntaxPos] = nextStyle;
 			
 			// Store the state
 			syntaxState = nextState;
@@ -1033,8 +1046,10 @@ static inline BOOL IsWhitespace(unichar c) {
 #if HighlighterDebug
 		NSLog(@"Highlighter: finished line %i: '%@', rehinting", line, lineToHint);
 #endif
+        styles.styles = charStyles.styles + firstChar;
+        styles.numCharStyles = charStyles.numCharStyles - firstChar;
 		[highlighter rehintLine: lineToHint
-						 styles: charStyles+firstChar
+						 styles: styles
 				   initialState: initialState];
 
 		//
@@ -1042,7 +1057,7 @@ static inline BOOL IsWhitespace(unichar c) {
         //
 		if (intelSource && intelData) {
 			[intelSource gatherIntelForLine: lineToHint
-									 styles: charStyles+firstChar
+									 styles: styles
 							   initialState: initialState
 								 lineNumber: line
 								   intoData: intelData];
@@ -1269,8 +1284,8 @@ static inline BOOL IsWhitespace(unichar c) {
 
 - (NSDictionary*) generateParagraphStyleForTabStops: (int) numberOfTabStops {
     // Get the width of a tabstop
-    CGFloat stopWidth = [highlighter tabStopWidth];
-	if (stopWidth < 1.0) stopWidth = 1.0;
+    //CGFloat stopWidth = [highlighter tabStopWidth];
+	//if (stopWidth < 1.0) stopWidth = 1.0;
 
 	NSMutableParagraphStyle* res = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
@@ -1592,15 +1607,14 @@ static inline BOOL IsLineEnd(unichar c) {
 }
 
 - (IFSyntaxStyle) styleAtStartOfLine: (int) lineNumber {
-	return charStyles[lineStarts[lineNumber]];
+    return [charStyles read:lineStarts[lineNumber]];
 }
 
 - (IFSyntaxStyle) styleAtEndOfLine: (int) lineNumber {
 	NSInteger pos = lineNumber+1 < nLines ? lineStarts[lineNumber+1]-1 : [_textStorage length]-1;
 	
-	if (pos < 0) return IFSyntaxStyleNotHighlighted;
-	
-	return charStyles[pos];
+    if (pos < 0) return IFSyntaxStyleNotHighlighted;
+    return [charStyles read:pos];
 }
 
 - (unichar) characterAtEndOfLine: (int) lineNumber {
