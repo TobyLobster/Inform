@@ -318,7 +318,9 @@
 	[gameRunningProgress startStory];
 	
 	if (testCommands != nil) {
-        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
+        NSArray *reversedArray = [[testCommands reverseObjectEnumerator] allObjects];
+
+        TestCommands* inputSource = [[TestCommands alloc] initWithCommands: reversedArray];
         testCommands = nil;
         [self.parent setGlkInputSource: inputSource];
         [gView addInputReceiver: self.parent];

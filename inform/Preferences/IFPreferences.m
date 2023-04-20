@@ -945,11 +945,12 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     //
 
     // Inform 6
-    cacheColours[IFSyntaxString] = [NSColor colorWithDeviceRed: 0.53 green: 0.08 blue: 0.08 alpha: 1.0];
-    cacheColours[IFSyntaxDirective] = [NSColor colorWithDeviceRed: 0.20 green: 0.08 blue: 0.53 alpha: 1.0];
-    cacheColours[IFSyntaxProperty] = [NSColor colorWithDeviceRed: 0.08 green: 0.08 blue: 0.53 alpha: 1.0];
-    cacheColours[IFSyntaxFunction] = [NSColor colorWithDeviceRed: 0.08 green: 0.53 blue: 0.53 alpha: 1.0];
-    cacheColours[IFSyntaxCode] = [NSColor colorWithDeviceRed: 0.46 green: 0.06 blue: 0.31 alpha: 1.0];
+    cacheColours[IFSyntaxNone] = [NSColor colorWithDeviceRed: 0.5 green: 0.5 blue: 0.5 alpha: 1.0];
+    cacheColours[IFSyntaxString] = [NSColor colorWithDeviceRed: 0.53 green: 3*0.08 blue: 3*0.08 alpha: 1.0];
+    cacheColours[IFSyntaxDirective] = [NSColor colorWithDeviceRed: 3*0.20 green: 3*0.08 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxProperty] = [NSColor colorWithDeviceRed: 3*0.08 green: 3*0.08 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxFunction] = [NSColor colorWithDeviceRed: 3*0.08 green: 3*0.53 blue: 0.53 alpha: 1.0];
+    cacheColours[IFSyntaxCode] = [NSColor colorWithDeviceRed: 0.46 green: 3*0.06 blue: 0.31 alpha: 1.0];
     cacheColours[IFSyntaxAssembly] = [NSColor colorWithDeviceRed: 0.46 green: 0.31 blue: 0.31 alpha: 1.0];
     cacheColours[IFSyntaxCodeAlpha] = [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0];
     cacheColours[IFSyntaxEscapeCharacter] = [NSColor colorWithDeviceRed: 0.4  green: 0.4  blue: 0.3  alpha: 1.0];
