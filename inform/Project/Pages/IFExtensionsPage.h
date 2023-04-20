@@ -17,8 +17,12 @@
 // The documentation view
 /// Tells the view to open a specific URL
 - (void) openURL: (NSURL*) url;
+
 /// Opens the home page
 - (IBAction) showHome: (id) sender;
+
+/// Show the public library
+- (void) showPublicLibrary: (id) sender;
 
 - (void) extensionUpdated:(NSString*) javascriptId;
 

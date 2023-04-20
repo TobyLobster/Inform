@@ -152,4 +152,6 @@
 @property (atomic, getter=isCompiling, readonly) BOOL compiling;
 
 - (void) inputSourceHasFinished: (id) source;
+- (void) showPublicLibrary;
+
 @end

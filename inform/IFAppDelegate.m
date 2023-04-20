@@ -598,6 +598,59 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 #pragma mark - Installing extensions
+// get a list of windows in app, frontmost to backmost
+- (NSMutableArray *) allWindows {
+    NSArray*  windNumsArray = [NSWindow windowNumbersWithOptions:0];
+    NSArray*  windObjsArray = [[NSApplication sharedApplication] windows];
+    NSMutableArray* windowList = [[NSMutableArray alloc] init];
+
+    // first entry is not a useful window, start with i=1
+    for(int i = 1; i < [windNumsArray count]; i++) {
+        NSInteger windowNumber = [[windNumsArray objectAtIndex:i] integerValue];
+        for (NSWindow* wind in windObjsArray) {
+            if ([wind windowNumber] == windowNumber) {
+                [windowList addObject: wind];
+                break;
+            }
+        }
+    }
+    return windowList;
+}
+
+- (IBAction) gotoPublicLibrary: (id) sender {
+    NSMutableArray * allWindows = [self allWindows];
+
+    for(NSWindow* window in allWindows) {
+        // If we can switch to an open project document, do so
+        for(NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
+            if( [doc isKindOfClass: [IFProject class]] ) {
+                for(NSWindowController* controller in [doc windowControllers]) {
+                    if ([controller window] == window) {
+                        [[controller window] makeKeyAndOrderFront: self];
+                        if([controller isKindOfClass: [IFProjectController class]]) {
+                            IFProjectController* pc = (IFProjectController*) controller;
+                            [pc gotoRightPane: sender];
+                            [pc showPublicLibrary];
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+- (IBAction) addExtensionFromFile: (id) sender {
+
+}
+
+- (IBAction) addExtensionFromFolder: (id) sender {
+
+}
+
+- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender {
+
+}
 
 - (IBAction) installLegacyExtension: (id) sender {
 	// Present a panel for installing new extensions

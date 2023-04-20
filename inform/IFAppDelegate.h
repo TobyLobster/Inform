@@ -49,6 +49,10 @@
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
 - (IBAction) installLegacyExtension: (id) sender;
+- (IBAction) gotoPublicLibrary: (id) sender;
+- (IBAction) addExtensionFromFile: (id) sender;
+- (IBAction) addExtensionFromFolder: (id) sender;
+- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

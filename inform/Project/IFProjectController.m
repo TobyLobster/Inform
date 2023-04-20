@@ -669,6 +669,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 }
 
+- (void) showPublicLibrary {
+    [[self currentTabView] selectTabViewItemWithIdentifier: [[IFExtensionsPage class] description]];
+    if( [projectPanes[1] currentView] == IFExtensionsPane ) {
+        [(IFExtensionsPage *)[projectPanes[1] extensionsPage] showPublicLibrary:nil ];
+    }
+}
+
 // == View selection functions ==
 
 - (IBAction)saveDocument:(id)sender {
