@@ -10,6 +10,8 @@
 #import "IFUtility.h"
 #import "IFIntelFile.h"
 #import "IFIntelSymbol.h"
+#import "IFPreferences.h"
+#import "IFColourTheme.h"
 
 #pragma mark - Fonts
 
@@ -348,8 +350,16 @@ static CGFloat pointSize = 11.0;
 }
 
 - (NSDictionary*) attributes { 
+    // Find text colour
+    NSColor* textColour = [NSColor textColor];
+
+    IFColourTheme* theme = [[IFPreferences sharedPreferences] getCurrentTheme];
+    if ((theme != nil) && ([theme.options count] > IFSHOptionMainText)) {
+        textColour = theme.options[IFSHOptionMainText].colour;
+    }
+
     return @{NSFontAttributeName: [self font],
-             NSForegroundColorAttributeName: [NSColor textColor]};
+             NSForegroundColorAttributeName: textColour};
 }
 
 - (int) uneditablePartLength {

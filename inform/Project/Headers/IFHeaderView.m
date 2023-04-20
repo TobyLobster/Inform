@@ -8,6 +8,8 @@
 
 #import "IFHeaderView.h"
 #import "IFUtility.h"
+#import "IFPreferences.h"
+#import "IFColourTheme.h"
 #import "IFHeaderController.h"
 
 @implementation IFHeaderView {
@@ -135,8 +137,15 @@
         NSMutableParagraphStyle* style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
         [style setAlignment: NSTextAlignmentCenter];
 
+        // Find text colour
+        NSColor* textColour = [NSColor textColor];
+
+        IFColourTheme* theme = [[IFPreferences sharedPreferences] getCurrentTheme];
+        if ((theme != nil) && ([theme.options count] > IFSHOptionMainText)) {
+            textColour = theme.options[IFSHOptionMainText].colour;
+        }
         NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
-                                            NSForegroundColorAttributeName: [NSColor textColor],
+                                            NSForegroundColorAttributeName: textColour,
                                             NSParagraphStyleAttributeName: style};
 
         // Draw roughly centered
