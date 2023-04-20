@@ -22,6 +22,7 @@
 #import "IFClickThroughScrollView.h"
 #import "IFHeaderPage.h"
 #import "IFSourceFileView.h"
+#import "IFColourTheme.h"
 
 @interface IFSourcePage(IFSourcePagePrivate)
 
@@ -62,6 +63,14 @@
     }
     else {
         [textView setBackgroundColor: [[IFPreferences sharedPreferences] getSourcePaper].colour];
+    }
+
+    // Set the cursor colour
+    if( [textView respondsToSelector: @selector(setInsertionPointColor:)] ) {
+        IFColourTheme* theme = [[IFPreferences sharedPreferences] getCurrentTheme];
+        if ((theme != nil) && ([theme.options count] > IFSHOptionMainText)) {
+            [textView setInsertionPointColor: theme.options[IFSHOptionMainText].colour];
+        }
     }
 }
 
