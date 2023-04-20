@@ -266,7 +266,7 @@
 	// Install this extension
 	NSString* finalPath = nil;
     IFExtensionResult installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager]
-                                           installExtension: [[[self document] fileURL] path]
+                                           installLegacyExtension: [[[self document] fileURL] path]
                                                   finalPath: &finalPath
                                                       title: nil
                                                      author: nil

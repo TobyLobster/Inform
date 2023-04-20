@@ -286,7 +286,7 @@ didReceiveResponse: (NSURLResponse *)response
                 NSString* title     = nil;
                 NSString* author    = nil;
                 NSString* version   = nil;
-                if ( [mgr installExtension: filename
+                if ( [mgr installLegacyExtension: filename
                                  finalPath: &finalPath
                                      title: &title
                                     author: &author
@@ -842,7 +842,7 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 // Install the given extension
-- (IFExtensionResult) installExtension: (NSString*) extensionPath
+- (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
                              finalPath: (NSString*__strong*) finalPathOut
                                  title: (NSString*__strong*) titleOut
                                 author: (NSString*__strong*) authorOut

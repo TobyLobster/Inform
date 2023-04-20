@@ -48,7 +48,7 @@
 - (void) updateExtensionsMenu;
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
-- (IBAction) installExtension: (id) sender;
+- (IBAction) installLegacyExtension: (id) sender;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

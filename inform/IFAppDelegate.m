@@ -599,8 +599,8 @@ static NSRunLoop* mainRunLoop = nil;
 
 #pragma mark - Installing extensions
 
-- (IBAction) installExtension: (id) sender {
-	// Present a panel for adding new extensions
+- (IBAction) installLegacyExtension: (id) sender {
+	// Present a panel for installing new extensions
 	NSOpenPanel* panel;
 	if (!openExtensionPanel) {
 		openExtensionPanel = [NSOpenPanel openPanel];
@@ -625,7 +625,7 @@ static NSRunLoop* mainRunLoop = nil;
          // Add the files
          IFExtensionResult installResult = IFExtensionSuccess;
          for(NSURL* file in [panel URLs]) {
-             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [file path]
+             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installLegacyExtension: [file path]
                                                                                          finalPath: nil
                                                                                              title: nil
                                                                                             author: nil

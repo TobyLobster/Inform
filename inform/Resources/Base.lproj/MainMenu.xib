@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -15,7 +15,6 @@
         <customObject id="197" userLabel="IFAppDelegate" customClass="IFAppDelegate">
             <connections>
                 <outlet property="newExtensionProjectMenu" destination="82" id="h5V-tN-Ifz"/>
-                <outlet property="openExtensionMenu" destination="280" id="5sT-h7-qzv"/>
             </connections>
         </customObject>
         <menu title="MainMenu" systemMenu="main" id="29" userLabel="MainMenu">
@@ -118,24 +117,37 @@
                                     <action selector="newExtension:" target="-1" id="hel-e2-wIx"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Install Extension..." id="351">
-                                <connections>
-                                    <action selector="installExtension:" target="-1" id="352"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Installed Extension" id="280">
-                                <menu key="submenu" title="Open Installed Extension" id="282">
+                            <menuItem title="Add Extension to Project..." id="280">
+                                <menu key="submenu" title="Add Extension to Project..." id="282">
                                     <items>
-                                        <menuItem title="New Extension" id="281"/>
+                                        <menuItem title="From Public Library" id="281"/>
+                                        <menuItem title="From File..." id="erp-YG-Ftg"/>
+                                        <menuItem title="From Folder..." id="rK5-0C-Nwp"/>
+                                        <menuItem title="From Legacy Installed Extensions Folder...." id="0qd-KU-Upk"/>
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Show Installed Extensions Folder" id="4Q4-4W-TUF">
+                            <menuItem isSeparatorItem="YES" id="Mgl-sV-qe4">
+                                <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                            </menuItem>
+                            <menuItem title="Install Legacy Extension..." id="sVP-vC-XgO">
+                                <connections>
+                                    <action selector="installLegacyExtension:" target="-1" id="dV2-Dj-a4e"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open Legacy Installed Extension" id="lBP-kI-Ym1">
+                                <menu key="submenu" title="Open Legacy Installed Extension" id="hTP-TB-6AQ">
+                                    <items>
+                                        <menuItem title="New Extension" id="GFs-gZ-fiI"/>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Show Legacy Installed Extensions Folder" id="4Q4-4W-TUF">
                                 <connections>
                                     <action selector="showExtensionsFolder:" target="-1" id="FS1-S0-XjK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Export Extension..." id="JlR-5G-Td1">
+                            <menuItem title="Export Legacy Extension..." id="JlR-5G-Td1">
                                 <connections>
                                     <action selector="exportExtension:" target="-1" id="LJo-fF-EvA"/>
                                 </connections>

@@ -1783,7 +1783,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 /* For an extension project, we install that extension, otherwise we call the app delegate's
  version to show an open dialog to install any extension */
-- (IBAction) installExtension: (id) sender {
+- (IBAction) installLegacyExtension: (id) sender {
     if ([[self document] isExtensionProject]) {
         // This only applies in an Extension Project.
         // Save extension.i7x (without user interaction) and install it
@@ -1791,7 +1791,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         IFProject* doc = [self document];
         NSString* finalPath = nil;
-        IFExtensionResult result = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installExtension: [doc mainSourcePathName]
+        IFExtensionResult result = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installLegacyExtension: [doc mainSourcePathName]
                                                                                                       finalPath: &finalPath
                                                                                                           title: nil
                                                                                                          author: nil
@@ -1802,7 +1802,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
             [IFUtility showExtensionError: result withWindow: [self window]];
         }
     } else {
-        [((IFAppDelegate *) [NSApp delegate]) installExtension: sender];
+        [((IFAppDelegate *) [NSApp delegate]) installLegacyExtension: sender];
     }
 }
 

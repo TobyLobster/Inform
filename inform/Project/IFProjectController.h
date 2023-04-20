@@ -122,7 +122,7 @@
 - (IBAction) searchDocs:        (id) sender;
 - (IBAction) searchProject:     (id) sender;
 - (IBAction) testSelector:      (id) sender;
-- (IBAction) installExtension:  (id) sender;
+- (IBAction) installLegacyExtension:  (id) sender;
 - (IBAction) exportExtension:   (id) sender;
 - (IBAction) testMe:            (id) sender;
 

@@ -133,7 +133,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                                             version: (NSString*__strong*) versionOut;
 
 /// Copies a file from the given path into the installed extensions, perhaps replacing an existing extension
-- (IFExtensionResult) installExtension: (NSString*) extensionPath
+- (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
                              finalPath: (NSString*__strong*) finalPathOut
                                  title: (NSString*__strong*) titleOut
                                 author: (NSString*__strong*) authorOut
