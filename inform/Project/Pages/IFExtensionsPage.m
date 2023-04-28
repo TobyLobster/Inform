@@ -15,6 +15,7 @@
 #import "IFExtensionsManager.h"
 #import "IFProjectController.h"
 #import "IFPageBarCell.h"
+#import "IFProject.h"
 #import "IFProjectPolicy.h"
 
 @implementation IFExtensionsPage {
@@ -53,7 +54,7 @@
 		[publicLibraryCell setAction: @selector(showPublicLibrary:)];
 
         // Static dictionary mapping tab names to cells
-        tabDictionary = @{@"inform://Extensions/Extensions.html": homeCell,
+        tabDictionary = @{@"inform://Extensions/Reserved/Documentation/index.html": homeCell,
                           [[IFUtility publicLibraryURL] absoluteString]: publicLibraryCell};
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
@@ -70,13 +71,20 @@
         [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
         [wView setResourceLoadDelegate: self];
         [wView setFrameLoadDelegate: self];
-        
+
         [wView setFrame: [self.view bounds]];
         [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
         [self.view addSubview: wView];
-        
+
         NSURL* url = [NSURL URLWithString: @"inform://Extensions/Extensions.html"];
-        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+        NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL: url];
+
+        // TODO: Exploring ways to get data to the IFInformProtocol. Set path to materials
+        //       folder as a property, so the IFInformProtocol can use it
+        //IFProject *project = [controller document];
+        //NSString* path = [[project materialsDirectoryURL] path];
+        //[NSURLProtocol setProperty: path forKey: @"materialsPath" inRequest: urlRequest];
+
         [[wView mainFrame] loadRequest: urlRequest];
 
         [wView setPolicyDelegate: [self.parent extensionsPolicy]];
@@ -122,8 +130,12 @@
 
 - (void) openURL: (NSURL*) url  {
 	[self switchToPage];
-	
-	[[wView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
+
+    // Set path to materials folder as a property, so the IFInformProtocol can use it
+    IFProject *project = [self.parent document];
+    NSURLRequest* urlRequest = [project makeURLRequestFromURL: url];
+
+    [[wView mainFrame] loadRequest: urlRequest];
 }
 
 - (void) openURLWithString: (NSString*) urlString {

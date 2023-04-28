@@ -21,6 +21,7 @@
 #import "IFCompilerSettings.h"
 #import "IFCompiler.h"
 #import "IFInTest.h"
+#import "IFInBuild.h"
 #import "IFProjectFile.h"
 #import "IFIndexFile.h"
 #import "IFSkein.h"
@@ -79,6 +80,7 @@
         notes                   = [[NSTextStorage alloc] initWithString: @""];
         materialsAccess         = nil;
         _inTest                 = [[IFInTest alloc] init];
+        _inBuild                = [[IFInBuild alloc] init];
 
 		watchExpressions        = [[NSMutableArray alloc] init];
 		breakpoints             = [[NSMutableArray alloc] init];
@@ -163,6 +165,17 @@
     return pathURL;
 }
 
+-(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url {
+    NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL: url];
+
+    // Set path to materials folder as a property, so the IFInformProtocol can use it
+    NSString* path = [[self materialsDirectoryURL] path];
+    [NSURLProtocol setProperty: path forKey: @"materialsPath" inRequest: urlRequest];
+
+    return urlRequest;
+}
+
+
 - (NSURL*) metadataURL {
     return [self.fileURL URLByAppendingPathComponent: @"Metadata.ifiction"];
 }
@@ -182,6 +195,10 @@
 
 -(NSURL*) normalProblemsURL {
     return [self.buildDirectoryURL URLByAppendingPathComponent: @"Problems.html"];
+}
+
+-(NSURL*) extensionReportURL {
+    return [self.buildDirectoryURL URLByAppendingPathComponent: @"Inbuild.html"];
 }
 
 -(NSURL*) baseReportURL {
@@ -522,6 +539,17 @@
     else {
         [self selectSkein: 0];
     }
+}
+
+- (int) executeInBuildForExtension: extensionURL
+                  withConfirmation: (bool) confirmed {
+    NSString* internalPath = [IFUtility pathForInformInternalAppSupport: [settings compilerVersion]];
+
+    return [_inBuild executeInBuildForInfoWithProject: self.fileURL
+                                         forExtension: extensionURL
+                                         withInternal: [NSURL fileURLWithPath: internalPath]
+                                     withConfirmation: confirmed
+                                          withResults: self.extensionReportURL];
 }
 
 // == reading/writing ==

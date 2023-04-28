@@ -136,12 +136,15 @@
 							request: (NSURLRequest *)request
 							  frame: (WebFrame *)frame
 				   decisionListener: (id<WebPolicyDecisionListener>)listener {
+    // Only do things if the link was clicked by a user
 	if ([actionInformation[WebActionNavigationTypeKey] intValue] == WebNavigationTypeLinkClicked) {
 		NSURL* url = [request URL];
-		
-		// Source file redirects
+
 		if ([[url scheme] isEqualTo: @"source"]) {
-			// We deal with these ourselves
+            // We have found a "source:" URL. This is a source file link. Errors during
+            // compilation have links that when clicked lead back to the source code.
+
+            // We deal with these ourselves.
 			[listener ignore];
 			
 			// Format is 'source file name#line number'
@@ -168,7 +171,11 @@
 			// Finished
 			return;
 		}
+        // check for "skein:" URL"
         else if ([[url scheme] isEqualTo: @"skein"]) {
+            // We have found a "skein:" URL. This is a link to the skein. Errors during
+            // testing have links that lead back to the skein.
+
             // We deal with these ourselves
             [listener ignore];
 
@@ -190,6 +197,8 @@
             return;
         }
         else if ([[url scheme] isEqualTo: @"library"]) {
+            // We have found a "library:" URL. These are used for links that will install an
+            // extension from the public library. Clicking on one starts the installation.
             IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
             if( mgr ) {
                 NSURL* frameURL = [[[frame dataSource] request] URL];
@@ -218,12 +227,17 @@
 
         // Open extenal links in separate default browser app
 		if (([[url scheme] isEqualTo: @"http"]) || ([[url scheme] isEqualTo: @"https"])) {
+            // We deal with these ourselves.
             [listener ignore];
+
             [[NSWorkspace sharedWorkspace] openURL:[request URL]];
             return;
         }
 
-		// General redirects
+		// General redirects:
+        // If user clicks on a link in the documentation tab, then open the results in the
+        // documentation web view.
+        // Similarly extension tab links open in the extensions web view
 		if((redirectToDocs) || (redirectToExtensionDocs)) {
 			WebDataSource* activeSource = [frame dataSource];
 			
@@ -254,8 +268,9 @@
 				NSString* path1         = [absolute1.path lowercaseString];
 				NSString* projectPath   = [[[projectController document] fileURL].path lowercaseString];
 
-				if ([path1 rangeOfString: projectPath].location == 0)
-					willRedirect = NO;
+                if ([path1 rangeOfString: projectPath].location == 0) {
+                    willRedirect = NO;
+                }
 			}
 
 			// We only redirect if the page is different to the current one
@@ -264,7 +279,9 @@
 			}
 			
 			if (willRedirect) {
+                // We deal with these ourselves.
 				[listener ignore];
+
                 if( redirectToDocs )
                 {
                     [[[projectController auxPane] documentationPage] openURL: [[request URL] copy]];
@@ -277,7 +294,9 @@
 			}
 		}
 	}
-	
+
+    //NSLog(@"Link to: %@\n", [request URL]);
+
 	// default action
 	[listener use];
 }

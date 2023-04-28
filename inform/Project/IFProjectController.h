@@ -49,14 +49,14 @@
 @property (atomic, readonly, copy) NSString *selectedSourceFile;
 
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file;
+                          inFile: (NSString*) file;
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file
+                          inFile: (NSString*) file
                            style: (IFLineStyle) style;
 - (NSArray*) highlightsForFile: (NSString*) file;
 
 - (void) removeHighlightsInFile: (NSString*) file
-						ofStyle: (IFLineStyle) style;
+                        ofStyle: (IFLineStyle) style;
 - (void) removeHighlightsOfStyle: (IFLineStyle) style;
 - (void) removeAllTemporaryHighlights;
 
@@ -68,6 +68,8 @@
 - (IBAction) addNewFile: (id) sender;
 
 @property (atomic, readonly) BOOL safeToSwitchTabs;
+@property (atomic) NSOpenPanel* openExtensionPanel;
+@property (atomic) NSOpenPanel* openLegacyExtensionPanel;
 
 - (void) zoomViewIsWaitingForInput;
 
@@ -153,5 +155,10 @@
 
 - (void) inputSourceHasFinished: (id) source;
 - (void) showPublicLibrary;
+
+
+- (IBAction) addExtensionFromFile: (id) sender;
+- (IBAction) addExtensionFromFolder: (id) sender;
+- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
 
 @end

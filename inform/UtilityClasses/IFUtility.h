@@ -72,8 +72,10 @@ CGFloat easeOutCubic(CGFloat t);
 /// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window;
+
 +(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
 +(NSString*) majorMinor: (NSString*) version;
++(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 
 /// Sandboxing
 + (BOOL) isSandboxed;

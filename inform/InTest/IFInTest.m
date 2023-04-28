@@ -154,6 +154,7 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     [theTask setStandardInput:[NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
 
     stdOutH = [stdOutPipe fileHandleForReading];
+    stdErrH = [stdErrPipe fileHandleForReading];
 
     // Start the task
     [theTask launch];

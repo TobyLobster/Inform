@@ -93,7 +93,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 - (void) showContentsOfFilesIn: (NSFileWrapper*) files
 					  fromPath: (NSString*) path;
 /// Gets rid of the file tabs created by the previous function
-- (void) clearTabViews;
+- (void) clearTabViewsExcept: (IFCompilerTabId) exceptTabId;
 
 /// Where cblorb thinks the final blorb file should be copied to
 @property (atomic, readonly, copy) NSString *blorbLocation;
@@ -102,6 +102,9 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 
 /// The tab identifier of the currently selected view
 @property (atomic, readonly) IFCompilerTabId selectedTabId;
+
+/// Add a tab for showing results
+- (IFCompilerTabId) makeTabForFile: (NSString*) file;
 /// Switches to a view with the specified tab identifier
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId;
 /// Switches to the default split view

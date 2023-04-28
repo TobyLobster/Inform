@@ -11,6 +11,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFNewsManager.h"
 
+@class IFProjectController;
+
 @interface IFAppDelegate : NSObject<NSOpenSavePanelDelegate>
 
 @property (atomic, readonly) IFNewsManager* newsManager;
@@ -49,10 +51,7 @@
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
 - (IBAction) installLegacyExtension: (id) sender;
-- (IBAction) gotoPublicLibrary: (id) sender;
-- (IBAction) addExtensionFromFile: (id) sender;
-- (IBAction) addExtensionFromFolder: (id) sender;
-- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
+- (IFProjectController *) frontmostProjectController;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

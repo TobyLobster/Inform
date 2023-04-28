@@ -383,7 +383,7 @@ static IFCompilerController* activeController = nil;
     [errorFiles removeAllObjects];
     [compilerMessages reloadData];
 
-    [self clearTabViews];
+    [self clearTabViewsExcept: IFTabConsole];
 
     [[[compilerResults textStorage] mutableString] setString: @""];
     highlightPos = 0;
@@ -1070,13 +1070,13 @@ static IFCompilerController* activeController = nil;
 	[self switchToViewWithTabId: IFTabReport];
 }
 
-- (void) clearTabViews {
+- (void) clearTabViewsExcept: (IFCompilerTabId) exceptTabId {
     bool updated = false;
 
 	// Clear all views except the console view
     for(int index = (int) [tabs count] - 1; index >= 0; index--) {
         IFCompilerTab*tab = tabs[index];
-        if( tab.tabId != IFTabConsole ) {
+        if( tab.tabId != exceptTabId ) {
             [tabs removeObjectAtIndex:index];
             updated = true;
         }

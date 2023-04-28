@@ -617,39 +617,23 @@ static NSRunLoop* mainRunLoop = nil;
     return windowList;
 }
 
-- (IBAction) gotoPublicLibrary: (id) sender {
+- (IFProjectController *) frontmostProjectController {
     NSMutableArray * allWindows = [self allWindows];
-
     for(NSWindow* window in allWindows) {
         // If we can switch to an open project document, do so
         for(NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
             if( [doc isKindOfClass: [IFProject class]] ) {
                 for(NSWindowController* controller in [doc windowControllers]) {
                     if ([controller window] == window) {
-                        [[controller window] makeKeyAndOrderFront: self];
                         if([controller isKindOfClass: [IFProjectController class]]) {
-                            IFProjectController* pc = (IFProjectController*) controller;
-                            [pc gotoRightPane: sender];
-                            [pc showPublicLibrary];
+                            return (IFProjectController*) controller;
                         }
-                        return;
                     }
                 }
             }
         }
     }
-}
-
-- (IBAction) addExtensionFromFile: (id) sender {
-
-}
-
-- (IBAction) addExtensionFromFolder: (id) sender {
-
-}
-
-- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender {
-
+    return nil;
 }
 
 - (IBAction) installLegacyExtension: (id) sender {

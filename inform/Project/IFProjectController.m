@@ -23,6 +23,7 @@
 #import "IFPolicyManager.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
+#import "IFInBuild.h"
 
 
 #import "IFSourcePage.h"
@@ -43,6 +44,7 @@
 #import "IFHeaderController.h"
 
 #import "IFExtensionsManager.h"
+#import "IFNewExtensionsManager.h"
 
 #import "IFI7OutputSettings.h"
 #import "IFCompilerController.h"
@@ -1054,7 +1056,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     for (int x=0; x<[projectPanes count]; x++) {
         IFProjectPane* pane = projectPanes[x];
 
-        [[pane compilerController] clearTabViews];
+        [[pane compilerController] clearTabViewsExcept: IFTabConsole];
         [[pane compilerController] showContentsOfFilesIn: buildDir
                                                 fromPath: [buildURL path]];
     }
@@ -1538,6 +1540,91 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) docExtensions: (id) sender {
 	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: @"inform://Extensions/Extensions.html"]];
+}
+
+#pragma mark - New Extensions
+
+- (IBAction) addExtensionFromFile: (id) sender {
+    [self addExtensionFromFileUsingPanel: &_openExtensionPanel
+                    withInitialDirectory: nil];
+}
+
+- (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender {
+    [self addExtensionFromFileUsingPanel: &_openLegacyExtensionPanel
+                    withInitialDirectory: [NSURL fileURLWithPath:[IFUtility pathForInformExternalExtensions]]];
+}
+
+- (IBAction) gotoPublicLibrary: (id) sender {
+    [[self window] makeKeyAndOrderFront: self];
+    [self gotoRightPane: sender];
+    [self showPublicLibrary];
+}
+
+-(void) addExtensionFromFileUsingPanel: (NSOpenPanel*__strong*) pPanel
+                  withInitialDirectory: (NSURL*) initialURL {
+    // Present a panel for installing new extensions
+    if (!*pPanel) {
+        *pPanel = [NSOpenPanel openPanel];
+    }
+    if (initialURL != nil) {
+        [*pPanel setDirectoryURL: initialURL];
+    }
+    [*pPanel setAccessoryView:           nil];
+    [*pPanel setCanChooseFiles:          YES];
+    [*pPanel setCanChooseDirectories:    YES];
+    [*pPanel setResolvesAliases:         YES];
+    [*pPanel setAllowsMultipleSelection: YES];
+    [*pPanel setTitle:                   [IFUtility localizedString:@"Install Inform 7 Extension"]];
+    [*pPanel setDelegate:                self];    // Determines which file types are valid to choose (panel:shouldEnableURL)
+
+    [*pPanel beginWithCompletionHandler: ^(NSInteger result) {
+        [*pPanel setDelegate: nil];
+
+        if (result != NSModalResponseOK) return;
+
+        NSURL *url = [*pPanel URL];
+        IFProject *project = self.document;
+        NSURL *extensionURL = [[IFNewExtensionsManager sharedNewExtensionsManager] copyWithUnzip: url
+                                                                              toProjectTemporary: project];
+        if (extensionURL) {
+            // Call inbuild to check it's a valid extension
+
+            [project executeInBuildForExtension: extensionURL
+                               withConfirmation: false];
+
+            // Show results
+            for (int x=0; x<[self->projectPanes count]; x++) {
+                IFProjectPane* pane = self->projectPanes[x];
+
+                [[pane compilerController] clearTabViewsExcept: IFTabConsole];
+                IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
+                [[pane compilerController] switchToViewWithTabId: id];
+            }
+            [self->projectPanes[1] selectViewOfType: IFErrorPane];
+        }
+    }];
+}
+
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: url.path
+                                                       isDirectory: &isDir];
+    if (!exists) return NO;
+    if (isDir) {
+        if ([[NSWorkspace sharedWorkspace] isFilePackageAtPath: url.path]) {
+            return NO;
+        }
+        return YES;
+    }
+
+    NSString* extn = [[url pathExtension] lowercaseString];
+
+    if( [extn isEqualToString: @"i7x"] ||
+        [extn isEqualToString: @"i7xd"] ||
+        [extn isEqualToString: @"zip"]) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - Adding files

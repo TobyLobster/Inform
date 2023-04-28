@@ -650,4 +650,31 @@ CGFloat easeOutCubic(CGFloat t) {
     return version;
 }
 
++(bool) unzip: (NSURL*) zipURL toDirectory:(NSURL*) targetDirectory {
+    // see https://stackoverflow.com/questions/2296667/unzipping-a-file-in-cocoa
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSError *error;
+
+    // create a new empty folder (unzipping will fail if any of the payload files already
+    // exist at the target location)
+    [fm createDirectoryAtURL: targetDirectory
+ withIntermediateDirectories: YES
+                  attributes: nil
+                       error: &error];
+
+    //now create an unzip task
+    NSArray *arguments = @[zipURL.path];
+    NSTask *unzipTask = [[NSTask alloc] init];
+    [unzipTask setLaunchPath: @"/usr/bin/unzip"];
+    [unzipTask setCurrentDirectoryURL: targetDirectory];
+    [unzipTask setArguments: arguments];
+    [unzipTask launch];
+    [unzipTask waitUntilExit];
+
+    if ([unzipTask terminationStatus] != 0) {
+        return FALSE;
+    }
+    return TRUE;
+}
+
 @end

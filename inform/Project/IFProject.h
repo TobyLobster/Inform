@@ -14,6 +14,7 @@
 @class IFProjectFile;
 @class IFIndexFile;
 @class IFInTest;
+@class IFInBuild;
 @class IFSyntaxTypes;
 @class IFProjectMaterialsPresenter;
 @class IFSkein;
@@ -61,6 +62,7 @@
 @property (atomic, readonly, copy) NSURL *currentSkeinURL;
 @property (atomic, readonly, copy) NSURL *currentReportURL;
 @property (atomic, readonly, copy) NSURL *normalProblemsURL;
+@property (atomic, readonly, copy) NSURL *extensionReportURL;
 @property (atomic, readonly, copy) NSURL *baseReportURL;
 @property (atomic, readonly, copy) NSURL *combinedReportURL;
 
@@ -92,6 +94,8 @@
 -(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
+-(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url;
+
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;
 /// update the array of test cases
@@ -111,6 +115,12 @@
 -(BOOL) generateCombinedReportForBaseInputURL: (NSURL*) baseInputURL
                                      numTests: (int) numTests
                                     outputURL: (NSURL*) outputURL;
+
+#pragma mark - InBuild support
+@property (atomic) IFInBuild* inBuild;
+
+- (int) executeInBuildForExtension: extensionURL
+                  withConfirmation: (bool) confirmed;
 
 #pragma mark - Skein support
 -(IFSkeinItem*) nodeToReport;

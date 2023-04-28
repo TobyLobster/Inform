@@ -7,7 +7,10 @@
 //
 
 #import "IFInformProtocol.h"
+#import "IFAppDelegate.h"
 #import "IFUtility.h"
+#import "IFProjectController.h"
+#import "IFProject.h"
 
 @implementation IFInformProtocol {
     /// The URL request we're supposed to be processing
@@ -83,7 +86,16 @@
 		// Try the library directories
         NSEnumerator* componentEnum = [components objectEnumerator];
         NSString* pathComponent;
-        
+
+        //TODO: Exploring with possible ways to get the current project's materials directory
+        //path = [[project materialsDirectoryURL] path];
+        //path = [NSURLProtocol propertyForKey: @"materialsPath" inRequest: theURLRequest];
+
+        //path = [[[path
+        //        stringByAppendingPathComponent: @"Extensions"]
+        //        stringByAppendingPathComponent: @"Reserved"]
+        //        stringByAppendingPathComponent: @"Documentation"];
+
         path = [IFUtility pathForInformExternalDocumentation];
         for (x=0; x<skip; x++) [componentEnum nextObject];
         while ((pathComponent = [componentEnum nextObject])) {
