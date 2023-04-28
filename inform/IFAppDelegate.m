@@ -27,7 +27,6 @@
 #import "Preferences/IFColourPreferences.h"
 #import "Preferences/IFAdvancedPreferences.h"
 
-#import "IFNoDocProtocol.h"
 #import "IFInformProtocol.h"
 
 #import "IFSettingsController.h"
@@ -98,7 +97,6 @@ static NSRunLoop* mainRunLoop = nil;
     _newsManager = [[IFNewsManager alloc] init];
 
     // Register some custom URL handlers
-    // [NSURLProtocol registerClass: [IFNoDocProtocol class]];
     [NSURLProtocol registerClass: [IFInformProtocol class]];
 
     copySource = nil;
