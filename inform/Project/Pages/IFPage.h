@@ -20,7 +20,7 @@ extern NSNotificationName const IFSwitchToPageNotification;
 /// Notification that the items on the toolbar for a page have changed
 extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
-//#define LOG_HISTORY
+#define LOG_HISTORY
 #ifdef LOG_HISTORY
 #define LogHistory(format, ... ) { NSLog(format, ##__VA_ARGS__); }
 #else

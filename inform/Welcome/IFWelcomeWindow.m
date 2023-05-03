@@ -119,7 +119,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         // Set the navigation delegate
         IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
         [self->newsWebConfiguration setURLSchemeHandler: appDelegate.newsManager.newsSchemeHandler
-                              forURLScheme: @"inform"];
+                                           forURLScheme: @"inform"];
         self->newsWebView = [[WKWebView alloc] initWithFrame: self->newsWebParent.bounds
                                                configuration: self->newsWebConfiguration];
     }

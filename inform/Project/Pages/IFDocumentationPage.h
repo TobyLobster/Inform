@@ -13,7 +13,7 @@
 ///
 /// The 'documentation' page
 ///
-@interface IFDocumentationPage : IFPage<WebFrameLoadDelegate, WebResourceLoadDelegate>
+@interface IFDocumentationPage : IFPage<WKNavigationDelegate, WKUIDelegate, WKURLSchemeHandler>
 
 // The documentation view
 /// Tells the documentation view to open a specific URL
