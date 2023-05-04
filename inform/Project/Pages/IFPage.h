@@ -20,7 +20,7 @@ extern NSNotificationName const IFSwitchToPageNotification;
 /// Notification that the items on the toolbar for a page have changed
 extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
-#define LOG_HISTORY
+//#define LOG_HISTORY
 #ifdef LOG_HISTORY
 #define LogHistory(format, ... ) { NSLog(format, ##__VA_ARGS__); }
 #else
@@ -39,6 +39,8 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 @property (atomic, readonly, weak) IFProjectController* parent;
 /// The pane that is opposite to this one (or nil)
 @property (atomic, readwrite, weak) IFProjectPane* otherPane;
+/// The pane for this page
+@property (atomic, readwrite, weak) IFProjectPane* thisPane;
 /// The view to display for this page
 @property (nonatomic, readonly, strong) IBOutlet NSView* view;
 

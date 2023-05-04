@@ -31,6 +31,7 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) localizedString: (NSString*) key
                       default: (NSString*) value
                         table: (NSString*) table NS_FORMAT_ARGUMENT(2);
++ (NSString*) unescapeString: (NSString*) string;
 
 // Convenience methods for alerts
 + (void) runAlertInformationWindow: (NSWindow*) window

@@ -7,7 +7,8 @@
 //
 
 #import "IFDocumentationPage.h"
-#import "IFJSProject.h"
+#import "IFProjectPane.h"
+#import "IFSourcePage.h"
 #import "IFPreferences.h"
 #import "IFMaintenanceTask.h"
 #import "IFAppDelegate.h"
@@ -32,7 +33,7 @@
     /// Maps URL paths to cells
     NSDictionary* tabDictionary;
 
-    bool reloadingBecauseCensusCompleted;
+    int inhibitAddToHistory;
 }
 
 #pragma mark - Initialisation =
@@ -42,7 +43,7 @@
 				projectController: controller];
 	
 	if (self) {
-        reloadingBecauseCensusCompleted = false;
+        inhibitAddToHistory = 0;
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(fontSizePreferenceChanged:)
@@ -58,22 +59,51 @@
 												   object: nil];
 
         // Create the web view for the documentation tab
+
+        // First the configuration:
         WKWebViewConfiguration* config = [[WKWebViewConfiguration alloc] init];
+
+        // Handle inform: sceme
         [config setURLSchemeHandler: self forURLScheme: @"inform"];
 
-        wView = [[WKWebView alloc] initWithFrame:[self.view bounds] configuration: config];
-        // TODO: [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+        // We recieve messages from Javascript
+        [config.userContentController addScriptMessageHandler: self name: @"scriptHandler"];
 
+        // We inject Javascript to post appropriate messages
+        NSURL* resourceURL = [[NSBundle mainBundle] URLForResource:@"messages_to_objc" withExtension: @"js"];
+        NSError* error;
+        NSString* javascriptTemplate = [NSString stringWithContentsOfURL:resourceURL encoding:NSUTF8StringEncoding error: &error];
+
+        // We inject Javascript to initially resize based on font size preference
+        float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+        NSString* js = [NSString stringWithFormat: @"window.addEventListener(\"load\",function () { document.body.style.zoom = '%.2f'; }, false);", fontSizeMultiplier];
+
+        // Inject both the message template and the font size Javascript
+        NSString* javascriptInjection = [NSString stringWithFormat: @"%@%@", js, javascriptTemplate];
+        WKUserScript *userScript = [[WKUserScript alloc] initWithSource: javascriptInjection
+                                                          injectionTime: WKUserScriptInjectionTimeAtDocumentStart
+                                                       forMainFrameOnly: true];
+        [config.userContentController addUserScript: userScript];
+
+        // Javascript code like the following now posts a message to us that we recieve in Objective C land:
+        //      window.webkit.messageHandlers.scriptHandler.postMessage(["functionName", "param1", "param2"]):
+
+        // Create the view itself
+        wView = [[WKWebView alloc] initWithFrame:[self.view bounds] configuration: config];
         [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
         [self.view addSubview: wView];
 
+        // Set delegates
+        [wView setNavigationDelegate: self];
+        [wView setUIDelegate: self];
+
+        // Go to initial page
+        inhibitAddToHistory++;
         NSURL* url = [NSURL URLWithString: @"inform:/index.html"];
         NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
         [wView loadRequest: urlRequest];
-        [wView setNavigationDelegate: self];
-        [wView setUIDelegate: self];
-        // TODO: [wView setHostWindow: [self.parent window]];
 
+        // UI tabs
 		contentsCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
 		[contentsCell setTarget: self];
 		[contentsCell setAction: @selector(showToc:)];
@@ -110,16 +140,17 @@
 #pragma mark - Updating extensions
 
 - (void) censusCompleted: (NSNotification*) not {
-    reloadingBecauseCensusCompleted = true;
+    inhibitAddToHistory++;
 	// Force the documentation view to reload (the 'installed extensions' page may be updated)
 	[wView reload: self];
-    reloadingBecauseCensusCompleted = false;
 }
 
 #pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
-	// TODO: [wView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+    float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    NSString* js = [NSString stringWithFormat: @"document.body.style.zoom = '%.2f'", fontSizeMultiplier];
+    [wView evaluateJavaScript: js completionHandler:nil];
 }
 
 #pragma mark - Documentation
@@ -130,9 +161,12 @@
 	[wView loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 }
 
-- (void) openURLWithString: (NSString*) urlString {
-	if (urlString == nil) return;
-	[self openURL: [NSURL URLWithString: urlString]];
+- (void) openHistoricalURL: (NSURL*) url {
+	if (url == nil) return;
+
+    // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
+    inhibitAddToHistory++;
+	[self openURL: url];
 }
 
 - (void) highlightTabForURL:(NSString*) urlString {
@@ -150,7 +184,7 @@
 - (void)                    webView:(WKWebView *)webView
     decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    // TODO: Allow everything for now, but be more selective later?
+    // Allow everything for now
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
@@ -160,17 +194,31 @@
     // Highlight appropriate tab
     [self highlightTabForURL: webView.URL.absoluteString];
 
+    // Add to history...
+    // ... except when reloading after the census
+    // ... except on initial load
+    // ... except when clicking the forward or back arrows
+
+    // Each time we get here will remove one of these exceptions if present.
+
     if ([self pageIsVisible]) {
-        if( !reloadingBecauseCensusCompleted )
-        {
+        if (inhibitAddToHistory <= 0) {
             LogHistory(@"HISTORY: Documentation Page: (didStartProvisionalNavigation) URL %@", webView.URL.absoluteString);
             [[self history] switchToPage];
-            [(IFDocumentationPage*)[self history] openURLWithString: webView.URL.absoluteString];
+            [(IFDocumentationPage*)[self history] openHistoricalURL: webView.URL];
         }
+    }
+
+    // reduce the number of reasons to inhibit adding to history
+    if (inhibitAddToHistory > 0) {
+        inhibitAddToHistory--;
+    } else {
+        inhibitAddToHistory = 0;
     }
 }
 
 #pragma mark - WKUIDelegate
+/* Not needed - used for popups?
 -(WKWebView*)           webView:(WKWebView *)webView
  createWebViewWithConfiguration:(WKWebViewConfiguration *)inConfig
             forNavigationAction:(WKNavigationAction *)navigationAction
@@ -193,6 +241,7 @@
 
     return wView;
 }
+*/
 
 - (void)                    webView:(WKWebView *)webView
  runJavaScriptAlertPanelWithMessage:(NSString *)message
@@ -234,6 +283,13 @@
         }
     }
 }
+
+-       (void)webView:(nonnull WKWebView *) webView
+    stopURLSchemeTask:(nonnull id<WKURLSchemeTask>) urlSchemeTask {
+    // Nothing to do
+    return;
+}
+
 
 -(NSData*) loadDataForInformURL: (NSURL*) url
               returningMimeType: (NSString* __autoreleasing *) mimeType
@@ -362,69 +418,194 @@
     return urlData;
 }
 
-#pragma mark - WebResourceLoadDelegate methods
+#pragma mark - WKScriptMessageHandler methods
 
-/* TODO
-- (void)			webView:(WebView *)sender
-				   resource:(id)identifier 
-	didFailLoadingWithError:(NSError *)error 
-			 fromDataSource:(WebDataSource *)dataSource {
-    NSString *urlString = (error.userInfo)[@"NSErrorFailingURLStringKey"];
+- (void)userContentController: (WKUserContentController *) userContentController
+      didReceiveScriptMessage: (WKScriptMessage *) message {
+    NSArray * list = (NSArray*) message.body;
 
-    if (error.code == NSURLErrorCancelled) {
-        //NSLog(@"IFDocumentationPage: load of URL %@ was cancelled", urlString);
+    //NSLog(@"%@", list);
+
+    // Check for correct number of parameter required
+    NSDictionary * commands = @{ @"createNewProject": @2,
+                                 @"pasteCode": @1,
+                                 @"openFile": @1,
+                                 @"openURL": @1,
+                                 @"askInterfaceForLocalVersionAuthor": @3,
+                                 @"askInterfaceForLocalVersionTextAuthor": @2,
+                                 @"downloadMultipleExtensions": @1
+                               };
+    if ([list count] == 0) {
         return;
     }
-	NSLog(@"IFDocumentationPage: failed to load URL %@ with error: %@", urlString, [error localizedDescription]);
-}
-
-#pragma mark - WebFrameLoadDelegate methods
-- (void)					webView:(WKWebView *)sender
-	didStartProvisionalLoadForFrame:(WKFrameInfo *)frame {
-    // When opening a new URL in the main frame, record it as part of the history for this page
-    NSURL* url;
-    if ([frame provisionalDataSource]) {
-        url = [[[frame provisionalDataSource] request] URL];
-    } else {
-        url = [[[frame dataSource] request] URL];
+    if (commands[list[0]] == nil) {
+        return;
     }
-    
-    url = [url copy];
+    if((long) [list count] <= (long) commands[list[0]]) {
+        return;
+    }
+    if ([@"selectView" isEqualToString: list[0]]) {
+        [self selectView: list[1]];
+    } else if ([@"createNewProject" isEqualToString: list[0]]) {
+        [self createNewProject: list[1]
+                         story: list[2]];
+    } else if ([@"pasteCode" isEqualToString: list[0]]) {
+        [self pasteCode: list[1]];
+    } else if ([@"openFile" isEqualToString: list[0]]) {
+        [self openFile: list[1]];
+    } else if ([@"openURL" isEqualToString: list[0]]) {
+        [self openURL: list[1]];
+    } else if ([@"askInterfaceForLocalVersionAuthor" isEqualToString: list[0]]) {
+        [self askInterfaceForLocalVersionAuthor: list[1]
+                                          title: list[2]
+                                      available: list[3]];
+    } else if ([@"askInterfaceForLocalVersionTextAuthor" isEqualToString: list[0]]) {
+        [self askInterfaceForLocalVersionTextAuthor: list[1]
+                                              title: list[2]];
+    } else if ([@"downloadMultipleExtensions" isEqualToString: list[0]]) {
+        [self downloadMultipleExtensions: list[1]];
+    }
+}
 
-    // Highlight appropriate tab
-    [self highlightTabForURL:[url absoluteString]];
+- (void) selectView: (NSString*) view {
+    view = [view lowercaseString];
 
-	if (frame == [wView mainFrame] && [self pageIsVisible]) {
-        if( !reloadingBecauseCensusCompleted )
-        {
-            LogHistory(@"HISTORY: Documentation Page: (didStartProvisionalLoadForFrame) URL %@", [url absoluteString]);
-            [[self history] switchToPage];
-            [(IFDocumentationPage*)[self history] openURLWithString: [url absoluteString]];
+    if ([view isEqualToString: @"source"]) {
+        [self.otherPane selectViewOfType: IFSourcePane];
+    } else if ([view isEqualToString: @"error"]) {
+        [self.otherPane selectViewOfType: IFErrorPane];
+    } else if ([view isEqualToString: @"game"]) {
+        [self.otherPane selectViewOfType: IFGamePane];
+    } else if ([view isEqualToString: @"documentation"]) {
+        [self.otherPane selectViewOfType: IFDocumentationPane];
+    } else if ([view isEqualToString: @"index"]) {
+        [self.otherPane selectViewOfType: IFIndexPane];
+    } else if ([view isEqualToString: @"skein"]) {
+        [self.otherPane selectViewOfType: IFSkeinPane];
+    } else {
+        // Other view types are not supported at present
+    }
+}
+
+- (void) createNewProject: (NSString *)title
+                    story: (NSString *)story {
+    title = [IFUtility unescapeString: title];
+    story = [IFUtility unescapeString: story];
+
+    [(IFAppDelegate *) [NSApp delegate] createNewProject: title
+                                 story: story];
+}
+
+- (void) pasteCode: (NSString*) code {
+    [[self.otherPane sourcePage] pasteSourceCode: [IFUtility unescapeString: code]];
+}
+
+- (void) openFile: (NSString*) filename {
+    [[NSWorkspace sharedWorkspace] openFile: filename];
+
+//    NSString* dir = [filename stringByDeletingLastPathComponent];
+//    [[NSWorkspace sharedWorkspace] selectFile: filename
+//                     inFileViewerRootedAtPath: dir];
+}
+
+- (void) openUrl: (NSString*) url {
+    if (![[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: url]]) {
+        NSLog(@"Could not open URL: %@", url);
+    }
+}
+
+-(NSString*) askInterfaceForLocalVersionAuthor: (NSString*) author
+                                         title: (NSString*) title
+                                     available: (NSString*) availableVersion {
+    IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
+    author = [author lowercaseString];
+    title = [title lowercaseString];
+
+    IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
+
+    for( IFExtensionInfo* info in [mgr availableExtensions] ) {
+        // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
+        if( [[info.author lowercaseString] isEqualToString: author] ) {
+            if( [[[IFExtensionInfo canonicalTitle:info.displayName] lowercaseString] isEqualToString: title] ) {
+                // We have this extension
+                if( info.isBuiltIn ) {
+                    //NSLog(@"Found %@ by %@ BUILT IN", title, author);
+                    return @"!";
+                }
+
+                IFSemVer* versionLocal = [info semver];
+
+                int result = [versionLocal cmp:versionAvailable];
+
+                if( result == 0) {
+                    //NSLog(@"Found %@ by %@ version %@ EQUAL", title, author, version);
+                    return @"=";
+                }
+                if( result < 0 ) {
+                    //NSLog(@"Found %@ by %@ version %@ <", title, author, version);
+                    return @"<";
+                }
+                //NSLog(@"Found %@ by %@ version %@ >", title, author, version);
+                return @">";
+            }
         }
-	}
+    }
+
+    // Not found
+    //NSLog(@"Looked for %@ by %@ NOT-FOUND", title, author);
+    return @"";
 }
 
-- (void)        webView: (WebView *) sender
-   didClearWindowObject: (WebScriptObject *) windowObject
-               forFrame: (WebFrame *) frame {
-	if (self.otherPane) {
-		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
-		
-		// Attach it to the script object
-		[[sender windowScriptObject] setValue: js
-									   forKey: @"Project"];
-	}
+-(NSString*) askInterfaceForLocalVersionTextAuthor: (NSString*) author
+                                             title: (NSString*) title {
+    IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
+    author = [author lowercaseString];
+    title = [title lowercaseString];
+
+    for( IFExtensionInfo* info in [mgr availableExtensions] ) {
+        if( [[info.author lowercaseString] isEqualToString: author] ) {
+            if( [[[IFExtensionInfo canonicalTitle: info.displayName] lowercaseString] isEqualToString: title] ) {
+                return [info safeVersion];
+            }
+        }
+    }
+
+    // Not found
+    return @"";
 }
-*/
+
+-(NSString*) askInterfaceForMD5HashAuthor: (NSString*) author
+                                    title: (NSString*) title {
+    // Not used yet
+    return @"";
+}
+
+-(void) downloadMultipleExtensions:(NSArray*) array {
+    for(int index = 0; index < [array count]; index += 3) {
+        NSString* item      = array[index];
+        NSString* urlString = array[index + 1];
+        //NSString* version   = [array objectAtIndex: index + 2];
+        //NSLog(@"item is %@ for url %@ version %@", item, urlString, version);
+
+        NSURL* frameURL = [IFUtility publicLibraryURL];
+        NSURL* realURL = [IFProjectPolicy urlFromLibraryURL: [NSURL URLWithString: urlString]
+                                                   frameURL: frameURL];
+
+        [[IFExtensionsManager sharedNaturalInformExtensionsManager] downloadAndInstallExtension: realURL
+                                                                                         window: [[self.otherPane controller] window]
+                                                                                 notifyDelegate: [self.otherPane controller]
+                                                                                   javascriptId: item];
+    }
+}
+
 
 #pragma mark - History
 
 - (void) didSwitchToPage {
-	NSString* urlString = wView.URL.absoluteString;
+	NSURL* url = wView.URL;
 	
-    LogHistory(@"HISTORY: Documentation Page: (didSwitchToPage) URL %@", urlString);
-	[[self history] openURLWithString: urlString];
+    LogHistory(@"HISTORY: Documentation Page: (didSwitchToPage) URL %@", url.absoluteString);
+	[[self history] openHistoricalURL: url];
 }
 
 #pragma mark - Page bar cells

@@ -819,7 +819,7 @@
     }
 
 	// Characters in the edited range no longer have valid states
-    NSAssert((newRange.length + newRange.location - 1) < charStyles.numCharStyles, @"index out of range");
+    NSAssert((newRange.length == 0) || ((newRange.length + newRange.location - 1) < charStyles.numCharStyles), @"index out of range");
 	for (x = 0; x < newRange.length; x++) {
         [charStyles write:x + newRange.location value:IFSyntaxStyleNotHighlighted];
 	}

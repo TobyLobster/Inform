@@ -16,8 +16,6 @@ NSString* const IFSwitchToPageNotification = @"IFSwitchToPageNotification";
 NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotification";
 
 @implementation IFPage {
-    /// The pane that contains this page (or nil, not retained)
-    __weak IFProjectPane* thisPane;
     /// Object used for recording any history events for this object
     __weak id<IFHistoryRecorder> recorder;
 
@@ -47,10 +45,6 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	}
 	
 	return self;
-}
-
-- (void) setThisPane: (IFProjectPane*) newThisPane {
-	thisPane = newThisPane;
 }
 
 - (void) finished {
