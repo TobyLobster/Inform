@@ -291,7 +291,8 @@ static NSDictionary* IFSyntaxAttributes[256];
     [indexPage switchToTab:IFIndexWelcome];
 	
 	// Documentation page
-	documentationPage = [[IFDocumentationPage alloc] initWithProjectController: ourParent];
+    documentationPage = [[IFDocumentationPage alloc] initWithProjectController: ourParent
+                                                                      withPane: self];
 	[self addPage: documentationPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) documentationPage:showToc", self);
 	[(IFDocumentationPage*)[documentationPage history] showToc: self];
