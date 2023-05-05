@@ -2987,16 +2987,8 @@ language English
 	engineering notation |
 	unabbreviated object names |
 	index figure thumbnails |
-	undo prevention |
-	serial comma |
-	predictable randomisation |
-	command line echoing |
-	american dialect |
-	full-length room descriptions |
-	abbreviated room descriptions |
-	verbose room descriptions |
-	brief room descriptions |
-	superbrief room descriptions
+	fast route-finding |
+	slow route-finding
 
 <language-element> internal
 
@@ -3151,7 +3143,26 @@ language English
 
 <use-translates-as-sentence-object> ::=
 	(- ### |
+	configuration <use-translates-as-configuration> |
+	<article> configuration <use-translates-as-configuration> |
+	a compiler feature |
 	...[issues PM_UseTranslatesNotI6]
+
+<use-translates-as-configuration> ::=
+	flag |
+	flag <quoted-text> |[issues PM_UseTranslatesNotI6]
+	flag ### |
+	flag ### = ### |[issues PM_UseTranslatesNotI6]
+	flag <quoted-text> in ### |[issues PM_UseTranslatesNotI6]
+	flag ### in ### |
+	flag ### = ### in ### |[issues PM_UseTranslatesNotI6]
+	value |
+	value <quoted-text> |[issues PM_UseTranslatesNotI6]
+	value ### |
+	value ### = ### |
+	value <quoted-text> in ### |[issues PM_UseTranslatesNotI6]
+	value ### in ### |
+	value ### = ### in ###
 
 <use-inter-pipeline> ::=
 	inter pipeline {<quoted-text>}
@@ -3164,6 +3175,7 @@ language English
 
 <use-setting> ::=
 	... of at least <cardinal-number-unlimited> |
+	... of <cardinal-number-unlimited> |
 	<definite-article> ...	|
 	...
 

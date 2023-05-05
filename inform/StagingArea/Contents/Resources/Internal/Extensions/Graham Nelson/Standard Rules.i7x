@@ -13,20 +13,38 @@ The verb to understand + as in the imperative means the built-in understand-as m
 The verb to release along with in the imperative means the built-in release-along-with meaning.
 The verb to index map with in the imperative means the built-in index-map-with meaning.
 
-Use command line echoing translates as (- Constant ECHO_COMMANDS; -).
-Use full-length room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 2; #ENDIF; -).
-Use abbreviated room descriptions translates as (- #IFNDEF I7_LOOKMODE; Constant I7_LOOKMODE = 3; #ENDIF; -).
-Use scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 1; #ENDIF; -).
-Use no scoring translates as (- #IFNDEF USE_SCORING; Constant USE_SCORING = 0; #ENDIF; -).
-Use manual pronouns translates as (- Constant MANUAL_PRONOUNS; -).
-Use undo prevention translates as (- Constant PREVENT_UNDO; -).
-Use VERBOSE room descriptions translates as (- Constant DEFAULT_VERBOSE_DESCRIPTIONS; -).
-Use BRIEF room descriptions translates as (- Constant DEFAULT_BRIEF_DESCRIPTIONS; -).
-Use SUPERBRIEF room descriptions translates as (- Constant DEFAULT_SUPERBRIEF_DESCRIPTIONS; -).
+Use full-length room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 2 in WorldModelKit.
+Use abbreviated room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 3 in WorldModelKit.
+Use VERBOSE room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 2 in WorldModelKit.
+Use BRIEF room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 1 in WorldModelKit.
+Use SUPERBRIEF room descriptions translates as the configuration value
+	ROOM_DESC_DETAIL = 3 in WorldModelKit.
 
-Use maximum things understood at once of at least 100 translates as
-	(- Constant MATCH_LIST_WORDS = {N}; -).
-Use maximum things understood at once of at least 100.
+Use no scoring translates as the configuration value
+	SCORING = 0 in WorldModelKit.
+Use scoring translates as the configuration value
+	SCORING = 1 in WorldModelKit.
+
+Use default route-finding translates as the configuration value
+	ROUTE_FINDING = 0 in WorldModelKit.
+Use fast route-finding translates as the configuration value
+	ROUTE_FINDING = 1 in WorldModelKit.
+Use slow route-finding translates as the configuration value
+	ROUTE_FINDING = 2 in WorldModelKit.
+
+Use maximum things understood at once of at least 100 translates as the
+	configuration value MULTI_OBJ_LIST_SIZE in WorldModelKit.
+
+Use manual pronouns translates as the configuration flag
+	MANUAL_PRONOUNS in CommandParserKit.
+Use undo prevention translates as the configuration flag
+	UNDO_PREVENTION in CommandParserKit.
+Use unabbreviated object names translates as the configuration flag
+	UNABBREVIATED_NAMES in CommandParserKit.
 
 Part Two - The Physical World Model
 

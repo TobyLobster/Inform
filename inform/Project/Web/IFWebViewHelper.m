@@ -171,15 +171,7 @@
 
         // Check if the file exists
         if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
-            if ([project useNewExtensions]) {
-                // If the file doesn't exist, then show a default error page
-                path = [[NSBundle mainBundle] resourcePath];
-                path = [path stringByAppendingPathComponent: @"Internal"];
-                path = [path stringByAppendingPathComponent: @"HTML"];
-                path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
-            } else {
-                path = nil;
-            }
+            path = nil;
         }
     } else {
         // Try using pathForResource:ofType:
@@ -217,7 +209,7 @@
         // Doh - not a valid inform: URL
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorBadURL
-                                 userInfo: nil];
+                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
         return nil;
     }
 
@@ -231,7 +223,7 @@
     if (isDir) {
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorFileDoesNotExist
-                                 userInfo: nil];
+                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
         return nil;
     }
 
@@ -240,7 +232,7 @@
     if (urlData == nil) {
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorCannotOpenFile
-                                 userInfo: nil];
+                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
         return nil;
     }
 

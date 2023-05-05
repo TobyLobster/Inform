@@ -151,12 +151,28 @@
     }
 }
 
--(void) loadFailurePage {
+-(void) loadFailurePage: (NSString *) urlString {
     if( loadingFailureWebPage ) {
         return;
     }
+    NSURL* url;
 
-    NSURL* url = [NSURL URLWithString: @"inform:/pl404.html"];
+    // Default to public library error
+    IFProject* project = [self.parent document];
+    url = [NSURL URLWithString: @"inform:/pl404.html"];
+
+    if (![urlString isEqualToString:[[IFUtility publicLibraryURL] absoluteString]]) {
+        if ([project useNewExtensions]) {
+            // If the file doesn't exist, then show a default error page
+            NSString* path = [[NSBundle mainBundle] resourcePath];
+            path = [path stringByAppendingPathComponent: @"Internal"];
+            path = [path stringByAppendingPathComponent: @"HTML"];
+            path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
+            url = [NSURL fileURLWithPath: path];
+        }
+    }
+
+    inhibitAddToHistory++;
     NSURLRequest* urlRequest = [NSURLRequest requestWithURL: url];
     [wView loadRequest: urlRequest];
     loadingFailureWebPage = true;
@@ -180,7 +196,7 @@
     // check what is the status code
     if (statusCode >= 400) {
         decisionHandler(WKNavigationResponsePolicyCancel);
-        [self loadFailurePage];
+        [self loadFailurePage: [[response URL] absoluteString]];
         return;
     }
     decisionHandler(WKNavigationResponsePolicyAllow);
@@ -196,6 +212,7 @@
     // ... except when reloading after the census
     // ... except on initial load
     // ... except when clicking the forward or back arrows
+    // ... except when going to the error page
 
     // Each time we get here will remove one of these exceptions if present.
 
@@ -233,13 +250,20 @@
         return;
     }
     NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, [error localizedDescription]);
-    [self loadFailurePage];
+    [self loadFailurePage: urlString];
 }
 
 -(void)       webView: (WKWebView *) webView
     didFailNavigation: (WKNavigation *) navigation
             withError: (NSError *) error {
-    NSString *urlString = (error.userInfo)[@"NSErrorFailingURLStringKey"];
+    NSString* urlString = nil;
+
+    NSURL *url = (error.userInfo)[@"NSURLErrorFailingURLErrorKey"];
+    if (url) {
+        urlString = [url absoluteString];
+    } else {
+        urlString = (error.userInfo)[@"NSURLErrorFailingURLStringErrorKey"];
+    }
 
     if (error.code == NSURLErrorCancelled) {
         //NSLog(@"IFExtensionsPage: load of URL %@ was cancelled", urlString);
@@ -247,7 +271,7 @@
         return;
     }
     NSLog(@"IFExtensionsPage: failed to load URL %@ with error: %@", urlString, [error localizedDescription]);
-    [self loadFailurePage];
+    [self loadFailurePage: urlString];
 }
 
 -(void)         webView:(WKWebView *)webView
