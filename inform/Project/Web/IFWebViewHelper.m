@@ -140,7 +140,7 @@
             return;
         }
 
-        [projectController moveToSourceFileLine: lineNumber];
+        if (lineNumber >= 0) [projectController moveToSourceFileLine: lineNumber];
         [projectController removeHighlightsOfStyle: IFLineStyleError];
         [projectController highlightSourceFileLine: lineNumber
                                             inFile: sourceFile
@@ -256,7 +256,7 @@
         // Doh - not a valid inform: URL
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorBadURL
-                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
+                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
         return nil;
     }
 
@@ -270,7 +270,7 @@
     if (isDir) {
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorFileDoesNotExist
-                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
+                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
         return nil;
     }
 
@@ -279,7 +279,7 @@
     if (urlData == nil) {
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorCannotOpenFile
-                                 userInfo: @{@"NSURLErrorFailingURLErrorKey": url}];
+                                 userInfo: @{NSURLErrorFailingURLErrorKey: url}];
         return nil;
     }
 

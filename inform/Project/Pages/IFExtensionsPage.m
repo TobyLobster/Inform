@@ -189,16 +189,6 @@
 - (void)                        webView: (WKWebView *)webView
       decidePolicyForNavigationResponse: (WKNavigationResponse *)navigationResponse
                         decisionHandler: (void (^)(WKNavigationResponsePolicy))decisionHandler {
-    NSHTTPURLResponse *response = (NSHTTPURLResponse *)navigationResponse.response;
-
-    NSInteger statusCode = [response statusCode];
-
-    // check what is the status code
-    if (statusCode >= 400) {
-        decisionHandler(WKNavigationResponsePolicyCancel);
-        [self loadFailurePage: [[response URL] absoluteString]];
-        return;
-    }
     decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
@@ -237,11 +227,11 @@
                        withError: (NSError *) error {
     NSString* urlString = nil;
 
-    NSURL *url = (error.userInfo)[@"NSURLErrorFailingURLErrorKey"];
+    NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
     if (url) {
         urlString = [url absoluteString];
     } else {
-        urlString = (error.userInfo)[@"NSURLErrorFailingURLStringErrorKey"];
+        urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
     }
 
     if (error.code == NSURLErrorCancelled) {
@@ -258,11 +248,11 @@
             withError: (NSError *) error {
     NSString* urlString = nil;
 
-    NSURL *url = (error.userInfo)[@"NSURLErrorFailingURLErrorKey"];
+    NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
     if (url) {
         urlString = [url absoluteString];
     } else {
-        urlString = (error.userInfo)[@"NSURLErrorFailingURLStringErrorKey"];
+        urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
     }
 
     if (error.code == NSURLErrorCancelled) {
