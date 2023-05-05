@@ -14,17 +14,21 @@
 #import "IFSourcePage.h"
 #import "IFProjectPolicy.h"
 #import "IFProjectController.h"
+#import "IFProject.h"
 
 @implementation IFWebViewHelper {
+    __weak IFProject* project;
     __weak IFProjectPane* pane;
 }
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithPane: (IFProjectPane*) newPane {
+- (instancetype) initWithProject: (IFProject *) theProject
+                        withPane: (IFProjectPane*) newPane {
     self = [super init];
 
     if (self) {
+        project = theProject;
         pane = newPane;
     }
 
@@ -134,30 +138,48 @@
     NSString* host    = url.host;
     NSString* path;
 
+    // Remove any initial '/', to cope with "inform://..."
+    if ([urlPath startsWith:@"/"]) {
+        urlPath = [urlPath substringFromIndex: 1];
+    }
     NSArray* components = [urlPath pathComponents];
 
     // Accept either the host or the path specifier containing 'extensions'
-    if ([[host lowercaseString] isEqualToString: @"extensions"] ||
-            (components != nil && [components count] > 1 &&
-             [[components[0] lowercaseString] isEqualToString: @"extensions"])) {
-        int skip = 0;
-        int x;
-
-        if (![[host lowercaseString] isEqualToString: @"extensions"])
-            skip = 1;
-
-        // Try the library directories
+    bool hostIsExtensions = [[host lowercaseString] isEqualToString: @"extensions"];
+    bool firstComponentIsExtensions = (components != nil && [components count] > 1 &&
+                                       [[components[0] lowercaseString] isEqualToString: @"extensions"]);
+    if ( hostIsExtensions || firstComponentIsExtensions) {
         NSEnumerator* componentEnum = [components objectEnumerator];
         NSString* pathComponent;
 
-        path = [IFUtility pathForInformExternalDocumentation];
-        for (x=0; x<skip; x++) [componentEnum nextObject];
+        if ([project useNewExtensions]) {
+            // Get the project's materials folder
+            path = [[project materialsDirectoryURL] path];
+
+            // Add "Extensions" if needed
+            if ((hostIsExtensions) && (!firstComponentIsExtensions)) {
+                path = [path stringByAppendingPathComponent: @"Extensions"];
+            }
+        } else {
+            // Get external Documentation folder
+            path = [IFUtility pathForInformExternalDocumentation];
+        }
+
         while ((pathComponent = [componentEnum nextObject])) {
             path = [path stringByAppendingPathComponent: pathComponent];
         }
 
+        // Check if the file exists
         if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
-            path = nil;
+            if ([project useNewExtensions]) {
+                // If the file doesn't exist, then show a default error page
+                path = [[NSBundle mainBundle] resourcePath];
+                path = [path stringByAppendingPathComponent: @"Internal"];
+                path = [path stringByAppendingPathComponent: @"HTML"];
+                path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
+            } else {
+                path = nil;
+            }
         }
     } else {
         // Try using pathForResource:ofType:
@@ -167,20 +189,22 @@
                                           inDirectory: [urlPath stringByDeletingLastPathComponent]];
     }
 
-    // Check if the file is in an asset catalog.
-    NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
-    if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
-        assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
-    }
-    NSImage *img = [NSImage imageNamed: assetCheckPath];
+    if (path == nil) {
+        // Check if the file is in an asset catalog.
+        NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
+        if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
+            assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
+        }
+        NSImage *img = [NSImage imageNamed: assetCheckPath];
 
-    if (path == nil && img != nil) {
-        //Just output TIFF: it uses the least amount of code:
-        NSData *urlData = [img TIFFRepresentation];
+        if (img != nil) {
+            //Just output TIFF: it uses the least amount of code:
+            NSData *urlData = [img TIFFRepresentation];
 
-        //Which means a TIFF MIME type. Regardless of extension.
-        *mimeType = @"image/tiff";
-        return urlData;
+            //Which means a TIFF MIME type. Regardless of extension.
+            *mimeType = @"image/tiff";
+            return urlData;
+        }
     }
 
     if (path == nil) {
@@ -433,6 +457,14 @@
                                                                                  notifyDelegate: [pane controller]
                                                                                    javascriptId: item];
     }
+}
+
+#pragma mark - Preferences
+
+- (void) fontSizePreferenceChanged: (WKWebView*) wView {
+    float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    NSString* js = [NSString stringWithFormat: @"document.body.style.zoom = '%.2f'", fontSizeMultiplier];
+    [wView evaluateJavaScript: js completionHandler:nil];
 }
 
 @end

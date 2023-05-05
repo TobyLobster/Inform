@@ -175,6 +175,10 @@
     return urlRequest;
 }
 
+-(bool) useNewExtensions {
+    // TODO
+    return true;
+}
 
 - (NSURL*) metadataURL {
     return [self.fileURL URLByAppendingPathComponent: @"Metadata.ifiction"];

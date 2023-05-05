@@ -298,7 +298,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 	[(IFDocumentationPage*)[documentationPage history] showToc: self];
 	
     // Extensions page
-    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: ourParent];
+    extensionsPage = [[IFExtensionsPage alloc] initWithProjectController: ourParent
+                                                                withPane: self];
 	[self addPage: extensionsPage];
     LogHistory(@"HISTORY: ProjectPane (%@): (setupFromController) extensionsPage:showHome", self);
 	[(IFExtensionsPage*)[extensionsPage history] showHome: self];

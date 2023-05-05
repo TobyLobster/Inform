@@ -11,6 +11,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFProjectPane.h"
 
+@class IFProject;
+
 ///
 /// Class designed to provide helper functions for creating and maintaining web views.
 ///
@@ -18,7 +20,7 @@
 
 // Initialisation
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProject:(IFProject*) project withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - JavaScript operations
 
@@ -31,6 +33,10 @@
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) code;
 - (void) openUrl: (NSString*) url;
+
+#pragma mark - Preferences changed
+
+- (void) fontSizePreferenceChanged: (WKWebView*) wView;
 
 @end
 

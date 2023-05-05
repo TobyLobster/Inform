@@ -56,7 +56,9 @@
                                                      name: IFCensusFinishedButDontUpdateExtensionsWebPageNotification
                                                    object: nil];
 
-        helper = [[IFWebViewHelper alloc] initWithPane: [controller oppositePane: pane]];
+        IFProject *project = [self.parent document];
+        helper = [[IFWebViewHelper alloc] initWithProject: project
+                                                 withPane: [controller oppositePane: pane]];
         wView = [helper createWebViewWithFrame: [self.view bounds]];
 
         // Set delegates
@@ -116,9 +118,7 @@
 #pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
-    float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
-    NSString* js = [NSString stringWithFormat: @"document.body.style.zoom = '%.2f'", fontSizeMultiplier];
-    [wView evaluateJavaScript: js completionHandler:nil];
+    [helper fontSizePreferenceChanged: wView];
 }
 
 #pragma mark - Documentation

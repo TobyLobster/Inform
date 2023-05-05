@@ -95,6 +95,7 @@
 - (void) selectSkein: (int) index;
 
 -(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url;
+-(bool) useNewExtensions;
 
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;

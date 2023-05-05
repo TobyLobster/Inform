@@ -1539,7 +1539,15 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) docExtensions: (id) sender {
-	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: @"inform://Extensions/Extensions.html"]];
+    NSString* extensions;
+
+    IFProject *project = self.document;
+    if ([project useNewExtensions]) {
+        extensions = @"inform://Extensions/Reserved/Documentation/Extensions.html";
+    } else {
+        extensions = @"inform://Extensions/Extensions.html";
+    }
+	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: extensions]];
 }
 
 #pragma mark - New Extensions

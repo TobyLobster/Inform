@@ -12,7 +12,7 @@
 ///
 /// The 'extensions' page
 ///
-@interface IFExtensionsPage : IFPage<WebResourceLoadDelegate, WebFrameLoadDelegate>
+@interface IFExtensionsPage : IFPage<WKNavigationDelegate>
 
 // The documentation view
 /// Tells the view to open a specific URL
@@ -26,6 +26,7 @@
 
 - (void) extensionUpdated:(NSString*) javascriptId;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane;
 
 @end
