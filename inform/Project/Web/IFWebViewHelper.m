@@ -17,18 +17,18 @@
 #import "IFProject.h"
 
 @implementation IFWebViewHelper {
-    __weak IFProject* project;
+    __weak IFProjectController* projectController;
     __weak IFProjectPane* pane;
 }
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithProject: (IFProject *) theProject
-                        withPane: (IFProjectPane*) newPane {
+- (instancetype) initWithProjectController: (IFProjectController*) theProjectController
+                                  withPane: (IFProjectPane*) newPane {
     self = [super init];
 
     if (self) {
-        project = theProject;
+        projectController = theProjectController;
         pane = newPane;
     }
 
@@ -48,6 +48,10 @@
     // Handle 'inform:' scheme
     [config setURLSchemeHandler: self
                    forURLScheme: @"inform"];
+    [config setURLSchemeHandler: self
+                   forURLScheme: @"source"];
+    [config setURLSchemeHandler: self
+                   forURLScheme: @"skein"];
 
     // We recieve messages from Javascript
     [config.userContentController addScriptMessageHandler: self
@@ -100,18 +104,18 @@
 #pragma mark - WKURLSchemeHandler
 - (void)    webView:(WKWebView *)webView
  startURLSchemeTask:(id <WKURLSchemeTask>)task {
-    NSURL* customFileURL = task.request.URL;
-    NSString *str = customFileURL.absoluteString;
+    NSURL* customURL = task.request.URL;
+    NSString *str = customURL.absoluteString;
     NSString* mimeType;
     NSError* error;
     NSLog(@"Found URL %@\n", str);
 
-    if ([str containsString:@"inform:"]) {
-        NSData* data = [self loadDataForInformURL: customFileURL
+    if ([[customURL scheme] isEqualTo: @"inform"]) {
+        NSData* data = [self loadDataForInformURL: customURL
                                 returningMimeType: &mimeType
                                    returningError: &error];
         if (data) {
-            NSURLResponse *response = [[NSURLResponse alloc] initWithURL: customFileURL
+            NSURLResponse *response = [[NSURLResponse alloc] initWithURL: customURL
                                                                 MIMEType: mimeType
                                                    expectedContentLength: data.length
                                                         textEncodingName: nil];
@@ -121,6 +125,48 @@
         } else if (error != nil) {
             [task didFailWithError: error];
         }
+    } else if ([[customURL scheme] isEqualTo: @"source"]) {
+        // Format is 'source file name#line number'
+        NSArray* results = [IFUtility decodeSourceSchemeURL: customURL];
+        IFProject* project = [projectController document];
+        results = [project redirectLinksToExtensionSourceCode: results];
+        if( results == nil ) {
+            return;
+        }
+        NSString* sourceFile = results[0];
+        int lineNumber = [results[1] intValue];
+
+        if (![projectController selectSourceFile: sourceFile]) {
+            return;
+        }
+
+        [projectController moveToSourceFileLine: lineNumber];
+        [projectController removeHighlightsOfStyle: IFLineStyleError];
+        [projectController highlightSourceFileLine: lineNumber
+                                            inFile: sourceFile
+                                             style: IFLineStyleError];
+
+        // Finished
+        return;
+    }
+    else if ([[customURL scheme] isEqualTo: @"skein"]) {
+        // Format is e.g. 'skein:1003?case=B'
+        NSArray* results = [IFUtility decodeSkeinSchemeURL: customURL];
+        if( results == nil ) {
+            return;
+        }
+        NSString* testCase = results[0];
+        NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
+        unsigned long skeinNodeId = [[formatter numberFromString:results[1]] unsignedLongValue];
+
+        // Move to the appropriate place in the file
+        if (![projectController showTestCase: testCase skeinNode: skeinNodeId]) {
+            NSLog(@"Can't select test case '%@'", testCase);
+            return;
+        }
+
+        // Finished
+        return;
     }
 }
 
@@ -151,6 +197,7 @@
     if ( hostIsExtensions || firstComponentIsExtensions) {
         NSEnumerator* componentEnum = [components objectEnumerator];
         NSString* pathComponent;
+        IFProject *project = [projectController document];
 
         if ([project useNewExtensions]) {
             // Get the project's materials folder
@@ -280,6 +327,7 @@
 
     // Check for correct number of parameter required
     NSDictionary * commands = @{ @"selectView": @1,
+                                 @"confirmAction": @0,
                                  @"createNewProject": @2,
                                  @"pasteCode": @1,
                                  @"openFile": @1,
@@ -299,6 +347,8 @@
     }
     if ([@"selectView" isEqualToString: list[0]]) {
         [self selectView: list[1]];
+    } else if ([@"confirmAction" isEqualToString: list[0]]) {
+            [self confirmAction];
     } else if ([@"createNewProject" isEqualToString: list[0]]) {
         [self createNewProject: list[1]
                          story: list[2]];
@@ -340,13 +390,18 @@
     }
 }
 
+- (void) confirmAction {
+    // Install the extension that was last run through inbuild
+    [projectController confirmInstallExtensionAction];
+}
+
 - (void) createNewProject: (NSString *)title
                     story: (NSString *)story {
     title = [IFUtility unescapeString: title];
     story = [IFUtility unescapeString: story];
 
     [(IFAppDelegate *) [NSApp delegate] createNewProject: title
-                                 story: story];
+                                                   story: story];
 }
 
 - (void) pasteCode: (NSString*) code {

@@ -161,4 +161,6 @@
 - (IBAction) addExtensionFromFolder: (id) sender;
 - (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
 
+-(void) confirmInstallExtensionAction;
+
 @end

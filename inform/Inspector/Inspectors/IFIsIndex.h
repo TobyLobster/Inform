@@ -7,7 +7,6 @@
 //
 
 #import <AppKit/AppKit.h>
-#import <WebKit/WebKit.h>
 
 #import "IFInspector.h"
 

@@ -56,9 +56,8 @@
                                                      name: IFCensusFinishedButDontUpdateExtensionsWebPageNotification
                                                    object: nil];
 
-        IFProject *project = [self.parent document];
-        helper = [[IFWebViewHelper alloc] initWithProject: project
-                                                 withPane: [controller oppositePane: pane]];
+        helper = [[IFWebViewHelper alloc] initWithProjectController: self.parent
+                                                           withPane: [controller oppositePane: pane]];
         wView = [helper createWebViewWithFrame: [self.view bounds]];
 
         // Set delegates

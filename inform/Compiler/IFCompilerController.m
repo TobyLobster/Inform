@@ -14,7 +14,7 @@
 #import "IFInTest.h"
 
 #import "IFProject.h"
-#import "IFJSProject.h"
+#import "IFWebViewHelper.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -79,6 +79,7 @@ static IFCompilerController* activeController = nil;
 
     /// Project controller
     IFProjectController*    projectController;
+    IFWebViewHelper*        helper;
 
     /// Tabs - array of IFCompilerTab objects
     NSMutableArray*  tabs;
@@ -162,11 +163,6 @@ static IFCompilerController* activeController = nil;
 // == Initialisation ==
 - (void) _registerHandlers {
     if (compiler != nil) {
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(preferencesChanged:)
-													 name: IFPreferencesAppFontSizeDidChangeNotification
-												   object: [IFPreferences sharedPreferences]];
-
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(clearConsole:)
                                                      name: IFCompilerClearConsoleNotification
@@ -210,9 +206,6 @@ static IFCompilerController* activeController = nil;
 
 - (void) _removeHandlers {
     if (compiler != nil) {
-		[[NSNotificationCenter defaultCenter] removeObserver: self
-													 name: IFPreferencesAppFontSizeDidChangeNotification
-												   object: [IFPreferences sharedPreferences]];
         [[NSNotificationCenter defaultCenter] removeObserver: self
                                                         name: IFCompilerClearConsoleNotification
                                                       object: compiler];
@@ -307,8 +300,11 @@ static IFCompilerController* activeController = nil;
 }
 
 // == Information ==
-- (void) setProjectController: (IFProjectController*) pc {
+- (void) setProjectController: (IFProjectController*) pc
+                     withPane: (IFProjectPane*) pane {
     projectController = pc;
+    helper = [[IFWebViewHelper alloc] initWithProjectController: pc
+                                                       withPane: pane];
 }
 
 - (void) resetCompiler {
@@ -512,29 +508,6 @@ static IFCompilerController* activeController = nil;
                                                                     attributes: styles[IFStyleCompilerError]];
     
     [[compilerResults textStorage] appendAttributedString: newString];
-}
-
-
-#pragma mark - Preferences
-
-- (void) preferencesChanged: (NSNotification*) not {
-    // Report
-    NSUInteger tabIndex = [self tabIndexWithTabId: IFTabReport];
-    if( tabIndex != NSNotFound ) {
-        IFCompilerTab* tab = tabs[tabIndex];
-        if( [tab.view isKindOfClass:[WebView class]] ) {
-            [((WebView*) tab.view) setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        }
-    }
-
-    // Runtime error
-    tabIndex = [self tabIndexWithTabId: IFTabRuntime];
-    if( tabIndex != NSNotFound ) {
-        IFCompilerTab* tab = tabs[tabIndex];
-        if( [tab.view isKindOfClass:[WebView class]] ) {
-            [((WebView*) tab.view) setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        }
-    }
 }
 
 // == Dealing with highlighting of the compiler output ==
@@ -911,14 +884,8 @@ static IFCompilerController* activeController = nil;
                             named: (NSString*) tabName
                         withTabId: (IFCompilerTabId) tabId {
 	// Create a new web view
-	WebView* webView = [[WebView alloc] initWithFrame: [superView frame]];
-	[webView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-	
-	[webView setHostWindow: [splitView window]];
-	[webView setPolicyDelegate: self];
-    [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-	[webView setFrameLoadDelegate: self];
-    [[webView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
+	WKWebView* webView = [helper createWebViewWithFrame: [superView frame]];
+    [webView loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 
 	// Add it to the list of tabs
 	return [self makeTabViewItemNamed: tabName
@@ -993,14 +960,8 @@ static IFCompilerController* activeController = nil;
 
 - (void) showRuntimeError: (NSURL*) errorURL {
 	// Create a web view
-	WebView* webView = [[WebView alloc] initWithFrame: [superView frame]];
-	
-	[webView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
-	[webView setHostWindow: [splitView window]];
-	[webView setPolicyDelegate: self];
-    [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-	[webView setFrameLoadDelegate: self];
-    [[webView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: errorURL]];
+	WKWebView* webView = [helper createWebViewWithFrame: [superView frame]];
+    [webView loadRequest: [[NSURLRequest alloc] initWithURL: errorURL]];
 
 	if ([self tabsContainsTabId:IFTabRuntime]) {
 		// Replace the existing runtime error view
@@ -1098,111 +1059,6 @@ static IFCompilerController* activeController = nil;
 // == Delegate ==
 
 @synthesize delegate;
-
-#pragma mark - Web policy delegate methods
-
-- (void)        webView: (WebView *) sender
-   didClearWindowObject: (WebScriptObject *) windowObject
-               forFrame: (WebFrame *) frame {
-	// Attach the JavaScript object to this webview
-	IFJSProject* js = [[IFJSProject alloc] initWithPane: nil];
-	
-	// Attach it to the script object
-	[[sender windowScriptObject] setValue: js
-								   forKey: @"Project"];
-}
-
-- (void)					webView: (WebView *)sender
-	decidePolicyForNavigationAction: (NSDictionary *)actionInformation 
-							request: (NSURLRequest *)request 
-							  frame: (WebFrame *)frame 
-				   decisionListener: (id<WebPolicyDecisionListener>)listener {
-	// Blah. Link failure if WebKit isn't available here. Constants aren't weak linked
-	
-	// Double blah. WebNavigationTypeLinkClicked == null, but the action value == 0. Bleh
-	if ([actionInformation[WebActionNavigationTypeKey] intValue] == 0) {
-		NSURL* url = [request URL];
-		
-		if ([[url scheme] isEqualTo: @"source"]) {
-			// We deal with these ourselves
-			[listener ignore];
-
-			// Format is 'source file name#line number'
-            NSArray* results = [IFUtility decodeSourceSchemeURL: [request URL]];
-            results = [[projectController document] redirectLinksToExtensionSourceCode: results];
-            if( results == nil ) {
-                return;
-            }
-            NSString* sourceFile = results[0];
-            int lineNumber = [results[1] intValue];
-
-			if (delegate &&
-				[delegate respondsToSelector: @selector(errorMessageHighlighted:atLine:inFile:)]) {
-				[delegate errorMessageHighlighted: self
-										   atLine: lineNumber
-										   inFile: sourceFile];
-			}
-			
-			// Finished
-			return;
-		}
-        else if ([[url scheme] isEqualTo: @"skein"]) {
-            // We deal with these ourselves
-            [listener ignore];
-
-            // e.g. 'skein:1003?case=B'
-            NSArray* results = [IFUtility decodeSkeinSchemeURL: [request URL]];
-            if( results == nil ) {
-                return;
-            }
-            NSString* testCase = results[0];
-            NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
-            unsigned long skeinNodeId = [[formatter numberFromString:results[1]] unsignedLongValue];
-
-            // Move to the appropriate place in the file
-            if (![projectController showTestCase: testCase skeinNode: skeinNodeId]) {
-                NSLog(@"Can't select test case '%@'", testCase);
-                return;
-            }
-
-            // Finished
-            return;
-        }
-
-
-		// General URL policy
-		WebDataSource* activeSource = [frame dataSource];
-		
-		if (activeSource == nil) {
-			activeSource = [frame provisionalDataSource];
-			if (activeSource != nil) {
-				NSLog(@"Using the provisional data source - frame not finished loading?");
-			}
-		}
-		
-		if (activeSource == nil) {
-			NSLog(@"Unable to establish a datasource for this frame: will probably redirect anyway");
-		}
-		
-		NSURL* absolute1 = [[[request URL] absoluteURL] standardizedURL];
-		NSURL* absolute2 = [[[[activeSource request] URL] absoluteURL] standardizedURL];
-        
-        bool samePage   = [IFUtility url:absolute1 equals:absolute2];
-
-		// We only redirect if the page is different to the current one
-		if (!samePage) {
-			if ([delegate respondsToSelector: @selector(handleURLRequest:)]) {
-				if ([delegate handleURLRequest: request]) {
-					[listener ignore];
-					return;
-				}
-			}
-		}
-	}
-	
-	// default action
-	[listener use];
-}
 
 @synthesize blorbLocation;
 

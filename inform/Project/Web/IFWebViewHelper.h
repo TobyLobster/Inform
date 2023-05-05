@@ -11,6 +11,7 @@
 #import <Cocoa/Cocoa.h>
 #import "IFProjectPane.h"
 
+@class IFProjectController;
 @class IFProject;
 
 ///
@@ -20,7 +21,8 @@
 
 // Initialisation
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithProject:(IFProject*) project withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProjectController: (IFProjectController*) theProjectController
+                                  withPane: (IFProjectPane*) newPane NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - JavaScript operations
 

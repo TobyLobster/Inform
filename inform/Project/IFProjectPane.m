@@ -270,7 +270,7 @@ static NSDictionary* IFSyntaxAttributes[256];
     
 	// Compiler (lives on the errors page)
     [[errorsPage compilerController] setCompiler: [doc compiler]];
-    [[errorsPage compilerController] setProjectController: ourParent];
+    [[errorsPage compilerController] setProjectController: ourParent withPane: self];
 
     // Game page
     if( viewIndex == 1 ) {

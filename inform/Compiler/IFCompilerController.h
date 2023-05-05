@@ -13,6 +13,7 @@
 #import "IFError.h"
 
 @class IFProjectController;
+@class IFProjectPane;
 
 // Possible styles (stored in the styles dictionary)
 extern NSString* const IFStyleBase;
@@ -116,7 +117,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 
 - (int) tabIdWithTabIndex: (int) tabIndex;
 
-- (void) setProjectController: (IFProjectController*) pc;
+- (void) setProjectController: (IFProjectController*) pc withPane: (IFProjectPane*) pane;
 
 @end
 
@@ -125,8 +126,6 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 @optional
 
 // Status updates
-//- (void) compileStarted: (IFCompilerController*) sender;                  // Called when the compiler starts doing things
-//- (void) compileCompletedAndSucceeded: (IFCompilerController*) sender;	// Called when the compiler has finished and reports success
 /// Called when the compiler has finished and reports failure
 - (void) compileCompletedAndFailed: (IFCompilerController*) sender;
 

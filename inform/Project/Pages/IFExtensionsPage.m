@@ -78,8 +78,8 @@
 													 name: IFCensusFinishedNotification
 												   object: nil];
 		
-        helper = [[IFWebViewHelper alloc] initWithProject: project
-                                                 withPane: [controller oppositePane: pane]];
+        helper = [[IFWebViewHelper alloc] initWithProjectController: controller
+                                                           withPane: [controller oppositePane: pane]];
         wView = [helper createWebViewWithFrame: [self.view bounds]];
 
         // Set delegates

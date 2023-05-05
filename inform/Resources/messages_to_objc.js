@@ -2,6 +2,9 @@ class ProjectClass {
     selectView(view) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["selectView", view] );
     }
+    confirmAction() {
+        window.webkit.messageHandlers.scriptHandler.postMessage( ["confirmAction"] );
+    }
     createNewProject(story, title) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["createNewProject", story, title] );
     }

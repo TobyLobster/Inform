@@ -126,6 +126,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     IFSourceSharedActions*  sharedActions;
 
     IFProgress*             testAllProgress;
+
+    NSURL*                  extensionURL;
 }
 
 + (void) initialize {
@@ -170,6 +172,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
         numberOfTestCases = 0;
 
         testAllProgress = nil;
+        extensionURL = nil;
     }
 
     return self;
@@ -1568,6 +1571,24 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self showPublicLibrary];
 }
 
+-(void) confirmInstallExtensionAction {
+    if (extensionURL != nil) {
+        IFProject *project = self.document;
+        [project executeInBuildForExtension: extensionURL
+                           withConfirmation: true];
+        
+        // Show results
+        for (int x=0; x<[self->projectPanes count]; x++) {
+            IFProjectPane* pane = self->projectPanes[x];
+            
+            [[pane compilerController] clearTabViewsExcept: IFTabConsole];
+            IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
+            [[pane compilerController] switchToViewWithTabId: id];
+        }
+        [self->projectPanes[1] selectViewOfType: IFErrorPane];
+    }
+}
+
 -(void) addExtensionFromFileUsingPanel: (NSOpenPanel*__strong*) pPanel
                   withInitialDirectory: (NSURL*) initialURL {
     // Present a panel for installing new extensions
@@ -1592,8 +1613,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         NSURL *url = [*pPanel URL];
         IFProject *project = self.document;
-        NSURL *extensionURL = [[IFNewExtensionsManager sharedNewExtensionsManager] copyWithUnzip: url
-                                                                              toProjectTemporary: project];
+        extensionURL = [[IFNewExtensionsManager sharedNewExtensionsManager] copyWithUnzip: url
+                                                                       toProjectTemporary: project];
         if (extensionURL) {
             // Call inbuild to check it's a valid extension
 
