@@ -58,8 +58,8 @@
     [self.parent moveToSourceFileLine: line];
 	[self.parent removeHighlightsOfStyle: IFLineStyleError];
     [self.parent highlightSourceFileLine: line
-							 inFile: file
-							  style: IFLineStyleError]; // FIXME: error level?. Filename?
+                                  inFile: file
+                                   style: IFLineStyleError];
 }
 
 - (BOOL) handleURLRequest: (NSURLRequest*) req {

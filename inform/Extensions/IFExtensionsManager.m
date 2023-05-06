@@ -12,7 +12,6 @@
 #import "IFUtility.h"
 #import "NSString+IFStringExtensions.h"
 #import "IFCompilerSettings.h"
-#import "IFJSProject.h"
 #import "IFProjectController.h"
 
 NSString* const IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";

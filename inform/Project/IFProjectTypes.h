@@ -41,16 +41,12 @@ typedef NS_ENUM(unsigned int, IFLineStyle) {
     IFLineStyleWarning = 1,     // Temp highlight
     IFLineStyleError,           // Temp highlight
     IFLineStyleFatalError,      // Temp highlight
-    IFLineStyleHighlight,
+    IFLineStyleHighlight,       // Temp highlight
 
     IFLineStyle_LastTemporary,
 
     // 'Permanent highlights'
     IFLineStyle_Permanent = 0xfff, // Dummy style
-
-    // Debugging
-    IFLineStyleBreakpoint,
-    IFLineStyleExecutionPoint
 };
 
 

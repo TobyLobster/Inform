@@ -7,7 +7,6 @@
 //
 
 #import "IFExtensionsPage.h"
-#import "IFJSProject.h"
 #import "IFPreferences.h"
 #import "IFMaintenanceTask.h"
 #import "IFAppDelegate.h"
@@ -184,12 +183,6 @@
                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // Allow everything for now
     decisionHandler(WKNavigationActionPolicyAllow);
-}
-
-- (void)                        webView: (WKWebView *)webView
-      decidePolicyForNavigationResponse: (WKNavigationResponse *)navigationResponse
-                        decisionHandler: (void (^)(WKNavigationResponsePolicy))decisionHandler {
-    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 
 - (void)                webView:(WKWebView *)webView

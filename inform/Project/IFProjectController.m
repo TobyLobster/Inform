@@ -622,7 +622,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
     // Remove temporary highlighting
     [self removeHighlightsOfStyle: IFLineStyleError];
-    [self removeHighlightsOfStyle: IFLineStyleExecutionPoint];
 
     // Save the project, without user interaction. Also refreshes available test cases
     [self saveDocument: self];
@@ -925,7 +924,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (IBAction) stopProcess: (id) sender {
 	[projectPanes makeObjectsPerformSelector: @selector(stopRunningGame)];
-	[self removeHighlightsOfStyle: IFLineStyleExecutionPoint];
 }
 
 - (IBAction) openMaterials: (id) sender {
@@ -1518,7 +1516,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 - (void) restartRunning {
 	// Perform actions to switch back to the game when we click on continue, etc
 	[[self window] makeFirstResponder: [[self runningGamePage] zoomView]];
-	[self removeHighlightsOfStyle: IFLineStyleExecutionPoint];	
 
 	[toolbarManager validateVisibleItems];
 }
@@ -1576,11 +1573,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
         IFProject *project = self.document;
         [project executeInBuildForExtension: extensionURL
                            withConfirmation: true];
-        
+
         // Show results
         for (int x=0; x<[self->projectPanes count]; x++) {
             IFProjectPane* pane = self->projectPanes[x];
-            
+
             [[pane compilerController] clearTabViewsExcept: IFTabConsole];
             IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
             [[pane compilerController] switchToViewWithTabId: id];

@@ -10,13 +10,13 @@
 #import "IFPreferences.h"
 
 #import "IFAppDelegate.h"
-#import "IFJSProject.h"
 #import "IFUtility.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
 #import "IFPageBarCell.h"
 #import "IFPageBarView.h"
 #import "IFExtensionsManager.h"
+#import "IFWebViewHelper.h"
 
 
 @implementation IFIndexPage {
@@ -31,17 +31,21 @@
     /// Dictionary of tab ids and their string names
     NSDictionary<NSString*,NSNumber*>* tabDictionary;
 
-    WebView* webView;
+    WKWebView* webView;
+    IFWebViewHelper* helper;
+    int inhibitAddToHistory;
 }
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane {
 	self = [super initWithNibName: @"Index"
 				projectController: controller];
 	
 	if (self) {
         indexAvailable = NO;
+        inhibitAddToHistory = 0;
 
         // Static dictionary mapping tab names to enum values
         tabDictionary = @{@"actions.html":    @(IFIndexActions),
@@ -53,13 +57,12 @@
                           @"world.html":      @(IFIndexWorld),
                           @"welcome.html":    @(IFIndexWelcome)};
 
-        // Create the webview (could probably be in the nib)
-        webView = [[WebView alloc] initWithFrame: [[self view] bounds]];
-        [webView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
-        [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [webView setHostWindow: [self.parent window]];
-        [webView setPolicyDelegate: (id<WebPolicyDelegate>) [self.parent docPolicy]];
-        [webView setFrameLoadDelegate: self];
+        // Create the webview
+        helper = [[IFWebViewHelper alloc] initWithProjectController: controller withPane: pane];
+        webView = [helper createWebViewWithFrame:[[self view] bounds]];
+
+        // Set delegates
+        [webView setNavigationDelegate: self];
 
         // Add the webview as a subview of the index page
         [[self view] addSubview: webView];
@@ -75,6 +78,12 @@
 
 - (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver: self];
+}
+
+#pragma mark - Notifications
+
+- (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [helper fontSizePreferenceChanged: webView];
 }
 
 #pragma mark - Details about this view
@@ -149,20 +158,22 @@
 
     NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL: fullFileURL];
     //NSLog(@"self %@ Index page -requestRelativePath about to request a load of %@", self, aRequest.URL.absoluteString);
-    [[webView mainFrame] loadRequest: aRequest];
+    [webView loadRequest: aRequest];
     //NSLog(@"self %@ Index page -requestRelativePath has requested a load of %@", self, aRequest.URL.absoluteString);
 
     return YES;
 }
 
-- (BOOL) requestURL:(NSURL *) url {
-    
+- (void) openHistoricalURL:(NSURL *) url {
+    if (url == nil) return;
+
+    // Because we are opening this URL as part of replaying history, we don't add it to the history itself.
+    inhibitAddToHistory++;
+
     NSURLRequest* aRequest = [[NSURLRequest alloc] initWithURL:url];
-    //NSLog(@"self %@ Index page -requestURL about to request a load of %@", self, aRequest.URL.absoluteString);
-    [[webView mainFrame] loadRequest: aRequest];
-    //NSLog(@"self %@ Index page -requestURL has requested a load of %@", self, aRequest.URL.absoluteString);
-    
-    return YES;
+    //NSLog(@"self %@ Index page -requestURL about to request a load of %@", self, url.absoluteString);
+    [webView loadRequest: aRequest];
+    //NSLog(@"self %@ Index page -requestURL has requested a load of %@", self, url.absoluteString);
 }
 
 - (void) switchToTab: (int) tabIdentifier {
@@ -257,21 +268,7 @@
     [webView reload: self];
 }
 
-#pragma mark - Preferences
-
-- (void) fontSizePreferenceChanged: (NSNotification*) not {
-    [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-}
-
 #pragma mark - Utility functions
-
-- (NSURLRequest*) request {
-    WebFrame*	mainFrame = [webView mainFrame];
-    if ([mainFrame provisionalDataSource]) {
-        return [[mainFrame provisionalDataSource] request];
-    }
-    return [[mainFrame dataSource] request];
-}
 
 #pragma mark - Switching cells
 
@@ -283,19 +280,13 @@
 }
 
 - (void) didSwitchToPage {
-    NSURL* url = [[self request] URL];
+    NSURL* url = [webView URL];
     LogHistory(@"HISTORY: Index Page: (didSwitchToPage) requestURL %@", [url absoluteString]);
-	[[self history] requestURL: url];
+	[[self history] openHistoricalURL: url];
 
     // Highlight the indexCell to something appropriate for the new URL
     [self highlightAppropriateIndexCellForURL: url];
 	[super didSwitchToPage];
-}
-
-#pragma mark - WebFrameLoadDelegate methods
-
-- (NSString*) titleForFrame: (WebFrame*) frame {
-    return @"Index";
 }
 
 -(void) highlightAppropriateIndexCellForURL:(NSURL*) url {
@@ -319,32 +310,32 @@
     }
 }
 
-- (void)					webView: (WebView *) sender
-	didStartProvisionalLoadForFrame: (WebFrame *) frame {
-    // When opening a new URL in the main frame, record it as part of the history for this page
-    NSURL* url = [[[frame provisionalDataSource] request] URL];
-    url = [url copy];
-    LogHistory(@"HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", [url absoluteString]);
-    [[self history] switchToPage];
-    [[self history] requestURL:url];
+#pragma mark - WKNavigationDelegate methods
+- (void)                    webView:(WKWebView *)webView
+    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // Allow everything for now
+    decisionHandler(WKNavigationActionPolicyAllow);
+}
 
-    // NSLog(@"IFIndexPage -didStartProvisionalLoadForFrame: Recording history action URL %@ with Title %@", [url absoluteString], [self titleForFrame: frame]);
+- (void)                webView:(WKWebView *)theWebView
+  didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation {
+    NSURL* url = theWebView.URL;
+    LogHistory(@"HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", [url absoluteString]);
+    if (inhibitAddToHistory <= 0) {
+        [[self history] switchToPage];
+        [[self history] openHistoricalURL: url];
+    }
+
+    // reduce the number of reasons to inhibit adding to history
+    if (inhibitAddToHistory > 0) {
+        inhibitAddToHistory--;
+    } else {
+        inhibitAddToHistory = 0;
+    }
 
     // Highlight the indexCell to something appropriate for the new URL
     [self highlightAppropriateIndexCellForURL:url];
-}
-
-- (void)        webView: (WebView *) sender
-   didClearWindowObject: (WebScriptObject *) windowObject
-               forFrame: (WebFrame *) frame {
-	if (self.otherPane) {
-		// Attach the JavaScript object to the opposing view
-		IFJSProject* js = [[IFJSProject alloc] initWithPane: self.otherPane];
-		
-		// Attach it to the script object
-		[[sender windowScriptObject] setValue: js
-									   forKey: @"Project"];
-	}
 }
 
 #pragma mark - The page bar

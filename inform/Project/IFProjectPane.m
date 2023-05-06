@@ -21,11 +21,8 @@
 #import "IFExtensionsPage.h"
 #import "IFSettingsPage.h"
 
-#import "IFIsFiles.h"
-
 #import "IFPreferences.h"
 
-#import "IFJSProject.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFMaintenanceTask.h"
 
@@ -283,7 +280,8 @@ static NSDictionary* IFSyntaxAttributes[256];
     [self addPage: skeinPage];
     
 	// Index page
-	indexPage = [[IFIndexPage alloc] initWithProjectController: ourParent];
+    indexPage = [[IFIndexPage alloc] initWithProjectController: ourParent
+                                                      withPane: self];
 	[self addPage: indexPage];
 	
 	[indexPage updateIndexView];
