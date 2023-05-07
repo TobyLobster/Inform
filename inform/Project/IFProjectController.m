@@ -11,7 +11,6 @@
 #import "IFProjectController.h"
 #import "IFProjectPane.h"
 #import "IFProjectTypes.h"
-#import "IFInspectorWindow.h"
 #import "IFNewProjectFile.h"
 #import "IFIsIndex.h"
 #import "IFWelcomeWindow.h"
