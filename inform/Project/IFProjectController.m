@@ -1337,8 +1337,9 @@ static CGFloat const      minDividerWidth     = 75.0f;
 - (BOOL) selectSourceFile: (NSString*) fileName {
 	if ([[self document] storageForFile: fileName] != nil) {
 		// Load this file
-		[projectPanes makeObjectsPerformSelector: @selector(showSourceFile:)
-									  withObject: fileName];
+        [self.sourcePage showSourceFile: fileName];
+		//[projectPanes makeObjectsPerformSelector: @selector(showSourceFile:)
+		//							  withObject: fileName];
 	} else if (![self loadInform7Extension: fileName]) {
 		// Display an error if we couldn't find the file
         [IFUtility runAlertWarningWindow: [self window]

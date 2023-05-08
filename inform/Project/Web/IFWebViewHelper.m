@@ -374,7 +374,7 @@
     view = [view lowercaseString];
 
     if ([view isEqualToString: @"source"]) {
-        [pane selectViewOfType: IFSourcePane];
+        [[projectController sourcePane] selectViewOfType: IFSourcePane];
     } else if ([view isEqualToString: @"error"]) {
         [pane selectViewOfType: IFErrorPane];
     } else if ([view isEqualToString: @"game"]) {
