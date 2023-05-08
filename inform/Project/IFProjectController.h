@@ -65,8 +65,6 @@
 
 @property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
 
-- (IBAction) addNewFile: (id) sender;
-
 @property (atomic, readonly) BOOL safeToSwitchTabs;
 @property (atomic) NSOpenPanel* openExtensionPanel;
 @property (atomic) NSOpenPanel* openLegacyExtensionPanel;

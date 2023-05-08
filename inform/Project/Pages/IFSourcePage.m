@@ -18,7 +18,6 @@
 #import "IFHeaderController.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
-#import "IFIsFiles.h"
 #import "IFClickThroughScrollView.h"
 #import "IFHeaderPage.h"
 #import "IFSourceFileView.h"
@@ -256,8 +255,6 @@
 		if (newSourceFile) {
 			openSourceFilepath = newSourceFile;
 		}
-		
-		[[IFIsFiles sharedIFIsFiles] updateFiles];
 	}
 }
 
@@ -618,9 +615,6 @@
 
     // Is the file editable?
 	[textView setEditable: YES];
-
-    // Update inspector's list of files
-	[[IFIsFiles sharedIFIsFiles] updateFiles];
 }
 
 - (int) lineForCharacter: (NSUInteger) charNum

@@ -9,7 +9,6 @@
 #import "IFAppDelegate.h"
 #import "IFCompilerController.h"
 #import "IFNewProject.h"
-#import "IFInspectorWindow.h"
 #import "IFExtensionsManager.h"
 #import "IFWelcomeWindow.h"
 #import "IFFindController.h"
@@ -18,10 +17,6 @@
 
 #import "IFProject.h"
 #import "IFProjectController.h"
-
-#import "IFIsNotes.h"
-#import "IFIsIndex.h"
-#import "IFIsFiles.h"
 
 #import "Preferences/IFEditingPreferences.h"
 #import "Preferences/IFColourPreferences.h"
@@ -127,11 +122,6 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification*) not {
-	// The standard inspectors
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsFiles sharedIFIsFiles]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsNotes sharedIFIsNotes]];
-	[[IFInspectorWindow sharedInspectorWindow] addInspector: [IFIsIndex sharedIFIsIndex]];
-
 	// The standard preferences
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[AuthorPreferences alloc] init]];
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFEditingPreferences alloc] init]];
@@ -325,19 +315,10 @@ static NSRunLoop* mainRunLoop = nil;
     [newProj createInform7Extension];
 }
 
-- (IBAction) showInspectors: (id) sender {
-	[[IFInspectorWindow sharedInspectorWindow] showWindow: self];
-}
-
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
 	SEL itemSelector = [menuItem action];
-    // Only allow showing the inspectors if it's currently hidden, and it's not an Inform7 project active.
-	if (itemSelector == @selector(showInspectors:)) {
-		return [[IFInspectorWindow sharedInspectorWindow] isHidden] &&
-               ![[IFInspectorWindow sharedInspectorWindow] isInform7ProjectActive];
-	}
 
-	// Spell checking
+    // Spell checking
 	if (itemSelector == @selector(toggleSourceSpellChecking:)) {
 		[menuItem setState: [self sourceSpellChecking] ? NSControlStateValueOn : NSControlStateValueOff];
 		return YES;

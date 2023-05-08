@@ -12,7 +12,6 @@
 #import "IFProjectPane.h"
 #import "IFProjectTypes.h"
 #import "IFNewProjectFile.h"
-#import "IFIsIndex.h"
 #import "IFWelcomeWindow.h"
 #import "IFInform7MutableString.h"
 #import "IFFindInFilesController.h"
@@ -37,8 +36,6 @@
 #import "IFPreferences.h"
 #import "IFSingleFile.h"
 #import "IFNaturalIntel.h"
-
-#import "IFIsFiles.h"
 
 #import "IFHeaderController.h"
 
@@ -1119,10 +1116,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 	// Reload the index file
 	[[self document] reloadIndexFile];
 	
-	// Update the inspector index
-	[[IFIsFiles sharedIFIsFiles] updateFiles];
-	[[IFIsIndex sharedIFIsIndex] updateIndexFrom: self];
-
     // Make a report if there was an error while compiling a test case
     NSURL* reportURL = nil;
     if( [self isCurrentlyTesting] ) {
@@ -1610,12 +1603,12 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         NSURL *url = [*pPanel URL];
         IFProject *project = self.document;
-        extensionURL = [[IFNewExtensionsManager sharedNewExtensionsManager] copyWithUnzip: url
-                                                                       toProjectTemporary: project];
-        if (extensionURL) {
+        self->extensionURL = [[IFNewExtensionsManager sharedNewExtensionsManager] copyWithUnzip: url
+                                                                             toProjectTemporary: project];
+        if (self->extensionURL) {
             // Call inbuild to check it's a valid extension
 
-            [project executeInBuildForExtension: extensionURL
+            [project executeInBuildForExtension: self->extensionURL
                                withConfirmation: false];
 
             // Show results
@@ -1631,7 +1624,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }];
 }
 
-- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+- (BOOL)    panel: (id) sender
+  shouldEnableURL: (NSURL *) url {
     BOOL isDir;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: url.path
                                                        isDirectory: &isDir];
@@ -1651,29 +1645,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
         return YES;
     }
     return NO;
-}
-
-#pragma mark - Adding files
-
-- (void) addNewFile: (id) sender {
-	IFNewProjectFile* npf = [[IFNewProjectFile alloc] initWithProjectController: self];
-
-	NSString* newFile = [npf getNewFilename];
-	if (newFile) {
-		if (![(IFProject*)[self document] addFile: newFile]) {
-            NSAlert *alert = [[NSAlert alloc] init];
-            alert.informativeText = [IFUtility localizedString: @"FileUnable - Description"
-                                                       default: @"Inform was unable to create that file: most probably because a file already exists with that name"];
-            alert.messageText = [IFUtility localizedString: @"Unable to create file"];
-            [alert addButtonWithTitle:[IFUtility localizedString: @"FileUnable - Cancel"
-                                                         default: @"Cancel"]];
-            [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-               // do nothing.
-            }];
-		}
-	}
-
-	[[IFIsFiles sharedIFIsFiles] updateFiles];
 }
 
 #pragma mark - Skein delegate
