@@ -49,18 +49,20 @@
 // Basic interface (all searchable objects must implement this)
 /// Request to find the next match
 - (BOOL) findNextMatch:	(NSString*) match
-				ofType: (IFFindType) type;
+				ofType: (IFFindType) type
+     completionHandler: (void (^)(bool result))completionHandler;
 @optional
 
 /// Request to find the previous match
 - (BOOL) findPreviousMatch: (NSString*) match
-					ofType: (IFFindType) type;
+					ofType: (IFFindType) type
+         completionHandler: (void (^)(bool result))completionHandler;
 
 /// Allows delegates to specify which type of file they can search on
 - (BOOL) canUseFindType: (IFFindType) find;
 
 /// Returns whatever was currently selected: used to implement the 'use selection for find' menu option
-@property (atomic, readonly, copy) NSString *currentSelectionForFind;
+- (void) currentSelectionForFindWithCompletionHandler:(void (^)(NSString* result))completionHandler;
 
 // 'Find all'
 /// Should return an array of IFFindResults

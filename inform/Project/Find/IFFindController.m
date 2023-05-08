@@ -216,13 +216,14 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
         return;
     }
 
-	if ([activeDelegate respondsToSelector: @selector(findNextMatch:ofType:)]) {
+    if ([activeDelegate respondsToSelector: @selector(findNextMatch:ofType:completionHandler:)]) {
 		// Close the 'all' dialog if necessary
 		[self setLastSearch: [findPhrase stringValue]];
 		
 		// Get the delegate to perform the search
 		[activeDelegate findNextMatch: [findPhrase stringValue]
-							   ofType: [self currentFindType]];
+							   ofType: [self currentFindType]
+                    completionHandler: nil];
 
 		// Record the phrase in the history
 		[self addPhraseToFindHistory: [findPhrase stringValue]];
@@ -234,13 +235,14 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
         return;
     }
 
-	if ([activeDelegate respondsToSelector: @selector(findPreviousMatch:ofType:)]) {
+    if ([activeDelegate respondsToSelector: @selector(findPreviousMatch:ofType:completionHandler:)]) {
 		// Close the 'all' dialog if necessary
 		[self setLastSearch: [findPhrase stringValue]];
 		
 		// Get the delegate to perform the search
 		[activeDelegate findPreviousMatch: [findPhrase stringValue]
-								   ofType: [self currentFindType]];
+								   ofType: [self currentFindType]
+                        completionHandler: nil];
 
 		// Record the phrase in the history
 		[self addPhraseToFindHistory: [findPhrase stringValue]];
@@ -253,7 +255,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     }
 	if (activeDelegate 
 		&& [activeDelegate respondsToSelector: @selector(replaceFoundWith:)]
-		&& [activeDelegate respondsToSelector:@selector(findNextMatch:ofType:)]) {
+        && [activeDelegate respondsToSelector:@selector(findNextMatch:ofType:completionHandler:)]) {
 		
         NSString* replaceString;
 		if( ([self currentFindType] & 0xff) == IFFindRegexp ) {
@@ -266,7 +268,8 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 		[self addPhraseToReplaceHistory: replaceString];
 		[activeDelegate replaceFoundWith: replaceString];
 		[activeDelegate findNextMatch: [findPhrase stringValue]
-							   ofType: [self currentFindType]];
+							   ofType: [self currentFindType]
+                    completionHandler: nil];
 	}
 }
 
@@ -281,19 +284,19 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	// Hack: ensure the window is loaded
 	[self window];
 	
-	if ([activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
-		NSString* searchFor = [activeDelegate currentSelectionForFind];
-		if (searchFor && ![@"" isEqualToString: searchFor]) {
-			[findPhrase setStringValue: searchFor];
-			[searchType selectItem: containsItem];
-			
-			[self findNext: self];
-			return;
-		}
+    if ([activeDelegate respondsToSelector: @selector(currentSelectionForFindWithCompletionHandler:)]) {
+        [activeDelegate currentSelectionForFindWithCompletionHandler: ^(NSString* searchFor) {
+            if (searchFor && ![@"" isEqualToString: searchFor]) {
+                [self->findPhrase setStringValue: searchFor];
+                [self->searchType selectItem: self->containsItem];
+
+                [self findNext: self];
+                return;
+            } else {
+                NSBeep();
+            }
+        }];
 	}
-	
-	// Can't do this!
-	NSBeep();
 }
 
 - (IBAction) findTypeChanged: (id) sender {
@@ -317,13 +320,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (BOOL) canUseSelectionForFind: (id) sender {
-	if ([activeDelegate respondsToSelector: @selector(currentSelectionForFind)]) {
-		if (![@"" isEqualToString: [activeDelegate currentSelectionForFind]]) {
-			return YES;
-		}
-	}
-	
-	return NO;
+    return YES;
 }
 
 #pragma mark - Updating the find delegate
@@ -331,7 +328,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 - (BOOL) isSuitableDelegate: (id) object {
 	if (!object) return NO;
 	
-	if ([object respondsToSelector: @selector(findNextMatch:ofType:)]) {
+    if ([object respondsToSelector: @selector(findNextMatch:ofType:completionHandler:)]) {
 		return YES;
 	} else {
 		return NO;
@@ -360,7 +357,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (BOOL) canSearch {
-	return [activeDelegate respondsToSelector: @selector(findNextMatch:ofType:)];
+    return [activeDelegate respondsToSelector: @selector(findNextMatch:ofType:completionHandler:)];
 }
 
 - (BOOL) canReplace {

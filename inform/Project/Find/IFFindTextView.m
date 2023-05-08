@@ -83,8 +83,9 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 
 #pragma mark - Basic interface
 
-- (BOOL) findNextMatch:	(NSString*) match
-				ofType: (IFFindType) type {
+- (void) findNextMatch:	(NSString*) match
+				ofType: (IFFindType) type
+     completionHandler: (void (^)(bool result))completionHandler {
     // Start after the current selection
 	NSUInteger matchPos = [self selectedRange].location + [self selectedRange].length;
 
@@ -104,15 +105,20 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 		[self scrollRangeToVisible: matchRange];
 		[self setSelectedRange: matchRange];
         [self showFindIndicatorForRange: matchRange];
-		return YES;
+        if (completionHandler != nil) {
+            completionHandler(true);
+        }
 	} else {
 		NSBeep();
-		return NO;
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
 	}
 }
 
-- (BOOL) findPreviousMatch: (NSString*) match
-					ofType: (IFFindType) type {
+- (void) findPreviousMatch: (NSString*) match
+					ofType: (IFFindType) type
+         completionHandler: (void (^)(bool result))completionHandler {
     // Start searching at the previous character
     NSUInteger matchPos;
     
@@ -136,10 +142,14 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 		[self scrollRangeToVisible: matchRange];
 		[self setSelectedRange: matchRange];
         [self showFindIndicatorForRange: matchRange];
-		return YES;
+        if (completionHandler != nil) {
+            completionHandler(true);
+        }
 	} else {
 		NSBeep();
-		return NO;
+        if (completionHandler != nil) {
+            completionHandler(false);
+        }
 	}
 }
 
@@ -147,8 +157,10 @@ regexFoundGroups: (NSArray*__strong*) foundGroupsOut {
 	return YES;
 }
 
-- (NSString*) currentSelectionForFind {
-	return [[self string] substringWithRange: [self selectedRange]];
+- (void) currentSelectionForFindWithCompletionHandler:(void (^)(NSString*))completionHandler {
+    if (completionHandler != nil) {
+        completionHandler([[self string] substringWithRange: [self selectedRange]]);
+    }
 }
 
 #pragma mark - 'Find all'
