@@ -28,8 +28,7 @@
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
                                                     IFSkeinViewDelegate,
-                                                    IFRuntimeErrorParserDelegate,
-                                                    WebUIDelegate>
+                                                    IFRuntimeErrorParserDelegate>
 
 - (void) layoutPanes;
 
@@ -73,11 +72,6 @@
 
 // Documentation
 - (void) openDocUrl: (NSURL*) url;
-
-// Policy delegates
-@property (atomic, readonly, strong) IFProjectPolicy *generalPolicy;
-@property (atomic, readonly, strong) IFProjectPolicy *docPolicy;
-@property (atomic, readonly, strong) IFProjectPolicy *extensionsPolicy;
 
 // Displaying progress
 - (void) addProgressIndicator:      (IFProgress*) indicator;

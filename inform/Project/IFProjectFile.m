@@ -136,8 +136,9 @@
 		}
 
 		NSData* settingsData = [settingsFile regularFileContents];
-		NSUnarchiver* theCoder = [[NSUnarchiver alloc] initForReadingWithData:
-			settingsData];
+        NSError* error;
+        NSKeyedUnarchiver* theCoder = [[NSKeyedUnarchiver alloc] initForReadingFromData: settingsData
+                                                                                  error: &error];
 
 		// Decode the file
 		NSString* creator = [theCoder decodeObject];

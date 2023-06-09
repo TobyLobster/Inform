@@ -15,7 +15,6 @@
 #import "IFProjectController.h"
 #import "IFPageBarCell.h"
 #import "IFProject.h"
-#import "IFProjectPolicy.h"
 #import "IFWebViewHelper.h"
 
 @implementation IFExtensionsPage {

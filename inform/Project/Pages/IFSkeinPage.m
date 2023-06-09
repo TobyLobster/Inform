@@ -15,7 +15,6 @@
 #import "IFUtility.h"
 #import "IFPageBarCell.h"
 #import "IFProjectController.h"
-#import "IFProjectPolicy.h"
 #import "IFWebViewHelper.h"
 
 static const CGFloat webViewHeight = 250.0f;
@@ -65,11 +64,6 @@ static const CGFloat webViewHeight = 250.0f;
 		[skeinView setDelegate: self.parent];
 
         // Web view
-        //[webView setPolicyDelegate: [self.parent generalPolicy]];
-        //[webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        //[webView setUIDelegate: self.parent];
-        //[webView setFrameLoadDelegate: self];
-
         helper = [[IFWebViewHelper alloc] initWithProjectController: controller
                                                            withPane: [controller oppositePane: pane]];
         webView = [helper createWebViewWithFrame: [webViewParent bounds]];

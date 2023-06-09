@@ -12,13 +12,14 @@
 #import "IFPreferences.h"
 #import "IFAppDelegate.h"
 #import "IFSourcePage.h"
-#import "IFProjectPolicy.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
 
 @implementation IFWebViewHelper {
     __weak IFProjectController* projectController;
     __weak IFProjectPane* pane;
+
+    NSMutableCharacterSet *escapeCharset;
 }
 
 #pragma mark - Initialisation
@@ -30,6 +31,9 @@
     if (self) {
         projectController = theProjectController;
         pane = newPane;
+
+        escapeCharset = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+        [escapeCharset removeCharactersInString:@"!*'();:@&=+$,/?%#[]"];
     }
 
     return self;
@@ -102,6 +106,53 @@
 }
 
 #pragma mark - WKURLSchemeHandler
+-(NSURL*) urlFromLibraryURL: (NSURL*) url
+                   frameURL: (NSURL*) frameURL {
+    // Replace the "library:" prefix of the URL string with the URL for the enclosing document
+    // frame URL looks like: "inform:/fake/index.html"
+    // Our URL looks like "library:/payloads/Emily%20Short/Transit%20System.i7x"
+    // We transform this into "inform:/fake/payloads/Emily%20Short/Transit%20System.i7x"
+
+    if (( frameURL.path != nil ) && ( url.path != nil )) {
+        // Remove last object from path, and add in the other path
+        NSArray* framePathComponents = [frameURL.path componentsSeparatedByString:@"/"];
+        NSArray* urlPathComponents   = [url.path componentsSeparatedByString:@"/"];
+
+        NSMutableArray* newPath = [[NSMutableArray alloc] initWithArray: framePathComponents ];
+        if( [newPath count] > 0 ) {
+            [newPath removeObjectAtIndex:0];    // remove first '/' component
+        }
+        if( [newPath count] > 0 ) {
+            [newPath removeLastObject];         // remove final path comonent "index.html"
+        }
+
+        NSMutableArray* urlPath = [[NSMutableArray alloc] initWithArray: urlPathComponents ];
+        if( [urlPath count] > 0 ) {
+            [urlPath removeObjectAtIndex:0];    // remove first '/' component
+        }
+
+        [newPath addObjectsFromArray: urlPath];
+
+        // Escape encode the paths, as they were (unhelpfully) unescaped with the .path method
+        for(NSInteger index = 0; index < [newPath count]; index++) {
+            NSString* escapedString = [newPath[index] stringByAddingPercentEncodingWithAllowedCharacters: escapeCharset];
+            newPath[index] = escapedString;
+        }
+
+        // Create the new URL string
+        NSMutableString* newUrlString = [[NSMutableString alloc] initWithFormat: @"%@:/", frameURL.scheme];
+        if( frameURL.host != nil ) {
+            [newUrlString appendString: @"/"];
+            [newUrlString appendString: frameURL.host];
+            [newUrlString appendString: @"/"];
+        }
+        [newUrlString appendString: [newPath componentsJoinedByString:@"/"]];
+
+        NSURL* newURL = [[NSURL alloc] initWithString: newUrlString];
+        return newURL;
+    }
+    return nil;
+}
 
 - (NSDictionary *)explodeString:(NSString*) string
                       innerGlue:(NSString *) innerGlue
@@ -196,8 +247,8 @@
         if( mgr ) {
             NSURL* url = webView.URL;
             NSURL* frameURL = webView.webFrame.dataSource.request.URL;
-            NSURL* newURL = [IFProjectPolicy urlFromLibraryURL: url
-                                                      frameURL: frameURL];
+            NSURL* newURL = [self urlFromLibraryURL: url
+                                           frameURL: frameURL];
 
             if ( newURL != nil ) {
                 // Query at the end of the URL may have id=<number> on the end
@@ -546,8 +597,8 @@
         //NSLog(@"item is %@ for url %@ version %@", item, urlString, version);
 
         NSURL* frameURL = [IFUtility publicLibraryURL];
-        NSURL* realURL = [IFProjectPolicy urlFromLibraryURL: [NSURL URLWithString: urlString]
-                                                   frameURL: frameURL];
+        NSURL* realURL = [self urlFromLibraryURL: [NSURL URLWithString: urlString]
+                                        frameURL: frameURL];
 
         [[IFExtensionsManager sharedNaturalInformExtensionsManager] downloadAndInstallExtension: realURL
                                                                                          window: [[pane controller] window]

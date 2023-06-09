@@ -165,7 +165,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	
     [stopItem               setAction: @selector(stopProcess:)];
     [testSelectorItem       setAction: @selector(testSelector:)];
-    [installExtensionItem   setAction: @selector(installExtension:)];
+    [installExtensionItem   setAction: @selector(installLegacyExtension:)];
     [testItem               setAction: @selector(testMe:)];
 
 }

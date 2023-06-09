@@ -327,12 +327,14 @@ static NSImage* arrowPressed	= nil;
 	[self checkForRedraw];
 }
 
+/*
 - (void) unlockFocus {
 	if ([self checkForRedraw]) {
 		[self displayIfNeeded];
 	}
 	[super unlockFocus];
 }
+*/
 
 - (NSPoint) textContainerOrigin {
 	// Calculate the origin

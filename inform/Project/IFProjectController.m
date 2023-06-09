@@ -18,7 +18,6 @@
 #import "IFSyntaxManager.h"
 #import "IFSingleController.h"
 #import "IFToolbarManager.h"
-#import "IFPolicyManager.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 #import "IFInBuild.h"
@@ -116,8 +115,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
     /// Number of test cases tested
     int                     numberOfTestCases;
 
-    /// Policy delegates (for handling custom URLs like 'library://')
-    IFPolicyManager*        policyManager;
     /// Actions that can be shared between project and single controllers
     IFSourceSharedActions*  sharedActions;
 
@@ -143,8 +140,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 		lineHighlighting = [[NSMutableDictionary alloc] init];
 
         [self setShouldCloseDocument: NO];
-
-        policyManager = [[IFPolicyManager alloc] initWithProjectController: self];
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(intelFileChanged:)
@@ -1680,20 +1675,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
         [self.gamePage setSwitchToPage: NO];
 		[self.gamePage setPointToRunTo: point];
 	}
-}
-
-#pragma mark - Policy delegates
-
-- (IFProjectPolicy*) generalPolicy {
-	return policyManager.generalPolicy;
-}
-
-- (IFProjectPolicy*) docPolicy {
-	return policyManager.docPolicy;
-}
-
-- (IFProjectPolicy*) extensionsPolicy {
-	return policyManager.extensionsPolicy;
 }
 
 #pragma mark - Displaying progress
