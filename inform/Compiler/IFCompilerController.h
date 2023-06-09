@@ -40,6 +40,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
     IFTabDebugging,
     IFTabInform6,
     IFTabRuntime,
+    IFTabInBuild,
     IFTabInvalid,
 };
 
@@ -59,7 +60,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 /// (In ye olden dayes, this was a window controller as well, but now young whippersnapper
 /// compilers can go anywhere, so it's not any more)
 ///
-@interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate, WebPolicyDelegate, WebFrameLoadDelegate>
+@interface IFCompilerController : NSObject<NSTextStorageDelegate, NSSplitViewDelegate>
 
 /// The default styles for the error messages
 + (NSDictionary<NSAttributedStringKey, id>*) defaultStyles;
@@ -103,6 +104,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 
 /// The tab identifier of the currently selected view
 @property (atomic, readonly) IFCompilerTabId selectedTabId;
+@property (atomic, readonly) WKWebView* currentWebView;
 
 /// Add a tab for showing results
 - (IFCompilerTabId) makeTabForFile: (NSString*) file;
@@ -122,7 +124,7 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 @end
 
 // Delegate methods
-@protocol IFCompilerControllerDelegate <NSObject>
+@protocol IFCompilerControllerDelegate <NSObject, WKNavigationDelegate>
 @optional
 
 // Status updates
@@ -144,8 +146,6 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
                  withType: (IFLex) type
                   message: (NSString*) message;
 
-/// First chance opportunity to redirect URL requests (used so that NI error URLs are handled)
-- (BOOL) handleURLRequest: (NSURLRequest*) request;
 /// Notification that the compiler controller has changed its set of views
 - (void) viewSetHasUpdated: (IFCompilerController*) sender;
 /// Notification that the compiler has switched to the specified view

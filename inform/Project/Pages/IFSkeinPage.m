@@ -16,6 +16,7 @@
 #import "IFPageBarCell.h"
 #import "IFProjectController.h"
 #import "IFProjectPolicy.h"
+#import "IFWebViewHelper.h"
 
 static const CGFloat webViewHeight = 250.0f;
 
@@ -25,7 +26,9 @@ static const CGFloat webViewHeight = 250.0f;
     /// The skein view
     IBOutlet IFSkeinView*   skeinView;
     
-    IBOutlet WebView*       webView;
+    IBOutlet NSView*        webViewParent;
+    WKWebView*              webView;
+    IFWebViewHelper*        helper;
 
     NSUInteger cachedHash;
 
@@ -44,7 +47,8 @@ static const CGFloat webViewHeight = 250.0f;
 
 #pragma mark - Initialisation
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller {
+- (instancetype) initWithProjectController: (IFProjectController*) controller
+                                  withPane: (IFProjectPane*) pane {
 	self = [super initWithNibName: @"Skein"
 				projectController: controller];
 
@@ -61,13 +65,23 @@ static const CGFloat webViewHeight = 250.0f;
 		[skeinView setDelegate: self.parent];
 
         // Web view
-        [webView setPolicyDelegate: [self.parent generalPolicy]];
-        [webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-        [webView setUIDelegate: self.parent];
-        [webView setFrameLoadDelegate: self];
+        //[webView setPolicyDelegate: [self.parent generalPolicy]];
+        //[webView setTextSizeMultiplier: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+        //[webView setUIDelegate: self.parent];
+        //[webView setFrameLoadDelegate: self];
+
+        helper = [[IFWebViewHelper alloc] initWithProjectController: controller
+                                                           withPane: [controller oppositePane: pane]];
+        webView = [helper createWebViewWithFrame: [webViewParent bounds]];
+
+        // Set delegates
+        [webView setNavigationDelegate: self];
 
         // Load template and html fragments
         [self loadHTMLTemplate];
+
+        // Add to view hieracrchy
+        [webViewParent addSubview: webView];
 
         cachedHash = 0;
         [self updateHelpHTML];
@@ -159,7 +173,7 @@ static const CGFloat webViewHeight = 250.0f;
     [jsCommands addObject: !showWelcome                             ? @"showBlock('welcomead')"   : @"hideBlock('welcomead')"];
 
     for (NSString* command in jsCommands ) {
-        [webView stringByEvaluatingJavaScriptFromString: command];
+        [webView evaluateJavaScript: command completionHandler: nil];
     }
 }
 
@@ -180,20 +194,18 @@ static const CGFloat webViewHeight = 250.0f;
     [self updateHelpHTML];
 }
 
-#pragma mark WebViewLoadDelegate
-
-- (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
-    if (frame == [sender mainFrame]) {
-        // After a short pause while the DOM lays itself out properly, make sure the Javascript shows and hides the correct items
-        [self performSelector: @selector(updateHelpHTML)
-                   withObject: nil
-                   afterDelay: 0.0];
-    }
+#pragma mark - WKNavigationDelegate
+- (void)                    webView:(WKWebView *)webView
+    decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+                    decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // Allow everything for now
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 #pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [helper fontSizePreferenceChanged: webView];
     [self.skeinView fontSizePreferenceChanged: not];
 }
 
@@ -325,12 +337,15 @@ static const CGFloat webViewHeight = 250.0f;
 
 -(void) loadHTMLString:(NSString*) htmlString
 {
-    [[webView mainFrame] loadHTMLString: htmlString baseURL: [NSURL URLWithString: @"inform:/"]];
+    [webView loadHTMLString: htmlString
+                    baseURL: [NSURL URLWithString: @"inform:/"]];
 }
 
 -(void) loadHTMLTemplate {
     NSError* error = nil;
-    testingTemplate     = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/TestingTemplate.html"]       encoding: NSUTF8StringEncoding error: &error];
+    testingTemplate = [NSString stringWithContentsOfURL: [NSURL URLWithString: @"inform:/TestingTemplate.html"]
+                                               encoding: NSUTF8StringEncoding
+                                                  error: &error];
     assert(testingTemplate);
 }
 

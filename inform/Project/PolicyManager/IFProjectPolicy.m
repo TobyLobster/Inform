@@ -129,6 +129,7 @@
     return returnDictionary;
 }
 
+/*
 #pragma mark - Our life as a policy delegate
 
 - (void)					webView: (WebView *)sender
@@ -300,5 +301,6 @@
 	// default action
 	[listener use];
 }
+*/
 
 @end

@@ -1897,18 +1897,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
     }
 }
 
-#pragma mark - UIDelegate methods
-
-// We only implement a fairly limited subset of the UI methods, mainly to help show status
-- (void)						webView:(WebView *)sender 
-	 runJavaScriptAlertPanelWithMessage:(NSString *)message {
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = [IFUtility localizedString: @"JavaScript Alert"];
-    alert.informativeText = message;
-    [alert addButtonWithTitle: [IFUtility localizedString: @"Continue"]];
-    [alert runModal];
-}
-
 #pragma mark - IFRuntimeErrorParser delegate methods
 
 - (void) runtimeError: (NSString*) error {

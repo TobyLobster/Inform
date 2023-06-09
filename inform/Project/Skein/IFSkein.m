@@ -231,14 +231,6 @@ NSString* const IFSkeinSelectionChangedItemKey      = @"IFSkeinSelectionChangedI
                     keepActiveVisible: NO];
 }
 
-- (void) setWinningItem: (IFSkeinItem *) winningItem {
-    _winningItem = winningItem;
-}
-
-- (IFSkeinItem *) getWinningItem {
-    return _winningItem;
-}
-
 -(BOOL) isTheWinningItem: (IFSkeinItem *) winningItem {
     return _winningItem == winningItem;
 }

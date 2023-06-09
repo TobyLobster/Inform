@@ -102,8 +102,29 @@
 }
 
 #pragma mark - WKURLSchemeHandler
-- (void)    webView:(WKWebView *)webView
- startURLSchemeTask:(id <WKURLSchemeTask>)task {
+
+- (NSDictionary *)explodeString:(NSString*) string
+                      innerGlue:(NSString *) innerGlue
+                      outerGlue:(NSString *) outerGlue {
+    // Explode based on outer glue
+    NSArray *firstExplode = [string componentsSeparatedByString:outerGlue];
+    NSArray *secondExplode;
+
+    // Explode based on inner glue
+    NSInteger count = [firstExplode count];
+    NSMutableDictionary *returnDictionary = [NSMutableDictionary dictionaryWithCapacity:count];
+    for (NSInteger i = 0; i < count; i++) {
+        secondExplode = [(NSString *)firstExplode[i] componentsSeparatedByString:innerGlue];
+        if ([secondExplode count] == 2) {
+            returnDictionary[secondExplode[0]] = secondExplode[1];
+        }
+    }
+    return returnDictionary;
+}
+
+
+- (void)    webView: (WKWebView *)webView
+ startURLSchemeTask: (id <WKURLSchemeTask>)task {
     NSURL* customURL = task.request.URL;
     NSString *str = customURL.absoluteString;
     NSString* mimeType;
@@ -166,6 +187,35 @@
         }
 
         // Finished
+        return;
+    }
+    else if ([[customURL scheme] isEqualTo: @"library"]) {
+        // We have found a "library:" URL. These are used for links that will install an
+        // extension from the public library. Clicking on one starts the installation.
+        IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
+        if( mgr ) {
+            NSURL* url = webView.URL;
+            NSURL* frameURL = webView.webFrame.dataSource.request.URL;
+            NSURL* newURL = [IFProjectPolicy urlFromLibraryURL: url
+                                                      frameURL: frameURL];
+
+            if ( newURL != nil ) {
+                // Query at the end of the URL may have id=<number> on the end
+                NSDictionary *queryDict = [self explodeString: url.query
+                                                    innerGlue: @"="
+                                                    outerGlue: @"&"];
+                NSString* javascriptId = queryDict[@"id"];
+
+                // Remove last object from path, and add in the other path
+                [mgr downloadAndInstallExtension: newURL
+                                          window: webView.window
+                                  notifyDelegate: projectController
+                                    javascriptId: javascriptId];
+            }
+            else {
+                NSLog(@"URL '%@' could not be transformed using frameURL '%@'", url, frameURL);
+            }
+        }
         return;
     }
 }
@@ -405,7 +455,7 @@
 }
 
 - (void) pasteCode: (NSString*) code {
-    [[pane sourcePage] pasteSourceCode: [IFUtility unescapeString: code]];
+    [[[projectController sourcePane] sourcePage] pasteSourceCode: [IFUtility unescapeString: code]];
 }
 
 - (void) openFile: (NSString*) filename {

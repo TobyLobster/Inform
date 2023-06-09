@@ -816,7 +816,7 @@ static NSDictionary* itemTextAttributes;
 
 - (IBAction) setWinningCommandItem: (id) sender {
     if ([self canSetWinningItem: contextItem]) {
-        IFSkeinItem* oldWinningItem = [skein getWinningItem];
+        IFSkeinItem* oldWinningItem = [skein winningItem];
         if (oldWinningItem == contextItem) {
             [skein setWinningItem: nil];
             [((NSMenuItem*) sender) setState: NSControlStateValueOff];

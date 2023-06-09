@@ -12,7 +12,7 @@
 #import "IFFindController.h"
 
 ///
-/// WebView category that implements the find controller delegate functions
+/// WKWebView category that implements the find controller delegate functions
 ///
 @interface WKWebView(IFFindWebView) <IFFindDelegate>
 

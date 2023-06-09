@@ -18,6 +18,7 @@
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"
+#import "IFWebViewHelper.h"
 
 @implementation IFWelcomeWindow {
     /// Progress indicator that shows when a background process is running
@@ -43,7 +44,10 @@
     /// Parent
     IBOutlet NSView*                parentView;
     /// Show a web page (for advice)
-    IBOutlet WebView*               webView;
+    IBOutlet NSView*                webViewParent;
+    /// Web View Helper for advice
+    IFWebViewHelper*                helper;
+
     /// Show the middle section
     IBOutlet NSView*                middleView;
     /// Top banner image, as a button
@@ -59,6 +63,7 @@
     NSMutableArray*                 newsArray;
 
     WKNavigation *                  newsNav;
+    WKWebView *                     adviceWebView;
 }
 
 static const int maxItemsInRecentMenu = 8;
@@ -135,15 +140,26 @@ static IFWelcomeWindow* sharedWindow = nil;
 
     // Refresh news if needed
     [self checkIfNewsRefreshIsNeeded];
+
+    helper = [[IFWebViewHelper alloc] initWithProjectController: nil
+                                                       withPane: nil];
+    adviceWebView = [helper createWebViewWithFrame: [webViewParent bounds]];
+
+    // Set delegates
+    [adviceWebView setNavigationDelegate: self];
+
+    // Add to view hieracrchy
+    [webViewParent addSubview: adviceWebView];
+
 }
 
 - (void) hideWebView {
-    [webView setHidden: YES];
+    [webViewParent setHidden: YES];
     [middleView setHidden: NO];
 }
 
 - (void) showWebView {
-    [webView setHidden: NO];
+    [webViewParent setHidden: NO];
     [middleView setHidden: YES];
 }
 
@@ -396,7 +412,8 @@ static IFWelcomeWindow* sharedWindow = nil;
         // Is it a link for advice?
         if((index >= 0) && ( index < [adviceLinkArray count])) {
             urlString = adviceLinkArray[index];
-            [[webView mainFrame] loadRequest: [[NSURLRequest alloc] initWithURL: [NSURL URLWithString:urlString]]];
+            NSURLRequest* request = [NSURLRequest requestWithURL: [NSURL URLWithString: urlString]];
+            [adviceWebView loadRequest: request];
             [self showWebView];
         }
     }

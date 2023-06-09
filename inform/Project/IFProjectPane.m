@@ -260,9 +260,10 @@ static NSDictionary* IFSyntaxAttributes[256];
         [sourcePage showSourceFile: [doc mainSourceFile]];
         [sourcePage updateHighlightedLines];
     }
-	
+
 	// Errors page
-	errorsPage = [[IFErrorsPage alloc] initWithProjectController: ourParent];
+	errorsPage = [[IFErrorsPage alloc] initWithProjectController: ourParent
+                                                        withPane: self];
 	[self addPage: errorsPage];
     
 	// Compiler (lives on the errors page)
@@ -276,7 +277,8 @@ static NSDictionary* IFSyntaxAttributes[256];
     }
     
     // Skein page
-    skeinPage = [[IFSkeinPage alloc] initWithProjectController: ourParent];
+    skeinPage = [[IFSkeinPage alloc] initWithProjectController: ourParent
+                                                      withPane: self];
     [self addPage: skeinPage];
     
 	// Index page

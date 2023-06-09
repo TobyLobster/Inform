@@ -48,8 +48,6 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 - (void) interpreterRestart;
 - (void) interpreterStop;
 
-- (void) setWinningItem: (IFSkeinItem *) winningItem;
-- (IFSkeinItem *) getWinningItem;
 - (BOOL) isTheWinningItem: (IFSkeinItem *) item;
 
 // Dirty flags

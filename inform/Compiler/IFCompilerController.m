@@ -80,6 +80,7 @@ static IFCompilerController* activeController = nil;
     /// Project controller
     IFProjectController*    projectController;
     IFWebViewHelper*        helper;
+    IFProjectPane*          pane;
 
     /// Tabs - array of IFCompilerTab objects
     NSMutableArray*  tabs;
@@ -201,6 +202,12 @@ static IFCompilerController* activeController = nil;
                                                  selector: @selector(gotIntestStderr:)
                                                      name: IFInTestStderrNotification
                                                    object: nil];
+
+        // Font size change
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(fontSizePreferenceChanged:)
+                                                     name: IFPreferencesAppFontSizeDidChangeNotification
+                                                   object: [IFPreferences sharedPreferences]];
     }
 }
 
@@ -235,6 +242,11 @@ static IFCompilerController* activeController = nil;
         [[NSNotificationCenter defaultCenter] removeObserver: self
                                                         name: IFInTestStderrNotification
                                                       object: nil];
+
+        // Font size change
+        [[NSNotificationCenter defaultCenter] removeObserver: self
+                                                        name: IFPreferencesAppFontSizeDidChangeNotification
+                                                      object: nil];
     }
 }
 
@@ -258,6 +270,7 @@ static IFCompilerController* activeController = nil;
                           @"auto.inf":              @((int) IFTabInform6),
                           @"problems.html":         @((int) IFTabReport),
                           @"log of problems.txt":   @((int) IFTabReport),
+                          @"inbuild.html":          @((int) IFTabInBuild),
                           @"compiler":              @((int) IFTabConsole)};
 
         [self _registerHandlers];
@@ -301,12 +314,20 @@ static IFCompilerController* activeController = nil;
 
 // == Information ==
 - (void) setProjectController: (IFProjectController*) pc
-                     withPane: (IFProjectPane*) pane {
+                     withPane: (IFProjectPane*) thePane {
     projectController = pc;
-    helper = [[IFWebViewHelper alloc] initWithProjectController: pc
+    self->pane = thePane;
+
+    helper = [[IFWebViewHelper alloc] initWithProjectController: projectController
                                                        withPane: pane];
 }
 
+#pragma mark - Preferences
+- (void) fontSizePreferenceChanged: (NSNotification*) not {
+    [helper fontSizePreferenceChanged: currentWebView];
+}
+
+#pragma mark
 - (void) resetCompiler {
     [self _removeHandlers];
 
@@ -885,6 +906,10 @@ static IFCompilerController* activeController = nil;
                         withTabId: (IFCompilerTabId) tabId {
 	// Create a new web view
 	WKWebView* webView = [helper createWebViewWithFrame: [superView frame]];
+
+    // Set delegate
+    [webView setNavigationDelegate: delegate];
+
     [webView loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 
 	// Add it to the list of tabs
@@ -892,6 +917,8 @@ static IFCompilerController* activeController = nil;
 							 withView: webView
                             withTabId: tabId];
 }
+
+
 
 - (IFCompilerTabId) makeTabForFile: (NSString*) file {
 	NSString* type = [[file pathExtension] lowercaseString];
@@ -1111,6 +1138,7 @@ static IFCompilerController* activeController = nil;
 #pragma mark - Managing the set of views displayed by this object
 
 @synthesize selectedTabId;
+@synthesize currentWebView;
 
 - (void) switchToViewWithTabId: (IFCompilerTabId) tabId {
 	NSUInteger index = [self tabIndexWithTabId:tabId];
@@ -1129,6 +1157,11 @@ static IFCompilerController* activeController = nil;
     
 	// Swap the view being displayed by this object for the view in auxViews
 	NSView* newView = tab.view;
+    if ([newView isKindOfClass:[WKWebView class]]) {
+        currentWebView = (WKWebView*) newView;
+    } else {
+        currentWebView = nil;
+    }
 
     NSRect rect = [activeView frame];
 	[activeView removeFromSuperview];
