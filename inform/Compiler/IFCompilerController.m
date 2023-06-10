@@ -305,8 +305,8 @@ static IFCompilerController* activeController = nil;
 
 - (void) showWindow: (id) sender {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"Compiling"
-                            owner: self];
+        [NSBundle customLoadNib: @"Compiling"
+                          owner: self];
     }
 
     [window orderFront: sender];

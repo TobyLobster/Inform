@@ -10,6 +10,6 @@
 // *******************************************************************************************
 @interface NSBundle (IFBundleExtensions)
 -(NSString *) pathForResourcePath: (NSString *) relativePath;
-+(BOOL) oldLoadNibNamed:(NSString *)nibName owner:(id)owner;
++(BOOL) customLoadNib:(NSString *)nibName owner:(id)owner;
 
 @end

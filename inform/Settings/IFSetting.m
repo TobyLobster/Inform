@@ -36,8 +36,8 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 		settingsChanging = NO;
 		
 		if (nibName != nil)
-			[NSBundle oldLoadNibNamed: nibName
-                                owner: self];
+			[NSBundle customLoadNib: nibName
+                              owner: self];
 	}
 	
 	return self;

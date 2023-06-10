@@ -315,10 +315,9 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
                                              default: nil];
     if (theData != nil) {
         NSColor *col = [NSKeyedUnarchiver unarchivedObjectOfClass: [NSColor class] fromData: theData error: NULL];
-        if (!col) {
-            col = [NSUnarchiver unarchiveObjectWithData: theData];
+        if (col) {
+            return col;
         }
-        return col;
     }
     return defaultValue;
 }

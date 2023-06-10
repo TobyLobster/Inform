@@ -428,9 +428,15 @@
 }
 
 -(BOOL) write {
-    return [bundleDirectory writeToFile: [self filename]
-                             atomically: YES
-                        updateFilenames: YES];
+    // Should use
+    // - (BOOL)writeToURL:(NSURL *)url options:(NSFileWrapperWritingOptions)options originalContentsURL:(nullable NSURL *)originalContentsURL error:(NSError **)outError
+    NSError *error;
+    NSURL* writeToURL = [[NSURL alloc] initFileURLWithPath: [self filename]];
+
+    return [bundleDirectory writeToURL: writeToURL
+                               options: NSFileWrapperWritingAtomic | NSFileWrapperWritingWithNameUpdating
+                   originalContentsURL: nil
+                                 error: &error];
 }
 
 - (void) DEBUGverifyWrapper: (NSDictionary*) dict

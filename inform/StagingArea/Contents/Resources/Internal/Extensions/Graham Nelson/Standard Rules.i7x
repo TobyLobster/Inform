@@ -91,6 +91,22 @@ The verb to conceal (he conceals, they conceal, he concealed, it is concealed,
 he is concealing) means the concealment relation.
 Definition: Something is concealed rather than unconcealed if the holder of it conceals it.
 
+Definition: a container is obviously-occupied rather than possibly-unoccupied if
+I6 routine "ObviouslyOccupied" says so (it contains at least one obvious thing).
+
+Definition: a supporter is obviously-occupied rather than possibly-unoccupied if
+I6 routine "ObviouslyOccupied" says so (it supports at least one obvious thing).
+
+Definition: a container (called c) is falsely-unoccupied:
+  if the first thing held by it is nothing, no;
+  if it is closed and it is opaque and it does not enclose the player, no;
+  decide on whether or not it is possibly-unoccupied;
+
+Definition: a supporter is falsely-unoccupied:
+  if the first thing held by it is nothing, no;
+  if the first thing held by it is the player and the next thing held after the player is nothing, no;
+  decide on whether or not it is possibly-unoccupied;
+
 Definition: Something is on-stage rather than off-stage if I6 routine "OnStage"
 	makes it so (it is indirectly in one of the rooms).
 Definition: Something is offstage if it is off-stage.
@@ -1160,8 +1176,59 @@ a number rulebook.
 
 Printing room description details of something (documented at act_details) is an activity.
 The printing room description details activity is accessible to Inter as "PRINTING_ROOM_DESC_DETAILS_ACT".
+
+For printing room description details of a container (called the box) when the box is falsely-unoccupied (this is the falsely-unoccupied container room description details rule):
+  say text of list writer internal rule response (A); [ " (" ]
+  if the box is lit and the location is unlit begin;
+    if the box is closed, say text of list writer internal rule response (J); [ "closed, empty[if serial comma option is active],[end if] and providing light" ]
+    else say text of list writer internal rule response (I); [ "empty and providing light" ]
+  else;
+    if the box is closed, say text of list writer internal rule response (E); [ "closed" ]
+    else say text of list writer internal rule response (F); [ "empty" ]
+  end if;
+  say text of list writer internal rule response (B); [ ")" ]
+
 Printing inventory details of something (documented at act_idetails) is an activity.
 The printing inventory details activity is accessible to Inter as "PRINTING_INVENTORY_DETAILS_ACT".
+
+
+To say the deceitfully empty inventory details of (box - a container):
+  let inventory text printed be false;
+  if the box is lit begin;
+    if the box is worn, say text of list writer internal rule response (K); [ "providing light and being worn" ]
+    else say text of list writer internal rule response (D); [ "providing light" ]
+    now inventory text printed is true;
+  else if the box is worn;
+    say text of list writer internal rule response (L); [ "being worn" ]
+    now inventory text printed is true;
+  end if;
+  if the box is openable begin;
+    if inventory text printed is true begin;
+      if the serial comma option is active, say ",";
+      say text of list writer internal rule response (C); [ "and" ]
+    end if;
+    if the box is open begin;
+      say text of list writer internal rule response (N); [ "open but empty" ]
+    else; [ it's closed ]
+      if the box is locked, say text of list writer internal rule response (P); [ "closed and locked" ]
+      else say text of list writer internal rule response (O); [ "closed" ]
+      now inventory text printed is true;
+    end if;
+  else; [ it's not openable ]
+    if the box is transparent begin;
+      if inventory text printed is true, say text of list writer internal rule response (C); [ "and" ]
+      say text of list writer internal rule response (F); [ "empty" ]
+      now inventory text printed is true; [ not relevant unless code is added ]
+    end if;
+  end if;
+
+For printing inventory details of a container (called the box) when the box is falsely-unoccupied (this is the falsely-unoccupied container inventory details rule):
+    let the tag be "[the deceitfully empty inventory details of box]";
+    if tag is not empty begin;
+      say text of list writer internal rule response (A); [ "(" ]
+      say tag;
+      say text of list writer internal rule response (B); [ ")" ]
+    end if;
 
 Listing contents of something (documented at act_lc) is an activity.
 The listing contents activity is accessible to Inter as "LISTING_CONTENTS_ACT".
@@ -1169,6 +1236,7 @@ The standard contents listing rule is listed last in the for listing contents ru
 The standard contents listing rule is defined by Inter as "STANDARD_CONTENTS_LISTING_R".
 Grouping together something (documented at act_gt) is an activity.
 The grouping together activity is accessible to Inter as "GROUPING_TOGETHER_ACT".
+
 
 Writing a paragraph about something (documented at act_wpa) is an activity.
 The writing a paragraph about activity is accessible to Inter as "WRITING_A_PARAGRAPH_ABOUT_ACT".
@@ -1392,6 +1460,7 @@ For printing the locale description (this is the interesting locale paragraphs r
 For printing the locale description (this is the you-can-also-see rule):
 	let the domain be the parameter-object;
 	let the mentionable count be 0;
+	if the domain is a thing and the domain holds the player and the domain is falsely-unoccupied, continue the activity;
 	repeat with item running through things:
 		now the item is not marked for listing;
 	repeat through the Table of Locale Priorities:
@@ -1519,22 +1588,32 @@ For printing a locale paragraph about a supporter (called the tabletop)
 Definition: a thing (called the item) is locale-supportable if the item is not
 scenery and the item is not mentioned and the item is not undescribed.
 
-For printing a locale paragraph about a thing (called the item)
+For printing a locale paragraph about a thing (called the platform)
 	(this is the describe what's on scenery supporters in room descriptions rule):
-	if the item is scenery and the item does not enclose the player:
-		if a locale-supportable thing is on the item:
-			set pronouns from the item;
-			repeat with possibility running through things on the item:
-				now the possibility is marked for listing;
-				if the possibility is mentioned:
-					now the possibility is not marked for listing;
-			increase the locale paragraph count by 1;
-			say "On [the item] " (A);
-			list the contents of the item, as a sentence, including contents,
-				giving brief inventory information, tersely, not listing
-				concealed items, prefacing with is/are, listing marked items only;
-			say ".[paragraph break]";
-	continue the activity.
+    if the platform is not a scenery supporter that does not enclose the player, continue the activity;
+    let print a paragraph be false;
+    let item be the first thing held by the platform;
+    while item is not nothing begin;
+      if the item is not scenery and the item is described and the platform does not conceal the item begin;
+        if the item is mentioned begin;
+          now the item is not marked for listing;
+        else;
+          now the item is marked for listing;
+          now print a paragraph is true;
+        end if;
+      end if;
+      now the item is the next thing held after the item;
+    end while;
+    if print a paragraph is true begin;
+      set pronouns from the platform;
+      increase the locale paragraph count by 1;
+      say "On [the platform] " (A);
+      list the contents of the platform, as a sentence, including contents,
+        giving brief inventory information, tersely, not listing
+        concealed items, prefacing with is/are, listing marked items only;
+      say ".[paragraph break]";
+    end if;
+    continue the activity
 
 For printing a locale paragraph about a thing (called the item)
 	(this is the describe what's on mentioned supporters in room descriptions rule):
@@ -1629,8 +1708,9 @@ Carry out taking inventory (this is the print empty inventory rule):
 
 Carry out taking inventory (this is the print standard inventory rule):
 	say "[We] [are] carrying:[line break]" (A);
-	list the contents of the player, with newlines, indented, including contents,
-		giving inventory information, with extra indentation.
+	now all things enclosed by the player are unmarked for listing;
+	now all things held by the player are marked for listing;
+	list the contents of the player, with newlines, indented, giving inventory information, with extra indentation, listing marked items only, not listing concealed items, including contents.
 
 Report an actor taking inventory (this is the report other people taking
 	inventory rule):
@@ -2615,22 +2695,22 @@ Carry out examining (this is the examine directions rule):
 
 Carry out examining (this is the examine containers rule):
 	if the noun is a container:
-		if the noun is open or the noun is transparent:
-			if something described which is not scenery is in the noun and something which
-				is not the player is in the noun:
-				say "In [the noun] " (A);
-				list the contents of the noun, as a sentence, tersely, not listing
-					concealed items, prefacing with is/are;
-				say ".";
-				now examine text printed is true;
-			otherwise if examine text printed is false:
-				if the player is in the noun:
-					make no decision;
-				say "[The noun] [are] empty." (B);
-				now examine text printed is true;
+		if the noun is closed and the noun is opaque, make no decision;
+		if something described which is not scenery is in the noun and something which
+			is not the player is in the noun and the noun is not falsely-unoccupied:
+			say "In [the noun] " (A);
+			list the contents of the noun, as a sentence, tersely, not listing
+				concealed items, prefacing with is/are;
+			say ".";
+			now examine text printed is true;
+		otherwise if examine text printed is false:
+			if the player is in the noun:
+				make no decision;
+			say "[The noun] [are] empty." (B);
+			now examine text printed is true;
 
 Carry out examining (this is the examine supporters rule):
-	if the noun is a supporter:
+	if the noun is a supporter and the noun is not falsely-unoccupied:
 		if something described which is not scenery is on the noun and something which is
 			not the player is on the noun:
 			say "On [the noun] " (A);
@@ -3002,7 +3082,7 @@ Carry out an actor opening (this is the standard opening rule):
 Report an actor opening (this is the reveal any newly visible interior rule):
 	if the actor is the player and
 		the noun is an opaque container and
-		the first thing held by the noun is not nothing and
+		the noun is obviously-occupied and
 		the noun does not enclose the actor:
 		if the action is not silent:
 			if the actor is the player:

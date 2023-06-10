@@ -37,8 +37,8 @@
 	
 	if (self) {
 		// Load the nib file
-		[NSBundle oldLoadNibNamed: @"Headers"
-                            owner: self];
+		[NSBundle customLoadNib: @"Headers"
+                          owner: self];
 		
 		[headerView setDelegate: self];
 		

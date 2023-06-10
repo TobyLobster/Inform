@@ -37,8 +37,8 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	
 	if (self) {
 		// Load the nib file
-		[NSBundle oldLoadNibNamed: nib
-                            owner: self];
+		[NSBundle customLoadNib: nib
+                          owner: self];
 		
 		// Set the parent
 		_parent = controller;

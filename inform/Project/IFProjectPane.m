@@ -225,8 +225,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 @synthesize paneView;
 - (NSView*) paneView {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
     
     return paneView;
@@ -365,8 +365,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 - (void) setController: (IFProjectController*) p
              viewIndex: (NSInteger) viewIndex {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
 
     parent = p;
@@ -406,8 +406,8 @@ static NSDictionary* IFSyntaxAttributes[256];
 
 - (void) selectViewOfType: (enum IFProjectPaneType) pane {
     if (!awake) {
-        [NSBundle oldLoadNibNamed: @"ProjectPane"
-                            owner: self];
+        [NSBundle customLoadNib: @"ProjectPane"
+                          owner: self];
     }
     
     NSTabViewItem* toSelect = nil;

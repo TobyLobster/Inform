@@ -22,8 +22,8 @@
 - (NSObject<IFNewProjectSetupView>*) configView {
 	if (!vw) {
 		vw = [[IFNewInform7ExtensionView alloc] init];
-		[NSBundle oldLoadNibNamed: @"NaturalExtensionOptions"
-                            owner: vw];
+		[NSBundle customLoadNib: @"NaturalExtensionOptions"
+                          owner: vw];
 	}
 	
 	[vw setupControls];

@@ -20,10 +20,11 @@
     return fullPath;
 }
 
-+(BOOL) oldLoadNibNamed:(NSString *)nibName owner:(id)owner
++(BOOL) customLoadNib:(NSString *)nibName owner:(id)owner
 {
-    // I've isolated this deprecated function here (so we only get one compiler warning). To be removed at a later date.
-    return [NSBundle loadNibNamed: nibName owner: owner];
+    return [[NSBundle mainBundle] loadNibNamed: nibName
+                                         owner: owner
+                               topLevelObjects: nil];
 }
 
 @end

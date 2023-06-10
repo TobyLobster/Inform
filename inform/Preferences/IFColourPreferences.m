@@ -125,7 +125,8 @@
 
 - (IBAction) newStyle: (id) sender {
     if (!self->sheet) {
-        [NSBundle oldLoadNibNamed: @"NewThemeWindow" owner:(id) self];
+        [NSBundle customLoadNib: @"NewThemeWindow"
+                          owner: (id) self];
     }
 
     [self->sheet setThemeName:@"Custom"];

@@ -8,11 +8,8 @@ Web Syntax Version: 2
 Sections
 	Definitions
 	Utilities
-	Glulx
-	ZMachine
 	Paragraphing
 	Mathematics
-	FileIO
 	Sort
 	Tables
 	MStack
@@ -20,7 +17,6 @@ Sections
 	Flex
 	BlockValues
 	Text
-	UnicodeData
 	Char
 	RegExp
 	Lists
