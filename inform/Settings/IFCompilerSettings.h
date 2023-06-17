@@ -99,7 +99,7 @@ extern NSString* const IFCompilerNaturalInform;
 - (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
                                             forTesting: (BOOL) testing;
 /// Retrieves the path to the Inform 6 compiler that should be used
-@property (atomic, readonly, copy) NSString *compilerToUse;
+@property (atomic, readonly, copy) NSString *inform6CompilerToUse;
 /// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
 @property (atomic, readonly, copy) NSArray<NSNumber*> *supportedZMachines;
 

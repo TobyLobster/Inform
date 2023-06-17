@@ -176,9 +176,24 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [args addObject: [NSString stringWithFormat: @"-%@",
                      [IFUtility compilerProjectParameterName: [settings compilerVersion]]]];
     [args addObject: [[self currentStageInput] copy]];
-    [args addObject: [NSString stringWithFormat: @"-%@=%@",
+
+    NSString* formatValue = [settings fileExtension];
+    NSString* debugValue = @"";
+
+    if ([IFUtility compilerVersion: [settings compilerVersion] isAfter: @"10.1"]) {
+        if ([formatValue isEqualToStringCaseInsensitive:@"z8"]) {
+            formatValue = @"Inform6/16";
+        } else {
+            formatValue = @"Inform6/32";
+        }
+        if (!release) {
+            debugValue = @"d";
+        }
+    }
+    [args addObject: [NSString stringWithFormat: @"-%@=%@%@",
                       [IFUtility compilerFormatParameterName: [settings compilerVersion]],
-                      [settings fileExtension]]];
+                      formatValue,
+                      debugValue]];
 	
 	if (release && !releaseForTesting) {
 		[args addObject: @"-release"];
@@ -217,7 +232,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [args addObject: [[self currentStageInput] copy]];
     [args addObject: [outputFile copy]];
 
-    [self addCustomBuildStage: [settings compilerToUse]
+    [self addCustomBuildStage: [settings inform6CompilerToUse]
                 withArguments: args
                nextStageInput: outputFile
 				 errorHandler: [[Inform6Problem alloc] init]
@@ -389,7 +404,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 			NSString* blorbFile  = [projectdir stringByAppendingPathComponent: @"Release.blurb"];
 
 			// Add a cBlorb stage
-            NSString *cBlorbLocation = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"cBlorb"];
+            NSString *cBlorbLocation = [IFUtility pathForInformExecutable: @"cBlorb" version: [settings compilerVersion]];
 
 			[self addCustomBuildStage: cBlorbLocation
 						withArguments: @[blorbFile, newOutput]

@@ -20,16 +20,22 @@ CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
 }
 
 CGFloat smoothstep(CGFloat t) {
+    // https://en.wikipedia.org/wiki/Smoothstep
     return t*t*(3-2*t);
 }
 
+CGFloat smootherstep(CGFloat t) {
+    // https://en.wikipedia.org/wiki/Smoothstep#Variations
+    return t*t*t*(10+3*t*(2*t-5));
+}
+
 CGFloat easeOutQuad(CGFloat t) {
-    return -t*(t-2);
+    return t*(2-t);
 };
 
 CGFloat easeOutCubic(CGFloat t) {
     t--;
-    return (t*t*t + 1);
+    return t*t*t + 1;
 };
 
 @implementation NSString (VersionNumbers)
@@ -336,7 +342,16 @@ CGFloat easeOutCubic(CGFloat t) {
                      message: (NSString*) formatString, ... {
     va_list args;
     va_start(args, formatString);
-    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:NSNotFound message:formatString args:args];
+    [self runAlertYesNoWindow:window
+                        title:title
+                          yes:yes
+                           no:no
+                modalDelegate:modalDelegate
+               didEndSelector:alertDidEndSelector
+                  contextInfo:contextInfo
+             destructiveIndex:NSNotFound
+                      message:formatString
+                         args:args];
     va_end(args);
 }
 
@@ -351,7 +366,16 @@ CGFloat easeOutCubic(CGFloat t) {
                      message: (NSString*) formatString, ... {
     va_list args;
     va_start(args, formatString);
-    [self runAlertYesNoWindow:window title:title yes:yes no:no modalDelegate:modalDelegate didEndSelector:alertDidEndSelector contextInfo:contextInfo destructiveIndex:desIdx message:formatString args:args];
+    [self runAlertYesNoWindow:window
+                        title:title
+                          yes:yes
+                           no:no
+                modalDelegate:modalDelegate
+               didEndSelector:alertDidEndSelector
+                  contextInfo:contextInfo
+             destructiveIndex:desIdx
+                      message:formatString
+                         args:args];
     va_end(args);
 }
 
@@ -495,6 +519,10 @@ CGFloat easeOutCubic(CGFloat t) {
     return FALSE;
 }
 
++(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion {
+    return [IFUtility compilerVersionCompare: compilerVersion other: afterVersion] == NSOrderedDescending;
+}
+
 + (NSString*) fullCompilerVersion: (NSString*)version
 {
     if ([version isEqualToStringCaseInsensitive: @""] ||
@@ -508,7 +536,7 @@ CGFloat easeOutCubic(CGFloat t) {
 + (NSString*) pathForCompiler: (NSString *)compilerVersion
 {
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
-        return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"ni"];
+        return [IFUtility pathForInformExecutable: @"ni" version: compilerVersion];
     }
     NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
     NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
@@ -519,14 +547,45 @@ CGFloat easeOutCubic(CGFloat t) {
 {
     NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
+        // If using external Inform Core 'Internal' data...
+        if ([[IFPreferences sharedPreferences] useExternalInformCoreDirectory]) {
+            NSString* informCore = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
+            return [[informCore stringByAppendingPathComponent:@"inform7"] stringByAppendingPathComponent: @"Internal"];
+        }
         return [resourcePath stringByAppendingPathComponent: @"Internal"];
     }
     NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
     return [[resourcePath stringByAppendingPathComponent: @"retrospective"] stringByAppendingPathComponent: version];
 }
 
++ (NSString*) pathForInformExecutable: (NSString*) executableName
+                              version: (NSString*) compilerVersion
+{
+    if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
+        if ([[IFPreferences sharedPreferences] useExternalInformCoreDirectory]) {
+            // Use external locations for executables
+            NSString* informCore = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
 
-+ (NSComparisonResult) compilerVersionCompare: (NSString*)version1 other: (NSString*) version2
+            if ([executableName isEqualToStringCaseInsensitive:@"ni"]) {
+                return [[[informCore stringByAppendingPathComponent: @"inform7"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inform7"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"cBlorb"]) {
+                return [[[informCore stringByAppendingPathComponent: @"inblorb"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inblorb"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inbuild"]) {
+                return [[[informCore stringByAppendingPathComponent: @"inbuild"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inbuild"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inform6"]) {
+                return [[[informCore stringByAppendingPathComponent: @"inform6"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inform6"];
+            }
+            // Anything else (i.e. 'intest') falls through...
+        }
+    }
+    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: executableName];
+}
+
++ (NSComparisonResult) compilerVersionCompare: (NSString*) version1
+                                        other: (NSString*) version2
 {
     version1 = [[self class] fullCompilerVersion: version1];
     version2 = [[self class] fullCompilerVersion: version2];

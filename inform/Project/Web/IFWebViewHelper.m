@@ -13,11 +13,13 @@
 #import "IFAppDelegate.h"
 #import "IFSourcePage.h"
 #import "IFProjectController.h"
+#import "IFCompilerSettings.h"
 #import "IFProject.h"
 
 @implementation IFWebViewHelper {
     __weak IFProjectController* projectController;
     __weak IFProjectPane* pane;
+    __weak IFCompilerSettings* settings;
 
     NSMutableCharacterSet *escapeCharset;
 }
@@ -154,7 +156,7 @@
     return nil;
 }
 
-- (NSDictionary *)explodeString:(NSString*) string
+- (NSDictionary *)explodeString:(NSString *) string
                       innerGlue:(NSString *) innerGlue
                       outerGlue:(NSString *) outerGlue {
     // Explode based on outer glue
@@ -180,7 +182,6 @@
     NSString *str = customURL.absoluteString;
     NSString* mimeType;
     NSError* error;
-    NSLog(@"Found URL %@\n", str);
 
     if ([[customURL scheme] isEqualTo: @"inform"]) {
         NSData* data = [self loadDataForInformURL: customURL
@@ -322,11 +323,25 @@
             path = nil;
         }
     } else {
-        // Try using pathForResource:ofType:
-        // Advantage of this is that it will allow for localisation at some point in the future
-        path = [[NSBundle mainBundle] pathForResource: [[urlPath lastPathComponent] stringByDeletingPathExtension]
-                                               ofType: [urlPath pathExtension]
-                                          inDirectory: [urlPath stringByDeletingLastPathComponent]];
+        // Try using Inform Core external directory (if preference set)
+        IFPreferences* prefs = [IFPreferences sharedPreferences];
+        if ([prefs useExternalInformCoreDirectory]) {
+            // D/resources/App HTML
+            path = [[[prefs externalInformCoreDirectory] stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"App HTML"];
+            path = [path stringByAppendingPathComponent: urlPath];
+            if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
+                NSLog(@"Warning: When trying to resolve URL '%@' I converted it to filepath '%@', but this file was not found here.\n", url, path);
+                path = nil;
+            }
+        }
+
+        if (path == nil) {
+            // Try using pathForResource:ofType:
+            // Advantage of this is that it will allow for localisation at some point in the future
+            path = [[NSBundle mainBundle] pathForResource: [[urlPath lastPathComponent] stringByDeletingPathExtension]
+                                                   ofType: [urlPath pathExtension]
+                                              inDirectory: [urlPath stringByDeletingLastPathComponent]];
+        }
     }
 
     if (path == nil) {

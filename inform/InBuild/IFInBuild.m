@@ -70,7 +70,8 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                            forExtension: (NSURL*) extensionURL
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
-                            withResults: (NSURL*) resultsURL {
+                            withResults: (NSURL*) resultsURL
+                                version: (NSString*) compilerVersion {
     if (theTask) {
         if ([theTask isRunning]) {
             [theTask terminate];
@@ -94,7 +95,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
         [mutableArgs addObject: @"-confirmed"];
     }
 
-    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"inbuild"];
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: compilerVersion];
 
     // InBuild Start notification
     //NSDictionary* uiDict = @{@"command": command,

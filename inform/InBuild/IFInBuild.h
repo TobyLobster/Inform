@@ -21,6 +21,7 @@ extern NSNotificationName const IFInBuildFinishedNotification;
                            forExtension: (NSURL*) extensionURL
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
-                            withResults: (NSURL*) resultsURL;
+                            withResults: (NSURL*) resultsURL
+                                version: (NSString*) compilerVersion;
 
 @end

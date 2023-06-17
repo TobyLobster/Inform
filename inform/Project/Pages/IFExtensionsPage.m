@@ -163,7 +163,7 @@
         if ([project useNewExtensions]) {
             // If the file doesn't exist, then show a default error page
             NSString* path = [[NSBundle mainBundle] resourcePath];
-            path = [path stringByAppendingPathComponent: @"Internal"];
+            path = [IFUtility pathForInformInternalAppSupport:@""];
             path = [path stringByAppendingPathComponent: @"HTML"];
             path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
             url = [NSURL fileURLWithPath: path];

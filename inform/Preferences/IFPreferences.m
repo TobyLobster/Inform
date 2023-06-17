@@ -1167,4 +1167,27 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
                  notification: nil];
 }
 
+// External Inform Core directory
+-(BOOL) useExternalInformCoreDirectory {
+    return [self getPreferenceBool: @"useExternalInformCoreDirectory"
+                           default: false];
+}
+
+-(void) setUseExternalInformCoreDirectory: (BOOL) useDir {
+    [self setPreferenceBool: @"useExternalInformCoreDirectory"
+                      value: useDir
+               notification: IFPreferencesAdvancedDidChangeNotification];
+}
+
+-(NSString*) externalInformCoreDirectory {
+    return [self getPreferenceString: @"externalInformCoreDirectory"
+                             default: @""];
+}
+
+-(void) setExternalInformCoreDirectory: (NSString*) directory {
+    [self setPreferenceString: @"externalInformCoreDirectory"
+                        value: directory
+                 notification: IFPreferencesAdvancedDidChangeNotification];
+}
+
 @end

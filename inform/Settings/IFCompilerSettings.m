@@ -289,8 +289,8 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     return result;
 }
 
-- (NSString*) compilerToUse {
-    return [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"inform6"];
+- (NSString*) inform6CompilerToUse {
+    return [IFUtility pathForInformExecutable: @"inform6" version: [self compilerVersion]];
 }
 
 - (NSArray*) supportedZMachines {

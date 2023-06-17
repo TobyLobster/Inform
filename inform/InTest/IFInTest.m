@@ -101,7 +101,8 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
 	return theTask!=nil?[theTask isRunning]:NO;
 }
 
--(void) executeInTestForExtension: (NSString*)extensionPathName withArgs:(NSArray*) args {
+-(void) executeInTestForExtension: (NSString*)extensionPathName
+                         withArgs: (NSArray*) args {
     if (theTask) {
         if ([theTask isRunning]) {
             [theTask terminate];
@@ -113,7 +114,7 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
     [mutableArgs insertObject: [[extensionPathName stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]
                       atIndex: 0];
 
-    NSString *command = [[NSBundle mainBundle] pathForAuxiliaryExecutable: @"intest"];
+    NSString *command = [IFUtility pathForInformExecutable: @"intest" version: @""];
 
     // InTest Start notification
     NSDictionary* uiDict = @{@"command": command,

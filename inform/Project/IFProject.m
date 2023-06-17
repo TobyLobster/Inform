@@ -553,7 +553,8 @@
                                          forExtension: extensionURL
                                          withInternal: [NSURL fileURLWithPath: internalPath]
                                      withConfirmation: confirmed
-                                          withResults: self.extensionReportURL];
+                                          withResults: self.extensionReportURL
+                                              version: [settings compilerVersion]];
 }
 
 // == reading/writing ==

@@ -75,6 +75,7 @@ CGFloat easeOutCubic(CGFloat t);
                                window: (NSWindow*) window;
 
 +(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion;
 +(NSString*) majorMinor: (NSString*) version;
 +(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 
@@ -102,6 +103,8 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) pathForInformInternalLibraries: (NSString *)version;
 /// Path to the internal Inform 7 documentation
 + (NSString*) pathForInformInternalDocumentation: (NSString *)version;
+/// Path to the inform executables (ni, inbuild, intest etc)
++ (NSString*) pathForInformExecutable: (NSString*) executableName version: (NSString*) compilerVersion;
 
 /// Path to the compiler
 + (NSString*) pathForCompiler: (NSString *)version;

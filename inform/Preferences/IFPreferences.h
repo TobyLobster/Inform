@@ -128,6 +128,11 @@ typedef NS_ENUM(UInt32, IFFontStyle) {
 -(void) setSourceColour: (NSColor*) colour
           forOptionType: (IFSyntaxHighlightingOptionType) optionType;
 
+-(BOOL) useExternalInformCoreDirectory;
+-(void) setUseExternalInformCoreDirectory: (BOOL) useDir;
+-(NSString*) externalInformCoreDirectory;
+-(void) setExternalInformCoreDirectory: (NSString*) directory;
+
 /// Regenerate the array of attribute dictionaries that make up the styles
 - (void) recalculateStyles;
 /// Retrieves an array of attribute dictionaries that describe how the styles should be displayed

@@ -22,6 +22,12 @@
     /// If checked, the public library is accessed from a different location (for debugging)
     IBOutlet NSButton* publicLibraryDebug;
 
+    /// If checked, use the external Inform Core directory
+    IBOutlet NSButton* useExternalInformCore;
+    /// Text field to show the external Inform Core driectory
+    IBOutlet NSTextField* externalInformCoreDirectory;
+    NSOpenPanel* openInformCorePanel;
+
     /// If checked, build files are cleaned out
     IBOutlet NSButton* cleanBuildFiles;
     /// If checked, index files are cleaned out in addition to build files
@@ -45,6 +51,7 @@
 												 selector: @selector(reflectCurrentPreferences)
 													 name: IFPreferencesAdvancedDidChangeNotification
 												   object: [IFPreferences sharedPreferences]];
+        openInformCorePanel = nil;
 	}
 	
 	return self;
@@ -77,7 +84,9 @@
 	BOOL willCleanBuild         = [cleanBuildFiles state]==NSControlStateValueOn;
 	BOOL willAlsoCleanIndex     = [alsoCleanIndexFiles state]==NSControlStateValueOn;
 	NSString* interpreter       = interpreters[[[glulxInterpreter selectedItem] tag]];
-	
+    BOOL useInformCore          = [useExternalInformCore state]==NSControlStateValueOn;
+    NSString* informCoreDirectory = [externalInformCoreDirectory stringValue];
+
 	// Set the shared preferences to suitable values
 	[[IFPreferences sharedPreferences] setRunBuildSh: willBuildSh];
     [[IFPreferences sharedPreferences] setAlwaysCompile: willAlwaysCompile];
@@ -87,6 +96,43 @@
 	[[IFPreferences sharedPreferences] setCleanProjectOnClose: willCleanBuild];
 	[[IFPreferences sharedPreferences] setAlsoCleanIndexFiles: willAlsoCleanIndex];
 	[[IFPreferences sharedPreferences] setGlulxInterpreter: interpreter];
+    [[IFPreferences sharedPreferences] setUseExternalInformCoreDirectory: useInformCore];
+    [[IFPreferences sharedPreferences] setExternalInformCoreDirectory: informCoreDirectory];
+}
+
+- (IBAction) toggleUseExternalDirectory: (id) sender {
+    [self setPreference: sender];
+
+    [self reflectCurrentPreferences];
+}
+
+- (IBAction) chooseExternalInformCoreDirectory: (id) sender {
+    // Present a panel for choosing an external Inform Core directory
+    NSOpenPanel* panel;
+
+    if (!openInformCorePanel) {
+        openInformCorePanel = [NSOpenPanel openPanel];
+    }
+    panel = openInformCorePanel;
+
+    [panel setAccessoryView: nil];
+    [panel setCanChooseFiles: NO];
+    [panel setCanChooseDirectories: YES];
+    [panel setResolvesAliases: YES];
+    [panel setAllowsMultipleSelection: NO];
+    [panel setTitle: [IFUtility localizedString:@"Choose Inform Core directory"]];
+    //[panel setDelegate: self];    // Extensions manager determines which file types are valid to choose (panel:shouldShowFilename:)
+
+    [panel beginWithCompletionHandler:^(NSInteger result)
+    {
+        [panel setDelegate: nil];
+
+        if (result != NSModalResponseOK) return;
+
+        [self->externalInformCoreDirectory setStringValue: [[panel URL] path]];
+        [self->useExternalInformCore setState: NSControlStateValueOn];
+        [self setPreference: sender];
+     }];
 }
 
 - (void) reflectCurrentPreferences {
@@ -124,21 +170,33 @@
     [publicLibraryDebug setHidden: [IFUtility isSandboxed]];
 
 	// Set the buttons according to the current state of the preferences
-	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]               ? NSControlStateValueOn : NSControlStateValueOff];
-    [alwaysCompile       setState: [[IFPreferences sharedPreferences] alwaysCompile]            ? NSControlStateValueOn : NSControlStateValueOff];
-	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]        ? NSControlStateValueOn : NSControlStateValueOff];
-    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds]  ? NSControlStateValueOn : NSControlStateValueOff];
-    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]       ? NSControlStateValueOn : NSControlStateValueOff];
-	
-	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]          ? NSControlStateValueOn : NSControlStateValueOff];
+	[runBuildSh          setState: [[IFPreferences sharedPreferences] runBuildSh]              ? NSControlStateValueOn : NSControlStateValueOff];
+    [alwaysCompile       setState: [[IFPreferences sharedPreferences] alwaysCompile]           ? NSControlStateValueOn : NSControlStateValueOff];
+	[showDebugLogs       setState: [[IFPreferences sharedPreferences] showDebuggingLogs]       ? NSControlStateValueOn : NSControlStateValueOff];
+    [showConsole         setState: [[IFPreferences sharedPreferences] showConsoleDuringBuilds] ? NSControlStateValueOn : NSControlStateValueOff];
+    [publicLibraryDebug  setState: [[IFPreferences sharedPreferences] publicLibraryDebug]      ? NSControlStateValueOn : NSControlStateValueOff];
+
+	[cleanBuildFiles setState: [[IFPreferences sharedPreferences] cleanProjectOnClose]         ? NSControlStateValueOn : NSControlStateValueOff];
 	
 	if ([[IFPreferences sharedPreferences] cleanProjectOnClose]) {
-		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles]  ? NSControlStateValueOn : NSControlStateValueOff];
+		[alsoCleanIndexFiles setState: [[IFPreferences sharedPreferences] alsoCleanIndexFiles] ? NSControlStateValueOn : NSControlStateValueOff];
 		[alsoCleanIndexFiles setEnabled: YES];
 	} else {
 		[alsoCleanIndexFiles setState: NSControlStateValueOff];
 		[alsoCleanIndexFiles setEnabled: NO];
 	}
+
+    // External inform core
+    [useExternalInformCore setState: [[IFPreferences sharedPreferences] useExternalInformCoreDirectory] ? NSControlStateValueOn : NSControlStateValueOff];
+    [externalInformCoreDirectory setStringValue: [[IFPreferences sharedPreferences] externalInformCoreDirectory]];
+
+    // Set text colour of label, based on if the 'Use Inform Core directory' is checked.
+    BOOL use = [[IFPreferences sharedPreferences] useExternalInformCoreDirectory];
+    if (!use) {
+        [externalInformCoreDirectory setTextColor:[NSColor secondarySelectedControlColor]];
+    } else {
+        [externalInformCoreDirectory setTextColor:[NSColor controlTextColor]];
+    }
 }
 
 @end
