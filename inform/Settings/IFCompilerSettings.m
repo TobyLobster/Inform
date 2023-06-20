@@ -40,11 +40,7 @@ NSString* const IFSettingCompilerVersion      = @"IFSettingCompilerVersion";
 
 // Debug
 NSString* const IFSettingCompileNatOutput = @"IFSettingCompileNatOutput";
-NSString* const IFSettingRunBuildScript   = @"IFSettingRunBuildScript";
-NSString* const IFSettingMemoryDebug		= @"IFSettingMemoryDebug";
-
-// Natural Inform
-NSString* const IFSettingLoudly = @"IFSettingLoudly";
+NSString* const IFSettingAllowLegacyExtensionDirectory   = @"IFSettingAllowLegacyExtensionDirectory";
 
 // Compiler types
 NSString* const IFCompilerInform6		  = @"IFCompilerInform6";
@@ -313,12 +309,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 - (NSArray*) naturalInformCommandLineArguments {
     NSMutableArray* res = [NSMutableArray array];
     
-    BOOL isLoudly = [self loudly];
-    
-    if (isLoudly) {
-        [res addObject: @"-loudly"];
-    }
-
     NSString* version = [self compilerVersion];
     NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
 
@@ -362,11 +352,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
             [res addObject: internalPath];
         }
 
-        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
-        if (externalPath != nil) {
-            [res addObject: @"-external"];
-            [res addObject: externalPath];
+        if ([self allowLegacyExtensionDirectory]) {
+            NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+            if (externalPath != nil) {
+                [res addObject: @"-deprecated-external"];
+                [res addObject: externalPath];
+            }
         }
+
     }
 
     return res;
@@ -437,21 +430,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     }
 }
 
-- (void) setCompileNaturalInformOutput: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput] = @(setting);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) compileNaturalInformOutput {
-    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingCompileNatOutput];
-
-    if (setting) {
-        return [setting boolValue];
-    } else {
-        return YES;
-    }
-}
-
 - (void) setNobbleRng: (BOOL) setting {
     [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng] = @(setting);
     [self settingsHaveChanged];
@@ -497,38 +475,20 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     }
 }
 
-- (void) setRunBuildScript: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript] = @(setting);
+- (void) setAllowLegacyExtensionDirectory: (BOOL) setting {
+    [self dictionaryForClass: [IFDebugSettings class]][IFSettingAllowLegacyExtensionDirectory] = @(setting);
     [self settingsHaveChanged];
 }
 
-- (BOOL) runBuildScript {
-    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingRunBuildScript];
+- (BOOL) allowLegacyExtensionDirectory {
+    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingAllowLegacyExtensionDirectory];
 
     if (setting) {
         return [setting boolValue];
     } else {
-        return NO;
+        // Allow legacy extensions by default. New projects set this to NO.
+        return YES;
     }
-}
-
-- (void) setLoudly: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] = @(setting);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) loudly {
-    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingLoudly] boolValue];
-}
-
-
-- (void) setDebugMemory: (BOOL) memDebug {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] = @(memDebug);
-    [self settingsHaveChanged];
-}
-
-- (BOOL) debugMemory {
-    return [[self dictionaryForClass: [IFDebugSettings class]][IFSettingMemoryDebug] boolValue];
 }
 
 - (void) setZCodeVersion: (int) version {

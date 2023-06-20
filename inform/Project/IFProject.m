@@ -554,7 +554,7 @@
                                          withInternal: [NSURL fileURLWithPath: internalPath]
                                      withConfirmation: confirmed
                                           withResults: self.extensionReportURL
-                                              version: [settings compilerVersion]];
+                                             settings: settings];
 }
 
 // == reading/writing ==

@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "IFCompilerSettings.h"
 
 extern NSNotificationName const IFInBuildStartingNotification;
 extern NSNotificationName const IFInBuildStdoutNotification;
@@ -22,6 +23,6 @@ extern NSNotificationName const IFInBuildFinishedNotification;
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
                             withResults: (NSURL*) resultsURL
-                                version: (NSString*) compilerVersion;
+                               settings: (IFCompilerSettings*) settings;
 
 @end

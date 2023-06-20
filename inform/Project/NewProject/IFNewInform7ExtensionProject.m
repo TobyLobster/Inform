@@ -39,6 +39,7 @@
 
     [settings setUsingNaturalInform: YES];
 	[settings setLibraryToUse: @"Natural"];
+    [settings setAllowLegacyExtensionDirectory: NO];
     [file setSettings: settings];
 
     // Read extension source

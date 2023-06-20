@@ -40,6 +40,7 @@
 
     [settings setUsingNaturalInform: YES];
 	[settings setLibraryToUse: @"Natural"];
+    [settings setAllowLegacyExtensionDirectory: NO];
     [file setSettings: settings];
 
     NSString* defaultContents = story;

@@ -485,7 +485,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                         completionHandler: ^(NSDocument * _Nullable document, BOOL documentWasAlreadyOpen, NSError * _Nullable error) {
                     //Do nothing
                 }];
-            }            
+            }
         }
     } else if( [aNotification object] == createDocumentsTableView ) {
         NSInteger row = [createDocumentsTableView selectedRow];

@@ -7,6 +7,7 @@
 
 #import "IFInBuild.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
 NSString* const IFInBuildStartingNotification = @"IFInTestStartingNotification";
 NSString* const IFInBuildStdoutNotification   = @"IFInTestStdoutNotification";
@@ -71,7 +72,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
                             withResults: (NSURL*) resultsURL
-                                version: (NSString*) compilerVersion {
+                               settings: (IFCompilerSettings*) settings {
     if (theTask) {
         if ([theTask isRunning]) {
             [theTask terminate];
@@ -91,11 +92,20 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     [mutableArgs addObject: resultsURL.path];
     [mutableArgs addObject: @"-internal"];
     [mutableArgs addObject: internalURL.path];
+
+    if ([settings allowLegacyExtensionDirectory]) {
+        NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+        if (externalPath != nil) {
+            [mutableArgs addObject: @"-deprecated-external"];
+            [mutableArgs addObject: externalPath];
+        }
+    }
+
     if (confirmed) {
         [mutableArgs addObject: @"-confirmed"];
     }
 
-    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: compilerVersion];
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: [settings compilerVersion]];
 
     // InBuild Start notification
     //NSDictionary* uiDict = @{@"command": command,

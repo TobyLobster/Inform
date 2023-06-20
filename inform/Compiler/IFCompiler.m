@@ -379,9 +379,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
         }
         [self addNaturalInformStageUsingTestCase: testCase];
 
-        if ([settings compileNaturalInformOutput]) {
-            [self addStandardInformStage];
-        }
+        [self addStandardInformStage];
 
         if (makeBlorb) {
 			// Blorb files kind of create an exception: we change our output file, for instance,
