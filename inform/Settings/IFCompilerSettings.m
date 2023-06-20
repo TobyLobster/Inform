@@ -51,7 +51,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
-#include "IFDebugSettings.h"
+#include "IFAdvancedSettings.h"
 #include "IFOutputSettings.h"
 #include "IFI7OutputSettings.h"
 #include "IFCompilerOptions.h"
@@ -476,12 +476,12 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (void) setAllowLegacyExtensionDirectory: (BOOL) setting {
-    [self dictionaryForClass: [IFDebugSettings class]][IFSettingAllowLegacyExtensionDirectory] = @(setting);
+    [self dictionaryForClass: [IFAdvancedSettings class]][IFSettingAllowLegacyExtensionDirectory] = @(setting);
     [self settingsHaveChanged];
 }
 
 - (BOOL) allowLegacyExtensionDirectory {
-    NSNumber* setting = [self dictionaryForClass: [IFDebugSettings class]][IFSettingAllowLegacyExtensionDirectory];
+    NSNumber* setting = [self dictionaryForClass: [IFAdvancedSettings class]][IFSettingAllowLegacyExtensionDirectory];
 
     if (setting) {
         return [setting boolValue];

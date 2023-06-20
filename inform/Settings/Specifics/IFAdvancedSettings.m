@@ -6,10 +6,10 @@
 //  Copyright 2004 Andrew Hunter. All rights reserved.
 //
 
-#import "IFDebugSettings.h"
+#import "IFAdvancedSettings.h"
 #import "IFUtility.h"
 #import "IFCompilerSettings.h"
-@implementation IFDebugSettings {
+@implementation IFAdvancedSettings {
     IBOutlet NSButton* allowLegacyExtensionDirectory;
 }
 

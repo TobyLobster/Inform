@@ -13,6 +13,6 @@
 ///
 /// The 'debugging' settings object: things that are mostly useful to Graham
 ///
-@interface IFDebugSettings : IFSetting
+@interface IFAdvancedSettings : IFSetting
 
 @end
