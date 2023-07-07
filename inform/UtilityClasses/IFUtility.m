@@ -14,6 +14,7 @@
 static NSLock*       uniqueIdLock;
 static unsigned long uniqueId = 1000;
 static NSURL*        temporaryFolder = nil;
+NSTimeInterval const defaultTimeoutInterval = 60.0;
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to) {
     return from + progress * (to - from);
@@ -521,6 +522,10 @@ CGFloat easeOutCubic(CGFloat t) {
 
 +(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion {
     return [IFUtility compilerVersionCompare: compilerVersion other: afterVersion] == NSOrderedDescending;
+}
+
++(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion {
+    return [IFUtility compilerVersion: otherVersion isAfter: compilerVersion];
 }
 
 + (NSString*) fullCompilerVersion: (NSString*)version

@@ -11,6 +11,7 @@
 
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
+extern NSTimeInterval const defaultTimeoutInterval;
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
 CGFloat smoothstep(CGFloat t);
@@ -76,6 +77,7 @@ CGFloat easeOutCubic(CGFloat t);
 
 +(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion;
 +(BOOL) compilerVersion: (NSString*) compilerVersion isAfter: (NSString*) afterVersion;
++(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion;
 +(NSString*) majorMinor: (NSString*) version;
 +(bool) unzip: (NSURL*) zipFilepath toDirectory:(NSURL*) targetDirectory;
 

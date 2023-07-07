@@ -39,6 +39,7 @@
 #import "IFPreferences.h"
 #import "IFProject.h"
 #import "IFUtility.h"
+#import "IFCompilerSettings.h"
 
 #import "IFSkeinItemView.h"
 
@@ -130,7 +131,7 @@ static NSRunLoop* mainRunLoop = nil;
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
-	[self updateExtensionsMenu];
+	[self updateExtensionsMenuForCompilerVersion: @""];
 
     [NSApp addObserver: self
             forKeyPath: @"effectiveAppearance"
@@ -138,7 +139,7 @@ static NSRunLoop* mainRunLoop = nil;
                context: nil];
 
 	[[NSNotificationCenter defaultCenter] addObserver: self
-											 selector: @selector(updateExtensionsMenu)
+                                             selector: @selector(updateExtensionsMenu)
 												 name: IFExtensionsUpdatedNotification
 											   object: nil];
 
@@ -406,6 +407,15 @@ static NSRunLoop* mainRunLoop = nil;
 #pragma mark - The extensions menu
 
 - (void) updateExtensionsMenu {
+    IFProjectController * projectController = [self frontmostProjectController];
+    if (projectController) {
+        IFProject * project = [projectController document];
+        IFCompilerSettings* compilerSettings = [project settings];
+        [self updateExtensionsMenuForCompilerVersion: [compilerSettings compilerVersion]];
+    }
+}
+
+- (void) updateExtensionsMenuForCompilerVersion: (NSString*) compilerVersion {
 	IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
 
 	// Clear out the menus
@@ -431,10 +441,10 @@ static NSRunLoop* mainRunLoop = nil;
 	extensionSources = [[NSMutableArray alloc] init];
 
 	// Generate the extensions menu
-    for( NSString* author in [mgr availableAuthors] ) {
+    for( NSString* author in [mgr availableAuthorsWithCompilerVersion: compilerVersion] ) {
         // Find the maximum width of all extensions by this author
         CGFloat maxWidth = 0.0f;
-        for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
+        for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author withCompilerVersion: compilerVersion] ) {
             CGFloat width;
             [self attributedStringForExtensionInfo: info
                                       withTabWidth: 0.0f
@@ -459,7 +469,7 @@ static NSRunLoop* mainRunLoop = nil;
         [newExAuthorItem setTitle: author];
         [newExAuthorItem setSubmenu: newExAuthorMenu];
 
-        for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor: author] ) {
+        for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor:author withCompilerVersion: compilerVersion] ) {
             NSAttributedString* attributedTitle = [self attributedStringForExtensionInfo: info
                                                                             withTabWidth: tabWidth
                                                                                 widthOut: nil ];

@@ -1,64 +1,6 @@
-Miscellany.
+Printing Template.
 
-Additions to the Basic Inform template which are needed only if the Standard
-Rules are not to be used.
-
-@h Identification.
-
-=
-Constant BASICINFORMEXTRASKIT = 1;
-
-@h Justification.
-Q. Why isn't all of this done with conditional compilation in the Basic Inform
-template files? A. That wouldn't work, since template files are assimilated
-before it is known how they will be used.
-
-@h Miscellany.
-
-=
-Constant ACTION_PROCESSING_RB = -1; ! Identifier needs to exist even when the rulebook does not
-
-[ DefaultTopic; return 0; ];
-[ PrintSnippet x; ];
-[ LIST_WRITER_INTERNAL_RM x;
-	print " and ";
-];
-[ RunTimeProblemShowWM n x y z; ];
-[ OwnerOf o; return nothing; ];
-[ MoveObject from to; ];
-[ WriteListOfMarkedObjects in_style
-	obj c;
-	objectloop (obj ofclass Object && obj has workflag2) {
-		c++;
-	}
-	objectloop (obj ofclass Object && obj has workflag2) {
-		PrintShortName(obj);
-		c--;
-		if (c > 0) print ", ";
-	}
-];
-
-[ Main;
-	self = COL_HSIZE; ! To ensure this definition is not optimised out
-	VM_Initialise();
-	INITIALISE_MEMORY_R();
-	SEED_RANDOM_NUMBER_GENERATOR_R();
-	Submain();
-];
-
-[ INITIALISE_MEMORY_R;
-	VM_PreInitialise();
-	LanguageInitialise();
-
-	HeapInitialise(); ! Create a completely unused memory allocation heap
-	StackFramingInitialise(); ! Create an empty stack
-	CreateDynamicRelations(); ! Create relation structures on the heap
-
-	rfalse;
-];
-
-[ DrawStatusLine width posb;
-];
+To handle the printing of names of objects.
 
 @h Short Name Storage.
 None of the following functions should be called for the Z-machine if the
@@ -108,8 +50,6 @@ Array StorageForShortName --> SHORT_NAME_BUFFER_LEN;
     for (i=WORDSIZE: i<length+WORDSIZE: i++) print (char) StorageForShortName->i;
     #Ifnot;
     if (length > SHORT_NAME_BUFFER_LEN) length = SHORT_NAME_BUFFER_LEN;
-    !#### length = glk_buffer_to_title_case_uni(StorageForShortName, SHORT_NAME_BUFFER_LEN, length, false);
-    !#### glk_put_buffer_uni(StorageForShortName, length);
     if (length)
         StorageForShortName-->0 = VM_LowerToUpperCase(StorageForShortName-->0);
     glk_put_buffer_uni(StorageForShortName, length);
@@ -132,7 +72,7 @@ do it by carrying out an activity.
 
 =
 [ PSN__ o;
-    if (o == 0) { LIST_WRITER_INTERNAL_RM('Y'); rtrue; }
+    if (o == 0) { LW_Response('Y'); rtrue; }
     switch (metaclass(o)) {
 		Routine:  print "<routine ", o, ">"; rtrue;
 		String:   print "<string ~", (string) o, "~>"; rtrue;
@@ -157,13 +97,17 @@ Global caps_mode = false;
 [ STANDARD_NAME_PRINTING_R obj;
 	obj = parameter_value;
     if (obj == 0) {
-    	LIST_WRITER_INTERNAL_RM('Y'); return;
+    	LW_Response('Y'); return;
     }
     switch (metaclass(obj)) {
 		Routine:  print "<routine ", obj, ">"; return;
 		String:   print "<string ~", (string) obj, "~>"; return;
 		nothing:  print "<illegal object number ", obj, ">"; return;
     }
+    if (obj == player) {
+   	    PRINT_PROTAGONIST_INTERNAL_R();
+   	    return;
+   	}
     if (LanguagePrintShortName(obj)) return;
     if (indef_mode && obj provides short_name_indef &&
     	PrintOrRun(obj, short_name_indef, true) ~= 0) return;
@@ -260,7 +204,7 @@ The routines accessible from outside this segment.
 
 =
 [ IndefArt obj i s;
-	if (obj == 0) { LIST_WRITER_INTERNAL_RM('Y'); rtrue; }
+	if (obj == 0) { LW_Response('Y'); rtrue; }
     i = indef_mode; indef_mode = true; s = self; self = obj;
     if (obj has proper) { indef_mode = NULL; print (PSN__) obj; indef_mode = i; self = s; return; }
     if ((obj provides article) && (TEXT_TY_Compare(obj.article, EMPTY_TEXT_VALUE) ~= 0)) {
@@ -271,7 +215,7 @@ The routines accessible from outside this segment.
 ];
 
 [ CIndefArt obj i s;
-	if (obj == 0) { LIST_WRITER_INTERNAL_RM('X'); rtrue; }
+	if (obj == 0) { LW_Response('X'); rtrue; }
     i = indef_mode; indef_mode = true; s = self; self = obj;
     if (obj has proper) {
     	indef_mode = NULL;
@@ -300,7 +244,7 @@ The routines accessible from outside this segment.
 
 [ CDefArt obj i s;
     i = indef_mode; indef_mode = false; s = self; self = obj;
-    if ((obj ofclass Object) && (obj has proper)) {
+    if ((obj ofclass Object) && (obj has proper || obj == player)) {
     	indef_mode = NULL;
     	caps_mode = true;
     	print (PSN__) obj;
@@ -316,6 +260,28 @@ The routines accessible from outside this segment.
     PrefaceByArticle(obj, 0); indef_mode = i; self = s;
 ];
 
+@h Miscellaneous.
+What the following functions have in common is that they are all minimal
+definitions which apply only to Basic Inform programs. More elaborate
+|WorldModelKit| alternatives will be used if that kit is present, as it
+always is for non-Basic Inform projects.
+
+=
+[ DrawStatusLine width posb; ]; ! No status line is displayed
+[ DefaultTopic; return 0; ]; ! Topics exist only in CommandParserKit
+[ PrintSnippet x; ]; ! Snippets exist only in CommandParserKit
+[ PRINT_PROTAGONIST_INTERNAL_R; ]; ! There is no player in Basic Inform
+[ RunTimeProblemShowWM n x y z; ]; ! Prints RTPs only occurring in WorldModelKit
+
+@ PNToVP() takes no arguments and returns the GNA (gender-noun-animation) for
+the |prior_named_noun|.
+
+=
+[ PNToVP gna;
+	if (prior_named_noun) gna = GetGNAOfObject(prior_named_noun);
+	if (((gna%6)/3 == 1) || (prior_named_list >= 2)) return 6;
+	return 3;
+];
 [ GetGNAOfObject obj case gender;
     if (gender == 0) {
         if (case == 0) gender = LanguageAnimateGender;
@@ -325,9 +291,27 @@ The routines accessible from outside this segment.
     return case;
 ];
 
-[ PNToVP gna;
-!	if (prior_named_noun == player) return story_viewpoint;
-	if (prior_named_noun) gna = GetGNAOfObject(prior_named_noun);
-	if (((gna%6)/3 == 1) || (prior_named_list >= 2)) return 6;
-	return 3;
+@ This provides just a little of the list-writer.
+
+=
+[ WriteListOfMarkedObjects in_style
+	obj c;
+	objectloop (obj ofclass Object && obj has workflag2) {
+		c++;
+	}
+	objectloop (obj ofclass Object && obj has workflag2) {
+		PrintShortName(obj);
+		c--;
+		if (c > 0) print ", ";
+	}
+];
+[ LW_Response X o; print " and "; ];
+
+@ These two functions are not really to do with printing, but are also stubs
+provided for Basic Inform only.
+
+=
+[ OwnerOf o; return nothing; ]; ! "owner" implies personhood, and we have no people
+[ MoveObject A B; ! this is considerably more restricted by WorldModelKit
+	if ((A) && (B)) move A to B;
 ];

@@ -1,6 +1,6 @@
 Capabilities Template.
 
-Miscellaneous capabilities of the 16-bit architecture.
+Miscellaneous capabilities of the 32-bit architecture.
 
 @h Summary.
 The 32-bit architecture is currently the default targeted by Inform, and is
@@ -138,19 +138,4 @@ not the place to discuss whether that was a wise decision for Glk to take.)
 		BLOCKQUOTE_VMSTY: glk_set_style(style_BlockQuote);
 		INPUT_VMSTY:      glk_set_style(style_Input);
 	}
-];
-
-@h Undo.
-These are really emulations of the Z-machine's conventions on UNDO.
-
-=
-[ VM_Undo result_code;
-	@restoreundo result_code;
-	return (~~result_code);
-];
-
-[ VM_Save_Undo result_code;
-    @saveundo result_code;
-    if (result_code == -1) { GGRecoverObjects(); return 2; }
-    return (~~result_code);
 ];

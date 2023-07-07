@@ -25,4 +25,10 @@ extern NSNotificationName const IFInBuildFinishedNotification;
                             withResults: (NSURL*) resultsURL
                                settings: (IFCompilerSettings*) settings;
 
+-(int) executeInBuildForCensus;
+
+@property (readonly) NSMutableString* stdOut;
+@property (readonly) NSMutableString* stdErr;
+
 @end
+

@@ -7,6 +7,7 @@ Web Syntax Version: 2
 
 Sections
 	Definitions
+	Startup
 	Utilities
 	Paragraphing
 	Mathematics
@@ -14,6 +15,8 @@ Sections
 	Tables
 	MStack
 	Rulebooks
+	Activities
+	Printing
 	Flex
 	BlockValues
 	Text

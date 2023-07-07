@@ -1,4 +1,4 @@
-Version 6 of the Standard Rules by Graham Nelson begins here.
+Version 7 of the Standard Rules by Graham Nelson begins here.
 
 "The Standard Rules, included in every project, define phrases, actions and
 activities for interactive fiction."
@@ -184,7 +184,7 @@ A thing can be privately-named or publicly-named. A thing is usually publicly-na
 A thing can be undescribed or described. A thing is usually described.
 A thing can be marked for listing or unmarked for listing. A thing is usually
 unmarked for listing.
-A thing can be mentioned or unmentioned. A thing is usually mentioned.
+A thing can be mentioned or unmentioned. A thing is usually unmentioned.
 
 A thing has a text called a description.
 A thing has a text called an initial appearance.
@@ -546,7 +546,7 @@ Chapter 2 - Rulebooks
 
 Section 1 - The Standard Rulebooks
 
-Turn sequence rules is a rulebook.
+Turn sequence rules is a nothing based rulebook.
 The turn sequence rulebook is accessible to Inter as "TURN_SEQUENCE_RB".
 
 Scene changing rules is a rulebook.
@@ -622,43 +622,39 @@ Section 2 - The Standard Rules
 
 The little-used do nothing rule is defined by Inter as "LITTLE_USED_DO_NOTHING_R".
 
-The start in the correct scenes rule is listed first in the startup rulebook. [7th.]
-The position player in model world rule is listed first in the startup rulebook. [6th.]
-This is the declare everything initially unmentioned rule:
-	repeat with item running through things:
-		now the item is not mentioned.
-The declare everything initially unmentioned rule is listed first in the startup rulebook. [5th]
-The update chronological records rule is listed first in the startup rulebook. [4th.]
-The seed random number generator rule is listed first in the startup rulebook. [3rd.]
-The virtual machine startup rule is listed first in the startup rulebook. [2nd.]
-The initialise memory rule is listed first in the startup rulebook. [1st.]
+The initial whitespace rule is listed in the after starting the virtual machine rules.
+The initial whitespace rule translates into Inter as "INITIAL_WHITESPACE_R".
 
-The virtual machine startup rule is defined by Inter as "VIRTUAL_MACHINE_STARTUP_R".
-The initialise memory rule is defined by Inter as "INITIALISE_MEMORY_R".
-The seed random number generator rule is defined by Inter as "SEED_RANDOM_NUMBER_GENERATOR_R".
-The update chronological records rule is defined by Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
-The position player in model world rule is defined by Inter as "POSITION_PLAYER_IN_MODEL_R".
+The update chronological records rule is listed in the after starting the virtual machine rules.
+The update chronological records rule translates into Inter as "UPDATE_CHRONOLOGICAL_RECORDS_R".
 
-This is the start in the correct scenes rule: follow the scene changing rules.
+The position player in model world rule is listed in the after starting the virtual machine rules.
+The position player in model world rule translates into Inter as "POSITION_PLAYER_IN_MODEL_R".
 
-The when play begins stage rule is listed in the startup rulebook.
-The fix baseline scoring rule is listed in the startup rulebook.
-The display banner rule is listed in the startup rulebook.
-The initial room description rule is listed in the startup rulebook.
+The start in the correct scenes rule is listed in the after starting the virtual machine rules.
+This is the start in the correct scenes rule:
+	follow the scene changing rules.
 
-This is the when play begins stage rule: follow the when play begins rulebook.
+Startup rule (this is the when play begins stage rule):
+	follow the when play begins rulebook.
 
-This is the fix baseline scoring rule: now the last notified score is the score.
+Startup rule (this is the fix baseline scoring rule):
+	now the last notified score is the score.
 
-This is the display banner rule: say "[banner text]".
+Startup rule (this is the display banner rule):
+	say "[banner text]".
 
-This is the initial room description rule: try looking.
+Startup rule (this is the initial room description rule):
+	try looking.
 
 A first turn sequence rule (this is the every turn stage rule):
 	follow the every turn rules. [5th.]
 A first turn sequence rule (this is the early scene changing stage rule):
 	follow the scene changing rules. [4th.]
 The generate action rule is listed first in the turn sequence rulebook. [3rd.]
+This is the declare everything initially unmentioned rule:
+	repeat with item running through things:
+		now the item is not mentioned.
 The declare everything initially unmentioned rule is listed first in the turn sequence rulebook. [2nd.]
 The parse command rule is listed first in the turn sequence rulebook. [1st.]
 
@@ -1147,7 +1143,7 @@ Part Four - Activities
 
 Section 1 - Responses
 
-Issuing the response text of something -- documented at act_resp -- is an
+Issuing the response text of something -- hidden in RULES command -- -- documented at act_resp -- is an
 activity on responses.
 The issuing the response text activity is accessible to Inter as "PRINTING_RESPONSE_ACT".
 
@@ -1174,7 +1170,7 @@ Rule for printing a number of something (called the item) (this is the standard
 The standard printing a number of something rule is listed last in the for printing
 a number rulebook.
 
-Printing room description details of something (documented at act_details) is an activity.
+Printing room description details of something (hidden in RULES command) (documented at act_details) is an activity.
 The printing room description details activity is accessible to Inter as "PRINTING_ROOM_DESC_DETAILS_ACT".
 
 For printing room description details of a container (called the box) when the box is falsely-unoccupied (this is the falsely-unoccupied container room description details rule):
@@ -1188,7 +1184,7 @@ For printing room description details of a container (called the box) when the b
   end if;
   say text of list writer internal rule response (B); [ ")" ]
 
-Printing inventory details of something (documented at act_idetails) is an activity.
+Printing inventory details of something (hidden in RULES command) (documented at act_idetails) is an activity.
 The printing inventory details activity is accessible to Inter as "PRINTING_INVENTORY_DETAILS_ACT".
 
 
@@ -1230,11 +1226,11 @@ For printing inventory details of a container (called the box) when the box is f
       say text of list writer internal rule response (B); [ ")" ]
     end if;
 
-Listing contents of something (documented at act_lc) is an activity.
+Listing contents of something (hidden in RULES command) (documented at act_lc) is an activity.
 The listing contents activity is accessible to Inter as "LISTING_CONTENTS_ACT".
 The standard contents listing rule is listed last in the for listing contents rulebook.
 The standard contents listing rule is defined by Inter as "STANDARD_CONTENTS_LISTING_R".
-Grouping together something (documented at act_gt) is an activity.
+Grouping together something (hidden in RULES command) (documented at act_gt) is an activity.
 The grouping together activity is accessible to Inter as "GROUPING_TOGETHER_ACT".
 
 
@@ -1370,14 +1366,14 @@ This is the print the final question rule:
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if there is a final question wording entry, increase named options count by 1;
 	if the named options count is less than 1, abide by the immediately quit rule;
 	say "Would you like to " (A);
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if there is a final question wording entry:
 					say final question wording entry;
 					decrease named options count by 1;
@@ -1393,7 +1389,7 @@ This is the standard respond to final question rule:
 	repeat through the Table of Final Question Options:
 		if the only if victorious entry is false or the story has ended finally:
 			if there is a final response rule entry
-				or the final response activity entry [activity] is not empty:
+				or the final response activity entry is not empty:
 				if the player's command matches the topic entry:
 					if there is a final response rule entry, abide by final response rule entry;
 					otherwise carry out the final response activity entry activity;

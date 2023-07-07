@@ -1,5 +1,5 @@
 //
-//  IFDebugSettings.h
+//  IFAdvancedSettings.h
 //  Inform
 //
 //  Created by Andrew Hunter on 10/10/2004.

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19455" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19455"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="IFSingleController">
             <connections>
                 <outlet property="fileView" destination="8" id="16"/>
-                <outlet property="installWarning" destination="20" id="28"/>
                 <outlet property="mainView" destination="7" id="31"/>
                 <outlet property="window" destination="5" id="15"/>
             </connections>
@@ -20,7 +19,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="115" y="237" width="525" height="682"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="875"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="525" height="682"/>
@@ -30,15 +29,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="525" height="682"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" id="dSd-9A-opP">
-                            <rect key="frame" x="0.0" y="0.0" width="525" height="682"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <rect key="frame" x="0.0" y="0.0" width="510" height="682"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" allowsUndo="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="8" customClass="IFSourceFileView">
-                                    <rect key="frame" x="0.0" y="0.0" width="525" height="682"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="510" height="682"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="525" height="682"/>
+                                    <size key="minSize" width="510" height="682"/>
                                     <size key="maxSize" width="525" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
@@ -85,9 +84,6 @@
 DQ
 </string>
                     </buttonCell>
-                    <connections>
-                        <action selector="installFile:" target="-2" id="29"/>
-                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="21">
                     <rect key="frame" x="366" y="35" width="74" height="27"/>
@@ -95,9 +91,6 @@ DQ
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="cancelInstall:" target="-2" id="30"/>
-                    </connections>
                 </button>
             </subviews>
             <constraints>

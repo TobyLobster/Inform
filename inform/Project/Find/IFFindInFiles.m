@@ -12,6 +12,7 @@
 #import "IFExtensionsManager.h"
 #import "IFDocParser.h"
 #import "IFScanner.h"
+#import "IFCompilerSettings.h"
 
 #include <wctype.h>
 
@@ -452,10 +453,10 @@
 	}
 }
 
-- (void) addExtensions {
+- (void) addExtensions: (IFProject *) project {
     IFExtensionsManager* manager = [IFExtensionsManager sharedNaturalInformExtensionsManager];
 
-	for( IFExtensionInfo* info in [manager availableExtensions] ) {
+	for( IFExtensionInfo* info in [manager availableExtensionsWithCompilerVersion: [project.settings compilerVersion]] ) {
         [self addSearchFile: info.filepath
                withLocation: IFFindExtensions];
     }
@@ -530,7 +531,7 @@
                     [self addDocumentation];
                 }
                 if( locations & IFFindExtensions ) {
-                    [self addExtensions];
+                    [self addExtensions: project];
                 }
                 if( locations & IFFindSource ) {
                     [self addSourceFiles: project];

@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "IFProgress.h"
+#import "IFProject.h"
 #import "IFSemVer.h"
 
 extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
@@ -112,11 +113,13 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
 
 // Retrieving the list of installed extensions
 /// Array of available extension information
-@property (atomic, readonly, copy) NSArray<IFExtensionInfo*> *availableExtensions;
+- (NSArray<IFExtensionInfo*>*) availableExtensionsWithCompilerVersion: (NSString*) compilerVersion;
+
 /// Array of available authors
-@property (atomic, readonly, copy) NSArray<NSString*> *availableAuthors;
+- (NSArray<NSString*>*) availableAuthorsWithCompilerVersion: (NSString*) compilerVersion;
 /// Array of available extensions for a given author
-- (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor:(NSString*) author;
+- (NSArray<IFExtensionInfo*>*) availableExtensionsByAuthor: (NSString*) author
+                                       withCompilerVersion: (NSString*) compilerVersion;
 
 - (BOOL) isFileInstalled:(NSString*) fullPath;
 
@@ -142,7 +145,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                                 notify: (BOOL) notify;
 
 -(void) startCensus:(NSNumber*) notify;
-- (void) updateExtensions;
+- (void) updateExtensionsForCompilerVersion: (NSString*) compilerVersion;
 
 #pragma mark - Download and Install
 

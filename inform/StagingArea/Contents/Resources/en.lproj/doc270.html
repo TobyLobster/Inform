@@ -95,7 +95,7 @@
     </p>
     </blockquote>
     <!--END CODE-->
-    <p>Matters become more complicated when the player wants to refer to more than one object at once.	When a kind is created, and the source text constructs multiple duplicate items of that kind, Inform generates a plural of the kind's name in order to understand commands referring to these multiples. For instance, given...</p>
+    <p>When a kind is created, Inform generates a plural of the kind's name. When objects of that kind are created, it's automatically the case that commands can refer to any of those objects by that plural name. For instance, given...</p>
     <!--START CODE "c5757"-->
     <blockquote class="code"><p class="quoted"><a id="c5757"></a>The Lake is a room. A duck is a kind of animal. Four ducks are in
     <br>
@@ -117,6 +117,13 @@
     </blockquote>
     <!--END CODE-->
     <p>And now TAKE BIRDS tries to take all four ducks and the magpie too.</p>
+    <p>In fact, it is the norm that any given thing can be referred to by the plural of its kind name. EXAMINE ANIMALS would scrutinize the St. Bernard, even if it were alone, but would not automatically work for the ducks: things only receive the plural name of the most specific kind to which they belong.</p>
+    <p>If you don't want this behavior, it can be suppressed with a use option:</p>
+    <!--START CODE "c5760"-->
+    <blockquote class="code"><p class="quoted"><a id="c5760"></a>Use no automatic plural synonyms.
+    </p>
+    </blockquote>
+    <!--END CODE-->
     <hr>
     <!--START IGNORE-->
     <div class="bookfooter">

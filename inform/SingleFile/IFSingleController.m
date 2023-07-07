@@ -19,14 +19,10 @@
 
 @interface IFSingleController(PrivateMethods)
 
-- (void) showInstallPrompt: (id) sender;
-- (void) hideInstallPrompt: (id) sender;
-
 @end
 
 @implementation IFSingleController {
     IBOutlet IFSourceFileView*	fileView;						// The textview used to display the document itself
-    IBOutlet NSView*			installWarning;					// The view used to warn when a .i7x file is not installed
     IBOutlet NSView*			mainView;						// The 'main view' that fills the window when the install warning is hidden
     BOOL                        isExtension;
     BOOL                        isInform7;
@@ -90,22 +86,6 @@
                 [dotExtension isEqualToString: @"i7"] ||
                 [dotExtension isEqualToString: @""];
     
-	// If this is an Inform 7 extension then test to see if we're editing it from within the extensions directory or not
-	BOOL isInstalled = NO;
-
-	if ( isInform7 && isExtension ) {
-		// Iterate through the i7 extension directories
-        IFExtensionsManager* manager = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-        if( [manager isFileInstalled: filename] ) {
-            isInstalled = YES;
-        }
-
-        // If this file isn't installed, then create the 'install this file' prompt
-        if (!isInstalled) {
-            [self showInstallPrompt: self];
-        }
-	}
-
     // Spell checking
     [self setSourceSpellChecking: [(IFAppDelegate *) [NSApp delegate] sourceSpellChecking]];
 
@@ -212,83 +192,6 @@
 }
 
 #pragma mark - Showing/hiding the installation prompt
-
-- (void) showInstallPrompt: (id) sender {
-	// Get the view that the warning should be displayed in
-	NSView* parentView = [mainView superview];
-
-	// Do nothing if the view is already displayed (if it's displayed somewhere random this is going to go wrong)
-	if ([installWarning superview] == parentView) {
-		return;
-	} else if ([installWarning superview] != nil) {
-		[installWarning removeFromSuperview];
-	}
-	
-	// Resize the main view
-	NSRect warningFrame			= [installWarning frame];
-	NSRect mainViewFrame		= [mainView frame];
-	mainViewFrame.size.height	-= warningFrame.size.height;
-	
-	[mainView setFrame: mainViewFrame];
-	
-	// Position the warning view
-	warningFrame.origin.x		= NSMinX(mainViewFrame);
-	warningFrame.origin.y		= NSMaxY(mainViewFrame);
-	warningFrame.size.width		= mainViewFrame.size.width;
-	
-	[parentView addSubview: installWarning];
-	[installWarning setFrame: warningFrame];
-}
-
-- (void) hideInstallPrompt: (id) sender {
-	// Get the view that the warning should be displayed in
-	NSView* parentView = [mainView superview];
-	
-	// Do nothing if the view not already displayed (if it's displayed somewhere random this is going to go wrong)
-	if ([installWarning superview] != parentView) {
-		return;
-	}
-	
-	// Remove it from the view
-	[installWarning removeFromSuperview];
-	
-	// Resize the main view
-	NSRect warningFrame			= [installWarning frame];
-	NSRect mainViewFrame		= [mainView frame];
-	mainViewFrame.size.height	+= warningFrame.size.height;
-	
-	[mainView setFrame: mainViewFrame];
-}
-
-#pragma mark - Installer actions
-
-- (IBAction) installFile: (id) sender {
-	// Install this extension
-	NSString* finalPath = nil;
-    IFExtensionResult installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager]
-                                           installLegacyExtension: [[[self document] fileURL] path]
-                                                  finalPath: &finalPath
-                                                      title: nil
-                                                     author: nil
-                                                    version: nil
-                                         showWarningPrompts: YES
-                                                     notify: YES];
-	if (installResult == IFExtensionSuccess) {
-		// Find the new path
-        [[self document] setFileURL: [NSURL fileURLWithPath: finalPath]];
-        // Hide the install prompt
-        [self hideInstallPrompt: self];
-	} else {
-        // Warn that the extension couldn't be installed
-        [IFUtility showExtensionError: installResult
-                           withWindow: [self window]];
-	}
-}
-
-- (IBAction) cancelInstall: (id) sender {
-	// Hide the install prompt
-	[self hideInstallPrompt: self];
-}
 
 #pragma mark - Highlighting lines
 

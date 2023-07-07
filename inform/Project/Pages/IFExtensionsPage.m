@@ -87,7 +87,9 @@
         [self.view addSubview: wView];
 
         NSURL* url = [NSURL URLWithString: extensions];
-        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
+                                                         cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                     timeoutInterval: defaultTimeoutInterval];
         [wView loadRequest: urlRequest];
 	}
 
@@ -124,9 +126,9 @@
 
     [self switchToPage];
 
-    // Set path to materials folder as a property, so the IFInformProtocol can use it
-    IFProject *project = [self.parent document];
-    NSURLRequest* urlRequest = [project makeURLRequestFromURL: url];
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
+                                                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                 timeoutInterval: defaultTimeoutInterval];
     [wView loadRequest: urlRequest];
 }
 
@@ -171,7 +173,10 @@
     }
 
     inhibitAddToHistory++;
-    NSURLRequest* urlRequest = [NSURLRequest requestWithURL: url];
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
+                                                     cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                 timeoutInterval: defaultTimeoutInterval];
+
     [wView loadRequest: urlRequest];
     loadingFailureWebPage = true;
 }

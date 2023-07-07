@@ -62,6 +62,7 @@ if [ -d "${INFORM_CORE}" ]; then
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Languages/Swedish"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/Internal/Miscellany"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/English.lproj"
+    mkdir -p "${TEMP_STAGING_AREA}/Resources/en.lproj"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/map_icons"
 
     # Build Inform Core
@@ -135,7 +136,7 @@ if [ -d "${INFORM_CORE}" ]; then
 
     # Replace the documentation in StagingArea with the latest from TempStagingArea
     rm -f "${STAGING_AREA}/Resources/en.lproj/"*
-    mv -f "${TEMP_STAGING_AREA}/Resources/English.lproj/"*                      "${STAGING_AREA}/Resources/en.lproj/"
+    mv -f "${TEMP_STAGING_AREA}/Resources/en.lproj/"*                           "${STAGING_AREA}/Resources/en.lproj/"
 
     rm -f "${STAGING_AREA}/Resources/map_icons/"*
     mv -f "${TEMP_STAGING_AREA}/Resources/map_icons/"*                          "${STAGING_AREA}/Resources/map_icons/"

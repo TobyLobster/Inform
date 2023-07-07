@@ -32,11 +32,14 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     NSFileHandle*   stdOutH;
 
     // Results
-    NSMutableString* stdOut;
-    NSMutableString* stdErr;
+    //NSMutableString* stdOut;
+    //NSMutableString* stdErr;
 
     int             exitCode;
 }
+
+@synthesize stdOut;
+@synthesize stdErr;
 
 // == Initialisation, etc ==
 
@@ -64,7 +67,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
 #pragma mark - Setup
 
 - (BOOL) isRunning {
-	return (theTask != nil) ? [theTask isRunning] : NO;
+    return (theTask != nil) ? [theTask isRunning] : NO;
 }
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL
@@ -166,28 +169,28 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     exitCode = [theTask terminationStatus];
 
     /*
-    // Stdout
-    uiDict = @{@"string": stdOut};
-    [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStdoutNotification
-                                                        object: self
-                                                      userInfo: uiDict];
+     // Stdout
+     uiDict = @{@"string": stdOut};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStdoutNotification
+     object: self
+     userInfo: uiDict];
 
-    // Stderr
-    uiDict = @{@"string": stdErr};
-    [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStderrNotification
-                                                        object: self
-                                                      userInfo: uiDict];
-    // InTest Finished Notification
-    uiDict = @{@"exitCode": @(exitCode)};
-    [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildFinishedNotification
-                                                        object: self
-                                                      userInfo: uiDict];
+     // Stderr
+     uiDict = @{@"string": stdErr};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStderrNotification
+     object: self
+     userInfo: uiDict];
+     // InTest Finished Notification
+     uiDict = @{@"exitCode": @(exitCode)};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildFinishedNotification
+     object: self
+     userInfo: uiDict];
      */
     if (exitCode != 0) {
         // Write error messaging as HTML page to resultsURL
         NSString * errorHTML = [NSString stringWithFormat:
-                               @"<HTML><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
-                               message, stdOut, stdErr, exitCode];
+                                @"<HTML><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
+                                message, stdOut, stdErr, exitCode];
 
         [errorHTML writeToFile: resultsURL.path
                     atomically: NO
@@ -198,6 +201,118 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     NSLog(@"stderr: %@", stdErr);
     NSLog(@"exit code: %d", exitCode);
     return exitCode;
+}
+
+-(int) executeInBuildForCensus {
+    if (theTask) {
+        if ([theTask isRunning]) {
+            [theTask terminate];
+        }
+        theTask = nil;
+    }
+
+    NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
+    if (externalPath == nil) {
+        return 0;
+    }
+    externalPath = [externalPath stringByAppendingPathComponent: @"Extensions"];
+
+    // Build a command with arguments:
+    // inbuild -inspect -recursive -contents-of ~/Library/Inform/Extensions
+
+    NSMutableArray *mutableArgs = [[NSMutableArray alloc] init];
+    [mutableArgs addObject: @"-inspect"];
+    [mutableArgs addObject: @"-recursive"];
+    [mutableArgs addObject: @"-contents-of"];
+    [mutableArgs addObject: externalPath];
+
+    // Use latest inbuild
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: @""];
+
+    // InBuild Start notification
+    //NSDictionary* uiDict = @{@"command": command,
+    //                         @"args": mutableArgs};
+    //[[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStartingNotification
+    //                                                    object: self
+    //                                                  userInfo: uiDict];
+
+    stdErr = [[NSMutableString alloc] init];
+    stdOut = [[NSMutableString alloc] init];
+
+    // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
+    theTask = [[NSTask alloc] init];
+
+    [theTask setArguments:  mutableArgs];
+    [theTask setLaunchPath: command];
+    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+
+    NSMutableString* message = [[NSMutableString alloc] init];
+    [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
+    [message appendFormat:@"Command: %@\n", command];
+    [message appendString:@"Args: "];
+    for(NSString* arg in mutableArgs) {
+        bool hasSpaces = ( [arg indexOf:@" "] != NSNotFound );
+        if( hasSpaces ) [message appendString: @"'"];
+        [message appendString: arg];
+        if( hasSpaces ) [message appendString: @"'"];
+        [message appendString: @"\n      "];
+    }
+    NSLog(@"%@", message);
+
+    // Prepare the task's IO
+    stdErrPipe = [[NSPipe alloc] init];
+    stdOutPipe = [[NSPipe alloc] init];
+
+    [theTask setStandardOutput: stdOutPipe];
+    [theTask setStandardError:  stdErrPipe];
+    [theTask setStandardInput: [NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+
+    stdOutH = [stdOutPipe fileHandleForReading];
+    stdErrH = [stdErrPipe fileHandleForReading];
+
+    // Start the task
+    [theTask launch];
+
+    // Wait until finished
+    NSMutableData *data = [NSMutableData dataWithCapacity:512];
+    while ([theTask isRunning]) {
+        [data appendData:[stdOutH readDataToEndOfFile]];
+    }
+    [data appendData:[stdOutH readDataToEndOfFile]];
+
+    // Record output
+    stdOut = [[[NSString alloc] initWithData: data
+                                    encoding: NSUTF8StringEncoding] mutableCopy];
+    stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
+                                    encoding: NSUTF8StringEncoding] mutableCopy];
+    exitCode = [theTask terminationStatus];
+
+    /*
+     // Stdout
+     uiDict = @{@"string": stdOut};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStdoutNotification
+     object: self
+     userInfo: uiDict];
+
+     // Stderr
+     uiDict = @{@"string": stdErr};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildStderrNotification
+     object: self
+     userInfo: uiDict];
+     // InTest Finished Notification
+     uiDict = @{@"exitCode": @(exitCode)};
+     [[NSNotificationCenter defaultCenter] postNotificationName: IFInBuildFinishedNotification
+     object: self
+     userInfo: uiDict];
+     */
+
+    if (exitCode != 0) {
+        return exitCode;
+    }
+    NSLog(@"stdout: %@", stdOut);
+    NSLog(@"stderr: %@", stdErr);
+    NSLog(@"exit code: %d", exitCode);
+    return 0;
 }
 
 @end

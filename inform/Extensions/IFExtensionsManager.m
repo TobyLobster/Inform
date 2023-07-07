@@ -10,6 +10,9 @@
 #import "IFExtensionsManager.h"
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
+#import "IFAppDelegate.h"
+#import "IFProject.h"
+#import "IFInBuild.h"
 #import "NSString+IFStringExtensions.h"
 #import "IFCompilerSettings.h"
 #import "IFProjectController.h"
@@ -363,6 +366,8 @@ didReceiveResponse: (NSURLResponse *)response
     NSMutableString* errorString;
     /// Progress
     IFProgress* dlProgress;
+
+    IFInBuild * _inBuild;
 }
 
 #pragma mark - Shared extension manager
@@ -402,6 +407,8 @@ didReceiveResponse: (NSURLResponse *)response
         self.rebuildAvailableExtensionsCache = YES;
         self.rebuildExtensionDictionaryCache = YES;
         self.cacheChanged = NO;
+
+        _inBuild = [[IFInBuild alloc] init];
 
 		// We check for updates every time the application becomes active
 		[[NSNotificationCenter defaultCenter] addObserver: self
@@ -526,56 +533,131 @@ didReceiveResponse: (NSURLResponse *)response
     return NO;
 }
 
+-(NSString*) removeBracketedSection: (NSString *) string {
+    NSString* result = string;
+    NSError* error;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"(.*)\\((.*)\\)(.*)"
+                                                                           options: 0
+                                                                             error: &error];
+    NSTextCheckingResult *match = [regex firstMatchInString: string
+                                                    options: 0
+                                                      range: NSMakeRange(0, [string length])];
+    if (match) {
+        NSString* first  = [string substringWithRange: [match rangeAtIndex:1]];
+        NSString* third  = [string substringWithRange: [match rangeAtIndex:3]];
+
+        result = [NSString stringWithFormat:@"%@%@", first, third];
+    }
+    return [result stringByTrimmingWhitespace];
+}
+
+-(NSMutableArray*) parseExtensionsList: (NSString*) text {
+    NSMutableArray* result = [NSMutableArray array];
+
+    NSArray* lines = [text componentsSeparatedByString:@"\n"];
+
+    NSError* error;
+    // Use regex:
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"extension: (.*) by (.*?) (v.*)? *in directory (.*)"
+                                                                           options: 0
+                                                                             error: &error];
+
+    for (int i = 0; i < lines.count; i++) {
+        NSString* line = lines[i];
+
+        NSTextCheckingResult *match = [regex firstMatchInString: line
+                                                        options: 0
+                                                          range: NSMakeRange(0, [line length])];
+        if (match) {
+            NSString* title = [line substringWithRange: [match rangeAtIndex:1]];
+            NSString* author = [line substringWithRange: [match rangeAtIndex:2]];
+            author = [self removeBracketedSection: author];
+
+            // If version exists...
+            NSString* version = @"";
+            if ([match rangeAtIndex:3].location != NSNotFound) {
+                version = [line substringWithRange: [match rangeAtIndex:3]];
+                version = [self removeBracketedSection: version];
+            }
+            NSString* fullFilepath = [line substringWithRange: [match rangeAtIndex:4]];
+            BOOL isBuiltIn = false;
+
+            IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
+                                                                        filepath: fullFilepath
+                                                                          author: author
+                                                                         version: version
+                                                                         md5Hash: nil
+                                                                       isBuiltIn: isBuiltIn];
+            [result addObject: info];
+         }
+    }
+    return result;
+}
+
 // Get an array of the available extension information
-- (NSArray*) availableExtensions {
-	// Use the cached version if it's around
-	if (!self.rebuildAvailableExtensionsCache && cacheAvailableExtensions) {
+- (NSArray*) availableExtensionsWithCompilerVersion: (NSString*) compilerVersion {
+    NSMutableArray* result = [NSMutableArray array];
+
+    // Use the cached version if it's around
+    if (!self.rebuildAvailableExtensionsCache && cacheAvailableExtensions) {
         return cacheAvailableExtensions;
     }
 
-	NSFileManager* manager            = [NSFileManager defaultManager];
-	NSDictionary* extensionDictionary = [self extensionDictionary];
-	NSMutableArray* result            = [NSMutableArray array];
+    if ([IFUtility compilerVersion: compilerVersion isAfter: @"10.1"]) {
+        // New extension census. This is only used to populate the
+        // menu items for extensions.
 
-    // Go through authors
-	for( NSString* authorName in extensionDictionary ) {
-		NSArray* authorPaths = extensionDictionary[authorName];
+        // Step 1: call inbuild to get list of extensions
+        [_inBuild executeInBuildForCensus];
 
-        // For each path of an author
-        for(NSString* authorPath in authorPaths) {
-            NSString* title;
-            NSString* author;
-            NSString* version;
+        // Step 2: Parse list of extensions into array
+        NSString* text = _inBuild.stdOut;
+        result = [self parseExtensionsList: text];
+    } else {
+        // Old extension parsing
+        NSFileManager* manager            = [NSFileManager defaultManager];
+        NSDictionary* extensionDictionary = [self extensionDictionary];
 
-            NSError* error;
-            NSArray* extnFiles = [manager contentsOfDirectoryAtPath: authorPath
-                                                              error: &error];
-            // For each extension file
-            for( NSString* filename in extnFiles ) {
-                NSString* fullFilepath = [authorPath stringByAppendingPathComponent: filename];
+        // Go through authors
+        for( NSString* authorName in extensionDictionary ) {
+            NSArray* authorPaths = extensionDictionary[authorName];
 
-                // Must not be hidden from the finder
-                if ([filename characterAtIndex: 0] == '.') {
-                    continue;
-                }
+            // For each path of an author
+            for(NSString* authorPath in authorPaths) {
+                NSString* title;
+                NSString* author;
+                NSString* version;
 
-                NSString* fileExtension = [[filename pathExtension] lowercaseString];
-                if ([fileExtension isEqualToString: @"i7x"] ||
-                    [fileExtension isEqualToString: @""]) {
-                    // Get information about the extension
-                    IFExtensionResult gotInfo = [self infoForNaturalInformExtension: fullFilepath
-                                                                author: &author
-                                                                 title: &title
-                                                               version: &version];
-                    if( gotInfo == IFExtensionSuccess ) {
-                        BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
-                        IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
-                                                                                    filepath: fullFilepath
-                                                                                      author: author
-                                                                                     version: version
-                                                                                     md5Hash: nil
-                                                                                   isBuiltIn: isBuiltIn];
-                        [result addObject: info];
+                NSError* error;
+                NSArray* extnFiles = [manager contentsOfDirectoryAtPath: authorPath
+                                                                  error: &error];
+                // For each extension file
+                for( NSString* filename in extnFiles ) {
+                    NSString* fullFilepath = [authorPath stringByAppendingPathComponent: filename];
+
+                    // Must not be hidden from the finder
+                    if ([filename characterAtIndex: 0] == '.') {
+                        continue;
+                    }
+
+                    NSString* fileExtension = [[filename pathExtension] lowercaseString];
+                    if ([fileExtension isEqualToString: @"i7x"] ||
+                        [fileExtension isEqualToString: @""]) {
+                        // Get information about the extension
+                        IFExtensionResult gotInfo = [self infoForNaturalInformExtension: fullFilepath
+                                                                                 author: &author
+                                                                                  title: &title
+                                                                                version: &version];
+                        if( gotInfo == IFExtensionSuccess ) {
+                            BOOL isBuiltIn = [self isBuiltIn: fullFilepath];
+                            IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
+                                                                                        filepath: fullFilepath
+                                                                                          author: author
+                                                                                         version: version
+                                                                                         md5Hash: nil
+                                                                                       isBuiltIn: isBuiltIn];
+                            [result addObject: info];
+                        }
                     }
                 }
             }
@@ -595,20 +677,21 @@ didReceiveResponse: (NSURLResponse *)response
 	return result;
 }
 
-- (NSArray*) availableAuthors {
+- (NSArray*) availableAuthorsWithCompilerVersion: (NSString*) compilerVersion {
     NSMutableSet<NSString*>* authors = [NSMutableSet set];
 
-    for( IFExtensionInfo* info in [self availableExtensions] ) {
+    for( IFExtensionInfo* info in [self availableExtensionsWithCompilerVersion: compilerVersion] ) {
         [authors addObject: info.author];
     }
     return [[authors allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
-- (NSArray*) availableExtensionsByAuthor:(NSString*) author {
+- (NSArray*) availableExtensionsByAuthor: (NSString*) author
+                     withCompilerVersion: (NSString*) compilerVersion {
     author = [author lowercaseString];
     NSMutableArray* extensions = [NSMutableArray array];
 
-    for( IFExtensionInfo* info in [self availableExtensions] ) {
+    for( IFExtensionInfo* info in [self availableExtensionsWithCompilerVersion: compilerVersion] ) {
         if([[info.author lowercaseString] isEqualToString:author]) {
             [extensions addObject:info];
         }
@@ -842,12 +925,12 @@ didReceiveResponse: (NSURLResponse *)response
 
 // Install the given extension
 - (IFExtensionResult) installLegacyExtension: (NSString*) extensionPath
-                             finalPath: (NSString*__strong*) finalPathOut
-                                 title: (NSString*__strong*) titleOut
-                                author: (NSString*__strong*) authorOut
-                               version: (NSString*__strong*) versionOut
-                    showWarningPrompts: (BOOL) showWarningPrompts
-                                notify: (BOOL) notify {
+                                   finalPath: (NSString*__strong*) finalPathOut
+                                       title: (NSString*__strong*) titleOut
+                                      author: (NSString*__strong*) authorOut
+                                     version: (NSString*__strong*) versionOut
+                          showWarningPrompts: (BOOL) showWarningPrompts
+                                      notify: (BOOL) notify {
 	if (finalPathOut) {
         *finalPathOut = nil;
     }
@@ -1033,18 +1116,21 @@ didReceiveResponse: (NSURLResponse *)response
         return IFExtensionCantWriteDestination;
     }
 
-	// Success
-    [self updateExtensions: @(notify)];
+    // Note: this is for Legacy extensions, hence an old version "6L02"
+    [self updateExtensionsForCompilerVersion:@"6L02" notify: @(notify)];
+
+    // Success
 	return IFExtensionSuccess;
 }
 
 #pragma mark - Data source support functions
 
-- (void) updateExtensions: (NSNumber*) notify {
+- (void) updateExtensionsForCompilerVersion: (NSString*) compilerVersion
+                                     notify: (NSNumber*) notify {
     // Calculate fresh available extensions
     [self dirtyCache];
-    [self availableExtensions];
-    
+    [self availableExtensionsWithCompilerVersion: compilerVersion];
+
     // Has the array of available extensions changed?
     if( !self.cacheChanged ) {
         return;
@@ -1059,8 +1145,19 @@ didReceiveResponse: (NSURLResponse *)response
     [self startCensus: notify];
 }
 
+- (void) updateExtensionsForCompilerVersion: (NSString*) compilerVersion {
+    [self updateExtensionsForCompilerVersion: compilerVersion notify: @YES];
+}
+
 - (void) updateExtensions {
-    [self updateExtensions: @YES];
+    IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
+    IFProjectController * projectController = [appDelegate frontmostProjectController];
+    if (projectController) {
+        IFProject * project = [projectController document];
+        IFCompilerSettings* compilerSettings = [project settings];
+
+        [self updateExtensionsForCompilerVersion: compilerSettings.compilerVersion];
+    }
 }
 
 -(void) startCensus:(NSNumber*) notify {
@@ -1255,7 +1352,8 @@ didReceiveResponse: (NSURLResponse *)response
     // If this particular download succeeded, tell the IFProjectController so it can update the web page to indicate it's downloaded
     if( download.state == IFExtensionDownloadAndInstallSucceeded ) {
         [self dirtyCache];
-        [self availableExtensions];
+        // TODO: For the moment at least, this is for old style extensions
+        [self availableExtensionsWithCompilerVersion: @"6L02"];
         
         if( download.notifyDelegate != nil ) {
             if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {

@@ -179,7 +179,6 @@
 - (void)    webView: (WKWebView *)webView
  startURLSchemeTask: (id <WKURLSchemeTask>)task {
     NSURL* customURL = task.request.URL;
-    NSString *str = customURL.absoluteString;
     NSString* mimeType;
     NSError* error;
 
@@ -477,10 +476,12 @@
     } else if ([@"askInterfaceForLocalVersionAuthor" isEqualToString: list[0]]) {
         [self askInterfaceForLocalVersionAuthor: list[1]
                                           title: list[2]
-                                      available: list[3]];
+                                      available: list[3]
+                                compilerVersion: [settings compilerVersion]];
     } else if ([@"askInterfaceForLocalVersionTextAuthor" isEqualToString: list[0]]) {
         [self askInterfaceForLocalVersionTextAuthor: list[1]
-                                              title: list[2]];
+                                              title: list[2]
+                                    compilerVersion: [settings compilerVersion]];
     } else if ([@"downloadMultipleExtensions" isEqualToString: list[0]]) {
         [self downloadMultipleExtensions: list[1]];
     }
@@ -540,14 +541,16 @@
 
 -(NSString*) askInterfaceForLocalVersionAuthor: (NSString*) author
                                          title: (NSString*) title
-                                     available: (NSString*) availableVersion {
+                                     available: (NSString*) availableVersion
+                               compilerVersion: (NSString*) compilerVersion {
     IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
     author = [author lowercaseString];
     title = [title lowercaseString];
 
     IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
+    IFProject* project = [projectController document];
 
-    for( IFExtensionInfo* info in [mgr availableExtensions] ) {
+    for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
         // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
         if( [[info.author lowercaseString] isEqualToString: author] ) {
             if( [[[IFExtensionInfo canonicalTitle:info.displayName] lowercaseString] isEqualToString: title] ) {
@@ -581,12 +584,14 @@
 }
 
 -(NSString*) askInterfaceForLocalVersionTextAuthor: (NSString*) author
-                                             title: (NSString*) title {
+                                             title: (NSString*) title
+                                   compilerVersion: (NSString*) compilerVersion {
     IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
     author = [author lowercaseString];
     title = [title lowercaseString];
+    IFProject* project = [projectController document];
 
-    for( IFExtensionInfo* info in [mgr availableExtensions] ) {
+    for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
         if( [[info.author lowercaseString] isEqualToString: author] ) {
             if( [[[IFExtensionInfo canonicalTitle: info.displayName] lowercaseString] isEqualToString: title] ) {
                 return [info safeVersion];
@@ -595,12 +600,6 @@
     }
 
     // Not found
-    return @"";
-}
-
--(NSString*) askInterfaceForMD5HashAuthor: (NSString*) author
-                                    title: (NSString*) title {
-    // Not used yet
     return @"";
 }
 

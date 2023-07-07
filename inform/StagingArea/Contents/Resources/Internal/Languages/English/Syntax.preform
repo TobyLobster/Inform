@@ -2986,6 +2986,7 @@ language English
 	no scoring |
 	engineering notation |
 	unabbreviated object names |
+	no automatic plural synonyms |
 	index figure thumbnails |
 	fast route-finding |
 	slow route-finding |
@@ -3900,14 +3901,16 @@ language English
 	no outcome
 
 <activity-sentence-subject> ::=
-	<activity-noted> ( <documentation-symbol> ) |
-	<activity-noted> -- <documentation-symbol> -- |
-	<activity-noted>
-
-<activity-noted> ::=
-	<activity-new-name> ( future action ) |
-	<activity-new-name> ( ... )	|[issues PM_ActivityNoteUnknown]
+	<activity-sentence-subject> ( <activity-note> ) |
+	<activity-sentence-subject> -- <activity-note> -- |
+	<activity-sentence-subject> ( ...... ) |[issues PM_ActivityNoteUnknown]
+	<activity-sentence-subject> -- ... -- |[issues PM_ActivityNoteUnknown]
 	<activity-new-name>
+
+<activity-note> ::=
+	<documentation-symbol> |
+	future action |
+	hidden in RULES command
 
 <activity-new-name> ::=
 	... of/for something/anything |

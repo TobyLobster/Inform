@@ -167,10 +167,7 @@
 
 -(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url {
     NSMutableURLRequest* urlRequest = [[NSMutableURLRequest alloc] initWithURL: url];
-
-    // Set path to materials folder as a property, so the IFInformProtocol can use it
-    NSString* path = [[self materialsDirectoryURL] path];
-    [NSURLProtocol setProperty: path forKey: @"materialsPath" inRequest: urlRequest];
+    urlRequest.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
 
     return urlRequest;
 }
@@ -550,11 +547,11 @@
     NSString* internalPath = [IFUtility pathForInformInternalAppSupport: [settings compilerVersion]];
 
     return [_inBuild executeInBuildForInfoWithProject: self.fileURL
-                                         forExtension: extensionURL
-                                         withInternal: [NSURL fileURLWithPath: internalPath]
-                                     withConfirmation: confirmed
-                                          withResults: self.extensionReportURL
-                                             settings: settings];
+                                        forExtension: extensionURL
+                                        withInternal: [NSURL fileURLWithPath: internalPath]
+                                    withConfirmation: confirmed
+                                         withResults: self.extensionReportURL
+                                            settings: settings];
 }
 
 // == reading/writing ==

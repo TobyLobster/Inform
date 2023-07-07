@@ -1,5 +1,5 @@
 //
-//  IFDebugSettings.m
+//  IFAdvancedSettings.m
 //  Inform
 //
 //  Created by Andrew Hunter on 10/10/2004.
@@ -14,7 +14,7 @@
 }
 
 - (instancetype) init {
-	return [self initWithNibName: @"DebugSettings"];
+	return [self initWithNibName: @"AdvancedSettings"];
 }
 
 - (NSString*) title {
