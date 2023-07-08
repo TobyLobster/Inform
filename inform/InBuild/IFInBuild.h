@@ -27,8 +27,8 @@ extern NSNotificationName const IFInBuildFinishedNotification;
 
 -(int) executeInBuildForCensus;
 
-@property (readonly) NSMutableString* stdOut;
-@property (readonly) NSMutableString* stdErr;
+@property (nonatomic,readonly) NSMutableString* stdOut;
+@property (nonatomic,readonly) NSMutableString* stdErr;
 
 @end
 
