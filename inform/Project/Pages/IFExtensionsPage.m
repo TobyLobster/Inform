@@ -87,9 +87,7 @@
         [self.view addSubview: wView];
 
         NSURL* url = [NSURL URLWithString: extensions];
-        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
-                                                         cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                     timeoutInterval: defaultTimeoutInterval];
+        NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
         [wView loadRequest: urlRequest];
 	}
 
@@ -126,9 +124,7 @@
 
     [self switchToPage];
 
-    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
-                                                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                 timeoutInterval: defaultTimeoutInterval];
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
     [wView loadRequest: urlRequest];
 }
 
@@ -173,9 +169,7 @@
     }
 
     inhibitAddToHistory++;
-    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url
-                                                     cachePolicy: NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                 timeoutInterval: defaultTimeoutInterval];
+    NSURLRequest* urlRequest = [[NSURLRequest alloc] initWithURL: url];
 
     [wView loadRequest: urlRequest];
     loadingFailureWebPage = true;
@@ -187,6 +181,9 @@
                     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // Allow everything for now
     decisionHandler(WKNavigationActionPolicyAllow);
+
+    //NSURL *u1 = webView.URL;
+    //NSURL *u2 = navigationAction.request.URL; //If changing URLs this one will be different
 }
 
 - (void)                webView:(WKWebView *)webView
@@ -237,7 +234,9 @@
         return;
     }
     NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, [error localizedDescription]);
-    [self loadFailurePage: urlString];
+    if (![error.domain isEqualToString: INFORM_ERROR_DOMAIN]) {
+        [self loadFailurePage: urlString];
+    }
 }
 
 -(void)       webView: (WKWebView *) webView

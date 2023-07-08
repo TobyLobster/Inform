@@ -22,6 +22,7 @@
     __weak IFCompilerSettings* settings;
 
     NSMutableCharacterSet *escapeCharset;
+    NSError* genericError;
 }
 
 #pragma mark - Initialisation
@@ -36,6 +37,8 @@
 
         escapeCharset = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
         [escapeCharset removeCharactersInString:@"!*'();:@&=+$,/?%#[]"];
+
+        genericError = [NSError errorWithDomain:INFORM_ERROR_DOMAIN code: 0 userInfo: nil];
     }
 
     return self;
@@ -196,6 +199,8 @@
             [task didFinish];
         } else if (error != nil) {
             [task didFailWithError: error];
+        } else {
+            [task didFailWithError: genericError];
         }
     } else if ([[customURL scheme] isEqualTo: @"source"]) {
         // Format is 'source file name#line number'
@@ -203,12 +208,14 @@
         IFProject* project = [projectController document];
         results = [project redirectLinksToExtensionSourceCode: results];
         if( results == nil ) {
+            [task didFailWithError: genericError];
             return;
         }
         NSString* sourceFile = results[0];
         int lineNumber = [results[1] intValue];
 
         if (![projectController selectSourceFile: sourceFile]) {
+            [task didFailWithError: genericError];
             return;
         }
 
@@ -219,12 +226,14 @@
                                              style: IFLineStyleError];
 
         // Finished
+        [task didFailWithError: genericError];
         return;
     }
     else if ([[customURL scheme] isEqualTo: @"skein"]) {
         // Format is e.g. 'skein:1003?case=B'
         NSArray* results = [IFUtility decodeSkeinSchemeURL: customURL];
         if( results == nil ) {
+            [task didFailWithError: genericError];
             return;
         }
         NSString* testCase = results[0];
@@ -234,10 +243,12 @@
         // Move to the appropriate place in the file
         if (![projectController showTestCase: testCase skeinNode: skeinNodeId]) {
             NSLog(@"Can't select test case '%@'", testCase);
+            [task didFailWithError: genericError];
             return;
         }
 
         // Finished
+        [task didFailWithError: genericError];
         return;
     }
     else if ([[customURL scheme] isEqualTo: @"library"]) {
@@ -267,6 +278,7 @@
                 NSLog(@"URL '%@' could not be transformed using frameURL '%@'", url, frameURL);
             }
         }
+        [task didFailWithError: genericError];
         return;
     }
 }
@@ -548,7 +560,6 @@
     title = [title lowercaseString];
 
     IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
-    IFProject* project = [projectController document];
 
     for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
         // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
@@ -589,7 +600,6 @@
     IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
     author = [author lowercaseString];
     title = [title lowercaseString];
-    IFProject* project = [projectController document];
 
     for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
         if( [[info.author lowercaseString] isEqualToString: author] ) {
