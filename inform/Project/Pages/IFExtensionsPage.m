@@ -233,8 +233,8 @@
         loadingFailureWebPage = false;
         return;
     }
-    NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, [error localizedDescription]);
     if (![error.domain isEqualToString: INFORM_ERROR_DOMAIN]) {
+        NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, [error localizedDescription]);
         [self loadFailurePage: urlString];
     }
 }

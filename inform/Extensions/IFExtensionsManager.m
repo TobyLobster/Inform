@@ -551,46 +551,73 @@ didReceiveResponse: (NSURLResponse *)response
     return [result stringByTrimmingWhitespace];
 }
 
--(NSMutableArray*) parseExtensionsList: (NSString*) text {
+-(NSMutableArray*) parseExtensionsList: (NSString*) jsonString {
     NSMutableArray* result = [NSMutableArray array];
-
-    NSArray* lines = [text componentsSeparatedByString:@"\n"];
-
     NSError* error;
-    // Use regex:
-    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: @"extension: (.*) by (.*?) (v.*)? *in directory (.*)"
-                                                                           options: 0
-                                                                             error: &error];
 
-    for (int i = 0; i < lines.count; i++) {
-        NSString* line = lines[i];
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
 
-        NSTextCheckingResult *match = [regex firstMatchInString: line
-                                                        options: 0
-                                                          range: NSMakeRange(0, [line length])];
-        if (match) {
-            NSString* title = [line substringWithRange: [match rangeAtIndex:1]];
-            NSString* author = [line substringWithRange: [match rangeAtIndex:2]];
-            author = [self removeBracketedSection: author];
+    id object = [NSJSONSerialization
+                 JSONObjectWithData:jsonData
+                 options:0
+                 error:&error];
 
-            // If version exists...
-            NSString* version = @"";
-            if ([match rangeAtIndex:3].location != NSNotFound) {
-                version = [line substringWithRange: [match rangeAtIndex:3]];
-                version = [self removeBracketedSection: version];
-            }
-            NSString* fullFilepath = [line substringWithRange: [match rangeAtIndex:4]];
-            BOOL isBuiltIn = false;
-
-            IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
-                                                                        filepath: fullFilepath
-                                                                          author: author
-                                                                         version: version
-                                                                         md5Hash: nil
-                                                                       isBuiltIn: isBuiltIn];
-            [result addObject: info];
-         }
+    if(error) {
+        // JSON was malformed
+        NSLog(@"Warning: Inbuild JSON error: %@", [error description]);
+        NSLog(@"JSON was: %@", jsonString);
+        return result;
     }
+
+    // The top level is a dictionary. We are only interested in key "inspection".
+    if([object isKindOfClass:[NSDictionary class]])
+    {
+        NSDictionary *results = object;
+        id inspection_id = [results objectForKey: @"inspection"];
+        if([inspection_id isKindOfClass:[NSArray class]]) {
+            NSArray *inspection = inspection_id;
+            for(int i= 0; i < inspection.count; i++) {
+                id entry_id = inspection[i];
+
+                if(![entry_id isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                NSDictionary* entry = entry_id;
+                NSString* fullFilepath = [entry objectForKey: @"location-file"];
+                id resource_id = [entry objectForKey: @"resource"];
+                if(![resource_id isKindOfClass:[NSDictionary class]]) {
+                    continue;
+                }
+                NSDictionary* resource = resource_id;
+
+                NSString* type = [resource objectForKey: @"type"];
+                if(![type isEqualToStringCaseInsensitive: @"extension"]) {
+                    continue;
+                }
+
+                NSString* title = [resource objectForKey: @"title"];
+                NSString* author = [resource objectForKey: @"author"];
+                NSString* version = [resource objectForKey: @"version"];
+                if (title == nil) { title = @""; }
+                if (author == nil) { author = @""; }
+                if (version == nil) {
+                    version = @"";
+                }
+                if (version.length > 0) {
+                    version = [NSString stringWithFormat: @"v%@", version];
+                }
+
+                IFExtensionInfo* info = [[IFExtensionInfo alloc] initWithDisplayName: title
+                                                                            filepath: fullFilepath
+                                                                              author: author
+                                                                             version: version
+                                                                             md5Hash: nil
+                                                                           isBuiltIn: false];
+                [result addObject: info];
+            }
+        }
+    }
+
     return result;
 }
 

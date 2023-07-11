@@ -17,6 +17,17 @@
 
 @implementation IFNewInform7ExtensionFile {
     IFNewInform7ExtensionView* vw;
+    __weak IFProject *         project;
+}
+
+- (instancetype) initWithProject: (IFProject*) theProject {
+    self = [super init];
+
+    if (self) {
+        project = theProject;
+    }
+
+    return self;
 }
 
 - (NSObject<IFNewProjectSetupView>*) configView {
@@ -57,7 +68,9 @@
 }
 
 - (NSString*) saveFilename {
-	NSString* extnDir = [IFUtility pathForInformExternalExtensions];
+	// OLD: NSString* extnDir = [IFUtility pathForInformExternalExtensions];
+    NSString* materialsPath  = [project.materialsDirectoryURL path];
+    NSString* extnDir = [materialsPath stringByAppendingPathComponent: @"Extensions"];
     extnDir = [extnDir stringByAppendingPathComponent: [vw authorName]];
     extnDir = [extnDir stringByAppendingPathComponent: [[vw extensionName] stringByAppendingPathExtension: @"i7x"]];
     return extnDir;

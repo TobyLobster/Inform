@@ -1,7 +1,7 @@
 Version 7 of the Standard Rules by Graham Nelson begins here.
 
-"The Standard Rules, included in every project, define phrases, actions and
-activities for interactive fiction."
+"The Standard Rules, included in every interactive fiction project, creates
+a model world populated by actors who perform actions."
 
 Part One - Preamble
 
@@ -1289,17 +1289,17 @@ The supplying a missing second noun activity is accessible to Inter as "SUPPLYIN
 Implicitly taking something (documented at act_implicitly) is an activity.
 The implicitly taking activity is accessible to Inter as "IMPLICITLY_TAKING_ACT".
 
-Rule for deciding whether all includes scenery while taking or taking off or
+Rule for deciding whether all includes scenery while an actor taking or taking off or
 	removing (this is the exclude scenery from take all rule): it does not.
-Rule for deciding whether all includes people while taking or taking off or
+Rule for deciding whether all includes people while an actor taking or taking off or
 	removing (this is the exclude people from take all rule): it does not.
-Rule for deciding whether all includes fixed in place things while taking or
+Rule for deciding whether all includes fixed in place things while an actor taking or
 	taking off or removing (this is the exclude fixed in place things from
 	take all rule): it does not.
 Rule for deciding whether all includes things enclosed by the person reaching
-	while taking or taking off (this is the exclude indirect possessions from
+	while an actor taking or taking off (this is the exclude indirect possessions from
 	take all rule): it does not.
-Rule for deciding whether all includes a person while dropping or throwing
+Rule for deciding whether all includes a person while an actor dropping or throwing
 	or inserting or putting (this is the exclude people from drop all rule):
 	it does not.
 

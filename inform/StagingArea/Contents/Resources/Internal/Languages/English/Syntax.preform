@@ -3313,12 +3313,20 @@ language English
 	......[issues PM_BadLPNameOption]
 
 <specifies-sentence-object> ::=
-	<kind-specified> <lp-specification-tail> |
-	<kind-specified>
+	<kind-specified-with-base> <lp-specification-tail> |
+	<kind-specified-with-base>
 
-<kind-specified> ::=
+<kind-specified-with-base> ::=
+	<k-kind-articled> in <number-base> |
 	<k-kind-articled> |
 	...[issues PM_LPNotKOV]
+
+<number-base> ::=
+	binary |
+	octal |
+	decimal |
+	hexadecimal |
+	base <cardinal-number>
 
 <lp-specification-tail> ::=
 	with parts <lp-part-list> |
@@ -3357,7 +3365,14 @@ language English
 <lp-part-option> ::=
 	optional |
 	preamble optional |
+	with leading zeros |
 	without leading zeros |
+	in <number-base> |
+	<cardinal-number> to <cardinal-number> |
+	up to <cardinal-number> <number-base> digit/digits |
+	up to <cardinal-number> digit/digits |
+	<cardinal-number> <number-base> digit/digits |
+	<cardinal-number> digit/digits |
 	......[issues PM_BadLPPartOption]
 
 <new-relation-sentence-subject> ::=
@@ -4643,6 +4658,17 @@ language English
 
 <value-understood-variable-name> ::=
 	<k-kind> understood
+
+<traditional-class-number> ::=
+	room |
+	thing |
+	direction |
+	door |
+	container |
+	supporter |
+	backdrop |
+	person |
+	region
 
 <heading-with-parenthesis> ::=
 	{<heading-name-hyphenated>} ( <definite-article> ... ) |

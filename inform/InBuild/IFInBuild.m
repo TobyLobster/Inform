@@ -217,6 +217,8 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     }
     externalPath = [externalPath stringByAppendingPathComponent: @"Extensions"];
 
+    NSString* internalPath = [IFUtility pathForInformInternalAppSupport:@""];
+
     // Build a command with arguments:
     // inbuild -inspect -recursive -contents-of ~/Library/Inform/Extensions
 
@@ -225,6 +227,10 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     [mutableArgs addObject: @"-recursive"];
     [mutableArgs addObject: @"-contents-of"];
     [mutableArgs addObject: externalPath];
+    [mutableArgs addObject: @"-internal"];
+    [mutableArgs addObject: internalPath];
+    [mutableArgs addObject: @"-json"];
+    [mutableArgs addObject: @"-"];
 
     // Use latest inbuild
     NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: @""];
@@ -306,13 +312,11 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
      userInfo: uiDict];
      */
 
-    if (exitCode != 0) {
-        return exitCode;
-    }
     NSLog(@"stdout: %@", stdOut);
     NSLog(@"stderr: %@", stdErr);
     NSLog(@"exit code: %d", exitCode);
-    return 0;
+
+    return exitCode;
 }
 
 @end

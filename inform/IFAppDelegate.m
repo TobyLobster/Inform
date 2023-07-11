@@ -314,7 +314,11 @@ static NSRunLoop* mainRunLoop = nil;
     if( newProj == nil ) {
         newProj = [[IFNewProject alloc] init];
     }
-    [newProj createInform7Extension];
+    IFProjectController * projectController = [self frontmostProjectController];
+    if (projectController) {
+        IFProject * project = [projectController document];
+        [newProj createInform7ExtensionForProject: project];
+    }
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {

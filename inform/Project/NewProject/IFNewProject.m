@@ -32,8 +32,9 @@
     NSURL*                              projectExtensionURL;
     NSString*                           projectDefaultFilename;
     IFNewProjectFlow                    projectFlow;
+    __weak IFProject*                   project;
 
-    NSURL*                              projectLocation;
+    NSURL*                              projectLocation;    // Location of extension file or extension project
 }
 
 #pragma mark - Initialisation
@@ -67,7 +68,7 @@
     } else {
         [IFUtility runAlertWarningWindow: [self window]
                                    title: @"Unable to create project"
-                                 message: @"Inform was unable to save the project file"];
+                                 message: @"Inform was unable to save the extension file"];
     }
 }
 
@@ -301,10 +302,10 @@
     [self startFlow];
 }
 
-- (void) createInform7Extension {
+- (void) createInform7ExtensionForProject: (IFProject*) theProject {
     [self close];
 
-    projectType      = [[IFNewInform7ExtensionFile alloc] init];
+    projectType      = [[IFNewInform7ExtensionFile alloc] initWithProject: theProject];
     projectFileTypes = @[@"i7x"];
     projectTitle     = [IFUtility localizedString: @"Create Extension"];
     projectPrompt    = [IFUtility localizedString: @"Create Extension"];
@@ -313,6 +314,7 @@
     projectStory     = nil;
     projectExtensionURL    = nil;
     projectDefaultFilename = nil;
+    project          = theProject;
 
     [self startFlow];
 }
