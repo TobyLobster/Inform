@@ -75,7 +75,7 @@
 												 selector: @selector(censusCompleted:)
 													 name: IFCensusFinishedNotification
 												   object: nil];
-		
+
         helper = [[IFWebViewHelper alloc] initWithProjectController: controller
                                                            withPane: [controller oppositePane: pane]];
         wView = [helper createWebViewWithFrame: [self.view bounds]];
@@ -272,6 +272,7 @@
 
     LogHistory(@"HISTORY: Extensions Page: (didSwitchToPage) URL %@", urlString);
 	[[self history] openHistoricalURL: url];
+    [wView reload: self];
 }
 
 #pragma mark - Preferences

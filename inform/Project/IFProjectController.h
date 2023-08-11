@@ -17,7 +17,6 @@
 
 @class ZoomView;
 @class IFSkeinItem;
-@class IFProjectPolicy;
 @class IFProgress;
 @class IFIntelFile;
 @class IFHeaderController;

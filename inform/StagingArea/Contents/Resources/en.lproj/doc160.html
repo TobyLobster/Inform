@@ -92,26 +92,26 @@
             <!--definition of ph_showme-->
 
     <p>This phrase is intended for testing purposes only. If used in a story file running inside the Inform application, it prints a line of text showing the given value and its kind; in a Released story file, it does noth ng at all. Example:</p>
-    <!--START CODE "c2857"-->
-    <blockquote class="code"><p class="quoted"><a id="c2857"></a>When play begins: showme 11.
+    <!--START CODE "c2856"-->
+    <blockquote class="code"><p class="quoted"><a id="c2856"></a>When play begins: showme 11.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>produces</p>
-    <!--START CODE "c2858"-->
-    <blockquote class="code"><p class="quoted"><a id="c2858"></a>number: 11
+    <!--START CODE "c2857"-->
+    <blockquote class="code"><p class="quoted"><a id="c2857"></a>number: 11
     </p>
     </blockquote>
     <!--END CODE-->
     <p>More usefully:</p>
-    <!--START CODE "c2859"-->
-    <blockquote class="code"><p class="quoted"><a id="c2859"></a>Every turn: showme the score.
+    <!--START CODE "c2858"-->
+    <blockquote class="code"><p class="quoted"><a id="c2858"></a>Every turn: showme the score.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Now, every turn, we get a line in the story's transcript like so:</p>
-    <!--START CODE "c2860"-->
-    <blockquote class="code"><p class="quoted"><a id="c2860"></a>&quot;score&quot; = number: 0
+    <!--START CODE "c2859"-->
+    <blockquote class="code"><p class="quoted"><a id="c2859"></a>&quot;score&quot; = number: 0
     </p>
     </blockquote>
     <!--END CODE-->
@@ -121,34 +121,34 @@
     </div>
 
     <p>&quot;showme&quot; is a convenient way to see what's going on inside a phrase which isn't behaving as expected, or to find out the kind of a value. Here are some trickier examples. Suppose our design includes:</p>
-    <!--START CODE "c2861"-->
-    <blockquote class="code"><p class="quoted"><a id="c2861"></a>The matching key of the blue door is the brass Yale key.
+    <!--START CODE "c2860"-->
+    <blockquote class="code"><p class="quoted"><a id="c2860"></a>The matching key of the blue door is the brass Yale key.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>If we then try this:</p>
-    <!--START CODE "c2862"-->
-    <blockquote class="code"><p class="quoted"><a id="c2862"></a>When play begins:
+    <!--START CODE "c2861"-->
+    <blockquote class="code"><p class="quoted"><a id="c2861"></a>When play begins:
     <br>
     &#160;&#160;&#160;&#160;showme matching key of the blue door.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>we get, when the story starts up,</p>
-    <!--START CODE "c2863"-->
-    <blockquote class="code"><p class="quoted"><a id="c2863"></a>&quot;matching key of the blue door&quot; = object: brass Yale key
+    <!--START CODE "c2862"-->
+    <blockquote class="code"><p class="quoted"><a id="c2862"></a>&quot;matching key of the blue door&quot; = object: brass Yale key
     </p>
     </blockquote>
     <!--END CODE-->
     <p>Why is this an &quot;object&quot;, when we know that the key is actually a &quot;thing&quot;? After all, if we &quot;showme key&quot; instead, we get:</p>
-    <!--START CODE "c2864"-->
-    <blockquote class="code"><p class="quoted"><a id="c2864"></a>thing: brass Yale key
+    <!--START CODE "c2863"-->
+    <blockquote class="code"><p class="quoted"><a id="c2863"></a>thing: brass Yale key
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The answer is a little technical: it's because Inform guarantees that the matching key is always an object, but not that it's always a thing - it just happens to be a thing at the moment. There's not really a contradiction, because a &quot;thing&quot; is a kind of &quot;object&quot;, so in fact the key is both. If we try &quot;showme matching key&quot;, we get something like this:</p>
-    <!--START CODE "c2865"-->
-    <blockquote class="code"><p class="quoted"><a id="c2865"></a>objects valued property: property 23
+    <!--START CODE "c2864"-->
+    <blockquote class="code"><p class="quoted"><a id="c2864"></a>objects valued property: property 23
     </p>
     </blockquote>
     <!--END CODE-->

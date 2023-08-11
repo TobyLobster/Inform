@@ -674,8 +674,7 @@ This is the notify score changes rule:
 		now the last notified score is the score;
 
 The adjust light rule is defined by Inter as "ADJUST_LIGHT_R" with
-	"[It] [are] [if story tense is present tense]now [end if]pitch dark in
-	[if story tense is present tense]here[else]there[end if]!" (A).
+	"[It] [are] [if story tense is present tense]now [end if]pitch dark in [here]!" (A).
 The advance time rule is defined by Inter as "ADVANCE_TIME_R".
 The generate action rule is defined by Inter as "GENERATE_ACTION_R" with
 	"(considering the first sixteen objects only)[command clarification break]" (A),
@@ -1496,7 +1495,7 @@ For printing the locale description (this is the you-can-also-see rule):
 						giving brief inventory information, tersely, not listing
 						concealed items, listing marked items only;
 				otherwise say "[a list of marked for listing things including contents]";
-				if the domain is the location, say " here" (F);
+				if the domain is the location, say " [here]" (F);
 				say ".[paragraph break]";
 				unfilter list recursion;
 			end the listing nondescript items activity with the domain;
@@ -1843,7 +1842,7 @@ do this is to write a rule about taking, which covers all possibilities."
 Check an actor removing something from (this is the can't remove what's not inside rule):
 	if the holder of the noun is not the second noun:
 		if the actor is the player:
-			say "But [regarding the noun][they] [aren't] there now." (A);
+			say "But [regarding the noun][they] [aren't] there [now]." (A);
 		stop the action.
 
 Check an actor removing something from (this is the can't remove from people rule):
@@ -1889,7 +1888,7 @@ Check an actor dropping something which is part of the actor (this is the
 Check an actor dropping (this is the can't drop what's already dropped rule):
 	if the noun is in the holder of the actor:
 		if the actor is the player:
-			say "[The noun] [are] already here." (A);
+			say "[The noun] [are] already [here]." (A);
 		stop the action.
 
 Check an actor dropping (this is the can't drop what's not held rule):
@@ -3786,7 +3785,7 @@ Check an actor pushing something to (this is the can't push vertically rule):
 Check an actor pushing something to (this is the can't push from within rule):
 	if the noun encloses the actor:
 		if the actor is the player:
-			say "[The noun] [cannot] be pushed from here." (A);
+			say "[The noun] [cannot] be pushed from [here]." (A);
 		stop the action.
 
 Check an actor pushing something to (this is the standard pushing in directions rule):
@@ -4008,7 +4007,7 @@ with some further check rules.)"
 Check an actor drinking (this is the block drinking rule):
 	if the actor is the player:
 		now the prior named object is nothing;
-		say "[There's] nothing suitable to drink here." (A);
+		say "[There's] nothing suitable to drink [here]." (A);
 	stop the action.
 
 Saying sorry is an action applying to nothing.
@@ -4042,7 +4041,7 @@ with some further check rules.)"
 Check an actor swinging (this is the block swinging rule):
 	if the actor is the player:
 		now the prior named object is nothing;
-		say "[There's] nothing sensible to swing here." (A);
+		say "[There's] nothing sensible to swing [here]." (A);
 	stop the action.
 
 Rubbing is an action applying to one thing.

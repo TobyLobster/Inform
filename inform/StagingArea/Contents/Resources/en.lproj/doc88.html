@@ -134,34 +134,34 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "75: Versailles" "e412"-->
-        <a id="e412"></a><table class="egcue">
+        <!--START EXAMPLE "75: Versailles" "e419"-->
+        <a id="e419"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example412'); return false;"><b>75</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example419'); return false;"><b>75</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example412'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Versailles</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example419'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Versailles</span></b></a><br>
                     A mirror which will reflect some random object in the room.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc67.html#e412"><i>RB</i></a></div>
+                        <a href="Rdoc67.html#e419"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example412" style="display: none;">
+        <div class="egpanel" id="example419" style="display: none;">
             <p>One of the advantages of descriptions is that we can use them to pick an item randomly from a specified category. (For more on this possibility, see the Change chapter sections on randomness.)</p>
             <p>For instance, suppose we wanted to create a mirror in which the player would see some item from the room reflected. We might write</p>
-            <!--START CODE "c1097_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1097_412"></a>Instead of searching the mirror:
+            <!--START CODE "c1097_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1097_419"></a>Instead of searching the mirror:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You see [a random thing in the location] reflected back at you.&quot;
             </p>
@@ -169,67 +169,67 @@
             <!--END CODE-->
             <p>This is the same as &quot;a random thing which is in the location&quot;: phrase &quot;in...&quot; can be used briefly in Inform as it can in English.</p>
             <p>But, on a little more thought, we might want to expand on this: the mirror perhaps should reflect not only things that are in the room, but anything that the player can see (even if it's on a supporter or carried by someone). So then we might instead write</p>
-            <!--START CODE "c1098_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1098_412"></a>Instead of searching the mirror:
+            <!--START CODE "c1098_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1098_419"></a>Instead of searching the mirror:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You see [a random visible thing] reflected back at you.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
             <p>There's still a risk, though, that this will produce the response</p>
-            <!--START CODE "c1099_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1099_412"></a>You see the mirror reflected back at you.
+            <!--START CODE "c1099_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1099_419"></a>You see the mirror reflected back at you.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>because, of course, the mirror is itself visible. So instead we might write</p>
-            <!--START CODE "c1100_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1100_412"></a>Instead of searching the mirror:
+            <!--START CODE "c1100_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1100_419"></a>Instead of searching the mirror:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You see [a random visible thing which is not the mirror] reflected back at you.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1101_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1101_412"></a><a href="javascript:pasteCode('[=0x0022=]Versailles[=0x0022=][=0x000A=][=0x000A=]The Hall of Plywood Boards is a room. [=0x0022=]The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.[=0x000A=][=0x000A=]As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.[=0x0022=][=0x000A=][=0x000A=]The mirror is scenery in the Hall of Plywood Boards. Understand [=0x0022=]panel[=0x0022=] or [=0x0022=]panel of mirror[=0x0022=] as the mirror. The description is [=0x0022=]Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.[=0x0022=][=0x000A=][=0x000A=]Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.[=0x000A=][=0x000A=]Instead of searching the mirror:[=0x000A=][=0x0009=]say [=0x0022=]You see [a random visible thing which is not the mirror] reflected back at you.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x mirror / look in mirror / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Versailles[=0x0022=][=0x000A=][=0x000A=]The Hall of Plywood Boards is a room. [=0x0022=]The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.[=0x000A=][=0x000A=]As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.[=0x0022=][=0x000A=][=0x000A=]The mirror is scenery in the Hall of Plywood Boards. Understand [=0x0022=]panel[=0x0022=] or [=0x0022=]panel of mirror[=0x0022=] as the mirror. The description is [=0x0022=]Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.[=0x0022=][=0x000A=][=0x000A=]Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.[=0x000A=][=0x000A=]Instead of searching the mirror:[=0x000A=][=0x0009=]say [=0x0022=]You see [a random visible thing which is not the mirror] reflected back at you.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x mirror / look in mirror / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Versailles')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Versailles&quot;
+            <!--START CODE "c1101_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1101_419"></a><a href="javascript:pasteCode('[=0x0022=]Versailles[=0x0022=][=0x000A=][=0x000A=]The Hall of Plywood Boards is a room. [=0x0022=]The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.[=0x000A=][=0x000A=]As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.[=0x0022=][=0x000A=][=0x000A=]The mirror is scenery in the Hall of Plywood Boards. Understand [=0x0022=]panel[=0x0022=] or [=0x0022=]panel of mirror[=0x0022=] as the mirror. The description is [=0x0022=]Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.[=0x0022=][=0x000A=][=0x000A=]Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.[=0x000A=][=0x000A=]Instead of searching the mirror:[=0x000A=][=0x0009=]say [=0x0022=]You see [a random visible thing which is not the mirror] reflected back at you.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x mirror / look in mirror / g[=0x0022=].[=0x000A=][=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Versailles[=0x0022=][=0x000A=][=0x000A=]The Hall of Plywood Boards is a room. [=0x0022=]The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.[=0x000A=][=0x000A=]As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.[=0x0022=][=0x000A=][=0x000A=]The mirror is scenery in the Hall of Plywood Boards. Understand [=0x0022=]panel[=0x0022=] or [=0x0022=]panel of mirror[=0x0022=] as the mirror. The description is [=0x0022=]Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.[=0x0022=][=0x000A=][=0x000A=]Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.[=0x000A=][=0x000A=]Instead of searching the mirror:[=0x000A=][=0x0009=]say [=0x0022=]You see [a random visible thing which is not the mirror] reflected back at you.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x mirror / look in mirror / g[=0x0022=].[=0x000A=][=0x000A=]\n', 'Example - Versailles')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Versailles&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1102_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1102_412"></a>The Hall of Plywood Boards is a room. &quot;The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.
+            <!--START CODE "c1102_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1102_419"></a>The Hall of Plywood Boards is a room. &quot;The Hall of Mirrors is under reconstruction: it is currently a dank tunnel enlivened only by short placards about the history of the room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1103_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1103_412"></a>As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.&quot;
+            <!--START CODE "c1103_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1103_419"></a>As though to mock tourists such as yourself who bought their tickets without knowing this, the officials have left uncovered a single panel of mirror.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1104_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1104_412"></a>The mirror is scenery in the Hall of Plywood Boards. Understand &quot;panel&quot; or &quot;panel of mirror&quot; as the mirror. The description is &quot;Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.&quot;
+            <!--START CODE "c1104_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1104_419"></a>The mirror is scenery in the Hall of Plywood Boards. Understand &quot;panel&quot; or &quot;panel of mirror&quot; as the mirror. The description is &quot;Lovingly restored to shimmering brilliance, it suggests how marvelous this room would be if you had had the good sense to arrive after the renovations were complete.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1105_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1105_412"></a>Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.
+            <!--START CODE "c1105_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1105_419"></a>Some tourists are a person in the Hall of Plywood Boards. The tourists are scenery.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1106_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1106_412"></a>Instead of searching the mirror:
+            <!--START CODE "c1106_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1106_419"></a>Instead of searching the mirror:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You see [a random visible thing which is not the mirror] reflected back at you.&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c1107_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1107_412"></a>Test me with &quot;x mirror / look in mirror / g&quot;.
+            <!--START CODE "c1107_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1107_419"></a>Test me with &quot;x mirror / look in mirror / g&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>A final note: we use &quot;searching&quot; here because Inform understands both SEARCH THING and LOOK IN THING as the searching action, and the player is most likely to type LOOK IN MIRROR in order to see the reflection there. In the absence of an example, we can discover the relationship between actions and their command vocabulary in one of two ways. A complete list of actions and the vocabulary associated with them is available in the Actions index. Alternatively, we can type ACTIONS at a prompt, followed by LOOK IN MIRROR, and get the response</p>
-            <!--START CODE "c1108_412"-->
-            <blockquote class="code"><p class="quoted"><a id="c1108_412"></a>[searching the mirror]
+            <!--START CODE "c1108_419"-->
+            <blockquote class="code"><p class="quoted"><a id="c1108_419"></a>[searching the mirror]
             <br>
             You find nothing of interest.
             <br>

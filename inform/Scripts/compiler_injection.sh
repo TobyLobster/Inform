@@ -98,6 +98,8 @@ if [ -d "${INFORM_CORE}" ]; then
     #
     set -x
 
+    cp -fr "${INFORM_CORE}/resources/App HTML/"                                 "${TEMP_STAGING_AREA}/Resources/"
+
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/blurbfile.icns"          "${STAGING_AREA}/Resources/App/Icons/blurbfile.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/i6file.icns"             "${STAGING_AREA}/Resources/App/Icons/i6file.icns"
     cp -f "${INFORM_CORE}/resources/Imagery/app_images/i7file.icns"             "${STAGING_AREA}/Resources/App/Icons/i7file.icns"

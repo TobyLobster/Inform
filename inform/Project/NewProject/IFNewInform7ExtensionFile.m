@@ -122,9 +122,6 @@
 	[newDoc makeWindowControllers];
 	[newDoc showWindows];
 
-	// Update the list of extensions (using latest compiler version)
-    [[IFExtensionsManager sharedNaturalInformExtensionsManager] updateExtensionsForCompilerVersion: @""];
-	
 	return YES;
 }
 

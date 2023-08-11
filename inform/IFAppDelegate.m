@@ -140,7 +140,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 	[[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(updateExtensionsMenu)
-												 name: IFExtensionsUpdatedNotification
+												 name: IFCensusFinishedNotification
 											   object: nil];
 
 	[NSURLProtocol registerClass: [IFInformProtocol class]];
@@ -667,7 +667,7 @@ static NSRunLoop* mainRunLoop = nil;
          }
 
          // Re-run the census. In particular, this will update the Public Library of extensions web page if visible
-         [[IFExtensionsManager sharedNaturalInformExtensionsManager] startCensus: @YES];
+         [[IFExtensionsManager sharedNaturalInformExtensionsManager] startLegacyCensus: @YES];
 
          // Report an error if we couldn't install the extension for some reason
          if (installResult != IFExtensionSuccess) {

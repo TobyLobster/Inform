@@ -83,16 +83,16 @@
     <!--END IGNORE-->
     <p class="sectionheading">§11.3. Pattern matching</p>
     <p>In this section, let's make the following new phrase:</p>
-    <!--START CODE "c2818"-->
-    <blockquote class="code"><p class="quoted"><a id="c2818"></a>To admire (item - an object):
+    <!--START CODE "c2817"-->
+    <blockquote class="code"><p class="quoted"><a id="c2817"></a>To admire (item - an object):
     <br>
     &#160;&#160;&#160;&#160;say &quot;You take a long look at [item].&quot;.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>This does very little, of course, but it does allow the wording to be different each time the phrase is used:</p>
-    <!--START CODE "c2819"-->
-    <blockquote class="code"><p class="quoted"><a id="c2819"></a>admire the diamonds;
+    <!--START CODE "c2818"-->
+    <blockquote class="code"><p class="quoted"><a id="c2818"></a>admire the diamonds;
     <br>
     admire Mr Cogito;
     <br>
@@ -101,22 +101,22 @@
     </blockquote>
     <!--END CODE-->
     <p>and our single definition covers all of these possibilities. The bracketed part of the definition, &quot;(item - an object)&quot;, tells Inform to expect an object in that position, and Inform enforces this carefully. So this definition might tell Inform what &quot;admire the barricade&quot; means, but not what</p>
-    <!--START CODE "c2820"-->
-    <blockquote class="code"><p class="quoted"><a id="c2820"></a>admire &quot;blue cheese&quot;;
+    <!--START CODE "c2819"-->
+    <blockquote class="code"><p class="quoted"><a id="c2819"></a>admire &quot;blue cheese&quot;;
     <br>
     admire 63;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>mean. Unless some other definition sorts the matter out, Inform will reply to uses like this with a Problem message:</p>
-    <!--START CODE "c2821"-->
-    <blockquote class="code"><p class="quoted"><a id="c2821"></a><span class="boldface">Problem.</span> You wrote 'admire 63' <img alt="Reveal.png" src="inform:/doc_images/Reveal.png" />, but '63' has the wrong kind of value: a number rather than an object.
+    <!--START CODE "c2820"-->
+    <blockquote class="code"><p class="quoted"><a id="c2820"></a><span class="boldface">Problem.</span> You wrote 'admire 63' <img alt="Reveal.png" src="inform:/doc_images/Reveal.png" />, but '63' has the wrong kind of value: a number rather than an object.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>The object does not need to be named literally, but can be anything which works out to be an object: for instance,</p>
-    <!--START CODE "c2822"-->
-    <blockquote class="code"><p class="quoted"><a id="c2822"></a>After dropping something in the Auction House:
+    <!--START CODE "c2821"-->
+    <blockquote class="code"><p class="quoted"><a id="c2821"></a>After dropping something in the Auction House:
     <br>
     &#160;&#160;&#160;&#160;admire the noun.
     </p>
@@ -125,8 +125,8 @@
     <p>which Inform allows because &quot;noun&quot;, here, is a name for the object which is being acted on.</p>
     <p>Inform decides which definition to apply in a process called &quot;pattern matching&quot;.</p>
     <p>The bracketed part of the example definition has the form &quot;(name - kind)&quot;. The definition only applies if the text supplied agrees with the &quot;kind&quot; part - for instance, the diamonds agreed with &quot;object&quot;, but 63 did not. If the definition  does apply, then the Inform works through the rest of the phrase using &quot;name&quot; to mean whatever value matched. For example:</p>
-    <!--START CODE "c2823"-->
-    <blockquote class="code"><p class="quoted"><a id="c2823"></a>To slam shut (box - an open container):
+    <!--START CODE "c2822"-->
+    <blockquote class="code"><p class="quoted"><a id="c2822"></a>To slam shut (box - an open container):
     <br>
     &#160;&#160;&#160;&#160;say &quot;With great panache, you slam shut [the box].&quot;;
     <br>
@@ -135,50 +135,50 @@
     </blockquote>
     <!--END CODE-->
     <p>When this phrase is followed, &quot;box&quot; means whatever open container the pattern-matcher found when it was called for. For example, if Inform reads</p>
-    <!--START CODE "c2824"-->
-    <blockquote class="code"><p class="quoted"><a id="c2824"></a>slam shut the Dutch armoire;
+    <!--START CODE "c2823"-->
+    <blockquote class="code"><p class="quoted"><a id="c2823"></a>slam shut the Dutch armoire;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>then it acts on this by following the definition of &quot;slam shut ...&quot;, using the Dutch armoire object as the value of &quot;box&quot;, so it prints:</p>
-    <!--START CODE "c2825"-->
-    <blockquote class="code"><p class="quoted"><a id="c2825"></a>With great panache, you slam shut the Dutch armoire.
+    <!--START CODE "c2824"-->
+    <blockquote class="code"><p class="quoted"><a id="c2824"></a>With great panache, you slam shut the Dutch armoire.
     </p>
     </blockquote>
     <!--END CODE-->
     <p>and renders it closed.</p>
     <p>In fact any description can be given in the definition, and that includes a single, specific value. For instance, we could define:</p>
-    <!--START CODE "c2826"-->
-    <blockquote class="code"><p class="quoted"><a id="c2826"></a>To grant (bonus - a number) points:
+    <!--START CODE "c2825"-->
+    <blockquote class="code"><p class="quoted"><a id="c2825"></a>To grant (bonus - a number) points:
     <br>
     &#160;&#160;&#160;&#160;increase the score by the bonus.
     </p>
     </blockquote>
     <!--END CODE-->
-    <!--START CODE "c2827"-->
-    <blockquote class="code"><p class="quoted"><a id="c2827"></a>To grant (bonus - 7) points:
+    <!--START CODE "c2826"-->
+    <blockquote class="code"><p class="quoted"><a id="c2826"></a>To grant (bonus - 7) points:
     <br>
     &#160;&#160;&#160;&#160;say &quot;You shiver uncontrollably.&quot;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>which would withhold this unlucky bounty. That would mean that:</p>
-    <!--START CODE "c2828"-->
-    <blockquote class="code"><p class="quoted"><a id="c2828"></a>grant 7 points;
+    <!--START CODE "c2827"-->
+    <blockquote class="code"><p class="quoted"><a id="c2827"></a>grant 7 points;
     <br>
     grant seven points;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>would each produce uncontrollable shivers, because Inform uses the definition applying to the number 7; but</p>
-    <!--START CODE "c2829"-->
-    <blockquote class="code"><p class="quoted"><a id="c2829"></a>grant six points;
+    <!--START CODE "c2828"-->
+    <blockquote class="code"><p class="quoted"><a id="c2828"></a>grant six points;
     </p>
     </blockquote>
     <!--END CODE-->
     <p>would increase the score by 6. In general Inform always follows the principle that more specific definitions take priority over more general ones. So although the definitions:</p>
-    <!--START CODE "c2830"-->
-    <blockquote class="code"><p class="quoted"><a id="c2830"></a>To grant (bonus - a number) points: ...
+    <!--START CODE "c2829"-->
+    <blockquote class="code"><p class="quoted"><a id="c2829"></a>To grant (bonus - a number) points: ...
     <br>
     To grant (bonus - 7) points: ...
     </p>
@@ -187,14 +187,14 @@
     <p>both apply to the case of &quot;grant 7 points&quot;, Inform uses the second, because it's the more specific of the two possibilities.</p>
     <p>Sometimes it will not be possible to tell if the value supplied meets the requirements until the story is actually playing. If, at run-time, no definition fits some phrase which has to be carried out, a run-time problem message is produced.</p>
     <p>Finally, and more straightforwardly, we can specify variations in wording using slashes between alternative words in a &quot;To ...&quot; definition. For instance:</p>
-    <!--START CODE "c2831"-->
-    <blockquote class="code"><p class="quoted"><a id="c2831"></a>To grant (bonus - a number) point/points: ...
+    <!--START CODE "c2830"-->
+    <blockquote class="code"><p class="quoted"><a id="c2830"></a>To grant (bonus - a number) point/points: ...
     </p>
     </blockquote>
     <!--END CODE-->
     <p>allows the final word to be either &quot;point&quot; or &quot;points&quot;. Slashes like this can only be used with literal words, not bracketed values, and give alternative forms only of a single word at a time; the alternative &quot;--&quot; means &quot;no word at all&quot;, and thus makes it optional:</p>
-    <!--START CODE "c2832"-->
-    <blockquote class="code"><p class="quoted"><a id="c2832"></a>To grant (bonus - a number) point/points/--: ...
+    <!--START CODE "c2831"-->
+    <blockquote class="code"><p class="quoted"><a id="c2831"></a>To grant (bonus - a number) point/points/--: ...
     </p>
     </blockquote>
     <!--END CODE-->
@@ -203,52 +203,52 @@
     <hr>
     <div class="bookexamples">
         <p class="chapterheading"></p>
-        <!--START EXAMPLE "169: Ahem" "e3"-->
-        <a id="e3"></a><table class="egcue">
+        <!--START EXAMPLE "169: Ahem" "e12"-->
+        <a id="e12"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example3'); return false;"><b>169</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example12'); return false;"><b>169</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example3'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Ahem</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example12'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Ahem</span></b></a><br>
                     Writing a phrase, with several variant forms, whose function is to follow a rule several times.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc5.html#e3"><i>RB</i></a></div>
+                        <a href="Rdoc5.html#e12"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example3" style="display: none;">
+        <div class="egpanel" id="example12" style="display: none;">
             <p>As we see in the example here, it is possible to use slashed variations in more than one place in a phrase, and to offer a number of separate forms. The main rule of thumb to remember is that value inputs for the phrase should always be separated by some text; so</p>
-            <!--START CODE "c2833_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2833_3"></a>To do/follow (chosen rule - a rule) exactly/precisely/just/-- (N - a number) time/times:
+            <!--START CODE "c2832_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2832_12"></a>To do/follow (chosen rule - a rule) exactly/precisely/just/-- (N - a number) time/times:
             <br>
             &#160;&#160;&#160;&#160;....
             </p>
             </blockquote>
             <!--END CODE-->
             <p>would cause a problem when we tried to call it with</p>
-            <!--START CODE "c2834_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2834_3"></a>follow the throat-clearing rule 2 times.
+            <!--START CODE "c2833_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2833_12"></a>follow the throat-clearing rule 2 times.
             </p>
             </blockquote>
             <!--END CODE-->
             <p>In general, we probably don't need to make our phrase definitions quite so flexible as this, but it's a good idea to account for &quot;a&quot; vs. &quot;the&quot;, and for the possibility of using singular and plural forms, especially when writing extensions or other source to be shared.</p>
-            <!--START CODE "c2835_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2835_3"></a><a href="javascript:pasteCode(' [=0x0022=]Ahem[=0x0022=][=0x000A=][=0x000A=]To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]follow chosen rule.[=0x000A=][=0x000A=]This is the throat-clearing rule:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Ahem,[=0x0027=] says [a random visible person who is not the player].[=0x0022=][=0x000A=][=0x000A=]After waiting:[=0x000A=][=0x0009=]do the throat-clearing rule just one time.[=0x000A=][=0x000A=]Instead of listening:[=0x000A=][=0x0009=]follow the throat-clearing rule precisely three times.[=0x000A=][=0x000A=]Instead of smelling:[=0x000A=][=0x0009=]follow the throat-clearing rule exactly 2 times.[=0x000A=][=0x000A=]Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / smell / listen[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject(' [=0x0022=]Ahem[=0x0022=][=0x000A=][=0x000A=]To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]follow chosen rule.[=0x000A=][=0x000A=]This is the throat-clearing rule:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Ahem,[=0x0027=] says [a random visible person who is not the player].[=0x0022=][=0x000A=][=0x000A=]After waiting:[=0x000A=][=0x0009=]do the throat-clearing rule just one time.[=0x000A=][=0x000A=]Instead of listening:[=0x000A=][=0x0009=]follow the throat-clearing rule precisely three times.[=0x000A=][=0x000A=]Instead of smelling:[=0x000A=][=0x0009=]follow the throat-clearing rule exactly 2 times.[=0x000A=][=0x000A=]Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / smell / listen[=0x0022=].[=0x000A=]\n', 'Example - Ahem')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp;  &quot;Ahem&quot;
+            <!--START CODE "c2834_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2834_12"></a><a href="javascript:pasteCode('[=0x0022=]Ahem[=0x0022=][=0x000A=][=0x000A=]To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]follow chosen rule.[=0x000A=][=0x000A=]This is the throat-clearing rule:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Ahem,[=0x0027=] says [a random visible person who is not the player].[=0x0022=][=0x000A=][=0x000A=]After waiting:[=0x000A=][=0x0009=]do the throat-clearing rule just one time.[=0x000A=][=0x000A=]Instead of listening:[=0x000A=][=0x0009=]follow the throat-clearing rule precisely three times.[=0x000A=][=0x000A=]Instead of smelling:[=0x000A=][=0x0009=]follow the throat-clearing rule exactly 2 times.[=0x000A=][=0x000A=]Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / smell / listen[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ahem[=0x0022=][=0x000A=][=0x000A=]To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]follow chosen rule.[=0x000A=][=0x000A=]This is the throat-clearing rule:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Ahem,[=0x0027=] says [a random visible person who is not the player].[=0x0022=][=0x000A=][=0x000A=]After waiting:[=0x000A=][=0x0009=]do the throat-clearing rule just one time.[=0x000A=][=0x000A=]Instead of listening:[=0x000A=][=0x0009=]follow the throat-clearing rule precisely three times.[=0x000A=][=0x000A=]Instead of smelling:[=0x000A=][=0x0009=]follow the throat-clearing rule exactly 2 times.[=0x000A=][=0x000A=]Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / smell / listen[=0x0022=].[=0x000A=]\n', 'Example - Ahem')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ahem&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2836_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2836_3"></a>To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:
+            <!--START CODE "c2835_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2835_12"></a>To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:
             <br>
             &#160;&#160;&#160;&#160;repeat with index running from 1 to N:
             <br>
@@ -256,144 +256,144 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2837_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2837_3"></a>This is the throat-clearing rule:
+            <!--START CODE "c2836_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2836_12"></a>This is the throat-clearing rule:
             <br>
             &#160;&#160;&#160;&#160;say &quot;'Ahem,' says [a random visible person who is not the player].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2838_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2838_3"></a>After waiting:
+            <!--START CODE "c2837_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2837_12"></a>After waiting:
             <br>
             &#160;&#160;&#160;&#160;do the throat-clearing rule just one time.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2839_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2839_3"></a>Instead of listening:
+            <!--START CODE "c2838_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2838_12"></a>Instead of listening:
             <br>
             &#160;&#160;&#160;&#160;follow the throat-clearing rule precisely three times.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2840_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2840_3"></a>Instead of smelling:
+            <!--START CODE "c2839_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2839_12"></a>Instead of smelling:
             <br>
             &#160;&#160;&#160;&#160;follow the throat-clearing rule exactly 2 times.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2841_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2841_3"></a>Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.
+            <!--START CODE "c2840_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2840_12"></a>Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2842_3"-->
-            <blockquote class="code"><p class="quoted"><a id="c2842_3"></a>Test me with &quot;wait / smell / listen&quot;.
+            <!--START CODE "c2841_12"-->
+            <blockquote class="code"><p class="quoted"><a id="c2841_12"></a>Test me with &quot;wait / smell / listen&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
         </div>
         <p></p>
         <!--END EXAMPLE-->
-        <!--START EXAMPLE "170: Ferragamo Again" "e138"-->
-        <a id="e138"></a><table class="egcue">
+        <!--START EXAMPLE "170: Ferragamo Again" "e132"-->
+        <a id="e132"></a><table class="egcue">
             <tr>
                 <td class="egcellforoval">
                     <div class="egovalfornumber overstruckimage">
-                        <a href="#" class="eglink" onclick="showExample('example138'); return false;"><b>170</b></a></div>
+                        <a href="#" class="eglink" onclick="showExample('example132'); return false;"><b>170</b></a></div>
 
                 </td>
                 <td class="egnamecell">
-                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example138'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Ferragamo Again</span></b></a><br>
+                    <p class="egcuetext"><a href="#" class="eglink" onclick="showExample('example132'); return false;"><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><img class="asterisk" alt="*" src="inform:/doc_images/asterisk.png" /><b><span class="egbanner">Example</span><span class="egname">Ferragamo Again</span></b></a><br>
                     Using the same phrase to produce different results with different characters.</p>
 
                 </td>
                 <td class="egcrossref">
                     <!--START IGNORE-->
                     <div class="egovalforxref overstruckimage">
-                        <a href="Rdoc56.html#e138"><i>RB</i></a></div>
+                        <a href="Rdoc56.html#e132"><i>RB</i></a></div>
                     <!--END IGNORE-->
 
                 </td>
             </tr>
         </table>
 
-        <div class="egpanel" id="example138" style="display: none;">
+        <div class="egpanel" id="example132" style="display: none;">
             <p>Here we use phrases that match individual items where possible, and the general kind otherwise:</p>
-            <!--START CODE "c2843_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2843_138"></a><a href="javascript:pasteCode('[=0x0022=]Ferragamo Again[=0x0022=][=0x000A=][=0x000A=]The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]ask[=0x0022=] and [=0x0022=]tell[=0x0022=] and [=0x0022=]answer[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any subject][=0x0022=] as talking about. Talking about is an action applying to one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [text][=0x0022=] as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say [=0x0022=]Mostly you[=0x0027=]re interested in [the list of subjects].[=0x0022=][=0x000A=][=0x000A=]Carry out talking about something:[=0x000A=][=0x0009=]now the previous subject is the noun.[=0x000A=][=0x000A=]Report talking about something:[=0x000A=][=0x0009=]say [=0x0022=]You chat for a while about [the noun].[=0x0022=][=0x000A=][=0x000A=]A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand [=0x0022=]linguistics[=0x0022=] and [=0x0022=]mute[=0x0022=] and [=0x0022=]stop[=0x0022=] as sounds. Understand [=0x0022=]prada[=0x0022=] and [=0x0022=]tods[=0x0022=] and [=0x0022=]coach[=0x0022=] and [=0x0022=]carmen marc valvo[=0x0022=] as designer handbags. Understand [=0x0022=]reform[=0x0022=] and [=0x0022=]election[=0x0022=] and [=0x0022=]election fraud[=0x0022=] and [=0x0022=]two-party system[=0x0022=] and [=0x0022=]Diebold[=0x0022=] as instant run-off voting.[=0x000A=][=0x000A=]To say (annoyed-person - a person) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] sighs heavily. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]To say (annoyed-person - Vanessa) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] takes off her glasses and polishes them on her sleeve. [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say (annoyed-person - Holman) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=]Holman bobs his head. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]The previous subject is a subject that varies.[=0x000A=][=0x000A=]Instead of talking about something for more than one turn:[=0x000A=][=0x0009=]if the noun is the previous subject, say [=0x0022=][a random visible person who is not the player gestures in irritation]Maybe you should let this one go.[line break][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ferragamo Again[=0x0022=][=0x000A=][=0x000A=]The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]ask[=0x0022=] and [=0x0022=]tell[=0x0022=] and [=0x0022=]answer[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any subject][=0x0022=] as talking about. Talking about is an action applying to one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [text][=0x0022=] as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say [=0x0022=]Mostly you[=0x0027=]re interested in [the list of subjects].[=0x0022=][=0x000A=][=0x000A=]Carry out talking about something:[=0x000A=][=0x0009=]now the previous subject is the noun.[=0x000A=][=0x000A=]Report talking about something:[=0x000A=][=0x0009=]say [=0x0022=]You chat for a while about [the noun].[=0x0022=][=0x000A=][=0x000A=]A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand [=0x0022=]linguistics[=0x0022=] and [=0x0022=]mute[=0x0022=] and [=0x0022=]stop[=0x0022=] as sounds. Understand [=0x0022=]prada[=0x0022=] and [=0x0022=]tods[=0x0022=] and [=0x0022=]coach[=0x0022=] and [=0x0022=]carmen marc valvo[=0x0022=] as designer handbags. Understand [=0x0022=]reform[=0x0022=] and [=0x0022=]election[=0x0022=] and [=0x0022=]election fraud[=0x0022=] and [=0x0022=]two-party system[=0x0022=] and [=0x0022=]Diebold[=0x0022=] as instant run-off voting.[=0x000A=][=0x000A=]To say (annoyed-person - a person) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] sighs heavily. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]To say (annoyed-person - Vanessa) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] takes off her glasses and polishes them on her sleeve. [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say (annoyed-person - Holman) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=]Holman bobs his head. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]The previous subject is a subject that varies.[=0x000A=][=0x000A=]Instead of talking about something for more than one turn:[=0x000A=][=0x0009=]if the noun is the previous subject, say [=0x0022=][a random visible person who is not the player gestures in irritation]Maybe you should let this one go.[line break][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods[=0x0022=].[=0x000A=]\n', 'Example - Ferragamo Again')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ferragamo Again&quot;
+            <!--START CODE "c2842_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2842_132"></a><a href="javascript:pasteCode('[=0x0022=]Ferragamo Again[=0x0022=][=0x000A=][=0x000A=]The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]ask[=0x0022=] and [=0x0022=]tell[=0x0022=] and [=0x0022=]answer[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any subject][=0x0022=] as talking about. Talking about is an action applying to one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [text][=0x0022=] as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say [=0x0022=]Mostly you[=0x0027=]re interested in [the list of subjects].[=0x0022=][=0x000A=][=0x000A=]Carry out talking about something:[=0x000A=][=0x0009=]now the previous subject is the noun.[=0x000A=][=0x000A=]Report talking about something:[=0x000A=][=0x0009=]say [=0x0022=]You chat for a while about [the noun].[=0x0022=][=0x000A=][=0x000A=]A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand [=0x0022=]linguistics[=0x0022=] and [=0x0022=]mute[=0x0022=] and [=0x0022=]stop[=0x0022=] as sounds. Understand [=0x0022=]prada[=0x0022=] and [=0x0022=]tods[=0x0022=] and [=0x0022=]coach[=0x0022=] and [=0x0022=]carmen marc valvo[=0x0022=] as designer handbags. Understand [=0x0022=]reform[=0x0022=] and [=0x0022=]election[=0x0022=] and [=0x0022=]election fraud[=0x0022=] and [=0x0022=]two-party system[=0x0022=] and [=0x0022=]Diebold[=0x0022=] as instant run-off voting.[=0x000A=][=0x000A=]To say (annoyed-person - a person) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] sighs heavily. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]To say (annoyed-person - Vanessa) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] takes off her glasses and polishes them on her sleeve. [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say (annoyed-person - Holman) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=]Holman bobs his head. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]The previous subject is a subject that varies.[=0x000A=][=0x000A=]Instead of talking about something for more than one turn:[=0x000A=][=0x0009=]if the noun is the previous subject, say [=0x0022=][a random visible person who is not the player gestures in irritation]Maybe you should let this one go.[line break][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods[=0x0022=].[=0x000A=]\n')"><img alt="paste@2x.png" src="inform:/doc_images/paste@2x.png" width="13" height="13"></a> <a href="javascript:createNewProject('[=0x0022=]Ferragamo Again[=0x0022=][=0x000A=][=0x000A=]The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.[=0x000A=][=0x000A=]Understand the commands [=0x0022=]ask[=0x0022=] and [=0x0022=]tell[=0x0022=] and [=0x0022=]answer[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [any subject][=0x0022=] as talking about. Talking about is an action applying to one visible thing.[=0x000A=][=0x000A=]Understand [=0x0022=]talk about [text][=0x0022=] as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say [=0x0022=]Mostly you[=0x0027=]re interested in [the list of subjects].[=0x0022=][=0x000A=][=0x000A=]Carry out talking about something:[=0x000A=][=0x0009=]now the previous subject is the noun.[=0x000A=][=0x000A=]Report talking about something:[=0x000A=][=0x0009=]say [=0x0022=]You chat for a while about [the noun].[=0x0022=][=0x000A=][=0x000A=]A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand [=0x0022=]linguistics[=0x0022=] and [=0x0022=]mute[=0x0022=] and [=0x0022=]stop[=0x0022=] as sounds. Understand [=0x0022=]prada[=0x0022=] and [=0x0022=]tods[=0x0022=] and [=0x0022=]coach[=0x0022=] and [=0x0022=]carmen marc valvo[=0x0022=] as designer handbags. Understand [=0x0022=]reform[=0x0022=] and [=0x0022=]election[=0x0022=] and [=0x0022=]election fraud[=0x0022=] and [=0x0022=]two-party system[=0x0022=] and [=0x0022=]Diebold[=0x0022=] as instant run-off voting.[=0x000A=][=0x000A=]To say (annoyed-person - a person) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] sighs heavily. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]To say (annoyed-person - Vanessa) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=][The annoyed-person] takes off her glasses and polishes them on her sleeve. [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]To say (annoyed-person - Holman) gestures in irritation:[=0x000A=][=0x0009=]say [=0x0022=]Holman bobs his head. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]The previous subject is a subject that varies.[=0x000A=][=0x000A=]Instead of talking about something for more than one turn:[=0x000A=][=0x0009=]if the noun is the previous subject, say [=0x0022=][a random visible person who is not the player gestures in irritation]Maybe you should let this one go.[line break][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods[=0x0022=].[=0x000A=]\n', 'Example - Ferragamo Again')"><img alt="create@2x.png" src="inform:/doc_images/create@2x.png" width="26" height="13"></a>&nbsp;&nbsp; &quot;Ferragamo Again&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2844_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2844_138"></a>The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.
+            <!--START CODE "c2843_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2843_132"></a>The Break Room is a room. Vanessa, Tina, and Lisa are women in the Break Room. Mark and Holman are men in the Break Room.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2845_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2845_138"></a>Understand the commands &quot;ask&quot; and &quot;tell&quot; and &quot;answer&quot; as something new.
+            <!--START CODE "c2844_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2844_132"></a>Understand the commands &quot;ask&quot; and &quot;tell&quot; and &quot;answer&quot; as something new.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2846_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2846_138"></a>Understand &quot;talk about [any subject]&quot; as talking about. Talking about is an action applying to one visible thing.
+            <!--START CODE "c2845_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2845_132"></a>Understand &quot;talk about [any subject]&quot; as talking about. Talking about is an action applying to one visible thing.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2847_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2847_138"></a>Understand &quot;talk about [text]&quot; as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say &quot;Mostly you're interested in [the list of subjects].&quot;
+            <!--START CODE "c2846_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2846_132"></a>Understand &quot;talk about [text]&quot; as talking randomly about. Talking randomly about is an action applying to one topic. Carry out talking randomly about: say &quot;Mostly you're interested in [the list of subjects].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2848_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2848_138"></a>Carry out talking about something:
+            <!--START CODE "c2847_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2847_132"></a>Carry out talking about something:
             <br>
             &#160;&#160;&#160;&#160;now the previous subject is the noun.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2849_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2849_138"></a>Report talking about something:
+            <!--START CODE "c2848_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2848_132"></a>Report talking about something:
             <br>
             &#160;&#160;&#160;&#160;say &quot;You chat for a while about [the noun].&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2850_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2850_138"></a>A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand &quot;linguistics&quot; and &quot;mute&quot; and &quot;stop&quot; as sounds. Understand &quot;prada&quot; and &quot;tods&quot; and &quot;coach&quot; and &quot;carmen marc valvo&quot; as designer handbags. Understand &quot;reform&quot; and &quot;election&quot; and &quot;election fraud&quot; and &quot;two-party system&quot; and &quot;Diebold&quot; as instant run-off voting.
+            <!--START CODE "c2849_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2849_132"></a>A subject is a kind of thing. Assyrian vowel sounds, designer handbags, and instant run-off voting are subjects. Understand &quot;linguistics&quot; and &quot;mute&quot; and &quot;stop&quot; as sounds. Understand &quot;prada&quot; and &quot;tods&quot; and &quot;coach&quot; and &quot;carmen marc valvo&quot; as designer handbags. Understand &quot;reform&quot; and &quot;election&quot; and &quot;election fraud&quot; and &quot;two-party system&quot; and &quot;Diebold&quot; as instant run-off voting.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2851_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2851_138"></a>To say (annoyed-person - a person) gestures in irritation:
+            <!--START CODE "c2850_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2850_132"></a>To say (annoyed-person - a person) gestures in irritation:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The annoyed-person] sighs heavily. [run paragraph on]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2852_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2852_138"></a>To say (annoyed-person - Vanessa) gestures in irritation:
+            <!--START CODE "c2851_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2851_132"></a>To say (annoyed-person - Vanessa) gestures in irritation:
             <br>
             &#160;&#160;&#160;&#160;say &quot;[The annoyed-person] takes off her glasses and polishes them on her sleeve. [run paragraph on]&quot;.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2853_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2853_138"></a>To say (annoyed-person - Holman) gestures in irritation:
+            <!--START CODE "c2852_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2852_132"></a>To say (annoyed-person - Holman) gestures in irritation:
             <br>
             &#160;&#160;&#160;&#160;say &quot;Holman bobs his head. [run paragraph on]&quot;
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2854_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2854_138"></a>The previous subject is a subject that varies.
+            <!--START CODE "c2853_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2853_132"></a>The previous subject is a subject that varies.
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2855_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2855_138"></a>Instead of talking about something for more than one turn:
+            <!--START CODE "c2854_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2854_132"></a>Instead of talking about something for more than one turn:
             <br>
             &#160;&#160;&#160;&#160;if the noun is the previous subject, say &quot;[a random visible person who is not the player gestures in irritation]Maybe you should let this one go.[line break][paragraph break]&quot;;
             <br>
@@ -401,8 +401,8 @@
             </p>
             </blockquote>
             <!--END CODE-->
-            <!--START CODE "c2856_138"-->
-            <blockquote class="code"><p class="quoted"><a id="c2856_138"></a>Test me with &quot;talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods&quot;.
+            <!--START CODE "c2855_132"-->
+            <blockquote class="code"><p class="quoted"><a id="c2855_132"></a>Test me with &quot;talk about chocolate / talk about vowel sounds / g / talk about handbags / talk about prada / talk about tods&quot;.
             </p>
             </blockquote>
             <!--END CODE-->

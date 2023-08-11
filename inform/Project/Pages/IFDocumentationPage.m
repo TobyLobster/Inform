@@ -191,6 +191,7 @@
 
     LogHistory(@"HISTORY: Documentation Page: (didSwitchToPage) URL %@", url.absoluteString);
     [[self history] openHistoricalURL: url];
+    [wView reload: self];
 }
 
 #pragma mark - Page bar cells

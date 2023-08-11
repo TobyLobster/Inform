@@ -11,7 +11,6 @@
 #import "IFProject.h"
 #import "IFSemVer.h"
 
-extern NSNotificationName const IFExtensionsUpdatedNotification;				// Sent when the extensions are updated
 extern NSNotificationName const IFCensusFinishedNotification;
 extern NSNotificationName const IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
 
@@ -144,8 +143,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
                     showWarningPrompts: (BOOL) showWarningPrompts
                                 notify: (BOOL) notify;
 
--(void) startCensus:(NSNumber*) notify;
-- (void) updateExtensionsForCompilerVersion: (NSString*) compilerVersion;
+-(void) startLegacyCensus:(NSNumber*) notify;
 
 #pragma mark - Download and Install
 

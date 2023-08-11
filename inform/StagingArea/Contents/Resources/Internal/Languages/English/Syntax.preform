@@ -30,30 +30,6 @@ language English
 	...... , _or ...... |
 	...... _or ......
 
-<extension-documentation-heading> ::=
-	chapter : ... |
-	chapter - ... |
-	section : ... |
-	section - ...
-
-<extension-example-header> ::=
-	example : <row-of-asterisks> ... - ... |
-	example - <row-of-asterisks> ... - ... |
-	example : ... - ...                    |
-	example - ... - ...
-
-<row-of-asterisks> ::=
-	* |
-	** |
-	\*** |
-	****
-
-<table-sentence> ::=
-	<if-start-of-paragraph> table ...
-
-<extension-documentation-paste-marker> ::=
-	* : ...
-
 <documentation-symbol-tail> ::=
 	... ( <documentation-symbol> ) |
 	... -- <documentation-symbol> --
@@ -2817,10 +2793,6 @@ language English
 
 <relation-name> internal
 
-<extension-body> ::=
-	*** ---- documentation ---- ... |
-	...
-
 <natural-language> internal
 
 <dividing-sentence> ::=
@@ -2981,7 +2953,6 @@ language English
 	memory economy |
 	no deprecated features |
 	numbered rules |
-	telemetry recordings |
 	scoring |
 	no scoring |
 	engineering notation |
@@ -3373,6 +3344,10 @@ language English
 	up to <cardinal-number> digit/digits |
 	<cardinal-number> <number-base> digit/digits |
 	<cardinal-number> digit/digits |
+	digits { <quoted-text> } |
+	values { <quoted-text> } |
+	corresponding to <k-kind> |
+	corresponding to <article> <k-kind> |
 	......[issues PM_BadLPPartOption]
 
 <new-relation-sentence-subject> ::=
@@ -4060,6 +4035,9 @@ language English
 <s-literal> ::=
 	<cardinal-number> |
 	minus <cardinal-number> |
+	hexadecimal <hexadecimal-number> |
+	binary <binary-number> |
+	octal <octal-number> |
 	<quoted-text> ( <response-letter> ) |
 	<quoted-text> |
 	<s-literal-real-number> |
@@ -4074,6 +4052,12 @@ language English
 <s-literal-truth-state> ::=
 	false |
 	true
+
+<hexadecimal-number> internal
+
+<octal-number> internal
+
+<binary-number> internal
 
 <lp-group-name> internal
 

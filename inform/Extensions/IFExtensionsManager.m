@@ -17,7 +17,6 @@
 #import "IFCompilerSettings.h"
 #import "IFProjectController.h"
 
-NSString* const IFExtensionsUpdatedNotification   = @"IFExtensionsUpdatedNotification";
 NSString* const IFCensusFinishedNotification      = @"IFCensusFinishedNotification";
 NSString* const IFCensusFinishedButDontUpdateExtensionsWebPageNotification = @"IFCensusFinishedButDontUpdateExtensionsWebPageNotification";
 
@@ -409,12 +408,6 @@ didReceiveResponse: (NSURLResponse *)response
         self.cacheChanged = NO;
 
         _inBuild = [[IFInBuild alloc] init];
-
-		// We check for updates every time the application becomes active
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(updateExtensions)
-													 name: NSApplicationWillBecomeActiveNotification
-												   object: nil];
 #if DEBUG
         [self unit_test];
 #endif
@@ -700,6 +693,10 @@ didReceiveResponse: (NSURLResponse *)response
     
     cacheAvailableExtensions = newAvailableExtensions;
     self.rebuildAvailableExtensionsCache = NO;
+
+    // Tell anything that wants to know that the extensions have been updated
+    [[NSNotificationCenter defaultCenter] postNotificationName: IFCensusFinishedNotification
+                                                        object: self];
 
 	return result;
 }
@@ -1143,8 +1140,8 @@ didReceiveResponse: (NSURLResponse *)response
         return IFExtensionCantWriteDestination;
     }
 
-    // Note: this is for Legacy extensions, hence an old version "6L02"
-    [self updateExtensionsForCompilerVersion:@"6L02" notify: @(notify)];
+    // Note: this is for Legacy extensions, hence an old version "6M62"
+    [self updateExtensionsForCompilerVersion:@"6M62" notify: @(notify)];
 
     // Success
 	return IFExtensionSuccess;
@@ -1164,30 +1161,13 @@ didReceiveResponse: (NSURLResponse *)response
     }
     self.cacheChanged = NO;
 
-    // Tell anything that wants to know that the extensions have been updated
-    [[NSNotificationCenter defaultCenter] postNotificationName: IFExtensionsUpdatedNotification
-                                                        object: self];
-
-    // Perform a census with the new extensions
-    [self startCensus: notify];
-}
-
-- (void) updateExtensionsForCompilerVersion: (NSString*) compilerVersion {
-    [self updateExtensionsForCompilerVersion: compilerVersion notify: @YES];
-}
-
-- (void) updateExtensions {
-    IFAppDelegate* appDelegate = (IFAppDelegate*)[NSApp delegate];
-    IFProjectController * projectController = [appDelegate frontmostProjectController];
-    if (projectController) {
-        IFProject * project = [projectController document];
-        IFCompilerSettings* compilerSettings = [project settings];
-
-        [self updateExtensionsForCompilerVersion: compilerSettings.compilerVersion];
+    if ([IFUtility compilerVersion: compilerVersion isNoLaterThan: @"6M62"]) {
+        // Perform a legacy census with the new extensions
+        [self startLegacyCensus: notify];
     }
 }
 
--(void) startCensus:(NSNumber*) notify {
+-(void) startLegacyCensus:(NSNumber*) notify {
     // Re-run the maintenance tasks
     NSString *compilerPath = [IFUtility pathForCompiler:@""];
     if (compilerPath != nil) {
@@ -1380,7 +1360,7 @@ didReceiveResponse: (NSURLResponse *)response
     if( download.state == IFExtensionDownloadAndInstallSucceeded ) {
         [self dirtyCache];
         // TODO: For the moment at least, this is for old style extensions
-        [self availableExtensionsWithCompilerVersion: @"6L02"];
+        [self availableExtensionsWithCompilerVersion: @"6M62"];
         
         if( download.notifyDelegate != nil ) {
             if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {

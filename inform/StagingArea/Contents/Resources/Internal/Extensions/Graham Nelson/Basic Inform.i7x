@@ -80,7 +80,6 @@ Use predictable randomisation translates as the configuration flag FIX_RNG
 	in BasicInformKit.
 Use numbered rules translates as the configuration flag NUMBERED_RULES
 	in BasicInformKit.
-Use telemetry recordings translates as a compiler feature.
 Use no deprecated features translates as the configuration flag NO_DEPRECATED
 	in BasicInformKit.
 Use authorial modesty translates as the configuration flag AUTHORIAL_MODESTY
@@ -234,6 +233,45 @@ To say s
 To showme (val - value)
 	(documented at ph_showme):
 	(- {-show-me:val} -).
+
+To say (N - a number) in hexadecimal:
+	(- PrintInBase({N}, 16); -).
+
+To say (N - a number) in decimal:
+	(- PrintInBase({N}, 10); -).
+
+To say (N - a number) in octal:
+	(- PrintInBase({N}, 8); -).
+
+To say (N - a number) in binary:
+	(- PrintInBase({N}, 2); -).
+
+To say (N - a number) in base (B - a number):
+	(- PrintInBase({N}, {B}); -).
+
+To say (N - a number) in (M - a number) digit/digits:
+	(- PrintInBase({N}, 10, {M}); -).
+
+To say (N - a number) in (M - a number) hexadecimal digit/digits:
+	(- PrintInBase({N}, 16, {M}); -).
+
+To say (N - a number) in (M - a number) decimal digit/digits:
+	(- PrintInBase({N}, 10, {M}); -).
+
+To say (N - a number) in (M - a number) octal digit/digits:
+	(- PrintInBase({N}, 8, {M}); -).
+
+To say (N - a number) in (M - a number) binary digit/digits:
+	(- PrintInBase({N}, 2, {M}); -).
+
+To say (N - a number) in (M - a number) base (B - a number) digit/digits:
+	(- PrintInBase({N}, {B}, {M}); -).
+
+To say (N - a number) in unsigned decimal:
+	(- PrintInBase({N}, 10, 1); -).
+
+To say (N - a number) in (M - a number) unsigned decimal digit/digits:
+	(- PrintInBase({N}, 10, {M}); -).
 
 Section 2 - Saying Names
 
@@ -1090,10 +1128,13 @@ To sort (T - table name) in/into random order
 	(- TableShuffle({T}); -).
 To sort (T - table name) in/into (TC - table column) order
 	(documented at ph_sortcolumn):
-	(- TableSort({T}, {TC}, 1); -).
+	(- TableSort({T}, {TC}, SORT_ASCENDING); -).
 To sort (T - table name) in/into reverse (TC - table column) order
 	(documented at ph_sortcolumnreverse):
-	(- TableSort({T}, {TC}, -1); -).
+	(- TableSort({T}, {TC}, SORT_DESCENDING); -).
+To sort (T - table name) with (cf - phrase (table name, number, number) -> number)
+	(documented at ph_sorttablephrase):
+	(- TableSort({T}, 0, SORT_ASCENDING, 0, {cf}-->1); -).
 
 Section 3 - Lists
 
@@ -1175,19 +1216,22 @@ To rotate (L - a list of values) backwards
 	(- LIST_OF_TY_Rotate({-lvalue-by-reference:L}, 1); -).
 To sort (L - a list of values)
 	(documented at ph_sortlist):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING); -).
 To sort (L - a list of values) in/into reverse order
 	(documented at ph_sortlistreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_DESCENDING); -).
+To sort (L - a list of values of kind K) with (cf - phrase (K, K) -> number)
+	(documented at ph_sortlistphrase):
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING, 0, 0, {cf}-->1); -).
 To sort (L - a list of values) in/into random order
 	(documented at ph_sortlistrandom):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 2); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_LIST_RANDOM); -).
 To sort (L - a list of objects) in/into (P - property) order
 	(documented at ph_sortlistproperty):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, 1, {P}, {-property-holds-block-value:P}); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_ASCENDING, {P}, {-property-holds-block-value:P}); -).
 To sort (L - a list of objects) in/into reverse (P - property) order
 	(documented at ph_sortlistpropertyreverse):
-	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, -1, {P}, {-property-holds-block-value:P}); -).
+	(- LIST_OF_TY_Sort({-lvalue-by-reference:L}, SORT_DESCENDING, {P}, {-property-holds-block-value:P}); -).
 
 Section 6 - Relations
 
