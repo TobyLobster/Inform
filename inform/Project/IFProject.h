@@ -120,7 +120,8 @@
 #pragma mark - InBuild support
 @property (atomic) IFInBuild* inBuild;
 
-- (int) executeInBuildForExtension: extensionURL
+- (int) executeInBuildForExtension: (NSURL*) extensionURL
+                            action: (NSString*) action
                   withConfirmation: (bool) confirmed;
 
 #pragma mark - Skein support

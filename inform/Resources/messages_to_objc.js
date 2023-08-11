@@ -14,6 +14,12 @@ class ProjectClass {
     openFile(file) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["openFile", file] );
     }
+    install(extension) {
+        window.webkit.messageHandlers.scriptHandler.postMessage( ["install", extension] );
+    }
+    uninstall(extension) {
+        window.webkit.messageHandlers.scriptHandler.postMessage( ["uninstall", extension] );
+    }
     openURL(url) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["openFile", url] );
     }

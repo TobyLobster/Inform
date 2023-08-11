@@ -542,16 +542,18 @@
     }
 }
 
-- (int) executeInBuildForExtension: extensionURL
+- (int) executeInBuildForExtension: (NSURL*) extensionURL
+                            action: (NSString*) action
                   withConfirmation: (bool) confirmed {
     NSString* internalPath = [IFUtility pathForInformInternalAppSupport: [settings compilerVersion]];
 
     return [_inBuild executeInBuildForInfoWithProject: self.fileURL
-                                        forExtension: extensionURL
-                                        withInternal: [NSURL fileURLWithPath: internalPath]
-                                    withConfirmation: confirmed
-                                         withResults: self.extensionReportURL
-                                            settings: settings];
+                                               action: action
+                                         forExtension: extensionURL
+                                         withInternal: [NSURL fileURLWithPath: internalPath]
+                                     withConfirmation: confirmed
+                                          withResults: self.extensionReportURL
+                                             settings: settings];
 }
 
 // == reading/writing ==

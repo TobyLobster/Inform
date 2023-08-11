@@ -19,6 +19,7 @@ extern NSNotificationName const IFInBuildFinishedNotification;
 @interface IFInBuild : NSObject
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL
+                                 action: (NSString*) action
                            forExtension: (NSURL*) extensionURL
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed

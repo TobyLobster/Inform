@@ -460,6 +460,8 @@
     // Check for correct number of parameter required
     NSDictionary * commands = @{ @"selectView": @1,
                                  @"confirmAction": @0,
+                                 @"install": @1,
+                                 @"uninstall": @1,
                                  @"createNewProject": @2,
                                  @"pasteCode": @1,
                                  @"openFile": @1,
@@ -480,7 +482,11 @@
     if ([@"selectView" isEqualToString: list[0]]) {
         [self selectView: list[1]];
     } else if ([@"confirmAction" isEqualToString: list[0]]) {
-            [self confirmAction];
+        [self confirmAction];
+    } else if ([@"install" isEqualToString: list[0]]) {
+        [self install: list[1]];
+    } else if ([@"uninstall" isEqualToString: list[0]]) {
+        [self uninstall: list[1]];
     } else if ([@"createNewProject" isEqualToString: list[0]]) {
         [self createNewProject: list[1]
                          story: list[2]];
@@ -525,8 +531,18 @@
 }
 
 - (void) confirmAction {
-    // Install the extension that was last run through inbuild
-    [projectController confirmInstallExtensionAction];
+    // Install/Uninstall the extension that was last run through inbuild
+    [projectController confirmInbuildAction];
+}
+
+- (void) install: (NSString*) extension {
+    // Install the extension
+    [projectController installExtension: extension];
+}
+
+- (void) uninstall: (NSString*) extension {
+    // Install the extension
+    [projectController uninstallExtension: extension];
 }
 
 - (void) createNewProject: (NSString *)title

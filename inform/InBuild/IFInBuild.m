@@ -71,6 +71,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
 }
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL
+                                 action: (NSURL*) action
                            forExtension: (NSURL*) extensionURL
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
@@ -89,7 +90,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     NSMutableArray *mutableArgs = [[NSMutableArray alloc] init];
     [mutableArgs addObject: @"-project"];
     [mutableArgs addObject: projectURL.path];
-    [mutableArgs addObject: @"-install"];
+    [mutableArgs addObject: action];
     [mutableArgs addObject: extensionURL.path];
     [mutableArgs addObject: @"-results"];
     [mutableArgs addObject: resultsURL.path];

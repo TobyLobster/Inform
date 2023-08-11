@@ -121,12 +121,13 @@ static CGFloat const      minDividerWidth     = 75.0f;
     IFProgress*             testAllProgress;
 
     NSURL*                  extensionURL;
+    NSString*               inbuildAction;
 }
 
 + (void) initialize {
-	// Register our preferences
-	NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-	[defaults registerDefaults: @{IFSplitViewSizes: @[@0.5, @0.5]}];
+    // Register our preferences
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    [defaults registerDefaults: @{IFSplitViewSizes: @[@0.5, @0.5]}];
 }
 
 // == Initialistion ==
@@ -137,14 +138,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
     if (self) {
         projectPanes     = [[NSMutableArray alloc] init];
         splitViews       = [[NSMutableArray alloc] init];
-		lineHighlighting = [[NSMutableDictionary alloc] init];
+        lineHighlighting = [[NSMutableDictionary alloc] init];
 
         [self setShouldCloseDocument: NO];
 
-		[[NSNotificationCenter defaultCenter] addObserver: self
-												 selector: @selector(intelFileChanged:)
-													 name: IFIntelFileHasChangedNotification
-												   object: nil];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(intelFileChanged:)
+                                                     name: IFIntelFileHasChangedNotification
+                                                   object: nil];
 
         // Update ourselves when the compiler settings change
         [[NSNotificationCenter defaultCenter] addObserver: self
@@ -164,13 +165,14 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
         testAllProgress = nil;
         extensionURL = nil;
+        inbuildAction = @"";
     }
 
     return self;
 }
 
 - (void) dealloc {
-	[[NSNotificationCenter defaultCenter] removeObserver: self];
+    [[NSNotificationCenter defaultCenter] removeObserver: self];
 }
 
 - (void) updateSettings {
@@ -186,11 +188,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) windowDidLoad {
-	[self setWindowFrameAutosaveName: @"ProjectWindow"];
-	[[self window] setFrameAutosaveName: @"ProjectWindow"];
+    [self setWindowFrameAutosaveName: @"ProjectWindow"];
+    [[self window] setFrameAutosaveName: @"ProjectWindow"];
 
     // Once a project has loaded, remove the launcher window
-	[IFWelcomeWindow hideWelcomeWindow];
+    [IFWelcomeWindow hideWelcomeWindow];
 
     // We have loaded the window, but we are not yet main
     betweenWindowLoadedAndBecomingMain = YES;
@@ -206,17 +208,17 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) windowWillClose: (NSNotification*) not {
-	// Perform shutdown
-	[[self runningGamePage] stopRunningGame];
-	
-	for( IFProjectPane* pane in projectPanes ) {
-		[pane willClose];
-	}
+    // Perform shutdown
+    [[self runningGamePage] stopRunningGame];
+
+    for( IFProjectPane* pane in projectPanes ) {
+        [pane willClose];
+    }
 
     projectPanes = nil;
     splitViews = nil;
 
-	[panesView removeFromSuperview];
+    [panesView removeFromSuperview];
     panesView = nil;
 }
 
@@ -248,7 +250,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [projectPanes[0] selectViewOfType: IFSourcePane];
     [projectPanes[1] selectViewOfType: IFDocumentationPane];
 
-	[[projectPanes[0] sourcePage] setSpellChecking: [(IFAppDelegate*)[NSApp delegate] sourceSpellChecking]];
+    [[projectPanes[0] sourcePage] setSpellChecking: [(IFAppDelegate*)[NSApp delegate] sourceSpellChecking]];
     [[projectPanes[1] sourcePage] setSpellChecking: [(IFAppDelegate*)[NSApp delegate] sourceSpellChecking]];
 
     // Monitor for compiler finished notifications
@@ -317,31 +319,31 @@ static CGFloat const      minDividerWidth     = 75.0f;
         CGFloat totalRemaining   = [panesView bounds].size.width;
         CGFloat viewWidth        = floor(remaining / (CGFloat)nviews);
 
-		// Work out the widths of the dividers using the preferences
-		NSMutableArray<NSNumber*>* realDividerWidths = [NSMutableArray array];
-		NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] arrayForKey: IFSplitViewSizes];
+        // Work out the widths of the dividers using the preferences
+        NSMutableArray<NSNumber*>* realDividerWidths = [NSMutableArray array];
+        NSArray* dividerProportions = [[NSUserDefaults standardUserDefaults] arrayForKey: IFSplitViewSizes];
 
         if (![dividerProportions isKindOfClass: [NSArray class]] || [dividerProportions count] <= 0) {
-			dividerProportions = @[@1.0f];
+            dividerProportions = @[@1.0f];
         }
 
         CGFloat totalWidth = 0;
-		for (view=0; view<nviews; view++) {
+        for (view=0; view<nviews; view++) {
             CGFloat width;
-			
-			if (view >= [dividerProportions count]) {
-				width = [dividerProportions[[dividerProportions count]-1] doubleValue];
-			} else {
-				width = [dividerProportions[view] doubleValue];
-			}
-			
-			if (width <= 0) width = 1.0;
-			[realDividerWidths addObject: @(width)];
-			
-			totalWidth += width;
-		}
 
-		// Work out the actual widths to use, and size and add the views appropriately
+            if (view >= [dividerProportions count]) {
+                width = [dividerProportions[[dividerProportions count]-1] doubleValue];
+            } else {
+                width = [dividerProportions[view] doubleValue];
+            }
+
+            if (width <= 0) width = 1.0;
+            [realDividerWidths addObject: @(width)];
+
+            totalWidth += width;
+        }
+
+        // Work out the actual widths to use, and size and add the views appropriately
         CGFloat proportion = remaining / totalWidth;
 
         // Insert the views
@@ -353,8 +355,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
             NSView*        thisPane = [projectPanes[view] paneView];
 
             [pane setController: self viewIndex: view];
-			
-			viewWidth = floor(proportion * [realDividerWidths[view] doubleValue]);
+
+            viewWidth = floor(proportion * [realDividerWidths[view] doubleValue]);
 
             // Resize the splitview
             NSRect splitFrame;
@@ -380,7 +382,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
             [thisPane setFrame: paneFrame];
             [thisView addSubview: thisPane];
-			[thisView setDelegate: self];
+            [thisView setDelegate: self];
 
             lastView = thisView;
 
@@ -405,73 +407,73 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
-	// Update the preferences with the view widths
-	int nviews = (int) [projectPanes count];
-	int view;
-	
-	NSMutableArray* viewSizes = [NSMutableArray array];
-	
+    // Update the preferences with the view widths
+    int nviews = (int) [projectPanes count];
+    int view;
+
+    NSMutableArray* viewSizes = [NSMutableArray array];
+
     CGFloat totalWidth = [[self window] frame].size.width;
-	
-	for (view=0; view<nviews; view++) {
-		IFProjectPane* pane = projectPanes[view];
-		NSRect paneFrame = [[pane paneView] frame];
-		
-		[viewSizes addObject: @((CGFloat) (paneFrame.size.width/totalWidth))];
-	}
-	
-	[[NSUserDefaults standardUserDefaults] setObject: viewSizes
-											  forKey: IFSplitViewSizes];
+
+    for (view=0; view<nviews; view++) {
+        IFProjectPane* pane = projectPanes[view];
+        NSRect paneFrame = [[pane paneView] frame];
+
+        [viewSizes addObject: @((CGFloat) (paneFrame.size.width/totalWidth))];
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject: viewSizes
+                                              forKey: IFSplitViewSizes];
 }
 
 
 // == Toolbar item validation ==
 
 - (void) changeFirstResponder: (NSResponder*) first {
-	if ([first isKindOfClass: [NSView class]]) {
-		NSView* firstView = (NSView*)first;
-		IFProjectPane* pane = nil;
-		
-		while (firstView != nil) {
-			if ([firstView isKindOfClass: [NSTabView class]]) {
-				// See if this is the tab view for a specific pane
-				BOOL found = NO;
+    if ([first isKindOfClass: [NSView class]]) {
+        NSView* firstView = (NSView*)first;
+        IFProjectPane* pane = nil;
+
+        while (firstView != nil) {
+            if ([firstView isKindOfClass: [NSTabView class]]) {
+                // See if this is the tab view for a specific pane
+                BOOL found = NO;
                 for( IFProjectPane* possiblePane in projectPanes ) {
-					if ([possiblePane tabView] == firstView) {
+                    if ([possiblePane tabView] == firstView) {
                         pane = possiblePane;
-						found = YES;
-						break;
-					}
-				}
-				
-				// Keep this view, if it's a suitable candidate
-				if (found) break;
-				pane = nil;
-			}
-			
-			// Continue up the tree
-			firstView = [firstView superview];
-		}
-		
-		[currentPane setIsActive: NO];
-		[pane setIsActive: YES];
-		
-		currentPane = pane;
-		currentTabView = (NSTabView*)firstView;
-	}	
+                        found = YES;
+                        break;
+                    }
+                }
+
+                // Keep this view, if it's a suitable candidate
+                if (found) break;
+                pane = nil;
+            }
+
+            // Continue up the tree
+            firstView = [firstView superview];
+        }
+
+        [currentPane setIsActive: NO];
+        [pane setIsActive: YES];
+
+        currentPane = pane;
+        currentTabView = (NSTabView*)firstView;
+    }
 }
 
 - (NSTabView*) currentTabView {
-	return currentTabView;
+    return currentTabView;
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	SEL itemSelector = [menuItem action];
-	BOOL isRunning = [[self runningGamePage] isRunningGame];
+    SEL itemSelector = [menuItem action];
+    BOOL isRunning = [[self runningGamePage] isRunningGame];
 
-	if (itemSelector == @selector(stopProcess:)) {
-		return isRunning;
-	}
+    if (itemSelector == @selector(stopProcess:)) {
+        return isRunning;
+    }
 
     BOOL selectedNoTestCase = [self isExtensionProject] && ((toolbarManager.testCases.count == 0) ||
                                                             (toolbarManager.currentTestCase == nil));
@@ -494,95 +496,95 @@ static CGFloat const      minDividerWidth     = 75.0f;
         }
     }
     
-	if (itemSelector == @selector(compile:) ||
-		itemSelector == @selector(release:) ||
+    if (itemSelector == @selector(compile:) ||
+        itemSelector == @selector(release:) ||
         itemSelector == @selector(releaseForTesting:) ||
-		itemSelector == @selector(compileAndRun:) ||
-		itemSelector == @selector(compileAndDebug:) ||
-		itemSelector == @selector(replayUsingSkein:) ||
-		itemSelector == @selector(compileAndRefresh:)) {
+        itemSelector == @selector(compileAndRun:) ||
+        itemSelector == @selector(compileAndDebug:) ||
+        itemSelector == @selector(replayUsingSkein:) ||
+        itemSelector == @selector(compileAndRefresh:)) {
 
         // If we are in an Extension Project, and there are no test cases to run, disable Go! (etc) menu items.
         if( selectedNoTestCase ) {
             return NO;
         }
-		return ![[[self document] compiler] isRunning];
-	}
+        return ![[[self document] compiler] isRunning];
+    }
 
-	// Format options
-	if (itemSelector == @selector(shiftLeft:) ||
-		itemSelector == @selector(shiftRight:) ||
-		itemSelector == @selector(renumberSections:)) {
-		// First responder must be an NSTextView object
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
-			return NO;
-	}
+    // Format options
+    if (itemSelector == @selector(shiftLeft:) ||
+        itemSelector == @selector(shiftRight:) ||
+        itemSelector == @selector(renumberSections:)) {
+        // First responder must be an NSTextView object
+        if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
+            return NO;
+    }
 
-	if (itemSelector == @selector(commentOutSelection:)
-		|| itemSelector == @selector(uncommentSelection:)) {
-		// Must be an Inform 7 project (not supporting this for I6 unless someone asks or implements themselves :-)
-		if (![[[self document] settings] usingNaturalInform])
-			return NO;
-		
-		// First responder must be a NSTextView object
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
-			return NO;
-		
-		// There must be a non-zero length selection
-		if ([(NSTextView*)[[self window] firstResponder] selectedRange].length == 0)
-			return 0;
-	}
-	
-	if (itemSelector == @selector(renumberSections:)) {
-		// First responder must be an NSTextView object containing a NSTextStorage with some intel data
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
-			return NO;
+    if (itemSelector == @selector(commentOutSelection:)
+        || itemSelector == @selector(uncommentSelection:)) {
+        // Must be an Inform 7 project (not supporting this for I6 unless someone asks or implements themselves :-)
+        if (![[[self document] settings] usingNaturalInform])
+            return NO;
 
-		NSTextStorage* storage = (NSTextStorage*)[(NSTextView*)[[self window] firstResponder] textStorage];
-		
-		if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
-	}
-	
-	// Tabbing options
-	if (itemSelector == @selector(tabSource:) 
-	 || itemSelector == @selector(tabErrors:)
-	 || itemSelector == @selector(tabIndex:)
-	 || itemSelector == @selector(tabSkein:)
-	 || itemSelector == @selector(tabGame:)
-	 || itemSelector == @selector(tabDocumentation:)
-	 || itemSelector == @selector(tabSettings:)
-	 || itemSelector == @selector(switchPanes:)) {
-		return [self currentTabView] != nil;
-	}
-	
-	if (itemSelector == @selector(showIndexTab:)) {
-		return [[projectPanes[0] indexPage] canSelectIndexTab: (int) [menuItem tag]];
-	}
-	
-	// Heading options
-	if (itemSelector == @selector(showNextSection:)
-	 || itemSelector == @selector(showPreviousSection:)
-	 || itemSelector == @selector(showCurrentSectionOnly:)
-	 || itemSelector == @selector(showEntireSource:)
-	 || itemSelector == @selector(showFewerHeadings:)
-	 || itemSelector == @selector(showMoreHeadings:)) {
-		// For any of these to work, the source page must be visible
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
-			return NO;
-		
-		if ([currentPane currentView] != IFSourcePane)
-			return NO;
-	}
-	
-	if (itemSelector == @selector(exportIFiction:)) {
-		return [[[self document] settings] usingNaturalInform];
-	}
+        // First responder must be a NSTextView object
+        if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
+            return NO;
+
+        // There must be a non-zero length selection
+        if ([(NSTextView*)[[self window] firstResponder] selectedRange].length == 0)
+            return 0;
+    }
+
+    if (itemSelector == @selector(renumberSections:)) {
+        // First responder must be an NSTextView object containing a NSTextStorage with some intel data
+        if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
+            return NO;
+
+        NSTextStorage* storage = (NSTextStorage*)[(NSTextView*)[[self window] firstResponder] textStorage];
+
+        if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
+    }
+
+    // Tabbing options
+    if (itemSelector == @selector(tabSource:)
+        || itemSelector == @selector(tabErrors:)
+        || itemSelector == @selector(tabIndex:)
+        || itemSelector == @selector(tabSkein:)
+        || itemSelector == @selector(tabGame:)
+        || itemSelector == @selector(tabDocumentation:)
+        || itemSelector == @selector(tabSettings:)
+        || itemSelector == @selector(switchPanes:)) {
+        return [self currentTabView] != nil;
+    }
+
+    if (itemSelector == @selector(showIndexTab:)) {
+        return [[projectPanes[0] indexPage] canSelectIndexTab: (int) [menuItem tag]];
+    }
+
+    // Heading options
+    if (itemSelector == @selector(showNextSection:)
+        || itemSelector == @selector(showPreviousSection:)
+        || itemSelector == @selector(showCurrentSectionOnly:)
+        || itemSelector == @selector(showEntireSource:)
+        || itemSelector == @selector(showFewerHeadings:)
+        || itemSelector == @selector(showMoreHeadings:)) {
+        // For any of these to work, the source page must be visible
+        if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
+            return NO;
+
+        if ([currentPane currentView] != IFSourcePane)
+            return NO;
+    }
+
+    if (itemSelector == @selector(exportIFiction:)) {
+        return [[[self document] settings] usingNaturalInform];
+    }
 
     if (itemSelector == @selector(exportExtension:)) {
         return [[self document] isExtensionProject];
     }
 
-	return YES;
+    return YES;
 }
 
 -(int) getNumberOfTestCases {
@@ -607,7 +609,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (void) performCompileWithRelease: (BOOL) release
                         forTesting: (BOOL) releaseForTesting
-					   refreshOnly: (BOOL) onlyRefresh
+                       refreshOnly: (BOOL) onlyRefresh
                           testCase: (NSString*) testCase {
     IFProject* doc = [self document];
 
@@ -674,20 +676,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
 // == View selection functions ==
 
 - (IBAction)saveDocument:(id)sender {
-	// Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
-	for( IFProjectPane* pane in projectPanes ) {
-		[pane prepareToSave];
-	}
-
-    // Save the project, without user interaction.
-    [[self document] saveDocumentWithoutUserInteraction];
-
-    // Refresh the available test cases
-    [self refreshTestCases];
-}
-
-/*
-- (IBAction)saveDocumentAs:(id)sender {
     // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
     for( IFProjectPane* pane in projectPanes ) {
         [pane prepareToSave];
@@ -699,6 +687,20 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Refresh the available test cases
     [self refreshTestCases];
 }
+
+/*
+ - (IBAction)saveDocumentAs:(id)sender {
+ // Need to call prepareToSave here to give the project panes a chance to shut down any editing operations that might be ongoing
+ for( IFProjectPane* pane in projectPanes ) {
+ [pane prepareToSave];
+ }
+
+ // Save the project, without user interaction.
+ [[self document] saveDocumentWithoutUserInteraction];
+
+ // Refresh the available test cases
+ [self refreshTestCases];
+ }
  */
 
 - (BOOL) timestampsInChronologicalOrder: (NSURL*) first
@@ -772,7 +774,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (IBAction) release: (id) sender {
-	[self makeWithRelease: YES
+    [self makeWithRelease: YES
                forTesting: NO
               refreshOnly: NO
              forceCompile: YES
@@ -780,7 +782,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (IBAction) releaseForTesting: (id) sender {
-	[self makeWithRelease: YES
+    [self makeWithRelease: YES
                forTesting: YES
               refreshOnly: NO
              forceCompile: YES
@@ -788,7 +790,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (IBAction) compile: (id) sender {
-	[self makeWithRelease: NO
+    [self makeWithRelease: NO
                forTesting: NO
               refreshOnly: NO
              forceCompile: YES
@@ -914,7 +916,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (IBAction) stopProcess: (id) sender {
-	[projectPanes makeObjectsPerformSelector: @selector(stopRunningGame)];
+    [projectPanes makeObjectsPerformSelector: @selector(stopRunningGame)];
 }
 
 - (IBAction) openMaterials: (id) sender {
@@ -922,8 +924,8 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (IBAction) exportIFiction: (id) sender {
-	// Compile and export the iFiction metadata
-	[self makeWithRelease: NO
+    // Compile and export the iFiction metadata
+    [self makeWithRelease: NO
                forTesting: NO
               refreshOnly: NO
              forceCompile: NO
@@ -931,49 +933,49 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) saveIFiction {
-	// IFiction compilation has finished
+    // IFiction compilation has finished
     [[self document] saveIFictionWithWindow: [self window]];
 }
 
 #pragma mark - Displaying a specific index tab
 
 - (IBAction) showIndexTab: (id) sender {
-	int tag = (int) [sender tag];
-	
-	for( IFProjectPane* pane in projectPanes ) {
-		[[pane indexPage] switchToTab: tag];
-	}
-	
-	[[self indexPane] selectViewOfType: IFIndexPane];
+    int tag = (int) [sender tag];
+
+    for( IFProjectPane* pane in projectPanes ) {
+        [[pane indexPage] switchToTab: tag];
+    }
+
+    [[self indexPane] selectViewOfType: IFIndexPane];
 }
 
 #pragma mark - Things to do after the compiler has finished
 
 - (void) refreshIndexTabs {
-	// Display the index pane
-	[[self indexPane] selectViewOfType: IFIndexPane];
+    // Display the index pane
+    [[self indexPane] selectViewOfType: IFIndexPane];
 }
 
 - (void) saveCompilerOutput {
-	// Check to see if one of the compile controllers has already got a save location for the game
-	IFCompilerController* paneController = [projectPanes[0] compilerController];
-	NSString*               copyLocation = [paneController blorbLocation];
+    // Check to see if one of the compile controllers has already got a save location for the game
+    IFCompilerController* paneController = [projectPanes[0] compilerController];
+    NSString*               copyLocation = [paneController blorbLocation];
 
-	// Show the 'success' pane
-	[projectPanes[1] selectViewOfType: IFErrorPane];
+    // Show the 'success' pane
+    [projectPanes[1] selectViewOfType: IFErrorPane];
 
-	if (copyLocation != nil) {
+    if (copyLocation != nil) {
         NSError* error;
 
-		// Copy the result to the specified location (overwriting any existing file)
+        // Copy the result to the specified location (overwriting any existing file)
         [[NSFileManager defaultManager] removeItemAtPath: copyLocation
                                                    error: &error];
-		[[NSFileManager defaultManager] copyItemAtPath: [[[self document] compiler] outputFile]
+        [[NSFileManager defaultManager] copyItemAtPath: [[[self document] compiler] outputFile]
                                                 toPath: copyLocation
                                                  error: &error];
-	} else {
+    } else {
         [[self document] saveCompilerOutputWithWindow: [self window]];
-	}
+    }
 }
 
 - (void) runCompilerOutputAndTest {
@@ -997,15 +999,15 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) runCompilerOutputAndReplay {
-	skeinNodeStack = nil;
-	
+    skeinNodeStack = nil;
+
     [self.gamePage setSwitchToPage: YES];
     [self.gamePage setTestCommands: [self.document currentSkein].previousCommands];
-	[self runCompilerOutput];
+    [self runCompilerOutput];
 }
 
 - (void) debugCompilerOutput {
-	[self.gamePage activateDebug];
+    [self.gamePage activateDebug];
     [self.gamePage startRunningGame: [[self.document compiler] outputFile]];
 
     [toolbarManager validateVisibleItems];
@@ -1087,9 +1089,9 @@ static CGFloat const      minDividerWidth     = 75.0f;
         }
     }
 
-	[self removeProgressIndicator: [[[self document] compiler] progress]];
-	
-	if (exitCode != 0 || [[not object] problemsURL] != nil) {
+    [self removeProgressIndicator: [[[self document] compiler] progress]];
+
+    if (exitCode != 0 || [[not object] problemsURL] != nil) {
         if( ![self isTestAllCasesSelected] ) {
             // Show the errors pane if there was an error while compiling
             [projectPanes[1] selectViewOfType: IFErrorPane];
@@ -1099,18 +1101,18 @@ static CGFloat const      minDividerWidth     = 75.0f;
     // Re-read the contents of the directory, now that the compiler has written a bunch of files there
     [[self document] reloadDirectory];
 
-	// Show the 'build results' files
+    // Show the 'build results' files
     [self updateBuildResults];
 
-	// Update the index tab(s)
-	for (int x=0; x<[projectPanes count]; x++) {
+    // Update the index tab(s)
+    for (int x=0; x<[projectPanes count]; x++) {
         IFProjectPane* pane = projectPanes[x];
-		[[pane indexPage] updateIndexView];
-	}
+        [[pane indexPage] updateIndexView];
+    }
 
-	// Reload the index file
-	[[self document] reloadIndexFile];
-	
+    // Reload the index file
+    [[self document] reloadIndexFile];
+
     // Make a report if there was an error while compiling a test case
     NSURL* reportURL = nil;
     if( [self isCurrentlyTesting] ) {
@@ -1156,103 +1158,103 @@ static CGFloat const      minDividerWidth     = 75.0f;
 #pragma mark - Communication from the containing panes
 
 - (IFProjectPane*) sourcePane {
-	// Returns the current pane containing the source code (or an appropriate pane that source code can be displayed in)
+    // Returns the current pane containing the source code (or an appropriate pane that source code can be displayed in)
     int paneToUse = 0;
     int x;
-	
+
     for (x=0; x<[projectPanes count]; x++) {
         IFProjectPane* thisPane = projectPanes[x];
-		
+
         if ([thisPane currentView] == IFSourcePane) {
             // Always use the first source pane found
             paneToUse = x;
             break;
         }
-		
+
         if ([thisPane currentView] == IFErrorPane) {
             // Avoid a pane showing error messages
             paneToUse = x+1;
         }
     }
-	
+
     if (paneToUse >= [projectPanes count]) {
         // All error views?
         paneToUse = 0;
     }
 
-	return projectPanes[paneToUse];
+    return projectPanes[paneToUse];
 }
 
 - (IFProjectPane*) auxPane {
-	// Returns the auxiliary pane: the one to use for displaying documentation, etc
+    // Returns the auxiliary pane: the one to use for displaying documentation, etc
     int paneToUse = -1;
     int x;
-	
+
     for (x=0; x<[projectPanes count]; x++) {
         IFProjectPane* thisPane = projectPanes[x];
-		
+
         if ([thisPane currentView] == IFDocumentationPane) {
-			// Doc pane has priority
+            // Doc pane has priority
             paneToUse = x;
             break;
         }
     }
 
     // If no documentation pane available, choose something else.
-	if (paneToUse == -1) {
-		paneToUse = 1;
-		for (x=(int)[projectPanes count]-1; x>=0; x--) {
-			IFProjectPane* thisPane = projectPanes[x];
-			
-			if ([thisPane currentView] != IFSourcePane &&
-				[thisPane currentView] != IFGamePane) {
-				// Anything but the source or game...
-				paneToUse = x;
-				break;
-			}
-			
-			if ([thisPane currentView] == IFSourcePane) {
-				// Avoid a pane showing the source code
-				paneToUse = x+1;
-			}
-		}
-	}
-	
+    if (paneToUse == -1) {
+        paneToUse = 1;
+        for (x=(int)[projectPanes count]-1; x>=0; x--) {
+            IFProjectPane* thisPane = projectPanes[x];
+
+            if ([thisPane currentView] != IFSourcePane &&
+                [thisPane currentView] != IFGamePane) {
+                // Anything but the source or game...
+                paneToUse = x;
+                break;
+            }
+
+            if ([thisPane currentView] == IFSourcePane) {
+                // Avoid a pane showing the source code
+                paneToUse = x+1;
+            }
+        }
+    }
+
     if (paneToUse >= [projectPanes count]) {
         // All source views?
         paneToUse = 0;
     }
-	
-	return projectPanes[paneToUse];
+
+    return projectPanes[paneToUse];
 }
 
 - (IFProjectPane*) indexPane {
-	// Returns the current pane containing the index
+    // Returns the current pane containing the index
     int x;
-	
+
     for (x=0; x<[projectPanes count]; x++) {
         IFProjectPane* thisPane = projectPanes[x];
-		
+
         if ([thisPane currentView] == IFIndexPane) {
-			// This is the index pane
-			return thisPane;
+            // This is the index pane
+            return thisPane;
         }
     }
-	
-	// No index pane showing: use the aux pane
-	return [self auxPane];
+
+    // No index pane showing: use the aux pane
+    return [self auxPane];
 }
 
 - (IFProjectPane*) oppositePane: (IFProjectPane*) pane {
-	// Find this pane
-	NSInteger index = [projectPanes indexOfObjectIdenticalTo: pane];
-	if (index == NSNotFound) return nil;
-	
-	// Get it's 'opposite'
-	NSInteger opposite = index-1;
-	if (opposite < 0) opposite = [projectPanes count]-1;
-	
-	return projectPanes[opposite];
+    // Find this pane
+    NSInteger index = [projectPanes indexOfObjectIdenticalTo: pane];
+    if (index == NSNotFound) return nil;
+
+    // Get it's 'opposite'
+    NSInteger opposite = index-1;
+    if (opposite < 0) opposite = [projectPanes count]-1;
+
+    return projectPanes[opposite];
 }
 
 -(void) loadInform7ExtensionWithFullFilePath:(NSString*) extnFile {
@@ -1278,31 +1280,31 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 - (BOOL) loadInform7Extension: (NSString*) filename {
     // Get the author and extension name
-	NSArray* components = [filename pathComponents];
-	if ([components count] != 2) {
-		if ([filename characterAtIndex: 0] == '/' && [[NSFileManager defaultManager] fileExistsAtPath: filename]) {
+    NSArray* components = [filename pathComponents];
+    if ([components count] != 2) {
+        if ([filename characterAtIndex: 0] == '/' && [[NSFileManager defaultManager] fileExistsAtPath: filename]) {
             [self loadInform7ExtensionWithFullFilePath:filename];
-			return YES;
-		}
-		return NO;
-	}
+            return YES;
+        }
+        return NO;
+    }
 
-	NSString* author = components[0];
-	NSString* extension = components[1];
+    NSString* author = components[0];
+    NSString* extension = components[1];
 
-	// Search for this extension
-	NSArray* possibleExtensions = [[IFExtensionsManager sharedNaturalInformExtensionsManager] filesInExtensionWithName: author];
-	if ([possibleExtensions count] <= 0) return NO;
+    // Search for this extension
+    NSArray* possibleExtensions = [[IFExtensionsManager sharedNaturalInformExtensionsManager] filesInExtensionWithName: author];
+    if ([possibleExtensions count] <= 0) return NO;
 
-	for( NSString* extnFile in possibleExtensions ) {
-		if ([[extnFile lastPathComponent] caseInsensitiveCompare: extension] == NSOrderedSame) {
-			// This is the extension file we need to open
+    for( NSString* extnFile in possibleExtensions ) {
+        if ([[extnFile lastPathComponent] caseInsensitiveCompare: extension] == NSOrderedSame) {
+            // This is the extension file we need to open
             [self loadInform7ExtensionWithFullFilePath: extnFile];
-			return YES;
-		}
-	}
+            return YES;
+        }
+    }
 
-	return NO;
+    return NO;
 }
 
 - (BOOL) showTestCase: (NSString*) testCase skeinNode:(unsigned long) skeinNodeId {
@@ -1323,33 +1325,33 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (BOOL) selectSourceFile: (NSString*) fileName {
-	if ([[self document] storageForFile: fileName] != nil) {
-		// Load this file
+    if ([[self document] storageForFile: fileName] != nil) {
+        // Load this file
         [self.sourcePage showSourceFile: fileName];
-		//[projectPanes makeObjectsPerformSelector: @selector(showSourceFile:)
-		//							  withObject: fileName];
-	} else if (![self loadInform7Extension: fileName]) {
-		// Display an error if we couldn't find the file
+        //[projectPanes makeObjectsPerformSelector: @selector(showSourceFile:)
+        //							  withObject: fileName];
+    } else if (![self loadInform7Extension: fileName]) {
+        // Display an error if we couldn't find the file
         [IFUtility runAlertWarningWindow: [self window]
                                    title: @"Unable to open source file"
                                  message: @"Unable to open source file description"];
-	}
+    }
 
-	lastFilename = [fileName copy];
+    lastFilename = [fileName copy];
 
     return YES;
 }
 
 - (IFSourcePage*) sourcePage {
-	return [[self sourcePane] sourcePage];
+    return [[self sourcePane] sourcePage];
 }
 
 - (NSString*) selectedSourceFile {
-	return [[self sourcePage] currentFile];
+    return [[self sourcePage] currentFile];
 }
 
 - (void) moveToSourceFileLine: (NSInteger) line {
-	IFProjectPane* thePane = [self sourcePane];
+    IFProjectPane* thePane = [self sourcePane];
 
     [thePane selectViewOfType: IFSourcePane];
     [[thePane sourcePage] moveToLine: line];
@@ -1357,16 +1359,16 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) moveToSourceFilePosition: (NSInteger) location {
-	IFProjectPane* thePane = [self sourcePane];
-	
+    IFProjectPane* thePane = [self sourcePane];
+
     [thePane selectViewOfType: IFSourcePane];
     [[thePane sourcePage] moveToLocation: location];
     [[self window] makeFirstResponder: [thePane activeView]];
 }
 
 - (void) selectSourceFileRange: (NSRange) range {
-	IFProjectPane* thePane = [self sourcePane];
-	
+    IFProjectPane* thePane = [self sourcePane];
+
     [thePane selectViewOfType: IFSourcePane];
     [[thePane sourcePage] indicateRange: range];
 
@@ -1374,156 +1376,156 @@ static CGFloat const      minDividerWidth     = 75.0f;
 }
 
 - (void) removeHighlightsInFile: (NSString*) file
-						ofStyle: (IFLineStyle) style {
-	file = [[self document] pathForSourceFile: file];
-	
-	NSMutableArray* lineHighlight = lineHighlighting[file];
-	if (lineHighlight == nil) return;
-	
-	BOOL updated = NO;
-	
-	// Loop through each highlight, and remove any of this style
-	int x;
-	for (x=0; x<[lineHighlight count]; x++) {
-		if ([lineHighlight[x][1] intValue] == style) {
-			[lineHighlight removeObjectAtIndex: x];
-			updated = YES;
-			x--;
-		}
-	}
-	
-	if (updated) {
-		for( IFProjectPane* pane in projectPanes ) {
-			if ([[[self document] pathForSourceFile: [[pane sourcePage] currentFile]] isEqualToString: file]) {
-				[[pane sourcePage] updateHighlightedLines];
-			}
-		}
-	}
+                        ofStyle: (IFLineStyle) style {
+    file = [[self document] pathForSourceFile: file];
+
+    NSMutableArray* lineHighlight = lineHighlighting[file];
+    if (lineHighlight == nil) return;
+
+    BOOL updated = NO;
+
+    // Loop through each highlight, and remove any of this style
+    int x;
+    for (x=0; x<[lineHighlight count]; x++) {
+        if ([lineHighlight[x][1] intValue] == style) {
+            [lineHighlight removeObjectAtIndex: x];
+            updated = YES;
+            x--;
+        }
+    }
+
+    if (updated) {
+        for( IFProjectPane* pane in projectPanes ) {
+            if ([[[self document] pathForSourceFile: [[pane sourcePage] currentFile]] isEqualToString: file]) {
+                [[pane sourcePage] updateHighlightedLines];
+            }
+        }
+    }
 }
 
 - (void) removeHighlightsOfStyle: (IFLineStyle) style {
-	// Remove highlights in all files
-	for( NSString* file in lineHighlighting ) {
-		[self removeHighlightsInFile: file
-							 ofStyle: style];
-	}
+    // Remove highlights in all files
+    for( NSString* file in lineHighlighting ) {
+        [self removeHighlightsInFile: file
+                             ofStyle: style];
+    }
 }
 
 - (void) removeAllTemporaryHighlights {
-	if (!temporaryHighlights) return;
-	
-	int style;
-	
-	for (style = IFLineStyle_Temporary; style<IFLineStyle_LastTemporary; style++) {
-		[self removeHighlightsOfStyle: style];
-	}
-	
-	temporaryHighlights = NO;
+    if (!temporaryHighlights) return;
+
+    int style;
+
+    for (style = IFLineStyle_Temporary; style<IFLineStyle_LastTemporary; style++) {
+        [self removeHighlightsOfStyle: style];
+    }
+
+    temporaryHighlights = NO;
 }
 
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file {
+                          inFile: (NSString*) file {
     [self highlightSourceFileLine: line
-						   inFile: file
+                           inFile: file
                             style: IFLineStyleNeutral];
 }
 
 - (void) highlightSourceFileLine: (NSInteger) line
-						  inFile: (NSString*) file
+                          inFile: (NSString*) file
                            style: (IFLineStyle) style {
-	// Get the 'true' path to this file
-	file = [[self document] pathForSourceFile: file];
-	
-	// See if there's a document that manages this file
-	NSDocument* fileDocument = [[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath: file]];
-	if (fileDocument && fileDocument != [self document] && ![fileDocument isEqual: [self document]]) {
+    // Get the 'true' path to this file
+    file = [[self document] pathForSourceFile: file];
 
-		// Pass this message on to this document's controllers
-		for( id	docController in [fileDocument windowControllers] ) {
-			// If this controller is capable of highlighting lines, tell it to do so
-			if ([docController respondsToSelector: @selector(highlightSourceFileLine:inFile:style:)]) {
-				[docController highlightSourceFileLine: line
-												inFile: file
-												 style: style];
-			}
-		}
-		return;
-	}
-	
-	// Create a new line highlight for this file
-	NSMutableArray* lineHighlight = lineHighlighting[file];
-	
-	if (lineHighlight == nil) {
-		lineHighlight = [NSMutableArray array];
-		lineHighlighting[file] = lineHighlight;
-	}
-	
-	[lineHighlight addObject: @[@(line), 
-		@(style)]];
-	
-	// Display the highlight
-	if (style >= IFLineStyle_Temporary && style < IFLineStyle_LastTemporary)
-		temporaryHighlights = YES;
-		
-	for( IFProjectPane* pane in projectPanes ) {
-		if ([[[self document] pathForSourceFile: [[pane sourcePage] currentFile]] isEqualToString: file]) {
-			[[pane sourcePage] updateHighlightedLines];
+    // See if there's a document that manages this file
+    NSDocument* fileDocument = [[NSDocumentController sharedDocumentController] documentForURL: [NSURL fileURLWithPath: file]];
+    if (fileDocument && fileDocument != [self document] && ![fileDocument isEqual: [self document]]) {
 
-			if (temporaryHighlights) {
-				[[pane sourcePage] indicateLine: (int) line];
-			}
-		}
-	}
+        // Pass this message on to this document's controllers
+        for( id	docController in [fileDocument windowControllers] ) {
+            // If this controller is capable of highlighting lines, tell it to do so
+            if ([docController respondsToSelector: @selector(highlightSourceFileLine:inFile:style:)]) {
+                [docController highlightSourceFileLine: line
+                                                inFile: file
+                                                 style: style];
+            }
+        }
+        return;
+    }
+
+    // Create a new line highlight for this file
+    NSMutableArray* lineHighlight = lineHighlighting[file];
+
+    if (lineHighlight == nil) {
+        lineHighlight = [NSMutableArray array];
+        lineHighlighting[file] = lineHighlight;
+    }
+
+    [lineHighlight addObject: @[@(line),
+                                @(style)]];
+
+    // Display the highlight
+    if (style >= IFLineStyle_Temporary && style < IFLineStyle_LastTemporary)
+        temporaryHighlights = YES;
+
+    for( IFProjectPane* pane in projectPanes ) {
+        if ([[[self document] pathForSourceFile: [[pane sourcePage] currentFile]] isEqualToString: file]) {
+            [[pane sourcePage] updateHighlightedLines];
+
+            if (temporaryHighlights) {
+                [[pane sourcePage] indicateLine: (int) line];
+            }
+        }
+    }
 }
 
 - (NSArray*) highlightsForFile: (NSString*) file {
-	file = [[self document] pathForSourceFile: file];
-	
-	return lineHighlighting[file];
+    file = [[self document] pathForSourceFile: file];
+
+    return lineHighlighting[file];
 }
 
 #pragma mark - Debugging controls
 
 - (IFProjectPane*) runningGamePane {
-	// Return the pane that we're displaying/going to display the game in
-	for( IFProjectPane* pane in projectPanes ) {
-		if ([[pane gamePage] isRunningGame]) return pane;
-	}
+    // Return the pane that we're displaying/going to display the game in
+    for( IFProjectPane* pane in projectPanes ) {
+        if ([[pane gamePage] isRunningGame]) return pane;
+    }
 
-	return nil;
+    return nil;
 }
 
 - (IFGamePage*) runningGamePage {
-	return [[self runningGamePane] gamePage];
+    return [[self runningGamePane] gamePage];
 }
 
 - (IFGamePage*) gamePage {
-	return [projectPanes[1] gamePage];
+    return [projectPanes[1] gamePage];
 }
 
 - (void) restartRunning {
-	// Perform actions to switch back to the game when we click on continue, etc
-	[[self window] makeFirstResponder: [[self runningGamePage] zoomView]];
+    // Perform actions to switch back to the game when we click on continue, etc
+    [[self window] makeFirstResponder: [[self runningGamePage] zoomView]];
 
-	[toolbarManager validateVisibleItems];
+    [toolbarManager validateVisibleItems];
 }
 
 - (void) pauseProcess: (id) sender {
-	[[self runningGamePage] pauseRunningGame];
+    [[self runningGamePage] pauseRunningGame];
 }
 
 - (IFIntelFile*) currentIntelligence {
-	return [[self sourcePage] currentIntelligence];
+    return [[self sourcePage] currentIntelligence];
 }
 
 #pragma mark - Documentation controls
 
 - (void) docIndex: (id) sender {
-	[[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/index.html"]];
+    [[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/index.html"]];
 }
 
 - (void) docRecipes: (id) sender {
-	[[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/Rdoc1.html"]];
+    [[[self auxPane] documentationPage] openURL: [NSURL URLWithString: @"inform:/Rdoc1.html"]];
 }
 
 - (void) docExtensions: (id) sender {
@@ -1535,7 +1537,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     } else {
         extensions = @"inform://Extensions/Extensions.html";
     }
-	[[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: extensions]];
+    [[[self auxPane] extensionsPage] openURL: [NSURL URLWithString: extensions]];
 }
 
 #pragma mark - New Extensions
@@ -1556,10 +1558,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self showPublicLibrary];
 }
 
--(void) confirmInstallExtensionAction {
-    if (extensionURL != nil) {
+-(void) confirmInbuildAction {
+    if (self->extensionURL != nil) {
         IFProject *project = self.document;
-        [project executeInBuildForExtension: extensionURL
+        [project executeInBuildForExtension: self->extensionURL
+                                     action: self->inbuildAction
                            withConfirmation: true];
 
         // Show results
@@ -1572,6 +1575,50 @@ static CGFloat const      minDividerWidth     = 75.0f;
         }
         [self->projectPanes[1] selectViewOfType: IFErrorPane];
     }
+}
+
+-(void) installExtension: (NSString*) extension {
+    [self installExtensionURL: [NSURL fileURLWithPath: extension]];
+}
+
+-(void) installExtensionURL: (NSURL*) extension {
+    self->extensionURL = extension;
+    self->inbuildAction = @"-install";
+
+    IFProject *project = self.document;
+    [project executeInBuildForExtension: extension
+                                 action: self->inbuildAction
+                       withConfirmation: false];
+
+    // Show results
+    for (int x=0; x<[self->projectPanes count]; x++) {
+        IFProjectPane* pane = self->projectPanes[x];
+
+        [[pane compilerController] clearTabViewsExcept: IFTabConsole];
+        IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
+        [[pane compilerController] switchToViewWithTabId: id];
+    }
+    [self->projectPanes[1] selectViewOfType: IFErrorPane];
+}
+
+-(void) uninstallExtension: (NSString*) extension {
+    IFProject *project = self.document;
+    self->extensionURL = [NSURL fileURLWithPath: extension];
+    self->inbuildAction = @"-uninstall";
+
+    [project executeInBuildForExtension: self->extensionURL
+                                 action: self->inbuildAction
+                       withConfirmation: false];
+
+    // Show results
+    for (int x=0; x<[self->projectPanes count]; x++) {
+        IFProjectPane* pane = self->projectPanes[x];
+
+        [[pane compilerController] clearTabViewsExcept: IFTabConsole];
+        IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
+        [[pane compilerController] switchToViewWithTabId: id];
+    }
+    [self->projectPanes[1] selectViewOfType: IFErrorPane];
 }
 
 -(void) addExtensionFromFileUsingPanel: (NSOpenPanel*__strong*) pPanel
@@ -1602,19 +1649,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
                                                                              toProjectTemporary: project];
         if (self->extensionURL) {
             // Call inbuild to check it's a valid extension
-
-            [project executeInBuildForExtension: self->extensionURL
-                               withConfirmation: false];
-
-            // Show results
-            for (int x=0; x<[self->projectPanes count]; x++) {
-                IFProjectPane* pane = self->projectPanes[x];
-
-                [[pane compilerController] clearTabViewsExcept: IFTabConsole];
-                IFCompilerTabId id = [[pane compilerController] makeTabForFile: project.extensionReportURL.path];
-                [[pane compilerController] switchToViewWithTabId: id];
-            }
-            [self->projectPanes[1] selectViewOfType: IFErrorPane];
+            [self installExtensionURL: self->extensionURL];
         }
     }];
 }

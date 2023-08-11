@@ -147,10 +147,11 @@
 - (void) inputSourceHasFinished: (id) source;
 - (void) showPublicLibrary;
 
-
 - (IBAction) addExtensionFromFile: (id) sender;
 - (IBAction) addExtensionFromLegacyInstalledFolder: (id) sender;
 
--(void) confirmInstallExtensionAction;
+-(void) confirmInbuildAction;
+-(void) installExtension: (NSString*) extension;
+-(void) uninstallExtension: (NSString*) extension;
 
 @end
