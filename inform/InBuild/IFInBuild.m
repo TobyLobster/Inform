@@ -71,7 +71,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
 }
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL
-                                 action: (NSURL*) action
+                                 action: (NSString*) action
                            forExtension: (NSURL*) extensionURL
                            withInternal: (NSURL*) internalURL
                        withConfirmation: (bool) confirmed
@@ -317,6 +317,98 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     NSLog(@"stderr: %@", stdErr);
     NSLog(@"exit code: %d", exitCode);
 
+    return exitCode;
+}
+
+-(int) executeInBuildForConvertingMarkdown: (NSString*) markdownFilepath
+                                    toHTML: (NSString*) htmlFilepath
+                              withInternal: (NSURL*) internalURL
+                                  settings: (IFCompilerSettings*) settings {
+    if (theTask) {
+        if ([theTask isRunning]) {
+            [theTask terminate];
+        }
+        theTask = nil;
+    }
+
+    // Build a command with arguments:
+    // inbuild -internal INTERNAL -markdown-from MARKDOWNFILE -markdown-to HTMLFILE
+
+    NSMutableArray *mutableArgs = [[NSMutableArray alloc] init];
+    [mutableArgs addObject: @"-internal"];
+    [mutableArgs addObject: internalURL.path];
+    [mutableArgs addObject: @"-markdown-from"];
+    [mutableArgs addObject: markdownFilepath];
+    [mutableArgs addObject: @"-markdown-to"];
+    [mutableArgs addObject: htmlFilepath];
+
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: [settings compilerVersion]];
+
+    stdErr = [[NSMutableString alloc] init];
+    stdOut = [[NSMutableString alloc] init];
+
+    // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
+    theTask = [[NSTask alloc] init];
+
+    [theTask setArguments:  mutableArgs];
+    [theTask setLaunchPath: command];
+    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+
+    NSMutableString* message = [[NSMutableString alloc] init];
+    [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
+    [message appendFormat:@"Command: %@\n", command];
+    [message appendString:@"Args: "];
+    for(NSString* arg in mutableArgs) {
+        bool hasSpaces = ( [arg indexOf:@" "] != NSNotFound );
+        if( hasSpaces ) [message appendString: @"'"];
+        [message appendString: arg];
+        if( hasSpaces ) [message appendString: @"'"];
+        [message appendString: @"\n      "];
+    }
+    NSLog(@"%@", message);
+
+    // Prepare the task's IO
+    stdErrPipe = [[NSPipe alloc] init];
+    stdOutPipe = [[NSPipe alloc] init];
+
+    [theTask setStandardOutput: stdOutPipe];
+    [theTask setStandardError:  stdErrPipe];
+    [theTask setStandardInput: [NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+
+    stdOutH = [stdOutPipe fileHandleForReading];
+    stdErrH = [stdErrPipe fileHandleForReading];
+
+    // Start the task
+    [theTask launch];
+
+    // Wait until finished
+    NSMutableData *data = [NSMutableData dataWithCapacity:512];
+    while ([theTask isRunning]) {
+        [data appendData:[stdOutH readDataToEndOfFile]];
+    }
+    [data appendData:[stdOutH readDataToEndOfFile]];
+
+    // Record output
+    stdOut = [[[NSString alloc] initWithData: data
+                                    encoding: NSUTF8StringEncoding] mutableCopy];
+    stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
+                                    encoding: NSUTF8StringEncoding] mutableCopy];
+    exitCode = [theTask terminationStatus];
+
+    if (exitCode != 0) {
+        // Write error messaging as HTML page to resultsURL
+        NSString * errorHTML = [NSString stringWithFormat:
+                                @"<HTML><body>There was an error running inbuild:<br><pre>%@\nstdout: %@\nstderr: %@exit code: %d</pre></body></html>",
+                                message, stdOut, stdErr, exitCode];
+
+        [errorHTML writeToFile: htmlFilepath
+                    atomically: NO
+                      encoding: NSStringEncodingConversionAllowLossy
+                         error: nil];
+    }
+    NSLog(@"stdout: %@", stdOut);
+    NSLog(@"stderr: %@", stdErr);
+    NSLog(@"exit code: %d", exitCode);
     return exitCode;
 }
 

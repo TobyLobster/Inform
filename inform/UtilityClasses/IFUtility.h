@@ -146,4 +146,7 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) coreBuildVersion;
 @property (class, readonly, copy, nonatomic) NSString *coreBuildVersion;
 
+// RegEx
++(NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text;
+
 @end

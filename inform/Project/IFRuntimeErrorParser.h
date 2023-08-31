@@ -31,6 +31,6 @@
 @optional
 
 /// Called when a runtime problem occurs in the output
-- (void) runtimeError: (NSString*) error;
+- (void) runtimeError: (NSString*) error inDirectory: (NSString*) directory;
 
 @end

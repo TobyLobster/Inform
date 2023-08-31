@@ -27,6 +27,10 @@ extern NSNotificationName const IFInBuildFinishedNotification;
                                settings: (IFCompilerSettings*) settings;
 
 -(int) executeInBuildForCensus;
+-(int) executeInBuildForConvertingMarkdown: (NSString*) markdownFilepath
+                                    toHTML: (NSString*) htmlFilepath
+                              withInternal: (NSURL*) internalURL
+                                  settings: (IFCompilerSettings*) settings;
 
 @property (nonatomic,readonly) NSMutableString* stdOut;
 @property (nonatomic,readonly) NSMutableString* stdErr;

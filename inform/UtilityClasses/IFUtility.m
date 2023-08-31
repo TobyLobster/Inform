@@ -858,4 +858,19 @@ static int valueForHexChar(unichar c) {
     return result;
 }
 
++(NSTextCheckingResult*) findMatch: (NSString*) pattern inText:(NSString*) text {
+    NSError* error = nil;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern: pattern
+                                                                           options: 0
+                                                                             error: &error];
+    if (error != nil) {
+        NSLog(@"Warning: Runtime error parser. Regex pattern error: %@", [error description]);
+        return nil;
+    }
+    NSTextCheckingResult *match = [regex firstMatchInString: text
+                                                    options: 0
+                                                      range: NSMakeRange(0, [text length])];
+    return match;
+}
+
 @end

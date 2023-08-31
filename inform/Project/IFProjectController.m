@@ -1915,28 +1915,60 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 #pragma mark - IFRuntimeErrorParser delegate methods
 
-- (void) runtimeError: (NSString*) error {
-	// The file that might contain the error
-	NSString* errorFile = [NSString stringWithFormat: @"RTP_%@", error];
-	
-	// See if the file exists
-	if ([[NSBundle mainBundle] pathForResource: errorFile
-										ofType: @"html"] == nil) {
-		// The error file cannot be found: use a default
-		NSLog(@"Warning: run-time error file '%@.html' not found, using RTP_Unknown.html instead", errorFile);
-		errorFile = @"RTP_Unknown";
-	}
-	
-	// This URL is where the error file will reside
-	NSURL* errorURL = [NSURL URLWithString: [NSString stringWithFormat: @"inform:/%@.html", errorFile]];
+- (void) runtimeError: (NSString*) error
+          inDirectory: (NSString*) directory {
+    NSURL* errorURL = nil;
+    NSString* markdownPath = nil;
+    IFProject *project = [self document];
 
-	// For each pane, add the runtime error message
-	for( IFProjectPane* pane in projectPanes ) {
-		[[pane compilerController] showRuntimeError: errorURL];
-	}
+    if (directory == nil) {
+        // If no directory is present, then redirect using old method (looks for a regular resource within the App).
 
-	// Change the source view to the errors view (so we can see the text leading to the error as well as the error itself
-	[projectPanes[0] selectViewOfType: IFErrorPane];
+        // The file that might contain the error
+        NSString* errorFile = [NSString stringWithFormat: @"RTP_%@", error];
+
+        // See if the file exists
+        if ([[NSBundle mainBundle] pathForResource: errorFile
+                                            ofType: @"html"] == nil) {
+            // The error file cannot be found: use a default
+            NSLog(@"Warning: run-time error file '%@.html' not found, using RTP_Unknown.html instead", errorFile);
+            errorFile = @"RTP_Unknown";
+        }
+
+        // This URL is where the error file will reside
+        errorURL = [NSURL URLWithString: [NSString stringWithFormat: @"inform:/%@.html", errorFile]];
+    } else {
+        NSString* errorFile = [NSString stringWithFormat: @"%@.md", error];
+        if ([directory startsWithCaseInsensitive:@"Internal/"]) {
+            // If directory starts with "Internal/" then resolve the path to inside the internal directory
+            markdownPath = [[[IFUtility pathForInformInternalAppSupport: @""] stringByAppendingPathComponent: [directory substringFromIndex: 9]] stringByAppendingPathComponent: errorFile];
+        } else {
+            // Resolve to inside the Materials/ folder for the current project
+            markdownPath = [[[project materialsDirectoryURL] URLByAppendingPathComponent: directory] path];
+        }
+    }
+
+    if (markdownPath != nil) {
+        // Run inbuild to convert the markdown file to HTML
+        errorURL = [[IFUtility temporaryDirectoryURL] URLByAppendingPathComponent: @"temp.html"];
+        int result = [project.inBuild executeInBuildForConvertingMarkdown: markdownPath
+                                                                   toHTML: [errorURL path]
+                                                             withInternal: [NSURL fileURLWithPath:[IFUtility pathForInformInternalAppSupport: @""]]
+                                                                 settings: [project settings]];
+        if (result != 0) {
+            return;
+        }
+    }
+
+    if (errorURL != nil) {
+        // For each pane, add the runtime error message
+        for( IFProjectPane* pane in projectPanes ) {
+            [[pane compilerController] showRuntimeError: errorURL];
+        }
+
+        // Change the source view to the errors view (so we can see the text leading to the error as well as the error itself
+        [projectPanes[0] selectViewOfType: IFErrorPane];
+    }
 }
 
 #pragma mark - Tabbing around
