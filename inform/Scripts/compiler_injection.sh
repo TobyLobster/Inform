@@ -136,6 +136,10 @@ if [ -d "${INFORM_CORE}" ]; then
     cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
     cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
 
+    # Copy interpreter executables (for testing extensions) here...
+    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe"    "${TEMP_STAGING_AREA}/MacOS/"
+    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-frotz/dumb-frotz"       "${TEMP_STAGING_AREA}/MacOS/"
+
     # Replace the documentation in StagingArea with the latest from TempStagingArea
     rm -f "${STAGING_AREA}/Resources/en.lproj/"*
     mv -f "${TEMP_STAGING_AREA}/Resources/en.lproj/"*                           "${STAGING_AREA}/Resources/en.lproj/"

@@ -542,12 +542,14 @@ CGFloat easeOutCubic(CGFloat t) {
 
 + (NSString*) pathForCompiler: (NSString *)compilerVersion
 {
-    if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
-        return [IFUtility pathForInformExecutable: @"ni" version: compilerVersion];
+    // Older versions of compiler
+    if ([IFUtility compilerVersion: compilerVersion isNoLaterThan: @"6M62"]) {
+        NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
+        NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
+        return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
     }
-    NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
-    NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
-    return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
+    // Newer versions of compiler
+    return [IFUtility pathForInformExecutable: @"ni" version: compilerVersion];
 }
 
 + (NSString*) pathForInformInternalAppSupport: (NSString *)compilerVersion

@@ -295,14 +295,25 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
         [theTask setEnvironment: newEnvironment];
     }
 
+    // The string to execute is output really just for debugging purposes.
+    // We should be able to copy and paste to run on a command line.
+    // This means quoting the args as needed.
     NSMutableString* executeString = [NSMutableString string];
 
-    [executeString appendString: command];
+    if ([command containsString:@" "]) {
+        [executeString appendString: [NSString stringWithFormat: @"'%@'", command]];
+    } else {
+        [executeString appendString: command];
+    }
     [executeString appendString: @" \\\n\t"];
 
     for( NSString* arg in args ) {
-        [executeString appendString: arg];
-        [executeString appendString: @" "];
+        if ([arg containsString:@" "]) {
+            [executeString appendString: [NSString stringWithFormat: @"'%@'", arg]];
+        } else {
+            [executeString appendString: arg];
+        }
+        [executeString appendString: @" \\\n\t"];
     }
 
     [executeString appendString: @"\n"];
@@ -444,8 +455,9 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     if ([runQueue count] <= 0) {
 
         // Add a cBlorb stage
-        NSString *intestLocation = [IFUtility pathForInformExecutable: @"intest" version: [settings compilerVersion]];
-        NSString *inform7Location = [IFUtility pathForInformExecutable: @"inform7" version: [settings compilerVersion]];
+        NSString *intestLocation = [IFUtility pathForInformExecutable: @"intest" version: @""]; // Use latest intest
+
+        NSString *inform7Location = [IFUtility pathForCompiler: [settings compilerVersion]];
         NSString *inform6Location = [IFUtility pathForInformExecutable: @"inform6" version: [settings compilerVersion]];
         NSString *ginterpreterLocation = [IFUtility pathForInformExecutable: @"glulxe" version: [settings compilerVersion]];
         NSString *zinterpreterLocation = [IFUtility pathForInformExecutable: @"dumb-frotz" version: [settings compilerVersion]];
