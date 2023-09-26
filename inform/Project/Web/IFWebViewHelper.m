@@ -462,6 +462,7 @@
                                  @"confirmAction": @0,
                                  @"install": @1,
                                  @"uninstall": @1,
+                                 @"test": @3,
                                  @"createNewProject": @2,
                                  @"pasteCode": @1,
                                  @"openFile": @1,
@@ -487,6 +488,8 @@
         [self install: list[1]];
     } else if ([@"uninstall" isEqualToString: list[0]]) {
         [self uninstall: list[1]];
+    } else if ([@"test" isEqualToString: list[0]]) {
+        [self test: list[1] command: list[2] testcase: list[3]];
     } else if ([@"createNewProject" isEqualToString: list[0]]) {
         [self createNewProject: list[1]
                          story: list[2]];
@@ -543,6 +546,15 @@
 - (void) uninstall: (NSString*) extension {
     // Install the extension
     [projectController uninstallExtension: extension];
+}
+
+- (void) test: (NSString*) extension
+      command: (NSString*) command
+     testcase: (NSString*) testcase {
+    // Test the extension
+    [projectController testExtension: extension
+                             command: command
+                            testcase: testcase];
 }
 
 - (void) createNewProject: (NSString *)title

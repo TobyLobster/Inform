@@ -1621,6 +1621,20 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self->projectPanes[1] selectViewOfType: IFErrorPane];
 }
 
+-(void) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase {
+    IFProject *project = self.document;
+    [project testExtension: extension
+                   command: command
+                  testcase: testcase];
+
+    [projectPanes[1] selectViewOfType: IFErrorPane];
+    for( IFProjectPane* pane in projectPanes ) {
+        [[pane compilerController] switchToSplitView];
+    }
+}
+
 -(void) addExtensionFromFileUsingPanel: (NSOpenPanel*__strong*) pPanel
                   withInitialDirectory: (NSURL*) initialURL {
     // Present a panel for installing new extensions

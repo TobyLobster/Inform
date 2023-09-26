@@ -39,5 +39,6 @@
 
 - (NSInteger) indexOf: (NSString *) text;
 - (NSInteger) lastIndexOf: (NSString *) text;
+- (NSString *) stringByAppendingPathComponents: (NSString *)strComponents;
 
 @end

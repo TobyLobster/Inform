@@ -556,6 +556,18 @@
                                              settings: settings];
 }
 
+-(bool) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase {
+    [compiler setBuildForRelease: false
+                      forTesting: false];
+    [compiler setSettings: [self settings]];
+    return [compiler launchWithInTestStage: extension
+                                   command: command
+                                  testCase: testcase];
+}
+
+
 // == reading/writing ==
 
 -(BOOL) readProject: (NSFileWrapper*) fileWrapper

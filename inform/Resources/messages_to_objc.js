@@ -20,6 +20,9 @@ class ProjectClass {
     uninstall(extension) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["uninstall", extension] );
     }
+    test(extension, command, testcase) {
+        window.webkit.messageHandlers.scriptHandler.postMessage( ["test", extension, command, testcase] );
+    }
     openURL(url) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["openFile", url] );
     }

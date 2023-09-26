@@ -139,4 +139,17 @@ static NSCharacterSet* nonWhitespace;
     }
 }
 
+- (NSString *) stringByAppendingPathComponents: (NSString *)strComponents {
+    if(strComponents == nil) {
+        return self;
+    }
+    NSArray *strArray = [strComponents componentsSeparatedByString:@"/"];
+
+    NSString* work = self;
+    for (int i = 0; i < [strArray count]; i++) {
+        work = [work stringByAppendingPathComponent: strArray[i]];
+    }
+    return work;
+}
+
 @end

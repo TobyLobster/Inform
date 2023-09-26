@@ -5,6 +5,8 @@
 //  Created by Andrew Hunter on Mon Aug 18 2003.
 //  Copyright (c) 2003 Andrew Hunter. All rights reserved.
 //
+//  This does the actual low level work of a build: executing tasks in background threads and
+//  sending notifications with the results.
 
 #import "IFCompiler.h"
 
@@ -419,6 +421,83 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     [progress startProgress];
 
     [self prepareNext];
+    return YES;
+}
+
+- (BOOL) launchWithInTestStage: (NSString*) path
+                       command: (NSString*) command
+                      testCase: (NSString*) testCase {
+    // Kill off any old tasks...
+    if (theTask) {
+        if ([theTask isRunning]) {
+            [theTask terminate];
+        }
+        theTask = nil;
+    }
+
+    // There are no problems
+    problemsURL = nil;
+
+    if (deleteOutputFile) [self deleteOutput];
+
+    // Prepare the arguments
+    if ([runQueue count] <= 0) {
+
+        // Add a cBlorb stage
+        NSString *intestLocation = [IFUtility pathForInformExecutable: @"intest" version: [settings compilerVersion]];
+        NSString *inform7Location = [IFUtility pathForInformExecutable: @"inform7" version: [settings compilerVersion]];
+        NSString *inform6Location = [IFUtility pathForInformExecutable: @"inform6" version: [settings compilerVersion]];
+        NSString *ginterpreterLocation = [IFUtility pathForInformExecutable: @"glulxe" version: [settings compilerVersion]];
+        NSString *zinterpreterLocation = [IFUtility pathForInformExecutable: @"dumb-frotz" version: [settings compilerVersion]];
+        NSFileManager* fm = [NSFileManager defaultManager];
+
+        NSError* error;
+        NSURL* results = [[IFUtility temporaryDirectoryURL] URLByAppendingPathComponent:@"intest_results.html"];
+        NSURL* workspace = [[IFUtility temporaryDirectoryURL] URLByAppendingPathComponent:@"InTestWorkspace"];
+
+        if (![fm createDirectoryAtURL: workspace withIntermediateDirectories:YES attributes:nil error: &error]) {
+            return FALSE;
+        }
+
+        NSMutableArray* args = [NSMutableArray array];
+        // intest PATH -internal INTERNAL -results FILE -set 'I7 = ...' -set 'I6 = ...' -set 'GINTERPRETER = ...' -set 'ZINTERPRETER = ...' -workspace WORKSPACE COMMAND CASE
+        [args addObject:path];
+        [args addObject:@"-internal"];
+        [args addObject:[IFUtility pathForInformInternalAppSupport: [settings compilerVersion]]];
+        [args addObject:@"-results"];
+        [args addObject:[results path]];
+        [args addObject:@"-set"];
+        [args addObject:[NSString stringWithFormat:@"I7COMPILER = %@", inform7Location]];
+        [args addObject:@"-set"];
+        [args addObject:[NSString stringWithFormat:@"I6COMPILER = %@", inform6Location]];
+        [args addObject:@"-set"];
+        [args addObject:[NSString stringWithFormat:@"GINTERPRETER = %@", ginterpreterLocation]];
+        [args addObject:@"-set"];
+        [args addObject:[NSString stringWithFormat:@"ZINTERPRETER = %@", zinterpreterLocation]];
+        [args addObject:@"-workspace"];
+        [args addObject:[workspace path]];
+        [args addObject:command];
+        [args addObject:testCase];
+
+        NSString* buildDir   = [[self currentStageInput] stringByDeletingLastPathComponent];
+        [self addCustomBuildStage: intestLocation
+                    withArguments: args
+                   nextStageInput: [results path]
+                     errorHandler: [[IntestProblem alloc] initWithBuildDir: buildDir]
+                            named: @"Intest build stage"];
+
+        // Change the output file
+        [self setOutputFile: [results path]];
+    }
+
+    endTextString = nil;
+    [progress startProgress];
+
+    [self prepareNext];
+
+    // Launch it
+    [self sendTaskDetails: theTask];
+    [theTask launch];
     return YES;
 }
 

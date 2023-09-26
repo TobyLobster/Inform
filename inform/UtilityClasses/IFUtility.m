@@ -574,18 +574,32 @@ CGFloat easeOutCubic(CGFloat t) {
             NSString* informCore = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
 
             if ([executableName isEqualToStringCaseInsensitive:@"ni"]) {
-                return [[[informCore stringByAppendingPathComponent: @"inform7"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inform7"];
+                return [informCore stringByAppendingPathComponents: @"inform7/Tangled/inform7"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"inform7"]) {
+                return [informCore stringByAppendingPathComponents: @"inform7/Tangled/inform7"];
             }
             if ([executableName isEqualToStringCaseInsensitive:@"cBlorb"]) {
-                return [[[informCore stringByAppendingPathComponent: @"inblorb"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inblorb"];
+                return [informCore stringByAppendingPathComponents: @"inblorb/Tangled/inblorb"];
             }
             if ([executableName isEqualToStringCaseInsensitive:@"inbuild"]) {
-                return [[[informCore stringByAppendingPathComponent: @"inbuild"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inbuild"];
+                return [informCore stringByAppendingPathComponents: @"inbuild/Tangled/inbuild"];
             }
             if ([executableName isEqualToStringCaseInsensitive:@"inform6"]) {
-                return [[[informCore stringByAppendingPathComponent: @"inform6"] stringByAppendingPathComponent: @"Tangled"] stringByAppendingPathComponent: @"inform6"];
+                return [informCore stringByAppendingPathComponents: @"inform6/Tangled/inform6"];
             }
-            // Anything else (i.e. 'intest') falls through...
+            if ([executableName isEqualToStringCaseInsensitive:@"intest"]) {
+                // NOTE: This is outside the 'Inform Core' directory (alongside it)
+                return [informCore stringByAppendingPathComponents: @"../intest/Tangled/intest"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"glulxe"]) {
+                return [informCore stringByAppendingPathComponents: @"inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe"];
+            }
+            if ([executableName isEqualToStringCaseInsensitive:@"dumb-frotz"]) {
+                return [informCore stringByAppendingPathComponents: @"inform6/Tests/Assistants/dumb-frotz/dumb-frotz"];
+            }
+
+            // Anything else falls through...
         }
     }
     return [[NSBundle mainBundle] pathForAuxiliaryExecutable: executableName];

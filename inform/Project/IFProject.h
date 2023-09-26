@@ -123,6 +123,9 @@
 - (int) executeInBuildForExtension: (NSURL*) extensionURL
                             action: (NSString*) action
                   withConfirmation: (bool) confirmed;
+-(bool) testExtension: (NSString*) extension
+              command: (NSString*) command
+             testcase: (NSString*) testcase;
 
 #pragma mark - Skein support
 -(IFSkeinItem*) nodeToReport;
