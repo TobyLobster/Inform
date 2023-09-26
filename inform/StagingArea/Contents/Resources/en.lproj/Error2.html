@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<title></title>
+<title>Failed</title>
 <style type="text/css">
 <!--
 :root {
@@ -51,6 +51,7 @@
 
     --md-background-colour: #e3e6ea;
     --example-label-colour: #E0FFFF;
+    --example-see-also-colour: #E0E0E0;
     --light-border-colour: #d0d7de;
 }
 
@@ -614,6 +615,13 @@ button.dangerousbutton {
 	background-color: #f9e9e9;
 }
 
+.markdowncontent div.extract-problems {
+	margin: 0.75em;
+	padding: 0.75em;
+	border: 1px dotted #2f6fab;
+	background-color: #e9f9e9;
+}
+
 .markdowncontent code.language-transcript {
     font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
 }
@@ -667,16 +675,31 @@ span.documentationerror {
 
 /* For example box cues */
 
+div.examplebox:after {
+	content: "";
+	display: table;
+	clear: both;
+}
 div.examplebox div.exampleleft {
 	float: left;
 	box-sizing: border-box;
-	width: 52px;
+	width: 10%;
 	height: 30px;
 	padding: 8px 0;
+	text-align: center;
+}
+div.examplebox div.examplemiddle {
+	float: left;
+	box-sizing: border-box;
+	width: 80%;
 }
 div.examplebox div.exampleright {
-	margin-left: 60px;
+	float: left;
 	box-sizing: border-box;
+	width: 10%;
+	height: 30px;
+	padding: 8px 0;
+	text-align: center;
 }
 
 span.extensionexampleletter {
@@ -690,9 +713,28 @@ span.extensionexampleletter {
 	border-top-right-radius: 12px;
 	box-sizing: border-box;
 	padding-bottom: 4px;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 8px;
+	padding-right: 8px;
 	padding-top: 4px;
+	min-width: 30px;
+	width: auto;
+}
+
+span.extensionexampleseealso {
+	color: var(--heading-panel-text-colour);
+	font-size: 14px;
+	font-style: italic;
+	background-color: var(--example-see-also-colour);
+	border-bottom-left-radius: 12px;
+	border-bottom-right-radius: 12px;
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+	box-sizing: border-box;
+	padding-bottom: 4px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	min-width: 30px;
 	width: auto;
 }
 
@@ -1164,6 +1206,7 @@ div.definition p.defnprototype {
 	margin: 0;
 	padding: 0;
 	text-indent: 0;
+	font-weight: bold;
 }
 
 /* On Registry index pages (such as the Public Library), these are used for
@@ -1207,6 +1250,604 @@ p.registryaddition {
 	text-indent: -40px;
 }
 
+/* General index for inbuild-generated documents: */
+
+div.generalindex p {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+div.generalindex td {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+/* This is used for the horizontal row of link letters from A to Z */
+
+div.generalindex td.letterinrow {
+	width: 3.846%; /* 3.846 = 1/26 to pretty good accuracy */
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #e0e0e0;	
+}
+
+div.generalindex td.letterinrow: hover {
+	background-color: #c0c0c0;	
+}
+
+/* This is used to hold the "majuscule" A-Z letters left of the alpha index */
+
+div.generalindex td.letterblock {
+	width: 38px;
+	text-align: left;
+	vertical-align: top;
+}
+
+/* Which contains links like so: */
+
+div.generalindex a.letterlink:link, div.generalindex a.letterlink:visited {
+	text-decoration: none;
+	color: #202020;
+	font-size: 0.75em;
+	font-weight: bold;
+}
+
+div.generalindex a.letterlink:hover, div.generalindex a.letterlink:active {
+	text-decoration: none;
+	color: #D00000;
+	font-size: 0.75em;
+	font-weight: bold;
+}
+
+/* A single letter of majuscule is held in this tinted box: */
+
+div.generalindex div.majuscule {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #808080;
+	display: table-cell;
+}
+
+/* But a wider text (such as used in other index headings) is held in this: */
+
+div.generalindex div.stretchymajuscule {
+	height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #808080;
+}
+
+/* Either way, the actual lettering inside uses this: */
+
+div.generalindex span.majusculelettering {
+	font-size: 0.75em;
+	color: #FFFFFF;
+}
+
+div.generalindex table.fullwidth {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+div.generalindex table.fullwidth td, div.generalindex table.fullwidth th {
+    padding: 0;
+}
+
+div.generalindex table.fullwidtharch {
+    border-spacing: 6px;
+    border-collapse: separate;
+	width: 100%;
+}
+
+div.generalindex table.fullwidtharch td, div.generalindex table.fullwidtharch th {
+    padding: 0;
+}
+
+div.generalindex table.indextable {
+	border-collapse: collapse;
+	width: 100%;
+	margin-top: 8px;
+}
+
+div.generalindex p.indexentry {
+	font-size: 0.8em;
+	margin-top: 0px;
+	margin-bottom: 4px;
+	text-indent: -2em;
+	padding-left: 2em;
+}
+
+div.generalindex a.indexlink {
+	color: #666;
+	text-decoration: none;
+	border-bottom: 1px dotted #666;
+}
+
+div.generalindex a.indexseelink {
+	text-decoration: none;
+	border-bottom: 1px dotted #666;
+}
+
+div.generalindex a.indexlinkalt {
+	color: #666;
+	text-decoration: none;
+	border-bottom: 1px dotted #666;
+	font-style: italic;
+}
+
+div.generalindex span.indexgloss {
+	font-size: 0.7em;
+	font-style: italic;
+	color: #088;
+}
+
+div.generalindex span.indexsee {
+	font-style: italic;
+	color: #666;
+}
+
+div.generalindex span.smoketest {
+	background-color: #000000;
+	color: #ffffff;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-left: 3px;
+	margin-right: 3px;
+}
+
+div.generalindex span.indexstandard {
+}
+
+div.generalindex span.indexsource {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexsourcearg {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexsourceargbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexsourcepartbracketed {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexphrase {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexphrasebracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexifphrase {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexifphrasebracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexsayphrase {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexsayphrasebracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexoutphrase {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexoutphrasebracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexassert {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexassertbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexrb {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexrbbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexprop {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexpropbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexpropcat {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexpropcatbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexadj {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexadjbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexrelbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexrelcatbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexrelverb {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexglob {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexglobbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexactvar {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexactvarbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexconst {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexconstbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexaction {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexactionbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexactivity {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexactivitycat {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexdescactivity {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexexample {
+	font-style: italic;
+}
+
+div.generalindex span.indextitle {
+	font-style: italic;
+}
+
+div.generalindex span.indexofsourcebracketed {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexuseopt {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indextoken {
+	color: #000080;
+	font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indextokenbracketed {
+	color: #8080ff;
+	font-family: "Lucida Grande", Geneva, Arial, Tahoma, Verdana, Helvetica, Helv;
+	font-style: italic;
+}
+
+div.generalindex span.indexcommand {
+	color: #186000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indextestcmd {
+	color: #186000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexcommandpartbracketed {
+	color: #186000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 0.9em;
+}
+
+/* In Midnight, there's a black status line at the top of each page, made
+as a "fullwidth" table which also has this class: */
+
+div.midnight, div.midnight td {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+div.midnight table.fullwidth {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+div.midnight table.midnightblack {
+	background-color: #000000;
+}
+
+/* The table is a single row of three cells: */
+
+div.midnight td.midnightbannerleftcell {
+	height: 26px;
+	width: 38px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+div.midnight td.midnightbannercentrecell {
+	text-align: left;
+	vertical-align: middle;
+}
+
+div.midnight td.midnightbannerrightcell {
+	height: 26px;
+	width: 56px;
+	text-align: right;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
+/* Within the centre cell, the running-head text is styled with: */
+
+div.midnight span.midnightbannertext {
+	color: #FFFFFF; /* needs to match the colour of the papertint */
+	font-size: 0.75em;
+}
+
+/* Midnight pages end with a Previous - Contents - Next footer area, which is
+done with a table using the following cells */
+
+div.midnight td.footerprevious {
+	width: 33%;
+	text-align: left;
+}
+
+div.midnight td.footercontents {
+	width: 33%;
+	text-align: center;
+}
+
+div.midnight td.footernext {
+	width: 33%;
+	text-align: right;
+}
+
+/* Links in the footer are styled with: */
+
+div.midnight a.footerlink {
+	color: #808080;
+	font-size: 0.75em;
+}
+
+/* At the first section, e.g., there's no "previous", but this is used to
+style the unlinked word "Previous": */
+
+div.midnight span.footernonlink {
+	color: #000000;
+	font-size: 0.75em;
+}
+
+/* Midnight features an elaborate contents page in two columns. */
+
+div.midnight td.midnightlefthalfpage {
+	background-color: #eeeeee;
+	width: 50%;
+	text-align: left;
+	vertical-align: top;
+}
+
+div.midnight td.midnightrighthalfpage {
+	background-color: #ffffe5;
+	width: 50%;
+	text-align: left;
+	vertical-align: top;
+}
+
+/* There are A- and B-level subheadings: */
+
+div.midnight p.midnightcontentsA {
+	font-size: 0.8em;
+	margin-top: 2px;
+    margin-bottom: 0px;
+    text-indent: -3em;
+    margin-left: 3em;
+    margin-right: 1em;
+    padding-left: 15px;
+}
+
+div.midnight p.midnightcontentsB {
+	font-size: 0.75em;
+	margin-top: 2px;
+    margin-bottom: 0px;
+    text-indent: -2em;
+    margin-left: 4em;
+    margin-right: 1em;
+    padding-left: 6px;
+}
+
+div.midnight div.headingboxhigh {
+	position: relative;
+	height: 117px;
+	padding: 0px;
+	white-space:nowrap;
+	background: #eeeeee;  /* grey */
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+div.midnight .headingtext {
+	position: absolute;
+	top: -4px;
+	left: -1px;
+	width: 100%;
+	color: #222222;
+	padding: 14px 10px 0px 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+div.midnight .headingrubric {
+	position: absolute;
+	top: 36px;
+	width: 100%;
+	color: #222222;
+	padding: 0px 10px 0px 10px;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+div.midnight a:link {										/* unvisited link */
+	text-decoration: none;
+	color: #202020;
+}
+div.midnight a:visited {									/* visited link */
+	text-decoration: none;
+	color: #202020;
+}
+div.midnight a:hover {										/* mouse over link */
+	text-decoration: none;
+	color: #D00000;
+}
+div.midnight a:active {										/* selected link */
+	text-decoration: none;
+	color: #D00000;
+}
+
+div.duplexleftpage {
+	background-color: #ffffff;
+}
+
+div.duplexrightpage {
+	background-color: #ffffe5;
+}
+
+img.thinbordered {
+	border-style: solid;
+	border-width: 1px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 -->
 </style>
@@ -1214,7 +1855,7 @@ p.registryaddition {
 <body>
 <div class="outcomeheadingpanellayout headingpanelfailed">
 	<div class="outcomeheadingtext"><span class="headingpaneltext">Translating the Source - Failed</span></div>
-	<div class="outcomeheadingrubric"><span class="headingpanelrubric"></span></div>
+	<div class="outcomeheadingrubric"><span class="headingpanelrubric">Failed</span></div>
 </div>
 
 <div class="outcomebox">
@@ -1223,8 +1864,7 @@ p.registryaddition {
 	</div>
 	<div class="outcomeright">
 		<div class="markdowncontent">
-		<h1>Failed</h1>
-<p>The application ran your source text through the Inform 7 compiler, as usual,
+		<p>The application ran your source text through the Inform 7 compiler, as usual,
 but the compiler unexpectedly failed. This should not happen even if your source
 text is gibberish, so you may have uncovered a bug in the program.</p>
 <p>When a program like the I7 compiler fails, it typically returns an error number:

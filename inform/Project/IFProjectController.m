@@ -1942,9 +1942,11 @@ static CGFloat const      minDividerWidth     = 75.0f;
         if ([directory startsWithCaseInsensitive:@"Internal/"]) {
             // If directory starts with "Internal/" then resolve the path to inside the internal directory
             markdownPath = [[[IFUtility pathForInformInternalAppSupport: @""] stringByAppendingPathComponent: [directory substringFromIndex: 9]] stringByAppendingPathComponent: errorFile];
+        } else if ([directory startsWithCaseInsensitive:@"Materials/"]) {
+            markdownPath = [[[[project materialsDirectoryURL] path] stringByAppendingPathComponent: [directory substringFromIndex: 10]] stringByAppendingPathComponent: errorFile];
         } else {
-            // Resolve to inside the Materials/ folder for the current project
-            markdownPath = [[[project materialsDirectoryURL] URLByAppendingPathComponent: directory] path];
+            // Resolve to absolute path
+            markdownPath = directory;
         }
     }
 
