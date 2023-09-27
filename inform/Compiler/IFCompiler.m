@@ -307,16 +307,19 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     }
     [executeString appendString: @" \\\n\t"];
 
-    for( NSString* arg in args ) {
+    for( int i = 0; i < [args count]; i++ ) {
+        NSString* arg = args[i];
         if ([arg containsString:@" "]) {
             [executeString appendString: [NSString stringWithFormat: @"'%@'", arg]];
         } else {
             [executeString appendString: arg];
         }
-        [executeString appendString: @" \\\n\t"];
+        if (i < ([args count] - 1)) {
+            [executeString appendString: @" \\\n\t"];
+        }
     }
 
-    [executeString appendString: @"\n"];
+    [executeString appendString: @"\n\n"];
     [self sendStdOut: executeString];
     executeString = nil;
 

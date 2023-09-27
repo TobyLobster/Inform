@@ -12,13 +12,14 @@
 #import <WebKit/WebKit.h>
 #import "IFAppDelegate.h"
 #import "IFRecentFileCellInfo.h"
-#import "IFRecentFileCell.h"
 
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
 #import "IFExtensionsManager.h"
 #import "IFPreferences.h"
 #import "IFWebViewHelper.h"
+
+#import "Inform-Swift.h"
 
 @implementation IFWelcomeWindow {
     /// Progress indicator that shows when a background process is running
@@ -462,8 +463,8 @@ static IFWelcomeWindow* sharedWindow = nil;
         info = sampleInfoArray[row];
     }
     IFRecentFileCell* cCell = (IFRecentFileCell *) cell;
-    cCell.image    = info.image;
     cCell.title    = info.title;
+    [cCell setImage: info.image];
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {

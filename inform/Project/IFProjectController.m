@@ -1625,11 +1625,16 @@ static CGFloat const      minDividerWidth     = 75.0f;
               command: (NSString*) command
              testcase: (NSString*) testcase {
     IFProject *project = self.document;
+
+    for( IFProjectPane* pane in projectPanes ) {
+        [pane.compilerController clearConsole: nil];
+    }
+    [projectPanes[1] selectViewOfType: IFErrorPane];
+
     [project testExtension: extension
                    command: command
                   testcase: testcase];
 
-    [projectPanes[1] selectViewOfType: IFErrorPane];
     for( IFProjectPane* pane in projectPanes ) {
         [pane.compilerController switchToSplitView];
     }

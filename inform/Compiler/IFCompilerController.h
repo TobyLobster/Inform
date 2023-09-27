@@ -114,6 +114,8 @@ typedef NS_ENUM(unsigned int, IFCompilerTabId) {
 - (void) switchToSplitView;
 /// Switches to the runtime error view
 - (void) switchToRuntimeErrorView;
+/// Clears the console view of text
+- (void) clearConsole: (NSNotification*) not;
 /// Returns the tabs this controller can display
 @property (atomic, readonly, copy) NSArray *viewTabs;
 
