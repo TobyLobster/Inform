@@ -67,7 +67,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
 #pragma mark - Setup
 
 - (BOOL) isRunning {
-    return (theTask != nil) ? [theTask isRunning] : NO;
+    return (theTask != nil) ? theTask.running : NO;
 }
 
 -(int) executeInBuildForInfoWithProject: (NSURL*) projectURL
@@ -78,7 +78,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                             withResults: (NSURL*) resultsURL
                                settings: (IFCompilerSettings*) settings {
     if (theTask) {
-        if ([theTask isRunning]) {
+        if (theTask.running) {
             [theTask terminate];
         }
         theTask = nil;
@@ -97,7 +97,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     [mutableArgs addObject: @"-internal"];
     [mutableArgs addObject: internalURL.path];
 
-    if ([settings allowLegacyExtensionDirectory]) {
+    if (settings.allowLegacyExtensionDirectory) {
         NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
         if (externalPath != nil) {
             [mutableArgs addObject: @"-deprecated-external"];
@@ -109,7 +109,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
         [mutableArgs addObject: @"-confirmed"];
     }
 
-    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: [settings compilerVersion]];
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: settings.compilerVersion];
 
     // InBuild Start notification
     //NSDictionary* uiDict = @{@"command": command,
@@ -124,9 +124,9 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
     theTask = [[NSTask alloc] init];
 
-    [theTask setArguments:  mutableArgs];
-    [theTask setLaunchPath: command];
-    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+    theTask.arguments = mutableArgs;
+    theTask.launchPath = command;
+    theTask.currentDirectoryPath = NSTemporaryDirectory();
 
     NSMutableString* message = [[NSMutableString alloc] init];
     [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
@@ -145,19 +145,19 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     stdErrPipe = [[NSPipe alloc] init];
     stdOutPipe = [[NSPipe alloc] init];
 
-    [theTask setStandardOutput: stdOutPipe];
-    [theTask setStandardError:  stdErrPipe];
-    [theTask setStandardInput: [NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+    theTask.standardOutput = stdOutPipe;
+    theTask.standardError = stdErrPipe;
+    theTask.standardInput = [NSPipe pipe];       // "The magic line that keeps your log where it belongs"
 
-    stdOutH = [stdOutPipe fileHandleForReading];
-    stdErrH = [stdErrPipe fileHandleForReading];
+    stdOutH = stdOutPipe.fileHandleForReading;
+    stdErrH = stdErrPipe.fileHandleForReading;
 
     // Start the task
     [theTask launch];
 
     // Wait until finished
     NSMutableData *data = [NSMutableData dataWithCapacity:512];
-    while ([theTask isRunning]) {
+    while (theTask.running) {
         [data appendData:[stdOutH readDataToEndOfFile]];
     }
     [data appendData:[stdOutH readDataToEndOfFile]];
@@ -167,7 +167,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                                     encoding: NSUTF8StringEncoding] mutableCopy];
     stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
                                     encoding: NSUTF8StringEncoding] mutableCopy];
-    exitCode = [theTask terminationStatus];
+    exitCode = theTask.terminationStatus;
 
     /*
      // Stdout
@@ -206,7 +206,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
 
 -(int) executeInBuildForCensus {
     if (theTask) {
-        if ([theTask isRunning]) {
+        if (theTask.running) {
             [theTask terminate];
         }
         theTask = nil;
@@ -249,9 +249,9 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
     theTask = [[NSTask alloc] init];
 
-    [theTask setArguments:  mutableArgs];
-    [theTask setLaunchPath: command];
-    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+    theTask.arguments = mutableArgs;
+    theTask.launchPath = command;
+    theTask.currentDirectoryPath = NSTemporaryDirectory();
 
     NSMutableString* message = [[NSMutableString alloc] init];
     [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
@@ -270,19 +270,19 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     stdErrPipe = [[NSPipe alloc] init];
     stdOutPipe = [[NSPipe alloc] init];
 
-    [theTask setStandardOutput: stdOutPipe];
-    [theTask setStandardError:  stdErrPipe];
-    [theTask setStandardInput: [NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+    theTask.standardOutput = stdOutPipe;
+    theTask.standardError = stdErrPipe;
+    theTask.standardInput = [NSPipe pipe];       // "The magic line that keeps your log where it belongs"
 
-    stdOutH = [stdOutPipe fileHandleForReading];
-    stdErrH = [stdErrPipe fileHandleForReading];
+    stdOutH = stdOutPipe.fileHandleForReading;
+    stdErrH = stdErrPipe.fileHandleForReading;
 
     // Start the task
     [theTask launch];
 
     // Wait until finished
     NSMutableData *data = [NSMutableData dataWithCapacity:512];
-    while ([theTask isRunning]) {
+    while (theTask.running) {
         [data appendData:[stdOutH readDataToEndOfFile]];
     }
     [data appendData:[stdOutH readDataToEndOfFile]];
@@ -292,7 +292,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                                     encoding: NSUTF8StringEncoding] mutableCopy];
     stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
                                     encoding: NSUTF8StringEncoding] mutableCopy];
-    exitCode = [theTask terminationStatus];
+    exitCode = theTask.terminationStatus;
 
     /*
      // Stdout
@@ -325,7 +325,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                               withInternal: (NSURL*) internalURL
                                   settings: (IFCompilerSettings*) settings {
     if (theTask) {
-        if ([theTask isRunning]) {
+        if (theTask.running) {
             [theTask terminate];
         }
         theTask = nil;
@@ -342,7 +342,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     [mutableArgs addObject: @"-markdown-to"];
     [mutableArgs addObject: htmlFilepath];
 
-    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: [settings compilerVersion]];
+    NSString *command = [IFUtility pathForInformExecutable: @"inbuild" version: settings.compilerVersion];
 
     stdErr = [[NSMutableString alloc] init];
     stdOut = [[NSMutableString alloc] init];
@@ -350,9 +350,9 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     // Prepare the task (based on http://stackoverflow.com/questions/412562/execute-a-terminal-command-from-a-cocoa-app )
     theTask = [[NSTask alloc] init];
 
-    [theTask setArguments:  mutableArgs];
-    [theTask setLaunchPath: command];
-    [theTask setCurrentDirectoryPath: NSTemporaryDirectory()];
+    theTask.arguments = mutableArgs;
+    theTask.launchPath = command;
+    theTask.currentDirectoryPath = NSTemporaryDirectory();
 
     NSMutableString* message = [[NSMutableString alloc] init];
     [message appendFormat:@"Current Directory: %@\n", NSTemporaryDirectory()];
@@ -371,19 +371,19 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
     stdErrPipe = [[NSPipe alloc] init];
     stdOutPipe = [[NSPipe alloc] init];
 
-    [theTask setStandardOutput: stdOutPipe];
-    [theTask setStandardError:  stdErrPipe];
-    [theTask setStandardInput: [NSPipe pipe]];       // "The magic line that keeps your log where it belongs"
+    theTask.standardOutput = stdOutPipe;
+    theTask.standardError = stdErrPipe;
+    theTask.standardInput = [NSPipe pipe];       // "The magic line that keeps your log where it belongs"
 
-    stdOutH = [stdOutPipe fileHandleForReading];
-    stdErrH = [stdErrPipe fileHandleForReading];
+    stdOutH = stdOutPipe.fileHandleForReading;
+    stdErrH = stdErrPipe.fileHandleForReading;
 
     // Start the task
     [theTask launch];
 
     // Wait until finished
     NSMutableData *data = [NSMutableData dataWithCapacity:512];
-    while ([theTask isRunning]) {
+    while (theTask.running) {
         [data appendData:[stdOutH readDataToEndOfFile]];
     }
     [data appendData:[stdOutH readDataToEndOfFile]];
@@ -393,7 +393,7 @@ NSString* const IFInBuildFinishedNotification = @"IFInTestFinishedNotification";
                                     encoding: NSUTF8StringEncoding] mutableCopy];
     stdErr = [[[NSString alloc] initWithData: [stdErrH readDataToEndOfFile]
                                     encoding: NSUTF8StringEncoding] mutableCopy];
-    exitCode = [theTask terminationStatus];
+    exitCode = theTask.terminationStatus;
 
     if (exitCode != 0) {
         // Write error messaging as HTML page to resultsURL

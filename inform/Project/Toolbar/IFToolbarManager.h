@@ -47,8 +47,8 @@
 -(void) setIsExtensionProject:(BOOL) isExtensionProject;
 -(void) setTestCases:(NSArray*) testCasesArray;
 -(NSString*) getTestCase:(int) index;
--(int) getNumberOfTestCases;
--(int) getTestCaseIndex;
+@property (NS_NONATOMIC_IOSONLY, getter=getNumberOfTestCases, readonly) int numberOfTestCases;
+@property (NS_NONATOMIC_IOSONLY, getter=getTestCaseIndex, readonly) int testCaseIndex;
 
 -(BOOL) selectTestCase:(NSString*) testCase;
 

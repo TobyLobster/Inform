@@ -82,12 +82,12 @@ CGFloat easeOutCubic(CGFloat t) {
 
 +(bool) url: (NSURL*) url1
      equals: (NSURL*) url2 {
-    bool sameScheme = [IFUtility safeString: [url1 scheme]
-              insensitivelyEqualsSafeString: [url2 scheme]];
-    bool samePath   = [IFUtility safeString: [url1 path]
-              insensitivelyEqualsSafeString: [url2 path]];
-    bool sameQuery  = [IFUtility safeString: [url1 query]
-              insensitivelyEqualsSafeString: [url2 query]];
+    bool sameScheme = [IFUtility safeString: url1.scheme
+              insensitivelyEqualsSafeString: url2.scheme];
+    bool samePath   = [IFUtility safeString: url1.path
+              insensitivelyEqualsSafeString: url2.path];
+    bool sameQuery  = [IFUtility safeString: url1.query
+              insensitivelyEqualsSafeString: url2.query];
     return sameScheme && samePath && sameQuery;
 }
 
@@ -116,9 +116,9 @@ CGFloat easeOutCubic(CGFloat t) {
 + (NSDictionary*) queryParametersFromURL:(NSURL*) sourceURL {
     NSMutableDictionary* results = [[NSMutableDictionary alloc] init];
 
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSArray* query = [path componentsSeparatedByString: @"?"];
-    if( [query count] < 2 ) {
+    if( query.count < 2 ) {
         return results;
     }
     query = [query[1] componentsSeparatedByString:@"#"];
@@ -126,25 +126,25 @@ CGFloat easeOutCubic(CGFloat t) {
     NSArray* keyValues = [query[0] componentsSeparatedByString: @"="];
 
     for( NSInteger i = 0; i < (keyValues.count-1); i += 2 ) {
-        [results setObject:keyValues[i+1] forKey:keyValues[i]];
+        results[keyValues[i]] = keyValues[i+1];
     }
     return results;
 }
 
 + (NSString*) fragmentFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSArray* array = [path componentsSeparatedByString:@"#"];
-    if( [array count] < 2 ) {
+    if( array.count < 2 ) {
         return @"";
     }
     return array[1];
 }
 
 + (NSString*) heirarchyFromURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
     NSInteger query  = [path indexOf:@"?"];
     NSInteger hash   = [path indexOf:@"#"];
-    NSInteger result = [path length];
+    NSInteger result = path.length;
     if( query != NSNotFound ) result = MIN(result, query);
     if( hash  != NSNotFound ) result = MIN(result, hash);
 
@@ -152,20 +152,20 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 + (NSArray*) decodeSourceSchemeURL:(NSURL*) sourceURL {
-    NSString* path = [[sourceURL resourceSpecifier] stringByRemovingPercentEncoding];
+    NSString* path = sourceURL.resourceSpecifier.stringByRemovingPercentEncoding;
 
     // Get line number from fragment
     NSString* fragment = [IFUtility fragmentFromURL: sourceURL];
-    if ([fragment length] == 0) {
+    if (fragment.length == 0) {
         NSLog(@"Bad source URL, no fragment: %@", path);
         return @[];
     }
 
     // sourceLine can have format 'line10' or '10'. 'line10' is more likely
-    int lineNumber = [fragment intValue];
+    int lineNumber = fragment.intValue;
 
     if (lineNumber == 0 && [[fragment substringToIndex: 4] isEqualToString: @"line"]) {
-        lineNumber = [[fragment substringFromIndex: 4] intValue];
+        lineNumber = [fragment substringFromIndex: 4].intValue;
     }
 
     // Get source filename
@@ -176,7 +176,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     // Get test case from query parameters
     NSDictionary * parameters = [IFUtility queryParametersFromURL: sourceURL];
-    NSString* testCase = [parameters objectForKey:@"case"];
+    NSString* testCase = parameters[@"case"];
     if( testCase == nil ) testCase = @"";
 
     return @[sourceFile, testCase, @(lineNumber)];
@@ -185,7 +185,7 @@ CGFloat easeOutCubic(CGFloat t) {
 + (NSArray*) decodeSkeinSchemeURL:(NSURL*) skeinURL {
     // e.g: Input 'skein:1003?case=B' returns [B,1003]
 
-    if( ![[skeinURL scheme] isEqualToStringCaseInsensitive: @"skein"] )
+    if( ![skeinURL.scheme isEqualToStringCaseInsensitive: @"skein"] )
     {
         return nil;
     }
@@ -195,7 +195,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     // Get test case from query parameters
     NSDictionary * parameters = [IFUtility queryParametersFromURL: skeinURL];
-    NSString* testCase = [parameters objectForKey:@"case"];
+    NSString* testCase = parameters[@"case"];
     if( testCase == nil ) testCase = @"";
 
     return @[testCase, nodeIdString];
@@ -273,9 +273,9 @@ CGFloat easeOutCubic(CGFloat t) {
     NSAlert *alert = [[NSAlert alloc] init];
     [alert addButtonWithTitle:  yes];
     [alert addButtonWithTitle:  no];
-    [alert setMessageText:      title];
-    [alert setInformativeText:  contents];
-    [alert setAlertStyle: NSAlertStyleInformational];
+    alert.messageText = title;
+    alert.informativeText = contents;
+    alert.alertStyle = NSAlertStyleInformational;
     if (@available(macOS 11.0, *)) {
         switch (desIdx) {
             case NSNotFound:
@@ -284,7 +284,7 @@ CGFloat easeOutCubic(CGFloat t) {
                 
             case 0:
             case 1:
-                [alert buttons][desIdx].hasDestructiveAction = YES;
+                alert.buttons[desIdx].hasDestructiveAction = YES;
                 
             default:
                 break;
@@ -409,7 +409,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
     NSSavePanel* panel = [NSSavePanel savePanel];
 
-    [panel setAllowedFileTypes: @[@"txt"]];
+    panel.allowedFileTypes = @[@"txt"];
 
     // Work out starting directory
     NSString*   prefString   = [[NSUserDefaults standardUserDefaults] objectForKey: @"IFTranscriptURL"];
@@ -418,7 +418,7 @@ CGFloat easeOutCubic(CGFloat t) {
         directoryURL = [NSURL fileURLWithPath: NSHomeDirectory()];
     }
 
-    [panel setDirectoryURL: directoryURL];
+    panel.directoryURL = directoryURL;
 
     // Show it
     [panel beginSheetModalForWindow: window completionHandler:^(NSInteger returnCode)
@@ -426,15 +426,15 @@ CGFloat easeOutCubic(CGFloat t) {
          if (returnCode != NSModalResponseOK) return;
 
          // Remember the directory we last saved into
-         if ( [[panel directoryURL] absoluteString] != nil ) {
-             NSString* writePrefString = [[panel directoryURL] absoluteString];
+         if ( panel.directoryURL.absoluteString != nil ) {
+             NSString* writePrefString = panel.directoryURL.absoluteString;
              [[NSUserDefaults standardUserDefaults] setObject: writePrefString
                                                        forKey: @"IFTranscriptURL"];
          }
 
          // Save the data
          NSData* stringData = [string dataUsingEncoding: NSUTF8StringEncoding];
-         [stringData writeToURL: [panel URL]
+         [stringData writeToURL: panel.URL
                      atomically: YES];
      }];
 }
@@ -442,7 +442,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
 #pragma mark - Sandboxing
 + (BOOL) isSandboxed {
-    NSDictionary* environ = [[NSProcessInfo processInfo] environment];
+    NSDictionary* environ = [NSProcessInfo processInfo].environment;
     return (nil != environ[@"APP_SANDBOX_CONTAINER_ID"]);
 }
 
@@ -453,12 +453,12 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* redirection = [[NSString stringWithContentsOfFile: redirectFile
                                                        encoding: NSUTF8StringEncoding
                                                           error: NULL] stringByTrimmingWhitespace];
-    if ([redirection length] > 0) {
+    if (redirection.length > 0) {
         return [NSURL URLWithString: redirection];
     }
 #endif
 
-    if( [[IFPreferences sharedPreferences] publicLibraryDebug] && ![IFUtility isSandboxed]) {
+    if( [IFPreferences sharedPreferences].publicLibraryDebug && ![IFUtility isSandboxed]) {
         NSString* publicLibraryURLString;
         publicLibraryURLString = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
         publicLibraryURLString = [publicLibraryURLString stringByAppendingPathComponent:@"InformPublicLibrary"];
@@ -544,7 +544,7 @@ CGFloat easeOutCubic(CGFloat t) {
 {
     // Older versions of compiler
     if ([IFUtility compilerVersion: compilerVersion isNoLaterThan: @"6M62"]) {
-        NSString* executablePath = [[[NSBundle mainBundle] executablePath] stringByDeletingLastPathComponent];
+        NSString* executablePath = [NSBundle mainBundle].executablePath.stringByDeletingLastPathComponent;
         NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
         return [[executablePath stringByAppendingPathComponent: version] stringByAppendingPathComponent: @"ni"];
     }
@@ -554,7 +554,7 @@ CGFloat easeOutCubic(CGFloat t) {
 
 + (NSString*) pathForInformInternalAppSupport: (NSString *)compilerVersion
 {
-    NSString* resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSString* resourcePath = [NSBundle mainBundle].resourcePath;
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
         // If using external Inform Core 'Internal' data...
         if ([[IFPreferences sharedPreferences] useExternalInformCoreDirectory]) {
@@ -674,7 +674,7 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) temporaryDirectoryURL {
     if( temporaryFolder == nil ) {
         NSError* error;
-        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [[NSProcessInfo processInfo] globallyUniqueString] isDirectory: YES];
+        temporaryFolder = [[NSURL fileURLWithPath: NSTemporaryDirectory()] URLByAppendingPathComponent: [NSProcessInfo processInfo].globallyUniqueString isDirectory: YES];
         [[NSFileManager defaultManager] createDirectoryAtURL: temporaryFolder
                                  withIntermediateDirectories: YES
                                                   attributes: nil
@@ -716,7 +716,7 @@ CGFloat easeOutCubic(CGFloat t) {
         font = [NSFont fontWithName: font.fontName
                                size: fontSize];
     }
-    [mutableResult setObject: font forKey: NSFontAttributeName];
+    mutableResult[NSFontAttributeName] = font;
     return [mutableResult copy];
 }
 
@@ -747,13 +747,13 @@ CGFloat easeOutCubic(CGFloat t) {
     //now create an unzip task
     NSArray *arguments = @[zipURL.path];
     NSTask *unzipTask = [[NSTask alloc] init];
-    [unzipTask setLaunchPath: @"/usr/bin/unzip"];
-    [unzipTask setCurrentDirectoryURL: targetDirectory];
-    [unzipTask setArguments: arguments];
+    unzipTask.launchPath = @"/usr/bin/unzip";
+    unzipTask.currentDirectoryURL = targetDirectory;
+    unzipTask.arguments = arguments;
     [unzipTask launch];
     [unzipTask waitUntilExit];
 
-    if ([unzipTask terminationStatus] != 0) {
+    if (unzipTask.terminationStatus != 0) {
         return FALSE;
     }
     return TRUE;
@@ -769,7 +769,7 @@ static int valueForHexChar(unichar c) {
 
 + (NSString*) unescapeString: (NSString*) string {
     // Change '\n', '\t', etc marks in a string to newlines, tabs, etc
-    int length = (int) [string length];
+    int length = (int) string.length;
     if (length == 0) return @"";
 
     int outLength = -1;
@@ -833,7 +833,7 @@ static int valueForHexChar(unichar c) {
                     // Is a hexidecimal character
                     int val = 0;
                     int pos;
-                    for (pos=2; pos<[characterString length]; pos++) {
+                    for (pos=2; pos<characterString.length; pos++) {
                         val *= 16;
                         val += valueForHexChar([characterString characterAtIndex: pos]);
                     }
@@ -880,12 +880,12 @@ static int valueForHexChar(unichar c) {
                                                                            options: 0
                                                                              error: &error];
     if (error != nil) {
-        NSLog(@"Warning: Runtime error parser. Regex pattern error: %@", [error description]);
+        NSLog(@"Warning: Runtime error parser. Regex pattern error: %@", error.description);
         return nil;
     }
     NSTextCheckingResult *match = [regex firstMatchInString: text
                                                     options: 0
-                                                      range: NSMakeRange(0, [text length])];
+                                                      range: NSMakeRange(0, text.length)];
     return match;
 }
 

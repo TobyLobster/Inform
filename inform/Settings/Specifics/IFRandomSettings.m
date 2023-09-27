@@ -25,15 +25,15 @@
 #pragma mark - Setting up 
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 	
-	[makePredictable setState: [settings nobbleRng]?NSControlStateValueOn:NSControlStateValueOff];
+	makePredictable.state = settings.nobbleRng?NSControlStateValueOn:NSControlStateValueOff;
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
-	[settings setNobbleRng: [makePredictable state] == NSControlStateValueOn];
+	settings.nobbleRng = makePredictable.state == NSControlStateValueOn;
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

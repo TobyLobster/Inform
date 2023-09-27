@@ -84,10 +84,10 @@
 	// Clear out the current set of cells
 	pageCells = [[NSMutableArray alloc] init];
 	
-    NSArray* tabs = [compilerController viewTabs];
+    NSArray* tabs = compilerController.viewTabs;
     
 	// Show no pages if there is only one
-	if ([tabs count] == 0) {
+	if (tabs.count == 0) {
 		[self toolbarCellsHaveUpdated];
 		return;
 	}
@@ -100,13 +100,13 @@
 		// Create the cell for this name
 		IFPageBarCell* newCell = [[IFPageBarCell alloc] initTextCell: tab.name];
 		
-		[newCell setTarget: self];
-		[newCell setAction: @selector(switchToErrorPage:)];
-		[newCell setIdentifier: @((int)tab.tabId)];
-		[newCell setRadioGroup: 128];
+		newCell.target = self;
+		newCell.action = @selector(switchToErrorPage:);
+		newCell.identifier = @((int)tab.tabId);
+		newCell.radioGroup = 128;
 		
-        if( [compilerController selectedTabId] == tab.tabId ) {
-			[newCell setState: NSControlStateValueOn];
+        if( compilerController.selectedTabId == tab.tabId ) {
+			newCell.state = NSControlStateValueOn;
 		}
 		
 		[pageCells addObject: newCell];
@@ -132,16 +132,16 @@
 	// Remember this in the history
     IFCompilerTabId tabId = [compilerController tabIdWithTabIndex: viewIndex];
     LogHistory(@"HISTORY: Errors Page: (switchedToView) tab %d", (int) tabId);
-    [[self history] switchToPageWithTabId:tabId];
+    [self.history switchToPageWithTabId:tabId];
 
 	// Turn the newly selected cell on
-	if ([pageCells count] == 0) return;
+	if (pageCells.count == 0) return;
 	
 	for( IFPageBarCell* cell in pageCells ) {
-		if ([compilerController selectedTabId] == [[cell identifier] intValue]) {
-			[cell setState: NSControlStateValueOn];
+		if (compilerController.selectedTabId == [cell.identifier intValue]) {
+			cell.state = NSControlStateValueOn;
 		} else {
-			[cell setState: NSControlStateValueOff];
+			cell.state = NSControlStateValueOff;
 		}
 	}
 }
@@ -154,7 +154,7 @@
 	else if ([sender isKindOfClass: [IFPageBarView class]]) cell = (IFPageBarCell*)[sender lastTrackedCell];
 
 	// Order the compiler controller to switch to the specified page
-	IFCompilerTabId tabId = (IFCompilerTabId) [[cell identifier] intValue];
+	IFCompilerTabId tabId = (IFCompilerTabId) [cell.identifier intValue];
 	[compilerController switchToViewWithTabId: tabId];
 }
 
@@ -183,11 +183,11 @@
 
     // Each time we get here will remove one of these exceptions if present.
 
-    if ([self pageIsVisible]) {
+    if (self.pageIsVisible) {
         if (inhibitAddToHistory <= 0) {
             LogHistory(@"HISTORY: Compiler Controller Page: (didStartProvisionalNavigation) URL %@", webView.URL.absoluteString);
-            [[self history] switchToPage];
-            [(IFErrorsPage*)[self history] openHistoricalURL: webView.URL];
+            [self.history switchToPage];
+            [(IFErrorsPage*)self.history openHistoricalURL: webView.URL];
         }
     }
 
@@ -203,7 +203,7 @@
 - (void) openURL: (NSURL*) url  {
     [self switchToPage];
 
-    [[compilerController currentWebView] loadRequest: [[NSURLRequest alloc] initWithURL: url]];
+    [compilerController.currentWebView loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 }
 
 - (void) openHistoricalURL: (NSURL*) url {
@@ -218,7 +218,7 @@
 
 - (void) didSwitchToPage {
     LogHistory(@"HISTORY: Errors Page: (didSwitchToPage) tab %d", (int) [compilerController selectedTabId]);
-	[[self history] switchToPageWithTabId: [compilerController selectedTabId]];
+	[self.history switchToPageWithTabId: compilerController.selectedTabId];
 	[super didSwitchToPage];
 }
 

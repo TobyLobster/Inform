@@ -24,15 +24,15 @@
 #pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 	
-    [allowLegacyExtensionDirectory setState: [settings allowLegacyExtensionDirectory]?NSControlStateValueOn:NSControlStateValueOff];
+    allowLegacyExtensionDirectory.state = settings.allowLegacyExtensionDirectory?NSControlStateValueOn:NSControlStateValueOff;
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
-	[settings setAllowLegacyExtensionDirectory: [allowLegacyExtensionDirectory state]==NSControlStateValueOn];
+	settings.allowLegacyExtensionDirectory = allowLegacyExtensionDirectory.state==NSControlStateValueOn;
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

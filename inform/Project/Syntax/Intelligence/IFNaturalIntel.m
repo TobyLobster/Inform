@@ -40,13 +40,13 @@ static BOOL indent = YES;
 + (int) parseNumber: (NSString*) number {
 	// IMPLEMENT ME: parse english numbers (one, two, three, etc)
 	
-	return [number intValue];
+	return number.intValue;
 }
 
 + (int) numberOfHeading: (NSString*) heading {
 	NSArray* words = [heading componentsSeparatedByString: @" "];
 	
-	if ([words count] < 2) return 0;
+	if (words.count < 2) return 0;
 	
 	return [IFNaturalIntel parseNumber: words[1]];
 }
@@ -76,7 +76,7 @@ static BOOL indent = YES;
 #pragma mark - Gathering information (works like rehint)
 
 -(BOOL) isHeading:(NSString*) line {
-    line = [line lowercaseString];
+    line = line.lowercaseString;
     for(NSString* heading in headingList) {
         if( [line isEqualToString: heading] ) {
             return YES;
@@ -89,7 +89,7 @@ static BOOL indent = YES;
 -(NSUInteger) indexOfHeading:(NSString*) line {
     NSUInteger index = 0;
 
-    line = [line lowercaseString];
+    line = line.lowercaseString;
     for(NSString* heading in headingList) {
         if( [line startsWith: heading] ) {
             return index;
@@ -103,7 +103,7 @@ static BOOL indent = YES;
 -(BOOL) autonumberHeading:(NSString*) line {
     NSUInteger index = 0;
 
-    line = [line lowercaseString];
+    line = line.lowercaseString;
     for(NSString* heading in headingList) {
         if( [line startsWith: heading] ) {
             return [autoNumberHeading[index] boolValue];
@@ -135,10 +135,10 @@ static BOOL indent = YES;
 		// Got a heading: add to the intel
 		IFIntelSymbol* newSymbol = [[IFIntelSymbol alloc] init];
 
-		[newSymbol setType: IFSectionSymbolType];
-		[newSymbol setName: line];
-		[newSymbol setRelation: IFSymbolOnLevel];
-		[newSymbol setLevelDelta: (int) headingType];
+		newSymbol.type = IFSectionSymbolType;
+		newSymbol.name = line;
+		newSymbol.relation = IFSymbolOnLevel;
+		newSymbol.levelDelta = (int) headingType;
 		
 		[data addSymbol: newSymbol
 				 atLine: lineNumber];
@@ -147,24 +147,24 @@ static BOOL indent = YES;
 		// The title string
 		int x = 0;
 		int start = 0;
-		while (x < [line length] && [styles read:x] != IFSyntaxGameText)
+		while (x < line.length && [styles read:x] != IFSyntaxGameText)
             x++;
 		start = x;
-		while (x < [line length] && [styles read:x] == IFSyntaxGameText)
+		while (x < line.length && [styles read:x] == IFSyntaxGameText)
             x++;
 
 		// Add this as a level 0 item
         IFIntelSymbol* newSymbol = [[IFIntelSymbol alloc] init];
         
         NSString* title = [line substringWithRange: NSMakeRange(start, x-start)];
-        if( [title length] == 0 ) {
+        if( title.length == 0 ) {
             title = [IFUtility localizedString:@"Story"];
         }
 
-        [newSymbol setType: IFSectionSymbolType];
-        [newSymbol setName: title];
-        [newSymbol setRelation: IFSymbolOnLevel];
-        [newSymbol setLevelDelta: 0];
+        newSymbol.type = IFSectionSymbolType;
+        newSymbol.name = title;
+        newSymbol.relation = IFSymbolOnLevel;
+        newSymbol.levelDelta = 0;
         
         [data addSymbol: newSymbol
                  atLine: lineNumber];
@@ -180,10 +180,10 @@ static BOOL indent = YES;
 	
 	if ([input isEqualToString: @"\n"]) {
 		// Auto-tab
-		if (![[IFPreferences sharedPreferences] indentAfterNewline]) return nil;
+		if (![IFPreferences sharedPreferences].indentAfterNewline) return nil;
 		
 		// 'editingLineNumber' will still be the previous line
-		int lineNumber = [highlighter editingLineNumber];
+		int lineNumber = highlighter.editingLineNumber;
 		int tabs = [highlighter numberOfTabStopsForLine: lineNumber];
 		
 		// If we're not currently in a string...
@@ -197,7 +197,7 @@ static BOOL indent = YES;
 			} else if (lastChar == '\t' || lastChar == ' ') {
 				// If line was entirely whitespace then reduce tabs back to 0
 				NSString* line = [highlighter textForLine: lineNumber];
-				int len = (int) [line length];
+				int len = (int) line.length;
 				int x;
 				BOOL whitespace = YES;
 				
@@ -235,9 +235,9 @@ static BOOL indent = YES;
 			return nil;
 		}
 	} else if ([input isEqualToString: @" "]) {
-		if (![[IFPreferences sharedPreferences] autoNumberSections]) return nil;
+		if (![IFPreferences sharedPreferences].autoNumberSections) return nil;
 
-		int lineNumber = [highlighter editingLineNumber];
+		int lineNumber = highlighter.editingLineNumber;
 		IFSyntaxStyle lastStyle = [highlighter styleAtStartOfLine: lineNumber];
 
 		if (lastStyle != IFSyntaxGameText && lastStyle != IFSyntaxSubstitution) {
@@ -263,19 +263,19 @@ static BOOL indent = YES;
 			// We've got a heading: auto-insert a number
 
 			// Find the preceding heading
-			IFIntelFile* data = [highlighter intelligenceData];
+			IFIntelFile* data = highlighter.intelligenceData;
 			IFIntelSymbol* symbol = [data nearestSymbolToLine: lineNumber];
 			
-			while (symbol && [symbol level] > headingLevel) symbol = [symbol parent];
+			while (symbol && symbol.level > headingLevel) symbol = symbol.parent;
 			
 			// Work out the numeric value of the heading
 			int lastHeadingNumber = 0;
 			
 			if (symbol) {
-				if ([symbol level] != headingLevel) {
+				if (symbol.level != headingLevel) {
 					lastHeadingNumber = 0;			// No preceding items at this level
 				} else {
-					lastHeadingNumber = [IFNaturalIntel numberOfHeading: [symbol name]];
+					lastHeadingNumber = [IFNaturalIntel numberOfHeading: symbol.name];
 					if (lastHeadingNumber == 0) {
 						lastHeadingNumber = -1;		// There was a preceding heading, but we don't know the number
 					}
@@ -303,26 +303,26 @@ static BOOL indent = YES;
 
 - (void) renumberSectionsAfterLine: (NSNumber*) lineObject {
 	// Gather some information about what we're about to do
-	int lineNumber = [lineObject intValue];
-	IFIntelFile* data = [highlighter intelligenceData];
+	int lineNumber = lineObject.intValue;
+	IFIntelFile* data = highlighter.intelligenceData;
 	IFIntelSymbol* firstSymbol = [data nearestSymbolToLine: lineNumber];
 	
 	if (firstSymbol == nil) return;
 	
-	int currentSectionNumber = [IFNaturalIntel numberOfHeading: [firstSymbol name]];
+	int currentSectionNumber = [IFNaturalIntel numberOfHeading: firstSymbol.name];
 
 	if (currentSectionNumber <= 0) return;
-	if ([firstSymbol level] == 0) return;
+	if (firstSymbol.level == 0) return;
 	
 	// Renumber all the siblings
-	IFIntelSymbol* symbol = [firstSymbol sibling];
+	IFIntelSymbol* symbol = firstSymbol.sibling;
 	
 	NSMutableArray* todoList = [NSMutableArray array];
 	
 	while (symbol != nil) {
 		currentSectionNumber++;
 		
-		int symbolSectionNumber = [IFNaturalIntel numberOfHeading: [firstSymbol name]];
+		int symbolSectionNumber = [IFNaturalIntel numberOfHeading: firstSymbol.name];
 		
 		if (symbolSectionNumber != currentSectionNumber) {
 			// Get the data for the line this symbol is on
@@ -332,7 +332,7 @@ static BOOL indent = YES;
 			// Renumber this symbol
 			NSMutableArray* words = [[line componentsSeparatedByString: @" "] mutableCopy];
 			
-			if ([words count] > 1) {
+			if (words.count > 1) {
 				words[1] = [NSString stringWithFormat: @"%i", currentSectionNumber];
 				NSString* newString = [words componentsJoinedByString: @" "];
 			
@@ -341,7 +341,7 @@ static BOOL indent = YES;
 			}
 		}
 		
-		symbol = [symbol sibling];
+		symbol = symbol.sibling;
 	}
 	
 	// Renumber everything in the todo list

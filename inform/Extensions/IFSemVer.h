@@ -15,9 +15,9 @@
 @property (atomic)      NSMutableArray* prerelease_segments;
 @property (atomic)      NSMutableString* build_metadata;
 
--(instancetype) init;
--(instancetype) initWithString: (NSString*) versionString;
--(NSString*) to_text;
+-(instancetype) init NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithString: (NSString*) versionString NS_DESIGNATED_INITIALIZER;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *to_text;
 -(int) cmp: (IFSemVer*) v2;
 
 @end

@@ -75,7 +75,7 @@
     NSImage * defaultImage = [NSImage imageNamed:@"App/Interpreter/Error"];
 
     // Return NSData version
-    return [defaultImage TIFFRepresentation];
+    return defaultImage.TIFFRepresentation;
 }
 
 @end

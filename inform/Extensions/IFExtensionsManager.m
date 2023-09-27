@@ -67,11 +67,11 @@ static int maxErrorMessagesToDisplay = 3;
 +(NSString*) canonicalTitle: (NSString*) displayName {
     // Remove any initial "The " from the name.
     NSString* result = displayName;
-    if( [[result lowercaseString] startsWith: @"the "] ) {
+    if( [result.lowercaseString startsWith: @"the "] ) {
         result = [result substringFromIndex:4];
-    } else if( [[result lowercaseString] startsWith: @"a "] ) {
+    } else if( [result.lowercaseString startsWith: @"a "] ) {
         result = [result substringFromIndex:2];
-    } else if( [[result lowercaseString] startsWith: @"an "] ) {
+    } else if( [result.lowercaseString startsWith: @"an "] ) {
         result = [result substringFromIndex:3];
     }
     
@@ -204,7 +204,7 @@ didReceiveResponse: (NSURLResponse *)response
     {
         if ( [response isKindOfClass: [NSHTTPURLResponse class]] )
         {
-            NSUInteger statusCode = [((NSHTTPURLResponse *)response) statusCode];
+            NSUInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
             if (statusCode >= 400)
             {
                 NSString* localizedStringForStatusCode = [NSHTTPURLResponse localizedStringForStatusCode: statusCode];
@@ -228,9 +228,9 @@ didReceiveResponse: (NSURLResponse *)response
         // It can be called multiple times, for example in the case of a
         // redirect, so each time we reset the data.
         
-        [self.receivedData setLength:0];
+        (self.receivedData).length = 0;
         
-        self.expectedLength = [response expectedContentLength];
+        self.expectedLength = response.expectedContentLength;
     }
     completionHandler(NSURLSessionResponseAllow);
 }
@@ -260,7 +260,7 @@ didReceiveResponse: (NSURLResponse *)response
 
             // Log message
             NSString* message = [NSString stringWithFormat:[IFUtility localizedString: @"Failed to Download Extension Explanation - %@"],
-                                 [error localizedDescription]];
+                                 error.localizedDescription];
             
             [mgr addError: message];
             
@@ -461,7 +461,7 @@ didReceiveResponse: (NSURLResponse *)response
             }
 
 			// 'reserved' is a special case and never shows up in the list
-			if ([[filename lowercaseString] isEqualToString: @"reserved"]) {
+			if ([filename.lowercaseString isEqualToString: @"reserved"]) {
                 continue;
             }
 
@@ -474,7 +474,7 @@ didReceiveResponse: (NSURLResponse *)response
 
 			if (exists && isDir) {
 				// Add to the list of paths for this name
-				NSString* filenameKey = [filename lowercaseString];
+				NSString* filenameKey = filename.lowercaseString;
 				NSMutableArray* dirsWithName = resultSet[filenameKey];
 
 				if (dirsWithName == nil) {
@@ -534,7 +534,7 @@ didReceiveResponse: (NSURLResponse *)response
                                                                              error: &error];
     NSTextCheckingResult *match = [regex firstMatchInString: string
                                                     options: 0
-                                                      range: NSMakeRange(0, [string length])];
+                                                      range: NSMakeRange(0, string.length)];
     if (match) {
         NSString* first  = [string substringWithRange: [match rangeAtIndex:1]];
         NSString* third  = [string substringWithRange: [match rangeAtIndex:3]];
@@ -557,7 +557,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     if(error) {
         // JSON was malformed
-        NSLog(@"Warning: Inbuild JSON error: %@", [error description]);
+        NSLog(@"Warning: Inbuild JSON error: %@", error.description);
         NSLog(@"JSON was: %@", jsonString);
         return result;
     }
@@ -566,7 +566,7 @@ didReceiveResponse: (NSURLResponse *)response
     if([object isKindOfClass:[NSDictionary class]])
     {
         NSDictionary *results = object;
-        id inspection_id = [results objectForKey: @"inspection"];
+        id inspection_id = results[@"inspection"];
         if([inspection_id isKindOfClass:[NSArray class]]) {
             NSArray *inspection = inspection_id;
             for(int i= 0; i < inspection.count; i++) {
@@ -576,21 +576,21 @@ didReceiveResponse: (NSURLResponse *)response
                     continue;
                 }
                 NSDictionary* entry = entry_id;
-                NSString* fullFilepath = [entry objectForKey: @"location-file"];
-                id resource_id = [entry objectForKey: @"resource"];
+                NSString* fullFilepath = entry[@"location-file"];
+                id resource_id = entry[@"resource"];
                 if(![resource_id isKindOfClass:[NSDictionary class]]) {
                     continue;
                 }
                 NSDictionary* resource = resource_id;
 
-                NSString* type = [resource objectForKey: @"type"];
+                NSString* type = resource[@"type"];
                 if(![type isEqualToStringCaseInsensitive: @"extension"]) {
                     continue;
                 }
 
-                NSString* title = [resource objectForKey: @"title"];
-                NSString* author = [resource objectForKey: @"author"];
-                NSString* version = [resource objectForKey: @"version"];
+                NSString* title = resource[@"title"];
+                NSString* author = resource[@"author"];
+                NSString* version = resource[@"version"];
                 if (title == nil) { title = @""; }
                 if (author == nil) { author = @""; }
                 if (version == nil) {
@@ -660,7 +660,7 @@ didReceiveResponse: (NSURLResponse *)response
                         continue;
                     }
 
-                    NSString* fileExtension = [[filename pathExtension] lowercaseString];
+                    NSString* fileExtension = filename.pathExtension.lowercaseString;
                     if ([fileExtension isEqualToString: @"i7x"] ||
                         [fileExtension isEqualToString: @""]) {
                         // Get information about the extension
@@ -707,16 +707,16 @@ didReceiveResponse: (NSURLResponse *)response
     for( IFExtensionInfo* info in [self availableExtensionsWithCompilerVersion: compilerVersion] ) {
         [authors addObject: info.author];
     }
-    return [[authors allObjects] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+    return [authors.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 }
 
 - (NSArray*) availableExtensionsByAuthor: (NSString*) author
                      withCompilerVersion: (NSString*) compilerVersion {
-    author = [author lowercaseString];
+    author = author.lowercaseString;
     NSMutableArray* extensions = [NSMutableArray array];
 
     for( IFExtensionInfo* info in [self availableExtensionsWithCompilerVersion: compilerVersion] ) {
-        if([[info.author lowercaseString] isEqualToString:author]) {
+        if([(info.author).lowercaseString isEqualToString:author]) {
             [extensions addObject:info];
         }
     }
@@ -737,7 +737,7 @@ didReceiveResponse: (NSURLResponse *)response
 	NSArray* pathsToSearch;
 	
 	// Work out which paths to search (just one if we're not merging)
-    pathsToSearch = [self extensionDictionary][[name lowercaseString]];
+    pathsToSearch = [self extensionDictionary][name.lowercaseString];
 
 	// Search all the paths to generate the list of files
 	// If a file with the same name exists in multiple places, then only the first one is used
@@ -750,12 +750,12 @@ didReceiveResponse: (NSURLResponse *)response
                                                       error: &error];
 		for(NSString* file in files) {
 			// Add to the result
-			resultDict[[file lowercaseString]] = [path stringByAppendingPathComponent: file];
+			resultDict[file.lowercaseString] = [path stringByAppendingPathComponent: file];
 		}
 	}
 
     // Sort
-	NSMutableArray* result = [[resultDict allValues] mutableCopy];
+	NSMutableArray* result = [resultDict.allValues mutableCopy];
 	[result sortUsingSelector: @selector(caseInsensitiveCompare:)];
 
 	return [result copy];
@@ -781,12 +781,12 @@ didReceiveResponse: (NSURLResponse *)response
         }
 
 		// File must not begin with a '.'
-		if ([[file lastPathComponent] characterAtIndex: 0] == '.') {
+		if ([file.lastPathComponent characterAtIndex: 0] == '.') {
             continue;
         }
 
 		// File must have a suitable extension
-		NSString* extn = [[file pathExtension] lowercaseString];
+		NSString* extn = file.pathExtension.lowercaseString;
         BOOL isOpenable = [extn isEqualToString: @""]    ||
                           [extn isEqualToString: @"i7x"] ||
                           [extn isEqualToString: @"txt"] ||
@@ -881,12 +881,12 @@ didReceiveResponse: (NSURLResponse *)response
 	extensionString = [extensionString stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
 
 	// Check that the ending is 'begins here'
-    if (![[extensionString lowercaseString] endsWith:@" begins here."]) {
+    if (![extensionString.lowercaseString endsWith:@" begins here."]) {
         return IFExtensionNotValid;
     }
 
     // Remove the " begins here." from the end
-    extensionString = [extensionString substringToIndex: [extensionString length] - [@" begins here." length]];
+    extensionString = [extensionString substringToIndex: extensionString.length - (@" begins here.").length];
 
     // Examples:
     // Version 1 of Title Name by Author Name
@@ -894,7 +894,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     // Find version name
     NSString* versionName = nil;
-    if( [[extensionString lowercaseString] startsWith:@"version "] ) {
+    if( [extensionString.lowercaseString startsWith:@"version "] ) {
         NSRange versionRange = [extensionString rangeOfString: @" of "
                                                       options: NSCaseInsensitiveSearch];
         versionName     = [extensionString substringToIndex:   versionRange.location];
@@ -925,13 +925,13 @@ didReceiveResponse: (NSURLResponse *)response
 	versionName = [versionName stringByTrimmingWhitespace];
 
     // Remove leading 'The' from extension name
-    if( [[titleName lowercaseString] startsWith:@"the "] ) {
-        titleName = [titleName substringFromIndex: [@"the " length]];
+    if( [titleName.lowercaseString startsWith:@"the "] ) {
+        titleName = [titleName substringFromIndex: (@"the ").length];
     }
 
     // Bail out if there is no author name or title left
-    if( ([authorName length] == 0) ||
-        ([titleName length]  == 0) ) {
+    if( (authorName.length == 0) ||
+        (titleName.length  == 0) ) {
         return IFExtensionNotValid;
     }
 
@@ -963,7 +963,7 @@ didReceiveResponse: (NSURLResponse *)response
 	// We can also add .h, .inf and .i6 files on their own, creating a directory to do so
 	NSFileManager* mgr = [NSFileManager defaultManager];
 
-	extensionPath = [extensionPath stringByStandardizingPath];
+	extensionPath = extensionPath.stringByStandardizingPath;
 
 	[self createDefaultExtnDir];
 
@@ -1012,12 +1012,12 @@ didReceiveResponse: (NSURLResponse *)response
     if (author) {
         destDir = [directory stringByAppendingPathComponent: author];
     } else {
-        destDir = [directory stringByAppendingPathComponent: [[extensionPath lastPathComponent] stringByDeletingPathExtension]];
+        destDir = [directory stringByAppendingPathComponent: extensionPath.lastPathComponent.stringByDeletingPathExtension];
     }
 
-	destDir = [destDir stringByStandardizingPath];
+	destDir = destDir.stringByStandardizingPath;
 
-	if ([[destDir lowercaseString] isEqualToString: [extensionPath lowercaseString]]) {
+	if ([destDir.lowercaseString isEqualToString: extensionPath.lowercaseString]) {
         return IFExtensionAlreadyExists;		// Trying to re-add an extension that already exists
     }
 
@@ -1043,20 +1043,20 @@ didReceiveResponse: (NSURLResponse *)response
         destFile = title;
     }
     else {
-        destFile = [extensionPath lastPathComponent];
+        destFile = extensionPath.lastPathComponent;
     }
     
     destFile = [IFExtensionInfo canonicalTitle: destFile];
     
     // destination file mut not be longer than 50 characters? (Is this true?)
-    if ([[destFile stringByDeletingPathExtension] length] > 50) {
+    if (destFile.stringByDeletingPathExtension.length > 50) {
         // Extension filenames must be at most 50 characters
         // Remove extension and truncate
-        destFile = [[destFile stringByDeletingPathExtension] substringToIndex: 50];
+        destFile = [destFile.stringByDeletingPathExtension substringToIndex: 50];
     }
 
     // Extension must have a .i7x extension
-    if (![[destFile pathExtension] isEqualToString: @"i7x"]) {
+    if (![destFile.pathExtension isEqualToString: @"i7x"]) {
         destFile = [destFile stringByAppendingPathExtension: @"i7x"];
     }
 
@@ -1075,8 +1075,8 @@ didReceiveResponse: (NSURLResponse *)response
                                          version: &existingVersion];
     if (result == IFExtensionSuccess) {
         if( showWarningPrompts ) {
-            if( [[existingTitle lowercaseString] isEqualToString: [title lowercaseString]] ) {
-                if( [[existingAuthor lowercaseString] isEqualToString: [author lowercaseString]] ) {
+            if( [existingTitle.lowercaseString isEqualToString: title.lowercaseString] ) {
+                if( [existingAuthor.lowercaseString isEqualToString: author.lowercaseString] ) {
                     if( version == nil ) { version = @"Version 1"; }
                     if( existingVersion == nil ) { existingVersion = @"Version 1"; }
                     
@@ -1121,7 +1121,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     // Remove old file at destination
     {
-        NSString* destFileWithoutExtension = [dest stringByDeletingPathExtension];
+        NSString* destFileWithoutExtension = dest.stringByDeletingPathExtension;
 
         // Try removing the destination file *without* the i7x file extension (remove old version that may not have had a file extension)
         [mgr removeItemAtPath: destFileWithoutExtension
@@ -1172,7 +1172,7 @@ didReceiveResponse: (NSURLResponse *)response
     NSString *compilerPath = [IFUtility pathForCompiler:@""];
     if (compilerPath != nil) {
         NSString* notifyType;
-        if( [notify boolValue] ) {
+        if( notify.boolValue ) {
             notifyType = IFCensusFinishedNotification;
         } else {
             notifyType = IFCensusFinishedButDontUpdateExtensionsWebPageNotification;
@@ -1204,7 +1204,7 @@ didReceiveResponse: (NSURLResponse *)response
     if (!exists) return NO;
     if (isDir) return YES;
     
-    NSString* extn = [[url pathExtension] lowercaseString];
+    NSString* extn = url.pathExtension.lowercaseString;
 
     if( ![extn isEqualToString: @"i7x"] &&
         ![extn isEqualToString: @""] ) {
@@ -1233,10 +1233,10 @@ didReceiveResponse: (NSURLResponse *)response
 }
 
 -(void) startDownloadAndInstallNextInQueue {
-    if( [downloads count] > 0 ) {
+    if( downloads.count > 0 ) {
         IFExtensionDownload* dl = downloads[0];
 
-        [dl startDownloadAndInstall];
+        dl.startDownloadAndInstall;
     }
 }
 
@@ -1252,7 +1252,7 @@ didReceiveResponse: (NSURLResponse *)response
         [downloads addObject: download];
         numberOfBatchedExtensions++;
 
-        if( [downloads count] == 1 ) {
+        if( downloads.count == 1 ) {
             // Remove old progress
             if( dlProgress != nil ) {
                 if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {
@@ -1267,7 +1267,7 @@ didReceiveResponse: (NSURLResponse *)response
             if( [download.notifyDelegate isKindOfClass:[IFProjectController class]] ) {
                 [(IFProjectController*) download.notifyDelegate addProgressIndicator: dlProgress];
             }
-            [dlProgress setMessage: [IFUtility localizedString:@"Installing extension"]];
+            dlProgress.message = [IFUtility localizedString:@"Installing extension"];
             [dlProgress startProgress];
             [self startDownloadAndInstallNextInQueue];
         }
@@ -1279,7 +1279,7 @@ didReceiveResponse: (NSURLResponse *)response
 - (void) downloadAndInstallFinished: (IFExtensionDownload*) download {
     [downloads removeObject: download];
 
-    int done  = numberOfBatchedExtensions - (int) [downloads count];
+    int done  = numberOfBatchedExtensions - (int) downloads.count;
     int total = numberOfBatchedExtensions;
     CGFloat percentage = 100.0f * (CGFloat) done / (CGFloat) total;
     NSString* message;
@@ -1288,8 +1288,8 @@ didReceiveResponse: (NSURLResponse *)response
     } else {
         message = [NSString stringWithFormat: [IFUtility localizedString:@"Installed %d of %d"], done, total];
     }
-    [dlProgress setPercentage: percentage];
-    [dlProgress setMessage: message];
+    dlProgress.percentage = percentage;
+    dlProgress.message = message;
 
     // Remove any remaining items if we are we cancelled
     if( dlProgress.isCancelled ) {
@@ -1297,7 +1297,7 @@ didReceiveResponse: (NSURLResponse *)response
     }
 
     // Last one finished downloading?
-    if( [downloads count] == 0 ) {
+    if( downloads.count == 0 ) {
 
         // Report errors or success - only if we are not cancelled
         if( !dlProgress.isCancelled ) {
@@ -1340,7 +1340,7 @@ didReceiveResponse: (NSURLResponse *)response
                 } else {
                     [IFUtility runAlertInformationWindow: download.window
                                                    title: @"Installation complete"
-                                                 message: @"Extension \"%@\" by %@ (%@) installed successfully", download.title, download.author, [download safeVersion]];
+                                                 message: @"Extension \"%@\" by %@ (%@) installed successfully", download.title, download.author, download.safeVersion];
                 }
             }
         }
@@ -1370,7 +1370,7 @@ didReceiveResponse: (NSURLResponse *)response
         self.cacheChanged = NO;
     }
 
-    if( [downloads count] > 0 ) {
+    if( downloads.count > 0 ) {
         [self performSelector: @selector(startDownloadAndInstallNextInQueue)
                  withObject: nil
                  afterDelay: 0.5];

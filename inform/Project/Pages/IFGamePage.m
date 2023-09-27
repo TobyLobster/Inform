@@ -126,8 +126,8 @@
 #pragma mark - The game view
 
 - (void) preferencesChanged: (NSNotification*) not {
-	[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
-	[gView setScaleFactor: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+	zView.scaleFactor = 1.0/[IFPreferences sharedPreferences].appFontSizeMultiplier;
+	gView.scaleFactor = [IFPreferences sharedPreferences].appFontSizeMultiplier;
 }
 
 - (void) activateDebug {
@@ -135,7 +135,7 @@
 }
 
 - (void) startRunningGame: (NSString*) fileName {
-	[[[self.parent document] currentSkein] interpreterRestart];
+	[[(self.parent).document currentSkein] interpreterRestart];
 	
     if (zView) {
 		[zView killTask];
@@ -149,7 +149,7 @@
 		gView = nil;
 	}
     if( semiTransparentView == nil ) {
-        semiTransparentView = [[IFSemiTransparentView alloc] initWithFrame:[self.view frame]];
+        semiTransparentView = [[IFSemiTransparentView alloc] initWithFrame:(self.view).frame];
         semiTransparentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         
         // "Wants layer" is set so that the subviews (semiTransparentView and zView/gView) are ordered in Z correctly when sibling views overlap
@@ -171,15 +171,15 @@
 
 	//[gameRunningProgress setMessage: [IFUtility localizedString: @"Loading story file"]];
 
-	if ([[gameToRun pathExtension] isEqualToString: @"ulx"]) {
+	if ([gameToRun.pathExtension isEqualToString: @"ulx"]) {
 		IFRuntimeErrorParser* runtimeErrors = [[IFRuntimeErrorParser alloc] init];
-		[runtimeErrors setDelegate: self.parent];
+		runtimeErrors.delegate = self.parent;
 
 		// Screws up the first responder, will cause the GlkView object to force a new first responder after it starts
-		[[self.parent window] makeFirstResponder: [self.parent window]];
+		[(self.parent).window makeFirstResponder: (self.parent).window];
 		
 		// Work out the default client to use
-		NSString*		clientName = [[IFPreferences sharedPreferences] glulxInterpreter];
+		NSString*		clientName = [IFPreferences sharedPreferences].glulxInterpreter;
         clientName = [clientName stringByAppendingString:@"-client"];
 		//NSLog(@"Using glulx interpreter '%@'", clientName);
 		
@@ -187,17 +187,17 @@
         soundHandler = [[GlkSoundHandler alloc] init];
 		gView = [[GlkView alloc] init];
         gView.soundHandler = soundHandler;
-		[gView setDelegate: self];
+		gView.delegate = self;
 		[gView addOutputReceiver: self.parent];
 		[gView addOutputReceiver: runtimeErrors];
 		
-		[gView setImageSource: [[IFGlkResources alloc] initWithProject: [self.parent document]]];
+		gView.imageSource = [[IFGlkResources alloc] initWithProject: (self.parent).document];
 		
-		[gView setAutoresizingMask: (NSViewWidthSizable|NSViewHeightSizable)];
-		[gView setFrame: [self.view bounds]];
+		gView.autoresizingMask = (NSViewWidthSizable|NSViewHeightSizable);
+		gView.frame = (self.view).bounds;
 		[self.view addSubview: gView];
 		
-		[gView setScaleFactor: [[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+		gView.scaleFactor = [IFPreferences sharedPreferences].appFontSizeMultiplier;
 		
         [gView setInputFileURL: [NSURL fileURLWithPath: fileName]];
         
@@ -210,12 +210,12 @@
 		// Start running as a Zoom task
 		IFRuntimeErrorParser* runtimeErrors = [[IFRuntimeErrorParser alloc] init];
 		
-		[runtimeErrors setDelegate: self.parent];
+		runtimeErrors.delegate = self.parent;
 		
 		zView = [[ZoomView alloc] init];
-		[zView setDelegate: self];
-		[[[self.parent document] currentSkein] interpreterRestart];
-		[zView addOutputReceiver: [[self.parent document] currentSkein]];
+		zView.delegate = self;
+		[[(self.parent).document currentSkein] interpreterRestart];
+		[zView addOutputReceiver: [(self.parent).document currentSkein]];
 		[zView addOutputReceiver: runtimeErrors];
 		[zView runNewServer: nil];
 		
@@ -232,10 +232,10 @@
                              [NSColor colorWithDeviceRed: .53 green: .53 blue: .53 alpha: 1],
                              [NSColor colorWithDeviceRed: .26 green: .26 blue: .26 alpha: 1]]];
 
-		[zView setScaleFactor: 1.0/[[IFPreferences sharedPreferences] appFontSizeMultiplier]];
+		zView.scaleFactor = 1.0/[IFPreferences sharedPreferences].appFontSizeMultiplier;
 		
-		[zView setFrame: [self.view bounds]];
-		[zView setAutoresizingMask: NSViewWidthSizable|NSViewHeightSizable];
+		zView.frame = (self.view).bounds;
+		zView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
 		[self.view addSubview: zView];
 	}
     [semiTransparentView setHidden: YES];
@@ -285,7 +285,7 @@
     
     _isRunningGame = NO;
 
-    [[[self.parent document] currentSkein] interpreterStop];
+    [[(self.parent).document currentSkein] interpreterStop];
 
     // Make sure the semi transparent white window is shown on top of other views
     [semiTransparentView removeFromSuperview];
@@ -318,11 +318,11 @@
 	[gameRunningProgress startStory];
 	
 	if (testCommands != nil) {
-        NSArray *reversedArray = [[testCommands reverseObjectEnumerator] allObjects];
+        NSArray *reversedArray = [testCommands reverseObjectEnumerator].allObjects;
 
         TestCommands* inputSource = [[TestCommands alloc] initWithCommands: reversedArray];
         testCommands = nil;
-        [self.parent setGlkInputSource: inputSource];
+        (self.parent).glkInputSource = inputSource;
         [gView addInputReceiver: self.parent];
     }
 }
@@ -338,16 +338,16 @@
 }
 
 - (void) zMachineStarted: (id) sender {	
-    [[zView zMachine] loadStoryFile: 
+    [zView.zMachine loadStoryFile: 
         [NSData dataWithContentsOfFile: gameToRun]];
 	
-	[[zView zMachine] loadDebugSymbolsFromFile: [[[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
-							withSourcePath: [[[[self.parent document] fileURL] path] stringByAppendingPathComponent: @"Source"]];
+	[zView.zMachine loadDebugSymbolsFromFile: [[[(self.parent).document fileURL].path stringByAppendingPathComponent: @"Build"] stringByAppendingPathComponent: @"gameinfo.dbg"]
+							withSourcePath: [[(self.parent).document fileURL].path stringByAppendingPathComponent: @"Source"]];
 	
 	// Set the initial breakpoint if 'Debug' was selected
 	if (setBreakpoint) {
-		if (![[zView zMachine] setBreakpointAtName: @"Initialise"]) {
-			[[zView zMachine] setBreakpointAtName: @"main"];
+		if (![zView.zMachine setBreakpointAtName: @"Initialise"]) {
+			[zView.zMachine setBreakpointAtName: @"main"];
 		}
 	}
 	
@@ -357,13 +357,13 @@
 	if( testCommands ) {
         TestCommands* inputSource = [[TestCommands alloc] initWithCommands: testCommands];
         testCommands = nil;
-        [zView setInputSource: inputSource];
+        zView.inputSource = inputSource;
     }
     if( switchToPage ) {
         [self switchToPage];
     }
 
-    [[self.parent window] makeFirstResponder: [zView textView]];
+    [(self.parent).window makeFirstResponder: zView.textView];
 	
     [gameRunningProgress stopProgress];
 	[gameRunningProgress startStory];
@@ -371,12 +371,12 @@
 
 - (NSString*) pathForNamedFile: (NSString*) name {
 	// Append .glkdata if the name has no extension
-	name = [name lastPathComponent];
-	name = [[name stringByDeletingPathExtension] stringByAppendingPathExtension: @"glkdata"];
+	name = name.lastPathComponent;
+	name = [name.stringByDeletingPathExtension stringByAppendingPathExtension: @"glkdata"];
 
 	// Work out the location of the materials directory
-	NSURL* projectURL	= [[self.parent document] fileURL];
-	NSURL* materialsURL	= [[self.parent document] materialsDirectoryURL];
+	NSURL* projectURL	= [(self.parent).document fileURL];
+	NSURL* materialsURL	= [(self.parent).document materialsDirectoryURL];
 
 	// Default location is materials/Files
 	NSURL* filesDirURL = [materialsURL URLByAppendingPathComponent: @"Files"];
@@ -391,7 +391,7 @@
 		return [filesDirURL URLByAppendingPathComponent: name].path;
 	} else {
 		// Use the directory the project is in
-		return [[projectURL URLByDeletingLastPathComponent] URLByAppendingPathComponent: name].path;
+		return [projectURL.URLByDeletingLastPathComponent URLByAppendingPathComponent: name].path;
 	}
 }
 

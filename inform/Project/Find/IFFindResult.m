@@ -68,7 +68,7 @@
 @synthesize fileRange;
 
 - (NSString*) phrase {
-    return [[self context] substringWithRange:[self contextRange]];
+    return [self.context substringWithRange:self.contextRange];
 }
 
 @synthesize documentDisplayName;
@@ -113,7 +113,7 @@
     [mutReplace setString:replace];
     
     bool foundSlash = false;
-    for(int i = 0; i < [mutReplace length]; i++ ) {
+    for(int i = 0; i < mutReplace.length; i++ ) {
         unichar c = [mutReplace characterAtIndex:i];
 
         if( c == '\\' ) {
@@ -131,7 +131,7 @@
                 // We have found one of \0 to \9
                 int group = (int) c - '0';
                 
-                if( [aRegexFoundGroups count] > group ) {
+                if( aRegexFoundGroups.count > group ) {
                     // Remove the \0
                     [mutReplace deleteCharactersInRange: NSMakeRange(i-1, 1)];
                     [mutReplace deleteCharactersInRange: NSMakeRange(i-1, 1)];
@@ -141,7 +141,7 @@
 
                     // Insert the matched string
                     [mutReplace insertString:groupString atIndex: i-1];
-                    i = (i-1) + (int) ([groupString length]-1);
+                    i = (i-1) + (int) (groupString.length-1);
                 }
             }
             else if ((c == 't') || (c == 'r') || (c == 'v') || (c == 'f') || (c == 'n')) {
@@ -153,7 +153,7 @@
                 NSString*unicharString = [NSString stringWithFormat:@"%C", c];
                 [mutReplace replaceCharactersInRange:NSMakeRange(i-1, 2) withString:unicharString];
             } else if (c == 'x') {
-                if( i < ([mutReplace length] - 2)) {
+                if( i < (mutReplace.length - 2)) {
                     unsigned int hexInt;
                     NSScanner* scanner = [NSScanner scannerWithString:[mutReplace substringWithRange:NSMakeRange(i+1, 2)]];
                     
@@ -203,15 +203,15 @@
                             NSParagraphStyleAttributeName: style};
     }
 
-	NSMutableAttributedString* result = [[NSMutableAttributedString alloc] initWithString: [self context]
+	NSMutableAttributedString* result = [[NSMutableAttributedString alloc] initWithString: self.context
 																				attributes: normalAttributes];
     [result beginEditing];
 	[result addAttributes: boldAttributes
-					range: [self contextRange]];
-    [result applyFontTraits:NSBoldFontMask range:[self contextRange]];
+					range: self.contextRange];
+    [result applyFontTraits:NSBoldFontMask range:self.contextRange];
 
     // Prefix with example, if there is one
-    if((exampleName != nil) && ([exampleName length] > 0 )) {
+    if((exampleName != nil) && (exampleName.length > 0 )) {
         NSString* prefix = [IFUtility localizedString: @"SearchResultInExamplePrefix"
                                               default: @"(Example %@)  "];
         prefix = [NSString stringWithFormat: prefix, exampleName];
@@ -219,7 +219,7 @@
         [result insertAttributedString:examplePrefix atIndex:0];
 
         [result applyFontTraits: NSItalicFontMask
-                          range: NSMakeRange(0, [examplePrefix length])];
+                          range: NSMakeRange(0, examplePrefix.length)];
     }
     [result endEditing];
 

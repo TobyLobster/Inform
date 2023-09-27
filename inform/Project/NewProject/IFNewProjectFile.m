@@ -48,18 +48,18 @@ NS_ENUM(NSInteger) {
 @synthesize newFilename;
 - (NSString*) getNewFilename {
     // Default is to create a 'ni' file
-    [fileType selectItem: [[fileType menu] itemWithTag: niFileTag]];
+    [fileType selectItem: [fileType.menu itemWithTag: niFileTag]];
 
 	// Set the new filename to nothing
 	newFilename = nil;
 	
 	// Run the sheet
-    [[projectController window] beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
+    [projectController.window beginSheet:self.window completionHandler:^(NSModalResponse returnCode) {
         // do nothing?
     }];
-	[NSApp runModalForWindow: [self window]];
-	[NSApp endSheet: [self window]];
-	[[self window] orderOut: self];
+	[NSApp runModalForWindow: self.window];
+	[NSApp endSheet: self.window];
+	[self.window orderOut: self];
 	
 	return newFilename;
 }
@@ -76,12 +76,12 @@ NS_ENUM(NSInteger) {
 	// Work out the extension to use
 	NSString* extension = nil;
 	
-	switch ([[fileType selectedItem] tag]) {
+	switch (fileType.selectedItem.tag) {
 		case inform6FileTag:
             extension = @"i6";
 			break;
 		case niFileTag:
-			if ([[projectController document] editingExtension])
+			if ([projectController.document editingExtension])
 				extension = nil;
 			else
 				extension = @"ni";
@@ -95,10 +95,10 @@ NS_ENUM(NSInteger) {
 	}
 	
 	// ... now the whole filename
-	NSString* file = [[fileName stringValue] lastPathComponent];
-	if (extension && file && [file length] > 0) {
+	NSString* file = fileName.stringValue.lastPathComponent;
+	if (extension && file && file.length > 0) {
 		newFilename = [file stringByAppendingPathExtension: extension];
-	} else if (file && [file length] > 0) {
+	} else if (file && file.length > 0) {
 		newFilename = [file copy];
 	}
 }

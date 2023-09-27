@@ -13,7 +13,7 @@
 
 - (void) mouseDown: (NSEvent*) event {
 	// Pass the event through to the contained view
-	[[self documentView] mouseDown: event];
+	[self.documentView mouseDown: event];
 	
 	// Continue as normal
 	[super mouseDown: event];

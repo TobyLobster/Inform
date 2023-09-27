@@ -20,11 +20,11 @@
 - (instancetype) initWithURL:(NSURL*) mainURL {
     self = [super init];
     if( self ) {
-        if( [mainURL isFileURL] ) {
+        if( mainURL.fileURL ) {
             primaryURL          = mainURL;
-            secondaryURL        = [[mainURL URLByDeletingPathExtension] URLByAppendingPathExtension: @"materials"];
-            NSString* moveName  = [[[mainURL URLByDeletingPathExtension] lastPathComponent] stringByAppendingString: @" Materials"];
-            moveURL             = [[mainURL URLByDeletingLastPathComponent] URLByAppendingPathComponent: moveName];
+            secondaryURL        = [mainURL.URLByDeletingPathExtension URLByAppendingPathExtension: @"materials"];
+            NSString* moveName  = [mainURL.URLByDeletingPathExtension.lastPathComponent stringByAppendingString: @" Materials"];
+            moveURL             = [mainURL.URLByDeletingLastPathComponent URLByAppendingPathComponent: moveName];
         } else {
             primaryURL          = nil;
             secondaryURL        = nil;
@@ -65,14 +65,14 @@
     
     // move old folder, if present
     BOOL isDirectory = NO;
-    if( ![[NSFileManager defaultManager] fileExistsAtPath: [secondaryURL path]] ) {
-        if( [[NSFileManager defaultManager] fileExistsAtPath: [moveURL path] isDirectory: &isDirectory] ) {
+    if( ![[NSFileManager defaultManager] fileExistsAtPath: secondaryURL.path] ) {
+        if( [[NSFileManager defaultManager] fileExistsAtPath: moveURL.path isDirectory: &isDirectory] ) {
             if( isDirectory == YES ) {
                 if( [[NSFileManager defaultManager] moveItemAtURL: moveURL
                                                             toURL: secondaryURL
                                                             error: nil] ) {
                     NSString* message = [NSString stringWithFormat: [IFUtility localizedString: @"Note: This version of Inform stores materials in a '.materials' folder. The folder '%@' has been renamed to '%@'"],
-                                                                     [moveURL lastPathComponent], [secondaryURL lastPathComponent]];
+                                                                     moveURL.lastPathComponent, secondaryURL.lastPathComponent];
                     [IFUtility runAlertInformationWindow: nil
                                                    title: @"Materials folder has been renamed"
                                                  message: @"%@", message];
@@ -103,7 +103,7 @@
     // Add icon to folder
     NSImage* image = [NSImage imageNamed: @"materialsfile"];
     BOOL didSetIcon = [[NSWorkspace sharedWorkspace] setIcon: image
-                                                     forFile: [secondaryURL path]
+                                                     forFile: secondaryURL.path
                                                      options: (NSWorkspaceIconCreationOptions) 0];
     if( !didSetIcon ) {
         NSLog(@"Could not set icon for materials folder at URL %@", secondaryURL);

@@ -91,7 +91,7 @@ static CGFloat pointSize = 11.0;
 }
 
 - (NSString*) name {
-	NSString* name = [header headingName];
+	NSString* name = header.headingName;
 	if (depth > 0) {
 		name = [bulletPoint stringByAppendingString: name];
 	}
@@ -103,25 +103,25 @@ static CGFloat pointSize = 11.0;
 	frame.origin = position;
 	
 	// The initial height is determined by the title of this node
-	frame.size.width = [[self name] sizeWithAttributes: [self attributes]].width;
-	frame.size.height = gap + [[self font] ascender] - [[self font] descender];
+	frame.size.width = [[self name] sizeWithAttributes: self.attributes].width;
+	frame.size.height = gap + [self font].ascender - [self font].descender;
     
     exclusiveFrame = frame;
 	
 	// The total height is different if there are children for this item (depending on the y position of the final child)
-	if (children && [children count] > 0) {
+	if (children && children.count > 0) {
 		// The width is that of the widest child element
         CGFloat maxX = NSMaxX(frame);
 		
 		for( IFHeaderNode* child in children ) {
-            CGFloat childMaxX = NSMaxX([child frame]);
+            CGFloat childMaxX = NSMaxX(child.frame);
 			if (childMaxX > maxX) maxX = childMaxX;
 		}
 		
 		frame.size.width = maxX - NSMinX(frame);
 
 		// The height is based on the maximum Y position of the final child
-		NSRect lastFrame = [(IFHeaderNode*)[children lastObject] frame];
+		NSRect lastFrame = ((IFHeaderNode*)children.lastObject).frame;
         CGFloat maxY = NSMaxY(lastFrame);
 		frame.size.height = maxY - NSMinY(frame);
 	}
@@ -159,7 +159,7 @@ static CGFloat pointSize = 11.0;
 
 - (void) populateToDepth: (int) maxDepth {
 	// Do nothing if we've reached the end
-	if (maxDepth <= [[header symbol] level]) {
+	if (maxDepth <= header.symbol.level) {
 		 children = nil;
 		[self updateNodeFrame];
 		return;
@@ -174,8 +174,8 @@ static CGFloat pointSize = 11.0;
 	NSPoint childPoint = NSMakePoint(NSMinX(frame), floor(NSMaxY(frame)));
 	
 	// Populate it
-	for( IFHeader* childNode in [header children] ) {
-		if ([[childNode symbol] level] > maxDepth) continue;
+	for( IFHeader* childNode in header.children ) {
+		if (childNode.symbol.level > maxDepth) continue;
 		
 		// Create a new child node
 		IFHeaderNode* newChildNode = [[IFHeaderNode alloc] initWithHeader: childNode
@@ -187,7 +187,7 @@ static CGFloat pointSize = 11.0;
 		[children addObject: newChildNode];
 		
 		// Update the position of the next child element
-		childPoint.y = floor(NSMaxY([newChildNode frame]));
+		childPoint.y = floor(NSMaxY(newChildNode.frame));
 	}
 	
 	// Update the frame of this node
@@ -201,7 +201,7 @@ static CGFloat pointSize = 11.0;
 @synthesize selectionStyle=selected;
 
 - (NSArray*) children {
-	if (!children || [children count] == 0) return nil;
+	if (!children || children.count == 0) return nil;
 	return children;
 }
 
@@ -248,15 +248,15 @@ static CGFloat pointSize = 11.0;
 	// FIXME: this more properly belongs in IFHeader (? - won't take account of current child settings there)
 	
 	// Get the following symbol
-	IFIntelSymbol* symbol = [header symbol];
-	IFIntelSymbol* followingSymbol = [symbol sibling];
+	IFIntelSymbol* symbol = header.symbol;
+	IFIntelSymbol* followingSymbol = symbol.sibling;
 	
 	if (!followingSymbol) {
-		IFIntelSymbol* parent = [symbol parent];
+		IFIntelSymbol* parent = symbol.parent;
 		
 		while (parent && !followingSymbol) {
-			followingSymbol = [parent sibling];
-			parent = [parent parent];
+			followingSymbol = parent.sibling;
+			parent = parent.parent;
 		}
 	}
 
@@ -323,7 +323,7 @@ static CGFloat pointSize = 11.0;
 }
 
 - (NSBezierPath*) truncatedHighlightPathForFrame: (NSRect) drawFrame {
-    CGFloat height = gap + [[self font] ascender] - [[self font] descender];
+    CGFloat height = gap + [self font].ascender - [self font].descender;
 	if (height + corner >= frame.size.height) {
 		return [self highlightPathForFrame: drawFrame];
 	}
@@ -354,7 +354,7 @@ static CGFloat pointSize = 11.0;
     NSColor* textColour = [NSColor textColor];
 
     IFColourTheme* theme = [[IFPreferences sharedPreferences] getCurrentTheme];
-    if ((theme != nil) && ([theme.options count] > IFSHOptionMainText)) {
+    if ((theme != nil) && ((theme.options).count > IFSHOptionMainText)) {
         textColour = theme.options[IFSHOptionMainText].colour;
     }
 
@@ -365,18 +365,18 @@ static CGFloat pointSize = 11.0;
 - (int) uneditablePartLength {
     NSString* name = [self name];
     if( depth <= 1 ) {
-        return (int) [name length];
+        return (int) name.length;
     }
 	int x;
 	
 	int spaceCount = 0;
-	for (x=0; x<[name length]; x++) {
+	for (x=0; x<name.length; x++) {
 		if ([name characterAtIndex: x] == ' ') {
 			spaceCount++;
 		}
 		if (spaceCount == 3) break;
 	}
-	if (x >= [name length]) return x;
+	if (x >= name.length) return x;
 	
 	// x is now the position of the 3rd space (which should correspond to the part of the string ' * Part ')
 	return x+1;
@@ -385,11 +385,11 @@ static CGFloat pointSize = 11.0;
 - (NSString*) editableName {
 	// Get the editable portion of the string
 	NSString* editable = [[self name] substringFromIndex: [self uneditablePartLength]];
-    if( [editable length] == 0 ) return @"";
+    if( editable.length == 0 ) return @"";
 	
 	// Strip off any trailing spaces
-	if ([editable characterAtIndex: [editable length]-1] == '\n') {
-		editable = [editable substringToIndex: [editable length]-1];
+	if ([editable characterAtIndex: editable.length-1] == '\n') {
+		editable = [editable substringToIndex: editable.length-1];
 	}
 	
 	// Return the result
@@ -398,7 +398,7 @@ static CGFloat pointSize = 11.0;
 
 - (NSString*) freshValueForEditedTitle: (NSString*) edited {
 	return [[[[[self name] substringToIndex: [self uneditablePartLength]] 
-			  substringFromIndex: [bulletPoint length]]
+			  substringFromIndex: bulletPoint.length]
 			 stringByAppendingString: edited] 
 			stringByAppendingString: @"\n"];
 }
@@ -433,7 +433,7 @@ static CGFloat pointSize = 11.0;
 
 - (NSAttributedString*) attributedTitle {
 	NSAttributedString* result = [[NSAttributedString alloc] initWithString: [self editableName]
-																 attributes: [self attributes]];
+																 attributes: self.attributes];
 	return result;
 }
 
@@ -441,20 +441,20 @@ static CGFloat pointSize = 11.0;
 	NSString* uneditablePortion = [[self name] substringToIndex: [self uneditablePartLength]];
 	NSString* editablePortion = [self editableName];
 	
-	NSSize uneditableSize = [uneditablePortion sizeWithAttributes: [self attributes]];
-	NSSize nameSize = [editablePortion sizeWithAttributes: [self attributes]];
+	NSSize uneditableSize = [uneditablePortion sizeWithAttributes: self.attributes];
+	NSSize nameSize = [editablePortion sizeWithAttributes: self.attributes];
 	return NSMakeRect(frame.origin.x + margin + depth*indent + uneditableSize.width,
                       frame.origin.y,
                       nameSize.width,
-                      gap + [[self font] ascender] - [[self font] descender]);
+                      gap + [self font].ascender - [self font].descender);
 }
 
 - (NSRect) headerTitleRect {
 	NSString* uneditablePortion = [[self name] substringToIndex: [self uneditablePartLength]];
 	NSString* editablePortion = [self editableName];
 	
-	NSSize uneditableSize = [uneditablePortion sizeWithAttributes: [self attributes]];
-	NSSize nameSize = [editablePortion sizeWithAttributes: [self attributes]];
+	NSSize uneditableSize = [uneditablePortion sizeWithAttributes: self.attributes];
+	NSSize nameSize = [editablePortion sizeWithAttributes: self.attributes];
 	return NSMakeRect(frame.origin.x + margin + depth*indent + uneditableSize.width,
                       frame.origin.y + floor(gap/2),
                       nameSize.width,
@@ -510,10 +510,10 @@ static CGFloat pointSize = 11.0;
 	
 	// Draw the node title, truncating if necessary
 	[name drawAtPoint: NSMakePoint(frame.origin.x + margin + depth * indent, frame.origin.y + floor(gap/2))
-	   withAttributes: [self attributes]];
+	   withAttributes: self.attributes];
 	
 	// Draw the node children
-	if (children && [children count] > 0) {
+	if (children && children.count > 0) {
 		IFHeaderNode* lastChild;
 		
 		lastChild = nil;
@@ -524,17 +524,17 @@ static CGFloat pointSize = 11.0;
 						withFrame: drawFrame];
 			
 			// Draw a line linking this child to the last child if possible
-			if (lastChild && [lastChild children] && [lastChild selectionStyle] == IFHeaderNodeUnselected) {
+			if (lastChild && lastChild.children && lastChild.selectionStyle == IFHeaderNodeUnselected) {
 				[[NSColor colorWithDeviceWhite: 0.8
 										 alpha: 1.0] set];
 				
-				NSPoint lineStart = [lastChild frame].origin;
-				NSPoint lineEnd = [child frame].origin;
+				NSPoint lineStart = lastChild.frame.origin;
+				NSPoint lineEnd = child.frame.origin;
 				
 				lineStart.x	+= margin + 6 + (depth+1)*indent + 0.5;
 				lineEnd.x	+= margin + 6 + (depth+1)*indent + 0.5;
 				
-				lineStart.y	+= [[lastChild font] ascender] - [[lastChild font] descender] + gap - 1;
+				lineStart.y	+= [lastChild font].ascender - [lastChild font].descender + gap - 1;
 				lineEnd.y	+= gap;
 				
 				[NSBezierPath strokeLineFromPoint: lineStart
@@ -546,18 +546,18 @@ static CGFloat pointSize = 11.0;
 		}
 
 		// Draw a line linking this child to the last child if possible
-		if (lastChild && [lastChild children] && [lastChild selectionStyle] == IFHeaderNodeUnselected) {
+		if (lastChild && lastChild.children && lastChild.selectionStyle == IFHeaderNodeUnselected) {
 			[[NSColor colorWithDeviceWhite: 0.8
 									 alpha: 1.0] set];
 			
-			NSRect lastFrame = [lastChild frame];
+			NSRect lastFrame = lastChild.frame;
 			NSPoint lineStart = lastFrame.origin;
 			NSPoint lineEnd = NSMakePoint(NSMinX(lastFrame), NSMaxY(lastFrame));
 			
 			lineStart.x	+= margin + 6 + (depth+1)*indent + 0.5;
 			lineEnd.x	+= margin + 6 + (depth+1)*indent + 0.5;
 			
-			lineStart.y	+= [[lastChild font] ascender] - [[lastChild font] descender] + gap - 1;
+			lineStart.y	+= [lastChild font].ascender - [lastChild font].descender + gap - 1;
 			lineEnd.y	-= gap/2;
 			
 			[NSBezierPath strokeLineFromPoint: lineStart

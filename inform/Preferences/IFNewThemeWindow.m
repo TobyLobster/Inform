@@ -30,11 +30,11 @@
 
 -(void) setThemeName:(NSString *)theName {
     _themeName = theName;
-    [nameField setStringValue: theName];
+    nameField.stringValue = theName;
 }
 
 -(IBAction) okButtonClicked:(id) sender {
-    self.themeName = [nameField stringValue];
+    self.themeName = nameField.stringValue;
     [NSApp endSheet:self returnCode: NSModalResponseOK];
 }
 

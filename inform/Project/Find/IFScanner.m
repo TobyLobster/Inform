@@ -25,7 +25,7 @@
         *foundGroupsOut = nil;
     }
 
-    int storageLength = (int) [storage length];
+    int storageLength = (int) storage.length;
     
     if( searchType & IFFindCaseInsensitive ) {
         options = NSLiteralSearch | NSCaseInsensitiveSearch;
@@ -64,7 +64,7 @@
                                                                   options: regexOptions
                                                                     range: NSMakeRange(searchPosition, storageLength - searchPosition)
                                                                     error: &error];
-                if( [array count] > 0 ) {
+                if( array.count > 0 ) {
                     *foundGroupsOut = array;
                 }
             }

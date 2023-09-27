@@ -72,8 +72,8 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 // Converting to strings / other file formats
 - (NSString*) transcriptToPoint: (IFSkeinItem*) item;
 
--(IFSkeinItem*) nodeToReport;
--(NSString*) reportStateForSkein;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *nodeToReport;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *reportStateForSkein;
 
 // Dragging
 /// Current item being dragged
@@ -98,7 +98,7 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 @interface IFSkein(IFSkeinXML)
 
 /// Create XML string for output
-- (NSString *)  getXMLString;
+@property (NS_NONATOMIC_IOSONLY, getter=getXMLString, readonly, copy) NSString *XMLString;
 /// Read XML input into skein data structure
 - (BOOL)        parseXmlData: (NSData*) data;
 

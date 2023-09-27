@@ -114,7 +114,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 	// Glk hub
 	[[GlkHub sharedGlkHub] setRandomHubCookie];
-	[[GlkHub sharedGlkHub] setHubName: @"GlkInform"];
+	[GlkHub sharedGlkHub].hubName = @"GlkInform";
 
     // Remove the 'tab' related menu entries on the Window menu
     if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)])
@@ -164,7 +164,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (bool) isDark {
     if (@available(macOS 10.14, *)) {
-        NSAppearanceName basicAppearance = [[NSApp effectiveAppearance] bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
+        NSAppearanceName basicAppearance = [NSApp.effectiveAppearance bestMatchFromAppearancesWithNames:@[NSAppearanceNameAqua, NSAppearanceNameDarkAqua]];
         return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
     }
     return false;
@@ -188,7 +188,7 @@ static NSRunLoop* mainRunLoop = nil;
         [[NSFontPanel sharedFontPanel] close];
     }
 
-    NSUInteger documentCount = [[[NSDocumentController sharedDocumentController] documents]count];
+    NSUInteger documentCount = [NSDocumentController sharedDocumentController].documents.count;
     
     // If no documents have opened, open the welcome dialog instead...
     if(documentCount == 0) {
@@ -204,10 +204,10 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (void) doCopyProject: (NSURL*) source
                     to: (NSURL*) destination {
-    NSURL* materialsDestination = [[destination URLByDeletingPathExtension] URLByAppendingPathExtension: @"materials"];
+    NSURL* materialsDestination = [destination.URLByDeletingPathExtension URLByAppendingPathExtension: @"materials"];
 
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: [destination path]] ||
-                  [[NSFileManager defaultManager] fileExistsAtPath: [materialsDestination path]];
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: destination.path] ||
+                  [[NSFileManager defaultManager] fileExistsAtPath: materialsDestination.path];
 
     if( exists ) {
         copySource = source;
@@ -222,7 +222,7 @@ static NSRunLoop* mainRunLoop = nil;
                         didEndSelector: @selector(confirmDidEnd:returnCode:contextInfo:)
                            contextInfo: nil
                       destructiveIndex: 0
-                               message: [IFUtility localizedString: @"Do you want to overwrite %@?"], [destination path]];
+                               message: [IFUtility localizedString: @"Do you want to overwrite %@?"], destination.path];
         return;
     }
 
@@ -253,16 +253,16 @@ static NSRunLoop* mainRunLoop = nil;
         if( error != nil ) {
             [IFUtility runAlertWarningWindow: nil
                                        title: [IFUtility localizedString:@"Error"]
-                                     message: @"%@", [error localizedDescription]];
+                                     message: @"%@", error.localizedDescription];
         }
         return NO;
     }
 
     // Copy the associate .materials directory
-    NSURL* materialsSource      = [[source URLByDeletingPathExtension]      URLByAppendingPathExtension: @"materials"];
-    NSURL* materialsDestination = [[destination URLByDeletingPathExtension] URLByAppendingPathExtension: @"materials"];
+    NSURL* materialsSource      = [source.URLByDeletingPathExtension      URLByAppendingPathExtension: @"materials"];
+    NSURL* materialsDestination = [destination.URLByDeletingPathExtension URLByAppendingPathExtension: @"materials"];
 
-    if( [[NSFileManager defaultManager] fileExistsAtPath: [materialsSource path]
+    if( [[NSFileManager defaultManager] fileExistsAtPath: materialsSource.path
                                              isDirectory: &isDirectory] ) {
         if( isDirectory ) {
             [[NSFileManager defaultManager] removeItemAtURL:materialsDestination error:nil];
@@ -272,7 +272,7 @@ static NSRunLoop* mainRunLoop = nil;
                 if( error != nil ) {
                     [IFUtility runAlertWarningWindow: nil
                                                title: [IFUtility localizedString:@"Error"]
-                                             message: @"%@", [error localizedDescription]];
+                                             message: @"%@", error.localizedDescription];
                 }
                 return NO;
             }
@@ -316,17 +316,17 @@ static NSRunLoop* mainRunLoop = nil;
     }
     IFProjectController * projectController = [self frontmostProjectController];
     if (projectController) {
-        IFProject * project = [projectController document];
+        IFProject * project = projectController.document;
         [newProj createInform7ExtensionForProject: project];
     }
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	SEL itemSelector = [menuItem action];
+	SEL itemSelector = menuItem.action;
 
     // Spell checking
 	if (itemSelector == @selector(toggleSourceSpellChecking:)) {
-		[menuItem setState: [self sourceSpellChecking] ? NSControlStateValueOn : NSControlStateValueOff];
+		menuItem.state = self.sourceSpellChecking ? NSControlStateValueOn : NSControlStateValueOff;
 		return YES;
 	}
 
@@ -345,7 +345,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (void) showWelcome: (id) sender {
     // Toggle welcome window
-    if( [[[IFWelcomeWindow sharedWelcomeWindow] window] isVisible] ) {
+    if( [IFWelcomeWindow sharedWelcomeWindow].window.visible ) {
         [IFWelcomeWindow hideWelcomeWindow];
     } else {
         [IFWelcomeWindow showWelcomeWindow];
@@ -357,7 +357,7 @@ static NSRunLoop* mainRunLoop = nil;
                                            withTabWidth: (CGFloat) tabWidth
                                                widthOut: (CGFloat*) widthOut {
     NSFont* systemFont       = [NSFont menuFontOfSize: 14];
-    NSFont* smallFont        = [NSFont menuFontOfSize: [systemFont pointSize] - 4];
+    NSFont* smallFont        = [NSFont menuFontOfSize: systemFont.pointSize - 4];
 
     // NSParagraphStyleAttributeName
     NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
@@ -413,9 +413,9 @@ static NSRunLoop* mainRunLoop = nil;
 - (void) updateExtensionsMenu {
     IFProjectController * projectController = [self frontmostProjectController];
     if (projectController) {
-        IFProject * project = [projectController document];
-        IFCompilerSettings* compilerSettings = [project settings];
-        [self updateExtensionsMenuForCompilerVersion: [compilerSettings compilerVersion]];
+        IFProject * project = projectController.document;
+        IFCompilerSettings* compilerSettings = project.settings;
+        [self updateExtensionsMenuForCompilerVersion: compilerSettings.compilerVersion];
     }
 }
 
@@ -423,23 +423,23 @@ static NSRunLoop* mainRunLoop = nil;
 	IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
 
 	// Clear out the menus
-    [[openExtensionMenu submenu] removeAllItems];
-    [[newExtensionProjectMenu submenu] removeAllItems];
+    [openExtensionMenu.submenu removeAllItems];
+    [newExtensionProjectMenu.submenu removeAllItems];
 
     // Add new Extension items
     NSMenuItem* newExtensionItem = [[NSMenuItem alloc] init];
-    [newExtensionItem setTitle: [IFUtility localizedString: @"New Extension..."]];
-    [newExtensionItem setTarget: self];
-    [newExtensionItem setTag:    -1];
-    [newExtensionItem setAction: @selector(newExtensionProject:)];
-    [[newExtensionProjectMenu submenu] addItem: newExtensionItem];
+    newExtensionItem.title = [IFUtility localizedString: @"New Extension..."];
+    newExtensionItem.target = self;
+    newExtensionItem.tag = -1;
+    newExtensionItem.action = @selector(newExtensionProject:);
+    [newExtensionProjectMenu.submenu addItem: newExtensionItem];
 
     NSMenu* newMenu = [[NSMenu alloc] init];
-    [newMenu setTitle: [IFUtility localizedString:@"Create From Installed Extension"]];
+    newMenu.title = [IFUtility localizedString:@"Create From Installed Extension"];
     NSMenuItem* newMenuItem = [[NSMenuItem alloc] init];
-    [newMenuItem setTitle: [newMenu title]];
-    [newMenuItem setSubmenu: newMenu];
-    [[newExtensionProjectMenu submenu] addItem: newMenuItem];
+    newMenuItem.title = newMenu.title;
+    newMenuItem.submenu = newMenu;
+    [newExtensionProjectMenu.submenu addItem: newMenuItem];
 
 	// Clear out the list of extension tags
 	extensionSources = [[NSMutableArray alloc] init];
@@ -459,19 +459,19 @@ static NSRunLoop* mainRunLoop = nil;
 
         // Create menu and menu item for the 'Open Installed Extension' menu
         NSMenu* openAuthorMenu = [[NSMenu alloc] init];
-        [openAuthorMenu setTitle: author];
+        openAuthorMenu.title = author;
 
         NSMenuItem* openAuthorItem = [[NSMenuItem alloc] init];
-        [openAuthorItem setTitle: author];
-        [openAuthorItem setSubmenu: openAuthorMenu];
+        openAuthorItem.title = author;
+        openAuthorItem.submenu = openAuthorMenu;
         
         // Create menu and menu item for the 'New Extension Project' menu
         NSMenu* newExAuthorMenu = [[NSMenu alloc] init];
-        [newExAuthorMenu setTitle: author];
+        newExAuthorMenu.title = author;
 
         NSMenuItem* newExAuthorItem = [[NSMenuItem alloc] init];
-        [newExAuthorItem setTitle: author];
-        [newExAuthorItem setSubmenu: newExAuthorMenu];
+        newExAuthorItem.title = author;
+        newExAuthorItem.submenu = newExAuthorMenu;
 
         for( IFExtensionInfo* info in [mgr availableExtensionsByAuthor:author withCompilerVersion: compilerVersion] ) {
             NSAttributedString* attributedTitle = [self attributedStringForExtensionInfo: info
@@ -481,10 +481,10 @@ static NSRunLoop* mainRunLoop = nil;
             // Create menu for each extension, for the 'Open Installed Extension' menu
             {
                 NSMenuItem* openItem = [[NSMenuItem alloc] init];
-                [openItem setAttributedTitle: attributedTitle];
-                [openItem setTarget: self];
-                [openItem setTag:    [extensionSources count]];
-                [openItem setAction: @selector(openExtension:)];
+                openItem.attributedTitle = attributedTitle;
+                openItem.target = self;
+                openItem.tag = extensionSources.count;
+                openItem.action = @selector(openExtension:);
                 
                 [openAuthorMenu addItem: openItem];
             }
@@ -492,10 +492,10 @@ static NSRunLoop* mainRunLoop = nil;
             // Create menu for each extension, for the 'New Extension Project' menu
             {
                 NSMenuItem* newExItem = [[NSMenuItem alloc] init];
-                [newExItem setAttributedTitle: attributedTitle];
-                [newExItem setTarget: self];
-                [newExItem setTag:    [extensionSources count]];
-                [newExItem setAction: @selector(newExtensionProject:)];
+                newExItem.attributedTitle = attributedTitle;
+                newExItem.target = self;
+                newExItem.tag = extensionSources.count;
+                newExItem.action = @selector(newExtensionProject:);
 
                 [newExAuthorMenu addItem: newExItem];
             }
@@ -504,7 +504,7 @@ static NSRunLoop* mainRunLoop = nil;
             // Add an entry in the extensionSources array so we know which file this refers to
             [extensionSources addObject: info.filepath];
         }
-        [[openExtensionMenu submenu] addItem: openAuthorItem];
+        [openExtensionMenu.submenu addItem: openAuthorItem];
         [newMenu addItem: newExAuthorItem];
 	}
 }
@@ -536,7 +536,7 @@ static NSRunLoop* mainRunLoop = nil;
     if( tag >= 0 )
     {
         NSString*   sourceFilename  = extensionSources[tag];
-        NSString*   projectTitle    = [[sourceFilename lastPathComponent] stringByDeletingPathExtension];
+        NSString*   projectTitle    = sourceFilename.lastPathComponent.stringByDeletingPathExtension;
         NSURL*      projectURL      = [NSURL fileURLWithPath:sourceFilename];
 
         [newProj createInform7ExtensionProject: projectTitle
@@ -564,11 +564,11 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (IBAction) docIndex: (id) sender {
     // If we can switch to an open project document, do so
-    for(NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
+    for(NSDocument* doc in [NSDocumentController sharedDocumentController].documents) {
         if( [doc isKindOfClass: [IFProject class]] ) {
             // Bring to front
-            for(NSWindowController* controller in [doc windowControllers]) {
-                [[controller window] makeKeyAndOrderFront: self];
+            for(NSWindowController* controller in doc.windowControllers) {
+                [controller.window makeKeyAndOrderFront: self];
                 if([controller isKindOfClass: [IFProjectController class]]) {
                     IFProjectController* pc = (IFProjectController*) controller;
                     [pc docIndex: sender];
@@ -595,14 +595,14 @@ static NSRunLoop* mainRunLoop = nil;
 // get a list of windows in app, frontmost to backmost
 - (NSMutableArray *) allWindows {
     NSArray*  windNumsArray = [NSWindow windowNumbersWithOptions:0];
-    NSArray*  windObjsArray = [[NSApplication sharedApplication] windows];
+    NSArray*  windObjsArray = [NSApplication sharedApplication].windows;
     NSMutableArray* windowList = [[NSMutableArray alloc] init];
 
     // first entry is not a useful window, start with i=1
-    for(int i = 1; i < [windNumsArray count]; i++) {
-        NSInteger windowNumber = [[windNumsArray objectAtIndex:i] integerValue];
+    for(int i = 1; i < windNumsArray.count; i++) {
+        NSInteger windowNumber = [windNumsArray[i] integerValue];
         for (NSWindow* wind in windObjsArray) {
-            if ([wind windowNumber] == windowNumber) {
+            if (wind.windowNumber == windowNumber) {
                 [windowList addObject: wind];
                 break;
             }
@@ -615,10 +615,10 @@ static NSRunLoop* mainRunLoop = nil;
     NSMutableArray * allWindows = [self allWindows];
     for(NSWindow* window in allWindows) {
         // If we can switch to an open project document, do so
-        for(NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
+        for(NSDocument* doc in [NSDocumentController sharedDocumentController].documents) {
             if( [doc isKindOfClass: [IFProject class]] ) {
-                for(NSWindowController* controller in [doc windowControllers]) {
-                    if ([controller window] == window) {
+                for(NSWindowController* controller in doc.windowControllers) {
+                    if (controller.window == window) {
                         if([controller isKindOfClass: [IFProjectController class]]) {
                             return (IFProjectController*) controller;
                         }
@@ -643,8 +643,8 @@ static NSRunLoop* mainRunLoop = nil;
 	[panel setCanChooseDirectories: NO];
 	[panel setResolvesAliases: YES];
 	[panel setAllowsMultipleSelection: YES];
-	[panel setTitle: [IFUtility localizedString:@"Install Inform 7 Extension"]];
-	[panel setDelegate: [IFExtensionsManager sharedNaturalInformExtensionsManager]];    // Extensions manager determines which file types are valid to choose (panel:shouldShowFilename:)
+	panel.title = [IFUtility localizedString:@"Install Inform 7 Extension"];
+	panel.delegate = [IFExtensionsManager sharedNaturalInformExtensionsManager];    // Extensions manager determines which file types are valid to choose (panel:shouldShowFilename:)
 
     [panel beginWithCompletionHandler:^(NSInteger result)
      {
@@ -655,8 +655,8 @@ static NSRunLoop* mainRunLoop = nil;
          // Just add the extension
          // Add the files
          IFExtensionResult installResult = IFExtensionSuccess;
-         for(NSURL* file in [panel URLs]) {
-             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installLegacyExtension: [file path]
+         for(NSURL* file in panel.URLs) {
+             installResult = [[IFExtensionsManager sharedNaturalInformExtensionsManager] installLegacyExtension: file.path
                                                                                          finalPath: nil
                                                                                              title: nil
                                                                                             author: nil
@@ -715,8 +715,8 @@ static NSRunLoop* mainRunLoop = nil;
 	BOOL sourceSpellChecking = ![[NSUserDefaults standardUserDefaults] boolForKey: IFSourceSpellChecking];
 	
     // Tell each document's controller about the change
-    for(NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
-        for(NSWindowController* controller in [doc windowControllers]) {
+    for(NSDocument* doc in [NSDocumentController sharedDocumentController].documents) {
+        for(NSWindowController* controller in doc.windowControllers) {
             if([controller isKindOfClass: [IFProjectController class]]) {
                 IFProjectController* pc = (IFProjectController*) controller;
                 [pc setSourceSpellChecking: sourceSpellChecking];
@@ -736,8 +736,8 @@ static NSRunLoop* mainRunLoop = nil;
 - (BOOL) copyResource: (NSString*) resource
           toDirectory: (NSString*) destDir
                 error: (NSError*__autoreleasing*) error {
-    NSString* extension = [resource pathExtension];
-    NSString* name = [[resource lastPathComponent] stringByDeletingPathExtension];
+    NSString* extension = resource.pathExtension;
+    NSString* name = resource.lastPathComponent.stringByDeletingPathExtension;
 
     fileCopyDestination = [[destDir stringByAppendingPathComponent: name]
                              stringByAppendingPathExtension: extension];
@@ -751,7 +751,7 @@ static NSRunLoop* mainRunLoop = nil;
     }
 
     if( [[NSFileManager defaultManager] fileExistsAtPath: fileCopyDestination] ) {
-        NSString* confirm = [NSString stringWithFormat: [IFUtility localizedString: @"Are you sure you want to overwrite file '%@'?"], [fileCopyDestination lastPathComponent]];
+        NSString* confirm = [NSString stringWithFormat: [IFUtility localizedString: @"Are you sure you want to overwrite file '%@'?"], fileCopyDestination.lastPathComponent];
 
         [IFUtility runAlertYesNoWindow: nil
                                  title: [IFUtility localizedString: @"Are you sure?"]
@@ -790,7 +790,7 @@ static NSRunLoop* mainRunLoop = nil;
                                                    error: error]) {
         [IFUtility runAlertWarningWindow: nil
                                    title: @"Export failed"
-                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, [*error localizedDescription]];
+                                 message: [IFUtility localizedString:@"Export to %@ failed - error %@"], destination, (*error).localizedDescription];
         return NO;
     }
     return YES;
@@ -811,7 +811,7 @@ static NSRunLoop* mainRunLoop = nil;
                                     toDestination: destCopy
                                             error: &error] ) {
             exportToEPubIndex++;
-            [self exportNext:[destCopy stringByDeletingLastPathComponent]];
+            [self exportNext:destCopy.stringByDeletingLastPathComponent];
         }
 	}
 }
@@ -822,7 +822,7 @@ static NSRunLoop* mainRunLoop = nil;
 
     NSError* error = nil;
 
-    for(; exportToEPubIndex < [exportFiles count]; exportToEPubIndex++) {
+    for(; exportToEPubIndex < exportFiles.count; exportToEPubIndex++) {
         if (![self copyResource: exportFiles[exportToEPubIndex]
                     toDirectory: destDir
                           error: &error]) {
@@ -841,19 +841,19 @@ static NSRunLoop* mainRunLoop = nil;
     [exportPanel setCanChooseDirectories:YES];
     [exportPanel setCanCreateDirectories:YES];
     [exportPanel setAllowsMultipleSelection:NO];
-	[exportPanel setTitle: [IFUtility localizedString:@"Choose a directory to export into"]];
-    [exportPanel setPrompt: [IFUtility localizedString:@"Choose Directory"]];
+	exportPanel.title = [IFUtility localizedString:@"Choose a directory to export into"];
+    exportPanel.prompt = [IFUtility localizedString:@"Choose Directory"];
 
     NSWindow* window = nil;
-    if( [[[IFWelcomeWindow sharedWelcomeWindow] window] isVisible] ) {
-        window = [[IFWelcomeWindow sharedWelcomeWindow] window];
+    if( [IFWelcomeWindow sharedWelcomeWindow].window.visible ) {
+        window = [IFWelcomeWindow sharedWelcomeWindow].window;
     }
     
     [exportPanel beginSheetModalForWindow:window completionHandler:^(NSInteger result)
      {
          if (result == NSModalResponseOK) {
              self->exportToEPubIndex = 0;
-             [self exportNext: [[exportPanel URL] path]];
+             [self exportNext: exportPanel.URL.path];
          }
      }];
 }

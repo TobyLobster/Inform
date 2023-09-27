@@ -91,11 +91,11 @@
 
 #pragma mark - Extension projects
 @property (atomic, readonly) BOOL isExtensionProject;
--(BOOL) copyProjectExtensionSourceToMaterialsExtensions;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL copyProjectExtensionSourceToMaterialsExtensions;
 - (void) selectSkein: (int) index;
 
 -(NSMutableURLRequest*) makeURLRequestFromURL: (NSURL*) url;
--(bool) useNewExtensions;
+@property (NS_NONATOMIC_IOSONLY, readonly) bool useNewExtensions;
 
 #pragma mark - InTest support
 @property (atomic) IFInTest* inTest;
@@ -128,7 +128,7 @@
              testcase: (NSString*) testcase;
 
 #pragma mark - Skein support
--(IFSkeinItem*) nodeToReport;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *nodeToReport;
 
 #pragma mark - Compiler support
 - (IFCompiler*) prepareCompilerForRelease: (BOOL) release
@@ -137,6 +137,6 @@
                                  testCase: (NSString*) testCase;
 
 - (void) DEBUGverifyWrapper;
-- (NSFileWrapper*) buildWrapper;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSFileWrapper *buildWrapper;
 
 @end

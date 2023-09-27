@@ -97,7 +97,7 @@ NSString* const IFSettingCreateBlorb = @"IFSettingCreateBlorb";
 
 - (void) updateSettings: (IFCompilerSettings*) settings
 	   withPlistEntries: (NSDictionary*) entries {
-	if ([[entries allKeys] count] <= 0) return; // nothing to do
+	if (entries.allKeys.count <= 0) return; // nothing to do
 	
 	NSMutableDictionary* dict = [self dictionary];
 	

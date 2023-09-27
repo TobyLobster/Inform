@@ -42,7 +42,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	// BINARY SEARCH POWER! Is there anything this wacky algorithm cannot do?
 	
 	// Either the last item of the previous line, or the first item of this line
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	
 	if (nSymbols == 0) return -1;
 	
@@ -78,7 +78,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 - (int) indexOfEndOfLine: (int) lineNumber {
 	// Returns the symbol location of the symbol after the start of the line
 	int symbol = [self indexOfSymbolOnLine: lineNumber];
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	
 	while (symbol >= 0 && symbolLines[symbol] >= lineNumber) symbol--;
 	if (symbol < 0) symbol = 0;
@@ -92,7 +92,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 - (void) insertLineBeforeLine: (int) line {
 	// Renumber lines as appropriate
 	int firstSymbol = [self indexOfStartOfLine: line] + 1;
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	int symbol;
 	
 #if IntelDebug
@@ -112,7 +112,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	
 	// Change the location of the remaining lines
 	int firstSymbol = [self indexOfStartOfLine: lines.location] + 1;
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	int symbol;
 	
 #if IntelDebug
@@ -130,7 +130,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	// These are EXCLUSIVE (remember?)
 	int firstSymbol = [self indexOfStartOfLine: lines.location];
 	int lastSymbol = [self indexOfStartOfLine: lines.location + lines.length] + 1;
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	
 	if (firstSymbol >= lastSymbol) {
 		// Should never happen (aka the Programmer's Lament)
@@ -166,7 +166,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 	}
 	
 	IFIntelSymbol* last = nil;
-	if (lastSymbol < [symbols count]) last = symbols[lastSymbol];
+	if (lastSymbol < symbols.count) last = symbols[lastSymbol];
 	
 	if (first) first.nextSymbol = last;
 	if (last) last.lastSymbol = first;
@@ -181,7 +181,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 - (void) addSymbol: (IFIntelSymbol*) newSymbol
 			atLine: (int) line {
 	int symbol = [self indexOfEndOfLine: line];
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	
 #if IntelDebug
 	NSLog(@"Inserting symbol %@ at line %i (symbol location %i)", newSymbol, line, symbol);
@@ -219,10 +219,10 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 - (NSString*) description {
 	NSMutableString* res = [NSMutableString string];
 	
-	[res appendFormat: @"<IFIntelFile %i symbols:", (int) [symbols count]];
+	[res appendFormat: @"<IFIntelFile %i symbols:", (int) symbols.count];
 	
 	int symbol;
-	for (symbol=0; symbol<[symbols count]; symbol++) {
+	for (symbol=0; symbol<symbols.count; symbol++) {
 		[res appendFormat: @"\n\tLine %i - %@", symbolLines[symbol], symbols[symbol]];
 	}
 	
@@ -234,7 +234,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 #pragma mark - Finding symbols
 
 - (IFIntelSymbol*) nearestSymbolToLine: (int) line {
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	int symbol = [self indexOfStartOfLine: line];
 	
 	// Special case: for the very first symbol in the file, there is no 'preceding symbol', so we would otherwise abort here
@@ -249,7 +249,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 }
 
 - (IFIntelSymbol*) firstSymbolOnLine: (int) line {
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	int symbol = [self indexOfStartOfLine: line];
 	
 	if (symbol < 0) return nil;
@@ -270,7 +270,7 @@ NSString* const IFIntelFileHasChangedNotification = @"IFIntelFileHasChangedNotif
 
 - (NSUInteger) lineForSymbol: (IFIntelSymbol*) symbolToFind {
 	int symbol;
-	int nSymbols = (int) [symbols count];
+	int nSymbols = (int) symbols.count;
 	
 	for (symbol=0; symbol<nSymbols; symbol++) {
 		if (symbols[symbol] == symbolToFind)

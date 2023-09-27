@@ -30,17 +30,17 @@
 #pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
 	// Natural Inform
-	[naturalInform setState: [settings usingNaturalInform]?NSControlStateValueOn:NSControlStateValueOff];
+	naturalInform.state = settings.usingNaturalInform?NSControlStateValueOn:NSControlStateValueOff;
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
 	// Whether or not to use Natural Inform
-	[settings setUsingNaturalInform: [naturalInform state]==NSControlStateValueOn];
+	settings.usingNaturalInform = naturalInform.state==NSControlStateValueOn;
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

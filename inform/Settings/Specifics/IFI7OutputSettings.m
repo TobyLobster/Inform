@@ -26,13 +26,13 @@
 #pragma mark - Setting up
 
 - (BOOL) createBlorbForRelease {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 	NSNumber* value = [settings dictionaryForClass: [self class]][IFSettingCreateBlorb];
 	
     BOOL result;
     
 	if (value)
-		result = [value boolValue];
+		result = value.boolValue;
 	else
 		result = YES;
     
@@ -40,23 +40,23 @@
 }
 
 - (void) setCreateBlorbForRelease: (BOOL) setting {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 	
 	[settings dictionaryForClass: [self class]][IFSettingCreateBlorb] = @(setting);
 	[settings settingsHaveChanged];
 }
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
 	// Supported Z-Machine versions
-	NSArray* supportedZMachines = [settings supportedZMachines];
+	NSArray* supportedZMachines = settings.supportedZMachines;
 	
-	for( NSCell* cell in [zmachineVersion cells] ) {
+	for( NSCell* cell in zmachineVersion.cells ) {
 		if (supportedZMachines == nil) {
 			[cell setEnabled: YES];
 		} else {
-			if ([supportedZMachines containsObject: @((int) [cell tag])]) {
+			if ([supportedZMachines containsObject: @((int) cell.tag)]) {
 				[cell setEnabled: YES];
 			} else {
 				[cell setEnabled: NO];
@@ -65,22 +65,22 @@
 	}
 	
 	// Selected Z-Machine version
-    if ([zmachineVersion cellWithTag: [settings zcodeVersion]] != nil) {
-        [zmachineVersion selectCellWithTag: [settings zcodeVersion]];
+    if ([zmachineVersion cellWithTag: settings.zcodeVersion] != nil) {
+        [zmachineVersion selectCellWithTag: settings.zcodeVersion];
     } else {
         [zmachineVersion deselectAllCells];
     }
 	
 	// Whether or not we should generate a blorb file on release
-	[releaseBlorb setState: [self createBlorbForRelease]?NSControlStateValueOn:NSControlStateValueOff];
+	releaseBlorb.state = self.createBlorbForRelease?NSControlStateValueOn:NSControlStateValueOff;
 }
 
 - (void) setSettings {
-	BOOL willCreateBlorb = [releaseBlorb state]==NSControlStateValueOn;
-    IFCompilerSettings* settings = [self compilerSettings];
+	BOOL willCreateBlorb = releaseBlorb.state==NSControlStateValueOn;
+    IFCompilerSettings* settings = self.compilerSettings;
 
-	[settings setZCodeVersion: (int) [[zmachineVersion selectedCell] tag]];
-	[self setCreateBlorbForRelease: willCreateBlorb];
+	settings.zcodeVersion = (int) zmachineVersion.selectedCell.tag;
+	self.createBlorbForRelease = willCreateBlorb;
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

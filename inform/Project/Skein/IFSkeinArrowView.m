@@ -23,7 +23,7 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
 
     if (self) {
         [self setWantsLayer: YES];
-        [self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay];
+        self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
         forceRedraw = YES;
     }
 
@@ -34,7 +34,7 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     [color set];
     [color setFill];
     NSBezierPath * path = [NSBezierPath bezierPath];
-    [path setLineWidth: kSkeinArrowLineThickness];
+    path.lineWidth = kSkeinArrowLineThickness;
 
     CGFloat y = floor(self.frame.size.height * 0.5) + 0.5 + offset.y;
     CGFloat h = kSkeinArrowHeadHalfHeight;
@@ -42,8 +42,8 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     CGFloat m = self.frame.size.width - kSkeinArrowHeadLength + offset.x;
 
     // Draw arrow head
-    [path setLineJoinStyle: NSMiterLineJoinStyle];
-    [path setLineCapStyle: NSButtLineCapStyle];
+    path.lineJoinStyle = NSMiterLineJoinStyle;
+    path.lineCapStyle = NSButtLineCapStyle;
     [path moveToPoint: NSMakePoint(m, y + h)];
     [path lineToPoint: NSMakePoint(w, y)];
     [path lineToPoint: NSMakePoint(m, y - h)];

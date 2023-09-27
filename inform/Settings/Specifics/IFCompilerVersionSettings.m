@@ -17,7 +17,7 @@
 }
 
 - (IBAction)compilerVersionChanged:(id)sender {
-    IFCompilerListEntry* selectedEntry = [self getSelectedListEntryFromDisplayName: [compilerVersionBox stringValue]];
+    IFCompilerListEntry* selectedEntry = [self getSelectedListEntryFromDisplayName: compilerVersionBox.stringValue];
     if (selectedEntry != nil)
     {
         [self updateDescription:selectedEntry];
@@ -28,11 +28,11 @@
 - (void) updateDescription:(IFCompilerListEntry *) selectedEntry {
     if (selectedEntry == nil)
     {
-        [descriptionText setStringValue: @""];
+        descriptionText.stringValue = @"";
     }
     else
     {
-        [descriptionText setStringValue: selectedEntry.description];
+        descriptionText.stringValue = selectedEntry.description;
     }
 }
 
@@ -50,7 +50,7 @@
     NSArray *list = [CompilerList compilerList];
     for(IFCompilerListEntry * entry in list)
     {
-        if ([entry.displayName isEqualToString:[compilerVersionBox title]])
+        if ([entry.displayName isEqualToString:compilerVersionBox.title])
         {
             return entry;
         }
@@ -72,7 +72,7 @@
 
     if (selectedEntry == nil)
     {
-        if ([list count] > 0)
+        if (list.count > 0)
         {
             selectedEntry = list[0];
         }
@@ -83,8 +83,8 @@
 - (void) updateFromCompilerSettings {
     [compilerVersionBox removeAllItems];
 
-    IFCompilerSettings* settings = [self compilerSettings];
-    IFCompilerListEntry *selectedEntry = [self getSelectedListEntryFromId: [settings compilerVersion]];
+    IFCompilerSettings* settings = self.compilerSettings;
+    IFCompilerListEntry *selectedEntry = [self getSelectedListEntryFromId: settings.compilerVersion];
     if (selectedEntry != nil)
     {
         [compilerVersionBox setTitle: selectedEntry.displayName];
@@ -97,11 +97,11 @@
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
-    IFCompilerListEntry* currentEntry = [self getSelectedListEntryFromDisplayName:[compilerVersionBox title]];
+    IFCompilerSettings* settings = self.compilerSettings;
+    IFCompilerListEntry* currentEntry = [self getSelectedListEntryFromDisplayName:compilerVersionBox.title];
     if (currentEntry != nil)
     {
-        [settings setCompilerVersion: currentEntry.id];
+        settings.compilerVersion = currentEntry.id;
     }
 }
 

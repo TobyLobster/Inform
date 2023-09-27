@@ -57,13 +57,13 @@
 - (void) receivedCharacters: (NSString*) characters
 					 window: (int) windowNumber
 				   fromView: (GlkView*) view {
-	unichar* chrs = malloc(sizeof(unichar)*[characters length]);
+	unichar* chrs = malloc(sizeof(unichar)*characters.length);
     if( chrs != NULL ) {
         [characters getCharacters: chrs];
         
         int start = 0;
         int x;
-        for (x=0; x<[characters length]; x++) {
+        for (x=0; x<characters.length; x++) {
             if (chrs[x] == '\n') {
                 [accumulator appendString: [NSString stringWithCharacters: chrs + start
                                                                    length: x - start]];

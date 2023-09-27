@@ -95,13 +95,13 @@
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-	return [[event target] methodSignatureForSelector: aSelector];
+	return [event.target methodSignatureForSelector: aSelector];
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
 	NSInvocation* invoke = anInvocation;
 	
-	[invoke setTarget: [event target]];
+	invoke.target = event.target;
 	[invoke retainArguments];
 	[event addInvocation: invoke];
 }

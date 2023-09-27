@@ -20,7 +20,7 @@
 /// Updates the settings views with their current values
 - (void) updateSettings;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller;
+- (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
 
 /// The settings controller
 @property (atomic, strong) IBOutlet IFSettingsController*  settingsController;

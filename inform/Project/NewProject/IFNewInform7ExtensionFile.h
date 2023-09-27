@@ -19,7 +19,7 @@
 ///
 @interface IFNewInform7ExtensionFile : NSObject<IFNewProjectProtocol>
 
-- (instancetype) initWithProject: (IFProject*) theProject;
+- (instancetype) initWithProject: (IFProject*) theProject NS_DESIGNATED_INITIALIZER;
 
 @end
 

@@ -80,7 +80,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 #pragma mark - Page actions
 
 - (void) switchToPage {
-	[self switchToPageWithIdentifier: [self identifier]
+	[self switchToPageWithIdentifier: self.identifier
 							fromPage: nil];
 }
 
@@ -125,8 +125,8 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	}
 	
 	if (event) {
-		[event setTarget: self];
-		return [event proxy];
+		event.target = self;
+		return event.proxy;
 	}
 	
 	return nil;

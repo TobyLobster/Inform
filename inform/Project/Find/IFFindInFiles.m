@@ -119,9 +119,9 @@
                                                        range:NSMakeRange(0, location)];
     NSRange endRange = [textString rangeOfCharacterFromSet:set
                                                    options:NSLiteralSearch
-                                                     range:NSMakeRange(location + matchLength, [textString length] - (location + matchLength))];
+                                                     range:NSMakeRange(location + matchLength, textString.length - (location + matchLength))];
     NSUInteger lowContext = (startRange.location == NSNotFound) ? 0 : startRange.location;
-    NSUInteger highContext = (endRange.location == NSNotFound) ? [textString length] - 1 : endRange.location;
+    NSUInteger highContext = (endRange.location == NSNotFound) ? textString.length - 1 : endRange.location;
     
     
     // Skip past whitespace / newlines at either end
@@ -145,8 +145,8 @@
     if( exampleInfo != nil ) {
         for( NSString* key in exampleInfo) {
             IFExampleInfo* info = exampleInfo[key];
-            if(( range.location >= [info range].location ) &&
-               ((range.location + range.length) <= ([info range].location + [info range].length))) {
+            if(( range.location >= info.range.location ) &&
+               ((range.location + range.length) <= (info.range.location + info.range.length))) {
                 return info;
             }
         }
@@ -157,8 +157,8 @@
 - (IFCodeInfo*) codeInfoForRange: (NSRange) range {
     if( codeInfo != nil ) {
         for( IFCodeInfo*info in codeInfo) {
-            if(( range.location >= [info range].location ) &&
-               ((range.location + range.length) <= ([info range].location + [info range].length))) {
+            if(( range.location >= info.range.location ) &&
+               ((range.location + range.length) <= (info.range.location + info.range.length))) {
                 return info;
             }
         }
@@ -169,8 +169,8 @@
 - (IFCodeInfo*) definitionInfoForRange: (NSRange) range {
     if( definitionInfo != nil ) {
         for( IFCodeInfo*info in definitionInfo) {
-            if(( range.location >= [info range].location ) &&
-               ((range.location + range.length) <= ([info range].location + [info range].length))) {
+            if(( range.location >= info.range.location ) &&
+               ((range.location + range.length) <= (info.range.location + info.range.length))) {
                 return info;
             }
         }
@@ -187,7 +187,7 @@
 
     @synchronized ( searchItemsLock )
     {
-        int totalSearchItems = (int) [searchItems count];
+        int totalSearchItems = (int) searchItems.count;
         int progressCount = 0;
         dispatch_queue_t main = dispatch_get_main_queue();
         int resultCount;
@@ -198,7 +198,7 @@
             NSString* filename          = searchItem->filepath;
             IFFindLocation locationType = searchItem->location;
 
-            NSString* displayName = [[filename lastPathComponent] stringByDeletingPathExtension];
+            NSString* displayName = filename.lastPathComponent.stringByDeletingPathExtension;
             NSString* sortKey = nil;
 
             exampleInfo = nil;
@@ -209,7 +209,7 @@
             if (storage == nil && filename != nil) {
                 // What we do depends on file type
                 NSAttributedString* res = nil;
-                NSString* extn = [[filename pathExtension] lowercaseString];
+                NSString* extn = filename.pathExtension.lowercaseString;
 
                 // .inf, .h, .ni, .i7, .txt and those with no extension are treated as text files
                 // .rtf or .rtfd are opened as RTF files
@@ -243,29 +243,29 @@
                     IFDocParser* fileContents = [[IFDocParser alloc] initWithHtml: fileString];
                     
                     // Retrieve the storage contents
-                    storage = [fileContents plainText];
+                    storage = fileContents.plainText;
                     
                     // Work out the display name
-                    NSString* title = [fileContents attributes][IFDocAttributeTitle];
-                    NSString* section = [fileContents attributes][IFDocAttributeSection];
+                    NSString* title = fileContents.attributes[IFDocAttributeTitle];
+                    NSString* section = fileContents.attributes[IFDocAttributeSection];
                     
-                    sortKey = [fileContents attributes][IFDocAttributeSort];
+                    sortKey = fileContents.attributes[IFDocAttributeSort];
                     
                     if (title != nil && section != nil) {
                         displayName = [NSString stringWithFormat: @"%@: %@", section, title];
                     } else {
-                        displayName = [fileContents attributes][IFDocAttributeHtmlTitle];
+                        displayName = fileContents.attributes[IFDocAttributeHtmlTitle];
                     }
                     
-                    exampleInfo     = [fileContents exampleInfo];
-                    codeInfo        = [fileContents codeInfo];
-                    definitionInfo  = [fileContents definitionInfo];
+                    exampleInfo     = fileContents.exampleInfo;
+                    codeInfo        = fileContents.codeInfo;
+                    definitionInfo  = fileContents.definitionInfo;
                     
                     onlyOneMatchPerSegment = true;
                 }
                 
                 if (res) {
-                    storage = [res string];
+                    storage = res.string;
                 }
             }
 
@@ -307,8 +307,8 @@
                             //
                             // The match is inside an example
                             //
-                            alreadyFound = ( lastFoundInExample != nil ) && ([lastFoundInExample compare:[info name]] == NSOrderedSame);
-                            lastFoundInExample = [info name];
+                            alreadyFound = ( lastFoundInExample != nil ) && ([lastFoundInExample compare:info.name] == NSOrderedSame);
+                            lastFoundInExample = info.name;
                         }
                         else {
                             //
@@ -366,10 +366,10 @@
                                       locationType: locationType
                                            context: context
                                       contextRange: contextRange
-                                       exampleName: [info name]
-                                  exampleAnchorTag: [info anchorTag]
-                                     codeAnchorTag: [cdInfo anchorTag]
-                               definitionAnchorTag: [dfInfo anchorTag]
+                                       exampleName: info.name
+                                  exampleAnchorTag: info.anchorTag
+                                     codeAnchorTag: cdInfo.anchorTag
+                               definitionAnchorTag: dfInfo.anchorTag
                                   regexFoundGroups: matchGroups];
                         }
 
@@ -389,7 +389,7 @@
 
             // Update progress
             @synchronized( searchResultsLock ) {
-                resultCount = (int) [results count];
+                resultCount = (int) results.count;
             }
             progressCount++;
 
@@ -400,7 +400,7 @@
 
         // Finished searching - send one final update to the main thread
         @synchronized( searchResultsLock ) {
-            resultCount = (int) [results count];
+            resultCount = (int) results.count;
         }
         dispatch_async(main, ^ {
             progressBlock(totalSearchItems + 1, totalSearchItems + 1, resultCount);
@@ -432,14 +432,14 @@
 
 - (void) addDocumentation {
 	// Find the documents to search
-	NSString* resourcePath = [[[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"] stringByDeletingLastPathComponent];
+	NSString* resourcePath = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"].stringByDeletingLastPathComponent;
 	
 	// Find all .htm and .html documents from the resources
 	NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: resourcePath];
 
 	for( NSString* path in dirEnum ) {
-		NSString* extension = [path pathExtension];
-		NSString* description = [[[path lastPathComponent] stringByDeletingPathExtension] lowercaseString];
+		NSString* extension = path.pathExtension;
+		NSString* description = path.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
 		
 		// Must be an html file and start with doc or Rdoc.
         if ([extension isEqualToString: @"html"] ||
@@ -456,7 +456,7 @@
 - (void) addExtensions: (IFProject *) project {
     IFExtensionsManager* manager = [IFExtensionsManager sharedNaturalInformExtensionsManager];
 
-	for( IFExtensionInfo* info in [manager availableExtensionsWithCompilerVersion: [project.settings compilerVersion]] ) {
+	for( IFExtensionInfo* info in [manager availableExtensionsWithCompilerVersion: (project.settings).compilerVersion] ) {
         [self addSearchFile: info.filepath
                withLocation: IFFindExtensions];
     }
@@ -464,12 +464,12 @@
 
 - (void) addSourceFiles: (IFProject*) project {
     // Find all text in the project source files
-	NSDictionary* sourceFiles = [project sourceFiles];
+	NSDictionary* sourceFiles = project.sourceFiles;
 
     for( NSString* filepath in sourceFiles) {
 		NSTextStorage* file = sourceFiles[filepath];
 		
-		[self addSearchText: [file string]
+		[self addSearchText: file.string
                withFilePath: filepath
                withLocation: IFFindSource];
 	}
@@ -481,7 +481,7 @@
 
 - (int) resultsCount {
     @synchronized (searchResultsLock) {
-        return (int) [results count];
+        return (int) results.count;
     }
 }
 
@@ -492,12 +492,12 @@
             IFFindResult*second = (IFFindResult*)secondObject;
             
             // Sort by location type first
-            if( [first locationType] != [second locationType] ) {
-                return (NSComparisonResult) ((int) [first locationType] - (int) [second locationType]);
+            if( first.locationType != second.locationType ) {
+                return (NSComparisonResult) ((int) first.locationType - (int) second.locationType);
             }
             
             // Then sort by document name
-            return [[first documentSortName] compare:[second documentSortName] options:NSNumericSearch];
+            return [first.documentSortName compare:second.documentSortName options:NSNumericSearch];
         }];
         return sortedArray;
     }

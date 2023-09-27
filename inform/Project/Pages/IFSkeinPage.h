@@ -21,7 +21,7 @@
 @property (atomic, readonly, strong) IFSkeinView *skeinView;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller
-                                  withPane: (IFProjectPane*) pane;
+                                  withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 - (void) selectActiveSkeinItem;
 -(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId;

@@ -32,7 +32,7 @@
 		[[NSNotificationCenter defaultCenter] addObserver: self
 												 selector: @selector(updateSettings)
 													 name: IFSettingNotification
-												   object: [[self.parent document] settings]];
+												   object: [(self.parent).document settings]];
 		
 		[self updateSettings];
 	}
@@ -60,7 +60,7 @@
 		return; // Nothing to do
 	}
 
-	[settingsController setCompilerSettings: [[self.parent document] settings]];
+	settingsController.compilerSettings = [(self.parent).document settings];
 	[settingsController updateAllSettings];
 	
 	return;

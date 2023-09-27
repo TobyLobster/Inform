@@ -22,7 +22,7 @@ typedef NS_ENUM(int, EFormOfEdit) {
 }
 
 -(instancetype) initWithRange: (NSRange) range
-                         form: (EFormOfEdit) form;
+                         form: (EFormOfEdit) form NS_DESIGNATED_INITIALIZER;
 
 @end
 

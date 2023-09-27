@@ -46,7 +46,7 @@
 
 - (IFSyntaxState) stateForCharacter: (unichar) chr
 						 afterState: (IFSyntaxState) lastState {
-	switch ([activeData highlighterMode]) {
+	switch (activeData.highlighterMode) {
 		case IFNaturalModeStandard:
 			// Natural Inform mode
 			switch (lastState) {
@@ -54,7 +54,7 @@
 					if (chr == '-') {
 						// Switch to Inform 6 mode
 						[activeData pushState];
-						[activeData setHighlighterMode: IFNaturalModeInform6];
+						activeData.highlighterMode = IFNaturalModeInform6;
 						
 						if ([activeData preceededByKeyword: @"Include"
 													   offset: 1]) {
@@ -101,7 +101,7 @@
 						return IFNaturalStateComment;
 					}
 					if (chr == ']') {
-						return [activeData popState];
+						return activeData.popState;
 					}
 					return IFNaturalStateComment;
 				
@@ -127,17 +127,17 @@
 		case IFNaturalModeInform6MightEnd:
 			if (chr == ')') {
 				// Switch back to standard mode
-				[activeData popState];
+				activeData.popState;
 				return IFNaturalStateText;
 			}
 			
 			// Switch back to Inform 6 mode
-			[activeData setHighlighterMode: IFNaturalModeInform6];
+			activeData.highlighterMode = IFNaturalModeInform6;
 			
 		case IFNaturalModeInform6:
 			if (chr == '-') {
 				// Next character might break us out of Inform 6 mode
-				[activeData setHighlighterMode: IFNaturalModeInform6MightEnd];
+				activeData.highlighterMode = IFNaturalModeInform6MightEnd;
 			}
 			
 			// Run the Inform 6 highlighter
@@ -151,7 +151,7 @@
 - (IFSyntaxStyle) styleForCharacter: (unichar) chr
 						  nextState: (IFSyntaxState) nextState
 						  lastState: (IFSyntaxState) lastState {
-	switch ([activeData highlighterMode]) {
+	switch (activeData.highlighterMode) {
 		// Natural Inform styles
 		case IFNaturalModeStandard:
 			// Some states override the next state
@@ -208,7 +208,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 - (void) rehintLine: (NSString*) line
 			 styles: (IFSyntaxStyles*) styles
 	   initialState: (IFSyntaxState) initialState {
-    NSString* thisLine = [[line lowercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString* thisLine = [line.lowercaseString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
 	// This line might be a header line
 	BOOL isHeader = NO;
@@ -235,7 +235,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 
 	if (isHeader) {
 		int x;
-		for (x=0; x<[line length]; x++) {
+		for (x=0; x<line.length; x++) {
             [styles write:x value:IFSyntaxHeading];
 		}
 	}
@@ -243,7 +243,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 	// This line might have some Inform 6 highlighting to do
     IFSyntaxStyles* i6Styles = [[IFSyntaxStyles alloc] init];
 	int x;
-	for (x=0; x<[line length]; x++) {
+	for (x=0; x<line.length; x++) {
         if (IsInform6Style([styles read:x])) {
 			// Found an Inform 6 region
 			NSRange thisRegion;
@@ -252,7 +252,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 			thisRegion.length = 0;
 			
 			// Convert to standard style, work out how long the region is
-            for (;x<[line length] && IsInform6Style([styles read:x]);x++) {
+            for (;x<line.length && IsInform6Style([styles read:x]);x++) {
 				thisRegion.length++;
                 [styles write:x value: [styles read:x]- 0x20];
 			}
@@ -274,7 +274,7 @@ static BOOL IsInform6Style(IFSyntaxStyle style) {
 }
 
 - (CGFloat) tabStopWidth {
-	return [[IFPreferences sharedPreferences] tabWidth];
+	return [IFPreferences sharedPreferences].tabWidth;
 }
 
 @end

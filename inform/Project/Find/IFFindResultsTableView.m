@@ -15,7 +15,7 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
     
-    NSPoint globalLocation = [theEvent locationInWindow];
+    NSPoint globalLocation = theEvent.locationInWindow;
     NSPoint localLocation = [self convertPoint:globalLocation fromView:nil];
     NSInteger clickedRow = [self rowAtPoint:localLocation];
     
@@ -24,7 +24,7 @@
     if (clickedRow != -1) {
         [self.extendedDelegate tableView:self didClickRow:clickedRow];
     }
-    [[self window] makeKeyAndOrderFront: self];
+    [self.window makeKeyAndOrderFront: self];
 }
 
 @end

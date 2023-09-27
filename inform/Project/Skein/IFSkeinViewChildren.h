@@ -15,14 +15,14 @@
 
 @interface IFSkeinViewChildren : NSObject<IFSkeinReportBlessDelegate>
 
--(instancetype) initWithSkeinView:(IFSkeinView*) theSkeinView;
+-(instancetype) initWithSkeinView:(IFSkeinView*) theSkeinView NS_DESIGNATED_INITIALIZER;
 - (void) updateChildrenWithLayout: (IFSkeinLayout*) layout
                           animate: (BOOL) animate;
 
 // Update and return report details
 
 - (void)     updateReportDetails;
-- (NSArray*) reportDetails;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *reportDetails;
 
 - (NSRect)   rectForItem:(IFSkeinItem*) item;
 - (IFSkeinLayoutItem*) layoutItemForItem: (IFSkeinItem*) item;

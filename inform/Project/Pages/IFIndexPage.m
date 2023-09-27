@@ -59,13 +59,13 @@
 
         // Create the webview
         helper = [[IFWebViewHelper alloc] initWithProjectController: controller withPane: pane];
-        webView = [helper createWebViewWithFrame:[[self view] bounds]];
+        webView = [helper createWebViewWithFrame:self.view.bounds];
 
         // Set delegates
-        [webView setNavigationDelegate: self];
+        webView.navigationDelegate = self;
 
         // Add the webview as a subview of the index page
-        [[self view] addSubview: webView];
+        [self.view addSubview: webView];
 
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(fontSizePreferenceChanged:)
@@ -107,7 +107,7 @@
     id identifier = @(tabIdentifier);
 	NSInteger index = 0;
 	for( IFPageBarCell* cell in indexCells ) {
-		if ([[cell identifier] isEqual: identifier]) return index;
+		if ([cell.identifier isEqual: identifier]) return index;
 		index++;
 	}
 	
@@ -123,20 +123,20 @@
 
 -(NSUInteger) tabIdOfItemWithFilename:(NSString *) theFile
 {
-    NSString* lowerFile = [theFile lowercaseString];
+    NSString* lowerFile = theFile.lowercaseString;
     
     NSNumber* integer = tabDictionary[lowerFile];
     if( integer == nil ) {
         return NSNotFound;
     }
-    return [integer intValue];
+    return integer.intValue;
 }
 
 -(NSString *) filenameOfItemWithTabId:(int) tabId
 {
     for( NSString* key in tabDictionary)
     {
-        if( [tabDictionary[key] intValue] == tabId ) {
+        if( (tabDictionary[key]).intValue == tabId ) {
             return key;
         }
     }
@@ -145,7 +145,7 @@
 
 
 - (BOOL) requestRelativePath:(NSString *) relativePath {
-    NSURL* indexDirURL = [[self.parent document] indexDirectoryURL];
+    NSURL* indexDirURL = [(self.parent).document indexDirectoryURL];
     NSURL* fullFileURL = [indexDirURL URLByAppendingPathComponent: relativePath];
 
     BOOL isDir = NO;
@@ -195,7 +195,7 @@
     if ([sender isKindOfClass: [IFPageBarCell class]]) cell = sender;
     else if ([sender isKindOfClass: [IFPageBarView class]]) cell = (IFPageBarCell*)[sender lastTrackedCell];
 
-    int tabIdentifier = [[cell identifier] intValue];
+    int tabIdentifier = [cell.identifier intValue];
     [self switchToTab:tabIdentifier];
 }
 
@@ -203,10 +203,10 @@
 	indexAvailable = NO;
 	
 	// Refresh the copies of the index files in memory
-	[[self.parent document] reloadIndexDirectory];
+	[(self.parent).document reloadIndexDirectory];
 
 	// The index path
-	NSString* indexPath = [NSString stringWithFormat: @"%@/Index", [[self.parent document] fileURL].path];
+	NSString* indexPath = [NSString stringWithFormat: @"%@/Index", [(self.parent).document fileURL].path];
 	BOOL isDir = NO;
 	
 	indexCells = [[NSMutableArray alloc] init];
@@ -225,30 +225,30 @@
 	NSArray* files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:indexPath error: &error];
 	files = [files sortedArrayUsingSelector: @selector(caseInsensitiveCompare:)];
 	for( NSString* theFile in files ) {
-		NSString* extension = [[theFile pathExtension] lowercaseString];
+		NSString* extension = theFile.pathExtension.lowercaseString;
 		
 		if ([extension isEqualToString: @"htm"] ||
 			[extension isEqualToString: @"html"]) {
 			// Create the tab
 			IFPageBarCell* newTab = [[IFPageBarCell alloc] init];
-			[newTab setRadioGroup: 128];
+			newTab.radioGroup = 128;
 
 			// Choose an ID for this tab based on the filename
 			NSUInteger tabId = [self tabIdOfItemWithFilename:theFile];
             if( tabId == IFIndexWelcome ) {
-                [newTab setImage:[NSImage imageNamed:NSImageNameHomeTemplate]];
+                newTab.image = [NSImage imageNamed:NSImageNameHomeTemplate];
             }
             else {
                 NSString* label = [IFUtility localizedString: theFile
-                                                     default: [theFile stringByDeletingPathExtension]
+                                                     default: theFile.stringByDeletingPathExtension
                                                        table: @"CompilerOutput"];
-                [newTab setStringValue: label];
+                newTab.stringValue = label;
             }
 
             if( tabId != NSNotFound ) {
-                [newTab setIdentifier: @(tabId)];
-                [newTab setTarget: self];
-                [newTab setAction: @selector(switchToTabWithObject:)];
+                newTab.identifier = @(tabId);
+                newTab.target = self;
+                newTab.action = @selector(switchToTabWithObject:);
 
                 // Add the tab
                 [indexCells insertObject: newTab
@@ -275,14 +275,14 @@
 - (IBAction) switchToCell: (id) sender {
 	if ([sender isKindOfClass: [IFPageBarCell class]]) {
         IFPageBarCell* cell = sender;
-        [self switchToTab:[[cell identifier] intValue]];
+        [self switchToTab:[cell.identifier intValue]];
     }
 }
 
 - (void) didSwitchToPage {
-    NSURL* url = [webView URL];
+    NSURL* url = webView.URL;
     LogHistory(@"HISTORY: Index Page: (didSwitchToPage) requestURL %@", [url absoluteString]);
-	[[self history] openHistoricalURL: url];
+	[self.history openHistoricalURL: url];
 
     // Highlight the indexCell to something appropriate for the new URL
     [self highlightAppropriateIndexCellForURL: url];
@@ -290,11 +290,11 @@
 }
 
 -(void) highlightAppropriateIndexCellForURL:(NSURL*) url {
-    NSString* lowerURL = [[url absoluteString] lowercaseString];
+    NSString* lowerURL = url.absoluteString.lowercaseString;
 
     // Highlight the pane tab to something appropriate for the new URL
     for (IFPageBarCell*cell in indexCells) {
-        [cell setState: NSControlStateValueOff];
+        cell.state = NSControlStateValueOff;
     }
     for(NSString *tabName in tabDictionary.keyEnumerator) {
         // is the string we are looking for
@@ -302,10 +302,10 @@
             //NSLog(@"Found tab %@", tabName);
 
             // Highlight the appropriate tab
-            int tabIdentifier = [tabDictionary[tabName] intValue];
+            int tabIdentifier = (tabDictionary[tabName]).intValue;
             NSUInteger tabIndex = [self indexOfItemWithTabId:tabIdentifier];
 
-            [(NSCell*)indexCells[tabIndex] setState: NSControlStateValueOn];
+            ((NSCell*)indexCells[tabIndex]).state = NSControlStateValueOn;
         }
     }
 }
@@ -323,8 +323,8 @@
     NSURL* url = theWebView.URL;
     LogHistory(@"HISTORY: Index Page: (didStartProvisionalLoadForFrame) requestURL %@", [url absoluteString]);
     if (inhibitAddToHistory <= 0) {
-        [[self history] switchToPage];
-        [[self history] openHistoricalURL: url];
+        [self.history switchToPage];
+        [self.history openHistoricalURL: url];
     }
 
     // reduce the number of reasons to inhibit adding to history
@@ -341,7 +341,7 @@
 #pragma mark - The page bar
 
 - (NSArray*) toolbarCells {
-	if (indexCells == nil) return [NSArray array];
+	if (indexCells == nil) return @[];
 	return indexCells;
 }
 

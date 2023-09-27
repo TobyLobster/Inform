@@ -25,15 +25,15 @@
 #pragma mark - Setting up 
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 	
-	[basicInform setState: [settings basicInform]?NSControlStateValueOn:NSControlStateValueOff];
+	basicInform.state = settings.basicInform?NSControlStateValueOn:NSControlStateValueOff;
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
-	[settings setBasicInform: [basicInform state] == NSControlStateValueOn];
+	settings.basicInform = basicInform.state == NSControlStateValueOn;
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

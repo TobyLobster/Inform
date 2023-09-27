@@ -27,6 +27,6 @@
 - (void) extensionUpdated:(NSString*) javascriptId;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller
-                                  withPane: (IFProjectPane*) pane;
+                                  withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end

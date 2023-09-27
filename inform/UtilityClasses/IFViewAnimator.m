@@ -63,9 +63,9 @@
     NSSize mySize = view.bounds.size;
     NSSize imgSize = NSMakeSize( mySize.width, mySize.height );
     
-    NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:[view bounds]];
-    [bir setSize:imgSize];
-    [view cacheDisplayInRect:[view bounds] toBitmapImageRep:bir];
+    NSBitmapImageRep *bir = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
+    bir.size = imgSize;
+    [view cacheDisplayInRect:view.bounds toBitmapImageRep:bir];
     
     NSImage* image = [[NSImage alloc]initWithSize:imgSize];
     [image addRepresentation:bir];
@@ -88,12 +88,12 @@
 		[self removeFromSuperview];
 		
 		NSRect frame = originalFrame;
-		frame.size = [originalView frame].size;
+		frame.size = originalView.frame.size;
 		
-		[originalView setFrame: frame];
+		originalView.frame = frame;
 		[originalSuperview addSubview: originalView];
 		[originalView setNeedsDisplay: YES];
-        [[originalView window] makeFirstResponder:originalFocusView];
+        [originalView.window makeFirstResponder:originalFocusView];
 		[IFViewAnimator trackView: originalView];
 				
 		 originalView = nil;
@@ -126,17 +126,17 @@
 
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
-	originalSuperview = [view superview];
-	originalFrame = [view frame];
+	originalSuperview = view.superview;
+	originalFrame = view.frame;
     originalFocusView = focusView;
 		
 	[IFViewAnimator detrackView: originalView];
 	[originalView removeFromSuperviewWithoutNeedingDisplay];
-	[self setFrame: originalFrame];
+	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
 	[self setNeedsDisplay: YES];
 	
-	[self setAutoresizingMask: [originalView autoresizingMask]];
+	self.autoresizingMask = originalView.autoresizingMask;
 }
 
 // Begins animating the specified view so that transitions from the state set in
@@ -158,11 +158,11 @@
 	
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
-	originalFrame = [view frame];
+	originalFrame = view.frame;
     originalFocusView = focusView;
 	
 	[IFViewAnimator detrackView: originalView];
-	[self setFrame: originalFrame];
+	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
 	[self setNeedsDisplay: YES];
 	
@@ -181,7 +181,7 @@
 }
 
 - (CGFloat) percentDone {
-	NSTimeInterval timePassed = -[whenStarted timeIntervalSinceNow];
+	NSTimeInterval timePassed = -whenStarted.timeIntervalSinceNow;
     CGFloat done = ((CGFloat)timePassed)/((CGFloat)animationTime);
 	
 	if (done < 0) done = 0;
@@ -205,12 +205,12 @@ static BOOL ViewNeedsDisplay(NSView* view) {
 	BOOL result = NO;
 	
 	if (view == nil) return NO;
-	if ([view needsDisplay]) {
+	if (view.needsDisplay) {
 		[view setNeedsDisplay: NO];
 		result = YES;
 	}
 	
-	for ( NSView* subview in [view subviews] ) {
+	for ( NSView* subview in view.subviews ) {
 		if (ViewNeedsDisplay(subview)) result = YES;
 	}
 	
@@ -227,9 +227,9 @@ static BOOL ViewNeedsDisplay(NSView* view) {
     CGFloat percentDone = [self percentDone];
     CGFloat percentNotDone = 1.0-percentDone;
 	
-	NSRect bounds = [self bounds];
-	NSSize startSize = [startImage size];
-	NSSize endSize = [endImage size];
+	NSRect bounds = self.bounds;
+	NSSize startSize = startImage.size;
+	NSSize endSize = endImage.size;
 	NSRect startFrom, startTo;
 	NSRect endFrom, endTo;
 	

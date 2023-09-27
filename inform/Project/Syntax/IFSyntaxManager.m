@@ -149,12 +149,12 @@ static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
 +(void) setIntelligenceForStorage: (NSTextStorage*) storage
                      intelligence: (id<IFSyntaxIntelligence>) intelligence {
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
-    [data setIntelligence: intelligence];
+    data.intelligence = intelligence;
 }
 
 +(IFIntelFile*) intelligenceDataForStorage: (NSTextStorage*) storage {
     IFSyntaxData* data = [IFSyntaxManager dataForStorage:storage];
-    return [data intelligenceData];
+    return data.intelligenceData;
 }
 
 @end

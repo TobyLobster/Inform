@@ -39,10 +39,10 @@ extern NSString* const IFSkeinItemPboardType;
 @property (atomic, readonly)          unsigned long   reportStateHash;
 
 #pragma mark - Methods
--(IFSkeinItem *)    rootItem;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *rootItem;
 -(BOOL)             hasDescendant: (IFSkeinItem*) child;                                    // Recursive
 - (IFSkeinItem*)    childWithCommand: (NSString*) com isTestSubItem:(BOOL) isTestSubItem;   // Not recursive
--(NSArray<IFSkeinItem*> *)        nonTestChildren;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<IFSkeinItem *> *nonTestChildren;
 
 -(IFSkeinItem*)     addChild: (IFSkeinItem*) childItem;
 -(void)             removeFromParent;
@@ -60,16 +60,16 @@ extern NSString* const IFSkeinItemPboardType;
 +(NSString*) stringByRemovingPrompt: (NSString*) string;
 
 #pragma mark - Differences
--(IFDiffer*) differences;
--(BOOL) hasDifferences;
--(BOOL) hasBadge;
--(BOOL) hasIdeal;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFDiffer *differences;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasDifferences;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasBadge;
+@property (NS_NONATOMIC_IOSONLY, readonly) BOOL hasIdeal;
 
 #pragma mark - Composing and Decomposing "test me" style nodes
 -(IFSkeinItem*) decomposeActual:(NSString*) actual;
--(IFSkeinItem*) decompose;
--(NSString*) composedActual;
--(NSString*) composedIdeal;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *decompose;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *composedActual;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *composedIdeal;
 
 // Cache of command size, used by IFSkeinItemView when laying out
 #pragma mark - Command size cache

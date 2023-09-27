@@ -139,7 +139,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 #pragma mark - Access to Document
 -(IFProject*) document {
     // Look through all documents
-    NSArray* docs = [[NSDocumentController sharedDocumentController] documents];
+    NSArray* docs = [NSDocumentController sharedDocumentController].documents;
     for( NSDocument* doc in docs ) {
         if( [doc isKindOfClass: [IFProject class]] ) {
             IFProject* project = (IFProject*) doc;
@@ -157,7 +157,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 
 #pragma mark - Undo Manager
 -(NSUndoManager*) undoManager {
-    return [self.document undoManager];
+    return (self.document).undoManager;
 }
 
 -(void) disableUndo {
@@ -190,7 +190,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 - (IFSkeinItem*) childWithCommand: (NSString*) com isTestSubItem:(BOOL) isTestSubItem {
 
     for( IFSkeinItem* childItem in _children ) {
-        if ([[childItem command] isEqualToString: com]) {
+        if ([childItem.command isEqualToString: com]) {
             if( childItem.isTestSubItem == isTestSubItem ) {
                 return childItem;
             }
@@ -381,20 +381,20 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 }
 
 - (void) setIsTestSubItemWithNSNumber: (NSNumber*)newIsTestSubItem {
-    if( _isTestSubItem == [newIsTestSubItem boolValue]) {
+    if( _isTestSubItem == newIsTestSubItem.boolValue) {
         return;
     }
 
     if( _skein ) [[self.undoManager prepareWithInvocationTarget: _skein] setIsTestSubItemWithNSNumberOf: self
                                                                               isTestSubItemWithNSNumber: @(_isTestSubItem)];
-    _isTestSubItem = [newIsTestSubItem boolValue];
+    _isTestSubItem = newIsTestSubItem.boolValue;
     [_skein setLayoutDirty];
     [_skein setSkeinChanged];
 }
 
 #pragma mark - Differences
 -(IFDiffer*) differences {
-    unsigned long newHash = [self reportStateHash];
+    unsigned long newHash = self.reportStateHash;
 
     if(( differencesHash == 0 ) || (differencesHash != newHash)) {
         NSString* localIdeal  = self.ideal;
@@ -407,8 +407,8 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
         BOOL promptsMatch            = [[IFSkeinItem promptForString: localActual] isEqualToString: [IFSkeinItem promptForString: _ideal]];
         BOOL idealHasStandardPrompt  = [localIdeal endsWith:@"\n>"];
         BOOL actualHasStandardPrompt = [localActual endsWith:@"\n>"];
-        BOOL hasIdealOutput          = [localIdeal length] > 0;
-        BOOL hasActualOutput         = [localActual length] > 0;
+        BOOL hasIdealOutput          = localIdeal.length > 0;
+        BOOL hasActualOutput         = localActual.length > 0;
         BOOL canRemovePrompt         = promptsMatch || (!hasActualOutput && idealHasStandardPrompt) || (!hasIdealOutput && actualHasStandardPrompt);
         if( canRemovePrompt ) {
             localIdeal  = [IFSkeinItem stringByRemovingPrompt: localIdeal];

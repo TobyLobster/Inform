@@ -48,15 +48,15 @@
 
 - (void) sizeView {
     // Resize the view
-    NSRect rootFrame = [rootHeaderNode frame];
-    rootFrame.size.width = [self frame].size.width;
+    NSRect rootFrame = rootHeaderNode.frame;
+    rootFrame.size.width = self.frame.size.width;
     rootFrame.size.height += 5;
 
-    if (message && [self enclosingScrollView]) {
-        rootFrame.size = [[self enclosingScrollView] contentSize];
-        [self setAutoresizingMask: [self autoresizingMask] | NSViewHeightSizable];
+    if (message && self.enclosingScrollView) {
+        rootFrame.size = self.enclosingScrollView.contentSize;
+        self.autoresizingMask = self.autoresizingMask | NSViewHeightSizable;
     } else {
-        [self setAutoresizingMask: [self autoresizingMask] & ~NSViewHeightSizable];
+        self.autoresizingMask = self.autoresizingMask & ~NSViewHeightSizable;
     }
 
     [self setFrameSize: rootFrame.size];
@@ -74,13 +74,13 @@
     [rootHeaderNode populateToDepth: populateToDepth];
 
     // Add a message if necessary
-    if ([[rootHeaderNode children] count] == 0) {
-        if ([[rootHeader children] count] == 0) {
-            [self setMessage: [IFUtility localizedString: @"NoHeadingsSet"
-                                                 default: @""]];
+    if (rootHeaderNode.children.count == 0) {
+        if (rootHeader.children.count == 0) {
+            self.message = [IFUtility localizedString: @"NoHeadingsSet"
+                                                 default: @""];
         } else {
-            [self setMessage: [IFUtility localizedString: @"NoHeadingsVisible"
-                                                 default: @""]];
+            self.message = [IFUtility localizedString: @"NoHeadingsVisible"
+                                                 default: @""];
         }
     } else {
         message = nil;
@@ -93,7 +93,7 @@
 
 @synthesize message;
 - (void) setMessage: (NSString*) newMessage {
-    if ([newMessage length] == 0) newMessage = nil;
+    if (newMessage.length == 0) newMessage = nil;
     message = [newMessage copy];
 
     [self sizeView];
@@ -135,13 +135,13 @@
     if (message) {
         // Get the style for the message
         NSMutableParagraphStyle* style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-        [style setAlignment: NSTextAlignmentCenter];
+        style.alignment = NSTextAlignmentCenter;
 
         // Find text colour
         NSColor* textColour = [NSColor textColor];
 
         IFColourTheme* theme = [[IFPreferences sharedPreferences] getCurrentTheme];
-        if ((theme != nil) && ([theme.options count] > IFSHOptionMainText)) {
+        if ((theme != nil) && ((theme.options).count > IFSHOptionMainText)) {
             textColour = theme.options[IFSHOptionMainText].colour;
         }
         NSDictionary* messageAttributes = @{NSFontAttributeName: [NSFont systemFontOfSize: 12],
@@ -149,7 +149,7 @@
                                             NSParagraphStyleAttributeName: style};
 
         // Draw roughly centered
-        NSRect bounds = [self bounds];
+        NSRect bounds = self.bounds;
         NSRect textBounds = NSInsetRect(bounds, 8, 8);
         textBounds.origin.y = NSMinY(bounds) + 8;
         textBounds.size.height = NSMaxY(bounds) - NSMinY(textBounds);
@@ -159,7 +159,7 @@
     } else {
         // Draw the nodes
         [rootHeaderNode drawNodeInRect: rect
-                             withFrame: [self bounds]];
+                             withFrame: self.bounds];
     }
 }
 
@@ -167,7 +167,7 @@
 
 - (void) refreshHeaders: (IFHeaderController*) controller {
     // Get the root header from the controller
-    rootHeader = [controller rootHeader];
+    rootHeader = controller.rootHeader;
 
     // Destroy the editor when the headers are updated
     if (editor) {
@@ -194,62 +194,62 @@
 
     // Stop editing the previous node
     [editNode setEditing: NO];
-    [editNode setSelectionStyle: IFHeaderNodeUnselected];
+    editNode.selectionStyle = IFHeaderNodeUnselected;
     editNode = nil;
 
     // Don't edit the title node
-    if ([[node header] parent] == nil) return;
+    if (node.header.parent == nil) return;
 
     // Start editing the next node
     editNode = node;
-    [editNode setSelectionStyle: IFHeaderNodeInputCursor];
+    editNode.selectionStyle = IFHeaderNodeInputCursor;
     [editNode setEditing: YES];
 
     [self setNeedsDisplay: YES];
 
     // Work out the bounding box of the area to be edited
-    NSRect headerNameRect = [node headerTitleRect];
-    NSRect bounds = [self bounds];
+    NSRect headerNameRect = node.headerTitleRect;
+    NSRect bounds = self.bounds;
     headerNameRect.size.width = NSMaxX(bounds) - NSMinX(headerNameRect);
 
     // Assign the field editor to ourselves
-    editor = (NSTextView*)[[self window] fieldEditor: YES
+    editor = (NSTextView*)[self.window fieldEditor: YES
                                            forObject: node];
 
     // Set up the editor storage
     if (!editStorage) editStorage = [[NSTextStorage alloc] init];
-    [editStorage setAttributedString: [node attributedTitle]];
-    [[editor layoutManager] replaceTextStorage: editStorage];
+    [editStorage setAttributedString: node.attributedTitle];
+    [editor.layoutManager replaceTextStorage: editStorage];
 
     // Set up the field editor
-    NSColor* bgColour = [editNode textBackgroundColour];
+    NSColor* bgColour = editNode.textBackgroundColour;
     if (!bgColour) bgColour = backgroundColour;
 
     [editor setSelectedRange: NSMakeRange(0,0)];
-    [editor setDelegate: self];
+    editor.delegate = self;
     [editor setRichText: NO];
     [editor setAllowsDocumentBackgroundColorChange: NO];
-    [editor setBackgroundColor: bgColour];
+    editor.backgroundColor = bgColour;
     [editor setHorizontallyResizable: NO];
     [editor setVerticallyResizable: YES];
-    [editor setTextContainerInset: NSMakeSize(0, 0)];
+    editor.textContainerInset = NSMakeSize(0, 0);
 
-    [[editor textContainer] setContainerSize: headerNameRect.size];
-    [[editor textContainer] setWidthTracksTextView: NO];
-    [[editor textContainer] setHeightTracksTextView: NO];
+    editor.textContainer.containerSize = headerNameRect.size;
+    [editor.textContainer setWidthTracksTextView: NO];
+    [editor.textContainer setHeightTracksTextView: NO];
     [editor setDrawsBackground: NO];
-    [editor setTypingAttributes: [editNode attributes]];
-    [[editor textContainer] setLineFragmentPadding: 0];
+    editor.typingAttributes = editNode.attributes;
+    editor.textContainer.lineFragmentPadding = 0;
 
     // Add the field editor
     [editor removeFromSuperview];
-    [editor setFrame: headerNameRect];
+    editor.frame = headerNameRect;
     [self addSubview: editor];
-    [[self window] makeFirstResponder: editor];
+    [self.window makeFirstResponder: editor];
 
     // Set up the editor storage again
-    [editStorage setAttributedString: [node attributedTitle]];
-    [[editor layoutManager] replaceTextStorage: editStorage];
+    [editStorage setAttributedString: node.attributedTitle];
+    [editor.layoutManager replaceTextStorage: editStorage];
 
     // [[editor textStorage] setAttributedString: [node attributedTitle]];
 
@@ -260,11 +260,11 @@
 
 - (void) mouseDown: (NSEvent*) theEvent {
     // Get the position where the mouse was clicked
-    NSPoint viewPos = [self convertPoint: [theEvent locationInWindow]
+    NSPoint viewPos = [self convertPoint: theEvent.locationInWindow
                                 fromView: nil];
 
     // Get which node was clicked on
-    bool headingsVisible = ([[rootHeaderNode children] count] > 0);
+    bool headingsVisible = (rootHeaderNode.children.count > 0);
     if (headingsVisible) {
         bool editable = false;
         IFHeaderNode* clicked = [rootHeaderNode nodeAtPoint: viewPos
@@ -286,11 +286,11 @@
 
 -(void) mouseMoved:(NSEvent *)theEvent {
     // Get the position where the mouse was clicked
-    NSPoint viewPos = [self convertPoint: [theEvent locationInWindow]
+    NSPoint viewPos = [self convertPoint: theEvent.locationInWindow
                                 fromView: nil];
 
     // Get which node was clicked on
-    bool headingsVisible = ([[rootHeaderNode children] count] > 0);
+    bool headingsVisible = (rootHeaderNode.children.count > 0);
     if (!headingsVisible) {
         [[NSCursor arrowCursor] set];
     }
@@ -315,7 +315,7 @@
 
 - (void) textDidEndEditing: (NSNotification*) aNotification {
     // Get the new text for this node
-    NSString* newText = [editNode freshValueForEditedTitle: [editStorage string]];
+    NSString* newText = [editNode freshValueForEditedTitle: editStorage.string];
 
     // Tell the delegate to update the source text
     if ([delegate respondsToSelector: @selector(headerView:updateNode:withNewTitle:)]) {
@@ -326,7 +326,7 @@
 
     // Finished with the edit node
     [editNode setEditing: NO];
-    [editNode setSelectionStyle: IFHeaderNodeUnselected];
+    editNode.selectionStyle = IFHeaderNodeUnselected;
     editNode = nil;
 
     // Finished with the field editor
@@ -341,7 +341,7 @@
 
 
 -(void) setColours: (NSColor *) bgColour {
-    [self setBackgroundColour: bgColour];
+    self.backgroundColour = bgColour;
 }
 
 @end

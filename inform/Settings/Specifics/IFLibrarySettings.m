@@ -26,12 +26,12 @@
 #pragma mark - Setting up
 
 - (void) updateFromCompilerSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
     // Library versions
 	NSArray* libraryDirectory = [IFCompilerSettings availableLibraries];
     
-    NSString* currentLibVer = [settings libraryToUse];
+    NSString* currentLibVer = settings.libraryToUse;
     
     [libraryVersion removeAllItems];
     
@@ -39,15 +39,15 @@
         [libraryVersion addItemWithTitle: libVer];
         
         if ([libVer isEqualToString: currentLibVer]) {
-            [libraryVersion selectItemAtIndex: [libraryVersion numberOfItems]-1];
+            [libraryVersion selectItemAtIndex: libraryVersion.numberOfItems-1];
         }
     }
 }
 
 - (void) setSettings {
-    IFCompilerSettings* settings = [self compilerSettings];
+    IFCompilerSettings* settings = self.compilerSettings;
 
-	[settings setLibraryToUse: [libraryVersion itemTitleAtIndex: [libraryVersion indexOfSelectedItem]]];
+	settings.libraryToUse = [libraryVersion itemTitleAtIndex: libraryVersion.indexOfSelectedItem];
 }
 
 - (BOOL) enableForCompiler: (NSString*) compiler {

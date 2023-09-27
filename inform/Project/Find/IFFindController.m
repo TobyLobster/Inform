@@ -139,7 +139,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 					  atIndex: 0];
 	
 	// Ensure that we limit the number of items in the history
-	while ([findHistory count] > FIND_HISTORY_LENGTH) {
+	while (findHistory.count > FIND_HISTORY_LENGTH) {
 		[findHistory removeLastObject];
 	}
 	
@@ -165,7 +165,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 						 atIndex: 0];
 	
 	// Ensure that we limit the number of items in the history
-	while ([replaceHistory count] > FIND_HISTORY_LENGTH) {
+	while (replaceHistory.count > FIND_HISTORY_LENGTH) {
 		[replaceHistory removeLastObject];
 	}
 	
@@ -180,10 +180,10 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 #pragma mark - Actions
 
 - (IFFindType) currentFindType {
-	NSMenuItem* selected = [searchType selectedItem];
+	NSMenuItem* selected = searchType.selectedItem;
 	
 	IFFindType flags = 0;
-	if ([ignoreCase state] == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
+	if (ignoreCase.state == NSControlStateValueOn) flags |= IFFindCaseInsensitive;
 	
 	if (selected == containsItem) {
 		return IFFindContains | flags;
@@ -207,50 +207,50 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 		[self showAuxiliaryView: nil];
 	}
 
-    lastSearchType = [searchType selectedItem];
-    lastSearchIgnoreCase = ([ignoreCase state] == NSControlStateValueOn);
+    lastSearchType = searchType.selectedItem;
+    lastSearchIgnoreCase = (ignoreCase.state == NSControlStateValueOn);
 }
 
 - (IBAction) findNext: (id) sender {
-    if( [[findPhrase stringValue] length] == 0 ) {
+    if( findPhrase.stringValue.length == 0 ) {
         return;
     }
 
     if ([activeDelegate respondsToSelector: @selector(findNextMatch:ofType:completionHandler:)]) {
 		// Close the 'all' dialog if necessary
-		[self setLastSearch: [findPhrase stringValue]];
+		[self setLastSearch: findPhrase.stringValue];
 		
 		// Get the delegate to perform the search
-		[activeDelegate findNextMatch: [findPhrase stringValue]
+		[activeDelegate findNextMatch: findPhrase.stringValue
 							   ofType: [self currentFindType]
                     completionHandler: nil];
 
 		// Record the phrase in the history
-		[self addPhraseToFindHistory: [findPhrase stringValue]];
+		[self addPhraseToFindHistory: findPhrase.stringValue];
 	}
 }
 
 - (IBAction) findPrevious: (id) sender {
-    if( [[findPhrase stringValue] length] == 0 ) {
+    if( findPhrase.stringValue.length == 0 ) {
         return;
     }
 
     if ([activeDelegate respondsToSelector: @selector(findPreviousMatch:ofType:completionHandler:)]) {
 		// Close the 'all' dialog if necessary
-		[self setLastSearch: [findPhrase stringValue]];
+		[self setLastSearch: findPhrase.stringValue];
 		
 		// Get the delegate to perform the search
-		[activeDelegate findPreviousMatch: [findPhrase stringValue]
+		[activeDelegate findPreviousMatch: findPhrase.stringValue
 								   ofType: [self currentFindType]
                         completionHandler: nil];
 
 		// Record the phrase in the history
-		[self addPhraseToFindHistory: [findPhrase stringValue]];
+		[self addPhraseToFindHistory: findPhrase.stringValue];
 	}
 }
 
 - (IBAction) replaceAndFind: (id) sender {
-    if( [[findPhrase stringValue] length] == 0 ) {
+    if( findPhrase.stringValue.length == 0 ) {
         return;
     }
 	if (activeDelegate 
@@ -260,14 +260,14 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
         NSString* replaceString;
 		if( ([self currentFindType] & 0xff) == IFFindRegexp ) {
     		// The replace string has \1 \2 etc translated into actual string values using the last found regex groups
-            replaceString = [IFFindResult stringByReplacingGroups:[replacePhrase stringValue] regexFoundGroups:[activeDelegate lastFoundGroups]];
+            replaceString = [IFFindResult stringByReplacingGroups:replacePhrase.stringValue regexFoundGroups:activeDelegate.lastFoundGroups];
         } else {
-            replaceString = [replacePhrase stringValue];
+            replaceString = replacePhrase.stringValue;
         }
 
 		[self addPhraseToReplaceHistory: replaceString];
 		[activeDelegate replaceFoundWith: replaceString];
-		[activeDelegate findNextMatch: [findPhrase stringValue]
+		[activeDelegate findNextMatch: findPhrase.stringValue
 							   ofType: [self currentFindType]
                     completionHandler: nil];
 	}
@@ -275,19 +275,19 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 - (IBAction) replace: (id) sender {
 	if ([activeDelegate respondsToSelector: @selector(replaceFoundWith:)]) {
-		[self addPhraseToReplaceHistory: [replacePhrase stringValue]];
-		[activeDelegate replaceFoundWith: [replacePhrase stringValue]];
+		[self addPhraseToReplaceHistory: replacePhrase.stringValue];
+		[activeDelegate replaceFoundWith: replacePhrase.stringValue];
 	}
 }
 
 - (IBAction) useSelectionForFind: (id) sender {
 	// Hack: ensure the window is loaded
-	[self window];
+	self.window;
 	
     if ([activeDelegate respondsToSelector: @selector(currentSelectionForFindWithCompletionHandler:)]) {
         [activeDelegate currentSelectionForFindWithCompletionHandler: ^(NSString* searchFor) {
             if (searchFor && ![@"" isEqualToString: searchFor]) {
-                [self->findPhrase setStringValue: searchFor];
+                self->findPhrase.stringValue = searchFor;
                 [self->searchType selectItem: self->containsItem];
 
                 [self findNext: self];
@@ -300,7 +300,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (IBAction) findTypeChanged: (id) sender {
-	if ([searchType selectedItem] == regexpItem) {
+	if (searchType.selectedItem == regexpItem) {
 		[self showAuxiliaryView: regexpHelpView];
 	} else {
 		if (auxView == regexpHelpView) {
@@ -312,7 +312,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 #pragma mark - Find menu actions
 
 - (BOOL) canFindAgain: (id) sender {
-	if (activeDelegate && ![@"" isEqualToString: [findPhrase stringValue]]) {
+	if (activeDelegate && ![@"" isEqualToString: findPhrase.stringValue]) {
 		return YES;
 	} else {
 		return NO;
@@ -338,19 +338,19 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 - (id<IFFindDelegate>) chooseDelegateFromWindow: (NSWindow*) window {
 	// Default delegate behaviour is to look at the window controller first, then the window, then the views
 	// up the chain from the active view
-    NSWindowController* controller = [window windowController];
+    NSWindowController* controller = window.windowController;
     if ([self isSuitableDelegate: controller]) {
         return (id<IFFindDelegate>)controller;
 	} else if ([self isSuitableDelegate: window]) {
 		return (id<IFFindDelegate>)window;
 	}
 	
-	NSResponder* responder = [window firstResponder];
+	NSResponder* responder = window.firstResponder;
 	while (responder) {
 		if ([self isSuitableDelegate: responder]) {
 			return (id<IFFindDelegate>)responder;
 		}
-		responder = [responder nextResponder];
+		responder = responder.nextResponder;
 	}
 	
 	return nil;
@@ -389,29 +389,29 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (void) updateControls: (BOOL) copyLastState {
-	[findPhrase setEnabled: [self canSearch] || [self canFindAll]];
-	[replacePhrase setEnabled: [self canReplace]];
+	findPhrase.enabled = [self canSearch] || [self canFindAll];
+	replacePhrase.enabled = [self canReplace];
 	
-	[ignoreCase setEnabled: [self canSearch]];
-	[searchType setEnabled: [self canSearch]];
+	ignoreCase.enabled = [self canSearch];
+	searchType.enabled = [self canSearch];
 	
-	[containsItem setEnabled: [self supportsFindType: IFFindContains]];
-	[beginsWithItem setEnabled: [self supportsFindType: IFFindBeginsWith]];
-	[completeWordItem setEnabled: [self supportsFindType: IFFindCompleteWord]];
-	[regexpItem setEnabled: [self supportsFindType: IFFindRegexp]];
+	containsItem.enabled = [self supportsFindType: IFFindContains];
+	beginsWithItem.enabled = [self supportsFindType: IFFindBeginsWith];
+	completeWordItem.enabled = [self supportsFindType: IFFindCompleteWord];
+	regexpItem.enabled = [self supportsFindType: IFFindRegexp];
 
-    BOOL hasSearchTerm = [[findPhrase stringValue] length] > 0;
+    BOOL hasSearchTerm = findPhrase.stringValue.length > 0;
 
-	[next setEnabled: [self canSearch] && hasSearchTerm];
-	[previous setEnabled: [self canSearch] && hasSearchTerm];
-	[replaceAndFind setEnabled: [self canReplace] && hasSearchTerm];
-	[replace setEnabled: [self canReplace] && hasSearchTerm];
-	[replaceAll setEnabled: [self canReplaceAll] && hasSearchTerm];
-	[findAll setEnabled: [self canFindAll] && hasSearchTerm];
+	next.enabled = [self canSearch] && hasSearchTerm;
+	previous.enabled = [self canSearch] && hasSearchTerm;
+	replaceAndFind.enabled = [self canReplace] && hasSearchTerm;
+	replace.enabled = [self canReplace] && hasSearchTerm;
+	replaceAll.enabled = [self canReplaceAll] && hasSearchTerm;
+	findAll.enabled = [self canFindAll] && hasSearchTerm;
 
     if (copyLastState) {
         // 'Contains' is the basic type of search
-        if ((lastSearchType == nil) || (![lastSearchType isEnabled])) {
+        if ((lastSearchType == nil) || (!lastSearchType.enabled)) {
             [searchType selectItem: containsItem];
         }
         else {
@@ -441,38 +441,38 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (void) updateFromFirstResponder {
-	NSWindow* mainWindow = [NSApp mainWindow];
+	NSWindow* mainWindow = NSApp.mainWindow;
 	[self setActiveDelegate: [self chooseDelegateFromWindow: mainWindow]];
 }
 
 - (void) mainWindowChanged: (NSNotification*) not {
 	// Update this control from the first responder
-	[self setActiveDelegate: [self chooseDelegateFromWindow: [not object]]];
+	[self setActiveDelegate: [self chooseDelegateFromWindow: not.object]];
 }
 						   
 - (void) windowDidLoad {
 	[self updateFromFirstResponder];
     [self updateControls: YES];
 
-	winFrame		= [[self window] frame];
-	contentFrame	= [[[self window] contentView] frame];
+	winFrame		= self.window.frame;
+	contentFrame	= self.window.contentView.frame;
     borders         = self.window.frame.size.height + findAllView.frame.size.height - findAllTable.frame.size.height;
 
     // When clicked, call the routine
     findAllTable.action = @selector(onItemClicked);
 
     // Restore frame position
-    [[self window] setFrameUsingName:@"FindFrame"];
+    [self.window setFrameUsingName:@"FindFrame"];
 }
 
 - (void) showWindow:(id)sender {
 	// Standard behaviour
 	[super showWindow: sender];
 	
-    [[self window] setCollectionBehavior: (NSWindowCollectionBehavior) (NSWindowCollectionBehaviorMoveToActiveSpace | NSWindowCollectionBehaviorTransient)];
+    self.window.collectionBehavior = (NSWindowCollectionBehavior) (NSWindowCollectionBehaviorMoveToActiveSpace | NSWindowCollectionBehaviorTransient);
     
 	// Set the first responder
-	[[self window] makeFirstResponder: findPhrase];
+	[self.window makeFirstResponder: findPhrase];
 }
 
 #pragma mark - 'Find all'
@@ -496,7 +496,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 - (void) updateFindAllResults {
 	// Show nothing if there are no results in the find view
-	if ([findAllResults count] <= 0) {
+	if (findAllResults.count <= 0) {
 		[self showAuxiliaryView: foundNothingView];
 		return;
 	}
@@ -506,13 +506,13 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
     // Compose the results count message
     NSString* message;
-    if( [findAllResults count] == 1 ) {
+    if( findAllResults.count == 1 ) {
         message = [IFUtility localizedString: @"Found Result Count"];
     } else {
         message = [IFUtility localizedString: @"Found Results Count"];
-        message = [NSString stringWithFormat:message, [findAllResults count]];
+        message = [NSString stringWithFormat:message, findAllResults.count];
     }
-    [findCountText setStringValue:message];
+    findCountText.stringValue = message;
 
     // Show the find all view
 	[self showAuxiliaryView: findAllView];
@@ -531,11 +531,11 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 
 	// Add the find phrase to the history
-	lastSearch = [[findPhrase stringValue] copy];
-	[self addPhraseToFindHistory: [findPhrase stringValue]];
+	lastSearch = [findPhrase.stringValue copy];
+	[self addPhraseToFindHistory: findPhrase.stringValue];
 
 	// Load a new 'find all' view
-	[replaceAll setEnabled: [self canReplaceAll]];
+	replaceAll.enabled = [self canReplaceAll];
 	
 	// Create a new find identifier
 	findAllCount++;
@@ -545,7 +545,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	findAllResults = [[NSMutableArray alloc] init];
 	
 	// Perform the initial find
-	NSArray* findResults = [activeDelegate findAllMatches: [findPhrase stringValue]
+	NSArray* findResults = [activeDelegate findAllMatches: findPhrase.stringValue
 												   ofType: [self currentFindType]
                                                inLocation: IFFindCurrentPage
 										 inFindController: self
@@ -567,7 +567,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
     [self findAll:sender];
     
 	// Store the replace phrase in the replacement history
-	[self addPhraseToFindHistory: [replacePhrase stringValue]];
+	[self addPhraseToFindHistory: replacePhrase.stringValue];
 
 	// Indicate that a 'replace all' operation is starting
 	if ([activeDelegate respondsToSelector: @selector(beginReplaceAll:)]) {
@@ -575,12 +575,12 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 	
 	// Get the replacement string
-	NSString* replacement = [replacePhrase stringValue];
+	NSString* replacement = replacePhrase.stringValue;
 	
 	// Replace each match in turn
 	int x;
 	int offset = 0;
-	for (x=0; x<[findAllResults count]; x++) {
+	for (x=0; x<findAllResults.count; x++) {
 		IFFindResult* thisResult = findAllResults[x];
 
         NSString* actualReplacement;
@@ -617,22 +617,22 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 #pragma mark - The find all table
 
 - (int)numberOfRowsInTableView: (NSTableView*) aTableView {
-	return (int) [findAllResults count];
+	return (int) findAllResults.count;
 }
 
 - (id)				tableView: (NSTableView*) aTableView 
 	objectValueForTableColumn: (NSTableColumn*) aTableColumn
 					row: (int) rowIndex {
-    if( rowIndex >= [findAllResults count] ) {
+    if( rowIndex >= findAllResults.count ) {
         return nil;
     }
 
 	IFFindResult* row = findAllResults[rowIndex];
-	return [row attributedContext];
+	return row.attributedContext;
 }
 
 - (void) onItemClicked {
-    NSInteger clickedRow = [findAllTable clickedRow];
+    NSInteger clickedRow = findAllTable.clickedRow;
 
     if (clickedRow >= 0)
     {
@@ -643,9 +643,9 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 }
 
 - (void)tableViewSelectionDidChange: (NSNotification *)aNotification {
-    if ([findAllTable numberOfSelectedRows] != 1) return;
+    if (findAllTable.numberOfSelectedRows != 1) return;
 
-    NSUInteger selectedRow = [findAllTable selectedRow];
+    NSUInteger selectedRow = findAllTable.selectedRow;
     if (activeDelegate && [activeDelegate respondsToSelector: @selector(highlightFindResult:)]) {
         [activeDelegate highlightFindResult: findAllResults[selectedRow]];
     }
@@ -671,7 +671,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	}
 	
 	// Return the item
-	if (!itemArray || index < 0 || index >= [itemArray count]) {
+	if (!itemArray || index < 0 || index >= itemArray.count) {
 		return nil;
 	} else {
 		return itemArray[index];
@@ -691,7 +691,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	if (!itemArray) {
 		return 0;
 	} else {
-		return (int) [itemArray count];
+		return (int) itemArray.count;
 	}
 }
 
@@ -712,16 +712,16 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	
 	if (newAuxView) {
 		// Remember this view
-		auxFrame	= [newAuxView frame];
+		auxFrame	= newAuxView.frame;
 		
 		// Set its size
 		auxFrame.origin		= NSMakePoint(0, auxViewPanel.frame.size.height-auxFrame.size.height);
-		auxFrame.size.width = [[[self window] contentView] frame].size.width;
-		[newAuxView setFrame: auxFrame];
+		auxFrame.size.width = self.window.contentView.frame.size.width;
+		newAuxView.frame = auxFrame;
 	}
 	
 	// Resize the window
-	NSRect currentWinFrame = [[self window] frame];
+	NSRect currentWinFrame = self.window.frame;
     
     CGFloat newWindowHeight = (winFrame.size.height + auxFrame.size.height);
     
@@ -729,15 +729,15 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	currentWinFrame.size.height += heightDiff;
 	currentWinFrame.origin.y	-= heightDiff;
     
-    [[self window] setFrame:currentWinFrame display:YES];
+    [self.window setFrame:currentWinFrame display:YES];
 	
 	// Add the new view
 	if (newAuxView) {
 		auxView		= newAuxView;
         
 		auxFrame.origin		= NSMakePoint(0, auxViewPanel.frame.size.height-auxFrame.size.height);
-		auxFrame.size.width = [[[self window] contentView] frame].size.width;
-		[newAuxView setFrame: auxFrame];
+		auxFrame.size.width = self.window.contentView.frame.size.width;
+		newAuxView.frame = auxFrame;
 
         [newAuxView removeFromSuperview];
         [auxViewPanel addSubview:newAuxView];
@@ -750,7 +750,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 	if (sender == findPhrase) {
         // Pressing return in the findPhrase combo box will close the find window.
 		[self findNext: self];
-		[[self window] orderOut: self];
+		[self.window orderOut: self];
 	} else if (sender == replacePhrase) {
 		[self findNext: self];
 	} else {
@@ -767,13 +767,13 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 #pragma mark - Window delegate methods
 
 - (void) windowWillClose: (NSNotification*) notification {
-    NSWindow *win = [notification object];
+    NSWindow *win = notification.object;
     
-    if( win == [self window] ) {
+    if( win == self.window ) {
         // Clear the find all results
         [findAllResults removeAllObjects];
         [self showAuxiliaryView: nil];
-        [[self window] saveFrameUsingName:@"FindFrame"];
+        [self.window saveFrameUsingName:@"FindFrame"];
     }
 }
 

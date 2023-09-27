@@ -53,7 +53,7 @@
 
 	// Unset the view's text storage
 	if (fileView != nil) {
-		[[[self document] storage] removeLayoutManager: [fileView layoutManager]];
+		[[self.document storage] removeLayoutManager: fileView.layoutManager];
 	}
 
     sharedActions = nil;
@@ -65,18 +65,18 @@
 
 - (void) awakeFromNib {
 	// Set the window frame save name
-	[self setWindowFrameAutosaveName: @"SingleFile"];
+	self.windowFrameAutosaveName = @"SingleFile";
 	
 	// Set the view's text appropriately
-    [fileView.layoutManager replaceTextStorage: [[self document] storage]];
+    [fileView.layoutManager replaceTextStorage: [self.document storage]];
 	
-	[fileView setEditable: ![[self document] isReadOnly]];
+	fileView.editable = ![self.document isReadOnly];
     [fileView setRichText: NO];
-    [fileView setEnabledTextCheckingTypes: 0];
+    fileView.enabledTextCheckingTypes = 0;
     [fileView setSelectedRange: initialSelectionRange];
 
-	NSString* filename = [[[[self document] fileURL] path] stringByStandardizingPath];
-    NSString* dotExtension = [[filename pathExtension] lowercaseString];
+	NSString* filename = [self.document fileURL].path.stringByStandardizingPath;
+    NSString* dotExtension = filename.pathExtension.lowercaseString;
 
 	isExtension = [dotExtension isEqualToString: @"i7x"] ||
                   [dotExtension isEqualToString: @"h"] ||
@@ -87,7 +87,7 @@
                 [dotExtension isEqualToString: @""];
     
     // Spell checking
-    [self setSourceSpellChecking: [(IFAppDelegate *) [NSApp delegate] sourceSpellChecking]];
+    [self setSourceSpellChecking: ((IFAppDelegate *) NSApp.delegate).sourceSpellChecking];
 
     [self setBackgroundColour];
 }
@@ -95,17 +95,17 @@
 #pragma mark - Menu items
 
 - (BOOL)validateMenuItem:(NSMenuItem*) menuItem {
-	SEL itemSelector = [menuItem action];
+	SEL itemSelector = menuItem.action;
 
 	if (itemSelector == @selector(saveDocument:)) {
-		return ![[self document] isReadOnly];
+		return ![self.document isReadOnly];
 	}
 	// Format options
 	if (itemSelector == @selector(shiftLeft:) ||
 		itemSelector == @selector(shiftRight:) ||
 		itemSelector == @selector(renumberSections:)) {
 		// First responder must be an NSTextView object
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]])
+		if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
 			return NO;
 	}
 	
@@ -117,25 +117,25 @@
         }
 
 		// First responder must be a NSTextView object
-		if (![[[self window] firstResponder] isKindOfClass: [NSTextView class]]) {
+		if (![self.window.firstResponder isKindOfClass: [NSTextView class]]) {
 			return NO;
         }
 
 		// There must be a non-zero length selection
-		if ([(NSTextView*)[[self window] firstResponder] selectedRange].length == 0) {
+		if ([(NSTextView*)self.window.firstResponder selectedRange].length == 0) {
 			return 0;
         }
 	}
 	
 	if (itemSelector == @selector(renumberSections:)) {
-        NSResponder* responder = [[self window] firstResponder];
+        NSResponder* responder = self.window.firstResponder;
 
 		// First responder must be an NSTextView object containing a NSTextStorage with some intel data
 		if (![responder isKindOfClass: [NSTextView class]]) {
 			return NO;
         }
 
-		NSTextStorage* storage = [(NSTextView*)responder textStorage];
+		NSTextStorage* storage = ((NSTextView*)responder).textStorage;
 		if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
 	}
 	
@@ -143,50 +143,50 @@
 }
 
 - (void) setSourceSpellChecking: (BOOL) spellChecking {
-    [fileView setContinuousSpellCheckingEnabled: spellChecking];
+    fileView.continuousSpellCheckingEnabled = spellChecking;
 }
 
 - (void) commentOutSelection: (id) sender {
-    NSResponder* responder = [[self window] firstResponder];
+    NSResponder* responder = self.window.firstResponder;
 
     if ([responder isKindOfClass: [NSTextView class]]) {
-        [sharedActions commentOutSelectionInDocument: [self document]
+        [sharedActions commentOutSelectionInDocument: self.document
                                             textView: (NSTextView *) responder];
     }
 }
 
 - (void) uncommentSelection: (id) sender {
-    NSResponder* responder = [[self window] firstResponder];
+    NSResponder* responder = self.window.firstResponder;
     
     if ([responder isKindOfClass: [NSTextView class]]) {
-        [sharedActions uncommentSelectionInDocument: [self document]
+        [sharedActions uncommentSelectionInDocument: self.document
                                            textView: (NSTextView *) responder];
     }
 }
 
 - (IBAction) shiftLeft: (id) sender {
-    NSResponder* responder = [[self window] firstResponder];
+    NSResponder* responder = self.window.firstResponder;
     
     if ([responder isKindOfClass: [NSTextView class]]) {
-        [sharedActions shiftLeftTextViewInDocument: [self document]
+        [sharedActions shiftLeftTextViewInDocument: self.document
                                           textView: (NSTextView *) responder];
     }
 }
 
 - (IBAction) shiftRight: (id) sender {
-    NSResponder* responder = [[self window] firstResponder];
+    NSResponder* responder = self.window.firstResponder;
     
     if ([responder isKindOfClass: [NSTextView class]]) {
-        [sharedActions shiftRightTextViewInDocument: [self document]
+        [sharedActions shiftRightTextViewInDocument: self.document
                                            textView: (NSTextView *) responder];
     }
 }
 
 - (IBAction) renumberSections: (id) sender {
-    NSResponder* responder = [[self window] firstResponder];
+    NSResponder* responder = self.window.firstResponder;
     
     if ([responder isKindOfClass: [NSTextView class]]) {
-        [sharedActions renumberSectionsInDocument: [self document]
+        [sharedActions renumberSectionsInDocument: self.document
                                          textView: (NSTextView *) responder];
     }
 }
@@ -199,8 +199,8 @@
 						  inFile: (NSString*) file
                            style: (IFLineStyle) style {
     // Find out where the line is in the source view
-    NSString* store = [[[self document] storage] string];
-    NSUInteger length = [store length];
+    NSString* store = [self.document storage].string;
+    NSUInteger length = store.length;
 	
     NSUInteger x, lineno, linepos, lineLength;
     lineno = 1; linepos = 0;
@@ -261,15 +261,15 @@
 
 -(void) setBackgroundColour {
     if( isExtension ) {
-        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+        fileView.backgroundColor = [[IFPreferences sharedPreferences] getExtensionPaper].colour;
     }
     else {
-        [fileView setBackgroundColor: [[IFPreferences sharedPreferences] getSourcePaper].colour];
+        fileView.backgroundColor = [[IFPreferences sharedPreferences] getSourcePaper].colour;
     }
 }
 
 - (void) setContinuousSpelling:(BOOL) continuousSpelling {
-    [fileView setContinuousSpellCheckingEnabled: continuousSpelling];
+    fileView.continuousSpellCheckingEnabled = continuousSpelling;
 }
 
 - (void) preferencesChanged: (NSNotification*) not {

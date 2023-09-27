@@ -20,18 +20,18 @@
 }
 
 - (void)drawRect:(NSRect)dirtyRect {
-    NSRect rect = [self bounds];
+    NSRect rect = self.bounds;
     CGFloat radius = floor(rect.size.height / 2);
     NSBezierPath *bz = [NSBezierPath bezierPathWithRoundedRect: rect xRadius: radius yRadius: radius];
     
     // Draw progress inside
     [bz setClip];
-    rect.size.width = floor(rect.size.width * ([self doubleValue] / [self maxValue]));
+    rect.size.width = floor(rect.size.width * (self.doubleValue / self.maxValue));
     [[NSColor colorNamed:@"StatusIndicator"] set];
     NSRectFill(rect);
 
     // Draw border
-    [bz setLineWidth:1.0];
+    bz.lineWidth = 1.0;
     [[NSColor colorNamed:@"StatusIndicatorBorder"] set];
     [bz stroke];
 }

@@ -41,6 +41,6 @@ typedef NS_ENUM(int, IFIndexTabType) {
 /// Switches to the page specified by the given cell
 - (IBAction) switchToCell: (id) sender;
 
-- (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane;
+- (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end

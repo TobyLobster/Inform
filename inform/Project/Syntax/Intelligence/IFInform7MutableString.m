@@ -14,7 +14,7 @@
 - (bool) checkValidRangeForChangingCommenting: (NSRange*) range
                                  commentDepth: (int*) commentDepthOut {
     // Make sure we are in range
-    *range = NSIntersectionRange(*range, NSMakeRange(0, [self length]));
+    *range = NSIntersectionRange(*range, NSMakeRange(0, self.length));
 	
     // Make sure something is selected
 	if (range->length == 0) {

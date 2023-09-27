@@ -44,7 +44,7 @@
 
 - (NSURL*) copyWithUnzip: (NSURL *) sourceURL
     toProjectTemporary: (IFProject *) project {
-    NSURL* destinationURL = [[[[project materialsDirectoryURL] URLByAppendingPathComponent: @"Extensions"]
+    NSURL* destinationURL = [[[project.materialsDirectoryURL URLByAppendingPathComponent: @"Extensions"]
                              URLByAppendingPathComponent: @"Reserved"]
                              URLByAppendingPathComponent: @"Temporary" isDirectory: true];
     return [self copyWithUnzip:sourceURL to:destinationURL];
@@ -55,7 +55,7 @@
                       to: (NSURL *) destinationURL {
     NSError *error;
 
-    if ([[[sourceURL pathExtension] lowercaseString] isEqualToString: @"zip"]) {
+    if ([sourceURL.pathExtension.lowercaseString isEqualToString: @"zip"]) {
         if ([IFUtility unzip: sourceURL
                  toDirectory: destinationURL]) {
             return destinationURL;
@@ -71,14 +71,14 @@
  withIntermediateDirectories: YES
                   attributes: nil
                        error: &error];
-    destinationURL = [destinationURL URLByAppendingPathComponent: [sourceURL lastPathComponent]];
+    destinationURL = [destinationURL URLByAppendingPathComponent: sourceURL.lastPathComponent];
     if (![fm copyItemAtURL: sourceURL
                      toURL: destinationURL
                      error: &error] ) {
         if( error != nil ) {
             [IFUtility runAlertWarningWindow: nil
                                        title: [IFUtility localizedString:@"Error"]
-                                     message: @"%@", [error localizedDescription]];
+                                     message: @"%@", error.localizedDescription];
         }
         return nil;
     }

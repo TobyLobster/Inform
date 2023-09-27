@@ -125,7 +125,7 @@ static IFCompilerController* activeController = nil;
                                                             toHaveTrait: NSItalicFontMask];
 
     NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    [centered setAlignment: NSTextAlignmentCenter];
+    centered.alignment = NSTextAlignmentCenter;
     
     NSDictionary* baseStyle = @{NSFontAttributeName: baseFont,
         NSForegroundColorAttributeName: [NSColor textColor]};
@@ -285,22 +285,22 @@ static IFCompilerController* activeController = nil;
 
 - (void) awakeFromNib {
     awake = YES;
-    [[compilerResults textStorage] setDelegate: self];
+    compilerResults.textStorage.delegate = self;
 
     messagesSize = 0; // [messageScroller frame].size.height;
 
-    [splitView setDelegate: self];
+    splitView.delegate = self;
     [self adjustSplitView];
 
-    [messageScroller setBorderType: NSNoBorder];
+    messageScroller.borderType = NSNoBorder;
 
     [resultScroller setHasHorizontalScroller: YES];
-    [compilerResults setMaxSize: NSMakeSize(1e8, 1e8)];
+    compilerResults.maxSize = NSMakeSize(1e8, 1e8);
     [compilerResults setHorizontallyResizable: YES];
     [compilerResults setVerticallyResizable: YES];
-    [[compilerResults textContainer] setWidthTracksTextView: NO];
-    [[compilerResults textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
-    [compilerResults setBackgroundColor: NSColor.textBackgroundColor];
+    [compilerResults.textContainer setWidthTracksTextView: NO];
+    compilerResults.textContainer.containerSize = NSMakeSize(1e8, 1e8);
+    compilerResults.backgroundColor = NSColor.textBackgroundColor;
 }
 
 - (void) showWindow: (id) sender {
@@ -353,8 +353,8 @@ static IFCompilerController* activeController = nil;
 // == Starting/stopping the compiler ==
 - (BOOL) startCompiling {
     if (window)
-        [window setTitle: [NSString stringWithFormat: [IFUtility localizedString: @"Compiling - '%@'..."],
-                                                      [[compiler inputFile] lastPathComponent]]];
+        window.title = [NSString stringWithFormat: [IFUtility localizedString: @"Compiling - '%@'..."],
+                                                      compiler.inputFile.lastPathComponent];
 
 
     errorFiles    = [NSMutableArray array];
@@ -367,7 +367,7 @@ static IFCompilerController* activeController = nil;
         [delegate errorMessagesCleared: self];
     }
 
-    [[[compilerResults textStorage] mutableString] setString: @""];
+    [compilerResults.textStorage.mutableString setString: @""];
     highlightPos = 0;
 
     if (![compiler prepareForLaunchWithBlorbStage: NO testCase: nil])
@@ -381,15 +381,15 @@ static IFCompilerController* activeController = nil;
 
 - (BOOL) abortCompiling {
     if (window)
-        [window setTitle: [NSString stringWithFormat: @"Aborted - '%@'",
-            [[compiler inputFile] lastPathComponent]]];
+        window.title = [NSString stringWithFormat: @"Aborted - '%@'",
+            compiler.inputFile.lastPathComponent];
 
     return YES;
 }
 
 // == Compiler messages ==
 - (void) scrollToEnd {
-	[compilerResults scrollRangeToVisible: NSMakeRange([[compilerResults textStorage] length], 0)];
+	[compilerResults scrollRangeToVisible: NSMakeRange(compilerResults.textStorage.length, 0)];
 }
 
 - (void) clearConsole: (NSNotification*) not {
@@ -402,7 +402,7 @@ static IFCompilerController* activeController = nil;
 
     [self clearTabViewsExcept: IFTabConsole];
 
-    [[[compilerResults textStorage] mutableString] setString: @""];
+    [compilerResults.textStorage.mutableString setString: @""];
     highlightPos = 0;
 }
 
@@ -412,18 +412,18 @@ static IFCompilerController* activeController = nil;
 }
 
 - (void) finished: (NSNotification*) not {
-    int exitCode = [[not userInfo][@"exitCode"] intValue];
+    int exitCode = [not.userInfo[@"exitCode"] intValue];
 	
 	if (overrideURL)
 		lastProblemURL = overrideURL;
 	else
-		lastProblemURL = [compiler problemsURL];
+		lastProblemURL = compiler.problemsURL;
 
     // Add to results
-    [[[compilerResults textStorage] mutableString] appendString: @"\n"];
-	[[[compilerResults textStorage] mutableString] appendString: 
+    [compilerResults.textStorage.mutableString appendString: @"\n"];
+	[compilerResults.textStorage.mutableString appendString: 
 		[NSString stringWithFormat: [IFUtility localizedString: @"Compiler finished with code %i"], exitCode]];
-	[[[compilerResults textStorage] mutableString] appendString: @"\n"];
+	[compilerResults.textStorage.mutableString appendString: @"\n"];
     [self adjustSplitView];
 
     // Log error
@@ -451,26 +451,26 @@ static IFCompilerController* activeController = nil;
 }
 
 - (void) gotStdout: (NSNotification*) not {
-    NSString* data = [not userInfo][@"string"];
+    NSString* data = not.userInfo[@"string"];
 	NSAttributedString* newString = [[NSAttributedString alloc] initWithString: data
 																	 attributes: styles[IFStyleBase]];
 	
-	[[compilerResults textStorage] appendAttributedString: newString];
+	[compilerResults.textStorage appendAttributedString: newString];
 }
 
 - (void) gotStderr: (NSNotification*) not {
-    NSString* data = [not userInfo][@"string"];
+    NSString* data = not.userInfo[@"string"];
 	NSAttributedString* newString = [[NSAttributedString alloc] initWithString: data
 																	 attributes: styles[IFStyleBase]];
 	
-	[[compilerResults textStorage] appendAttributedString: newString];
+	[compilerResults.textStorage appendAttributedString: newString];
 }
 
 #pragma mark - intest support
 
 - (void) intestStarting: (NSNotification*) not {
-    NSString* command = [not userInfo][@"command"];
-    NSArray*  args    = [not userInfo][@"args"];
+    NSString* command = not.userInfo[@"command"];
+    NSArray*  args    = not.userInfo[@"args"];
 
     NSMutableString* message = [[NSMutableString alloc] init];
     [message appendString: [IFUtility localizedString: @"Launching: "]];
@@ -485,16 +485,16 @@ static IFCompilerController* activeController = nil;
     // Add to results
     NSAttributedString* newString = [[NSAttributedString alloc] initWithString: message
                                                                     attributes: styles[IFStyleBase]];
-    [[compilerResults textStorage] appendAttributedString: newString];
+    [compilerResults.textStorage appendAttributedString: newString];
 }
 
 - (void) intestFinished: (NSNotification*) not {
-    int exitCode = [[not userInfo][@"exitCode"] intValue];
+    int exitCode = [not.userInfo[@"exitCode"] intValue];
 
     // Add to results
-    [[[compilerResults textStorage] mutableString] appendString:
+    [compilerResults.textStorage.mutableString appendString:
      [NSString stringWithFormat: [IFUtility localizedString: @"Intest finished with code %i"], exitCode]];
-    [[[compilerResults textStorage] mutableString] appendString: @"\n"];
+    [compilerResults.textStorage.mutableString appendString: @"\n"];
 
     // Log error
     if (exitCode != 0) {
@@ -516,19 +516,19 @@ static IFCompilerController* activeController = nil;
 }
 
 - (void) gotIntestStdout: (NSNotification*) not {
-    NSString* data = [not userInfo][@"string"];
+    NSString* data = not.userInfo[@"string"];
     NSAttributedString* newString = [[NSAttributedString alloc] initWithString: data
                                                                     attributes: styles[IFStyleBase]];
 
-    [[compilerResults textStorage] appendAttributedString: newString];
+    [compilerResults.textStorage appendAttributedString: newString];
 }
 
 - (void) gotIntestStderr: (NSNotification*) not {
-    NSString* data = [not userInfo][@"string"];
+    NSString* data = not.userInfo[@"string"];
     NSAttributedString* newString = [[NSAttributedString alloc] initWithString: data
                                                                     attributes: styles[IFStyleCompilerError]];
     
-    [[compilerResults textStorage] appendAttributedString: newString];
+    [compilerResults.textStorage appendAttributedString: newString];
 }
 
 // == Dealing with highlighting of the compiler output ==
@@ -566,7 +566,7 @@ static IFCompilerController* activeController = nil;
             return IFStyleStatistics;
 			
 		case IFLexProgress:
-			[[compiler progress] setPercentage: IFLexLastProgress];
+			compiler.progress.percentage = IFLexLastProgress;
 			
 			if (IFLexLastProgressString) {
 				NSString* msg;
@@ -580,7 +580,7 @@ static IFCompilerController* activeController = nil;
 															   length: strlen(IFLexLastProgressString)-2
 															 encoding: NSISOLatin1StringEncoding];
 				
-				[[compiler progress] setMessage: msg];
+				compiler.progress.message = msg;
 			}
 
 			return IFStyleProgress;
@@ -600,7 +600,7 @@ static IFCompilerController* activeController = nil;
 												 encoding: NSISOLatin1StringEncoding];
                 }
 
-                [compiler setEndTextString: msg];
+                compiler.endTextString = msg;
             }
             return IFStyleCompilerMessage;
     }
@@ -625,8 +625,8 @@ static IFCompilerController* activeController = nil;
 	[storage beginEditing];
 
     // For each line since highlightPos...
-    NSString* str = [storage string];
-    NSInteger len = [str length];
+    NSString* str = storage.string;
+    NSInteger len = str.length;
 
     NSInteger newlinePos;
     
@@ -679,7 +679,7 @@ static IFCompilerController* activeController = nil;
     NSUInteger fileNum = [errorFiles indexOfObject: file];
 
     if (fileNum == NSNotFound) {
-        fileNum = [errorFiles count];
+        fileNum = errorFiles.count;
 
         [errorFiles addObject: file];
         [errorMessages addObject: [NSMutableArray array]];
@@ -715,7 +715,7 @@ static IFCompilerController* activeController = nil;
 - (NSInteger)   outlineView: (NSOutlineView *) outlineView
      numberOfChildrenOfItem: (id) item {
     if (item == nil) {
-        return [errorFiles count];
+        return errorFiles.count;
     }
     
     NSUInteger fileNum = [errorFiles indexOfObjectIdenticalTo: item];
@@ -792,7 +792,7 @@ static IFCompilerController* activeController = nil;
 }
 
 - (void) outlineViewSelectionDidChange: (NSNotification *)notification {
-    NSObject* obj = [compilerMessages itemAtRow: [compilerMessages selectedRow]];
+    NSObject* obj = [compilerMessages itemAtRow: compilerMessages.selectedRow];
 
     if (obj == nil) {
         return; // Nothing selected
@@ -830,7 +830,7 @@ static IFCompilerController* activeController = nil;
 // Other information
 
 - (NSUInteger) tabIndexWithTabId: (IFCompilerTabId) tabId {
-    for(int index = 0; index < [tabs count]; index++ ) {
+    for(int index = 0; index < tabs.count; index++ ) {
         IFCompilerTab* tab = tabs[index];
         if( tab.tabId == tabId ) {
             return index;
@@ -846,13 +846,13 @@ static IFCompilerController* activeController = nil;
 
 -(IFCompilerTabId) tabIdOfItemWithFilename: (NSString *) theFile
 {
-    NSString* lowerFile = [theFile lowercaseString];
+    NSString* lowerFile = theFile.lowercaseString;
     
     NSNumber* integer = tabDictionary[lowerFile];
     if( integer == nil ) {
         return IFTabInvalid;
     }
-    return (IFCompilerTabId)[integer intValue];
+    return (IFCompilerTabId)integer.intValue;
 }
 
 -(NSString *) filenameOfItemWithTabId: (IFCompilerTabId) tabId
@@ -905,10 +905,10 @@ static IFCompilerController* activeController = nil;
                             named: (NSString*) tabName
                         withTabId: (IFCompilerTabId) tabId {
 	// Create a new web view
-	WKWebView* webView = [helper createWebViewWithFrame: [superView frame]];
+	WKWebView* webView = [helper createWebViewWithFrame: superView.frame];
 
     // Set delegate
-    [webView setNavigationDelegate: delegate];
+    webView.navigationDelegate = delegate;
 
     [webView loadRequest: [[NSURLRequest alloc] initWithURL: url]];
 
@@ -921,28 +921,28 @@ static IFCompilerController* activeController = nil;
 
 
 - (IFCompilerTabId) makeTabForFile: (NSString*) file {
-	NSString* type = [[file pathExtension] lowercaseString];
+	NSString* type = file.pathExtension.lowercaseString;
 
 	if ( [type isEqualTo: @"html"] ||
          [type isEqualTo: @"htm"] ) {
 		// Treat as a webkit URL
 		return [self makeTabForURL: [NSURL fileURLWithPath: file]
-							 named: [IFUtility localizedString: [file lastPathComponent]
-                                                       default: [[file lastPathComponent] stringByDeletingPathExtension]
+							 named: [IFUtility localizedString: file.lastPathComponent
+                                                       default: file.lastPathComponent.stringByDeletingPathExtension
                                                          table: @"CompilerOutput"]
-                         withTabId: [self tabIdOfItemWithFilename:[file lastPathComponent]]];
+                         withTabId: [self tabIdOfItemWithFilename:file.lastPathComponent]];
 	} else {
 		// Create the new text view
-		NSTextView* textView = [[NSTextView alloc] initWithFrame: [superView frame]];
-        NSScrollView* scrollView = [[NSScrollView alloc] initWithFrame: [superView frame]];
+		NSTextView* textView = [[NSTextView alloc] initWithFrame: superView.frame];
+        NSScrollView* scrollView = [[NSScrollView alloc] initWithFrame: superView.frame];
 		
-        [[textView textContainer] setWidthTracksTextView: NO];
-        [[textView textContainer] setContainerSize: NSMakeSize(1e8, 1e8)];
-        [textView setMinSize:NSMakeSize(0.0, 0.0)];
-        [textView setMaxSize:NSMakeSize(1e8, 1e8)];
+        [textView.textContainer setWidthTracksTextView: NO];
+        textView.textContainer.containerSize = NSMakeSize(1e8, 1e8);
+        textView.minSize = NSMakeSize(0.0, 0.0);
+        textView.maxSize = NSMakeSize(1e8, 1e8);
         [textView setVerticallyResizable:YES];
         [textView setHorizontallyResizable:YES];
-        [textView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+        textView.autoresizingMask = (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable);
         [textView setEditable: NO];
         [textView setUsesFindPanel: YES];
 
@@ -954,8 +954,8 @@ static IFCompilerController* activeController = nil;
         }
         NSMutableParagraphStyle * nameParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
-        [nameParagraphStyle setHeadIndent: 20.0];
-        [nameParagraphStyle setTabStops: tabStops];
+        nameParagraphStyle.headIndent = 20.0;
+        nameParagraphStyle.tabStops = tabStops;
 
 		// Load the data for the file
 		NSString* textData = [[NSString alloc] initWithData: [NSData dataWithContentsOfFile: file]
@@ -967,27 +967,27 @@ static IFCompilerController* activeController = nil;
 
         NSMutableAttributedString * attrString = [[NSMutableAttributedString alloc] initWithString: textData
                                                                                         attributes: @{ NSParagraphStyleAttributeName : nameParagraphStyle }];
-        [[textView textStorage] setFont:[NSFont fontWithName:@"Monaco" size:11]];
-        [[textView textStorage] setAttributedString: attrString];
+        textView.textStorage.font = [NSFont fontWithName:@"Monaco" size:11];
+        [textView.textStorage setAttributedString: attrString];
 
         // scrollView is the 'parent' of the textView
-        [scrollView setDocumentView: textView];
-        [scrollView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+        scrollView.documentView = textView;
+        scrollView.autoresizingMask = (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable);
         [scrollView setHasHorizontalScroller: YES];
         [scrollView setHasVerticalScroller: YES];
 		
 		// Add the tab
-		return [self makeTabViewItemNamed: [IFUtility localizedString: [file lastPathComponent]
-                                                              default: [[file lastPathComponent] stringByDeletingPathExtension]
+		return [self makeTabViewItemNamed: [IFUtility localizedString: file.lastPathComponent
+                                                              default: file.lastPathComponent.stringByDeletingPathExtension
                                                                 table: @"CompilerOutput"]
 								 withView: scrollView
-                                withTabId: [self tabIdOfItemWithFilename:[file lastPathComponent]]];
+                                withTabId: [self tabIdOfItemWithFilename:file.lastPathComponent]];
 	}
 }
 
 - (void) showRuntimeError: (NSURL*) errorURL {
 	// Create a web view
-	WKWebView* webView = [helper createWebViewWithFrame: [superView frame]];
+	WKWebView* webView = [helper createWebViewWithFrame: superView.frame];
     [webView loadRequest: [[NSURLRequest alloc] initWithURL: errorURL]];
 
 	if ([self tabsContainsTabId:IFTabRuntime]) {
@@ -1006,14 +1006,14 @@ static IFCompilerController* activeController = nil;
 
 - (void) showContentsOfFilesIn: (NSFileWrapper*) files
 					  fromPath: (NSString*) path {
-    if (![files isDirectory]) {
+    if (!files.directory) {
         return; // Nothing to do
     }
 	
 	// The set of files we should avoid showing
 	NSMutableSet* excludedFiles = [NSMutableSet set];
 	
-	if (![[IFPreferences sharedPreferences] showDebuggingLogs]) {
+	if (![IFPreferences sharedPreferences].showDebuggingLogs) {
 		[excludedFiles addObject: @"debug log.txt"];
 		[excludedFiles addObject: @"auto.inf"];
 	}
@@ -1029,21 +1029,21 @@ static IFCompilerController* activeController = nil;
 	
 	NSString* excludedFilename = nil;
 	if (lastProblemURL) {
-		excludedFilename = [[[[lastProblemURL path] lastPathComponent] stringByDeletingPathExtension] lowercaseString];
+		excludedFilename = lastProblemURL.path.lastPathComponent.stringByDeletingPathExtension.lowercaseString;
 	}
 
 	// Enumerate across the list of files in the filewrapper
-    for( NSString* key in [files fileWrappers] ) {
-        NSString* type = [[key pathExtension] lowercaseString];
+    for( NSString* key in files.fileWrappers ) {
+        NSString* type = key.pathExtension.lowercaseString;
 		
 		// Skip this file if it's in the excluded list
-		if ([excludedFiles containsObject: [key lowercaseString]]) continue;
+		if ([excludedFiles containsObject: key.lowercaseString]) continue;
 
 		// HTML, text and inf files go in a tab view showing various different status messages
 		// With NI, the problems file is most important: we substitute this if the compiler wants
-		NSString* filename = [[key stringByDeletingPathExtension] lowercaseString];
+		NSString* filename = key.stringByDeletingPathExtension.lowercaseString;
 
-        bool tempFile = ([key length] >= 4) && ([[[key substringToIndex: 4] lowercaseString] isEqualToString: @"temp"]);
+        bool tempFile = (key.length >= 4) && ([[key substringToIndex: 4].lowercaseString isEqualToString: @"temp"]);
         bool goodFileType = [type isEqualTo: @"inf"] ||
                             [type isEqualTo: @"txt"] ||
                             [type isEqualTo: @"html"] ||
@@ -1062,7 +1062,7 @@ static IFCompilerController* activeController = nil;
     bool updated = false;
 
 	// Clear all views except the console view
-    for(int index = (int) [tabs count] - 1; index >= 0; index--) {
+    for(int index = (int) tabs.count - 1; index >= 0; index--) {
         IFCompilerTab*tab = tabs[index];
         if( tab.tabId != exceptTabId ) {
             [tabs removeObjectAtIndex:index];
@@ -1094,14 +1094,14 @@ static IFCompilerController* activeController = nil;
 }
 
 -(void) adjustSplitView {
-    NSRect newFrame = [messageScroller frame];
+    NSRect newFrame = messageScroller.frame;
     newFrame.size.height = 0;
-    [messageScroller setFrame:newFrame];
+    messageScroller.frame = newFrame;
 
-    NSRect resultFrame = [resultScroller frame];
+    NSRect resultFrame = resultScroller.frame;
 
-    resultFrame.size.height = splitView.frame.size.height - newFrame.size.height - [splitView dividerThickness];
-    [resultScroller setFrame: resultFrame];
+    resultFrame.size.height = splitView.frame.size.height - newFrame.size.height - splitView.dividerThickness;
+    resultScroller.frame = resultFrame;
 
 //    [splitView adjustSubviews];
 }
@@ -1110,9 +1110,9 @@ static IFCompilerController* activeController = nil;
 - (void) setSplitView: (NSSplitView*) newSplitView {
 	// Remember the new split view
 	splitView = newSplitView;
-    superView = [splitView superview];
+    superView = splitView.superview;
     
-    [splitView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+    splitView.autoresizingMask = (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable);
 
     if( ![self tabsContainsTabId:IFTabConsole]) {
         IFCompilerTab* newTab = [[IFCompilerTab alloc] init];
@@ -1149,7 +1149,7 @@ static IFCompilerController* activeController = nil;
 
     IFCompilerTab* tab = tabs[index];
 
-    NSView* activeView = [superView subviews][0];
+    NSView* activeView = superView.subviews[0];
     
     // ... or if we can't display anything
 	if (activeView == nil) return;
@@ -1163,17 +1163,17 @@ static IFCompilerController* activeController = nil;
         currentWebView = nil;
     }
 
-    NSRect rect = [activeView frame];
+    NSRect rect = activeView.frame;
 	[activeView removeFromSuperview];
 	[superView addSubview: newView];
-    [newView setFrame:rect];
+    newView.frame = rect;
     
     // Give focus to the new window
     if( [[newView class] isSubclassOfClass:[NSSplitView class]] ) {
-        [[superView window] makeFirstResponder: [((NSSplitView*)newView) subviews][1]];
+        [superView.window makeFirstResponder: ((NSSplitView*)newView).subviews[1]];
     }
     else {
-        [[superView window] makeFirstResponder: newView];
+        [superView.window makeFirstResponder: newView];
     }
 
 	selectedTabId = tab.tabId;
@@ -1215,20 +1215,20 @@ void IFErrorAddError(const char* filC,
 	
 	// Look for known error messages
 	if (type == IFLexCompilerFatalError 
-		&& [message length] > [memSetting length]
-		&& [[message substringToIndex: [memSetting length]] isEqualToString: memSetting]) {
+		&& message.length > memSetting.length
+		&& [[message substringToIndex: memSetting.length] isEqualToString: memSetting]) {
 		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6MemorySetting.html"]];
 	}
 	
 	if (type == IFLexCompilerFatalError
-		&& [message length] > [exceeds length]
-		&& [[message substringToIndex: [exceeds length]] isEqualToString: exceeds]) {
+		&& message.length > exceeds.length
+		&& [[message substringToIndex: exceeds.length] isEqualToString: exceeds]) {
 		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6TooBig.html"]];
 	}
 	
 	if ((type == IFLexCompilerFatalError || type == IFLexCompilerError)
-		&& [message length] > [readable length]
-		&& [[message substringToIndex: [readable length]] isEqualToString: readable]) {
+		&& message.length > readable.length
+		&& [[message substringToIndex: readable.length] isEqualToString: readable]) {
 		[activeController overrideProblemsURL: [NSURL URLWithString: @"inform:/ErrorI6Readable.html"]];
 	}
 	
@@ -1240,5 +1240,5 @@ void IFErrorAddError(const char* filC,
 }
 
 void IFErrorCopyBlorbTo(const char* whereTo) {
-	[activeController setBlorbLocation: @(whereTo)];
+	activeController.blorbLocation = @(whereTo);
 }

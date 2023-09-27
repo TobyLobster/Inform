@@ -51,7 +51,7 @@
 }
 
 - (CGFloat) minHeight {
-    return [self maxHeight];
+    return self.maxHeight;
 }
 
 @synthesize preferenceView;

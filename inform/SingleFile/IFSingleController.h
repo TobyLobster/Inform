@@ -14,7 +14,7 @@
 ///
 @interface IFSingleController : NSWindowController
 
--(instancetype) initWithInitialSelectionRange: (NSRange) initialRange;
+-(instancetype) initWithInitialSelectionRange: (NSRange) initialRange NS_DESIGNATED_INITIALIZER;
 
 - (void) indicateRange: (NSRange) rangeToHighlight;
 

@@ -80,7 +80,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 		[res addObject: [IFUtility pathForInformExternalLibraries]];
 
 		// Internal library directories
-		NSString* bundlePath = [[NSBundle mainBundle] resourcePath];
+		NSString* bundlePath = [NSBundle mainBundle].resourcePath;
 		[res addObject: [bundlePath stringByAppendingPathComponent: @"Library"]];
 
 		libPaths = [res copy];
@@ -157,7 +157,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 		genericSettings = [IFSettingsController makeStandardSettings];
 		
 		for( IFSetting* setting in genericSettings ) {
-			[setting setCompilerSettings: self];
+			setting.compilerSettings = self;
 		}
     }
 
@@ -174,7 +174,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 #pragma mark - Getting information on what is going on
 
 - (NSString*) primaryCompilerType {
-	if ([self usingNaturalInform]) {
+	if (self.usingNaturalInform) {
 		return IFCompilerNaturalInform;
 	} else {
 		return IFCompilerInform6;
@@ -195,13 +195,13 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	[switches appendString: @"k"];
     [switches appendString: @"E2"];
 
-    if (([self strict] && !release) || testing) {
+    if ((self.strict && !release) || testing) {
         [switches appendString: @"S"];
     } else {
         [switches appendString: @"~S"];
     }
 
-    if ([self infix] && !release) {
+    if (self.infix && !release) {
         [switches appendString: @"X"];
     } else {
         // Off by default
@@ -213,14 +213,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
         [switches appendString: @"~D"];
     }
 
-    if ([self usingNaturalInform]) {
+    if (self.usingNaturalInform) {
         // Disable warnings when compiling with Natural Inform
         [switches appendString: @"w"];
     }
 
 	// Select a zcode version
-	NSArray* supportedZCodeVersions = [self supportedZMachines];
-	int zcVersion = [self zcodeVersion];
+	NSArray* supportedZCodeVersions = self.supportedZMachines;
+	int zcVersion = self.zcodeVersion;
 	
 	if (supportedZCodeVersions != nil && 
 		![supportedZCodeVersions containsObject: @(zcVersion)]) {
@@ -230,7 +230,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 	if (zcVersion < 255) {
 		// ZCode
-		[switches appendString: [NSString stringWithFormat: @"v%i", [self zcodeVersion]]];
+		[switches appendString: [NSString stringWithFormat: @"v%i", self.zcodeVersion]];
 	} else {
 		// Glulx
 		[switches appendString: [NSString stringWithFormat: @"G"]];
@@ -244,7 +244,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     // User-defined includes
     
     // Library
-    NSString* library = [self libraryToUse];
+    NSString* library = self.libraryToUse;
 	NSString* libPath = [[self class] pathForLibrary: library];
 	
 	if (libPath == nil) libPath = [[self class] pathForLibrary: @"Standard"];
@@ -286,7 +286,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (NSString*) inform6CompilerToUse {
-    return [IFUtility pathForInformExecutable: @"inform6" version: [self compilerVersion]];
+    return [IFUtility pathForInformExecutable: @"inform6" version: self.compilerVersion];
 }
 
 - (NSArray*) supportedZMachines {
@@ -294,22 +294,22 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 }
 
 - (BOOL) isNaturalInformCompilerPathValid {
-    NSString* path = [self naturalInformCompilerToUse];
+    NSString* path = self.naturalInformCompilerToUse;
     return [[NSFileManager defaultManager] fileExistsAtPath: path];
 }
 
 - (NSString*) naturalInformCompilerToUse {
-    if (![self usingNaturalInform]) {
+    if (!self.usingNaturalInform) {
         return nil;
     }
 
-    return [IFUtility pathForCompiler: [self compilerVersion]];
+    return [IFUtility pathForCompiler: self.compilerVersion];
 }
 
 - (NSArray*) naturalInformCommandLineArguments {
     NSMutableArray* res = [NSMutableArray array];
     
-    NSString* version = [self compilerVersion];
+    NSString* version = self.compilerVersion;
     NSComparisonResult result = [IFUtility compilerVersionCompare: version other:@"6L02"];
 
     if(result == NSOrderedAscending)
@@ -352,7 +352,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
             [res addObject: internalPath];
         }
 
-        if ([self allowLegacyExtensionDirectory]) {
+        if (self.allowLegacyExtensionDirectory) {
             NSString* externalPath = [IFUtility pathForInformExternalAppSupport];
             if (externalPath != nil) {
                 [res addObject: @"-deprecated-external"];
@@ -394,7 +394,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingStrict];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -409,7 +409,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingInfix];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -424,7 +424,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingDEBUG];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -439,7 +439,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingNobbleRng];
 	
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -454,7 +454,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingBasicInform];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return NO;
     }
@@ -484,7 +484,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFAdvancedSettings class]][IFSettingAllowLegacyExtensionDirectory];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         // Allow legacy extensions by default. New projects set this to NO.
         return YES;
@@ -500,14 +500,14 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFOutputSettings class]][IFSettingZCodeVersion];
 
     if (setting) {
-        return [setting intValue];
+        return setting.intValue;
     } else {
         return 256;
     }
 }
 
 - (void) setTestingTabHelpShown: (BOOL) shown {
-    if (shown != [self testingTabHelpShown]) {
+    if (shown != self.testingTabHelpShown) {
         [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown] = @(shown);
         [self settingsHaveChanged];
     }
@@ -517,7 +517,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabHelpShown];
 
     if (setting) {
-        return [setting boolValue];
+        return setting.boolValue;
     } else {
         return YES;
     }
@@ -532,7 +532,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
     NSNumber* setting = [self dictionaryForClass: [IFMiscSettings class]][IFSettingTestingTabShownCount];
 
     if (setting) {
-        return [setting intValue];
+        return setting.intValue;
     } else {
         return 0;
     }
@@ -540,7 +540,7 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 
 - (NSString*) fileExtension {
-    int version = [self zcodeVersion];
+    int version = self.zcodeVersion;
 	
 	if (version == 256) return @"ulx";
     return [NSString stringWithFormat: @"z%i", version];
@@ -620,8 +620,8 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	
 	// Get updated data from all the generic settings classes
 	for( IFSetting* setting in genericSettings ) {
-		if ([setting plistEntries]) {
-			plData[[[setting class] description]] = [setting plistEntries];
+		if (setting.plistEntries) {
+			plData[[[setting class] description]] = setting.plistEntries;
 		}
 	}
 	

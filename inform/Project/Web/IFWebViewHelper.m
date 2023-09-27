@@ -72,7 +72,7 @@
     NSString* javascriptTemplate = [NSString stringWithContentsOfURL:resourceURL encoding:NSUTF8StringEncoding error: &error];
 
     // We inject Javascript to initially resize based on font size preference
-    float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    float fontSizeMultiplier = [IFPreferences sharedPreferences].appFontSizeMultiplier;
     NSString* js = [NSString stringWithFormat: @"window.addEventListener(\"load\",function () { document.body.style.zoom = '%.2f'; }, false);", fontSizeMultiplier];
 
     // Inject both the message template and the font size Javascript
@@ -87,10 +87,10 @@
 
     // Create the view itself
     WKWebView* wView = [[WKWebView alloc] initWithFrame:frame configuration: config];
-    [wView setAutoresizingMask: (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable)];
+    wView.autoresizingMask = (NSUInteger) (NSViewWidthSizable|NSViewHeightSizable);
 
     // Set delegates
-    [wView setUIDelegate: self];
+    wView.UIDelegate = self;
 
     return wView;
 }
@@ -124,22 +124,22 @@
         NSArray* urlPathComponents   = [url.path componentsSeparatedByString:@"/"];
 
         NSMutableArray* newPath = [[NSMutableArray alloc] initWithArray: framePathComponents ];
-        if( [newPath count] > 0 ) {
+        if( newPath.count > 0 ) {
             [newPath removeObjectAtIndex:0];    // remove first '/' component
         }
-        if( [newPath count] > 0 ) {
+        if( newPath.count > 0 ) {
             [newPath removeLastObject];         // remove final path comonent "index.html"
         }
 
         NSMutableArray* urlPath = [[NSMutableArray alloc] initWithArray: urlPathComponents ];
-        if( [urlPath count] > 0 ) {
+        if( urlPath.count > 0 ) {
             [urlPath removeObjectAtIndex:0];    // remove first '/' component
         }
 
         [newPath addObjectsFromArray: urlPath];
 
         // Escape encode the paths, as they were (unhelpfully) unescaped with the .path method
-        for(NSInteger index = 0; index < [newPath count]; index++) {
+        for(NSInteger index = 0; index < newPath.count; index++) {
             NSString* escapedString = [newPath[index] stringByAddingPercentEncodingWithAllowedCharacters: escapeCharset];
             newPath[index] = escapedString;
         }
@@ -167,11 +167,11 @@
     NSArray *secondExplode;
 
     // Explode based on inner glue
-    NSInteger count = [firstExplode count];
+    NSInteger count = firstExplode.count;
     NSMutableDictionary *returnDictionary = [NSMutableDictionary dictionaryWithCapacity:count];
     for (NSInteger i = 0; i < count; i++) {
         secondExplode = [(NSString *)firstExplode[i] componentsSeparatedByString:innerGlue];
-        if ([secondExplode count] == 2) {
+        if (secondExplode.count == 2) {
             returnDictionary[secondExplode[0]] = secondExplode[1];
         }
     }
@@ -185,7 +185,7 @@
     NSString* mimeType;
     NSError* error;
 
-    if ([[customURL scheme] isEqualTo: @"inform"]) {
+    if ([customURL.scheme isEqualTo: @"inform"]) {
         NSData* data = [self loadDataForInformURL: customURL
                                 returningMimeType: &mimeType
                                    returningError: &error];
@@ -202,10 +202,10 @@
         } else {
             [task didFailWithError: genericError];
         }
-    } else if ([[customURL scheme] isEqualTo: @"source"]) {
+    } else if ([customURL.scheme isEqualTo: @"source"]) {
         // Format is 'source file name#line number'
         NSArray* results = [IFUtility decodeSourceSchemeURL: customURL];
-        IFProject* project = [projectController document];
+        IFProject* project = projectController.document;
         results = [project redirectLinksToExtensionSourceCode: results];
         if( results == nil ) {
             [task didFailWithError: genericError];
@@ -229,7 +229,7 @@
         [task didFailWithError: genericError];
         return;
     }
-    else if ([[customURL scheme] isEqualTo: @"skein"]) {
+    else if ([customURL.scheme isEqualTo: @"skein"]) {
         // Format is e.g. 'skein:1003?case=B'
         NSArray* results = [IFUtility decodeSkeinSchemeURL: customURL];
         if( results == nil ) {
@@ -238,7 +238,7 @@
         }
         NSString* testCase = results[0];
         NSNumberFormatter* formatter = [[NSNumberFormatter alloc] init];
-        unsigned long skeinNodeId = [[formatter numberFromString:results[1]] unsignedLongValue];
+        unsigned long skeinNodeId = [formatter numberFromString:results[1]].unsignedLongValue;
 
         // Move to the appropriate place in the file
         if (![projectController showTestCase: testCase skeinNode: skeinNodeId]) {
@@ -251,7 +251,7 @@
         [task didFailWithError: genericError];
         return;
     }
-    else if ([[customURL scheme] isEqualTo: @"library"]) {
+    else if ([customURL.scheme isEqualTo: @"library"]) {
         // We have found a "library:" URL. These are used for links that will install an
         // extension from the public library. Clicking on one starts the installation.
         IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
@@ -301,20 +301,20 @@
     if ([urlPath startsWith:@"/"]) {
         urlPath = [urlPath substringFromIndex: 1];
     }
-    NSArray* components = [urlPath pathComponents];
+    NSArray* components = urlPath.pathComponents;
 
     // Accept either the host or the path specifier containing 'extensions'
-    bool hostIsExtensions = [[host lowercaseString] isEqualToString: @"extensions"];
-    bool firstComponentIsExtensions = (components != nil && [components count] > 1 &&
+    bool hostIsExtensions = [host.lowercaseString isEqualToString: @"extensions"];
+    bool firstComponentIsExtensions = (components != nil && components.count > 1 &&
                                        [[components[0] lowercaseString] isEqualToString: @"extensions"]);
     if ( hostIsExtensions || firstComponentIsExtensions) {
         NSEnumerator* componentEnum = [components objectEnumerator];
         NSString* pathComponent;
-        IFProject *project = [projectController document];
+        IFProject *project = projectController.document;
 
         if ([project useNewExtensions]) {
             // Get the project's materials folder
-            path = [[project materialsDirectoryURL] path];
+            path = project.materialsDirectoryURL.path;
 
             // Add "Extensions" if needed
             if ((hostIsExtensions) && (!firstComponentIsExtensions)) {
@@ -354,15 +354,15 @@
         if (path == nil) {
             // Try using pathForResource:ofType:
             // Advantage of this is that it will allow for localisation at some point in the future
-            path = [[NSBundle mainBundle] pathForResource: [[urlPath lastPathComponent] stringByDeletingPathExtension]
-                                                   ofType: [urlPath pathExtension]
-                                              inDirectory: [urlPath stringByDeletingLastPathComponent]];
+            path = [[NSBundle mainBundle] pathForResource: urlPath.lastPathComponent.stringByDeletingPathExtension
+                                                   ofType: urlPath.pathExtension
+                                              inDirectory: urlPath.stringByDeletingLastPathComponent];
         }
     }
 
     if (path == nil) {
         // Check if the file is in an asset catalog.
-        NSString *assetCheckPath = [urlPath stringByDeletingPathExtension];
+        NSString *assetCheckPath = urlPath.stringByDeletingPathExtension;
         if ([assetCheckPath endsWithCaseInsensitive: @"@2x"]) {
             assetCheckPath = [assetCheckPath stringByReplacing:@"@2x" with:@""];
         }
@@ -370,7 +370,7 @@
 
         if (img != nil) {
             //Just output TIFF: it uses the least amount of code:
-            NSData *urlData = [img TIFFRepresentation];
+            NSData *urlData = img.TIFFRepresentation;
 
             //Which means a TIFF MIME type. Regardless of extension.
             *mimeType = @"image/tiff";
@@ -380,11 +380,11 @@
 
     if (path == nil) {
         // If that fails, then just append to the resourcePath of the main bundle
-        path = [[[[NSBundle mainBundle] resourcePath] stringByAppendingString: @"/"] stringByAppendingString: urlPath];
+        path = [[[NSBundle mainBundle].resourcePath stringByAppendingString: @"/"] stringByAppendingString: urlPath];
     }
 
     // Check that this is the right kind of URL for us
-    if (path == nil || ![[url scheme] isEqualToString: @"inform"]) {
+    if (path == nil || ![url.scheme isEqualToString: @"inform"]) {
         // Doh - not a valid inform: URL
         *error = [NSError errorWithDomain: NSURLErrorDomain
                                      code: NSURLErrorBadURL
@@ -430,15 +430,15 @@
 
     if (ourType == nil) {
         ourType = @"text/html";
-        if ([[path pathExtension] isEqualToString: @"gif"]) {
+        if ([path.pathExtension isEqualToString: @"gif"]) {
             ourType = @"image/gif";
-        } else if ([[path pathExtension] isEqualToString: @"jpeg"] ||
-                   [[path pathExtension] isEqualToString: @"jpg"]) {
+        } else if ([path.pathExtension isEqualToString: @"jpeg"] ||
+                   [path.pathExtension isEqualToString: @"jpg"]) {
             ourType = @"image/jpeg";
-        } else if ([[path pathExtension] isEqualToString: @"png"]) {
+        } else if ([path.pathExtension isEqualToString: @"png"]) {
             ourType = @"image/png";
-        } else if ([[path pathExtension] isEqualToString: @"tiff"] ||
-                   [[path pathExtension] isEqualToString: @"tif"]) {
+        } else if ([path.pathExtension isEqualToString: @"tiff"] ||
+                   [path.pathExtension isEqualToString: @"tif"]) {
             ourType = @"image/tiff";
         }
     }
@@ -471,13 +471,13 @@
                                  @"askInterfaceForLocalVersionTextAuthor": @2,
                                  @"downloadMultipleExtensions": @1
                                };
-    if ([list count] == 0) {
+    if (list.count == 0) {
         return;
     }
     if (commands[list[0]] == nil) {
         return;
     }
-    if((long) [list count] <= (long) commands[list[0]]) {
+    if((long) list.count <= (long) commands[list[0]]) {
         return;
     }
     if ([@"selectView" isEqualToString: list[0]]) {
@@ -503,21 +503,21 @@
         [self askInterfaceForLocalVersionAuthor: list[1]
                                           title: list[2]
                                       available: list[3]
-                                compilerVersion: [settings compilerVersion]];
+                                compilerVersion: settings.compilerVersion];
     } else if ([@"askInterfaceForLocalVersionTextAuthor" isEqualToString: list[0]]) {
         [self askInterfaceForLocalVersionTextAuthor: list[1]
                                               title: list[2]
-                                    compilerVersion: [settings compilerVersion]];
+                                    compilerVersion: settings.compilerVersion];
     } else if ([@"downloadMultipleExtensions" isEqualToString: list[0]]) {
         [self downloadMultipleExtensions: list[1]];
     }
 }
 
 - (void) selectView: (NSString*) view {
-    view = [view lowercaseString];
+    view = view.lowercaseString;
 
     if ([view isEqualToString: @"source"]) {
-        [[projectController sourcePane] selectViewOfType: IFSourcePane];
+        [projectController.sourcePane selectViewOfType: IFSourcePane];
     } else if ([view isEqualToString: @"error"]) {
         [pane selectViewOfType: IFErrorPane];
     } else if ([view isEqualToString: @"game"]) {
@@ -562,12 +562,12 @@
     title = [IFUtility unescapeString: title];
     story = [IFUtility unescapeString: story];
 
-    [(IFAppDelegate *) [NSApp delegate] createNewProject: title
+    [(IFAppDelegate *) NSApp.delegate createNewProject: title
                                                    story: story];
 }
 
 - (void) pasteCode: (NSString*) code {
-    [[[projectController sourcePane] sourcePage] pasteSourceCode: [IFUtility unescapeString: code]];
+    [projectController.sourcePane.sourcePage pasteSourceCode: [IFUtility unescapeString: code]];
 }
 
 - (void) openFile: (NSString*) filename {
@@ -589,22 +589,22 @@
                                      available: (NSString*) availableVersion
                                compilerVersion: (NSString*) compilerVersion {
     IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-    author = [author lowercaseString];
-    title = [title lowercaseString];
+    author = author.lowercaseString;
+    title = title.lowercaseString;
 
     IFSemVer* versionAvailable = [[IFSemVer alloc] initWithString: availableVersion];
 
     for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
         // NSLog(@"Got installed extension %@ by %@", [info title], info.author);
-        if( [[info.author lowercaseString] isEqualToString: author] ) {
-            if( [[[IFExtensionInfo canonicalTitle:info.displayName] lowercaseString] isEqualToString: title] ) {
+        if( [(info.author).lowercaseString isEqualToString: author] ) {
+            if( [[IFExtensionInfo canonicalTitle:info.displayName].lowercaseString isEqualToString: title] ) {
                 // We have this extension
                 if( info.isBuiltIn ) {
                     //NSLog(@"Found %@ by %@ BUILT IN", title, author);
                     return @"!";
                 }
 
-                IFSemVer* versionLocal = [info semver];
+                IFSemVer* versionLocal = info.semver;
 
                 int result = [versionLocal cmp:versionAvailable];
 
@@ -631,13 +631,13 @@
                                              title: (NSString*) title
                                    compilerVersion: (NSString*) compilerVersion {
     IFExtensionsManager* mgr = [IFExtensionsManager sharedNaturalInformExtensionsManager];
-    author = [author lowercaseString];
-    title = [title lowercaseString];
+    author = author.lowercaseString;
+    title = title.lowercaseString;
 
     for( IFExtensionInfo* info in [mgr availableExtensionsWithCompilerVersion: compilerVersion] ) {
-        if( [[info.author lowercaseString] isEqualToString: author] ) {
-            if( [[[IFExtensionInfo canonicalTitle: info.displayName] lowercaseString] isEqualToString: title] ) {
-                return [info safeVersion];
+        if( [(info.author).lowercaseString isEqualToString: author] ) {
+            if( [[IFExtensionInfo canonicalTitle: info.displayName].lowercaseString isEqualToString: title] ) {
+                return info.safeVersion;
             }
         }
     }
@@ -647,7 +647,7 @@
 }
 
 -(void) downloadMultipleExtensions:(NSArray*) array {
-    for(int index = 0; index < [array count]; index += 3) {
+    for(int index = 0; index < array.count; index += 3) {
         NSString* item      = array[index];
         NSString* urlString = array[index + 1];
         //NSString* version   = [array objectAtIndex: index + 2];
@@ -658,8 +658,8 @@
                                         frameURL: frameURL];
 
         [[IFExtensionsManager sharedNaturalInformExtensionsManager] downloadAndInstallExtension: realURL
-                                                                                         window: [[pane controller] window]
-                                                                                 notifyDelegate: [pane controller]
+                                                                                         window: pane.controller.window
+                                                                                 notifyDelegate: pane.controller
                                                                                    javascriptId: item];
     }
 }
@@ -667,7 +667,7 @@
 #pragma mark - Preferences
 
 - (void) fontSizePreferenceChanged: (WKWebView*) wView {
-    float fontSizeMultiplier = [[IFPreferences sharedPreferences] appFontSizeMultiplier];
+    float fontSizeMultiplier = [IFPreferences sharedPreferences].appFontSizeMultiplier;
     NSString* js = [NSString stringWithFormat: @"document.body.style.zoom = '%.2f'", fontSizeMultiplier];
     [wView evaluateJavaScript: js completionHandler:nil];
 }

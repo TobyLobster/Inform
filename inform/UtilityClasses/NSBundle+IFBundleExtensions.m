@@ -11,9 +11,9 @@
 // *******************************************************************************************
 @implementation NSBundle (IFBundleExtensions)
 -(NSString *) pathForResourcePath: (NSString *) relativePath {
-    NSString* fullPath = [[NSBundle mainBundle] pathForResource: [[relativePath lastPathComponent] stringByDeletingPathExtension]
-                                                         ofType: [relativePath pathExtension]
-                                                    inDirectory: [relativePath stringByDeletingLastPathComponent]];
+    NSString* fullPath = [[NSBundle mainBundle] pathForResource: relativePath.lastPathComponent.stringByDeletingPathExtension
+                                                         ofType: relativePath.pathExtension
+                                                    inDirectory: relativePath.stringByDeletingLastPathComponent];
     if( fullPath == nil ) {
         NSLog(@"WARNING: Could not find resource at %@", relativePath);
     }

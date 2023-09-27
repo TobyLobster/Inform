@@ -48,14 +48,14 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 /// Changes the view displayed in this pane to the specified setting
 - (void) selectViewOfType: (IFProjectPaneType) pane;
 /// The page representing the source page
-- (IFSourcePage*) sourcePage;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSourcePage *sourcePage;
 
 @end
 
 @protocol IFHistoryRecorder <NSObject>
 
 /// Retrieves a history event that can have new events recorded via the proxy
-- (IFHistoryEvent*) historyEvent;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFHistoryEvent *historyEvent;
 
 @end
 

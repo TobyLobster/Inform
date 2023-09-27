@@ -12,7 +12,7 @@ NSString* const IFToolbarChangedVisibility = @"IFToolbarChangedVisibility";
 
 - (void)setVisible:(BOOL)shown
 {
-    [super setVisible: shown];
+    super.visible = shown;
     
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFToolbarChangedVisibility
 														object: self];

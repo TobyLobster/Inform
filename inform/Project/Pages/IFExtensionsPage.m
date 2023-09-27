@@ -48,16 +48,16 @@
         loadingFailureWebPage = false;
 
 		homeCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
-		[homeCell setTarget: self];
-		[homeCell setAction: @selector(showHome:)];
+		homeCell.target = self;
+		homeCell.action = @selector(showHome:);
 
 		publicLibraryCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"ExtensionPublicLibrary"
                                                                                     default: @"Public Library"]];
-		[publicLibraryCell setTarget: self];
-		[publicLibraryCell setAction: @selector(showPublicLibrary:)];
+		publicLibraryCell.target = self;
+		publicLibraryCell.action = @selector(showPublicLibrary:);
 
         // Static dictionary mapping tab names to cells
-        IFProject* project = [self.parent document];
+        IFProject* project = (self.parent).document;
         NSString* extensions;
         if ([project useNewExtensions]) {
             extensions = @"inform://Extensions/Reserved/Documentation/Extensions.html";
@@ -65,7 +65,7 @@
             extensions = @"inform://Extensions/Extensions.html";
         }
         tabDictionary = @{ extensions: homeCell,
-                           [[IFUtility publicLibraryURL] absoluteString]: publicLibraryCell };
+                           [IFUtility publicLibraryURL].absoluteString: publicLibraryCell };
 
 		[[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(fontSizePreferenceChanged:)
@@ -78,10 +78,10 @@
 
         helper = [[IFWebViewHelper alloc] initWithProjectController: controller
                                                            withPane: [controller oppositePane: pane]];
-        wView = [helper createWebViewWithFrame: [self.view bounds]];
+        wView = [helper createWebViewWithFrame: (self.view).bounds];
 
         // Set delegates
-        [wView setNavigationDelegate: self];
+        wView.navigationDelegate = self;
 
         // Add to view hieracrchy
         [self.view addSubview: wView];
@@ -139,10 +139,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOn];
+            ((IFPageBarCell*)tabDictionary[key]).state = NSControlStateValueOn;
         }
         else {
-            [(IFPageBarCell*)tabDictionary[key] setState:NSControlStateValueOff];
+            ((IFPageBarCell*)tabDictionary[key]).state = NSControlStateValueOff;
         }
     }
 }
@@ -154,13 +154,13 @@
     NSURL* url;
 
     // Default to public library error
-    IFProject* project = [self.parent document];
+    IFProject* project = (self.parent).document;
     url = [NSURL URLWithString: @"inform:/pl404.html"];
 
-    if (![urlString isEqualToString:[[IFUtility publicLibraryURL] absoluteString]]) {
+    if (![urlString isEqualToString:[IFUtility publicLibraryURL].absoluteString]) {
         if ([project useNewExtensions]) {
             // If the file doesn't exist, then show a default error page
-            NSString* path = [[NSBundle mainBundle] resourcePath];
+            NSString* path = [NSBundle mainBundle].resourcePath;
             path = [IFUtility pathForInformInternalAppSupport:@""];
             path = [path stringByAppendingPathComponent: @"HTML"];
             path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
@@ -200,11 +200,11 @@
 
     // Each time we get here will remove one of these exceptions if present.
 
-    if ([self pageIsVisible]) {
+    if (self.pageIsVisible) {
         if (inhibitAddToHistory <= 0) {
             LogHistory(@"HISTORY: Extensions Page: (didStartProvisionalLoadForFrame) URL %@", [webView.URL absoluteString]);
-            [[self history] switchToPage];
-            [(IFExtensionsPage*)[self history] openHistoricalURL: webView.URL];
+            [self.history switchToPage];
+            [(IFExtensionsPage*)self.history openHistoricalURL: webView.URL];
         }
     }
 
@@ -223,7 +223,7 @@
 
     NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
     if (url) {
-        urlString = [url absoluteString];
+        urlString = url.absoluteString;
     } else {
         urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
     }
@@ -234,7 +234,7 @@
         return;
     }
     if (![error.domain isEqualToString: INFORM_ERROR_DOMAIN]) {
-        NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, [error localizedDescription]);
+        NSLog(@"IFExtensionsPage: failed to load URL %@ (provisional) with error: %@", urlString, error.localizedDescription);
         [self loadFailurePage: urlString];
     }
 }
@@ -246,7 +246,7 @@
 
     NSURL *url = (error.userInfo)[NSURLErrorFailingURLErrorKey];
     if (url) {
-        urlString = [url absoluteString];
+        urlString = url.absoluteString;
     } else {
         urlString = (error.userInfo)[NSURLErrorFailingURLStringErrorKey];
     }
@@ -256,7 +256,7 @@
         loadingFailureWebPage = false;
         return;
     }
-    NSLog(@"IFExtensionsPage: failed to load URL %@ with error: %@", urlString, [error localizedDescription]);
+    NSLog(@"IFExtensionsPage: failed to load URL %@ with error: %@", urlString, error.localizedDescription);
     [self loadFailurePage: urlString];
 }
 
@@ -268,10 +268,10 @@
 #pragma mark - History
 
 - (void) didSwitchToPage {
-    NSURL* url = [wView URL];
+    NSURL* url = wView.URL;
 
     LogHistory(@"HISTORY: Extensions Page: (didSwitchToPage) URL %@", urlString);
-	[[self history] openHistoricalURL: url];
+	[self.history openHistoricalURL: url];
     [wView reload: self];
 }
 

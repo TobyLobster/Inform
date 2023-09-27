@@ -23,7 +23,7 @@ static const int recentFilesTabWidth = 130;
         return nil;
     }
     
-    [cell setImage:[self image]];
+    cell.image = self.image;
 
     return cell;
 }
@@ -32,9 +32,9 @@ static const int recentFilesTabWidth = 130;
 {
     NSAttributedString *astr = [[NSAttributedString alloc] initWithString: @""];
 
-    NSString* title = [self stringValue];
+    NSString* title = self.stringValue;
     if (title) {
-        NSColor *textColour = [self isHighlighted] ? [NSColor selectedTextColor] : [NSColor textColor];
+        NSColor *textColour = self.highlighted ? [NSColor selectedTextColor] : [NSColor textColor];
         NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
         NSTextTab* tab = [[NSTextTab alloc] initWithType: NSLeftTabStopType
                                                 location: recentFilesTabWidth];
@@ -67,7 +67,7 @@ static const int recentFilesTabWidth = 130;
     titleRect.origin.x += imageSize + borderWidth;
     titleRect.origin.y += borderHeight;
     
-    NSAttributedString *title = [self attributedStringValue];
+    NSAttributedString *title = self.attributedStringValue;
     if (title) {
         titleRect.size = [title size];
     } else {
@@ -102,8 +102,8 @@ static const int recentFilesTabWidth = 130;
     }
     
     NSRect titleRect = [self titleRectForBounds:cellFrame];
-    NSAttributedString *aTitle = [self attributedStringValue];
-    if ([aTitle length] > 0) {
+    NSAttributedString *aTitle = self.attributedStringValue;
+    if (aTitle.length > 0) {
         [aTitle drawInRect:titleRect];
     }
 }

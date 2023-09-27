@@ -84,8 +84,8 @@ static const BOOL trace_diff = NO;
     _actual = theActual;
     [_differences removeAllObjects];
 
-    [self diffOuterRangeA: NSMakeRange(0, [theIdeal length])
-                   rangeB: NSMakeRange(0, [theActual length])];
+    [self diffOuterRangeA: NSMakeRange(0, theIdeal.length)
+                   rangeB: NSMakeRange(0, theActual.length)];
 
     for( IFDiffEdit* edit in _differences ) {
         if( ( edit->formOfEdit != PRESERVE_EDIT ) &&
@@ -284,7 +284,7 @@ static const BOOL trace_diff = NO;
 
 static unichar charAt(NSString* string, NSUInteger index) {
     // Report a zero terminator (a sentinal for the purposes of this algorithm)
-    if( index == [string length] ) return 0;
+    if( index == string.length ) return 0;
     return [string characterAtIndex: index];
 }
 

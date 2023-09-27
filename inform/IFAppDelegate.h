@@ -49,7 +49,7 @@
 - (void) createNewProject: (NSString*) title
                     story: (NSString*) story;
 - (IBAction) installLegacyExtension: (id) sender;
-- (IFProjectController *) frontmostProjectController;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFProjectController *frontmostProjectController;
 
 // Spell checking
 @property (atomic, readonly) BOOL sourceSpellChecking;

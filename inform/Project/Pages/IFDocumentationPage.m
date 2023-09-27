@@ -58,10 +58,10 @@
 
         helper = [[IFWebViewHelper alloc] initWithProjectController: self.parent
                                                            withPane: [controller oppositePane: pane]];
-        wView = [helper createWebViewWithFrame: [self.view bounds]];
+        wView = [helper createWebViewWithFrame: (self.view).bounds];
 
         // Set delegates
-        [wView setNavigationDelegate: self];
+        wView.navigationDelegate = self;
 
         // Add to view hieracrchy
         [self.view addSubview: wView];
@@ -74,17 +74,17 @@
 
         // UI tabs
         contentsCell = [[IFPageBarCell alloc] initImageCell:[NSImage imageNamed:NSImageNameHomeTemplate]];
-        [contentsCell setTarget: self];
-        [contentsCell setAction: @selector(showToc:)];
+        contentsCell.target = self;
+        contentsCell.action = @selector(showToc:);
 
         examplesCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"Example Docs" default: @"Examples"]];
-        [examplesCell setTarget: self];
-        [examplesCell setAction: @selector(showExamples:)];
+        examplesCell.target = self;
+        examplesCell.action = @selector(showExamples:);
 
         generalIndexCell = [[IFPageBarCell alloc] initTextCell: [IFUtility localizedString: @"General Index Docs"
                                                                                    default: @"General Index"]];
-        [generalIndexCell setTarget: self];
-        [generalIndexCell setAction: @selector(showGeneralIndex:)];
+        generalIndexCell.target = self;
+        generalIndexCell.action = @selector(showGeneralIndex:);
 
         // Static dictionary mapping tab names to cells
         tabDictionary = @{@"inform:/index.html": contentsCell,
@@ -139,10 +139,10 @@
 - (void) highlightTabForURL:(NSString*) urlString {
     for (NSString*key in tabDictionary) {
         if( [key caseInsensitiveCompare:urlString] == NSOrderedSame ) {
-            [(IFPageBarCell*) tabDictionary[key] setState:NSControlStateValueOn];
+            ((IFPageBarCell*) tabDictionary[key]).state = NSControlStateValueOn;
         }
         else {
-            [(IFPageBarCell*) tabDictionary[key] setState:NSControlStateValueOff];
+            ((IFPageBarCell*) tabDictionary[key]).state = NSControlStateValueOff;
         }
     }
 }
@@ -168,11 +168,11 @@
 
     // Each time we get here will remove one of these exceptions if present.
 
-    if ([self pageIsVisible]) {
+    if (self.pageIsVisible) {
         if (inhibitAddToHistory <= 0) {
             LogHistory(@"HISTORY: Documentation Page: (didStartProvisionalNavigation) URL %@", webView.URL.absoluteString);
-            [[self history] switchToPage];
-            [(IFDocumentationPage*)[self history] openHistoricalURL: webView.URL];
+            [self.history switchToPage];
+            [(IFDocumentationPage*)self.history openHistoricalURL: webView.URL];
         }
     }
 
@@ -190,7 +190,7 @@
     NSURL* url = wView.URL;
 
     LogHistory(@"HISTORY: Documentation Page: (didSwitchToPage) URL %@", url.absoluteString);
-    [[self history] openHistoricalURL: url];
+    [self.history openHistoricalURL: url];
     [wView reload: self];
 }
 

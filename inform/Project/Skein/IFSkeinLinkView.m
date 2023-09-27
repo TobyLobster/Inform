@@ -19,14 +19,14 @@
 
     if (self) {
         [self setWantsLayer: YES];
-        [self setLayerContentsRedrawPolicy: NSViewLayerContentsRedrawOnSetNeedsDisplay];
+        self.layerContentsRedrawPolicy = NSViewLayerContentsRedrawOnSetNeedsDisplay;
     }
 
     return self;
 }
 
 -(void) drawRect: (NSRect) dirtyRect {
-    NSRect blackRect = [self bounds];
+    NSRect blackRect = self.bounds;
 
     // Leave a one pixel border blank, because this helps antialiasing
     blackRect = NSInsetRect(blackRect, 0.0f, 1.0f);
