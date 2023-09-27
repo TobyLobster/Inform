@@ -1,0 +1,364 @@
+! This is Main
+
+default: $COMPILEONLY = No
+default: $TESTCOMPILERINTERNALS = No
+default: $GENERATEINDEX = No
+default: $GENERATEDIAGNOSTICS = No
+default: $TESTRELEASEMETADATA = No
+default: $SCRIPT =
+default: $LANGUAGE = Inform
+default: $COMPATIBLEWITH = all
+
+ifdef: $$I7COMPILER
+set: $I7 = $$I7COMPILER
+else:
+default: $I7 = inform7/Tangled/inform7
+endif
+
+ifdef: $$I6COMPILER
+set: $I6 = $$I6COMPILER
+else:
+default: $I6 = inform6/Tangled/inform6
+endif
+
+ifdef: $$GINTERPRETER
+set: $GINT = $$GINTERPRETER
+else:
+default: $GINT = inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe
+endif
+
+ifdef: $$ZINTERPRETER
+set: $ZINT = $$ZINTERPRETER
+else:
+default: $ZINT = inform6/Tests/Assistants/dumb-frotz/dumb-frotz
+endif
+
+ifdef: $$internal
+set: $INTERNAL = $$internal
+else:
+default: $INTERNAL = inform7/Internal
+endif
+
+! (1) Set $FORMAT to the full description of the language we will transpile to.
+
+if compatible: inform6/32 `$COMPATIBLEWITH
+	default: $FOR = Glulx
+else
+	if compatible: C `$COMPATIBLEWITH
+		default: $FOR = Glulx
+	else
+		default: $FOR = Z-Machine
+	endif
+endif
+
+if: $FOR C
+	default: $FORMAT = C
+else
+	if: $FOR Glulx
+		default: $FORMAT = Inform6/32/no-orig-source-directives
+	else
+		if: $FOR Z-Machine
+			default: $FORMAT = Inform6/16/no-orig-source-directives
+		else
+			if format valid: $FORMAT
+				default: $FORMAT = $FOR
+			else
+				set: $ERROR = 'The format $FORMAT is not something I can test'
+				fail: `$ERROR
+			endif
+		endif
+	endif
+endif
+
+if compatible: $FORMAT `$COMPATIBLEWITH
+else
+	set: $ERROR = 'The test format $FORMAT is not compatible with $COMPATIBLEWITH'
+	fail: `$ERROR
+endif
+
+! (2) Extract the source text for the case, writing it to the given file.
+
+set: $SOURCE = $WORK/Example.inform/Source/story.ni
+if compatible: $FORMAT Glulx
+	extract: $SOURCE G
+else
+	extract: $SOURCE Z
+endif
+show: source $SOURCE
+
+! (3) Almost all tests produce actual textual output, which we put in $A,
+! and ideal or blessed textual output, which is in $I: the test will end up
+! by comparing $A with $I$.
+
+mkdir: $$workspace/Actuals
+set: $A = $$workspace/Actuals/$CASE.txt
+set: $I = $PATH/$CASE--I.txt
+show: ideal $I
+
+! (4) Work out the command-line options to pass to inform7.
+
+set: $I7OPTIONS = -format=$FORMAT -no-progress -no-resource-checking -fixtime -rng -sigils -internal $INTERNAL
+ifdef: $EXTERNAL
+	set: $I7OPTIONS = `$I7OPTIONS -external $EXTERNAL
+else
+	ifdef: $NEST
+		set: $I7OPTIONS = `$I7OPTIONS -external $NEST
+	endif
+endif
+if showing: log
+	ifdef: $$LOG
+		set: $I7OPTIONS = `$I7OPTIONS -log-to-project $$LOG
+	endif
+else
+	set: $I7OPTIONS = `$I7OPTIONS -log nothing
+endif
+if showing: inter
+	set: $INTER = $WORK/Example.inform/Build/inter.txt
+	set: $I7OPTIONS = `$I7OPTIONS  -variable *tout=$INTER
+endif
+if: $LANGUAGE Basic
+	set: $I7OPTIONS = -basic `$I7OPTIONS
+endif
+if: $GENERATEINDEX No
+	set: $I7OPTIONS = `$I7OPTIONS -no-index
+endif
+if: $GENERATEDIAGNOSTICS Yes
+	set: $I7OPTIONS = `$I7OPTIONS -diagnostics inform7/Figures
+endif
+if: $TESTRELEASEMETADATA Yes
+	set: $I7OPTIONS = `$I7OPTIONS -release
+endif
+if: $TYPE problem
+	set: $I7OPTIONS = `$I7OPTIONS -require-problem $CASE
+endif
+
+! (5) The location of inform7 and where to write its console output.
+
+set: $I7CONSOLE = $WORK/Example.inform/Build/i7_output.txt
+set: $I7LOG = '$WORK/Example.inform/Build/Debug log.txt'
+
+! (6) Clearing any external files used by the test.
+
+ifdef: $EXTERNALFILES
+	if: $EXTERNALFILES ' *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+	if: $EXTERNALFILES ' *%C+.glkdata *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+	if: $EXTERNALFILES ' *%C+.glkdata *%C+.glkdata *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+endif
+
+! (7) Performing the actual test, which splits into several cases.
+
+! (7a) Testing that inform7 correctly produces a problem message.
+
+if: $TYPE problem
+	debugger: lldb -f $I7 -- `$I7OPTIONS -project $WORK/Example.inform  -crash-all
+	fail step: $I7 `$I7OPTIONS -require-problem $CASE -project $WORK/Example.inform >$A 2>&1
+	ifpass:
+		show: log $I7LOG
+		show: $A
+		show: i7 $A
+		fail: 'failed to produce its namesake Problem message' $A
+	endif
+	show: log $I7LOG
+	show: $A
+	show: i7 $A
+	exists: $I
+	or: 'produced Problem(s), but no blessed output exists to compare them with'
+	match problem: $A $I
+	or: 'produced the wrong Problem message(s)'
+else
+
+! (7b) Testing the release metadata produced by the compiler.
+
+if: $TESTRELEASEMETADATA Yes
+	if: $CASE Audiovisual
+		copy: $$workspace/Samples/Cover.png $WORK/Example.materials/Cover.png
+		copy: '$$workspace/Samples/Small Cover.png' '$WORK/Example.materials/Small Cover.png'
+		mkdir: $WORK/Example.materials
+		mkdir: $WORK/Example.materials/Figures
+		copy: $$workspace/Samples/Shuttle.jpg $WORK/Example.materials/Figures/Shuttle.jpg
+		copy: $$workspace/Samples/Triangle.png $WORK/Example.materials/Figures/Triangle.png
+		mkdir: $WORK/Example.materials/Sounds
+		copy: $$workspace/Samples/Bach.ogg $WORK/Example.materials/Sounds/Bach.ogg
+		copy: $$workspace/Samples/Passacaglia.mid $WORK/Example.materials/Sounds/Passacaglia.mid
+		copy: $$workspace/Samples/Powermac.aiff $WORK/Example.materials/Sounds/Powermac.aiff
+	endif
+
+	set: $I7CONSOLE = $WORK/Example.inform/Build/i7_output.txt
+	step: $I7 `$I7OPTIONS -project $WORK/Example.inform >$I7CONSOLE 2>&1
+	iffail:
+		show: log $I7LOG
+		show: i7 $I7CONSOLE
+		fail: 'failed with Problem message(s)' $I7CONSOLE
+	endif
+	show: log $I7LOG
+	show: i7 $I7CONSOLE
+
+	set: $ABLURB = $WORK/Example.inform/Release.blurb 
+	set: $AIFICTION = $WORK/Example.inform/Metadata.iFiction
+
+	set: $IBLURB = $PATH/$CASE--IBlurb.txt
+	set: $IIFICTION = $PATH/$CASE--IFiction.txt
+
+	match text: $ABLURB $IBLURB
+	or: 'produced the wrong release blurb'
+	show: blurb $ABLURB
+
+	match text: $AIFICTION $IIFICTION
+	or: 'produced the wrong iFiction metadata'
+	show: ifiction $AIFICTION
+else
+
+! (7c) Testing that inform7 in -test-output mode outputs the correct internal data.
+
+if: $TESTCOMPILERINTERNALS Yes
+	debugger: lldb -f $I7 -- `$I7OPTIONS -project $WORK/Example.inform -test-output $A -crash-all
+	step: $I7 `$I7OPTIONS -project $WORK/Example.inform -test-output $A >$I7CONSOLE 2>&1
+	iffail:
+		show: log $I7LOG
+		show: i7 $I7CONSOLE
+		fail: 'failed with Problem message(s)' $I7CONSOLE
+	endif
+	show: log $I7LOG
+	show: i7 $I7CONSOLE
+	show: $A
+	show: transcript $A
+	exists: $I
+	or: 'ran without crashing but no ideal results existed'
+	match text: $A $I
+	or: 'results incorrect'
+else
+
+! (7d) End-to-end compilation of a story via C to an executable.
+
+if: $FOR C
+	set: $I7CLIB = inform7/Internal/Miscellany
+
+	set: $COUT = $$workspace/Actuals/$CASE.c
+	set: $OFILE = $WORK/Example.inform/Build/$CASE.o
+	copy: $WORK/Example.inform/Source/story.ni $WORK/Example.inform/Build/$CASE.i7
+	step: $I7 `$I7OPTIONS $WORK/Example.inform/Build/$CASE.i7 -o $COUT >$I7CONSOLE 2>&1
+	iffail:
+		show: log $I7LOG
+		show: i7 $I7CONSOLE
+		fail: 'failed with Problem message(s)' $I7CONSOLE
+	endif
+
+	show: log $I7LOG
+	show: i7 $I7CONSOLE
+	show: c $COUT
+
+	hash: $COUT
+	or: 'passed (matching cached C known to work)'
+
+	set: $CCCONSOLE = $WORK/Example.inform/Build/cc_output.txt
+	set: $LINKCONSOLE = $WORK/Example.inform/Build/link_output.txt
+	set: $STORYFILE = $WORK/Example.inform/Build/final$$EXESUFFIX
+
+	step: `$$CCOMPILER -o $OFILE $COUT -I $I7CLIB >$CCCONSOLE 2>&1
+	or: 'failed to compile C' $CCCONSOLE
+	show: cc $CCCONSOLE
+
+	step: `$$CLINKER -o $STORYFILE $OFILE `$$LINKFLAGS >$LINKCONSOLE 2>&1
+	or: 'failed to link C' $LINKCONSOLE
+	show: link $LINKCONSOLE
+
+	if: $COMPILEONLY No
+		step: $STORYFILE <$SCRIPT >$A 2>&1
+		or: 'failed to run C program' $A
+
+		show: $A
+		show: transcript $A
+
+		match text: $A $I
+		or: 'C program misbehaved'
+	endif
+else
+
+! (7e) End-to-end compilation of a story via inform6 to a story file played using
+! an interpreter.
+
+	if: $FOR Glulx
+		default: $I6OPTIONS		= -E2SDwGx
+		default: $INTERPRETER	= $GINT
+		default: $INTOPTIONS	= -u -q
+		set: $EXT               = ulx
+	else
+		default: $I6OPTIONS		= -E2SDwv8x
+		default: $INTERPRETER	= $ZINT
+		default: $INTOPTIONS	= -w 1000
+		set: $EXT               = z8
+	endif
+
+	debugger: lldb -f $I7 -- `$I7OPTIONS -project $WORK/Example.inform -crash-all
+	step: $I7 `$I7OPTIONS -project $WORK/Example.inform >$I7CONSOLE 2>&1
+	iffail:
+		show: log $I7LOG
+		show: i7 $I7CONSOLE
+		fail: 'failed with Problem message(s)' $I7CONSOLE
+	endif
+
+	set: $I6SOURCE = $WORK/Example.inform/Build/auto.inf
+
+	show: log $I7LOG
+	show: i7 $I7CONSOLE
+	show: inform6 $I6SOURCE
+	if showing: inter
+		show: inter $INTER
+	endif
+
+	if: $COMPILEONLY No
+		hash: $I6SOURCE
+		or: 'passed (matching cached I6 known to work)'
+
+		set: $I6CONSOLE = $WORK/Example.inform/Build/i6_output.txt
+		set: $STORYFILE = $WORK/Example.inform/Build/output.$EXT
+
+		step: $I6 `$I6OPTIONS $I6SOURCE $STORYFILE >$I6CONSOLE 2>&1
+		or: 'failed to pass through Inform 6' $I6CONSOLE
+		show: i6 $I6CONSOLE
+
+		step: $INTERPRETER `$INTOPTIONS $STORYFILE <$SCRIPT >$A 2>&1
+		or: 'unable to run interpreter (do you need to make interpreters?)'
+
+		show: $A
+		show: transcript $A
+
+		exists: $I
+		or: 'translated successfully but no blessed output exists to compare with'
+		if: $FOR Glulx
+			match glulxe transcript: $A $I
+			or: 'played incorrectly'
+		else
+			match frotz transcript: $A $I
+			or: 'played incorrectly'
+		endif
+	endif
+
+endif
+endif
+endif
+endif
+
+! (8) Clearing any external files used by the test.
+
+ifdef: $EXTERNALFILES
+	if: $EXTERNALFILES ' *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+	if: $EXTERNALFILES ' *%C+.glkdata *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+	if: $EXTERNALFILES ' *%C+.glkdata *%C+.glkdata *%C+.glkdata *'
+		step: rm -f `$EXTERNALFILES
+	endif
+endif
+
+! (9) Declaring victory.
+
+pass: 'passed'
