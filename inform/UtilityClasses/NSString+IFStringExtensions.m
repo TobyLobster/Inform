@@ -92,13 +92,13 @@ static NSCharacterSet* nonWhitespace;
 
 -(NSString*) stringByRemovingTrailingWhitespace
 {
-    NSString* trailing = [self trailingWhitespace];
+    NSString* trailing = self.trailingWhitespace;
     return [self substringToIndex: self.length - trailing.length];
 }
 
 -(NSString*) stringByRemovingLeadingWhitespace
 {
-    NSString* leading = [self leadingWhitespace];
+    NSString* leading = self.leadingWhitespace;
     return [self substringFromIndex: leading.length];
 }
 

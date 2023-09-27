@@ -261,10 +261,10 @@
 
 -(void) setBackgroundColour {
     if( isExtension ) {
-        fileView.backgroundColor = [[IFPreferences sharedPreferences] getExtensionPaper].colour;
+        fileView.backgroundColor = [IFPreferences sharedPreferences].extensionPaper.colour;
     }
     else {
-        fileView.backgroundColor = [[IFPreferences sharedPreferences] getSourcePaper].colour;
+        fileView.backgroundColor = [IFPreferences sharedPreferences].sourcePaper.colour;
     }
 }
 

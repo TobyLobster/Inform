@@ -106,8 +106,8 @@
 -(void) updateAppPreferencesFromSetWithEnable:(BOOL) enable {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
 
-    [prefs setSourcePaper:    self.sourcePaper];
-    [prefs setExtensionPaper: self.extensionPaper];
+    prefs.sourcePaper = self.sourcePaper;
+    prefs.extensionPaper = self.extensionPaper;
     prefs.enableSyntaxColouring = enable;
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {
@@ -119,8 +119,8 @@
 -(void) updateSetFromAppPreferences {
 	IFPreferences* prefs = [IFPreferences sharedPreferences];
     
-    self.sourcePaper    = [[prefs getSourcePaper] copy];
-    self.extensionPaper = [[prefs getExtensionPaper] copy];
+    self.sourcePaper    = [prefs.sourcePaper copy];
+    self.extensionPaper = [prefs.extensionPaper copy];
     self.flags          = [[prefs getCurrentTheme].flags copy];
 
     for( int optionIndex = IFSHOptionHeadings; optionIndex < IFSHOptionCount; optionIndex++ ) {

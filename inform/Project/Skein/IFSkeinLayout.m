@@ -369,7 +369,7 @@
                 CGFloat parentx = layoutItem.centreX;
 
                 // Find child's centre point
-                IFSkeinLayoutItem* selectedLineChild = [layoutItem selectedLineChild];
+                IFSkeinLayoutItem* selectedLineChild = layoutItem.selectedLineChild;
                 if( selectedLineChild ) {
                     CGFloat centreChildrenX = selectedLineChild.centreX;
                     CGFloat deltaX;
@@ -489,7 +489,7 @@
                                    floor(NSMaxX(selectedLineItem.lozengeRect) + kSkeinReportLeftBorder));
 
             // Move on to next level down
-            selectedLineItem = [selectedLineItem selectedLineChild];
+            selectedLineItem = selectedLineItem.selectedLineChild;
         }
 
         // Traverse the tree, looking for the item furthest left on the right hand side of the selected line
@@ -519,7 +519,7 @@
             }
 
             // Move on to next level down
-            selectedLineItem = [selectedLineItem selectedLineChild];
+            selectedLineItem = selectedLineItem.selectedLineChild;
         }
     }
 

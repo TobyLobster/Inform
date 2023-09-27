@@ -411,10 +411,10 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
     }
     assert(themes.count > 0);
 
-    int i = [self getThemeIndex: [self getCurrentThemeName]];
+    int i = [self getThemeIndex: self.currentThemeName];
     if (i < 0) {
         i = 0;
-        [self setCurrentThemeName: ((IFColourTheme*) themes[i]).themeName];
+        self.currentThemeName = ((IFColourTheme*) themes[i]).themeName;
     }
     return themes[i];
 }
@@ -426,7 +426,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
         return false;
     }
 
-    [self setCurrentThemeName: name];
+    self.currentThemeName = name;
 
     notificationString = IFPreferencesEditingDidChangeNotification;
     [self preferencesHaveChanged];
@@ -476,7 +476,7 @@ static NSString* const IFPreferencesTextSubstitutions = @"TextSubstitutions";
 }
 
 -(void) setDarkMode: (bool) isDarkMode {
-    NSString * currentThemeName = [self getCurrentThemeName];
+    NSString * currentThemeName = self.currentThemeName;
     if ([currentThemeName isEqualTo:@"Light Mode"]) {
         if (isDarkMode) {
             [self setCurrentTheme: @"Dark Mode"];

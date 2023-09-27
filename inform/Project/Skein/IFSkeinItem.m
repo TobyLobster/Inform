@@ -109,7 +109,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
     command = [components componentsJoinedByString:@" "];
 
     // Remove trailing whitespace
-    return [command stringByRemovingTrailingWhitespace];
+    return command.stringByRemovingTrailingWhitespace;
 }
 
 +(NSString*) stringByRemovingPrompt: (NSString*) string
@@ -416,19 +416,19 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
         }
 
         // Remove matching trailing whitespace
-        NSString* idealTrailingWhitespace  = [localIdeal trailingWhitespace];
-        NSString* actualTrailingWhitespace = [localActual trailingWhitespace];
+        NSString* idealTrailingWhitespace  = localIdeal.trailingWhitespace;
+        NSString* actualTrailingWhitespace = localActual.trailingWhitespace;
         if( [idealTrailingWhitespace isEqualToString: actualTrailingWhitespace] || !hasIdealOutput || !hasActualOutput) {
-            localIdeal  = [localIdeal stringByRemovingTrailingWhitespace];
-            localActual = [localActual stringByRemovingTrailingWhitespace];
+            localIdeal  = localIdeal.stringByRemovingTrailingWhitespace;
+            localActual = localActual.stringByRemovingTrailingWhitespace;
         }
 
         // Remove matching leading whitespace
-        NSString* idealLeadingWhitespace  = [localIdeal leadingWhitespace];
-        NSString* actualLeadingWhitespace = [localActual leadingWhitespace];
+        NSString* idealLeadingWhitespace  = localIdeal.leadingWhitespace;
+        NSString* actualLeadingWhitespace = localActual.leadingWhitespace;
         if( [idealLeadingWhitespace isEqualToString: actualLeadingWhitespace] || !hasIdealOutput || !hasActualOutput) {
-            localIdeal  = [localIdeal stringByRemovingLeadingWhitespace];
-            localActual = [localActual stringByRemovingLeadingWhitespace];
+            localIdeal  = localIdeal.stringByRemovingLeadingWhitespace;
+            localActual = localActual.stringByRemovingLeadingWhitespace;
         }
 
         [_diffCachedResult diffIdeal: localIdeal
@@ -490,7 +490,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 }
 
 +(NSString*) commandForEntry:(NSString*) entry index:(NSInteger) index {
-    NSString* command = [entry stringByTrimmingWhitespace];
+    NSString* command = entry.stringByTrimmingWhitespace;
     NSInteger returnIndex = [command indexOf:@"\n"];
     if( returnIndex != NSNotFound ) {
         command = [command substringToIndex: returnIndex];
@@ -507,7 +507,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 }
 
 -(IFSkeinItem*) decomposeActual:(NSString*) actual {
-    return [self decomposeActual: actual ideal: [self composedIdeal]];
+    return [self decomposeActual: actual ideal: self.composedIdeal];
 }
 
 /// For any "test me" style commands, separate out the testing commands into separate "isTestSubItem" child nodes
@@ -532,7 +532,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 
     if( actualResults.count > 1 ) {
         // Remove but remember the 'real' children of the node ie. skipping over any intermediate test nodes
-        NSArray* localChildren = [[self nonTestChildren] copy];
+        NSArray* localChildren = [self.nonTestChildren copy];
 
         IFSkeinItem* parentItem = self;
         IFSkeinItem* mergedItem = self;

@@ -18,8 +18,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 {	
 	// Try to get the file that we're looking at
 	NSString* fileName = nil;
-	if ([(__bridge NSURL*)cfUrl isFileURL]) {
-		fileName = [(__bridge NSURL*)cfUrl path];
+	if (((__bridge NSURL*)cfUrl).fileURL) {
+		fileName = ((__bridge NSURL*)cfUrl).path;
 	}
 	
 	if (!fileName) {
@@ -90,8 +90,8 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
 
 	// Produce the result
     NSData *theRTF = nil;
-    if([storage length] > 0 ) {
-        theRTF = [storage RTFFromRange: NSMakeRange(0, [storage length])
+    if(storage.length > 0 ) {
+        theRTF = [storage RTFFromRange: NSMakeRange(0, storage.length)
                     documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
     }
 	QLPreviewRequestSetDataRepresentation(preview, (__bridge CFDataRef)theRTF, kUTTypeRTF, NULL);

@@ -338,7 +338,7 @@
     [self updateDependentUIElements];
     
     // Update paper colour on preview
-    previewView.backgroundColor = [prefs getSourcePaper].colour;
+    previewView.backgroundColor = prefs.sourcePaper.colour;
 
     // Rehighlight the preview views
 	[IFSyntaxManager preferencesChanged: tabStopStorage];

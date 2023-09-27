@@ -589,7 +589,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
 
 -(int) getNumberOfTestCases {
     if ([self isExtensionProject]) {
-        return [toolbarManager getNumberOfTestCases];
+        return toolbarManager.numberOfTestCases;
     }
     return 0;
 }
@@ -834,7 +834,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
         }
         else {
             // Run a specific test only
-            startTestCaseIndex = [toolbarManager getTestCaseIndex];
+            startTestCaseIndex = toolbarManager.testCaseIndex;
             endTestCaseIndex = startTestCaseIndex;
         }
 
@@ -1532,7 +1532,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     NSString* extensions;
 
     IFProject *project = self.document;
-    if ([project useNewExtensions]) {
+    if (project.useNewExtensions) {
         extensions = @"inform://Extensions/Reserved/Documentation/Extensions.html";
     } else {
         extensions = @"inform://Extensions/Extensions.html";
@@ -2239,7 +2239,7 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [toolbarManager validateVisibleItems];
 
     // Restore the skein
-    [self.document selectSkein: [toolbarManager getTestCaseIndex]];
+    [self.document selectSkein: toolbarManager.testCaseIndex];
 }
 
 - (BOOL) startNextTestCase {

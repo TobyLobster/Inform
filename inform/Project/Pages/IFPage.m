@@ -121,7 +121,7 @@ NSString* const IFUpdatePageBarCellsNotification = @"IFUpdatePageBarCellsNotific
 	IFHistoryEvent* event = nil;
 	
 	if (recorder) {
-		event = [recorder historyEvent];
+		event = recorder.historyEvent;
 	}
 	
 	if (event) {

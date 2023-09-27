@@ -94,7 +94,7 @@ typedef NS_ENUM(NSUInteger, SemVerPart) {
         }
 
         // Trim any whitespace
-        str = [str stringByTrimmingWhitespace];
+        str = str.stringByTrimmingWhitespace;
 
         int component    = 0;
         int val          = -1;

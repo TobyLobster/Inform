@@ -312,7 +312,7 @@
         NSString* pathComponent;
         IFProject *project = projectController.document;
 
-        if ([project useNewExtensions]) {
+        if (project.useNewExtensions) {
             // Get the project's materials folder
             path = project.materialsDirectoryURL.path;
 
@@ -336,13 +336,13 @@
     } else {
         // Try using Inform Core external directory (if preference set)
         IFPreferences* prefs = [IFPreferences sharedPreferences];
-        if ([prefs useExternalInformCoreDirectory]) {
+        if (prefs.useExternalInformCoreDirectory) {
             // D/resources/App HTML
             // First look for resource in external directory, and if that fails, try the en.lproj directory
-            path = [[[prefs externalInformCoreDirectory] stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"App HTML"];
+            path = [[prefs.externalInformCoreDirectory stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"App HTML"];
             path = [path stringByAppendingPathComponent: urlPath];
             if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
-                path = [[[[prefs externalInformCoreDirectory] stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"App HTML"] stringByAppendingPathComponent:@"en.lproj"];
+                path = [[[prefs.externalInformCoreDirectory stringByAppendingPathComponent:@"Resources"] stringByAppendingPathComponent:@"App HTML"] stringByAppendingPathComponent:@"en.lproj"];
                 path = [path stringByAppendingPathComponent: urlPath];
                 if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
                     NSLog(@"Warning: (Trying External Inform Core Directory) When trying to resolve URL '%@' I converted it to filepath '%@', but this file was not found here.\n", url, path);

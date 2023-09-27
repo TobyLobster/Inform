@@ -118,7 +118,7 @@
     textSubstitutionsColor.enabled = enabled;
 
     // Enable button
-    restoreSettingsButton.enabled = ![currentSet isEqualToDefault];
+    restoreSettingsButton.enabled = !currentSet.equalToDefault;
 
     deleteStyleButton.enabled = (currentSet.flags.intValue & 1) == 1;
 }
@@ -176,7 +176,7 @@
 - (void) confirmDidEnd:(NSWindow *)sheet returnCode:(NSModalResponse)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
         IFPreferences* prefs = [IFPreferences sharedPreferences];
-        if ([prefs removeTheme: [prefs getCurrentThemeName]]) {
+        if ([prefs removeTheme: prefs.currentThemeName]) {
             [prefs setCurrentTheme: @"Light Mode"];
         }
     }
@@ -226,11 +226,11 @@
 - (void) reflectCurrentPreferences {
     // Get current theme settings from preferences
     IFPreferences* prefs = [IFPreferences sharedPreferences];
-    currentThemeName = [prefs getCurrentThemeName];
-    NSArray* names = [prefs getThemeNames];
+    currentThemeName = prefs.currentThemeName;
+    NSArray* names = prefs.themeNames;
     [styleButton removeAllItems];
     [styleButton addItemsWithTitles: names];
-    [styleButton selectItemWithTitle: [prefs getCurrentThemeName]];
+    [styleButton selectItemWithTitle: prefs.currentThemeName];
 
     enableSyntaxColouring = prefs.enableSyntaxColouring;
 

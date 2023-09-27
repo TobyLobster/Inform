@@ -68,9 +68,9 @@
 }
 
 - (void) setColours {
-    scrollView.backgroundColor = [[IFPreferences sharedPreferences] getExtensionPaper].colour;
+    scrollView.backgroundColor = [IFPreferences sharedPreferences].extensionPaper.colour;
     [scrollView setNeedsDisplay:YES];
-    [headerView setColours: [[IFPreferences sharedPreferences] getExtensionPaper].colour];
+    [headerView setColours: [IFPreferences sharedPreferences].extensionPaper.colour];
     [headerView setNeedsDisplay:YES];
 }
 

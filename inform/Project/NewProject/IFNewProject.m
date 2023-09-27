@@ -88,9 +88,9 @@
         NSError* error;
         // Create IFProject (an NSDocument)
 		IFProject* newDoc = [[IFProject alloc] initWithContentsOfURL: projectLocation
-                                                              ofType: [projectType typeName]
+                                                              ofType: projectType.typeName
                                                                error: &error];
-        newDoc.initialSelectionRange = [projectType initialSelectionRange];
+        newDoc.initialSelectionRange = projectType.initialSelectionRange;
         [newDoc createMaterials];
 
 		[[NSDocumentController sharedDocumentController] addDocument: newDoc];
@@ -120,7 +120,7 @@
     projectFileTypes        = nil;
     projectStory            = nil;
     projectDefaultFilename  = nil;
-    [[projectView view] removeFromSuperview];
+    [projectView.view removeFromSuperview];
     projectView             = nil;
     projectLocation         = nil;
     projectType             = nil;
@@ -234,9 +234,9 @@
     self.window.title = projectTitle;
     promptTextField.stringValue = projectPrompt;
     
-    [projectView view].frame = projectPaneView.bounds;
+    projectView.view.frame = projectPaneView.bounds;
 
-    [projectPaneView addSubview: [projectView view]
+    [projectPaneView addSubview: projectView.view
                      positioned: NSWindowAbove
                      relativeTo: nil ];
 
@@ -261,7 +261,7 @@
     projectFileTypes        = @[@"i7xp"];
     projectTitle            = [IFUtility localizedString: @"Create Extension Project"];
     projectPrompt           = [IFUtility localizedString: @"Create Extension Project"];
-    projectView             = [projectType configView];
+    projectView             = projectType.configView;
     projectFlow             = IFNewProjectLocation;
     projectStory            = nil;
     projectExtensionURL     = extensionURL;
@@ -293,7 +293,7 @@
     }
     projectTitle        = [IFUtility localizedString: @"Create Project"];
     projectPrompt       = [IFUtility localizedString: @"Create Project"];
-    projectView         = [projectType configView];
+    projectView         = projectType.configView;
     projectFlow         = IFNewProjectLocation;
     projectStory        = story;
     projectExtensionURL     = nil;
@@ -309,7 +309,7 @@
     projectFileTypes = @[@"i7x"];
     projectTitle     = [IFUtility localizedString: @"Create Extension"];
     projectPrompt    = [IFUtility localizedString: @"Create Extension"];
-    projectView      = [projectType configView];
+    projectView      = projectType.configView;
     projectFlow      = IFNewProjectOptions;
     projectStory     = nil;
     projectExtensionURL    = nil;

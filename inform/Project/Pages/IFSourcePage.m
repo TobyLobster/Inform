@@ -58,10 +58,10 @@
     IFProject* doc = (self.parent).document;
 
     if( doc.projectFileType == IFFileTypeInform7ExtensionProject ) {
-        textView.backgroundColor = [[IFPreferences sharedPreferences] getExtensionPaper].colour;
+        textView.backgroundColor = [IFPreferences sharedPreferences].extensionPaper.colour;
     }
     else {
-        textView.backgroundColor = [[IFPreferences sharedPreferences] getSourcePaper].colour;
+        textView.backgroundColor = [IFPreferences sharedPreferences].sourcePaper.colour;
     }
 
     // Set the cursor colour

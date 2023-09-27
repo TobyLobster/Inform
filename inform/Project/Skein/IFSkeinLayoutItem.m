@@ -140,7 +140,7 @@
     // Find leaf node
     IFSkeinLayoutItem* leafItem = self;
     while(leafItem.onSelectedLine) {
-        IFSkeinLayoutItem* childItem = [leafItem selectedLineChild];
+        IFSkeinLayoutItem* childItem = leafItem.selectedLineChild;
         if( childItem == nil ) {
             return leafItem;
         }

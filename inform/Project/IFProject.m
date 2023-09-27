@@ -410,20 +410,20 @@
 -(NSArray*) testCommandsForExtensionTestCase: (NSString*) testCase {
     NSString* commandString = [_inTest testCommandsForExtension: self.mainSourcePathName
                                                        testCase: testCase];
-    commandString = [commandString stringByRemovingTrailingWhitespace];
+    commandString = commandString.stringByRemovingTrailingWhitespace;
     return [commandString componentsSeparatedByString:@"\n"];
 }
 
 -(IFSkeinItem*) nodeToReport {
     if( self.currentSkein != nil ) {
-        return [self.currentSkein nodeToReport];
+        return (self.currentSkein).nodeToReport;
     }
     return nil;
 }
 
 -(NSString*) reportStateForSkein {
     if( self.currentSkein != nil ) {
-        return [self.currentSkein reportStateForSkein];
+        return (self.currentSkein).reportStateForSkein;
     }
     return @"";
 }
@@ -1219,7 +1219,7 @@
 }
 
 - (NSFileWrapper*) buildWrapper {
-    return [projectFile buildWrapper];
+    return projectFile.buildWrapper;
 }
 
 - (void) DEBUGverifyWrapper {

@@ -96,8 +96,8 @@
 	[IFPreferences sharedPreferences].cleanProjectOnClose = willCleanBuild;
 	[IFPreferences sharedPreferences].alsoCleanIndexFiles = willAlsoCleanIndex;
 	[IFPreferences sharedPreferences].glulxInterpreter = interpreter;
-    [[IFPreferences sharedPreferences] setUseExternalInformCoreDirectory: useInformCore];
-    [[IFPreferences sharedPreferences] setExternalInformCoreDirectory: informCoreDirectory];
+    [IFPreferences sharedPreferences].useExternalInformCoreDirectory = useInformCore;
+    [IFPreferences sharedPreferences].externalInformCoreDirectory = informCoreDirectory;
 }
 
 - (IBAction) toggleUseExternalDirectory: (id) sender {
@@ -187,11 +187,11 @@
 	}
 
     // External inform core
-    useExternalInformCore.state = [[IFPreferences sharedPreferences] useExternalInformCoreDirectory] ? NSControlStateValueOn : NSControlStateValueOff;
-    externalInformCoreDirectory.stringValue = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
+    useExternalInformCore.state = [IFPreferences sharedPreferences].useExternalInformCoreDirectory ? NSControlStateValueOn : NSControlStateValueOff;
+    externalInformCoreDirectory.stringValue = [IFPreferences sharedPreferences].externalInformCoreDirectory;
 
     // Set text colour of label, based on if the 'Use Inform Core directory' is checked.
-    BOOL use = [[IFPreferences sharedPreferences] useExternalInformCoreDirectory];
+    BOOL use = [IFPreferences sharedPreferences].useExternalInformCoreDirectory;
     if (!use) {
         externalInformCoreDirectory.textColor = [NSColor secondarySelectedControlColor];
     } else {

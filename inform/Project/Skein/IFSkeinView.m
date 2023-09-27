@@ -867,7 +867,7 @@ static NSDictionary* itemTextAttributes;
 	if (self.window == nil) return;
     if( layoutTree.rootLayoutItem.onSelectedLine == NO ) return;
 
-    NSString* string = [self->skein transcriptToPoint: [layoutTree.rootLayoutItem leafSelectedLineItem].item ];
+    NSString* string = [self->skein transcriptToPoint: (layoutTree.rootLayoutItem).leafSelectedLineItem.item ];
 
     [IFUtility saveTranscriptPanelWithString: string
                                       window: self.window];

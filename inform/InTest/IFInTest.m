@@ -216,8 +216,8 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
             NSInteger equalsIndex = [line indexOf: @" "];
             if( equalsIndex != NSNotFound )
             {
-                NSString* left  = [[line substringToIndex: equalsIndex] stringByTrimmingWhitespace];
-                NSString* right = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
+                NSString* left  = [line substringToIndex: equalsIndex].stringByTrimmingWhitespace;
+                NSString* right = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
                 ConcordancePair * pair = [[ConcordancePair alloc] init];
                 pair->left  = left.intValue;
                 pair->right = right.intValue;
@@ -258,7 +258,7 @@ NSString* const IFInTestFinishedNotification = @"IFInTestFinishedNotification";
                     buffer[0] = 'A' + testCases.count;
                     buffer[1] = 0;
                     NSString* key = [NSString stringWithCharacters: buffer length:1];
-                    NSString* title = [[line substringFromIndex: equalsIndex + 1] stringByTrimmingWhitespace];
+                    NSString* title = [line substringFromIndex: equalsIndex + 1].stringByTrimmingWhitespace;
                     [testCases addObject: @{ @"testKey": key,
                                              @"testTitle": title }];
                 }

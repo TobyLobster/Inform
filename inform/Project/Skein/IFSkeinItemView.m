@@ -382,7 +382,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
                         operation: NSCompositingOperationSourceOver
                          fraction: 1.0];
     }
-    drawnStateHash = [layoutItem drawStateHash];
+    drawnStateHash = layoutItem.drawStateHash;
 
     /*
     [[NSColor colorWithCalibratedRed:1.0f green:0.0f blue:0.0f alpha:0.5f] set];

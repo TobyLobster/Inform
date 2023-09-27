@@ -76,7 +76,7 @@ static NSDictionary* deleteAttr = nil;
 }
 
 -(NSAttributedString*) reportForItem:(IFSkeinItem*) item {
-    IFDiffer* diffResult = [item differences];
+    IFDiffer* diffResult = item.differences;
 
     NSMutableAttributedString* output = nil;
     if( (diffResult.differences).count == 0 ) {
@@ -151,7 +151,7 @@ static NSDictionary* deleteAttr = nil;
 
 -(void) updateReportDetails {
     // Find leaf node of the selected line
-    IFSkeinLayoutItem* leafItem = [rootTree leafSelectedLineItem];
+    IFSkeinLayoutItem* leafItem = rootTree.leafSelectedLineItem;
 
     unsigned long newTreeHash = [self treeHashFromLeaf: leafItem.item];
 
@@ -347,7 +347,7 @@ static NSDictionary* deleteAttr = nil;
         [button toggleBlessState];
         unsigned long uniqueId = (unsigned long) button.tag;
 
-        IFSkeinLayoutItem* layoutItem = [rootTree leafSelectedLineItem];
+        IFSkeinLayoutItem* layoutItem = rootTree.leafSelectedLineItem;
         while( layoutItem ) {
             if( layoutItem.item.uniqueId == uniqueId ) {
                 if( [delegate respondsToSelector: @selector(setItemBlessed:bless:)] ) {

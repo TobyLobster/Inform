@@ -59,7 +59,7 @@
         // Static dictionary mapping tab names to cells
         IFProject* project = (self.parent).document;
         NSString* extensions;
-        if ([project useNewExtensions]) {
+        if (project.useNewExtensions) {
             extensions = @"inform://Extensions/Reserved/Documentation/Extensions.html";
         } else {
             extensions = @"inform://Extensions/Extensions.html";
@@ -158,7 +158,7 @@
     url = [NSURL URLWithString: @"inform:/pl404.html"];
 
     if (![urlString isEqualToString:[IFUtility publicLibraryURL].absoluteString]) {
-        if ([project useNewExtensions]) {
+        if (project.useNewExtensions) {
             // If the file doesn't exist, then show a default error page
             NSString* path = [NSBundle mainBundle].resourcePath;
             path = [IFUtility pathForInformInternalAppSupport:@""];

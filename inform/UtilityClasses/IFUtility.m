@@ -450,9 +450,9 @@ CGFloat easeOutCubic(CGFloat t) {
 +(NSURL*) publicLibraryURL {
 #ifdef DEBUG
     NSString* redirectFile = [NSHomeDirectory() stringByAppendingPathComponent:@"redirect_inform.txt"];
-    NSString* redirection = [[NSString stringWithContentsOfFile: redirectFile
+    NSString* redirection = [NSString stringWithContentsOfFile: redirectFile
                                                        encoding: NSUTF8StringEncoding
-                                                          error: NULL] stringByTrimmingWhitespace];
+                                                          error: NULL].stringByTrimmingWhitespace;
     if (redirection.length > 0) {
         return [NSURL URLWithString: redirection];
     }
@@ -557,8 +557,8 @@ CGFloat easeOutCubic(CGFloat t) {
     NSString* resourcePath = [NSBundle mainBundle].resourcePath;
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
         // If using external Inform Core 'Internal' data...
-        if ([[IFPreferences sharedPreferences] useExternalInformCoreDirectory]) {
-            NSString* informCore = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
+        if ([IFPreferences sharedPreferences].useExternalInformCoreDirectory) {
+            NSString* informCore = [IFPreferences sharedPreferences].externalInformCoreDirectory;
             return [[informCore stringByAppendingPathComponent:@"inform7"] stringByAppendingPathComponent: @"Internal"];
         }
         return [resourcePath stringByAppendingPathComponent: @"Internal"];
@@ -571,9 +571,9 @@ CGFloat easeOutCubic(CGFloat t) {
                               version: (NSString*) compilerVersion
 {
     if ([IFUtility isLatestMajorMinorCompilerVersion: compilerVersion]) {
-        if ([[IFPreferences sharedPreferences] useExternalInformCoreDirectory]) {
+        if ([IFPreferences sharedPreferences].useExternalInformCoreDirectory) {
             // Use external locations for executables
-            NSString* informCore = [[IFPreferences sharedPreferences] externalInformCoreDirectory];
+            NSString* informCore = [IFPreferences sharedPreferences].externalInformCoreDirectory;
 
             if ([executableName isEqualToStringCaseInsensitive:@"ni"]) {
                 return [informCore stringByAppendingPathComponents: @"inform7/Tangled/inform7"];

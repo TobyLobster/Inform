@@ -541,7 +541,7 @@ didReceiveResponse: (NSURLResponse *)response
 
         result = [NSString stringWithFormat:@"%@%@", first, third];
     }
-    return [result stringByTrimmingWhitespace];
+    return result.stringByTrimmingWhitespace;
 }
 
 -(NSMutableArray*) parseExtensionsList: (NSString*) jsonString {
@@ -920,9 +920,9 @@ didReceiveResponse: (NSURLResponse *)response
     // Remainder of string is the author
     NSString* authorName = extensionString;
 
-	authorName  = [authorName  stringByTrimmingWhitespace];
-	titleName   = [titleName   stringByTrimmingWhitespace];
-	versionName = [versionName stringByTrimmingWhitespace];
+	authorName  = authorName.stringByTrimmingWhitespace;
+	titleName   = titleName.stringByTrimmingWhitespace;
+	versionName = versionName.stringByTrimmingWhitespace;
 
     // Remove leading 'The' from extension name
     if( [titleName.lowercaseString startsWith:@"the "] ) {
@@ -1398,7 +1398,7 @@ didReceiveResponse: (NSURLResponse *)response
 
     for(NSString*key in unit_test) {
         IFSemVer* ver = [[IFSemVer alloc] initWithString: key];
-        NSString* str = [ver to_text];
+        NSString* str = ver.to_text;
         if ([str isEqualToString: unit_test[key]]) {
             NSLog(@"%@ --> %@ success", key, str);
         }

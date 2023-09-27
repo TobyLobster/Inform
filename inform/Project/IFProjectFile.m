@@ -352,14 +352,14 @@
                 break;
             }
             NSString* toFilename = [NSString stringWithFormat:@"Skein%c.skein", 'A' + alphabetCount];
-            [self writeSkein: [skein getXMLString] toFilename: toFilename];
+            [self writeSkein: skein.XMLString toFilename: toFilename];
             alphabetCount++;
         }
     }
     else {
         // Set the root command to the title of the project
         (skeins[0]).rootItem.command = (bundleDirectory.preferredFilename).lastPathComponent.stringByDeletingPathExtension;
-        [self writeSkein: [skeins[0] getXMLString] toFilename: @"Skein.skein"];
+        [self writeSkein: (skeins[0]).XMLString toFilename: @"Skein.skein"];
     }
 }
 

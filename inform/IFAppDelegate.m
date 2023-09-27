@@ -314,7 +314,7 @@ static NSRunLoop* mainRunLoop = nil;
     if( newProj == nil ) {
         newProj = [[IFNewProject alloc] init];
     }
-    IFProjectController * projectController = [self frontmostProjectController];
+    IFProjectController * projectController = self.frontmostProjectController;
     if (projectController) {
         IFProject * project = projectController.document;
         [newProj createInform7ExtensionForProject: project];
@@ -411,7 +411,7 @@ static NSRunLoop* mainRunLoop = nil;
 #pragma mark - The extensions menu
 
 - (void) updateExtensionsMenu {
-    IFProjectController * projectController = [self frontmostProjectController];
+    IFProjectController * projectController = self.frontmostProjectController;
     if (projectController) {
         IFProject * project = projectController.document;
         IFCompilerSettings* compilerSettings = project.settings;

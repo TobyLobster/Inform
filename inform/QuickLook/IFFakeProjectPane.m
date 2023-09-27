@@ -14,7 +14,7 @@
 @implementation IFProjectPane
 
 + (NSDictionary*) attributeForStyle: (IFSyntaxStyle) style {
-	return [[IFPreferences sharedPreferences] styles][(unsigned)style];
+	return [IFPreferences sharedPreferences].styles[(unsigned)style];
 }
 
 @end
