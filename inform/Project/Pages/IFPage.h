@@ -47,7 +47,7 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
 #pragma mark - Initialising
 - (instancetype) initWithNibName: (NSString*) nib
-               projectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
+               projectController: (IFProjectController*) controller;
 /// The history recorder for this item [NOT RETAINED]
 @property (atomic, readwrite, weak) id<IFHistoryRecorder> recorder;
 /// Sets the pane that this page is contained within

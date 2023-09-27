@@ -81,7 +81,7 @@ typedef NS_ENUM(int, IFExtensionDownloadState) {
               notifyDelegate: (NSObject*) notifyDelegate
                 javascriptId: (NSString*) javascriptId NS_DESIGNATED_INITIALIZER;
 
-@property (atomic, readonly) BOOL startDownloadAndInstall;
+-(BOOL) startDownloadAndInstall;
 @property (atomic, readonly, copy) NSString *safeVersion;
 
 @end

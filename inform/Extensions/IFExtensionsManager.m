@@ -1236,7 +1236,7 @@ didReceiveResponse: (NSURLResponse *)response
     if( downloads.count > 0 ) {
         IFExtensionDownload* dl = downloads[0];
 
-        dl.startDownloadAndInstall;
+        [dl startDownloadAndInstall];
     }
 }
 

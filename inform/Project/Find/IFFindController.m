@@ -282,7 +282,7 @@ static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
 
 - (IBAction) useSelectionForFind: (id) sender {
 	// Hack: ensure the window is loaded
-	self.window;
+	[self window];
 	
     if ([activeDelegate respondsToSelector: @selector(currentSelectionForFindWithCompletionHandler:)]) {
         [activeDelegate currentSelectionForFindWithCompletionHandler: ^(NSString* searchFor) {

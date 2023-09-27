@@ -223,7 +223,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 }
 
 - (void) addStandardInformStage {
-    if (!outputFile) self.outputFile;
+    if (!outputFile) [self outputFile];
     
     // Prepare the arguments
     NSMutableArray* args = [[settings commandLineArgumentsForRelease: release

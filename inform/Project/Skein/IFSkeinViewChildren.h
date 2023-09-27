@@ -15,7 +15,7 @@
 
 @interface IFSkeinViewChildren : NSObject<IFSkeinReportBlessDelegate>
 
--(instancetype) initWithSkeinView:(IFSkeinView*) theSkeinView NS_DESIGNATED_INITIALIZER;
+-(instancetype) initWithSkeinView:(IFSkeinView*) theSkeinView;
 - (void) updateChildrenWithLayout: (IFSkeinLayout*) layout
                           animate: (BOOL) animate;
 

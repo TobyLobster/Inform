@@ -17,7 +17,7 @@
 @interface IFNewProjectFile : NSWindowController
 
 /// Initialises this object
-- (instancetype) initWithProjectController: (IFProjectController*) control NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProjectController: (IFProjectController*) control;
 
 /// Cancels the action
 - (IBAction) cancel: (id) sender;

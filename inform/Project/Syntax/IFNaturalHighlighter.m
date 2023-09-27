@@ -127,7 +127,7 @@
 		case IFNaturalModeInform6MightEnd:
 			if (chr == ')') {
 				// Switch back to standard mode
-				activeData.popState;
+				[activeData popState];
 				return IFNaturalStateText;
 			}
 			
