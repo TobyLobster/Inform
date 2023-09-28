@@ -9,7 +9,7 @@ import Foundation
 
 
 class IFToolbar: NSToolbar {
-    @objc static let ChangedVisibility:Notification.Name! = Notification.Name("IFToolbarChangedVisibility")
+    @objc static let ChangedVisibility = Notification.Name("IFToolbarChangedVisibility")
 
     func setVisible(shown:Bool) {
         super.isVisible = shown
