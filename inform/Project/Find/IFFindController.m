@@ -8,7 +8,7 @@
 
 #import "IFFindController.h"
 #import "IFFindResult.h"
-#import "IFComboBox.h"
+#import "Inform-Swift.h"
 #import "IFUtility.h"
 
 static NSString* const IFFindHistoryPref		= @"IFFindHistory";
