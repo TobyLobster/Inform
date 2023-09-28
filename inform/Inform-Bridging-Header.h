@@ -7,3 +7,5 @@
 #import "IFUtility.h"
 #import "IFCompiler.h"
 #import "IFCollapsableView.h"
+#import "IFCompilerSettings.h"
+#import "IFSetting.h"

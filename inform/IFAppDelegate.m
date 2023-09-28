@@ -33,7 +33,6 @@
 #import "IFCompilerOptions.h"
 #import "IFLibrarySettings.h"
 #import "IFCompilerVersionSettings.h"
-#import "IFAdvancedSettings.h"
 
 #import "IFSingleFile.h"
 #import "IFPreferences.h"

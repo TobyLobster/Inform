@@ -51,12 +51,12 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
 // The classes the settings are associated with
 // (Legacy-type stuff: ie, tentacles that are too much bother to remove)
-#include "IFAdvancedSettings.h"
 #include "IFOutputSettings.h"
 #include "IFI7OutputSettings.h"
 #include "IFCompilerOptions.h"
 #include "IFLibrarySettings.h"
 #include "IFMiscSettings.h"
+#include "Inform-Swift.h"
 
 @implementation IFCompilerSettings
 {
