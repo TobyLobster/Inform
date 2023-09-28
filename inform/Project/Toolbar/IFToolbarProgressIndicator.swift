@@ -9,15 +9,20 @@ import Foundation
 
 class IFToolbarProgressIndicator: NSProgressIndicator {
 
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.wantsLayer = true
+    }
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.wantsLayer = true
     }
 
     override func draw(_ dirtyRect:NSRect) {
-        var rect:NSRect = self.bounds
-        let radius:CGFloat = floor(rect.size.height / 2)
-        let bz:NSBezierPath! = NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius)
+        var rect = self.bounds
+        let radius = floor(rect.size.height / 2)
+        let bz = NSBezierPath(roundedRect: rect, xRadius: radius, yRadius: radius)
 
         // Draw progress inside
         bz.setClip()

@@ -8,11 +8,11 @@
 #import "IFToolbarStatusView.h"
 #import "IFToolbarManager.h"
 #import "IFUtility.h"
-#import "IFToolbarProgressIndicator.h"
 #import "IFProjectController.h"
 #import "IFCompilerSettings.h"
 #import "IFCompiler.h"
 #import "IFProject.h"
+#import "Inform-Swift.h"
 
 static CGFloat idealTopBorder                = 6.0f;
 static CGFloat minTopBorder                  = 2.0f;
