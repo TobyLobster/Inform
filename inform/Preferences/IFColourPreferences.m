@@ -128,11 +128,11 @@
                           owner: (id) self];
     }
 
-    self->sheet._themeName = @"Custom";
+    self->sheet.themeName = @"Custom";
     NSWindow * window = [PreferenceController sharedPreferenceController].window;
     [window beginSheet:self->sheet completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSModalResponseOK) {
-            NSString * name = self->sheet._themeName;
+            NSString * name = self->sheet.themeName;
             IFPreferences* prefs = [IFPreferences sharedPreferences];
 
             // Try to add the theme

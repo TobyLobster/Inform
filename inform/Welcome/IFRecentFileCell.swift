@@ -87,11 +87,7 @@ class IFRecentFileCell : NSTextFieldCell {
     }
 
     override func drawInterior(withFrame cellFrame:NSRect, in controlView:NSView?) {
-        var imageRect = self.imageRect(forBounds: cellFrame)
-        //imageRect.origin.x = cellFrame.minX + 1
-        //imageRect.origin.y = cellFrame.minY + 1
-        //imageRect.size.height = cellFrame.height - 2;
-        //imageRect.size.width  = imageRect.size.height;
+        let imageRect = self.imageRect(forBounds: cellFrame)
         if (image != nil) {
             image!.draw(   in: imageRect,
                          from: NSZeroRect,
