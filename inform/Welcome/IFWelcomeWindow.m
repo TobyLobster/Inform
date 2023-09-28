@@ -11,7 +11,6 @@
 
 #import <WebKit/WebKit.h>
 #import "IFAppDelegate.h"
-#import "IFRecentFileCellInfo.h"
 
 #import "IFMaintenanceTask.h"
 #import "IFUtility.h"
@@ -253,11 +252,11 @@ static IFWelcomeWindow* sharedWindow = nil;
         if (![url getResourceValue:&icon forKey:NSURLEffectiveIconKey error: NULL]) {
             icon = [[NSWorkspace sharedWorkspace] iconForFile: url.path];
         }
-        
+
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: url.lastPathComponent
                                                                             image: icon
                                                                               url: url
-                                                                             type: IFRecentFile];
+                                                                             type: IFRecentFileTypeFile];
         [recentInfoArray addObject: info];
         index++;
         
@@ -271,7 +270,7 @@ static IFWelcomeWindow* sharedWindow = nil;
     IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Open..."]
                                                                         image: icon
                                                                           url: nil
-                                                                         type: IFRecentOpen];
+                                                                         type: IFRecentFileTypeOpen];
     [recentInfoArray addObject: info];
     [recentDocumentsTableView reloadData];
 }
@@ -304,21 +303,21 @@ static IFWelcomeWindow* sharedWindow = nil;
         IFRecentFileCellInfo* info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Project..."]
                                                                             image: icon
                                                                               url: nil
-                                                                             type: IFRecentCreateProject];
+                                                                             type: IFRecentFileTypeCreateProject];
         [createInfoArray addObject: info];
 
         icon = [NSImage imageNamed: @"i7xfile"];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Create Extension..."]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentCreateExtension];
+                                                       type: IFRecentFileTypeCreateExtension];
         [createInfoArray addObject: info];
         
         icon = [NSImage imageNamed: NSImageNameFolder];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Save Documentation as eBooks"]
                                                       image: icon
                                                         url: nil
-                                                       type: IFRecentSaveEPubs];
+                                                       type: IFRecentFileTypeSaveEPubs];
         [createInfoArray addObject: info];
 
         // --- Items that copy sample documents ---
@@ -338,7 +337,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                                           image: icon
                                                             url: [NSURL fileURLWithPath: path
                                                                             isDirectory: YES]
-                                                           type: IFRecentCopySample];
+                                                           type: IFRecentFileTypeCopySample];
             [sampleInfoArray addObject: info];
         }
 
@@ -347,7 +346,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Link to IFDB"]
                                                       image: icon
                                                         url: [NSURL URLWithString:@"http://ifdb.tads.org/search?sortby=new&newSortBy.x=0&newSortBy.y=0&searchfor=tag%3A+i7+source+available"]
-                                                       type: IFRecentWebsiteLink];
+                                                       type: IFRecentFileTypeWebsiteLink];
         [sampleInfoArray addObject: info];
 	}
 
@@ -475,11 +474,11 @@ static IFWelcomeWindow* sharedWindow = nil;
             [recentDocumentsTableView deselectAll: self];
 
             IFRecentFileCellInfo* info = recentInfoArray[row];
-            if( info.type == IFRecentOpen ) {
+            if( info.type == IFRecentFileTypeOpen ) {
                 [NSApp sendAction: @selector(openDocument:)
                                to: nil
                              from: self];
-            } else if ( info.type == IFRecentFile ) {
+            } else if ( info.type == IFRecentFileTypeFile ) {
                 NSDocumentController* docControl = [NSDocumentController sharedDocumentController];
                 [docControl openDocumentWithContentsOfURL: info.url
                                                   display: YES
@@ -495,18 +494,18 @@ static IFWelcomeWindow* sharedWindow = nil;
             [createDocumentsTableView deselectAll: self];
             
             IFRecentFileCellInfo* info = createInfoArray[row];
-            if( info.type == IFRecentCreateProject ) {
+            if( info.type == IFRecentFileTypeCreateProject ) {
                 // Create new project
                 [NSApp sendAction: @selector(newProject:)
                                to: nil
                              from: self];
-            } else if( info.type == IFRecentCreateExtension ) {
+            } else if( info.type == IFRecentFileTypeCreateExtension ) {
                 // Create new extension
                 [NSApp sendAction: @selector(newExtension:)
                                to: nil
                              from: self];
                 [[self class] hideWelcomeWindow];
-            } else if( info.type == IFRecentSaveEPubs ) {
+            } else if( info.type == IFRecentFileTypeSaveEPubs ) {
                 // Save epubs
                 [NSApp sendAction: @selector(exportToEPub:)
                                to: nil
@@ -520,7 +519,7 @@ static IFWelcomeWindow* sharedWindow = nil;
             [sampleDocumentsTableView deselectAll: self];
             
             IFRecentFileCellInfo* info = sampleInfoArray[row];
-            if( info.type == IFRecentCopySample ) {
+            if( info.type == IFRecentFileTypeCopySample ) {
                 NSURL* source = info.url;
 
                 NSOpenPanel * chooseDirectoryPanel = [NSOpenPanel openPanel];
@@ -543,7 +542,7 @@ static IFWelcomeWindow* sharedWindow = nil;
                                                                       to: destination];
                      }
                  }];
-            } else if( info.type == IFRecentWebsiteLink ) {
+            } else if( info.type == IFRecentFileTypeWebsiteLink ) {
                 [[NSWorkspace sharedWorkspace] openURL: info.url];
             }
         }
