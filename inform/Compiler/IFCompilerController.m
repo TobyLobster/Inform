@@ -21,24 +21,7 @@
 #import "NSBundle+IFBundleExtensions.h"
 #import "IFProjectController.h"
 #import "IFProgress.h"
-
-// Possible styles (stored in the styles dictionary)
-NSString* const IFStyleBase               = @"IFStyleBase";
-
-// Basic compiler messages
-NSString* const IFStyleCompilerVersion    = @"IFStyleCompilerVersion";
-NSString* const IFStyleCompilerMessage    = @"IFStyleCompilerMessage";
-NSString* const IFStyleCompilerWarning    = @"IFStyleCompilerWarning";
-NSString* const IFStyleCompilerError      = @"IFStyleCompilerError";
-NSString* const IFStyleCompilerFatalError = @"IFStyleCompilerFatalError";
-NSString* const IFStyleProgress			= @"IFStyleProgress";
-
-NSString* const IFStyleFilename           = @"IFStyleFilename";
-
-// Compiler statistics/dumps/etc
-NSString* const IFStyleAssembly           = @"IFStyleAssembly";
-NSString* const IFStyleHexDump            = @"IFStyleHexDump";
-NSString* const IFStyleStatistics         = @"IFStyleStatistics";
+#import "IFCompilerStyles.h"
 
 static IFCompilerController* activeController = nil;
 
@@ -118,31 +101,31 @@ static IFCompilerController* activeController = nil;
     NSFont* baseFont;
     NSFont* bigFont;
 
+    NSColor *indigoColor;
+    if (@available(macOS 10.15, *)) {
+        indigoColor  = [NSColor systemIndigoColor];
+    } else {
+        indigoColor  = [NSColor colorNamed: @"Compiler/Indigo"];
+    }
+
 	smallFont = baseFont = bigFont = [NSFont fontWithName: @"Monaco" size: 11.0];
     NSFont* boldFont = [[NSFontManager sharedFontManager] convertFont: bigFont
                                                           toHaveTrait: NSBoldFontMask];
     NSFont* italicFont = [[NSFontManager sharedFontManager] convertFont: boldFont
                                                             toHaveTrait: NSItalicFontMask];
 
-    NSMutableParagraphStyle* centered = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    centered.alignment = NSTextAlignmentCenter;
-    
     NSDictionary* baseStyle = @{NSFontAttributeName: baseFont,
         NSForegroundColorAttributeName: [NSColor textColor]};
 
+    NSDictionary* launchStyle = @{NSFontAttributeName: baseFont,
+        NSForegroundColorAttributeName: [NSColor colorNamed: @"Compiler/Launch"]};
+
     NSDictionary* versionStyle = @{NSFontAttributeName: bigFont,
-        NSForegroundColorAttributeName: [NSColor textColor],
-        NSParagraphStyleAttributeName: centered};
+        NSForegroundColorAttributeName: [NSColor textColor]};
     
     NSDictionary* filenameStyle = @{NSForegroundColorAttributeName: [NSColor textColor],
         NSFontAttributeName: boldFont};
     
-    NSColor *indigoColor;
-    if (@available(macOS 10.15, *)) {
-        indigoColor = [NSColor systemIndigoColor];
-    } else {
-        indigoColor = [NSColor colorNamed: @"Compiler/Indigo"];
-    }
     NSDictionary* messageStyle = @{NSForegroundColorAttributeName: [NSColor systemGreenColor]};
     NSDictionary* warningStyle = @{NSForegroundColorAttributeName: [NSColor systemBlueColor],
         NSFontAttributeName: boldFont};
@@ -153,10 +136,14 @@ static IFCompilerController* activeController = nil;
     NSDictionary* progressStyle = @{NSForegroundColorAttributeName: indigoColor,
         NSFontAttributeName: smallFont};
 	
-    return @{IFStyleBase: baseStyle,
+    return @{
+        IFStyleBase: baseStyle,
+        IFStyleLaunch: launchStyle,
         IFStyleCompilerVersion: versionStyle,
-        IFStyleCompilerMessage: messageStyle, IFStyleCompilerWarning: warningStyle,
-        IFStyleCompilerError: errorStyle, IFStyleCompilerFatalError: fatalErrorStyle,
+        IFStyleCompilerMessage: messageStyle,
+        IFStyleCompilerWarning: warningStyle,
+        IFStyleCompilerError: errorStyle,
+        IFStyleCompilerFatalError: fatalErrorStyle,
         IFStyleFilename: filenameStyle,
 		IFStyleProgress: progressStyle};
 }
@@ -452,8 +439,9 @@ static IFCompilerController* activeController = nil;
 
 - (void) gotStdout: (NSNotification*) not {
     NSString* data = not.userInfo[@"string"];
+    NSString* style = not.userInfo[@"style"];
 	NSAttributedString* newString = [[NSAttributedString alloc] initWithString: data
-																	 attributes: styles[IFStyleBase]];
+																	 attributes: styles[style]];
 	
 	[compilerResults.textStorage appendAttributedString: newString];
 }

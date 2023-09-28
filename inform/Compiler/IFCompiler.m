@@ -15,6 +15,7 @@
 #import "IFUtility.h"
 #import "IFProgress.h"
 #import "IFCompilerSettings.h"
+#import "IFCompilerStyles.h"
 #import "Inform-Swift.h"
 
 static int mod = 0;
@@ -267,7 +268,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 	}
 
 	[taskMessage appendString: @"\n"];
-	[self sendStdOut: taskMessage];
+	[self sendStdOut: taskMessage withStyle: IFStyleLaunch];
 }
 
 -(void) prepareNext {
@@ -625,12 +626,16 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
 #pragma mark - Notifications
 
-- (void) sendStdOut: (NSString*) data {
+- (void) sendStdOut: (NSString*) data
+          withStyle: (NSString*) style {
 	if ([delegate respondsToSelector: @selector(receivedFromStdOut:)]) {
 		[delegate receivedFromStdOut: data]; 
 	}
 	
-	NSDictionary* uiDict = @{@"string": data};
+	NSDictionary* uiDict = @{
+        @"string": data,
+        @"style": style
+    };
 	[[NSNotificationCenter defaultCenter] postNotificationName: IFCompilerStdoutNotification
 														object: self
 													  userInfo: uiDict];
@@ -644,7 +649,8 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     if (inData.length) {
         NSString* newStr = [[NSString alloc] initWithData: inData
                                                  encoding: NSISOLatin1StringEncoding];
-		[self sendStdOut:newStr];
+		[self sendStdOut: newStr
+               withStyle: IFStyleBase];
 
         [stdOutH waitForDataInBackgroundAndNotify];
     } else {

@@ -105,7 +105,8 @@ typedef NS_ENUM(int, ECompilerProblemType) {
 - (void) launch;
 
 /// Pretends that the given string appeared on the standard out of the task
-- (void) sendStdOut: (NSString*) data;
+- (void) sendStdOut: (NSString*) data
+          withStyle: (NSString*) style;
 
 /// Retrieves the progress indicator for this compiler
 @property (atomic, readonly, strong) IFProgress *progress;

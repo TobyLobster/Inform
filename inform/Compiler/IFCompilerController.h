@@ -15,24 +15,6 @@
 @class IFProjectController;
 @class IFProjectPane;
 
-// Possible styles (stored in the styles dictionary)
-extern NSString* const IFStyleBase;
-
-// Basic compiler messages
-extern NSString* const IFStyleCompilerVersion;
-extern NSString* const IFStyleCompilerMessage;
-extern NSString* const IFStyleCompilerWarning;
-extern NSString* const IFStyleCompilerError;
-extern NSString* const IFStyleCompilerFatalError;
-extern NSString* const IFStyleProgress;
-
-extern NSString* const IFStyleFilename;
-
-// Compiler statistics/dumps/etc
-extern NSString* const IFStyleAssembly;
-extern NSString* const IFStyleHexDump;
-extern NSString* const IFStyleStatistics;
-
 /// List of tabs
 typedef NS_ENUM(unsigned int, IFCompilerTabId) {
     IFTabReport,
