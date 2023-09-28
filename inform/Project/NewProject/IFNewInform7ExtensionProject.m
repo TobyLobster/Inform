@@ -38,7 +38,6 @@
     IFCompilerSettings* settings = [[IFCompilerSettings alloc] init];
 
     [settings setUsingNaturalInform: YES];
-	settings.libraryToUse = @"Natural";
     [settings setAllowLegacyExtensionDirectory: NO];
     file.settings = settings;
 

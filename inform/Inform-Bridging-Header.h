@@ -9,3 +9,4 @@
 #import "IFCollapsableView.h"
 #import "IFCompilerSettings.h"
 #import "IFSetting.h"
+#import "IFCompilerSettings.h"

@@ -651,7 +651,6 @@
         if ([mainSource.pathExtension isEqualTo: @"ni"] ||
             [mainSource.pathExtension isEqualTo: @"i7"] ||
             [mainSource.pathExtension isEqualTo: @"i7x"]) {
-            settings.libraryToUse = @"Natural";
             [settings setUsingNaturalInform: YES];
         }
     }
@@ -703,7 +702,6 @@
     NSString* filename = fileWrapper.filename;
 
     if( [IFProjectTypes informVersionForFilename: filename] ) {
-		settings.libraryToUse = @"Natural";
 		[settings setUsingNaturalInform: YES];
     }
 

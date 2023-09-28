@@ -29,7 +29,6 @@
 #import "IFOutputSettings.h"
 #import "IFI7OutputSettings.h"
 #import "IFCompilerOptions.h"
-#import "IFLibrarySettings.h"
 #import "IFCompilerVersionSettings.h"
 
 #import "IFSingleFile.h"
@@ -103,7 +102,6 @@ static NSRunLoop* mainRunLoop = nil;
 	[IFSettingsController addStandardSettingsClass: [IFI7OutputSettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFRandomSettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFCompilerOptions class]];
-	[IFSettingsController addStandardSettingsClass: [IFLibrarySettings class]];
 	[IFSettingsController addStandardSettingsClass: [IFMiscSettings class]];
     [IFSettingsController addStandardSettingsClass: [IFCompilerVersionSettings class]];
     [IFSettingsController addStandardSettingsClass: [IFBasicInformSettings class]];

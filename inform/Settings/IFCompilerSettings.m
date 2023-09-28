@@ -25,7 +25,6 @@
 
 #import "IFSettingsController.h"
 
-NSString* const IFSettingLibraryToUse         = @"IFSettingLibraryToUse";
 NSString* const IFSettingZCodeVersion         = @"IFSettingZCodeVersion";
 
 NSString* const IFSettingNaturalInform        = @"IFSettingNaturalInform";
@@ -54,7 +53,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 #include "IFOutputSettings.h"
 #include "IFI7OutputSettings.h"
 #include "IFCompilerOptions.h"
-#include "IFLibrarySettings.h"
 #include "IFMiscSettings.h"
 #include "Inform-Swift.h"
 
@@ -243,22 +241,16 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 
     // User-defined includes
     
-    // Library
-    NSString* library = self.libraryToUse;
-	NSString* libPath = [[self class] pathForLibrary: library];
-	
+    // Library directory
+	NSString* libPath = [[self class] pathForLibrary: @"Natural"];      // TODO: Not sure this is needed
 	if (libPath == nil) libPath = [[self class] pathForLibrary: @"Standard"];
 	if (libPath == nil) libPath = [[self class] pathForLibrary: [[self class] availableLibraries][0]];
-	if (library == nil) libPath = nil;
 
-    if (library != nil) {
-        BOOL isDir;
-
-        if (![[NSFileManager defaultManager] fileExistsAtPath: libPath
-                                                  isDirectory: &isDir]) {
-            // IMPLEMENT ME: try user preferences file
-            libPath = nil;
-        }
+    BOOL isDir;
+    if (![[NSFileManager defaultManager] fileExistsAtPath: libPath
+                                              isDirectory: &isDir]) {
+        // IMPLEMENT ME: try user preferences file
+        libPath = nil;
     }
 
     if (libPath) {
@@ -544,19 +536,6 @@ NSString* const IFSettingNotification = @"IFSettingNotification";
 	
 	if (version == 256) return @"ulx";
     return [NSString stringWithFormat: @"z%i", version];
-}
-
-- (void) setLibraryToUse: (NSString*) library {
-    [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse] = [library copy];
-    [self settingsHaveChanged];
-}
-
-- (NSString*) libraryToUse {
-	NSString* library = [self dictionaryForClass: [IFLibrarySettings class]][IFSettingLibraryToUse];
-	
-	if (library == nil) library = @"Standard";
-	
-	return library;
 }
 
 #pragma mark - Generic settings

@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 
 // The settings keys
-extern NSString* const IFSettingLibraryToUse; // default is `Standard'
 extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
 
 // Switches
@@ -65,8 +64,6 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic) int  testingTabShownCount;
 @property (atomic) NSString * compilerVersion;
 
-
-@property (atomic, copy) NSString *libraryToUse;
 
 @property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
 @property (atomic, readonly, copy) NSString *fileExtension;
