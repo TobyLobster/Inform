@@ -7,12 +7,12 @@
 //
 
 #import "IFSettingsPage.h"
-#import "IFSettingsView.h"
 #import "IFSettingsController.h"
 #import "IFUtility.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
 #import "IFCompilerSettings.h"
+#import "Inform-Swift.h"
 
 @implementation IFSettingsPage {
     // Settings

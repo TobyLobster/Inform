@@ -6,3 +6,4 @@
 #import "IFPreferences.h"
 #import "IFUtility.h"
 #import "IFCompiler.h"
+#import "IFCollapsableView.h"

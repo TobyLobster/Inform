@@ -8,7 +8,7 @@
 
 #import "IFSettingsController.h"
 #import "IFCompilerSettings.h"
-#import "IFSettingsView.h"
+#import "Inform-Swift.h"
 
 @implementation IFSettingsController {
     // UI + model
