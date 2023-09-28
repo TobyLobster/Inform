@@ -8,12 +8,12 @@
 #import "IFToolbarManager.h"
 #import "IFToolbarStatusView.h"
 #import "IFToolbarStatusSpacingView.h"
-#import "IFToolbar.h"
 #import "IFCompilerSettings.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
 #import "IFUtility.h"
 #import "IFProgress.h"
+#import "Inform-Swift.h"
 
 @interface IFToolbarManager () <IFProgressDelegate>
 
@@ -192,7 +192,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
                                                    object: nil];
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(toolbarChangedVisibility:)
-                                                     name: IFToolbarChangedVisibility
+                                                     name: IFToolbar.ChangedVisibility
                                                    object: nil];
 
         // Only 10.7 Lion or later has Full Screen support

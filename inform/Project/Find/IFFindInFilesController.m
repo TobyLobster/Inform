@@ -10,8 +10,8 @@
 #import "IFFindResult.h"
 #import "IFFindInFiles.h"
 #import "IFProjectController.h"
-#import "Inform-Swift.h"
 #import "IFUtility.h"
+#import "Inform-Swift.h"
 
 static NSString* const IFFindHistoryPref		= @"IFFindHistory";
 static NSString* const IFReplaceHistoryPref	    = @"IFReplaceHistory";
