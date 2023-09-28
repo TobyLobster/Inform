@@ -13,12 +13,12 @@
 #import "IFSkeinLayout.h"
 #import "IFSkeinLayoutItem.h"
 #import "IFSkeinItemView.h"
-#import "IFSkeinLinkView.h"
 #import "IFSkeinArrowView.h"
 #import "IFSkeinReportView.h"
 #import "IFSkeinView.h"
 #import "IFUtility.h"
 #import "IFSkeinConstants.h"
+#import "Inform-Swift.h"
 
 static const int    kAnimationSteps             = 30;
 /// Link view thickness (include one pixel transparent border)
