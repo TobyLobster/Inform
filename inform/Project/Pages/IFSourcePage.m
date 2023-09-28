@@ -18,10 +18,10 @@
 #import "IFHeaderController.h"
 #import "IFProjectController.h"
 #import "IFProject.h"
-#import "IFClickThroughScrollView.h"
 #import "IFHeaderPage.h"
 #import "IFSourceFileView.h"
 #import "IFColourTheme.h"
+#import "Inform-Swift.h"
 
 @interface IFSourcePage(IFSourcePagePrivate)
 

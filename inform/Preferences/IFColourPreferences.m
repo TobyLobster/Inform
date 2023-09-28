@@ -9,7 +9,6 @@
 
 #import "IFSyntaxManager.h"
 #import "IFNaturalHighlighter.h"
-#import "IFNewThemeWindow.h"
 
 #import "IFPreferences.h"
 #import "IFUtility.h"
@@ -129,11 +128,11 @@
                           owner: (id) self];
     }
 
-    self->sheet.themeName = @"Custom";
+    self->sheet._themeName = @"Custom";
     NSWindow * window = [PreferenceController sharedPreferenceController].window;
     [window beginSheet:self->sheet completionHandler:^(NSModalResponse returnCode) {
         if (returnCode == NSModalResponseOK) {
-            NSString * name = self->sheet.themeName;
+            NSString * name = self->sheet._themeName;
             IFPreferences* prefs = [IFPreferences sharedPreferences];
 
             // Try to add the theme
