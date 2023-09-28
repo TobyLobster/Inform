@@ -252,11 +252,18 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 	return (theTask != nil) ? theTask.running : NO;
 }
 
+- (NSString*) quoteIfNeeded: (NSString*) arg {
+    if ([arg containsString:@" "]) {
+        return [NSString stringWithFormat: @"\"%@\"", arg];
+    }
+    return arg;
+}
+
 - (void) sendTaskDetails: (NSTask*) task {
-    NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", task.launchPath];
+    NSMutableString* taskMessage = [NSMutableString stringWithFormat: @"Launching: %@", [self quoteIfNeeded: task.launchPath]];
 
 	for( NSString* arg in task.arguments ) {
-		[taskMessage appendFormat: @" \"%@\"", arg];
+        [taskMessage appendFormat: @" \\\n    %@", [self quoteIfNeeded: arg]];
 	}
 
 	[taskMessage appendString: @"\n"];
@@ -294,34 +301,6 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 
         theTask.environment = newEnvironment;
     }
-
-    // The string to execute is output really just for debugging purposes.
-    // We should be able to copy and paste to run on a command line.
-    // This means quoting the args as needed.
-    NSMutableString* executeString = [NSMutableString string];
-
-    if ([command containsString:@" "]) {
-        [executeString appendString: [NSString stringWithFormat: @"'%@'", command]];
-    } else {
-        [executeString appendString: command];
-    }
-    [executeString appendString: @" \\\n\t"];
-
-    for( int i = 0; i < [args count]; i++ ) {
-        NSString* arg = args[i];
-        if ([arg containsString:@" "]) {
-            [executeString appendString: [NSString stringWithFormat: @"'%@'", arg]];
-        } else {
-            [executeString appendString: arg];
-        }
-        if (i < ([args count] - 1)) {
-            [executeString appendString: @" \\\n\t"];
-        }
-    }
-
-    [executeString appendString: @"\n\n"];
-    [self sendStdOut: executeString];
-    executeString = nil;
 
     theTask.arguments = args;
     theTask.launchPath = command;
