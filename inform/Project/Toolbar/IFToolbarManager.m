@@ -7,7 +7,6 @@
 
 #import "IFToolbarManager.h"
 #import "IFToolbarStatusView.h"
-#import "IFToolbarStatusSpacingView.h"
 #import "IFCompilerSettings.h"
 #import "IFProject.h"
 #import "IFProjectController.h"
