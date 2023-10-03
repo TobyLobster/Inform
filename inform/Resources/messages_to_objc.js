@@ -20,6 +20,9 @@ class ProjectClass {
     uninstall(extension) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["uninstall", extension] );
     }
+    modernise(extension) {
+        window.webkit.messageHandlers.scriptHandler.postMessage( ["modernise", extension] );
+    }
     test(extension, command, testcase) {
         window.webkit.messageHandlers.scriptHandler.postMessage( ["test", extension, command, testcase] );
     }

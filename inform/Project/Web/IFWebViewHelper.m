@@ -461,6 +461,7 @@
     NSDictionary * commands = @{ @"selectView": @1,
                                  @"confirmAction": @0,
                                  @"install": @1,
+                                 @"modernise": @1,
                                  @"uninstall": @1,
                                  @"test": @3,
                                  @"createNewProject": @2,
@@ -488,6 +489,8 @@
         [self install: list[1]];
     } else if ([@"uninstall" isEqualToString: list[0]]) {
         [self uninstall: list[1]];
+    } else if ([@"modernise" isEqualToString: list[0]]) {
+        [self modernise: list[1]];
     } else if ([@"test" isEqualToString: list[0]]) {
         [self test: list[1] command: list[2] testcase: list[3]];
     } else if ([@"createNewProject" isEqualToString: list[0]]) {
@@ -541,6 +544,11 @@
 - (void) install: (NSString*) extension {
     // Install the extension
     [projectController installExtension: extension];
+}
+
+- (void) modernise: (NSString*) extension {
+    // Modernise the extension
+    [projectController moderniseExtension: extension];
 }
 
 - (void) uninstall: (NSString*) extension {

@@ -1621,6 +1621,31 @@ static CGFloat const      minDividerWidth     = 75.0f;
     [self->projectPanes[1] selectViewOfType: IFErrorPane];
 }
 
+-(void) moderniseExtension: (NSString*) extension {
+    [self moderniseExtensionURL: [NSURL fileURLWithPath: extension]];
+}
+
+-(void) moderniseExtensionURL: (NSURL*) extension {
+    self->extensionURL = extension;
+    self->inbuildAction = @"-run-moderniser";
+
+    IFProject *project = self.document;
+    [project executeInBuildForExtension: extension
+                                 action: self->inbuildAction
+                       withConfirmation: false];
+
+    // Show results
+    for (int x=0; x<self->projectPanes.count; x++) {
+        IFProjectPane* pane = self->projectPanes[x];
+
+        [pane.compilerController clearTabViewsExcept: IFTabConsole];
+        IFCompilerTabId id = [pane.compilerController makeTabForFile: project.extensionReportURL.path];
+        [pane.compilerController switchToViewWithTabId: id];
+    }
+    [self->projectPanes[1] selectViewOfType: IFErrorPane];
+}
+
+
 -(void) testExtension: (NSString*) extension
               command: (NSString*) command
              testcase: (NSString*) testcase {

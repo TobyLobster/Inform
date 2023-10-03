@@ -153,6 +153,7 @@
 -(void) confirmInbuildAction;
 -(void) installExtension: (NSString*) extension;
 -(void) uninstallExtension: (NSString*) extension;
+-(void) moderniseExtension: (NSString*) extension;
 -(void) testExtension: (NSString*) extension
               command: (NSString*) command
              testcase: (NSString*) testcase;
