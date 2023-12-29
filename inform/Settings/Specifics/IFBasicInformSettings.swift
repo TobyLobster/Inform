@@ -14,7 +14,7 @@ class IFBasicInformSettings : IFSetting {
         self.init(nibName:"BasicInformSettings")
     }
 
-    func title() -> String! {
+    override var title: String! {
         return IFUtility.localizedString("Basic Inform")
     }
 
@@ -30,7 +30,7 @@ class IFBasicInformSettings : IFSetting {
         settings.basicInform = basicInform.state == NSControl.StateValue.on
     }
 
-    func enableForCompiler(compiler:String!) -> Bool {
+    override func enable(forCompiler compiler: String!) -> Bool {
         // These settings only apply to Natural Inform
         return compiler == IFCompilerNaturalInform
     }

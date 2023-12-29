@@ -14,7 +14,7 @@ class IFRandomSettings : IFSetting {
         self.init(nibName:"RandomSettings")
     }
 
-    func title() -> String! {
+    override var title: String! {
         return IFUtility.localizedString("Randomness Settings")
     }
 
@@ -30,7 +30,7 @@ class IFRandomSettings : IFSetting {
         settings.nobbleRng = makePredictable.state == NSControl.StateValue.on
     }
 
-    func enableForCompiler(compiler:String!) -> Bool {
+    override func enable(forCompiler compiler: String!) -> Bool {
         // These settings only apply to Natural Inform
         return compiler == IFCompilerNaturalInform
     }

@@ -14,7 +14,7 @@ class IFAdvancedSettings: IFSetting {
         self.init(nibName:"AdvancedSettings")
     }
 
-    func title() -> String! {
+    override var title: String! {
         return IFUtility.localizedString("Extensions Settings")
     }
 
