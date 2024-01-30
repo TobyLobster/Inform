@@ -14,23 +14,23 @@ class IFBasicInformSettings : IFSetting {
         self.init(nibName:"BasicInformSettings")
     }
 
-    func title() -> String! {
+    override var title: String {
         return IFUtility.localizedString("Basic Inform")
     }
 
     override func updateFromCompilerSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings!
 
         basicInform.state = settings.basicInform ? NSControl.StateValue.on : NSControl.StateValue.off
     }
 
     override func setSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings
 
-        settings.basicInform = basicInform.state == NSControl.StateValue.on
+        settings?.basicInform = basicInform.state == NSControl.StateValue.on
     }
 
-    func enableForCompiler(compiler:String!) -> Bool {
+    override func enable(forCompiler compiler: String) -> Bool {
         // These settings only apply to Natural Inform
         return compiler == IFCompilerNaturalInform
     }

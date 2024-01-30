@@ -14,23 +14,23 @@ class IFAdvancedSettings: IFSetting {
         self.init(nibName:"AdvancedSettings")
     }
 
-    func title() -> String! {
+    override var title: String {
         return IFUtility.localizedString("Extensions Settings")
     }
 
     override func updateFromCompilerSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings!
 
         allowLegacyExtensionDirectory.state = settings.allowLegacyExtensionDirectory ? NSControl.StateValue.on : NSControl.StateValue.off
     }
 
     override func setSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings
 
-        settings.allowLegacyExtensionDirectory = allowLegacyExtensionDirectory.state==NSControl.StateValue.on
+        settings?.allowLegacyExtensionDirectory = allowLegacyExtensionDirectory.state==NSControl.StateValue.on
     }
 
-    override func enable(forCompiler compiler:String!) -> Bool {
+    override func enable(forCompiler compiler:String) -> Bool {
         return true
     }
 }

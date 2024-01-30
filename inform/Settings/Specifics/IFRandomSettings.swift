@@ -14,23 +14,23 @@ class IFRandomSettings : IFSetting {
         self.init(nibName:"RandomSettings")
     }
 
-    func title() -> String! {
+    override var title: String {
         return IFUtility.localizedString("Randomness Settings")
     }
 
     override func updateFromCompilerSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings!
 
         makePredictable.state = settings.nobbleRng ? NSControl.StateValue.on : NSControl.StateValue.off
     }
 
     override func setSettings() {
-        let settings:IFCompilerSettings! = self.compilerSettings
+        let settings = self.compilerSettings
 
-        settings.nobbleRng = makePredictable.state == NSControl.StateValue.on
+        settings?.nobbleRng = makePredictable.state == NSControl.StateValue.on
     }
 
-    func enableForCompiler(compiler:String!) -> Bool {
+    override func enable(forCompiler compiler: String) -> Bool {
         // These settings only apply to Natural Inform
         return compiler == IFCompilerNaturalInform
     }
