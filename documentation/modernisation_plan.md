@@ -41,7 +41,9 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - [x] Command-line build script with a warnings baseline (`inform/Scripts/cli_build.sh`).
 - [x] Unit-test target (`InformTests`, hosted in Inform.app) with a first test (`IFSemVer`).
 - [x] `CLAUDE.md`, this plan, and updated build documentation.
-- [ ] Keep the submodule trees clean: find out whether `configure.py` can stop editing the submodule project files, with the app's final build phase signing every nested executable (including ZoomServer inside ZoomView.framework). Needs proving with a signed Archive and notarisation.
+- [x] Keep the submodule trees clean. `configure.py` no longer edits the submodule projects, except `SKIP_INSTALL` on `babel`, `Builder`, `ZoomServer` (Zoom) and `GlkView` (CocoaGlk) for release builds. The final build phase now signs ZoomServer and re-seals ZoomView.framework. Debug builds are active-architecture only. Verified with untouched submodule projects: signed Debug build, and a Developer ID archive exported by Xcode with every executable Developer ID signed, hardened runtime, timestamped and universal.
+- [ ] Ask MaddTheSane to set `SKIP_INSTALL = YES` on those four targets upstream, then drop the last submodule edit from `configure.py`.
+- [ ] Notarise a release built this way, and check a Mac App Store build. ZoomServer now gets the inherited sandbox entitlements like the other helpers (before, it had none).
 - [ ] Hosted tests launch the full app with the real `com.inform7.inform-compiler` preferences. Consider skipping start-up work (welcome window, news fetch) when running under XCTest.
 
 ### Phase 1a – Clean build, app side (goal 1)

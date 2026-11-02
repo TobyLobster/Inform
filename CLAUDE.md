@@ -13,7 +13,8 @@ The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisati
 
 - Check a build with `inform/Scripts/cli_build.sh` (clean, unsigned Debug into `build/`). Add `--test` to run the unit tests. It prints warnings by flag and compares them with `documentation/warnings_baseline.txt`; don't add new warnings, and update the baseline with `--update-baseline` when warnings are deliberately fixed.
 - The build only runs `make` in Inform Core and rewrites `inform/StagingArea` when `INFORM_CORE_UPDATE = YES` (set in the gitignored `inform/Config/Local.xcconfig`). The script always passes NO unless given `--update-core`.
-- `configure.py` rewrites signing, sandbox and version settings in the main project and the submodule projects. Its edits are why the submodules show local project-file changes. Don't run it without being asked.
+- `configure.py` sets signing, sandbox and version settings in the main project. It leaves the submodule projects alone, except `SKIP_INSTALL` for release builds; signing of everything embedded happens in the Inform target (Copy phases with Code Sign On Copy, plus `final_build_phase.sh`). Don't run it without being asked.
+- `xcodebuild archive` runs the scheme's post-archive action (`inform/Scripts/post_archive.sh`), which exports, builds a DMG and writes `~/inform_post_archive_output.txt`. Don't archive without being asked.
 
 ## Rules
 

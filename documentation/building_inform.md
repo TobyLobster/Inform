@@ -27,11 +27,15 @@
     sudo python3 setup.py install
 ```
 
-2b. Optionally install a repo that creates fancy disk images. The install instructions are [here](https://github.com/create-dmg/create-dmg). This is only needed when creating a disk image for release outside the Mac App Store.
+2b. Optionally install a repo that creates fancy disk images. The install instructions are [here](https://github.com/create-dmg/create-dmg). This is only needed when creating a disk image for release outside the Mac App Store. It is looked for on the `PATH`, then in `/opt/homebrew/bin` and `/usr/local/bin`.
 
 ## 3. Configure a build:
 
-Before building the app, all project files (including those in recursive submodules), as well as some .plists and .strings files must be configured correctly. This is all automated by a python script found in the root directory. It needs to be executed once, then only when the build type changes or the version number needs to be updated.
+Before building the app, the main project file, as well as some .plists and .strings files must be configured correctly. This is all automated by a python script found in the root directory. It needs to be executed once, then only when the build type changes or the version number needs to be updated.
+
+The submodule projects (Zoom, CocoaGlk and the audio libraries) are left as they are upstream. Their frameworks and executables are re-signed as they are copied into the app, and `inform/Scripts/final_build_phase.sh` signs the executables nested inside them (such as ZoomServer). The one exception: for release builds (`--standalone` and `--mas`) the script sets `SKIP_INSTALL` on a few submodule targets, so that an Archive contains only Inform.app. After a release, those edits can be undone with `git -C zoom checkout -- ZoomCocoa.xcodeproj` and `git -C zoom/depends/CocoaGlk checkout -- CocoaGlk.xcodeproj`.
+
+Debug builds are for the active architecture only (matching the submodule projects); Release builds and Archives are universal (Apple Silicon and Intel).
 
 * Close any Inform project open in XCode. (XCode doesn't cope well when project files change underneath it.)
 
