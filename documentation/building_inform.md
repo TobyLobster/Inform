@@ -17,14 +17,14 @@
 
 ## 2. Get and install the additional tools:
 
-2a. Install a tool from a github repo that uses Python 3 to edit XCode project files.
+2a. Install [mod-pbxproj](https://github.com/kronenthaler/mod-pbxproj), a Python 3 package that edits XCode project files.
 
 - This is required.
+- Install it into a virtual environment in the repository root (`.venv` is ignored by git):
 
 ```
-    git clone https://github.com/kronenthaler/mod-pbxproj.git
-    cd mod-pbxproj
-    sudo python3 setup.py install
+    python3 -m venv .venv
+    .venv/bin/pip install pbxproj
 ```
 
 2b. Optionally install a repo that creates fancy disk images. The install instructions are [here](https://github.com/create-dmg/create-dmg). This is only needed when creating a disk image for release outside the Mac App Store. It is looked for on the `PATH`, then in `/opt/homebrew/bin` and `/usr/local/bin`.
@@ -39,7 +39,7 @@ Debug builds are for the active architecture only (matching the submodule projec
 
 * Close any Inform project open in XCode. (XCode doesn't cope well when project files change underneath it.)
 
-* Execute `./configure.py --help`
+* Execute `.venv/bin/python configure.py --help` (or `./configure.py --help` with the virtual environment activated)
 
 To see the options. Execute this script with the appropriate parameters specified. Edit the `configure.py` script itself to change the current version number of the App.
 
