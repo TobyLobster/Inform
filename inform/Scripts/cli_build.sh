@@ -3,7 +3,7 @@
 # Command line build of the Inform workspace, for checking that everything compiles
 # and for tracking compiler warnings. Not used for release builds (see configure.py).
 #
-# By default this builds Debug without code signing, does not touch Inform Core,
+# By default this does a clean Debug build without code signing, does not touch Inform Core,
 # and does not repoint the Inform.app symlink in the repository root.
 #
 # Usage: inform/Scripts/cli_build.sh [options]
@@ -11,6 +11,8 @@
 #   --sign               Use the project's code signing settings
 #   --update-core        Rebuild Inform Core and refresh StagingArea (INFORM_CORE_UPDATE=YES)
 #   --test               Run the unit tests after building
+#   --incremental        Don't clean first (faster, but only rebuilt files report warnings,
+#                        so the warnings are not compared with the baseline)
 #   --update-baseline    Replace documentation/warnings_baseline.txt with this build's warnings
 #
 # Output goes to build/ in the repository root:
@@ -30,6 +32,7 @@ BASELINE="${REPO_ROOT}/documentation/warnings_baseline.txt"
 
 CONFIGURATION=Debug
 ACTION=build
+CLEAN=clean
 UPDATE_CORE=NO
 UPDATE_BASELINE=NO
 SIGNING_SETTINGS=(CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=)
@@ -40,6 +43,7 @@ while [ $# -gt 0 ]; do
         --sign)             SIGNING_SETTINGS=() ;;
         --update-core)      UPDATE_CORE=YES ;;
         --test)             ACTION=test ;;
+        --incremental)      CLEAN= ;;
         --update-baseline)  UPDATE_BASELINE=YES ;;
         *)                  echo "Unknown option: $1"; exit 2 ;;
     esac
@@ -49,7 +53,7 @@ done
 mkdir -p "${BUILD_DIR}"
 cd "${REPO_ROOT}" || exit 1
 
-echo "Building Inform (${CONFIGURATION}, ${ACTION}); log in ${LOG}"
+echo "Building Inform (${CONFIGURATION}, ${CLEAN:+clean }${ACTION}); log in ${LOG}"
 xcodebuild -workspace Inform.xcworkspace \
            -scheme Inform \
            -configuration "${CONFIGURATION}" \
@@ -58,7 +62,7 @@ xcodebuild -workspace Inform.xcworkspace \
            "${SIGNING_SETTINGS[@]}" \
            INFORM_CORE_UPDATE="${UPDATE_CORE}" \
            INFORM_APP_SYMLINK=NO \
-           ${ACTION} > "${LOG}" 2>&1
+           ${CLEAN} ${ACTION} > "${LOG}" 2>&1
 RESULT=$?
 
 # Collect unique warnings, with paths made relative to the repository root.
@@ -72,7 +76,9 @@ echo "Warnings by flag:"
 grep -oE '\[-W[^]]+\]' "${WARNINGS}" | sort | uniq -c | sort -rn | head -20
 echo
 echo "Unique warnings: $(wc -l < "${WARNINGS}" | tr -d ' ')"
-if [ -f "${BASELINE}" ]; then
+if [ -z "${CLEAN}" ]; then
+    echo "(Incremental build: not compared with the baseline)"
+elif [ -f "${BASELINE}" ]; then
     echo "Baseline:        $(wc -l < "${BASELINE}" | tr -d ' ')"
     # Compare without line and column numbers, so that edits which only move code don't count as new.
     without_lines() { sed -E 's/:[0-9]+:[0-9]+: warning:/: warning:/' "$1" | sort -u; }
@@ -80,7 +86,7 @@ if [ -f "${BASELINE}" ]; then
     echo "New since baseline: $(wc -l < "${BUILD_DIR}/new_warnings.txt" | tr -d ' ')  (listed in build/new_warnings.txt)"
 fi
 
-if [ "${UPDATE_BASELINE}" = "YES" ]; then
+if [ "${UPDATE_BASELINE}" = "YES" ] && [ -n "${CLEAN}" ]; then
     cp "${WARNINGS}" "${BASELINE}"
     echo "Baseline updated."
 fi
