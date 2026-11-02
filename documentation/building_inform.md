@@ -169,6 +169,7 @@ See also Apple's documentation [Troubleshooting Application Archiving in Xcode](
     - First notarize:
         - `cd inform/Distribution`
         - Execute `./notarize.sh`
+        - If it fails with `HTTP status code: 401. Invalid credentials`, the app-specific password saved in the `AC_PASSWORD` keychain profile is no longer valid. Apple revokes app-specific passwords when the Apple Account password changes, and they can be revoked by hand. Generate a new one at [account.apple.com](https://account.apple.com) (Sign-In and Security › App-Specific Passwords), then save it over the old profile with `xcrun notarytool store-credentials "AC_PASSWORD" --apple-id <your Apple Account email> --team-id <your team ID>`, which asks for the password.
 
     - If that succeeds, use the ID returned to run:
         - `xcrun notarytool log <ID> --keychain-profile "AC_PASSWORD" developer_log.json`
