@@ -19,7 +19,7 @@ full_version                = app_version_number + "/6.41/" + inform_source_vers
 # contains them alongside Inform.app and cannot be exported. Until SKIP_INSTALL is set upstream,
 # release builds (--standalone, --mas) set it here.
 skip_install_targets = {
-    'zoom/ZoomCocoa.xcodeproj/project.pbxproj':                     ['babel', 'Builder', 'ZoomServer'],
+    'zoom/ZoomCocoa.xcodeproj/project.pbxproj':                     ['Builder', 'ZoomServer'],
     'zoom/depends/CocoaGlk/CocoaGlk.xcodeproj/project.pbxproj':     ['GlkView'],
 }
 
