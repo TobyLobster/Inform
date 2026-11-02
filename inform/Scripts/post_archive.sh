@@ -56,8 +56,15 @@ if [ -e "$DMG_PATH" ]; then
 fi
 
 # Uses create-dmg tool from https://github.com/create-dmg/create-dmg
+# (Homebrew installs it in /opt/homebrew/bin on Apple Silicon and /usr/local/bin on Intel.)
+CREATE_DMG=$(PATH="$PATH:/opt/homebrew/bin:/usr/local/bin" command -v create-dmg)
+if [ -z "$CREATE_DMG" ]; then
+	echo "Unable to find create-dmg: giving up"
+	exit 1
+fi
+
 echo Creating fancy DMG...
-/usr/local/bin/create-dmg --volname "Inform" --background "$DISTRIBUTION_DIR/bgimage.png" --window-pos 200 200 --window-size 550 400 --icon-size 128 --icon Inform.app 150 195 "$DMG_PATH" "$INFORM"
+"$CREATE_DMG" --volname "Inform" --background "$DISTRIBUTION_DIR/bgimage.png" --window-pos 200 200 --window-size 550 400 --icon-size 128 --icon Inform.app 150 195 "$DMG_PATH" "$INFORM"
 
 echo Code signing DMG...
 # ${CODE_SIGN_IDENTITY} was 'Developer ID Application: Toby Nelson (97V36B3QYK)'
