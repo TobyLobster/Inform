@@ -36,11 +36,18 @@ if [ -n "${CODE_SIGN_IDENTITY}" ]; then
     echo "Signing Identity: ${CODE_SIGN_IDENTITY}"
     echo "Signing parameters: ${COMMON}"
 
-# These are already signed, so commented out:
+# The frameworks are signed when they are copied into the app (Copy Frameworks build phase), so commented out:
 #    eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/GlkClient.framework/Versions/A/GlkClient"
 #    eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/GlkView.framework/Versions/A/GlkView"
-#    eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZoomView.framework/Versions/A/Resources/ZoomServer"
 #    eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZoomView.framework/Versions/A/ZoomView"
+
+    # ZoomServer is nested inside ZoomView.framework, so it isn't re-signed when the framework is
+    # copied, and the Zoom project only signs it to run locally. Sign it here, then re-sign the
+    # framework (keeping its identifier, entitlements and flags) so its seal covers the new signature.
+    ZOOMVIEW_FRAMEWORK="${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZoomView.framework/Versions/A"
+    eval ${COMMON} "${ZOOMVIEW_FRAMEWORK}/Resources/ZoomServer"
+    /usr/bin/codesign --timestamp --force --sign "${CODE_SIGN_IDENTITY}" --preserve-metadata=identifier,entitlements,flags "${ZOOMVIEW_FRAMEWORK}"
+
     eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}/git-client"
     eval ${COMMON} "${BUILT_PRODUCTS_DIR}/${EXECUTABLE_FOLDER_PATH}/glulxe-client"
 

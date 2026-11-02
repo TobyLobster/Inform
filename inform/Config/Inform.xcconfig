@@ -3,6 +3,12 @@
 // Settings written directly into the project file take precedence over these.
 //
 
+// Debug builds only the active architecture, as the Zoom and CocoaGlk projects do, so that
+// the app and the frameworks it links match. Release builds (and so archives) are universal.
+ONLY_ACTIVE_ARCH = $(INFORM_ONLY_ACTIVE_ARCH_$(CONFIGURATION))
+INFORM_ONLY_ACTIVE_ARCH_Debug = YES
+INFORM_ONLY_ACTIVE_ARCH_Release = NO
+
 // Inform Core integration (see Scripts/compiler_injection.sh).
 // When YES, each build runs 'make' in INFORM_CORE_DIR and refreshes StagingArea from it.
 // When NO, the build only copies the existing StagingArea into the app.
