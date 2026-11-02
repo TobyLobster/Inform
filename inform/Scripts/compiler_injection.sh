@@ -4,10 +4,12 @@
 #
 
 # Some executables and resources for the app originate from the core of Graham Nelson's Inform.
-# If the "INFORM_CORE" directory exists, these resources are built and copied into the TempStagingArea.
+# If INFORM_CORE_UPDATE is YES and the INFORM_CORE_DIR directory exists, these resources are built
+# and copied into the TempStagingArea. Both settings come from Config/Inform.xcconfig, and can be
+# overridden in Config/Local.xcconfig.
 # Resources from TempStagingArea are copied into the StagingArea proper as needed.
 # The StagingArea files are then copied to the target build.
-export INFORM_CORE="${SRCROOT}/../../Inform Core/inform"
+export INFORM_CORE="${INFORM_CORE_DIR}"
 export INFORM_APP_DIR="${TARGET_BUILD_DIR}"
 export STAGING_AREA="${SRCROOT}/StagingArea/Contents"
 export TEMP_STAGING_AREA="${SRCROOT}/TempStagingArea/Contents"
@@ -15,12 +17,18 @@ export RESOURCE_AREA="${SRCROOT}/Resources"
 
 # Create useful shortcut to App. Not used here, but used when running Distribution/build-dist.sh
 # (which creates a DMG file for distribution outside the MAS) to find the Inform App
-ln -sf ${INFORM_APP_DIR}/Inform.app ${SRCROOT}/..
+if [ "${INFORM_APP_SYMLINK}" = "YES" ]; then
+    ln -sf ${INFORM_APP_DIR}/Inform.app ${SRCROOT}/..
+fi
 
 #
-# If Inform Core exists, get resources from there and put them in the StagingArea
+# If requested, and Inform Core exists, get resources from there and put them in the StagingArea
 #
-if [ -d "${INFORM_CORE}" ]; then
+if [ "${INFORM_CORE_UPDATE}" != "YES" ]; then
+    echo "Skipping Inform Core update (INFORM_CORE_UPDATE is not YES)"
+elif [ ! -d "${INFORM_CORE}" ]; then
+    echo "warning: INFORM_CORE_UPDATE is YES but Inform Core was not found at '${INFORM_CORE}'"
+else
     echo Copy resources to StagingArea - started
 
     cd "${INFORM_CORE}/.."
