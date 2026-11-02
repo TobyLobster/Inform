@@ -59,6 +59,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - Move Zoom to `origin/madds`, which records CocoaGlk `f5a7fe2`.
 - Drop the local submodule changes (mostly `configure.py` output and xib churn; the `glk_unicode.m` fix is upstream).
 - Fix where the app's use of ZoomView/GlkView no longer matches.
+- A fresh clone of upstream Zoom doesn't build ZoomServer: the `Interpreter` step can't find `Builder`, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). Our checkout only works because old copies of those headers sit in the ignored `zoom/build/`. Fix upstream, or generate them in our build.
 
 ### Phase 1b – Clean build, whole workspace (goal 1)
 
