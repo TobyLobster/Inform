@@ -45,6 +45,8 @@ To see the options. Execute this script with the appropriate parameters specifie
 
 * Now the Inform XCode project should build and run in XCode as normal.
 
+* To check the build from the command line (unsigned, into `build/`, with a summary of compiler warnings compared against `documentation/warnings_baseline.txt`), run `inform/Scripts/cli_build.sh`. Add `--test` to also run the unit tests. See the top of the script for other options.
+
 * Troubleshooting: If you're having code signing issues, there is Apple documentation that may help:
 	- [XCode Help: If a code signing error occurs](https://help.apple.com/xcode/mac/current/#/dev01865b392).
 	- [About Code Signing](https://developer.apple.com/library/archive/documentation/Security/Conceptual/CodeSigningGuide/Introduction/Introduction.html).
@@ -73,7 +75,7 @@ InformApp\inform
          \...
 ```
 
-- In the XCode project for InformApp, check `scripts/compiler_injection.sh`: make sure INFORM_CORE points to your installed Inform repo. If this directory exists, then building the Inform for macOS app will automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead.
+- Building the app only rebuilds Inform Core if you ask it to. Copy `inform/Config/Local.xcconfig.example` to `inform/Config/Local.xcconfig` (git ignores it) and set `INFORM_CORE_UPDATE = YES`. If your Inform Core repo isn't at `../Inform Core/inform` relative to InformApp, also set `INFORM_CORE_DIR` there. Each build of the Inform for macOS app will then automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead. Without this, the build just uses the resources already in `inform/StagingArea`.
 
 ## Updating Submodules
 We have one submodule `zoom`, which has it's own submodules. See [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for useful information about how to deal with the crazy world of git submodules.
@@ -217,7 +219,7 @@ InformApp\inform
          \...
 ```
 
-- In `scripts/compiler_injection.sh`, make sure INFORM_CORE points to your installed Inform repo. If this directory exists, then building the Inform for macOS app will automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead.
+- Building the app only rebuilds Inform Core if you ask it to. Copy `inform/Config/Local.xcconfig.example` to `inform/Config/Local.xcconfig` (git ignores it) and set `INFORM_CORE_UPDATE = YES`. If your Inform Core repo isn't at `../Inform Core/inform` relative to InformApp, also set `INFORM_CORE_DIR` there. Each build of the Inform for macOS app will then automatically `make all` and copy in resources from Inform Core. A clean build triggers a `make force` instead. Without this, the build just uses the resources already in `inform/StagingArea`.
 
 ## Updating Submodules
 We have one submodule `zoom`, which has it's own submodules. See [here](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for useful information about how to deal with the crazy world of git submodules.
