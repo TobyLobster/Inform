@@ -84,7 +84,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
     - Generated parsers, 13: flex and bison output in Zoom's Builder, CocoaGlk, and the app's own `IFError.yy.c`.
     - The app, 3: the old Quick Look generator calls (Phase 6).
 - Proposed: fix Zoom and CocoaGlk's own deprecations upstream in small pull requests, except Distributed Objects and WebKit 1 (Phase 6). Ask MaddTheSane whether third-party code should be fixed in place (git is their fork) or have its warnings turned off per target (glulxe). Quieten the generated parsers per file. Agree what is left as the baseline.
-- [ ] First batch, ready on branches in `~/Code/upstream`: Zoom `remove-seg1addr` (removes `-seg1addr` from ZoomView and ZoomPlugIns) and CocoaGlk `use-audio-element-main` (`kAudioObjectPropertyElementMain`). Each builds cleanly upstream without its warnings.
+- [ ] First batch, pushed to the forks for pull requests (3 November 2026): Zoom `remove-seg1addr` (removes `-seg1addr` from ZoomView and ZoomPlugIns) and CocoaGlk `use-audio-element-main` (`kAudioObjectPropertyElementMain`). Each builds cleanly upstream without its warnings.
 
 ### Phase 3 – Existing bugs (goal 3)
 
