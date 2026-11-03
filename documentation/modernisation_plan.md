@@ -52,7 +52,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - Review Xcode's recommended project settings one by one; keep manual signing.
 - Replace `-Weverything` with a chosen set of warnings.
 - Fix the real warnings in the app's own code.
-- Decide the minimum macOS version (currently 10.14). Upstream Zoom and CocoaGlk now require macOS 12 (November 2026), so after Phase 2 it can be no lower than 12.
+- [x] Minimum macOS is 13 (decided 3 November 2026; upstream Zoom and CocoaGlk need 12). The Inform and InformQL targets now build for 13.0. This exposed 42 new deprecation warnings (Uniform Type Identifiers, `NSWorkspace openFile:`, `allowedFileTypes`, `validateMenuItem:` without `NSMenuItemValidation`, old Quick Look generator calls, `-bind_at_load`), now in the baseline and to be fixed below.
 - Signed manual smoke test on current macOS: compile a project, play Z-code and Glulx games, Skein, Index, documentation, extensions, testing, dark mode.
 
 ### Phase 2 – Merge Zoom and CocoaGlk (goal 2)
@@ -91,5 +91,4 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 ## Open decisions
 
-- Minimum macOS version.
 - What to do about the `extensions` and `master` branches (`extensions` is 63 commits ahead; `master` hasn't moved since April 2023).
