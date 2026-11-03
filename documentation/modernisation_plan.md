@@ -94,7 +94,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
     - [x] Skein: selecting a knot jumped the view back to the top-left, so in a skein wider than the pane the knot you clicked went off screen. `-[IFSkeinView scrollViewToItem:]` moved the view's frame to the active knot's position instead of scrolling. It now scrolls the clicked knot into view (`IFSkeinViewTests`). Older than this work.
     - [x] Skein jumped to the top after every edit (TobyLobster/Inform#45). Fixed by angstsmurf's TobyLobster/Inform#52, cherry-picked onto this branch, with a test added.
     - Skein: after selecting one thread and then another, transcript rows can overlap, because some levels keep the heights from the previously selected thread's transcript. Seen off screen, not yet investigated.
-    - Skein: lines from the selected thread to branches on the right of the transcript run behind it, so only their ends show. The transcript is deliberately on top (`compareViewOrder` in `IFSkeinViewChildren.m`); check whether this is what was reported as broken lines.
+    - [x] Skein: when a thread was selected, the lines between its knots kept their old, shorter length, so the knots looked disconnected. `IFSkeinLinkView` only redrew on `setNeedsDisplay`, so a longer line kept its layer's old drawing. It now redraws when resized (`IFSkeinViewTests`; checked on screen with a temporary capture test).
+    - Skein: lines from the selected thread to branches placed to the right of the transcript run behind it, so only their ends show. The transcript is deliberately drawn on top (`compareViewOrder` in `IFSkeinViewChildren.m`); maybe worth routing or drawing these differently.
 
 ### Phase 4 – New bugs (goal 4)
 
