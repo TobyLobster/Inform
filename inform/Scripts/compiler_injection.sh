@@ -73,15 +73,17 @@ else
     mkdir -p "${TEMP_STAGING_AREA}/Resources/en.lproj"
     mkdir -p "${TEMP_STAGING_AREA}/Resources/map_icons"
 
-    # Build Inform Core
+    # Build Inform Core. This also copies the interpreters for testing extensions into the
+    # TempStagingArea, and GLULXENAME gives the Glulx one the name the app uses. (Both are
+    # replaced further down by builds for both architectures.)
     if [ -f $TESTFILE ];
     then
         # Incremental build
         echo 'make all'
-        make all
+        make all GLULXENAME=glulxe
     else
         echo 'make force'
-        make force
+        make force GLULXENAME=glulxe
     fi
 
     cd "${INFORM_CORE}"
@@ -144,9 +146,27 @@ else
     #cp -f "${INFORM_CORE}/resources/Documentation/Inform - A Design System for Interactive Fiction.epub" "${STAGING_AREA}/Resources/en.lproj/Inform - A Design System for Interactive Fiction.epub"
     #cp -f "${INFORM_CORE}/resources/Changes/Changes to Inform.epub"             "${STAGING_AREA}/Resources/en.lproj/Changes to Inform.epub"
 
-    # Copy interpreter executables (for testing extensions) here...
-    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-glulx/glulxe/glulxe"    "${TEMP_STAGING_AREA}/MacOS/"
-    cp -f "${INFORM_CORE}/inform6/Tests/Assistants/dumb-frotz/dumb-frotz"       "${TEMP_STAGING_AREA}/MacOS/"
+    # Build the interpreter executables (for testing extensions) for both architectures here...
+    # Inform Core's 'make all' and 'make force' don't build them (only its tests do), and builds
+    # glulxe for this Mac's architecture only.
+    # They are built from copies of the sources, leaving Inform Core's own builds alone, with the
+    # options Inform Core uses but with warnings off (Xcode would list them with the app's).
+    ASSISTANTS="${INFORM_CORE}/inform6/Tests/Assistants"
+    INTERPRETERS_BUILD="${TARGET_TEMP_DIR}/Interpreters"
+    for ARCH in x86_64 arm64; do
+        rm -rf "${INTERPRETERS_BUILD}/${ARCH}"
+        mkdir -p "${INTERPRETERS_BUILD}/${ARCH}/dumb-frotz"
+        cp "${ASSISTANTS}/dumb-frotz/"*.[ch]                                        "${INTERPRETERS_BUILD}/${ARCH}/dumb-frotz/"
+        cp -R "${ASSISTANTS}/dumb-glulx"                                            "${INTERPRETERS_BUILD}/${ARCH}/"
+
+        (cd "${INTERPRETERS_BUILD}/${ARCH}/dumb-frotz" && cc -arch ${ARCH} -std=c99 -g -w -Wno-implicit-int -o dumb-frotz *.c)
+        make -C "${INTERPRETERS_BUILD}/${ARCH}/dumb-glulx/cheapglk" clean
+        make -C "${INTERPRETERS_BUILD}/${ARCH}/dumb-glulx/cheapglk" CC="cc -arch ${ARCH}" OPTIONS="-g -w"
+        make -C "${INTERPRETERS_BUILD}/${ARCH}/dumb-glulx/glulxe" clean
+        make -C "${INTERPRETERS_BUILD}/${ARCH}/dumb-glulx/glulxe" CC="cc -arch ${ARCH}" OPTIONS="-g -w -DOS_STDC"
+    done
+    lipo -create -output "${TEMP_STAGING_AREA}/MacOS/dumb-frotz" "${INTERPRETERS_BUILD}/x86_64/dumb-frotz/dumb-frotz" "${INTERPRETERS_BUILD}/arm64/dumb-frotz/dumb-frotz"
+    lipo -create -output "${TEMP_STAGING_AREA}/MacOS/glulxe" "${INTERPRETERS_BUILD}/x86_64/dumb-glulx/glulxe/glulxe" "${INTERPRETERS_BUILD}/arm64/dumb-glulx/glulxe/glulxe"
 
     # Replace the documentation in StagingArea with the latest from TempStagingArea
     rm -f "${STAGING_AREA}/Resources/en.lproj/"*
