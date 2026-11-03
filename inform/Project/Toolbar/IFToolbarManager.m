@@ -132,7 +132,6 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	searchDocsItem.label = [IFUtility localizedString: @"Search Documentation"];
 	searchProjectItem.label = [IFUtility localizedString: @"Search Project"];
 
-    IFSetToolbarViewWidth(toolbarStatusSpacingView, 10, 10000);
     toolbarStatusSpacingItem.view = toolbarStatusSpacingView;
     toolbarStatusSpacingItem.label = @"";
 
@@ -499,6 +498,9 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
         item.view = testCasesPopUpButton;
         testCasesPopUpButton.target = projectController;
         testCasesPopUpButton.action = @selector(testSelector:);
+    } else if ([itemIdentifier isEqualToString: @"toolbarStatusSpacingItem"]) {
+        // The copy's view is unarchived without the constraints, so they're set here
+        IFSetToolbarViewWidth(item.view, 10, 10000);
     }
 
 	return item;
