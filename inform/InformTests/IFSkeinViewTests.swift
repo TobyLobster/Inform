@@ -89,4 +89,20 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertTrue(skeinView.visibleRect.intersects(knot.frame))
     }
 
+    /// Laying the skein out again, as happens after every edit, keeps the scroll position.
+    func testLayoutKeepsTheScrollPosition() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        let item = addThread(to: skein.rootItem, skein: skein, count: 30)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        // Show the thread's transcript, which makes the levels taller, and scroll to the bottom
+        skeinView.select(item, withAnimation: false)
+        skeinView.scroll(NSPoint(x: 0, y: skeinView.frame.height - skeinView.visibleRect.height))
+        let scrolledTo = skeinView.visibleRect.origin
+        XCTAssertGreaterThan(scrolledTo.y, 0)
+
+        skeinView.layoutSkein(withAnimation: false)
+        XCTAssertEqual(skeinView.visibleRect.origin, scrolledTo)
+    }
 }
