@@ -1,0 +1,25 @@
+//
+// Compiler warnings for C and Objective-C, included by Inform.xcconfig.
+//
+// Most warnings are chosen by the CLANG_WARN_* and GCC_WARN_* settings at the project level
+// (see the project's Build Settings). This file adds a few more. We list them rather than use
+// -Weverything, which turns on every new warning each Clang release adds.
+//
+
+// Warnings that have an Xcode setting.
+GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES             // Non-static functions with no earlier declaration (usually they should be static).
+CLANG_WARN_IMPLICIT_FALLTHROUGH = YES               // A switch case that falls into the next without a break.
+CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE  // Uses of APIs newer than the deployment target without @available.
+
+// Warnings with no Xcode setting.
+WARNING_CFLAGS = $(inherited) $(INFORM_EXTRA_WARNINGS) $(INFORM_DISABLED_WARNINGS)
+
+// -Wsingle-bit-bitfield-constant-conversion  Storing 1 (e.g. YES) into a signed one-bit bitfield, which reads back as -1.
+// -Wunused-but-set-variable                  Variables that are assigned but never read.
+// -Wfor-loop-analysis                        for loops whose variable is never changed, or is changed in both the header and the body.
+INFORM_EXTRA_WARNINGS = -Wsingle-bit-bitfield-constant-conversion -Wunused-but-set-variable -Wfor-loop-analysis
+
+// Switched off even though the project setting (CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK) is on,
+// as it was before. It flags reading a weak reference more than once in a method, since it can
+// become nil in between: real, but there are around 60 places to look at.
+INFORM_DISABLED_WARNINGS = -Wno-arc-repeated-use-of-weak
