@@ -147,19 +147,22 @@ final class IFSkeinViewTests: XCTestCase {
         }
     }
 
-    /// Selecting a thread makes the levels taller and so the lines between knots longer. Each line has to be
-    /// drawn again at its new length, or its layer keeps the shorter line and the knots look disconnected.
-    func testLinesRedrawWhenTheirLengthChanges() {
+    /// Selecting a thread makes the levels taller and so the lines between knots longer, with an animation.
+    /// The line is its layer's contents stretched to fit, so that it's the right length all the way through.
+    func testLinesStretchWithTheirLayers() {
         let skein: IFSkein = IFSkein(project: nil)
         let item = addThread(to: skein.rootItem, skein: skein, count: 4)
         let (window, skeinView) = makeSkeinView(skein)
         defer { window.close() }
 
         skeinView.select(item, withAnimation: false)
-        let lines = skeinView.subviews.filter { NSStringFromClass(type(of: $0)).hasSuffix("IFSkeinLinkView") }
+        let lines = lineViews(skeinView)
         XCTAssertEqual(lines.count, 4)
         for line in lines {
-            XCTAssertEqual(line.layerContentsRedrawPolicy, .duringViewResize)
+            // The window isn't shown, so display the layer here as the window would
+            line.layer?.display()
+            XCTAssertTrue(line.layer?.contents is NSImage)
+            XCTAssertEqual(line.layer?.contentsGravity, .resize)
         }
     }
 

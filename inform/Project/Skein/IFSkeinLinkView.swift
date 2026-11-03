@@ -13,32 +13,37 @@ class IFSkeinLinkView: NSView {
         super.init(frame:frameRect)
 
         self.wantsLayer = true
-        // Redraw when the length changes, otherwise the layer keeps the line drawn at the old length
-        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.duringViewResize
+        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.onSetNeedsDisplay
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
         self.wantsLayer = true
-        // Redraw when the length changes, otherwise the layer keeps the line drawn at the old length
-        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.duringViewResize
+        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.onSetNeedsDisplay
     }
 
-    override func draw(_ dirtyRect:NSRect) {
-        var blackRect:NSRect = self.bounds
+    // The line is the layer's contents, stretched to fill the layer, so it stays the right length while the
+    // length animates. (A drawRect backing store isn't stretched, so the line was too short or too long.)
+    override var wantsUpdateLayer: Bool {
+        return true
+    }
 
-        // Leave a one pixel border blank, because this helps antialiasing
-        blackRect = NSInsetRect(blackRect, 0.0, 1.0)
+    override func updateLayer() {
+        let height = self.bounds.size.height
 
-        // Only draw the part that needs redrawing
-        blackRect = NSIntersectionRect(blackRect, dirtyRect)
+        self.layer?.contents = NSImage(size: NSSize(width: 1.0, height: height), flipped: false) { rect in
+            // Leave a one pixel border blank, because this helps antialiasing
+            let blackRect = NSInsetRect(rect, 0.0, 1.0)
 
-        // Draw rectangle
-        NSColor(deviceRed:0.25,
-                               green:0.25,
-                                blue:0.25,
-                               alpha:1.0).set()
-        blackRect.fill()
+            // Draw rectangle
+            NSColor(deviceRed:0.25,
+                                   green:0.25,
+                                    blue:0.25,
+                                   alpha:1.0).set()
+            blackRect.fill()
+            return true
+        }
+        self.layer?.contentsGravity = .resize
     }
 }
