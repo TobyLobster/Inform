@@ -85,4 +85,13 @@ final class IFUtilityTests: XCTestCase {
     func testNoPageWhenNothingIsThere() {
         XCTAssertNil(pageFor("English Language", by: "Graham Nelson"))
     }
+
+    // MARK: - Language versions
+
+    func testOlderLanguageVersionsUseTheirOwnCompilers() {
+        for version in ["6L02", "6L38", "6M62"] {
+            XCTAssertTrue(IFUtility.path(forCompiler: version).hasSuffix("/MacOS/\(version)/ni"), version)
+            XCTAssertTrue(IFUtility.path(forInformInternalAppSupport: version).hasSuffix("/retrospective/\(version)"), version)
+        }
+    }
 }

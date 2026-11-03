@@ -572,7 +572,7 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 +(BOOL) compilerVersion: (NSString*) compilerVersion isNoLaterThan: (NSString*) otherVersion {
-    return [IFUtility compilerVersion: otherVersion isAfter: compilerVersion];
+    return ![IFUtility compilerVersion: compilerVersion isAfter: otherVersion];
 }
 
 + (NSString*) fullCompilerVersion: (NSString*)version
