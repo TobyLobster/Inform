@@ -20,7 +20,8 @@ static const CGFloat kBlessButtonHeight = 13.0f;
 	
     if (self) {
         _blessButton = [[IFSkeinBlessButton alloc] init];
-        _textView    = [[NSTextView alloc] init];
+        // TextKit 1: with TextKit 2, sizeToFit doesn't reliably resize the view when the text changes
+        _textView    = [[NSTextView alloc] initUsingTextLayoutManager: NO];
 
         _textView.editable                       = NO;
         _textView.drawsBackground                = NO;

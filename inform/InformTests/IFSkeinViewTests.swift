@@ -89,6 +89,35 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertTrue(skeinView.visibleRect.intersects(knot.frame))
     }
 
+    /// Each transcript row fits its text after the selection moves between threads with shorter and longer output.
+    func testTranscriptRowsFitTheirTextAfterChangingThreads() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        let fork = addThread(to: skein.rootItem, skein: skein, count: 2)
+        var short = fork
+        var long = fork
+        for i in 1...2 {
+            let shortItem: IFSkeinItem = IFSkeinItem(skein: skein, command: "short \(i)")
+            shortItem.actual = "Short output \(i)."
+            short = short.addChild(shortItem)
+            let longItem: IFSkeinItem = IFSkeinItem(skein: skein, command: "long \(i)")
+            longItem.actual = String(repeating: "Long output \(i). ", count: 20)
+            long = long.addChild(longItem)
+        }
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        for leaf in [short, long, short] {
+            skeinView.select(leaf, withAnimation: false)
+            let report = try XCTUnwrap(skeinView.subviews.first { $0 is IFSkeinReportView })
+            for case let row as IFSkeinReportItemView in report.subviews where row.textView.string.count > 0 {
+                let text = try XCTUnwrap(row.textView.textStorage)
+                let fit = text.boundingRect(with: NSSize(width: row.textView.frame.width, height: 10000),
+                                            options: [.usesLineFragmentOrigin, .usesFontLeading])
+                XCTAssertEqual(row.textView.frame.height, ceil(fit.height), accuracy: 1, row.textView.string)
+            }
+        }
+    }
+
     /// Selecting a thread makes the levels taller and so the lines between knots longer. Each line has to be
     /// drawn again at its new length, or its layer keeps the shorter line and the knots look disconnected.
     func testLinesRedrawWhenTheirLengthChanges() {
