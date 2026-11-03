@@ -193,7 +193,7 @@
     // Set text colour of label, based on if the 'Use Inform Core directory' is checked.
     BOOL use = [IFPreferences sharedPreferences].useExternalInformCoreDirectory;
     if (!use) {
-        externalInformCoreDirectory.textColor = [NSColor secondarySelectedControlColor];
+        externalInformCoreDirectory.textColor = [NSColor disabledControlTextColor];
     } else {
         externalInformCoreDirectory.textColor = [NSColor controlTextColor];
     }

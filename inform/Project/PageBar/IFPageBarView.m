@@ -192,7 +192,7 @@ static const CGFloat leftMargin = 3.0;
 	CGFloat marginLeftPos  = NSMinX(cellFrame)+0.5;
     CGFloat marginRightPos = NSMaxX(cellFrame)-0.5;
 	
-	[[[NSColor controlShadowColor] colorWithAlphaComponent: 0.4] set];
+	[[NSColor separatorColor] set];
     
     if( right || isFirst) {
         [NSBezierPath strokeLineFromPoint: NSMakePoint(marginLeftPos, NSMinY(cellFrame)+1.5f)
@@ -280,7 +280,7 @@ static const CGFloat leftMargin = 3.0;
 
     // Draw single pixel horizontal line separating from main content
     NSRect fullRect = self.bounds;
-    [[[NSColor controlShadowColor] colorWithAlphaComponent: 0.5f] set];
+    [[NSColor separatorColor] set];
     [NSBezierPath strokeLineFromPoint: NSMakePoint(3.0f, 0.5f)
                               toPoint: NSMakePoint(fullRect.size.width - 14.0f, 0.5f)];
 

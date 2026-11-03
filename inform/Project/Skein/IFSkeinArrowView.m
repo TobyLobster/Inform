@@ -42,8 +42,8 @@ static const CGFloat kSkeinArrowHeadHalfHeight = kSkeinArrowHeadHeight * 0.5f;
     CGFloat m = self.frame.size.width - kSkeinArrowHeadLength + offset.x;
 
     // Draw arrow head
-    path.lineJoinStyle = NSMiterLineJoinStyle;
-    path.lineCapStyle = NSButtLineCapStyle;
+    path.lineJoinStyle = NSLineJoinStyleMiter;
+    path.lineCapStyle = NSLineCapStyleButt;
     [path moveToPoint: NSMakePoint(m, y + h)];
     [path lineToPoint: NSMakePoint(w, y)];
     [path lineToPoint: NSMakePoint(m, y - h)];
