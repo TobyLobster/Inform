@@ -285,7 +285,8 @@ CGFloat easeOutCubic(CGFloat t) {
             case 0:
             case 1:
                 alert.buttons[desIdx].hasDestructiveAction = YES;
-                
+                break;
+
             default:
                 break;
         }

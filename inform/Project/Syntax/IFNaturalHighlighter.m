@@ -71,14 +71,17 @@
 							return newState;
 						}
 					}
+					__attribute__((fallthrough));
 				case IFNaturalStateBlankLine:
 					if (chr == ' ' || chr == '\n' || chr == '\t' || chr == '\r')
 						return IFNaturalStateBlankLine;
 					// ObRAIF: here is why fall-through cases are a *good* thing
 					// (Of course, first time I tried this, I got these conditions the wrong way round... Mmm, bug)
+					__attribute__((fallthrough));
 				case IFNaturalStateSpace:
 					if ((chr == '"') || (chr == 0x201C) || (chr == 0x201D))
 						return IFNaturalStateQuote;
+					__attribute__((fallthrough));
 				case IFNaturalStateText:
 					// Just plain ole text
 					if (chr == '[') {
@@ -108,6 +111,7 @@
 				case IFNaturalStateSubstitution:
 					if (chr == ']')
 						return IFNaturalStateQuote;
+					__attribute__((fallthrough));
 				case IFNaturalStateQuote:
 					if ((chr == '"') || (chr == 0x201C) || (chr == 0x201D))
 						return IFNaturalStateText;
@@ -133,6 +137,7 @@
 			
 			// Switch back to Inform 6 mode
 			activeData.highlighterMode = IFNaturalModeInform6;
+			__attribute__((fallthrough));
 			
 		case IFNaturalModeInform6:
 			if (chr == '-') {
