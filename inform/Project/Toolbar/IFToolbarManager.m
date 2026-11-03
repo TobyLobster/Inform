@@ -20,6 +20,13 @@
 
  #pragma mark - Preferences
 
+
+// Limits the width of a toolbar item's view (replaces NSToolbarItem's deprecated minSize and maxSize)
+static void IFSetToolbarViewWidth(NSView* view, CGFloat minWidth, CGFloat maxWidth) {
+    [view.widthAnchor constraintGreaterThanOrEqualToConstant: minWidth].active = YES;
+    [view.widthAnchor constraintLessThanOrEqualToConstant: maxWidth].active = YES;
+}
+
 @implementation IFToolbarManager {
     // The toolbar
     NSToolbar* toolbar;
@@ -125,8 +132,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 	searchDocsItem.label = [IFUtility localizedString: @"Search Documentation"];
 	searchProjectItem.label = [IFUtility localizedString: @"Search Project"];
 
-    toolbarStatusSpacingItem.minSize = NSMakeSize(10, 1);
-    toolbarStatusSpacingItem.maxSize = NSMakeSize(10000, 1);
+    IFSetToolbarViewWidth(toolbarStatusSpacingView, 10, 10000);
     toolbarStatusSpacingItem.view = toolbarStatusSpacingView;
     toolbarStatusSpacingItem.label = @"";
 
@@ -457,8 +463,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 		NSSearchField* searchDocs = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
 		[searchDocs.cell setPlaceholderString: [IFUtility localizedString: @"Documentation"]];
 
-		item.minSize = NSMakeSize(70, 22);
-		item.maxSize = NSMakeSize(150, 22);
+		IFSetToolbarViewWidth(searchDocs, 70, 150);
 		item.view = searchDocs;
 		[searchDocs sizeToFit];
         [searchDocs.cell setScrollable:YES];
@@ -475,8 +480,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 		NSSearchField* searchProject = [[NSSearchField alloc] initWithFrame: NSMakeRect(0,0,130,22)];
 		[searchProject.cell setPlaceholderString: [IFUtility localizedString: @"Project"]];
 
-		item.minSize = NSMakeSize(70, 22);
-		item.maxSize = NSMakeSize(150, 22);
+		IFSetToolbarViewWidth(searchProject, 70, 150);
 		item.view = searchProject;
 		[searchProject sizeToFit];
         [searchProject.cell setScrollable:YES];
@@ -491,8 +495,7 @@ static const CGFloat  toolbarStatusWidth    = 300.0f;
 		return item;
     } else if ([itemIdentifier isEqualToString: @"testSelectorItem"]) {
         testCasesPopUpButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0, 0, 190, 22)];
-        item.minSize = NSMakeSize(100, 22);
-        item.maxSize = NSMakeSize(190, 22);
+        IFSetToolbarViewWidth(testCasesPopUpButton, 100, 190);
         item.view = testCasesPopUpButton;
         testCasesPopUpButton.target = projectController;
         testCasesPopUpButton.action = @selector(testSelector:);
