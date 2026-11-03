@@ -67,11 +67,13 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 ### Phase 2 – Merge Zoom and CocoaGlk (goal 2)
 
-- Move Zoom to `origin/madds` (`0c09da21` on 3 November 2026), which records CocoaGlk `d0b0e46`. Both include our `SKIP_INSTALL` changes and require macOS 12.
-- Remove the `SKIP_INSTALL` edit from `configure.py`, so it no longer touches the submodules at all.
-- Drop the local submodule changes (mostly `configure.py` output and xib churn; the `glk_unicode.m` fix is upstream).
-- Fix where the app's use of ZoomView/GlkView no longer matches.
-- A fresh clone of upstream Zoom doesn't build ZoomServer: the `Interpreter` step can't find `Builder`, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). Our checkout only works because old copies of those headers sit in the ignored `zoom/build/`. Fix upstream, or generate them in our build.
+- [x] Move Zoom to `origin/madds` (`0c09da21` on 3 November 2026, 197 commits on), which records CocoaGlk `d0b0e46`. Both include our `SKIP_INSTALL` changes and require macOS 12. Inform needed no source changes.
+- [x] Remove the `SKIP_INSTALL` edit from `configure.py`, so it no longer touches the submodules at all.
+- [x] Drop the local submodule changes (mostly `configure.py` output and xib churn; the `glk_unicode.m` fix is upstream). Kept as a `git stash` in each submodule (`git -C zoom stash list`, `git -C zoom/depends/CocoaGlk stash list`).
+- [ ] Fresh clones of Zoom don't build ZoomServer: the external-build-tool `Interpreter` target runs before `Builder` is linked, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). It only worked here because old headers sat in the ignored `zoom/build/` (same code as freshly generated ones, apart from `#line` paths and order). Fix: generate the headers in a ZoomServer Run Script phase that declares Builder as an input. Committed on branch `generate-interpreter-headers` in `~/Code/upstream/zoom`, for a pull request; applied uncommitted to our `zoom/` until it is merged. Until then a fresh clone of Inform hits this too.
+- [ ] Until MaddTheSane/CocoaGlk#6 is merged, the GlkView listener fix is applied uncommitted to our `zoom/depends/CocoaGlk`.
+- [ ] Manual test of games: Z-code and Glulx (glulxe and git), sound, graphics, save and restore, the Skein and transcripts.
+- New warnings from upstream (deprecations exposed by its macOS 12 minimum, `-seg1addr` with chained fixups) are in the baseline for Phase 1b.
 
 ### Phase 1b – Clean build, whole workspace (goal 1)
 

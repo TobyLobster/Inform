@@ -33,7 +33,7 @@
 
 Before building the app, the main project file, as well as some .plists and .strings files must be configured correctly. This is all automated by a python script found in the root directory. It needs to be executed once, then only when the build type changes or the version number needs to be updated.
 
-The submodule projects (Zoom, CocoaGlk and the audio libraries) are left as they are upstream. Their frameworks and executables are re-signed as they are copied into the app, and `inform/Scripts/final_build_phase.sh` signs the executables nested inside them (such as ZoomServer). The one exception: for release builds (`--standalone` and `--mas`) the script sets `SKIP_INSTALL` on a few submodule targets, so that an Archive contains only Inform.app. After a release, those edits can be undone with `git -C zoom checkout -- ZoomCocoa.xcodeproj` and `git -C zoom/depends/CocoaGlk checkout -- CocoaGlk.xcodeproj`.
+The submodule projects (Zoom, CocoaGlk and the audio libraries) are left as they are upstream. Their frameworks and executables are re-signed as they are copied into the app, and `inform/Scripts/final_build_phase.sh` signs the executables nested inside them (such as ZoomServer). `configure.py` doesn't edit them: the targets that must stay out of an Archive (Builder, ZoomServer, GlkView) set `SKIP_INSTALL` upstream.
 
 Debug builds are for the active architecture only (matching the submodule projects); Release builds and Archives are universal (Apple Silicon and Intel).
 

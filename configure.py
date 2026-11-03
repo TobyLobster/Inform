@@ -11,17 +11,9 @@ app_version_build_number    = app_version_number + ".0"
 inform_source_version       = "10.1.2"
 full_version                = app_version_number + "/6.41/" + inform_source_version
 
-# The submodule projects are left as they are upstream. Their frameworks and executables are
+# The submodule projects (Zoom, CocoaGlk) are not edited: their frameworks and executables are
 # re-signed when they are copied into the app, and inform/Scripts/final_build_phase.sh signs the
 # executables nested inside them, so they need no signing settings of their own.
-#
-# The one exception: these targets must not be installed when archiving, otherwise the archive
-# contains them alongside Inform.app and cannot be exported. Until SKIP_INSTALL is set upstream,
-# release builds (--standalone, --mas) set it here.
-skip_install_targets = {
-    'zoom/ZoomCocoa.xcodeproj/project.pbxproj':                     ['Builder', 'ZoomServer'],
-    'zoom/depends/CocoaGlk/CocoaGlk.xcodeproj/project.pbxproj':     ['GlkView'],
-}
 
 #########################################################################################
 # Helper functions
@@ -111,18 +103,6 @@ elif mas:
 else:
     print("ERROR: Unknown configuration option")
     exit(1)
-
-
-#########################################################################################
-# Submodule XCode Project editing
-#########################################################################################
-
-if standalone or mas:
-    for proj_name, targets in skip_install_targets.items():
-        project = XcodeProject.load(proj_name)
-        for target in targets:
-            project.set_flags('SKIP_INSTALL', 'YES', target)
-        project.save()
 
 
 #########################################################################################
