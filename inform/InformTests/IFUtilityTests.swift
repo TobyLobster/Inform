@@ -88,20 +88,35 @@ final class IFUtilityTests: XCTestCase {
 
     // MARK: - Language versions
 
+    /// Runs one of the app's tools, and returns what it prints
+    private func output(of tool: String, _ arguments: [String]) throws -> String {
+        let process = Process()
+        process.executableURL = Bundle.main.executableURL!.deletingLastPathComponent().appendingPathComponent(tool)
+        process.arguments = arguments
+        let output = Pipe()
+        process.standardOutput = output
+        try process.run()
+        let printed = String(decoding: output.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+        process.waitUntilExit()
+        return printed
+    }
+
     func testCoreBuildVersionIsTheVersionOfTheAppsCompiler() throws {
         let version: String = IFUtility.coreBuildVersion
         XCTAssertNotNil(version.range(of: #"^\d+\.\d+\.\d+$"#, options: .regularExpression), version)
         XCTAssertTrue(IFUtility.path(forCompiler: "****").hasSuffix("/MacOS/ni"))
 
-        let ni = Process()
-        ni.executableURL = URL(fileURLWithPath: IFUtility.path(forCompiler: "****"))
-        ni.arguments = ["-version"]
-        let output = Pipe()
-        ni.standardOutput = output
-        try ni.run()
-        let reported = String(decoding: output.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
-        ni.waitUntilExit()
+        let reported = try output(of: "ni", ["-version"])
         XCTAssertTrue(reported.hasPrefix("inform7 version \(version)"), reported)
+    }
+
+    func testGetInfoStringHasTheVersionsOfTheAppAndItsCompilers() throws {
+        // Also recorded by the Skein as its generator
+        let getInfo = try XCTUnwrap(Bundle.main.object(forInfoDictionaryKey: "CFBundleGetInfoString") as? String)
+        let appVersion = try XCTUnwrap(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)
+        let inform6 = try output(of: "inform6", ["-V"])
+        let inform6Version = try XCTUnwrap(inform6.split(separator: " ").dropFirst().first, inform6)
+        XCTAssertEqual(getInfo, "Inform version \(appVersion)/\(inform6Version)/\(IFUtility.coreBuildVersion!)")
     }
 
     func testLanguageVersion10_1UsesTheCurrentCompiler() {

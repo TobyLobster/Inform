@@ -234,6 +234,22 @@ if [ -z "${INFORM_CORE_VERSION}" ]; then
 fi
 printf "%s" "${INFORM_CORE_VERSION}" > "${INFORM_APP_DIR}/Inform.app/Contents/Resources/InformCoreVersion.txt"
 
+# Set the Get Info string (which the Skein also records as its generator) from the versions of the
+# app, Inform 6 and Inform Core, such as "Inform version 1.84/6.45/10.2.0". The strings file is
+# made a binary property list first, because plutil can't write the text format Xcode copies.
+APP_VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "${INFOPLIST_FILE}")
+INFORM6_VERSION=$("${INFORM_APP_DIR}/Inform.app/Contents/MacOS/inform6" -V | sed -n "s/^Inform \([0-9.]*\) .*/\1/p")
+if [ -z "${APP_VERSION}" ] || [ -z "${INFORM6_VERSION}" ]; then
+    echo "error: Couldn't read the version of the app or of Inform 6"
+    exit 1
+fi
+INFO_PLIST_STRINGS="${INFORM_APP_DIR}/Inform.app/Contents/Resources/en.lproj/InfoPlist.strings"
+if ! plutil -convert binary1 "${INFO_PLIST_STRINGS}" ||
+   ! plutil -replace CFBundleGetInfoString -string "Inform version ${APP_VERSION}/${INFORM6_VERSION}/${INFORM_CORE_VERSION}" "${INFO_PLIST_STRINGS}"; then
+    echo "error: Couldn't set the Get Info string in InfoPlist.strings"
+    exit 1
+fi
+
 # Add symbolic links to the I6T folder
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L02/I6T"
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L38/I6T"

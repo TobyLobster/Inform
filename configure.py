@@ -2,14 +2,11 @@
 
 import argparse
 import plistlib
-import re
 from pbxproj import XcodeProject        # Install from https://github.com/kronenthaler/mod-pbxproj
 
 # Version numbers
 app_version_number          = "1.84"
 app_version_build_number    = app_version_number + ".0"
-inform_source_version       = "10.1.2"
-full_version                = app_version_number + "/6.41/" + inform_source_version
 
 # The submodule projects (Zoom, CocoaGlk) are not edited: their frameworks and executables are
 # re-signed when they are copied into the app, and inform/Scripts/final_build_phase.sh signs the
@@ -44,25 +41,6 @@ def set_in_plist_file(filename, key, val):
 
     with open(filename, 'wb') as fp:
         plistlib.dump(pl, fp)
-
-#
-# Simple .strings file editing
-#
-def replace_in_strings_file(filename, key, val):
-    new_lines = []
-    with open(filename, "r") as file:
-        for line in file:
-            # Looking for line with "key = "
-            find_pattern = '(^[ \\t]*' + key +' *= *)(.*)'
-            replace_pattern = r'\1"' + str(val) + r'";'
-            new = re.sub(find_pattern, replace_pattern, line)
-            new_lines.append(new)
-
-    with open(filename, "w") as file:
-        for line in new_lines:
-            file.write(line)
-    pass
-
 
 #########################################################################################
 # Argument parsing
@@ -152,5 +130,4 @@ set_in_plist_file("inform/Inform-inherit.entitlements", "com.apple.security.app-
 # Set app version number
 set_in_plist_file("inform/Inform-Info.plist",           "CFBundleVersion", app_version_build_number)
 set_in_plist_file("inform/Inform-Info.plist",           "CFBundleShortVersionString", app_version_number)
-replace_in_strings_file("inform/Resources/en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version " + full_version)
 
