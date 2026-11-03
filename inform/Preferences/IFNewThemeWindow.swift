@@ -20,11 +20,11 @@ class IFNewThemeWindow: NSWindow {
 
     @IBAction func okButtonClicked(sender:AnyObject!) {
         themeName = nameField.stringValue
-        NSApp.endSheet(self, returnCode: NSApplication.ModalResponse.OK.rawValue)
+        sheetParent?.endSheet(self, returnCode: .OK)
     }
 
     @IBAction func cancelButtonClicked(sender:AnyObject!) {
         themeName = ""
-        NSApp.endSheet(self, returnCode: NSApplication.ModalResponse.abort.rawValue)
+        sheetParent?.endSheet(self, returnCode: .abort)
     }
 }
