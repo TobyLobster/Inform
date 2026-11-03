@@ -27,7 +27,9 @@
                                                     NSOpenSavePanelDelegate,
                                                     NSSplitViewDelegate,
                                                     IFSkeinViewDelegate,
-                                                    IFRuntimeErrorParserDelegate>
+                                                    IFRuntimeErrorParserDelegate,
+                                                    NSMenuItemValidation,
+                                                    NSToolbarItemValidation>
 
 - (void) layoutPanes;
 

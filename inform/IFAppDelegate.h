@@ -13,7 +13,7 @@
 
 @class IFProjectController;
 
-@interface IFAppDelegate : NSObject<NSOpenSavePanelDelegate>
+@interface IFAppDelegate : NSObject<NSOpenSavePanelDelegate, NSMenuItemValidation>
 
 @property (atomic, readonly) IFNewsManager* newsManager;
 

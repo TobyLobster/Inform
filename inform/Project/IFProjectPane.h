@@ -62,7 +62,7 @@ typedef NS_ENUM(int, IFProjectPaneType) {
 //
 // Controller class dealing with one side of the project window
 //
-@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder>
+@interface IFProjectPane : NSObject<IFProjectPane, IFHistoryRecorder, NSMenuItemValidation>
 
 // Class methods
 /// Create/load a project pane

@@ -26,7 +26,7 @@
 ///
 /// The 'source' page
 ///
-@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation, IFHeaderPageDelegate>
+@interface IFSourcePage : IFPage<NSTextViewDelegate,NSTextStorageDelegate,IFSourceNavigation, IFHeaderPageDelegate, NSMenuItemValidation>
 
 #pragma mark - Source pane controls
 /// Informs this pane that it's time to prepare to save the document

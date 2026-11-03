@@ -12,7 +12,7 @@
 ///
 /// Controller for the find window
 ///
-@interface IFFindController : NSWindowController
+@interface IFFindController : NSWindowController <NSControlTextEditingDelegate>
 
 // Initialisation
 

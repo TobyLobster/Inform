@@ -24,7 +24,7 @@
 
 
 
-@interface IFSkeinView : NSView<NSTextViewDelegate, CAAnimationDelegate>
+@interface IFSkeinView : NSView<NSTextViewDelegate, CAAnimationDelegate, NSControlTextEditingDelegate>
 
 @property (nonatomic, strong)         IFSkein *           skein;
 @property (atomic, strong, readonly)  IFSkeinLayout*      layoutTree;

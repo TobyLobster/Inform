@@ -17,7 +17,7 @@
 ///
 /// Controller for the find window
 ///
-@interface IFFindInFilesController : NSWindowController <IFFindClickableTableViewDelegate>
+@interface IFFindInFilesController : NSWindowController <IFFindClickableTableViewDelegate, NSControlTextEditingDelegate>
 
 // Initialisation
 

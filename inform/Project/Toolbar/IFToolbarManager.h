@@ -9,7 +9,7 @@
 @class IFProjectController;
 @class IFToolbarStatusView;
 
-@interface IFToolbarManager : NSObject<NSToolbarDelegate>
+@interface IFToolbarManager : NSObject<NSToolbarDelegate, NSToolbarItemValidation>
 
 - (instancetype) init NS_DESIGNATED_INITIALIZER;
 

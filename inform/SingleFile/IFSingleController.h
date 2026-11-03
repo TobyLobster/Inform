@@ -12,7 +12,7 @@
 ///
 /// WindowController for a single-file document.
 ///
-@interface IFSingleController : NSWindowController
+@interface IFSingleController : NSWindowController <NSMenuItemValidation>
 
 -(instancetype) initWithInitialSelectionRange: (NSRange) initialRange;
 
