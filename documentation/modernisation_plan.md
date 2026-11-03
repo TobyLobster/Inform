@@ -78,6 +78,13 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 ### Phase 1b – Clean build, whole workspace (goal 1)
 
 - Bring the submodule warnings to zero or an agreed level, upstreaming fixes where possible. Test again.
+- Survey (3 November 2026, 196 warnings in a clean Debug build):
+    - Zoom and CocoaGlk's own code, about 108: mostly deprecations. `kAudioObjectPropertyElementMaster` (22, in CocoaGlk's copy of SFBAudioEngine), file-type panels (`allowedFileTypes`, 15), `kUTTypePlainText`, old control colours, screen fonts, hyphenation factor, `mktemp`, `NSReadPixel`, deprecated method implementations, Distributed Objects (18) and WebKit 1 (8). Also unreachable code in `zcode.ops` (10), 64-to-32-bit conversions and C++ variable-length arrays in SFBAudioEngine and libogg, one unused function, and the `-seg1addr` linker warning.
+    - Third-party code in CocoaGlk, about 80: glulxe (39, from `erkyrath/glulxe`) and git (29, from `MaddTheSane/Git`), mostly old-style C function declarations (`-Wstrict-prototypes`); SFBAudioEngine and libogg are copies inside CocoaGlk.
+    - Generated parsers, 13: flex and bison output in Zoom's Builder, CocoaGlk, and the app's own `IFError.yy.c`.
+    - The app, 3: the old Quick Look generator calls (Phase 6).
+- Proposed: fix Zoom and CocoaGlk's own deprecations upstream in small pull requests, except Distributed Objects and WebKit 1 (Phase 6). Ask MaddTheSane whether third-party code should be fixed in place (git is their fork) or have its warnings turned off per target (glulxe). Quieten the generated parsers per file. Agree what is left as the baseline.
+- [ ] First batch, ready on branches in `~/Code/upstream`: Zoom `remove-seg1addr` (removes `-seg1addr` from ZoomView and ZoomPlugIns) and CocoaGlk `use-audio-element-main` (`kAudioObjectPropertyElementMain`). Each builds cleanly upstream without its warnings.
 
 ### Phase 3 – Existing bugs (goal 3)
 
