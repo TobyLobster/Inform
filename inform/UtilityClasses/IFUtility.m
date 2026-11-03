@@ -10,6 +10,7 @@
 #import "NSString+IFStringExtensions.h"
 #import <Foundation/NSCache.h>
 #import <objc/objc-runtime.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 static NSLock*       uniqueIdLock;
 static unsigned long uniqueId = 1000;
@@ -404,13 +405,24 @@ CGFloat easeOutCubic(CGFloat t) {
                              message: @"Failed to Install Extension Explanation"];
 }
 
++ (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions {
+    NSMutableArray<UTType*>* types = [NSMutableArray array];
+    for (NSString* extension in extensions) {
+        UTType* type = [UTType typeWithFilenameExtension: extension];
+        if (type != nil) {
+            [types addObject: type];
+        }
+    }
+    return types;
+}
+
 // Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string
                                window: (NSWindow*) window {
 
     NSSavePanel* panel = [NSSavePanel savePanel];
 
-    panel.allowedFileTypes = @[@"txt"];
+    panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[@"txt"]];
 
     // Work out starting directory
     NSString*   prefString   = [[NSUserDefaults standardUserDefaults] objectForKey: @"IFTranscriptURL"];

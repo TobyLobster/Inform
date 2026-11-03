@@ -583,7 +583,7 @@ static NSRunLoop* mainRunLoop = nil;
 
 - (IBAction) showExtensionsFolder: (id) sender {
     NSString* externalExtensions = [IFUtility pathForInformExternalExtensions];
-    [[NSWorkspace sharedWorkspace] openFile: externalExtensions];
+    [[NSWorkspace sharedWorkspace] openURL: [NSURL fileURLWithPath: externalExtensions]];
 }
 
 #pragma mark - Installing extensions
@@ -827,7 +827,7 @@ static NSRunLoop* mainRunLoop = nil;
     }
 
     // All went well, open directory in Finder...
-    [[NSWorkspace sharedWorkspace] openFile: destDir];
+    [[NSWorkspace sharedWorkspace] openURL: [NSURL fileURLWithPath: destDir]];
 }
 
 - (IBAction) exportToEPub: (id) sender {

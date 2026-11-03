@@ -1,6 +1,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreServices/CoreServices.h>
 #include <QuickLook/QuickLook.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import "IFSyntaxManager.h"
 
@@ -98,7 +99,7 @@ OSStatus GeneratePreviewForURL(void *thisInterface,
         theRTF = [storage RTFFromRange: NSMakeRange(0, storage.length)
                     documentAttributes: @{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType}];
     }
-	QLPreviewRequestSetDataRepresentation(preview, (__bridge CFDataRef)theRTF, kUTTypeRTF, NULL);
+	QLPreviewRequestSetDataRepresentation(preview, (__bridge CFDataRef)theRTF, (__bridge CFStringRef)UTTypeRTF.identifier, NULL);
 	
     [IFSyntaxManager unregisterTextStorage:storage];
 

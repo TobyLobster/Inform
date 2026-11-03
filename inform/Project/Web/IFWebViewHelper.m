@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import "IFWebViewHelper.h"
 #import "IFUtility.h"
@@ -397,17 +398,8 @@
     }
 
     // Work out the MIME type
-    NSString* ourType = nil;
-    do {
-        NSString *pathExt = path.pathExtension;
-        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)pathExt, kUTTypeData);
-        if (!uti) {
-            break;
-        }
-
-        ourType = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType));
-        CFRelease(uti);
-    } while (false);
+    NSString* ourType = [UTType typeWithFilenameExtension: path.pathExtension
+                                         conformingToType: UTTypeData].preferredMIMEType;
 
     if (ourType == nil) {
         ourType = @"text/html";
@@ -557,7 +549,7 @@
 }
 
 - (void) openFile: (NSString*) filename {
-    [[NSWorkspace sharedWorkspace] openFile: filename];
+    [[NSWorkspace sharedWorkspace] openURL: [NSURL fileURLWithPath: filename]];
 
 //    NSString* dir = [filename stringByDeletingLastPathComponent];
 //    [[NSWorkspace sharedWorkspace] selectFile: filename

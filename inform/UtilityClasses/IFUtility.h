@@ -9,6 +9,8 @@
 #import "IFExtensionsManager.h"
 #import "NSString+IFStringExtensions.h"
 
+@class UTType;
+
 #define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
 #define DEGREES_TO_RADIANS(degrees) ((degrees) * (M_PI / 180.0))
 extern NSTimeInterval const defaultTimeoutInterval;
@@ -72,6 +74,9 @@ CGFloat easeOutCubic(CGFloat t);
 /// Show an error for an operation on an extension (e.g. error while installing an extension)
 + (void) showExtensionError: (IFExtensionResult) result
                  withWindow: (NSWindow*) window;
+
+/// The content types for a list of filename extensions, for open and save panels
++ (NSArray<UTType*>*) contentTypesForFilenameExtensions: (NSArray<NSString*>*) extensions;
 
 /// Save transcript (handles save dialog)
 +(void) saveTranscriptPanelWithString: (NSString*) string

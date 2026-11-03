@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "WebKit/WebKit.h"
 #import "NSString+IFStringExtensions.h"
 #import "IFNewsCustomSchemeHandler.h"
@@ -117,17 +118,8 @@
         }
 
         // Work out the MIME type
-        NSString* ourType = nil;
-        do {
-            NSString *pathExt = path.pathExtension;
-            CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)pathExt, kUTTypeData);
-            if (!uti) {
-                break;
-            }
-
-            ourType = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType));
-            CFRelease(uti);
-        } while (false);
+        NSString* ourType = [UTType typeWithFilenameExtension: path.pathExtension
+                                             conformingToType: UTTypeData].preferredMIMEType;
 
         if (ourType == nil) {
             ourType = @"text/html";

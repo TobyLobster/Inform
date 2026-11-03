@@ -182,7 +182,7 @@
     NSSavePanel* panel = [NSSavePanel savePanel];
 
     [panel setAccessoryView: nil];
-    panel.allowedFileTypes = projectFileTypes;
+    panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: projectFileTypes];
     panel.delegate = self;
     panel.prompt = projectPrompt;
     [panel setTreatsFilePackagesAsDirectories: NO];

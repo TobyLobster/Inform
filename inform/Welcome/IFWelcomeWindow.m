@@ -10,6 +10,7 @@
 #import "IFWelcomeWindow.h"
 
 #import <WebKit/WebKit.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "IFAppDelegate.h"
 
 #import "IFMaintenanceTask.h"
@@ -342,7 +343,7 @@ static IFWelcomeWindow* sharedWindow = nil;
         }
 
         // Link to IFDB
-        icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericDocumentIcon)];
+        icon = [[NSWorkspace sharedWorkspace] iconForContentType: UTTypeData];
         info = [[IFRecentFileCellInfo alloc] initWithTitle: [IFUtility localizedString: @"Link to IFDB"]
                                                       image: icon
                                                         url: [NSURL URLWithString:@"http://ifdb.tads.org/search?sortby=new&newSortBy.x=0&newSortBy.y=0&searchfor=tag%3A+i7+source+available"]

@@ -1407,7 +1407,7 @@
         NSSavePanel* panel = [NSSavePanel savePanel];
 
         [panel setAccessoryView: nil];
-        panel.allowedFileTypes = @[@"iFiction"];
+        panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[@"iFiction"]];
         [panel setCanSelectHiddenExtension: YES];
         panel.prompt = [IFUtility localizedString: @"Save iFiction record"];
         [panel setTreatsFilePackagesAsDirectories: NO];
@@ -1472,9 +1472,9 @@
                                              isDirectory: &isDir]) {
         if (!isDir) {
             // Odd; the materials folder is a file. We open the containing path so the user can see this and correct it if they like
-            [[NSWorkspace sharedWorkspace] openFile: materialsPath.stringByDeletingLastPathComponent];
+            [[NSWorkspace sharedWorkspace] openURL: [NSURL fileURLWithPath: materialsPath.stringByDeletingLastPathComponent]];
         } else {
-            [[NSWorkspace sharedWorkspace] openFile: materialsPath];
+            [[NSWorkspace sharedWorkspace] openURL: [NSURL fileURLWithPath: materialsPath]];
         }
     }
 }
@@ -1486,7 +1486,7 @@
     tempInternalWindow = window;
 
     [panel setAccessoryView: nil];
-    panel.allowedFileTypes = @[self.compiler.outputFile.pathExtension];
+    panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[self.compiler.outputFile.pathExtension]];
     [panel setCanSelectHiddenExtension: YES];
     panel.prompt = [IFUtility localizedString: @"Save"];
     [panel setTreatsFilePackagesAsDirectories: NO];
@@ -1661,7 +1661,7 @@
     [importPanel setResolvesAliases: YES];
     [importPanel setAllowsMultipleSelection: NO];
     importPanel.title = [IFUtility localizedString:@"Choose a recording, skein or Zoom save game file"];
-    importPanel.allowedFileTypes = @[@"rec", @"txt", @"zoomSave", @"skein"];
+    importPanel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[@"rec", @"txt", @"zoomSave", @"skein"]];
 
     // Display the panel
     [importPanel beginSheetModalForWindow: window completionHandler:^(NSInteger result)
@@ -1727,7 +1727,7 @@
         NSSavePanel* panel = [NSSavePanel savePanel];
 
         [panel setAccessoryView: nil];
-        panel.allowedFileTypes = @[@"i7x"];
+        panel.allowedContentTypes = [IFUtility contentTypesForFilenameExtensions: @[@"i7x"]];
         [panel setCanSelectHiddenExtension: YES];
         panel.prompt = [IFUtility localizedString: @"Export Extension (.i7x)"];
         [panel setTreatsFilePackagesAsDirectories: NO];
