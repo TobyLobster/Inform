@@ -103,6 +103,13 @@ CGFloat easeOutCubic(CGFloat t);
 + (NSString*) pathForInformExternalLibraries;
 + (NSString*) pathForInformExternalDocumentation;
 
+/// The documentation page Inform writes for an extension a project uses, in the project's
+/// materials folder: Extensions/Reserved/Documentation/<author>/<title>-v<version>/index.html.
+/// Nil if there is none.
++ (NSString*) documentationPageForExtensionTitled: (NSString*) title
+                                           author: (NSString*) author
+                                  inMaterialsPath: (NSString*) materialsPath;
+
 // Internal directories within the bundle resources
 /// Path to the internal Inform 7 app support
 + (NSString*) pathForInformInternalAppSupport: (NSString *)version;

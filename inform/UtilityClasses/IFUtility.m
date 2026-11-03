@@ -517,6 +517,38 @@ CGFloat easeOutCubic(CGFloat t) {
     return [IFUtility informSupportPath: @"Documentation", nil];
 }
 
++ (NSString*) documentationPageForExtensionTitled: (NSString*) title
+                                           author: (NSString*) author
+                                  inMaterialsPath: (NSString*) materialsPath {
+    NSString* authorPath = [[[[materialsPath stringByAppendingPathComponent: @"Extensions"]
+                                             stringByAppendingPathComponent: @"Reserved"]
+                                             stringByAppendingPathComponent: @"Documentation"]
+                                             stringByAppendingPathComponent: author];
+    NSArray<NSString*>* folders = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath: authorPath
+                                                                                       error: nil]
+                                   sortedArrayUsingSelector: @selector(localizedStandardCompare:)];
+
+    // The folder is named after the title, followed by "-v" and the version if it has one
+    // (e.g. "English Language-v10_2_0"). If there are several versions, use the latest.
+    NSString* versionPrefix = [title stringByAppendingString: @"-v"];
+    NSString* page = nil;
+    for (NSString* folder in folders) {
+        BOOL matches = [folder isEqualToString: title];
+        if (!matches && [folder hasPrefix: versionPrefix] && folder.length > versionPrefix.length) {
+            unichar first = [folder characterAtIndex: versionPrefix.length];
+            matches = [[NSCharacterSet decimalDigitCharacterSet] characterIsMember: first];
+        }
+        if (matches) {
+            NSString* candidate = [[authorPath stringByAppendingPathComponent: folder]
+                                               stringByAppendingPathComponent: @"index.html"];
+            if ([[NSFileManager defaultManager] fileExistsAtPath: candidate]) {
+                page = candidate;
+            }
+        }
+    }
+    return page;
+}
+
 +(BOOL) isLatestMajorMinorCompilerVersion: (NSString*) compilerVersion {
     NSString* version = [IFUtility fullCompilerVersion: compilerVersion];
     NSString* currentVersion = [IFUtility coreBuildVersion];

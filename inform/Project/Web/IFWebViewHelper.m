@@ -344,6 +344,22 @@
         if (![[NSFileManager defaultManager] fileExistsAtPath: path]) {
             path = nil;
         }
+
+        // The Index links to an extension's documentation as Documentation/<author>/<title>.html,
+        // but Inform writes the page to Reserved/Documentation/<author>/<title>-v<version>/index.html
+        if ((path == nil) && project.useNewExtensions) {
+            NSArray* parts = components;
+            if (firstComponentIsExtensions) {
+                parts = [components subarrayWithRange: NSMakeRange(1, components.count - 1)];
+            }
+            if ((parts.count == 3) &&
+                ([[parts[0] lowercaseString] isEqualToString: @"documentation"]) &&
+                ([[parts[2] pathExtension] isEqualToString: @"html"])) {
+                path = [IFUtility documentationPageForExtensionTitled: [parts[2] stringByDeletingPathExtension]
+                                                               author: parts[1]
+                                                      inMaterialsPath: project.materialsDirectoryURL.path];
+            }
+        }
     } else {
         // Try using Inform Core external directory (if preference set)
         IFPreferences* prefs = [IFPreferences sharedPreferences];
