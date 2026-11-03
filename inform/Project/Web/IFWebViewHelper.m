@@ -272,6 +272,35 @@
 }
 
 
+/// Finds a file in the app's resources (top level, or the localised folder) ignoring case.
+/// Links written by the compiler can differ in case from the file names (inform:/wi_9_1.html
+/// for en.lproj/WI_9_1.html), and NSBundle lookups are case-sensitive.
+-(NSString*) caseInsensitiveResourcePath: (NSString*) relativePath {
+    static NSDictionary<NSString*, NSString*>* pathsByLowercaseName = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSMutableDictionary<NSString*, NSString*>* paths = [NSMutableDictionary dictionary];
+        NSBundle* bundle = [NSBundle mainBundle];
+        NSString* localisedFolder = [bundle.preferredLocalizations.firstObject stringByAppendingPathExtension: @"lproj"];
+        NSMutableArray<NSString*>* folders = [NSMutableArray arrayWithObject: bundle.resourcePath];
+        if (localisedFolder != nil) {
+            // Added last, so localised files take precedence
+            [folders addObject: [bundle.resourcePath stringByAppendingPathComponent: localisedFolder]];
+        }
+        for (NSString* folder in folders) {
+            for (NSString* name in [[NSFileManager defaultManager] contentsOfDirectoryAtPath: folder error: nil]) {
+                paths[name.lowercaseString] = [folder stringByAppendingPathComponent: name];
+            }
+        }
+        pathsByLowercaseName = paths;
+    });
+
+    if (relativePath.pathComponents.count != 1) {
+        return nil;
+    }
+    return pathsByLowercaseName[relativePath.lowercaseString];
+}
+
 -(NSData*) loadDataForInformURL: (NSURL*) url
               returningMimeType: (NSString* __autoreleasing *) mimeType
                  returningError: (NSError* __autoreleasing *) error {
@@ -339,6 +368,10 @@
             path = [[NSBundle mainBundle] pathForResource: urlPath.lastPathComponent.stringByDeletingPathExtension
                                                    ofType: urlPath.pathExtension
                                               inDirectory: urlPath.stringByDeletingLastPathComponent];
+        }
+
+        if (path == nil) {
+            path = [self caseInsensitiveResourcePath: urlPath];
         }
     }
 
