@@ -89,6 +89,22 @@ final class IFSkeinViewTests: XCTestCase {
         XCTAssertTrue(skeinView.visibleRect.intersects(knot.frame))
     }
 
+    /// Selecting a thread makes the levels taller and so the lines between knots longer. Each line has to be
+    /// drawn again at its new length, or its layer keeps the shorter line and the knots look disconnected.
+    func testLinesRedrawWhenTheirLengthChanges() {
+        let skein: IFSkein = IFSkein(project: nil)
+        let item = addThread(to: skein.rootItem, skein: skein, count: 4)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        skeinView.select(item, withAnimation: false)
+        let lines = skeinView.subviews.filter { NSStringFromClass(type(of: $0)).hasSuffix("IFSkeinLinkView") }
+        XCTAssertEqual(lines.count, 4)
+        for line in lines {
+            XCTAssertEqual(line.layerContentsRedrawPolicy, .duringViewResize)
+        }
+    }
+
     /// Laying the skein out again, as happens after every edit, keeps the scroll position.
     func testLayoutKeepsTheScrollPosition() throws {
         let skein: IFSkein = IFSkein(project: nil)

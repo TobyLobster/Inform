@@ -13,14 +13,16 @@ class IFSkeinLinkView: NSView {
         super.init(frame:frameRect)
 
         self.wantsLayer = true
-        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.onSetNeedsDisplay
+        // Redraw when the length changes, otherwise the layer keeps the line drawn at the old length
+        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.duringViewResize
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
         self.wantsLayer = true
-        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.onSetNeedsDisplay
+        // Redraw when the length changes, otherwise the layer keeps the line drawn at the old length
+        self.layerContentsRedrawPolicy = NSView.LayerContentsRedrawPolicy.duringViewResize
     }
 
     override func draw(_ dirtyRect:NSRect) {
