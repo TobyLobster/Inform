@@ -106,7 +106,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
     - [x] Skein: after selecting one thread and then another, transcript rows could overlap or leave gaps, because rows kept the heights of the previous thread's text. The rows' text views were created in code and so used TextKit 2, where `sizeToFit` doesn't reliably resize to new text. They now use TextKit 1, as the code was written for (`IFSkeinViewTests`).
     - [x] Skein: when a thread was selected, the lines between its knots kept their old, shorter length, so the knots looked disconnected. A line's length animates, but `IFSkeinLinkView`'s drawn backing store wasn't stretched with it on screen. Redrawing on resize (40327ff) fixed the final length but made long lines overshoot while animating; the line is now its layer's contents, stretched to fit (`IFSkeinViewTests`; checked on screen with a temporary capture test).
     - [x] Skein: lines from the root moved oddly while animating. On the first layout every line was mirrored (pointing down from its knot), because `updateLinkView:` negated the angle while a new line's layer wasn't yet `geometryFlipped`; the first animation then swung them round. Fixed, with a test.
-    - Skein: lines from the selected thread to branches placed to the right of the transcript run behind it, so only their ends show. The transcript is deliberately drawn on top (`compareViewOrder` in `IFSkeinViewChildren.m`); maybe worth routing or drawing these differently.
+    - Skein: lines from the selected thread to branches placed to the right of the transcript run behind it, so only their ends show. The transcript is deliberately drawn on top (`compareViewOrder` in `IFSkeinViewChildren.m`). Left as it is (decided 3 November 2026).
 
 ### Phase 4 – New bugs (goal 4)
 
@@ -128,4 +128,4 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 ## Open decisions
 
-- What to do about the `extensions` and `master` branches (`extensions` is 63 commits ahead; `master` hasn't moved since April 2023).
+- What to do about the `extensions` and `master` branches (`extensions` is 63 commits ahead; `master` hasn't moved since April 2023). For now the work branches come off `extensions` (decided 3 November 2026). Still open: `master` is the default branch on GitHub, so outside pull requests are made against it (TobyLobster/Inform#52, #53, #54), while #51 and this work are against `extensions`.
