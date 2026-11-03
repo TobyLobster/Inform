@@ -42,8 +42,9 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - [x] Unit-test target (`InformTests`, hosted in Inform.app) with a first test (`IFSemVer`).
 - [x] `CLAUDE.md`, this plan, and updated build documentation.
 - [x] Keep the submodule trees clean. `configure.py` no longer edits the submodule projects, except `SKIP_INSTALL` on `Builder`, `ZoomServer` (Zoom) and `GlkView` (CocoaGlk) for release builds. The final build phase now signs ZoomServer and re-seals ZoomView.framework. Debug builds are active-architecture only. Verified with untouched submodule projects: signed Debug build, and a Developer ID archive exported by Xcode with every executable Developer ID signed, hardened runtime, timestamped and universal.
-- [ ] Ask MaddTheSane to set `SKIP_INSTALL = YES` on those three targets upstream (PR text drafted), then drop the last submodule edit from `configure.py`.
-- [ ] Notarise a release built this way, and check a Mac App Store build. ZoomServer now gets the inherited sandbox entitlements like the other helpers (before, it had none).
+- [x] Ask MaddTheSane to set `SKIP_INSTALL = YES` on those three targets upstream. Merged 3 November 2026 (MaddTheSane/zoom#2, MaddTheSane/CocoaGlk#5). `configure.py` keeps its edit until Phase 2 moves the submodules past those commits.
+- [x] Notarise a release built this way. Archived, notarised and stapled on 3 November 2026; the DMG works.
+- [ ] Check a Mac App Store build. ZoomServer now gets the inherited sandbox entitlements like the other helpers (before, it had none).
 - [ ] Hosted tests launch the full app with the real `com.inform7.inform-compiler` preferences. Consider skipping start-up work (welcome window, news fetch) when running under XCTest.
 
 ### Phase 1a – Clean build, app side (goal 1)
@@ -51,12 +52,13 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - Review Xcode's recommended project settings one by one; keep manual signing.
 - Replace `-Weverything` with a chosen set of warnings.
 - Fix the real warnings in the app's own code.
-- Decide the minimum macOS version (currently 10.14; to be raised).
+- Decide the minimum macOS version (currently 10.14). Upstream Zoom and CocoaGlk now require macOS 12 (November 2026), so after Phase 2 it can be no lower than 12.
 - Signed manual smoke test on current macOS: compile a project, play Z-code and Glulx games, Skein, Index, documentation, extensions, testing, dark mode.
 
 ### Phase 2 – Merge Zoom and CocoaGlk (goal 2)
 
-- Move Zoom to `origin/madds`, which records CocoaGlk `f5a7fe2`.
+- Move Zoom to `origin/madds` (`0c09da21` on 3 November 2026), which records CocoaGlk `d0b0e46`. Both include our `SKIP_INSTALL` changes and require macOS 12.
+- Remove the `SKIP_INSTALL` edit from `configure.py`, so it no longer touches the submodules at all.
 - Drop the local submodule changes (mostly `configure.py` output and xib churn; the `glk_unicode.m` fix is upstream).
 - Fix where the app's use of ZoomView/GlkView no longer matches.
 - A fresh clone of upstream Zoom doesn't build ZoomServer: the `Interpreter` step can't find `Builder`, so `build/interp_*.h` are never generated (`'interp_z3.h' file not found`). Our checkout only works because old copies of those headers sit in the ignored `zoom/build/`. Fix upstream, or generate them in our build.
