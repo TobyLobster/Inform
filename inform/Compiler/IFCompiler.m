@@ -183,7 +183,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
     NSString* formatValue = settings.fileExtension;
     NSString* debugValue = @"";
 
-    if ([IFUtility compilerVersion: settings.compilerVersion isAfter: @"10.1"]) {
+    if ([IFUtility compilerVersion: settings.compilerVersion isAfter: @"6M62"]) {
         if ([formatValue isEqualToStringCaseInsensitive:@"z8"]) {
             formatValue = @"Inform6/16";
         } else {

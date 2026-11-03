@@ -630,7 +630,7 @@ didReceiveResponse: (NSURLResponse *)response
         return cacheAvailableExtensions;
     }
 
-    if ([IFUtility compilerVersion: compilerVersion isAfter: @"10.1"]) {
+    if ([IFUtility compilerVersion: compilerVersion isAfter: @"6M62"]) {
         // New extension census. This is only used to populate the
         // menu items for extensions.
 

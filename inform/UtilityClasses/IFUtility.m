@@ -564,6 +564,11 @@ CGFloat easeOutCubic(CGFloat t) {
     {
         return TRUE;
     }
+    // There's no retrospective build of 10.1, so it uses the current version (as on Windows)
+    if ([version isEqualToString:@"10.1"])
+    {
+        return TRUE;
+    }
     return FALSE;
 }
 

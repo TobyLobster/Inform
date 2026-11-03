@@ -88,6 +88,15 @@ final class IFUtilityTests: XCTestCase {
 
     // MARK: - Language versions
 
+    func testLanguageVersion10_1UsesTheCurrentCompiler() {
+        // The app has no retrospective build of 10.1 (TobyLobster/Inform#42)
+        XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion("10.1"))
+        XCTAssertEqual(IFUtility.path(forCompiler: "10.1"), IFUtility.path(forCompiler: "****"))
+        XCTAssertEqual(IFUtility.path(forInformInternalAppSupport: "10.1"),
+                       IFUtility.path(forInformInternalAppSupport: "****"))
+        XCTAssertTrue(IFUtility.compilerVersion("10.1", isAfter: "6M62"))
+    }
+
     func testOlderLanguageVersionsUseTheirOwnCompilers() {
         for version in ["6L02", "6L38", "6M62"] {
             XCTAssertTrue(IFUtility.path(forCompiler: version).hasSuffix("/MacOS/\(version)/ni"), version)
