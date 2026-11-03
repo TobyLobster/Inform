@@ -205,6 +205,7 @@ Troubleshooting: See Apple's documentation:
 
 - Validate the App in the Organizer window (Window->Organizer)
     - Tick the 'Upload your app's symbols'
+    - Expect 'Upload Symbols Failed' warnings for the Inform Core tools (`ni`, `cBlorb`, `inform6`, `inbuild`, `intest`, `dumb-frotz`, `glulxe`, and the older compilers in `6L02`, `6L38`, `6M62`). They are built outside Xcode, so the archive has no dSYMs for them. There should be none for the app itself, its frameworks or its helpers.
     - Untick the 'Manage Version and Build Number'  (I don't trust it)
 
 - Then there's a whole bunch more stuff around uploading the Archive to *App Store Connect*, filling in a whole bunch of forms, providing a bunch of screenshots and icons for the app in a variety of defined sizes, descriptions, declarations, etc, submitting the App to Apple for verification, and if everything is OK, finally releasing on the *Mac App Store*.
