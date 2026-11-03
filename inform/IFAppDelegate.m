@@ -83,6 +83,12 @@ static NSRunLoop* mainRunLoop = nil;
     return YES;
 }
 
+/// When the app is hosting the unit tests, it skips start-up work that would touch the user's Inform
+/// (the Glk hub's name), their extensions (the census) or the screen (the welcome window).
+static BOOL IFIsHostingUnitTests(void) {
+    return NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
+}
+
 - (void) applicationWillFinishLaunching: (NSNotification*) not {
 	mainRunLoop = [NSRunLoop currentRunLoop];
 
@@ -108,8 +114,10 @@ static NSRunLoop* mainRunLoop = nil;
     [IFSettingsController addStandardSettingsClass: [IFAdvancedSettings class]];
 
 	// Glk hub
-	[[GlkHub sharedGlkHub] setRandomHubCookie];
-	[GlkHub sharedGlkHub].hubName = @"GlkInform";
+    if (!IFIsHostingUnitTests()) {
+        [[GlkHub sharedGlkHub] setRandomHubCookie];
+        [GlkHub sharedGlkHub].hubName = @"GlkInform";
+    }
 
     // Remove the 'tab' related menu entries on the Window menu
     if ([NSWindow respondsToSelector:@selector(setAllowsAutomaticWindowTabbing:)])
@@ -126,7 +134,9 @@ static NSRunLoop* mainRunLoop = nil;
 	[[PreferenceController sharedPreferenceController] addPreferencePane: [[IFAdvancedPreferences alloc] init]];
 
 	// Finish setting up
-	[self updateExtensionsMenuForCompilerVersion: @""];
+    if (!IFIsHostingUnitTests()) {
+        [self updateExtensionsMenuForCompilerVersion: @""];
+    }
 
     [NSApp addObserver: self
             forKeyPath: @"effectiveAppearance"
@@ -142,6 +152,10 @@ static NSRunLoop* mainRunLoop = nil;
 
     // Set dark mode if necessary
     [self darkModeChanged];
+
+    if (IFIsHostingUnitTests()) {
+        return;
+    }
 
     // Schedule "Checking whether document exists." into next UI Loop, because document is not restored yet.
     NSInvocationOperation* op = [[NSInvocationOperation alloc] initWithTarget: self
@@ -192,7 +206,9 @@ static NSRunLoop* mainRunLoop = nil;
 }
 
 - (BOOL) applicationShouldOpenUntitledFile: (NSApplication*) sender {
-    [IFWelcomeWindow showWelcomeWindow];
+    if (!IFIsHostingUnitTests()) {
+        [IFWelcomeWindow showWelcomeWindow];
+    }
 
     return NO;
 }
