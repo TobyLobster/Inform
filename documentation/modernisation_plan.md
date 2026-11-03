@@ -51,15 +51,15 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 - Review Xcode's recommended project settings one by one; keep manual signing.
 - [x] Replace `-Weverything` with a chosen set of warnings (`inform/Config/Warnings.xcconfig`): the project's Xcode warning settings plus a few extras. Warnings went from 766 to 233, of which 86 are the app's own; the rest are in the submodules (Phase 1b).
-- Fix the real warnings in the app's own code:
-    - 20 one-bit bitfields set to YES in `IFInform6Highlighter.m` (they read back as -1).
-    - 6 unannotated switch fall-throughs (`IFNaturalHighlighter.m`, `IFUtility.m`): check each is meant.
-    - 44 deprecated APIs and 10 deprecated method implementations (see the macOS 13 item below).
-    - 5 functions without prototypes, 1 variable set but never used.
-    - Not warned about any more, but worth fixing: format string sign/size mismatches in `IFCompiler.m:517`, `IFGlkResources.m:60,65`, `IFSkein+IFSkeinXML.m:46`.
+- [x] Fix the warnings in the app's own code (233 to 147; the rest are in the submodules). Only the Quick Look generator calls are left, for Phase 6.
+    - One-bit bitfields in `IFInform6Highlighter.h` made unsigned (every read tested for zero, so no behaviour change).
+    - Deliberate fall-throughs annotated; one missing `break` added.
+    - Formal protocols declared (`NSMenuItemValidation`, `NSToolbarItemValidation`, `NSControlTextEditingDelegate`).
+    - `UTType` for MIME types and panel file types (new `+[IFUtility contentTypesForFilenameExtensions:]`, tested), `NSWorkspace openURL:`, new colours, toolbar width constraints, `-bind_at_load` dropped.
     - Later: `-Warc-repeated-use-of-weak` is off (around 60 places), as it was before.
 - [x] Minimum macOS is 13 (decided 3 November 2026; upstream Zoom and CocoaGlk need 12). The Inform and InformQL targets now build for 13.0. This exposed 42 new deprecation warnings (Uniform Type Identifiers, `NSWorkspace openFile:`, `allowedFileTypes`, `validateMenuItem:` without `NSMenuItemValidation`, old Quick Look generator calls, `-bind_at_load`), now in the baseline and to be fixed below.
 - Signed manual smoke test on current macOS: compile a project, play Z-code and Glulx games, Skein, Index, documentation, extensions, testing, dark mode.
+    - Also check these changes from fixing deprecations: the page bar borders (now `separatorColor`), the toolbar search fields, test case pop-up and status area at different window widths, every open/save panel (new project, export extension, save iFiction, save game, import skein, save transcript) offers and adds the right extension, the IFDB link icon on the welcome window, Show Extensions Folder and Materials Folder, and the Advanced preferences' Inform Core directory label.
 
 ### Phase 2 – Merge Zoom and CocoaGlk (goal 2)
 
