@@ -259,7 +259,8 @@ static NSDictionary* deleteAttr = nil;
                                green: 216.0f / 255.0f
                                 blue: 101.0f / 255.0f
                                alpha: 1.0f] set];
-    NSRectFill(dirtyRect);
+    // Views don't clip to their bounds by default (macOS 14 SDK on), and dirtyRect can extend beyond them
+    NSRectFill(NSIntersectionRect(dirtyRect, self.bounds));
 
     [[NSColor colorWithCalibratedRed: 0.0f
                                green: 0.0f

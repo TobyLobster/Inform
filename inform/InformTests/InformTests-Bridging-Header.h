@@ -9,3 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "IFSemVer.h"
 #import "IFUtility.h"
+#import "IFSkein.h"
+#import "IFSkeinItem.h"
+#import "IFSkeinView.h"
+#import "IFSkeinReportView.h"
