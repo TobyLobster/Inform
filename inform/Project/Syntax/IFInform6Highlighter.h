@@ -13,17 +13,17 @@
 
 typedef union IFInform6State {
 	struct IFInform6Outer {
-		int comment:1;
-		int singleQuote:1;
-		int doubleQuote:1;
-		int statement:1;
-		int afterMarker:1;
-		int highlight:1;
-		int highlightAll:1;
-		int colourBacktrack:1;
-		int afterRestart:1;
-		int waitingForDirective:1;	// Inverted!
-		int dontKnowFlag:1;
+		unsigned int comment:1;
+		unsigned int singleQuote:1;
+		unsigned int doubleQuote:1;
+		unsigned int statement:1;
+		unsigned int afterMarker:1;
+		unsigned int highlight:1;
+		unsigned int highlightAll:1;
+		unsigned int colourBacktrack:1;
+		unsigned int afterRestart:1;
+		unsigned int waitingForDirective:1;	// Inverted!
+		unsigned int dontKnowFlag:1;
 		
 		unsigned int backtrackColour: 5;
 		unsigned int inner:16;
