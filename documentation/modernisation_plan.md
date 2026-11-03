@@ -126,6 +126,6 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - Quick Look preview and thumbnail extensions to replace InformQL.
 - Replacing Distributed Objects with `NSXPCConnection`, coordinated with MaddTheSane upstream.
 
-## Open decisions
+## Decisions
 
-- What to do about the `extensions` and `master` branches (`extensions` is 63 commits ahead; `master` hasn't moved since April 2023). For now the work branches come off `extensions` (decided 3 November 2026). Still open: `master` is the default branch on GitHub, so outside pull requests are made against it (TobyLobster/Inform#52, #53, #54), while #51 and this work are against `extensions`.
+- Branches (decided 3 November 2026). `extensions` is 63 commits ahead of `master`, which hasn't moved since April 2023, and the work branches come off `extensions`. But `master` is the default branch on GitHub, so outside pull requests are made against it (TobyLobster/Inform#52, #53, #54), while #51 and this work are against `extensions`. Once the phase branches are merged into `extensions`, move `master` up to it (a fast-forward: `master` has nothing `extensions` lacks) and use `master` from then on. The 1.82 releases stay on `r1.82` and their tags.
