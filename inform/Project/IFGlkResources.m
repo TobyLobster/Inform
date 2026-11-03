@@ -57,12 +57,12 @@
 
 	// Get the image filename from the graphics manifest
 	if (graphics != nil) {
-		imageFile = graphics[[NSString stringWithFormat: @"%i", image]];
+		imageFile = graphics[[NSString stringWithFormat: @"%u", image]];
 	}
 
     // Fallback
     if(imageFile == nil ) {
-        imageFile = [NSString stringWithFormat: @"Figure %i.png", image];
+        imageFile = [NSString stringWithFormat: @"Figure %u.png", image];
     }
 
 	// Try to load the image

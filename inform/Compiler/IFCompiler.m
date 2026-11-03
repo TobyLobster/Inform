@@ -18,7 +18,7 @@
 #import "IFCompilerStyles.h"
 #import "Inform-Swift.h"
 
-static int mod = 0;
+static unsigned int mod = 0;
 
 NSString* const IFCompilerClearConsoleNotification = @"IFCompilerClearConsoleNotification";
 NSString* const IFCompilerStartingNotification     = @"IFCompilerStartingNotification";
@@ -514,7 +514,7 @@ NSString* const IFCompilerFinishedNotification     = @"IFCompilerFinishedNotific
 - (NSString*) outputFile {
     if (outputFile == nil) {
         outputFile = [NSString stringWithFormat: @"%@/Inform-%x-%x.%@",
-            NSTemporaryDirectory(), (int) time(NULL), ++mod, settings.fileExtension];
+            NSTemporaryDirectory(), (unsigned int) time(NULL), ++mod, settings.fileExtension];
         deleteOutputFile = YES;
     }
 

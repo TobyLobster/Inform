@@ -43,7 +43,7 @@ static NSString* idForNode(IFSkeinItem* item) {
                                                         options: NSXMLNodeOptionsNone
                                                           error: &error];
     if( error != nil ) {
-        NSLog(@"Error reading XML. \"%@\" (code %lu)\n", error, error.code);
+        NSLog(@"Error reading XML. \"%@\" (code %ld)\n", error, (long) error.code);
         return NO;
     }
 
