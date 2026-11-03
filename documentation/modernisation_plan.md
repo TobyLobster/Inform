@@ -45,7 +45,7 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 - [x] Ask MaddTheSane to set `SKIP_INSTALL = YES` on those three targets upstream. Merged 3 November 2026 (MaddTheSane/zoom#2, MaddTheSane/CocoaGlk#5). `configure.py` keeps its edit until Phase 2 moves the submodules past those commits.
 - [x] Notarise a release built this way. Archived, notarised and stapled on 3 November 2026; the DMG works.
 - [x] Check a Mac App Store build. ZoomServer now gets the inherited sandbox entitlements like the other helpers (before, it had none). Archived and validated on 3 November 2026 from `modernise/phase-2`: ZoomServer, glulxe-client and git-client have `app-sandbox` and `inherit`, hardened runtime and the team ID. Validation gave only warnings: a missing `LSHandlerRank` on the Inform Extension Project document type (fixed), and no dSYMs for the Inform Core tools (expected; see `building_inform.md`).
-- [ ] Hosted tests launch the full app with the real `com.inform7.inform-compiler` preferences. Consider skipping start-up work (welcome window, news fetch) when running under XCTest.
+- [x] Hosted tests launch the full app with the real `com.inform7.inform-compiler` preferences. Now the app skips its start-up work when hosting tests (Glk hub name, extension census, welcome window and so its news fetch), and test runs get their own home folder (`CFFIXED_USER_HOME` in the scheme), which keeps WebKit data, caches and the extensions folder out of the user's Library. Preferences can't be isolated that way: `cfprefsd` ignores the home folder, and `__CFPREFERENCES_AVOID_DAEMON` no longer works. So tests read the real preferences and must not write any.
 
 ### Phase 1a – Clean build, app side (goal 1)
 

@@ -24,3 +24,4 @@ The macOS IDE for Inform 7. Mostly Objective-C, with some Swift. The modernisati
 - Swift conversion is one-to-one. A commit either moves logic or translates it to Swift, never both.
 - Match the surrounding code's style. App classes use the `IF` prefix.
 - Unit tests live in `inform/InformTests/` (Swift, hosted in Inform.app). App classes are made visible to them through `InformTests-Bridging-Header.h`; add header search paths to the `InformTests` target as needed.
+- Test runs get their own home folder (`CFFIXED_USER_HOME` in the scheme's Test action), and the app skips its start-up work when hosting them. Preferences are still the user's real ones (`cfprefsd` ignores the home folder), so tests must never write user defaults or autosave toolbar or window state.
