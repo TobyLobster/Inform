@@ -16,6 +16,7 @@ extern NSErrorDomain        INFORM_ERROR_DOMAIN;
 
 CGFloat lerp(CGFloat progress, CGFloat from, CGFloat to);
 CGFloat smoothstep(CGFloat t);
+CGFloat smootherstep(CGFloat t);
 CGFloat easeOutQuad(CGFloat t);
 CGFloat easeOutCubic(CGFloat t);
 

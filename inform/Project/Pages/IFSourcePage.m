@@ -518,7 +518,6 @@
     NSUInteger length = store.length;
 
     NSUInteger x;
-    NSUInteger lineLength;
     NSUInteger linepos = 0;
     NSInteger  lineno = 1;
 
@@ -548,14 +547,6 @@
     if (lineno != line) {
         NSBeep(); // DOH!
         return;
-    }
-	
-    lineLength = 1;
-    for (x=0; x<length; x++) {
-        if ([store characterAtIndex: x] == '\n') {
-            break;
-        }
-        lineLength++;
     }
 	
 	// Add the character position
