@@ -49,7 +49,11 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 ### Phase 1a – Clean build, app side (goal 1)
 
-- Review Xcode's recommended project settings one by one; keep manual signing.
+- [x] Review Xcode's recommended project settings one by one; keep manual signing (Xcode 26.3, `LastUpgradeCheck` now 2630).
+    - Accepted: stop embedding the Swift standard libraries (macOS has them), dead code stripping, Whole Module Optimization for Release, String Catalog symbols (no catalogs yet, so no effect), parallel `-target` builds.
+    - Rejected: user script sandboxing (set to NO in `inform/Config/Inform.xcconfig`; our build scripts work outside their declared inputs and outputs), the sandbox and hardened runtime entitlements migration (`configure.py` sets the sandbox in the entitlements files for each build type), Register App Groups (signing; our group is team-prefixed, so it would do nothing).
+    - Later: asset symbol extensions (could clash with Swift names; decide in Phase 5).
+    - To see what Xcode suggests: select the project, then Editor › Validate Settings… Expect the three rejected items and the asset symbols to be listed still.
 - [x] Replace `-Weverything` with a chosen set of warnings (`inform/Config/Warnings.xcconfig`): the project's Xcode warning settings plus a few extras. Warnings went from 766 to 233, of which 86 are the app's own; the rest are in the submodules (Phase 1b).
 - [x] Fix the warnings in the app's own code (233 to 147; the rest are in the submodules). Only the Quick Look generator calls are left, for Phase 6.
     - One-bit bitfields in `IFInform6Highlighter.h` made unsigned (every read tested for zero, so no behaviour change).
