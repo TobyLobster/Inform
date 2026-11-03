@@ -894,20 +894,9 @@ static NSDictionary* itemTextAttributes;
 -(void) scrollViewToItem: (IFSkeinItem*) scrollToItem {
     if( scrollToItem == nil ) return;
 
-    NSRect rect = [skeinViewChildren rectForItem: skein.activeItem];
+    NSRect rect = [skeinViewChildren rectForItem: scrollToItem];
     if( !NSIsEmptyRect(rect) ) {
-        // Animate the controlView
-        NSRect startingRect = self.frame;
-        NSRect endingRect = startingRect;
-        endingRect.origin = rect.origin;
-
-        CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"frame"];
-        anim.fromValue = @(startingRect);
-        anim.toValue = @(endingRect);
-        anim.delegate = self;
-        self.animations = @{@"frame": anim};
-
-        self.animator.frame = endingRect;
+        [self scrollRectToVisible: rect];
     }
 }
 
