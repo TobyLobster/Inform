@@ -450,7 +450,7 @@
     if (commands[list[0]] == nil) {
         return;
     }
-    if((long) list.count <= (long) commands[list[0]]) {
+    if (list.count <= [commands[list[0]] unsignedIntegerValue]) {
         return;
     }
     if ([@"selectView" isEqualToString: list[0]]) {

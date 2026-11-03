@@ -77,7 +77,8 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 
 - Triage the GitHub issues, crashes first.
 - Found while testing (November 2026):
-    - Documentation tab: links on buttons don't work, nor does the examples' Paste button. These go through `-[IFWebViewHelper userContentController:didReceiveScriptMessage:]`. Check whether the 1.84 release (built before Phase 1a) has the same problem.
+    - [x] Documentation tab: links on buttons and the examples' Paste button did nothing. Caused by raising the deployment target to macOS 13: the argument-count check in `-[IFWebViewHelper userContentController:didReceiveScriptMessage:]` cast an `NSNumber *` to `long`, which only worked while `@1` was a (negative) tagged pointer. From macOS 11 targets Clang makes number literals constant objects with positive addresses. Fixed to compare the value.
+    - Check: `messages_to_objc.js` posts `askInterfaceForLocalVersion`, `askInterfaceForLocalVersionText` and `downloadMultipleExtensions`, and `openURL` posts `openFile`, but the handler expects `askInterfaceForLocalVersionAuthor`/`askInterfaceForLocalVersionTextAuthor`, has no `downloadMultipleExtensions`, and ignores `openURL`. Older than this work; find out whether any page (perhaps one inbuild generates) calls these.
     - Exception when choosing the Story tab after the game process has stopped: `-[GlkView queueEvent:]` sends `eventReady:` to the listener proxy of a client that has gone. Fix prepared for CocoaGlk upstream (local branch `clear-listener-when-client-exits` in `~/Code/upstream/CocoaGlk`), not yet tested in the app.
 
 ### Phase 4 – New bugs (goal 4)
