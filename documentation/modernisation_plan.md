@@ -76,6 +76,9 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 ### Phase 3 – Existing bugs (goal 3)
 
 - Triage the GitHub issues, crashes first.
+- Found while testing (November 2026):
+    - Documentation tab: links on buttons don't work, nor does the examples' Paste button. These go through `-[IFWebViewHelper userContentController:didReceiveScriptMessage:]`. Check whether the 1.84 release (built before Phase 1a) has the same problem.
+    - Exception when choosing the Story tab after the game process has stopped: `-[GlkView queueEvent:]` sends `eventReady:` to the listener proxy of a client that has gone. Fix prepared for CocoaGlk upstream (local branch `clear-listener-when-client-exits` in `~/Code/upstream/CocoaGlk`), not yet tested in the app.
 
 ### Phase 4 – New bugs (goal 4)
 
